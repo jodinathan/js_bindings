@@ -8,13 +8,14 @@ import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'html.dart';
+import 'svg11.dart';
+import 'cssom_1.dart';
 import 'dom.dart';
 import 'geometry_1.dart';
 import 'web_animations_1.dart';
 import 'css_pseudo_4.dart';
 import 'svg2.dart';
-import 'html.dart';
-import 'cssom_1.dart';
 
 ///
 ///
@@ -23,7 +24,12 @@ import 'cssom_1.dart';
 ///
 ///
 @JS()
-class SVGElement extends Element {
+class SVGElement extends Element
+    with
+        GlobalEventHandlers,
+        DocumentAndElementEventHandlers,
+        HTMLOrSVGElement,
+        SVGElementInstance {
   ///  An [SVGAnimatedString] that reflects the value of the [class]
   /// attribute on the given element, or the empty string if [class] is
   /// not present. This attribute is deprecated and may be removed in a
@@ -72,7 +78,7 @@ class SVGBoundingBoxOptions {
 ///
 ///
 @JS()
-class SVGGraphicsElement extends SVGElement {
+class SVGGraphicsElement extends SVGElement with SVGTests {
   ///  An [SVGAnimatedTransformList] reflecting the computed value of
   /// the property and its corresponding [transform] attribute of the
   /// given element.
@@ -394,19 +400,19 @@ class SVGUnitTypes {
 }
 
 @JS()
-abstract class SVGTests {
+mixin SVGTests {
   external SVGStringList get requiredExtensions;
   external SVGStringList get systemLanguage;
 }
 
 @JS()
-abstract class SVGFitToViewBox {
+mixin SVGFitToViewBox {
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }
 
 @JS()
-abstract class SVGURIReference {
+mixin SVGURIReference {
   external SVGAnimatedString get href;
 }
 
@@ -420,7 +426,8 @@ abstract class SVGURIReference {
 ///
 ///
 @JS()
-class SVGSVGElement extends SVGGraphicsElement {
+class SVGSVGElement extends SVGGraphicsElement
+    with SVGFitToViewBox, WindowEventHandlers {
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given [<svg>] element.
   external SVGAnimatedLength get x;
@@ -641,13 +648,13 @@ class SVGTitleElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGSymbolElement extends SVGGraphicsElement {
+class SVGSymbolElement extends SVGGraphicsElement with SVGFitToViewBox {
   external factory SVGSymbolElement();
 }
 
 ///
 @JS()
-class SVGUseElement extends SVGGraphicsElement {
+class SVGUseElement extends SVGGraphicsElement with SVGURIReference {
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given element.
   external SVGAnimatedLength get x;
@@ -675,7 +682,7 @@ class SVGUseElementShadowRoot extends ShadowRoot {
 }
 
 @JS()
-abstract class SVGElementInstance {
+mixin SVGElementInstance {
   external SVGElement? get correspondingElement;
   external SVGUseElement? get correspondingUseElement;
 }
@@ -697,13 +704,13 @@ class SVGSwitchElement extends SVGGraphicsElement {
 }
 
 @JS()
-abstract class GetSVGDocument {
+mixin GetSVGDocument {
   external Document getSVGDocument();
 }
 
 ///
 @JS()
-class SVGStyleElement extends SVGElement {
+class SVGStyleElement extends SVGElement with LinkStyle {
   ///  A [DOMString] corresponding to the [type] attribute of the given
   /// element.
   ///   SVG 1.1 defined that a [DOMException] is raised with code
@@ -959,7 +966,7 @@ class SVGLineElement extends SVGGeometryElement {
 }
 
 @JS()
-abstract class SVGAnimatedPoints {
+mixin SVGAnimatedPoints {
   external SVGPointList get points;
   external SVGPointList get animatedPoints;
 }
@@ -1033,7 +1040,7 @@ class SVGPointList {
 ///
 ///
 @JS()
-class SVGPolylineElement extends SVGGeometryElement {
+class SVGPolylineElement extends SVGGeometryElement with SVGAnimatedPoints {
   external factory SVGPolylineElement();
 }
 
@@ -1044,7 +1051,7 @@ class SVGPolylineElement extends SVGGeometryElement {
 ///
 ///
 @JS()
-class SVGPolygonElement extends SVGGeometryElement {
+class SVGPolygonElement extends SVGGeometryElement with SVGAnimatedPoints {
   external factory SVGPolygonElement();
 }
 
@@ -1182,7 +1189,7 @@ class SVGTSpanElement extends SVGTextPositioningElement {
 ///
 ///
 @JS()
-class SVGTextPathElement extends SVGTextContentElement {
+class SVGTextPathElement extends SVGTextContentElement with SVGURIReference {
   external static int get TEXTPATH_METHODTYPE_UNKNOWN;
   external static int get TEXTPATH_METHODTYPE_ALIGN;
   external static int get TEXTPATH_METHODTYPE_STRETCH;
@@ -1213,7 +1220,7 @@ class SVGTextPathElement extends SVGTextContentElement {
 ///
 ///
 @JS()
-class SVGImageElement extends SVGGraphicsElement {
+class SVGImageElement extends SVGGraphicsElement with SVGURIReference {
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given [<image>] element.
   external SVGAnimatedLength get x;
@@ -1279,7 +1286,7 @@ class SVGForeignObjectElement extends SVGGraphicsElement {
 ///  The following properties and methods all return, or act on the
 /// attributes of the [<marker>] element represented by .
 @JS()
-class SVGMarkerElement extends SVGElement {
+class SVGMarkerElement extends SVGElement with SVGFitToViewBox {
   external static int get SVG_MARKERUNITS_UNKNOWN;
   external static int get SVG_MARKERUNITS_USERSPACEONUSE;
   external static int get SVG_MARKERUNITS_STROKEWIDTH;
@@ -1361,7 +1368,7 @@ class SVGMarkerElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGGradientElement extends SVGElement {
+class SVGGradientElement extends SVGElement with SVGURIReference {
   external static int get SVG_SPREADMETHOD_UNKNOWN;
   external static int get SVG_SPREADMETHOD_PAD;
   external static int get SVG_SPREADMETHOD_REFLECT;
@@ -1458,7 +1465,8 @@ class SVGStopElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGPatternElement extends SVGElement {
+class SVGPatternElement extends SVGElement
+    with SVGFitToViewBox, SVGURIReference {
   ///  An [SVGAnimatedEnumeration] corresponding to the [patternUnits]
   /// attribute of the given [<pattern>] element. Takes one of the
   /// constants defined in [SVGUnitTypes].
@@ -1498,7 +1506,7 @@ class SVGPatternElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGScriptElement extends SVGElement {
+class SVGScriptElement extends SVGElement with SVGURIReference {
   ///  A [DOMString] corresponding to the [type] attribute of the given
   /// [<script>] element. A [DOMException] is raised with the code
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
@@ -1519,7 +1527,8 @@ class SVGScriptElement extends SVGElement {
 ///  The interface provides access to the properties of [<a>]
 /// element, as well as methods to manipulate them.
 @JS()
-class SVGAElement extends SVGGraphicsElement {
+class SVGAElement extends SVGGraphicsElement
+    with HTMLHyperlinkElementUtils, SVGURIReference {
   /// It corresponds to the [target] attribute of the given element.
   external SVGAnimatedString get target;
 
@@ -1568,6 +1577,6 @@ class SVGAElement extends SVGGraphicsElement {
 ///  The interface provides access to the properties of [<view>]
 /// elements, as well as methods to manipulate them.
 @JS()
-class SVGViewElement extends SVGElement {
+class SVGViewElement extends SVGElement with SVGFitToViewBox {
   external factory SVGViewElement();
 }

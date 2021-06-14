@@ -91,16 +91,9 @@ class XRSessionInit {
   /// more features.
   external Iterable<dynamic> get optionalFeatures;
   external set optionalFeatures(Iterable<dynamic> newValue);
-  external XRDepthStateInit get depthSensing;
-  external set depthSensing(XRDepthStateInit newValue);
-  external XRDOMOverlayInit? get domOverlay;
-  external set domOverlay(XRDOMOverlayInit? newValue);
 
   external factory XRSessionInit(
-      {Iterable<dynamic> requiredFeatures,
-      Iterable<dynamic> optionalFeatures,
-      XRDepthStateInit depthSensing,
-      XRDOMOverlayInit? domOverlay});
+      {Iterable<dynamic> requiredFeatures, Iterable<dynamic> optionalFeatures});
 }
 
 @JS()

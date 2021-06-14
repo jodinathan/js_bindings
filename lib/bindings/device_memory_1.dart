@@ -17,6 +17,6 @@ class NavigatorDeviceClass {
 }
 
 @JS()
-abstract class NavigatorDeviceMemory {
+mixin NavigatorDeviceMemory {
   external double get deviceMemory;
 }

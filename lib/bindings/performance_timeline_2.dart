@@ -175,14 +175,9 @@ class PerformanceObserverInit {
   external set type(String newValue);
   external bool get buffered;
   external set buffered(bool newValue);
-  external double get durationThreshold;
-  external set durationThreshold(double newValue);
 
   external factory PerformanceObserverInit(
-      {Iterable<String> entryTypes,
-      String type,
-      bool buffered,
-      double durationThreshold});
+      {Iterable<String> entryTypes, String type, bool buffered});
 }
 
 ///

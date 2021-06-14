@@ -11,7 +11,7 @@ import '../manual.dart';
 import 'file_a_p_i.dart';
 
 @JS()
-abstract class NavigatorFonts {
+mixin NavigatorFonts {
   external FontManager get fonts;
 }
 

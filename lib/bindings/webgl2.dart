@@ -10,6 +10,7 @@ import 'package:meta/meta.dart';
 import 'callbacks.dart';
 import '../manual.dart';
 import 'webgl1.dart';
+import 'webgl2.dart';
 
 ///
 ///
@@ -124,7 +125,7 @@ class WebGLVertexArrayObject extends WebGLObject {
 }
 
 @JS()
-abstract class WebGL2RenderingContextBase {
+mixin WebGL2RenderingContextBase {
   external static int get READ_BUFFER;
   external static int get UNPACK_ROW_LENGTH;
   external static int get UNPACK_SKIP_ROWS;
@@ -409,31 +410,12 @@ abstract class WebGL2RenderingContextBase {
       int target, int levels, int internalformat, int width, int height);
   external Object texStorage3D(int target, int levels, int internalformat,
       int width, int height, int depth);
-  external Object texImage3D(
-      int target,
-      int level,
-      int internalformat,
-      int width,
-      int height,
-      int depth,
-      int border,
-      int format,
-      int type,
-      dynamic srcData,
-      int srcOffset);
-  external Object texSubImage3D(
-      int target,
-      int level,
-      int xoffset,
-      int yoffset,
-      int zoffset,
-      int width,
-      int height,
-      int depth,
-      int format,
-      int type,
-      dynamic srcData,
-      [int? srcOffset = 0]);
+  external Object texImage3D(int target, int level, int internalformat,
+      int width, int height, int depth, int border, int format, int type,
+      [dynamic srcData, int srcOffset]);
+  external Object texSubImage3D(int target, int level, int xoffset, int yoffset,
+      int zoffset, int width, int height, int depth, int format, int type,
+      [dynamic srcData, int? srcOffset = 0]);
   external Object copyTexSubImage3D(int target, int level, int xoffset,
       int yoffset, int zoffset, int x, int y, int width, int height);
   external Object compressedTexImage3D(
@@ -571,35 +553,17 @@ abstract class WebGL2RenderingContextBase {
 }
 
 @JS()
-abstract class WebGL2RenderingContextOverloads {
-  external Object bufferData(
-      int target, dynamic srcData, int usage, int srcOffset,
-      [int? length = 0]);
-  external Object bufferSubData(
-      int target, int dstByteOffset, dynamic srcData, int srcOffset,
-      [int? length = 0]);
+mixin WebGL2RenderingContextOverloads {
+  external Object bufferData(int target, dynamic srcData,
+      [int? usage, int srcOffset, int? length = 0]);
+  external Object bufferSubData(int target, int dstByteOffset,
+      [dynamic srcData, int srcOffset, int? length = 0]);
   external Object texImage2D(
-      int target,
-      int level,
-      int internalformat,
-      int width,
-      int height,
-      int border,
-      int format,
-      int type,
-      dynamic srcData,
-      int srcOffset);
+      int target, int level, int internalformat, int width, int height,
+      [int? border, int format, int type, dynamic srcData, int srcOffset]);
   external Object texSubImage2D(
-      int target,
-      int level,
-      int xoffset,
-      int yoffset,
-      int width,
-      int height,
-      int format,
-      int type,
-      dynamic srcData,
-      int srcOffset);
+      int target, int level, int xoffset, int yoffset, int width, int height,
+      [int? format, int type, dynamic srcData, int srcOffset]);
   external Object compressedTexImage2D(int target, int level,
       int internalformat, int width, int height, int border, dynamic srcData,
       [int? srcOffset = 0, int? srcLengthOverride = 0]);
@@ -631,8 +595,9 @@ abstract class WebGL2RenderingContextOverloads {
   external Object uniformMatrix4fv(
       WebGLUniformLocation? location, bool transpose, dynamic data,
       [int? srcOffset = 0, int? srcLength = 0]);
-  external Object readPixels(int x, int y, int width, int height, int format,
-      int type, dynamic dstData, int dstOffset);
+  external Object readPixels(
+      int x, int y, int width, int height, int format, int type,
+      [dynamic dstData, int dstOffset]);
 }
 
 ///
@@ -655,6 +620,10 @@ abstract class WebGL2RenderingContextOverloads {
 ///  The WebGL tutorial has more information, examples, and resources
 /// on how to get started with WebGL.
 @JS()
-class WebGL2RenderingContext {
+class WebGL2RenderingContext
+    with
+        WebGLRenderingContextBase,
+        WebGL2RenderingContextBase,
+        WebGL2RenderingContextOverloads {
   external factory WebGL2RenderingContext();
 }

@@ -111,7 +111,7 @@ class URL {
 ///
 @JS()
 class URLSearchParams {
-  external factory URLSearchParams({dynamic? init});
+  external factory URLSearchParams({dynamic init});
 
   /// Appends a specified key/value pair as a new search parameter.
   /// URLSearchParams.append(name, value)

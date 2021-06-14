@@ -27,7 +27,7 @@ import 'file_system_access.dart';
 /// understood and controlled using a common set of methods and
 /// properties.
 @JS()
-abstract class NavigatorStorage {
+mixin NavigatorStorage {
   ///  Returns the [StorageManager] singleton object which is used to
   /// access the Storage Manager. Through the returned object, you can
   /// control persistence of data stores as well as get estimates of

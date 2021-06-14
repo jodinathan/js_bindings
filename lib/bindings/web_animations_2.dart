@@ -18,7 +18,7 @@ enum FillMode { none, forwards, backwards, both, auto }
 @JS()
 class GroupEffect {
   external factory GroupEffect(
-      {Iterable<AnimationEffect> children, dynamic? timing});
+      {Iterable<AnimationEffect> children, dynamic timing});
   external AnimationNodeList get children;
   external AnimationEffect? get firstChild;
   external AnimationEffect? get lastChild;
@@ -38,7 +38,7 @@ class AnimationNodeList {
 @JS()
 class SequenceEffect extends GroupEffect {
   external factory SequenceEffect(
-      {Iterable<AnimationEffect> children, dynamic? timing});
+      {Iterable<AnimationEffect> children, dynamic timing});
   @override
   external SequenceEffect clone();
 }

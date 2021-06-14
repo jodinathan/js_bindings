@@ -174,7 +174,7 @@ enum FontFaceSetLoadStatus { loading, loaded }
 @experimental
 @JS()
 class FontFaceSet extends EventTarget {
-  external factory FontFaceSet({Iterable<FontFace> initialFaces});
+  external factory FontFaceSet({Iterable<FontFace>? initialFaces});
 
   /// Adds a font to the font set.
   external FontFaceSet add(FontFace font);
@@ -218,6 +218,6 @@ class FontFaceSet extends EventTarget {
 }
 
 @JS()
-abstract class FontFaceSource {
+mixin FontFaceSource {
   external FontFaceSet get fonts;
 }

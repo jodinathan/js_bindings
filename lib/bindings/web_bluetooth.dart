@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'callbacks.dart';
 import '../manual.dart';
+import 'web_bluetooth.dart';
 import 'dom.dart';
 import 'html.dart';
 import 'permissions.dart';
@@ -94,7 +95,11 @@ class RequestDeviceOptions {
 ///  options.
 @experimental
 @JS()
-class Bluetooth extends EventTarget {
+class Bluetooth extends EventTarget
+    with
+        BluetoothDeviceEventHandlers,
+        CharacteristicEventHandlers,
+        ServiceEventHandlers {
   /// Returns a [Promise] that resolved to a [Boolean] indicating
   ///    whether the user-agent has the ability to support Bluetooth.
   /// Some user-agents let the
@@ -249,7 +254,11 @@ class ValueEventInit extends EventInit {
 ///
 @experimental
 @JS()
-class BluetoothDevice extends EventTarget {
+class BluetoothDevice extends EventTarget
+    with
+        BluetoothDeviceEventHandlers,
+        CharacteristicEventHandlers,
+        ServiceEventHandlers {
   /// A [DOMString] that uniquely identifies a device.
   @experimental
   external String get id;
@@ -392,7 +401,7 @@ class BluetoothRemoteGATTServer {
   ///
   /// BluetoothRemoteGATTServer.getPrimaryServices(bluetoothServiceUUID).then(function(bluetoothGATTServices) { ... })
   external Iterable<Promise<BluetoothRemoteGATTService>> getPrimaryServices(
-      [dynamic? service]);
+      [dynamic service]);
 
   external factory BluetoothRemoteGATTServer();
 }
@@ -416,7 +425,8 @@ class BluetoothRemoteGATTServer {
 ///  and a list of the characteristics of this service.
 @experimental
 @JS()
-class BluetoothRemoteGATTService extends EventTarget {
+class BluetoothRemoteGATTService extends EventTarget
+    with CharacteristicEventHandlers, ServiceEventHandlers {
   ///  Returns information about a Bluetooth device through an instance
   /// of
   ///   [BluetoothDevice].
@@ -444,7 +454,7 @@ class BluetoothRemoteGATTService extends EventTarget {
   ///   unique identifier (UUID).
   /// bluetoothGATTServiceInstance.getCharacteristics(characteristics).then(function(BluetoothGATTCharacteristic[]) { ... } )
   external Iterable<Promise<BluetoothRemoteGATTCharacteristic>>
-      getCharacteristics([dynamic? characteristic]);
+      getCharacteristics([dynamic characteristic]);
 
   /// Returns a [Promise] to an instance of
   ///    [BluetoothRemoteGATTService] for a given universally unique
@@ -460,7 +470,7 @@ class BluetoothRemoteGATTService extends EventTarget {
   ///   identifier (UUID).
   /// bluetoothGATTServiceInstance.getIncludedService(service).then(function(BluetoothGATTService) { ... } )
   external Iterable<Promise<BluetoothRemoteGATTService>> getIncludedServices(
-      [dynamic? service]);
+      [dynamic service]);
 
   external factory BluetoothRemoteGATTService();
 }
@@ -475,7 +485,8 @@ class BluetoothRemoteGATTService extends EventTarget {
 /// peripheral’s service.
 @experimental
 @JS()
-class BluetoothRemoteGATTCharacteristic extends EventTarget {
+class BluetoothRemoteGATTCharacteristic extends EventTarget
+    with CharacteristicEventHandlers {
   ///  Returns the [BluetoothRemoteGATTService] this characteristic
   /// belongs to.
   external BluetoothRemoteGATTService get service;
@@ -504,7 +515,7 @@ class BluetoothRemoteGATTCharacteristic extends EventTarget {
   /// UUID.
   /// BluetoothRemoteGATTCharacteristic.getDescriptors(bluetoothDescriptorUUID).then(function(bluetoothGATTDescriptors[]) { ... })
   external Iterable<Promise<BluetoothRemoteGATTDescriptor>> getDescriptors(
-      [dynamic? descriptor]);
+      [dynamic descriptor]);
 
   ///  Returns a [Promise] that resolves to an [ArrayBuffer] holding a
   /// duplicate of the [value] property if it is available and
@@ -636,13 +647,13 @@ class BluetoothRemoteGATTDescriptor {
 }
 
 @JS()
-abstract class CharacteristicEventHandlers {
+mixin CharacteristicEventHandlers {
   external EventHandlerNonNull? get oncharacteristicvaluechanged;
   external set oncharacteristicvaluechanged(EventHandlerNonNull? newValue);
 }
 
 @JS()
-abstract class BluetoothDeviceEventHandlers {
+mixin BluetoothDeviceEventHandlers {
   external EventHandlerNonNull? get onadvertisementreceived;
   external set onadvertisementreceived(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get ongattserverdisconnected;
@@ -650,7 +661,7 @@ abstract class BluetoothDeviceEventHandlers {
 }
 
 @JS()
-abstract class ServiceEventHandlers {
+mixin ServiceEventHandlers {
   external EventHandlerNonNull? get onserviceadded;
   external set onserviceadded(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get onservicechanged;

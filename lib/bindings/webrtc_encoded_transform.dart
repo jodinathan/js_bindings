@@ -41,9 +41,9 @@ class SFrameTransformOptions {
 }
 
 @JS()
-class SFrameTransform {
+class SFrameTransform with GenericTransformStream {
   external factory SFrameTransform({SFrameTransformOptions? options});
-  external Promise<Object> setEncryptionKey(CryptoKey key, [dynamic? keyID]);
+  external Promise<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]);
 }
 
 @JS()
@@ -132,5 +132,5 @@ class RTCRtpScriptTransformer {
 @JS()
 class RTCRtpScriptTransform {
   external factory RTCRtpScriptTransform(
-      {Worker worker, dynamic? options, Iterable<dynamic>? transfer});
+      {Worker worker, dynamic options, Iterable<dynamic>? transfer});
 }

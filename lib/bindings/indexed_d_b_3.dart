@@ -524,7 +524,7 @@ class IDBObjectStore {
   ///   displayData();
   ///  };
   /// };
-  external IDBRequest put(dynamic value, [dynamic? key]);
+  external IDBRequest put(dynamic value, [dynamic key]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// creates a structured clone of the [value], and stores the cloned
@@ -581,7 +581,7 @@ class IDBObjectStore {
   ///   note.innerHTML += '<li>Request successful.</li>';
   ///  };
   /// };
-  external IDBRequest add(dynamic value, [dynamic? key]);
+  external IDBRequest add(dynamic value, [dynamic key]);
 
   ///  returns an [IDBRequest] object, and, in a separate thread,
   /// deletes the store object selected by the specified key. This is
@@ -765,7 +765,7 @@ class IDBObjectStore {
   /// var request = objectStore.getAll();
   /// var request = objectStore.getAll(query);
   /// var request = objectStore.getAll(query, count);
-  external IDBRequest getAll([dynamic? query, int? count]);
+  external IDBRequest getAll([dynamic query, int? count]);
 
   ///  Returns an [IDBRequest] object retrieves record keys for all
   /// objects in the object store matching the specified parameter or
@@ -773,7 +773,7 @@ class IDBObjectStore {
   /// var request = objectStore.getAllKeys();
   /// var request = objectStore.getAllKeys(query);
   /// var request = objectStore.getAllKeys(query, count);
-  external IDBRequest getAllKeys([dynamic? query, int? count]);
+  external IDBRequest getAllKeys([dynamic query, int? count]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// returns the total number of records that match the provided key
@@ -794,7 +794,7 @@ class IDBObjectStore {
   ///  console.log(countRequest.result);
   /// }
   ///
-  external IDBRequest count([dynamic? query]);
+  external IDBRequest count([dynamic query]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// returns a new [IDBCursorWithValue] object. Used for iterating
@@ -821,8 +821,7 @@ class IDBObjectStore {
   /// };
   ///
   external IDBRequest openCursor(
-      [dynamic? query,
-      IDBCursorDirection? direction = IDBCursorDirection.next]);
+      [dynamic query, IDBCursorDirection? direction = IDBCursorDirection.next]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// returns a new [IDBCursor]. Used for iterating through an object
@@ -849,8 +848,7 @@ class IDBObjectStore {
   ///  }
   /// };
   external IDBRequest openKeyCursor(
-      [dynamic? query,
-      IDBCursorDirection? direction = IDBCursorDirection.next]);
+      [dynamic query, IDBCursorDirection? direction = IDBCursorDirection.next]);
 
   ///  Opens an index from this object store after which it can, for
   /// example, be used to return a sequence of records sorted by that
@@ -1195,7 +1193,7 @@ class IDBIndex {
   /// getAllRequest.onsuccess = function() {
   ///  console.log(getAllRequest.result);
   /// }
-  external IDBRequest getAll([dynamic? query, int? count]);
+  external IDBRequest getAll([dynamic query, int? count]);
 
   ///  Returns an [IDBRequest] object, in a separate thread, finds all
   /// matching keys in the referenced object store that correspond to
@@ -1209,7 +1207,7 @@ class IDBIndex {
   ///  console.log(getAllKeysRequest.result);
   /// }
   ///
-  external IDBRequest getAllKeys([dynamic? query, int? count]);
+  external IDBRequest getAllKeys([dynamic query, int? count]);
 
   ///  Returns an [IDBRequest] object, and in a separate thread,
   /// returns the number of records within a key range.
@@ -1262,7 +1260,7 @@ class IDBIndex {
   ///   }
   ///  };
   /// };
-  external IDBRequest count([dynamic? query]);
+  external IDBRequest count([dynamic query]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// creates a cursor over the specified key range.
@@ -1308,8 +1306,7 @@ class IDBIndex {
   ///  };
   /// };
   external IDBRequest openCursor(
-      [dynamic? query,
-      IDBCursorDirection? direction = IDBCursorDirection.next]);
+      [dynamic query, IDBCursorDirection? direction = IDBCursorDirection.next]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// creates a cursor over the specified key range, as arranged by
@@ -1351,8 +1348,7 @@ class IDBIndex {
   ///  };
   /// };
   external IDBRequest openKeyCursor(
-      [dynamic? query,
-      IDBCursorDirection? direction = IDBCursorDirection.next]);
+      [dynamic query, IDBCursorDirection? direction = IDBCursorDirection.next]);
 
   external factory IDBIndex();
 }
@@ -1562,7 +1558,7 @@ class IDBCursor {
   ///  };
   /// };
   @JS('continue')
-  external Object mContinue([dynamic? key]);
+  external Object mContinue([dynamic key]);
 
   ///  Sets the cursor to the given index key and primary key given as
   /// arguments.

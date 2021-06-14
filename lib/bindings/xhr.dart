@@ -115,8 +115,8 @@ class XMLHttpRequest extends XMLHttpRequestEventTarget {
   /// Initializes a request.
   /// XMLHttpRequest.open(method, url[, async[, user[, password]]])
   ///
-  external Object open(String method, String url, bool mAsync,
-      [String? username, String? password]);
+  external Object open(String method,
+      [String? url, bool mAsync, String? username, String? password]);
 
   ///  Sets the value of an HTTP request header. You must call
   /// [setRequestHeader()]after [open()], but before [send()].
@@ -133,7 +133,7 @@ class XMLHttpRequest extends XMLHttpRequestEventTarget {
   /// default), this method returns as soon as the request is sent.
   /// XMLHttpRequest.send(body)
   ///
-  external Object send([dynamic? body]);
+  external Object send([dynamic body]);
 
   /// Aborts the request if it has already been sent.
   /// XMLHttpRequest.abort()
@@ -302,7 +302,7 @@ class FormData {
   ///
   /// formData.getAll('name'); // ["true", "74", "John"]
   ///
-  external Object append(String name, Blob blobValue, [String? filename]);
+  external Object append(String name, [Blob? blobValue, String? filename]);
 
   /// Deletes a key/value pair from a [FormData] object.
   /// formData.delete(name);
@@ -399,7 +399,7 @@ class FormData {
   /// formData.set('name', 72);
   /// formData.get('name'); // "72"
   @JS('set')
-  external Object mSet(String name, Blob blobValue, [String? filename]);
+  external Object mSet(String name, [Blob? blobValue, String? filename]);
 }
 
 ///

@@ -9,6 +9,7 @@ import 'package:js/js.dart';
 import 'callbacks.dart';
 import '../manual.dart';
 import 'svg2.dart';
+import 'filter_effects_1.dart';
 
 ///
 ///
@@ -17,7 +18,7 @@ import 'svg2.dart';
 ///
 ///
 @JS()
-class SVGFilterElement extends SVGElement {
+class SVGFilterElement extends SVGElement with SVGURIReference {
   ///  An [SVGAnimatedEnumeration] that corresponds to the
   /// [filterUnits] attribute of the given [<filter>] element. Takes
   /// one of the constants defined in [SVGUnitTypes].
@@ -48,7 +49,7 @@ class SVGFilterElement extends SVGElement {
 }
 
 @JS()
-abstract class SVGFilterPrimitiveStandardAttributes {
+mixin SVGFilterPrimitiveStandardAttributes {
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -62,7 +63,8 @@ abstract class SVGFilterPrimitiveStandardAttributes {
 ///
 ///
 @JS()
-class SVGFEBlendElement extends SVGElement {
+class SVGFEBlendElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_FEBLEND_MODE_UNKNOWN;
   external static int get SVG_FEBLEND_MODE_NORMAL;
   external static int get SVG_FEBLEND_MODE_MULTIPLY;
@@ -103,7 +105,8 @@ class SVGFEBlendElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEColorMatrixElement extends SVGElement {
+class SVGFEColorMatrixElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_FECOLORMATRIX_TYPE_UNKNOWN;
   external static int get SVG_FECOLORMATRIX_TYPE_MATRIX;
   external static int get SVG_FECOLORMATRIX_TYPE_SATURATE;
@@ -133,7 +136,8 @@ class SVGFEColorMatrixElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEComponentTransferElement extends SVGElement {
+class SVGFEComponentTransferElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -235,7 +239,8 @@ class SVGFEFuncAElement extends SVGComponentTransferFunctionElement {
 ///
 ///
 @JS()
-class SVGFECompositeElement extends SVGElement {
+class SVGFECompositeElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_FECOMPOSITE_OPERATOR_UNKNOWN;
   external static int get SVG_FECOMPOSITE_OPERATOR_OVER;
   external static int get SVG_FECOMPOSITE_OPERATOR_IN;
@@ -264,7 +269,8 @@ class SVGFECompositeElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEConvolveMatrixElement extends SVGElement {
+class SVGFEConvolveMatrixElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_EDGEMODE_UNKNOWN;
   external static int get SVG_EDGEMODE_DUPLICATE;
   external static int get SVG_EDGEMODE_WRAP;
@@ -328,7 +334,8 @@ class SVGFEConvolveMatrixElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEDiffuseLightingElement extends SVGElement {
+class SVGFEDiffuseLightingElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -431,7 +438,8 @@ class SVGFESpotLightElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEDisplacementMapElement extends SVGElement {
+class SVGFEDisplacementMapElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_CHANNEL_UNKNOWN;
   external static int get SVG_CHANNEL_R;
   external static int get SVG_CHANNEL_G;
@@ -469,7 +477,8 @@ class SVGFEDisplacementMapElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEDropShadowElement extends SVGElement {
+class SVGFEDropShadowElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -504,7 +513,8 @@ class SVGFEDropShadowElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEFloodElement extends SVGElement {
+class SVGFEFloodElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEFloodElement();
 }
 
@@ -514,7 +524,8 @@ class SVGFEFloodElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEGaussianBlurElement extends SVGElement {
+class SVGFEGaussianBlurElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_EDGEMODE_UNKNOWN;
   external static int get SVG_EDGEMODE_DUPLICATE;
   external static int get SVG_EDGEMODE_WRAP;
@@ -551,7 +562,8 @@ class SVGFEGaussianBlurElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEImageElement extends SVGElement {
+class SVGFEImageElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes, SVGURIReference {
   ///  An [SVGAnimatedPreserveAspectRatio] corresponding to the
   /// [preserveAspectRatio] attribute of the given element.
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
@@ -569,7 +581,8 @@ class SVGFEImageElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEMergeElement extends SVGElement {
+class SVGFEMergeElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEMergeElement();
 }
 
@@ -593,7 +606,8 @@ class SVGFEMergeNodeElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEMorphologyElement extends SVGElement {
+class SVGFEMorphologyElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
   external static int get SVG_MORPHOLOGY_OPERATOR_ERODE;
   external static int get SVG_MORPHOLOGY_OPERATOR_DILATE;
@@ -625,7 +639,8 @@ class SVGFEMorphologyElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEOffsetElement extends SVGElement {
+class SVGFEOffsetElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -647,7 +662,8 @@ class SVGFEOffsetElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFESpecularLightingElement extends SVGElement {
+class SVGFESpecularLightingElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -681,7 +697,8 @@ class SVGFESpecularLightingElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFETileElement extends SVGElement {
+class SVGFETileElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -695,7 +712,8 @@ class SVGFETileElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFETurbulenceElement extends SVGElement {
+class SVGFETurbulenceElement extends SVGElement
+    with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_TURBULENCE_TYPE_UNKNOWN;
   external static int get SVG_TURBULENCE_TYPE_FRACTALNOISE;
   external static int get SVG_TURBULENCE_TYPE_TURBULENCE;

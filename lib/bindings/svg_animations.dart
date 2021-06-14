@@ -9,9 +9,9 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'svg2.dart';
 import 'dom.dart';
 import 'html.dart';
-import 'svg2.dart';
 
 ///
 ///
@@ -49,7 +49,7 @@ class TimeEvent extends Event {
 ///
 ///
 @JS()
-class SVGAnimationElement extends SVGElement {
+class SVGAnimationElement extends SVGElement with SVGTests {
   ///  An [SVGElement] representing the element which is being
   /// animated. If no target element is being animated (for example,
   /// because the [href] specifies an unknown element) the value
@@ -144,7 +144,7 @@ class SVGAnimateMotionElement extends SVGAnimationElement {
 ///
 ///
 @JS()
-class SVGMPathElement extends SVGElement {
+class SVGMPathElement extends SVGElement with SVGURIReference {
   external factory SVGMPathElement();
 }
 

@@ -77,6 +77,6 @@ class NavigatorUAData {
 }
 
 @JS()
-abstract class NavigatorUA {
+mixin NavigatorUA {
   external NavigatorUAData get userAgentData;
 }

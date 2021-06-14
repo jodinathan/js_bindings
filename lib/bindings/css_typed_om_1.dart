@@ -192,7 +192,7 @@ class StylePropertyMap extends StylePropertyMapReadOnly {
 @experimental
 @JS()
 class CSSUnparsedValue extends CSSStyleValue {
-  external factory CSSUnparsedValue({Iterable<dynamic> members});
+  external factory CSSUnparsedValue({Iterable<dynamic>? members});
 
   /// Returns the number of items in the [CSSUnparsedValue] object.
   external int get length;
@@ -524,7 +524,7 @@ enum CSSMathOperator { sum, product, negate, invert, min, max, clamp }
 @JS()
 class CSSTransformValue extends CSSStyleValue {
   external factory CSSTransformValue(
-      {Iterable<CSSTransformComponent> transforms});
+      {Iterable<CSSTransformComponent>? transforms});
 
   ///  Returns how many transform components are contained within the
   /// [CSSTransformValue].
@@ -641,7 +641,7 @@ class CSSRotate extends CSSTransformComponent {
 @experimental
 @JS()
 class CSSScale extends CSSTransformComponent {
-  external factory CSSScale({dynamic x, dynamic y, dynamic? z});
+  external factory CSSScale({dynamic x, dynamic y, dynamic z});
 
   /// Returns or sets the x-axis value.
   external dynamic get x;
@@ -843,8 +843,7 @@ class CSSColorValue extends CSSStyleValue {
 
 @JS()
 class CSSRGB extends CSSColorValue {
-  external factory CSSRGB(
-      {dynamic r, dynamic g, dynamic b, dynamic? alpha = 1});
+  external factory CSSRGB({dynamic r, dynamic g, dynamic b, dynamic alpha = 1});
   external dynamic get r;
   external set r(dynamic newValue);
   external dynamic get g;
@@ -858,7 +857,7 @@ class CSSRGB extends CSSColorValue {
 @JS()
 class CSSHSL extends CSSColorValue {
   external factory CSSHSL(
-      {CSSNumericValue h, dynamic s, dynamic l, dynamic? alpha = 1});
+      {CSSNumericValue h, dynamic s, dynamic l, dynamic alpha = 1});
   external CSSNumericValue get h;
   external set h(CSSNumericValue newValue);
   external dynamic get s;
@@ -872,7 +871,7 @@ class CSSHSL extends CSSColorValue {
 @JS()
 class CSSHWB extends CSSColorValue {
   external factory CSSHWB(
-      {CSSNumericValue h, dynamic w, dynamic b, dynamic? alpha = 1});
+      {CSSNumericValue h, dynamic w, dynamic b, dynamic alpha = 1});
   external CSSNumericValue get h;
   external set h(CSSNumericValue newValue);
   external dynamic get w;
@@ -886,7 +885,7 @@ class CSSHWB extends CSSColorValue {
 @JS()
 class CSSLCH extends CSSColorValue {
   external factory CSSLCH(
-      {dynamic l, dynamic c, CSSNumericValue h, dynamic? alpha = 1});
+      {dynamic l, dynamic c, CSSNumericValue h, dynamic alpha = 1});
   external dynamic get l;
   external set l(dynamic newValue);
   external dynamic get c;
@@ -899,8 +898,7 @@ class CSSLCH extends CSSColorValue {
 
 @JS()
 class CSSLab extends CSSColorValue {
-  external factory CSSLab(
-      {dynamic l, dynamic a, dynamic b, dynamic? alpha = 1});
+  external factory CSSLab({dynamic l, dynamic a, dynamic b, dynamic alpha = 1});
   external dynamic get l;
   external set l(dynamic newValue);
   external dynamic get a;
@@ -914,7 +912,7 @@ class CSSLab extends CSSColorValue {
 @JS()
 class CSSColor extends CSSColorValue {
   external factory CSSColor(
-      {dynamic colorSpace, Iterable<dynamic> channels, dynamic? alpha = 1});
+      {dynamic colorSpace, Iterable<dynamic> channels, dynamic alpha = 1});
   @override
   external dynamic get colorSpace;
   @override
@@ -928,7 +926,7 @@ class CSSColor extends CSSColorValue {
 @JS()
 class CSSDeviceCMYK extends CSSColorValue {
   external factory CSSDeviceCMYK(
-      {dynamic c, dynamic m, dynamic y, dynamic k, dynamic? alpha = 1});
+      {dynamic c, dynamic m, dynamic y, dynamic k, dynamic alpha = 1});
   external dynamic get c;
   external set c(dynamic newValue);
   external dynamic get m;

@@ -10,13 +10,13 @@ import 'callbacks.dart';
 import '../manual.dart';
 
 @JS()
-abstract class AccessibilityRole {
+mixin AccessibilityRole {
   external String get role;
   external set role(String newValue);
 }
 
 @JS()
-abstract class AriaAttributes {
+mixin AriaAttributes {
   external String get ariaAtomic;
   external set ariaAtomic(String newValue);
   external String get ariaAutoComplete;
@@ -96,7 +96,7 @@ abstract class AriaAttributes {
 }
 
 @JS()
-abstract class ARIAMixin {
+mixin ARIAMixin {
   external String? get role;
   external set role(String? newValue);
   external String get ariaAtomic;

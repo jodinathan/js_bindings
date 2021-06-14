@@ -78,7 +78,7 @@ class Performance extends EventTarget {
       [PerformanceMarkOptions? markOptions]);
   external Object clearMarks([String? markName]);
   external PerformanceMeasure measure(String measureName,
-      [dynamic? startOrMeasureOptions, String? endMark]);
+      [dynamic startOrMeasureOptions, String? endMark]);
   external Object clearMeasures([String? measureName]);
   external EventCounts get eventCounts;
   external Promise<MemoryMeasurement> measureUserAgentSpecificMemory();

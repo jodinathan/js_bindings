@@ -44,7 +44,7 @@ class CookieStore extends EventTarget {
   /// var promise = cookieStore.set(name,value);
   /// var promise = cookieStore.set(options);
   @JS('set')
-  external Promise<Object> mSet(String name, String value);
+  external Promise<Object> mSet([String? name, String value]);
 
   ///  The [delete()] method deletes a cookie with the given name or
   /// options object, it returns a [Promise] that resolves when the

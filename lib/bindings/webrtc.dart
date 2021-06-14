@@ -100,8 +100,6 @@ class RTCConfiguration {
   ///
   external int get iceCandidatePoolSize;
   external set iceCandidatePoolSize(int newValue);
-  external String get peerIdentity;
-  external set peerIdentity(String newValue);
 
   external factory RTCConfiguration(
       {Iterable<RTCIceServer> iceServers,
@@ -109,8 +107,7 @@ class RTCConfiguration {
       RTCBundlePolicy bundlePolicy,
       RTCRtcpMuxPolicy rtcpMuxPolicy,
       Iterable<RTCCertificate> certificates,
-      int iceCandidatePoolSize = 0,
-      String peerIdentity});
+      int iceCandidatePoolSize = 0});
 }
 
 @JS()
@@ -205,15 +202,8 @@ class RTCOfferOptions extends RTCOfferAnswerOptions {
   /// configuration untenable or impractical, for instance.
   external bool get iceRestart;
   external set iceRestart(bool newValue);
-  external bool get offerToReceiveAudio;
-  external set offerToReceiveAudio(bool newValue);
-  external bool get offerToReceiveVideo;
-  external set offerToReceiveVideo(bool newValue);
 
-  external factory RTCOfferOptions(
-      {bool iceRestart = false,
-      bool offerToReceiveAudio,
-      bool offerToReceiveVideo});
+  external factory RTCOfferOptions({bool iceRestart = false});
 }
 
 ///
@@ -308,24 +298,24 @@ class RTCPeerConnection extends EventTarget {
   external EventHandlerNonNull? get onconnectionstatechange;
   external set onconnectionstatechange(EventHandlerNonNull? newValue);
   external Promise<Object> createOffer(
-      RTCSessionDescriptionCallback successCallback,
+      [RTCSessionDescriptionCallback? successCallback,
       RTCPeerConnectionErrorCallback failureCallback,
-      [RTCOfferOptions? options]);
+      RTCOfferOptions? options]);
   external Promise<Object> setLocalDescription(
-      RTCLocalSessionDescriptionInit description,
+      [RTCLocalSessionDescriptionInit? description,
       VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+      RTCPeerConnectionErrorCallback failureCallback]);
   external Promise<Object> createAnswer(
-      RTCSessionDescriptionCallback successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+      [RTCSessionDescriptionCallback? successCallback,
+      RTCPeerConnectionErrorCallback failureCallback]);
   external Promise<Object> setRemoteDescription(
-      RTCSessionDescriptionInit description,
+      [RTCSessionDescriptionInit? description,
       VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+      RTCPeerConnectionErrorCallback failureCallback]);
   external Promise<Object> addIceCandidate(
-      RTCIceCandidateInit candidate,
+      [RTCIceCandidateInit? candidate,
       VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+      RTCPeerConnectionErrorCallback failureCallback]);
   external static Promise<RTCCertificate> generateCertificate(
       dynamic keygenAlgorithm);
   external Iterable<RTCRtpSender> getSenders();
@@ -826,13 +816,9 @@ class RTCRtpSendParameters extends RTCRtpParameters {
   /// the track's media.
   external Iterable<RTCRtpEncodingParameters> get encodings;
   external set encodings(Iterable<RTCRtpEncodingParameters> newValue);
-  external RTCDegradationPreference get degradationPreference;
-  external set degradationPreference(RTCDegradationPreference newValue);
 
   external factory RTCRtpSendParameters(
-      {String transactionId,
-      Iterable<RTCRtpEncodingParameters> encodings,
-      RTCDegradationPreference degradationPreference});
+      {String transactionId, Iterable<RTCRtpEncodingParameters> encodings});
 }
 
 ///
@@ -897,20 +883,9 @@ class RTCRtpEncodingParameters extends RTCRtpCodingParameters {
   /// to scale the video up).
   external double get scaleResolutionDownBy;
   external set scaleResolutionDownBy(double newValue);
-  external String get scalabilityMode;
-  external set scalabilityMode(String newValue);
-  external RTCPriorityType get priority;
-  external set priority(RTCPriorityType newValue);
-  external RTCPriorityType get networkPriority;
-  external set networkPriority(RTCPriorityType newValue);
 
   external factory RTCRtpEncodingParameters(
-      {bool active = true,
-      int maxBitrate,
-      double scaleResolutionDownBy,
-      String scalabilityMode,
-      RTCPriorityType priority = RTCPriorityType.low,
-      RTCPriorityType networkPriority});
+      {bool active = true, int maxBitrate, double scaleResolutionDownBy});
 }
 
 ///
@@ -1078,15 +1053,9 @@ class RTCRtpCodecCapability {
   /// property is left out.
   external String get sdpFmtpLine;
   external set sdpFmtpLine(String newValue);
-  external Iterable<String> get scalabilityModes;
-  external set scalabilityModes(Iterable<String> newValue);
 
   external factory RTCRtpCodecCapability(
-      {String mimeType,
-      int clockRate,
-      int channels,
-      String sdpFmtpLine,
-      Iterable<String> scalabilityModes});
+      {String mimeType, int clockRate, int channels, String sdpFmtpLine});
 }
 
 @anonymous
@@ -1462,11 +1431,8 @@ class RTCIceParameters {
   /// A [DOMString] specifying the session's password string.
   external String get password;
   external set password(String newValue);
-  external bool get iceLite;
-  external set iceLite(bool newValue);
 
-  external factory RTCIceParameters(
-      {String usernameFragment, String password, bool iceLite});
+  external factory RTCIceParameters({String usernameFragment, String password});
 }
 
 ///
@@ -1818,8 +1784,6 @@ class RTCDataChannelInit {
   external set negotiated(bool newValue);
   external int get id;
   external set id(int newValue);
-  external RTCPriorityType get priority;
-  external set priority(RTCPriorityType newValue);
 
   external factory RTCDataChannelInit(
       {bool ordered = true,
@@ -1827,8 +1791,7 @@ class RTCDataChannelInit {
       int maxRetransmits,
       String protocol = '',
       bool negotiated = false,
-      int id,
-      RTCPriorityType priority = RTCPriorityType.low});
+      int id});
 }
 
 @JS()
@@ -2015,16 +1978,13 @@ class RTCErrorInit {
   external set receivedAlert(int newValue);
   external int get sentAlert;
   external set sentAlert(int newValue);
-  external int get httpRequestStatusCode;
-  external set httpRequestStatusCode(int newValue);
 
   external factory RTCErrorInit(
       {RTCErrorDetailType errorDetail,
       int sdpLineNumber,
       int sctpCauseCode,
       int receivedAlert,
-      int sentAlert,
-      int httpRequestStatusCode});
+      int sentAlert});
 }
 
 @JS()

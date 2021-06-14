@@ -76,7 +76,7 @@ abstract class console {
   /// console.table(data);
   /// console.table(data, columns);
   ///
-  external Object table([dynamic? tabularData, Iterable<String>? properties]);
+  external Object table([dynamic tabularData, Iterable<String>? properties]);
 
   /// Outputs a stack trace.
   /// console.trace( [...any, ...data ]);
@@ -108,7 +108,7 @@ abstract class console {
   /// to examine the contents of child objects.
   /// console.dir(object);
   ///
-  external Object dir([dynamic? item, dynamic? options]);
+  external Object dir([dynamic item, dynamic options]);
 
   ///  Displays an XML/HTML Element representation of the specified
   /// object if possible or the JavaScript Object view if it is not

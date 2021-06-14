@@ -8,7 +8,6 @@ import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'web_share_target.dart';
 
 @anonymous
 @JS()
@@ -40,12 +39,4 @@ class ShareTarget {
       String method = 'GET',
       String enctype = 'application/x-www-form-urlencoded',
       ShareTargetParams params});
-}
-
-@JS()
-class WebAppManifest {
-  external ShareTarget get share_target;
-  external set share_target(ShareTarget newValue);
-
-  external factory WebAppManifest();
 }

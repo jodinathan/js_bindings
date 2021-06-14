@@ -29,11 +29,7 @@ abstract class WebAssembly {
   external bool validate(dynamic bytes);
   external Promise<Module> compile(dynamic bytes);
   external Promise<WebAssemblyInstantiatedSource> instantiate(dynamic bytes,
-      [dynamic? importObject]);
-  external Promise<Module> compileStreaming(Promise<Response> source);
-  external Promise<WebAssemblyInstantiatedSource> instantiateStreaming(
-      Promise<Response> source,
-      [dynamic? importObject]);
+      [dynamic importObject]);
 }
 
 @JS()
@@ -75,7 +71,7 @@ class Module {
 
 @JS()
 class Instance {
-  external factory Instance({Module module, dynamic? importObject});
+  external factory Instance({Module module, dynamic importObject});
   external dynamic get exports;
 }
 
@@ -116,12 +112,12 @@ class TableDescriptor {
 
 @JS()
 class Table {
-  external factory Table({TableDescriptor descriptor, dynamic? value});
-  external int grow(int delta, [dynamic? value]);
+  external factory Table({TableDescriptor descriptor, dynamic value});
+  external int grow(int delta, [dynamic value]);
   @JS('get')
   external dynamic mGet(int index);
   @JS('set')
-  external Object mSet(int index, [dynamic? value]);
+  external Object mSet(int index, [dynamic value]);
   external int get length;
 }
 
@@ -141,7 +137,7 @@ class GlobalDescriptor {
 
 @JS()
 class Global {
-  external factory Global({GlobalDescriptor descriptor, dynamic? v});
+  external factory Global({GlobalDescriptor descriptor, dynamic v});
   external dynamic valueOf();
   external dynamic get value;
   external set value(dynamic newValue);

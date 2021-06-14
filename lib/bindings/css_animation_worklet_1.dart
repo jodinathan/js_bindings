@@ -36,9 +36,9 @@ class AnimationWorkletGlobalScope extends WorkletGlobalScope {
 class WorkletAnimation extends Animation {
   external factory WorkletAnimation(
       {String animatorName,
-      dynamic? effects,
+      dynamic effects,
       AnimationTimeline? timeline,
-      dynamic? options});
+      dynamic options});
   external String get animatorName;
 }
 

@@ -9,11 +9,12 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'callbacks.dart';
 import '../manual.dart';
+import 'webgpu.dart';
 import 'dom.dart';
 import 'html.dart';
 
 @JS()
-abstract class GPUObjectBase {
+mixin GPUObjectBase {
   external String? get label;
   external set label(String? newValue);
 }
@@ -61,7 +62,7 @@ class GPUSupportedFeatures {
 enum GPUPredefinedColorSpace { srgb }
 
 @JS()
-abstract class NavigatorGPU {
+mixin NavigatorGPU {
   external GPU get gpu;
 }
 
@@ -134,7 +135,7 @@ enum GPUFeatureName {
 }
 
 @JS()
-class GPUDevice extends EventTarget {
+class GPUDevice extends EventTarget with GPUObjectBase {
   external GPUSupportedFeatures get features;
   external GPUSupportedLimits get limits;
   external GPUQueue get queue;
@@ -174,7 +175,7 @@ class GPUDevice extends EventTarget {
 }
 
 @JS()
-class GPUBuffer {
+class GPUBuffer with GPUObjectBase {
   external Promise<Object> mapAsync(int mode, [int? offset = 0, int? size]);
   external ByteBuffer getMappedRange([int? offset = 0, int? size]);
   external Object unmap();
@@ -222,7 +223,7 @@ class GPUMapMode {
 }
 
 @JS()
-class GPUTexture {
+class GPUTexture with GPUObjectBase {
   external GPUTextureView createView([GPUTextureViewDescriptor? descriptor]);
   external Object destroy();
 
@@ -276,7 +277,7 @@ class GPUTextureUsage {
 }
 
 @JS()
-class GPUTextureView {
+class GPUTextureView with GPUObjectBase {
   external factory GPUTextureView();
 }
 
@@ -413,7 +414,7 @@ enum GPUTextureFormat {
 }
 
 @JS()
-class GPUExternalTexture {
+class GPUExternalTexture with GPUObjectBase {
   external factory GPUExternalTexture();
 }
 
@@ -431,7 +432,7 @@ class GPUExternalTextureDescriptor extends GPUObjectDescriptorBase {
 }
 
 @JS()
-class GPUSampler {
+class GPUSampler with GPUObjectBase {
   external factory GPUSampler();
 }
 
@@ -500,7 +501,7 @@ enum GPUCompareFunction {
 }
 
 @JS()
-class GPUBindGroupLayout {
+class GPUBindGroupLayout with GPUObjectBase {
   external factory GPUBindGroupLayout();
 }
 
@@ -650,7 +651,7 @@ class GPUExternalTextureBindingLayout {
 }
 
 @JS()
-class GPUBindGroup {
+class GPUBindGroup with GPUObjectBase {
   external factory GPUBindGroup();
 }
 
@@ -692,7 +693,7 @@ class GPUBufferBinding {
 }
 
 @JS()
-class GPUPipelineLayout {
+class GPUPipelineLayout with GPUObjectBase {
   external factory GPUPipelineLayout();
 }
 
@@ -707,7 +708,7 @@ class GPUPipelineLayoutDescriptor extends GPUObjectDescriptorBase {
 }
 
 @JS()
-class GPUShaderModule {
+class GPUShaderModule with GPUObjectBase {
   external Promise<GPUCompilationInfo> compilationInfo();
 
   external factory GPUShaderModule();
@@ -756,7 +757,7 @@ class GPUPipelineDescriptorBase extends GPUObjectDescriptorBase {
 }
 
 @JS()
-abstract class GPUPipelineBase {
+mixin GPUPipelineBase {
   external GPUBindGroupLayout getBindGroupLayout(int index);
 }
 
@@ -775,7 +776,7 @@ class GPUProgrammableStage {
 }
 
 @JS()
-class GPUComputePipeline {
+class GPUComputePipeline with GPUObjectBase, GPUPipelineBase {
   external factory GPUComputePipeline();
 }
 
@@ -789,7 +790,7 @@ class GPUComputePipelineDescriptor extends GPUPipelineDescriptorBase {
 }
 
 @JS()
-class GPURenderPipeline {
+class GPURenderPipeline with GPUObjectBase, GPUPipelineBase {
   external factory GPURenderPipeline();
 }
 
@@ -1123,7 +1124,7 @@ class GPUVertexAttribute {
 }
 
 @JS()
-class GPUCommandBuffer {
+class GPUCommandBuffer with GPUObjectBase {
   external Promise<double> get executionTime;
 
   external factory GPUCommandBuffer();
@@ -1136,7 +1137,7 @@ class GPUCommandBufferDescriptor extends GPUObjectDescriptorBase {
 }
 
 @JS()
-class GPUCommandEncoder {
+class GPUCommandEncoder with GPUObjectBase {
   external GPURenderPassEncoder beginRenderPass(
       GPURenderPassDescriptor descriptor);
   external GPUComputePassEncoder beginComputePass(
@@ -1224,20 +1225,18 @@ class GPUImageCopyExternalImage {
 }
 
 @JS()
-abstract class GPUProgrammablePassEncoder {
-  external Object setBindGroup(
-      int index,
-      GPUBindGroup bindGroup,
-      Uint32List dynamicOffsetsData,
+mixin GPUProgrammablePassEncoder {
+  external Object setBindGroup(int index, GPUBindGroup bindGroup,
+      [Uint32List? dynamicOffsetsData,
       int dynamicOffsetsDataStart,
-      int dynamicOffsetsDataLength);
+      int dynamicOffsetsDataLength]);
   external Object pushDebugGroup(String groupLabel);
   external Object popDebugGroup();
   external Object insertDebugMarker(String markerLabel);
 }
 
 @JS()
-class GPUComputePassEncoder {
+class GPUComputePassEncoder with GPUObjectBase, GPUProgrammablePassEncoder {
   external Object setPipeline(GPUComputePipeline pipeline);
   external Object dispatch(int x, [int? y = 1, int? z = 1]);
   external Object dispatchIndirect(
@@ -1258,7 +1257,7 @@ class GPUComputePassDescriptor extends GPUObjectDescriptorBase {
 }
 
 @JS()
-abstract class GPURenderEncoderBase {
+mixin GPURenderEncoderBase {
   external Object setPipeline(GPURenderPipeline pipeline);
   external Object setIndexBuffer(GPUBuffer buffer, GPUIndexFormat indexFormat,
       [int? offset = 0, int? size = 0]);
@@ -1277,7 +1276,8 @@ abstract class GPURenderEncoderBase {
 }
 
 @JS()
-class GPURenderPassEncoder {
+class GPURenderPassEncoder
+    with GPUObjectBase, GPUProgrammablePassEncoder, GPURenderEncoderBase {
   external Object setViewport(double x, double y, double width, double height,
       double minDepth, double maxDepth);
   external Object setScissorRect(int x, int y, int width, int height);
@@ -1367,7 +1367,7 @@ enum GPULoadOp { load }
 enum GPUStoreOp { store, discard }
 
 @JS()
-class GPURenderBundle {
+class GPURenderBundle with GPUObjectBase {
   external factory GPURenderBundle();
 }
 
@@ -1378,7 +1378,8 @@ class GPURenderBundleDescriptor extends GPUObjectDescriptorBase {
 }
 
 @JS()
-class GPURenderBundleEncoder {
+class GPURenderBundleEncoder
+    with GPUObjectBase, GPUProgrammablePassEncoder, GPURenderEncoderBase {
   external GPURenderBundle finish([GPURenderBundleDescriptor? descriptor]);
 
   external factory GPURenderBundleEncoder();
@@ -1401,7 +1402,7 @@ class GPURenderBundleEncoderDescriptor extends GPUObjectDescriptorBase {
 }
 
 @JS()
-class GPUQueue {
+class GPUQueue with GPUObjectBase {
   external Object submit(Iterable<GPUCommandBuffer> commandBuffers);
   external Promise<Object> onSubmittedWorkDone();
   external Object writeBuffer(GPUBuffer buffer, int bufferOffset, dynamic data,
@@ -1415,7 +1416,7 @@ class GPUQueue {
 }
 
 @JS()
-class GPUQuerySet {
+class GPUQuerySet with GPUObjectBase {
   external Object destroy();
 
   external factory GPUQuerySet();

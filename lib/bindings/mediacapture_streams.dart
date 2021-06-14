@@ -29,7 +29,7 @@ import 'image_capture.dart';
 /// [CanvasCaptureMediaStreamTrack].
 @JS()
 class MediaStream extends EventTarget {
-  external factory MediaStream({Iterable<MediaStreamTrack> tracks});
+  external factory MediaStream({Iterable<MediaStreamTrack>? tracks});
 
   ///  A [DOMString] containing 36 characters denoting a universally
   /// unique identifier (UUID) for the object.
@@ -350,52 +350,6 @@ class MediaTrackSupportedConstraints {
   /// constraint is supported in the current environment.
   external bool get groupId;
   external set groupId(bool newValue);
-  external bool get displaySurface;
-  external set displaySurface(bool newValue);
-  external bool get logicalSurface;
-  external set logicalSurface(bool newValue);
-  external bool get cursor;
-  external set cursor(bool newValue);
-  external bool get restrictOwnAudio;
-  external set restrictOwnAudio(bool newValue);
-  external bool get suppressLocalAudioPlayback;
-  external set suppressLocalAudioPlayback(bool newValue);
-  external bool get whiteBalanceMode;
-  external set whiteBalanceMode(bool newValue);
-  external bool get exposureMode;
-  external set exposureMode(bool newValue);
-  external bool get focusMode;
-  external set focusMode(bool newValue);
-  external bool get pointsOfInterest;
-  external set pointsOfInterest(bool newValue);
-  external bool get exposureCompensation;
-  external set exposureCompensation(bool newValue);
-  external bool get exposureTime;
-  external set exposureTime(bool newValue);
-  external bool get colorTemperature;
-  external set colorTemperature(bool newValue);
-  external bool get iso;
-  external set iso(bool newValue);
-  external bool get brightness;
-  external set brightness(bool newValue);
-  external bool get contrast;
-  external set contrast(bool newValue);
-  external bool get pan;
-  external set pan(bool newValue);
-  external bool get saturation;
-  external set saturation(bool newValue);
-  external bool get sharpness;
-  external set sharpness(bool newValue);
-  external bool get focusDistance;
-  external set focusDistance(bool newValue);
-  external bool get tilt;
-  external set tilt(bool newValue);
-  external bool get zoom;
-  external set zoom(bool newValue);
-  external bool get torch;
-  external set torch(bool newValue);
-  external bool get videoKind;
-  external set videoKind(bool newValue);
 
   external factory MediaTrackSupportedConstraints(
       {bool width = true,
@@ -412,30 +366,7 @@ class MediaTrackSupportedConstraints {
       bool latency = true,
       bool channelCount = true,
       bool deviceId = true,
-      bool groupId = true,
-      bool displaySurface = true,
-      bool logicalSurface = true,
-      bool cursor = true,
-      bool restrictOwnAudio = true,
-      bool suppressLocalAudioPlayback = true,
-      bool whiteBalanceMode = true,
-      bool exposureMode = true,
-      bool focusMode = true,
-      bool pointsOfInterest = true,
-      bool exposureCompensation = true,
-      bool exposureTime = true,
-      bool colorTemperature = true,
-      bool iso = true,
-      bool brightness = true,
-      bool contrast = true,
-      bool pan = true,
-      bool saturation = true,
-      bool sharpness = true,
-      bool focusDistance = true,
-      bool tilt = true,
-      bool zoom = true,
-      bool torch = true,
-      bool videoKind = true});
+      bool groupId = true});
 }
 
 @anonymous
@@ -471,46 +402,6 @@ class MediaTrackCapabilities {
   external set deviceId(String newValue);
   external String get groupId;
   external set groupId(String newValue);
-  external String get displaySurface;
-  external set displaySurface(String newValue);
-  external bool get logicalSurface;
-  external set logicalSurface(bool newValue);
-  external Iterable<String> get cursor;
-  external set cursor(Iterable<String> newValue);
-  external Iterable<String> get whiteBalanceMode;
-  external set whiteBalanceMode(Iterable<String> newValue);
-  external Iterable<String> get exposureMode;
-  external set exposureMode(Iterable<String> newValue);
-  external Iterable<String> get focusMode;
-  external set focusMode(Iterable<String> newValue);
-  external MediaSettingsRange get exposureCompensation;
-  external set exposureCompensation(MediaSettingsRange newValue);
-  external MediaSettingsRange get exposureTime;
-  external set exposureTime(MediaSettingsRange newValue);
-  external MediaSettingsRange get colorTemperature;
-  external set colorTemperature(MediaSettingsRange newValue);
-  external MediaSettingsRange get iso;
-  external set iso(MediaSettingsRange newValue);
-  external MediaSettingsRange get brightness;
-  external set brightness(MediaSettingsRange newValue);
-  external MediaSettingsRange get contrast;
-  external set contrast(MediaSettingsRange newValue);
-  external MediaSettingsRange get saturation;
-  external set saturation(MediaSettingsRange newValue);
-  external MediaSettingsRange get sharpness;
-  external set sharpness(MediaSettingsRange newValue);
-  external MediaSettingsRange get focusDistance;
-  external set focusDistance(MediaSettingsRange newValue);
-  external MediaSettingsRange get pan;
-  external set pan(MediaSettingsRange newValue);
-  external MediaSettingsRange get tilt;
-  external set tilt(MediaSettingsRange newValue);
-  external MediaSettingsRange get zoom;
-  external set zoom(MediaSettingsRange newValue);
-  external bool get torch;
-  external set torch(bool newValue);
-  external String get videoKind;
-  external set videoKind(String newValue);
 
   external factory MediaTrackCapabilities(
       {ULongRange width,
@@ -527,27 +418,7 @@ class MediaTrackCapabilities {
       DoubleRange latency,
       ULongRange channelCount,
       String deviceId,
-      String groupId,
-      String displaySurface,
-      bool logicalSurface,
-      Iterable<String> cursor,
-      Iterable<String> whiteBalanceMode,
-      Iterable<String> exposureMode,
-      Iterable<String> focusMode,
-      MediaSettingsRange exposureCompensation,
-      MediaSettingsRange exposureTime,
-      MediaSettingsRange colorTemperature,
-      MediaSettingsRange iso,
-      MediaSettingsRange brightness,
-      MediaSettingsRange contrast,
-      MediaSettingsRange saturation,
-      MediaSettingsRange sharpness,
-      MediaSettingsRange focusDistance,
-      MediaSettingsRange pan,
-      MediaSettingsRange tilt,
-      MediaSettingsRange zoom,
-      bool torch,
-      String videoKind});
+      String groupId});
 }
 
 ///
@@ -611,52 +482,6 @@ class MediaTrackConstraintSet {
   external set deviceId(dynamic newValue);
   external dynamic get groupId;
   external set groupId(dynamic newValue);
-  external dynamic get displaySurface;
-  external set displaySurface(dynamic newValue);
-  external dynamic get logicalSurface;
-  external set logicalSurface(dynamic newValue);
-  external dynamic get cursor;
-  external set cursor(dynamic newValue);
-  external dynamic get restrictOwnAudio;
-  external set restrictOwnAudio(dynamic newValue);
-  external dynamic get suppressLocalAudioPlayback;
-  external set suppressLocalAudioPlayback(dynamic newValue);
-  external dynamic get whiteBalanceMode;
-  external set whiteBalanceMode(dynamic newValue);
-  external dynamic get exposureMode;
-  external set exposureMode(dynamic newValue);
-  external dynamic get focusMode;
-  external set focusMode(dynamic newValue);
-  external dynamic get pointsOfInterest;
-  external set pointsOfInterest(dynamic newValue);
-  external dynamic get exposureCompensation;
-  external set exposureCompensation(dynamic newValue);
-  external dynamic get exposureTime;
-  external set exposureTime(dynamic newValue);
-  external dynamic get colorTemperature;
-  external set colorTemperature(dynamic newValue);
-  external dynamic get iso;
-  external set iso(dynamic newValue);
-  external dynamic get brightness;
-  external set brightness(dynamic newValue);
-  external dynamic get contrast;
-  external set contrast(dynamic newValue);
-  external dynamic get saturation;
-  external set saturation(dynamic newValue);
-  external dynamic get sharpness;
-  external set sharpness(dynamic newValue);
-  external dynamic get focusDistance;
-  external set focusDistance(dynamic newValue);
-  external dynamic get pan;
-  external set pan(dynamic newValue);
-  external dynamic get tilt;
-  external set tilt(dynamic newValue);
-  external dynamic get zoom;
-  external set zoom(dynamic newValue);
-  external dynamic get torch;
-  external set torch(dynamic newValue);
-  external dynamic get videoKind;
-  external set videoKind(dynamic newValue);
 
   external factory MediaTrackConstraintSet(
       {dynamic width,
@@ -673,30 +498,7 @@ class MediaTrackConstraintSet {
       dynamic latency,
       dynamic channelCount,
       dynamic deviceId,
-      dynamic groupId,
-      dynamic displaySurface,
-      dynamic logicalSurface,
-      dynamic cursor,
-      dynamic restrictOwnAudio,
-      dynamic suppressLocalAudioPlayback,
-      dynamic whiteBalanceMode,
-      dynamic exposureMode,
-      dynamic focusMode,
-      dynamic pointsOfInterest,
-      dynamic exposureCompensation,
-      dynamic exposureTime,
-      dynamic colorTemperature,
-      dynamic iso,
-      dynamic brightness,
-      dynamic contrast,
-      dynamic saturation,
-      dynamic sharpness,
-      dynamic focusDistance,
-      dynamic pan,
-      dynamic tilt,
-      dynamic zoom,
-      dynamic torch,
-      dynamic videoKind});
+      dynamic groupId});
 }
 
 ///
@@ -744,50 +546,6 @@ class MediaTrackSettings {
   external set deviceId(String newValue);
   external String get groupId;
   external set groupId(String newValue);
-  external String get displaySurface;
-  external set displaySurface(String newValue);
-  external bool get logicalSurface;
-  external set logicalSurface(bool newValue);
-  external String get cursor;
-  external set cursor(String newValue);
-  external bool get restrictOwnAudio;
-  external set restrictOwnAudio(bool newValue);
-  external String get whiteBalanceMode;
-  external set whiteBalanceMode(String newValue);
-  external String get exposureMode;
-  external set exposureMode(String newValue);
-  external String get focusMode;
-  external set focusMode(String newValue);
-  external Iterable<Point2D> get pointsOfInterest;
-  external set pointsOfInterest(Iterable<Point2D> newValue);
-  external double get exposureCompensation;
-  external set exposureCompensation(double newValue);
-  external double get exposureTime;
-  external set exposureTime(double newValue);
-  external double get colorTemperature;
-  external set colorTemperature(double newValue);
-  external double get iso;
-  external set iso(double newValue);
-  external double get brightness;
-  external set brightness(double newValue);
-  external double get contrast;
-  external set contrast(double newValue);
-  external double get saturation;
-  external set saturation(double newValue);
-  external double get sharpness;
-  external set sharpness(double newValue);
-  external double get focusDistance;
-  external set focusDistance(double newValue);
-  external double get pan;
-  external set pan(double newValue);
-  external double get tilt;
-  external set tilt(double newValue);
-  external double get zoom;
-  external set zoom(double newValue);
-  external bool get torch;
-  external set torch(bool newValue);
-  external String get videoKind;
-  external set videoKind(String newValue);
 
   external factory MediaTrackSettings(
       {int width,
@@ -804,29 +562,7 @@ class MediaTrackSettings {
       double latency,
       int channelCount,
       String deviceId,
-      String groupId,
-      String displaySurface,
-      bool logicalSurface,
-      String cursor,
-      bool restrictOwnAudio,
-      String whiteBalanceMode,
-      String exposureMode,
-      String focusMode,
-      Iterable<Point2D> pointsOfInterest,
-      double exposureCompensation,
-      double exposureTime,
-      double colorTemperature,
-      double iso,
-      double brightness,
-      double contrast,
-      double saturation,
-      double sharpness,
-      double focusDistance,
-      double pan,
-      double tilt,
-      double zoom,
-      bool torch,
-      String videoKind});
+      String groupId});
 }
 
 @JS()
@@ -1015,11 +751,9 @@ class MediaStreamConstraints {
   external set video(dynamic newValue);
   external dynamic get audio;
   external set audio(dynamic newValue);
-  external String get peerIdentity;
-  external set peerIdentity(String newValue);
 
   external factory MediaStreamConstraints(
-      {dynamic video = false, dynamic audio = false, String peerIdentity});
+      {dynamic video = false, dynamic audio = false});
 }
 
 ///

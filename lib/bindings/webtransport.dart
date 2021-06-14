@@ -8,13 +8,14 @@ import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'webtransport.dart';
 import 'streams.dart';
 import 'html.dart';
 import 'webrtc.dart';
 import 'hr_time_3.dart';
 
 @JS()
-abstract class UnidirectionalStreamsTransport {
+mixin UnidirectionalStreamsTransport {
   external Promise<SendStream> createUnidirectionalStream(
       [SendStreamParameters? parameters]);
   external ReadableStream get incomingUnidirectionalStreams;
@@ -27,13 +28,13 @@ class SendStreamParameters {
 }
 
 @JS()
-abstract class BidirectionalStreamsTransport {
+mixin BidirectionalStreamsTransport {
   external Promise<BidirectionalStream> createBidirectionalStream();
   external ReadableStream get incomingBidirectionalStreams;
 }
 
 @JS()
-abstract class DatagramTransport {
+mixin DatagramTransport {
   external int get maxDatagramSize;
   external DatagramDuplexStream get datagrams;
 }
@@ -47,7 +48,7 @@ class DatagramDuplexStream {
 }
 
 @JS()
-class WebTransport {
+class WebTransport with UnidirectionalStreamsTransport {
   external factory WebTransport({String url, WebTransportOptions? options});
   external Promise<WebTransportStats> getStats();
   external WebTransportState get state;

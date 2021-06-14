@@ -9,6 +9,19 @@ import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'callbacks.dart';
 import '../manual.dart';
+import 'html.dart';
+import 'cssom_1.dart';
+import 'wai_aria_1_2.dart';
+import 'webgpu.dart';
+import 'webdriver2.dart';
+import 'ua_client_hints.dart';
+import 'web_locks.dart';
+import 'device_memory_1.dart';
+import 'netinfo.dart';
+import 'local_font_access.dart';
+import 'badging.dart';
+import 'storage.dart';
+import 'css_font_loading_3.dart';
 import 'dom.dart';
 import 'svg2.dart';
 import 'mediacapture_streams.dart';
@@ -27,13 +40,10 @@ import 'media_capabilities.dart';
 import 'permissions.dart';
 import 'mediasession.dart';
 import 'web_share.dart';
-import 'webgpu.dart';
 import 'media_playback_quality.dart';
 import 'cookie_store.dart';
 import 'is_input_pending.dart';
-import 'html.dart';
 import 'contact_api.dart';
-import 'webdriver2.dart';
 import 'scheduling_apis.dart';
 import 'trusted_types.dart';
 import 'screen_wake_lock.dart';
@@ -43,21 +53,14 @@ import 'entries_api.dart';
 import 'webhid.dart';
 import 'clipboard_apis.dart';
 import 'cssom_view_1.dart';
-import 'css_font_loading_3.dart';
 import 'presentation_api.dart';
 import 'credential_management_1.dart';
-import 'ua_client_hints.dart';
 import 'web_bluetooth.dart';
 import 'keyboard_lock.dart';
-import 'web_locks.dart';
 import 'visual_viewport.dart';
-import 'device_memory_1.dart';
 import 'picture_in_picture.dart';
-import 'netinfo.dart';
-import 'local_font_access.dart';
 import 'portals.dart';
 import 'custom_state_pseudo_class.dart';
-import 'badging.dart';
 import 'video_rvfc.dart';
 import 'speech_api.dart';
 import 'file_system_access.dart';
@@ -73,10 +76,8 @@ import 'remote_playback.dart';
 import 'permissions_policy_1.dart';
 import 'css_nav_1.dart';
 import 'battery_status.dart';
-import 'cssom_1.dart';
 import 'webmidi.dart';
 import 'indexed_d_b_3.dart';
-import 'storage.dart';
 import 'encrypted_media.dart';
 
 @JS()
@@ -154,7 +155,7 @@ class HTMLOptionsCollection extends HTMLCollection {
   external int get length;
   @override
   external set length(int newValue);
-  external Object add(dynamic element, [dynamic? before]);
+  external Object add(dynamic element, [dynamic before]);
   external Object remove(int index);
   external int get selectedIndex;
   external set selectedIndex(int newValue);
@@ -191,7 +192,13 @@ enum DocumentReadyState { loading, interactive, complete }
 ///
 ///
 @JS()
-class HTMLElement extends Element {
+class HTMLElement extends Element
+    with
+        GlobalEventHandlers,
+        DocumentAndElementEventHandlers,
+        ElementContentEditable,
+        HTMLOrSVGElement,
+        ElementCSSInlineStyle {
   external factory HTMLElement();
 
   ///  Is a [DOMString] containing the text that appears in a popup box
@@ -289,7 +296,7 @@ class HTMLUnknownElement extends HTMLElement {
 }
 
 @JS()
-abstract class HTMLOrSVGElement {
+mixin HTMLOrSVGElement {
   external DOMStringMap get dataset;
   external String get nonce;
   external set nonce(String newValue);
@@ -390,7 +397,7 @@ class HTMLBaseElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLLinkElement extends HTMLElement {
+class HTMLLinkElement extends HTMLElement with LinkStyle {
   external factory HTMLLinkElement();
 
   /// Is a [DOMString] representing the URI for the target resource.
@@ -494,7 +501,7 @@ class HTMLMetaElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLStyleElement extends HTMLElement {
+class HTMLStyleElement extends HTMLElement with LinkStyle {
   external factory HTMLStyleElement();
 
   ///  Is a [DOMString] representing the intended destination medium
@@ -513,7 +520,7 @@ class HTMLStyleElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLBodyElement extends HTMLElement {
+class HTMLBodyElement extends HTMLElement with WindowEventHandlers {
   external factory HTMLBodyElement();
   external EventHandlerNonNull? get onorientationchange;
   external set onorientationchange(EventHandlerNonNull? newValue);
@@ -743,7 +750,7 @@ class HTMLDivElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLAnchorElement extends HTMLElement {
+class HTMLAnchorElement extends HTMLElement with HTMLHyperlinkElementUtils {
   external factory HTMLAnchorElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
@@ -867,9 +874,9 @@ class HTMLBRElement extends HTMLElement {
 }
 
 @JS()
-abstract class HTMLHyperlinkElementUtils {
-  external String get href;
-  external set href(String newValue);
+mixin HTMLHyperlinkElementUtils {
+  external dynamic get href;
+  external set href(dynamic newValue);
   external String get origin;
   external String get protocol;
   external set protocol(String newValue);
@@ -2361,7 +2368,7 @@ class HTMLMapElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLAreaElement extends HTMLElement {
+class HTMLAreaElement extends HTMLElement with HTMLHyperlinkElementUtils {
   external factory HTMLAreaElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing
@@ -3253,8 +3260,11 @@ class HTMLInputElement extends HTMLElement {
   external set selectionEnd(int? newValue);
   external String? get selectionDirection;
   external set selectionDirection(String? newValue);
-  external Object setRangeText(String replacement, int start, int end,
-      [SelectionMode? selectionMode = SelectionMode.preserve]);
+  external Object setRangeText(
+      [String? replacement,
+      int start,
+      int end,
+      SelectionMode? selectionMode = SelectionMode.preserve]);
   external Object setSelectionRange(int start, int end, [String? direction]);
   external bool get webkitdirectory;
   external set webkitdirectory(bool newValue);
@@ -3463,7 +3473,7 @@ class HTMLSelectElement extends HTMLElement {
   /// [select] element.
   /// collection.add(item[, before]);
   ///
-  external Object add(dynamic element, [dynamic? before]);
+  external Object add(dynamic element, [dynamic before]);
 
   ///  Removes the element at the specified index from the options
   /// collection for this [select] element.
@@ -3489,7 +3499,7 @@ class HTMLSelectElement extends HTMLElement {
   ///  </select>
   /// */
   ///
-  external Object remove(int index);
+  external Object remove([int? index]);
 
   ///  An [HTMLCollection] representing the set of [<option>] elements
   /// that are selected.
@@ -3696,8 +3706,11 @@ class HTMLTextAreaElement extends HTMLElement {
   external set selectionEnd(int newValue);
   external String get selectionDirection;
   external set selectionDirection(String newValue);
-  external Object setRangeText(String replacement, int start, int end,
-      [SelectionMode? selectionMode = SelectionMode.preserve]);
+  external Object setRangeText(
+      [String? replacement,
+      int start,
+      int end,
+      SelectionMode? selectionMode = SelectionMode.preserve]);
   external Object setSelectionRange(int start, int end, [String? direction]);
 }
 
@@ -4338,14 +4351,14 @@ class HTMLCanvasElement extends HTMLElement {
   /// var ctx = canvas.getContext(contextType);
   /// var ctx = canvas.getContext(contextType, contextAttributes);
   ///
-  external dynamic getContext(String contextId, [dynamic? options]);
+  external dynamic getContext(String contextId, [dynamic options]);
 
   ///  Returns a data-URL containing a representation of the image in
   /// the format specified by the [type] parameter (defaults to [png]).
   /// The returned image is in a resolution of 96dpi.
   /// canvas.toDataURL(type, encoderOptions);
   ///
-  external String toDataURL([String? type = 'image/png', dynamic? quality]);
+  external String toDataURL([String? type = 'image/png', dynamic quality]);
 
   ///  Creates a [Blob] object representing the image contained in the
   /// canvas; this file may be cached on the disk or stored in memory
@@ -4353,7 +4366,7 @@ class HTMLCanvasElement extends HTMLElement {
   /// canvas.toBlob(callback, mimeType, qualityArgument);
   ///
   external Object toBlob(BlobCallback callback,
-      [String? type = 'image/png', dynamic? quality]);
+      [String? type = 'image/png', dynamic quality]);
 
   ///  Transfers control to an [OffscreenCanvas] object, either on the
   /// main thread or on a worker.
@@ -4403,7 +4416,24 @@ enum ImageSmoothingQuality { low, medium, high }
 /// below. The Canvas tutorial has more explanation, examples, and
 /// resources, as well.
 @JS()
-class CanvasRenderingContext2D {
+class CanvasRenderingContext2D
+    with
+        CanvasState,
+        CanvasTransform,
+        CanvasCompositing,
+        CanvasImageSmoothing,
+        CanvasFillStrokeStyles,
+        CanvasShadowStyles,
+        CanvasFilters,
+        CanvasRect,
+        CanvasDrawPath,
+        CanvasUserInterface,
+        CanvasText,
+        CanvasDrawImage,
+        CanvasImageData,
+        CanvasPathDrawingStyles,
+        CanvasTextDrawingStyles,
+        CanvasPath {
   external HTMLCanvasElement get canvas;
   external CanvasRenderingContext2DSettings getContextAttributes();
 
@@ -4411,14 +4441,14 @@ class CanvasRenderingContext2D {
 }
 
 @JS()
-abstract class CanvasState {
+mixin CanvasState {
   external Object save();
   external Object restore();
   external Object reset();
 }
 
 @JS()
-abstract class CanvasTransform {
+mixin CanvasTransform {
   external Object scale(
       /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
   external Object rotate(/* double | NaN */ dynamic angle);
@@ -4433,17 +4463,17 @@ abstract class CanvasTransform {
       /* double | NaN */ dynamic f);
   external DOMMatrix getTransform();
   external Object setTransform(
-      /* double | NaN */ dynamic a,
+      [/* double | NaN */ dynamic a,
       /* double | NaN */ dynamic b,
       /* double | NaN */ dynamic c,
       /* double | NaN */ dynamic d,
       /* double | NaN */ dynamic e,
-      /* double | NaN */ dynamic f);
+      /* double | NaN */ dynamic f]);
   external Object resetTransform();
 }
 
 @JS()
-abstract class CanvasCompositing {
+mixin CanvasCompositing {
   external /* double | NaN */ dynamic get globalAlpha;
   external set globalAlpha(/* double | NaN */ dynamic newValue);
   external String get globalCompositeOperation;
@@ -4451,7 +4481,7 @@ abstract class CanvasCompositing {
 }
 
 @JS()
-abstract class CanvasImageSmoothing {
+mixin CanvasImageSmoothing {
   external bool get imageSmoothingEnabled;
   external set imageSmoothingEnabled(bool newValue);
   external ImageSmoothingQuality get imageSmoothingQuality;
@@ -4459,7 +4489,7 @@ abstract class CanvasImageSmoothing {
 }
 
 @JS()
-abstract class CanvasFillStrokeStyles {
+mixin CanvasFillStrokeStyles {
   external dynamic get strokeStyle;
   external set strokeStyle(dynamic newValue);
   external dynamic get fillStyle;
@@ -4474,7 +4504,7 @@ abstract class CanvasFillStrokeStyles {
 }
 
 @JS()
-abstract class CanvasShadowStyles {
+mixin CanvasShadowStyles {
   external /* double | NaN */ dynamic get shadowOffsetX;
   external set shadowOffsetX(/* double | NaN */ dynamic newValue);
   external /* double | NaN */ dynamic get shadowOffsetY;
@@ -4486,13 +4516,13 @@ abstract class CanvasShadowStyles {
 }
 
 @JS()
-abstract class CanvasFilters {
+mixin CanvasFilters {
   external String get filter;
   external set filter(String newValue);
 }
 
 @JS()
-abstract class CanvasRect {
+mixin CanvasRect {
   external Object clearRect(
       /* double | NaN */ dynamic x,
       /* double | NaN */ dynamic y,
@@ -4511,59 +4541,57 @@ abstract class CanvasRect {
 }
 
 @JS()
-abstract class CanvasDrawPath {
+mixin CanvasDrawPath {
   external Object beginPath();
-  external Object fill(Path2D path,
-      [CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
-  external Object stroke(Path2D path);
-  external Object clip(Path2D path,
-      [CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
-  external bool isPointInPath(
-      Path2D path, /* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
-      [CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
-  external bool isPointInStroke(
-      Path2D path, /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+  external Object fill(
+      [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
+  external Object stroke([Path2D? path]);
+  external Object clip(
+      [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
+  external bool isPointInPath(Path2D path, /* double | NaN */ dynamic x,
+      [/* double | NaN */ dynamic y,
+      CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
+  external bool isPointInStroke(Path2D path,
+      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
 }
 
 @JS()
-abstract class CanvasUserInterface {
-  external Object drawFocusIfNeeded(Path2D path, Element element);
-  external Object scrollPathIntoView(Path2D path);
+mixin CanvasUserInterface {
+  external Object drawFocusIfNeeded([Path2D? path, Element element]);
+  external Object scrollPathIntoView([Path2D? path]);
 }
 
 @JS()
-abstract class CanvasText {
+mixin CanvasText {
   external Object fillText(
       String text, /* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
-      [/* double | NaN */ dynamic? maxWidth]);
+      [/* double | NaN */ dynamic maxWidth]);
   external Object strokeText(
       String text, /* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
-      [/* double | NaN */ dynamic? maxWidth]);
+      [/* double | NaN */ dynamic maxWidth]);
   external TextMetrics measureText(String text);
 }
 
 @JS()
-abstract class CanvasDrawImage {
-  external Object drawImage(
-      dynamic image,
-      /* double | NaN */ dynamic sx,
-      /* double | NaN */ dynamic sy,
+mixin CanvasDrawImage {
+  external Object drawImage(dynamic image, /* double | NaN */ dynamic sx,
+      [/* double | NaN */ dynamic sy,
       /* double | NaN */ dynamic sw,
       /* double | NaN */ dynamic sh,
       /* double | NaN */ dynamic dx,
       /* double | NaN */ dynamic dy,
       /* double | NaN */ dynamic dw,
-      /* double | NaN */ dynamic dh);
+      /* double | NaN */ dynamic dh]);
 }
 
 @JS()
-abstract class CanvasImageData {
-  external ImageData createImageData(int sw, int sh,
-      [ImageDataSettings? settings]);
+mixin CanvasImageData {
+  external ImageData createImageData(
+      [int? sw, int sh, ImageDataSettings? settings]);
   external ImageData getImageData(int sx, int sy, int sw, int sh,
       [ImageDataSettings? settings]);
-  external Object putImageData(ImageData imagedata, int dx, int dy, int dirtyX,
-      int dirtyY, int dirtyWidth, int dirtyHeight);
+  external Object putImageData(ImageData imagedata, int dx,
+      [int? dy, int dirtyX, int dirtyY, int dirtyWidth, int dirtyHeight]);
 }
 
 @JS()
@@ -4635,7 +4663,7 @@ enum CanvasTextRendering {
 }
 
 @JS()
-abstract class CanvasPathDrawingStyles {
+mixin CanvasPathDrawingStyles {
   external /* double | NaN */ dynamic get lineWidth;
   external set lineWidth(/* double | NaN */ dynamic newValue);
   external CanvasLineCap get lineCap;
@@ -4651,7 +4679,7 @@ abstract class CanvasPathDrawingStyles {
 }
 
 @JS()
-abstract class CanvasTextDrawingStyles {
+mixin CanvasTextDrawingStyles {
   external String get font;
   external set font(String newValue);
   external CanvasTextAlign get textAlign;
@@ -4675,7 +4703,7 @@ abstract class CanvasTextDrawingStyles {
 }
 
 @JS()
-abstract class CanvasPath {
+mixin CanvasPath {
   external Object closePath();
   external Object moveTo(
       /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
@@ -4885,8 +4913,8 @@ class ImageData {
 /// present on this interface, which gives you the convenience of
 /// being able to retain and replay your path whenever desired.
 @JS()
-class Path2D {
-  external factory Path2D({dynamic? path});
+class Path2D with CanvasPath {
+  external factory Path2D({dynamic path});
 
   /// Adds a path to the current path.
   /// void path.addPath(path [, transform]);
@@ -4978,7 +5006,7 @@ class OffscreenCanvas extends EventTarget {
   /// offscreen.getContext(contextType, contextAttributes);
   ///
   external dynamic getContext(OffscreenRenderingContextId contextId,
-      [dynamic? options]);
+      [dynamic options]);
 
   ///  Creates an [ImageBitmap] object from the most recently rendered
   /// image of the [OffscreenCanvas].
@@ -4992,7 +5020,23 @@ class OffscreenCanvas extends EventTarget {
 }
 
 @JS()
-class OffscreenCanvasRenderingContext2D {
+class OffscreenCanvasRenderingContext2D
+    with
+        CanvasState,
+        CanvasTransform,
+        CanvasCompositing,
+        CanvasImageSmoothing,
+        CanvasFillStrokeStyles,
+        CanvasShadowStyles,
+        CanvasFilters,
+        CanvasRect,
+        CanvasDrawPath,
+        CanvasText,
+        CanvasDrawImage,
+        CanvasImageData,
+        CanvasPathDrawingStyles,
+        CanvasTextDrawingStyles,
+        CanvasPath {
   external Object commit();
   external OffscreenCanvas get canvas;
 
@@ -5046,9 +5090,9 @@ class ElementDefinitionOptions {
 }
 
 @JS()
-class ElementInternals {
+class ElementInternals with ARIAMixin {
   external ShadowRoot? get shadowRoot;
-  external Object setFormValue(dynamic value, [dynamic? state]);
+  external Object setFormValue(dynamic value, [dynamic state]);
   external HTMLFormElement? get form;
   external Object setValidity(
       [ValidityStateFlags? flags, String? message, HTMLElement? anchor]);
@@ -5110,7 +5154,7 @@ class FocusOptions {
 }
 
 @JS()
-abstract class ElementContentEditable {
+mixin ElementContentEditable {
   external String get contentEditable;
   external set contentEditable(String newValue);
   external String get enterKeyHint;
@@ -5245,7 +5289,7 @@ class DataTransferItemList {
   /// Result
   ///
   /// Result link
-  external DataTransferItem? add(String data, String type);
+  external DataTransferItem? add([String? data, String type]);
 
   /// Removes the drag item from the list at the given index.
   /// DataTransferItemList.remove(index);
@@ -5556,7 +5600,14 @@ class DragEventInit extends MouseEventInit {
 ///
 ///
 @JS()
-class Window extends EventTarget {
+class Window extends EventTarget
+    with
+        GlobalEventHandlers,
+        WindowEventHandlers,
+        WindowOrWorkerGlobalScope,
+        AnimationFrameProvider,
+        WindowSessionStorage,
+        WindowLocalStorage {
   /// Returns a reference to the current window.
   external Window get window;
 
@@ -5679,7 +5730,7 @@ class Window extends EventTarget {
   /// Both produce:
   ///
   ///
-  external Object alert(String message);
+  external Object alert([String? message]);
 
   ///  Displays a dialog with a message that the user needs to respond
   /// to.
@@ -5809,8 +5860,8 @@ class Window extends EventTarget {
   ///               event.origin);
   /// }, false);
   ///
-  external Object postMessage(dynamic message, String targetOrigin,
-      [Iterable<dynamic>? transfer = const []]);
+  external Object postMessage(dynamic message,
+      [String? targetOrigin, Iterable<dynamic>? transfer = const []]);
   external CookieStore get cookieStore;
   external int requestIdleCallback(IdleRequestCallback callback,
       [IdleRequestOptions? options]);
@@ -5829,11 +5880,11 @@ class Window extends EventTarget {
   external double get scrollY;
   external double get pageYOffset;
   external Object scroll(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
   external Object scrollTo(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
   external Object scrollBy(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
   external int get screenX;
   external int get screenLeft;
   external int get screenY;
@@ -6301,7 +6352,7 @@ class PromiseRejectionEventInit extends EventInit {
 /// an object of type .
 ///
 @JS()
-abstract class GlobalEventHandlers {
+mixin GlobalEventHandlers {
   external EventHandlerNonNull? get onabort;
   external set onabort(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get onauxclick;
@@ -6498,7 +6549,7 @@ abstract class GlobalEventHandlers {
 /// an object of type .
 ///
 @JS()
-abstract class WindowEventHandlers {
+mixin WindowEventHandlers {
   ///  Is an [event handler] representing the code to be called when
   /// the [afterprint] event is raised.
   external EventHandlerNonNull? get onafterprint;
@@ -6590,7 +6641,7 @@ abstract class WindowEventHandlers {
 }
 
 @JS()
-abstract class DocumentAndElementEventHandlers {
+mixin DocumentAndElementEventHandlers {
   external EventHandlerNonNull? get oncopy;
   external set oncopy(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get oncut;
@@ -6608,7 +6659,7 @@ abstract class DocumentAndElementEventHandlers {
 /// an object of type .
 ///
 @JS()
-abstract class WindowOrWorkerGlobalScope {
+mixin WindowOrWorkerGlobalScope {
   external String get origin;
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
@@ -6702,9 +6753,8 @@ abstract class WindowOrWorkerGlobalScope {
   /// ([sx], [sy]) with width [sw], and height [sh].
   /// const imageBitmapPromise = createImageBitmap(image[, options]);
   /// const imageBitmapPromise = createImageBitmap(image, sx, sy, sw, sh[, options]);
-  external Promise<ImageBitmap> createImageBitmap(
-      dynamic image, int sx, int sy, int sw, int sh,
-      [ImageBitmapOptions? options]);
+  external Promise<ImageBitmap> createImageBitmap(dynamic image,
+      [int? sx, int sy, int sw, int sh, ImageBitmapOptions? options]);
   external Scheduler get scheduler;
   external TrustedTypePolicyFactory get trustedTypes;
   external Performance get performance;
@@ -6769,7 +6819,24 @@ enum DOMParserSupportedType {
 ///  A object can be retrieved using the read-only [window.navigator]
 /// property.
 @JS()
-class Navigator {
+class Navigator
+    with
+        NavigatorGPU,
+        NavigatorAutomationInformation,
+        NavigatorUA,
+        NavigatorLocks,
+        NavigatorDeviceMemory,
+        NavigatorNetworkInformation,
+        NavigatorFonts,
+        NavigatorBadge,
+        NavigatorID,
+        NavigatorLanguage,
+        NavigatorOnLine,
+        NavigatorContentUtils,
+        NavigatorCookies,
+        NavigatorPlugins,
+        NavigatorConcurrentHardware,
+        NavigatorStorage {
   external Geolocation get geolocation;
   external MediaCapabilities get mediaCapabilities;
   external Permissions get permissions;
@@ -6799,7 +6866,7 @@ class Navigator {
   external bool vibrate(dynamic pattern);
   external Iterable<Gamepad> getGamepads();
   external DevicePosture get devicePosture;
-  external bool sendBeacon(String url, [dynamic? data]);
+  external bool sendBeacon(String url, [dynamic data]);
   external USB get usb;
   external Promise<BatteryManager> getBattery();
   external Promise<MIDIAccess> requestMIDIAccess([MIDIOptions? options]);
@@ -6818,7 +6885,7 @@ class Navigator {
 ///  There is no object of type , but other interfaces, like
 /// [Navigator] or [WorkerNavigator], implement it.
 @JS()
-abstract class NavigatorID {
+mixin NavigatorID {
   ///  Always returns "[Mozilla]", in any browser. This property is
   /// kept only for compatibility purposes.
   @deprecated
@@ -6863,7 +6930,7 @@ abstract class NavigatorID {
 ///  There is no object of type , but other interfaces, like
 /// [Navigator] or [WorkerNavigator], implement it.
 @JS()
-abstract class NavigatorLanguage {
+mixin NavigatorLanguage {
   ///  Returns a [DOMString] representing the preferred language of the
   /// user, usually the language of the browser UI. The [null] value is
   /// returned when this is unknown.
@@ -6882,20 +6949,20 @@ abstract class NavigatorLanguage {
 ///  There is no object of type , but other interfaces, like
 /// [Navigator] or [WorkerNavigator], implement it.
 @JS()
-abstract class NavigatorOnLine {
+mixin NavigatorOnLine {
   ///  Returns a [Boolean] indicating whether the browser is working
   /// online.
   external bool get onLine;
 }
 
 @JS()
-abstract class NavigatorContentUtils {
+mixin NavigatorContentUtils {
   external Object registerProtocolHandler(String scheme, String url);
   external Object unregisterProtocolHandler(String scheme, String url);
 }
 
 @JS()
-abstract class NavigatorCookies {
+mixin NavigatorCookies {
   external bool get cookieEnabled;
 }
 
@@ -6973,7 +7040,7 @@ class ImageBitmapOptions {
 }
 
 @JS()
-abstract class AnimationFrameProvider {
+mixin AnimationFrameProvider {
   external int requestAnimationFrame(FrameRequestCallback callback);
   external Object cancelAnimationFrame(int handle);
 }
@@ -7035,10 +7102,10 @@ class MessageEvent extends Event {
   external Object initMessageEvent(String type,
       [bool? bubbles = false,
       bool? cancelable = false,
-      dynamic? data,
+      dynamic data,
       String? origin = '',
       String? lastEventId = '',
-      dynamic? source,
+      dynamic source,
       Iterable<MessagePort>? ports = const []]);
 }
 
@@ -7152,7 +7219,7 @@ enum BinaryType { blob, arraybuffer }
 ///
 @JS()
 class WebSocket extends EventTarget {
-  external factory WebSocket({String url, dynamic? protocols = const []});
+  external factory WebSocket({String url, dynamic protocols = const []});
 
   /// The absolute URL of the WebSocket.
   external String get url;
@@ -7560,7 +7627,8 @@ class BroadcastChannel extends EventTarget {
 /// [ServiceWorkerGlobalScope] for ServiceWorker. The [self] property
 /// returns the specialized scope for each context.
 @JS()
-class WorkerGlobalScope extends EventTarget {
+class WorkerGlobalScope extends EventTarget
+    with FontFaceSource, WindowOrWorkerGlobalScope {
   external WorkerGlobalScope get self;
   external WorkerLocation get location;
   external WorkerNavigator get navigator;
@@ -7589,7 +7657,8 @@ class WorkerGlobalScope extends EventTarget {
 /// worker global scope, but available on it, are listed in the
 /// JavaScript Reference. See also: Functions available to workers.
 @JS()
-class DedicatedWorkerGlobalScope extends WorkerGlobalScope {
+class DedicatedWorkerGlobalScope extends WorkerGlobalScope
+    with AnimationFrameProvider {
   ///  The name that the [Worker] was (optionally) given when it was
   /// created using the [Worker()] constructor. This is mainly useful
   /// for debugging purposes.
@@ -7668,7 +7737,7 @@ class SharedWorkerGlobalScope extends WorkerGlobalScope {
 }
 
 @JS()
-abstract class AbstractWorker {
+mixin AbstractWorker {
   external EventHandlerNonNull? get onerror;
   external set onerror(EventHandlerNonNull? newValue);
 }
@@ -7689,7 +7758,7 @@ abstract class AbstractWorker {
 /// but its [responseXML] and [channel] attributes are always [null].
 /// ([fetch] is also available, with no such restrictions.)
 @JS()
-class Worker extends EventTarget {
+class Worker extends EventTarget with AbstractWorker {
   external factory Worker({String scriptURL, WorkerOptions? options});
 
   ///  Immediately terminates the worker. This does not let worker
@@ -7761,8 +7830,8 @@ enum WorkerType { classic, module }
 /// origin (same protocol, host and port).
 ///
 @JS()
-class SharedWorker extends EventTarget {
-  external factory SharedWorker({String scriptURL, dynamic? options});
+class SharedWorker extends EventTarget with AbstractWorker {
+  external factory SharedWorker({String scriptURL, dynamic options});
 
   ///  Returns a [MessagePort] object used to communicate with and
   /// control the shared worker.
@@ -7786,7 +7855,7 @@ class SharedWorker extends EventTarget {
 /// reduce the number in order to represent more accurately the
 /// number of [Worker]s that can run at once
 @JS()
-abstract class NavigatorConcurrentHardware {
+mixin NavigatorConcurrentHardware {
   ///  Returns the number of logical processors which may be available
   /// to the user agent. This value is always at least 1, and will be 1
   /// if the actual number of logical processors can't be determined.
@@ -7801,7 +7870,20 @@ abstract class NavigatorConcurrentHardware {
 /// via the [WorkerGlobalScope.navigator] property obtained by
 /// calling [self.navigator].
 @JS()
-class WorkerNavigator {
+class WorkerNavigator
+    with
+        NavigatorGPU,
+        NavigatorUA,
+        NavigatorLocks,
+        NavigatorDeviceMemory,
+        NavigatorNetworkInformation,
+        NavigatorFonts,
+        NavigatorBadge,
+        NavigatorID,
+        NavigatorLanguage,
+        NavigatorOnLine,
+        NavigatorConcurrentHardware,
+        NavigatorStorage {
   external MediaCapabilities get mediaCapabilities;
   external Permissions get permissions;
   external ServiceWorkerContainer get serviceWorker;
@@ -7982,12 +8064,12 @@ class Storage {
 }
 
 @JS()
-abstract class WindowSessionStorage {
+mixin WindowSessionStorage {
   external Storage get sessionStorage;
 }
 
 @JS()
-abstract class WindowLocalStorage {
+mixin WindowLocalStorage {
   external Storage get localStorage;
 }
 
@@ -8144,7 +8226,7 @@ class HTMLMarqueeElement extends HTMLElement {
 /// manipulating [<frameset>] elements.
 @deprecated
 @JS()
-class HTMLFrameSetElement extends HTMLElement {
+class HTMLFrameSetElement extends HTMLElement with WindowEventHandlers {
   external factory HTMLFrameSetElement();
 
   ///  Is a [DOMString] structured as a comma-separated list specifying
@@ -8254,7 +8336,7 @@ class External {
 /// plugins installed into the browser.
 @experimental
 @JS()
-abstract class NavigatorPlugins {
+mixin NavigatorPlugins {
   ///  Returns a [PluginArray] listing the plugins installed in the
   /// browser.
   @deprecated

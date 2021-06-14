@@ -10,6 +10,6 @@ import 'callbacks.dart';
 import '../manual.dart';
 
 @JS()
-abstract class NavigatorAutomationInformation {
+mixin NavigatorAutomationInformation {
   external bool get webdriver;
 }

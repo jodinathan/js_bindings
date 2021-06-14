@@ -1,5 +1,6 @@
 import 'dart:convert' as convert;
 import 'dart:io';
+import 'dart:math';
 import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:recase/recase.dart';
@@ -269,7 +270,8 @@ class Spec {
       var name = arg['name'] as String;
       var type = getDartType(arg['idlType']);
 
-      if (arg['optional'] == true && !type.endsWith('?')) {
+      if (arg['optional'] == true && !type.endsWith('?') &&
+          !type.endsWith(' dynamic') && type != 'dynamic') {
         type += '?';
       }
 
@@ -383,6 +385,7 @@ Future<SpecGroup> getSpecs() async {
         }
 
         obj['subs'] = <String>{};
+        obj['mixins'] = <String, Set<String>>{};
         obj['abstract'] = obj['partial'] == true ||
             type == 'interface mixin' || type == 'namespace';
       }
@@ -399,12 +402,6 @@ Future<SpecGroup> getSpecs() async {
     if (extended != null) {
       for (final name in extended.keys) {
         final exts = (extended[name] as Iterable);
-        final members = exts.fold<List>([], (arr, el) {
-          if (el['members'] is Iterable) {
-            arr.addAll(el['members']);
-          }
-          return arr;
-        });
         final obj = spec.objects[name] ??
             ret.specs
                 .firstWhereOrNull(
@@ -412,19 +409,67 @@ Future<SpecGroup> getSpecs() async {
             )
                 ?.objects[name];
 
-        if (obj == null) {
-          spec.objects[name] = {
-            'name': name,
-            'type': 'interface',
-            'members': members,
-            'subs': []
-          };
-        } else {
-          final oms = obj['members'] as List;
-          final okMembers = members;
-          // members.where((m) => !oms.any((om) => m['name'] == om['name']))
+        final members = exts.fold<List>([], (arr, el) {
+          if (el['type'].toString().contains('interface') &&
+              el['members'] is Iterable) {
+            arr.addAll(el['members']);
+          }
+          return arr;
+        });
 
-          oms.addAll(okMembers);
+        if (members.isNotEmpty) {
+          if (obj == null) {
+            spec.objects[name] = {
+              'name': name,
+              'type': 'interface',
+              'members': members,
+              'subs': <String>{},
+              'mixins': <String, Set<String>>{}
+            };
+          } else {
+            final oms = obj['members'] as List;
+            final okMembers = members;
+            // members.where((m) => !oms.any((om) => m['name'] == om['name']))
+
+            oms.addAll(okMembers);
+          }
+        }
+
+        for (final ext in exts) {
+          if (ext['type'] == 'includes') {
+            final target = ext['target'] as String;
+            final includes = ext['includes'] as String;
+            var targObj = spec.objects[target] ??
+                ret.specs
+                    .firstWhere(
+                        (spec) => spec.objects.containsKey(target)
+                ).objects[target];
+            var obj = spec.objects[includes];
+            Spec? ispec = spec;
+
+            if (obj == null) {
+              print('Finding $includes');
+              ispec = ret.specs
+                  .firstWhereOrNull(
+                      (spec) => spec.objects.containsKey(includes)
+              );
+
+              if (ispec == null) {
+                print('Skipping include of ${spec.libraryName}.$target to $includes');
+                continue;
+              }
+              obj = ispec.objects[includes];
+            }
+
+            assert(obj != null,
+            'Couldnt find target $includes from ${spec.name}');
+
+            print('Linking ${spec.libraryName}.$target to ${ispec.libraryName}.$includes');
+
+            final spm = (targObj['mixins'][ispec.libraryName] ??= <String>{});
+
+            spm.add(includes);
+          }
         }
       }
     }
@@ -499,8 +544,13 @@ Future<SpecGroup> getSpecs() async {
               });
 
               final high = all.removeLast();
+              final low = all.first['arguments'].length as int;
 
               assert(high['arguments'].length >= all.first['arguments'].length);
+
+              if (low < high['arguments'].length) {
+                high['arguments'][max(low - 1, 0)]['optional'] = true;
+              }
 
               all.forEach(members.remove);
               all.forEach(removed.add);
@@ -547,6 +597,25 @@ Future<SpecGroup> getSpecs() async {
       if (removed.isNotEmpty) {
         print('RemovedMembers of $name: ${removed.map((m) => m['name'])}');
       }
+    }
+  }
+
+  /// TODO: this adjustments will not exist when we change to
+  /// use classes instead of JSON
+  for (final spec in ret.specs.toList()) {
+    final lname = spec.name.toLowerCase();
+
+    if (spec.name == 'html') {
+      // set the href getter of the HTMLHyperlinkElementUtils mixin to dynamic
+      spec.objects['HTMLHyperlinkElementUtils']['members'].firstWhere(
+              (m) => m['name'] == 'href')['idlType']['idlType'] = 'any';
+    } else if (['svg2', 'svg11'].contains(lname)) {
+      final obj = spec.objects['SVGAElement'];
+      final svg = obj['mixins'][lname];
+
+      // swap the anchormixin with svgreference mixin
+      (obj['mixins'] as Map<String, dynamic>).remove(lname);
+      obj['mixins'][lname] = svg;
     }
   }
 

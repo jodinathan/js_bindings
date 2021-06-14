@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'streams.dart';
 import 'dom.dart';
 
 ///
@@ -19,7 +20,7 @@ import 'dom.dart';
 @JS()
 class ReadableStream {
   external factory ReadableStream(
-      {dynamic? underlyingSource, QueuingStrategy? strategy});
+      {dynamic underlyingSource, QueuingStrategy? strategy});
 
   ///  The getter returns whether or not the readable stream is locked
   /// to a reader.
@@ -30,7 +31,7 @@ class ReadableStream {
   /// consumer. The supplied [reason] argument will be given to the
   /// underlying source, which may or may not use it.
   /// var promise = readableStream.cancel(reason);
-  external Promise<Object> cancel([dynamic? reason]);
+  external Promise<Object> cancel([dynamic reason]);
 
   ///  Creates a reader and locks the stream to it. While the stream is
   /// locked, no other reader can be acquired until this one is
@@ -141,9 +142,9 @@ class UnderlyingSource {
 enum ReadableStreamType { bytes }
 
 @JS()
-abstract class ReadableStreamGenericReader {
+mixin ReadableStreamGenericReader {
   external Promise<Object> get closed;
-  external Promise<Object> cancel([dynamic? reason]);
+  external Promise<Object> cancel([dynamic reason]);
 }
 
 ///
@@ -152,7 +153,7 @@ abstract class ReadableStreamGenericReader {
 /// that can be used to read stream data supplied from a network
 /// (e.g. a fetch request).
 @JS()
-class ReadableStreamDefaultReader {
+class ReadableStreamDefaultReader with ReadableStreamGenericReader {
   external factory ReadableStreamDefaultReader({ReadableStream stream});
 
   ///  Returns a promise providing access to the next chunk in the
@@ -185,7 +186,7 @@ class ReadableStreamDefaultReadResult {
 /// by the developer (e.g. a custom [ReadableStream()] constructor).
 @experimental
 @JS()
-class ReadableStreamBYOBReader {
+class ReadableStreamBYOBReader with ReadableStreamGenericReader {
   external factory ReadableStreamBYOBReader({ReadableStream stream});
 
   ///  Returns a [Promise] that resolves with an object indicating the
@@ -228,12 +229,12 @@ class ReadableStreamDefaultController {
 
   /// Enqueues a given chunk in the associated stream.
   /// readableStreamDefaultController.enqueue(chunk);
-  external Object enqueue([dynamic? chunk]);
+  external Object enqueue([dynamic chunk]);
 
   ///  Causes any future interactions with the associated stream to
   /// error.
   /// readableStreamDefaultController.error(e);
-  external Object error([dynamic? e]);
+  external Object error([dynamic e]);
 
   external factory ReadableStreamDefaultController();
 }
@@ -266,7 +267,7 @@ class ReadableByteStreamController {
   ///  Causes any future interactions with the associated stream to
   /// error.
   /// readableByteStreamController.error(e);
-  external Object error([dynamic? e]);
+  external Object error([dynamic e]);
 
   external factory ReadableByteStreamController();
 }
@@ -315,7 +316,7 @@ class ReadableStreamBYOBRequest {
 @JS()
 class WritableStream {
   external factory WritableStream(
-      {dynamic? underlyingSink, QueuingStrategy? strategy});
+      {dynamic underlyingSink, QueuingStrategy? strategy});
 
   ///  A boolean indicating whether the [WritableStream] is locked to a
   /// writer.
@@ -325,7 +326,7 @@ class WritableStream {
   /// successfully write to the stream and it is to be immediately
   /// moved to an error state, with any queued writes discarded.
   /// var promise = writableStream.abort(reason);
-  external Promise<Object> abort([dynamic? reason]);
+  external Promise<Object> abort([dynamic reason]);
 
   /// Closes the stream.
   external Promise<Object> close();
@@ -391,7 +392,7 @@ class WritableStreamDefaultWriter {
   /// successfully write to the stream and it is to be immediately
   /// moved to an error state, with any queued writes discarded.
   /// var promise = writableStreamDefaultWriter.abort(reason);
-  external Promise<Object> abort([dynamic? reason]);
+  external Promise<Object> abort([dynamic reason]);
 
   /// Closes the associated writable stream.
   /// var promise = writableStreamDefaultWriter.close();
@@ -409,7 +410,7 @@ class WritableStreamDefaultWriter {
   /// underlying sink, then returns a [Promise] that resolves to
   /// indicate the success or failure of the write operation.
   /// var promise = writableStreamDefaultWriter.write(chunk);
-  external Promise<Object> write([dynamic? chunk]);
+  external Promise<Object> write([dynamic chunk]);
 }
 
 ///
@@ -426,7 +427,7 @@ class WritableStreamDefaultController {
   ///  Causes any future interactions with the associated stream to
   /// error.
   /// writableStreamDefaultController.error(e);
-  external Object error([dynamic? e]);
+  external Object error([dynamic e]);
 
   external factory WritableStreamDefaultController();
 }
@@ -438,7 +439,7 @@ class WritableStreamDefaultController {
 @JS()
 class TransformStream {
   external factory TransformStream(
-      {dynamic? transformer,
+      {dynamic transformer,
       QueuingStrategy? writableStrategy,
       QueuingStrategy? readableStrategy});
 
@@ -474,8 +475,8 @@ class Transformer {
 @JS()
 class TransformStreamDefaultController {
   external /* double | NaN */ dynamic? get desiredSize;
-  external Object enqueue([dynamic? chunk]);
-  external Object error([dynamic? reason]);
+  external Object enqueue([dynamic chunk]);
+  external Object error([dynamic reason]);
   external Object terminate();
 
   external factory TransformStreamDefaultController();
@@ -533,7 +534,7 @@ class CountQueuingStrategy {
 }
 
 @JS()
-abstract class GenericTransformStream {
+mixin GenericTransformStream {
   external ReadableStream get readable;
   external WritableStream get writable;
 }

@@ -269,7 +269,7 @@ class USBDevice {
   /// var promise = USBDevice.controlTransferOut(setup, data)
   external Promise<USBOutTransferResult> controlTransferOut(
       USBControlTransferParameters setup,
-      [dynamic? data]);
+      [dynamic data]);
 
   ///  Returns a [Promise] that resolves when a halt condition is
   /// cleared.

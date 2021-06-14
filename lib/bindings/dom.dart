@@ -9,23 +9,23 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'hr_time_3.dart';
+import 'cssom_view_1.dart';
+import 'css_font_loading_3.dart';
+import 'dom.dart';
 import 'html.dart';
+import 'd_o_m_parsing.dart';
+import 'web_animations_1.dart';
+import 'wai_aria_1_2.dart';
+import 'css_regions_1.dart';
+import 'cssom_1.dart';
+import 'hr_time_3.dart';
 import 'page_visibility_2.dart';
 import 'css_typed_om_1.dart';
 import 'svg2.dart';
 import 'selection_api.dart';
-import 'web_animations_1.dart';
-import 'wai_aria_1_2.dart';
-import 'dom.dart';
-import 'cssom_view_1.dart';
 import 'geometry_1.dart';
-import 'css_font_loading_3.dart';
 import 'fullscreen.dart';
-import 'cssom_1.dart';
-import 'css_regions_1.dart';
 import 'css_pseudo_4.dart';
-import 'd_o_m_parsing.dart';
 import 'scroll_to_text_fragment.dart';
 import 'floc.dart';
 import 'permissions_policy_1.dart';
@@ -197,7 +197,7 @@ class CustomEvent extends Event {
   ///
   @deprecated
   external Object initCustomEvent(String type,
-      [bool? bubbles = false, bool? cancelable = false, dynamic? detail]);
+      [bool? bubbles = false, bool? cancelable = false, dynamic detail]);
 }
 
 @anonymous
@@ -235,7 +235,7 @@ class EventTarget {
   /// target.addEventListener(type, listener, useCapture, wantsUntrusted); // wantsUntrusted is Firefox only
   ///
   external Object addEventListener(String type, EventListener? callback,
-      [dynamic? options]);
+      [dynamic options]);
 
   /// Removes an event listener from the [EventTarget].
   /// target.removeEventListener(type, listener[, options]);
@@ -271,7 +271,7 @@ class EventTarget {
   /// });
   ///
   external Object removeEventListener(String type, EventListener? callback,
-      [dynamic? options]);
+      [dynamic options]);
 
   /// Dispatches an event to this [EventTarget].
   /// cancelled = !target.dispatchEvent(event)
@@ -366,12 +366,12 @@ class AbortSignal extends EventTarget {
 }
 
 @JS()
-abstract class NonElementParentNode {
+mixin NonElementParentNode {
   external Element? getElementById(String elementId);
 }
 
 @JS()
-abstract class DocumentOrShadowRoot {
+mixin DocumentOrShadowRoot {
   external Iterable<Animation> getAnimations();
   external Element? get pointerLockElement;
   external Element? get fullscreenElement;
@@ -383,7 +383,7 @@ abstract class DocumentOrShadowRoot {
 }
 
 @JS()
-abstract class ParentNode {
+mixin ParentNode {
   external HTMLCollection get children;
   external Element? get firstElementChild;
   external Element? get lastElementChild;
@@ -396,7 +396,7 @@ abstract class ParentNode {
 }
 
 @JS()
-abstract class NonDocumentTypeChildNode {
+mixin NonDocumentTypeChildNode {
   external Element? get previousElementSibling;
   external Element? get nextElementSibling;
 }
@@ -409,7 +409,7 @@ abstract class NonDocumentTypeChildNode {
 /// [CharacterData] objects.
 @experimental
 @JS()
-abstract class ChildNode {
+mixin ChildNode {
   ///  Inserts a set of [Node] or [DOMString] objects in the [children]
   /// list of this [ChildNode]'s parent, just before this [ChildNode].
   /// [DOMString] objects are inserted as equivalent [Text] nodes.
@@ -442,7 +442,7 @@ abstract class ChildNode {
 }
 
 @JS()
-abstract class Slottable {
+mixin Slottable {
   external HTMLSlotElement? get assignedSlot;
 }
 
@@ -1220,7 +1220,16 @@ class GetRootNodeOptions {
 /// [HTMLDocument] interface, whereas XML and SVG documents implement
 /// the [XMLDocument] interface.
 @JS()
-class Document extends Node {
+class Document extends Node
+    with
+        GeometryUtils,
+        FontFaceSource,
+        NonElementParentNode,
+        DocumentOrShadowRoot,
+        ParentNode,
+        XPathEvaluatorBase,
+        GlobalEventHandlers,
+        DocumentAndElementEventHandlers {
   external factory Document();
 
   ///  Returns the DOM implementation associated with the current
@@ -1454,7 +1463,7 @@ class Document extends Node {
   /// Creates a new element with the given tag name.
   /// let element = document.createElement(tagName[, options]);
   ///
-  external Element createElement(String localName, [dynamic? options]);
+  external Element createElement(String localName, [dynamic options]);
 
   /// Creates a new element with the given tag name and namespace URI.
   /// var element = document.createElementNS(namespaceURI, qualifiedName[, options]);
@@ -1497,7 +1506,7 @@ class Document extends Node {
   ///   however, the recommendation still applies.
   ///
   external Element createElementNS(String? namespace, String qualifiedName,
-      [dynamic? options]);
+      [dynamic options]);
 
   /// Creates a new document fragment.
   /// var fragment = document.createDocumentFragment();
@@ -1785,7 +1794,7 @@ class Document extends Node {
   external HTMLCollection get scripts;
   external NodeList getElementsByName(String elementName);
   external dynamic get currentScript;
-  external Window? open(String url, String name, String features);
+  external Window? open(String url, [String? name, String features]);
   external Object close();
   external Object write([String text]);
   external Object writeln([String text]);
@@ -1948,7 +1957,7 @@ class DOMImplementation {
 ///
 ///
 @JS()
-class DocumentType extends Node {
+class DocumentType extends Node with ChildNode {
   /// A [DOMString], eg ["html"] for [<!DOCTYPE HTML>].
   external String get name;
 
@@ -1976,7 +1985,7 @@ class DocumentType extends Node {
 ///
 ///
 @JS()
-class DocumentFragment extends Node {
+class DocumentFragment extends Node with NonElementParentNode, ParentNode {
   external factory DocumentFragment();
 }
 
@@ -1990,7 +1999,7 @@ class DocumentFragment extends Node {
 /// its [Element.shadowRoot] property, provided it was created using
 /// [Element.attachShadow()] with the [mode] option set to [open].
 @JS()
-class ShadowRoot extends DocumentFragment {
+class ShadowRoot extends DocumentFragment with DocumentOrShadowRoot, InnerHTML {
   ///  The mode of the [ShadowRoot] — either [open] or [closed]. This
   /// defines whether or not the shadow root's internal features are
   /// accessible from JavaScript.
@@ -2033,7 +2042,17 @@ enum SlotAssignmentMode { manual, named }
 ///
 ///
 @JS()
-class Element extends Node {
+class Element extends Node
+    with
+        Animatable,
+        ARIAMixin,
+        GeometryUtils,
+        Region,
+        ParentNode,
+        NonDocumentTypeChildNode,
+        ChildNode,
+        Slottable,
+        InnerHTML {
   ///  The namespace URI of the element, or [null] if it is no
   /// namespace.
   ///
@@ -2502,13 +2521,13 @@ class Element extends Node {
   external StylePropertyMapReadOnly computedStyleMap();
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
-  external Object scrollIntoView([dynamic? arg]);
+  external Object scrollIntoView([dynamic arg]);
   external Object scroll(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
   external Object scrollTo(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
   external Object scrollBy(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
   external /* double | NaN */ dynamic get scrollTop;
   external set scrollTop(/* double | NaN */ dynamic newValue);
   external /* double | NaN */ dynamic get scrollLeft;
@@ -2680,7 +2699,7 @@ class Attr extends Node {
 ///
 ///
 @JS()
-class CharacterData extends Node {
+class CharacterData extends Node with NonDocumentTypeChildNode, ChildNode {
   ///  Is a [DOMString] representing the textual data contained in this
   /// object.
   external String get data;
@@ -2745,7 +2764,7 @@ class CharacterData extends Node {
 ///
 ///
 @JS()
-class Text extends CharacterData {
+class Text extends CharacterData with GeometryUtils, Slottable {
   external factory Text({String? data = ''});
   external Text splitText(int offset);
 
@@ -2806,7 +2825,7 @@ class CDATASection extends Text {
 ///
 ///
 @JS()
-class ProcessingInstruction extends CharacterData {
+class ProcessingInstruction extends CharacterData with LinkStyle {
   ///  A name identifying the application to which the instruction is
   /// targeted.
   external String get target;
@@ -3871,7 +3890,7 @@ class XPathNSResolver {
 }
 
 @JS()
-abstract class XPathEvaluatorBase {
+mixin XPathEvaluatorBase {
   external XPathExpression createExpression(String expression,
       [XPathNSResolver? resolver]);
   external XPathNSResolver createNSResolver(Node nodeResolver);
@@ -3885,7 +3904,7 @@ abstract class XPathEvaluatorBase {
 ///
 /// It is implemented by the [Document] interface.
 @JS()
-class XPathEvaluator {
+class XPathEvaluator with XPathEvaluatorBase {
   external factory XPathEvaluator();
 }
 

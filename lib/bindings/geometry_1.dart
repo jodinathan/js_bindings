@@ -37,10 +37,10 @@ import '../manual.dart';
 @JS()
 class DOMPointReadOnly {
   external factory DOMPointReadOnly(
-      {/* double | NaN */ dynamic? x = 0,
-      /* double | NaN */ dynamic? y = 0,
-      /* double | NaN */ dynamic? z = 0,
-      /* double | NaN */ dynamic? w = 1});
+      {/* double | NaN */ dynamic x = 0,
+      /* double | NaN */ dynamic y = 0,
+      /* double | NaN */ dynamic z = 0,
+      /* double | NaN */ dynamic w = 1});
   external static dynamic fromPoint([DOMPointInit? other]);
 
   /// The point's horizontal coordinate, .
@@ -85,10 +85,10 @@ class DOMPointReadOnly {
 @JS()
 class DOMPoint extends DOMPointReadOnly {
   external factory DOMPoint(
-      {/* double | NaN */ dynamic? x = 0,
-      /* double | NaN */ dynamic? y = 0,
-      /* double | NaN */ dynamic? z = 0,
-      /* double | NaN */ dynamic? w = 1});
+      {/* double | NaN */ dynamic x = 0,
+      /* double | NaN */ dynamic y = 0,
+      /* double | NaN */ dynamic z = 0,
+      /* double | NaN */ dynamic w = 1});
   external static DOMPoint fromPoint([DOMPointInit? other]);
 
   /// The coordinate of the [DOMPoint].
@@ -170,10 +170,10 @@ class DOMPointInit {
 @JS()
 class DOMRectReadOnly {
   external factory DOMRectReadOnly(
-      {/* double | NaN */ dynamic? x = 0,
-      /* double | NaN */ dynamic? y = 0,
-      /* double | NaN */ dynamic? width = 0,
-      /* double | NaN */ dynamic? height = 0});
+      {/* double | NaN */ dynamic x = 0,
+      /* double | NaN */ dynamic y = 0,
+      /* double | NaN */ dynamic width = 0,
+      /* double | NaN */ dynamic height = 0});
   external static dynamic fromRect([DOMRectInit? other]);
 
   /// The x coordinate of the [DOMRect]'s origin.
@@ -224,10 +224,10 @@ class DOMRectReadOnly {
 @JS()
 class DOMRect extends DOMRectReadOnly {
   external factory DOMRect(
-      {/* double | NaN */ dynamic? x = 0,
-      /* double | NaN */ dynamic? y = 0,
-      /* double | NaN */ dynamic? width = 0,
-      /* double | NaN */ dynamic? height = 0});
+      {/* double | NaN */ dynamic x = 0,
+      /* double | NaN */ dynamic y = 0,
+      /* double | NaN */ dynamic width = 0,
+      /* double | NaN */ dynamic height = 0});
   external static DOMRect fromRect([DOMRectInit? other]);
 
   ///  The x coordinate of the [DOMRect]'s origin (typically the
@@ -348,7 +348,7 @@ class DOMQuadInit {
 /// some implementations doesn't allow it yet.
 @JS()
 class DOMMatrixReadOnly {
-  external factory DOMMatrixReadOnly({dynamic? init});
+  external factory DOMMatrixReadOnly({dynamic init});
   external static dynamic fromMatrix([DOMMatrixInit? other]);
   external static dynamic fromFloat32Array(Float32List array32);
   external static dynamic fromFloat64Array(Float64List array64);
@@ -439,9 +439,9 @@ class DOMMatrixReadOnly {
   ///
   /// DOMMatrix.translate(translateX, translateY[, translateZ])
   external DOMMatrix translate(
-      [/* double | NaN */ dynamic? tx = 0,
-      /* double | NaN */ dynamic? ty = 0,
-      /* double | NaN */ dynamic? tz = 0]);
+      [/* double | NaN */ dynamic tx = 0,
+      /* double | NaN */ dynamic ty = 0,
+      /* double | NaN */ dynamic tz = 0]);
 
   ///  Returns a new [DOMMatrix] created by scaling the source matrix
   /// by the amount specified for each axis, centered on the given
@@ -452,12 +452,12 @@ class DOMMatrixReadOnly {
   ///
   /// DOMMatrix.scale(scaleX[, scaleY][, scaleZ][, originX][, originY][, originZ])
   external DOMMatrix scale(
-      [/* double | NaN */ dynamic? scaleX = 1,
-      /* double | NaN */ dynamic? scaleY,
-      /* double | NaN */ dynamic? scaleZ = 1,
-      /* double | NaN */ dynamic? originX = 0,
-      /* double | NaN */ dynamic? originY = 0,
-      /* double | NaN */ dynamic? originZ = 0]);
+      [/* double | NaN */ dynamic scaleX = 1,
+      /* double | NaN */ dynamic scaleY,
+      /* double | NaN */ dynamic scaleZ = 1,
+      /* double | NaN */ dynamic originX = 0,
+      /* double | NaN */ dynamic originY = 0,
+      /* double | NaN */ dynamic originZ = 0]);
 
   ///  Returns a new [DOMMatrix] created by applying the specified
   /// scaling on the X, Y, and Z axes, centered at the given origin. By
@@ -466,51 +466,51 @@ class DOMMatrixReadOnly {
   /// [(0, 0, 0)]. The original matrix is not changed.
   @deprecated
   external DOMMatrix scaleNonUniform(
-      [/* double | NaN */ dynamic? scaleX = 1,
-      /* double | NaN */ dynamic? scaleY = 1]);
+      [/* double | NaN */ dynamic scaleX = 1,
+      /* double | NaN */ dynamic scaleY = 1]);
 
   ///  Returns a new [DOMMatrix] created by scaling the source 3D
   /// matrix by the given factor along all its axes, centered on the
   /// specified origin point. The default origin is [(0, 0, 0)]. The
   /// original matrix is not modified.
   external DOMMatrix scale3d(
-      [/* double | NaN */ dynamic? scale = 1,
-      /* double | NaN */ dynamic? originX = 0,
-      /* double | NaN */ dynamic? originY = 0,
-      /* double | NaN */ dynamic? originZ = 0]);
+      [/* double | NaN */ dynamic scale = 1,
+      /* double | NaN */ dynamic originX = 0,
+      /* double | NaN */ dynamic originY = 0,
+      /* double | NaN */ dynamic originZ = 0]);
 
   ///  Returns a new [DOMMatrix] created by rotating the source matrix
   /// around each of its axes by the specified number of degrees. The
   /// original matrix is not altered.
   external DOMMatrix rotate(
-      [/* double | NaN */ dynamic? rotX = 0,
-      /* double | NaN */ dynamic? rotY,
-      /* double | NaN */ dynamic? rotZ]);
+      [/* double | NaN */ dynamic rotX = 0,
+      /* double | NaN */ dynamic rotY,
+      /* double | NaN */ dynamic rotZ]);
 
   ///  Returns a new [DOMMatrix] created by rotating the source matrix
   /// by the angle between the specified vector and [(1, 0)]. The
   /// original matrix is not modified.
   external DOMMatrix rotateFromVector(
-      [/* double | NaN */ dynamic? x = 0, /* double | NaN */ dynamic? y = 0]);
+      [/* double | NaN */ dynamic x = 0, /* double | NaN */ dynamic y = 0]);
 
   ///  Returns a new [DOMMatrix] created by rotating the source matrix
   /// by the given angle around the specified vector. The original
   /// matrix is not modified.
   external DOMMatrix rotateAxisAngle(
-      [/* double | NaN */ dynamic? x = 0,
-      /* double | NaN */ dynamic? y = 0,
-      /* double | NaN */ dynamic? z = 0,
-      /* double | NaN */ dynamic? angle = 0]);
+      [/* double | NaN */ dynamic x = 0,
+      /* double | NaN */ dynamic y = 0,
+      /* double | NaN */ dynamic z = 0,
+      /* double | NaN */ dynamic angle = 0]);
 
   ///  Returns a new [DOMMatrix] created by applying the specified skew
   /// transformation to the source matrix along its X-axis. The
   /// original matrix is not modified.
-  external DOMMatrix skewX([/* double | NaN */ dynamic? sx = 0]);
+  external DOMMatrix skewX([/* double | NaN */ dynamic sx = 0]);
 
   ///  Returns a new [DOMMatrix] created by applying the specified skew
   /// transformation to the source matrix along its Y-axis. The
   /// original matrix is not modified.
-  external DOMMatrix skewY([/* double | NaN */ dynamic? sy = 0]);
+  external DOMMatrix skewY([/* double | NaN */ dynamic sy = 0]);
 
   ///  Returns a new [DOMMatrix] created by computing the dot product
   /// of the source matrix and the specified matrix: [A⋅B]. If no
@@ -584,7 +584,7 @@ class DOMMatrixReadOnly {
 @experimental
 @JS()
 class DOMMatrix extends DOMMatrixReadOnly {
-  external factory DOMMatrix({dynamic? init});
+  external factory DOMMatrix({dynamic init});
   external static DOMMatrix fromMatrix([DOMMatrixInit? other]);
   external static DOMMatrix fromFloat32Array(Float32List array32);
   external static DOMMatrix fromFloat64Array(Float64List array64);
@@ -737,57 +737,57 @@ class DOMMatrix extends DOMMatrixReadOnly {
   ///  Modifies the matrix by applying the specified vector. The
   /// default vector is [[0, 0, 0]]. Returns itself.
   external DOMMatrix translateSelf(
-      [/* double | NaN */ dynamic? tx = 0,
-      /* double | NaN */ dynamic? ty = 0,
-      /* double | NaN */ dynamic? tz = 0]);
+      [/* double | NaN */ dynamic tx = 0,
+      /* double | NaN */ dynamic ty = 0,
+      /* double | NaN */ dynamic tz = 0]);
 
   ///  Modifies the matrix by applying the specified scaling factors,
   /// with the center located at the specified origin. Also returns
   /// itself. By default, the scaling factor is [1] for all three axes,
   /// and the origin is [(0, 0, 0)]. Returns itself.
   external DOMMatrix scaleSelf(
-      [/* double | NaN */ dynamic? scaleX = 1,
-      /* double | NaN */ dynamic? scaleY,
-      /* double | NaN */ dynamic? scaleZ = 1,
-      /* double | NaN */ dynamic? originX = 0,
-      /* double | NaN */ dynamic? originY = 0,
-      /* double | NaN */ dynamic? originZ = 0]);
+      [/* double | NaN */ dynamic scaleX = 1,
+      /* double | NaN */ dynamic scaleY,
+      /* double | NaN */ dynamic scaleZ = 1,
+      /* double | NaN */ dynamic originX = 0,
+      /* double | NaN */ dynamic originY = 0,
+      /* double | NaN */ dynamic originZ = 0]);
 
   ///  Modifies the matrix by applying the specified scaling factor to
   /// all three axes, centered on the given origin. Returns itself.
   external DOMMatrix scale3dSelf(
-      [/* double | NaN */ dynamic? scale = 1,
-      /* double | NaN */ dynamic? originX = 0,
-      /* double | NaN */ dynamic? originY = 0,
-      /* double | NaN */ dynamic? originZ = 0]);
+      [/* double | NaN */ dynamic scale = 1,
+      /* double | NaN */ dynamic originX = 0,
+      /* double | NaN */ dynamic originY = 0,
+      /* double | NaN */ dynamic originZ = 0]);
 
   ///  Modifies the matrix by rotating itself around each axis by the
   /// specified number of degrees. Returns itself.
   external DOMMatrix rotateSelf(
-      [/* double | NaN */ dynamic? rotX = 0,
-      /* double | NaN */ dynamic? rotY,
-      /* double | NaN */ dynamic? rotZ]);
+      [/* double | NaN */ dynamic rotX = 0,
+      /* double | NaN */ dynamic rotY,
+      /* double | NaN */ dynamic rotZ]);
 
   ///  Modifies the matrix by rotating it by the angle between the
   /// specified vector and [(1, 0)]. Returns itself.
   external DOMMatrix rotateFromVectorSelf(
-      [/* double | NaN */ dynamic? x = 0, /* double | NaN */ dynamic? y = 0]);
+      [/* double | NaN */ dynamic x = 0, /* double | NaN */ dynamic y = 0]);
 
   ///  Modifies the matrix by rotating it by the specified angle around
   /// the given vector. Returns itself.
   external DOMMatrix rotateAxisAngleSelf(
-      [/* double | NaN */ dynamic? x = 0,
-      /* double | NaN */ dynamic? y = 0,
-      /* double | NaN */ dynamic? z = 0,
-      /* double | NaN */ dynamic? angle = 0]);
+      [/* double | NaN */ dynamic x = 0,
+      /* double | NaN */ dynamic y = 0,
+      /* double | NaN */ dynamic z = 0,
+      /* double | NaN */ dynamic angle = 0]);
 
   ///  Modifies the matrix by applying the specified skew
   /// transformation along the X-axis. Returns itself.
-  external DOMMatrix skewXSelf([/* double | NaN */ dynamic? sx = 0]);
+  external DOMMatrix skewXSelf([/* double | NaN */ dynamic sx = 0]);
 
   ///  Modifies the matrix by applying the specified skew
   /// transformation along the Y-axis. Returns itself.
-  external DOMMatrix skewYSelf([/* double | NaN */ dynamic? sy = 0]);
+  external DOMMatrix skewYSelf([/* double | NaN */ dynamic sy = 0]);
 
   ///  Modifies the matrix by inverting it. If the matrix can't be
   /// inverted, its components are all set to [NaN], and [is2D] returns

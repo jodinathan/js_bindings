@@ -11,7 +11,7 @@ import '../manual.dart';
 import 'html.dart';
 
 @JS()
-abstract class NavigatorBadge {
+mixin NavigatorBadge {
   external Promise<Object> setAppBadge([int? contents]);
   external Promise<Object> clearAppBadge();
 }

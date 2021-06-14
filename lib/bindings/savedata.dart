@@ -10,6 +10,6 @@ import 'callbacks.dart';
 import '../manual.dart';
 
 @JS()
-abstract class NetworkInformationSaveData {
+mixin NetworkInformationSaveData {
   external bool get saveData;
 }

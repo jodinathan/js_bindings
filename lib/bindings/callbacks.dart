@@ -268,7 +268,7 @@ typedef UnderlyingSourceStartCallback = Function(dynamic controller);
 
 typedef UnderlyingSourcePullCallback = Function(dynamic controller);
 
-typedef UnderlyingSourceCancelCallback = Function([dynamic? reason]);
+typedef UnderlyingSourceCancelCallback = Function([dynamic reason]);
 
 typedef UnderlyingSinkStartCallback = Function(
     WritableStreamDefaultController controller);
@@ -278,7 +278,7 @@ typedef UnderlyingSinkWriteCallback = Function(
 
 typedef UnderlyingSinkCloseCallback = Function();
 
-typedef UnderlyingSinkAbortCallback = Function([dynamic? reason]);
+typedef UnderlyingSinkAbortCallback = Function([dynamic reason]);
 
 typedef TransformerStartCallback = Function(
     TransformStreamDefaultController controller);
@@ -289,7 +289,7 @@ typedef TransformerFlushCallback = Function(
 typedef TransformerTransformCallback = Function(
     dynamic chunk, TransformStreamDefaultController controller);
 
-typedef QueuingStrategySize = Function([dynamic? chunk]);
+typedef QueuingStrategySize = Function([dynamic chunk]);
 
 typedef SchedulerPostTaskCallback = Function();
 
@@ -368,7 +368,7 @@ typedef NotificationPermissionCallback = Function(
     NotificationPermission permission);
 
 typedef AnimatorInstanceConstructor = Function(dynamic options,
-    [dynamic? state]);
+    [dynamic state]);
 
 typedef ResizeObserverCallback = Function(
     Iterable<ResizeObserverEntry> entries, ResizeObserver observer);
@@ -387,7 +387,7 @@ typedef FunctionStringCallback = Function(String data);
 typedef EventHandlerNonNull = Function(Event event);
 
 typedef OnErrorEventHandlerNonNull = Function(dynamic event,
-    [String? source, int? lineno, int? colno, dynamic? error]);
+    [String? source, int? lineno, int? colno, dynamic error]);
 
 typedef OnBeforeUnloadEventHandlerNonNull = Function(Event event);
 

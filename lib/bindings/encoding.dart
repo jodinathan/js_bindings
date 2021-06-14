@@ -9,9 +9,11 @@ import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'callbacks.dart';
 import '../manual.dart';
+import 'encoding.dart';
+import 'streams.dart';
 
 @JS()
-abstract class TextDecoderCommon {
+mixin TextDecoderCommon {
   external String get encoding;
   external bool get fatal;
   external bool get ignoreBOM;
@@ -48,7 +50,7 @@ class TextDecodeOptions {
 ///
 @experimental
 @JS()
-class TextDecoder {
+class TextDecoder with TextDecoderCommon {
   external factory TextDecoder(
       {String? label = 'utf-8', TextDecoderOptions? options});
 
@@ -72,11 +74,11 @@ class TextDecoder {
   /// document.getElementById('decoded-value').textContent = str;
   /// ```
   ///
-  external String decode([dynamic? input, TextDecodeOptions? options]);
+  external String decode([dynamic input, TextDecodeOptions? options]);
 }
 
 @JS()
-abstract class TextEncoderCommon {
+mixin TextEncoderCommon {
   external String get encoding;
 }
 
@@ -99,7 +101,7 @@ class TextEncoderEncodeIntoResult {
 ///
 @experimental
 @JS()
-class TextEncoder {
+class TextEncoder with TextEncoderCommon {
   external factory TextEncoder();
 
   ///  Takes a [USVString] as input, and returns a [Uint8Array]
@@ -124,7 +126,7 @@ class TextEncoder {
 /// into bytes in the UTF-8 encoding. It is the streaming equivalent
 /// of [TextDecoder].
 @JS()
-class TextDecoderStream {
+class TextDecoderStream with TextDecoderCommon, GenericTransformStream {
   external factory TextDecoderStream(
       {String? label = 'utf-8', TextDecoderOptions? options});
 }
@@ -135,6 +137,6 @@ class TextDecoderStream {
 /// into bytes in the UTF-8 encoding. It is the streaming equivalent
 /// of [TextEncoder].
 @JS()
-class TextEncoderStream {
+class TextEncoderStream with TextEncoderCommon, GenericTransformStream {
   external factory TextEncoderStream();
 }

@@ -362,8 +362,6 @@ class EffectTiming {
   /// ["linear"].
   external String get easing;
   external set easing(String newValue);
-  external double get playbackRate;
-  external set playbackRate(double newValue);
 
   external factory EffectTiming(
       {double delay = 0,
@@ -373,8 +371,7 @@ class EffectTiming {
       /* double | NaN */ dynamic iterations = 1.0,
       dynamic duration,
       PlaybackDirection direction = PlaybackDirection.normal,
-      String easing = 'linear',
-      double playbackRate = 1.0});
+      String easing = 'linear'});
 }
 
 @anonymous
@@ -396,8 +393,6 @@ class OptionalEffectTiming {
   external set direction(PlaybackDirection newValue);
   external String get easing;
   external set easing(String newValue);
-  external double get playbackRate;
-  external set playbackRate(double newValue);
 
   external factory OptionalEffectTiming(
       {double delay,
@@ -407,8 +402,7 @@ class OptionalEffectTiming {
       /* double | NaN */ dynamic iterations,
       dynamic duration,
       PlaybackDirection direction,
-      String easing,
-      double playbackRate});
+      String easing});
 }
 
 @JS()
@@ -436,16 +430,13 @@ class ComputedEffectTiming extends EffectTiming {
   external set progress(double? newValue);
   external /* double | NaN */ dynamic? get currentIteration;
   external set currentIteration(/* double | NaN */ dynamic? newValue);
-  external double get startTime;
-  external set startTime(double newValue);
 
   external factory ComputedEffectTiming(
       {/* double | NaN */ dynamic endTime,
       /* double | NaN */ dynamic activeDuration,
       double? localTime,
       double? progress,
-      /* double | NaN */ dynamic? currentIteration,
-      double startTime});
+      /* double | NaN */ dynamic? currentIteration});
 }
 
 ///
@@ -459,7 +450,7 @@ class ComputedEffectTiming extends EffectTiming {
 @JS()
 class KeyframeEffect extends AnimationEffect {
   external factory KeyframeEffect(
-      {Element? target, dynamic keyframes, dynamic? options});
+      {Element? target, dynamic keyframes, dynamic options});
 
   ///  Gets and sets the element, or originating element of the
   /// pseudo-element, being animated by this object. This may be [null]
@@ -588,14 +579,10 @@ class KeyframeEffectOptions extends EffectTiming {
   @experimental
   external String? get pseudoElement;
   external set pseudoElement(String? newValue);
-  external IterationCompositeOperation get iterationComposite;
-  external set iterationComposite(IterationCompositeOperation newValue);
 
   external factory KeyframeEffectOptions(
       {CompositeOperation composite = CompositeOperation.replace,
-      String? pseudoElement,
-      IterationCompositeOperation iterationComposite =
-          IterationCompositeOperation.replace});
+      String? pseudoElement});
 }
 
 @JS()
@@ -605,8 +592,8 @@ enum CompositeOperation { replace, add, accumulate }
 enum CompositeOperationOrAuto { replace, add, accumulate, auto }
 
 @JS()
-abstract class Animatable {
-  external Animation animate(dynamic keyframes, [dynamic? options]);
+mixin Animatable {
+  external Animation animate(dynamic keyframes, [dynamic options]);
   external Iterable<Animation> getAnimations([GetAnimationsOptions? options]);
 }
 

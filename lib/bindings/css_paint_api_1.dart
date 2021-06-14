@@ -8,8 +8,8 @@ import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'cssom_1.dart';
 import 'html.dart';
+import 'cssom_1.dart';
 
 @JS()
 class PaintWorkletGlobalScope extends WorkletGlobalScope {
@@ -29,7 +29,19 @@ class PaintRenderingContext2DSettings {
 }
 
 @JS()
-class PaintRenderingContext2D {
+class PaintRenderingContext2D
+    with
+        CanvasState,
+        CanvasTransform,
+        CanvasCompositing,
+        CanvasImageSmoothing,
+        CanvasFillStrokeStyles,
+        CanvasShadowStyles,
+        CanvasRect,
+        CanvasDrawPath,
+        CanvasDrawImage,
+        CanvasPathDrawingStyles,
+        CanvasPath {
   external factory PaintRenderingContext2D();
 }
 

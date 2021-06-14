@@ -9,9 +9,9 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'savedata.dart';
 import 'dom.dart';
 import 'html.dart';
-import 'savedata.dart';
 
 @JS()
 enum ConnectionType {
@@ -39,7 +39,7 @@ enum EffectiveConnectionType {
 }
 
 @JS()
-abstract class NavigatorNetworkInformation {
+mixin NavigatorNetworkInformation {
   external NetworkInformation get connection;
 }
 
@@ -57,7 +57,7 @@ abstract class NavigatorNetworkInformation {
 ///
 @experimental
 @JS()
-class NetworkInformation extends EventTarget {
+class NetworkInformation extends EventTarget with NetworkInformationSaveData {
   ///  Returns the type of connection a device is using to communicate
   /// with the network. It will be one of the following values:
   ///

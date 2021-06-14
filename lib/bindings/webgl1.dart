@@ -8,6 +8,7 @@ import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'webgl1.dart';
 import 'html.dart';
 import 'dom.dart';
 
@@ -42,8 +43,6 @@ class WebGLContextAttributes {
   external set failIfMajorPerformanceCaveat(bool newValue);
   external bool get desynchronized;
   external set desynchronized(bool newValue);
-  external bool get xrCompatible;
-  external set xrCompatible(bool newValue);
 
   external factory WebGLContextAttributes(
       {bool alpha = true,
@@ -54,8 +53,7 @@ class WebGLContextAttributes {
       bool preserveDrawingBuffer = false,
       WebGLPowerPreference powerPreference = WebGLPowerPreference.valueDefault,
       bool failIfMajorPerformanceCaveat = false,
-      bool desynchronized = false,
-      bool xrCompatible = false});
+      bool desynchronized = false});
 }
 
 @JS()
@@ -196,7 +194,7 @@ class WebGLShaderPrecisionFormat {
 }
 
 @JS()
-abstract class WebGLRenderingContextBase {
+mixin WebGLRenderingContextBase {
   external static int get DEPTH_BUFFER_BIT;
   external static int get STENCIL_BUFFER_BIT;
   external static int get COLOR_BUFFER_BIT;
@@ -661,7 +659,7 @@ abstract class WebGLRenderingContextBase {
 }
 
 @JS()
-abstract class WebGLRenderingContextOverloads {
+mixin WebGLRenderingContextOverloads {
   external Object bufferData(int target, int size, int usage);
   external Object bufferSubData(int target, int offset, dynamic data);
   external Object compressedTexImage2D(int target, int level,
@@ -670,10 +668,12 @@ abstract class WebGLRenderingContextOverloads {
       int yoffset, int width, int height, int format, dynamic data);
   external Object readPixels(int x, int y, int width, int height, int format,
       int type, dynamic pixels);
-  external Object texImage2D(int target, int level, int internalformat,
-      int width, int height, int border, int format, int type, dynamic pixels);
-  external Object texSubImage2D(int target, int level, int xoffset, int yoffset,
-      int width, int height, int format, int type, dynamic pixels);
+  external Object texImage2D(
+      int target, int level, int internalformat, int width, int height,
+      [int? border, int format, int type, dynamic pixels]);
+  external Object texSubImage2D(
+      int target, int level, int xoffset, int yoffset, int width, int height,
+      [int? format, int type, dynamic pixels]);
   external Object uniform1fv(WebGLUniformLocation? location, dynamic v);
   external Object uniform2fv(WebGLUniformLocation? location, dynamic v);
   external Object uniform3fv(WebGLUniformLocation? location, dynamic v);
@@ -712,7 +712,8 @@ abstract class WebGLRenderingContextOverloads {
 /// implementation of OpenGL ES 3.0 graphics.
 ///
 @JS()
-class WebGLRenderingContext {
+class WebGLRenderingContext
+    with WebGLRenderingContextBase, WebGLRenderingContextOverloads {
   external factory WebGLRenderingContext();
 }
 

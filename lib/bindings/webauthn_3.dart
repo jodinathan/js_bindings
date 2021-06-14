@@ -349,45 +349,13 @@ class PublicKeyCredentialRequestOptions {
 @anonymous
 @JS()
 class AuthenticationExtensionsClientInputs {
-  external String get appid;
-  external set appid(String newValue);
-  external String get appidExclude;
-  external set appidExclude(String newValue);
-  external bool get uvm;
-  external set uvm(bool newValue);
-  external bool get credProps;
-  external set credProps(bool newValue);
-  external AuthenticationExtensionsLargeBlobInputs get largeBlob;
-  external set largeBlob(AuthenticationExtensionsLargeBlobInputs newValue);
-
-  external factory AuthenticationExtensionsClientInputs(
-      {String appid,
-      String appidExclude,
-      bool uvm,
-      bool credProps,
-      AuthenticationExtensionsLargeBlobInputs largeBlob});
+  external factory AuthenticationExtensionsClientInputs();
 }
 
 @anonymous
 @JS()
 class AuthenticationExtensionsClientOutputs {
-  external bool get appid;
-  external set appid(bool newValue);
-  external bool get appidExclude;
-  external set appidExclude(bool newValue);
-  external Iterable<Iterable<int>> get uvm;
-  external set uvm(Iterable<Iterable<int>> newValue);
-  external CredentialPropertiesOutput get credProps;
-  external set credProps(CredentialPropertiesOutput newValue);
-  external AuthenticationExtensionsLargeBlobOutputs get largeBlob;
-  external set largeBlob(AuthenticationExtensionsLargeBlobOutputs newValue);
-
-  external factory AuthenticationExtensionsClientOutputs(
-      {bool appid,
-      bool appidExclude,
-      Iterable<Iterable<int>> uvm,
-      CredentialPropertiesOutput credProps,
-      AuthenticationExtensionsLargeBlobOutputs largeBlob});
+  external factory AuthenticationExtensionsClientOutputs();
 }
 
 @anonymous

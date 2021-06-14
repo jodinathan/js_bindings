@@ -139,7 +139,7 @@ class BackgroundFetchRegistration extends EventTarget {
   /// responses.
   /// let records = BackgroundFetchRegistration.matchAll(request,options);
   external Iterable<Promise<BackgroundFetchRecord>> matchAll(
-      [dynamic? request, CacheQueryOptions? options]);
+      [dynamic request, CacheQueryOptions? options]);
 
   external factory BackgroundFetchRegistration();
 }

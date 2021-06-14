@@ -284,7 +284,7 @@ class ConvertCoordinateOptions {
 }
 
 @JS()
-abstract class GeometryUtils {
+mixin GeometryUtils {
   external Iterable<DOMQuad> getBoxQuads([BoxQuadOptions? options]);
   external DOMQuad convertQuadFromNode(DOMQuadInit quad, dynamic from,
       [ConvertCoordinateOptions? options]);

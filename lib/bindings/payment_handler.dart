@@ -169,7 +169,7 @@ class PaymentRequestEvent extends ExtendableEvent {
   external Promise<WindowClient> openWindow(String url);
   external Promise<PaymentRequestDetailsUpdate> changePaymentMethod(
       String methodName,
-      [dynamic? methodDetails]);
+      [dynamic methodDetails]);
 
   ///  Prevents the default event handling and allows you to provide a
   /// [Promise] for a [PaymentResponse] object yourself.

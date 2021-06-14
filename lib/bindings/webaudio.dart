@@ -1150,7 +1150,7 @@ class AudioTimestamp {
 @JS()
 class OfflineAudioContext extends BaseAudioContext {
   external factory OfflineAudioContext(
-      {int numberOfChannels, int length, double sampleRate});
+      {int? numberOfChannels, int length, double sampleRate});
 
   ///  Starts rendering the audio, taking into account the current
   /// connections and the current scheduled changes. This page covers
@@ -1472,7 +1472,8 @@ class AudioNode extends EventTarget {
   ///
   /// gainNode.disconnect();
   ///
-  external Object disconnect(AudioNode destinationNode, int output, int input);
+  external Object disconnect(
+      [AudioNode? destinationNode, int output, int input]);
 
   ///  Returns the associated [BaseAudioContext], that is the object
   /// representing the processing graph the node is participating in.

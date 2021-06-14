@@ -9,8 +9,8 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
 import 'html.dart';
+import 'dom.dart';
 import 'page_visibility_2.dart';
 import 'fetch.dart';
 import 'content_index.dart';
@@ -42,7 +42,7 @@ import 'background_sync.dart';
 /// [fetch]. A object has an associated [ServiceWorker.state],
 /// related to its lifecycle.
 @JS()
-class ServiceWorker extends EventTarget {
+class ServiceWorker extends EventTarget with AbstractWorker {
   ///  Returns the [ServiceWorker] serialized script URL defined as
   /// part of [ServiceWorkerRegistration]. The URL must be on the same
   /// origin as the document that registers the [ServiceWorker].
@@ -727,13 +727,13 @@ class ExtendableMessageEventInit extends ExtendableEventInit {
 class Cache {
   external dynamic match(dynamic request, [CacheQueryOptions? options]);
   external Iterable<Promise<Response>> matchAll(
-      [dynamic? request, CacheQueryOptions? options]);
+      [dynamic request, CacheQueryOptions? options]);
   external Promise<Object> add(dynamic request);
   external Promise<Object> addAll(Iterable<dynamic> requests);
   external Promise<Object> put(dynamic request, Response response);
   external Promise<bool> delete(dynamic request, [CacheQueryOptions? options]);
   external Iterable<Promise<Request>> keys(
-      [dynamic? request, CacheQueryOptions? options]);
+      [dynamic request, CacheQueryOptions? options]);
 
   external factory Cache();
 }

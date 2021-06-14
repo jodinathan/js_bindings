@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'credential_management_1.dart';
 import 'html.dart';
 import 'dom.dart';
 import 'webauthn_3.dart';
@@ -47,7 +48,7 @@ class Credential {
 }
 
 @JS()
-abstract class CredentialUserData {
+mixin CredentialUserData {
   external String get name;
   external String get iconURL;
 }
@@ -113,23 +114,11 @@ class CredentialRequestOptions {
   external set mediation(CredentialMediationRequirement newValue);
   external AbortSignal get signal;
   external set signal(AbortSignal newValue);
-  external bool get password;
-  external set password(bool newValue);
-  external FederatedCredentialRequestOptions get federated;
-  external set federated(FederatedCredentialRequestOptions newValue);
-  external PublicKeyCredentialRequestOptions get publicKey;
-  external set publicKey(PublicKeyCredentialRequestOptions newValue);
-  external OTPCredentialRequestOptions get otp;
-  external set otp(OTPCredentialRequestOptions newValue);
 
   external factory CredentialRequestOptions(
       {CredentialMediationRequirement mediation =
           CredentialMediationRequirement.optional,
-      AbortSignal signal,
-      bool password = false,
-      FederatedCredentialRequestOptions federated,
-      PublicKeyCredentialRequestOptions publicKey,
-      OTPCredentialRequestOptions otp});
+      AbortSignal signal});
 }
 
 @JS()
@@ -145,18 +134,8 @@ enum CredentialMediationRequirement {
 class CredentialCreationOptions {
   external AbortSignal get signal;
   external set signal(AbortSignal newValue);
-  external dynamic get password;
-  external set password(dynamic newValue);
-  external FederatedCredentialInit get federated;
-  external set federated(FederatedCredentialInit newValue);
-  external PublicKeyCredentialCreationOptions get publicKey;
-  external set publicKey(PublicKeyCredentialCreationOptions newValue);
 
-  external factory CredentialCreationOptions(
-      {AbortSignal signal,
-      dynamic password,
-      FederatedCredentialInit federated,
-      PublicKeyCredentialCreationOptions publicKey});
+  external factory CredentialCreationOptions({AbortSignal signal});
 }
 
 ///
@@ -175,7 +154,7 @@ class CredentialCreationOptions {
 /// cannot be used from an [<iframe>].
 ///
 @JS()
-class PasswordCredential extends Credential {
+class PasswordCredential extends Credential with CredentialUserData {
   external factory PasswordCredential({HTMLFormElement form});
 
   /// A [USVString] containing the password of the credential.
@@ -213,7 +192,7 @@ class PasswordCredentialData extends CredentialData {
 /// be passed in the [credential] member of the [init] object for
 /// global [WindowOrWorkerGlobalScope.fetch].
 @JS()
-class FederatedCredential extends Credential {
+class FederatedCredential extends Credential with CredentialUserData {
   external factory FederatedCredential({FederatedCredentialInit data});
 
   ///  Returns a [USVString] containing a credential's federated

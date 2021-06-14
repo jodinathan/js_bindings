@@ -30,7 +30,7 @@ class NamedFlow extends EventTarget {
 }
 
 @JS()
-abstract class Region {
+mixin Region {
   external String get regionOverset;
   external Iterable<Range> getRegionFlowRanges();
 }

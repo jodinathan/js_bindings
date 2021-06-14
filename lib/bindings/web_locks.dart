@@ -12,7 +12,7 @@ import '../manual.dart';
 import 'dom.dart';
 
 @JS()
-abstract class NavigatorLocks {
+mixin NavigatorLocks {
   external LockManager get locks;
 }
 
@@ -29,8 +29,8 @@ class LockManager {
   ///  Requests a [Lock] object with parameters specifying its name and
   /// characteristics.
   /// LockManager.request(var promise = name[, {options}], callback)
-  external Promise<dynamic> request(
-      String name, LockOptions options, LockGrantedCallback callback);
+  external Promise<dynamic> request(String name,
+      [LockOptions? options, LockGrantedCallback callback]);
 
   ///  Returns a [Promise] that resolves with a [LockManagerSnapshot]
   /// which contains information about held and pending locks.

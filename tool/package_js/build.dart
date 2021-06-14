@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:dart_style/dart_style.dart';
 import 'package:recase/recase.dart';
 import 'package:collection/collection.dart';
-import 'dart:convert' as conv;
 
 import '../base.dart';
 
@@ -72,6 +71,8 @@ Future<void> main() async {
     }
 
     if (objs != null) {
+      final deps = <String>{};
+
       for (final name in objs.keys) {
         final item = objs[name] as Map<String, dynamic>;
         final members = item['members'] as Iterable?;
@@ -123,12 +124,12 @@ Future<void> main() async {
           case 'namespace':
           case 'callback interface':
             final inherits = item['inheritance'];
-            final inheritance = inherits == null ? '' :
-              ' extends $inherits';
             final doc = spec.makeDoc(item['desc']);
             final abstract = item['abstract'] == true ?
                 'abstract ' : '';
             dynamic parent;
+            final mixin = type == 'interface mixin';
+            var inheritance = inherits == null ? '' : 'extends $inherits ';
 
             if (inherits != null) {
               parent = spec.objects.values.firstWhereOrNull(
@@ -149,9 +150,25 @@ Future<void> main() async {
               lines.add('@anonymous');
             }
 
+            final mixins = item['mixins'] as Map<String, dynamic>;
+
+            if (mixins.isNotEmpty) {
+              final glue = mixin ? 'on' : 'with';
+              final exts = (mixins.values as Iterable<Set<String>>)
+                  .reduce((val, el) => val..addAll(el));
+
+              if (exts.isNotEmpty) {
+                print('Adding mixins($glue) to the dep $name $exts.\n'
+                    'Current: $deps');
+                deps.addAll(mixins.keys);
+
+                inheritance += '$glue ${exts.join(', ')}';
+              }
+            }
+
             lines.add('''
             @JS()
-            $abstract class $name $inheritance {
+            ${mixin ? 'mixin' : '$abstract class'} $name $inheritance {
             ''');
 
             if (members != null) {
@@ -353,7 +370,8 @@ Future<void> main() async {
 
       final depList = map['idlparsed']['externalDependencies'] as Iterable?
       ?? [];
-      final deps = depList.fold<List<String>>([], (val, dep) {
+
+      deps.addAll(depList.fold<List<String>>([], (val, dep) {
         final item = group.specs.firstWhereOrNull(
                 (item) => (item.json['idlparsed']?['idlNames'] as Map?)?[dep] != null);
 
@@ -361,7 +379,7 @@ Future<void> main() async {
           val.add(item.libraryName);
         }
         return val;
-      }).toSet();
+      }).toSet());
 
       for (final dspec in group.specs.toList()) {
         final idldeps = dspec.json['idlparsed']['dependencies'] as Map<String, dynamic>?;

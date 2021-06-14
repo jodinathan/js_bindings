@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'callbacks.dart';
 import '../manual.dart';
+import 'fetch.dart';
 import 'file_a_p_i.dart';
 import 'xhr.dart';
 import 'url.dart';
@@ -51,7 +52,7 @@ import 'html.dart';
 @experimental
 @JS()
 class Headers {
-  external factory Headers({dynamic? init});
+  external factory Headers({dynamic init});
 
   ///  Appends a new value onto an existing header inside a [Headers]
   /// object, or adds the header if it does not already exist.
@@ -174,7 +175,7 @@ class Headers {
 /// sequence).
 @experimental
 @JS()
-abstract class Body {
+mixin Body {
   ///  A simple getter used to expose a [ReadableStream] of the body
   /// contents.
   external ReadableStream? get body;
@@ -315,7 +316,7 @@ abstract class Body {
 /// the result of another API operation, such as a service worker
 /// [FetchEvent.request].
 @JS()
-class Request {
+class Request with Body {
   external factory Request({dynamic input, RequestInit? init});
 
   /// Contains the request's method ([GET], [POST], etc.)
@@ -491,8 +492,8 @@ enum RequestRedirect { follow, error, manual }
 /// [WindowOrWorkerGlobalScope.fetch()].
 @experimental
 @JS()
-class Response {
-  external factory Response({dynamic? body, ResponseInit? init});
+class Response with Body {
+  external factory Response({dynamic body, ResponseInit? init});
 
   /// Returns a new [Response] object associated with a network error.
   /// var errorResponse = Response.error();

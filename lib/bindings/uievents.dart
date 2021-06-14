@@ -52,16 +52,8 @@ class UIEventInit extends EventInit {
   external set view(Window? newValue);
   external int get detail;
   external set detail(int newValue);
-  external InputDeviceCapabilities? get sourceCapabilities;
-  external set sourceCapabilities(InputDeviceCapabilities? newValue);
-  external int get which;
-  external set which(int newValue);
 
-  external factory UIEventInit(
-      {Window? view,
-      int detail = 0,
-      InputDeviceCapabilities? sourceCapabilities,
-      int which = 0});
+  external factory UIEventInit({Window? view, int detail = 0});
 }
 
 ///
@@ -185,35 +177,29 @@ class MouseEvent extends UIEvent {
 @anonymous
 @JS()
 class MouseEventInit extends EventModifierInit {
-  external dynamic get screenX;
-  external set screenX(dynamic newValue);
-  external dynamic get screenY;
-  external set screenY(dynamic newValue);
-  external dynamic get clientX;
-  external set clientX(dynamic newValue);
-  external dynamic get clientY;
-  external set clientY(dynamic newValue);
+  external int get screenX;
+  external set screenX(int newValue);
+  external int get screenY;
+  external set screenY(int newValue);
+  external int get clientX;
+  external set clientX(int newValue);
+  external int get clientY;
+  external set clientY(int newValue);
   external int get button;
   external set button(int newValue);
   external int get buttons;
   external set buttons(int newValue);
   external EventTarget? get relatedTarget;
   external set relatedTarget(EventTarget? newValue);
-  external int get movementX;
-  external set movementX(int newValue);
-  external int get movementY;
-  external set movementY(int newValue);
 
   external factory MouseEventInit(
-      {dynamic screenX = 0,
-      dynamic screenY = 0,
-      dynamic clientX = 0,
-      dynamic clientY = 0,
+      {int screenX = 0,
+      int screenY = 0,
+      int clientX = 0,
+      int clientY = 0,
       int button = 0,
       int buttons = 0,
-      EventTarget? relatedTarget,
-      int movementX = 0,
-      int movementY = 0});
+      EventTarget? relatedTarget});
 }
 
 @anonymous
@@ -391,17 +377,9 @@ class InputEventInit extends UIEventInit {
   external set isComposing(bool newValue);
   external String get inputType;
   external set inputType(String newValue);
-  external DataTransfer? get dataTransfer;
-  external set dataTransfer(DataTransfer? newValue);
-  external Iterable<StaticRange> get targetRanges;
-  external set targetRanges(Iterable<StaticRange> newValue);
 
   external factory InputEventInit(
-      {String? data,
-      bool isComposing = false,
-      String inputType = '',
-      DataTransfer? dataTransfer,
-      Iterable<StaticRange> targetRanges = const []});
+      {String? data, bool isComposing = false, String inputType = ''});
 }
 
 ///
@@ -575,19 +553,13 @@ class KeyboardEventInit extends EventModifierInit {
   external set repeat(bool newValue);
   external bool get isComposing;
   external set isComposing(bool newValue);
-  external int get charCode;
-  external set charCode(int newValue);
-  external int get keyCode;
-  external set keyCode(int newValue);
 
   external factory KeyboardEventInit(
       {String key = '',
       String code = '',
       int location = 0,
       bool repeat = false,
-      bool isComposing = false,
-      int charCode = 0,
-      int keyCode = 0});
+      bool isComposing = false});
 }
 
 ///

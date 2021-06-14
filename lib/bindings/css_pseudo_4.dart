@@ -9,8 +9,8 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
 import 'cssom_view_1.dart';
+import 'dom.dart';
 
 ///
 ///   Experimental
@@ -21,7 +21,7 @@ import 'cssom_view_1.dart';
 /// of this interface may be obtained by calling [Element.pseudo()].
 @experimental
 @JS()
-class CSSPseudoElement extends EventTarget {
+class CSSPseudoElement extends EventTarget with GeometryUtils {
   /// Returns the pseudo-element selector as a [CSSOMString].
   @experimental
   external String get type;

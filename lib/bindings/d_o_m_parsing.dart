@@ -53,7 +53,7 @@ class XMLSerializer {
 }
 
 @JS()
-abstract class InnerHTML {
+mixin InnerHTML {
   external String get innerHTML;
   external set innerHTML(String newValue);
 }

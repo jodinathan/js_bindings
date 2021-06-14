@@ -156,7 +156,7 @@ class StyleSheetList {
 /// it is implemented by [HTMLLinkElement] and [HTMLStyleElement]
 /// objects.
 @JS()
-abstract class LinkStyle {
+mixin LinkStyle {
   ///  Returns the [CSSStyleSheet] object associated with the given
   /// element, or [null] if there is none.
   external CSSStyleSheet? get sheet;
@@ -398,7 +398,7 @@ class CSSStyleDeclaration {
 /// an object of type .
 ///
 @JS()
-abstract class ElementCSSInlineStyle {
+mixin ElementCSSInlineStyle {
   external CSSStyleDeclaration get style;
   external StylePropertyMap get attributeStyleMap;
 }
@@ -411,59 +411,4 @@ abstract class ElementCSSInlineStyle {
 @JS()
 abstract class CSS {
   external String escape(String ident);
-  external CSSUnitValue number(double value);
-  external CSSUnitValue percent(double value);
-  external CSSUnitValue em(double value);
-  external CSSUnitValue ex(double value);
-  external CSSUnitValue ch(double value);
-  external CSSUnitValue ic(double value);
-  external CSSUnitValue rem(double value);
-  external CSSUnitValue lh(double value);
-  external CSSUnitValue rlh(double value);
-  external CSSUnitValue vw(double value);
-  external CSSUnitValue vh(double value);
-  external CSSUnitValue vi(double value);
-  external CSSUnitValue vb(double value);
-  external CSSUnitValue vmin(double value);
-  external CSSUnitValue vmax(double value);
-  external CSSUnitValue cm(double value);
-  external CSSUnitValue mm(double value);
-  external CSSUnitValue Q(double value);
-  @JS('in')
-  external CSSUnitValue mIn(double value);
-  external CSSUnitValue pt(double value);
-  external CSSUnitValue pc(double value);
-  external CSSUnitValue px(double value);
-  external CSSUnitValue deg(double value);
-  external CSSUnitValue grad(double value);
-  external CSSUnitValue rad(double value);
-  external CSSUnitValue turn(double value);
-  external CSSUnitValue s(double value);
-  external CSSUnitValue ms(double value);
-  external CSSUnitValue Hz(double value);
-  external CSSUnitValue kHz(double value);
-  external CSSUnitValue dpi(double value);
-  external CSSUnitValue dpcm(double value);
-  external CSSUnitValue dppx(double value);
-  external CSSUnitValue fr(double value);
-  external HighlightRegistry get highlights;
-  external dynamic get elementSources;
-  external Worklet get paintWorklet;
-  external bool supports(String property, String value);
-  external Worklet get animationWorklet;
-  external Object registerProperty(PropertyDefinition definition);
-  external Iterable<Promise<CSSParserRule>> parseStylesheet(dynamic css,
-      [CSSParserOptions? options]);
-  external Iterable<Promise<CSSParserRule>> parseRuleList(dynamic css,
-      [CSSParserOptions? options]);
-  external Promise<CSSParserRule> parseRule(dynamic css,
-      [CSSParserOptions? options]);
-  external Iterable<Promise<CSSParserRule>> parseDeclarationList(dynamic css,
-      [CSSParserOptions? options]);
-  external CSSParserDeclaration parseDeclaration(String css,
-      [CSSParserOptions? options]);
-  external dynamic parseValue(String css);
-  external Iterable<dynamic> parseValueList(String css);
-  external Iterable<Iterable<dynamic>> parseCommaValueList(String css);
-  external Worklet get layoutWorklet;
 }
