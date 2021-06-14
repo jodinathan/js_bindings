@@ -54,8 +54,6 @@ class StringCrawler {
   String? enclosed(String open, String close) {
     final p = _buffer.indexOf(open, _point);
 
-    print('StartingEnclosed $open, $close');
-
     if (p >= 0) {
       var count = 1;
       var olen = open.length;
@@ -69,7 +67,6 @@ class StringCrawler {
         final e = _buffer.indexOf(close, _point);
 
         if (e >= 0) {
-          print('FinalEnclosed p: $p, e: $e');
           if (p > -1 && p < e) {
             _point = e + clen;
             continue;

@@ -10,5 +10,5 @@ build/
 pubspec.lock
 
 tool/crawler/mdn
-tool/crawler/webIDL
+tool/webIDL
 tool/crawler/mdn.zip

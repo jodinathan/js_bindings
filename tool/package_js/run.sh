@@ -1,0 +1,1 @@
+dart --enable-asserts build.dart

@@ -1,60 +1,15 @@
 import 'package:http/http.dart' as http;
 import 'package:pedantic/pedantic.dart';
 import 'dart:convert' as convert;
+import '../base.dart';
 import '../string_crawler.dart';
 import 'package:html/parser.dart';
 import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:tcp_scanner/tcp_scanner.dart';
-import 'package:glob/glob.dart';
-import 'package:glob/list_local_fs.dart';
 
 Process? mdnServer;
 const basePath = 'http://localhost:5000/en-US/docs/Web/API/';
-const banned = ['BeforeInstallPromptEvent', 'EXT_texture_norm16',
-'DirectoryEntrySync', 'DirectoryReaderSync', 'FeaturePolicy',
-'FileEntrySync', 'FileSystemSync', 'HTMLOrForeignElement',
-'IDBMutableFile', 'Index', 'InstallEvent', 'LocalFileSystem',
-'LocalFileSystemSync', 'MathMLElement', 'PaintWorklet',
-'RequestDestination', 'RTCIceCandidateType', 'RTCIceComponent',
-'RTCIceCredentialType', 'RTCIceGathererState', 'RTCIceTransportState',
-'RTCIceRole', 'RTCIceProtocol', 'RTCIceTcpCandidateType', 'RTCRtpTransceiverDirection',
-'RTCStatsIceCandidatePairState', 'RTCStatsType',
-'SVGCursorElement', 'SVGEvent', 'TextRange', 'Transferable',
-'WEBGL_compressed_texture_atc', //'WebGL2RenderingContext',
-'WebGLRenderingContext', 'XPathException',
-'XREnvironmentBlendMode', 'XREye', 'XRFrameRequestCallback'];
-const bannedProps = {
-  'Document': ['activeElement', 'fonts', 'fullscreenElement',
-  'pictureInPictureElement', 'pointerLockElement'],
-  'CompressionStream': ['readable', 'writable'],
-  'DecompressionStream': ['readable', 'writable'],
-  'CookieStore': ['onChange'],
-  'CSSImportRule': ['stylesheet'],
-  'GlobalEventHandlers': ['onloadend'],
-  'HTMLElement': ['enterkeyhint', 'inert'],
-  'HTMLIFrameElement': ['allowPaymentRequest'],
-  'HTMLMediaElement': ['controller', 'controlsList', 'mediaGroup'],
-  'HTMLSelectElement': ['autofocus']
-};
-const types = {
-  'DOMString': 'String',
-  'CSSOMString': 'String',
-  'DOMHighResTimeStamp': 'double',
-  'ByteString': 'String',
-  'DOMTimeStamp': 'double',
-  'USVString': 'String',
-  'ConstrainULong': 'double',
-  'float': 'double'
-};
-const mixins = {
-  'Document': ['ParentNode'],
-  'DocumentFragment': ['ParentNode'],
-  'Element': ['Slottable', 'ParentNode', 'NonDocumentTypeChildNode'],
-  'HTMLAnchorElement': ['HTMLHyperlinkElementUtils'],
-  'HTMLAreaElement': ['HTMLHyperlinkElementUtils'],
-  'HTMLElement': ['ElementContentEditable']
-};
 final errors = <String, List<String>>{};
 final urls = [];
 
@@ -63,15 +18,17 @@ Future<void> main() async {
   //await cloneMDN();
   // copy the list of webIDLs, parsed in JSON, from github.com/w3c/webref/
   //await cloneIDLs();
+  // merge ed and tr IDLs into /merged
+  //await mergeIDLs();
   // startes the MDN web server: localhost:5000
   await startMdn();
   // parse the MDN htmls to generate a json
-  //await parseMDN();
+  await parseMDN();
 
   //return;
 
   try {
-    // add MDN info to the webIDLs json
+    // add MDN info to the merged webIDLs json and save at /info
     await addInfo();
   } catch (e, st) {
     print('Error while scraping!');
@@ -90,6 +47,54 @@ String? stripHtml(String? buf) {
   return parse(buf.replaceAll('&nbsp;', ' ')).body!.text;
 }
 
+Future<void> mergeIDLs() async {
+  final list = await getIDLs();
+  final ds = dirs.toList();
+  final groups = [];
+
+  print('Will merge others ${ds.length}');
+
+  ds.removeWhere((d) => d == baseDir);
+
+  for (final dir in ds) {
+    final idls = await getIDLs(dir: dir);
+
+    print('Adding $dir, ${idls.length}');
+    groups.add(idls);
+  }
+
+  print('To merge: ${groups.length}');
+
+  for (final item in list) {
+    for (final group in groups) {
+      var other;
+
+      for (final gr in (group as Iterable)) {
+        if (gr['basename'] == item['basename']) {
+          other = gr;
+          break;
+        }
+      }
+
+      if (other == null || other['idlparsed']?['idlNames'] == null) {
+        print('Couldnt find ${item['basename']}');
+        continue;
+      }
+
+      item['idlparsed']['idlNames'] = <String, dynamic>{
+        ...other['idlparsed']['idlNames'],
+        ...item['idlparsed']['idlNames']
+      };
+    }
+
+    final path = '../webIDL/merged/${item['basename']}';
+
+    File(path)
+      ..createSync(recursive: true)
+      ..writeAsStringSync(prettyJson(item));
+  }
+}
+
 Future<void> cloneIDLs() async {
   final js = convert.json.decode(await http.read(Uri.parse('https://api.github.com/repos/w3c/webref/git/trees/master?recursive=1'))) as Map;
 
@@ -98,14 +103,15 @@ Future<void> cloneIDLs() async {
       // "path": "tr/idlparsed/ANGLE_instanced_arrays.json",
       // https://github.com/w3c/webref/blob/master/tr/idlparsed/accelerometer.json
       // https://raw.githubusercontent.com/w3c/webref/master/tr/idlparsed/accelerometer.json
-      final match = RegExp(r'^tr/idlparsed/(\w+).json').firstMatch(item['path']);
+      final match = RegExp(r'^(\w{2})/idlparsed/(.+?).json').firstMatch(item['path']);
 
       if (match != null) {
-        final name = match.group(1);
-        final url = 'https://raw.githubusercontent.com/w3c/webref/master/tr/idlparsed/$name.json';
+        final type = match.group(1);
+        final name = match.group(2);
+        final url = 'https://raw.githubusercontent.com/w3c/webref/master/$type/idlparsed/$name.json';
 
         print('Fetching $name json IDL $url');
-        File('webIDL/parsed/$name.json')
+        File('../webIDL/$type/$name.json')
           ..createSync(recursive: true)
           ..writeAsStringSync(await http.read(Uri.parse(url)));
       }
@@ -215,22 +221,12 @@ Future<Map<String, dynamic>?> fetch(String path,
   return null;
 }
 
-String? makeDesc(String? buf) {
+String? makeDesc(String name, String? buf) {
   return buf == null ? null : stripHtml(buf
       .replaceAll('<code>', '[')
       .replaceAll('</code>', ']')
-      .replaceAll('<strong>', '*')
-      .replaceAll('</strong>', '*')
+      .replaceAll('[$name]', '')
   );
-}
-
-String prettyJson(js) {
-  final enc = convert.JsonEncoder.withIndent('  ', (e) {
-    print('JSON ERROR ${e.runtimeType}\n$e');
-    return e;
-  });
-
-  return enc.convert(js);
 }
 
 String? getMDNContent(Iterable block, String? name) {
@@ -244,7 +240,7 @@ Future<void> parseMDN() async {
   print('Parsing MDN files...');
   final infs = await getInterfaces();
 
-  File('webIDL/mdn.json')
+  File('../webIDL/mdn.json')
     ..createSync(recursive: true)
     ..writeAsStringSync(prettyJson(infs));
 
@@ -297,7 +293,6 @@ Future<Map<String, dynamic>> getInterfaces() async {
               }
               final dtcrawl = StringCrawler(dt);
               final dd = pscan.enclosed('<dd>', '</dd>') ?? '';
-              final desc = makeDesc(dd);
               final code = dtcrawl.getBetween('<code>', '</code>');
               final canScrap = !dt.contains('page-not-created');
 
@@ -310,6 +305,7 @@ Future<Map<String, dynamic>> getInterfaces() async {
               final nspl = code.split('.');
               var pname = nspl.last.trim()
                   .replaceAll('(', '').replaceAll(')', '');
+              final desc = makeDesc(pname, dd);
 
               if (name == pname) {
                 type = 'constructor';
@@ -347,16 +343,48 @@ Future<Map<String, dynamic>> getInterfaces() async {
                         throw 'DartNeedsThis =/';
                       }
                       final name = StringCrawler(dt).getBetween('<code>', '</code>');
-                      final dd = makeDesc(pscan.enclosed('<dd>', '</dd>') ?? '');
 
-                      if (name?.isNotEmpty == true &&
-                      dd?.isNotEmpty == true) {
-                        params[name] = dd;
+                      if (name?.isNotEmpty == true) {
+                        final dd = makeDesc(name!, pscan.enclosed('<dd>', '</dd>') ?? '');
+
+                        if (dd?.isNotEmpty == true) {
+                          params[name] = dd;
+                        }
                       }
                     }
                   }
 
-                  member['example'] = stripHtml(getMDNContent(details, 'Example'));
+                  var example = stripHtml(getMDNContent(details, 'Example'));
+
+                  if (example != null && example.isNotEmpty == true) {
+                    final dl = details.toList();
+                    dynamic blg(String name) =>
+                        details.firstWhere((bl) =>
+                        bl['type'] == 'prose' &&
+                            bl['value']['id'] == name,
+                            orElse: () => null);
+                    final ex = dl.indexOf(blg('Example'));
+
+                    void addExtras(String name) {
+                      final bl = blg(name);
+
+                      print('ExtraAdd $pname $name ${dl.indexOf(bl)}, $ex');
+
+                      if (dl.indexOf(bl) > ex && bl['value']['isH3'] == true) {
+                        final content = (bl['value']?['content'] as String)
+                            .replaceAll('<pre>', '\n\n```\n')
+                            .replaceAll('</pre>', '\n```\n');
+
+                        example = '$example\n${stripHtml(content)}';
+                      }
+                    }
+
+                    addExtras('HTML');
+                    addExtras('JavaScript');
+                    addExtras('Results');
+                    member['example'] = example;
+                  }
+
                   member['syntax'] = stripHtml(getMDNContent(details, 'Syntax'));
                 }
               }
@@ -370,7 +398,7 @@ Future<Map<String, dynamic>> getInterfaces() async {
         if (details != null) {
           final rdesc = getMDNContent(details, null)!;
 
-          object['desc'] = makeDesc(rdesc);
+          object['desc'] = makeDesc(name, rdesc);
           await parseProps(raw: getMDNContent(details, 'Properties'),
               type: 'attribute');
           await parseProps(raw: getMDNContent(details, 'Event_handlers'),
@@ -406,16 +434,13 @@ Iterable<String> getAllBlocks(String data, String name) {
 
 Future<void> addInfo() async {
   print('Adding info...');
-  final idls = Glob('webIDL/parsed/html.json');
-  final list = idls.listSync();
-  final mdninfs = convert.json.decode(File('webIDL/mdn.json').readAsStringSync()) as Map<String, dynamic>;
+  final mdninfs = convert.json.decode(File('../webIDL/mdn.json').readAsStringSync()) as Map<String, dynamic>;
+  final list = await getIDLs(dir: 'merged');
 
-  for (var entity in list) {
-    final file = File(entity.path);
-    final js = convert.json.decode(file.readAsStringSync()) as Map;
+  for (var js in list) {
     final objs = js['idlparsed']?['idlNames'] as Map<String, dynamic>?;
 
-    print('Spec ${js['spec']['title']}: ${objs?.length}');
+    print('Spec ${js['spec']['title']}(${js['path']}): ${objs?.length}');
 
     if (objs != null) {
       for (final name in objs.keys) {
@@ -435,17 +460,22 @@ Future<void> addInfo() async {
             for (final member in members) {
               late final String type;
 
-              assert(['attribute', 'operation', 'constructor',
-                'const'].contains(member['type']),
-              'Unknown ${member['type']}');
-
               switch (member['type']) {
                 case 'const':
+                case 'field':
                   type = 'attribute';
                   break;
+                case 'iterable':
+                case 'setlike':
+                case 'maplike':
+                  continue;
                 default:
                   type = member['type'];
               }
+
+              assert(['attribute', 'operation', 'constructor',
+                'const', 'field'].contains(member['type']),
+              'Unknown ${member['type']}');
 
               final name = member['name'];
               final imem = imems.firstWhere((i) => i['name'] == name &&
@@ -474,7 +504,7 @@ Future<void> addInfo() async {
       }
     }
 
-    final p = 'webIDL/info/${entity.basename}';
+    final p = '../webIDL/info/${js['basename']}';
 
     print('Saving $p');
     File(p)
