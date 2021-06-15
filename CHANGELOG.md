@@ -1,3 +1,7 @@
+## 0.0.3
+
+ - Formatting and example
+
 ## 0.0.2
 
  - Link MediaStream on ReadMe 
