@@ -10,7 +10,7 @@ void main() {
   var div = document.createElement('div')
     ..innerHTML = 'Hello world =]';
   
-  document.body.appendChild(div);
+  document.body!.appendChild(div);
 }
 ```
 
@@ -20,35 +20,34 @@ JS Promises and Dart Futures are not the same thing.
 This package addes an easy way to use promises:
 
 ```dart
-import 'package:js_bindings/bindings/orientation_event.dart';
+import 'package:js_bindings/js_bindings.dart';
 
 Future<void> main() async {
-  final permission = await DeviceOrientationEvent.requestPermission().future;
-  
-  print('Granted? ${permission == PermissionState.granted}');
+  await window.navigator.mediaDevices.getUserMedia().future;
+  // or
+  window.navigator.mediaDevices.getUserMedia().then((event) {});
 }
 ```
+
 
 ## What to import
 
 There is a folder called *bindings* and there is one dart file for each IDL spec.  
-For example, to use ```MediaStream```:
-
+For example *orientation_event*:
 
 ```dart
-import 'package:js_bindings/bindings/mediacapture_streams.dart';
+import 'package:js_bindings/bindings/orientation_event.dart';
 
-void main() {
-  var div = document.createElement('div')
-    ..innerHTML = 'Hello world =]';
-  
-  document.body.appendChild(div);
+Future<void> main() async {
+  final permission = await DeviceOrientationEvent.requestPermission().future;
+
+  print('Granted? ${permission == PermissionState.granted}');
 }
 ```
 
 ## For a better JS interop
 
-If you wish for a better JS interop in Dart, please, thumbs up the issues:
+If you wish for a better JS interop in Dart, please, thumbs up the following issues:
 
 [Better JS interop in general](https://github.com/dart-lang/sdk/issues/35084)  
 [Make awaiting a Promise as easy as a Future](https://github.com/dart-lang/sdk/issues/27315)  
@@ -56,6 +55,6 @@ If you wish for a better JS interop in Dart, please, thumbs up the issues:
 
 ## Donation
 
-Do what your heart desires. 
+I like Dart, so it is not a problem maintaing this package whenever I am able.
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=YNCG33GLM3494)
