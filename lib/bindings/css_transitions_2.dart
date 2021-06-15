@@ -17,7 +17,8 @@ import 'web_animations_1.dart';
 ///  The interface of the Web Animations API represents an
 /// [Animation] object used for a CSS Transition.
 @JS()
-class CSSTransition extends Animation {
+class CSSTransition // EventTarget -> {} -> Animation
+    extends Animation {
   /// Returns the transition CSS property name as a [CSSOMString].
   external String get transitionProperty;
 

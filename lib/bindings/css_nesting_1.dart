@@ -11,7 +11,9 @@ import '../manual.dart';
 import 'cssom_1.dart';
 
 @JS()
-class CSSNestingRule extends CSSRule {
+class CSSNestingRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external String get selectorText;
   external set selectorText(String newValue);
   external CSSStyleDeclaration get style;

@@ -20,9 +20,11 @@ import 'dom.dart';
 /// orientation of the device running the web page.
 @experimental
 @JS()
-class DeviceOrientationEvent extends Event {
-  external factory DeviceOrientationEvent(
-      {String type, DeviceOrientationEventInit? eventInitDict});
+class DeviceOrientationEvent // null -> {} -> Event
+    with
+        Event {
+  external factory DeviceOrientationEvent(String type,
+      [DeviceOrientationEventInit? eventInitDict]);
 
   ///  A number representing the motion of the device around the z
   /// axis, express in degrees with values ranging from 0 (inclusive)
@@ -49,7 +51,9 @@ class DeviceOrientationEvent extends Event {
 
 @anonymous
 @JS()
-class DeviceOrientationEventInit extends EventInit {
+class DeviceOrientationEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external double? get alpha;
   external set alpha(double? newValue);
   external double? get beta;
@@ -119,9 +123,11 @@ class DeviceMotionEventRotationRate {
 ///
 @experimental
 @JS()
-class DeviceMotionEvent extends Event {
-  external factory DeviceMotionEvent(
-      {String type, DeviceMotionEventInit? eventInitDict});
+class DeviceMotionEvent // null -> {} -> Event
+    with
+        Event {
+  external factory DeviceMotionEvent(String type,
+      [DeviceMotionEventInit? eventInitDict]);
 
   ///  An object giving the acceleration of the device on the three
   /// axis X, Y and Z. Acceleration is expressed in m/s2.
@@ -173,7 +179,9 @@ class DeviceMotionEventRotationRateInit {
 
 @anonymous
 @JS()
-class DeviceMotionEventInit extends EventInit {
+class DeviceMotionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external DeviceMotionEventAccelerationInit get acceleration;
   external set acceleration(DeviceMotionEventAccelerationInit newValue);
   external DeviceMotionEventAccelerationInit get accelerationIncludingGravity;

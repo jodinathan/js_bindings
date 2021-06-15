@@ -26,8 +26,10 @@ import 'input_device_capabilities.dart';
 ///
 ///
 @JS()
-class UIEvent extends Event {
-  external factory UIEvent({String type, UIEventInit? eventInitDict});
+class UIEvent // null -> {} -> Event
+    with
+        Event {
+  external factory UIEvent(String type, [UIEventInit? eventInitDict]);
 
   ///  Returns a [WindowProxy] that contains the view that generated
   /// the event.
@@ -47,7 +49,9 @@ class UIEvent extends Event {
 
 @anonymous
 @JS()
-class UIEventInit extends EventInit {
+class UIEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external Window? get view;
   external set view(Window? newValue);
   external int get detail;
@@ -63,8 +67,9 @@ class UIEventInit extends EventInit {
 ///
 ///
 @JS()
-class FocusEvent extends UIEvent {
-  external factory FocusEvent({String type, FocusEventInit? eventInitDict});
+class FocusEvent // Event -> {} -> UIEvent
+    extends UIEvent {
+  external factory FocusEvent(String type, [FocusEventInit? eventInitDict]);
 
   ///  Is an [EventTarget] representing a secondary target for this
   /// event. In some cases (such as when tabbing in or out a page),
@@ -74,7 +79,8 @@ class FocusEvent extends UIEvent {
 
 @anonymous
 @JS()
-class FocusEventInit extends UIEventInit {
+class FocusEventInit // EventInit -> {} -> UIEventInit
+    extends UIEventInit {
   external EventTarget? get relatedTarget;
   external set relatedTarget(EventTarget? newValue);
 
@@ -98,8 +104,9 @@ class FocusEventInit extends UIEventInit {
 ///
 ///
 @JS()
-class MouseEvent extends UIEvent {
-  external factory MouseEvent({String type, MouseEventInit? eventInitDict});
+class MouseEvent // Event -> {} -> UIEvent
+    extends UIEvent {
+  external factory MouseEvent(String type, [MouseEventInit? eventInitDict]);
 
   ///  The X coordinate of the mouse pointer in global (screen)
   /// coordinates.
@@ -176,7 +183,8 @@ class MouseEvent extends UIEvent {
 
 @anonymous
 @JS()
-class MouseEventInit extends EventModifierInit {
+class MouseEventInit // UIEventInit -> {} -> EventModifierInit
+    extends EventModifierInit {
   external int get screenX;
   external set screenX(int newValue);
   external int get screenY;
@@ -204,7 +212,8 @@ class MouseEventInit extends EventModifierInit {
 
 @anonymous
 @JS()
-class EventModifierInit extends UIEventInit {
+class EventModifierInit // EventInit -> {} -> UIEventInit
+    extends UIEventInit {
   external bool get ctrlKey;
   external set ctrlKey(bool newValue);
   external bool get shiftKey;
@@ -274,8 +283,9 @@ class EventModifierInit extends UIEventInit {
 ///
 ///
 @JS()
-class WheelEvent extends MouseEvent {
-  external factory WheelEvent({String type, WheelEventInit? eventInitDict});
+class WheelEvent // UIEvent -> {} -> MouseEvent
+    extends MouseEvent {
+  external factory WheelEvent(String type, [WheelEventInit? eventInitDict]);
   external static int get DOM_DELTA_PIXEL;
   external static int get DOM_DELTA_LINE;
   external static int get DOM_DELTA_PAGE;
@@ -324,7 +334,8 @@ class WheelEvent extends MouseEvent {
 
 @anonymous
 @JS()
-class WheelEventInit extends MouseEventInit {
+class WheelEventInit // EventModifierInit -> {} -> MouseEventInit
+    extends MouseEventInit {
   external double get deltaX;
   external set deltaX(double newValue);
   external double get deltaY;
@@ -348,8 +359,9 @@ class WheelEventInit extends MouseEventInit {
 ///
 ///
 @JS()
-class InputEvent extends UIEvent {
-  external factory InputEvent({String type, InputEventInit? eventInitDict});
+class InputEvent // Event -> {} -> UIEvent
+    extends UIEvent {
+  external factory InputEvent(String type, [InputEventInit? eventInitDict]);
 
   ///  Returns a [DOMString] with the inserted characters. This may be
   /// an empty string if the change doesn't insert text (such as when
@@ -370,7 +382,8 @@ class InputEvent extends UIEvent {
 
 @anonymous
 @JS()
-class InputEventInit extends UIEventInit {
+class InputEventInit // EventInit -> {} -> UIEventInit
+    extends UIEventInit {
   external String? get data;
   external set data(String? newValue);
   external bool get isComposing;
@@ -399,9 +412,10 @@ class InputEventInit extends UIEventInit {
 ///
 ///
 @JS()
-class KeyboardEvent extends UIEvent {
-  external factory KeyboardEvent(
-      {String type, KeyboardEventInit? eventInitDict});
+class KeyboardEvent // Event -> {} -> UIEvent
+    extends UIEvent {
+  external factory KeyboardEvent(String type,
+      [KeyboardEventInit? eventInitDict]);
   external static int get DOM_KEY_LOCATION_STANDARD;
   external static int get DOM_KEY_LOCATION_LEFT;
   external static int get DOM_KEY_LOCATION_RIGHT;
@@ -542,7 +556,8 @@ class KeyboardEvent extends UIEvent {
 
 @anonymous
 @JS()
-class KeyboardEventInit extends EventModifierInit {
+class KeyboardEventInit // UIEventInit -> {} -> EventModifierInit
+    extends EventModifierInit {
   external String get key;
   external set key(String newValue);
   external String get code;
@@ -569,9 +584,10 @@ class KeyboardEventInit extends EventModifierInit {
 ///
 ///
 @JS()
-class CompositionEvent extends UIEvent {
-  external factory CompositionEvent(
-      {String type, CompositionEventInit? eventInitDict});
+class CompositionEvent // Event -> {} -> UIEvent
+    extends UIEvent {
+  external factory CompositionEvent(String type,
+      [CompositionEventInit? eventInitDict]);
 
   ///  Returns the characters generated by the input method that raised
   /// the event; its varies depending on the type of event that
@@ -586,7 +602,8 @@ class CompositionEvent extends UIEvent {
 
 @anonymous
 @JS()
-class CompositionEventInit extends UIEventInit {
+class CompositionEventInit // EventInit -> {} -> UIEventInit
+    extends UIEventInit {
   external String get data;
   external set data(String newValue);
 
@@ -612,7 +629,9 @@ class CompositionEventInit extends UIEventInit {
 /// hierarchy and nodes.
 @deprecated
 @JS()
-class MutationEvent extends Event {
+class MutationEvent // null -> {} -> Event
+    with
+        Event {
   external static int get MODIFICATION;
   external static int get ADDITION;
   external static int get REMOVAL;

@@ -11,7 +11,9 @@ import '../manual.dart';
 import 'webgl1.dart';
 
 @JS()
-class WebGLTimerQueryEXT extends WebGLObject {
+class WebGLTimerQueryEXT // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLTimerQueryEXT();
 }
 

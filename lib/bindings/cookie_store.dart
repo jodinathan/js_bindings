@@ -23,7 +23,9 @@ import 'service_workers_1.dart';
 /// or [ServiceWorkerGlobalScope] context. Therefore there is no
 /// constructor.
 @JS()
-class CookieStore extends EventTarget {
+class CookieStore // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  The [get()] method gets a single cookie with the given name or
   /// options object, it returns a [Promise] that resolves with details
   /// of a single cookie.
@@ -199,9 +201,11 @@ class CookieStoreManager {
 /// not trigger a change event.
 ///
 @JS()
-class CookieChangeEvent extends Event {
-  external factory CookieChangeEvent(
-      {String type, CookieChangeEventInit? eventInitDict});
+class CookieChangeEvent // null -> {} -> Event
+    with
+        Event {
+  external factory CookieChangeEvent(String type,
+      [CookieChangeEventInit? eventInitDict]);
 
   /// Returns an array containing one or more changed cookies.
   external Iterable<CookieListItem> get changed;
@@ -212,7 +216,9 @@ class CookieChangeEvent extends Event {
 
 @anonymous
 @JS()
-class CookieChangeEventInit extends EventInit {
+class CookieChangeEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external Iterable<CookieListItem> get changed;
   external set changed(Iterable<CookieListItem> newValue);
   external Iterable<CookieListItem> get deleted;
@@ -243,9 +249,10 @@ class CookieChangeEventInit extends EventInit {
 /// not trigger a change event.
 ///
 @JS()
-class ExtendableCookieChangeEvent extends ExtendableEvent {
-  external factory ExtendableCookieChangeEvent(
-      {String type, ExtendableCookieChangeEventInit? eventInitDict});
+class ExtendableCookieChangeEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory ExtendableCookieChangeEvent(String type,
+      [ExtendableCookieChangeEventInit? eventInitDict]);
 
   /// Returns an array containing the changed cookies.
   external Iterable<CookieListItem> get changed;
@@ -256,7 +263,8 @@ class ExtendableCookieChangeEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class ExtendableCookieChangeEventInit extends ExtendableEventInit {
+class ExtendableCookieChangeEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external Iterable<CookieListItem> get changed;
   external set changed(Iterable<CookieListItem> newValue);
   external Iterable<CookieListItem> get deleted;

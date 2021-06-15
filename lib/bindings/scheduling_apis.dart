@@ -43,15 +43,19 @@ class Scheduler {
 }
 
 @JS()
-class TaskPriorityChangeEvent extends Event {
+class TaskPriorityChangeEvent // null -> {} -> Event
+    with
+        Event {
   external factory TaskPriorityChangeEvent(
-      {String type, TaskPriorityChangeEventInit priorityChangeEventInitDict});
+      String type, TaskPriorityChangeEventInit priorityChangeEventInitDict);
   external TaskPriority get previousPriority;
 }
 
 @anonymous
 @JS()
-class TaskPriorityChangeEventInit extends EventInit {
+class TaskPriorityChangeEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external TaskPriority get previousPriority;
   external set previousPriority(TaskPriority newValue);
 
@@ -59,14 +63,17 @@ class TaskPriorityChangeEventInit extends EventInit {
 }
 
 @JS()
-class TaskController extends AbortController {
+class TaskController // null -> {} -> AbortController
+    with
+        AbortController {
   external factory TaskController(
-      {TaskPriority? priority = TaskPriority.userVisible});
+      [TaskPriority? priority = TaskPriority.userVisible]);
   external Object setPriority(TaskPriority priority);
 }
 
 @JS()
-class TaskSignal extends AbortSignal {
+class TaskSignal // EventTarget -> {} -> AbortSignal
+    extends AbortSignal {
   external TaskPriority get priority;
   external EventHandlerNonNull? get onprioritychange;
   external set onprioritychange(EventHandlerNonNull? newValue);

@@ -29,7 +29,8 @@ enum XRLayerLayout {
 }
 
 @JS()
-class XRCompositionLayer extends XRLayer {
+class XRCompositionLayer // EventTarget -> {} -> XRLayer
+    extends XRLayer {
   external XRLayerLayout get layout;
   external bool get blendTextureSourceAlpha;
   external set blendTextureSourceAlpha(bool newValue);
@@ -43,7 +44,8 @@ class XRCompositionLayer extends XRLayer {
 }
 
 @JS()
-class XRProjectionLayer extends XRCompositionLayer {
+class XRProjectionLayer // XRLayer -> {} -> XRCompositionLayer
+    extends XRCompositionLayer {
   external int get textureWidth;
   external int get textureHeight;
   external int get textureArrayLength;
@@ -55,7 +57,8 @@ class XRProjectionLayer extends XRCompositionLayer {
 }
 
 @JS()
-class XRQuadLayer extends XRCompositionLayer {
+class XRQuadLayer // XRLayer -> {} -> XRCompositionLayer
+    extends XRCompositionLayer {
   external XRSpace get space;
   external set space(XRSpace newValue);
   external XRRigidTransform get transform;
@@ -71,7 +74,8 @@ class XRQuadLayer extends XRCompositionLayer {
 }
 
 @JS()
-class XRCylinderLayer extends XRCompositionLayer {
+class XRCylinderLayer // XRLayer -> {} -> XRCompositionLayer
+    extends XRCompositionLayer {
   external XRSpace get space;
   external set space(XRSpace newValue);
   external XRRigidTransform get transform;
@@ -89,7 +93,8 @@ class XRCylinderLayer extends XRCompositionLayer {
 }
 
 @JS()
-class XREquirectLayer extends XRCompositionLayer {
+class XREquirectLayer // XRLayer -> {} -> XRCompositionLayer
+    extends XRCompositionLayer {
   external XRSpace get space;
   external set space(XRSpace newValue);
   external XRRigidTransform get transform;
@@ -109,7 +114,8 @@ class XREquirectLayer extends XRCompositionLayer {
 }
 
 @JS()
-class XRCubeLayer extends XRCompositionLayer {
+class XRCubeLayer // XRLayer -> {} -> XRCompositionLayer
+    extends XRCompositionLayer {
   external XRSpace get space;
   external set space(XRSpace newValue);
   external DOMPointReadOnly get orientation;
@@ -128,7 +134,9 @@ class XRSubImage {
 }
 
 @JS()
-class XRWebGLSubImage extends XRSubImage {
+class XRWebGLSubImage // null -> {} -> XRSubImage
+    with
+        XRSubImage {
   external WebGLTexture get colorTexture;
   external WebGLTexture? get depthStencilTexture;
   external int? get imageIndex;
@@ -197,7 +205,9 @@ class XRLayerInit {
 
 @anonymous
 @JS()
-class XRQuadLayerInit extends XRLayerInit {
+class XRQuadLayerInit // null -> {} -> XRLayerInit
+    with
+        XRLayerInit {
   external XRTextureType get textureType;
   external set textureType(XRTextureType newValue);
   external XRRigidTransform? get transform;
@@ -216,7 +226,9 @@ class XRQuadLayerInit extends XRLayerInit {
 
 @anonymous
 @JS()
-class XRCylinderLayerInit extends XRLayerInit {
+class XRCylinderLayerInit // null -> {} -> XRLayerInit
+    with
+        XRLayerInit {
   external XRTextureType get textureType;
   external set textureType(XRTextureType newValue);
   external XRRigidTransform? get transform;
@@ -238,7 +250,9 @@ class XRCylinderLayerInit extends XRLayerInit {
 
 @anonymous
 @JS()
-class XREquirectLayerInit extends XRLayerInit {
+class XREquirectLayerInit // null -> {} -> XRLayerInit
+    with
+        XRLayerInit {
   external XRTextureType get textureType;
   external set textureType(XRTextureType newValue);
   external XRRigidTransform? get transform;
@@ -263,7 +277,9 @@ class XREquirectLayerInit extends XRLayerInit {
 
 @anonymous
 @JS()
-class XRCubeLayerInit extends XRLayerInit {
+class XRCubeLayerInit // null -> {} -> XRLayerInit
+    with
+        XRLayerInit {
   external DOMPointReadOnly? get orientation;
   external set orientation(DOMPointReadOnly? newValue);
 
@@ -272,7 +288,7 @@ class XRCubeLayerInit extends XRLayerInit {
 
 @JS()
 class XRWebGLBinding {
-  external factory XRWebGLBinding({XRSession session, dynamic context});
+  external factory XRWebGLBinding(XRSession session, dynamic context);
   external double get nativeProjectionScaleFactor;
   external XRProjectionLayer createProjectionLayer(
       [XRProjectionLayerInit? init]);
@@ -306,7 +322,9 @@ class XRMediaLayerInit {
 
 @anonymous
 @JS()
-class XRMediaQuadLayerInit extends XRMediaLayerInit {
+class XRMediaQuadLayerInit // null -> {} -> XRMediaLayerInit
+    with
+        XRMediaLayerInit {
   external XRRigidTransform? get transform;
   external set transform(XRRigidTransform? newValue);
   external double? get width;
@@ -320,7 +338,9 @@ class XRMediaQuadLayerInit extends XRMediaLayerInit {
 
 @anonymous
 @JS()
-class XRMediaCylinderLayerInit extends XRMediaLayerInit {
+class XRMediaCylinderLayerInit // null -> {} -> XRMediaLayerInit
+    with
+        XRMediaLayerInit {
   external XRRigidTransform? get transform;
   external set transform(XRRigidTransform? newValue);
   external double get radius;
@@ -339,7 +359,9 @@ class XRMediaCylinderLayerInit extends XRMediaLayerInit {
 
 @anonymous
 @JS()
-class XRMediaEquirectLayerInit extends XRMediaLayerInit {
+class XRMediaEquirectLayerInit // null -> {} -> XRMediaLayerInit
+    with
+        XRMediaLayerInit {
   external XRRigidTransform? get transform;
   external set transform(XRRigidTransform? newValue);
   external double get radius;
@@ -361,7 +383,7 @@ class XRMediaEquirectLayerInit extends XRMediaLayerInit {
 
 @JS()
 class XRMediaBinding {
-  external factory XRMediaBinding({XRSession session});
+  external factory XRMediaBinding(XRSession session);
   external XRQuadLayer createQuadLayer(HTMLVideoElement video,
       [XRMediaQuadLayerInit? init]);
   external XRCylinderLayer createCylinderLayer(HTMLVideoElement video,
@@ -371,14 +393,18 @@ class XRMediaBinding {
 }
 
 @JS()
-class XRLayerEvent extends Event {
-  external factory XRLayerEvent({String type, XRLayerEventInit eventInitDict});
+class XRLayerEvent // null -> {} -> Event
+    with
+        Event {
+  external factory XRLayerEvent(String type, XRLayerEventInit eventInitDict);
   external XRLayer get layer;
 }
 
 @anonymous
 @JS()
-class XRLayerEventInit extends EventInit {
+class XRLayerEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external XRLayer get layer;
   external set layer(XRLayer newValue);
 

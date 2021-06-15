@@ -34,7 +34,7 @@ import 'html.dart';
 ///
 @JS()
 class Touch {
-  external factory Touch({TouchInit touchInitDict});
+  external factory Touch(TouchInit touchInitDict);
   external int get identifier;
   external EventTarget get target;
   external double get screenX;
@@ -108,8 +108,9 @@ class TouchList {
 ///
 ///
 @JS()
-class TouchEvent extends UIEvent {
-  external factory TouchEvent({String type, TouchEventInit? eventInitDict});
+class TouchEvent // Event -> {} -> UIEvent
+    extends UIEvent {
+  external factory TouchEvent(String type, [TouchEventInit? eventInitDict]);
 
   ///  A [TouchList] of all the [Touch] objects representing all
   /// current points of contact with the surface, regardless of target
@@ -200,7 +201,8 @@ class TouchInit {
 
 @anonymous
 @JS()
-class TouchEventInit extends EventModifierInit {
+class TouchEventInit // UIEventInit -> {} -> EventModifierInit
+    extends EventModifierInit {
   external Iterable<Touch> get touches;
   external set touches(Iterable<Touch> newValue);
   external Iterable<Touch> get targetTouches;

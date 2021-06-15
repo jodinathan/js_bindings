@@ -28,9 +28,8 @@ import 'geometry_1.dart';
 /// observer.
 @JS()
 class IntersectionObserver {
-  external factory IntersectionObserver(
-      {IntersectionObserverCallback callback,
-      IntersectionObserverInit? options});
+  external factory IntersectionObserver(IntersectionObserverCallback callback,
+      [IntersectionObserverInit? options]);
 
   ///  The [Element] or [Document] whose bounds are used as the
   /// bounding box when testing for intersection. If no value was
@@ -95,7 +94,7 @@ class IntersectionObserver {
 @JS()
 class IntersectionObserverEntry {
   external factory IntersectionObserverEntry(
-      {IntersectionObserverEntryInit intersectionObserverEntryInit});
+      IntersectionObserverEntryInit intersectionObserverEntryInit);
 
   ///  A [DOMHighResTimeStamp] indicating the time at which the
   /// intersection was recorded, relative to the

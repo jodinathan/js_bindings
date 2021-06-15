@@ -23,7 +23,7 @@ import 'html.dart';
 @experimental
 @JS()
 class ImageCapture {
-  external factory ImageCapture({MediaStreamTrack videoTrack});
+  external factory ImageCapture(MediaStreamTrack videoTrack);
 
   ///  Takes a single exposure using the video capture device sourcing
   /// a [MediaStreamTrack] and returns a [Promise] that resolves with a

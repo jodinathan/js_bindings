@@ -27,7 +27,9 @@ class BluetoothDataFilterInit {
 
 @anonymous
 @JS()
-class BluetoothManufacturerDataFilterInit extends BluetoothDataFilterInit {
+class BluetoothManufacturerDataFilterInit // null -> {} -> BluetoothDataFilterInit
+    with
+        BluetoothDataFilterInit {
   external int get companyIdentifier;
   external set companyIdentifier(int newValue);
 
@@ -36,7 +38,9 @@ class BluetoothManufacturerDataFilterInit extends BluetoothDataFilterInit {
 
 @anonymous
 @JS()
-class BluetoothServiceDataFilterInit extends BluetoothDataFilterInit {
+class BluetoothServiceDataFilterInit // null -> {} -> BluetoothDataFilterInit
+    with
+        BluetoothDataFilterInit {
   external dynamic get service;
   external set service(dynamic newValue);
 
@@ -95,8 +99,9 @@ class RequestDeviceOptions {
 ///  options.
 @experimental
 @JS()
-class Bluetooth extends EventTarget
+class Bluetooth // null -> {} -> EventTarget
     with
+        EventTarget,
         BluetoothDeviceEventHandlers,
         CharacteristicEventHandlers,
         ServiceEventHandlers {
@@ -170,7 +175,9 @@ class Bluetooth extends EventTarget
 
 @anonymous
 @JS()
-class BluetoothPermissionDescriptor extends PermissionDescriptor {
+class BluetoothPermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   external String get deviceId;
   external set deviceId(String newValue);
   external Iterable<BluetoothLEScanFilterInit> get filters;
@@ -220,7 +227,8 @@ class BluetoothPermissionStorage {
 }
 
 @JS()
-class BluetoothPermissionResult extends PermissionStatus {
+class BluetoothPermissionResult // EventTarget -> {} -> PermissionStatus
+    extends PermissionStatus {
   external Iterable<BluetoothDevice> get devices;
   external set devices(Iterable<BluetoothDevice> newValue);
 
@@ -228,14 +236,18 @@ class BluetoothPermissionResult extends PermissionStatus {
 }
 
 @JS()
-class ValueEvent extends Event {
-  external factory ValueEvent({String type, ValueEventInit? initDict});
+class ValueEvent // null -> {} -> Event
+    with
+        Event {
+  external factory ValueEvent(String type, [ValueEventInit? initDict]);
   external dynamic get value;
 }
 
 @anonymous
 @JS()
-class ValueEventInit extends EventInit {
+class ValueEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external dynamic get value;
   external set value(dynamic newValue);
 
@@ -254,8 +266,9 @@ class ValueEventInit extends EventInit {
 ///
 @experimental
 @JS()
-class BluetoothDevice extends EventTarget
+class BluetoothDevice // null -> {} -> EventTarget
     with
+        EventTarget,
         BluetoothDeviceEventHandlers,
         CharacteristicEventHandlers,
         ServiceEventHandlers {
@@ -306,9 +319,11 @@ class BluetoothServiceDataMap {
 }
 
 @JS()
-class BluetoothAdvertisingEvent extends Event {
+class BluetoothAdvertisingEvent // null -> {} -> Event
+    with
+        Event {
   external factory BluetoothAdvertisingEvent(
-      {String type, BluetoothAdvertisingEventInit init});
+      String type, BluetoothAdvertisingEventInit init);
   external BluetoothDevice get device;
   external Iterable<String> get uuids;
   external String? get name;
@@ -321,7 +336,9 @@ class BluetoothAdvertisingEvent extends Event {
 
 @anonymous
 @JS()
-class BluetoothAdvertisingEventInit extends EventInit {
+class BluetoothAdvertisingEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external BluetoothDevice get device;
   external set device(BluetoothDevice newValue);
   external dynamic get uuids;
@@ -425,8 +442,11 @@ class BluetoothRemoteGATTServer {
 ///  and a list of the characteristics of this service.
 @experimental
 @JS()
-class BluetoothRemoteGATTService extends EventTarget
-    with CharacteristicEventHandlers, ServiceEventHandlers {
+class BluetoothRemoteGATTService // null -> {} -> EventTarget
+    with
+        EventTarget,
+        CharacteristicEventHandlers,
+        ServiceEventHandlers {
   ///  Returns information about a Bluetooth device through an instance
   /// of
   ///   [BluetoothDevice].
@@ -485,8 +505,10 @@ class BluetoothRemoteGATTService extends EventTarget
 /// peripheral’s service.
 @experimental
 @JS()
-class BluetoothRemoteGATTCharacteristic extends EventTarget
-    with CharacteristicEventHandlers {
+class BluetoothRemoteGATTCharacteristic // null -> {} -> EventTarget
+    with
+        EventTarget,
+        CharacteristicEventHandlers {
   ///  Returns the [BluetoothRemoteGATTService] this characteristic
   /// belongs to.
   external BluetoothRemoteGATTService get service;

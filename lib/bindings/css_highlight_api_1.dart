@@ -13,7 +13,7 @@ import 'cssom_1.dart';
 
 @JS()
 class Highlight {
-  external factory Highlight({AbstractRange? initialRanges});
+  external factory Highlight([AbstractRange? initialRanges]);
   external int get priority;
   external set priority(int newValue);
 }

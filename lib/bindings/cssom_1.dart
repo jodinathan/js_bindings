@@ -115,13 +115,15 @@ class StyleSheet {
 ///  See the Notes section for the various ways a object can be
 /// obtained.
 @JS()
-class CSSStyleSheet extends StyleSheet {
+class CSSStyleSheet // null -> {} -> StyleSheet
+    with
+        StyleSheet {
   external CSSRule? get ownerRule;
   external CSSRuleList get cssRules;
   external int insertRule(String rule, [int? index = 0]);
   external Object deleteRule(int index);
 
-  external factory CSSStyleSheet({CSSStyleSheetInit? options});
+  external factory CSSStyleSheet([CSSStyleSheetInit? options]);
   external Promise<CSSStyleSheet> replace(String text);
   external Object replaceSync(String text);
   external CSSRuleList get rules;
@@ -174,8 +176,6 @@ class CSSRuleList {
   external factory CSSRuleList();
 }
 
-///
-///
 ///  The interface represents a single CSS rule. There are several
 /// types of rules which inherit properties from .
 ///
@@ -226,7 +226,9 @@ class CSSRule {
 ///
 ///
 @JS()
-class CSSStyleRule extends CSSRule {
+class CSSStyleRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external String get selectorText;
   external set selectorText(String newValue);
   external CSSStyleDeclaration get style;
@@ -244,7 +246,9 @@ class CSSStyleRule extends CSSRule {
 ///
 ///
 @JS()
-class CSSImportRule extends CSSRule {
+class CSSImportRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   /// Returns the url specified by the [@import] rule.
   external String get href;
 
@@ -266,7 +270,9 @@ class CSSImportRule extends CSSRule {
 ///  [CSSPageRule]
 ///
 @JS()
-class CSSGroupingRule extends CSSRule {
+class CSSGroupingRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external CSSRuleList get cssRules;
   external int insertRule(String rule, [int? index = 0]);
   external Object deleteRule(int index);
@@ -279,7 +285,8 @@ class CSSGroupingRule extends CSSRule {
 ///
 ///
 @JS()
-class CSSPageRule extends CSSGroupingRule {
+class CSSPageRule // CSSRule -> {} -> CSSGroupingRule
+    extends CSSGroupingRule {
   ///  Represents the text of the page selector associated with the
   /// at-rule.
   external String get selectorText;
@@ -292,7 +299,9 @@ class CSSPageRule extends CSSGroupingRule {
 }
 
 @JS()
-class CSSMarginRule extends CSSRule {
+class CSSMarginRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external String get name;
   external CSSStyleDeclaration get style;
 
@@ -306,7 +315,9 @@ class CSSMarginRule extends CSSRule {
 ///
 ///
 @JS()
-class CSSNamespaceRule extends CSSRule {
+class CSSNamespaceRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external String get namespaceURI;
 
   ///  Returns a [DOMString] with the name of the prefix associated to

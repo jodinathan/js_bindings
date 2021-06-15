@@ -45,8 +45,9 @@ class SyncManager {
 ///
 ///
 @JS()
-class SyncEvent extends ExtendableEvent {
-  external factory SyncEvent({String type, SyncEventInit init});
+class SyncEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory SyncEvent(String type, SyncEventInit init);
 
   /// Returns the developer-defined identifier for this [SyncEvent].
   external String get tag;
@@ -58,7 +59,8 @@ class SyncEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class SyncEventInit extends ExtendableEventInit {
+class SyncEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external String get tag;
   external set tag(String newValue);
   external bool get lastChance;

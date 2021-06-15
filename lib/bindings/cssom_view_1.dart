@@ -46,7 +46,9 @@ class ScrollOptions {
 ///
 @anonymous
 @JS()
-class ScrollToOptions extends ScrollOptions {
+class ScrollToOptions // null -> {} -> ScrollOptions
+    with
+        ScrollOptions {
   ///  Specifies the number of pixels along the X axis to scroll the
   /// window or element.
   external /* double | NaN */ dynamic get left;
@@ -77,7 +79,9 @@ class ScrollToOptions extends ScrollOptions {
 /// you to programmatically make changes to a document based on media
 /// query status.
 @JS()
-class MediaQueryList extends EventTarget {
+class MediaQueryList // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// A [DOMString] representing a serialized media query.
   external String get media;
 
@@ -154,9 +158,11 @@ class MediaQueryList extends EventTarget {
 /// [MediaQueryList.onchange] property or
 /// [MediaQueryList.addListener()] call.
 @JS()
-class MediaQueryListEvent extends Event {
-  external factory MediaQueryListEvent(
-      {String type, MediaQueryListEventInit? eventInitDict});
+class MediaQueryListEvent // null -> {} -> Event
+    with
+        Event {
+  external factory MediaQueryListEvent(String type,
+      [MediaQueryListEventInit? eventInitDict]);
 
   /// A [DOMString] representing a serialized media query.
   external String get media;
@@ -168,7 +174,9 @@ class MediaQueryListEvent extends Event {
 
 @anonymous
 @JS()
-class MediaQueryListEventInit extends EventInit {
+class MediaQueryListEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String get media;
   external set media(String newValue);
   external bool get matches;
@@ -244,7 +252,9 @@ enum ScrollLogicalPosition { start, center, end, nearest }
 
 @anonymous
 @JS()
-class ScrollIntoViewOptions extends ScrollOptions {
+class ScrollIntoViewOptions // null -> {} -> ScrollOptions
+    with
+        ScrollOptions {
   external ScrollLogicalPosition get block;
   external set block(ScrollLogicalPosition newValue);
   external ScrollLogicalPosition get inline;

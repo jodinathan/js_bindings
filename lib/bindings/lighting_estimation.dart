@@ -17,7 +17,9 @@ import 'webxrlayers_1.dart';
 import 'webgl1.dart';
 
 @JS()
-class XRLightProbe extends EventTarget {
+class XRLightProbe // null -> {} -> EventTarget
+    with
+        EventTarget {
   external XRSpace get probeSpace;
   external EventHandlerNonNull? get onreflectionchange;
   external set onreflectionchange(EventHandlerNonNull? newValue);

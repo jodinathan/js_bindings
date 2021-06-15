@@ -24,7 +24,9 @@ import 'reporting_1.dart';
 /// observed by a [ReportingObserver].
 @experimental
 @JS()
-class DeprecationReportBody extends ReportBody {
+class DeprecationReportBody // null -> {} -> ReportBody
+    with
+        ReportBody {
   @override
   external dynamic toJSON();
 

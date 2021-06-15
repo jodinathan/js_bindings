@@ -62,7 +62,7 @@ class ModuleImportDescriptor {
 
 @JS()
 class Module {
-  external factory Module({dynamic bytes});
+  external factory Module(dynamic bytes);
   external static Iterable<ModuleExportDescriptor> exports(Module moduleObject);
   external static Iterable<ModuleImportDescriptor> imports(Module moduleObject);
   external static Iterable<ByteBuffer> customSections(
@@ -71,7 +71,7 @@ class Module {
 
 @JS()
 class Instance {
-  external factory Instance({Module module, dynamic importObject});
+  external factory Instance(Module module, [dynamic importObject]);
   external dynamic get exports;
 }
 
@@ -88,7 +88,7 @@ class MemoryDescriptor {
 
 @JS()
 class Memory {
-  external factory Memory({MemoryDescriptor descriptor});
+  external factory Memory(MemoryDescriptor descriptor);
   external int grow(int delta);
   external ByteBuffer get buffer;
 }
@@ -112,7 +112,7 @@ class TableDescriptor {
 
 @JS()
 class Table {
-  external factory Table({TableDescriptor descriptor, dynamic value});
+  external factory Table(TableDescriptor descriptor, [dynamic value]);
   external int grow(int delta, [dynamic value]);
   @JS('get')
   external dynamic mGet(int index);
@@ -137,7 +137,7 @@ class GlobalDescriptor {
 
 @JS()
 class Global {
-  external factory Global({GlobalDescriptor descriptor, dynamic v});
+  external factory Global(GlobalDescriptor descriptor, [dynamic v]);
   external dynamic valueOf();
   external dynamic get value;
   external set value(dynamic newValue);

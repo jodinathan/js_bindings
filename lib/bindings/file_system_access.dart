@@ -19,7 +19,9 @@ enum FileSystemPermissionMode { read, readwrite }
 
 @anonymous
 @JS()
-class FileSystemPermissionDescriptor extends PermissionDescriptor {
+class FileSystemPermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   external FileSystemHandle get handle;
   external set handle(FileSystemHandle newValue);
   external FileSystemPermissionMode get mode;
@@ -101,7 +103,9 @@ class FileSystemCreateWritableOptions {
 /// the [FileSystemHandle] interface can be used to verify permission
 /// state before accessing a file.
 @JS()
-class FileSystemFileHandle extends FileSystemHandle {
+class FileSystemFileHandle // null -> {} -> FileSystemHandle
+    with
+        FileSystemHandle {
   ///  Returns a [file object] representing the state on disk of the
   /// entry represented by the handle.
   /// var File = FileSystemFileHandle.getFile();
@@ -154,7 +158,9 @@ class FileSystemRemoveOptions {
 /// to a file system directory. The interface is accessed via the
 /// [window.showDirectoryPicker()] method.
 @JS()
-class FileSystemDirectoryHandle extends FileSystemHandle {
+class FileSystemDirectoryHandle // null -> {} -> FileSystemHandle
+    with
+        FileSystemHandle {
   external FileSystemHandle operator [](String index);
 
   ///  Returns a [FileSystemFileHandle] for a file with the specified
@@ -218,7 +224,9 @@ class WriteParams {
 /// accessed through the [FileSystemFileHandle.createWritable()]
 /// method.
 @JS()
-class FileSystemWritableFileStream extends WritableStream {
+class FileSystemWritableFileStream // null -> {} -> WritableStream
+    with
+        WritableStream {
   ///  Writes content into the file the method is called on, at the
   /// current file cursor offset.
   /// FileSystemWritableFileStream.write(data).then(...);
@@ -279,7 +287,9 @@ class FilePickerOptions {
 
 @anonymous
 @JS()
-class OpenFilePickerOptions extends FilePickerOptions {
+class OpenFilePickerOptions // null -> {} -> FilePickerOptions
+    with
+        FilePickerOptions {
   external bool get multiple;
   external set multiple(bool newValue);
 
@@ -288,7 +298,9 @@ class OpenFilePickerOptions extends FilePickerOptions {
 
 @anonymous
 @JS()
-class SaveFilePickerOptions extends FilePickerOptions {
+class SaveFilePickerOptions // null -> {} -> FilePickerOptions
+    with
+        FilePickerOptions {
   external String? get suggestedName;
   external set suggestedName(String? newValue);
 

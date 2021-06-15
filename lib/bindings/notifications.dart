@@ -25,8 +25,10 @@ import 'service_workers_1.dart';
 /// generally they provide a way to asynchronously provide
 /// information to the user.
 @JS()
-class Notification extends EventTarget {
-  external factory Notification({String title, NotificationOptions? options});
+class Notification // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory Notification(String title, [NotificationOptions? options]);
   external static NotificationPermission get permission;
   external static Promise<NotificationPermission> requestPermission(
       [NotificationPermissionCallback? deprecatedCallback]);
@@ -160,9 +162,10 @@ class GetNotificationOptions {
 /// This interface inherits from the [ExtendableEvent] interface.
 @experimental
 @JS()
-class NotificationEvent extends ExtendableEvent {
+class NotificationEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
   external factory NotificationEvent(
-      {String type, NotificationEventInit eventInitDict});
+      String type, NotificationEventInit eventInitDict);
 
   ///  Returns a [Notification] object representing the notification
   /// that was clicked to fire the event.
@@ -177,7 +180,8 @@ class NotificationEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class NotificationEventInit extends ExtendableEventInit {
+class NotificationEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external Notification get notification;
   external set notification(Notification newValue);
   external String get action;

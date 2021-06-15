@@ -18,7 +18,9 @@ import 'credential_management_1.dart';
 ///
 ///
 @JS()
-class OTPCredential extends Credential {
+class OTPCredential // null -> {} -> Credential
+    with
+        Credential {
   /// The one-time password.
   external String get code;
 

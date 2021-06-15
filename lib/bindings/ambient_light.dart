@@ -26,8 +26,9 @@ import 'generic_sensor.dart';
 /// is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class AmbientLightSensor extends Sensor {
-  external factory AmbientLightSensor({SensorOptions? sensorOptions});
+class AmbientLightSensor // EventTarget -> {} -> Sensor
+    extends Sensor {
+  external factory AmbientLightSensor([SensorOptions? sensorOptions]);
 
   ///  Returns the current light level in lux of the ambient light
   /// level around the hosting device.

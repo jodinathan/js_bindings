@@ -11,7 +11,9 @@ import '../manual.dart';
 import 'webgl1.dart';
 
 @JS()
-class WebGLVertexArrayObjectOES extends WebGLObject {
+class WebGLVertexArrayObjectOES // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLVertexArrayObjectOES();
 }
 

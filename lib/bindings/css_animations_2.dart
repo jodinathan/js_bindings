@@ -17,7 +17,8 @@ import 'web_animations_1.dart';
 ///  The interface of the Web Animations API represents an
 /// [Animation] object.
 @JS()
-class CSSAnimation extends Animation {
+class CSSAnimation // EventTarget -> {} -> Animation
+    extends Animation {
   /// Returns the animation name as a [CSSOMString].
   external String get animationName;
 

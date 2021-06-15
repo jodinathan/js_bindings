@@ -121,7 +121,9 @@ class StylePropertyMapReadOnly {
 ///
 @experimental
 @JS()
-class StylePropertyMap extends StylePropertyMapReadOnly {
+class StylePropertyMap // null -> {} -> StylePropertyMapReadOnly
+    with
+        StylePropertyMapReadOnly {
   /// Changes the CSS declaration with the given property.
   /// StylePropertyMap.set(property,value)
   /// This example sets the padding-top property, with the given value, within
@@ -191,8 +193,10 @@ class StylePropertyMap extends StylePropertyMapReadOnly {
 /// represented using [CSSVariableReferenceValue].
 @experimental
 @JS()
-class CSSUnparsedValue extends CSSStyleValue {
-  external factory CSSUnparsedValue({Iterable<dynamic>? members});
+class CSSUnparsedValue // null -> {} -> CSSStyleValue
+    with
+        CSSStyleValue {
+  external factory CSSUnparsedValue([Iterable<dynamic>? members]);
 
   /// Returns the number of items in the [CSSUnparsedValue] object.
   external int get length;
@@ -214,8 +218,8 @@ class CSSUnparsedValue extends CSSStyleValue {
 @experimental
 @JS()
 class CSSVariableReferenceValue {
-  external factory CSSVariableReferenceValue(
-      {String variable, CSSUnparsedValue? fallback});
+  external factory CSSVariableReferenceValue(String variable,
+      [CSSUnparsedValue? fallback]);
 
   /// Returns the custom name passed to the constructor.
   external String get variable;
@@ -236,8 +240,10 @@ class CSSVariableReferenceValue {
 /// [CSSKeyword.value].
 @experimental
 @JS()
-class CSSKeywordValue extends CSSStyleValue {
-  external factory CSSKeywordValue({String value});
+class CSSKeywordValue // null -> {} -> CSSStyleValue
+    with
+        CSSStyleValue {
+  external factory CSSKeywordValue(String value);
 
   /// Returns or sets the value of the [CSSKeywordValue].
   external String get value;
@@ -294,7 +300,9 @@ class CSSNumericType {
 /// operations that all numeric values can perform.
 @experimental
 @JS()
-class CSSNumericValue extends CSSStyleValue {
+class CSSNumericValue // null -> {} -> CSSStyleValue
+    with
+        CSSStyleValue {
   external CSSNumericValue add([dynamic values]);
   external CSSNumericValue sub([dynamic values]);
   external CSSNumericValue mul([dynamic values]);
@@ -323,8 +331,9 @@ class CSSNumericValue extends CSSStyleValue {
 /// "42px" would be represented by a [CSSNumericValue].
 @experimental
 @JS()
-class CSSUnitValue extends CSSNumericValue {
-  external factory CSSUnitValue({double value, String unit});
+class CSSUnitValue // CSSStyleValue -> {} -> CSSNumericValue
+    extends CSSNumericValue {
+  external factory CSSUnitValue(double value, String unit);
 
   /// Returns a double indicating the number of units.
   external double get value;
@@ -346,7 +355,8 @@ class CSSUnitValue extends CSSNumericValue {
 /// base class for classes representing complex numeric values.
 @experimental
 @JS()
-class CSSMathValue extends CSSNumericValue {
+class CSSMathValue // CSSStyleValue -> {} -> CSSNumericValue
+    extends CSSNumericValue {
   /// Indicates the operator that the current subtype represents.
   @JS('operator')
   external CSSMathOperator get mOperator;
@@ -371,8 +381,9 @@ class CSSMathValue extends CSSNumericValue {
 /// whose value is created with a [calc()] function.
 @experimental
 @JS()
-class CSSMathSum extends CSSMathValue {
-  external factory CSSMathSum({dynamic args});
+class CSSMathSum // CSSNumericValue -> {} -> CSSMathValue
+    extends CSSMathValue {
+  external factory CSSMathSum([dynamic args]);
 
   ///  Returns a [CSSNumericArray] object which contains one or more
   /// [CSSNumericValue] objects.
@@ -393,8 +404,9 @@ class CSSMathSum extends CSSMathValue {
 /// methods from its parent [CSSNumericValue].
 @experimental
 @JS()
-class CSSMathProduct extends CSSMathValue {
-  external factory CSSMathProduct({dynamic args});
+class CSSMathProduct // CSSNumericValue -> {} -> CSSMathValue
+    extends CSSMathValue {
+  external factory CSSMathProduct([dynamic args]);
 
   ///  Returns a [CSSNumericArray] object which contains one or more
   /// [CSSNumericValue] objects.
@@ -414,8 +426,9 @@ class CSSMathProduct extends CSSMathValue {
 /// methods from its parent [CSSNumericValue].
 @experimental
 @JS()
-class CSSMathNegate extends CSSMathValue {
-  external factory CSSMathNegate({dynamic arg});
+class CSSMathNegate // CSSNumericValue -> {} -> CSSMathValue
+    extends CSSMathValue {
+  external factory CSSMathNegate(dynamic arg);
 
   /// Returns a [CSSNumericValue] object.
   external CSSNumericValue get value;
@@ -435,8 +448,9 @@ class CSSMathNegate extends CSSMathValue {
 /// [CSSNumericValue].
 @experimental
 @JS()
-class CSSMathInvert extends CSSMathValue {
-  external factory CSSMathInvert({dynamic arg});
+class CSSMathInvert // CSSNumericValue -> {} -> CSSMathValue
+    extends CSSMathValue {
+  external factory CSSMathInvert(dynamic arg);
 
   /// Returns a [CSSNumericValue] object.
   external CSSNumericValue get value;
@@ -455,8 +469,9 @@ class CSSMathInvert extends CSSMathValue {
 /// methods from its parent [CSSNumericValue].
 @experimental
 @JS()
-class CSSMathMin extends CSSMathValue {
-  external factory CSSMathMin({dynamic args});
+class CSSMathMin // CSSNumericValue -> {} -> CSSMathValue
+    extends CSSMathValue {
+  external factory CSSMathMin([dynamic args]);
 
   ///  Returns a [CSSNumericArray] object which contains one or more
   /// [CSSNumericValue] objects.
@@ -476,8 +491,9 @@ class CSSMathMin extends CSSMathValue {
 /// methods from its parent [CSSNumericValue].
 @experimental
 @JS()
-class CSSMathMax extends CSSMathValue {
-  external factory CSSMathMax({dynamic args});
+class CSSMathMax // CSSNumericValue -> {} -> CSSMathValue
+    extends CSSMathValue {
+  external factory CSSMathMax([dynamic args]);
 
   ///  Returns a [CSSNumericArray] object which contains one or more
   /// [CSSNumericValue] objects.
@@ -522,9 +538,11 @@ enum CSSMathOperator { sum, product, negate, invert, min, max, clamp }
 /// property.
 @experimental
 @JS()
-class CSSTransformValue extends CSSStyleValue {
+class CSSTransformValue // null -> {} -> CSSStyleValue
+    with
+        CSSStyleValue {
   external factory CSSTransformValue(
-      {Iterable<CSSTransformComponent>? transforms});
+      [Iterable<CSSTransformComponent>? transforms]);
 
   ///  Returns how many transform components are contained within the
   /// [CSSTransformValue].
@@ -574,9 +592,11 @@ class CSSTransformComponent {
 /// parent [CSSTransformValue].
 @experimental
 @JS()
-class CSSTranslate extends CSSTransformComponent {
-  external factory CSSTranslate(
-      {CSSNumericValue x, CSSNumericValue y, CSSNumericValue? z});
+class CSSTranslate // null -> {} -> CSSTransformComponent
+    with
+        CSSTransformComponent {
+  external factory CSSTranslate(CSSNumericValue x, CSSNumericValue y,
+      [CSSNumericValue? z]);
 
   /// Returns or sets the x-axis value.
   external CSSNumericValue get x;
@@ -605,9 +625,11 @@ class CSSTranslate extends CSSTransformComponent {
 /// parent [CSSTransformValue].
 @experimental
 @JS()
-class CSSRotate extends CSSTransformComponent {
+class CSSRotate // null -> {} -> CSSTransformComponent
+    with
+        CSSTransformComponent {
   external factory CSSRotate(
-      {dynamic x, dynamic y, dynamic z, CSSNumericValue angle});
+      [dynamic x, dynamic y, dynamic z, CSSNumericValue angle]);
 
   /// Returns or sets the x-axis value.
   external dynamic get x;
@@ -640,8 +662,10 @@ class CSSRotate extends CSSTransformComponent {
 /// from its parent [CSSTransformValue].
 @experimental
 @JS()
-class CSSScale extends CSSTransformComponent {
-  external factory CSSScale({dynamic x, dynamic y, dynamic z});
+class CSSScale // null -> {} -> CSSTransformComponent
+    with
+        CSSTransformComponent {
+  external factory CSSScale(dynamic x, dynamic y, [dynamic z]);
 
   /// Returns or sets the x-axis value.
   external dynamic get x;
@@ -669,8 +693,10 @@ class CSSScale extends CSSTransformComponent {
 /// [skew()] value of the individual [transform] property in CSS.
 @experimental
 @JS()
-class CSSSkew extends CSSTransformComponent {
-  external factory CSSSkew({CSSNumericValue ax, CSSNumericValue ay});
+class CSSSkew // null -> {} -> CSSTransformComponent
+    with
+        CSSTransformComponent {
+  external factory CSSSkew(CSSNumericValue ax, CSSNumericValue ay);
 
   /// Returns or sets the x-axis value.
   external CSSNumericValue get ax;
@@ -695,8 +721,10 @@ class CSSSkew extends CSSTransformComponent {
 /// parent [CSSTransformValue].
 @experimental
 @JS()
-class CSSSkewX extends CSSTransformComponent {
-  external factory CSSSkewX({CSSNumericValue ax});
+class CSSSkewX // null -> {} -> CSSTransformComponent
+    with
+        CSSTransformComponent {
+  external factory CSSSkewX(CSSNumericValue ax);
 
   /// Returns or sets the x-axis value.
   external CSSNumericValue get ax;
@@ -717,8 +745,10 @@ class CSSSkewX extends CSSTransformComponent {
 /// parent [CSSTransformValue].
 @experimental
 @JS()
-class CSSSkewY extends CSSTransformComponent {
-  external factory CSSSkewY({CSSNumericValue ay});
+class CSSSkewY // null -> {} -> CSSTransformComponent
+    with
+        CSSTransformComponent {
+  external factory CSSSkewY(CSSNumericValue ay);
 
   /// Returns or sets the y-axis value.
   external CSSNumericValue get ay;
@@ -739,8 +769,10 @@ class CSSSkewY extends CSSTransformComponent {
 /// parent [CSSTransformValue].
 @experimental
 @JS()
-class CSSPerspective extends CSSTransformComponent {
-  external factory CSSPerspective({CSSNumericValue length});
+class CSSPerspective // null -> {} -> CSSTransformComponent
+    with
+        CSSTransformComponent {
+  external factory CSSPerspective(CSSNumericValue length);
 
   /// Returns or sets the distance from z=0.
   external CSSNumericValue get length;
@@ -761,9 +793,11 @@ class CSSPerspective extends CSSTransformComponent {
 /// from its parent [CSSTransformValue].
 @experimental
 @JS()
-class CSSMatrixComponent extends CSSTransformComponent {
-  external factory CSSMatrixComponent(
-      {DOMMatrixReadOnly matrix, CSSMatrixComponentOptions? options});
+class CSSMatrixComponent // null -> {} -> CSSTransformComponent
+    with
+        CSSTransformComponent {
+  external factory CSSMatrixComponent(DOMMatrixReadOnly matrix,
+      [CSSMatrixComponentOptions? options]);
 
   /// A matrix.
   external DOMMatrix get matrix;
@@ -797,7 +831,9 @@ class CSSMatrixComponentOptions {
 @experimental
 @deprecated
 @JS()
-class CSSPositionValue extends CSSStyleValue {
+class CSSPositionValue // null -> {} -> CSSStyleValue
+    with
+        CSSStyleValue {
   ///  Returns the item's position along the web page's horizontal
   /// axis.
   external CSSNumericValue get x;
@@ -822,18 +858,23 @@ class CSSPositionValue extends CSSStyleValue {
 /// [element()] .
 @experimental
 @JS()
-class CSSImageValue extends CSSStyleValue {
+class CSSImageValue // null -> {} -> CSSStyleValue
+    with
+        CSSStyleValue {
   external factory CSSImageValue();
 }
 
 @JS()
-class CSSMathClamp extends CSSMathValue {
-  external factory CSSMathClamp({dynamic min, dynamic val, dynamic max});
+class CSSMathClamp // CSSNumericValue -> {} -> CSSMathValue
+    extends CSSMathValue {
+  external factory CSSMathClamp(dynamic min, dynamic val, dynamic max);
   external CSSNumericValue get val;
 }
 
 @JS()
-class CSSColorValue extends CSSStyleValue {
+class CSSColorValue // null -> {} -> CSSStyleValue
+    with
+        CSSStyleValue {
   external dynamic get colorSpace;
   external CSSColorValue to(dynamic colorSpace);
   external static CSSColorValue parse(String cssText);
@@ -842,8 +883,9 @@ class CSSColorValue extends CSSStyleValue {
 }
 
 @JS()
-class CSSRGB extends CSSColorValue {
-  external factory CSSRGB({dynamic r, dynamic g, dynamic b, dynamic alpha = 1});
+class CSSRGB // CSSStyleValue -> {} -> CSSColorValue
+    extends CSSColorValue {
+  external factory CSSRGB(dynamic r, dynamic g, dynamic b, [dynamic alpha = 1]);
   external dynamic get r;
   external set r(dynamic newValue);
   external dynamic get g;
@@ -855,9 +897,10 @@ class CSSRGB extends CSSColorValue {
 }
 
 @JS()
-class CSSHSL extends CSSColorValue {
-  external factory CSSHSL(
-      {CSSNumericValue h, dynamic s, dynamic l, dynamic alpha = 1});
+class CSSHSL // CSSStyleValue -> {} -> CSSColorValue
+    extends CSSColorValue {
+  external factory CSSHSL(CSSNumericValue h, dynamic s, dynamic l,
+      [dynamic alpha = 1]);
   external CSSNumericValue get h;
   external set h(CSSNumericValue newValue);
   external dynamic get s;
@@ -869,9 +912,10 @@ class CSSHSL extends CSSColorValue {
 }
 
 @JS()
-class CSSHWB extends CSSColorValue {
-  external factory CSSHWB(
-      {CSSNumericValue h, dynamic w, dynamic b, dynamic alpha = 1});
+class CSSHWB // CSSStyleValue -> {} -> CSSColorValue
+    extends CSSColorValue {
+  external factory CSSHWB(CSSNumericValue h, dynamic w, dynamic b,
+      [dynamic alpha = 1]);
   external CSSNumericValue get h;
   external set h(CSSNumericValue newValue);
   external dynamic get w;
@@ -883,9 +927,10 @@ class CSSHWB extends CSSColorValue {
 }
 
 @JS()
-class CSSLCH extends CSSColorValue {
-  external factory CSSLCH(
-      {dynamic l, dynamic c, CSSNumericValue h, dynamic alpha = 1});
+class CSSLCH // CSSStyleValue -> {} -> CSSColorValue
+    extends CSSColorValue {
+  external factory CSSLCH(dynamic l, dynamic c, CSSNumericValue h,
+      [dynamic alpha = 1]);
   external dynamic get l;
   external set l(dynamic newValue);
   external dynamic get c;
@@ -897,8 +942,9 @@ class CSSLCH extends CSSColorValue {
 }
 
 @JS()
-class CSSLab extends CSSColorValue {
-  external factory CSSLab({dynamic l, dynamic a, dynamic b, dynamic alpha = 1});
+class CSSLab // CSSStyleValue -> {} -> CSSColorValue
+    extends CSSColorValue {
+  external factory CSSLab(dynamic l, dynamic a, dynamic b, [dynamic alpha = 1]);
   external dynamic get l;
   external set l(dynamic newValue);
   external dynamic get a;
@@ -910,9 +956,10 @@ class CSSLab extends CSSColorValue {
 }
 
 @JS()
-class CSSColor extends CSSColorValue {
-  external factory CSSColor(
-      {dynamic colorSpace, Iterable<dynamic> channels, dynamic alpha = 1});
+class CSSColor // CSSStyleValue -> {} -> CSSColorValue
+    extends CSSColorValue {
+  external factory CSSColor(dynamic colorSpace, Iterable<dynamic> channels,
+      [dynamic alpha = 1]);
   @override
   external dynamic get colorSpace;
   @override
@@ -924,9 +971,10 @@ class CSSColor extends CSSColorValue {
 }
 
 @JS()
-class CSSDeviceCMYK extends CSSColorValue {
-  external factory CSSDeviceCMYK(
-      {dynamic c, dynamic m, dynamic y, dynamic k, dynamic alpha = 1});
+class CSSDeviceCMYK // CSSStyleValue -> {} -> CSSColorValue
+    extends CSSColorValue {
+  external factory CSSDeviceCMYK(dynamic c, dynamic m, dynamic y, dynamic k,
+      [dynamic alpha = 1]);
   external dynamic get c;
   external set c(dynamic newValue);
   external dynamic get m;

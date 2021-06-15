@@ -24,8 +24,9 @@ import 'generic_sensor.dart';
 /// is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class Magnetometer extends Sensor {
-  external factory Magnetometer({MagnetometerSensorOptions? sensorOptions});
+class Magnetometer // EventTarget -> {} -> Sensor
+    extends Sensor {
+  external factory Magnetometer([MagnetometerSensorOptions? sensorOptions]);
 
   ///  Returns a double containing the magnetic field around the
   /// device's x axis.
@@ -45,7 +46,9 @@ enum MagnetometerLocalCoordinateSystem { device, screen }
 
 @anonymous
 @JS()
-class MagnetometerSensorOptions extends SensorOptions {
+class MagnetometerSensorOptions // null -> {} -> SensorOptions
+    with
+        SensorOptions {
   external MagnetometerLocalCoordinateSystem get referenceFrame;
   external set referenceFrame(MagnetometerLocalCoordinateSystem newValue);
 
@@ -55,9 +58,10 @@ class MagnetometerSensorOptions extends SensorOptions {
 }
 
 @JS()
-class UncalibratedMagnetometer extends Sensor {
+class UncalibratedMagnetometer // EventTarget -> {} -> Sensor
+    extends Sensor {
   external factory UncalibratedMagnetometer(
-      {MagnetometerSensorOptions? sensorOptions});
+      [MagnetometerSensorOptions? sensorOptions]);
   external double? get x;
   external double? get y;
   external double? get z;

@@ -20,9 +20,11 @@ import 'hr_time_3.dart';
 /// functionality to easily record media. It is created using the
 /// [MediaRecorder()] constructor.
 @JS()
-class MediaRecorder extends EventTarget {
-  external factory MediaRecorder(
-      {MediaStream stream, MediaRecorderOptions? options});
+class MediaRecorder // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory MediaRecorder(MediaStream stream,
+      [MediaRecorderOptions? options]);
 
   ///  Returns the stream that was passed into the constructor when the
   /// [MediaRecorder] was created.
@@ -168,8 +170,10 @@ enum RecordingState { inactive, recording, paused }
 /// blobs are typically, but not necessarily, associated with media
 /// content.
 @JS()
-class BlobEvent extends Event {
-  external factory BlobEvent({String type, BlobEventInit eventInitDict});
+class BlobEvent // null -> {} -> Event
+    with
+        Event {
+  external factory BlobEvent(String type, BlobEventInit eventInitDict);
 
   ///  A [Blob] representing the data associated with the event. The
   /// event was fired on the [EventTarget] because of something
@@ -197,7 +201,9 @@ class BlobEventInit {
 
 @anonymous
 @JS()
-class MediaRecorderErrorEventInit extends EventInit {
+class MediaRecorderErrorEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external Exception get error;
   external set error(Exception newValue);
 
@@ -210,9 +216,11 @@ class MediaRecorderErrorEventInit extends EventInit {
 /// Recording API. It is an [Event] object that encapsulates a
 /// reference to a [DOMException] describing the error that occurred.
 @JS()
-class MediaRecorderErrorEvent extends Event {
+class MediaRecorderErrorEvent // null -> {} -> Event
+    with
+        Event {
   external factory MediaRecorderErrorEvent(
-      {String type, MediaRecorderErrorEventInit eventInitDict});
+      String type, MediaRecorderErrorEventInit eventInitDict);
 
   ///  A [DOMException] containing information about the error that
   /// occurred. Read only.

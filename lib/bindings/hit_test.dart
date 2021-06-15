@@ -96,7 +96,7 @@ class XRRayDirectionInit {
 
 @JS()
 class XRRay {
-  external factory XRRay({DOMPointInit? origin, XRRayDirectionInit? direction});
+  external factory XRRay([DOMPointInit? origin, XRRayDirectionInit? direction]);
   external DOMPointReadOnly get origin;
   external DOMPointReadOnly get direction;
   external Float32List get matrix;

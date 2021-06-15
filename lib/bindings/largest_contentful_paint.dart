@@ -21,7 +21,9 @@ import 'dom.dart';
 /// on a web page. The timing of this paint is a good heuristic for
 /// when the main page content is available during load.
 @JS()
-class LargestContentfulPaint extends PerformanceEntry {
+class LargestContentfulPaint // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   ///  The time the element was rendered to the screen. May not be
   /// available if the element is a cross-origin image loaded without
   /// the [Timing-Allow-Origin] header.

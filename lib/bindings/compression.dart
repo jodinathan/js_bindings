@@ -16,7 +16,7 @@ import 'streams.dart';
 /// compressing a stream of data.
 @JS()
 class CompressionStream with GenericTransformStream {
-  external factory CompressionStream({String format});
+  external factory CompressionStream(String format);
 }
 
 ///
@@ -25,5 +25,5 @@ class CompressionStream with GenericTransformStream {
 /// decompressing a stream of data.
 @JS()
 class DecompressionStream with GenericTransformStream {
-  external factory DecompressionStream({String format});
+  external factory DecompressionStream(String format);
 }

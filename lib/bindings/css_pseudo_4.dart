@@ -21,7 +21,10 @@ import 'dom.dart';
 /// of this interface may be obtained by calling [Element.pseudo()].
 @experimental
 @JS()
-class CSSPseudoElement extends EventTarget with GeometryUtils {
+class CSSPseudoElement // null -> {} -> EventTarget
+    with
+        EventTarget,
+        GeometryUtils {
   /// Returns the pseudo-element selector as a [CSSOMString].
   @experimental
   external String get type;

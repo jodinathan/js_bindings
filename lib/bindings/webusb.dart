@@ -57,7 +57,9 @@ class USBDeviceRequestOptions {
 ///  The interface of the WebUSB API provides attributes and methods
 /// for finding and connecting USB devices from a web page.
 @JS()
-class USB extends EventTarget {
+class USB // null -> {} -> EventTarget
+    with
+        EventTarget {
   external EventHandlerNonNull? get onconnect;
   external set onconnect(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get ondisconnect;
@@ -113,7 +115,9 @@ class USB extends EventTarget {
 
 @anonymous
 @JS()
-class USBConnectionEventInit extends EventInit {
+class USBConnectionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external USBDevice get device;
   external set device(USBDevice newValue);
 
@@ -127,9 +131,11 @@ class USBConnectionEventInit extends EventInit {
 /// [USB.onconnect] and [USB.ondisconnect] when the user agent
 /// detects that a new USB device has been connected or disconnected.
 @JS()
-class USBConnectionEvent extends Event {
+class USBConnectionEvent // null -> {} -> Event
+    with
+        Event {
   external factory USBConnectionEvent(
-      {String type, USBConnectionEventInit eventInitDict});
+      String type, USBConnectionEventInit eventInitDict);
 
   /// Returns a [USBDevice] object representing the current device.
   external USBDevice get device;
@@ -386,8 +392,8 @@ class USBControlTransferParameters {
 @experimental
 @JS()
 class USBInTransferResult {
-  external factory USBInTransferResult(
-      {USBTransferStatus status, ByteData? data});
+  external factory USBInTransferResult(USBTransferStatus status,
+      [ByteData? data]);
 
   ///  Returns a [DataView] object containing the data received from
   /// the USB device, if any.
@@ -422,8 +428,8 @@ class USBInTransferResult {
 @experimental
 @JS()
 class USBOutTransferResult {
-  external factory USBOutTransferResult(
-      {USBTransferStatus status, int? bytesWritten = 0});
+  external factory USBOutTransferResult(USBTransferStatus status,
+      [int? bytesWritten = 0]);
 
   ///  Returns the number of bytes from the transfer request that were
   /// sent to the device.
@@ -456,8 +462,8 @@ class USBOutTransferResult {
 @experimental
 @JS()
 class USBIsochronousInTransferPacket {
-  external factory USBIsochronousInTransferPacket(
-      {USBTransferStatus status, ByteData? data});
+  external factory USBIsochronousInTransferPacket(USBTransferStatus status,
+      [ByteData? data]);
 
   ///  Returns a [DataView] object containing the data received from
   /// the USB device in this packet, if any.
@@ -491,7 +497,8 @@ class USBIsochronousInTransferPacket {
 @JS()
 class USBIsochronousInTransferResult {
   external factory USBIsochronousInTransferResult(
-      {Iterable<USBIsochronousInTransferPacket> packets, ByteData? data});
+      Iterable<USBIsochronousInTransferPacket> packets,
+      [ByteData? data]);
 
   ///  Returns a [DataView] object containing the data received from
   /// the device. This is the combined data from all packets. See the
@@ -520,8 +527,8 @@ class USBIsochronousInTransferResult {
 @experimental
 @JS()
 class USBIsochronousOutTransferPacket {
-  external factory USBIsochronousOutTransferPacket(
-      {USBTransferStatus status, int? bytesWritten = 0});
+  external factory USBIsochronousOutTransferPacket(USBTransferStatus status,
+      [int? bytesWritten = 0]);
 
   ///  Returns the number of bytes from the packet that were sent to
   /// the device.
@@ -553,7 +560,7 @@ class USBIsochronousOutTransferPacket {
 @JS()
 class USBIsochronousOutTransferResult {
   external factory USBIsochronousOutTransferResult(
-      {Iterable<USBIsochronousOutTransferPacket> packets});
+      Iterable<USBIsochronousOutTransferPacket> packets);
 
   ///  Returns an array of [USBIsochronousOutTransferPacket] objects
   /// containing the result of each request to send a packet to the
@@ -569,7 +576,7 @@ class USBIsochronousOutTransferResult {
 /// it supports.
 @JS()
 class USBConfiguration {
-  external factory USBConfiguration({USBDevice device, int configurationValue});
+  external factory USBConfiguration(USBDevice device, int configurationValue);
 
   ///  Returns the configuration value of this configuration. This is
   /// equal to the [bConfigurationValue] field of the configuration
@@ -602,7 +609,7 @@ class USBConfiguration {
 @JS()
 class USBInterface {
   external factory USBInterface(
-      {USBConfiguration configuration, int interfaceNumber});
+      USBConfiguration configuration, int interfaceNumber);
 
   ///  Returns the interface number of this interface. This is equal to
   /// the [bInterfaceNumber] field of the interface descriptor defining
@@ -642,7 +649,7 @@ class USBInterface {
 @JS()
 class USBAlternateInterface {
   external factory USBAlternateInterface(
-      {USBInterface deviceInterface, int alternateSetting});
+      USBInterface deviceInterface, int alternateSetting);
 
   ///  Returns the alternate setting number of this interface. This is
   /// equal to the [bAlternateSetting] field of the interface
@@ -697,10 +704,8 @@ enum USBEndpointType { bulk, interrupt, isochronous }
 /// unidirectional data stream into or out of a device.
 @JS()
 class USBEndpoint {
-  external factory USBEndpoint(
-      {USBAlternateInterface alternate,
-      int endpointNumber,
-      USBDirection direction});
+  external factory USBEndpoint(USBAlternateInterface alternate,
+      int endpointNumber, USBDirection direction);
 
   ///  Returns this endpoint's "endpoint number" which is a value from
   /// 1 to 15 extracted from the [bEndpointAddress] field of the
@@ -750,7 +755,9 @@ class USBEndpoint {
 
 @anonymous
 @JS()
-class USBPermissionDescriptor extends PermissionDescriptor {
+class USBPermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   external Iterable<USBDeviceFilter> get filters;
   external set filters(Iterable<USBDeviceFilter> newValue);
 
@@ -782,7 +789,8 @@ class USBPermissionStorage {
 }
 
 @JS()
-class USBPermissionResult extends PermissionStatus {
+class USBPermissionResult // EventTarget -> {} -> PermissionStatus
+    extends PermissionStatus {
   external Iterable<USBDevice> get devices;
   external set devices(Iterable<USBDevice> newValue);
 

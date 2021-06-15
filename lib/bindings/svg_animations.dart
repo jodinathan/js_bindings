@@ -20,7 +20,9 @@ import 'html.dart';
 ///
 ///
 @JS()
-class TimeEvent extends Event {
+class TimeEvent // null -> {} -> Event
+    with
+        Event {
   ///  Is a [WindowProxy] that identifies the Window from which the
   /// event was generated.
   external Window? get view;
@@ -49,7 +51,8 @@ class TimeEvent extends Event {
 ///
 ///
 @JS()
-class SVGAnimationElement extends SVGElement with SVGTests {
+class SVGAnimationElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGTests {
   ///  An [SVGElement] representing the element which is being
   /// animated. If no target element is being animated (for example,
   /// because the [href] specifies an unknown element) the value
@@ -114,7 +117,8 @@ class SVGAnimationElement extends SVGElement with SVGTests {
 ///
 ///
 @JS()
-class SVGAnimateElement extends SVGAnimationElement {
+class SVGAnimateElement // SVGElement -> {svg2: {SVGTests}} -> SVGAnimationElement
+    extends SVGAnimationElement {
   external factory SVGAnimateElement();
 }
 
@@ -124,7 +128,8 @@ class SVGAnimateElement extends SVGAnimationElement {
 ///
 ///
 @JS()
-class SVGSetElement extends SVGAnimationElement {
+class SVGSetElement // SVGElement -> {svg2: {SVGTests}} -> SVGAnimationElement
+    extends SVGAnimationElement {
   external factory SVGSetElement();
 }
 
@@ -134,7 +139,8 @@ class SVGSetElement extends SVGAnimationElement {
 ///
 ///
 @JS()
-class SVGAnimateMotionElement extends SVGAnimationElement {
+class SVGAnimateMotionElement // SVGElement -> {svg2: {SVGTests}} -> SVGAnimationElement
+    extends SVGAnimationElement {
   external factory SVGAnimateMotionElement();
 }
 
@@ -144,7 +150,8 @@ class SVGAnimateMotionElement extends SVGAnimationElement {
 ///
 ///
 @JS()
-class SVGMPathElement extends SVGElement with SVGURIReference {
+class SVGMPathElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGURIReference {
   external factory SVGMPathElement();
 }
 
@@ -154,11 +161,13 @@ class SVGMPathElement extends SVGElement with SVGURIReference {
 ///
 ///
 @JS()
-class SVGAnimateTransformElement extends SVGAnimationElement {
+class SVGAnimateTransformElement // SVGElement -> {svg2: {SVGTests}} -> SVGAnimationElement
+    extends SVGAnimationElement {
   external factory SVGAnimateTransformElement();
 }
 
 @JS()
-class SVGDiscardElement extends SVGAnimationElement {
+class SVGDiscardElement // SVGElement -> {svg2: {SVGTests}} -> SVGAnimationElement
+    extends SVGAnimationElement {
   external factory SVGDiscardElement();
 }

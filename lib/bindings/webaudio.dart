@@ -30,7 +30,9 @@ enum AudioContextState { suspended, running, closed }
 ///
 ///
 @JS()
-class BaseAudioContext extends EventTarget {
+class BaseAudioContext // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns an [AudioDestinationNode] representing the final
   /// destination of all audio in the context. It can be thought of as
   /// the audio-rendering device.
@@ -838,8 +840,9 @@ enum AudioContextLatencyCategory { balanced, interactive, playback }
 ///
 ///
 @JS()
-class AudioContext extends BaseAudioContext {
-  external factory AudioContext({AudioContextOptions? contextOptions});
+class AudioContext // EventTarget -> {} -> BaseAudioContext
+    extends BaseAudioContext {
+  external factory AudioContext([AudioContextOptions? contextOptions]);
 
   ///  Returns the number of seconds of processing latency incurred by
   /// the [AudioContext] passing the audio from the
@@ -1148,9 +1151,10 @@ class AudioTimestamp {
 ///
 ///
 @JS()
-class OfflineAudioContext extends BaseAudioContext {
+class OfflineAudioContext // EventTarget -> {} -> BaseAudioContext
+    extends BaseAudioContext {
   external factory OfflineAudioContext(
-      {int? numberOfChannels, int length, double sampleRate});
+      [int? numberOfChannels, int length, double sampleRate]);
 
   ///  Starts rendering the audio, taking into account the current
   /// connections and the current scheduled changes. This page covers
@@ -1275,9 +1279,11 @@ class OfflineAudioContextOptions {
 /// supported in browsers, which will no longer need it.
 ///
 @JS()
-class OfflineAudioCompletionEvent extends Event {
+class OfflineAudioCompletionEvent // null -> {} -> Event
+    with
+        Event {
   external factory OfflineAudioCompletionEvent(
-      {String type, OfflineAudioCompletionEventInit eventInitDict});
+      String type, OfflineAudioCompletionEventInit eventInitDict);
 
   ///  An [AudioBuffer] containing the result of processing an
   /// [OfflineAudioContext].
@@ -1286,7 +1292,9 @@ class OfflineAudioCompletionEvent extends Event {
 
 @anonymous
 @JS()
-class OfflineAudioCompletionEventInit extends EventInit {
+class OfflineAudioCompletionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external AudioBuffer get renderedBuffer;
   external set renderedBuffer(AudioBuffer newValue);
 
@@ -1313,7 +1321,7 @@ class OfflineAudioCompletionEventInit extends EventInit {
 /// stored in separate buffers.
 @JS()
 class AudioBuffer {
-  external factory AudioBuffer({AudioBufferOptions options});
+  external factory AudioBuffer(AudioBufferOptions options);
 
   ///  Returns a float representing the sample rate, in samples per
   /// second, of the PCM data stored in the buffer.
@@ -1437,7 +1445,9 @@ class AudioBufferOptions {
 ///  Note: An can be target of events, therefore it implements the
 /// [EventTarget] interface.
 @JS()
-class AudioNode extends EventTarget {
+class AudioNode // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Allows us to connect the output of this node to be input into
   /// another node, either as audio data or as the value of an
   /// [AudioParam].
@@ -1734,7 +1744,8 @@ class AudioParam {
 /// [stop()] is called). Silence is represented, as always, by a
 /// stream of samples with the value zero (0).
 @JS()
-class AudioScheduledSourceNode extends AudioNode {
+class AudioScheduledSourceNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
   external EventHandlerNonNull? get onended;
   external set onended(EventHandlerNonNull? newValue);
 
@@ -1814,9 +1825,10 @@ class AudioScheduledSourceNode extends AudioNode {
 ///
 ///
 @JS()
-class AnalyserNode extends AudioNode {
-  external factory AnalyserNode(
-      {BaseAudioContext context, AnalyserOptions? options});
+class AnalyserNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory AnalyserNode(BaseAudioContext context,
+      [AnalyserOptions? options]);
 
   ///  Copies the current frequency data into a [Float32Array] array
   /// passed into it.
@@ -2024,7 +2036,9 @@ class AnalyserNode extends AudioNode {
 
 @anonymous
 @JS()
-class AnalyserOptions extends AudioNodeOptions {
+class AnalyserOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external int get fftSize;
   external set fftSize(int newValue);
   external double get maxDecibels;
@@ -2089,9 +2103,10 @@ class AnalyserOptions extends AudioNodeOptions {
 ///
 ///
 @JS()
-class AudioBufferSourceNode extends AudioScheduledSourceNode {
-  external factory AudioBufferSourceNode(
-      {BaseAudioContext context, AudioBufferSourceOptions? options});
+class AudioBufferSourceNode // AudioNode -> {} -> AudioScheduledSourceNode
+    extends AudioScheduledSourceNode {
+  external factory AudioBufferSourceNode(BaseAudioContext context,
+      [AudioBufferSourceOptions? options]);
 
   ///  An [AudioBuffer] that defines the audio asset to be played, or
   /// when set to the value [null], defines a single channel of silence
@@ -2199,7 +2214,8 @@ class AudioBufferSourceOptions {
 ///
 ///
 @JS()
-class AudioDestinationNode extends AudioNode {
+class AudioDestinationNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
   ///  Is an [unsigned long] defining the maximum number of channels
   /// that the physical device can handle.
   external int get maxChannelCount;
@@ -2315,9 +2331,11 @@ class AudioListener {
 ///
 @deprecated
 @JS()
-class AudioProcessingEvent extends Event {
+class AudioProcessingEvent // null -> {} -> Event
+    with
+        Event {
   external factory AudioProcessingEvent(
-      {String type, AudioProcessingEventInit eventInitDict});
+      String type, AudioProcessingEventInit eventInitDict);
   external double get playbackTime;
   external AudioBuffer get inputBuffer;
   external AudioBuffer get outputBuffer;
@@ -2325,7 +2343,9 @@ class AudioProcessingEvent extends Event {
 
 @anonymous
 @JS()
-class AudioProcessingEventInit extends EventInit {
+class AudioProcessingEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external double get playbackTime;
   external set playbackTime(double newValue);
   external AudioBuffer get inputBuffer;
@@ -2380,9 +2400,10 @@ enum BiquadFilterType {
 ///
 ///
 @JS()
-class BiquadFilterNode extends AudioNode {
-  external factory BiquadFilterNode(
-      {BaseAudioContext context, BiquadFilterOptions? options});
+class BiquadFilterNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory BiquadFilterNode(BaseAudioContext context,
+      [BiquadFilterOptions? options]);
 
   ///  Is a string value defining the kind of filtering algorithm the
   /// node is implementing.
@@ -2569,7 +2590,9 @@ class BiquadFilterNode extends AudioNode {
 
 @anonymous
 @JS()
-class BiquadFilterOptions extends AudioNodeOptions {
+class BiquadFilterOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external BiquadFilterType get type;
   external set type(BiquadFilterType newValue);
   external double get Q;
@@ -2632,14 +2655,17 @@ class BiquadFilterOptions extends AudioNodeOptions {
 ///
 ///
 @JS()
-class ChannelMergerNode extends AudioNode {
-  external factory ChannelMergerNode(
-      {BaseAudioContext context, ChannelMergerOptions? options});
+class ChannelMergerNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory ChannelMergerNode(BaseAudioContext context,
+      [ChannelMergerOptions? options]);
 }
 
 @anonymous
 @JS()
-class ChannelMergerOptions extends AudioNodeOptions {
+class ChannelMergerOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external int get numberOfInputs;
   external set numberOfInputs(int newValue);
 
@@ -2687,14 +2713,17 @@ class ChannelMergerOptions extends AudioNodeOptions {
 ///
 ///
 @JS()
-class ChannelSplitterNode extends AudioNode {
-  external factory ChannelSplitterNode(
-      {BaseAudioContext context, ChannelSplitterOptions? options});
+class ChannelSplitterNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory ChannelSplitterNode(BaseAudioContext context,
+      [ChannelSplitterOptions? options]);
 }
 
 @anonymous
 @JS()
-class ChannelSplitterOptions extends AudioNodeOptions {
+class ChannelSplitterOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external int get numberOfOutputs;
   external set numberOfOutputs(int newValue);
 
@@ -2727,9 +2756,10 @@ class ChannelSplitterOptions extends AudioNodeOptions {
 ///
 ///
 @JS()
-class ConstantSourceNode extends AudioScheduledSourceNode {
-  external factory ConstantSourceNode(
-      {BaseAudioContext context, ConstantSourceOptions? options});
+class ConstantSourceNode // AudioNode -> {} -> AudioScheduledSourceNode
+    extends AudioScheduledSourceNode {
+  external factory ConstantSourceNode(BaseAudioContext context,
+      [ConstantSourceOptions? options]);
 
   ///  An [AudioParam] which specifies the value that this source
   /// continuously outputs. The default value is 1.0.
@@ -2777,9 +2807,10 @@ class ConstantSourceOptions {
 ///
 ///
 @JS()
-class ConvolverNode extends AudioNode {
-  external factory ConvolverNode(
-      {BaseAudioContext context, ConvolverOptions? options});
+class ConvolverNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory ConvolverNode(BaseAudioContext context,
+      [ConvolverOptions? options]);
 
   ///  A mono, stereo, or 4-channel [AudioBuffer] containing the
   /// (possibly multichannel) impulse response used by the
@@ -2796,7 +2827,9 @@ class ConvolverNode extends AudioNode {
 
 @anonymous
 @JS()
-class ConvolverOptions extends AudioNodeOptions {
+class ConvolverOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external AudioBuffer? get buffer;
   external set buffer(AudioBuffer? newValue);
   external bool get disableNormalization;
@@ -2841,8 +2874,9 @@ class ConvolverOptions extends AudioNodeOptions {
 ///
 ///
 @JS()
-class DelayNode extends AudioNode {
-  external factory DelayNode({BaseAudioContext context, DelayOptions? options});
+class DelayNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory DelayNode(BaseAudioContext context, [DelayOptions? options]);
 
   ///  Is an a-rate [AudioParam] representing the amount of delay to
   /// apply, specified in seconds.
@@ -2851,7 +2885,9 @@ class DelayNode extends AudioNode {
 
 @anonymous
 @JS()
-class DelayOptions extends AudioNodeOptions {
+class DelayOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external double get maxDelayTime;
   external set maxDelayTime(double newValue);
   external double get delayTime;
@@ -2894,9 +2930,10 @@ class DelayOptions extends AudioNodeOptions {
 ///
 ///
 @JS()
-class DynamicsCompressorNode extends AudioNode {
-  external factory DynamicsCompressorNode(
-      {BaseAudioContext context, DynamicsCompressorOptions? options});
+class DynamicsCompressorNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory DynamicsCompressorNode(BaseAudioContext context,
+      [DynamicsCompressorOptions? options]);
 
   ///  Is a k-rate [AudioParam] representing the decibel value above
   /// which the compression will start taking effect.
@@ -2926,7 +2963,9 @@ class DynamicsCompressorNode extends AudioNode {
 
 @anonymous
 @JS()
-class DynamicsCompressorOptions extends AudioNodeOptions {
+class DynamicsCompressorOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external double get attack;
   external set attack(double newValue);
   external double get knee;
@@ -2986,8 +3025,9 @@ class DynamicsCompressorOptions extends AudioNodeOptions {
 ///
 ///
 @JS()
-class GainNode extends AudioNode {
-  external factory GainNode({BaseAudioContext context, GainOptions? options});
+class GainNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory GainNode(BaseAudioContext context, [GainOptions? options]);
 
   ///  Is an a-rate [AudioParam] representing the amount of gain to
   /// apply. You have to set [AudioParam.value] or use the methods of
@@ -2997,7 +3037,9 @@ class GainNode extends AudioNode {
 
 @anonymous
 @JS()
-class GainOptions extends AudioNodeOptions {
+class GainOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external double get gain;
   external set gain(double newValue);
 
@@ -3052,9 +3094,10 @@ class GainOptions extends AudioNodeOptions {
 /// The actual time that takes depends on the filter coefficients
 /// provided.
 @JS()
-class IIRFilterNode extends AudioNode {
+class IIRFilterNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
   external factory IIRFilterNode(
-      {BaseAudioContext context, IIRFilterOptions options});
+      BaseAudioContext context, IIRFilterOptions options);
 
   ///  Uses the filter's current parameter settings to calculate the
   /// response for frequencies specified in the provided array of
@@ -3116,7 +3159,9 @@ class IIRFilterNode extends AudioNode {
 
 @anonymous
 @JS()
-class IIRFilterOptions extends AudioNodeOptions {
+class IIRFilterOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external Iterable<double> get feedforward;
   external set feedforward(Iterable<double> newValue);
   external Iterable<double> get feedback;
@@ -3153,9 +3198,10 @@ class IIRFilterOptions extends AudioNodeOptions {
 ///
 ///
 @JS()
-class MediaElementAudioSourceNode extends AudioNode {
+class MediaElementAudioSourceNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
   external factory MediaElementAudioSourceNode(
-      {AudioContext context, MediaElementAudioSourceOptions options});
+      AudioContext context, MediaElementAudioSourceOptions options);
 
   ///  The [HTMLMediaElement] used when constructing this
   /// [MediaStreamAudioSourceNode].
@@ -3205,9 +3251,10 @@ class MediaElementAudioSourceOptions {
 ///
 ///
 @JS()
-class MediaStreamAudioDestinationNode extends AudioNode {
-  external factory MediaStreamAudioDestinationNode(
-      {AudioContext context, AudioNodeOptions? options});
+class MediaStreamAudioDestinationNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory MediaStreamAudioDestinationNode(AudioContext context,
+      [AudioNodeOptions? options]);
 
   ///  A [MediaStream] containing a single [MediaStreamTrack] whose
   /// [kind] is [audio] and with the same number of channels as the
@@ -3252,9 +3299,10 @@ class MediaStreamAudioDestinationNode extends AudioNode {
 ///
 ///
 @JS()
-class MediaStreamAudioSourceNode extends AudioNode {
+class MediaStreamAudioSourceNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
   external factory MediaStreamAudioSourceNode(
-      {AudioContext context, MediaStreamAudioSourceOptions options});
+      AudioContext context, MediaStreamAudioSourceOptions options);
 
   ///  The [MediaStream] used when constructing this
   /// [MediaStreamAudioSourceNode].
@@ -3311,9 +3359,10 @@ class MediaStreamAudioSourceOptions {
 ///
 ///
 @JS()
-class MediaStreamTrackAudioSourceNode extends AudioNode {
+class MediaStreamTrackAudioSourceNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
   external factory MediaStreamTrackAudioSourceNode(
-      {AudioContext context, MediaStreamTrackAudioSourceOptions options});
+      AudioContext context, MediaStreamTrackAudioSourceOptions options);
 }
 
 ///
@@ -3371,9 +3420,10 @@ enum OscillatorType { sine, square, sawtooth, triangle, custom }
 ///
 ///
 @JS()
-class OscillatorNode extends AudioScheduledSourceNode {
-  external factory OscillatorNode(
-      {BaseAudioContext context, OscillatorOptions? options});
+class OscillatorNode // AudioNode -> {} -> AudioScheduledSourceNode
+    extends AudioScheduledSourceNode {
+  external factory OscillatorNode(BaseAudioContext context,
+      [OscillatorOptions? options]);
 
   ///  A string which specifies the shape of waveform to play; this can
   /// be one of a number of standard values, or [custom] to use a
@@ -3438,7 +3488,9 @@ class OscillatorNode extends AudioScheduledSourceNode {
 
 @anonymous
 @JS()
-class OscillatorOptions extends AudioNodeOptions {
+class OscillatorOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external OscillatorType get type;
   external set type(OscillatorType newValue);
   external double get frequency;
@@ -3500,9 +3552,10 @@ enum DistanceModelType { linear, inverse, exponential }
 ///
 ///
 @JS()
-class PannerNode extends AudioNode {
-  external factory PannerNode(
-      {BaseAudioContext context, PannerOptions? options});
+class PannerNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory PannerNode(BaseAudioContext context,
+      [PannerOptions? options]);
 
   ///  An enumerated value determining which spatialisation algorithm
   /// to use to position the audio in 3D space.
@@ -3819,7 +3872,9 @@ class PannerNode extends AudioNode {
 
 @anonymous
 @JS()
-class PannerOptions extends AudioNodeOptions {
+class PannerOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external PanningModelType get panningModel;
   external set panningModel(PanningModelType newValue);
   external DistanceModelType get distanceModel;
@@ -3875,8 +3930,8 @@ class PannerOptions extends AudioNodeOptions {
 /// [BaseAudioContext.createPeriodicWave].
 @JS()
 class PeriodicWave {
-  external factory PeriodicWave(
-      {BaseAudioContext context, PeriodicWaveOptions? options});
+  external factory PeriodicWave(BaseAudioContext context,
+      [PeriodicWaveOptions? options]);
 }
 
 @anonymous
@@ -3890,7 +3945,9 @@ class PeriodicWaveConstraints {
 
 @anonymous
 @JS()
-class PeriodicWaveOptions extends PeriodicWaveConstraints {
+class PeriodicWaveOptions // null -> {} -> PeriodicWaveConstraints
+    with
+        PeriodicWaveConstraints {
   external Iterable<double> get real;
   external set real(Iterable<double> newValue);
   external Iterable<double> get imag;
@@ -3961,7 +4018,8 @@ class PeriodicWaveOptions extends PeriodicWaveConstraints {
 ///
 @deprecated
 @JS()
-class ScriptProcessorNode extends AudioNode {
+class ScriptProcessorNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
   external EventHandlerNonNull? get onaudioprocess;
   external set onaudioprocess(EventHandlerNonNull? newValue);
 
@@ -4009,9 +4067,10 @@ class ScriptProcessorNode extends AudioNode {
 ///
 ///
 @JS()
-class StereoPannerNode extends AudioNode {
-  external factory StereoPannerNode(
-      {BaseAudioContext context, StereoPannerOptions? options});
+class StereoPannerNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory StereoPannerNode(BaseAudioContext context,
+      [StereoPannerOptions? options]);
 
   ///  Is an a-rate [AudioParam] representing the amount of panning to
   /// apply.
@@ -4020,7 +4079,9 @@ class StereoPannerNode extends AudioNode {
 
 @anonymous
 @JS()
-class StereoPannerOptions extends AudioNodeOptions {
+class StereoPannerOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external double get pan;
   external set pan(double newValue);
 
@@ -4068,9 +4129,10 @@ enum OverSampleType {
 ///
 ///
 @JS()
-class WaveShaperNode extends AudioNode {
-  external factory WaveShaperNode(
-      {BaseAudioContext context, WaveShaperOptions? options});
+class WaveShaperNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory WaveShaperNode(BaseAudioContext context,
+      [WaveShaperOptions? options]);
 
   ///  Is a [Float32Array] of numbers describing the distortion to
   /// apply.
@@ -4087,7 +4149,9 @@ class WaveShaperNode extends AudioNode {
 
 @anonymous
 @JS()
-class WaveShaperOptions extends AudioNodeOptions {
+class WaveShaperOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   external Iterable<double> get curve;
   external set curve(Iterable<double> newValue);
   external OverSampleType get oversample;
@@ -4111,7 +4175,9 @@ class WaveShaperOptions extends AudioNodeOptions {
 ///  Access the audio context's instance of through the
 /// [BaseAudioContext.audioWorklet] property.
 @JS()
-class AudioWorklet extends Worklet {
+class AudioWorklet // null -> {} -> Worklet
+    with
+        Worklet {
   external factory AudioWorklet();
 }
 
@@ -4128,7 +4194,9 @@ class AudioWorklet extends Worklet {
 /// and perform any actions allowed in worklets — apart from defining
 /// [AudioWorkletProcessor]-derived classes.
 @JS()
-class AudioWorkletGlobalScope extends WorkletGlobalScope {
+class AudioWorkletGlobalScope // null -> {} -> WorkletGlobalScope
+    with
+        WorkletGlobalScope {
   ///  Registers a class derived from the [AudioWorkletProcessor]
   /// interface. The class can then be used by creating an
   /// [AudioWorkletNode], providing its registered name.
@@ -4184,11 +4252,10 @@ class AudioParamMap {
 /// in a Web Audio rendering thread.
 @experimental
 @JS()
-class AudioWorkletNode extends AudioNode {
-  external factory AudioWorkletNode(
-      {BaseAudioContext context,
-      String name,
-      AudioWorkletNodeOptions? options});
+class AudioWorkletNode // EventTarget -> {} -> AudioNode
+    extends AudioNode {
+  external factory AudioWorkletNode(BaseAudioContext context, String name,
+      [AudioWorkletNodeOptions? options]);
 
   ///  Returns an [AudioParamMap] — a collection of [AudioParam]
   /// objects. They are instantiated during the creation of the
@@ -4221,7 +4288,9 @@ class AudioWorkletNode extends AudioNode {
 /// constructor.
 @anonymous
 @JS()
-class AudioWorkletNodeOptions extends AudioNodeOptions {
+class AudioWorkletNodeOptions // null -> {} -> AudioNodeOptions
+    with
+        AudioNodeOptions {
   /// The value to initialize the property to. Defaults to 1.
   external int get numberOfInputs;
   external set numberOfInputs(int newValue);

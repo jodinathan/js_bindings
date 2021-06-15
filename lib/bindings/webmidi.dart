@@ -72,7 +72,9 @@ class MIDIOutputMap {
 /// MIDI input and output devices, and obtaining access to those
 /// devices.
 @JS()
-class MIDIAccess extends EventTarget {
+class MIDIAccess // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns an instance of [MIDIInputMap] which provides access to
   /// any available MIDI input ports.
   external MIDIInputMap get inputs;
@@ -108,7 +110,9 @@ enum MIDIPortConnectionState { open, closed, pending }
 ///  A instance is created when a new MIDI device is connected.
 /// Therefore it has no constructor.
 @JS()
-class MIDIPort extends EventTarget {
+class MIDIPort // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// Returns a [string] containing the unique ID of the port.
   external String get id;
 
@@ -184,7 +188,8 @@ class MIDIPort extends EventTarget {
 ///  Use the interface of the Web MIDI API to access and pass
 /// messages to a MIDI input port.
 @JS()
-class MIDIInput extends MIDIPort {
+class MIDIInput // EventTarget -> {} -> MIDIPort
+    extends MIDIPort {
   external EventHandlerNonNull? get onmidimessage;
   external set onmidimessage(EventHandlerNonNull? newValue);
 
@@ -198,7 +203,8 @@ class MIDIInput extends MIDIPort {
 /// messages to the queue of an output device, and to clear the queue
 /// of messages.
 @JS()
-class MIDIOutput extends MIDIPort {
+class MIDIOutput // EventTarget -> {} -> MIDIPort
+    extends MIDIPort {
   /// Queues a message to be sent to the MIDI port.
   /// MIDIOutput.send(data, timestamp);
   external Object send(Iterable<int> data, [double? timestamp = 0]);
@@ -221,9 +227,11 @@ class MIDIOutput extends MIDIPort {
 /// MIDI keyboard key is pressed, a knob is tweaked, or a slider is
 /// moved.
 @JS()
-class MIDIMessageEvent extends Event {
-  external factory MIDIMessageEvent(
-      {String type, MIDIMessageEventInit? eventInitDict});
+class MIDIMessageEvent // null -> {} -> Event
+    with
+        Event {
+  external factory MIDIMessageEvent(String type,
+      [MIDIMessageEventInit? eventInitDict]);
 
   ///  A [Uint8Array] containing the data bytes of a single MIDI
   /// message. See the MIDI specification for more information on its
@@ -233,7 +241,9 @@ class MIDIMessageEvent extends Event {
 
 @anonymous
 @JS()
-class MIDIMessageEventInit extends EventInit {
+class MIDIMessageEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external Uint8List get data;
   external set data(Uint8List newValue);
 
@@ -252,9 +262,11 @@ class MIDIMessageEventInit extends EventInit {
 /// event is fired whenever a MIDI device is either plugged in to or
 /// unplugged from a computer.
 @JS()
-class MIDIConnectionEvent extends Event {
-  external factory MIDIConnectionEvent(
-      {String type, MIDIConnectionEventInit? eventInitDict});
+class MIDIConnectionEvent // null -> {} -> Event
+    with
+        Event {
+  external factory MIDIConnectionEvent(String type,
+      [MIDIConnectionEventInit? eventInitDict]);
 
   ///  Returns a reference to a [MIDIPort] instance for a port that has
   /// been connected or disconnected."
@@ -263,7 +275,9 @@ class MIDIConnectionEvent extends Event {
 
 @anonymous
 @JS()
-class MIDIConnectionEventInit extends EventInit {
+class MIDIConnectionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external MIDIPort get port;
   external set port(MIDIPort newValue);
 

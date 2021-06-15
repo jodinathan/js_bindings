@@ -93,7 +93,9 @@ class FileSystemEntry {
 /// possible to access and manipulate the files in a directory, as
 /// well as to access the entries within the directory.
 @JS()
-class FileSystemDirectoryEntry extends FileSystemEntry {
+class FileSystemDirectoryEntry // null -> {} -> FileSystemEntry
+    with
+        FileSystemEntry {
   ///  Creates a [FileSystemDirectoryReader] object which can be used
   /// to read the entries in this directory.
   /// directoryReader = FileSystemDirectoryEntry.createReader();
@@ -315,7 +317,9 @@ class FileSystemDirectoryReader {
 /// well as the [file()] method, which creates a [File] object that
 /// can be used to read the file.
 @JS()
-class FileSystemFileEntry extends FileSystemEntry {
+class FileSystemFileEntry // null -> {} -> FileSystemEntry
+    with
+        FileSystemEntry {
   /// Creates a new [File] object which can be used to read the file.
   /// FileSystemFileEntry.file(successCallback[, errorCallback]);
   /// This example establishes a method, readFile(), reads a text file and calls

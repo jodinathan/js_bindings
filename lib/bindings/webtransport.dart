@@ -49,7 +49,7 @@ class DatagramDuplexStream {
 
 @JS()
 class WebTransport with UnidirectionalStreamsTransport {
-  external factory WebTransport({String url, WebTransportOptions? options});
+  external factory WebTransport(String url, [WebTransportOptions? options]);
   external Promise<WebTransportStats> getStats();
   external WebTransportState get state;
   external Promise<Object> get ready;
@@ -127,7 +127,9 @@ class WebTransportStats {
 }
 
 @JS()
-class SendStream extends WritableStream {
+class SendStream // null -> {} -> WritableStream
+    with
+        WritableStream {
   external Promise<StreamAbortInfo> get remoteCanceled;
   external Object reset([StreamAbortInfo? abortInfo]);
 
@@ -144,7 +146,9 @@ class StreamAbortInfo {
 }
 
 @JS()
-class ReceiveStream extends ReadableStream {
+class ReceiveStream // null -> {} -> ReadableStream
+    with
+        ReadableStream {
   external Promise<StreamAbortInfo> get remoteReset;
 
   external factory ReceiveStream();

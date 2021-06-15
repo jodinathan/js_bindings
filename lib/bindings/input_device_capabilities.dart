@@ -31,7 +31,7 @@ import 'uievents.dart';
 @JS()
 class InputDeviceCapabilities {
   external factory InputDeviceCapabilities(
-      {InputDeviceCapabilitiesInit? deviceInitDict});
+      [InputDeviceCapabilitiesInit? deviceInitDict]);
 
   ///  A [Boolean] that indicates whether the device dispatches touch
   /// events.

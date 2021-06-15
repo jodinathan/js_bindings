@@ -15,7 +15,9 @@ import 'streams.dart';
 ///  Secure contextThis feature is available only in secure contexts
 /// (HTTPS), in some or all supporting browsers.
 @JS()
-class Serial extends EventTarget {
+class Serial // null -> {} -> EventTarget
+    with
+        EventTarget {
   external EventHandlerNonNull? get onconnect;
   external set onconnect(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get ondisconnect;
@@ -63,7 +65,9 @@ class SerialPortFilter {
 ///  Secure contextThis feature is available only in secure contexts
 /// (HTTPS), in some or all supporting browsers.
 @JS()
-class SerialPort extends EventTarget {
+class SerialPort // null -> {} -> EventTarget
+    with
+        EventTarget {
   external EventHandlerNonNull? get onconnect;
   external set onconnect(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get ondisconnect;

@@ -42,7 +42,7 @@ class SFrameTransformOptions {
 
 @JS()
 class SFrameTransform with GenericTransformStream {
-  external factory SFrameTransform({SFrameTransformOptions? options});
+  external factory SFrameTransform([SFrameTransformOptions? options]);
   external Promise<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]);
 }
 
@@ -114,7 +114,9 @@ class RTCEncodedAudioFrame {
 }
 
 @JS()
-class RTCTransformEvent extends Event {
+class RTCTransformEvent // null -> {} -> Event
+    with
+        Event {
   external RTCRtpScriptTransformer get transformer;
 
   external factory RTCTransformEvent();
@@ -131,6 +133,6 @@ class RTCRtpScriptTransformer {
 
 @JS()
 class RTCRtpScriptTransform {
-  external factory RTCRtpScriptTransform(
-      {Worker worker, dynamic options, Iterable<dynamic>? transfer});
+  external factory RTCRtpScriptTransform(Worker worker,
+      [dynamic options, Iterable<dynamic>? transfer]);
 }

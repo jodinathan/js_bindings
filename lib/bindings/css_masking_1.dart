@@ -17,7 +17,8 @@ import 'svg2.dart';
 ///
 ///
 @JS()
-class SVGClipPathElement extends SVGElement {
+class SVGClipPathElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement {
   ///  An [SVGAnimatedEnumeration] corresponding to the [clipPathUnits]
   /// attribute of the given [<clipPath>] element. Takes one of the
   /// constants defined in [SVGUnitTypes].
@@ -34,7 +35,8 @@ class SVGClipPathElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGMaskElement extends SVGElement {
+class SVGMaskElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement {
   ///  An [SVGAnimatedEnumeration] corresponding to the [maskUnits]
   /// attribute of the given [<mask>] element. Takes one of the
   /// constants defined in [SVGUnitTypes].

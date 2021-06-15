@@ -57,7 +57,10 @@ mixin NavigatorNetworkInformation {
 ///
 @experimental
 @JS()
-class NetworkInformation extends EventTarget with NetworkInformationSaveData {
+class NetworkInformation // null -> {} -> EventTarget
+    with
+        EventTarget,
+        NetworkInformationSaveData {
   ///  Returns the type of connection a device is using to communicate
   /// with the network. It will be one of the following values:
   ///

@@ -26,7 +26,9 @@ import 'credential_management_1.dart';
 /// within an [<iframe>] element will not have any effect.
 ///
 @JS()
-class PublicKeyCredential extends Credential {
+class PublicKeyCredential // null -> {} -> Credential
+    with
+        Credential {
   ///  An [ArrayBuffer] that holds the globally unique identifier for
   /// this [PublicKeyCredential]. This identifier can be used to look
   /// up credentials for future calls to [CredentialsContainer.get].
@@ -82,7 +84,9 @@ class AuthenticatorResponse {
 /// from within an [<iframe>] element will not have any effect.
 ///
 @JS()
-class AuthenticatorAttestationResponse extends AuthenticatorResponse {
+class AuthenticatorAttestationResponse // null -> {} -> AuthenticatorResponse
+    with
+        AuthenticatorResponse {
   ///  An [ArrayBuffer] containing authenticator data and an
   /// attestation statement for a newly-created key pair.
   external ByteBuffer get attestationObject;
@@ -114,7 +118,9 @@ class AuthenticatorAttestationResponse extends AuthenticatorResponse {
 /// from within an [<iframe>] element will not have any effect.
 ///
 @JS()
-class AuthenticatorAssertionResponse extends AuthenticatorResponse {
+class AuthenticatorAssertionResponse // null -> {} -> AuthenticatorResponse
+    with
+        AuthenticatorResponse {
   ///  An [ArrayBuffer] containing information from the authenticator
   /// such as the Relying Party ID Hash (rpIdHash), a signature
   /// counter, test of user presence and user verification flags, and
@@ -234,7 +240,9 @@ class PublicKeyCredentialEntity {
 
 @anonymous
 @JS()
-class PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
+class PublicKeyCredentialRpEntity // null -> {} -> PublicKeyCredentialEntity
+    with
+        PublicKeyCredentialEntity {
   external String get id;
   external set id(String newValue);
 
@@ -243,7 +251,9 @@ class PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
 
 @anonymous
 @JS()
-class PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
+class PublicKeyCredentialUserEntity // null -> {} -> PublicKeyCredentialEntity
+    with
+        PublicKeyCredentialEntity {
   external dynamic get id;
   external set id(dynamic newValue);
   external String get displayName;

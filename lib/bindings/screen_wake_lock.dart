@@ -51,7 +51,9 @@ class WakeLock {
 /// all instances of a given wake lock type will cause the underlying
 /// platform wake lock to be released.
 @JS()
-class WakeLockSentinel extends EventTarget {
+class WakeLockSentinel // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a boolean indicating whether the [WakeLockSentinel] has
   /// been released.
   external bool get released;

@@ -26,7 +26,7 @@ import 'html.dart';
 /// compatible NFC devices, e.g. NFC tags supporting NDEF.
 @JS()
 class NDEFMessage {
-  external factory NDEFMessage({NDEFMessageInit messageInit});
+  external factory NDEFMessage(NDEFMessageInit messageInit);
   external Iterable<NDEFRecord> get records;
 }
 
@@ -53,7 +53,7 @@ class NDEFMessageInit {
 /// NFC devices, e.g. NFC tags supporting NDEF.
 @JS()
 class NDEFRecord {
-  external factory NDEFRecord({NDEFRecordInit recordInit});
+  external factory NDEFRecord(NDEFRecordInit recordInit);
   external String get recordType;
   external String? get mediaType;
   external String? get id;
@@ -107,7 +107,9 @@ class NDEFRecordInit {
 /// tags supporting NDEF, when these devices are within the reader's
 /// magnetic induction field.
 @JS()
-class NDEFReader extends EventTarget {
+class NDEFReader // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory NDEFReader();
 
   ///  An event handler for [reading] event, that notifies about
@@ -151,9 +153,11 @@ class NDEFReader extends EventTarget {
 ///  The [NDEFReadingEvent] interface represents events dispatched on
 /// new NFC readings obtained by [NDEFReader].
 @JS()
-class NDEFReadingEvent extends Event {
+class NDEFReadingEvent // null -> {} -> Event
+    with
+        Event {
   external factory NDEFReadingEvent(
-      {String type, NDEFReadingEventInit readingEventInitDict});
+      String type, NDEFReadingEventInit readingEventInitDict);
 
   ///  Represents the serial number of the device used for
   /// anti-collision and identification, or empty string in case none
@@ -166,7 +170,9 @@ class NDEFReadingEvent extends Event {
 
 @anonymous
 @JS()
-class NDEFReadingEventInit extends EventInit {
+class NDEFReadingEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String? get serialNumber;
   external set serialNumber(String? newValue);
   external NDEFMessageInit get message;

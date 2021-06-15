@@ -40,16 +40,18 @@ class SpatialNavigationSearchOptions {
 }
 
 @JS()
-class NavigationEvent extends UIEvent {
-  external factory NavigationEvent(
-      {String type, NavigationEventInit? eventInitDict});
+class NavigationEvent // Event -> {} -> UIEvent
+    extends UIEvent {
+  external factory NavigationEvent(String type,
+      [NavigationEventInit? eventInitDict]);
   external SpatialNavigationDirection get dir;
   external EventTarget? get relatedTarget;
 }
 
 @anonymous
 @JS()
-class NavigationEventInit extends UIEventInit {
+class NavigationEventInit // EventInit -> {} -> UIEventInit
+    extends UIEventInit {
   external SpatialNavigationDirection get dir;
   external set dir(SpatialNavigationDirection newValue);
   external EventTarget? get relatedTarget;

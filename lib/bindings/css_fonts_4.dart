@@ -16,7 +16,9 @@ import 'cssom_1.dart';
 ///
 ///
 @JS()
-class CSSFontFaceRule extends CSSRule {
+class CSSFontFaceRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   /// Returns a [CSSStyleDeclaration].
   external CSSStyleDeclaration get style;
 
@@ -24,7 +26,9 @@ class CSSFontFaceRule extends CSSRule {
 }
 
 @JS()
-class CSSFontFeatureValuesRule extends CSSRule {
+class CSSFontFeatureValuesRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external String get fontFamily;
   external set fontFamily(String newValue);
   external CSSFontFeatureValuesMap get annotation;
@@ -47,7 +51,9 @@ class CSSFontFeatureValuesMap {
 }
 
 @JS()
-class CSSFontPaletteValuesRule extends CSSRule {
+class CSSFontPaletteValuesRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external String operator [](int index);
   external String get fontFamily;
   external set fontFamily(String newValue);

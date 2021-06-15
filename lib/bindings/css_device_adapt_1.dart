@@ -11,7 +11,9 @@ import '../manual.dart';
 import 'cssom_1.dart';
 
 @JS()
-class CSSViewportRule extends CSSRule {
+class CSSViewportRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external CSSStyleDeclaration get style;
 
   external factory CSSViewportRule();

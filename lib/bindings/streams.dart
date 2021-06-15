@@ -20,7 +20,7 @@ import 'dom.dart';
 @JS()
 class ReadableStream {
   external factory ReadableStream(
-      {dynamic underlyingSource, QueuingStrategy? strategy});
+      [dynamic underlyingSource, QueuingStrategy? strategy]);
 
   ///  The getter returns whether or not the readable stream is locked
   /// to a reader.
@@ -154,7 +154,7 @@ mixin ReadableStreamGenericReader {
 /// (e.g. a fetch request).
 @JS()
 class ReadableStreamDefaultReader with ReadableStreamGenericReader {
-  external factory ReadableStreamDefaultReader({ReadableStream stream});
+  external factory ReadableStreamDefaultReader(ReadableStream stream);
 
   ///  Returns a promise providing access to the next chunk in the
   /// stream's internal queue.
@@ -187,7 +187,7 @@ class ReadableStreamDefaultReadResult {
 @experimental
 @JS()
 class ReadableStreamBYOBReader with ReadableStreamGenericReader {
-  external factory ReadableStreamBYOBReader({ReadableStream stream});
+  external factory ReadableStreamBYOBReader(ReadableStream stream);
 
   ///  Returns a [Promise] that resolves with an object indicating the
   /// state of the stream: either the next chunk in the stream or an
@@ -316,7 +316,7 @@ class ReadableStreamBYOBRequest {
 @JS()
 class WritableStream {
   external factory WritableStream(
-      {dynamic underlyingSink, QueuingStrategy? strategy});
+      [dynamic underlyingSink, QueuingStrategy? strategy]);
 
   ///  A boolean indicating whether the [WritableStream] is locked to a
   /// writer.
@@ -371,7 +371,7 @@ class UnderlyingSink {
 @experimental
 @JS()
 class WritableStreamDefaultWriter {
-  external factory WritableStreamDefaultWriter({WritableStream stream});
+  external factory WritableStreamDefaultWriter(WritableStream stream);
 
   ///  Allows you to write code that responds to an end to the
   /// streaming process. Returns a promise that fulfills if the stream
@@ -439,9 +439,9 @@ class WritableStreamDefaultController {
 @JS()
 class TransformStream {
   external factory TransformStream(
-      {dynamic transformer,
+      [dynamic transformer,
       QueuingStrategy? writableStrategy,
-      QueuingStrategy? readableStrategy});
+      QueuingStrategy? readableStrategy]);
 
   /// The end of a TransformStream.
   external ReadableStream get readable;
@@ -513,7 +513,7 @@ class QueuingStrategyInit {
 @experimental
 @JS()
 class ByteLengthQueuingStrategy {
-  external factory ByteLengthQueuingStrategy({QueuingStrategyInit init});
+  external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
   external /* double | NaN */ dynamic get highWaterMark;
   external Function get size;
 }
@@ -528,7 +528,7 @@ class ByteLengthQueuingStrategy {
 @experimental
 @JS()
 class CountQueuingStrategy {
-  external factory CountQueuingStrategy({QueuingStrategyInit init});
+  external factory CountQueuingStrategy(QueuingStrategyInit init);
   external /* double | NaN */ dynamic get highWaterMark;
   external Function get size;
 }

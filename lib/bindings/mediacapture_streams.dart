@@ -28,8 +28,10 @@ import 'image_capture.dart';
 /// information or functionality, like in
 /// [CanvasCaptureMediaStreamTrack].
 @JS()
-class MediaStream extends EventTarget {
-  external factory MediaStream({Iterable<MediaStreamTrack>? tracks});
+class MediaStream // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory MediaStream([Iterable<MediaStreamTrack>? tracks]);
 
   ///  A [DOMString] containing 36 characters denoting a universally
   /// unique identifier (UUID) for the object.
@@ -140,7 +142,9 @@ class MediaStream extends EventTarget {
 /// typically, these are audio or video tracks, but other track types
 /// may exist as well.
 @JS()
-class MediaStreamTrack extends EventTarget {
+class MediaStreamTrack // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a [DOMString] set to ["audio"] if the track is an audio
   /// track and to ["video"], if it is a video track. It doesn't change
   /// if the track is deassociated from its source.
@@ -441,7 +445,9 @@ class MediaTrackCapabilities {
 /// constraints, and settings.
 @anonymous
 @JS()
-class MediaTrackConstraints extends MediaTrackConstraintSet {
+class MediaTrackConstraints // null -> {} -> MediaTrackConstraintSet
+    with
+        MediaTrackConstraintSet {
   external Iterable<MediaTrackConstraintSet> get advanced;
   external set advanced(Iterable<MediaTrackConstraintSet> newValue);
 
@@ -585,9 +591,11 @@ enum VideoResizeModeEnum {
 ///  The events based on this interface are [addtrack] and
 /// [removetrack]
 @JS()
-class MediaStreamTrackEvent extends Event {
+class MediaStreamTrackEvent // null -> {} -> Event
+    with
+        Event {
   external factory MediaStreamTrackEvent(
-      {String type, MediaStreamTrackEventInit eventInitDict});
+      String type, MediaStreamTrackEventInit eventInitDict);
 
   ///  A [MediaStreamTrack] object representing the track which was
   /// added to the stream.
@@ -596,7 +604,9 @@ class MediaStreamTrackEvent extends Event {
 
 @anonymous
 @JS()
-class MediaStreamTrackEventInit extends EventInit {
+class MediaStreamTrackEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external MediaStreamTrack get track;
   external set track(MediaStreamTrack newValue);
 
@@ -615,9 +625,11 @@ class MediaStreamTrackEventInit extends EventInit {
 /// current constraints can be established or until satisfiable
 /// constraints are applied.
 @JS()
-class OverconstrainedError extends DOMException {
-  external factory OverconstrainedError(
-      {String constraint, String? message = ''});
+class OverconstrainedError // null -> {} -> DOMException
+    with
+        DOMException {
+  external factory OverconstrainedError(String constraint,
+      [String? message = '']);
 
   ///  Returns the constraint that was supplied in the constructor,
   /// meaning the constraint that was not satisfied.
@@ -631,7 +643,9 @@ class OverconstrainedError extends DOMException {
 /// essence, it lets you obtain access to any hardware source of
 /// media data.
 @JS()
-class MediaDevices extends EventTarget {
+class MediaDevices // null -> {} -> EventTarget
+    with
+        EventTarget {
   external EventHandlerNonNull? get ondevicechange;
   external set ondevicechange(EventHandlerNonNull? newValue);
 
@@ -726,7 +740,9 @@ enum MediaDeviceKind { audioinput, audiooutput, videoinput }
 ///   objects are returned by [MediaDevices.enumerateDevices()] if
 /// the returned device is an audio or video input device.
 @JS()
-class InputDeviceInfo extends MediaDeviceInfo {
+class InputDeviceInfo // null -> {} -> MediaDeviceInfo
+    with
+        MediaDeviceInfo {
   ///  Returns a [MediaTrackCapabilities] object describing the primary
   /// audio or video track of a device's [MediaStream].
   /// InputDeviceInfo.getCapabilities();
@@ -781,7 +797,9 @@ class DoubleRange {
 
 @anonymous
 @JS()
-class ConstrainDoubleRange extends DoubleRange {
+class ConstrainDoubleRange // null -> {} -> DoubleRange
+    with
+        DoubleRange {
   external double get exact;
   external set exact(double newValue);
   external double get ideal;
@@ -816,7 +834,9 @@ class ULongRange {
 
 @anonymous
 @JS()
-class ConstrainULongRange extends ULongRange {
+class ConstrainULongRange // null -> {} -> ULongRange
+    with
+        ULongRange {
   external int get exact;
   external set exact(int newValue);
   external int get ideal;

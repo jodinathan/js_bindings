@@ -21,14 +21,17 @@ class XRHand {
 }
 
 @JS()
-class XRJointSpace extends XRSpace {
+class XRJointSpace // EventTarget -> {} -> XRSpace
+    extends XRSpace {
   external XRHandJoint get jointName;
 
   external factory XRJointSpace();
 }
 
 @JS()
-class XRJointPose extends XRPose {
+class XRJointPose // null -> {} -> XRPose
+    with
+        XRPose {
   external double get radius;
 
   external factory XRJointPose();

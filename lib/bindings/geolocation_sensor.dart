@@ -13,8 +13,9 @@ import 'dom.dart';
 import 'hr_time_3.dart';
 
 @JS()
-class GeolocationSensor extends Sensor {
-  external factory GeolocationSensor({GeolocationSensorOptions? options});
+class GeolocationSensor // EventTarget -> {} -> Sensor
+    extends Sensor {
+  external factory GeolocationSensor([GeolocationSensorOptions? options]);
   external static Promise<GeolocationSensorReading> read(
       [ReadOptions? readOptions]);
   external /* double | NaN */ dynamic? get latitude;
@@ -28,13 +29,16 @@ class GeolocationSensor extends Sensor {
 
 @anonymous
 @JS()
-class GeolocationSensorOptions extends SensorOptions {
+class GeolocationSensorOptions // null -> {} -> SensorOptions
+    with
+        SensorOptions {
   external factory GeolocationSensorOptions();
 }
 
 @anonymous
 @JS()
-class ReadOptions extends GeolocationSensorOptions {
+class ReadOptions // SensorOptions -> {} -> GeolocationSensorOptions
+    extends GeolocationSensorOptions {
   external AbortSignal? get signal;
   external set signal(AbortSignal? newValue);
 

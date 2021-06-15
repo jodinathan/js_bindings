@@ -65,8 +65,8 @@ enum FontFaceLoadStatus { unloaded, loading, loaded, error }
 /// the font face is loaded and its current status.
 @JS()
 class FontFace {
-  external factory FontFace(
-      {String family, dynamic source, FontFaceDescriptors? descriptors});
+  external factory FontFace(String family, dynamic source,
+      [FontFaceDescriptors? descriptors]);
 
   ///  A [CSSOMString] that retrieves or sets the family of the font.
   /// It is equivalent to the [font-family] descriptor.
@@ -136,7 +136,9 @@ class FontFace {
 
 @anonymous
 @JS()
-class FontFaceSetLoadEventInit extends EventInit {
+class FontFaceSetLoadEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external Iterable<FontFace> get fontfaces;
   external set fontfaces(Iterable<FontFace> newValue);
 
@@ -152,9 +154,11 @@ class FontFaceSetLoadEventInit extends EventInit {
 /// [FontFaceSet] loads.
 @experimental
 @JS()
-class FontFaceSetLoadEvent extends Event {
-  external factory FontFaceSetLoadEvent(
-      {String type, FontFaceSetLoadEventInit? eventInitDict});
+class FontFaceSetLoadEvent // null -> {} -> Event
+    with
+        Event {
+  external factory FontFaceSetLoadEvent(String type,
+      [FontFaceSetLoadEventInit? eventInitDict]);
 
   ///  Returns an array of [FontFace] instances each of which
   /// represents a single usable font.
@@ -173,8 +177,10 @@ enum FontFaceSetLoadStatus { loading, loaded }
 /// as document.fonts.
 @experimental
 @JS()
-class FontFaceSet extends EventTarget {
-  external factory FontFaceSet({Iterable<FontFace>? initialFaces});
+class FontFaceSet // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory FontFaceSet([Iterable<FontFace>? initialFaces]);
 
   /// Adds a font to the font set.
   external FontFaceSet add(FontFace font);

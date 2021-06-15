@@ -29,7 +29,7 @@ import 'media_source.dart';
 ///
 @JS()
 class URL {
-  external factory URL({String url, String? base});
+  external factory URL(String url, [String? base]);
 
   ///  A stringifier that returns a [USVString] containing the whole
   /// URL.
@@ -111,7 +111,7 @@ class URL {
 ///
 @JS()
 class URLSearchParams {
-  external factory URLSearchParams({dynamic init});
+  external factory URLSearchParams([dynamic init]);
 
   /// Appends a specified key/value pair as a new search parameter.
   /// URLSearchParams.append(name, value)

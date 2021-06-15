@@ -27,9 +27,11 @@ class CSSParserRule {
 }
 
 @JS()
-class CSSParserAtRule extends CSSParserRule {
-  external factory CSSParserAtRule(
-      {String name, Iterable<dynamic> prelude, Iterable<CSSParserRule>? body});
+class CSSParserAtRule // null -> {} -> CSSParserRule
+    with
+        CSSParserRule {
+  external factory CSSParserAtRule(String name, Iterable<dynamic> prelude,
+      [Iterable<CSSParserRule>? body]);
   external String get name;
   external Iterable<CSSParserValue> get prelude;
   external Iterable<CSSParserRule> get body;
@@ -38,9 +40,11 @@ class CSSParserAtRule extends CSSParserRule {
 }
 
 @JS()
-class CSSParserQualifiedRule extends CSSParserRule {
-  external factory CSSParserQualifiedRule(
-      {Iterable<dynamic> prelude, Iterable<CSSParserRule>? body});
+class CSSParserQualifiedRule // null -> {} -> CSSParserRule
+    with
+        CSSParserRule {
+  external factory CSSParserQualifiedRule(Iterable<dynamic> prelude,
+      [Iterable<CSSParserRule>? body]);
   external Iterable<CSSParserValue> get prelude;
   external Iterable<CSSParserRule> get body;
   @override
@@ -48,9 +52,11 @@ class CSSParserQualifiedRule extends CSSParserRule {
 }
 
 @JS()
-class CSSParserDeclaration extends CSSParserRule {
-  external factory CSSParserDeclaration(
-      {String name, Iterable<CSSParserRule>? body});
+class CSSParserDeclaration // null -> {} -> CSSParserRule
+    with
+        CSSParserRule {
+  external factory CSSParserDeclaration(String name,
+      [Iterable<CSSParserRule>? body]);
   external String get name;
   external Iterable<CSSParserValue> get body;
   @override
@@ -63,8 +69,10 @@ class CSSParserValue {
 }
 
 @JS()
-class CSSParserBlock extends CSSParserValue {
-  external factory CSSParserBlock({String name, Iterable<CSSParserValue> body});
+class CSSParserBlock // null -> {} -> CSSParserValue
+    with
+        CSSParserValue {
+  external factory CSSParserBlock(String name, Iterable<CSSParserValue> body);
   external String get name;
   external Iterable<CSSParserValue> get body;
   @override
@@ -72,9 +80,11 @@ class CSSParserBlock extends CSSParserValue {
 }
 
 @JS()
-class CSSParserFunction extends CSSParserValue {
+class CSSParserFunction // null -> {} -> CSSParserValue
+    with
+        CSSParserValue {
   external factory CSSParserFunction(
-      {String name, Iterable<Iterable<CSSParserValue>> args});
+      String name, Iterable<Iterable<CSSParserValue>> args);
   external String get name;
   external Iterable<Iterable<CSSParserValue>> get args;
   @override

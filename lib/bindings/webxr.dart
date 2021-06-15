@@ -36,7 +36,9 @@ import 'gamepad.dart';
 /// device.
 @experimental
 @JS()
-class XRSystem extends EventTarget {
+class XRSystem // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a promise which resolves to [true] if the browser
   /// supports the given [XRSessionMode]. Resolves to [false] if the
   /// specified mode isn't supported.
@@ -119,7 +121,9 @@ enum XRVisibilityState {
 /// environment, and present imagery to the user. supports both
 /// inline and immersive virtual and augmented reality modes.
 @JS()
-class XRSession extends EventTarget {
+class XRSession // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  A [DOMString] whose value is one of those found in the
   /// [XRVisibilityState] enumerated type, indicating whether or not
   /// the session's imagery is visible to the user, and if so, if it's
@@ -509,7 +513,9 @@ class XRFrame {
 ///
 @experimental
 @JS()
-class XRSpace extends EventTarget {
+class XRSpace // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory XRSpace();
 }
 
@@ -550,7 +556,8 @@ enum XRReferenceSpaceType {
 /// for more on using boundaries to keep the user from colliding with
 /// obstacles both physical and virtual.
 @JS()
-class XRReferenceSpace extends XRSpace {
+class XRReferenceSpace // EventTarget -> {} -> XRSpace
+    extends XRSpace {
   ///  Creates and returns a new reference space object as the same
   /// type as the one on which you call the method (so, either
   /// [XRReferenceSpace] or [XRBoundedReferenceSpace]). The new
@@ -591,7 +598,8 @@ class XRReferenceSpace extends XRSpace {
 /// article Using bounded reference spaces for details on how bounded
 /// spaces work and why they're useful.
 @JS()
-class XRBoundedReferenceSpace extends XRReferenceSpace {
+class XRBoundedReferenceSpace // XRSpace -> {} -> XRReferenceSpace
+    extends XRReferenceSpace {
   ///  An array of [DOMPointReadOnly] objects, each of which defines a
   /// vertex in the polygon defining the boundaries within which the
   /// user will be required to remain. These vertices must be sorted
@@ -694,7 +702,7 @@ class XRViewport {
 @JS()
 class XRRigidTransform {
   external factory XRRigidTransform(
-      {DOMPointInit? position, DOMPointInit? orientation});
+      [DOMPointInit? position, DOMPointInit? orientation]);
 
   ///  A [DOMPointReadOnly] specifying a 3-dimensional point, expressed
   /// in meters, describing the translation component of the transform.
@@ -791,7 +799,9 @@ class XRPose {
 /// movement of an avatar using mouse and keyboard, presented on the
 /// screen, to a virtual camera capturing the scene for a spectator.
 @JS()
-class XRViewerPose extends XRPose {
+class XRViewerPose // null -> {} -> XRPose
+    with
+        XRPose {
   ///  An array of [XRView] objects, one for each viewpoint on the
   /// scene which is needed to represent the scene to the user. A
   /// typical headset provides a viewer pose with two views whose [eye]
@@ -883,7 +893,9 @@ class XRInputSourceArray {
 }
 
 @JS()
-class XRLayer extends EventTarget {
+class XRLayer // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory XRLayer();
 }
 
@@ -963,9 +975,10 @@ class XRWebGLLayerInit {
 /// corresponding image sources.
 @experimental
 @JS()
-class XRWebGLLayer extends XRLayer {
-  external factory XRWebGLLayer(
-      {XRSession session, dynamic context, XRWebGLLayerInit? layerInit});
+class XRWebGLLayer // EventTarget -> {} -> XRLayer
+    extends XRLayer {
+  external factory XRWebGLLayer(XRSession session, dynamic context,
+      [XRWebGLLayerInit? layerInit]);
 
   ///  A Boolean value indicating whether or not the WebGL context's
   /// framebuffer supports anti-aliasing. The specific type of
@@ -1044,9 +1057,11 @@ class XRWebGLLayer extends XRLayer {
 /// These events occur, for example, when the session ends or the
 /// visibility of its context changes.
 @JS()
-class XRSessionEvent extends Event {
+class XRSessionEvent // null -> {} -> Event
+    with
+        Event {
   external factory XRSessionEvent(
-      {String type, XRSessionEventInit eventInitDict});
+      String type, XRSessionEventInit eventInitDict);
 
   /// The [XRSession] to which the event refers.
   external XRSession get session;
@@ -1061,7 +1076,9 @@ class XRSessionEvent extends Event {
 /// however, as they're created by the XR system.
 @anonymous
 @JS()
-class XRSessionEventInit extends EventInit {
+class XRSessionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   /// The [XRSession] to which the event is to be delivered.
   external XRSession get session;
   external set session(XRSession newValue);
@@ -1081,9 +1098,11 @@ class XRSessionEventInit extends EventInit {
 ///  To learn more about handling inputs in a WebXR project, see the
 /// article Inputs and input sources.
 @JS()
-class XRInputSourceEvent extends Event {
+class XRInputSourceEvent // null -> {} -> Event
+    with
+        Event {
   external factory XRInputSourceEvent(
-      {String type, XRInputSourceEventInit eventInitDict});
+      String type, XRInputSourceEventInit eventInitDict);
 
   ///  An [XRFrame] object providing the needed information about the
   /// event frame during which the event occurred. This frame may have
@@ -1107,7 +1126,9 @@ class XRInputSourceEvent extends Event {
 /// on.
 @anonymous
 @JS()
-class XRInputSourceEventInit extends EventInit {
+class XRInputSourceEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   ///  An [XRFrame] object representing the event frame during which
   /// the event took place. This event is not associated with the
   /// animation process, and has no viewer information contained within
@@ -1132,9 +1153,11 @@ class XRInputSourceEventInit extends EventInit {
 /// [XRSession] when the set of available WebXR input controllers
 /// changes.
 @JS()
-class XRInputSourcesChangeEvent extends Event {
+class XRInputSourcesChangeEvent // null -> {} -> Event
+    with
+        Event {
   external factory XRInputSourcesChangeEvent(
-      {String type, XRInputSourcesChangeEventInit eventInitDict});
+      String type, XRInputSourcesChangeEventInit eventInitDict);
 
   ///  The [XRSession] to which this input source change event is being
   /// directed.
@@ -1159,7 +1182,9 @@ class XRInputSourcesChangeEvent extends Event {
 /// [XRInputSourcesChangeEvent] object.
 @anonymous
 @JS()
-class XRInputSourcesChangeEventInit extends EventInit {
+class XRInputSourcesChangeEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   /// The [XRSession] to which the event applies.
   external XRSession get session;
   external set session(XRSession newValue);
@@ -1187,9 +1212,11 @@ class XRInputSourcesChangeEventInit extends EventInit {
 /// represents an event sent to an [XRReferenceSpace]. Currently, the
 /// only event that uses this type is the [reset] event.
 @JS()
-class XRReferenceSpaceEvent extends Event {
+class XRReferenceSpaceEvent // null -> {} -> Event
+    with
+        Event {
   external factory XRReferenceSpaceEvent(
-      {String type, XRReferenceSpaceEventInit eventInitDict});
+      String type, XRReferenceSpaceEventInit eventInitDict);
 
   ///  An [XRReferenceSpace] indicating the reference space that
   /// generated the event.
@@ -1214,7 +1241,9 @@ class XRReferenceSpaceEvent extends Event {
 /// created by the WebXR infrastructure.
 @anonymous
 @JS()
-class XRReferenceSpaceEventInit extends EventInit {
+class XRReferenceSpaceEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   /// The [XRReferenceSpace] from which the event originated.
   external XRReferenceSpace get referenceSpace;
   external set referenceSpace(XRReferenceSpace newValue);
@@ -1243,7 +1272,9 @@ class XRReferenceSpaceEventInit extends EventInit {
 /// WebXR.
 @anonymous
 @JS()
-class XRPermissionDescriptor extends PermissionDescriptor {
+class XRPermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   ///  An [XRSessionMode] value indicating the XR mode ([inline],
   /// [immersive-vr], or [immersive-ar]) for which the permissions are
   /// requested.
@@ -1280,7 +1311,8 @@ class XRPermissionDescriptor extends PermissionDescriptor {
 /// permission to use WebXR, an may be monitored over time for
 /// changes to that permissions tate.
 @JS()
-class XRPermissionStatus extends PermissionStatus {
+class XRPermissionStatus // EventTarget -> {} -> PermissionStatus
+    extends PermissionStatus {
   ///  An array of strings listing the names of the features for which
   /// permission has been granted as of the time at which
   /// [navigator.permissions.query()] was called. Any feature which was
@@ -1295,7 +1327,9 @@ class XRPermissionStatus extends PermissionStatus {
 
 @anonymous
 @JS()
-class XRSessionSupportedPermissionDescriptor extends PermissionDescriptor {
+class XRSessionSupportedPermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   external XRSessionMode get mode;
   external set mode(XRSessionMode newValue);
 

@@ -22,7 +22,7 @@ import 'dom.dart';
 /// insertion into a document’s DOM.
 @JS()
 class Sanitizer {
-  external factory Sanitizer({SanitizerConfig? config});
+  external factory Sanitizer([SanitizerConfig? config]);
 
   ///  Returns a sanitized [DocumentFragment] from an input, removing
   /// any offending elements or attributes.

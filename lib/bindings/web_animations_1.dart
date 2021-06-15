@@ -53,8 +53,10 @@ class DocumentTimelineOptions {
 /// timelines, including the default document timeline (accessed via
 /// [Document.timeline]).
 @JS()
-class DocumentTimeline extends AnimationTimeline {
-  external factory DocumentTimeline({DocumentTimelineOptions? options});
+class DocumentTimeline // null -> {} -> AnimationTimeline
+    with
+        AnimationTimeline {
+  external factory DocumentTimeline([DocumentTimelineOptions? options]);
 }
 
 ///
@@ -63,9 +65,11 @@ class DocumentTimeline extends AnimationTimeline {
 /// animation player and provides playback controls and a timeline
 /// for an animation node or source.
 @JS()
-class Animation extends EventTarget {
+class Animation // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory Animation(
-      {AnimationEffect? effect, AnimationTimeline? timeline});
+      [AnimationEffect? effect, AnimationTimeline? timeline]);
 
   /// Gets and sets the [String] used to identify the animation.
   external String get id;
@@ -419,7 +423,9 @@ enum PlaybackDirection {
 
 @anonymous
 @JS()
-class ComputedEffectTiming extends EffectTiming {
+class ComputedEffectTiming // null -> {} -> EffectTiming
+    with
+        EffectTiming {
   external /* double | NaN */ dynamic get endTime;
   external set endTime(/* double | NaN */ dynamic newValue);
   external /* double | NaN */ dynamic get activeDuration;
@@ -448,9 +454,11 @@ class ComputedEffectTiming extends EffectTiming {
 /// then be played using the [Animation()] constructor.
 @experimental
 @JS()
-class KeyframeEffect extends AnimationEffect {
+class KeyframeEffect // null -> {} -> AnimationEffect
+    with
+        AnimationEffect {
   external factory KeyframeEffect(
-      {Element? target, dynamic keyframes, dynamic options});
+      [Element? target, dynamic keyframes, dynamic options]);
 
   ///  Gets and sets the element, or originating element of the
   /// pseudo-element, being animated by this object. This may be [null]
@@ -555,7 +563,9 @@ class BaseKeyframe {
 @experimental
 @anonymous
 @JS()
-class KeyframeEffectOptions extends EffectTiming {
+class KeyframeEffectOptions // null -> {} -> EffectTiming
+    with
+        EffectTiming {
   ///  Determines how values are combined between this animation and
   /// other, separate animations that do not specify their own specific
   /// composite operation. Defaults to [replace].
@@ -599,7 +609,8 @@ mixin Animatable {
 
 @anonymous
 @JS()
-class KeyframeAnimationOptions extends KeyframeEffectOptions {
+class KeyframeAnimationOptions // EffectTiming -> {} -> KeyframeEffectOptions
+    extends KeyframeEffectOptions {
   external String get id;
   external set id(String newValue);
   external AnimationTimeline? get timeline;
@@ -629,16 +640,20 @@ class GetAnimationsOptions {
 /// through animation events.
 @experimental
 @JS()
-class AnimationPlaybackEvent extends Event {
-  external factory AnimationPlaybackEvent(
-      {String type, AnimationPlaybackEventInit? eventInitDict});
+class AnimationPlaybackEvent // null -> {} -> Event
+    with
+        Event {
+  external factory AnimationPlaybackEvent(String type,
+      [AnimationPlaybackEventInit? eventInitDict]);
   external double? get currentTime;
   external double? get timelineTime;
 }
 
 @anonymous
 @JS()
-class AnimationPlaybackEventInit extends EventInit {
+class AnimationPlaybackEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external double? get currentTime;
   external set currentTime(double? newValue);
   external double? get timelineTime;

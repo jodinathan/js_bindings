@@ -37,10 +37,10 @@ import '../manual.dart';
 @JS()
 class DOMPointReadOnly {
   external factory DOMPointReadOnly(
-      {/* double | NaN */ dynamic x = 0,
+      [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic z = 0,
-      /* double | NaN */ dynamic w = 1});
+      /* double | NaN */ dynamic w = 1]);
   external static dynamic fromPoint([DOMPointInit? other]);
 
   /// The point's horizontal coordinate, .
@@ -83,12 +83,14 @@ class DOMPointReadOnly {
 /// from the origin, and a positive [z] component extends outward
 /// from the screen (in other words, toward the user).
 @JS()
-class DOMPoint extends DOMPointReadOnly {
+class DOMPoint // null -> {} -> DOMPointReadOnly
+    with
+        DOMPointReadOnly {
   external factory DOMPoint(
-      {/* double | NaN */ dynamic x = 0,
+      [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic z = 0,
-      /* double | NaN */ dynamic w = 1});
+      /* double | NaN */ dynamic w = 1]);
   external static DOMPoint fromPoint([DOMPointInit? other]);
 
   /// The coordinate of the [DOMPoint].
@@ -170,10 +172,10 @@ class DOMPointInit {
 @JS()
 class DOMRectReadOnly {
   external factory DOMRectReadOnly(
-      {/* double | NaN */ dynamic x = 0,
+      [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic width = 0,
-      /* double | NaN */ dynamic height = 0});
+      /* double | NaN */ dynamic height = 0]);
   external static dynamic fromRect([DOMRectInit? other]);
 
   /// The x coordinate of the [DOMRect]'s origin.
@@ -222,12 +224,14 @@ class DOMRectReadOnly {
 ///
 ///
 @JS()
-class DOMRect extends DOMRectReadOnly {
+class DOMRect // null -> {} -> DOMRectReadOnly
+    with
+        DOMRectReadOnly {
   external factory DOMRect(
-      {/* double | NaN */ dynamic x = 0,
+      [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic width = 0,
-      /* double | NaN */ dynamic height = 0});
+      /* double | NaN */ dynamic height = 0]);
   external static DOMRect fromRect([DOMRectInit? other]);
 
   ///  The x coordinate of the [DOMRect]'s origin (typically the
@@ -298,7 +302,7 @@ class DOMRectList {
 @JS()
 class DOMQuad {
   external factory DOMQuad(
-      {DOMPointInit? p1, DOMPointInit? p2, DOMPointInit? p3, DOMPointInit? p4});
+      [DOMPointInit? p1, DOMPointInit? p2, DOMPointInit? p3, DOMPointInit? p4]);
 
   ///  Returns a new [DOMQuad] object based on the passed set of
   /// coordinates.
@@ -348,7 +352,7 @@ class DOMQuadInit {
 /// some implementations doesn't allow it yet.
 @JS()
 class DOMMatrixReadOnly {
-  external factory DOMMatrixReadOnly({dynamic init});
+  external factory DOMMatrixReadOnly([dynamic init]);
   external static dynamic fromMatrix([DOMMatrixInit? other]);
   external static dynamic fromFloat32Array(Float32List array32);
   external static dynamic fromFloat64Array(Float64List array64);
@@ -583,8 +587,10 @@ class DOMMatrixReadOnly {
 /// some implementations don't allow it yet.
 @experimental
 @JS()
-class DOMMatrix extends DOMMatrixReadOnly {
-  external factory DOMMatrix({dynamic init});
+class DOMMatrix // null -> {} -> DOMMatrixReadOnly
+    with
+        DOMMatrixReadOnly {
+  external factory DOMMatrix([dynamic init]);
   external static DOMMatrix fromMatrix([DOMMatrixInit? other]);
   external static DOMMatrix fromFloat32Array(Float32List array32);
   external static DOMMatrix fromFloat64Array(Float64List array64);
@@ -844,7 +850,9 @@ class DOMMatrix2DInit {
 
 @anonymous
 @JS()
-class DOMMatrixInit extends DOMMatrix2DInit {
+class DOMMatrixInit // null -> {} -> DOMMatrix2DInit
+    with
+        DOMMatrix2DInit {
   external /* double | NaN */ dynamic get m13;
   external set m13(/* double | NaN */ dynamic newValue);
   external /* double | NaN */ dynamic get m14;

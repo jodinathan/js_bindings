@@ -30,7 +30,9 @@ enum EndOfStreamError { network, decode }
 ///
 @experimental
 @JS()
-class MediaSource extends EventTarget {
+class MediaSource // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory MediaSource();
 
   ///  Returns a [SourceBufferList] object containing the list of
@@ -161,7 +163,9 @@ enum AppendMode { segments, sequence }
 ///
 @experimental
 @JS()
-class SourceBuffer extends EventTarget {
+class SourceBuffer // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Controls how the order of media segments in the [SourceBuffer]
   /// is handled, in terms of whether they can be appended in any
   /// order, or they have to be kept in a strict sequence.
@@ -292,7 +296,9 @@ class SourceBuffer extends EventTarget {
 ///
 @experimental
 @JS()
-class SourceBufferList extends EventTarget {
+class SourceBufferList // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// Returns the number of [SourceBuffer] objects in the list.
   external int get length;
   external EventHandlerNonNull? get onaddsourcebuffer;

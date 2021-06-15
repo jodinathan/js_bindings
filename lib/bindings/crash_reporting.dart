@@ -24,7 +24,9 @@ import 'reporting_1.dart';
 /// except for a general crash reason.
 @experimental
 @JS()
-class CrashReportBody extends ReportBody {
+class CrashReportBody // null -> {} -> ReportBody
+    with
+        ReportBody {
   @override
   external dynamic toJSON();
 

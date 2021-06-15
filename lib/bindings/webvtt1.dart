@@ -43,9 +43,10 @@ enum AlignSetting { start, center, end, left, right }
 /// on media presentations)—describes and controls the text track
 /// associated with a particular [<track>] element.
 @JS()
-class VTTCue extends TextTrackCue {
+class VTTCue // EventTarget -> {} -> TextTrackCue
+    extends TextTrackCue {
   external factory VTTCue(
-      {double startTime, /* double | NaN */ dynamic endTime, String text});
+      double startTime, /* double | NaN */ dynamic endTime, String text);
 
   ///  A [VTTRegion] object describing the video's sub-region that the
   /// cue will be drawn onto, or [null] if none is assigned.

@@ -20,7 +20,9 @@ import 'dom.dart';
 /// For example it could report timing information about the main
 /// image in an article.
 @JS()
-class PerformanceElementTiming extends PerformanceEntry {
+class PerformanceElementTiming // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   /// A [DOMHighResTimeStamp] with the renderTime of the element.
   external double get renderTime;
 

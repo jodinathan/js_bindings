@@ -52,7 +52,7 @@ import 'html.dart';
 @experimental
 @JS()
 class Headers {
-  external factory Headers({dynamic init});
+  external factory Headers([dynamic init]);
 
   ///  Appends a new value onto an existing header inside a [Headers]
   /// object, or adds the header if it does not already exist.
@@ -317,7 +317,7 @@ mixin Body {
 /// [FetchEvent.request].
 @JS()
 class Request with Body {
-  external factory Request({dynamic input, RequestInit? init});
+  external factory Request(dynamic input, [RequestInit? init]);
 
   /// Contains the request's method ([GET], [POST], etc.)
   external String get method;
@@ -493,7 +493,7 @@ enum RequestRedirect { follow, error, manual }
 @experimental
 @JS()
 class Response with Body {
-  external factory Response({dynamic body, ResponseInit? init});
+  external factory Response([dynamic body, ResponseInit? init]);
 
   /// Returns a new [Response] object associated with a network error.
   /// var errorResponse = Response.error();

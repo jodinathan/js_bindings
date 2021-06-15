@@ -35,7 +35,9 @@ import 'webgl2.dart';
 ///
 @experimental
 @JS()
-class WebGLQuery extends WebGLObject {
+class WebGLQuery // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLQuery();
 }
 
@@ -54,7 +56,9 @@ class WebGLQuery extends WebGLObject {
 ///
 @experimental
 @JS()
-class WebGLSampler extends WebGLObject {
+class WebGLSampler // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLSampler();
 }
 
@@ -74,7 +78,9 @@ class WebGLSampler extends WebGLObject {
 ///
 @experimental
 @JS()
-class WebGLSync extends WebGLObject {
+class WebGLSync // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLSync();
 }
 
@@ -100,7 +106,9 @@ class WebGLSync extends WebGLObject {
 ///  [WebGL2RenderingContext.getTransformFeedbackVarying()]
 ///
 @JS()
-class WebGLTransformFeedback extends WebGLObject {
+class WebGLTransformFeedback // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLTransformFeedback();
 }
 
@@ -120,7 +128,9 @@ class WebGLTransformFeedback extends WebGLObject {
 /// use vertex array objects in a WebGL 1 context.
 ///
 @JS()
-class WebGLVertexArrayObject extends WebGLObject {
+class WebGLVertexArrayObject // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLVertexArrayObject();
 }
 

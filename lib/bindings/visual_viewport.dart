@@ -34,7 +34,9 @@ import 'geometry_1.dart';
 ///
 @experimental
 @JS()
-class VisualViewport extends EventTarget {
+class VisualViewport // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns the offset of the left edge of the visual viewport from
   /// the left edge of the layout viewport in CSS pixels.
   external double get offsetLeft;

@@ -14,7 +14,8 @@ import 'webrtc.dart';
 import 'mediacapture_streams.dart';
 
 @JS()
-class RTCIdentityProviderGlobalScope extends WorkerGlobalScope {
+class RTCIdentityProviderGlobalScope // EventTarget -> {css_font_loading_3: {FontFaceSource}, html: {WindowOrWorkerGlobalScope}} -> WorkerGlobalScope
+    extends WorkerGlobalScope {
   external RTCIdentityProviderRegistrar get rtcIdentityProvider;
 
   external factory RTCIdentityProviderGlobalScope();
@@ -101,7 +102,7 @@ class RTCIdentityProviderOptions {
 @experimental
 @JS()
 class RTCIdentityAssertion {
-  external factory RTCIdentityAssertion({String idp, String name});
+  external factory RTCIdentityAssertion(String idp, String name);
 
   /// Indicates the provider of the identity assertion.
   external String get idp;

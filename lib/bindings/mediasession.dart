@@ -105,7 +105,7 @@ class MediaSession {
 /// provide rich media metadata for display in a platform UI.
 @JS()
 class MediaMetadata {
-  external factory MediaMetadata({MediaMetadataInit? init});
+  external factory MediaMetadata([MediaMetadataInit? init]);
 
   /// Returns or sets the title of the media to be played.
   external String get title;

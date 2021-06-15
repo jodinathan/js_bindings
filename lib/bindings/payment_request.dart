@@ -20,9 +20,11 @@ import 'html.dart';
 /// the end user on behalf of the operator of the site or the
 /// publisher of the app.
 @JS()
-class PaymentRequest extends EventTarget {
+class PaymentRequest // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory PaymentRequest(
-      {Iterable<PaymentMethodData> methodData, PaymentDetailsInit details});
+      Iterable<PaymentMethodData> methodData, PaymentDetailsInit details);
 
   ///  Causes the user agent to begin the user interaction for the
   /// payment request.
@@ -127,7 +129,9 @@ class PaymentDetailsBase {
 
 @anonymous
 @JS()
-class PaymentDetailsInit extends PaymentDetailsBase {
+class PaymentDetailsInit // null -> {} -> PaymentDetailsBase
+    with
+        PaymentDetailsBase {
   external String get id;
   external set id(String newValue);
   external PaymentItem get total;
@@ -151,7 +155,9 @@ class PaymentDetailsInit extends PaymentDetailsBase {
 /// first time.
 @anonymous
 @JS()
-class PaymentDetailsUpdate extends PaymentDetailsBase {
+class PaymentDetailsUpdate // null -> {} -> PaymentDetailsBase
+    with
+        PaymentDetailsBase {
   ///  A [PaymentItem] providing an updated total for the payment. Make
   /// sure this equals the sum of all of the items in [displayItems].
   /// This is not calculated automatically. You must update this value
@@ -509,7 +515,9 @@ enum PaymentComplete { fail, success, unknown }
 /// user selects a payment method and approves a payment request.
 @experimental
 @JS()
-class PaymentResponse extends EventTarget {
+class PaymentResponse // null -> {} -> EventTarget
+    with
+        EventTarget {
   external dynamic toJSON();
 
   ///  Returns the identifier of the [PaymentRequest] that produced the
@@ -654,9 +662,10 @@ class PayerErrors {
 /// handlers when the user switches payment instruments (e.g., a user
 /// selects a "store" card to make a purchase while using Apple Pay).
 @JS()
-class PaymentMethodChangeEvent extends PaymentRequestUpdateEvent {
-  external factory PaymentMethodChangeEvent(
-      {String type, PaymentMethodChangeEventInit? eventInitDict});
+class PaymentMethodChangeEvent // Event -> {} -> PaymentRequestUpdateEvent
+    extends PaymentRequestUpdateEvent {
+  external factory PaymentMethodChangeEvent(String type,
+      [PaymentMethodChangeEventInit? eventInitDict]);
 
   ///  A [DOMString] containing the payment method identifier, a string
   /// which uniquely identifies a particular payment method. This
@@ -673,7 +682,8 @@ class PaymentMethodChangeEvent extends PaymentRequestUpdateEvent {
 
 @anonymous
 @JS()
-class PaymentMethodChangeEventInit extends PaymentRequestUpdateEventInit {
+class PaymentMethodChangeEventInit // EventInit -> {} -> PaymentRequestUpdateEventInit
+    extends PaymentRequestUpdateEventInit {
   external String get methodName;
   external set methodName(String newValue);
   external dynamic get methodDetails;
@@ -701,9 +711,11 @@ class PaymentMethodChangeEventInit extends PaymentRequestUpdateEventInit {
 ///
 @experimental
 @JS()
-class PaymentRequestUpdateEvent extends Event {
-  external factory PaymentRequestUpdateEvent(
-      {String type, PaymentRequestUpdateEventInit? eventInitDict});
+class PaymentRequestUpdateEvent // null -> {} -> Event
+    with
+        Event {
+  external factory PaymentRequestUpdateEvent(String type,
+      [PaymentRequestUpdateEventInit? eventInitDict]);
 
   ///  If the event handler determines that information included in the
   /// payment request needs to be changed, or that new information
@@ -715,6 +727,8 @@ class PaymentRequestUpdateEvent extends Event {
 
 @anonymous
 @JS()
-class PaymentRequestUpdateEventInit extends EventInit {
+class PaymentRequestUpdateEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external factory PaymentRequestUpdateEventInit();
 }

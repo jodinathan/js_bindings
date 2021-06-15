@@ -70,9 +70,10 @@ class ImageObject {
 }
 
 @JS()
-class CanMakePaymentEvent extends ExtendableEvent {
-  external factory CanMakePaymentEvent(
-      {String type, CanMakePaymentEventInit? eventInitDict});
+class CanMakePaymentEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory CanMakePaymentEvent(String type,
+      [CanMakePaymentEventInit? eventInitDict]);
   external String get topOrigin;
   external String get paymentRequestOrigin;
   external Iterable<PaymentMethodData> get methodData;
@@ -81,7 +82,8 @@ class CanMakePaymentEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class CanMakePaymentEventInit extends ExtendableEventInit {
+class CanMakePaymentEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external String get topOrigin;
   external set topOrigin(String newValue);
   external String get paymentRequestOrigin;
@@ -122,9 +124,10 @@ class PaymentRequestDetailsUpdate {
 /// a payment handler when a [PaymentRequest] is made.
 @experimental
 @JS()
-class PaymentRequestEvent extends ExtendableEvent {
-  external factory PaymentRequestEvent(
-      {String type, PaymentRequestEventInit? eventInitDict});
+class PaymentRequestEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory PaymentRequestEvent(String type,
+      [PaymentRequestEventInit? eventInitDict]);
 
   ///  Returns the top-level origin where the [PaymentRequest] object
   /// was initialized.
@@ -183,7 +186,8 @@ class PaymentRequestEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class PaymentRequestEventInit extends ExtendableEventInit {
+class PaymentRequestEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external String get topOrigin;
   external set topOrigin(String newValue);
   external String get paymentRequestOrigin;

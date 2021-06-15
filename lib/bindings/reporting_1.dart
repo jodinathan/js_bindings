@@ -63,8 +63,8 @@ class Report {
 @experimental
 @JS()
 class ReportingObserver {
-  external factory ReportingObserver(
-      {ReportingObserverCallback callback, ReportingObserverOptions? options});
+  external factory ReportingObserver(ReportingObserverCallback callback,
+      [ReportingObserverOptions? options]);
 
   ///  Instructs a reporting observer to start collecting reports in
   /// its report queue.
@@ -124,7 +124,9 @@ class ReportingObserverOptions {
 /// observed by a [ReportingObserver].
 @experimental
 @JS()
-class DeprecationReportBody extends ReportBody {
+class DeprecationReportBody // null -> {} -> ReportBody
+    with
+        ReportBody {
   ///  A string representing the deprecated feature that generated the
   /// report, for example [NavigatorGetUserMedia]. This can be used to
   /// group reports by deprecated feature.
@@ -174,7 +176,9 @@ class DeprecationReportBody extends ReportBody {
 /// playing without a user gesture to trigger it.
 @experimental
 @JS()
-class InterventionReportBody extends ReportBody {
+class InterventionReportBody // null -> {} -> ReportBody
+    with
+        ReportBody {
   ///  A string representing the intervention that generated the
   /// report. This can be used to group reports by deprecated feature.
   external String get id;
@@ -214,7 +218,9 @@ class InterventionReportBody extends ReportBody {
 /// except for a general crash reason.
 @experimental
 @JS()
-class CrashReportBody extends ReportBody {
+class CrashReportBody // null -> {} -> ReportBody
+    with
+        ReportBody {
   external String get crashId;
 
   ///  A string representing the reason for the crash. Current possible

@@ -17,7 +17,9 @@ import 'geometry_1.dart';
 /// into the stability of web pages based on movements of the
 /// elements on the page.
 @JS()
-class LayoutShift extends PerformanceEntry {
+class LayoutShift // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   ///  Returns the [impact fraction] (fraction of the viewport that was
   /// shifted) times the [distance fraction] (distance moved as a
   /// fraction of viewport).

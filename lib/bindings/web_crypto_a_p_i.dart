@@ -404,7 +404,9 @@ class CryptoKeyPair {
 
 @anonymous
 @JS()
-class RsaKeyGenParams extends Algorithm {
+class RsaKeyGenParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   external int get modulusLength;
   external set modulusLength(int newValue);
   external Uint8List get publicExponent;
@@ -423,7 +425,8 @@ class RsaKeyGenParams extends Algorithm {
 /// RSASSA-PKCS1-v1_5, RSA-PSS, or RSA-OAEP.
 @anonymous
 @JS()
-class RsaHashedKeyGenParams extends RsaKeyGenParams {
+class RsaHashedKeyGenParams // Algorithm -> {} -> RsaKeyGenParams
+    extends RsaKeyGenParams {
   ///  A [DOMString] representing the name of the digest function to
   /// use. You can pass any of [SHA-256], [SHA-384], or [SHA-512] here.
   ///
@@ -441,7 +444,9 @@ class RsaHashedKeyGenParams extends RsaKeyGenParams {
 
 @anonymous
 @JS()
-class RsaKeyAlgorithm extends KeyAlgorithm {
+class RsaKeyAlgorithm // null -> {} -> KeyAlgorithm
+    with
+        KeyAlgorithm {
   external int get modulusLength;
   external set modulusLength(int newValue);
   external Uint8List get publicExponent;
@@ -453,7 +458,8 @@ class RsaKeyAlgorithm extends KeyAlgorithm {
 
 @anonymous
 @JS()
-class RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
+class RsaHashedKeyAlgorithm // KeyAlgorithm -> {} -> RsaKeyAlgorithm
+    extends RsaKeyAlgorithm {
   external KeyAlgorithm get hash;
   external set hash(KeyAlgorithm newValue);
 
@@ -469,7 +475,9 @@ class RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
 /// identified as any of RSASSA-PKCS1-v1_5, RSA-PSS, or RSA-OAEP.
 @anonymous
 @JS()
-class RsaHashedImportParams extends Algorithm {
+class RsaHashedImportParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [DOMString] representing the name of the digest function to
   /// use. This can be one of [SHA-256], [SHA-384], or [SHA-512].
   ///
@@ -492,7 +500,9 @@ class RsaHashedImportParams extends Algorithm {
 /// RSA-PSS algorithm.
 @anonymous
 @JS()
-class RsaPssParams extends Algorithm {
+class RsaPssParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [long] integer representing the length of the random salt to
   /// use, in bytes.
   ///
@@ -523,7 +533,9 @@ class RsaPssParams extends Algorithm {
 /// using the RSA_OAEP algorithm.
 @anonymous
 @JS()
-class RsaOaepParams extends Algorithm {
+class RsaOaepParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [BufferSource] — an array of bytes that does not itself need
   /// to be encrypted but which should be bound to the ciphertext. A
   /// digest of the label is part of the input to the encryption
@@ -547,7 +559,9 @@ class RsaOaepParams extends Algorithm {
 /// the ECDSA algorithm.
 @anonymous
 @JS()
-class EcdsaParams extends Algorithm {
+class EcdsaParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [DOMString]. An identifier for the digest algorithm to use.
   /// This should be one of the following:
   ///
@@ -576,7 +590,9 @@ class EcdsaParams extends Algorithm {
 /// identified as either of ECDSA or ECDH.
 @anonymous
 @JS()
-class EcKeyGenParams extends Algorithm {
+class EcKeyGenParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [DOMString] representing the name of the elliptic curve to
   /// use. This may be any of the following names for NIST-approved
   /// curves:
@@ -595,7 +611,9 @@ class EcKeyGenParams extends Algorithm {
 
 @anonymous
 @JS()
-class EcKeyAlgorithm extends KeyAlgorithm {
+class EcKeyAlgorithm // null -> {} -> KeyAlgorithm
+    with
+        KeyAlgorithm {
   external String get namedCurve;
   external set namedCurve(String newValue);
 
@@ -609,7 +627,9 @@ class EcKeyAlgorithm extends KeyAlgorithm {
 /// algorithm is identified as either of ECDSA or ECDH.
 @anonymous
 @JS()
-class EcKeyImportParams extends Algorithm {
+class EcKeyImportParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [DOMString] representing the name of the elliptic curve to
   /// use. This may be any of the following names for NIST-approved
   /// curves:
@@ -643,7 +663,9 @@ class EcKeyImportParams extends Algorithm {
 /// private key to derive the shared secret.
 @anonymous
 @JS()
-class EcdhKeyDeriveParams extends Algorithm {
+class EcdhKeyDeriveParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [CryptoKey] object representing the public key of the other
   /// entity.
   external CryptoKey get public;
@@ -690,7 +712,9 @@ class EcdhKeyDeriveParams extends Algorithm {
 ///
 @anonymous
 @JS()
-class AesCtrParams extends Algorithm {
+class AesCtrParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [BufferSource] — the initial value of the counter block. This
   /// must be 16 bytes long (the AES block size). The rightmost
   /// [length] bits of this block are used for the counter, and the
@@ -715,7 +739,9 @@ class AesCtrParams extends Algorithm {
 
 @anonymous
 @JS()
-class AesKeyAlgorithm extends KeyAlgorithm {
+class AesKeyAlgorithm // null -> {} -> KeyAlgorithm
+    with
+        KeyAlgorithm {
   external int get length;
   external set length(int newValue);
 
@@ -729,7 +755,9 @@ class AesKeyAlgorithm extends KeyAlgorithm {
 /// AES-GCM, or AES-KW.
 @anonymous
 @JS()
-class AesKeyGenParams extends Algorithm {
+class AesKeyGenParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [Number] — the length in bits of the key to generate. This
   /// must be one of: 128, 192, or 256.
   ///
@@ -741,7 +769,9 @@ class AesKeyGenParams extends Algorithm {
 
 @anonymous
 @JS()
-class AesDerivedKeyParams extends Algorithm {
+class AesDerivedKeyParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   external int get length;
   external set length(int newValue);
 
@@ -757,7 +787,9 @@ class AesDerivedKeyParams extends Algorithm {
 /// using the AES-CBC algorithm.
 @anonymous
 @JS()
-class AesCbcParams extends Algorithm {
+class AesCbcParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [BufferSource]. The initialization vector. Must be 16 bytes,
   /// unpredictable, and preferably cryptographically random. However,
   /// it need not be secret (for example, it may be transmitted
@@ -781,7 +813,9 @@ class AesCbcParams extends Algorithm {
 /// particular section 5.2.1.1 on Input Data.
 @anonymous
 @JS()
-class AesGcmParams extends Algorithm {
+class AesGcmParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [BufferSource] — the initialization vector. This must be
   /// unique for every encryption operation carried out with a given
   /// key. Put another way: never reuse an IV with the same key. The
@@ -838,7 +872,9 @@ class AesGcmParams extends Algorithm {
 /// generating a key for the HMAC algorithm.
 @anonymous
 @JS()
-class HmacImportParams extends Algorithm {
+class HmacImportParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [DOMString] representing the name of the digest function to
   /// use. The can take a value of [SHA-256], [SHA-384], or [SHA-512].
   ///
@@ -864,7 +900,9 @@ class HmacImportParams extends Algorithm {
 
 @anonymous
 @JS()
-class HmacKeyAlgorithm extends KeyAlgorithm {
+class HmacKeyAlgorithm // null -> {} -> KeyAlgorithm
+    with
+        KeyAlgorithm {
   external KeyAlgorithm get hash;
   external set hash(KeyAlgorithm newValue);
   external int get length;
@@ -881,7 +919,9 @@ class HmacKeyAlgorithm extends KeyAlgorithm {
 /// algorithm.
 @anonymous
 @JS()
-class HmacKeyGenParams extends Algorithm {
+class HmacKeyGenParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [DOMString] representing the name of the digest function to
   /// use. You can pass any of [SHA-1], [SHA-256], [SHA-384], or
   /// [SHA-512] here.
@@ -905,7 +945,9 @@ class HmacKeyGenParams extends Algorithm {
 /// [SubtleCrypto.deriveKey()], when using the HKDF algorithm.
 @anonymous
 @JS()
-class HkdfParams extends Algorithm {
+class HkdfParams // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [DOMString] representing the digest algorithm to use. This may
   /// be one of:
   ///
@@ -947,7 +989,9 @@ class HkdfParams extends Algorithm {
 /// [SubtleCrypto.deriveKey()], when using the PBKDF2 algorithm.
 @anonymous
 @JS()
-class Pbkdf2Params extends Algorithm {
+class Pbkdf2Params // null -> {} -> Algorithm
+    with
+        Algorithm {
   ///  A [BufferSource]. This should be a random or pseudo-random value
   /// of at least 16 bytes. Unlike the input key material passed into
   /// [deriveKey()], does not need to be kept secret.

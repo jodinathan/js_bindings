@@ -55,7 +55,8 @@ class BackgroundSyncOptions {
 
 @anonymous
 @JS()
-class PeriodicSyncEventInit extends ExtendableEventInit {
+class PeriodicSyncEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external String get tag;
   external set tag(String newValue);
 
@@ -77,8 +78,9 @@ class PeriodicSyncEventInit extends ExtendableEventInit {
 /// implementation-specific factors such as the user's engagement
 /// with the site decide the actual interval.
 @JS()
-class PeriodicSyncEvent extends ExtendableEvent {
-  external factory PeriodicSyncEvent({String type, PeriodicSyncEventInit init});
+class PeriodicSyncEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory PeriodicSyncEvent(String type, PeriodicSyncEventInit init);
 
   ///  Returns the developer-defined identifier for this
   /// [PeriodicSyncEvent]. Multiple tags can be used by the web app to

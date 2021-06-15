@@ -51,9 +51,11 @@ class PerformanceMeasureOptions {
 ///  Note: This feature is available in Web Workers
 ///
 @JS()
-class PerformanceMark extends PerformanceEntry {
-  external factory PerformanceMark(
-      {String markName, PerformanceMarkOptions? markOptions});
+class PerformanceMark // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
+  external factory PerformanceMark(String markName,
+      [PerformanceMarkOptions? markOptions]);
   external dynamic get detail;
 }
 
@@ -69,7 +71,9 @@ class PerformanceMark extends PerformanceEntry {
 ///  Note: This feature is available in Web Workers
 ///
 @JS()
-class PerformanceMeasure extends PerformanceEntry {
+class PerformanceMeasure // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   external dynamic get detail;
 
   external factory PerformanceMeasure();

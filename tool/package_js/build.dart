@@ -129,7 +129,8 @@ Future<void> main() async {
                 'abstract ' : '';
             dynamic parent;
             final mixin = type == 'interface mixin';
-            var inheritance = inherits == null ? '' : 'extends $inherits ';
+            var inheritance = '';
+            var parentMixin = false;
 
             if (inherits != null) {
               parent = spec.objects.values.firstWhereOrNull(
@@ -137,6 +138,11 @@ Future<void> main() async {
                 group.specs.firstWhereOrNull(
                         (spec) => spec.objects.keys.contains(inherits)
                 )?.objects[inherits];
+              parentMixin = parent['inheritance']?.isNotEmpty != true &&
+                  parent['mixins'].isEmpty;
+
+              inheritance = '// ${parent['inheritance']} -> ${parent['mixins']} -> ${parent['name']} \n'
+                  '${parentMixin ? 'with' : 'extends'} $inherits ';
             }
 
             if (doc.isNotEmpty) {
@@ -162,7 +168,7 @@ Future<void> main() async {
                     'Current: $deps');
                 deps.addAll(mixins.keys);
 
-                inheritance += '$glue ${exts.join(', ')}';
+                inheritance += '${parentMixin ? ',' : glue} ${exts.join(', ')}';
               }
             }
 
@@ -296,15 +302,16 @@ Future<void> main() async {
                   case 'constructor':
                     final isc = mType == 'constructor';
                     String fn;
-                    final params = member['arguments'] == null ? <String>[] :
+                    final lparams = member['arguments'] == null ? <String>[] :
                     spec.makeParams(member['arguments'] as Iterable,
-                        optionals: !isc);
+                        optionals: type != 'dictionary');
+                    final params = lparams.join(', ');
 
                     if (isc) {
                       fn = '\nexternal factory $name';
 
                       lines.add('$fn(${params.isNotEmpty ?
-                      '{${params.join(', ')}}' : ''});');
+                      (type == 'dictionary' ? '{$params}': params) : ''});');
                     } else {
                       String dartType;
 
@@ -349,7 +356,7 @@ Future<void> main() async {
 
                       fn = 'external ${specStatic()}$dartType $mName';
 
-                      lines.add('$fn(${params.join(', ')});');
+                      lines.add('$fn($params);');
                     }
                     break;
                   default:

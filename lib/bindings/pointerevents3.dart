@@ -15,7 +15,8 @@ import 'html.dart';
 
 @anonymous
 @JS()
-class PointerEventInit extends MouseEventInit {
+class PointerEventInit // EventModifierInit -> {} -> MouseEventInit
+    extends MouseEventInit {
   external int get pointerId;
   external set pointerId(int newValue);
   external double get width;
@@ -79,8 +80,9 @@ class PointerEventInit extends MouseEventInit {
 /// determined by considering the pointer's location and also the
 /// visual layout of elements in a document on screen media.
 @JS()
-class PointerEvent extends MouseEvent {
-  external factory PointerEvent({String type, PointerEventInit? eventInitDict});
+class PointerEvent // UIEvent -> {} -> MouseEvent
+    extends MouseEvent {
+  external factory PointerEvent(String type, [PointerEventInit? eventInitDict]);
 
   /// A unique identifier for the pointer causing the event.
   external int get pointerId;

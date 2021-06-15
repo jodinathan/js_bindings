@@ -21,7 +21,9 @@ import 'dom.dart';
 /// [HTMLVideoElement.requestPictureInPicture()] promise return
 /// value.
 @JS()
-class PictureInPictureWindow extends EventTarget {
+class PictureInPictureWindow // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// Determines the width of the floating video window.
   external int get width;
 
@@ -41,15 +43,19 @@ class PictureInPictureWindow extends EventTarget {
 ///
 ///
 @JS()
-class PictureInPictureEvent extends Event {
+class PictureInPictureEvent // null -> {} -> Event
+    with
+        Event {
   external factory PictureInPictureEvent(
-      {String type, PictureInPictureEventInit eventInitDict});
+      String type, PictureInPictureEventInit eventInitDict);
   external PictureInPictureWindow get pictureInPictureWindow;
 }
 
 @anonymous
 @JS()
-class PictureInPictureEventInit extends EventInit {
+class PictureInPictureEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external PictureInPictureWindow get pictureInPictureWindow;
   external set pictureInPictureWindow(PictureInPictureWindow newValue);
 

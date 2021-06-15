@@ -12,7 +12,9 @@ import 'dom.dart';
 import 'html.dart';
 
 @JS()
-class RemotePlayback extends EventTarget {
+class RemotePlayback // null -> {} -> EventTarget
+    with
+        EventTarget {
   external Promise<int> watchAvailability(
       RemotePlaybackAvailabilityCallback callback);
   external Promise<Object> cancelWatchAvailability([int? id]);

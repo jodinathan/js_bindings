@@ -29,7 +29,9 @@ import 'dom.dart';
 /// with a interface.
 @deprecated
 @JS()
-class BatteryManager extends EventTarget {
+class BatteryManager // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  A Boolean value indicating whether the battery is currently
   /// being charged.
   external bool get charging;

@@ -56,7 +56,9 @@ class BackgroundFetchUIOptions {
 
 @anonymous
 @JS()
-class BackgroundFetchOptions extends BackgroundFetchUIOptions {
+class BackgroundFetchOptions // null -> {} -> BackgroundFetchUIOptions
+    with
+        BackgroundFetchUIOptions {
   external int get downloadTotal;
   external set downloadTotal(int newValue);
 
@@ -72,7 +74,9 @@ class BackgroundFetchOptions extends BackgroundFetchUIOptions {
 /// or [BackgroundFetchManager.get()] methods, and therefore there
 /// has no constructor.
 @JS()
-class BackgroundFetchRegistration extends EventTarget {
+class BackgroundFetchRegistration // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// A [string] containing the background fetch's ID.
   external String get id;
 
@@ -196,9 +200,10 @@ class BackgroundFetchRecord {
 ///  It is the event type passed to [onbackgroundfetchabort] and
 /// [onbackgroundfetchclick].
 @JS()
-class BackgroundFetchEvent extends ExtendableEvent {
+class BackgroundFetchEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
   external factory BackgroundFetchEvent(
-      {String type, BackgroundFetchEventInit init});
+      String type, BackgroundFetchEventInit init);
 
   ///  Returns the [BackgroundFetchRegistration] that the event was
   /// initialized to.
@@ -207,7 +212,8 @@ class BackgroundFetchEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class BackgroundFetchEventInit extends ExtendableEventInit {
+class BackgroundFetchEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external BackgroundFetchRegistration get registration;
   external set registration(BackgroundFetchRegistration newValue);
 
@@ -223,9 +229,10 @@ class BackgroundFetchEventInit extends ExtendableEventInit {
 /// method for updating the title and icon of the app to inform a
 /// user of the success or failure of a background fetch.
 @JS()
-class BackgroundFetchUpdateUIEvent extends BackgroundFetchEvent {
+class BackgroundFetchUpdateUIEvent // ExtendableEvent -> {} -> BackgroundFetchEvent
+    extends BackgroundFetchEvent {
   external factory BackgroundFetchUpdateUIEvent(
-      {String type, BackgroundFetchEventInit init});
+      String type, BackgroundFetchEventInit init);
 
   ///  Updates the title and icon in the user interface to show the
   /// status of a background fetch. Resolves with a [Promise].

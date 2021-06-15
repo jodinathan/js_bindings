@@ -12,7 +12,9 @@ import 'html.dart';
 import 'cssom_1.dart';
 
 @JS()
-class PaintWorkletGlobalScope extends WorkletGlobalScope {
+class PaintWorkletGlobalScope // null -> {} -> WorkletGlobalScope
+    with
+        WorkletGlobalScope {
   external Object registerPaint(String name, VoidFunction paintCtor);
   external /* double | NaN */ dynamic get devicePixelRatio;
 

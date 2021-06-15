@@ -107,7 +107,9 @@ class GPUAdapter {
 
 @anonymous
 @JS()
-class GPUDeviceDescriptor extends GPUObjectDescriptorBase {
+class GPUDeviceDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external Iterable<GPUFeatureName> get nonGuaranteedFeatures;
   external set nonGuaranteedFeatures(Iterable<GPUFeatureName> newValue);
   external dynamic get nonGuaranteedLimits;
@@ -135,7 +137,10 @@ enum GPUFeatureName {
 }
 
 @JS()
-class GPUDevice extends EventTarget with GPUObjectBase {
+class GPUDevice // null -> {} -> EventTarget
+    with
+        EventTarget,
+        GPUObjectBase {
   external GPUSupportedFeatures get features;
   external GPUSupportedLimits get limits;
   external GPUQueue get queue;
@@ -186,7 +191,9 @@ class GPUBuffer with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUBufferDescriptor extends GPUObjectDescriptorBase {
+class GPUBufferDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external int get size;
   external set size(int newValue);
   external int get usage;
@@ -232,7 +239,9 @@ class GPUTexture with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUTextureDescriptor extends GPUObjectDescriptorBase {
+class GPUTextureDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external dynamic get size;
   external set size(dynamic newValue);
   external int get mipLevelCount;
@@ -283,7 +292,9 @@ class GPUTextureView with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUTextureViewDescriptor extends GPUObjectDescriptorBase {
+class GPUTextureViewDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external GPUTextureFormat get format;
   external set format(GPUTextureFormat newValue);
   external GPUTextureViewDimension get dimension;
@@ -420,7 +431,9 @@ class GPUExternalTexture with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUExternalTextureDescriptor extends GPUObjectDescriptorBase {
+class GPUExternalTextureDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external HTMLVideoElement get source;
   external set source(HTMLVideoElement newValue);
   external GPUPredefinedColorSpace get colorSpace;
@@ -438,7 +451,9 @@ class GPUSampler with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUSamplerDescriptor extends GPUObjectDescriptorBase {
+class GPUSamplerDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external GPUAddressMode get addressModeU;
   external set addressModeU(GPUAddressMode newValue);
   external GPUAddressMode get addressModeV;
@@ -507,7 +522,9 @@ class GPUBindGroupLayout with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUBindGroupLayoutDescriptor extends GPUObjectDescriptorBase {
+class GPUBindGroupLayoutDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external Iterable<GPUBindGroupLayoutEntry> get entries;
   external set entries(Iterable<GPUBindGroupLayoutEntry> newValue);
 
@@ -657,7 +674,9 @@ class GPUBindGroup with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUBindGroupDescriptor extends GPUObjectDescriptorBase {
+class GPUBindGroupDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external GPUBindGroupLayout get layout;
   external set layout(GPUBindGroupLayout newValue);
   external Iterable<GPUBindGroupEntry> get entries;
@@ -699,7 +718,9 @@ class GPUPipelineLayout with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUPipelineLayoutDescriptor extends GPUObjectDescriptorBase {
+class GPUPipelineLayoutDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external Iterable<GPUBindGroupLayout> get bindGroupLayouts;
   external set bindGroupLayouts(Iterable<GPUBindGroupLayout> newValue);
 
@@ -716,7 +737,9 @@ class GPUShaderModule with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUShaderModuleDescriptor extends GPUObjectDescriptorBase {
+class GPUShaderModuleDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external String get code;
   external set code(String newValue);
   external dynamic get sourceMap;
@@ -749,7 +772,9 @@ class GPUCompilationInfo {
 
 @anonymous
 @JS()
-class GPUPipelineDescriptorBase extends GPUObjectDescriptorBase {
+class GPUPipelineDescriptorBase // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external GPUPipelineLayout get layout;
   external set layout(GPUPipelineLayout newValue);
 
@@ -782,7 +807,8 @@ class GPUComputePipeline with GPUObjectBase, GPUPipelineBase {
 
 @anonymous
 @JS()
-class GPUComputePipelineDescriptor extends GPUPipelineDescriptorBase {
+class GPUComputePipelineDescriptor // GPUObjectDescriptorBase -> {} -> GPUPipelineDescriptorBase
+    extends GPUPipelineDescriptorBase {
   external GPUProgrammableStage get compute;
   external set compute(GPUProgrammableStage newValue);
 
@@ -796,7 +822,8 @@ class GPURenderPipeline with GPUObjectBase, GPUPipelineBase {
 
 @anonymous
 @JS()
-class GPURenderPipelineDescriptor extends GPUPipelineDescriptorBase {
+class GPURenderPipelineDescriptor // GPUObjectDescriptorBase -> {} -> GPUPipelineDescriptorBase
+    extends GPUPipelineDescriptorBase {
   external GPUVertexState get vertex;
   external set vertex(GPUVertexState newValue);
   external GPUPrimitiveState get primitive;
@@ -876,7 +903,9 @@ class GPUMultisampleState {
 
 @anonymous
 @JS()
-class GPUFragmentState extends GPUProgrammableStage {
+class GPUFragmentState // null -> {} -> GPUProgrammableStage
+    with
+        GPUProgrammableStage {
   external Iterable<GPUColorTargetState> get targets;
   external set targets(Iterable<GPUColorTargetState> newValue);
 
@@ -1085,7 +1114,9 @@ enum GPUInputStepMode { vertex, instance }
 
 @anonymous
 @JS()
-class GPUVertexState extends GPUProgrammableStage {
+class GPUVertexState // null -> {} -> GPUProgrammableStage
+    with
+        GPUProgrammableStage {
   external Iterable<GPUVertexBufferLayout> get buffers;
   external set buffers(Iterable<GPUVertexBufferLayout> newValue);
 
@@ -1132,7 +1163,9 @@ class GPUCommandBuffer with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUCommandBufferDescriptor extends GPUObjectDescriptorBase {
+class GPUCommandBufferDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external factory GPUCommandBufferDescriptor();
 }
 
@@ -1163,7 +1196,9 @@ class GPUCommandEncoder with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUCommandEncoderDescriptor extends GPUObjectDescriptorBase {
+class GPUCommandEncoderDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external bool get measureExecutionTime;
   external set measureExecutionTime(bool newValue);
 
@@ -1187,7 +1222,9 @@ class GPUImageDataLayout {
 
 @anonymous
 @JS()
-class GPUImageCopyBuffer extends GPUImageDataLayout {
+class GPUImageCopyBuffer // null -> {} -> GPUImageDataLayout
+    with
+        GPUImageDataLayout {
   external GPUBuffer get buffer;
   external set buffer(GPUBuffer newValue);
 
@@ -1252,7 +1289,9 @@ class GPUComputePassEncoder with GPUObjectBase, GPUProgrammablePassEncoder {
 
 @anonymous
 @JS()
-class GPUComputePassDescriptor extends GPUObjectDescriptorBase {
+class GPUComputePassDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external factory GPUComputePassDescriptor();
 }
 
@@ -1297,7 +1336,9 @@ class GPURenderPassEncoder
 
 @anonymous
 @JS()
-class GPURenderPassDescriptor extends GPUObjectDescriptorBase {
+class GPURenderPassDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external Iterable<GPURenderPassColorAttachment> get colorAttachments;
   external set colorAttachments(
       Iterable<GPURenderPassColorAttachment> newValue);
@@ -1373,7 +1414,9 @@ class GPURenderBundle with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPURenderBundleDescriptor extends GPUObjectDescriptorBase {
+class GPURenderBundleDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external factory GPURenderBundleDescriptor();
 }
 
@@ -1387,7 +1430,9 @@ class GPURenderBundleEncoder
 
 @anonymous
 @JS()
-class GPURenderBundleEncoderDescriptor extends GPUObjectDescriptorBase {
+class GPURenderBundleEncoderDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external Iterable<GPUTextureFormat> get colorFormats;
   external set colorFormats(Iterable<GPUTextureFormat> newValue);
   external GPUTextureFormat get depthStencilFormat;
@@ -1424,7 +1469,9 @@ class GPUQuerySet with GPUObjectBase {
 
 @anonymous
 @JS()
-class GPUQuerySetDescriptor extends GPUObjectDescriptorBase {
+class GPUQuerySetDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external GPUQueryType get type;
   external set type(GPUQueryType newValue);
   external int get count;
@@ -1473,7 +1520,9 @@ enum GPUCanvasCompositingAlphaMode { opaque, premultiplied }
 
 @anonymous
 @JS()
-class GPUSwapChainDescriptor extends GPUObjectDescriptorBase {
+class GPUSwapChainDescriptor // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external GPUDevice get device;
   external set device(GPUDevice newValue);
   external GPUTextureFormat get format;
@@ -1526,21 +1575,24 @@ class GPUOutOfMemoryError {
 
 @JS()
 class GPUValidationError {
-  external factory GPUValidationError({String message});
+  external factory GPUValidationError(String message);
   external String get message;
 }
 
 @JS()
-class GPUUncapturedErrorEvent extends Event {
+class GPUUncapturedErrorEvent // null -> {} -> Event
+    with
+        Event {
   external factory GPUUncapturedErrorEvent(
-      {String type,
-      GPUUncapturedErrorEventInit gpuUncapturedErrorEventInitDict});
+      String type, GPUUncapturedErrorEventInit gpuUncapturedErrorEventInitDict);
   external dynamic get error;
 }
 
 @anonymous
 @JS()
-class GPUUncapturedErrorEventInit extends EventInit {
+class GPUUncapturedErrorEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external dynamic get error;
   external set error(dynamic newValue);
 
@@ -1611,7 +1663,9 @@ class GPUPresentationContext {
 
 @anonymous
 @JS()
-class GPUPresentationConfiguration extends GPUObjectDescriptorBase {
+class GPUPresentationConfiguration // null -> {} -> GPUObjectDescriptorBase
+    with
+        GPUObjectDescriptorBase {
   external GPUDevice get device;
   external set device(GPUDevice newValue);
   external GPUTextureFormat get format;

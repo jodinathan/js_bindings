@@ -22,7 +22,9 @@ import 'html.dart';
 ///  A instance object can be retrieved using the
 /// [screen.orientation] property.
 @JS()
-class ScreenOrientation extends EventTarget {
+class ScreenOrientation // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Locks the orientation of the containing document to its default
   /// orientation and returns a [Promise].
   /// screen.orientation.lock(orientation)

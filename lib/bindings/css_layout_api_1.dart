@@ -153,7 +153,9 @@ class LayoutEdges {
 }
 
 @JS()
-class LayoutWorkletGlobalScope extends WorkletGlobalScope {
+class LayoutWorkletGlobalScope // null -> {} -> WorkletGlobalScope
+    with
+        WorkletGlobalScope {
   external Object registerLayout(String name, VoidFunction layoutCtor);
 
   external factory LayoutWorkletGlobalScope();
@@ -231,7 +233,7 @@ class IntrinsicSizesResultOptions {
 
 @JS()
 class FragmentResult {
-  external factory FragmentResult({FragmentResultOptions? options});
+  external factory FragmentResult([FragmentResultOptions? options]);
   external double get inlineSize;
   external double get blockSize;
 }

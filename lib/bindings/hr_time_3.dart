@@ -34,7 +34,9 @@ import 'performance_timeline_2.dart';
 /// versa.
 ///
 @JS()
-class Performance extends EventTarget {
+class Performance // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a [DOMHighResTimeStamp] representing the number of
   /// milliseconds elapsed since a reference instant.
   /// t = performance.now();

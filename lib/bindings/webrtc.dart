@@ -193,7 +193,9 @@ class RTCOfferAnswerOptions {
 /// [createOffer()] method.
 @anonymous
 @JS()
-class RTCOfferOptions extends RTCOfferAnswerOptions {
+class RTCOfferOptions // null -> {} -> RTCOfferAnswerOptions
+    with
+        RTCOfferAnswerOptions {
   ///  A Boolean which, when set to [true], tells [createOffer()] to
   /// generate and use new values for the identifying properties of the
   /// SDP it creates, resulting in a request that triggers
@@ -215,7 +217,9 @@ class RTCOfferOptions extends RTCOfferAnswerOptions {
 /// of this type.
 @anonymous
 @JS()
-class RTCAnswerOptions extends RTCOfferAnswerOptions {
+class RTCAnswerOptions // null -> {} -> RTCOfferAnswerOptions
+    with
+        RTCOfferAnswerOptions {
   external factory RTCAnswerOptions();
 }
 
@@ -266,8 +270,10 @@ enum RTCIceConnectionState {
 
 ///
 @JS()
-class RTCPeerConnection extends EventTarget {
-  external factory RTCPeerConnection({RTCConfiguration? configuration});
+class RTCPeerConnection // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory RTCPeerConnection([RTCConfiguration? configuration]);
   external RTCSessionDescription? get localDescription;
   external RTCSessionDescription? get currentLocalDescription;
   external RTCSessionDescription? get pendingLocalDescription;
@@ -364,7 +370,7 @@ enum RTCSdpType { offer, pranswer, answer, rollback }
 @JS()
 class RTCSessionDescription {
   external factory RTCSessionDescription(
-      {RTCSessionDescriptionInit descriptionInitDict});
+      RTCSessionDescriptionInit descriptionInitDict);
 
   ///  An enum of type [RTCSdpType] describing the session
   /// description's type.
@@ -418,7 +424,7 @@ class RTCLocalSessionDescriptionInit {
 /// additional useful details.
 @JS()
 class RTCIceCandidate {
-  external factory RTCIceCandidate({RTCIceCandidateInit? candidateInitDict});
+  external factory RTCIceCandidate([RTCIceCandidateInit? candidateInitDict]);
 
   ///  A [DOMString] representing the transport address for the
   /// candidate that can be used for connectivity checks. The format of
@@ -567,9 +573,11 @@ enum RTCIceCandidateType { host, srflx, prflx, relay }
 /// one event is of this type: [icecandidate].
 @experimental
 @JS()
-class RTCPeerConnectionIceEvent extends Event {
-  external factory RTCPeerConnectionIceEvent(
-      {String type, RTCPeerConnectionIceEventInit? eventInitDict});
+class RTCPeerConnectionIceEvent // null -> {} -> Event
+    with
+        Event {
+  external factory RTCPeerConnectionIceEvent(String type,
+      [RTCPeerConnectionIceEventInit? eventInitDict]);
 
   ///  Contains the [RTCIceCandidate] containing the candidate
   /// associated with the event, or [null] if this event indicates that
@@ -580,7 +588,9 @@ class RTCPeerConnectionIceEvent extends Event {
 
 @anonymous
 @JS()
-class RTCPeerConnectionIceEventInit extends EventInit {
+class RTCPeerConnectionIceEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external RTCIceCandidate? get candidate;
   external set candidate(RTCIceCandidate? newValue);
   external String? get url;
@@ -597,9 +607,11 @@ class RTCPeerConnectionIceEventInit extends EventInit {
 /// announced by sending an [icecandidateerror] event to the
 /// [RTCPeerConnection] object.
 @JS()
-class RTCPeerConnectionIceErrorEvent extends Event {
+class RTCPeerConnectionIceErrorEvent // null -> {} -> Event
+    with
+        Event {
   external factory RTCPeerConnectionIceErrorEvent(
-      {String type, RTCPeerConnectionIceErrorEventInit eventInitDict});
+      String type, RTCPeerConnectionIceErrorEventInit eventInitDict);
 
   ///  A [DOMString] providing the local IP address used to communicate
   /// with the STUN or TURN server being used to negotiate the
@@ -634,7 +646,9 @@ class RTCPeerConnectionIceErrorEvent extends Event {
 
 @anonymous
 @JS()
-class RTCPeerConnectionIceErrorEventInit extends EventInit {
+class RTCPeerConnectionIceErrorEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String? get address;
   external set address(String? newValue);
   external int? get port;
@@ -802,7 +816,9 @@ class RTCRtpParameters {
 /// [setParameters()] method.
 @anonymous
 @JS()
-class RTCRtpSendParameters extends RTCRtpParameters {
+class RTCRtpSendParameters // null -> {} -> RTCRtpParameters
+    with
+        RTCRtpParameters {
   ///  A string containing a unique ID for the last set of parameters
   /// applied; this value is used to ensure that [setParameters()] can
   /// only be called to alter changes made by a specific previous call
@@ -830,7 +846,9 @@ class RTCRtpSendParameters extends RTCRtpParameters {
 /// remote peer.
 @anonymous
 @JS()
-class RTCRtpReceiveParameters extends RTCRtpParameters {
+class RTCRtpReceiveParameters // null -> {} -> RTCRtpParameters
+    with
+        RTCRtpParameters {
   external factory RTCRtpReceiveParameters();
 }
 
@@ -845,7 +863,9 @@ class RTCRtpCodingParameters {
 
 @anonymous
 @JS()
-class RTCRtpDecodingParameters extends RTCRtpCodingParameters {
+class RTCRtpDecodingParameters // null -> {} -> RTCRtpCodingParameters
+    with
+        RTCRtpCodingParameters {
   external factory RTCRtpDecodingParameters();
 }
 
@@ -858,7 +878,9 @@ class RTCRtpDecodingParameters extends RTCRtpCodingParameters {
 /// describe the configuration of an RTP receiver's [encodings].
 @anonymous
 @JS()
-class RTCRtpEncodingParameters extends RTCRtpCodingParameters {
+class RTCRtpEncodingParameters // null -> {} -> RTCRtpCodingParameters
+    with
+        RTCRtpCodingParameters {
   ///  If [true], the described encoding is currently actively being
   /// used. That is, for RTP senders, the encoding is currently being
   /// used to send data, while for receivers, the encoding is being
@@ -1177,7 +1199,9 @@ class RTCRtpContributingSource {
 ///
 @anonymous
 @JS()
-class RTCRtpSynchronizationSource extends RTCRtpContributingSource {
+class RTCRtpSynchronizationSource // null -> {} -> RTCRtpContributingSource
+    with
+        RTCRtpContributingSource {
   external factory RTCRtpSynchronizationSource();
 }
 
@@ -1247,7 +1271,9 @@ class RTCRtpTransceiver {
 ///
 @experimental
 @JS()
-class RTCDtlsTransport extends EventTarget {
+class RTCDtlsTransport // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// The read-only [RTCDtlsTransport]
   ///   property [iceTransport] contains a reference
   ///   to the underlying [RTCIceTransport].
@@ -1293,7 +1319,9 @@ class RTCDtlsFingerprint {
 /// and received. This is particularly useful if you need to access
 /// state information about the connection.
 @JS()
-class RTCIceTransport extends EventTarget {
+class RTCIceTransport // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a [DOMString] whose value is one of the members of the
   /// [RTCIceRole] enumerated type: ["controlling"] or ["controlled"];
   /// this indicates whether the ICE agent is the one that makes the
@@ -1498,9 +1526,10 @@ enum RTCIceComponent { rtp, rtcp }
 /// application, so you will not typically need to instantiate an
 /// yourself.
 @JS()
-class RTCTrackEvent extends Event {
-  external factory RTCTrackEvent(
-      {String type, RTCTrackEventInit eventInitDict});
+class RTCTrackEvent // null -> {} -> Event
+    with
+        Event {
+  external factory RTCTrackEvent(String type, RTCTrackEventInit eventInitDict);
 
   ///  The [RTCRtpReceiver] used by the track that's been added to the
   /// [RTCPeerConnection].
@@ -1525,7 +1554,9 @@ class RTCTrackEvent extends Event {
 /// instantiating a new [track] event using [new RTCTrackEvent()].
 @anonymous
 @JS()
-class RTCTrackEventInit extends EventInit {
+class RTCTrackEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   ///  The [RTCRtpReceiver] which is being used to receive the track's
   /// media.
   external RTCRtpReceiver get receiver;
@@ -1571,7 +1602,9 @@ class RTCTrackEventInit extends EventInit {
 /// channel on the peer connection.
 @experimental
 @JS()
-class RTCSctpTransport extends EventTarget {
+class RTCSctpTransport // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  An [RTCDtlsTransport] object representing the DTLS transport
   /// used for the transmission and receipt of data packets.
   external RTCDtlsTransport get transport;
@@ -1600,7 +1633,9 @@ enum RTCSctpTransportState { connecting, connected, closed }
 ///
 @experimental
 @JS()
-class RTCDataChannel extends EventTarget {
+class RTCDataChannel // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// The read-only [RTCDataChannel] property [label]
   ///   returns a [DOMString] containing a name describing the data
   /// channel. These
@@ -1800,15 +1835,19 @@ enum RTCDataChannelState { connecting, open, closing, closed }
 ///
 @experimental
 @JS()
-class RTCDataChannelEvent extends Event {
+class RTCDataChannelEvent // null -> {} -> Event
+    with
+        Event {
   external factory RTCDataChannelEvent(
-      {String type, RTCDataChannelEventInit eventInitDict});
+      String type, RTCDataChannelEventInit eventInitDict);
   external RTCDataChannel get channel;
 }
 
 @anonymous
 @JS()
-class RTCDataChannelEventInit extends EventInit {
+class RTCDataChannelEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external RTCDataChannel get channel;
   external set channel(RTCDataChannel newValue);
 
@@ -1832,7 +1871,9 @@ class RTCDataChannelEventInit extends EventInit {
 ///
 ///
 @JS()
-class RTCDTMFSender extends EventTarget {
+class RTCDTMFSender // null -> {} -> EventTarget
+    with
+        EventTarget {
   external Object insertDTMF(String tones,
       [int? duration = 100, int? interToneGap = 70]);
   external EventHandlerNonNull? get ontonechange;
@@ -1854,9 +1895,11 @@ class RTCDTMFSender extends EventTarget {
 /// have started or finished playing. This interface is used by the
 /// [tonechange] event.
 @JS()
-class RTCDTMFToneChangeEvent extends Event {
-  external factory RTCDTMFToneChangeEvent(
-      {String type, RTCDTMFToneChangeEventInit? eventInitDict});
+class RTCDTMFToneChangeEvent // null -> {} -> Event
+    with
+        Event {
+  external factory RTCDTMFToneChangeEvent(String type,
+      [RTCDTMFToneChangeEventInit? eventInitDict]);
 
   ///  A [DOMString] specifying the tone which has begun playing, or an
   /// empty string ([""]) if the previous tone has finished playing.
@@ -1865,7 +1908,9 @@ class RTCDTMFToneChangeEvent extends Event {
 
 @anonymous
 @JS()
-class RTCDTMFToneChangeEventInit extends EventInit {
+class RTCDTMFToneChangeEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String get tone;
   external set tone(String newValue);
 
@@ -1933,8 +1978,10 @@ class RTCStats {
 /// while handling WebRTC operations. It's based upon the standard
 /// [DOMException] interface that describes general DOM errors.
 @JS()
-class RTCError extends DOMException {
-  external factory RTCError({RTCErrorInit init, String? message = ''});
+class RTCError // null -> {} -> DOMException
+    with
+        DOMException {
+  external factory RTCError(RTCErrorInit init, [String? message = '']);
 
   ///  A [DOMString] specifying the WebRTC-specific error code
   /// identifying the type of error that occurred.
@@ -2011,9 +2058,10 @@ enum RTCErrorDetailType {
 /// object. It's based on the standard [Event] interface, but adds
 /// RTC-specific information describing the error, as shown below.
 @JS()
-class RTCErrorEvent extends Event {
-  external factory RTCErrorEvent(
-      {String type, RTCErrorEventInit eventInitDict});
+class RTCErrorEvent // null -> {} -> Event
+    with
+        Event {
+  external factory RTCErrorEvent(String type, RTCErrorEventInit eventInitDict);
 
   ///  An [RTCError] object specifying the error which occurred; this
   /// object includes the type of error that occurred, information
@@ -2024,7 +2072,9 @@ class RTCErrorEvent extends Event {
 
 @anonymous
 @JS()
-class RTCErrorEventInit extends EventInit {
+class RTCErrorEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external RTCError get error;
   external set error(RTCError newValue);
 

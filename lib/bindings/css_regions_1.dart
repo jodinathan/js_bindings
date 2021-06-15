@@ -18,7 +18,9 @@ class NamedFlowMap {
 }
 
 @JS()
-class NamedFlow extends EventTarget {
+class NamedFlow // null -> {} -> EventTarget
+    with
+        EventTarget {
   external String get name;
   external bool get overset;
   external Iterable<Element> getRegions();

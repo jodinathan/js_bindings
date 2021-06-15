@@ -11,8 +11,9 @@ import '../manual.dart';
 import 'generic_sensor.dart';
 
 @JS()
-class ProximitySensor extends Sensor {
-  external factory ProximitySensor({SensorOptions? sensorOptions});
+class ProximitySensor // EventTarget -> {} -> Sensor
+    extends Sensor {
+  external factory ProximitySensor([SensorOptions? sensorOptions]);
   external double? get distance;
   external double? get max;
   external bool? get near;

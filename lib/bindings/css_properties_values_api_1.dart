@@ -35,7 +35,9 @@ class PropertyDefinition {
 ///
 @experimental
 @JS()
-class CSSPropertyRule extends CSSRule {
+class CSSPropertyRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   /// Returns the name of the custom property.
   external String get name;
 

@@ -30,7 +30,9 @@ class IdleOptions {
 }
 
 @JS()
-class IdleDetector extends EventTarget {
+class IdleDetector // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory IdleDetector();
   external UserIdleState? get userState;
   external ScreenIdleState? get screenState;

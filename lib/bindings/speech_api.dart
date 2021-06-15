@@ -26,7 +26,9 @@ import 'html.dart';
 ///
 @experimental
 @JS()
-class SpeechRecognition extends EventTarget {
+class SpeechRecognition // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory SpeechRecognition();
 
   ///  Returns and sets a collection of [SpeechGrammar] objects that
@@ -124,9 +126,11 @@ enum SpeechRecognitionErrorCode {
 ///  The interface of the Web Speech API represents error messages
 /// from the recognition service.
 @JS()
-class SpeechRecognitionErrorEvent extends Event {
+class SpeechRecognitionErrorEvent // null -> {} -> Event
+    with
+        Event {
   external factory SpeechRecognitionErrorEvent(
-      {String type, SpeechRecognitionErrorEventInit eventInitDict});
+      String type, SpeechRecognitionErrorEventInit eventInitDict);
 
   /// Returns the type of error raised.
   external SpeechRecognitionErrorCode get error;
@@ -137,7 +141,9 @@ class SpeechRecognitionErrorEvent extends Event {
 
 @anonymous
 @JS()
-class SpeechRecognitionErrorEventInit extends EventInit {
+class SpeechRecognitionErrorEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external SpeechRecognitionErrorCode get error;
   external set error(SpeechRecognitionErrorCode newValue);
   external String get message;
@@ -225,9 +231,11 @@ class SpeechRecognitionResultList {
 /// associated with an interim or final speech recognition result.
 @experimental
 @JS()
-class SpeechRecognitionEvent extends Event {
+class SpeechRecognitionEvent // null -> {} -> Event
+    with
+        Event {
   external factory SpeechRecognitionEvent(
-      {String type, SpeechRecognitionEventInit eventInitDict});
+      String type, SpeechRecognitionEventInit eventInitDict);
 
   ///  Returns the lowest index value result in the
   /// [SpeechRecognitionResultList] "array" that has actually changed.
@@ -240,7 +248,9 @@ class SpeechRecognitionEvent extends Event {
 
 @anonymous
 @JS()
-class SpeechRecognitionEventInit extends EventInit {
+class SpeechRecognitionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external int get resultIndex;
   external set resultIndex(int newValue);
   external SpeechRecognitionResultList get results;
@@ -321,7 +331,9 @@ class SpeechGrammarList {
 /// pause speech, and other commands besides.
 @experimental
 @JS()
-class SpeechSynthesis extends EventTarget {
+class SpeechSynthesis // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  A [Boolean] that returns [true] if the utterance queue contains
   /// as-yet-unspoken utterances.
   external bool get pending;
@@ -378,8 +390,10 @@ class SpeechSynthesis extends EventTarget {
 /// volume.)
 @experimental
 @JS()
-class SpeechSynthesisUtterance extends EventTarget {
-  external factory SpeechSynthesisUtterance({String? text});
+class SpeechSynthesisUtterance // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory SpeechSynthesisUtterance([String? text]);
 
   ///  Gets and sets the text that will be synthesised when the
   /// utterance is spoken.
@@ -433,9 +447,11 @@ class SpeechSynthesisUtterance extends EventTarget {
 /// been processed in the speech service.
 @experimental
 @JS()
-class SpeechSynthesisEvent extends Event {
+class SpeechSynthesisEvent // null -> {} -> Event
+    with
+        Event {
   external factory SpeechSynthesisEvent(
-      {String type, SpeechSynthesisEventInit eventInitDict});
+      String type, SpeechSynthesisEventInit eventInitDict);
 
   ///  Returns the [SpeechSynthesisUtterance] instance that the event
   /// was triggered on.
@@ -462,7 +478,9 @@ class SpeechSynthesisEvent extends Event {
 
 @anonymous
 @JS()
-class SpeechSynthesisEventInit extends EventInit {
+class SpeechSynthesisEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external SpeechSynthesisUtterance get utterance;
   external set utterance(SpeechSynthesisUtterance newValue);
   external int get charIndex;
@@ -516,9 +534,10 @@ enum SpeechSynthesisErrorCode {
 /// objects in the speech service.
 @experimental
 @JS()
-class SpeechSynthesisErrorEvent extends SpeechSynthesisEvent {
+class SpeechSynthesisErrorEvent // Event -> {} -> SpeechSynthesisEvent
+    extends SpeechSynthesisEvent {
   external factory SpeechSynthesisErrorEvent(
-      {String type, SpeechSynthesisErrorEventInit eventInitDict});
+      String type, SpeechSynthesisErrorEventInit eventInitDict);
 
   ///  Returns an error code indicating what has gone wrong with a
   /// speech synthesis attempt.
@@ -527,7 +546,8 @@ class SpeechSynthesisErrorEvent extends SpeechSynthesisEvent {
 
 @anonymous
 @JS()
-class SpeechSynthesisErrorEventInit extends SpeechSynthesisEventInit {
+class SpeechSynthesisErrorEventInit // EventInit -> {} -> SpeechSynthesisEventInit
+    extends SpeechSynthesisEventInit {
   external SpeechSynthesisErrorCode get error;
   external set error(SpeechSynthesisErrorCode newValue);
 

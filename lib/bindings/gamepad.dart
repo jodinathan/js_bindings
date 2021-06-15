@@ -105,8 +105,10 @@ enum GamepadMappingType {
 /// gamepad events [Window.gamepadconnected] and
 /// [Window.gamepaddisconnected] are fired in response to.
 @JS()
-class GamepadEvent extends Event {
-  external factory GamepadEvent({String type, GamepadEventInit eventInitDict});
+class GamepadEvent // null -> {} -> Event
+    with
+        Event {
+  external factory GamepadEvent(String type, GamepadEventInit eventInitDict);
 
   ///  Returns a [Gamepad] object, providing access to the associated
   /// gamepad data for the event fired.
@@ -115,7 +117,9 @@ class GamepadEvent extends Event {
 
 @anonymous
 @JS()
-class GamepadEventInit extends EventInit {
+class GamepadEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external Gamepad get gamepad;
   external set gamepad(Gamepad newValue);
 

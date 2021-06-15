@@ -30,6 +30,8 @@ import 'performance_timeline_2.dart';
 ///
 ///
 @JS()
-class PerformanceFrameTiming extends PerformanceEntry {
+class PerformanceFrameTiming // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   external factory PerformanceFrameTiming();
 }

@@ -33,7 +33,9 @@ enum PermissionState { granted, denied, prompt }
 /// object and an event handler for monitoring changes to said state.
 @experimental
 @JS()
-class PermissionStatus extends EventTarget {
+class PermissionStatus // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns the state of a requested permission; one of ['granted'],
   /// ['denied'], or ['prompt'].
   external PermissionState get state;
@@ -72,7 +74,9 @@ class Permissions {
 
 @anonymous
 @JS()
-class PushPermissionDescriptor extends PermissionDescriptor {
+class PushPermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   external bool get userVisibleOnly;
   external set userVisibleOnly(bool newValue);
 
@@ -81,7 +85,9 @@ class PushPermissionDescriptor extends PermissionDescriptor {
 
 @anonymous
 @JS()
-class MidiPermissionDescriptor extends PermissionDescriptor {
+class MidiPermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   external bool get sysex;
   external set sysex(bool newValue);
 
@@ -90,7 +96,9 @@ class MidiPermissionDescriptor extends PermissionDescriptor {
 
 @anonymous
 @JS()
-class DevicePermissionDescriptor extends PermissionDescriptor {
+class DevicePermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   external String get deviceId;
   external set deviceId(String newValue);
 
@@ -99,7 +107,8 @@ class DevicePermissionDescriptor extends PermissionDescriptor {
 
 @anonymous
 @JS()
-class CameraDevicePermissionDescriptor extends DevicePermissionDescriptor {
+class CameraDevicePermissionDescriptor // PermissionDescriptor -> {} -> DevicePermissionDescriptor
+    extends DevicePermissionDescriptor {
   external bool get panTiltZoom;
   external set panTiltZoom(bool newValue);
 

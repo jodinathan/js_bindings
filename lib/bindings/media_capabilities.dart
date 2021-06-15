@@ -39,7 +39,9 @@ class MediaConfiguration {
 @experimental
 @anonymous
 @JS()
-class MediaDecodingConfiguration extends MediaConfiguration {
+class MediaDecodingConfiguration // null -> {} -> MediaConfiguration
+    with
+        MediaConfiguration {
   external MediaDecodingType get type;
   external set type(MediaDecodingType newValue);
   external MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration;
@@ -58,7 +60,9 @@ class MediaDecodingConfiguration extends MediaConfiguration {
 @experimental
 @anonymous
 @JS()
-class MediaEncodingConfiguration extends MediaConfiguration {
+class MediaEncodingConfiguration // null -> {} -> MediaConfiguration
+    with
+        MediaConfiguration {
   external MediaEncodingType get type;
   external set type(MediaEncodingType newValue);
 
@@ -233,7 +237,9 @@ class MediaCapabilitiesInfo {
 
 @anonymous
 @JS()
-class MediaCapabilitiesDecodingInfo extends MediaCapabilitiesInfo {
+class MediaCapabilitiesDecodingInfo // null -> {} -> MediaCapabilitiesInfo
+    with
+        MediaCapabilitiesInfo {
   external MediaKeySystemAccess get keySystemAccess;
   external set keySystemAccess(MediaKeySystemAccess newValue);
   external MediaDecodingConfiguration get configuration;
@@ -246,7 +252,9 @@ class MediaCapabilitiesDecodingInfo extends MediaCapabilitiesInfo {
 
 @anonymous
 @JS()
-class MediaCapabilitiesEncodingInfo extends MediaCapabilitiesInfo {
+class MediaCapabilitiesEncodingInfo // null -> {} -> MediaCapabilitiesInfo
+    with
+        MediaCapabilitiesInfo {
   external MediaEncodingConfiguration get configuration;
   external set configuration(MediaEncodingConfiguration newValue);
 

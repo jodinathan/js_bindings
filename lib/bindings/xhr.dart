@@ -21,7 +21,9 @@ import 'file_a_p_i.dart';
 ///
 ///
 @JS()
-class XMLHttpRequestEventTarget extends EventTarget {
+class XMLHttpRequestEventTarget // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Contains the function that gets called when the HTTP request
   /// first begins loading data and the [loadstart] event is received
   /// by this object.
@@ -67,7 +69,8 @@ class XMLHttpRequestEventTarget extends EventTarget {
 }
 
 @JS()
-class XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
+class XMLHttpRequestUpload // EventTarget -> {} -> XMLHttpRequestEventTarget
+    extends XMLHttpRequestEventTarget {
   external factory XMLHttpRequestUpload();
 }
 
@@ -101,7 +104,8 @@ enum XMLHttpRequestResponseType {
 /// Service Workers
 ///
 @JS()
-class XMLHttpRequest extends XMLHttpRequestEventTarget {
+class XMLHttpRequest // EventTarget -> {} -> XMLHttpRequestEventTarget
+    extends XMLHttpRequestEventTarget {
   external factory XMLHttpRequest();
   external EventHandlerNonNull? get onreadystatechange;
   external set onreadystatechange(EventHandlerNonNull? newValue);
@@ -270,7 +274,7 @@ class XMLHttpRequest extends XMLHttpRequestEventTarget {
 ///
 @JS()
 class FormData {
-  external factory FormData({HTMLFormElement? form});
+  external factory FormData([HTMLFormElement? form]);
 
   ///  Appends a new value onto an existing key inside a [FormData]
   /// object, or adds the key if it does not already exist.
@@ -411,9 +415,11 @@ class FormData {
 ///
 ///
 @JS()
-class ProgressEvent extends Event {
-  external factory ProgressEvent(
-      {String type, ProgressEventInit? eventInitDict});
+class ProgressEvent // null -> {} -> Event
+    with
+        Event {
+  external factory ProgressEvent(String type,
+      [ProgressEventInit? eventInitDict]);
 
   ///  A [Boolean] flag indicating if the total work to be done, and
   /// the amount of work already done, by the underlying process is
@@ -439,7 +445,9 @@ class ProgressEvent extends Event {
 
 @anonymous
 @JS()
-class ProgressEventInit extends EventInit {
+class ProgressEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external bool get lengthComputable;
   external set lengthComputable(bool newValue);
   external int get loaded;

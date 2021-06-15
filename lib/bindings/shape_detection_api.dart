@@ -14,7 +14,7 @@ import 'image_capture.dart';
 
 @JS()
 class FaceDetector {
-  external factory FaceDetector({FaceDetectorOptions? faceDetectorOptions});
+  external factory FaceDetector([FaceDetectorOptions? faceDetectorOptions]);
   external Iterable<Promise<DetectedFace>> detect(dynamic image);
 }
 
@@ -67,7 +67,7 @@ enum LandmarkType { mouth, eye, nose }
 @JS()
 class BarcodeDetector {
   external factory BarcodeDetector(
-      {BarcodeDetectorOptions? barcodeDetectorOptions});
+      [BarcodeDetectorOptions? barcodeDetectorOptions]);
 
   ///  Returns a [Promise] which fulfills with an [Array] of supported
   /// barcode format types.

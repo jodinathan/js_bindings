@@ -11,12 +11,11 @@ import '../manual.dart';
 import 'html.dart';
 
 @JS()
-class DataCue extends TextTrackCue {
+class DataCue // EventTarget -> {} -> TextTrackCue
+    extends TextTrackCue {
   external factory DataCue(
-      {double startTime,
-      /* double | NaN */ dynamic endTime,
-      dynamic value,
-      String? type});
+      double startTime, /* double | NaN */ dynamic endTime, dynamic value,
+      [String? type]);
   external dynamic get value;
   external set value(dynamic newValue);
   external String get type;

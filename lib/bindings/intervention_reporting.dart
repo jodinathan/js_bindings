@@ -27,7 +27,9 @@ import 'reporting_1.dart';
 /// playing without a user gesture to trigger it.
 @experimental
 @JS()
-class InterventionReportBody extends ReportBody {
+class InterventionReportBody // null -> {} -> ReportBody
+    with
+        ReportBody {
   @override
   external dynamic toJSON();
 

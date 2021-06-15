@@ -12,7 +12,9 @@ import 'dom.dart';
 import 'hr_time_3.dart';
 
 @JS()
-class Profiler extends EventTarget {
+class Profiler // null -> {} -> EventTarget
+    with
+        EventTarget {
   external double get sampleInterval;
   external bool get stopped;
   external Promise<ProfilerTrace> stop();

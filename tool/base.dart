@@ -265,7 +265,7 @@ class Spec {
     var optional = false;
 
     for (final arg in args) {
-      final nopt =  arg['optional'] == true ||
+      var nopt =  arg['optional'] == true ||
           arg['variadic'] == true;
       var name = arg['name'] as String;
       var type = getDartType(arg['idlType']);
@@ -280,12 +280,6 @@ class Spec {
       }
 
       var call = '$type $name';
-
-      if (nopt && !optional && optionals) {
-        call = '[$call';
-        optional = true;
-      }
-
       final defs = arg['default'] as Map<String, dynamic>?;
 
       if (defs != null) {
@@ -320,8 +314,15 @@ class Spec {
 
           if (val != null) {
             call += ' = $val';
+            nopt = true;
+            //assert(optionals);
           }
         }
+      }
+
+      if (nopt && !optional && optionals) {
+        call = '[$call';
+        optional = true;
       }
 
       params.add(call);

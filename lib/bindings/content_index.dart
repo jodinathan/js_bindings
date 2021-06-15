@@ -73,7 +73,8 @@ class ContentIndex {
 
 @anonymous
 @JS()
-class ContentIndexEventInit extends ExtendableEventInit {
+class ContentIndexEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external String get id;
   external set id(String newValue);
 
@@ -95,8 +96,9 @@ class ContentIndexEventInit extends ExtendableEventInit {
 /// interface. It is not fired when the [ContentIndex.delete] method
 /// is called.
 @JS()
-class ContentIndexEvent extends ExtendableEvent {
-  external factory ContentIndexEvent({String type, ContentIndexEventInit init});
+class ContentIndexEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory ContentIndexEvent(String type, ContentIndexEventInit init);
 
   /// A [String] which identifies the deleted content index via it's .
   external String get id;

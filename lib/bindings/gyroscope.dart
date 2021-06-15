@@ -23,8 +23,9 @@ import 'generic_sensor.dart';
 /// is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class Gyroscope extends Sensor {
-  external factory Gyroscope({GyroscopeSensorOptions? sensorOptions});
+class Gyroscope // EventTarget -> {} -> Sensor
+    extends Sensor {
+  external factory Gyroscope([GyroscopeSensorOptions? sensorOptions]);
 
   ///  Returns a double, containing the angular velocity of the device
   /// along the device's x axis.
@@ -44,7 +45,9 @@ enum GyroscopeLocalCoordinateSystem { device, screen }
 
 @anonymous
 @JS()
-class GyroscopeSensorOptions extends SensorOptions {
+class GyroscopeSensorOptions // null -> {} -> SensorOptions
+    with
+        SensorOptions {
   external GyroscopeLocalCoordinateSystem get referenceFrame;
   external set referenceFrame(GyroscopeLocalCoordinateSystem newValue);
 

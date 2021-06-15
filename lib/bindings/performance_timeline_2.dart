@@ -111,7 +111,7 @@ class PerformanceEntry {
 ///
 @JS()
 class PerformanceObserver {
-  external factory PerformanceObserver({PerformanceObserverCallback callback});
+  external factory PerformanceObserver(PerformanceObserverCallback callback);
 
   ///  Specifies the set of [entry types] to observe. The performance
   /// observer's callback function will be invoked when a [performance

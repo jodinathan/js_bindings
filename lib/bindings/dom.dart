@@ -71,7 +71,7 @@ import 'font_metrics_api_1.dart';
 /// of each handler triggered.
 @JS()
 class Event {
-  external factory Event({String type, EventInit? eventInitDict});
+  external factory Event(String type, [EventInit? eventInitDict]);
 
   /// The name of the event. Case-insensitive.
   external String get type;
@@ -184,8 +184,10 @@ class EventInit {
 ///  Note: This feature is available in Web Workers
 ///
 @JS()
-class CustomEvent extends Event {
-  external factory CustomEvent({String type, CustomEventInit? eventInitDict});
+class CustomEvent // null -> {} -> Event
+    with
+        Event {
+  external factory CustomEvent(String type, [CustomEventInit? eventInitDict]);
 
   /// Any data passed when initializing the event.
   external dynamic get detail;
@@ -202,7 +204,9 @@ class CustomEvent extends Event {
 
 @anonymous
 @JS()
-class CustomEventInit extends EventInit {
+class CustomEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external dynamic get detail;
   external set detail(dynamic newValue);
 
@@ -310,7 +314,9 @@ class EventListenerOptions {
 
 @anonymous
 @JS()
-class AddEventListenerOptions extends EventListenerOptions {
+class AddEventListenerOptions // null -> {} -> EventListenerOptions
+    with
+        EventListenerOptions {
   external bool get passive;
   external set passive(bool newValue);
   external bool get once;
@@ -353,7 +359,9 @@ class AbortController {
 /// required via an [AbortController] object.
 @experimental
 @JS()
-class AbortSignal extends EventTarget {
+class AbortSignal // null -> {} -> EventTarget
+    with
+        EventTarget {
   external static AbortSignal abort();
 
   ///  A Boolean that indicates whether the request(s) the signal is
@@ -529,7 +537,7 @@ class HTMLCollection {
 /// specification.
 @JS()
 class MutationObserver {
-  external factory MutationObserver({MutationCallback callback});
+  external factory MutationObserver(MutationCallback callback);
 
   ///  Configures the [MutationObserver] to begin receiving
   /// notifications through its callback function when DOM changes
@@ -730,7 +738,9 @@ class MutationRecord {
 ///
 ///
 @JS()
-class Node extends EventTarget {
+class Node // null -> {} -> EventTarget
+    with
+        EventTarget {
   external static int get ELEMENT_NODE;
   external static int get ATTRIBUTE_NODE;
   external static int get TEXT_NODE;
@@ -1220,7 +1230,8 @@ class GetRootNodeOptions {
 /// [HTMLDocument] interface, whereas XML and SVG documents implement
 /// the [XMLDocument] interface.
 @JS()
-class Document extends Node
+class Document // EventTarget -> {} -> Node
+    extends Node
     with
         GeometryUtils,
         FontFaceSource,
@@ -1841,7 +1852,8 @@ class Document extends Node
 ///
 ///
 @JS()
-class XMLDocument extends Document {
+class XMLDocument // Node -> {cssom_view_1: {GeometryUtils, FontFaceSource, NonElementParentNode, DocumentOrShadowRoot, ParentNode, XPathEvaluatorBase, GlobalEventHandlers, DocumentAndElementEventHandlers}, css_font_loading_3: {FontFaceSource}, dom: {NonElementParentNode, DocumentOrShadowRoot, ParentNode, XPathEvaluatorBase}, html: {GlobalEventHandlers, DocumentAndElementEventHandlers}} -> Document
+    extends Document {
   external factory XMLDocument();
 }
 
@@ -1957,7 +1969,8 @@ class DOMImplementation {
 ///
 ///
 @JS()
-class DocumentType extends Node with ChildNode {
+class DocumentType // EventTarget -> {} -> Node
+    extends Node with ChildNode {
   /// A [DOMString], eg ["html"] for [<!DOCTYPE HTML>].
   external String get name;
 
@@ -1985,7 +1998,8 @@ class DocumentType extends Node with ChildNode {
 ///
 ///
 @JS()
-class DocumentFragment extends Node with NonElementParentNode, ParentNode {
+class DocumentFragment // EventTarget -> {} -> Node
+    extends Node with NonElementParentNode, ParentNode {
   external factory DocumentFragment();
 }
 
@@ -1999,7 +2013,8 @@ class DocumentFragment extends Node with NonElementParentNode, ParentNode {
 /// its [Element.shadowRoot] property, provided it was created using
 /// [Element.attachShadow()] with the [mode] option set to [open].
 @JS()
-class ShadowRoot extends DocumentFragment with DocumentOrShadowRoot, InnerHTML {
+class ShadowRoot // Node -> {dom: {NonElementParentNode, ParentNode}} -> DocumentFragment
+    extends DocumentFragment with DocumentOrShadowRoot, InnerHTML {
   ///  The mode of the [ShadowRoot] — either [open] or [closed]. This
   /// defines whether or not the shadow root's internal features are
   /// accessible from JavaScript.
@@ -2042,7 +2057,8 @@ enum SlotAssignmentMode { manual, named }
 ///
 ///
 @JS()
-class Element extends Node
+class Element // EventTarget -> {} -> Node
+    extends Node
     with
         Animatable,
         ARIAMixin,
@@ -2642,7 +2658,8 @@ class NamedNodeMap {
 /// code accordingly. See Deprecated properties and methods for a
 /// complete list.
 @JS()
-class Attr extends Node {
+class Attr // EventTarget -> {} -> Node
+    extends Node {
   ///  A [DOMString] representing the namespace URI of the attribute,
   /// or [null] if there is no namespace.
   external String? get namespaceURI;
@@ -2699,7 +2716,8 @@ class Attr extends Node {
 ///
 ///
 @JS()
-class CharacterData extends Node with NonDocumentTypeChildNode, ChildNode {
+class CharacterData // EventTarget -> {} -> Node
+    extends Node with NonDocumentTypeChildNode, ChildNode {
   ///  Is a [DOMString] representing the textual data contained in this
   /// object.
   external String get data;
@@ -2764,8 +2782,9 @@ class CharacterData extends Node with NonDocumentTypeChildNode, ChildNode {
 ///
 ///
 @JS()
-class Text extends CharacterData with GeometryUtils, Slottable {
-  external factory Text({String? data = ''});
+class Text // Node -> {dom: {NonDocumentTypeChildNode, ChildNode}} -> CharacterData
+    extends CharacterData with GeometryUtils, Slottable {
+  external factory Text([String? data = '']);
   external Text splitText(int offset);
 
   ///  Returns a [DOMString] containing the text of all [Text] nodes
@@ -2805,7 +2824,8 @@ class Text extends CharacterData with GeometryUtils, Slottable {
 ///
 ///
 @JS()
-class CDATASection extends Text {
+class CDATASection // CharacterData -> {cssom_view_1: {GeometryUtils, Slottable}, dom: {Slottable}} -> Text
+    extends Text {
   external factory CDATASection();
 }
 
@@ -2825,7 +2845,8 @@ class CDATASection extends Text {
 ///
 ///
 @JS()
-class ProcessingInstruction extends CharacterData with LinkStyle {
+class ProcessingInstruction // Node -> {dom: {NonDocumentTypeChildNode, ChildNode}} -> CharacterData
+    extends CharacterData with LinkStyle {
   ///  A name identifying the application to which the instruction is
   /// targeted.
   external String get target;
@@ -2844,8 +2865,9 @@ class ProcessingInstruction extends CharacterData with LinkStyle {
 ///
 ///
 @JS()
-class Comment extends CharacterData {
-  external factory Comment({String? data = ''});
+class Comment // Node -> {dom: {NonDocumentTypeChildNode, ChildNode}} -> CharacterData
+    extends CharacterData {
+  external factory Comment([String? data = '']);
 }
 
 ///
@@ -2918,8 +2940,10 @@ class StaticRangeInit {
 ///
 ///
 @JS()
-class StaticRange extends AbstractRange {
-  external factory StaticRange({StaticRangeInit init});
+class StaticRange // null -> {} -> AbstractRange
+    with
+        AbstractRange {
+  external factory StaticRange(StaticRangeInit init);
 }
 
 ///
@@ -2934,7 +2958,9 @@ class StaticRange extends AbstractRange {
 ///
 /// There also is the [Range()] constructor available.
 @JS()
-class Range extends AbstractRange {
+class Range // null -> {} -> AbstractRange
+    with
+        AbstractRange {
   external factory Range();
 
   ///  Returns the deepest [Node] that contains the [startContainer]

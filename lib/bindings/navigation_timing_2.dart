@@ -22,7 +22,8 @@ import 'hr_time_3.dart';
 ///
 ///
 @JS()
-class PerformanceNavigationTiming extends PerformanceResourceTiming {
+class PerformanceNavigationTiming // PerformanceEntry -> {} -> PerformanceResourceTiming
+    extends PerformanceResourceTiming {
   ///  A [DOMHighResTimeStamp] representing the time value equal to the
   /// time immediately before the user agent starts the unload event of
   /// the previous document.

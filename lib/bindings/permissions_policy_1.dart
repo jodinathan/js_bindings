@@ -23,7 +23,9 @@ class PermissionsPolicy {
 }
 
 @JS()
-class PermissionsPolicyViolationReportBody extends ReportBody {
+class PermissionsPolicyViolationReportBody // null -> {} -> ReportBody
+    with
+        ReportBody {
   external String get featureId;
   external String? get sourceFile;
   external int? get lineNumber;

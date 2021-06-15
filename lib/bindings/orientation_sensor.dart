@@ -23,7 +23,8 @@ import 'generic_sensor.dart';
 /// is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class OrientationSensor extends Sensor {
+class OrientationSensor // EventTarget -> {} -> Sensor
+    extends Sensor {
   ///  Returns a four element [Array] whose elements contain the
   /// components of the unit quaternion representing the device's
   /// orientation.
@@ -46,7 +47,9 @@ enum OrientationSensorLocalCoordinateSystem { device, screen }
 
 @anonymous
 @JS()
-class OrientationSensorOptions extends SensorOptions {
+class OrientationSensorOptions // null -> {} -> SensorOptions
+    with
+        SensorOptions {
   external OrientationSensorLocalCoordinateSystem get referenceFrame;
   external set referenceFrame(OrientationSensorLocalCoordinateSystem newValue);
 
@@ -70,9 +73,10 @@ class OrientationSensorOptions extends SensorOptions {
 /// is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class AbsoluteOrientationSensor extends OrientationSensor {
+class AbsoluteOrientationSensor // Sensor -> {} -> OrientationSensor
+    extends OrientationSensor {
   external factory AbsoluteOrientationSensor(
-      {OrientationSensorOptions? sensorOptions});
+      [OrientationSensorOptions? sensorOptions]);
 }
 
 ///
@@ -90,9 +94,10 @@ class AbsoluteOrientationSensor extends OrientationSensor {
 /// is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class RelativeOrientationSensor extends OrientationSensor {
+class RelativeOrientationSensor // Sensor -> {} -> OrientationSensor
+    extends OrientationSensor {
   external factory RelativeOrientationSensor(
-      {OrientationSensorOptions? sensorOptions});
+      [OrientationSensorOptions? sensorOptions]);
 }
 
 @anonymous
@@ -107,7 +112,8 @@ class AbsoluteOrientationReadingValues {
 
 @anonymous
 @JS()
-class RelativeOrientationReadingValues
-    extends AbsoluteOrientationReadingValues {
+class RelativeOrientationReadingValues // null -> {} -> AbsoluteOrientationReadingValues
+    with
+        AbsoluteOrientationReadingValues {
   external factory RelativeOrientationReadingValues();
 }

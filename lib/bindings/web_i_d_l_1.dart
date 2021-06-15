@@ -20,7 +20,7 @@ import '../manual.dart';
 /// string identifying the error or abnormal condition.
 @JS()
 class DOMException {
-  external factory DOMException({String? message = '', String? name = 'Error'});
+  external factory DOMException([String? message = '', String? name = 'Error']);
 
   ///  Returns a [DOMString] that contains one of the strings
   /// associated with an error name.

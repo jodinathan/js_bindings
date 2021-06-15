@@ -41,7 +41,9 @@ class MockCaptureDeviceConfiguration {
 
 @anonymous
 @JS()
-class MockCameraConfiguration extends MockCaptureDeviceConfiguration {
+class MockCameraConfiguration // null -> {} -> MockCaptureDeviceConfiguration
+    with
+        MockCaptureDeviceConfiguration {
   external double get defaultFrameRate;
   external set defaultFrameRate(double newValue);
   external String get facingMode;
@@ -53,7 +55,9 @@ class MockCameraConfiguration extends MockCaptureDeviceConfiguration {
 
 @anonymous
 @JS()
-class MockMicrophoneConfiguration extends MockCaptureDeviceConfiguration {
+class MockMicrophoneConfiguration // null -> {} -> MockCaptureDeviceConfiguration
+    with
+        MockCaptureDeviceConfiguration {
   external int get defaultSampleRate;
   external set defaultSampleRate(int newValue);
 

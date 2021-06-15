@@ -18,7 +18,8 @@ import 'filter_effects_1.dart';
 ///
 ///
 @JS()
-class SVGFilterElement extends SVGElement with SVGURIReference {
+class SVGFilterElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGURIReference {
   ///  An [SVGAnimatedEnumeration] that corresponds to the
   /// [filterUnits] attribute of the given [<filter>] element. Takes
   /// one of the constants defined in [SVGUnitTypes].
@@ -63,8 +64,8 @@ mixin SVGFilterPrimitiveStandardAttributes {
 ///
 ///
 @JS()
-class SVGFEBlendElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEBlendElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_FEBLEND_MODE_UNKNOWN;
   external static int get SVG_FEBLEND_MODE_NORMAL;
   external static int get SVG_FEBLEND_MODE_MULTIPLY;
@@ -105,8 +106,8 @@ class SVGFEBlendElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEColorMatrixElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEColorMatrixElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_FECOLORMATRIX_TYPE_UNKNOWN;
   external static int get SVG_FECOLORMATRIX_TYPE_MATRIX;
   external static int get SVG_FECOLORMATRIX_TYPE_SATURATE;
@@ -136,8 +137,8 @@ class SVGFEColorMatrixElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEComponentTransferElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEComponentTransferElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -152,7 +153,8 @@ class SVGFEComponentTransferElement extends SVGElement
 ///
 ///
 @JS()
-class SVGComponentTransferFunctionElement extends SVGElement {
+class SVGComponentTransferFunctionElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement {
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN;
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY;
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_TABLE;
@@ -199,7 +201,8 @@ class SVGComponentTransferFunctionElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEFuncRElement extends SVGComponentTransferFunctionElement {
+class SVGFEFuncRElement // SVGElement -> {} -> SVGComponentTransferFunctionElement
+    extends SVGComponentTransferFunctionElement {
   external factory SVGFEFuncRElement();
 }
 
@@ -209,7 +212,8 @@ class SVGFEFuncRElement extends SVGComponentTransferFunctionElement {
 ///
 ///
 @JS()
-class SVGFEFuncGElement extends SVGComponentTransferFunctionElement {
+class SVGFEFuncGElement // SVGElement -> {} -> SVGComponentTransferFunctionElement
+    extends SVGComponentTransferFunctionElement {
   external factory SVGFEFuncGElement();
 }
 
@@ -219,7 +223,8 @@ class SVGFEFuncGElement extends SVGComponentTransferFunctionElement {
 ///
 ///
 @JS()
-class SVGFEFuncBElement extends SVGComponentTransferFunctionElement {
+class SVGFEFuncBElement // SVGElement -> {} -> SVGComponentTransferFunctionElement
+    extends SVGComponentTransferFunctionElement {
   external factory SVGFEFuncBElement();
 }
 
@@ -229,7 +234,8 @@ class SVGFEFuncBElement extends SVGComponentTransferFunctionElement {
 ///
 ///
 @JS()
-class SVGFEFuncAElement extends SVGComponentTransferFunctionElement {
+class SVGFEFuncAElement // SVGElement -> {} -> SVGComponentTransferFunctionElement
+    extends SVGComponentTransferFunctionElement {
   external factory SVGFEFuncAElement();
 }
 
@@ -239,8 +245,8 @@ class SVGFEFuncAElement extends SVGComponentTransferFunctionElement {
 ///
 ///
 @JS()
-class SVGFECompositeElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFECompositeElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_FECOMPOSITE_OPERATOR_UNKNOWN;
   external static int get SVG_FECOMPOSITE_OPERATOR_OVER;
   external static int get SVG_FECOMPOSITE_OPERATOR_IN;
@@ -269,8 +275,8 @@ class SVGFECompositeElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEConvolveMatrixElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEConvolveMatrixElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_EDGEMODE_UNKNOWN;
   external static int get SVG_EDGEMODE_DUPLICATE;
   external static int get SVG_EDGEMODE_WRAP;
@@ -334,8 +340,8 @@ class SVGFEConvolveMatrixElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEDiffuseLightingElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEDiffuseLightingElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -365,7 +371,8 @@ class SVGFEDiffuseLightingElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEDistantLightElement extends SVGElement {
+class SVGFEDistantLightElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement {
   ///  An [SVGAnimatedNumber] corresponding to the [azimuth] attribute
   /// of the given element.
   external SVGAnimatedNumber get azimuth;
@@ -383,7 +390,8 @@ class SVGFEDistantLightElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEPointLightElement extends SVGElement {
+class SVGFEPointLightElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement {
   ///  An [SVGAnimatedNumber] corresponding to the [x] attribute of the
   /// given element.
   external SVGAnimatedNumber get x;
@@ -405,7 +413,8 @@ class SVGFEPointLightElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFESpotLightElement extends SVGElement {
+class SVGFESpotLightElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement {
   ///  An [SVGAnimatedNumber] corresponding to the [x] attribute of the
   /// given element.
   external SVGAnimatedNumber get x;
@@ -438,8 +447,8 @@ class SVGFESpotLightElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEDisplacementMapElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEDisplacementMapElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_CHANNEL_UNKNOWN;
   external static int get SVG_CHANNEL_R;
   external static int get SVG_CHANNEL_G;
@@ -477,8 +486,8 @@ class SVGFEDisplacementMapElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEDropShadowElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEDropShadowElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -513,8 +522,8 @@ class SVGFEDropShadowElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEFloodElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEFloodElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEFloodElement();
 }
 
@@ -524,8 +533,8 @@ class SVGFEFloodElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEGaussianBlurElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEGaussianBlurElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_EDGEMODE_UNKNOWN;
   external static int get SVG_EDGEMODE_DUPLICATE;
   external static int get SVG_EDGEMODE_WRAP;
@@ -562,7 +571,8 @@ class SVGFEGaussianBlurElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEImageElement extends SVGElement
+class SVGFEImageElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement
     with SVGFilterPrimitiveStandardAttributes, SVGURIReference {
   ///  An [SVGAnimatedPreserveAspectRatio] corresponding to the
   /// [preserveAspectRatio] attribute of the given element.
@@ -581,8 +591,8 @@ class SVGFEImageElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEMergeElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEMergeElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEMergeElement();
 }
 
@@ -592,7 +602,8 @@ class SVGFEMergeElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEMergeNodeElement extends SVGElement {
+class SVGFEMergeNodeElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -606,8 +617,8 @@ class SVGFEMergeNodeElement extends SVGElement {
 ///
 ///
 @JS()
-class SVGFEMorphologyElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEMorphologyElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
   external static int get SVG_MORPHOLOGY_OPERATOR_ERODE;
   external static int get SVG_MORPHOLOGY_OPERATOR_DILATE;
@@ -639,8 +650,8 @@ class SVGFEMorphologyElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFEOffsetElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFEOffsetElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -662,8 +673,8 @@ class SVGFEOffsetElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFESpecularLightingElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFESpecularLightingElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -697,8 +708,8 @@ class SVGFESpecularLightingElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFETileElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFETileElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   external SVGAnimatedString get in1;
@@ -712,8 +723,8 @@ class SVGFETileElement extends SVGElement
 ///
 ///
 @JS()
-class SVGFETurbulenceElement extends SVGElement
-    with SVGFilterPrimitiveStandardAttributes {
+class SVGFETurbulenceElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, HTMLOrSVGElement, SVGElementInstance, ElementCSSInlineStyle}, svg2: {SVGElementInstance}, cssom_1: {ElementCSSInlineStyle}} -> SVGElement
+    extends SVGElement with SVGFilterPrimitiveStandardAttributes {
   external static int get SVG_TURBULENCE_TYPE_UNKNOWN;
   external static int get SVG_TURBULENCE_TYPE_FRACTALNOISE;
   external static int get SVG_TURBULENCE_TYPE_TURBULENCE;

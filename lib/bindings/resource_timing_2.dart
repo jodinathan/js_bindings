@@ -33,7 +33,9 @@ import 'server_timing.dart';
 ///  Note: This feature is available in Web Workers
 ///
 @JS()
-class PerformanceResourceTiming extends PerformanceEntry {
+class PerformanceResourceTiming // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   ///  A [string] representing the type of resource that initiated the
   /// performance entry, as specified in
   /// [PerformanceResourceTiming.initiatorType].

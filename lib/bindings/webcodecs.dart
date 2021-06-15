@@ -15,7 +15,7 @@ import 'dom.dart';
 
 @JS()
 class AudioDecoder {
-  external factory AudioDecoder({AudioDecoderInit init});
+  external factory AudioDecoder(AudioDecoderInit init);
   external CodecState get state;
   external int get decodeQueueSize;
   external Object configure(AudioDecoderConfig config);
@@ -41,7 +41,7 @@ class AudioDecoderInit {
 
 @JS()
 class VideoDecoder {
-  external factory VideoDecoder({VideoDecoderInit init});
+  external factory VideoDecoder(VideoDecoderInit init);
   external CodecState get state;
   external int get decodeQueueSize;
   external Object configure(VideoDecoderConfig config);
@@ -67,7 +67,7 @@ class VideoDecoderInit {
 
 @JS()
 class AudioEncoder {
-  external factory AudioEncoder({AudioEncoderInit init});
+  external factory AudioEncoder(AudioEncoderInit init);
   external CodecState get state;
   external int get encodeQueueSize;
   external Object configure(AudioEncoderConfig config);
@@ -103,7 +103,7 @@ class EncodedAudioChunkMetadata {
 
 @JS()
 class VideoEncoder {
-  external factory VideoEncoder({VideoEncoderInit init});
+  external factory VideoEncoder(VideoEncoderInit init);
   external CodecState get state;
   external int get encodeQueueSize;
   external Object configure(VideoEncoderConfig config);
@@ -301,7 +301,7 @@ enum CodecState { unconfigured, configured, closed }
 
 @JS()
 class EncodedAudioChunk {
-  external factory EncodedAudioChunk({EncodedAudioChunkInit init});
+  external factory EncodedAudioChunk(EncodedAudioChunkInit init);
   external EncodedAudioChunkType get type;
   external int get timestamp;
   external int get duration;
@@ -328,7 +328,7 @@ enum EncodedAudioChunkType { key, delta }
 
 @JS()
 class EncodedVideoChunk {
-  external factory EncodedVideoChunk({EncodedVideoChunkInit init});
+  external factory EncodedVideoChunk(EncodedVideoChunkInit init);
   external EncodedVideoChunkType get type;
   external int get timestamp;
   external int? get duration;
@@ -357,7 +357,7 @@ enum EncodedVideoChunkType { key, delta }
 
 @JS()
 class AudioData {
-  external factory AudioData({AudioDataInit init});
+  external factory AudioData(AudioDataInit init);
   external AudioSampleFormat get format;
   external double get sampleRate;
   external int get numberOfFrames;
@@ -435,7 +435,7 @@ enum AudioSampleFormat {
 
 @JS()
 class VideoFrame {
-  external factory VideoFrame({dynamic image, VideoFrameInit? init});
+  external factory VideoFrame(dynamic image, [VideoFrameInit? init]);
   external PixelFormat get format;
   external int get codedWidth;
   external int get codedHeight;
@@ -525,7 +525,7 @@ enum PixelFormat {
 
 @JS()
 class ImageDecoder {
-  external factory ImageDecoder({ImageDecoderInit init});
+  external factory ImageDecoder(ImageDecoderInit init);
   external bool get complete;
   external Promise<Object> get completed;
   external ImageTrackList get tracks;
@@ -598,7 +598,9 @@ class ImageTrackList {
 }
 
 @JS()
-class ImageTrack extends EventTarget {
+class ImageTrack // null -> {} -> EventTarget
+    with
+        EventTarget {
   external bool get animated;
   external int get frameCount;
   external /* double | NaN */ dynamic get repetitionCount;

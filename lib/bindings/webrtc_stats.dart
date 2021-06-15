@@ -67,7 +67,9 @@ enum RTCStatsType {
 ///
 @anonymous
 @JS()
-class RTCRtpStreamStats extends RTCStats {
+class RTCRtpStreamStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external int get ssrc;
   external set ssrc(int newValue);
   external String get kind;
@@ -83,7 +85,9 @@ class RTCRtpStreamStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCCodecStats extends RTCStats {
+class RTCCodecStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external int get payloadType;
   external set payloadType(int newValue);
   external RTCCodecType get codecType;
@@ -114,7 +118,8 @@ enum RTCCodecType { encode, decode }
 
 @anonymous
 @JS()
-class RTCReceivedRtpStreamStats extends RTCRtpStreamStats {
+class RTCReceivedRtpStreamStats // RTCStats -> {} -> RTCRtpStreamStats
+    extends RTCRtpStreamStats {
   external int get packetsReceived;
   external set packetsReceived(int newValue);
   external int get packetsLost;
@@ -175,7 +180,8 @@ class RTCReceivedRtpStreamStats extends RTCRtpStreamStats {
 /// local end of the [RTCPeerConnection].
 @anonymous
 @JS()
-class RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
+class RTCInboundRtpStreamStats // RTCRtpStreamStats -> {} -> RTCReceivedRtpStreamStats
+    extends RTCReceivedRtpStreamStats {
   ///  A string indicating which identifies the [RTCAudioReceiverStats]
   /// or [RTCVideoReceiverStats] object associated with the stream's
   /// receiver. This ID is stable across multiple calls to
@@ -384,7 +390,8 @@ class RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
 
 @anonymous
 @JS()
-class RTCRemoteInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
+class RTCRemoteInboundRtpStreamStats // RTCRtpStreamStats -> {} -> RTCReceivedRtpStreamStats
+    extends RTCReceivedRtpStreamStats {
   external String get localId;
   external set localId(String newValue);
   external double get roundTripTime;
@@ -409,7 +416,8 @@ class RTCRemoteInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
 
 @anonymous
 @JS()
-class RTCSentRtpStreamStats extends RTCRtpStreamStats {
+class RTCSentRtpStreamStats // RTCStats -> {} -> RTCRtpStreamStats
+    extends RTCRtpStreamStats {
   external int get packetsSent;
   external set packetsSent(int newValue);
   external int get bytesSent;
@@ -426,7 +434,8 @@ class RTCSentRtpStreamStats extends RTCRtpStreamStats {
 /// [RTCRtpSender].
 @anonymous
 @JS()
-class RTCOutboundRtpStreamStats extends RTCSentRtpStreamStats {
+class RTCOutboundRtpStreamStats // RTCRtpStreamStats -> {} -> RTCSentRtpStreamStats
+    extends RTCSentRtpStreamStats {
   external int get rtxSsrc;
   external set rtxSsrc(int newValue);
   external String get mediaSourceId;
@@ -639,7 +648,8 @@ enum RTCQualityLimitationReason { none, cpu, bandwidth, other }
 /// metrics specific to outgoing RTP streams.
 @anonymous
 @JS()
-class RTCRemoteOutboundRtpStreamStats extends RTCSentRtpStreamStats {
+class RTCRemoteOutboundRtpStreamStats // RTCRtpStreamStats -> {} -> RTCSentRtpStreamStats
+    extends RTCSentRtpStreamStats {
   ///  A [DOMString] which is used to find the local
   /// [RTCInboundRtpStreamStats] object which shares the same
   /// Synchronization Source (SSRC).
@@ -678,7 +688,9 @@ class RTCRemoteOutboundRtpStreamStats extends RTCSentRtpStreamStats {
 
 @anonymous
 @JS()
-class RTCMediaSourceStats extends RTCStats {
+class RTCMediaSourceStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external String get trackIdentifier;
   external set trackIdentifier(String newValue);
   external String get kind;
@@ -692,7 +704,8 @@ class RTCMediaSourceStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCAudioSourceStats extends RTCMediaSourceStats {
+class RTCAudioSourceStats // RTCStats -> {} -> RTCMediaSourceStats
+    extends RTCMediaSourceStats {
   external double get audioLevel;
   external set audioLevel(double newValue);
   external double get totalAudioEnergy;
@@ -714,7 +727,8 @@ class RTCAudioSourceStats extends RTCMediaSourceStats {
 
 @anonymous
 @JS()
-class RTCVideoSourceStats extends RTCMediaSourceStats {
+class RTCVideoSourceStats // RTCStats -> {} -> RTCMediaSourceStats
+    extends RTCMediaSourceStats {
   external int get width;
   external set width(int newValue);
   external int get height;
@@ -736,7 +750,9 @@ class RTCVideoSourceStats extends RTCMediaSourceStats {
 
 @anonymous
 @JS()
-class RTCRtpContributingSourceStats extends RTCStats {
+class RTCRtpContributingSourceStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external int get contributorSsrc;
   external set contributorSsrc(int newValue);
   external String get inboundRtpStreamId;
@@ -755,7 +771,9 @@ class RTCRtpContributingSourceStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCPeerConnectionStats extends RTCStats {
+class RTCPeerConnectionStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external int get dataChannelsOpened;
   external set dataChannelsOpened(int newValue);
   external int get dataChannelsClosed;
@@ -774,7 +792,9 @@ class RTCPeerConnectionStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCRtpTransceiverStats extends RTCStats {
+class RTCRtpTransceiverStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external String get senderId;
   external set senderId(String newValue);
   external String get receiverId;
@@ -788,7 +808,9 @@ class RTCRtpTransceiverStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCMediaHandlerStats extends RTCStats {
+class RTCMediaHandlerStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external String get trackIdentifier;
   external set trackIdentifier(String newValue);
   external bool get ended;
@@ -802,13 +824,15 @@ class RTCMediaHandlerStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCVideoHandlerStats extends RTCMediaHandlerStats {
+class RTCVideoHandlerStats // RTCStats -> {} -> RTCMediaHandlerStats
+    extends RTCMediaHandlerStats {
   external factory RTCVideoHandlerStats();
 }
 
 @anonymous
 @JS()
-class RTCVideoSenderStats extends RTCVideoHandlerStats {
+class RTCVideoSenderStats // RTCMediaHandlerStats -> {} -> RTCVideoHandlerStats
+    extends RTCVideoHandlerStats {
   external String get mediaSourceId;
   external set mediaSourceId(String newValue);
 
@@ -817,19 +841,22 @@ class RTCVideoSenderStats extends RTCVideoHandlerStats {
 
 @anonymous
 @JS()
-class RTCVideoReceiverStats extends RTCVideoHandlerStats {
+class RTCVideoReceiverStats // RTCMediaHandlerStats -> {} -> RTCVideoHandlerStats
+    extends RTCVideoHandlerStats {
   external factory RTCVideoReceiverStats();
 }
 
 @anonymous
 @JS()
-class RTCAudioHandlerStats extends RTCMediaHandlerStats {
+class RTCAudioHandlerStats // RTCStats -> {} -> RTCMediaHandlerStats
+    extends RTCMediaHandlerStats {
   external factory RTCAudioHandlerStats();
 }
 
 @anonymous
 @JS()
-class RTCAudioSenderStats extends RTCAudioHandlerStats {
+class RTCAudioSenderStats // RTCMediaHandlerStats -> {} -> RTCAudioHandlerStats
+    extends RTCAudioHandlerStats {
   external String get mediaSourceId;
   external set mediaSourceId(String newValue);
 
@@ -838,13 +865,16 @@ class RTCAudioSenderStats extends RTCAudioHandlerStats {
 
 @anonymous
 @JS()
-class RTCAudioReceiverStats extends RTCAudioHandlerStats {
+class RTCAudioReceiverStats // RTCMediaHandlerStats -> {} -> RTCAudioHandlerStats
+    extends RTCAudioHandlerStats {
   external factory RTCAudioReceiverStats();
 }
 
 @anonymous
 @JS()
-class RTCDataChannelStats extends RTCStats {
+class RTCDataChannelStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external String get label;
   external set label(String newValue);
   external String get protocol;
@@ -875,7 +905,9 @@ class RTCDataChannelStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCTransportStats extends RTCStats {
+class RTCTransportStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external int get packetsSent;
   external set packetsSent(int newValue);
   external int get packetsReceived;
@@ -933,7 +965,9 @@ class RTCTransportStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCSctpTransportStats extends RTCStats {
+class RTCSctpTransportStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external String get transportId;
   external set transportId(String newValue);
   external double get smoothedRoundTripTime;
@@ -962,7 +996,9 @@ class RTCSctpTransportStats extends RTCStats {
 /// statistics related to an [RTCIceCandidate].
 @anonymous
 @JS()
-class RTCIceCandidateStats extends RTCStats {
+class RTCIceCandidateStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   ///  A string uniquely identifiying the transport object that was
   /// inspected in order to obtain the [RTCTransportStats] associated
   /// with the candidate correspondin to these statistics.
@@ -1032,7 +1068,9 @@ class RTCIceCandidateStats extends RTCStats {
 /// an object.
 @anonymous
 @JS()
-class RTCIceCandidatePairStats extends RTCStats {
+class RTCIceCandidatePairStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   ///  A [DOMString] that uniquely identifies the [RTCIceTransport]
   /// that was inspected to obtain the transport-related statistics (as
   /// found in [RTCTransportStats]) used in generating this object.
@@ -1258,7 +1296,9 @@ enum RTCStatsIceCandidatePairState {
 
 @anonymous
 @JS()
-class RTCCertificateStats extends RTCStats {
+class RTCCertificateStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external String get fingerprint;
   external set fingerprint(String newValue);
   external String get fingerprintAlgorithm;
@@ -1277,7 +1317,9 @@ class RTCCertificateStats extends RTCStats {
 
 @anonymous
 @JS()
-class RTCIceServerStats extends RTCStats {
+class RTCIceServerStats // null -> {} -> RTCStats
+    with
+        RTCStats {
   external String get url;
   external set url(String newValue);
   external int get port;

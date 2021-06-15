@@ -16,7 +16,9 @@ import 'file_a_p_i.dart';
 enum ContactProperty { address, email, icon, name, tel }
 
 @JS()
-class ContactAddress extends PaymentAddress {
+class ContactAddress // null -> {} -> PaymentAddress
+    with
+        PaymentAddress {
   external factory ContactAddress();
 }
 

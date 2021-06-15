@@ -21,7 +21,8 @@ import 'mediacapture_streams.dart';
 /// Part of the Media Capture and Streams API.
 @experimental
 @JS()
-class CanvasCaptureMediaStreamTrack extends MediaStreamTrack {
+class CanvasCaptureMediaStreamTrack // EventTarget -> {} -> MediaStreamTrack
+    extends MediaStreamTrack {
   ///  Returns the [HTMLCanvasElement] object whose surface is captured
   /// in real-time.
   external HTMLCanvasElement get canvas;

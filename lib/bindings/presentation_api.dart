@@ -55,8 +55,10 @@ class Presentation {
 /// presentation URL for the instance.
 @experimental
 @JS()
-class PresentationRequest extends EventTarget {
-  external factory PresentationRequest({String url});
+class PresentationRequest // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory PresentationRequest(String url);
 
   ///  Returns a [Promise] that resolves with a
   /// [PresentationConnection] after the user agent prompts the user to
@@ -100,7 +102,9 @@ class PresentationRequest extends EventTarget {
 /// event handler event type is [change].
 @experimental
 @JS()
-class PresentationAvailability extends EventTarget {
+class PresentationAvailability // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  A boolean value indicating whether the given presentation
   /// display is available. The attribute MUST return the last value it
   /// was set to.
@@ -134,9 +138,11 @@ class PresentationAvailability extends EventTarget {
 /// [defaultRequest].
 @experimental
 @JS()
-class PresentationConnectionAvailableEvent extends Event {
+class PresentationConnectionAvailableEvent // null -> {} -> Event
+    with
+        Event {
   external factory PresentationConnectionAvailableEvent(
-      {String type, PresentationConnectionAvailableEventInit eventInitDict});
+      String type, PresentationConnectionAvailableEventInit eventInitDict);
 
   ///  Returns a references to the [PresentationConnection] object that
   /// fired the event.
@@ -145,7 +151,9 @@ class PresentationConnectionAvailableEvent extends Event {
 
 @anonymous
 @JS()
-class PresentationConnectionAvailableEventInit extends EventInit {
+class PresentationConnectionAvailableEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external PresentationConnection get connection;
   external set connection(PresentationConnection newValue);
 
@@ -169,7 +177,9 @@ enum PresentationConnectionState { connecting, connected, closed, terminated }
 /// agent and receiving user agent MUST implement .
 @experimental
 @JS()
-class PresentationConnection extends EventTarget {
+class PresentationConnection // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// Provides the presentation connection identifier.
   external String get id;
 
@@ -224,9 +234,11 @@ enum PresentationConnectionCloseReason { error, closed, wentaway }
 /// [PresentationConnection] when it is closed.
 @experimental
 @JS()
-class PresentationConnectionCloseEvent extends Event {
+class PresentationConnectionCloseEvent // null -> {} -> Event
+    with
+        Event {
   external factory PresentationConnectionCloseEvent(
-      {String type, PresentationConnectionCloseEventInit eventInitDict});
+      String type, PresentationConnectionCloseEventInit eventInitDict);
 
   ///  Indicates why the connection was closed. This property takes one
   /// of the following values: [error], [closed], or [wentaway].
@@ -239,7 +251,9 @@ class PresentationConnectionCloseEvent extends Event {
 
 @anonymous
 @JS()
-class PresentationConnectionCloseEventInit extends EventInit {
+class PresentationConnectionCloseEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external PresentationConnectionCloseReason get reason;
   external set reason(PresentationConnectionCloseReason newValue);
   external String get message;
@@ -276,7 +290,9 @@ class PresentationReceiver {
 ///  is the collection of incoming presentation connections.
 @experimental
 @JS()
-class PresentationConnectionList extends EventTarget {
+class PresentationConnectionList // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns the non-terminated set of [PresentationConnection]s in
   /// the set of presentation controllers.
   external Iterable<PresentationConnection> get connections;

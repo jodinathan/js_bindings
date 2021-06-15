@@ -23,9 +23,11 @@ import 'html.dart';
 ///
 @experimental
 @JS()
-class AnimationEvent extends Event {
-  external factory AnimationEvent(
-      {String type, AnimationEventInit? animationEventInitDict});
+class AnimationEvent // null -> {} -> Event
+    with
+        Event {
+  external factory AnimationEvent(String type,
+      [AnimationEventInit? animationEventInitDict]);
 
   ///  Is a [DOMString] containing the value of the [animation-name]
   /// that generated the animation.
@@ -47,7 +49,9 @@ class AnimationEvent extends Event {
 
 @anonymous
 @JS()
-class AnimationEventInit extends EventInit {
+class AnimationEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String get animationName;
   external set animationName(String newValue);
   external double get elapsedTime;
@@ -69,7 +73,9 @@ class AnimationEventInit extends EventInit {
 ///
 ///
 @JS()
-class CSSKeyframeRule extends CSSRule {
+class CSSKeyframeRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   ///  Represents the key of the keyframe, like ['10%'], ['75%']. The
   /// [from] keyword maps to ['0%'] and the [to] keyword maps to
   /// ['100%'].
@@ -91,7 +97,9 @@ class CSSKeyframeRule extends CSSRule {
 ///
 ///
 @JS()
-class CSSKeyframesRule extends CSSRule {
+class CSSKeyframesRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   ///  Represents the name of the keyframes, used by the
   /// [animation-name] property.
   external String get name;

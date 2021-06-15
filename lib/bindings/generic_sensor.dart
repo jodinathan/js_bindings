@@ -24,7 +24,9 @@ import 'html.dart';
 /// is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class Sensor extends EventTarget {
+class Sensor // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// Returns a [Boolean] indicating whether the sensor is active.
   external bool get activated;
 
@@ -66,9 +68,11 @@ class SensorOptions {
 ///  The interface of the Sensor APIs provides information about
 /// errors thrown by a [Sensor] or related interface.
 @JS()
-class SensorErrorEvent extends Event {
+class SensorErrorEvent // null -> {} -> Event
+    with
+        Event {
   external factory SensorErrorEvent(
-      {String type, SensorErrorEventInit errorEventInitDict});
+      String type, SensorErrorEventInit errorEventInitDict);
 
   ///  Returns the [DOMException] object passed in the event's
   /// contructor.
@@ -77,7 +81,9 @@ class SensorErrorEvent extends Event {
 
 @anonymous
 @JS()
-class SensorErrorEventInit extends EventInit {
+class SensorErrorEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external Exception get error;
   external set error(Exception newValue);
 

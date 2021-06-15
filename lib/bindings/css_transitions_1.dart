@@ -20,9 +20,11 @@ import 'html.dart';
 /// information related to transitions.
 @experimental
 @JS()
-class TransitionEvent extends Event {
-  external factory TransitionEvent(
-      {String type, TransitionEventInit? transitionEventInitDict});
+class TransitionEvent // null -> {} -> Event
+    with
+        Event {
+  external factory TransitionEvent(String type,
+      [TransitionEventInit? transitionEventInitDict]);
 
   ///  Is a [DOMString] containing the name CSS property associated
   /// with the transition.
@@ -42,7 +44,9 @@ class TransitionEvent extends Event {
 
 @anonymous
 @JS()
-class TransitionEventInit extends EventInit {
+class TransitionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String get propertyName;
   external set propertyName(String newValue);
   external double get elapsedTime;

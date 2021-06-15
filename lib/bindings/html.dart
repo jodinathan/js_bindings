@@ -101,7 +101,9 @@ class HTMLAllCollection {
 ///
 ///
 @JS()
-class HTMLFormControlsCollection extends HTMLCollection {
+class HTMLFormControlsCollection // null -> {} -> HTMLCollection
+    with
+        HTMLCollection {
   ///  Returns the [RadioNodeList] or the [Element] in the collection
   /// whose [name] or [id] matches the specified name, or [null] if no
   /// nodes match. Note that this version of [namedItem()] hide the one
@@ -125,7 +127,9 @@ class HTMLFormControlsCollection extends HTMLCollection {
 ///
 ///
 @JS()
-class RadioNodeList extends NodeList {
+class RadioNodeList // null -> {} -> NodeList
+    with
+        NodeList {
   ///  If the underlying element collection contains radio buttons, the
   /// property represents the checked radio button. On retrieving the
   /// property, the of the currently [checked] radio button is returned
@@ -150,7 +154,9 @@ class RadioNodeList extends NodeList {
 ///
 ///
 @JS()
-class HTMLOptionsCollection extends HTMLCollection {
+class HTMLOptionsCollection // null -> {} -> HTMLCollection
+    with
+        HTMLCollection {
   @override
   external int get length;
   @override
@@ -192,7 +198,8 @@ enum DocumentReadyState { loading, interactive, complete }
 ///
 ///
 @JS()
-class HTMLElement extends Element
+class HTMLElement // Node -> {web_animations_1: {Animatable, ARIAMixin, GeometryUtils, Region, ParentNode, NonDocumentTypeChildNode, ChildNode, Slottable, InnerHTML}, wai_aria_1_2: {ARIAMixin}, cssom_view_1: {GeometryUtils}, css_regions_1: {Region}, dom: {ParentNode, NonDocumentTypeChildNode, ChildNode, Slottable}, d_o_m_parsing: {InnerHTML}} -> Element
+    extends Element
     with
         GlobalEventHandlers,
         DocumentAndElementEventHandlers,
@@ -291,7 +298,8 @@ class HTMLElement extends Element
 ///
 ///
 @JS()
-class HTMLUnknownElement extends HTMLElement {
+class HTMLUnknownElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLUnknownElement();
 }
 
@@ -329,7 +337,8 @@ class DOMStringMap {
 ///
 ///
 @JS()
-class HTMLHtmlElement extends HTMLElement {
+class HTMLHtmlElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLHtmlElement();
   external String get version;
   external set version(String newValue);
@@ -343,7 +352,8 @@ class HTMLHtmlElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLHeadElement extends HTMLElement {
+class HTMLHeadElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLHeadElement();
 }
 
@@ -355,7 +365,8 @@ class HTMLHeadElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTitleElement extends HTMLElement {
+class HTMLTitleElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTitleElement();
 
   /// Is a [DOMString] representing the text of the document's title.
@@ -371,7 +382,8 @@ class HTMLTitleElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLBaseElement extends HTMLElement {
+class HTMLBaseElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLBaseElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing a
@@ -397,7 +409,8 @@ class HTMLBaseElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLLinkElement extends HTMLElement with LinkStyle {
+class HTMLLinkElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement with LinkStyle {
   external factory HTMLLinkElement();
 
   /// Is a [DOMString] representing the URI for the target resource.
@@ -476,7 +489,8 @@ class HTMLLinkElement extends HTMLElement with LinkStyle {
 ///
 ///
 @JS()
-class HTMLMetaElement extends HTMLElement {
+class HTMLMetaElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLMetaElement();
   external String get name;
   external set name(String newValue);
@@ -501,7 +515,8 @@ class HTMLMetaElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLStyleElement extends HTMLElement with LinkStyle {
+class HTMLStyleElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement with LinkStyle {
   external factory HTMLStyleElement();
 
   ///  Is a [DOMString] representing the intended destination medium
@@ -520,7 +535,8 @@ class HTMLStyleElement extends HTMLElement with LinkStyle {
 ///
 ///
 @JS()
-class HTMLBodyElement extends HTMLElement with WindowEventHandlers {
+class HTMLBodyElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement with WindowEventHandlers {
   external factory HTMLBodyElement();
   external EventHandlerNonNull? get onorientationchange;
   external set onorientationchange(EventHandlerNonNull? newValue);
@@ -546,7 +562,8 @@ class HTMLBodyElement extends HTMLElement with WindowEventHandlers {
 ///
 ///
 @JS()
-class HTMLHeadingElement extends HTMLElement {
+class HTMLHeadingElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLHeadingElement();
   external String get align;
   external set align(String newValue);
@@ -560,7 +577,8 @@ class HTMLHeadingElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLParagraphElement extends HTMLElement {
+class HTMLParagraphElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLParagraphElement();
   external String get align;
   external set align(String newValue);
@@ -574,7 +592,8 @@ class HTMLParagraphElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLHRElement extends HTMLElement {
+class HTMLHRElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLHRElement();
   external String get align;
   external set align(String newValue);
@@ -597,7 +616,8 @@ class HTMLHRElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLPreElement extends HTMLElement {
+class HTMLPreElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLPreElement();
   external int get width;
   external set width(int newValue);
@@ -612,7 +632,8 @@ class HTMLPreElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLQuoteElement extends HTMLElement {
+class HTMLQuoteElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLQuoteElement();
 
   ///  Is a [DOMString] reflecting the HTML attribute, containing a URL
@@ -629,7 +650,8 @@ class HTMLQuoteElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLOListElement extends HTMLElement {
+class HTMLOListElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLOListElement();
 
   ///  Is a [Boolean] value reflecting the and defining if the
@@ -672,7 +694,8 @@ class HTMLOListElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLUListElement extends HTMLElement {
+class HTMLUListElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLUListElement();
   external bool get compact;
   external set compact(bool newValue);
@@ -683,7 +706,8 @@ class HTMLUListElement extends HTMLElement {
 ///
 @experimental
 @JS()
-class HTMLMenuElement extends HTMLElement {
+class HTMLMenuElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLMenuElement();
   external bool get compact;
   external set compact(bool newValue);
@@ -697,7 +721,8 @@ class HTMLMenuElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLLIElement extends HTMLElement {
+class HTMLLIElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLLIElement();
 
   ///  Is a [long] indicating the ordinal position of the list element
@@ -719,7 +744,8 @@ class HTMLLIElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLDListElement extends HTMLElement {
+class HTMLDListElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLDListElement();
   external bool get compact;
   external set compact(bool newValue);
@@ -733,7 +759,8 @@ class HTMLDListElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLDivElement extends HTMLElement {
+class HTMLDivElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLDivElement();
   external String get align;
   external set align(String newValue);
@@ -750,7 +777,8 @@ class HTMLDivElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLAnchorElement extends HTMLElement with HTMLHyperlinkElementUtils {
+class HTMLAnchorElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement with HTMLHyperlinkElementUtils {
   external factory HTMLAnchorElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
@@ -821,7 +849,8 @@ class HTMLAnchorElement extends HTMLElement with HTMLHyperlinkElementUtils {
 ///
 ///
 @JS()
-class HTMLDataElement extends HTMLElement {
+class HTMLDataElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLDataElement();
 
   ///  Is a [DOMString] reflecting the HTML attribute, containing a
@@ -838,7 +867,8 @@ class HTMLDataElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTimeElement extends HTMLElement {
+class HTMLTimeElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTimeElement();
 
   ///  Is a [DOMString] that reflects the [datetime] HTML attribute,
@@ -856,7 +886,8 @@ class HTMLTimeElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLSpanElement extends HTMLElement {
+class HTMLSpanElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLSpanElement();
 }
 
@@ -867,7 +898,8 @@ class HTMLSpanElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLBRElement extends HTMLElement {
+class HTMLBRElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLBRElement();
   external String get clear;
   external set clear(String newValue);
@@ -907,7 +939,8 @@ mixin HTMLHyperlinkElementUtils {
 ///
 ///
 @JS()
-class HTMLModElement extends HTMLElement {
+class HTMLModElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLModElement();
 
   ///  Is a [DOMString] reflecting the HTML attribute, containing a URI
@@ -932,7 +965,8 @@ class HTMLModElement extends HTMLElement {
 ///
 @experimental
 @JS()
-class HTMLPictureElement extends HTMLElement {
+class HTMLPictureElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLPictureElement();
 }
 
@@ -944,7 +978,8 @@ class HTMLPictureElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLSourceElement extends HTMLElement {
+class HTMLSourceElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLSourceElement();
 
   ///  Is a [DOMString] reflecting the HTML attribute, containing the
@@ -995,7 +1030,8 @@ class HTMLSourceElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLImageElement extends HTMLElement {
+class HTMLImageElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLImageElement();
 
   ///  A [DOMString] that reflects the HTML attribute, thus indicating
@@ -1143,7 +1179,8 @@ class HTMLImageElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLIFrameElement extends HTMLElement {
+class HTMLIFrameElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLIFrameElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing
@@ -1236,7 +1273,8 @@ class HTMLIFrameElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLEmbedElement extends HTMLElement {
+class HTMLEmbedElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLEmbedElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing
@@ -1274,7 +1312,8 @@ class HTMLEmbedElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLObjectElement extends HTMLElement {
+class HTMLObjectElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLObjectElement();
 
   ///  Returns a [DOMString] that reflects the HTML attribute,
@@ -1377,7 +1416,8 @@ class HTMLObjectElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLParamElement extends HTMLElement {
+class HTMLParamElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLParamElement();
 
   ///  Is a [DOMString] representing the name of the parameter. It
@@ -1409,7 +1449,8 @@ class HTMLParamElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLVideoElement extends HTMLMediaElement {
+class HTMLVideoElement // HTMLElement -> {} -> HTMLMediaElement
+    extends HTMLMediaElement {
   external factory HTMLVideoElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, which
@@ -1460,7 +1501,8 @@ class HTMLVideoElement extends HTMLMediaElement {
 ///
 ///
 @JS()
-class HTMLAudioElement extends HTMLMediaElement {
+class HTMLAudioElement // HTMLElement -> {} -> HTMLMediaElement
+    extends HTMLMediaElement {
   external factory HTMLAudioElement();
 }
 
@@ -1473,7 +1515,8 @@ class HTMLAudioElement extends HTMLMediaElement {
 ///
 ///
 @JS()
-class HTMLTrackElement extends HTMLElement {
+class HTMLTrackElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTrackElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
@@ -1569,7 +1612,8 @@ enum CanPlayTypeResult {
 ///
 ///
 @JS()
-class HTMLMediaElement extends HTMLElement {
+class HTMLMediaElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   ///  Returns a [MediaError] object for the most recent error, or
   /// [null] if there has not been an error.
   external MediaError? get error;
@@ -1917,7 +1961,9 @@ class MediaError {
 /// [HTMLMediaElement.audioTracks]. The individual tracks can be
 /// accessed using array syntax.
 @JS()
-class AudioTrackList extends EventTarget {
+class AudioTrackList // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// The number of tracks in the list.
   external int get length;
 
@@ -2004,7 +2050,9 @@ class AudioTrack {
 /// accessed using array syntax or functions such as [forEach()] for
 /// example.
 @JS()
-class VideoTrackList extends EventTarget {
+class VideoTrackList // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// The number of tracks in the list.
   external int get length;
 
@@ -2081,7 +2129,9 @@ class VideoTrack {
 /// accessed using array syntax or functions such as [forEach()] for
 /// example.
 @JS()
-class TextTrackList extends EventTarget {
+class TextTrackList // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// The number of tracks in the list.
   external int get length;
 
@@ -2112,7 +2162,9 @@ enum TextTrackKind { subtitles, captions, descriptions, chapters, metadata }
 /// associated with a particular [<track>] element.
 ///
 @JS()
-class TextTrack extends EventTarget {
+class TextTrack // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a [DOMString] indicating what kind of text track the
   /// [TextTrack] describes. The value must be one of those in the
   /// TextTrackKind enum.
@@ -2202,7 +2254,9 @@ class TextTrackCueList {
 /// (the time at which it will be removed from the display), as well
 /// as other information.
 @JS()
-class TextTrackCue extends EventTarget {
+class TextTrackCue // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  The [TextTrack] that this cue belongs to, or [null] if it
   /// doesn't belong to any.
   external TextTrack? get track;
@@ -2318,8 +2372,10 @@ class TimeRanges {
 /// object indicated by [HTMLMediaElement.textTracks].
 ///
 @JS()
-class TrackEvent extends Event {
-  external factory TrackEvent({String type, TrackEventInit? eventInitDict});
+class TrackEvent // null -> {} -> Event
+    with
+        Event {
+  external factory TrackEvent(String type, [TrackEventInit? eventInitDict]);
 
   ///  The DOM track object the event is in reference to. If not
   /// [null], this is always an object of one of the media track types:
@@ -2329,7 +2385,9 @@ class TrackEvent extends Event {
 
 @anonymous
 @JS()
-class TrackEventInit extends EventInit {
+class TrackEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external dynamic get track;
   external set track(dynamic newValue);
 
@@ -2345,7 +2403,8 @@ class TrackEventInit extends EventInit {
 ///
 ///
 @JS()
-class HTMLMapElement extends HTMLElement {
+class HTMLMapElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLMapElement();
 
   ///  Is a [DOMString] representing the [<map>] element for
@@ -2368,7 +2427,8 @@ class HTMLMapElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLAreaElement extends HTMLElement with HTMLHyperlinkElementUtils {
+class HTMLAreaElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement with HTMLHyperlinkElementUtils {
   external factory HTMLAreaElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing
@@ -2430,7 +2490,8 @@ class HTMLAreaElement extends HTMLElement with HTMLHyperlinkElementUtils {
 ///
 ///
 @JS()
-class HTMLTableElement extends HTMLElement {
+class HTMLTableElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTableElement();
 
   ///  Is a [HTMLTableCaptionElement] representing the first
@@ -2670,7 +2731,8 @@ class HTMLTableElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTableCaptionElement extends HTMLElement {
+class HTMLTableCaptionElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTableCaptionElement();
   external String get align;
   external set align(String newValue);
@@ -2684,7 +2746,8 @@ class HTMLTableCaptionElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTableColElement extends HTMLElement {
+class HTMLTableColElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTableColElement();
 
   ///  Is an [unsigned long] that reflects the HTML attribute,
@@ -2713,7 +2776,8 @@ class HTMLTableColElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTableSectionElement extends HTMLElement {
+class HTMLTableSectionElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTableSectionElement();
 
   ///  Returns a live [HTMLCollection] containing the rows in the
@@ -2753,7 +2817,8 @@ class HTMLTableSectionElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTableRowElement extends HTMLElement {
+class HTMLTableRowElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTableRowElement();
 
   ///  Returns a [long] value which gives the logical position of the
@@ -2842,7 +2907,8 @@ class HTMLTableRowElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTableCellElement extends HTMLElement {
+class HTMLTableCellElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTableCellElement();
 
   ///  An unsigned long integer indicating the number of columns this
@@ -2941,7 +3007,8 @@ class HTMLTableCellElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLFormElement extends HTMLElement {
+class HTMLFormElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLFormElement();
 
   ///  A [DOMString] reflecting the value of the form's
@@ -3051,7 +3118,8 @@ class HTMLFormElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLLabelElement extends HTMLElement {
+class HTMLLabelElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLLabelElement();
 
   ///  Is a [HTMLFormElement] object representing the form with which
@@ -3079,7 +3147,8 @@ class HTMLLabelElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLInputElement extends HTMLElement {
+class HTMLInputElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLInputElement();
   external String get accept;
   external set accept(String newValue);
@@ -3285,7 +3354,8 @@ class HTMLInputElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLButtonElement extends HTMLElement {
+class HTMLButtonElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLButtonElement();
 
   ///  Is a [Boolean] indicating whether or not the control is
@@ -3397,7 +3467,8 @@ class HTMLButtonElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLSelectElement extends HTMLElement {
+class HTMLSelectElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLSelectElement();
   external String get autocomplete;
   external set autocomplete(String newValue);
@@ -3564,7 +3635,8 @@ class HTMLSelectElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLDataListElement extends HTMLElement {
+class HTMLDataListElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLDataListElement();
 
   ///  Is a [HTMLCollection] representing a collection of the contained
@@ -3581,7 +3653,8 @@ class HTMLDataListElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLOptGroupElement extends HTMLElement {
+class HTMLOptGroupElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLOptGroupElement();
 
   ///  Is a [boolean] representing whether or not the whole list of
@@ -3601,7 +3674,8 @@ class HTMLOptGroupElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLOptionElement extends HTMLElement {
+class HTMLOptionElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLOptionElement();
 
   ///  Has a value of either [true] or [false] representing the value
@@ -3658,7 +3732,8 @@ class HTMLOptionElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTextAreaElement extends HTMLElement {
+class HTMLTextAreaElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTextAreaElement();
   external String get autocomplete;
   external set autocomplete(String newValue);
@@ -3722,7 +3797,8 @@ class HTMLTextAreaElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLOutputElement extends HTMLElement {
+class HTMLOutputElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLOutputElement();
 
   ///  A [DOMTokenList] reflecting the [for] HTML attribute, containing
@@ -3795,7 +3871,8 @@ class HTMLOutputElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLProgressElement extends HTMLElement {
+class HTMLProgressElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLProgressElement();
 
   ///  Is a [double] value that reflects the current value; if the
@@ -3829,7 +3906,8 @@ class HTMLProgressElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLMeterElement extends HTMLElement {
+class HTMLMeterElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLMeterElement();
 
   ///  A [double] representing the currrent value, reflecting the
@@ -3875,7 +3953,8 @@ class HTMLMeterElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLFieldSetElement extends HTMLElement {
+class HTMLFieldSetElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLFieldSetElement();
 
   ///  A [Boolean] reflecting the HTML attribute, indicating whether
@@ -3942,7 +4021,8 @@ class HTMLFieldSetElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLLegendElement extends HTMLElement {
+class HTMLLegendElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLLegendElement();
 
   ///  Is a [HTMLFormElement] representing the form that this legend
@@ -4042,8 +4122,10 @@ class ValidityState {
 /// an HTML form's [submit] event. This event is fired at the
 /// [<form>] when the form's submit action is invoked.
 @JS()
-class SubmitEvent extends Event {
-  external factory SubmitEvent({String type, SubmitEventInit? eventInitDict});
+class SubmitEvent // null -> {} -> Event
+    with
+        Event {
+  external factory SubmitEvent(String type, [SubmitEventInit? eventInitDict]);
 
   ///  An [HTMLElement] object which identifies the button or other
   /// element which was invoked to trigger the form being submitted.
@@ -4052,7 +4134,9 @@ class SubmitEvent extends Event {
 
 @anonymous
 @JS()
-class SubmitEventInit extends EventInit {
+class SubmitEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external HTMLElement? get submitter;
   external set submitter(HTMLElement? newValue);
 
@@ -4073,9 +4157,10 @@ class SubmitEventInit extends EventInit {
 /// method like [XMLHttpRequest] (see Using FormData objects).
 @experimental
 @JS()
-class FormDataEvent extends Event {
-  external factory FormDataEvent(
-      {String type, FormDataEventInit eventInitDict});
+class FormDataEvent // null -> {} -> Event
+    with
+        Event {
+  external factory FormDataEvent(String type, FormDataEventInit eventInitDict);
 
   ///  Contains the [FormData] object representing the data contained
   /// in the form when the event was fired.
@@ -4084,7 +4169,9 @@ class FormDataEvent extends Event {
 
 @anonymous
 @JS()
-class FormDataEventInit extends EventInit {
+class FormDataEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external FormData get formData;
   external set formData(FormData newValue);
 
@@ -4099,7 +4186,8 @@ class FormDataEventInit extends EventInit {
 ///
 ///
 @JS()
-class HTMLDetailsElement extends HTMLElement {
+class HTMLDetailsElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLDetailsElement();
 
   ///  Is a [boolean] reflecting the HTML attribute, indicating whether
@@ -4120,7 +4208,8 @@ class HTMLDetailsElement extends HTMLElement {
 ///
 @experimental
 @JS()
-class HTMLDialogElement extends HTMLElement {
+class HTMLDialogElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLDialogElement();
 
   ///  A [Boolean] reflecting the HTML attribute, indicating whether
@@ -4167,7 +4256,8 @@ class HTMLDialogElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLScriptElement extends HTMLElement {
+class HTMLScriptElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLScriptElement();
 
   ///  Is a [DOMString] representing the URL of an external script. It
@@ -4261,7 +4351,8 @@ class HTMLScriptElement extends HTMLElement {
 ///
 ///
 @JS()
-class HTMLTemplateElement extends HTMLElement {
+class HTMLTemplateElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLTemplateElement();
 
   ///  A read-only [DocumentFragment] which contains the DOM subtree
@@ -4274,7 +4365,8 @@ class HTMLTemplateElement extends HTMLElement {
 ///  The interface of the Shadow DOM API enables access to the name
 /// and assigned nodes of an HTML [<slot>] element.
 @JS()
-class HTMLSlotElement extends HTMLElement {
+class HTMLSlotElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLSlotElement();
 
   /// [DOMString]: Can be used to get and set the slot's name.
@@ -4316,7 +4408,8 @@ class AssignedNodesOptions {
 ///
 ///
 @JS()
-class HTMLCanvasElement extends HTMLElement {
+class HTMLCanvasElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLCanvasElement();
 
   ///  The HTML attribute of the [<canvas>] element is a positive
@@ -4885,8 +4978,8 @@ class ImageDataSettings {
 ///
 @JS()
 class ImageData {
-  external factory ImageData(
-      {Uint8ClampedList data, int sw, int? sh, ImageDataSettings? settings});
+  external factory ImageData(Uint8ClampedList data, int sw,
+      [int? sh, ImageDataSettings? settings]);
 
   ///  Is an [unsigned long] representing the actual width, in pixels,
   /// of the [ImageData].
@@ -4914,7 +5007,7 @@ class ImageData {
 /// being able to retain and replay your path whenever desired.
 @JS()
 class Path2D with CanvasPath {
-  external factory Path2D({dynamic path});
+  external factory Path2D([dynamic path]);
 
   /// Adds a path to the current path.
   /// void path.addPath(path [, transform]);
@@ -4991,8 +5084,10 @@ enum OffscreenRenderingContextId {
 ///
 @experimental
 @JS()
-class OffscreenCanvas extends EventTarget {
-  external factory OffscreenCanvas({int width, int height});
+class OffscreenCanvas // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory OffscreenCanvas(int width, int height);
 
   /// The width of the offscreen canvas.
   external int get width;
@@ -5557,8 +5652,9 @@ class DataTransferItem {
 ///  This interface inherits properties from [MouseEvent] and
 /// [Event].
 @JS()
-class DragEvent extends MouseEvent {
-  external factory DragEvent({String type, DragEventInit? eventInitDict});
+class DragEvent // UIEvent -> {} -> MouseEvent
+    extends MouseEvent {
+  external factory DragEvent(String type, [DragEventInit? eventInitDict]);
 
   /// The data that is transferred during a drag and drop interaction.
   external DataTransfer? get dataTransfer;
@@ -5566,7 +5662,8 @@ class DragEvent extends MouseEvent {
 
 @anonymous
 @JS()
-class DragEventInit extends MouseEventInit {
+class DragEventInit // EventModifierInit -> {} -> MouseEventInit
+    extends MouseEventInit {
   external DataTransfer? get dataTransfer;
   external set dataTransfer(DataTransfer? newValue);
 
@@ -5600,8 +5697,9 @@ class DragEventInit extends MouseEventInit {
 ///
 ///
 @JS()
-class Window extends EventTarget
+class Window // null -> {} -> EventTarget
     with
+        EventTarget,
         GlobalEventHandlers,
         WindowEventHandlers,
         WindowOrWorkerGlobalScope,
@@ -5926,7 +6024,9 @@ class Window extends EventTarget
 
 @anonymous
 @JS()
-class WindowPostMessageOptions extends PostMessageOptions {
+class WindowPostMessageOptions // null -> {} -> PostMessageOptions
+    with
+        PostMessageOptions {
   external String get targetOrigin;
   external set targetOrigin(String newValue);
 
@@ -6137,15 +6237,19 @@ class Location {
 ///   version 10.0.
 ///
 @JS()
-class PopStateEvent extends Event {
-  external factory PopStateEvent(
-      {String type, PopStateEventInit? eventInitDict});
+class PopStateEvent // null -> {} -> Event
+    with
+        Event {
+  external factory PopStateEvent(String type,
+      [PopStateEventInit? eventInitDict]);
   external dynamic get state;
 }
 
 @anonymous
 @JS()
-class PopStateEventInit extends EventInit {
+class PopStateEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external dynamic get state;
   external set state(dynamic newValue);
 
@@ -6162,9 +6266,11 @@ class PopStateEventInit extends EventInit {
 ///
 ///
 @JS()
-class HashChangeEvent extends Event {
-  external factory HashChangeEvent(
-      {String type, HashChangeEventInit? eventInitDict});
+class HashChangeEvent // null -> {} -> Event
+    with
+        Event {
+  external factory HashChangeEvent(String type,
+      [HashChangeEventInit? eventInitDict]);
 
   /// The previous URL from which the window was navigated.
   external String get oldURL;
@@ -6175,7 +6281,9 @@ class HashChangeEvent extends Event {
 
 @anonymous
 @JS()
-class HashChangeEventInit extends EventInit {
+class HashChangeEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String get oldURL;
   external set oldURL(String newValue);
   external String get newURL;
@@ -6193,9 +6301,11 @@ class HashChangeEventInit extends EventInit {
 ///
 ///
 @JS()
-class PageTransitionEvent extends Event {
-  external factory PageTransitionEvent(
-      {String type, PageTransitionEventInit? eventInitDict});
+class PageTransitionEvent // null -> {} -> Event
+    with
+        Event {
+  external factory PageTransitionEvent(String type,
+      [PageTransitionEventInit? eventInitDict]);
 
   /// Indicates if the document is loading from a cache.
   external bool get persisted;
@@ -6203,7 +6313,9 @@ class PageTransitionEvent extends Event {
 
 @anonymous
 @JS()
-class PageTransitionEventInit extends EventInit {
+class PageTransitionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external bool get persisted;
   external set persisted(bool newValue);
 
@@ -6244,7 +6356,9 @@ class PageTransitionEventInit extends EventInit {
 ///
 ///
 @JS()
-class BeforeUnloadEvent extends Event {
+class BeforeUnloadEvent // null -> {} -> Event
+    with
+        Event {
   @override
   external String get returnValue;
   @override
@@ -6260,8 +6374,10 @@ class BeforeUnloadEvent extends Event {
 ///
 ///
 @JS()
-class ErrorEvent extends Event {
-  external factory ErrorEvent({String type, ErrorEventInit? eventInitDict});
+class ErrorEvent // null -> {} -> Event
+    with
+        Event {
+  external factory ErrorEvent(String type, [ErrorEventInit? eventInitDict]);
 
   ///  Is a [DOMString] containing a human-readable error message
   /// describing the problem.
@@ -6286,7 +6402,9 @@ class ErrorEvent extends Event {
 
 @anonymous
 @JS()
-class ErrorEventInit extends EventInit {
+class ErrorEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String get message;
   external set message(String newValue);
   external String get filename;
@@ -6318,9 +6436,11 @@ class ErrorEventInit extends EventInit {
 ///
 ///
 @JS()
-class PromiseRejectionEvent extends Event {
+class PromiseRejectionEvent // null -> {} -> Event
+    with
+        Event {
   external factory PromiseRejectionEvent(
-      {String type, PromiseRejectionEventInit eventInitDict});
+      String type, PromiseRejectionEventInit eventInitDict);
 
   /// The JavaScript [Promise] that was rejected.
   external Promise<dynamic> get promise;
@@ -6332,7 +6452,9 @@ class PromiseRejectionEvent extends Event {
 
 @anonymous
 @JS()
-class PromiseRejectionEventInit extends EventInit {
+class PromiseRejectionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external Promise<dynamic> get promise;
   external set promise(Promise<dynamic> newValue);
   external dynamic get reason;
@@ -7073,8 +7195,10 @@ mixin AnimationFrameProvider {
 ///
 ///
 @JS()
-class MessageEvent extends Event {
-  external factory MessageEvent({String type, MessageEventInit? eventInitDict});
+class MessageEvent // null -> {} -> Event
+    with
+        Event {
+  external factory MessageEvent(String type, [MessageEventInit? eventInitDict]);
 
   /// The data sent by the message emitter.
   external dynamic get data;
@@ -7111,7 +7235,9 @@ class MessageEvent extends Event {
 
 @anonymous
 @JS()
-class MessageEventInit extends EventInit {
+class MessageEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external dynamic get data;
   external set data(dynamic newValue);
   external String get origin;
@@ -7164,9 +7290,11 @@ class MessageEventInit extends EventInit {
 /// the server and the client (defaults to 100).
 ///
 @JS()
-class EventSource extends EventTarget {
-  external factory EventSource(
-      {String url, EventSourceInit? eventSourceInitDict});
+class EventSource // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory EventSource(String url,
+      [EventSourceInit? eventSourceInitDict]);
 
   /// A [DOMString] representing the URL of the source.
   external String get url;
@@ -7218,8 +7346,10 @@ enum BinaryType { blob, arraybuffer }
 ///  Note: This feature is available in Web Workers
 ///
 @JS()
-class WebSocket extends EventTarget {
-  external factory WebSocket({String url, dynamic protocols = const []});
+class WebSocket // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory WebSocket(String url, [dynamic protocols = const []]);
 
   /// The absolute URL of the WebSocket.
   external String get url;
@@ -7270,8 +7400,10 @@ class WebSocket extends EventTarget {
 /// closed. This is delivered to the listener indicated by the
 /// [WebSocket] object's [onclose] attribute.
 @JS()
-class CloseEvent extends Event {
-  external factory CloseEvent({String type, CloseEventInit? eventInitDict});
+class CloseEvent // null -> {} -> Event
+    with
+        Event {
+  external factory CloseEvent(String type, [CloseEventInit? eventInitDict]);
 
   ///  Returns a [Boolean] that Indicates whether or not the connection
   /// was cleanly closed.
@@ -7437,7 +7569,9 @@ class CloseEvent extends Event {
 
 @anonymous
 @JS()
-class CloseEventInit extends EventInit {
+class CloseEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external bool get wasClean;
   external set wasClean(bool newValue);
   external int get code;
@@ -7475,7 +7609,9 @@ class MessageChannel {
 ///  Note: This feature is available in Web Workers
 ///
 @JS()
-class MessagePort extends EventTarget {
+class MessagePort // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Sends a message from the port, and optionally, transfers
   /// ownership of objects to other browsing contexts.
   /// port.postMessage(message, transferList);
@@ -7581,8 +7717,10 @@ class PostMessageOptions {
 ///
 @experimental
 @JS()
-class BroadcastChannel extends EventTarget {
-  external factory BroadcastChannel({String name});
+class BroadcastChannel // null -> {} -> EventTarget
+    with
+        EventTarget {
+  external factory BroadcastChannel(String name);
 
   /// Returns a [DOMString], the name of the channel.
   external String get name;
@@ -7627,8 +7765,11 @@ class BroadcastChannel extends EventTarget {
 /// [ServiceWorkerGlobalScope] for ServiceWorker. The [self] property
 /// returns the specialized scope for each context.
 @JS()
-class WorkerGlobalScope extends EventTarget
-    with FontFaceSource, WindowOrWorkerGlobalScope {
+class WorkerGlobalScope // null -> {} -> EventTarget
+    with
+        EventTarget,
+        FontFaceSource,
+        WindowOrWorkerGlobalScope {
   external WorkerGlobalScope get self;
   external WorkerLocation get location;
   external WorkerNavigator get navigator;
@@ -7657,8 +7798,8 @@ class WorkerGlobalScope extends EventTarget
 /// worker global scope, but available on it, are listed in the
 /// JavaScript Reference. See also: Functions available to workers.
 @JS()
-class DedicatedWorkerGlobalScope extends WorkerGlobalScope
-    with AnimationFrameProvider {
+class DedicatedWorkerGlobalScope // EventTarget -> {css_font_loading_3: {FontFaceSource, WindowOrWorkerGlobalScope}, html: {WindowOrWorkerGlobalScope}} -> WorkerGlobalScope
+    extends WorkerGlobalScope with AnimationFrameProvider {
   ///  The name that the [Worker] was (optionally) given when it was
   /// created using the [Worker()] constructor. This is mainly useful
   /// for debugging purposes.
@@ -7713,7 +7854,8 @@ class DedicatedWorkerGlobalScope extends WorkerGlobalScope
 /// the JavaScript Reference. See the complete list of functions
 /// available to workers.
 @JS()
-class SharedWorkerGlobalScope extends WorkerGlobalScope {
+class SharedWorkerGlobalScope // EventTarget -> {css_font_loading_3: {FontFaceSource, WindowOrWorkerGlobalScope}, html: {WindowOrWorkerGlobalScope}} -> WorkerGlobalScope
+    extends WorkerGlobalScope {
   ///  The name that the [SharedWorker] was (optionally) given when it
   /// was created using the [SharedWorker()] constructor. This is
   /// mainly useful for debugging purposes.
@@ -7758,8 +7900,11 @@ mixin AbstractWorker {
 /// but its [responseXML] and [channel] attributes are always [null].
 /// ([fetch] is also available, with no such restrictions.)
 @JS()
-class Worker extends EventTarget with AbstractWorker {
-  external factory Worker({String scriptURL, WorkerOptions? options});
+class Worker // null -> {} -> EventTarget
+    with
+        EventTarget,
+        AbstractWorker {
+  external factory Worker(String scriptURL, [WorkerOptions? options]);
 
   ///  Immediately terminates the worker. This does not let worker
   /// finish its operations; it is halted at once. [ServiceWorker]
@@ -7830,8 +7975,11 @@ enum WorkerType { classic, module }
 /// origin (same protocol, host and port).
 ///
 @JS()
-class SharedWorker extends EventTarget with AbstractWorker {
-  external factory SharedWorker({String scriptURL, dynamic options});
+class SharedWorker // null -> {} -> EventTarget
+    with
+        EventTarget,
+        AbstractWorker {
+  external factory SharedWorker(String scriptURL, [dynamic options]);
 
   ///  Returns a [MessagePort] object used to communicate with and
   /// control the shared worker.
@@ -8081,8 +8229,10 @@ mixin WindowLocalStorage {
 ///
 ///
 @JS()
-class StorageEvent extends Event {
-  external factory StorageEvent({String type, StorageEventInit? eventInitDict});
+class StorageEvent // null -> {} -> Event
+    with
+        Event {
+  external factory StorageEvent(String type, [StorageEventInit? eventInitDict]);
   external String? get key;
   external String? get oldValue;
   external String? get newValue;
@@ -8100,7 +8250,9 @@ class StorageEvent extends Event {
 
 @anonymous
 @JS()
-class StorageEventInit extends EventInit {
+class StorageEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String? get key;
   external set key(String? newValue);
   external String? get oldValue;
@@ -8143,7 +8295,8 @@ class StorageEventInit extends EventInit {
 ///
 @deprecated
 @JS()
-class HTMLMarqueeElement extends HTMLElement {
+class HTMLMarqueeElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLMarqueeElement();
 
   ///  Sets how the text is scrolled within the marquee. Possible
@@ -8226,7 +8379,8 @@ class HTMLMarqueeElement extends HTMLElement {
 /// manipulating [<frameset>] elements.
 @deprecated
 @JS()
-class HTMLFrameSetElement extends HTMLElement with WindowEventHandlers {
+class HTMLFrameSetElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement with WindowEventHandlers {
   external factory HTMLFrameSetElement();
 
   ///  Is a [DOMString] structured as a comma-separated list specifying
@@ -8243,7 +8397,8 @@ class HTMLFrameSetElement extends HTMLElement with WindowEventHandlers {
 }
 
 @JS()
-class HTMLFrameElement extends HTMLElement {
+class HTMLFrameElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLFrameElement();
   external String get name;
   external set name(String newValue);
@@ -8266,7 +8421,8 @@ class HTMLFrameElement extends HTMLElement {
 }
 
 @JS()
-class HTMLDirectoryElement extends HTMLElement {
+class HTMLDirectoryElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLDirectoryElement();
   external bool get compact;
   external set compact(bool newValue);
@@ -8289,7 +8445,8 @@ class HTMLDirectoryElement extends HTMLElement {
 /// size, font face and color of text.
 @deprecated
 @JS()
-class HTMLFontElement extends HTMLElement {
+class HTMLFontElement // Element -> {html: {GlobalEventHandlers, DocumentAndElementEventHandlers, ElementContentEditable, HTMLOrSVGElement, ElementCSSInlineStyle}, cssom_1: {ElementCSSInlineStyle}} -> HTMLElement
+    extends HTMLElement {
   external factory HTMLFontElement();
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing

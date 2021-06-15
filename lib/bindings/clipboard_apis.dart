@@ -16,7 +16,9 @@ import 'permissions.dart';
 
 @anonymous
 @JS()
-class ClipboardEventInit extends EventInit {
+class ClipboardEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external DataTransfer? get clipboardData;
   external set clipboardData(DataTransfer? newValue);
 
@@ -32,9 +34,11 @@ class ClipboardEventInit extends EventInit {
 /// events.
 @experimental
 @JS()
-class ClipboardEvent extends Event {
-  external factory ClipboardEvent(
-      {String type, ClipboardEventInit? eventInitDict});
+class ClipboardEvent // null -> {} -> Event
+    with
+        Event {
+  external factory ClipboardEvent(String type,
+      [ClipboardEventInit? eventInitDict]);
 
   ///  Is a [DataTransfer] object containing the data affected by the
   /// user-initiated [cut], [copy], or [paste] operation, along with
@@ -76,7 +80,9 @@ class ClipboardEvent extends Event {
 /// these interfaces.
 ///
 @JS()
-class Clipboard extends EventTarget {
+class Clipboard // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Requests arbitrary data (such as images) from the clipboard,
   /// returning a [Promise]. When the data has been retrieved, the
   /// promise is resolved with a [DataTransfer] object that provides
@@ -190,8 +196,8 @@ class Clipboard extends EventTarget {
 ///
 @JS()
 class ClipboardItem {
-  external factory ClipboardItem(
-      {dynamic items, ClipboardItemOptions? options});
+  external factory ClipboardItem(dynamic items,
+      [ClipboardItemOptions? options]);
   external static ClipboardItem createDelayed(dynamic items,
       [ClipboardItemOptions? options]);
 
@@ -226,7 +232,9 @@ class ClipboardItemOptions {
 
 @anonymous
 @JS()
-class ClipboardPermissionDescriptor extends PermissionDescriptor {
+class ClipboardPermissionDescriptor // null -> {} -> PermissionDescriptor
+    with
+        PermissionDescriptor {
   external bool get allowWithoutGesture;
   external set allowWithoutGesture(bool newValue);
 

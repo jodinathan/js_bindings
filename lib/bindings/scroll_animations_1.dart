@@ -39,8 +39,10 @@ class ScrollTimelineOptions {
 }
 
 @JS()
-class ScrollTimeline extends AnimationTimeline {
-  external factory ScrollTimeline({ScrollTimelineOptions? options});
+class ScrollTimeline // null -> {} -> AnimationTimeline
+    with
+        AnimationTimeline {
+  external factory ScrollTimeline([ScrollTimelineOptions? options]);
   external Element? get source;
   external ScrollDirection get orientation;
   external Iterable<dynamic> get scrollOffsets;
@@ -65,7 +67,9 @@ class ElementBasedOffset {
 }
 
 @JS()
-class CSSScrollTimelineRule extends CSSRule {
+class CSSScrollTimelineRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   external String get name;
   external String get source;
   external String get orientation;

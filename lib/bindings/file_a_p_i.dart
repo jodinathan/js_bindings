@@ -29,7 +29,7 @@ import 'media_source.dart';
 @JS()
 class Blob {
   external factory Blob(
-      {Iterable<dynamic>? blobParts, BlobPropertyBag? options});
+      [Iterable<dynamic>? blobParts, BlobPropertyBag? options]);
   external int get size;
   external String get type;
   external Blob slice([int? start, int? end, String? contentType]);
@@ -74,9 +74,11 @@ class BlobPropertyBag {
 ///
 ///
 @JS()
-class File extends Blob {
-  external factory File(
-      {Iterable<dynamic> fileBits, String fileName, FilePropertyBag? options});
+class File // null -> {} -> Blob
+    with
+        Blob {
+  external factory File(Iterable<dynamic> fileBits, String fileName,
+      [FilePropertyBag? options]);
   external String get name;
   external int get lastModified;
   external String get webkitRelativePath;
@@ -84,7 +86,9 @@ class File extends Blob {
 
 @anonymous
 @JS()
-class FilePropertyBag extends BlobPropertyBag {
+class FilePropertyBag // null -> {} -> BlobPropertyBag
+    with
+        BlobPropertyBag {
   external int get lastModified;
   external set lastModified(int newValue);
 
@@ -135,7 +139,9 @@ class FileList {
 ///  Note: This feature is available in Web Workers
 ///
 @JS()
-class FileReader extends EventTarget {
+class FileReader // null -> {} -> EventTarget
+    with
+        EventTarget {
   external factory FileReader();
 
   ///  Starts reading the contents of the specified [Blob], once

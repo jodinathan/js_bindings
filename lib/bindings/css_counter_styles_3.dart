@@ -14,7 +14,9 @@ import 'cssom_1.dart';
 ///
 /// The interface represents an [@counter-style] at-rule.
 @JS()
-class CSSCounterStyleRule extends CSSRule {
+class CSSCounterStyleRule // null -> {} -> CSSRule
+    with
+        CSSRule {
   ///  Is a [DOMString] object that contains the serialization of the
   /// [<counter-style-name>] defined for the associated rule.
   external String get name;

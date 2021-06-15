@@ -304,8 +304,9 @@ class PushMessageData {
 /// [ServiceWorker]. It contains the information sent from an
 /// application server to a [PushSubscription].
 @JS()
-class PushEvent extends ExtendableEvent {
-  external factory PushEvent({String type, PushEventInit? eventInitDict});
+class PushEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory PushEvent(String type, [PushEventInit? eventInitDict]);
 
   ///  Returns a reference to a [PushMessageData] object containing
   /// data sent to the [PushSubscription].
@@ -314,7 +315,8 @@ class PushEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class PushEventInit extends ExtendableEventInit {
+class PushEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external dynamic get data;
   external set data(dynamic newValue);
 
@@ -322,16 +324,18 @@ class PushEventInit extends ExtendableEventInit {
 }
 
 @JS()
-class PushSubscriptionChangeEvent extends ExtendableEvent {
-  external factory PushSubscriptionChangeEvent(
-      {String type, PushSubscriptionChangeEventInit? eventInitDict});
+class PushSubscriptionChangeEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory PushSubscriptionChangeEvent(String type,
+      [PushSubscriptionChangeEventInit? eventInitDict]);
   external PushSubscription? get newSubscription;
   external PushSubscription? get oldSubscription;
 }
 
 @anonymous
 @JS()
-class PushSubscriptionChangeEventInit extends ExtendableEventInit {
+class PushSubscriptionChangeEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external PushSubscription get newSubscription;
   external set newSubscription(PushSubscription newValue);
   external PushSubscription get oldSubscription;

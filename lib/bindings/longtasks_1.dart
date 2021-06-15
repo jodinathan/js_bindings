@@ -20,7 +20,9 @@ import 'performance_timeline_2.dart';
 ///
 ///
 @JS()
-class PerformanceLongTaskTiming extends PerformanceEntry {
+class PerformanceLongTaskTiming // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   /// Returns a sequence of [TaskAttributionTiming] instances.
   external Iterable<TaskAttributionTiming> get attribution;
   @override
@@ -42,7 +44,9 @@ class PerformanceLongTaskTiming extends PerformanceEntry {
 ///
 @experimental
 @JS()
-class TaskAttributionTiming extends PerformanceEntry {
+class TaskAttributionTiming // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   ///  Returns the type of frame container, one of [iframe], [embed],
   /// or [object].
   external String get containerType;

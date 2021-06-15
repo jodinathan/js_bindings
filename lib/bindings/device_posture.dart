@@ -12,7 +12,9 @@ import 'html.dart';
 import 'dom.dart';
 
 @JS()
-class DevicePosture extends EventTarget {
+class DevicePosture // null -> {} -> EventTarget
+    with
+        EventTarget {
   external DevicePostureType get type;
   external EventHandlerNonNull? get onchange;
   external set onchange(EventHandlerNonNull? newValue);

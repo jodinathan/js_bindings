@@ -45,7 +45,9 @@ class HIDDeviceRequestOptions {
 /// listing attached HID devices and event handlers for connected HID
 /// devices.
 @JS()
-class HID extends EventTarget {
+class HID // null -> {} -> EventTarget
+    with
+        EventTarget {
   external EventHandlerNonNull? get onconnect;
   external set onconnect(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get ondisconnect;
@@ -70,7 +72,9 @@ class HID extends EventTarget {
 
 @anonymous
 @JS()
-class HIDConnectionEventInit extends EventInit {
+class HIDConnectionEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external HIDDevice get device;
   external set device(HIDDevice newValue);
 
@@ -78,15 +82,19 @@ class HIDConnectionEventInit extends EventInit {
 }
 
 @JS()
-class HIDConnectionEvent extends Event {
+class HIDConnectionEvent // null -> {} -> Event
+    with
+        Event {
   external factory HIDConnectionEvent(
-      {String type, HIDConnectionEventInit eventInitDict});
+      String type, HIDConnectionEventInit eventInitDict);
   external HIDDevice get device;
 }
 
 @anonymous
 @JS()
-class HIDInputReportEventInit extends EventInit {
+class HIDInputReportEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external HIDDevice get device;
   external set device(HIDDevice newValue);
   external int get reportId;
@@ -99,9 +107,11 @@ class HIDInputReportEventInit extends EventInit {
 }
 
 @JS()
-class HIDInputReportEvent extends Event {
+class HIDInputReportEvent // null -> {} -> Event
+    with
+        Event {
   external factory HIDInputReportEvent(
-      {String type, HIDInputReportEventInit eventInitDict});
+      String type, HIDInputReportEventInit eventInitDict);
   external HIDDevice get device;
   external int get reportId;
   external ByteData get data;
@@ -254,7 +264,9 @@ class HIDCollectionInfo {
 }
 
 @JS()
-class HIDDevice extends EventTarget {
+class HIDDevice // null -> {} -> EventTarget
+    with
+        EventTarget {
   external EventHandlerNonNull? get oninputreport;
   external set oninputreport(EventHandlerNonNull? newValue);
   external bool get opened;

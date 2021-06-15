@@ -13,7 +13,9 @@ import 'reporting_1.dart';
 import 'dom.dart';
 
 @JS()
-class CSPViolationReportBody extends ReportBody {
+class CSPViolationReportBody // null -> {} -> ReportBody
+    with
+        ReportBody {
   external String get documentURL;
   external String? get referrer;
   external String? get blockedURL;
@@ -41,9 +43,11 @@ enum SecurityPolicyViolationEventDisposition { enforce, report }
 /// security policy is violated.
 @experimental
 @JS()
-class SecurityPolicyViolationEvent extends Event {
-  external factory SecurityPolicyViolationEvent(
-      {String type, SecurityPolicyViolationEventInit? eventInitDict});
+class SecurityPolicyViolationEvent // null -> {} -> Event
+    with
+        Event {
+  external factory SecurityPolicyViolationEvent(String type,
+      [SecurityPolicyViolationEventInit? eventInitDict]);
   external String get documentURL;
 
   ///  A [USVString] representing the URI of the document or worker in
@@ -103,7 +107,9 @@ class SecurityPolicyViolationEvent extends Event {
 
 @anonymous
 @JS()
-class SecurityPolicyViolationEventInit extends EventInit {
+class SecurityPolicyViolationEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String get documentURL;
   external set documentURL(String newValue);
   external String get referrer;

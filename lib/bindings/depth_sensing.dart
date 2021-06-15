@@ -52,7 +52,9 @@ class XRDepthInformation {
 }
 
 @JS()
-class XRCPUDepthInformation extends XRDepthInformation {
+class XRCPUDepthInformation // null -> {} -> XRDepthInformation
+    with
+        XRDepthInformation {
   external ByteBuffer get data;
   external double getDepthInMeters(double x, double y);
 
@@ -60,7 +62,9 @@ class XRCPUDepthInformation extends XRDepthInformation {
 }
 
 @JS()
-class XRWebGLDepthInformation extends XRDepthInformation {
+class XRWebGLDepthInformation // null -> {} -> XRDepthInformation
+    with
+        XRDepthInformation {
   external WebGLTexture get texture;
 
   external factory XRWebGLDepthInformation();

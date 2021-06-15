@@ -42,7 +42,10 @@ import 'background_sync.dart';
 /// [fetch]. A object has an associated [ServiceWorker.state],
 /// related to its lifecycle.
 @JS()
-class ServiceWorker extends EventTarget with AbstractWorker {
+class ServiceWorker // null -> {} -> EventTarget
+    with
+        EventTarget,
+        AbstractWorker {
   ///  Returns the [ServiceWorker] serialized script URL defined as
   /// part of [ServiceWorkerRegistration]. The URL must be on the same
   /// origin as the document that registers the [ServiceWorker].
@@ -82,7 +85,9 @@ enum ServiceWorkerState {
 /// Note: This feature is available in Web Workers.
 ///
 @JS()
-class ServiceWorkerRegistration extends EventTarget {
+class ServiceWorkerRegistration // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a service worker whose state is . This is initially set
   /// to [null].
   external ServiceWorker? get installing;
@@ -183,7 +188,9 @@ enum ServiceWorkerUpdateViaCache { imports, all, none }
 /// property used to determine whether or not the current page is
 /// actively controlled.
 @JS()
-class ServiceWorkerContainer extends EventTarget {
+class ServiceWorkerContainer // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a [ServiceWorker] object if its state is [activating] or
   /// [activated] (the same object returned by
   /// [ServiceWorkerRegistration.active]). This property returns [null]
@@ -288,7 +295,8 @@ class RegistrationOptions {
 ///
 ///
 @JS()
-class ServiceWorkerGlobalScope extends WorkerGlobalScope {
+class ServiceWorkerGlobalScope // EventTarget -> {css_font_loading_3: {FontFaceSource}, html: {WindowOrWorkerGlobalScope}} -> WorkerGlobalScope
+    extends WorkerGlobalScope {
   ///  Contains the [Clients] object associated with the service
   /// worker.
   external Clients get clients;
@@ -401,7 +409,9 @@ class Client {
 /// loading and sub-resources.
 @experimental
 @JS()
-class WindowClient extends Client {
+class WindowClient // null -> {} -> Client
+    with
+        Client {
   ///  Indicates the visibility of the current client. This value can
   /// be one of ["hidden"], ["visible"], or ["prerender"].
   external VisibilityState get visibilityState;
@@ -534,9 +544,11 @@ enum ClientType { window, worker, sharedworker, all }
 ///
 @experimental
 @JS()
-class ExtendableEvent extends Event {
-  external factory ExtendableEvent(
-      {String type, ExtendableEventInit? eventInitDict});
+class ExtendableEvent // null -> {} -> Event
+    with
+        Event {
+  external factory ExtendableEvent(String type,
+      [ExtendableEventInit? eventInitDict]);
 
   ///  Extends the lifetime of the event. It is intended to be called
   /// in the [install] [event handler] for the [installing] worker and
@@ -560,7 +572,9 @@ class ExtendableEvent extends Event {
 
 @anonymous
 @JS()
-class ExtendableEventInit extends EventInit {
+class ExtendableEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external factory ExtendableEventInit();
 }
 
@@ -572,8 +586,9 @@ class ExtendableEventInit extends EventInit {
 /// response. It provides the [event.respondWith()] method, which
 /// allows us to provide a response to this fetch.
 @JS()
-class FetchEvent extends ExtendableEvent {
-  external factory FetchEvent({String type, FetchEventInit eventInitDict});
+class FetchEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory FetchEvent(String type, FetchEventInit eventInitDict);
 
   /// The [Request] the browser intends to make.
   external Request get request;
@@ -604,7 +619,8 @@ class FetchEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class FetchEventInit extends ExtendableEventInit {
+class FetchEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external Request get request;
   external set request(Request newValue);
   external Promise<dynamic> get preloadResponse;
@@ -637,9 +653,10 @@ class FetchEventInit extends ExtendableEventInit {
 /// This interface inherits from the [ExtendableEvent] interface.
 @experimental
 @JS()
-class ExtendableMessageEvent extends ExtendableEvent {
-  external factory ExtendableMessageEvent(
-      {String type, ExtendableMessageEventInit? eventInitDict});
+class ExtendableMessageEvent // Event -> {} -> ExtendableEvent
+    extends ExtendableEvent {
+  external factory ExtendableMessageEvent(String type,
+      [ExtendableMessageEventInit? eventInitDict]);
 
   /// Returns the event's data. It can be any data type.
   external dynamic get data;
@@ -662,7 +679,8 @@ class ExtendableMessageEvent extends ExtendableEvent {
 
 @anonymous
 @JS()
-class ExtendableMessageEventInit extends ExtendableEventInit {
+class ExtendableMessageEventInit // EventInit -> {} -> ExtendableEventInit
+    extends ExtendableEventInit {
   external dynamic get data;
   external set data(dynamic newValue);
   external String get origin;
@@ -850,7 +868,9 @@ class CacheStorage {
 
 @anonymous
 @JS()
-class MultiCacheQueryOptions extends CacheQueryOptions {
+class MultiCacheQueryOptions // null -> {} -> CacheQueryOptions
+    with
+        CacheQueryOptions {
   external String get cacheName;
   external set cacheName(String newValue);
 

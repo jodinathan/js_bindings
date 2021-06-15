@@ -20,7 +20,8 @@ import 'cssom_1.dart';
 ///
 ///
 @JS()
-class CSSConditionRule extends CSSGroupingRule {
+class CSSConditionRule // CSSRule -> {} -> CSSGroupingRule
+    extends CSSGroupingRule {
   /// Represents the text of the condition of the rule.
   external String get conditionText;
   external set conditionText(String newValue);
@@ -34,7 +35,8 @@ class CSSConditionRule extends CSSGroupingRule {
 ///
 ///
 @JS()
-class CSSMediaRule extends CSSConditionRule {
+class CSSMediaRule // CSSGroupingRule -> {} -> CSSConditionRule
+    extends CSSConditionRule {
   ///  Returns a [MediaList] representing the intended destination
   /// medium for style information.
   external MediaList get media;
@@ -48,6 +50,7 @@ class CSSMediaRule extends CSSConditionRule {
 ///
 ///
 @JS()
-class CSSSupportsRule extends CSSConditionRule {
+class CSSSupportsRule // CSSGroupingRule -> {} -> CSSConditionRule
+    extends CSSConditionRule {
   external factory CSSSupportsRule();
 }

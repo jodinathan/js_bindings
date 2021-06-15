@@ -49,7 +49,7 @@ class ResizeObserverOptions {
 @experimental
 @JS()
 class ResizeObserver {
-  external factory ResizeObserver({ResizeObserverCallback callback});
+  external factory ResizeObserver(ResizeObserverCallback callback);
 
   /// Initiates the observing of a specified [Element].
   /// resizeObserver.observe(target, options);

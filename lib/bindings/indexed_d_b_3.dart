@@ -43,7 +43,9 @@ import 'html.dart';
 ///
 ///
 @JS()
-class IDBRequest extends EventTarget {
+class IDBRequest // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns the result of the request. If the request failed and the
   /// result is not available, an InvalidStateError exception is
   /// thrown.
@@ -91,7 +93,8 @@ enum IDBRequestReadyState { pending, done }
 ///
 ///
 @JS()
-class IDBOpenDBRequest extends IDBRequest {
+class IDBOpenDBRequest // EventTarget -> {} -> IDBRequest
+    extends IDBRequest {
   external EventHandlerNonNull? get onblocked;
   external set onblocked(EventHandlerNonNull? newValue);
   external EventHandlerNonNull? get onupgradeneeded;
@@ -108,9 +111,11 @@ class IDBOpenDBRequest extends IDBRequest {
 ///  Note: This feature is available in Web Workers
 ///
 @JS()
-class IDBVersionChangeEvent extends Event {
-  external factory IDBVersionChangeEvent(
-      {String type, IDBVersionChangeEventInit? eventInitDict});
+class IDBVersionChangeEvent // null -> {} -> Event
+    with
+        Event {
+  external factory IDBVersionChangeEvent(String type,
+      [IDBVersionChangeEventInit? eventInitDict]);
 
   /// Returns the old version of the database.
   external int get oldVersion;
@@ -121,7 +126,9 @@ class IDBVersionChangeEvent extends Event {
 
 @anonymous
 @JS()
-class IDBVersionChangeEventInit extends EventInit {
+class IDBVersionChangeEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external int get oldVersion;
   external set oldVersion(int newValue);
   external int? get newVersion;
@@ -265,7 +272,9 @@ class IDBDatabaseInfo {
 ///
 ///
 @JS()
-class IDBDatabase extends EventTarget {
+class IDBDatabase // null -> {} -> EventTarget
+    with
+        EventTarget {
   /// A [DOMString] that contains the name of the connected database.
   external String get name;
 
@@ -1705,7 +1714,9 @@ enum IDBCursorDirection { next, nextunique, prev, prevunique }
 ///
 ///
 @JS()
-class IDBCursorWithValue extends IDBCursor {
+class IDBCursorWithValue // null -> {} -> IDBCursor
+    with
+        IDBCursor {
   /// Returns the value of the current cursor.
   external dynamic get value;
 
@@ -1738,7 +1749,9 @@ class IDBCursorWithValue extends IDBCursor {
 ///  After the code is executed the object store should contain the
 /// value "2", since [trans2] should run after [trans1].
 @JS()
-class IDBTransaction extends EventTarget {
+class IDBTransaction // null -> {} -> EventTarget
+    with
+        EventTarget {
   ///  Returns a [DOMStringList] of the names of [IDBObjectStore]
   /// objects associated with the transaction.
   external DOMStringList get objectStoreNames;

@@ -67,7 +67,9 @@ class WebGLObject {
 /// represents an opaque buffer object storing data such as vertices
 /// or colors.
 @JS()
-class WebGLBuffer extends WebGLObject {
+class WebGLBuffer // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLBuffer();
 }
 
@@ -77,7 +79,9 @@ class WebGLBuffer extends WebGLObject {
 /// represents a collection of buffers that serve as a rendering
 /// destination.
 @JS()
-class WebGLFramebuffer extends WebGLObject {
+class WebGLFramebuffer // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLFramebuffer();
 }
 
@@ -107,7 +111,9 @@ class WebGLFramebuffer extends WebGLObject {
 ///  See [WebGLShader] for information on creating the [vertexShader]
 /// and [fragmentShader] in the above example.
 @JS()
-class WebGLProgram extends WebGLObject {
+class WebGLProgram // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLProgram();
 }
 
@@ -117,7 +123,9 @@ class WebGLProgram extends WebGLObject {
 /// represents a buffer that can contain an image, or can be source
 /// or target of an rendering operation.
 @JS()
-class WebGLRenderbuffer extends WebGLObject {
+class WebGLRenderbuffer // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLRenderbuffer();
 }
 
@@ -127,7 +135,9 @@ class WebGLRenderbuffer extends WebGLObject {
 /// vertex or a fragment shader. A [WebGLProgram] requires both types
 /// of shaders.
 @JS()
-class WebGLShader extends WebGLObject {
+class WebGLShader // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLShader();
 }
 
@@ -137,7 +147,9 @@ class WebGLShader extends WebGLObject {
 /// represents an opaque texture object providing storage and state
 /// for texturing operations.
 @JS()
-class WebGLTexture extends WebGLObject {
+class WebGLTexture // null -> {} -> WebGLObject
+    with
+        WebGLObject {
   external factory WebGLTexture();
 }
 
@@ -723,9 +735,11 @@ class WebGLRenderingContext
 /// interface for an event that is generated in response to a status
 /// change to the WebGL rendering context.
 @JS()
-class WebGLContextEvent extends Event {
-  external factory WebGLContextEvent(
-      {String type, WebGLContextEventInit? eventInit});
+class WebGLContextEvent // null -> {} -> Event
+    with
+        Event {
+  external factory WebGLContextEvent(String type,
+      [WebGLContextEventInit? eventInit]);
 
   ///  A read-only property containing additional information about the
   /// event.
@@ -734,7 +748,9 @@ class WebGLContextEvent extends Event {
 
 @anonymous
 @JS()
-class WebGLContextEventInit extends EventInit {
+class WebGLContextEventInit // null -> {} -> EventInit
+    with
+        EventInit {
   external String get statusMessage;
   external set statusMessage(String newValue);
 

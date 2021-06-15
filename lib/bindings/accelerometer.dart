@@ -25,8 +25,9 @@ import 'generic_sensor.dart';
 /// This is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class Accelerometer extends Sensor {
-  external factory Accelerometer({AccelerometerSensorOptions? options});
+class Accelerometer // EventTarget -> {} -> Sensor
+    extends Sensor {
+  external factory Accelerometer([AccelerometerSensorOptions? options]);
 
   ///  Returns a double containing the acceleration of the device along
   /// the device's x axis.
@@ -46,7 +47,9 @@ enum AccelerometerLocalCoordinateSystem { device, screen }
 
 @anonymous
 @JS()
-class AccelerometerSensorOptions extends SensorOptions {
+class AccelerometerSensorOptions // null -> {} -> SensorOptions
+    with
+        SensorOptions {
   external AccelerometerLocalCoordinateSystem get referenceFrame;
   external set referenceFrame(AccelerometerLocalCoordinateSystem newValue);
 
@@ -69,9 +72,10 @@ class AccelerometerSensorOptions extends SensorOptions {
 /// is not something that would ever be shown to a user. See
 /// [Feature-Policy] for implementation instructions.
 @JS()
-class LinearAccelerationSensor extends Accelerometer {
+class LinearAccelerationSensor // Sensor -> {} -> Accelerometer
+    extends Accelerometer {
   external factory LinearAccelerationSensor(
-      {AccelerometerSensorOptions? options});
+      [AccelerometerSensorOptions? options]);
 }
 
 ///
@@ -82,8 +86,9 @@ class LinearAccelerationSensor extends Accelerometer {
 ///  To use this sensor, the user must grant permission to the
 /// ['accelerometer'] device sensor through the [Permissions] API.
 @JS()
-class GravitySensor extends Accelerometer {
-  external factory GravitySensor({AccelerometerSensorOptions? options});
+class GravitySensor // Sensor -> {} -> Accelerometer
+    extends Accelerometer {
+  external factory GravitySensor([AccelerometerSensorOptions? options]);
 }
 
 @anonymous
@@ -102,12 +107,16 @@ class AccelerometerReadingValues {
 
 @anonymous
 @JS()
-class LinearAccelerationReadingValues extends AccelerometerReadingValues {
+class LinearAccelerationReadingValues // null -> {} -> AccelerometerReadingValues
+    with
+        AccelerometerReadingValues {
   external factory LinearAccelerationReadingValues();
 }
 
 @anonymous
 @JS()
-class GravityReadingValues extends AccelerometerReadingValues {
+class GravityReadingValues // null -> {} -> AccelerometerReadingValues
+    with
+        AccelerometerReadingValues {
   external factory GravityReadingValues();
 }

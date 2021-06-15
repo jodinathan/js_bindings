@@ -25,7 +25,9 @@ class StatefulAnimator {
 }
 
 @JS()
-class AnimationWorkletGlobalScope extends WorkletGlobalScope {
+class AnimationWorkletGlobalScope // null -> {} -> WorkletGlobalScope
+    with
+        WorkletGlobalScope {
   external Object registerAnimator(
       String name, AnimatorInstanceConstructor animatorCtor);
 
@@ -33,12 +35,10 @@ class AnimationWorkletGlobalScope extends WorkletGlobalScope {
 }
 
 @JS()
-class WorkletAnimation extends Animation {
-  external factory WorkletAnimation(
-      {String animatorName,
-      dynamic effects,
-      AnimationTimeline? timeline,
-      dynamic options});
+class WorkletAnimation // EventTarget -> {} -> Animation
+    extends Animation {
+  external factory WorkletAnimation(String animatorName,
+      [dynamic effects, AnimationTimeline? timeline, dynamic options]);
   external String get animatorName;
 }
 

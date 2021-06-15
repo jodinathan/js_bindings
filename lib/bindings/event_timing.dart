@@ -54,7 +54,9 @@ import 'dom.dart';
 ///
 ///
 @JS()
-class PerformanceEventTiming extends PerformanceEntry {
+class PerformanceEventTiming // null -> {} -> PerformanceEntry
+    with
+        PerformanceEntry {
   /// Returns the time at which event dispatch started.
   external double get processingStart;
 

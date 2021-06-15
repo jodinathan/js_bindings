@@ -154,8 +154,11 @@ class CredentialCreationOptions {
 /// cannot be used from an [<iframe>].
 ///
 @JS()
-class PasswordCredential extends Credential with CredentialUserData {
-  external factory PasswordCredential({HTMLFormElement form});
+class PasswordCredential // null -> {} -> Credential
+    with
+        Credential,
+        CredentialUserData {
+  external factory PasswordCredential(HTMLFormElement form);
 
   /// A [USVString] containing the password of the credential.
   external String get password;
@@ -163,7 +166,9 @@ class PasswordCredential extends Credential with CredentialUserData {
 
 @anonymous
 @JS()
-class PasswordCredentialData extends CredentialData {
+class PasswordCredentialData // null -> {} -> CredentialData
+    with
+        CredentialData {
   external String get name;
   external set name(String newValue);
   external String get iconURL;
@@ -192,8 +197,11 @@ class PasswordCredentialData extends CredentialData {
 /// be passed in the [credential] member of the [init] object for
 /// global [WindowOrWorkerGlobalScope.fetch].
 @JS()
-class FederatedCredential extends Credential with CredentialUserData {
-  external factory FederatedCredential({FederatedCredentialInit data});
+class FederatedCredential // null -> {} -> Credential
+    with
+        Credential,
+        CredentialUserData {
+  external factory FederatedCredential(FederatedCredentialInit data);
 
   ///  Returns a [USVString] containing a credential's federated
   /// identity provider.
@@ -218,7 +226,9 @@ class FederatedCredentialRequestOptions {
 
 @anonymous
 @JS()
-class FederatedCredentialInit extends CredentialData {
+class FederatedCredentialInit // null -> {} -> CredentialData
+    with
+        CredentialData {
   external String get name;
   external set name(String newValue);
   external String get iconURL;

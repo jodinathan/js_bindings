@@ -52,7 +52,7 @@ class TextDecodeOptions {
 @JS()
 class TextDecoder with TextDecoderCommon {
   external factory TextDecoder(
-      {String? label = 'utf-8', TextDecoderOptions? options});
+      [String? label = 'utf-8', TextDecoderOptions? options]);
 
   ///  Returns a [DOMString] containing the text decoded with the
   /// method of the specific [TextDecoder] object.
@@ -128,7 +128,7 @@ class TextEncoder with TextEncoderCommon {
 @JS()
 class TextDecoderStream with TextDecoderCommon, GenericTransformStream {
   external factory TextDecoderStream(
-      {String? label = 'utf-8', TextDecoderOptions? options});
+      [String? label = 'utf-8', TextDecoderOptions? options]);
 }
 
 ///
