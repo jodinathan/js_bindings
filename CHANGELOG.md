@@ -1,3 +1,7 @@
-## 1.0.0
+## 0.0.2
 
-- Initial version.
+ - Link MediaStream on ReadMe 
+
+## 0.0.1
+
+- Package tries to fully transpile WebIDLs to Dart.
