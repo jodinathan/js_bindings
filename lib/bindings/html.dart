@@ -4543,10 +4543,12 @@ mixin CanvasState {
 @JS()
 mixin CanvasTransform {
   external Object scale(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      /* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y);
   external Object rotate(/* double | NaN */ dynamic angle);
   external Object translate(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      /* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y);
   external Object transform(
       /* double | NaN */ dynamic a,
       /* double | NaN */ dynamic b,
@@ -4799,9 +4801,11 @@ mixin CanvasTextDrawingStyles {
 mixin CanvasPath {
   external Object closePath();
   external Object moveTo(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      /* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y);
   external Object lineTo(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+      /* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y);
   external Object quadraticCurveTo(
       /* double | NaN */ dynamic cpx,
       /* double | NaN */ dynamic cpy,

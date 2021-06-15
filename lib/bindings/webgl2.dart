@@ -505,8 +505,11 @@ mixin WebGL2RenderingContextBase {
       [int? srcOffset = 0]);
   external Object clearBufferuiv(int buffer, int drawbuffer, dynamic values,
       [int? srcOffset = 0]);
-  external Object clearBufferfi(int buffer, int drawbuffer,
-      /* double | NaN */ dynamic depth, int stencil);
+  external Object clearBufferfi(
+      int buffer,
+      int drawbuffer,
+      /* double | NaN */ dynamic depth,
+      int stencil);
   external WebGLQuery? createQuery();
   external Object deleteQuery(WebGLQuery? query);
   external bool isQuery(WebGLQuery? query);

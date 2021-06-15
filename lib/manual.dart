@@ -25,7 +25,6 @@ external bool isNaN(n);
 @JS('Infinity')
 external dynamic get infinity;
 
-
 @JS()
 class Promise<T> {
   external void then(T val);

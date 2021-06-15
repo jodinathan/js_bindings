@@ -96,19 +96,23 @@ Future<void> mergeIDLs() async {
 }
 
 Future<void> cloneIDLs() async {
-  final js = convert.json.decode(await http.read(Uri.parse('https://api.github.com/repos/w3c/webref/git/trees/master?recursive=1'))) as Map;
+  final js = convert.json.decode(await http.read(Uri.parse(
+          'https://api.github.com/repos/w3c/webref/git/trees/master?recursive=1')))
+      as Map;
 
   if (js['tree'] is Iterable) {
     for (final item in js['tree']) {
       // "path": "tr/idlparsed/ANGLE_instanced_arrays.json",
       // https://github.com/w3c/webref/blob/master/tr/idlparsed/accelerometer.json
       // https://raw.githubusercontent.com/w3c/webref/master/tr/idlparsed/accelerometer.json
-      final match = RegExp(r'^(\w{2})/idlparsed/(.+?).json').firstMatch(item['path']);
+      final match =
+          RegExp(r'^(\w{2})/idlparsed/(.+?).json').firstMatch(item['path']);
 
       if (match != null) {
         final type = match.group(1);
         final name = match.group(2);
-        final url = 'https://raw.githubusercontent.com/w3c/webref/master/$type/idlparsed/$name.json';
+        final url =
+            'https://raw.githubusercontent.com/w3c/webref/master/$type/idlparsed/$name.json';
 
         print('Fetching $name json IDL $url');
         File('../webIDL/$type/$name.json')
@@ -121,7 +125,7 @@ Future<void> cloneIDLs() async {
 
 Future<void> startMdn() async {
   Future<bool> opened() async {
-    final res = await TCPScanner('localhost', [ 5000 ]).scan();
+    final res = await TCPScanner('localhost', [5000]).scan();
 
     return res.open.contains(5000);
   }
@@ -137,9 +141,7 @@ Future<void> startMdn() async {
   // unawaited(ms.stdout
   //     .transform(convert.utf8.decoder)
   //     .forEach(print));
-  unawaited(ms.stderr
-      .transform(convert.utf8.decoder)
-      .forEach(print));
+  unawaited(ms.stderr.transform(convert.utf8.decoder).forEach(print));
 
   while (true) {
     print('.');
@@ -168,7 +170,8 @@ void stopMdn() {
 }
 
 Future<void> cloneMDN() async {
-  final url = Uri.parse('https://github.com/mdn/content/archive/refs/heads/main.zip');
+  final url =
+      Uri.parse('https://github.com/mdn/content/archive/refs/heads/main.zip');
 
   print('Downloading $url...');
   final response = await http.get(url);
@@ -201,8 +204,7 @@ Future<void> cloneMDN() async {
   print('Done!');
 }
 
-Future<Map<String, dynamic>?> fetch(String path,
-    {bool silent = false}) async {
+Future<Map<String, dynamic>?> fetch(String path, {bool silent = false}) async {
   final url = Uri.parse(path.startsWith('http') ? path : '$basePath$path');
 
   try {
@@ -222,17 +224,17 @@ Future<Map<String, dynamic>?> fetch(String path,
 }
 
 String? makeDesc(String name, String? buf) {
-  return buf == null ? null : stripHtml(buf
-      .replaceAll('<code>', '[')
-      .replaceAll('</code>', ']')
-      .replaceAll('[$name]', '')
-  );
+  return buf == null
+      ? null
+      : stripHtml(buf
+          .replaceAll('<code>', '[')
+          .replaceAll('</code>', ']')
+          .replaceAll('[$name]', ''));
 }
 
 String? getMDNContent(Iterable block, String? name) {
-  return block.firstWhere((bl) =>
-  bl['type'] == 'prose' &&
-      bl['value']['id'] == name,
+  return block.firstWhere(
+      (bl) => bl['type'] == 'prose' && bl['value']['id'] == name,
       orElse: () => null)?['value']?['content'];
 }
 
@@ -249,8 +251,9 @@ Future<void> parseMDN() async {
 
 Future<Map<String, dynamic>> getInterfaces() async {
   final js = ((await fetch('index.json'))?['doc']?['body']);
-  final content = js?.firstWhere((element) => element['value']?['id']?.toString()
-      .toLowerCase() == 'interfaces',
+  final content = js?.firstWhere(
+      (element) =>
+          element['value']?['id']?.toString().toLowerCase() == 'interfaces',
       orElse: () => null)?['value']?['content'] as String;
   final scanner = StringCrawler(content);
   final ret = <String, dynamic>{};
@@ -303,8 +306,8 @@ Future<Map<String, dynamic>> getInterfaces() async {
               }
 
               final nspl = code.split('.');
-              var pname = nspl.last.trim()
-                  .replaceAll('(', '').replaceAll(')', '');
+              var pname =
+                  nspl.last.trim().replaceAll('(', '').replaceAll(')', '');
               final desc = makeDesc(pname, dd);
 
               if (name == pname) {
@@ -321,14 +324,13 @@ Future<Map<String, dynamic>> getInterfaces() async {
                 'experimental': dt.contains('icon-experimental'),
                 'standard': !dt.contains('icon-nonstandard'),
                 'desc': desc,
-                if (canScrap)
-                  'mdn': '$mdnUrl/$pname',
+                if (canScrap) 'mdn': '$mdnUrl/$pname',
               };
               final params = {};
 
               if (type == 'operation') {
-                final rdet = await fetch('$name/$pname/index.json',
-                    silent: true);
+                final rdet =
+                    await fetch('$name/$pname/index.json', silent: true);
                 final details = rdet?['doc']?['body'] as Iterable?;
 
                 if (details != null) {
@@ -342,10 +344,12 @@ Future<Map<String, dynamic>> getInterfaces() async {
                       if (dt == null) {
                         throw 'DartNeedsThis =/';
                       }
-                      final name = StringCrawler(dt).getBetween('<code>', '</code>');
+                      final name =
+                          StringCrawler(dt).getBetween('<code>', '</code>');
 
                       if (name?.isNotEmpty == true) {
-                        final dd = makeDesc(name!, pscan.enclosed('<dd>', '</dd>') ?? '');
+                        final dd = makeDesc(
+                            name!, pscan.enclosed('<dd>', '</dd>') ?? '');
 
                         if (dd?.isNotEmpty == true) {
                           params[name] = dd;
@@ -358,11 +362,10 @@ Future<Map<String, dynamic>> getInterfaces() async {
 
                   if (example != null && example.isNotEmpty == true) {
                     final dl = details.toList();
-                    dynamic blg(String name) =>
-                        details.firstWhere((bl) =>
-                        bl['type'] == 'prose' &&
-                            bl['value']['id'] == name,
-                            orElse: () => null);
+                    dynamic blg(String name) => details.firstWhere(
+                        (bl) =>
+                            bl['type'] == 'prose' && bl['value']['id'] == name,
+                        orElse: () => null);
                     final ex = dl.indexOf(blg('Example'));
 
                     void addExtras(String name) {
@@ -385,7 +388,8 @@ Future<Map<String, dynamic>> getInterfaces() async {
                     member['example'] = example;
                   }
 
-                  member['syntax'] = stripHtml(getMDNContent(details, 'Syntax'));
+                  member['syntax'] =
+                      stripHtml(getMDNContent(details, 'Syntax'));
                 }
               }
 
@@ -399,12 +403,12 @@ Future<Map<String, dynamic>> getInterfaces() async {
           final rdesc = getMDNContent(details, null)!;
 
           object['desc'] = makeDesc(name, rdesc);
-          await parseProps(raw: getMDNContent(details, 'Properties'),
-              type: 'attribute');
-          await parseProps(raw: getMDNContent(details, 'Event_handlers'),
-              type: 'event');
-          await parseProps(raw: getMDNContent(details, 'Methods'),
-              type: 'operation');
+          await parseProps(
+              raw: getMDNContent(details, 'Properties'), type: 'attribute');
+          await parseProps(
+              raw: getMDNContent(details, 'Event_handlers'), type: 'event');
+          await parseProps(
+              raw: getMDNContent(details, 'Methods'), type: 'operation');
         }
 
         object['members'] = members;
@@ -418,23 +422,30 @@ Future<Map<String, dynamic>> getInterfaces() async {
 }
 
 String? getBlock(StringCrawler isc, String name) {
-  return isc.exBetween(RegExp(
-    r'[interface|dictionary|namespace]\s?[mixin]?\s?' + name +
-        r'+\s?:?\s?\w*\s?{',
-  ), RegExp('};'));
+  return isc.exBetween(
+      RegExp(
+        r'[interface|dictionary|namespace]\s?[mixin]?\s?' +
+            name +
+            r'+\s?:?\s?\w*\s?{',
+      ),
+      RegExp('};'));
 }
 
 Iterable<String> getAllBlocks(String data, String name) {
   final reg = RegExp(
-      r'[interface|dictionary|namespace]\s?[mixin]?\s?' + name +
+      r'[interface|dictionary|namespace]\s?[mixin]?\s?' +
+          name +
           r'+\s?:?\s?\w*\s?{(.*?)};',
-      dotAll: true, multiLine: true);
+      dotAll: true,
+      multiLine: true);
   return reg.allMatches(data).map((e) => e.group(0)!);
 }
 
 Future<void> addInfo() async {
   print('Adding info...');
-  final mdninfs = convert.json.decode(File('../webIDL/mdn.json').readAsStringSync()) as Map<String, dynamic>;
+  final mdninfs =
+      convert.json.decode(File('../webIDL/mdn.json').readAsStringSync())
+          as Map<String, dynamic>;
   final list = await getIDLs(dir: 'merged');
 
   for (var js in list) {
@@ -473,13 +484,15 @@ Future<void> addInfo() async {
                   type = member['type'];
               }
 
-              assert(['attribute', 'operation', 'constructor',
-                'const', 'field'].contains(member['type']),
-              'Unknown ${member['type']}');
+              assert(
+                  ['attribute', 'operation', 'constructor', 'const', 'field']
+                      .contains(member['type']),
+                  'Unknown ${member['type']}');
 
               final name = member['name'];
-              final imem = imems.firstWhere((i) => i['name'] == name &&
-                  i['type'] == type, orElse: () => null);
+              final imem = imems.firstWhere(
+                  (i) => i['name'] == name && i['type'] == type,
+                  orElse: () => null);
 
               if (imem != null) {
                 member['desc'] = imem['desc'];

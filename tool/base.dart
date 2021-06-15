@@ -58,14 +58,65 @@ const typedData = {
 };
 
 const forbidden = {
-  'abstract', 'else', 'import', 'show', 'as', 'enum', 'in', 'static',
-  'assert', 'export', 'interface', 'super', 'async', 'extends', 'is',
-  'switch', 'await', 'extension', 'late', 'sync', 'break', 'external',
-  'library', 'this', 'case', 'factory', 'mixin', 'throw', 'catch', 'new',
-  'class', 'final', 'try', 'const', 'finally', 'on', 'typedef',
-  'continue', 'for', 'operator', 'var', 'covariant', 'Function', 'part',
-  'void', 'default', 'get', 'required', 'while', 'deferred', 'hide',
-  'rethrow', 'with', 'do', 'if', 'return', 'yield', 'dynamic', 'implements',
+  'abstract',
+  'else',
+  'import',
+  'show',
+  'as',
+  'enum',
+  'in',
+  'static',
+  'assert',
+  'export',
+  'interface',
+  'super',
+  'async',
+  'extends',
+  'is',
+  'switch',
+  'await',
+  'extension',
+  'late',
+  'sync',
+  'break',
+  'external',
+  'library',
+  'this',
+  'case',
+  'factory',
+  'mixin',
+  'throw',
+  'catch',
+  'new',
+  'class',
+  'final',
+  'try',
+  'const',
+  'finally',
+  'on',
+  'typedef',
+  'continue',
+  'for',
+  'operator',
+  'var',
+  'covariant',
+  'Function',
+  'part',
+  'void',
+  'default',
+  'get',
+  'required',
+  'while',
+  'deferred',
+  'hide',
+  'rethrow',
+  'with',
+  'do',
+  'if',
+  'return',
+  'yield',
+  'dynamic',
+  'implements',
   'set'
 };
 
@@ -80,26 +131,11 @@ final missing = {
       'type': 'enum',
       'name': 'SupportedType',
       'values': [
-        {
-          'type': 'enum-value',
-          'value': 'text/html'
-        },
-        {
-          'type': 'enum-value',
-          'value': 'text/xml'
-        },
-        {
-          'type': 'enum-value',
-          'value': 'application/xml'
-        },
-        {
-          'type': 'enum-value',
-          'value': 'application/xhtml+xml'
-        },
-        {
-          'type': 'enum-value',
-          'value': 'image/svg+xml'
-        },
+        {'type': 'enum-value', 'value': 'text/html'},
+        {'type': 'enum-value', 'value': 'text/xml'},
+        {'type': 'enum-value', 'value': 'application/xml'},
+        {'type': 'enum-value', 'value': 'application/xhtml+xml'},
+        {'type': 'enum-value', 'value': 'image/svg+xml'},
       ],
       'extAttrs': []
     }
@@ -114,15 +150,10 @@ class Spec {
   final Map<String, dynamic> json;
   final Map<String, dynamic> objects;
   final Map<String, dynamic> inheritance = {};
-  final Map<String, String> typedefs = {
-    'WindowProxy': 'Window'
-  };
+  final Map<String, String> typedefs = {'WindowProxy': 'Window'};
   final SpecGroup group;
   var usesTypedData = false;
-  final errors = {
-    'types': [],
-    'forbidden': []
-  };
+  final errors = {'types': [], 'forbidden': []};
 
   String getDartType(Map<String, dynamic> returnTypeBlock) {
     String returnType;
@@ -147,8 +178,8 @@ class Spec {
       final type = returnTypeBlock['idlType'];
 
       nullable = returnTypeBlock['nullable'] == true;
-      assert(type is String,
-      'Unknown inner type ${prettyJson(returnTypeBlock)}');
+      assert(
+          type is String, 'Unknown inner type ${prettyJson(returnTypeBlock)}');
 
       returnType = type;
     } else {
@@ -159,8 +190,9 @@ class Spec {
 
     var typedef = typedefs[returnType];
 
-    typedef ??= group.specs.firstWhereOrNull((spec) =>
-        spec.typedefs.containsKey(returnType))?.typedefs[returnType];
+    typedef ??= group.specs
+        .firstWhereOrNull((spec) => spec.typedefs.containsKey(returnType))
+        ?.typedefs[returnType];
 
     if (typedef != null) {
       ret = typedef;
@@ -178,8 +210,7 @@ class Spec {
         } else {
           var dartType = types[returnType];
 
-          assert(dartType != null,
-          'Unknown dart type "$returnType"');
+          assert(dartType != null, 'Unknown dart type "$returnType"');
 
           if (dartType == null) {
             errors['types']!.add(returnType);
@@ -194,8 +225,8 @@ class Spec {
     if (gen.isNotEmpty) {
       gen.insert(0, ret);
 
-      return gen.reduce((val, el ) =>
-      '${el == 'Promise' ? 'Promise' : 'Iterable'}<$val>');
+      return gen.reduce(
+          (val, el) => '${el == 'Promise' ? 'Promise' : 'Iterable'}<$val>');
     }
 
     // for sanity check ret should never be a typedef like EventHandler
@@ -218,8 +249,7 @@ class Spec {
     final ret = <String>[];
 
     while (true) {
-      final bb = buf.replaceAll('  ', ' ')
-          .replaceAll('\n\n\n', '\n');
+      final bb = buf.replaceAll('  ', ' ').replaceAll('\n\n\n', '\n');
       final len = bb.length;
 
       buf = bb;
@@ -258,20 +288,19 @@ class Spec {
     return ret.map((r) => '/// $r').join('\n').trim();
   }
 
-  Iterable<String> makeParams(Iterable args, {
-    bool optionals = true
-}) {
+  Iterable<String> makeParams(Iterable args, {bool optionals = true}) {
     var params = <String>[];
     var optional = false;
 
     for (final arg in args) {
-      var nopt =  arg['optional'] == true ||
-          arg['variadic'] == true;
+      var nopt = arg['optional'] == true || arg['variadic'] == true;
       var name = arg['name'] as String;
       var type = getDartType(arg['idlType']);
 
-      if (arg['optional'] == true && !type.endsWith('?') &&
-          !type.endsWith(' dynamic') && type != 'dynamic') {
+      if (arg['optional'] == true &&
+          !type.endsWith('?') &&
+          !type.endsWith(' dynamic') &&
+          type != 'dynamic') {
         type += '?';
       }
 
@@ -291,8 +320,9 @@ class Spec {
           if (type == 'string') {
             if (arg['idlType'] is Map<String, dynamic> &&
                 types[arg['idlType']['idlType']] != 'String') {
-              if (arg['idlType']['idlType'] is String && val is String &&
-              val.isNotEmpty) {
+              if (arg['idlType']['idlType'] is String &&
+                  val is String &&
+                  val.isNotEmpty) {
                 var label = val.camelCase.replaceAll('+', '');
 
                 if (label.isEmpty) {
@@ -335,10 +365,10 @@ class Spec {
     return params;
   }
 
-  Spec(this.group, this.path, this.basename, this.json) :
-  name = basename.replaceAll('.json', ''),
-  libraryName = basename.replaceAll('.json', '').snakeCase,
-  objects = json['idlparsed']?['idlNames'] as Map<String, dynamic>;
+  Spec(this.group, this.path, this.basename, this.json)
+      : name = basename.replaceAll('.json', ''),
+        libraryName = basename.replaceAll('.json', '').snakeCase,
+        objects = json['idlparsed']?['idlNames'] as Map<String, dynamic>;
 }
 
 class SpecGroup {
@@ -353,9 +383,11 @@ Future<SpecGroup> getSpecs() async {
 
   for (var entity in list) {
     final file = File(entity.path);
-    final map = Map<String, dynamic>.from(convert.json.decode(file.readAsStringSync()) as Map<String, dynamic>);
+    final map = Map<String, dynamic>.from(
+        convert.json.decode(file.readAsStringSync()) as Map<String, dynamic>);
     final objs = map['idlparsed']?['idlNames'] as Map<String, dynamic>?;
-    final extended = map['idlparsed']?['idlExtendedNames'] as Map<String, dynamic>?;
+    final extended =
+        map['idlparsed']?['idlExtendedNames'] as Map<String, dynamic>?;
 
     if (objs != null) {
       if (extended != null) {
@@ -365,8 +397,7 @@ Future<SpecGroup> getSpecs() async {
         //     '${objs.keys}');
       }
 
-      final spec = Spec(ret,
-          entity.path, entity.basename, map);
+      final spec = Spec(ret, entity.path, entity.basename, map);
 
       final missers = missing[spec.name];
 
@@ -388,7 +419,8 @@ Future<SpecGroup> getSpecs() async {
         obj['subs'] = <String>{};
         obj['mixins'] = <String, Set<String>>{};
         obj['abstract'] = obj['partial'] == true ||
-            type == 'interface mixin' || type == 'namespace';
+            type == 'interface mixin' ||
+            type == 'namespace';
       }
 
       ret.specs.add(spec);
@@ -396,18 +428,15 @@ Future<SpecGroup> getSpecs() async {
   }
 
   for (final spec in ret.specs.toList()) {
-    final extended = spec.json['idlparsed']?['idlExtendedNames'] as Map<
-        String,
-        dynamic>?;
+    final extended =
+        spec.json['idlparsed']?['idlExtendedNames'] as Map<String, dynamic>?;
 
     if (extended != null) {
       for (final name in extended.keys) {
         final exts = (extended[name] as Iterable);
         final obj = spec.objects[name] ??
             ret.specs
-                .firstWhereOrNull(
-                    (spec) => spec.objects.containsKey(name)
-            )
+                .firstWhereOrNull((spec) => spec.objects.containsKey(name))
                 ?.objects[name];
 
         final members = exts.fold<List>([], (arr, el) {
@@ -442,30 +471,29 @@ Future<SpecGroup> getSpecs() async {
             final includes = ext['includes'] as String;
             var targObj = spec.objects[target] ??
                 ret.specs
-                    .firstWhere(
-                        (spec) => spec.objects.containsKey(target)
-                ).objects[target];
+                    .firstWhere((spec) => spec.objects.containsKey(target))
+                    .objects[target];
             var obj = spec.objects[includes];
             Spec? ispec = spec;
 
             if (obj == null) {
               print('Finding $includes');
-              ispec = ret.specs
-                  .firstWhereOrNull(
-                      (spec) => spec.objects.containsKey(includes)
-              );
+              ispec = ret.specs.firstWhereOrNull(
+                  (spec) => spec.objects.containsKey(includes));
 
               if (ispec == null) {
-                print('Skipping include of ${spec.libraryName}.$target to $includes');
+                print(
+                    'Skipping include of ${spec.libraryName}.$target to $includes');
                 continue;
               }
               obj = ispec.objects[includes];
             }
 
-            assert(obj != null,
-            'Couldnt find target $includes from ${spec.name}');
+            assert(
+                obj != null, 'Couldnt find target $includes from ${spec.name}');
 
-            print('Linking ${spec.libraryName}.$target to ${ispec.libraryName}.$includes');
+            print(
+                'Linking ${spec.libraryName}.$target to ${ispec.libraryName}.$includes');
 
             final spm = (targObj['mixins'][ispec.libraryName] ??= <String>{});
 
@@ -485,8 +513,8 @@ Future<SpecGroup> getSpecs() async {
       }
 
       ret.specs.forEach((spec) {
-        obj['subs'].addAll(spec.objects.values.fold<List<String>>([],
-                (arr, obj) {
+        obj['subs']
+            .addAll(spec.objects.values.fold<List<String>>([], (arr, obj) {
           if (obj['inheritance'] == name) {
             arr.add(obj['name']);
           }
@@ -512,9 +540,11 @@ Future<SpecGroup> getSpecs() async {
             continue;
           }
 
-          final same = members.where((mi) =>
-          mi != member && (mi['name'] == name ||
-              mi['type'] == 'constructor' && isc)).toList();
+          final same = members
+              .where((mi) =>
+                  mi != member &&
+                  (mi['name'] == name || mi['type'] == 'constructor' && isc))
+              .toList();
 
           if (obj['name'] == 'PasswordCredential') {
             print('SAMELEN ${same.length}, $isc');
@@ -540,8 +570,9 @@ Future<SpecGroup> getSpecs() async {
               final all = [...same, member];
 
               all.sort((a, b) {
-                return (a['arguments'] as Iterable).length.compareTo(
-                    (b['arguments'] as Iterable).length);
+                return (a['arguments'] as Iterable)
+                    .length
+                    .compareTo((b['arguments'] as Iterable).length);
               });
 
               final high = all.removeLast();
@@ -567,16 +598,17 @@ Future<SpecGroup> getSpecs() async {
           if (obj['type'] == 'dictionary') {
             final constructor = {
               'type': 'constructor',
-              'arguments': members.where((m) => m['type'] == 'field')
-                  .map((m) =>
-              {
-                'type': 'argument',
-                'name': m['name'],
-                'extAttrs': [],
-                'idlType': m['idlType'],
-                'default': m['default'],
-                'variadic': false
-              }).toList(),
+              'arguments': members
+                  .where((m) => m['type'] == 'field')
+                  .map((m) => {
+                        'type': 'argument',
+                        'name': m['name'],
+                        'extAttrs': [],
+                        'idlType': m['idlType'],
+                        'default': m['default'],
+                        'variadic': false
+                      })
+                  .toList(),
               'extAttrs': []
             };
 
@@ -584,11 +616,8 @@ Future<SpecGroup> getSpecs() async {
 
             print('Adding dictionary constructor ${obj['name']}: $constructor');
           } else if (obj['abstract'] != true) {
-            members.add({
-              'type': 'constructor',
-              'arguments': [],
-              'extAttrs': []
-            });
+            members
+                .add({'type': 'constructor', 'arguments': [], 'extAttrs': []});
           }
         }
 
@@ -608,8 +637,8 @@ Future<SpecGroup> getSpecs() async {
 
     if (spec.name == 'html') {
       // set the href getter of the HTMLHyperlinkElementUtils mixin to dynamic
-      spec.objects['HTMLHyperlinkElementUtils']['members'].firstWhere(
-              (m) => m['name'] == 'href')['idlType']['idlType'] = 'any';
+      spec.objects['HTMLHyperlinkElementUtils']['members']
+          .firstWhere((m) => m['name'] == 'href')['idlType']['idlType'] = 'any';
     } else if (['svg2', 'svg11'].contains(lname)) {
       final obj = spec.objects['SVGAElement'];
       final svg = obj['mixins'][lname];
@@ -639,7 +668,8 @@ Future<Iterable<Map<String, dynamic>>> getIDLs({String dir = 'ed'}) async {
 
   for (var entity in list) {
     final file = File(entity.path);
-    final js = convert.json.decode(file.readAsStringSync()) as Map<String, dynamic>;
+    final js =
+        convert.json.decode(file.readAsStringSync()) as Map<String, dynamic>;
 
     js['path'] = entity.path;
     js['basename'] = entity.basename;

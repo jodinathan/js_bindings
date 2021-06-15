@@ -99,22 +99,22 @@ Future<void> main() async {
             @JS()
             enum $name {
               ${values.map((item) {
-                final val = item['value'].toString();
-                var label = val.camelCase.replaceAll('+', '');
+              final val = item['value'].toString();
+              var label = val.camelCase.replaceAll('+', '');
 
-                if (label.isEmpty) {
-                  label = 'empty';
-                } else if (int.tryParse(label.substring(0, 1)) != null ||
-                forbidden.contains(label)) {
-                  label = 'value${label.pascalCase}';
-                }
+              if (label.isEmpty) {
+                label = 'empty';
+              } else if (int.tryParse(label.substring(0, 1)) != null ||
+                  forbidden.contains(label)) {
+                label = 'value${label.pascalCase}';
+              }
 
-                final ret = '''
+              final ret = '''
                 ${val == label ? '' : '@JS(\'$val\')\n'}$label
                 ''';
 
-                return ret;
-              }).join(',\n')}
+              return ret;
+            }).join(',\n')}
             }
             ''');
             break;
@@ -125,23 +125,24 @@ Future<void> main() async {
           case 'callback interface':
             final inherits = item['inheritance'];
             final doc = spec.makeDoc(item['desc']);
-            final abstract = item['abstract'] == true ?
-                'abstract ' : '';
+            final abstract = item['abstract'] == true ? 'abstract ' : '';
             dynamic parent;
             final mixin = type == 'interface mixin';
             var inheritance = '';
             var parentMixin = false;
 
             if (inherits != null) {
-              parent = spec.objects.values.firstWhereOrNull(
-                      (obj) => obj['name'] == inherits) ??
-                group.specs.firstWhereOrNull(
-                        (spec) => spec.objects.keys.contains(inherits)
-                )?.objects[inherits];
+              parent = spec.objects.values
+                      .firstWhereOrNull((obj) => obj['name'] == inherits) ??
+                  group.specs
+                      .firstWhereOrNull(
+                          (spec) => spec.objects.keys.contains(inherits))
+                      ?.objects[inherits];
               parentMixin = parent['inheritance']?.isNotEmpty != true &&
                   parent['mixins'].isEmpty;
 
-              inheritance = '// ${parent['inheritance']} -> ${parent['mixins']} -> ${parent['name']} \n'
+              inheritance =
+                  '// ${parent['inheritance']} -> ${parent['mixins']} -> ${parent['name']} \n'
                   '${parentMixin ? 'with' : 'extends'} $inherits ';
             }
 
@@ -179,8 +180,7 @@ Future<void> main() async {
 
             if (members != null) {
               print('Generating class of $name.\n'
-                  'Operations: ${members.where(
-                      (m) => m['type'] == 'operation').map((m) => m['name'])}');
+                  'Operations: ${members.where((m) => m['type'] == 'operation').map((m) => m['name'])}');
               for (final member in members) {
                 final mType = member['type'];
                 var mName = member['name'] as String?;
@@ -194,10 +194,12 @@ Future<void> main() async {
                   continue;
                 }
 
-                final overrides = parent != null && mName?.isNotEmpty == true &&
+                final overrides = parent != null &&
+                    mName?.isNotEmpty == true &&
                     member['special'] != 'static' &&
-                    (parent['members'] as Iterable?)?.firstWhereOrNull(
-                            (i) => i['name'] == mName) != null;
+                    (parent['members'] as Iterable?)
+                            ?.firstWhereOrNull((i) => i['name'] == mName) !=
+                        null;
 
                 doc = spec.makeDoc(member['desc']);
 
@@ -227,21 +229,22 @@ Future<void> main() async {
 
                 dynamic getCov(Iterable subs, String dartType) =>
                     subs.firstWhereOrNull((subName) {
-                  final sub = spec.objects[subName] ??
-                      list
-                          .firstWhereOrNull((spec) =>
-                          spec.objects.containsKey(subName))
-                          ?.objects[subName];
-                  final members = sub['members'] as Iterable?;
+                      final sub = spec.objects[subName] ??
+                          list
+                              .firstWhereOrNull(
+                                  (spec) => spec.objects.containsKey(subName))
+                              ?.objects[subName];
+                      final members = sub['members'] as Iterable?;
 
-                  return members?.any((member) =>
-                  member['name'] == mName &&
-                      dartType != spec.getDartType(member['idlType'])) ==
-                      true;
-                });
+                      return members?.any((member) =>
+                              member['name'] == mName &&
+                              dartType !=
+                                  spec.getDartType(member['idlType'])) ==
+                          true;
+                    });
 
-                String specStatic() => member['special'] == 'static' ?
-                'static ' : '';
+                String specStatic() =>
+                    member['special'] == 'static' ? 'static ' : '';
 
                 switch (mType) {
                   case 'attribute':
@@ -258,21 +261,20 @@ Future<void> main() async {
                       dartType = 'dynamic';
                     }
 
-                    lines.add('''external ${specStatic()}$dartType get $mName;''');
+                    lines.add(
+                        '''external ${specStatic()}$dartType get $mName;''');
 
                     if (member['readonly'] != true) {
                       if (overrides) {
                         lines.add('@override');
                       }
-                      lines.add('''external set $mName(${
-                          cov != null
-                              ? 'covariant '
-                              : ''}$dartType newValue);''');
+                      lines.add(
+                          '''external set $mName(${cov != null ? 'covariant ' : ''}$dartType newValue);''');
                     }
                     break;
                   case 'const':
-                    lines.add('''external static ${spec.getDartType(
-                        idlType)} get $mName;''');
+                    lines.add(
+                        '''external static ${spec.getDartType(idlType)} get $mName;''');
                     break;
                   case 'setlike':
                   case 'iterable':
@@ -280,38 +282,36 @@ Future<void> main() async {
 
                     if (type is Iterable) {
                       if (type.length == 2) {
-                        lines.add('external ${spec.getDartType(
-                            member['idlType'][1])} operator [](${spec
-                            .getDartType(
-                            member['idlType'][0])} index);');
+                        lines.add(
+                            'external ${spec.getDartType(member['idlType'][1])} operator [](${spec.getDartType(member['idlType'][0])} index);');
                       } else {
-                        lines.add('external ${spec.getDartType(
-                            member['idlType'][0])} operator [](int index);');
+                        lines.add(
+                            'external ${spec.getDartType(member['idlType'][0])} operator [](int index);');
                       }
                     } else {
-                      lines.add('external ${spec.getDartType(
-                          idlType)} operator [](int index);');
+                      lines.add(
+                          'external ${spec.getDartType(idlType)} operator [](int index);');
                     }
                     break;
                   case 'maplike':
-                    lines.add('external ${spec.getDartType(
-                        member['idlType'][1])} operator [](${spec.getDartType(
-                        member['idlType'][0])} index);');
+                    lines.add(
+                        'external ${spec.getDartType(member['idlType'][1])} operator [](${spec.getDartType(member['idlType'][0])} index);');
                     break;
                   case 'operation':
                   case 'constructor':
                     final isc = mType == 'constructor';
                     String fn;
-                    final lparams = member['arguments'] == null ? <String>[] :
-                    spec.makeParams(member['arguments'] as Iterable,
-                        optionals: type != 'dictionary');
+                    final lparams = member['arguments'] == null
+                        ? <String>[]
+                        : spec.makeParams(member['arguments'] as Iterable,
+                            optionals: type != 'dictionary');
                     final params = lparams.join(', ');
 
                     if (isc) {
                       fn = '\nexternal factory $name';
 
-                      lines.add('$fn(${params.isNotEmpty ?
-                      (type == 'dictionary' ? '{$params}': params) : ''});');
+                      lines.add(
+                          '$fn(${params.isNotEmpty ? (type == 'dictionary' ? '{$params}' : params) : ''});');
                     } else {
                       String dartType;
 
@@ -320,8 +320,8 @@ Future<void> main() async {
                           lines.add('@override');
                           mName = 'toString';
                           dartType = 'String';
-                        } else if (['jsonifier', 'serializer'].contains(
-                            member['special'])) {
+                        } else if (['jsonifier', 'serializer']
+                            .contains(member['special'])) {
                           mName = 'toJSON';
                           dartType = 'dynamic';
                         } else {
@@ -334,7 +334,7 @@ Future<void> main() async {
                         }
                       } else {
                         assert(idlType != null || isc,
-                        'No type! $type, $mType $name $mName');
+                            'No type! $type, $mType $name $mName');
                         dartType = spec.getDartType(idlType);
 
                         final subs = item['subs'] as Iterable;
@@ -375,12 +375,12 @@ Future<void> main() async {
         }
       }
 
-      final depList = map['idlparsed']['externalDependencies'] as Iterable?
-      ?? [];
+      final depList =
+          map['idlparsed']['externalDependencies'] as Iterable? ?? [];
 
       deps.addAll(depList.fold<List<String>>([], (val, dep) {
-        final item = group.specs.firstWhereOrNull(
-                (item) => (item.json['idlparsed']?['idlNames'] as Map?)?[dep] != null);
+        final item = group.specs.firstWhereOrNull((item) =>
+            (item.json['idlparsed']?['idlNames'] as Map?)?[dep] != null);
 
         if (item != null && !val.contains(item.libraryName)) {
           val.add(item.libraryName);
@@ -389,7 +389,8 @@ Future<void> main() async {
       }).toSet());
 
       for (final dspec in group.specs.toList()) {
-        final idldeps = dspec.json['idlparsed']['dependencies'] as Map<String, dynamic>?;
+        final idldeps =
+            dspec.json['idlparsed']['dependencies'] as Map<String, dynamic>?;
 
         if (dspec == spec || idldeps == null) {
           continue;
@@ -403,7 +404,8 @@ Future<void> main() async {
           }
 
           for (final name in names.where((name) => !types.containsKey(name))) {
-            final fspec = group.specs.firstWhereOrNull((spec) => spec.objects.containsKey(name));
+            final fspec = group.specs
+                .firstWhereOrNull((spec) => spec.objects.containsKey(name));
 
             if (fspec == null) {
               print('Couldnt find spec of object $name');
@@ -426,8 +428,7 @@ Future<void> main() async {
       ${spec.usesTypedData ? 'import \'dart:typed_data\';' : ''}
       import 'callbacks.dart';
       import '../manual.dart';
-      ${deps.isNotEmpty ?
-      deps.map((dep) => 'import \'$dep.dart\';').join('\n') : ''}
+      ${deps.isNotEmpty ? deps.map((dep) => 'import \'$dep.dart\';').join('\n') : ''}
       ''');
 
       final p = '../../lib/bindings/$libraryName.dart';

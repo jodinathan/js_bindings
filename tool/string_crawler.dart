@@ -1,5 +1,3 @@
-
-
 class StringCrawler {
   final String _buffer;
   int _point = 0;
@@ -93,6 +91,7 @@ class StringCrawler {
 
     return ret;
   }
+
   bool moveTo(String from) {
     final p = _buffer.indexOf(from, _point);
 
@@ -103,6 +102,7 @@ class StringCrawler {
 
     return false;
   }
+
   String? getUntil(String close) {
     final p = _buffer.indexOf(close, _point);
 

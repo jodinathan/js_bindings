@@ -559,7 +559,8 @@ mixin WebGLRenderingContextBase {
   external Object depthFunc(int func);
   external Object depthMask(bool flag);
   external Object depthRange(
-      /* double | NaN */ dynamic zNear, /* double | NaN */ dynamic zFar);
+      /* double | NaN */ dynamic zNear,
+      /* double | NaN */ dynamic zFar);
   external Object detachShader(WebGLProgram program, WebGLShader shader);
   external Object disable(int cap);
   external Object disableVertexAttribArray(int index);
@@ -611,7 +612,8 @@ mixin WebGLRenderingContextBase {
   external Object linkProgram(WebGLProgram program);
   external Object pixelStorei(int pname, int param);
   external Object polygonOffset(
-      /* double | NaN */ dynamic factor, /* double | NaN */ dynamic units);
+      /* double | NaN */ dynamic factor,
+      /* double | NaN */ dynamic units);
   external Object renderbufferStorage(
       int target, int internalformat, int width, int height);
   external Object sampleCoverage(/* double | NaN */ dynamic value, bool invert);
@@ -628,8 +630,10 @@ mixin WebGLRenderingContextBase {
   external Object texParameteri(int target, int pname, int param);
   external Object uniform1f(
       WebGLUniformLocation? location, /* double | NaN */ dynamic x);
-  external Object uniform2f(WebGLUniformLocation? location,
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
+  external Object uniform2f(
+      WebGLUniformLocation? location,
+      /* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y);
   external Object uniform3f(
       WebGLUniformLocation? location,
       /* double | NaN */ dynamic x,
@@ -652,8 +656,11 @@ mixin WebGLRenderingContextBase {
   external Object vertexAttrib1f(int index, /* double | NaN */ dynamic x);
   external Object vertexAttrib2f(
       int index, /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
-  external Object vertexAttrib3f(int index, /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y, /* double | NaN */ dynamic z);
+  external Object vertexAttrib3f(
+      int index,
+      /* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y,
+      /* double | NaN */ dynamic z);
   external Object vertexAttrib4f(
       int index,
       /* double | NaN */ dynamic x,
