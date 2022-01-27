@@ -1,10 +1,11 @@
 import 'dart:convert' as convert;
 import 'dart:io';
 import 'dart:math';
+
+import 'package:collection/collection.dart';
 import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:recase/recase.dart';
-import 'package:collection/collection.dart';
 
 const dirs = ['ed', 'tr'];
 const baseDir = 'ed';
@@ -277,7 +278,7 @@ class Spec {
           buf = '';
         }
 
-        buf += '$word';
+        buf += word;
       }
 
       if (buf.isNotEmpty) {
@@ -512,7 +513,7 @@ Future<SpecGroup> getSpecs() async {
         spec.typedefs[name] = spec.getDartType(obj['idlType']);
       }
 
-      ret.specs.forEach((spec) {
+      for (var spec in ret.specs) {
         obj['subs']
             .addAll(spec.objects.values.fold<List<String>>([], (arr, obj) {
           if (obj['inheritance'] == name) {
@@ -520,7 +521,7 @@ Future<SpecGroup> getSpecs() async {
           }
           return arr;
         }));
-      });
+      }
 
       final ms = obj['members'];
       final removed = [];
