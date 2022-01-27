@@ -1,3 +1,7 @@
+## 0.0.4-dev
+
+ - Removed a number of runtime dependencies. 
+
 ## 0.0.3
 
  - Formatting and example
