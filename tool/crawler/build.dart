@@ -1,12 +1,14 @@
-import 'package:http/http.dart' as http;
-import 'package:pedantic/pedantic.dart';
+import 'dart:async';
 import 'dart:convert' as convert;
+import 'dart:io';
+
+import 'package:archive/archive.dart';
+import 'package:html/parser.dart';
+import 'package:http/http.dart' as http;
+import 'package:tcp_scanner/tcp_scanner.dart';
+
 import '../base.dart';
 import '../string_crawler.dart';
-import 'package:html/parser.dart';
-import 'dart:io';
-import 'package:archive/archive.dart';
-import 'package:tcp_scanner/tcp_scanner.dart';
 
 Process? mdnServer;
 const basePath = 'http://localhost:5000/en-US/docs/Web/API/';
@@ -67,7 +69,7 @@ Future<void> mergeIDLs() async {
 
   for (final item in list) {
     for (final group in groups) {
-      var other;
+      Map? other;
 
       for (final gr in (group as Iterable)) {
         if (gr['basename'] == item['basename']) {

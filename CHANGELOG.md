@@ -1,6 +1,7 @@
 ## 0.0.4-dev
 
  - Removed a number of runtime dependencies. 
+ - Require Dart 2.14 or greater
 
 ## 0.0.3
 
