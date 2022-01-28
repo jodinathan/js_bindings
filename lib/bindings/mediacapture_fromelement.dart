@@ -2,6 +2,7 @@
 ///
 /// https://w3c.github.io/mediacapture-fromelement/
 @JS('window')
+@staticInterop
 library mediacapture_fromelement;
 
 import 'package:js/js.dart';
@@ -9,28 +10,32 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'html.dart';
-import 'mediacapture_streams.dart';
+import 'all_bindings.dart';
+/* deps: html
+mediacapture_streams */
 
-///
-///
 ///  The interface represents the video track contained in a
 /// [MediaStream] being generated from a [<canvas>] following a call
 /// to [HTMLCanvasElement.captureStream()].
-///
 /// Part of the Media Capture and Streams API.
 @experimental
 @JS()
-class CanvasCaptureMediaStreamTrack // EventTarget -> {} -> MediaStreamTrack
-    extends MediaStreamTrack {
+@staticInterop
+class CanvasCaptureMediaStreamTrack implements MediaStreamTrack {
+  external factory CanvasCaptureMediaStreamTrack();
+}
+
+extension PropsCanvasCaptureMediaStreamTrack on CanvasCaptureMediaStreamTrack {
   ///  Returns the [HTMLCanvasElement] object whose surface is captured
   /// in real-time.
+  ///
   external HTMLCanvasElement get canvas;
 
   ///  Manually forces a frame to be captured and sent to the stream.
   /// This lets applications that wish to specify the frame capture
   /// times directly do so, if they specified a [frameRate] of 0 when
   /// calling [captureStream()].
+  ///
   /// stream.requestFrame();
   ///
   /// // Find the canvas element to capture
@@ -43,6 +48,4 @@ class CanvasCaptureMediaStreamTrack // EventTarget -> {} -> MediaStreamTrack
   /// stream.getVideoTracks()[0].requestFrame();
   ///
   external Object requestFrame();
-
-  external factory CanvasCaptureMediaStreamTrack();
 }

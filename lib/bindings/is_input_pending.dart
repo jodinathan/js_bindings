@@ -2,26 +2,34 @@
 ///
 /// https://wicg.github.io/is-input-pending/
 @JS('window')
+@staticInterop
 library is_input_pending;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'html.dart';
+import 'all_bindings.dart';
+/* deps: html */
 
 @anonymous
 @JS()
+@staticInterop
 class IsInputPendingOptions {
-  external bool get includeContinuous;
-  external set includeContinuous(bool newValue);
-
   external factory IsInputPendingOptions({bool includeContinuous = false});
 }
 
-@JS()
-class Scheduling {
-  external bool isInputPending([IsInputPendingOptions? isInputPendingOptions]);
+extension PropsIsInputPendingOptions on IsInputPendingOptions {
+  external bool get includeContinuous;
+  external set includeContinuous(bool newValue);
+}
 
+@JS()
+@staticInterop
+class Scheduling {
   external factory Scheduling();
+}
+
+extension PropsScheduling on Scheduling {
+  external bool isInputPending([IsInputPendingOptions? isInputPendingOptions]);
 }

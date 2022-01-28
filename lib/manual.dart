@@ -27,7 +27,7 @@ external dynamic get infinity;
 
 @JS()
 class Promise<T> {
-  external void then(T val);
+  external K then<K>(K Function(T) fn);
 }
 
 extension BindPromise<T> on Promise<T> {

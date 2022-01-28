@@ -2,14 +2,15 @@
 ///
 /// https://w3c.github.io/page-visibility/
 @JS('window')
+@staticInterop
 library page_visibility_2;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
-import 'html.dart';
+import 'all_bindings.dart';
+/* deps: dom
+html */
 
-@JS()
 enum VisibilityState { hidden, visible }

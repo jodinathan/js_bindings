@@ -2,6 +2,7 @@
 ///
 /// https://www.khronos.org/registry/webgl/specs/latest/2.0/
 @JS('window')
+@staticInterop
 library webgl2;
 
 import 'package:js/js.dart';
@@ -9,22 +10,20 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'webgl1.dart';
-import 'webgl2.dart';
+import 'all_bindings.dart';
+/* deps: webgl1
+webgl2 */
 
-///
-///
 ///  The interface is part of the WebGL 2 API and provides ways to
 /// asynchronously query for information. By default, occlusion
 /// queries and primitive queries are available.
-///
 ///  Another kind of queries are disjoint timer queries, which allow
 /// you to measure performance and profiling of your GPU. Disjoint
 /// timer queries are available with the [EXT_disjoint_timer_query]
 /// extension only.
-///
 ///  When working with objects, the following methods of the
 /// [WebGL2RenderingContext] are useful:
+///
 ///  [WebGL2RenderingContext.createQuery()]
 ///  [WebGL2RenderingContext.deleteQuery()]
 ///  [WebGL2RenderingContext.isQuery()]
@@ -35,19 +34,16 @@ import 'webgl2.dart';
 ///
 @experimental
 @JS()
-class WebGLQuery // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLQuery implements WebGLObject {
   external factory WebGLQuery();
 }
 
-///
-///
 ///  The interface is part of the WebGL 2 API and stores sampling
 /// parameters for [WebGLTexture] access inside of a shader.
-///
 ///  When working with objects, the following methods of the
 /// [WebGL2RenderingContext] are useful:
+///
 ///  [WebGL2RenderingContext.createSampler()]
 ///  [WebGL2RenderingContext.deleteSampler()]
 ///  [WebGL2RenderingContext.isSampler()]
@@ -56,19 +52,16 @@ class WebGLQuery // null -> {} -> WebGLObject
 ///
 @experimental
 @JS()
-class WebGLSampler // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLSampler implements WebGLObject {
   external factory WebGLSampler();
 }
 
-///
-///
 ///  The interface is part of the WebGL 2 API and is used to
 /// synchronize activities between the GPU and the application.
-///
 ///  When working with objects, the following methods of the
 /// [WebGL2RenderingContext] are useful:
+///
 ///  [WebGL2RenderingContext.fenceSync()]
 ///  [WebGL2RenderingContext.deleteSync()]
 ///  [WebGL2RenderingContext.isSync()]
@@ -78,22 +71,19 @@ class WebGLSampler // null -> {} -> WebGLObject
 ///
 @experimental
 @JS()
-class WebGLSync // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLSync implements WebGLObject {
   external factory WebGLSync();
 }
 
-///
-///
 ///  The interface is part of the WebGL 2 API and enables transform
 /// feedback, which is the process of capturing primitives generated
 /// by vertex processing. It allows to preserve the post-transform
 /// rendering state of an object and resubmit this data multiple
 /// times.
-///
 ///  When working with objects, the following methods of the
 /// [WebGL2RenderingContext] are useful:
+///
 ///  [WebGL2RenderingContext.createTransformFeedback()]
 ///  [WebGL2RenderingContext.deleteTransformFeedback()]
 ///  [WebGL2RenderingContext.isTransformFeedback()]
@@ -106,36 +96,32 @@ class WebGLSync // null -> {} -> WebGLObject
 ///  [WebGL2RenderingContext.getTransformFeedbackVarying()]
 ///
 @JS()
-class WebGLTransformFeedback // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLTransformFeedback implements WebGLObject {
   external factory WebGLTransformFeedback();
 }
 
-///
-///
 ///  The interface is part of the WebGL 2 API, represents vertex
 /// array objects (VAOs) pointing to vertex array data, and provides
 /// names for different sets of vertex data.
-///
 /// When working with objects, the following methods are useful:
+///
 ///  [WebGL2RenderingContext.createVertexArray()]
 ///  [WebGL2RenderingContext.deleteVertexArray()]
 ///  [WebGL2RenderingContext.isVertexArray()]
 ///  [WebGL2RenderingContext.bindVertexArray()]
-///
-///  WebGL 1: The [OES_vertex_array_object] extension allows you to
-/// use vertex array objects in a WebGL 1 context.
+///   Note: The [OES_vertex_array_object] extension allows you to use
+/// vertex array objects in a WebGL 1 context.
 ///
 @JS()
-class WebGLVertexArrayObject // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLVertexArrayObject implements WebGLObject {
   external factory WebGLVertexArrayObject();
 }
 
 @JS()
-mixin WebGL2RenderingContextBase {
+@staticInterop
+class WebGL2RenderingContextBase {
   external static int get READ_BUFFER;
   external static int get UNPACK_ROW_LENGTH;
   external static int get UNPACK_SKIP_ROWS;
@@ -399,6 +385,10 @@ mixin WebGL2RenderingContextBase {
   external static int get TEXTURE_IMMUTABLE_LEVELS;
   external static int get TIMEOUT_IGNORED;
   external static int get MAX_CLIENT_WAIT_TIMEOUT_WEBGL;
+  external factory WebGL2RenderingContextBase();
+}
+
+extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
   external Object copyBufferSubData(int readTarget, int writeTarget,
       int readOffset, int writeOffset, int size);
   external Object getBufferSubData(
@@ -505,11 +495,8 @@ mixin WebGL2RenderingContextBase {
       [int? srcOffset = 0]);
   external Object clearBufferuiv(int buffer, int drawbuffer, dynamic values,
       [int? srcOffset = 0]);
-  external Object clearBufferfi(
-      int buffer,
-      int drawbuffer,
-      /* double | NaN */ dynamic depth,
-      int stencil);
+  external Object clearBufferfi(int buffer, int drawbuffer,
+      /* double | NaN */ dynamic depth, int stencil);
   external WebGLQuery? createQuery();
   external Object deleteQuery(WebGLQuery? query);
   external bool isQuery(WebGLQuery? query);
@@ -566,7 +553,13 @@ mixin WebGL2RenderingContextBase {
 }
 
 @JS()
-mixin WebGL2RenderingContextOverloads {
+@staticInterop
+class WebGL2RenderingContextOverloads {
+  external factory WebGL2RenderingContextOverloads();
+}
+
+extension PropsWebGL2RenderingContextOverloads
+    on WebGL2RenderingContextOverloads {
   external Object bufferData(int target, dynamic srcData,
       [int? usage, int srcOffset, int? length = 0]);
   external Object bufferSubData(int target, int dstByteOffset,
@@ -613,28 +606,27 @@ mixin WebGL2RenderingContextOverloads {
       [dynamic dstData, int dstOffset]);
 }
 
-///
-///
 ///  The WebGL2RenderingContext interface provides the OpenGL ES 3.0
 /// rendering context for the drawing surface of an HTML [<canvas>]
 /// element.
-///
 ///  To get an object of this interface, call [getContext()] on a
 /// [<canvas>] element, supplying "webgl2" as the argument:
-///
 /// [var canvas = document.getElementById('myCanvas');
 /// var gl = canvas.getContext('webgl2');
 /// ]
-///  WebGL 2 is an extension to WebGL 1. The interface implements all
-/// members of the [WebGLRenderingContext] interface. Some methods of
-/// the WebGL 1 context can accept additional values when used in a
-/// WebGL 2 context. You will find this info noted on the WebGL 1
-/// reference pages.
+///
+///   Note: WebGL 2 is an extension to WebGL 1. The interface
+/// implements all members of the [WebGLRenderingContext] interface.
+/// Some methods of the WebGL 1 context can accept additional values
+/// when used in a WebGL 2 context. You will find this info noted on
+/// the WebGL 1 reference pages.
+///
 ///  The WebGL tutorial has more information, examples, and resources
 /// on how to get started with WebGL.
 @JS()
+@staticInterop
 class WebGL2RenderingContext
-    with
+    implements
         WebGLRenderingContextBase,
         WebGL2RenderingContextBase,
         WebGL2RenderingContextOverloads {

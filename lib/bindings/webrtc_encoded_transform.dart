@@ -2,6 +2,7 @@
 ///
 /// https://w3c.github.io/webrtc-encoded-transform/
 @JS('window')
+@staticInterop
 library webrtc_encoded_transform;
 
 import 'package:js/js.dart';
@@ -9,49 +10,71 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'callbacks.dart';
 import '../manual.dart';
-import 'streams.dart';
-import 'webrtc.dart';
-import 'web_crypto_a_p_i.dart';
-import 'dom.dart';
-import 'html.dart';
+import 'all_bindings.dart';
+/* deps: streams
+webrtc
+web_crypto_a_p_i
+dom
+html */
 
 @anonymous
 @JS()
+@staticInterop
 class RTCInsertableStreams {
-  external ReadableStream get readable;
-  external set readable(ReadableStream newValue);
-  external WritableStream get writable;
-  external set writable(WritableStream newValue);
-
   external factory RTCInsertableStreams(
       {ReadableStream readable, WritableStream writable});
 }
 
-@JS()
+extension PropsRTCInsertableStreams on RTCInsertableStreams {
+  external ReadableStream get readable;
+  external set readable(ReadableStream newValue);
+  external WritableStream get writable;
+  external set writable(WritableStream newValue);
+}
+
 enum SFrameTransformRole { encrypt, decrypt }
 
 @anonymous
 @JS()
+@staticInterop
 class SFrameTransformOptions {
-  external SFrameTransformRole get role;
-  external set role(SFrameTransformRole newValue);
-
   external factory SFrameTransformOptions(
       {SFrameTransformRole role = SFrameTransformRole.encrypt});
 }
 
-@JS()
-class SFrameTransform with GenericTransformStream {
-  external factory SFrameTransform([SFrameTransformOptions? options]);
-  external Promise<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]);
+extension PropsSFrameTransformOptions on SFrameTransformOptions {
+  external SFrameTransformRole get role;
+  external set role(SFrameTransformRole newValue);
 }
 
 @JS()
+@staticInterop
+class SFrameTransform implements GenericTransformStream {
+  external factory SFrameTransform([SFrameTransformOptions? options]);
+}
+
+extension PropsSFrameTransform on SFrameTransform {
+  external Promise<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]);
+}
+
 enum RTCEncodedVideoFrameType { empty, key, delta }
 
 @anonymous
 @JS()
+@staticInterop
 class RTCEncodedVideoFrameMetadata {
+  external factory RTCEncodedVideoFrameMetadata(
+      {int frameId,
+      Iterable<int> dependencies,
+      int width,
+      int height,
+      int spatialIndex,
+      int temporalIndex,
+      int synchronizationSource,
+      Iterable<int> contributingSources});
+}
+
+extension PropsRTCEncodedVideoFrameMetadata on RTCEncodedVideoFrameMetadata {
   external int get frameId;
   external set frameId(int newValue);
   external Iterable<int> get dependencies;
@@ -68,70 +91,74 @@ class RTCEncodedVideoFrameMetadata {
   external set synchronizationSource(int newValue);
   external Iterable<int> get contributingSources;
   external set contributingSources(Iterable<int> newValue);
-
-  external factory RTCEncodedVideoFrameMetadata(
-      {int frameId,
-      Iterable<int> dependencies,
-      int width,
-      int height,
-      int spatialIndex,
-      int temporalIndex,
-      int synchronizationSource,
-      Iterable<int> contributingSources});
 }
 
 @JS()
+@staticInterop
 class RTCEncodedVideoFrame {
+  external factory RTCEncodedVideoFrame();
+}
+
+extension PropsRTCEncodedVideoFrame on RTCEncodedVideoFrame {
   external RTCEncodedVideoFrameType get type;
   external int get timestamp;
   external ByteBuffer get data;
   external set data(ByteBuffer newValue);
   external RTCEncodedVideoFrameMetadata getMetadata();
-
-  external factory RTCEncodedVideoFrame();
 }
 
 @anonymous
 @JS()
+@staticInterop
 class RTCEncodedAudioFrameMetadata {
-  external int get synchronizationSource;
-  external set synchronizationSource(int newValue);
-  external Iterable<int> get contributingSources;
-  external set contributingSources(Iterable<int> newValue);
-
   external factory RTCEncodedAudioFrameMetadata(
       {int synchronizationSource, Iterable<int> contributingSources});
 }
 
+extension PropsRTCEncodedAudioFrameMetadata on RTCEncodedAudioFrameMetadata {
+  external int get synchronizationSource;
+  external set synchronizationSource(int newValue);
+  external Iterable<int> get contributingSources;
+  external set contributingSources(Iterable<int> newValue);
+}
+
 @JS()
+@staticInterop
 class RTCEncodedAudioFrame {
+  external factory RTCEncodedAudioFrame();
+}
+
+extension PropsRTCEncodedAudioFrame on RTCEncodedAudioFrame {
   external int get timestamp;
   external ByteBuffer get data;
   external set data(ByteBuffer newValue);
   external RTCEncodedAudioFrameMetadata getMetadata();
-
-  external factory RTCEncodedAudioFrame();
 }
 
 @JS()
-class RTCTransformEvent // null -> {} -> Event
-    with
-        Event {
-  external RTCRtpScriptTransformer get transformer;
-
+@staticInterop
+class RTCTransformEvent implements Event {
   external factory RTCTransformEvent();
 }
 
-@JS()
-class RTCRtpScriptTransformer {
-  external ReadableStream get readable;
-  external WritableStream get writable;
-  external dynamic get options;
-
-  external factory RTCRtpScriptTransformer();
+extension PropsRTCTransformEvent on RTCTransformEvent {
+  external RTCRtpScriptTransformer get transformer;
 }
 
 @JS()
+@staticInterop
+class RTCRtpScriptTransformer {
+  external factory RTCRtpScriptTransformer();
+}
+
+extension PropsRTCRtpScriptTransformer on RTCRtpScriptTransformer {
+  external ReadableStream get readable;
+  external WritableStream get writable;
+  external dynamic get options;
+}
+
+@JS()
+@staticInterop
 class RTCRtpScriptTransform {
   external factory RTCRtpScriptTransform(Worker worker,
       [dynamic options, Iterable<dynamic>? transfer]);

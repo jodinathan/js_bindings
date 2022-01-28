@@ -2,20 +2,28 @@
 ///
 /// https://w3c.github.io/webtransport/
 @JS('window')
+@staticInterop
 library webtransport;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'webtransport.dart';
-import 'streams.dart';
-import 'html.dart';
-import 'webrtc.dart';
-import 'hr_time_3.dart';
+import 'all_bindings.dart';
+/* deps: webtransport
+streams
+html
+webrtc
+hr_time_3 */
 
 @JS()
-mixin UnidirectionalStreamsTransport {
+@staticInterop
+class UnidirectionalStreamsTransport {
+  external factory UnidirectionalStreamsTransport();
+}
+
+extension PropsUnidirectionalStreamsTransport
+    on UnidirectionalStreamsTransport {
   external Promise<SendStream> createUnidirectionalStream(
       [SendStreamParameters? parameters]);
   external ReadableStream get incomingUnidirectionalStreams;
@@ -23,33 +31,51 @@ mixin UnidirectionalStreamsTransport {
 
 @anonymous
 @JS()
+@staticInterop
 class SendStreamParameters {
   external factory SendStreamParameters();
 }
 
 @JS()
-mixin BidirectionalStreamsTransport {
+@staticInterop
+class BidirectionalStreamsTransport {
+  external factory BidirectionalStreamsTransport();
+}
+
+extension PropsBidirectionalStreamsTransport on BidirectionalStreamsTransport {
   external Promise<BidirectionalStream> createBidirectionalStream();
   external ReadableStream get incomingBidirectionalStreams;
 }
 
 @JS()
-mixin DatagramTransport {
+@staticInterop
+class DatagramTransport {
+  external factory DatagramTransport();
+}
+
+extension PropsDatagramTransport on DatagramTransport {
   external int get maxDatagramSize;
   external DatagramDuplexStream get datagrams;
 }
 
 @JS()
+@staticInterop
 class DatagramDuplexStream {
-  external ReadableStream get readable;
-  external WritableStream get writable;
-
   external factory DatagramDuplexStream();
 }
 
+extension PropsDatagramDuplexStream on DatagramDuplexStream {
+  external ReadableStream get readable;
+  external WritableStream get writable;
+}
+
 @JS()
-class WebTransport with UnidirectionalStreamsTransport {
+@staticInterop
+class WebTransport implements UnidirectionalStreamsTransport {
   external factory WebTransport(String url, [WebTransportOptions? options]);
+}
+
+extension PropsWebTransport on WebTransport {
   external Promise<WebTransportStats> getStats();
   external WebTransportState get state;
   external Promise<Object> get ready;
@@ -65,36 +91,55 @@ class WebTransport with UnidirectionalStreamsTransport {
 
 @anonymous
 @JS()
+@staticInterop
 class WebTransportOptions {
-  external bool get allowPooling;
-  external set allowPooling(bool newValue);
-  external Iterable<RTCDtlsFingerprint> get serverCertificateFingerprints;
-  external set serverCertificateFingerprints(
-      Iterable<RTCDtlsFingerprint> newValue);
-
   external factory WebTransportOptions(
       {bool allowPooling,
       Iterable<RTCDtlsFingerprint> serverCertificateFingerprints});
 }
 
-@JS()
+extension PropsWebTransportOptions on WebTransportOptions {
+  external bool get allowPooling;
+  external set allowPooling(bool newValue);
+  external Iterable<RTCDtlsFingerprint> get serverCertificateFingerprints;
+  external set serverCertificateFingerprints(
+      Iterable<RTCDtlsFingerprint> newValue);
+}
+
 enum WebTransportState { connecting, connected, closed, failed }
 
 @anonymous
 @JS()
+@staticInterop
 class WebTransportCloseInfo {
-  external int get errorCode;
-  external set errorCode(int newValue);
-  external String get reason;
-  external set reason(String newValue);
-
   external factory WebTransportCloseInfo(
       {int errorCode = 0, String reason = ''});
 }
 
+extension PropsWebTransportCloseInfo on WebTransportCloseInfo {
+  external int get errorCode;
+  external set errorCode(int newValue);
+  external String get reason;
+  external set reason(String newValue);
+}
+
 @anonymous
 @JS()
+@staticInterop
 class WebTransportStats {
+  external factory WebTransportStats(
+      {double timestamp,
+      int bytesSent,
+      int packetsSent,
+      int numOutgoingStreamsCreated,
+      int numIncomingStreamsCreated,
+      int bytesReceived,
+      int packetsReceived,
+      double minRtt,
+      int numReceivedDatagramsDropped});
+}
+
+extension PropsWebTransportStats on WebTransportStats {
   external double get timestamp;
   external set timestamp(double newValue);
   external int get bytesSent;
@@ -113,51 +158,48 @@ class WebTransportStats {
   external set minRtt(double newValue);
   external int get numReceivedDatagramsDropped;
   external set numReceivedDatagramsDropped(int newValue);
-
-  external factory WebTransportStats(
-      {double timestamp,
-      int bytesSent,
-      int packetsSent,
-      int numOutgoingStreamsCreated,
-      int numIncomingStreamsCreated,
-      int bytesReceived,
-      int packetsReceived,
-      double minRtt,
-      int numReceivedDatagramsDropped});
 }
 
 @JS()
-class SendStream // null -> {} -> WritableStream
-    with
-        WritableStream {
+@staticInterop
+class SendStream implements WritableStream {
+  external factory SendStream();
+}
+
+extension PropsSendStream on SendStream {
   external Promise<StreamAbortInfo> get remoteCanceled;
   external Object reset([StreamAbortInfo? abortInfo]);
-
-  external factory SendStream();
 }
 
 @anonymous
 @JS()
+@staticInterop
 class StreamAbortInfo {
-  external int get errorCode;
-  external set errorCode(int newValue);
-
   external factory StreamAbortInfo({int errorCode = 0});
 }
 
-@JS()
-class ReceiveStream // null -> {} -> ReadableStream
-    with
-        ReadableStream {
-  external Promise<StreamAbortInfo> get remoteReset;
-
-  external factory ReceiveStream();
+extension PropsStreamAbortInfo on StreamAbortInfo {
+  external int get errorCode;
+  external set errorCode(int newValue);
 }
 
 @JS()
+@staticInterop
+class ReceiveStream implements ReadableStream {
+  external factory ReceiveStream();
+}
+
+extension PropsReceiveStream on ReceiveStream {
+  external Promise<StreamAbortInfo> get remoteReset;
+}
+
+@JS()
+@staticInterop
 class BidirectionalStream {
+  external factory BidirectionalStream();
+}
+
+extension PropsBidirectionalStream on BidirectionalStream {
   external ReceiveStream get readable;
   external SendStream get writable;
-
-  external factory BidirectionalStream();
 }

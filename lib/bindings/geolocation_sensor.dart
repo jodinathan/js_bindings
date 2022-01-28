@@ -2,20 +2,25 @@
 ///
 /// https://w3c.github.io/geolocation-sensor/
 @JS('window')
+@staticInterop
 library geolocation_sensor;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'generic_sensor.dart';
-import 'dom.dart';
-import 'hr_time_3.dart';
+import 'all_bindings.dart';
+/* deps: generic_sensor
+dom
+hr_time_3 */
 
 @JS()
-class GeolocationSensor // EventTarget -> {} -> Sensor
-    extends Sensor {
+@staticInterop
+class GeolocationSensor implements Sensor {
   external factory GeolocationSensor([GeolocationSensorOptions? options]);
+}
+
+extension PropsGeolocationSensor on GeolocationSensor {
   external static Promise<GeolocationSensorReading> read(
       [ReadOptions? readOptions]);
   external /* double | NaN */ dynamic? get latitude;
@@ -29,25 +34,39 @@ class GeolocationSensor // EventTarget -> {} -> Sensor
 
 @anonymous
 @JS()
-class GeolocationSensorOptions // null -> {} -> SensorOptions
-    with
-        SensorOptions {
+@staticInterop
+class GeolocationSensorOptions implements SensorOptions {
   external factory GeolocationSensorOptions();
 }
 
 @anonymous
 @JS()
-class ReadOptions // SensorOptions -> {} -> GeolocationSensorOptions
-    extends GeolocationSensorOptions {
+@staticInterop
+class ReadOptions implements GeolocationSensorOptions {
+  external factory ReadOptions({AbortSignal? signal});
+}
+
+extension PropsReadOptions on ReadOptions {
   external AbortSignal? get signal;
   external set signal(AbortSignal? newValue);
-
-  external factory ReadOptions({AbortSignal? signal});
 }
 
 @anonymous
 @JS()
+@staticInterop
 class GeolocationSensorReading {
+  external factory GeolocationSensorReading(
+      {double? timestamp,
+      double? latitude,
+      double? longitude,
+      double? altitude,
+      double? accuracy,
+      double? altitudeAccuracy,
+      double? heading,
+      double? speed});
+}
+
+extension PropsGeolocationSensorReading on GeolocationSensorReading {
   external double? get timestamp;
   external set timestamp(double? newValue);
   external double? get latitude;
@@ -64,10 +83,14 @@ class GeolocationSensorReading {
   external set heading(double? newValue);
   external double? get speed;
   external set speed(double? newValue);
+}
 
-  external factory GeolocationSensorReading(
-      {double? timestamp,
-      double? latitude,
+@anonymous
+@JS()
+@staticInterop
+class GeolocationReadingValues {
+  external factory GeolocationReadingValues(
+      {double? latitude,
       double? longitude,
       double? altitude,
       double? accuracy,
@@ -76,9 +99,7 @@ class GeolocationSensorReading {
       double? speed});
 }
 
-@anonymous
-@JS()
-class GeolocationReadingValues {
+extension PropsGeolocationReadingValues on GeolocationReadingValues {
   external double? get latitude;
   external set latitude(double? newValue);
   external double? get longitude;
@@ -93,13 +114,4 @@ class GeolocationReadingValues {
   external set heading(double? newValue);
   external double? get speed;
   external set speed(double? newValue);
-
-  external factory GeolocationReadingValues(
-      {double? latitude,
-      double? longitude,
-      double? altitude,
-      double? accuracy,
-      double? altitudeAccuracy,
-      double? heading,
-      double? speed});
 }

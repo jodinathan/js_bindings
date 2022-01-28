@@ -15,6 +15,7 @@ const types = {
   'DOMHighResTimeStamp': 'double',
   'ByteString': 'String',
   'DOMTimeStamp': 'int',
+  'EpochTimeStamp': 'int',
   'USVString': 'String',
   'ConstrainULong': 'double',
   'long': 'int',
@@ -126,6 +127,32 @@ const bannedMembers = {
   'CSSMathClamp': {'min', 'max'}
 };
 
+const bannedED = {
+  // 'SVG2': {'SVGElement', 'SVGBoundingBoxOptions', 'SVGGraphicsElement',
+  // 'SVGGeometryElement', 'SVGNumber', 'SVGLength', 'SVGAngle'},
+  'SVG2': true,
+  'user-timing-2': true,
+  'web-animations-1': {'FillMode'},
+  'keyboard-lock': {'Keyboard'},
+  'orientation-event': {'PermissionState'}
+};
+
+// related issue: https://github.com/w3c/webref/issues/467
+const bannedTypes = {
+  'tr': {
+    'reporting-1': {
+      'CrashReportBody',
+      'DeprecationReportBody',
+      'InterventionReportBody'
+    },
+    'webxr-ar-module-1': {'XRSessionMode'},
+    'webxr-gamepads-module-1': {'GamepadMappingType'},
+    'DOM-Parsing': {'DOMParser'},
+    ...bannedED
+  },
+  'ed': bannedED
+};
+
 final missing = {
   'DOM-Parsing': {
     'SupportedType': {
@@ -211,7 +238,17 @@ class Spec {
         } else {
           var dartType = types[returnType];
 
-          assert(dartType != null, 'Unknown dart type "$returnType"');
+          assert(dartType != null,
+          '''
+Unknown dart type "$returnType".  
+There are couple of reasons for this:
+  - This is a simple typedef like "DOMTimeStamp" and the parser could not find it. 
+If this is the case, go at the top of "tool/base.dart" and add it to the map "types".
+  - There is an error in the IDL file itself and it wasn't fixed. 
+If you have the info about this type, to the "missing" map at the top of 
+"tool/base.dart" and include it there. If you do not, go to the "types" map and reference it as a dynamic type (this is not recommended!).   
+It is also nice to start an issue so they fix the files: https://github.com/w3c/webref/issues/
+''');
 
           if (dartType == null) {
             errors['types']!.add(returnType);
@@ -383,9 +420,12 @@ Future<SpecGroup> getSpecs() async {
   final list = idls.listSync();
 
   for (var entity in list) {
+    print('Getting spec ${entity.path}');
+
     final file = File(entity.path);
     final map = Map<String, dynamic>.from(
-        convert.json.decode(file.readAsStringSync()) as Map<String, dynamic>);
+        decodeMap('Spec ${entity.path}',
+            file.readAsStringSync()) as Map<String, dynamic>);
     final objs = map['idlparsed']?['idlNames'] as Map<String, dynamic>?;
     final extended =
         map['idlparsed']?['idlExtendedNames'] as Map<String, dynamic>?;
@@ -662,15 +702,55 @@ String prettyJson(js) {
   return enc.convert(js);
 }
 
+Map decodeMap(String from, String buffer) {
+  dynamic ret;
+
+  try {
+    ret = convert.json.decode(buffer);
+  } catch (e, st) {
+    print('Could not decode "$from" to map!\n$st');
+    rethrow;
+  }
+
+  if (ret == null) {
+    throw 'Could not decode "$from" to map: \n$ret';
+  }
+
+  return ret as Map;
+}
+
 Future<Iterable<Map<String, dynamic>>> getIDLs({String dir = 'ed'}) async {
   final idls = Glob('../webIDL/$dir/*.json');
   final list = idls.listSync();
   final ret = <Map<String, dynamic>>[];
+  final bannedIDLs = bannedTypes[dir] ?? {};
+
+  print('Dir $dir has ${bannedIDLs.length}');
 
   for (var entity in list) {
     final file = File(entity.path);
-    final js =
-        convert.json.decode(file.readAsStringSync()) as Map<String, dynamic>;
+    final js = decodeMap('IDL ${entity.path}', file.readAsStringSync())
+      as Map<String, dynamic>;
+    final idlName = entity.basename.replaceAll('.json', '');
+
+    if (bannedIDLs.containsKey(idlName)) {
+      final types = bannedIDLs[idlName]!;
+
+      if (types == true) {
+        print('Skipping whole file $idlName');
+        continue;
+      }
+
+      for (final type in types as Iterable<String>) {
+        final idlNames = js['idlparsed']['idlNames'];
+
+        assert(idlNames.containsKey(type) || dir == 'tr',
+        '$dir.$idlName does not have $type. Keys: ${idlNames.keys.join(', ')}');
+        print('Removing banned type $type from $dir.$idlName. '
+            'Contains: ${idlNames.containsKey(type)}. ');
+        idlNames.remove(type);
+      }
+    }
 
     js['path'] = entity.path;
     js['basename'] = entity.basename;

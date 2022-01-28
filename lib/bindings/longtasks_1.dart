@@ -2,6 +2,7 @@
 ///
 /// https://w3c.github.io/longtasks/
 @JS('window')
+@staticInterop
 library longtasks_1;
 
 import 'package:js/js.dart';
@@ -9,32 +10,43 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'performance_timeline_2.dart';
+import 'all_bindings.dart';
+/* deps: performance_timeline_2 */
 
-///
-///   Experimental
-///    This is an experimental technologyCheck the Browser
-/// compatibility table carefully before using this in production.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Long Tasks API reports instances of long
 /// tasks.
 ///
 ///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    PerformanceLongTaskTiming
+///
+///
 @JS()
-class PerformanceLongTaskTiming // null -> {} -> PerformanceEntry
-    with
-        PerformanceEntry {
-  /// Returns a sequence of [TaskAttributionTiming] instances.
-  external Iterable<TaskAttributionTiming> get attribution;
-  @override
-  external dynamic toJSON();
-
+@staticInterop
+class PerformanceLongTaskTiming implements PerformanceEntry {
   external factory PerformanceLongTaskTiming();
 }
 
-///
-///   Experimental
-///    This is an experimental technologyCheck the Browser
-/// compatibility table carefully before using this in production.
+extension PropsPerformanceLongTaskTiming on PerformanceLongTaskTiming {
+  /// Returns a sequence of [TaskAttributionTiming] instances.
+  ///
+  external Iterable<TaskAttributionTiming> get attribution;
+  @override
+  external dynamic toJSON();
+}
+
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Long Tasks API returns information about
 /// the work involved in a long task and its associate frame context.
 /// The frame context, also called the container, is the iframe,
@@ -42,25 +54,40 @@ class PerformanceLongTaskTiming // null -> {} -> PerformanceEntry
 /// long task.
 ///
 ///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    TaskAttributionTiming
+///
+///
 @experimental
 @JS()
-class TaskAttributionTiming // null -> {} -> PerformanceEntry
-    with
-        PerformanceEntry {
+@staticInterop
+class TaskAttributionTiming implements PerformanceEntry {
+  external factory TaskAttributionTiming();
+}
+
+extension PropsTaskAttributionTiming on TaskAttributionTiming {
   ///  Returns the type of frame container, one of [iframe], [embed],
   /// or [object].
+  ///
   external String get containerType;
 
   /// Returns the container's [src] attribute.
+  ///
   external String get containerSrc;
 
   /// Returns the container's [id] attribute.
+  ///
   external String get containerId;
 
   /// Returns the container's [name] attribute.
+  ///
   external String get containerName;
   @override
   external dynamic toJSON();
-
-  external factory TaskAttributionTiming();
 }

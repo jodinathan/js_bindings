@@ -2,10 +2,12 @@
 ///
 /// https://w3c.github.io/vibration/
 @JS('window')
+@staticInterop
 library vibration;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'html.dart';
+import 'all_bindings.dart';
+/* deps: html */

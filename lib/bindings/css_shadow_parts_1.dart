@@ -2,10 +2,12 @@
 ///
 /// https://drafts.csswg.org/css-shadow-parts/
 @JS('window')
+@staticInterop
 library css_shadow_parts_1;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
+import 'all_bindings.dart';
+/* deps: dom */

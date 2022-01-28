@@ -7,10 +7,12 @@ include: package:lints/recommended.yaml
 # For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
 
 # Uncomment to specify additional rules.
-# linter:
-#   rules:
-#     - camel_case_types
+linter:
+ rules:
+   # there are some nice lints that were in pedantic that should stay
+   - unawaited_futures
 
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+analyzer:
+ exclude:
+   - tool/crawler/mdn
+   - tool/webIDL

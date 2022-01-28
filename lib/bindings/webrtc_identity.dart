@@ -2,6 +2,7 @@
 ///
 /// https://w3c.github.io/webrtc-identity/
 @JS('window')
+@staticInterop
 library webrtc_identity;
 
 import 'package:js/js.dart';
@@ -9,126 +10,143 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'html.dart';
-import 'webrtc.dart';
-import 'mediacapture_streams.dart';
+import 'all_bindings.dart';
+/* deps: html
+webrtc
+mediacapture_streams */
 
 @JS()
-class RTCIdentityProviderGlobalScope // EventTarget -> {css_font_loading_3: {FontFaceSource}, html: {WindowOrWorkerGlobalScope}} -> WorkerGlobalScope
-    extends WorkerGlobalScope {
-  external RTCIdentityProviderRegistrar get rtcIdentityProvider;
-
+@staticInterop
+class RTCIdentityProviderGlobalScope implements WorkerGlobalScope {
   external factory RTCIdentityProviderGlobalScope();
 }
 
-@JS()
-class RTCIdentityProviderRegistrar {
-  external Object register(RTCIdentityProvider idp);
+extension PropsRTCIdentityProviderGlobalScope
+    on RTCIdentityProviderGlobalScope {
+  external RTCIdentityProviderRegistrar get rtcIdentityProvider;
+}
 
+@JS()
+@staticInterop
+class RTCIdentityProviderRegistrar {
   external factory RTCIdentityProviderRegistrar();
+}
+
+extension PropsRTCIdentityProviderRegistrar on RTCIdentityProviderRegistrar {
+  external Object register(RTCIdentityProvider idp);
 }
 
 @anonymous
 @JS()
+@staticInterop
 class RTCIdentityProvider {
-  external GenerateAssertionCallback get generateAssertion;
-  external set generateAssertion(GenerateAssertionCallback newValue);
-  external ValidateAssertionCallback get validateAssertion;
-  external set validateAssertion(ValidateAssertionCallback newValue);
-
   external factory RTCIdentityProvider(
       {GenerateAssertionCallback generateAssertion,
       ValidateAssertionCallback validateAssertion});
 }
 
+extension PropsRTCIdentityProvider on RTCIdentityProvider {
+  external GenerateAssertionCallback get generateAssertion;
+  external set generateAssertion(GenerateAssertionCallback newValue);
+  external ValidateAssertionCallback get validateAssertion;
+  external set validateAssertion(ValidateAssertionCallback newValue);
+}
+
 @anonymous
 @JS()
+@staticInterop
 class RTCIdentityAssertionResult {
-  external RTCIdentityProviderDetails get idp;
-  external set idp(RTCIdentityProviderDetails newValue);
-  external String get assertion;
-  external set assertion(String newValue);
-
   external factory RTCIdentityAssertionResult(
       {RTCIdentityProviderDetails idp, String assertion});
 }
 
+extension PropsRTCIdentityAssertionResult on RTCIdentityAssertionResult {
+  external RTCIdentityProviderDetails get idp;
+  external set idp(RTCIdentityProviderDetails newValue);
+  external String get assertion;
+  external set assertion(String newValue);
+}
+
 @anonymous
 @JS()
+@staticInterop
 class RTCIdentityProviderDetails {
-  external String get domain;
-  external set domain(String newValue);
-  external String get protocol;
-  external set protocol(String newValue);
-
   external factory RTCIdentityProviderDetails(
       {String domain, String protocol = 'default'});
 }
 
-@anonymous
-@JS()
-class RTCIdentityValidationResult {
-  external String get identity;
-  external set identity(String newValue);
-  external String get contents;
-  external set contents(String newValue);
-
-  external factory RTCIdentityValidationResult(
-      {String identity, String contents});
+extension PropsRTCIdentityProviderDetails on RTCIdentityProviderDetails {
+  external String get domain;
+  external set domain(String newValue);
+  external String get protocol;
+  external set protocol(String newValue);
 }
 
 @anonymous
 @JS()
+@staticInterop
+class RTCIdentityValidationResult {
+  external factory RTCIdentityValidationResult(
+      {String identity, String contents});
+}
+
+extension PropsRTCIdentityValidationResult on RTCIdentityValidationResult {
+  external String get identity;
+  external set identity(String newValue);
+  external String get contents;
+  external set contents(String newValue);
+}
+
+@anonymous
+@JS()
+@staticInterop
 class RTCIdentityProviderOptions {
+  external factory RTCIdentityProviderOptions(
+      {String protocol = 'default', String usernameHint, String peerIdentity});
+}
+
+extension PropsRTCIdentityProviderOptions on RTCIdentityProviderOptions {
   external String get protocol;
   external set protocol(String newValue);
   external String get usernameHint;
   external set usernameHint(String newValue);
   external String get peerIdentity;
   external set peerIdentity(String newValue);
-
-  external factory RTCIdentityProviderOptions(
-      {String protocol = 'default', String usernameHint, String peerIdentity});
 }
 
-///
-///   Experimental
-///    This is an experimental technologyCheck the Browser
-/// compatibility table carefully before using this in production.
-///  The interface of the WebRTC API represents the identity of the a
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the WebRTC API represents the identity of a
 /// remote peer of the current connection. If no peer has yet been
-/// set and verified this interface returns [null]. Once set it can't
-/// be changed.
+/// set and verified, then this interface returns [null]. Once set it
+/// can't be changed.
 @experimental
 @JS()
+@staticInterop
 class RTCIdentityAssertion {
   external factory RTCIdentityAssertion(String idp, String name);
+}
 
+extension PropsRTCIdentityAssertion on RTCIdentityAssertion {
   /// Indicates the provider of the identity assertion.
+  ///
   external String get idp;
   external set idp(String newValue);
 
   /// Indicates the name of the identity assertion provider.
+  ///
   external String get name;
   external set name(String newValue);
 }
 
-@JS()
 enum RTCErrorDetailTypeIdp {
-  @JS('idp-bad-script-failure')
   idpBadScriptFailure,
-  @JS('idp-execution-failure')
   idpExecutionFailure,
-  @JS('idp-load-failure')
   idpLoadFailure,
-  @JS('idp-need-login')
   idpNeedLogin,
-  @JS('idp-timeout')
   idpTimeout,
-  @JS('idp-tls-failure')
   idpTlsFailure,
-  @JS('idp-token-expired')
   idpTokenExpired,
-  @JS('idp-token-invalid')
   idpTokenInvalid
 }

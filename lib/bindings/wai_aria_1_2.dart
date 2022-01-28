@@ -2,21 +2,34 @@
 ///
 /// https://w3c.github.io/aria/
 @JS('window')
+@staticInterop
 library wai_aria_1_2;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'all_bindings.dart';
+/* deps:  */
 
 @JS()
-mixin AccessibilityRole {
+@staticInterop
+class AccessibilityRole {
+  external factory AccessibilityRole();
+}
+
+extension PropsAccessibilityRole on AccessibilityRole {
   external String get role;
   external set role(String newValue);
 }
 
 @JS()
-mixin AriaAttributes {
+@staticInterop
+class AriaAttributes {
+  external factory AriaAttributes();
+}
+
+extension PropsAriaAttributes on AriaAttributes {
   external String get ariaAtomic;
   external set ariaAtomic(String newValue);
   external String get ariaAutoComplete;
@@ -96,7 +109,12 @@ mixin AriaAttributes {
 }
 
 @JS()
-mixin ARIAMixin {
+@staticInterop
+class ARIAMixin {
+  external factory ARIAMixin();
+}
+
+extension PropsARIAMixin on ARIAMixin {
   external String? get role;
   external set role(String? newValue);
   external String get ariaAtomic;

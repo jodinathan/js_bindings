@@ -2,14 +2,18 @@
 ///
 /// https://www.khronos.org/registry/webgl/extensions/WEBGL_blend_equation_advanced_coherent/
 @JS('window')
+@staticInterop
 library w_e_b_g_l_blend_equation_advanced_coherent;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'all_bindings.dart';
+/* deps:  */
 
 @JS()
+@staticInterop
 class WEBGL_blend_equation_advanced_coherent {
   external static int get MULTIPLY;
   external static int get SCREEN;
@@ -26,6 +30,5 @@ class WEBGL_blend_equation_advanced_coherent {
   external static int get HSL_SATURATION;
   external static int get HSL_COLOR;
   external static int get HSL_LUMINOSITY;
-
   external factory WEBGL_blend_equation_advanced_coherent();
 }

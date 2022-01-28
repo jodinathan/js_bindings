@@ -2,21 +2,20 @@
 ///
 /// https://w3c.github.io/paint-timing/
 @JS('window')
+@staticInterop
 library paint_timing;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'performance_timeline_2.dart';
+import 'all_bindings.dart';
+/* deps: performance_timeline_2 */
 
-///
-///
 ///  The interface of the Paint Timing API provides timing
 /// information about "paint" (also called "render") operations
 /// during web page construction. "Paint" refers to conversion of the
 /// render tree to on-screen pixels.
-///
 ///  An application can register a [PerformanceObserver] for
 /// "[paint]" [performance entry types] and the observer can retrieve
 /// the times that paint events occur. Use this information to help
@@ -24,9 +23,18 @@ import 'performance_timeline_2.dart';
 /// experience.
 ///
 ///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    PerformancePaintTiming
+///
+///
 @JS()
-class PerformancePaintTiming // null -> {} -> PerformanceEntry
-    with
-        PerformanceEntry {
+@staticInterop
+class PerformancePaintTiming implements PerformanceEntry {
   external factory PerformancePaintTiming();
 }

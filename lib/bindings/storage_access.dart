@@ -2,10 +2,12 @@
 ///
 /// https://privacycg.github.io/storage-access/
 @JS('window')
+@staticInterop
 library storage_access;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
+import 'all_bindings.dart';
+/* deps: dom */

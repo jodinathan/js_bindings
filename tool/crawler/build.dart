@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:convert' as convert;
 import 'dart:io';
+import 'dart:convert' as convert;
 
 import 'package:archive/archive.dart';
 import 'package:html/parser.dart';
@@ -9,9 +9,9 @@ import 'package:tcp_scanner/tcp_scanner.dart';
 
 import '../base.dart';
 import '../string_crawler.dart';
+import '../config.dart';
 
 Process? mdnServer;
-const basePath = 'http://localhost:5000/en-US/docs/Web/API/';
 final errors = <String, List<String>>{};
 final urls = [];
 
@@ -21,7 +21,7 @@ Future<void> main() async {
   // copy the list of webIDLs, parsed in JSON, from github.com/w3c/webref/
   //await cloneIDLs();
   // merge ed and tr IDLs into /merged
-  //await mergeIDLs();
+  await mergeIDLs();
   // startes the MDN web server: localhost:5000
   await startMdn();
   // parse the MDN htmls to generate a json
@@ -49,10 +49,23 @@ String? stripHtml(String? buf) {
   return parse(buf.replaceAll('&nbsp;', ' ')).body!.text;
 }
 
+class GroupIDL {
+  GroupIDL(this.name, this.idls);
+
+  final String name;
+  final Iterable<Map<String, dynamic>> idls;
+}
+
 Future<void> mergeIDLs() async {
   final list = await getIDLs();
   final ds = dirs.toList();
-  final groups = [];
+  final groups = <GroupIDL>[];
+  const mergePath = '../webIDL/merged/';
+  final dir = Directory(mergePath);
+
+  if (await dir.exists()) {
+    await dir.delete(recursive: true);
+  }
 
   print('Will merge others ${ds.length}');
 
@@ -62,7 +75,7 @@ Future<void> mergeIDLs() async {
     final idls = await getIDLs(dir: dir);
 
     print('Adding $dir, ${idls.length}');
-    groups.add(idls);
+    groups.add(GroupIDL(dir, idls));
   }
 
   print('To merge: ${groups.length}');
@@ -71,7 +84,7 @@ Future<void> mergeIDLs() async {
     for (final group in groups) {
       Map? other;
 
-      for (final gr in (group as Iterable)) {
+      for (final gr in group.idls) {
         if (gr['basename'] == item['basename']) {
           other = gr;
           break;
@@ -83,24 +96,26 @@ Future<void> mergeIDLs() async {
         continue;
       }
 
+      print('Merging types ${item['basename']}, ${other['idlparsed']['idlNames'].keys.join(', ')}');
       item['idlparsed']['idlNames'] = <String, dynamic>{
         ...other['idlparsed']['idlNames'],
         ...item['idlparsed']['idlNames']
       };
     }
 
-    final path = '../webIDL/merged/${item['basename']}';
+    final path = '$mergePath${item['basename']}';
 
     File(path)
       ..createSync(recursive: true)
       ..writeAsStringSync(prettyJson(item));
+    print('Created merge version of $path.');
   }
 }
 
 Future<void> cloneIDLs() async {
-  final js = convert.json.decode(await http.read(Uri.parse(
-          'https://api.github.com/repos/w3c/webref/git/trees/master?recursive=1')))
-      as Map;
+  print('Will clone IDLs now. Fetching $w3cTreeUrl');
+
+  final js = decodeMap('W3C repo', await http.read(Uri.parse(w3cTreeUrl)));
 
   if (js['tree'] is Iterable) {
     for (final item in js['tree']) {
@@ -127,9 +142,9 @@ Future<void> cloneIDLs() async {
 
 Future<void> startMdn() async {
   Future<bool> opened() async {
-    final res = await TCPScanner('localhost', [5000]).scan();
+    final res = await TCPScanner(mdnWeb.host, [mdnWeb.port]).scan();
 
-    return res.open.contains(5000);
+    return res.open.contains(mdnWeb.port);
   }
 
   if (await opened()) {
@@ -173,7 +188,7 @@ void stopMdn() {
 
 Future<void> cloneMDN() async {
   final url =
-      Uri.parse('https://github.com/mdn/content/archive/refs/heads/main.zip');
+      Uri.parse(mdnWebZipUrl);
 
   print('Downloading $url...');
   final response = await http.get(url);
@@ -207,13 +222,17 @@ Future<void> cloneMDN() async {
 }
 
 Future<Map<String, dynamic>?> fetch(String path, {bool silent = false}) async {
-  final url = Uri.parse(path.startsWith('http') ? path : '$basePath$path');
+  final url = Uri.parse(path.startsWith('http') ? path : '$mdnWeb$path');
 
   try {
     print('Fetching $url');
     final response = await http.read(url);
+    final decoded = decodeMap('URL $url', response);
+    final ret = decoded as Map<String, dynamic>;
 
-    return convert.json.decode(response) as Map<String, dynamic>;
+    print('Fetched ${decoded.runtimeType}');
+
+    return ret;
   } catch (e, st) {
     if (!silent) {
       print('Error fetching $path');
@@ -264,7 +283,8 @@ Future<Map<String, dynamic>> getInterfaces() async {
     final block = scanner.getUntil('</li>');
 
     if (block != null) {
-      final name = StringCrawler(block).getBetween('<code>', '</code>');
+      final name = StringCrawler(block).getBetween('<code>', '</code>')
+          ?.replaceAll(RegExp(r'\(\)|self\.'), '');
 
       if (name != null && name != 'Index') {
         final object = <String, dynamic>{
@@ -402,9 +422,14 @@ Future<Map<String, dynamic>> getInterfaces() async {
         }
 
         if (details != null) {
-          final rdesc = getMDNContent(details, null)!;
+          final rdesc = getMDNContent(details, null);
 
-          object['desc'] = makeDesc(name, rdesc);
+          if (rdesc == null) {
+            print('Could not get the resume description of "$name"');
+          } else {
+            object['desc'] = makeDesc(name, rdesc);
+          }
+
           await parseProps(
               raw: getMDNContent(details, 'Properties'), type: 'attribute');
           await parseProps(
@@ -444,14 +469,30 @@ Iterable<String> getAllBlocks(String data, String name) {
 }
 
 Future<void> addInfo() async {
+  const infoPath = '../webIDL/info/';
+  final dir = Directory(infoPath);
+
+  if (await dir.exists()) {
+    await dir.delete(recursive: true);
+  }
+
   print('Adding info...');
   final mdninfs =
-      convert.json.decode(File('../webIDL/mdn.json').readAsStringSync())
+      decodeMap('MDN digest', File('../webIDL/mdn.json').readAsStringSync())
           as Map<String, dynamic>;
   final list = await getIDLs(dir: 'merged');
 
   for (var js in list) {
-    final objs = js['idlparsed']?['idlNames'] as Map<String, dynamic>?;
+    final idlparsed = js['idlparsed'];
+
+    if (idlparsed is String && idlparsed.startsWith('WebIDLParseError')) {
+      print('ERROR with a json from w3c: ${js['spec']?['title']}. \n'
+          'Please, fill an issue so they can fix it there: https://github.com/w3c/webref/issues/\n'
+          'Also, please, thumbs up this issue so they create a robust IDL parsed files: https://github.com/w3c/webref/issues/277');
+      continue;
+    }
+
+    final objs = js['idlparsed']?['idlNames'] as Map?;
 
     print('Spec ${js['spec']['title']}(${js['path']}): ${objs?.length}');
 
@@ -519,7 +560,7 @@ Future<void> addInfo() async {
       }
     }
 
-    final p = '../webIDL/info/${js['basename']}';
+    final p = '$infoPath${js['basename']}';
 
     print('Saving $p');
     File(p)

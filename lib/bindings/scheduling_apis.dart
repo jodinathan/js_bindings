@@ -2,81 +2,89 @@
 ///
 /// https://wicg.github.io/scheduling-apis/
 @JS('window')
+@staticInterop
 library scheduling_apis;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
-import 'html.dart';
+import 'all_bindings.dart';
+/* deps: dom
+html */
 
-@JS()
-enum TaskPriority {
-  @JS('user-blocking')
-  userBlocking,
-  @JS('user-visible')
-  userVisible,
-  background
-}
+enum TaskPriority { userBlocking, userVisible, background }
 
 @anonymous
 @JS()
+@staticInterop
 class SchedulerPostTaskOptions {
+  external factory SchedulerPostTaskOptions(
+      {AbortSignal signal, TaskPriority priority, int delay = 0});
+}
+
+extension PropsSchedulerPostTaskOptions on SchedulerPostTaskOptions {
   external AbortSignal get signal;
   external set signal(AbortSignal newValue);
   external TaskPriority get priority;
   external set priority(TaskPriority newValue);
   external int get delay;
   external set delay(int newValue);
-
-  external factory SchedulerPostTaskOptions(
-      {AbortSignal signal, TaskPriority priority, int delay = 0});
 }
 
 @JS()
+@staticInterop
 class Scheduler {
-  external Promise<dynamic> postTask(SchedulerPostTaskCallback callback,
-      [SchedulerPostTaskOptions? options]);
-
   external factory Scheduler();
 }
 
+extension PropsScheduler on Scheduler {
+  external Promise<dynamic> postTask(SchedulerPostTaskCallback callback,
+      [SchedulerPostTaskOptions? options]);
+}
+
 @JS()
-class TaskPriorityChangeEvent // null -> {} -> Event
-    with
-        Event {
+@staticInterop
+class TaskPriorityChangeEvent implements Event {
   external factory TaskPriorityChangeEvent(
       String type, TaskPriorityChangeEventInit priorityChangeEventInitDict);
+}
+
+extension PropsTaskPriorityChangeEvent on TaskPriorityChangeEvent {
   external TaskPriority get previousPriority;
 }
 
 @anonymous
 @JS()
-class TaskPriorityChangeEventInit // null -> {} -> EventInit
-    with
-        EventInit {
-  external TaskPriority get previousPriority;
-  external set previousPriority(TaskPriority newValue);
-
+@staticInterop
+class TaskPriorityChangeEventInit implements EventInit {
   external factory TaskPriorityChangeEventInit({TaskPriority previousPriority});
 }
 
+extension PropsTaskPriorityChangeEventInit on TaskPriorityChangeEventInit {
+  external TaskPriority get previousPriority;
+  external set previousPriority(TaskPriority newValue);
+}
+
 @JS()
-class TaskController // null -> {} -> AbortController
-    with
-        AbortController {
+@staticInterop
+class TaskController implements AbortController {
   external factory TaskController(
       [TaskPriority? priority = TaskPriority.userVisible]);
+}
+
+extension PropsTaskController on TaskController {
   external Object setPriority(TaskPriority priority);
 }
 
 @JS()
-class TaskSignal // EventTarget -> {} -> AbortSignal
-    extends AbortSignal {
+@staticInterop
+class TaskSignal implements AbortSignal {
+  external factory TaskSignal();
+}
+
+extension PropsTaskSignal on TaskSignal {
   external TaskPriority get priority;
   external EventHandlerNonNull? get onprioritychange;
   external set onprioritychange(EventHandlerNonNull? newValue);
-
-  external factory TaskSignal();
 }

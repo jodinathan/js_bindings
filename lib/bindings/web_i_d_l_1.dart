@@ -2,40 +2,26 @@
 ///
 /// https://heycam.github.io/webidl/
 @JS('window')
+@staticInterop
 library web_i_d_l_1;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'all_bindings.dart';
+/* deps:  */
 
-///
-///
-///  The [DOMException] interface represents an abnormal event
-/// (called an exception) that occurs as a result of calling a method
-/// or accessing a property of a web API. This is basically how error
-/// conditions are described in web APIs.
-///
+///  The interface represents an abnormal event (called an exception)
+/// that occurs as a result of calling a method or accessing a
+/// property of a web API. This is how error conditions are described
+/// in web APIs.
 ///  Each exception has a name, which is a short "PascalCase"-style
 /// string identifying the error or abnormal condition.
 @JS()
+@staticInterop
 class DOMException {
   external factory DOMException([String? message = '', String? name = 'Error']);
-
-  ///  Returns a [DOMString] that contains one of the strings
-  /// associated with an error name.
-  external String get name;
-
-  ///  Returns a [DOMString] representing a message or description
-  /// associated with the given error name.
-  external String get message;
-
-  ///  Returns a [short] that contains one of the error code constants,
-  /// or [0] if none match. This field is used for historical reasons.
-  /// New DOM exceptions don't use this anymore: they put this info in
-  /// the [DOMException.name] attribute.
-  @deprecated
-  external int get code;
   external static int get INDEX_SIZE_ERR;
   external static int get DOMSTRING_SIZE_ERR;
   external static int get HIERARCHY_REQUEST_ERR;
@@ -61,4 +47,24 @@ class DOMException {
   external static int get TIMEOUT_ERR;
   external static int get INVALID_NODE_TYPE_ERR;
   external static int get DATA_CLONE_ERR;
+}
+
+extension PropsDOMException on DOMException {
+  ///  Returns a [DOMString] that contains one of the strings
+  /// associated with an error name.
+  ///
+  external String get name;
+
+  ///  Returns a [DOMString] representing a message or description
+  /// associated with the given error name.
+  ///
+  external String get message;
+
+  ///  Returns a [short] that contains one of the error code constants,
+  /// or [0] if none match. This field is used for historical reasons.
+  /// New DOM exceptions don't use this anymore: they put this info in
+  /// the [DOMException.name] attribute.
+  ///
+  @deprecated
+  external int get code;
 }

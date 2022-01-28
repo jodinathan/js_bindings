@@ -2,36 +2,50 @@
 ///
 /// https://wicg.github.io/sanitizer-api/
 @JS('window')
+@staticInterop
 library sanitizer_api;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
+import 'all_bindings.dart';
+/* deps: dom */
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
 ///
-///   Draft
-///   This page is not complete.
+///   The interface of the [HTML Sanitizer API] provides methods to
+/// sanitize untrusted strings of HTML, [Document] and
+/// [DocumentFragment] objects.
+///   After sanitization, unwanted elements or attributes are
+/// removed, and the returned objects can safely be inserted into a
+/// document’s DOM.
 ///
-///  Secure contextThis feature is available only in secure contexts
-/// (HTTPS), in some or all supporting browsers.
+///  A object is also used by the [Element.setHTML()] method to parse
+/// and sanitize a string of HTML, and immediately insert it into an
+/// element.
 ///
-///  The interface of the [HTML Sanitizer API] allows developers to
-/// take untrusted strings of HTML, and sanitize them for safe
-/// insertion into a document’s DOM.
+///   The default configuration strips out XSS-relevant input by
+/// default, including [<script>] tags, custom elements, and
+/// comments.
+///  This configuration may be customized using constructor options.
+///
 @JS()
+@staticInterop
 class Sanitizer {
   external factory Sanitizer([SanitizerConfig? config]);
+}
 
-  ///  Returns a sanitized [DocumentFragment] from an input, removing
-  /// any offending elements or attributes.
-  /// var DocumentFragment = sanitizer.sanitize(input);
+extension PropsSanitizer on Sanitizer {
+  ///  Returns a sanitized [DocumentFragment] from an input [Document]
+  /// or [DocumentFragment]
+  ///
+  /// sanitize(input)
+  ///
   external DocumentFragment sanitize(dynamic input);
-
-  ///  Returns a sanitized [String] from an input, removing any
-  /// offending elements or attributes.
-  /// var String = sanitizer.sanitizeToString(input);
   external String sanitizeToString(dynamic input);
   external SanitizerConfig config();
   external static SanitizerConfig defaultConfig();
@@ -39,7 +53,18 @@ class Sanitizer {
 
 @anonymous
 @JS()
+@staticInterop
 class SanitizerConfig {
+  external factory SanitizerConfig(
+      {Iterable<String> allowElements,
+      Iterable<String> blockElements,
+      Iterable<String> dropElements,
+      dynamic allowAttributes,
+      dynamic dropAttributes,
+      bool allowCustomElements});
+}
+
+extension PropsSanitizerConfig on SanitizerConfig {
   external Iterable<String> get allowElements;
   external set allowElements(Iterable<String> newValue);
   external Iterable<String> get blockElements;
@@ -52,12 +77,4 @@ class SanitizerConfig {
   external set dropAttributes(dynamic newValue);
   external bool get allowCustomElements;
   external set allowCustomElements(bool newValue);
-
-  external factory SanitizerConfig(
-      {Iterable<String> allowElements,
-      Iterable<String> blockElements,
-      Iterable<String> dropElements,
-      dynamic allowAttributes,
-      dynamic dropAttributes,
-      bool allowCustomElements});
 }

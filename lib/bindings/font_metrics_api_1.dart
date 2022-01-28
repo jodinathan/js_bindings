@@ -2,17 +2,24 @@
 ///
 /// https://drafts.css-houdini.org/font-metrics-api-1/
 @JS('window')
+@staticInterop
 library font_metrics_api_1;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
-import 'css_typed_om_1.dart';
+import 'all_bindings.dart';
+/* deps: dom
+css_typed_om_1 */
 
 @JS()
+@staticInterop
 class FontMetrics {
+  external factory FontMetrics();
+}
+
+extension PropsFontMetrics on FontMetrics {
   external double get width;
   external Iterable<double> get advances;
   external double get boundingBoxLeft;
@@ -27,22 +34,26 @@ class FontMetrics {
   external Baseline get dominantBaseline;
   external Iterable<Baseline> get baselines;
   external Iterable<Font> get fonts;
-
-  external factory FontMetrics();
 }
 
 @JS()
+@staticInterop
 class Baseline {
-  external String get name;
-  external double get value;
-
   external factory Baseline();
 }
 
+extension PropsBaseline on Baseline {
+  external String get name;
+  external double get value;
+}
+
 @JS()
+@staticInterop
 class Font {
+  external factory Font();
+}
+
+extension PropsFont on Font {
   external String get name;
   external int get glyphsRendered;
-
-  external factory Font();
 }

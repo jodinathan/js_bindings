@@ -2,30 +2,31 @@
 ///
 /// https://www.khronos.org/registry/webgl/extensions/WEBGL_draw_buffers/
 @JS('window')
+@staticInterop
 library w_e_b_g_l_draw_buffers;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'webgl1.dart';
+import 'all_bindings.dart';
+/* deps: webgl1 */
 
-///
-///
-///  The [WEBGL_draw_buffers] extension is part of the WebGL API and
-/// enables a fragment shader to write to several textures, which is
-/// useful for deferred shading, for example.
-///
+///  The extension is part of the WebGL API and enables a fragment
+/// shader to write to several textures, which is useful for deferred
+/// shading, for example.
 ///  WebGL extensions are available using the
 /// [WebGLRenderingContext.getExtension()] method. For more
 /// information, see also Using Extensions in the WebGL tutorial.
-///  Availability: This extension is only available to WebGL1
-/// contexts. In WebGL2, the functionality of this extension is
-/// available on the WebGL2 context by default. In WebGL 2, the
-/// constants are available without the "WEBGL" suffix and the new
-/// GLSL built-ins require GLSL [#version 300 es].
+///
+///   Note: This extension is only available to WebGL1 contexts. In
+/// WebGL2, the functionality of this extension is available on the
+/// WebGL2 context by default. In WebGL 2, the constants are
+/// available without the "WEBGL" suffix and the new GLSL built-ins
+/// require GLSL [#version 300 es].
 ///
 @JS()
+@staticInterop
 class WEBGL_draw_buffers {
   external static int get COLOR_ATTACHMENT0_WEBGL;
   external static int get COLOR_ATTACHMENT1_WEBGL;
@@ -61,13 +62,15 @@ class WEBGL_draw_buffers {
   external static int get DRAW_BUFFER15_WEBGL;
   external static int get MAX_COLOR_ATTACHMENTS_WEBGL;
   external static int get MAX_DRAW_BUFFERS_WEBGL;
+  external factory WEBGL_draw_buffers();
+}
 
+extension PropsWEBGL_draw_buffers on WEBGL_draw_buffers {
   ///  Defines the draw buffers to which all fragment colors are
   /// written. (When using [WebGL2], this method is available as
   /// [gl.drawBuffers()] by default).
   ///
   /// void gl.getExtension('WEBGL_draw_buffers').drawBuffersWEBGL(buffers);
+  ///
   external Object drawBuffersWEBGL(Iterable<int> buffers);
-
-  external factory WEBGL_draw_buffers();
 }

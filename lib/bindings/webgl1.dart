@@ -2,29 +2,37 @@
 ///
 /// https://www.khronos.org/registry/webgl/specs/latest/1.0/
 @JS('window')
+@staticInterop
 library webgl1;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'webgl1.dart';
-import 'html.dart';
-import 'dom.dart';
+import 'all_bindings.dart';
+/* deps: webgl1
+html
+dom */
 
-@JS()
-enum WebGLPowerPreference {
-  @JS('default')
-  valueDefault,
-  @JS('low-power')
-  lowPower,
-  @JS('high-performance')
-  highPerformance
-}
+enum WebGLPowerPreference { valueDefault, lowPower, highPerformance }
 
 @anonymous
 @JS()
+@staticInterop
 class WebGLContextAttributes {
+  external factory WebGLContextAttributes(
+      {bool alpha = true,
+      bool depth = true,
+      bool stencil = false,
+      bool antialias = true,
+      bool premultipliedAlpha = true,
+      bool preserveDrawingBuffer = false,
+      WebGLPowerPreference powerPreference = WebGLPowerPreference.valueDefault,
+      bool failIfMajorPerformanceCaveat = false,
+      bool desynchronized = false});
+}
+
+extension PropsWebGLContextAttributes on WebGLContextAttributes {
   external bool get alpha;
   external set alpha(bool newValue);
   external bool get depth;
@@ -43,57 +51,38 @@ class WebGLContextAttributes {
   external set failIfMajorPerformanceCaveat(bool newValue);
   external bool get desynchronized;
   external set desynchronized(bool newValue);
-
-  external factory WebGLContextAttributes(
-      {bool alpha = true,
-      bool depth = true,
-      bool stencil = false,
-      bool antialias = true,
-      bool premultipliedAlpha = true,
-      bool preserveDrawingBuffer = false,
-      WebGLPowerPreference powerPreference = WebGLPowerPreference.valueDefault,
-      bool failIfMajorPerformanceCaveat = false,
-      bool desynchronized = false});
 }
 
 @JS()
+@staticInterop
 class WebGLObject {
   external factory WebGLObject();
 }
 
-///
-///
 ///  The WebGLBuffer interface is part of the WebGL API and
 /// represents an opaque buffer object storing data such as vertices
 /// or colors.
 @JS()
-class WebGLBuffer // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLBuffer implements WebGLObject {
   external factory WebGLBuffer();
 }
 
-///
-///
 ///  The WebGLFramebuffer interface is part of the WebGL API and
 /// represents a collection of buffers that serve as a rendering
 /// destination.
 @JS()
-class WebGLFramebuffer // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLFramebuffer implements WebGLObject {
   external factory WebGLFramebuffer();
 }
 
-///
-///
-///  The [WebGLProgram] is part of the WebGL API and is a combination
-/// of two compiled [WebGLShader]s consisting of a vertex shader and
-/// a fragment shader (both written in GLSL). To create a , call the
-/// GL context's [createProgram()] function. After attaching the
-/// shader programs using [attachShader()], you link them into a
-/// usable program. This is shown in the code below.
-///
+///  The is part of the WebGL API and is a combination of two
+/// compiled [WebGLShader]s consisting of a vertex shader and a
+/// fragment shader (both written in GLSL).
+///  To create a , call the GL context's [createProgram()] function.
+/// After attaching the shader programs using [attachShader()], you
+/// link them into a usable program. This is shown in the code below.
 /// [var program = gl.createProgram();
 ///
 /// // Attach pre-existing shaders
@@ -107,106 +96,103 @@ class WebGLFramebuffer // null -> {} -> WebGLObject
 ///  throw 'Could not compile WebGL program. \n\n' + info;
 /// }
 /// ]
-///
 ///  See [WebGLShader] for information on creating the [vertexShader]
 /// and [fragmentShader] in the above example.
 @JS()
-class WebGLProgram // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLProgram implements WebGLObject {
   external factory WebGLProgram();
 }
 
-///
-///
 ///  The WebGLRenderbuffer interface is part of the WebGL API and
-/// represents a buffer that can contain an image, or can be source
-/// or target of an rendering operation.
+/// represents a buffer that can contain an image, or that can be a
+/// source or target of a rendering operation.
 @JS()
-class WebGLRenderbuffer // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLRenderbuffer implements WebGLObject {
   external factory WebGLRenderbuffer();
 }
 
-///
-///
 ///  The WebGLShader is part of the WebGL API and can either be a
 /// vertex or a fragment shader. A [WebGLProgram] requires both types
 /// of shaders.
 @JS()
-class WebGLShader // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLShader implements WebGLObject {
   external factory WebGLShader();
 }
 
-///
-///
 ///  The WebGLTexture interface is part of the WebGL API and
 /// represents an opaque texture object providing storage and state
 /// for texturing operations.
 @JS()
-class WebGLTexture // null -> {} -> WebGLObject
-    with
-        WebGLObject {
+@staticInterop
+class WebGLTexture implements WebGLObject {
   external factory WebGLTexture();
 }
 
-///
-///
 ///  The WebGLUniformLocation interface is part of the WebGL API and
 /// represents the location of a uniform variable in a shader
 /// program.
 @JS()
+@staticInterop
 class WebGLUniformLocation {
   external factory WebGLUniformLocation();
 }
 
-///
-///
 ///  The WebGLActiveInfo interface is part of the WebGL API and
 /// represents the information returned by calling the
 /// [WebGLRenderingContext.getActiveAttrib()] and
 /// [WebGLRenderingContext.getActiveUniform()] methods.
 @JS()
+@staticInterop
 class WebGLActiveInfo {
-  /// The read-only size of the requested variable.
-  external int get size;
-
-  /// The read-only type of the requested variable.
-  external int get type;
-
-  /// The read-only name of the requested variable.
-  external String get name;
-
   external factory WebGLActiveInfo();
 }
 
-///
-///
+extension PropsWebGLActiveInfo on WebGLActiveInfo {
+  /// The read-only size of the requested variable.
+  ///
+  external int get size;
+
+  /// The read-only type of the requested variable.
+  ///
+  external int get type;
+
+  /// The read-only name of the requested variable.
+  ///
+  external String get name;
+}
+
 ///  The WebGLShaderPrecisionFormat interface is part of the WebGL
 /// API and represents the information returned by calling the
 /// [WebGLRenderingContext.getShaderPrecisionFormat()] method.
 @JS()
+@staticInterop
 class WebGLShaderPrecisionFormat {
+  external factory WebGLShaderPrecisionFormat();
+}
+
+extension PropsWebGLShaderPrecisionFormat on WebGLShaderPrecisionFormat {
   ///  The base 2 log of the absolute value of the minimum value that
   /// can be represented.
+  ///
   external int get rangeMin;
 
   ///  The base 2 log of the absolute value of the maximum value that
   /// can be represented.
+  ///
   external int get rangeMax;
 
   ///  The number of bits of precision that can be represented. For
   /// integer formats this value is always 0.
+  ///
   external int get precision;
-
-  external factory WebGLShaderPrecisionFormat();
 }
 
 @JS()
-mixin WebGLRenderingContextBase {
+@staticInterop
+class WebGLRenderingContextBase {
   external static int get DEPTH_BUFFER_BIT;
   external static int get STENCIL_BUFFER_BIT;
   external static int get COLOR_BUFFER_BIT;
@@ -503,6 +489,10 @@ mixin WebGLRenderingContextBase {
   external static int get CONTEXT_LOST_WEBGL;
   external static int get UNPACK_COLORSPACE_CONVERSION_WEBGL;
   external static int get BROWSER_DEFAULT_WEBGL;
+  external factory WebGLRenderingContextBase();
+}
+
+extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   external dynamic get canvas;
   external int get drawingBufferWidth;
   external int get drawingBufferHeight;
@@ -559,8 +549,7 @@ mixin WebGLRenderingContextBase {
   external Object depthFunc(int func);
   external Object depthMask(bool flag);
   external Object depthRange(
-      /* double | NaN */ dynamic zNear,
-      /* double | NaN */ dynamic zFar);
+      /* double | NaN */ dynamic zNear, /* double | NaN */ dynamic zFar);
   external Object detachShader(WebGLProgram program, WebGLShader shader);
   external Object disable(int cap);
   external Object disableVertexAttribArray(int index);
@@ -612,8 +601,7 @@ mixin WebGLRenderingContextBase {
   external Object linkProgram(WebGLProgram program);
   external Object pixelStorei(int pname, int param);
   external Object polygonOffset(
-      /* double | NaN */ dynamic factor,
-      /* double | NaN */ dynamic units);
+      /* double | NaN */ dynamic factor, /* double | NaN */ dynamic units);
   external Object renderbufferStorage(
       int target, int internalformat, int width, int height);
   external Object sampleCoverage(/* double | NaN */ dynamic value, bool invert);
@@ -630,10 +618,8 @@ mixin WebGLRenderingContextBase {
   external Object texParameteri(int target, int pname, int param);
   external Object uniform1f(
       WebGLUniformLocation? location, /* double | NaN */ dynamic x);
-  external Object uniform2f(
-      WebGLUniformLocation? location,
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y);
+  external Object uniform2f(WebGLUniformLocation? location,
+      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
   external Object uniform3f(
       WebGLUniformLocation? location,
       /* double | NaN */ dynamic x,
@@ -656,11 +642,8 @@ mixin WebGLRenderingContextBase {
   external Object vertexAttrib1f(int index, /* double | NaN */ dynamic x);
   external Object vertexAttrib2f(
       int index, /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
-  external Object vertexAttrib3f(
-      int index,
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y,
-      /* double | NaN */ dynamic z);
+  external Object vertexAttrib3f(int index, /* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y, /* double | NaN */ dynamic z);
   external Object vertexAttrib4f(
       int index,
       /* double | NaN */ dynamic x,
@@ -678,7 +661,13 @@ mixin WebGLRenderingContextBase {
 }
 
 @JS()
-mixin WebGLRenderingContextOverloads {
+@staticInterop
+class WebGLRenderingContextOverloads {
+  external factory WebGLRenderingContextOverloads();
+}
+
+extension PropsWebGLRenderingContextOverloads
+    on WebGLRenderingContextOverloads {
   external Object bufferData(int target, int size, int usage);
   external Object bufferSubData(int target, int offset, dynamic data);
   external Object compressedTexImage2D(int target, int level,
@@ -709,57 +698,53 @@ mixin WebGLRenderingContextOverloads {
       WebGLUniformLocation? location, bool transpose, dynamic value);
 }
 
-///
-///  The [WebGLRenderingContext] interface provides an interface to
-/// the OpenGL ES 2.0 graphics rendering context for the drawing
-/// surface of an HTML [<canvas>] element.
-///
+///  The interface provides an interface to the OpenGL ES 2.0
+/// graphics rendering context for the drawing surface of an HTML
+/// [<canvas>] element.
 ///  To get an access to a WebGL context for 2D and/or 3D graphics
 /// rendering, call [getContext()] on a [<canvas>] element, supplying
 /// "webgl" as the argument:
-///
 /// [var canvas = document.getElementById('myCanvas');
 /// var gl = canvas.getContext('webgl');
 /// ]
-///
 ///  Once you have the WebGL rendering context for a canvas, you can
 /// render within it. The WebGL tutorial has more information,
 /// examples, and resources on how to get started with WebGL.
-///
 ///  If you require a WebGL 2.0 context, see
 /// [WebGL2RenderingContext]; this supplies access to an
 /// implementation of OpenGL ES 3.0 graphics.
-///
 @JS()
+@staticInterop
 class WebGLRenderingContext
-    with WebGLRenderingContextBase, WebGLRenderingContextOverloads {
+    implements WebGLRenderingContextBase, WebGLRenderingContextOverloads {
   external factory WebGLRenderingContext();
 }
 
-///
-///
 ///  The WebContextEvent interface is part of the WebGL API and is an
 /// interface for an event that is generated in response to a status
 /// change to the WebGL rendering context.
 @JS()
-class WebGLContextEvent // null -> {} -> Event
-    with
-        Event {
+@staticInterop
+class WebGLContextEvent implements Event {
   external factory WebGLContextEvent(String type,
       [WebGLContextEventInit? eventInit]);
+}
 
+extension PropsWebGLContextEvent on WebGLContextEvent {
   ///  A read-only property containing additional information about the
   /// event.
+  ///
   external String get statusMessage;
 }
 
 @anonymous
 @JS()
-class WebGLContextEventInit // null -> {} -> EventInit
-    with
-        EventInit {
+@staticInterop
+class WebGLContextEventInit implements EventInit {
+  external factory WebGLContextEventInit({String statusMessage = ''});
+}
+
+extension PropsWebGLContextEventInit on WebGLContextEventInit {
   external String get statusMessage;
   external set statusMessage(String newValue);
-
-  external factory WebGLContextEventInit({String statusMessage = ''});
 }

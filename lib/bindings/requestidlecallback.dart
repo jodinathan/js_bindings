@@ -2,25 +2,29 @@
 ///
 /// https://w3c.github.io/requestidlecallback/
 @JS('window')
+@staticInterop
 library requestidlecallback;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'html.dart';
-import 'hr_time_3.dart';
+import 'all_bindings.dart';
+/* deps: html
+hr_time_3 */
 
 @anonymous
 @JS()
+@staticInterop
 class IdleRequestOptions {
-  external int get timeout;
-  external set timeout(int newValue);
-
   external factory IdleRequestOptions({int timeout});
 }
 
-///
+extension PropsIdleRequestOptions on IdleRequestOptions {
+  external int get timeout;
+  external set timeout(int newValue);
+}
+
 ///  The interface is used as the data type of the input parameter to
 /// idle callbacks established by calling
 /// [Window.requestIdleCallback()]. It offers a method,
@@ -28,18 +32,33 @@ class IdleRequestOptions {
 /// user agent estimates it will remain idle and a property,
 /// [didTimeout], which lets you determine if your callback is
 /// executing because its timeout duration expired.
-///
 ///  To learn more about how request callbacks work, see
 /// Collaborative Scheduling of Background Tasks.
-///
 @JS()
+@staticInterop
 class IdleDeadline {
+  external factory IdleDeadline();
+}
+
+extension PropsIdleDeadline on IdleDeadline {
+  ///  Returns a [DOMHighResTimeStamp], which is a floating-point value
+  /// providing an estimate of the number of milliseconds remaining in
+  /// the current idle period. If the idle period is over, the value is
+  /// 0. Your callback can call this repeatedly to see if there's
+  /// enough time left to do more work before returning.
+  ///
+  /// timeRemaining = IdleDeadline.timeRemaining();
+  ///
+  ///
+  ///  See our complete example
+  ///  in the article Cooperative Scheduling
+  /// of Background Tasks API.
+  ///
   external double timeRemaining();
 
   ///  A Boolean whose value is [true] if the callback is being
   /// executed because the timeout specified when the idle callback was
   /// installed has expired.
+  ///
   external bool get didTimeout;
-
-  external factory IdleDeadline();
 }

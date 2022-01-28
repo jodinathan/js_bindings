@@ -2,61 +2,73 @@
 ///
 /// https://drafts.csswg.org/css-nav-1/
 @JS('window')
+@staticInterop
 library css_nav_1;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'html.dart';
-import 'dom.dart';
-import 'uievents.dart';
+import 'all_bindings.dart';
+/* deps: html
+dom
+uievents */
 
-@JS()
 enum SpatialNavigationDirection { up, down, left, right }
 
-@JS()
 enum FocusableAreaSearchMode { visible, all }
 
 @anonymous
 @JS()
+@staticInterop
 class FocusableAreasOption {
+  external factory FocusableAreasOption({FocusableAreaSearchMode mode});
+}
+
+extension PropsFocusableAreasOption on FocusableAreasOption {
   external FocusableAreaSearchMode get mode;
   external set mode(FocusableAreaSearchMode newValue);
-
-  external factory FocusableAreasOption({FocusableAreaSearchMode mode});
 }
 
 @anonymous
 @JS()
+@staticInterop
 class SpatialNavigationSearchOptions {
-  external Iterable<Node> get candidates;
-  external set candidates(Iterable<Node> newValue);
-  external Node? get container;
-  external set container(Node? newValue);
-
   external factory SpatialNavigationSearchOptions(
       {Iterable<Node> candidates, Node? container});
 }
 
+extension PropsSpatialNavigationSearchOptions
+    on SpatialNavigationSearchOptions {
+  external Iterable<Node> get candidates;
+  external set candidates(Iterable<Node> newValue);
+  external Node? get container;
+  external set container(Node? newValue);
+}
+
 @JS()
-class NavigationEvent // Event -> {} -> UIEvent
-    extends UIEvent {
+@staticInterop
+class NavigationEvent implements UIEvent {
   external factory NavigationEvent(String type,
       [NavigationEventInit? eventInitDict]);
+}
+
+extension PropsNavigationEvent on NavigationEvent {
   external SpatialNavigationDirection get dir;
   external EventTarget? get relatedTarget;
 }
 
 @anonymous
 @JS()
-class NavigationEventInit // EventInit -> {} -> UIEventInit
-    extends UIEventInit {
+@staticInterop
+class NavigationEventInit implements UIEventInit {
+  external factory NavigationEventInit(
+      {SpatialNavigationDirection dir, EventTarget? relatedTarget});
+}
+
+extension PropsNavigationEventInit on NavigationEventInit {
   external SpatialNavigationDirection get dir;
   external set dir(SpatialNavigationDirection newValue);
   external EventTarget? get relatedTarget;
   external set relatedTarget(EventTarget? newValue);
-
-  external factory NavigationEventInit(
-      {SpatialNavigationDirection dir, EventTarget? relatedTarget});
 }

@@ -2,26 +2,27 @@
 ///
 /// https://www.khronos.org/registry/webgl/extensions/OES_texture_half_float_linear/
 @JS('window')
+@staticInterop
 library o_e_s_texture_half_float_linear;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
+import 'all_bindings.dart';
+/* deps:  */
 
-///
-///
-///  The [OES_texture_half_float_linear] extension is part of the
-/// WebGL API and allows linear filtering with half floating-point
-/// pixel types for textures.
-///
+///  The extension is part of the WebGL API and allows linear
+/// filtering with half floating-point pixel types for textures.
 ///  WebGL extensions are available using the
 /// [WebGLRenderingContext.getExtension()] method. For more
 /// information, see also Using Extensions in the WebGL tutorial.
-///  Availability: This extension is available to both, WebGL1 and
-/// WebGL2 contexts.
+///
+///   Note: This extension is available to both, WebGL1 and WebGL2
+/// contexts.
 ///
 @JS()
+@staticInterop
 class OES_texture_half_float_linear {
   external factory OES_texture_half_float_linear();
 }

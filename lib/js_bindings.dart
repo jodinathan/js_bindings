@@ -1,3 +1,2 @@
 export 'manual.dart';
-export 'bindings/html.dart';
-export 'bindings/dom.dart';
+export 'bindings/all_bindings.dart';

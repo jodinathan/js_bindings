@@ -5,10 +5,20 @@ import 'package:collection/collection.dart';
 
 import '../base.dart';
 
+const instanceMemberTypes = {'attribute', 'field', 'operation'};
+const objectMembers = {'hash', 'hashCode', 'toString'};
+
 /// TODO: Change how we struct the spec class to also translate the underlying
 /// map to classes with everything ready.
 Future<void> main() async {
   print('PackageJS bindings started...');
+
+  print('Excluding bindings folder');
+  final dir = Directory('../../lib/bindings/');
+
+  if (await dir.exists()) {
+    await dir.delete(recursive: true);
+  }
 
   final group = await getSpecs();
   final list = group.specs.toList();
@@ -16,18 +26,31 @@ Future<void> main() async {
   final cbacks = <String>[
     '@JS() library callbacks;',
     "import 'dart:typed_data';",
-    "import 'package:js/js.dart';"
+    "import 'package:js/js.dart';",
+    "import 'all_bindings.dart';"
   ];
+  final doneTypedefs = <String>{};
 
   print('Spec amount: ${list.length}');
 
-  // TODO: make so it is not needed to import all files in the callbacks file
+  final allPath = '../../lib/bindings/all_bindings.dart';
+
+  File(allPath)
+    ..createSync(recursive: true)
+    ..writeAsStringSync(formatter.format(list.map(
+            (spec) => "export '${spec.libraryName}.dart';").join('\n')));
+
   for (var spec in list) {
     final objs = spec.json['idlparsed']?['idlNames'] as Map<String, dynamic>;
 
-    cbacks.insert(1, "import '${spec.libraryName}.dart';");
-
     for (final name in objs.keys) {
+      if (doneTypedefs.contains(name)) {
+        print('Already defined $name');
+        continue;
+      }
+
+      doneTypedefs.add(name);
+
       final obj = objs[name];
 
       if (obj['type'] == 'callback') {
@@ -35,8 +58,8 @@ Future<void> main() async {
         final params = spec.makeParams(obj['arguments'] as Iterable);
 
         if (forbidden.contains(fn)) {
-          cbacks.add('@JS(\'$fn\')');
-          fn = 'fn$fn';
+          cbacks.add('@JS(\'$fn\')\n@staticInterop');
+          fn = 'Fn$fn';
         }
 
         cbacks.add('typedef $fn = Function(${params.join(', ')});\n');
@@ -61,13 +84,14 @@ Future<void> main() async {
     final mdnURL = map['spec']['url'];
     final libraryName = spec.libraryName;
     final objs = map['idlparsed']?['idlNames'] as Map<String, dynamic>?;
-    final lines = <String>[];
+    final mainLines = <String>[];
+    var lines = mainLines;
     var meta = false;
 
     print('$name objects: ${objs?.length}');
 
     void js(String name) {
-      lines.add('''@JS('$name')''');
+      lines.add('''@JS('$name')\n@staticInterop''');
     }
 
     if (objs != null) {
@@ -77,6 +101,9 @@ Future<void> main() async {
         final item = objs[name] as Map<String, dynamic>;
         final members = item['members'] as Iterable?;
         final type = item['type'];
+        final properties = <String>[];
+
+        lines = mainLines;
 
         void deprecated(Map<String, dynamic> item) {
           if (item['deprecated'] == true) {
@@ -96,7 +123,6 @@ Future<void> main() async {
             final values = item['values'] as Iterable;
 
             lines.add('''
-            @JS()
             enum $name {
               ${values.map((item) {
               final val = item['value'].toString();
@@ -110,7 +136,7 @@ Future<void> main() async {
               }
 
               final ret = '''
-                ${val == label ? '' : '@JS(\'$val\')\n'}$label
+                ${val == label || true ? '' : '@JS(\'$val\')\n'}$label
                 ''';
 
               return ret;
@@ -130,20 +156,64 @@ Future<void> main() async {
             final mixin = type == 'interface mixin';
             var inheritance = '';
             var parentMixin = false;
+            var parentHasCtor = false;
+            var parentHasCtorWithParams = false;
 
-            if (inherits != null) {
-              parent = spec.objects.values
-                      .firstWhereOrNull((obj) => obj['name'] == inherits) ??
+            Iterable<String> makeParams(Map<String, dynamic> member) {
+              return member['arguments'] == null
+                  ? <String>[]
+                  : spec.makeParams(member['arguments'] as Iterable,
+                  optionals: type != 'dictionary');
+            }
+
+            Map<String, dynamic> findByType(String typeName) {
+              final ret = spec.objects.values
+                  .firstWhereOrNull((obj) => obj['name'] == typeName) ??
                   group.specs
                       .firstWhereOrNull(
-                          (spec) => spec.objects.keys.contains(inherits))
-                      ?.objects[inherits];
-              parentMixin = parent['inheritance']?.isNotEmpty != true &&
-                  parent['mixins'].isEmpty;
+                          (spec) => spec.objects.keys.contains(typeName))
+                      ?.objects[typeName];
 
-              inheritance =
-                  '// ${parent['inheritance']} -> ${parent['mixins']} -> ${parent['name']} \n'
-                  '${parentMixin ? 'with' : 'extends'} $inherits ';
+              if (ret == null) {
+                throw 'Could not find the parent of "$name" with inheritance "$inherits"';
+              }
+
+              return ret;
+            }
+
+            if (inherits != null) {
+              parent = findByType(inherits);
+
+              var grand = parent;
+
+              while (grand != null) {
+                final parentMembers = (grand['members'] ?? []) as Iterable;
+                final parentConstructors = parentMembers.where(
+                        (member) => member['type'] == 'constructor');
+
+                parentHasCtor = parentHasCtor || parentConstructors.isNotEmpty;
+                parentHasCtorWithParams = parentHasCtorWithParams ||
+                    parentConstructors.any(
+                        (ctor) => ctor['arguments']?.isNotEmpty == true);
+
+                final next = grand['inheritance'];
+
+                if (name == 'RTCVideoReceiverStats') {
+                  print('GrandLoop $next, ${grand.runtimeType} $grand');
+                }
+
+                if (next == null) {
+                  break;
+                } else {
+                  grand = findByType(next);
+                }
+              }
+
+              parentMixin = parent['inheritance']?.isNotEmpty != true &&
+                  parent['mixins'].isEmpty &&
+                  !parentHasCtor;
+
+              inheritance = 'implements $inherits ';
             }
 
             if (doc.isNotEmpty) {
@@ -160,7 +230,7 @@ Future<void> main() async {
             final mixins = item['mixins'] as Map<String, dynamic>;
 
             if (mixins.isNotEmpty) {
-              final glue = mixin ? 'on' : 'with';
+              final glue = 'implements';
               final exts = (mixins.values as Iterable<Set<String>>)
                   .reduce((val, el) => val..addAll(el));
 
@@ -169,20 +239,36 @@ Future<void> main() async {
                     'Current: $deps');
                 deps.addAll(mixins.keys);
 
-                inheritance += '${parentMixin ? ',' : glue} ${exts.join(', ')}';
+                inheritance += '${inheritance.isNotEmpty ?
+                ',' : glue} ${exts.join(', ')}';
               }
             }
 
             lines.add('''
             @JS()
-            ${mixin ? 'mixin' : '$abstract class'} $name $inheritance {
+            @staticInterop
+            ${'class'} $name $inheritance {
             ''');
+
+            var addedCtor = false;
 
             if (members != null) {
               print('Generating class of $name.\n'
-                  'Operations: ${members.where((m) => m['type'] == 'operation').map((m) => m['name'])}');
+                  'Operations: ${members.where(
+                      (m) => m['type'] == 'operation').map((m) => m['name'])}');
+
               for (final member in members) {
                 final mType = member['type'];
+
+                if (['setlike', 'iterable', 'maplike'].contains(mType)) {
+                  continue;
+                }
+
+                final isInstanceMember = instanceMemberTypes.contains(mType);
+
+                lines = isInstanceMember ?
+                properties : mainLines;
+
                 var mName = member['name'] as String?;
                 var doc = '';
                 final idlType = member['idlType'];
@@ -193,6 +279,8 @@ Future<void> main() async {
                   print('Banned member $name.$mName');
                   continue;
                 }
+
+                print('Processing member $name ($mName)');
 
                 final overrides = parent != null &&
                     mName?.isNotEmpty == true &&
@@ -222,9 +310,12 @@ Future<void> main() async {
                 experimental(member);
                 deprecated(member);
 
-                if (mName != null && forbidden.contains(mName)) {
-                  js(mName);
-                  mName = 'm${mName.pascalCase}';
+                if (mName != null) {
+                  if (forbidden.contains(mName) || (isInstanceMember &&
+                  objectMembers.contains(mName))) {
+                    js(mName);
+                    mName = 'm${mName.pascalCase}';
+                  }
                 }
 
                 dynamic getCov(Iterable subs, String dartType) =>
@@ -268,8 +359,9 @@ Future<void> main() async {
                       if (overrides) {
                         lines.add('@override');
                       }
+
                       lines.add(
-                          '''external set $mName(${cov != null ? 'covariant ' : ''}$dartType newValue);''');
+                          '''external set $mName($dartType newValue);''');
                     }
                     break;
                   case 'const':
@@ -301,24 +393,32 @@ Future<void> main() async {
                   case 'constructor':
                     final isc = mType == 'constructor';
                     String fn;
-                    final lparams = member['arguments'] == null
-                        ? <String>[]
-                        : spec.makeParams(member['arguments'] as Iterable,
-                            optionals: type != 'dictionary');
+                    final lparams = makeParams(member);
                     final params = lparams.join(', ');
 
                     if (isc) {
-                      fn = '\nexternal factory $name';
+                      if (params.isNotEmpty) {
+                        if (mixin) {
+                          print(
+                              'Skipping $name constructor because it is a mixin.');
+                        } else {
+                          fn = '\nexternal factory $name';
+                          addedCtor = true;
 
-                      lines.add(
-                          '$fn(${params.isNotEmpty ? (type == 'dictionary' ? '{$params}' : params) : ''});');
+                          lines.add(
+                              '$fn(${params.isNotEmpty ? (type == 'dictionary'
+                                  ? '{$params}'
+                                  : params) : ''});');
+                        }
+                      }
                     } else {
                       String dartType;
+                      lines = properties;
 
                       if (mName == null || mName.isEmpty) {
                         if (member['special'] == 'stringifier') {
-                          lines.add('@override');
-                          mName = 'toString';
+                          lines.add("@JS('toString')");
+                          mName = 'mToString';
                           dartType = 'String';
                         } else if (['jsonifier', 'serializer']
                             .contains(member['special'])) {
@@ -365,7 +465,19 @@ Future<void> main() async {
               }
             }
 
+            lines = mainLines;
+
+            if (!addedCtor) {
+              lines.add('external factory $name();');
+            }
+
             lines.add('}\n'); // /* ${prettyJson(spec.errors)} */
+
+            if (properties.isNotEmpty) {
+              lines.add('''extension Props$name on $name {
+                ${properties.join('\n')}
+              }''');
+            }
             break;
           case 'callback':
           case 'typedef':
@@ -421,6 +533,7 @@ Future<void> main() async {
       ///
       /// $mdnURL
       @JS('window')
+      @staticInterop
       library $libraryName;
 
       import 'package:js/js.dart';
@@ -428,18 +541,28 @@ Future<void> main() async {
       ${spec.usesTypedData ? 'import \'dart:typed_data\';' : ''}
       import 'callbacks.dart';
       import '../manual.dart';
-      ${deps.isNotEmpty ? deps.map((dep) => 'import \'$dep.dart\';').join('\n') : ''}
+      import 'all_bindings.dart';
+      /* deps: ${deps.join('\n')} */
       ''');
 
       final p = '../../lib/bindings/$libraryName.dart';
       final contents = lines.join('\n');
+      String formatted;
 
       print('Saving binding class ($name): $p');
       //print(contents);
 
+      try {
+        formatted = formatter.format(contents);
+      } catch (e) {
+        print('ERROR: Could not format file $p. Error: $e\n\n$contents');
+        //formatted = contents;
+        rethrow;
+      }
+
       File(p)
         ..createSync(recursive: true)
-        ..writeAsStringSync(formatter.format(contents));
+        ..writeAsStringSync(formatted);
     }
   }
 }

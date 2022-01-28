@@ -2,6 +2,7 @@
 ///
 /// https://w3c.github.io/media-capabilities/
 @JS('window')
+@staticInterop
 library media_capabilities;
 
 import 'package:js/js.dart';
@@ -9,11 +10,10 @@ import 'package:meta/meta.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'encrypted_media.dart';
-import 'html.dart';
+import 'all_bindings.dart';
+/* deps: encrypted_media
+html */
 
-///
-///
 ///  The [MediaCapabilities] dictionary of the Media Capabilities API
 /// describes how media and audio files must be configured, or
 /// defined, to be passed as a parameter of the
@@ -22,14 +22,17 @@ import 'html.dart';
 @experimental
 @anonymous
 @JS()
+@staticInterop
 class MediaConfiguration {
+  external factory MediaConfiguration(
+      {VideoConfiguration video, AudioConfiguration audio});
+}
+
+extension PropsMediaConfiguration on MediaConfiguration {
   external VideoConfiguration get video;
   external set video(VideoConfiguration newValue);
   external AudioConfiguration get audio;
   external set audio(AudioConfiguration newValue);
-
-  external factory MediaConfiguration(
-      {VideoConfiguration video, AudioConfiguration audio});
 }
 
 ///  The dictionary of the Media Capabilities API is used to define
@@ -39,18 +42,19 @@ class MediaConfiguration {
 @experimental
 @anonymous
 @JS()
-class MediaDecodingConfiguration // null -> {} -> MediaConfiguration
-    with
-        MediaConfiguration {
+@staticInterop
+class MediaDecodingConfiguration implements MediaConfiguration {
+  external factory MediaDecodingConfiguration(
+      {MediaDecodingType type,
+      MediaCapabilitiesKeySystemConfiguration keySystemConfiguration});
+}
+
+extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
   external MediaDecodingType get type;
   external set type(MediaDecodingType newValue);
   external MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration;
   external set keySystemConfiguration(
       MediaCapabilitiesKeySystemConfiguration newValue);
-
-  external factory MediaDecodingConfiguration(
-      {MediaDecodingType type,
-      MediaCapabilitiesKeySystemConfiguration keySystemConfiguration});
 }
 
 ///  The dictionary of the Media Capabilities API is used to define
@@ -60,38 +64,45 @@ class MediaDecodingConfiguration // null -> {} -> MediaConfiguration
 @experimental
 @anonymous
 @JS()
-class MediaEncodingConfiguration // null -> {} -> MediaConfiguration
-    with
-        MediaConfiguration {
-  external MediaEncodingType get type;
-  external set type(MediaEncodingType newValue);
-
+@staticInterop
+class MediaEncodingConfiguration implements MediaConfiguration {
   external factory MediaEncodingConfiguration({MediaEncodingType type});
 }
 
-@JS()
-enum MediaDecodingType {
-  file,
-  @JS('media-source')
-  mediaSource,
-  webrtc
+extension PropsMediaEncodingConfiguration on MediaEncodingConfiguration {
+  external MediaEncodingType get type;
+  external set type(MediaEncodingType newValue);
 }
 
-@JS()
+enum MediaDecodingType { file, mediaSource, webrtc }
+
 enum MediaEncodingType { record, webrtc }
 
-///
-///
 ///  The dictionary of the Media Capabilities API is used to define
 /// the video file being tested when calling the [MediaCapabilities]
 /// methods [encodingInfo()] and [decodingInfo()] to determine
 /// whether or not the described video configuration is supported,
-/// and how smoothly and how smoooth and power-efficient it can be
+/// and how smoothly and how smooth and power-efficient it can be
 /// handled.
 @experimental
 @anonymous
 @JS()
+@staticInterop
 class VideoConfiguration {
+  external factory VideoConfiguration(
+      {String contentType,
+      int width,
+      int height,
+      int bitrate,
+      double framerate,
+      bool hasAlphaChannel,
+      HdrMetadataType hdrMetadataType,
+      ColorGamut colorGamut,
+      TransferFunction transferFunction,
+      String scalabilityMode});
+}
+
+extension PropsVideoConfiguration on VideoConfiguration {
   external String get contentType;
   external set contentType(String newValue);
   external int get width;
@@ -112,37 +123,14 @@ class VideoConfiguration {
   external set transferFunction(TransferFunction newValue);
   external String get scalabilityMode;
   external set scalabilityMode(String newValue);
-
-  external factory VideoConfiguration(
-      {String contentType,
-      int width,
-      int height,
-      int bitrate,
-      double framerate,
-      bool hasAlphaChannel,
-      HdrMetadataType hdrMetadataType,
-      ColorGamut colorGamut,
-      TransferFunction transferFunction,
-      String scalabilityMode});
 }
 
-@JS()
-enum HdrMetadataType {
-  smpteSt2086,
-  @JS('smpteSt2094-10')
-  smpteSt209410,
-  @JS('smpteSt2094-40')
-  smpteSt209440
-}
+enum HdrMetadataType { smpteSt2086, smpteSt209410, smpteSt209440 }
 
-@JS()
 enum ColorGamut { srgb, p3, rec2020 }
 
-@JS()
 enum TransferFunction { srgb, pq, hlg }
 
-///
-///
 ///  The dictionary of the Media Capabilities API defines the audio
 /// file being tested when calling [MediaCapabilities.encodingInfo()]
 /// or [MediaCapabilities.decodingInfo()] to query whether a specific
@@ -150,7 +138,17 @@ enum TransferFunction { srgb, pq, hlg }
 @experimental
 @anonymous
 @JS()
+@staticInterop
 class AudioConfiguration {
+  external factory AudioConfiguration(
+      {String contentType,
+      String channels,
+      int bitrate,
+      int samplerate,
+      bool spatialRendering});
+}
+
+extension PropsAudioConfiguration on AudioConfiguration {
   external String get contentType;
   external set contentType(String newValue);
   external String get channels;
@@ -161,18 +159,25 @@ class AudioConfiguration {
   external set samplerate(int newValue);
   external bool get spatialRendering;
   external set spatialRendering(bool newValue);
-
-  external factory AudioConfiguration(
-      {String contentType,
-      String channels,
-      int bitrate,
-      int samplerate,
-      bool spatialRendering});
 }
 
 @anonymous
 @JS()
+@staticInterop
 class MediaCapabilitiesKeySystemConfiguration {
+  external factory MediaCapabilitiesKeySystemConfiguration(
+      {String keySystem,
+      String initDataType = '',
+      MediaKeysRequirement distinctiveIdentifier =
+          MediaKeysRequirement.optional,
+      MediaKeysRequirement persistentState = MediaKeysRequirement.optional,
+      Iterable<String> sessionTypes,
+      KeySystemTrackConfiguration audio,
+      KeySystemTrackConfiguration video});
+}
+
+extension PropsMediaCapabilitiesKeySystemConfiguration
+    on MediaCapabilitiesKeySystemConfiguration {
   external String get keySystem;
   external set keySystem(String newValue);
   external String get initDataType;
@@ -187,105 +192,97 @@ class MediaCapabilitiesKeySystemConfiguration {
   external set audio(KeySystemTrackConfiguration newValue);
   external KeySystemTrackConfiguration get video;
   external set video(KeySystemTrackConfiguration newValue);
-
-  external factory MediaCapabilitiesKeySystemConfiguration(
-      {String keySystem,
-      String initDataType = '',
-      MediaKeysRequirement distinctiveIdentifier =
-          MediaKeysRequirement.optional,
-      MediaKeysRequirement persistentState = MediaKeysRequirement.optional,
-      Iterable<String> sessionTypes,
-      KeySystemTrackConfiguration audio,
-      KeySystemTrackConfiguration video});
 }
 
 @anonymous
 @JS()
+@staticInterop
 class KeySystemTrackConfiguration {
-  external String get robustness;
-  external set robustness(String newValue);
-  external String? get encryptionScheme;
-  external set encryptionScheme(String? newValue);
-
   external factory KeySystemTrackConfiguration(
       {String robustness = '', String? encryptionScheme});
 }
 
-///
-///
-///  The [MediaCapabilitiesInfo] interface of the Media Capabilities
-/// API is made available when the promise returned by the
-/// [MediaCapabilities.encodingInfo()] or
-/// [MediaCapabilities.decodingInfo()] methods of the
-/// [MediaCapabilities] interface fulfills, providing information as
-/// to whether the media type is supported, and whether encoding or
-/// decoding such media would be smooth and power efficient.
-@experimental
+extension PropsKeySystemTrackConfiguration on KeySystemTrackConfiguration {
+  external String get robustness;
+  external set robustness(String newValue);
+  external String? get encryptionScheme;
+  external set encryptionScheme(String? newValue);
+}
+
 @anonymous
 @JS()
+@staticInterop
 class MediaCapabilitiesInfo {
+  external factory MediaCapabilitiesInfo(
+      {bool supported, bool smooth, bool powerEfficient});
+}
+
+extension PropsMediaCapabilitiesInfo on MediaCapabilitiesInfo {
   external bool get supported;
   external set supported(bool newValue);
   external bool get smooth;
   external set smooth(bool newValue);
   external bool get powerEfficient;
   external set powerEfficient(bool newValue);
-
-  external factory MediaCapabilitiesInfo(
-      {bool supported, bool smooth, bool powerEfficient});
 }
 
 @anonymous
 @JS()
-class MediaCapabilitiesDecodingInfo // null -> {} -> MediaCapabilitiesInfo
-    with
-        MediaCapabilitiesInfo {
-  external MediaKeySystemAccess get keySystemAccess;
-  external set keySystemAccess(MediaKeySystemAccess newValue);
-  external MediaDecodingConfiguration get configuration;
-  external set configuration(MediaDecodingConfiguration newValue);
-
+@staticInterop
+class MediaCapabilitiesDecodingInfo implements MediaCapabilitiesInfo {
   external factory MediaCapabilitiesDecodingInfo(
       {MediaKeySystemAccess keySystemAccess,
       MediaDecodingConfiguration configuration});
 }
 
+extension PropsMediaCapabilitiesDecodingInfo on MediaCapabilitiesDecodingInfo {
+  external MediaKeySystemAccess get keySystemAccess;
+  external set keySystemAccess(MediaKeySystemAccess newValue);
+  external MediaDecodingConfiguration get configuration;
+  external set configuration(MediaDecodingConfiguration newValue);
+}
+
 @anonymous
 @JS()
-class MediaCapabilitiesEncodingInfo // null -> {} -> MediaCapabilitiesInfo
-    with
-        MediaCapabilitiesInfo {
-  external MediaEncodingConfiguration get configuration;
-  external set configuration(MediaEncodingConfiguration newValue);
-
+@staticInterop
+class MediaCapabilitiesEncodingInfo implements MediaCapabilitiesInfo {
   external factory MediaCapabilitiesEncodingInfo(
       {MediaEncodingConfiguration configuration});
 }
 
-///
-///
-///  The [MediaCapabilities] interface of the Media Capabilities API
-/// provides information about the decoding abilities of the device,
-/// system and browser. The API can be used to query the browser
-/// about the decoding abilities of the device based on codecs,
-/// profile, resolution, and bitrates. The information can be used to
-/// serve optimal media streams to the user and determine if playback
-/// should be smooth and power efficient.
-///
+extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
+  external MediaEncodingConfiguration get configuration;
+  external set configuration(MediaEncodingConfiguration newValue);
+}
+
+///  The interface of the Media Capabilities API provides information
+/// about the decoding abilities of the device, system and browser.
+/// The API can be used to query the browser about the decoding
+/// abilities of the device based on codecs, profile, resolution, and
+/// bitrates. The information can be used to serve optimal media
+/// streams to the user and determine if playback should be smooth
+/// and power efficient.
 ///  The information is accessed through the [mediaCapabilities]
 /// property of the [Navigator] interface.
 @experimental
 @JS()
+@staticInterop
 class MediaCapabilities {
+  external factory MediaCapabilities();
+}
+
+extension PropsMediaCapabilities on MediaCapabilities {
   ///  When passed a valid media configuration, it returns a promise
   /// with information as to whether the media type is supported, and
   /// whether decoding such media would be smooth and power efficient.
+  ///
   /// mediaCapabilities.decodingInfo(MediaDecodingConfiguration)
+  ///
   /// //Create media configuration to be tested
   /// const mediaConfig = {
   ///   type : 'file', // or 'media-source'
   ///   audio : {
-  ///     contentType : "audio/ogg", // valid content type
+  ///     contentType : "audio/ogg; codecs=vorbis", // valid content type
   ///     channels : 2,   // audio channels used by the track
   ///     bitrate : 132700, // number of bits used to encode 1s of audio
   ///     samplerate : 5200 // number of audio samples making up that 1s.
@@ -299,13 +296,16 @@ class MediaCapabilities {
   ///     (result.smooth ? '' : 'not ') + 'smooth, and ' +
   ///     (result.powerEfficient ? '' : 'not ') + 'power efficient.')
   /// });
+  ///
   external Promise<MediaCapabilitiesDecodingInfo> decodingInfo(
       MediaDecodingConfiguration configuration);
 
   ///  When passed a valid media configuration, it returns a promise
   /// with information as to whether the media type is supported, and
   /// whether encoding such media would be smooth and power efficient.
+  ///
   /// mediaCapabilities.encodingInfo(mediaEncodingConfiguration)
+  ///
   /// //Create media configuration to be tested
   /// const mediaConfig = {
   ///   type : 'record', // or 'transmission'
@@ -325,8 +325,7 @@ class MediaCapabilities {
   ///     (result.smooth ? '' : 'not ') + 'smooth, and ' +
   ///     (result.powerEfficient ? '' : 'not ') + 'power efficient.')
   /// });
+  ///
   external Promise<MediaCapabilitiesEncodingInfo> encodingInfo(
       MediaEncodingConfiguration configuration);
-
-  external factory MediaCapabilities();
 }

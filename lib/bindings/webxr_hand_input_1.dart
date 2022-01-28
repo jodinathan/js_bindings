@@ -2,90 +2,94 @@
 ///
 /// https://immersive-web.github.io/webxr-hand-input/
 @JS('window')
+@staticInterop
 library webxr_hand_input_1;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'webxr.dart';
+import 'all_bindings.dart';
+/* deps: webxr */
 
+///  The interface is pair iterator (an ordered map) with the key
+/// being the hand joints and the value being an [XRJointSpace].
+///  is returned by [XRInputSource.hand].
 @JS()
+@staticInterop
 class XRHand {
-  external XRJointSpace operator [](XRHandJoint index);
-  external int get size;
-  @JS('get')
-  external XRJointSpace mGet(XRHandJoint key);
-
   external factory XRHand();
 }
 
-@JS()
-class XRJointSpace // EventTarget -> {} -> XRSpace
-    extends XRSpace {
-  external XRHandJoint get jointName;
+extension PropsXRHand on XRHand {
+  /// Returns [25], the size of the pair iterator.
+  ///
+  external int get size;
 
+  ///
+  ///     Returns a [XRJointSpace] for a given hand joint or
+  /// [undefined] if no such hand joint key is in the map.
+  ///    See [Map.prototype.get()] for more details.
+  ///
+  ///
+  @JS('get')
+  @staticInterop
+  external XRJointSpace mGet(XRHandJoint key);
+}
+
+///  The interface is an [XRSpace] and represents the position and
+/// orientation of an [XRHand] joint.
+@JS()
+@staticInterop
+class XRJointSpace implements XRSpace {
   external factory XRJointSpace();
 }
 
-@JS()
-class XRJointPose // null -> {} -> XRPose
-    with
-        XRPose {
-  external double get radius;
+extension PropsXRJointSpace on XRJointSpace {
+  ///  The name of the joint that is tracked. See [XRHand] for possible
+  /// hand joint names.
+  ///
+  external XRHandJoint get jointName;
+}
 
+///  The interface is an [XRPose] with additional information about
+/// the size of the skeleton joint it represents.
+@JS()
+@staticInterop
+class XRJointPose implements XRPose {
   external factory XRJointPose();
 }
 
-@JS()
+extension PropsXRJointPose on XRJointPose {
+  /// The radius (distance from skin) for a joint.
+  ///
+  external double get radius;
+}
+
 enum XRHandJoint {
   wrist,
-  @JS('thumb-metacarpal')
   thumbMetacarpal,
-  @JS('thumb-phalanx-proximal')
   thumbPhalanxProximal,
-  @JS('thumb-phalanx-distal')
   thumbPhalanxDistal,
-  @JS('thumb-tip')
   thumbTip,
-  @JS('index-finger-metacarpal')
   indexFingerMetacarpal,
-  @JS('index-finger-phalanx-proximal')
   indexFingerPhalanxProximal,
-  @JS('index-finger-phalanx-intermediate')
   indexFingerPhalanxIntermediate,
-  @JS('index-finger-phalanx-distal')
   indexFingerPhalanxDistal,
-  @JS('index-finger-tip')
   indexFingerTip,
-  @JS('middle-finger-metacarpal')
   middleFingerMetacarpal,
-  @JS('middle-finger-phalanx-proximal')
   middleFingerPhalanxProximal,
-  @JS('middle-finger-phalanx-intermediate')
   middleFingerPhalanxIntermediate,
-  @JS('middle-finger-phalanx-distal')
   middleFingerPhalanxDistal,
-  @JS('middle-finger-tip')
   middleFingerTip,
-  @JS('ring-finger-metacarpal')
   ringFingerMetacarpal,
-  @JS('ring-finger-phalanx-proximal')
   ringFingerPhalanxProximal,
-  @JS('ring-finger-phalanx-intermediate')
   ringFingerPhalanxIntermediate,
-  @JS('ring-finger-phalanx-distal')
   ringFingerPhalanxDistal,
-  @JS('ring-finger-tip')
   ringFingerTip,
-  @JS('pinky-finger-metacarpal')
   pinkyFingerMetacarpal,
-  @JS('pinky-finger-phalanx-proximal')
   pinkyFingerPhalanxProximal,
-  @JS('pinky-finger-phalanx-intermediate')
   pinkyFingerPhalanxIntermediate,
-  @JS('pinky-finger-phalanx-distal')
   pinkyFingerPhalanxDistal,
-  @JS('pinky-finger-tip')
   pinkyFingerTip
 }

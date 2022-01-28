@@ -2,12 +2,14 @@
 ///
 /// https://w3c.github.io/pointerlock/
 @JS('window')
+@staticInterop
 library pointerlock_2;
 
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
-import 'dom.dart';
-import 'html.dart';
-import 'uievents.dart';
+import 'all_bindings.dart';
+/* deps: dom
+html
+uievents */
