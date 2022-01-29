@@ -5,6 +5,7 @@
 @staticInterop
 library scroll_to_text_fragment;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,5 +16,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class FragmentDirective {
-  external factory FragmentDirective();
+  external FragmentDirective();
 }

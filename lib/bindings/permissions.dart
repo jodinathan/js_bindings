@@ -5,6 +5,7 @@
 @staticInterop
 library permissions;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -23,8 +24,10 @@ class PermissionDescriptor {
 }
 
 extension PropsPermissionDescriptor on PermissionDescriptor {
-  external PermissionName get name;
-  external set name(PermissionName newValue);
+  PermissionName get name => js_util.getProperty(this, 'name');
+  set name(PermissionName newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 }
 
 enum PermissionState { granted, denied, prompt }
@@ -38,16 +41,18 @@ enum PermissionState { granted, denied, prompt }
 @JS()
 @staticInterop
 class PermissionStatus implements EventTarget {
-  external factory PermissionStatus();
+  external PermissionStatus();
 }
 
 extension PropsPermissionStatus on PermissionStatus {
   ///  Returns the state of a requested permission; one of ['granted'],
   /// ['denied'], or ['prompt'].
   ///
-  external PermissionState get state;
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
+  PermissionState get state => js_util.getProperty(this, 'state');
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -60,7 +65,7 @@ extension PropsPermissionStatus on PermissionStatus {
 @JS()
 @staticInterop
 class Permissions {
-  external factory Permissions();
+  external Permissions();
 }
 
 extension PropsPermissions on Permissions {
@@ -77,9 +82,14 @@ extension PropsPermissions on Permissions {
   ///  // Don't do anything if the permission was denied.
   /// });
   ///
-  external Promise<PermissionStatus> query(dynamic permissionDesc);
-  external Promise<PermissionStatus> request(dynamic permissionDesc);
-  external Promise<PermissionStatus> revoke(dynamic permissionDesc);
+  Promise<PermissionStatus> query(dynamic permissionDesc) =>
+      js_util.callMethod(this, 'query', [permissionDesc]);
+
+  Promise<PermissionStatus> request(dynamic permissionDesc) =>
+      js_util.callMethod(this, 'request', [permissionDesc]);
+
+  Promise<PermissionStatus> revoke(dynamic permissionDesc) =>
+      js_util.callMethod(this, 'revoke', [permissionDesc]);
 }
 
 @anonymous
@@ -90,8 +100,10 @@ class PushPermissionDescriptor implements PermissionDescriptor {
 }
 
 extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
-  external bool get userVisibleOnly;
-  external set userVisibleOnly(bool newValue);
+  bool get userVisibleOnly => js_util.getProperty(this, 'userVisibleOnly');
+  set userVisibleOnly(bool newValue) {
+    js_util.setProperty(this, 'userVisibleOnly', newValue);
+  }
 }
 
 @anonymous
@@ -102,8 +114,10 @@ class MidiPermissionDescriptor implements PermissionDescriptor {
 }
 
 extension PropsMidiPermissionDescriptor on MidiPermissionDescriptor {
-  external bool get sysex;
-  external set sysex(bool newValue);
+  bool get sysex => js_util.getProperty(this, 'sysex');
+  set sysex(bool newValue) {
+    js_util.setProperty(this, 'sysex', newValue);
+  }
 }
 
 @anonymous
@@ -114,8 +128,10 @@ class DevicePermissionDescriptor implements PermissionDescriptor {
 }
 
 extension PropsDevicePermissionDescriptor on DevicePermissionDescriptor {
-  external String get deviceId;
-  external set deviceId(String newValue);
+  String get deviceId => js_util.getProperty(this, 'deviceId');
+  set deviceId(String newValue) {
+    js_util.setProperty(this, 'deviceId', newValue);
+  }
 }
 
 @anonymous
@@ -127,8 +143,10 @@ class CameraDevicePermissionDescriptor implements DevicePermissionDescriptor {
 
 extension PropsCameraDevicePermissionDescriptor
     on CameraDevicePermissionDescriptor {
-  external bool get panTiltZoom;
-  external set panTiltZoom(bool newValue);
+  bool get panTiltZoom => js_util.getProperty(this, 'panTiltZoom');
+  set panTiltZoom(bool newValue) {
+    js_util.setProperty(this, 'panTiltZoom', newValue);
+  }
 }
 
 @anonymous
@@ -142,12 +160,21 @@ class PermissionSetParameters {
 }
 
 extension PropsPermissionSetParameters on PermissionSetParameters {
-  external PermissionDescriptor get descriptor;
-  external set descriptor(PermissionDescriptor newValue);
-  external PermissionState get state;
-  external set state(PermissionState newValue);
-  external bool get oneRealm;
-  external set oneRealm(bool newValue);
+  PermissionDescriptor get descriptor =>
+      js_util.getProperty(this, 'descriptor');
+  set descriptor(PermissionDescriptor newValue) {
+    js_util.setProperty(this, 'descriptor', newValue);
+  }
+
+  PermissionState get state => js_util.getProperty(this, 'state');
+  set state(PermissionState newValue) {
+    js_util.setProperty(this, 'state', newValue);
+  }
+
+  bool get oneRealm => js_util.getProperty(this, 'oneRealm');
+  set oneRealm(bool newValue) {
+    js_util.setProperty(this, 'oneRealm', newValue);
+  }
 }
 
 enum PermissionName {

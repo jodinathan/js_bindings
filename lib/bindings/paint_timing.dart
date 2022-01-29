@@ -5,6 +5,7 @@
 @staticInterop
 library paint_timing;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -36,5 +37,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class PerformancePaintTiming implements PerformanceEntry {
-  external factory PerformancePaintTiming();
+  external PerformancePaintTiming();
 }

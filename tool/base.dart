@@ -335,7 +335,7 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
       var name = arg['name'] as String;
       var type = getDartType(arg['idlType']);
 
-      if (arg['optional'] == true &&
+      if ((optional || nopt) &&
           !type.endsWith('?') &&
           !type.endsWith(' dynamic') &&
           type != 'dynamic') {

@@ -5,6 +5,7 @@
 @staticInterop
 library image_resource;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,12 +22,23 @@ class ImageResource {
 }
 
 extension PropsImageResource on ImageResource {
-  external String get src;
-  external set src(String newValue);
-  external String get sizes;
-  external set sizes(String newValue);
-  external String get type;
-  external set type(String newValue);
-  external String get label;
-  external set label(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
+
+  String get sizes => js_util.getProperty(this, 'sizes');
+  set sizes(String newValue) {
+    js_util.setProperty(this, 'sizes', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  String get label => js_util.getProperty(this, 'label');
+  set label(String newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library geometry_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -38,7 +39,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class DOMPointReadOnly {
-  external factory DOMPointReadOnly(
+  external DOMPointReadOnly(
       [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic z = 0,
@@ -50,24 +51,25 @@ extension PropsDOMPointReadOnly on DOMPointReadOnly {
 
   /// The point's horizontal coordinate, .
   ///
-  external /* double | NaN */ dynamic get x;
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
 
   /// The point's vertical coordinate, .
   ///
-  external /* double | NaN */ dynamic get y;
+  /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
 
   /// The point's depth coordinate, .
   ///
-  external /* double | NaN */ dynamic get z;
+  /* double | NaN */ dynamic get z => js_util.getProperty(this, 'z');
 
   /// The point's perspective value, .
   ///
-  external /* double | NaN */ dynamic get w;
+  /* double | NaN */ dynamic get w => js_util.getProperty(this, 'w');
 
   ///  Applies a matrix transform specified as an object to the
   /// [DOMPointReadOnly] object.
   ///
-  external DOMPoint matrixTransform([DOMMatrixInit? matrix]);
+  DOMPoint matrixTransform([DOMMatrixInit? matrix]) =>
+      js_util.callMethod(this, 'matrixTransform', [matrix]);
 
   /// Returns a JSON representation of the [DOMPointReadOnly] object.
   ///
@@ -81,7 +83,7 @@ extension PropsDOMPointReadOnly on DOMPointReadOnly {
   ///
   /// var pointJSON = topLeft.toJSON();
   ///
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 ///  A object represents a 2D or 3D point in a coordinate system; it
@@ -96,7 +98,7 @@ extension PropsDOMPointReadOnly on DOMPointReadOnly {
 @JS()
 @staticInterop
 class DOMPoint implements DOMPointReadOnly {
-  external factory DOMPoint(
+  external DOMPoint(
       [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic z = 0,
@@ -109,30 +111,38 @@ extension PropsDOMPoint on DOMPoint {
   /// The coordinate of the [DOMPoint].
   ///
   @override
-  external /* double | NaN */ dynamic get x;
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
   @override
-  external set x(/* double | NaN */ dynamic newValue);
+  set x(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
 
   /// The coordinate of the [DOMPoint].
   ///
   @override
-  external /* double | NaN */ dynamic get y;
+  /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
   @override
-  external set y(/* double | NaN */ dynamic newValue);
+  set y(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
 
   /// The coordinate of the [DOMPoint].
   ///
   @override
-  external /* double | NaN */ dynamic get z;
+  /* double | NaN */ dynamic get z => js_util.getProperty(this, 'z');
   @override
-  external set z(/* double | NaN */ dynamic newValue);
+  set z(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
 
   /// The perspective value of the [DOMPoint].
   ///
   @override
-  external /* double | NaN */ dynamic get w;
+  /* double | NaN */ dynamic get w => js_util.getProperty(this, 'w');
   @override
-  external set w(/* double | NaN */ dynamic newValue);
+  set w(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'w', newValue);
+  }
 }
 
 @anonymous
@@ -147,14 +157,25 @@ class DOMPointInit {
 }
 
 extension PropsDOMPointInit on DOMPointInit {
-  external /* double | NaN */ dynamic get x;
-  external set x(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get y;
-  external set y(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get z;
-  external set z(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get w;
-  external set w(/* double | NaN */ dynamic newValue);
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
+  set x(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
+  set y(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  /* double | NaN */ dynamic get z => js_util.getProperty(this, 'z');
+  set z(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
+
+  /* double | NaN */ dynamic get w => js_util.getProperty(this, 'w');
+  set w(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'w', newValue);
+  }
 }
 
 ///  The interface specifies the standard properties used by
@@ -162,7 +183,7 @@ extension PropsDOMPointInit on DOMPointInit {
 @JS()
 @staticInterop
 class DOMRectReadOnly {
-  external factory DOMRectReadOnly(
+  external DOMRectReadOnly(
       [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic width = 0,
@@ -174,40 +195,40 @@ extension PropsDOMRectReadOnly on DOMRectReadOnly {
 
   /// The x coordinate of the [DOMRect]'s origin.
   ///
-  external /* double | NaN */ dynamic get x;
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
 
   /// The y coordinate of the [DOMRect]'s origin.
   ///
-  external /* double | NaN */ dynamic get y;
+  /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
 
   /// The width of the [DOMRect].
   ///
-  external /* double | NaN */ dynamic get width;
+  /* double | NaN */ dynamic get width => js_util.getProperty(this, 'width');
 
   /// The height of the [DOMRect].
   ///
-  external /* double | NaN */ dynamic get height;
+  /* double | NaN */ dynamic get height => js_util.getProperty(this, 'height');
 
   ///  Returns the top coordinate value of the [DOMRect] (usually the
   /// same as [y].)
   ///
-  external /* double | NaN */ dynamic get top;
+  /* double | NaN */ dynamic get top => js_util.getProperty(this, 'top');
 
   ///  Returns the right coordinate value of the [DOMRect] (usually the
   /// same as [x + width]).
   ///
-  external /* double | NaN */ dynamic get right;
+  /* double | NaN */ dynamic get right => js_util.getProperty(this, 'right');
 
   ///  Returns the bottom coordinate value of the [DOMRect] (usually
   /// the same as [y + height]).
   ///
-  external /* double | NaN */ dynamic get bottom;
+  /* double | NaN */ dynamic get bottom => js_util.getProperty(this, 'bottom');
 
   ///  Returns the left coordinate value of the [DOMRect] (usually the
   /// same as [x]).
   ///
-  external /* double | NaN */ dynamic get left;
-  external dynamic toJSON();
+  /* double | NaN */ dynamic get left => js_util.getProperty(this, 'left');
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 /// A describes the size and position of a rectangle.
@@ -232,7 +253,7 @@ extension PropsDOMRectReadOnly on DOMRectReadOnly {
 @JS()
 @staticInterop
 class DOMRect implements DOMRectReadOnly {
-  external factory DOMRect(
+  external DOMRect(
       [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic width = 0,
@@ -246,31 +267,39 @@ extension PropsDOMRect on DOMRect {
   /// top-left corner of the rectangle).
   ///
   @override
-  external /* double | NaN */ dynamic get x;
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
   @override
-  external set x(/* double | NaN */ dynamic newValue);
+  set x(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
 
   ///  The y coordinate of the [DOMRect]'s origin (typically the
   /// top-left corner of the rectangle).
   ///
   @override
-  external /* double | NaN */ dynamic get y;
+  /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
   @override
-  external set y(/* double | NaN */ dynamic newValue);
+  set y(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
 
   /// The width of the [DOMRect].
   ///
   @override
-  external /* double | NaN */ dynamic get width;
+  /* double | NaN */ dynamic get width => js_util.getProperty(this, 'width');
   @override
-  external set width(/* double | NaN */ dynamic newValue);
+  set width(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   /// The height of the [DOMRect].
   ///
   @override
-  external /* double | NaN */ dynamic get height;
+  /* double | NaN */ dynamic get height => js_util.getProperty(this, 'height');
   @override
-  external set height(/* double | NaN */ dynamic newValue);
+  set height(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 }
 
 @anonymous
@@ -285,25 +314,36 @@ class DOMRectInit {
 }
 
 extension PropsDOMRectInit on DOMRectInit {
-  external /* double | NaN */ dynamic get x;
-  external set x(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get y;
-  external set y(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get width;
-  external set width(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get height;
-  external set height(/* double | NaN */ dynamic newValue);
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
+  set x(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
+  set y(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  /* double | NaN */ dynamic get width => js_util.getProperty(this, 'width');
+  set width(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  /* double | NaN */ dynamic get height => js_util.getProperty(this, 'height');
+  set height(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class DOMRectList {
-  external factory DOMRectList();
+  external DOMRectList();
 }
 
 extension PropsDOMRectList on DOMRectList {
-  external int get length;
-  external DOMRect? item(int index);
+  int get length => js_util.getProperty(this, 'length');
+  DOMRect? item(int index) => js_util.callMethod(this, 'item', [index]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -319,7 +359,7 @@ extension PropsDOMRectList on DOMRectList {
 @JS()
 @staticInterop
 class DOMQuad {
-  external factory DOMQuad(
+  external DOMQuad(
       [DOMPointInit? p1, DOMPointInit? p2, DOMPointInit? p3, DOMPointInit? p4]);
 }
 
@@ -333,19 +373,19 @@ extension PropsDOMQuad on DOMQuad {
   /// coordinates.
   ///
   external static DOMQuad fromQuad([DOMQuadInit? other]);
-  external DOMPoint get p1;
-  external DOMPoint get p2;
-  external DOMPoint get p3;
-  external DOMPoint get p4;
+  DOMPoint get p1 => js_util.getProperty(this, 'p1');
+  DOMPoint get p2 => js_util.getProperty(this, 'p2');
+  DOMPoint get p3 => js_util.getProperty(this, 'p3');
+  DOMPoint get p4 => js_util.getProperty(this, 'p4');
 
   ///  Returns a [DOMRect] object with the coordinates and dimensions
   /// of the [DOMQuad] object.
   ///
-  external DOMRect getBounds();
+  DOMRect getBounds() => js_util.callMethod(this, 'getBounds', []);
 
   /// Returns a JSON representation of the [DOMQuad] object.
   ///
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 @anonymous
@@ -357,14 +397,25 @@ class DOMQuadInit {
 }
 
 extension PropsDOMQuadInit on DOMQuadInit {
-  external DOMPointInit get p1;
-  external set p1(DOMPointInit newValue);
-  external DOMPointInit get p2;
-  external set p2(DOMPointInit newValue);
-  external DOMPointInit get p3;
-  external set p3(DOMPointInit newValue);
-  external DOMPointInit get p4;
-  external set p4(DOMPointInit newValue);
+  DOMPointInit get p1 => js_util.getProperty(this, 'p1');
+  set p1(DOMPointInit newValue) {
+    js_util.setProperty(this, 'p1', newValue);
+  }
+
+  DOMPointInit get p2 => js_util.getProperty(this, 'p2');
+  set p2(DOMPointInit newValue) {
+    js_util.setProperty(this, 'p2', newValue);
+  }
+
+  DOMPointInit get p3 => js_util.getProperty(this, 'p3');
+  set p3(DOMPointInit newValue) {
+    js_util.setProperty(this, 'p3', newValue);
+  }
+
+  DOMPointInit get p4 => js_util.getProperty(this, 'p4');
+  set p4(DOMPointInit newValue) {
+    js_util.setProperty(this, 'p4', newValue);
+  }
 }
 
 ///  The interface represents a read-only 4×4 matrix, suitable for 2D
@@ -376,7 +427,7 @@ extension PropsDOMQuadInit on DOMQuadInit {
 @JS()
 @staticInterop
 class DOMMatrixReadOnly {
-  external factory DOMMatrixReadOnly([dynamic init]);
+  external DOMMatrixReadOnly([dynamic init]);
 }
 
 extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
@@ -423,38 +474,38 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   ///
   ///
   ///
-  external /* double | NaN */ dynamic get a;
-  external /* double | NaN */ dynamic get b;
-  external /* double | NaN */ dynamic get c;
-  external /* double | NaN */ dynamic get d;
-  external /* double | NaN */ dynamic get e;
-  external /* double | NaN */ dynamic get f;
+  /* double | NaN */ dynamic get a => js_util.getProperty(this, 'a');
+  /* double | NaN */ dynamic get b => js_util.getProperty(this, 'b');
+  /* double | NaN */ dynamic get c => js_util.getProperty(this, 'c');
+  /* double | NaN */ dynamic get d => js_util.getProperty(this, 'd');
+  /* double | NaN */ dynamic get e => js_util.getProperty(this, 'e');
+  /* double | NaN */ dynamic get f => js_util.getProperty(this, 'f');
 
   ///  Double-precision floating-point values representing each
   /// component of a 4×4 matrix, where through [m14] are the first
   /// column, [m21] through [m24] are the second column, and so forth.
   ///
-  external /* double | NaN */ dynamic get m11;
-  external /* double | NaN */ dynamic get m12;
-  external /* double | NaN */ dynamic get m13;
-  external /* double | NaN */ dynamic get m14;
-  external /* double | NaN */ dynamic get m21;
-  external /* double | NaN */ dynamic get m22;
-  external /* double | NaN */ dynamic get m23;
-  external /* double | NaN */ dynamic get m24;
-  external /* double | NaN */ dynamic get m31;
-  external /* double | NaN */ dynamic get m32;
-  external /* double | NaN */ dynamic get m33;
-  external /* double | NaN */ dynamic get m34;
-  external /* double | NaN */ dynamic get m41;
-  external /* double | NaN */ dynamic get m42;
-  external /* double | NaN */ dynamic get m43;
-  external /* double | NaN */ dynamic get m44;
+  /* double | NaN */ dynamic get m11 => js_util.getProperty(this, 'm11');
+  /* double | NaN */ dynamic get m12 => js_util.getProperty(this, 'm12');
+  /* double | NaN */ dynamic get m13 => js_util.getProperty(this, 'm13');
+  /* double | NaN */ dynamic get m14 => js_util.getProperty(this, 'm14');
+  /* double | NaN */ dynamic get m21 => js_util.getProperty(this, 'm21');
+  /* double | NaN */ dynamic get m22 => js_util.getProperty(this, 'm22');
+  /* double | NaN */ dynamic get m23 => js_util.getProperty(this, 'm23');
+  /* double | NaN */ dynamic get m24 => js_util.getProperty(this, 'm24');
+  /* double | NaN */ dynamic get m31 => js_util.getProperty(this, 'm31');
+  /* double | NaN */ dynamic get m32 => js_util.getProperty(this, 'm32');
+  /* double | NaN */ dynamic get m33 => js_util.getProperty(this, 'm33');
+  /* double | NaN */ dynamic get m34 => js_util.getProperty(this, 'm34');
+  /* double | NaN */ dynamic get m41 => js_util.getProperty(this, 'm41');
+  /* double | NaN */ dynamic get m42 => js_util.getProperty(this, 'm42');
+  /* double | NaN */ dynamic get m43 => js_util.getProperty(this, 'm43');
+  /* double | NaN */ dynamic get m44 => js_util.getProperty(this, 'm44');
 
   ///  A Boolean flag whose value is [true] if the matrix was
   /// initialized as a 2D matrix. If [false], the matrix is 3D.
   ///
-  external bool get is2D;
+  bool get is2D => js_util.getProperty(this, 'is2D');
 
   ///  A Boolean whose value is [true] if the matrix is the identity
   /// matrix. The identity matrix is one in which every value is [0]
@@ -462,7 +513,7 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// corner (in other words, where the offsets in each direction are
   /// equal).
   ///
-  external bool get isIdentity;
+  bool get isIdentity => js_util.getProperty(this, 'isIdentity');
 
   ///  Returns a new [DOMMatrix] containing a matrix calculated by
   /// translating the source matrix using the specified vector. By
@@ -472,10 +523,11 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// DOMMatrix.translate(translateX, translateY);
   /// DOMMatrix.translate(translateX, translateY, translateZ);
   ///
-  external DOMMatrix translate(
-      [/* double | NaN */ dynamic tx = 0,
-      /* double | NaN */ dynamic ty = 0,
-      /* double | NaN */ dynamic tz = 0]);
+  DOMMatrix translate(
+          [/* double | NaN */ dynamic tx = 0,
+          /* double | NaN */ dynamic ty = 0,
+          /* double | NaN */ dynamic tz = 0]) =>
+      js_util.callMethod(this, 'translate', [tx, ty, tz]);
 
   ///  Returns a new [DOMMatrix] created by scaling the source matrix
   /// by the amount specified for each axis, centered on the given
@@ -491,13 +543,15 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// DOMMatrixReadOnly.scale(scaleX, scaleY, scaleZ, originX, originY);
   /// DOMMatrixReadOnly.scale(scaleX, scaleY, scaleZ, originX, originY, originZ);
   ///
-  external DOMMatrix scale(
-      [/* double | NaN */ dynamic scaleX = 1,
-      /* double | NaN */ dynamic scaleY,
-      /* double | NaN */ dynamic scaleZ = 1,
-      /* double | NaN */ dynamic originX = 0,
-      /* double | NaN */ dynamic originY = 0,
-      /* double | NaN */ dynamic originZ = 0]);
+  DOMMatrix scale(
+          [/* double | NaN */ dynamic scaleX = 1,
+          /* double | NaN */ dynamic scaleY,
+          /* double | NaN */ dynamic scaleZ = 1,
+          /* double | NaN */ dynamic originX = 0,
+          /* double | NaN */ dynamic originY = 0,
+          /* double | NaN */ dynamic originZ = 0]) =>
+      js_util.callMethod(
+          this, 'scale', [scaleX, scaleY, scaleZ, originX, originY, originZ]);
 
   ///  Returns a new [DOMMatrix] created by applying the specified
   /// scaling on the X, Y, and Z axes, centered at the given origin. By
@@ -506,58 +560,66 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// [(0, 0, 0)]. The original matrix is not changed.
   ///
   @deprecated
-  external DOMMatrix scaleNonUniform(
-      [/* double | NaN */ dynamic scaleX = 1,
-      /* double | NaN */ dynamic scaleY = 1]);
+  DOMMatrix scaleNonUniform(
+          [/* double | NaN */ dynamic scaleX = 1,
+          /* double | NaN */ dynamic scaleY = 1]) =>
+      js_util.callMethod(this, 'scaleNonUniform', [scaleX, scaleY]);
 
   ///  Returns a new [DOMMatrix] created by scaling the source 3D
   /// matrix by the given factor along all its axes, centered on the
   /// specified origin point. The default origin is [(0, 0, 0)]. The
   /// original matrix is not modified.
   ///
-  external DOMMatrix scale3d(
-      [/* double | NaN */ dynamic scale = 1,
-      /* double | NaN */ dynamic originX = 0,
-      /* double | NaN */ dynamic originY = 0,
-      /* double | NaN */ dynamic originZ = 0]);
+  DOMMatrix scale3d(
+          [/* double | NaN */ dynamic scale = 1,
+          /* double | NaN */ dynamic originX = 0,
+          /* double | NaN */ dynamic originY = 0,
+          /* double | NaN */ dynamic originZ = 0]) =>
+      js_util.callMethod(this, 'scale3d', [scale, originX, originY, originZ]);
 
   ///  Returns a new [DOMMatrix] created by rotating the source matrix
   /// around each of its axes by the specified number of degrees. The
   /// original matrix is not altered.
   ///
-  external DOMMatrix rotate(
-      [/* double | NaN */ dynamic rotX = 0,
-      /* double | NaN */ dynamic rotY,
-      /* double | NaN */ dynamic rotZ]);
+  DOMMatrix rotate(
+          [/* double | NaN */ dynamic rotX = 0,
+          /* double | NaN */ dynamic rotY,
+          /* double | NaN */ dynamic rotZ]) =>
+      js_util.callMethod(this, 'rotate', [rotX, rotY, rotZ]);
 
   ///  Returns a new [DOMMatrix] created by rotating the source matrix
   /// by the angle between the specified vector and [(1, 0)]. The
   /// original matrix is not modified.
   ///
-  external DOMMatrix rotateFromVector(
-      [/* double | NaN */ dynamic x = 0, /* double | NaN */ dynamic y = 0]);
+  DOMMatrix rotateFromVector(
+          [/* double | NaN */ dynamic x = 0,
+          /* double | NaN */ dynamic y = 0]) =>
+      js_util.callMethod(this, 'rotateFromVector', [x, y]);
 
   ///  Returns a new [DOMMatrix] created by rotating the source matrix
   /// by the given angle around the specified vector. The original
   /// matrix is not modified.
   ///
-  external DOMMatrix rotateAxisAngle(
-      [/* double | NaN */ dynamic x = 0,
-      /* double | NaN */ dynamic y = 0,
-      /* double | NaN */ dynamic z = 0,
-      /* double | NaN */ dynamic angle = 0]);
+  DOMMatrix rotateAxisAngle(
+          [/* double | NaN */ dynamic x = 0,
+          /* double | NaN */ dynamic y = 0,
+          /* double | NaN */ dynamic z = 0,
+          /* double | NaN */ dynamic angle = 0]) =>
+      js_util.callMethod(this, 'rotateAxisAngle', [x, y, z, angle]);
 
   ///  Returns a new [DOMMatrix] created by applying the specified skew
   /// transformation to the source matrix along its X-axis. The
   /// original matrix is not modified.
   ///
-  external DOMMatrix skewX([/* double | NaN */ dynamic sx = 0]);
+  DOMMatrix skewX([/* double | NaN */ dynamic sx = 0]) =>
+      js_util.callMethod(this, 'skewX', [sx]);
 
   ///  Returns a new [DOMMatrix] created by applying the specified skew
   /// transformation to the source matrix along its Y-axis. The
   /// original matrix is not modified.
   ///
-  external DOMMatrix skewY([/* double | NaN */ dynamic sy = 0]);
+  DOMMatrix skewY([/* double | NaN */ dynamic sy = 0]) =>
+      js_util.callMethod(this, 'skewY', [sy]);
 
   ///  Returns a new [DOMMatrix] created by computing the dot product
   /// of the source matrix and the specified matrix: [A⋅B]. If no
@@ -567,7 +629,8 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// and [m34]. These have the default value of [1]. The original
   /// matrix is not modified.
   ///
-  external DOMMatrix multiply([DOMMatrixInit? other]);
+  DOMMatrix multiply([DOMMatrixInit? other]) =>
+      js_util.callMethod(this, 'multiply', [other]);
 
   ///  Returns a new [DOMMatrix] created by flipping the source matrix
   /// around its X-axis. This is equivalent to multiplying the matrix
@@ -576,27 +639,28 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   ///
   ///  DOMMatrixReadOnly.flipX();
   ///
-  external DOMMatrix flipX();
+  DOMMatrix flipX() => js_util.callMethod(this, 'flipX', []);
 
   ///  Returns a new [DOMMatrix] created by flipping the source matrix
   /// around its Y-axis. This is equivalent to multiplying the matrix
   /// by [DOMMatrix(1, 0, 0, -1, 0, 0)]. The original matrix is not
   /// modified.
   ///
-  external DOMMatrix flipY();
+  DOMMatrix flipY() => js_util.callMethod(this, 'flipY', []);
 
   ///  Returns a new [DOMMatrix] created by inverting the source
   /// matrix. If the matrix cannot be inverted, the new matrix's
   /// components are all set to [NaN] and its [is2D] property is set to
   /// [false]. The original matrix is not altered.
   ///
-  external DOMMatrix inverse();
+  DOMMatrix inverse() => js_util.callMethod(this, 'inverse', []);
 
   ///  Transforms the specified point using the matrix, returning a new
   /// [DOMPoint] object containing the transformed point. Neither the
   /// matrix nor the original point are altered.
   ///
-  external DOMPoint transformPoint([DOMPointInit? point]);
+  DOMPoint transformPoint([DOMPointInit? point]) =>
+      js_util.callMethod(this, 'transformPoint', [point]);
 
   ///  Returns a new [Float32Array] containing all 16 elements ([m11],
   /// [m12], [m13], [m14], [m21], [m22], [m23], [m24], [m31], [m32],
@@ -607,7 +671,8 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// the first column from top to bottom, then the second column, and
   /// so forth.)
   ///
-  external Float32List toFloat32Array();
+  Float32List toFloat32Array() =>
+      js_util.callMethod(this, 'toFloat32Array', []);
 
   ///  Returns a new [Float64Array] containing all 16 elements ([m11],
   /// [m12], [m13], [m14], [m21], [m22], [m23], [m24], [m31], [m32],
@@ -618,13 +683,14 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// the first column from top to bottom, then the second column, and
   /// so forth.)
   ///
-  external Float64List toFloat64Array();
-  @JS('toString')
-  external String mToString();
+  Float64List toFloat64Array() =>
+      js_util.callMethod(this, 'toFloat64Array', []);
+
+  String mToString() => js_util.callMethod(this, 'toString', []);
 
   /// Returns a JSON representation of the [DOMMatrixReadOnly] object.
   ///
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 ///  The interface represents 4×4 matrices, suitable for 2D and 3D
@@ -637,7 +703,7 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
 @JS()
 @staticInterop
 class DOMMatrix implements DOMMatrixReadOnly {
-  external factory DOMMatrix([dynamic init]);
+  external DOMMatrix([dynamic init]);
 }
 
 extension PropsDOMMatrix on DOMMatrix {
@@ -685,186 +751,264 @@ extension PropsDOMMatrix on DOMMatrix {
   ///
   ///
   @override
-  external /* double | NaN */ dynamic get a;
+  /* double | NaN */ dynamic get a => js_util.getProperty(this, 'a');
   @override
-  external set a(/* double | NaN */ dynamic newValue);
+  set a(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'a', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get b;
+  /* double | NaN */ dynamic get b => js_util.getProperty(this, 'b');
   @override
-  external set b(/* double | NaN */ dynamic newValue);
+  set b(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'b', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get c;
+  /* double | NaN */ dynamic get c => js_util.getProperty(this, 'c');
   @override
-  external set c(/* double | NaN */ dynamic newValue);
+  set c(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'c', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get d;
+  /* double | NaN */ dynamic get d => js_util.getProperty(this, 'd');
   @override
-  external set d(/* double | NaN */ dynamic newValue);
+  set d(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'd', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get e;
+  /* double | NaN */ dynamic get e => js_util.getProperty(this, 'e');
   @override
-  external set e(/* double | NaN */ dynamic newValue);
+  set e(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'e', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get f;
+  /* double | NaN */ dynamic get f => js_util.getProperty(this, 'f');
   @override
-  external set f(/* double | NaN */ dynamic newValue);
+  set f(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'f', newValue);
+  }
 
   ///  Double-precision floating-point values representing each
   /// component of a 4×4 matrix, where through [m14] are the first
   /// column, [m21] through [m24] are the second column, and so forth.
   ///
   @override
-  external /* double | NaN */ dynamic get m11;
+  /* double | NaN */ dynamic get m11 => js_util.getProperty(this, 'm11');
   @override
-  external set m11(/* double | NaN */ dynamic newValue);
+  set m11(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm11', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m12;
+  /* double | NaN */ dynamic get m12 => js_util.getProperty(this, 'm12');
   @override
-  external set m12(/* double | NaN */ dynamic newValue);
+  set m12(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm12', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m13;
+  /* double | NaN */ dynamic get m13 => js_util.getProperty(this, 'm13');
   @override
-  external set m13(/* double | NaN */ dynamic newValue);
+  set m13(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm13', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m14;
+  /* double | NaN */ dynamic get m14 => js_util.getProperty(this, 'm14');
   @override
-  external set m14(/* double | NaN */ dynamic newValue);
+  set m14(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm14', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m21;
+  /* double | NaN */ dynamic get m21 => js_util.getProperty(this, 'm21');
   @override
-  external set m21(/* double | NaN */ dynamic newValue);
+  set m21(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm21', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m22;
+  /* double | NaN */ dynamic get m22 => js_util.getProperty(this, 'm22');
   @override
-  external set m22(/* double | NaN */ dynamic newValue);
+  set m22(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm22', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m23;
+  /* double | NaN */ dynamic get m23 => js_util.getProperty(this, 'm23');
   @override
-  external set m23(/* double | NaN */ dynamic newValue);
+  set m23(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm23', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m24;
+  /* double | NaN */ dynamic get m24 => js_util.getProperty(this, 'm24');
   @override
-  external set m24(/* double | NaN */ dynamic newValue);
+  set m24(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm24', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m31;
+  /* double | NaN */ dynamic get m31 => js_util.getProperty(this, 'm31');
   @override
-  external set m31(/* double | NaN */ dynamic newValue);
+  set m31(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm31', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m32;
+  /* double | NaN */ dynamic get m32 => js_util.getProperty(this, 'm32');
   @override
-  external set m32(/* double | NaN */ dynamic newValue);
+  set m32(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm32', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m33;
+  /* double | NaN */ dynamic get m33 => js_util.getProperty(this, 'm33');
   @override
-  external set m33(/* double | NaN */ dynamic newValue);
+  set m33(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm33', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m34;
+  /* double | NaN */ dynamic get m34 => js_util.getProperty(this, 'm34');
   @override
-  external set m34(/* double | NaN */ dynamic newValue);
+  set m34(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm34', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m41;
+  /* double | NaN */ dynamic get m41 => js_util.getProperty(this, 'm41');
   @override
-  external set m41(/* double | NaN */ dynamic newValue);
+  set m41(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm41', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m42;
+  /* double | NaN */ dynamic get m42 => js_util.getProperty(this, 'm42');
   @override
-  external set m42(/* double | NaN */ dynamic newValue);
+  set m42(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm42', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m43;
+  /* double | NaN */ dynamic get m43 => js_util.getProperty(this, 'm43');
   @override
-  external set m43(/* double | NaN */ dynamic newValue);
+  set m43(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm43', newValue);
+  }
+
   @override
-  external /* double | NaN */ dynamic get m44;
+  /* double | NaN */ dynamic get m44 => js_util.getProperty(this, 'm44');
   @override
-  external set m44(/* double | NaN */ dynamic newValue);
+  set m44(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm44', newValue);
+  }
 
   ///  Modifies the matrix by post-multiplying it with the specified
   /// [DOMMatrix]. This is equivalent to the dot product [A⋅B], where
   /// matrix [A] is the source matrix and [B] is the matrix given as an
   /// input to the method. Returns itself.
   ///
-  external DOMMatrix multiplySelf([DOMMatrixInit? other]);
+  DOMMatrix multiplySelf([DOMMatrixInit? other]) =>
+      js_util.callMethod(this, 'multiplySelf', [other]);
 
   ///  Modifies the matrix by pre-multiplying it with the specified
   /// [DOMMatrix]. This is equivalent to the dot product [B⋅A], where
   /// matrix [A] is the source matrix and [B] is the matrix given as an
   /// input to the method. Returns itself.
   ///
-  external DOMMatrix preMultiplySelf([DOMMatrixInit? other]);
+  DOMMatrix preMultiplySelf([DOMMatrixInit? other]) =>
+      js_util.callMethod(this, 'preMultiplySelf', [other]);
 
   ///  Modifies the matrix by applying the specified vector. The
   /// default vector is [[0, 0, 0]]. Returns itself.
   ///
-  external DOMMatrix translateSelf(
-      [/* double | NaN */ dynamic tx = 0,
-      /* double | NaN */ dynamic ty = 0,
-      /* double | NaN */ dynamic tz = 0]);
+  DOMMatrix translateSelf(
+          [/* double | NaN */ dynamic tx = 0,
+          /* double | NaN */ dynamic ty = 0,
+          /* double | NaN */ dynamic tz = 0]) =>
+      js_util.callMethod(this, 'translateSelf', [tx, ty, tz]);
 
   ///  Modifies the matrix by applying the specified scaling factors,
   /// with the center located at the specified origin. Also returns
   /// itself. By default, the scaling factor is [1] for all three axes,
   /// and the origin is [(0, 0, 0)]. Returns itself.
   ///
-  external DOMMatrix scaleSelf(
-      [/* double | NaN */ dynamic scaleX = 1,
-      /* double | NaN */ dynamic scaleY,
-      /* double | NaN */ dynamic scaleZ = 1,
-      /* double | NaN */ dynamic originX = 0,
-      /* double | NaN */ dynamic originY = 0,
-      /* double | NaN */ dynamic originZ = 0]);
+  DOMMatrix scaleSelf(
+          [/* double | NaN */ dynamic scaleX = 1,
+          /* double | NaN */ dynamic scaleY,
+          /* double | NaN */ dynamic scaleZ = 1,
+          /* double | NaN */ dynamic originX = 0,
+          /* double | NaN */ dynamic originY = 0,
+          /* double | NaN */ dynamic originZ = 0]) =>
+      js_util.callMethod(this, 'scaleSelf',
+          [scaleX, scaleY, scaleZ, originX, originY, originZ]);
 
   ///  Modifies the matrix by applying the specified scaling factor to
   /// all three axes, centered on the given origin. Returns itself.
   ///
-  external DOMMatrix scale3dSelf(
-      [/* double | NaN */ dynamic scale = 1,
-      /* double | NaN */ dynamic originX = 0,
-      /* double | NaN */ dynamic originY = 0,
-      /* double | NaN */ dynamic originZ = 0]);
+  DOMMatrix scale3dSelf(
+          [/* double | NaN */ dynamic scale = 1,
+          /* double | NaN */ dynamic originX = 0,
+          /* double | NaN */ dynamic originY = 0,
+          /* double | NaN */ dynamic originZ = 0]) =>
+      js_util
+          .callMethod(this, 'scale3dSelf', [scale, originX, originY, originZ]);
 
   ///  Modifies the matrix by rotating itself around each axis by the
   /// specified number of degrees. Returns itself.
   ///
-  external DOMMatrix rotateSelf(
-      [/* double | NaN */ dynamic rotX = 0,
-      /* double | NaN */ dynamic rotY,
-      /* double | NaN */ dynamic rotZ]);
+  DOMMatrix rotateSelf(
+          [/* double | NaN */ dynamic rotX = 0,
+          /* double | NaN */ dynamic rotY,
+          /* double | NaN */ dynamic rotZ]) =>
+      js_util.callMethod(this, 'rotateSelf', [rotX, rotY, rotZ]);
 
   ///  Modifies the matrix by rotating it by the angle between the
   /// specified vector and [(1, 0)]. Returns itself.
   ///
-  external DOMMatrix rotateFromVectorSelf(
-      [/* double | NaN */ dynamic x = 0, /* double | NaN */ dynamic y = 0]);
+  DOMMatrix rotateFromVectorSelf(
+          [/* double | NaN */ dynamic x = 0,
+          /* double | NaN */ dynamic y = 0]) =>
+      js_util.callMethod(this, 'rotateFromVectorSelf', [x, y]);
 
   ///  Modifies the matrix by rotating it by the specified angle around
   /// the given vector. Returns itself.
   ///
-  external DOMMatrix rotateAxisAngleSelf(
-      [/* double | NaN */ dynamic x = 0,
-      /* double | NaN */ dynamic y = 0,
-      /* double | NaN */ dynamic z = 0,
-      /* double | NaN */ dynamic angle = 0]);
+  DOMMatrix rotateAxisAngleSelf(
+          [/* double | NaN */ dynamic x = 0,
+          /* double | NaN */ dynamic y = 0,
+          /* double | NaN */ dynamic z = 0,
+          /* double | NaN */ dynamic angle = 0]) =>
+      js_util.callMethod(this, 'rotateAxisAngleSelf', [x, y, z, angle]);
 
   ///  Modifies the matrix by applying the specified skew
   /// transformation along the X-axis. Returns itself.
   ///
-  external DOMMatrix skewXSelf([/* double | NaN */ dynamic sx = 0]);
+  DOMMatrix skewXSelf([/* double | NaN */ dynamic sx = 0]) =>
+      js_util.callMethod(this, 'skewXSelf', [sx]);
 
   ///  Modifies the matrix by applying the specified skew
   /// transformation along the Y-axis. Returns itself.
   ///
-  external DOMMatrix skewYSelf([/* double | NaN */ dynamic sy = 0]);
+  DOMMatrix skewYSelf([/* double | NaN */ dynamic sy = 0]) =>
+      js_util.callMethod(this, 'skewYSelf', [sy]);
 
   ///  Modifies the matrix by inverting it. If the matrix can't be
   /// inverted, its components are all set to [NaN], and [is2D] returns
   /// [false].
   ///
-  external DOMMatrix invertSelf();
+  DOMMatrix invertSelf() => js_util.callMethod(this, 'invertSelf', []);
 
   ///  Replaces the contents of the matrix with the matrix described by
   /// the specified transform or transforms. Returns itself.
   ///
-  external DOMMatrix setMatrixValue(String transformList);
+  DOMMatrix setMatrixValue(String transformList) =>
+      js_util.callMethod(this, 'setMatrixValue', [transformList]);
 }
 
 @anonymous
@@ -887,30 +1031,65 @@ class DOMMatrix2DInit {
 }
 
 extension PropsDOMMatrix2DInit on DOMMatrix2DInit {
-  external /* double | NaN */ dynamic get a;
-  external set a(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get b;
-  external set b(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get c;
-  external set c(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get d;
-  external set d(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get e;
-  external set e(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get f;
-  external set f(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m11;
-  external set m11(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m12;
-  external set m12(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m21;
-  external set m21(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m22;
-  external set m22(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m41;
-  external set m41(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m42;
-  external set m42(/* double | NaN */ dynamic newValue);
+  /* double | NaN */ dynamic get a => js_util.getProperty(this, 'a');
+  set a(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'a', newValue);
+  }
+
+  /* double | NaN */ dynamic get b => js_util.getProperty(this, 'b');
+  set b(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'b', newValue);
+  }
+
+  /* double | NaN */ dynamic get c => js_util.getProperty(this, 'c');
+  set c(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'c', newValue);
+  }
+
+  /* double | NaN */ dynamic get d => js_util.getProperty(this, 'd');
+  set d(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'd', newValue);
+  }
+
+  /* double | NaN */ dynamic get e => js_util.getProperty(this, 'e');
+  set e(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'e', newValue);
+  }
+
+  /* double | NaN */ dynamic get f => js_util.getProperty(this, 'f');
+  set f(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'f', newValue);
+  }
+
+  /* double | NaN */ dynamic get m11 => js_util.getProperty(this, 'm11');
+  set m11(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm11', newValue);
+  }
+
+  /* double | NaN */ dynamic get m12 => js_util.getProperty(this, 'm12');
+  set m12(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm12', newValue);
+  }
+
+  /* double | NaN */ dynamic get m21 => js_util.getProperty(this, 'm21');
+  set m21(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm21', newValue);
+  }
+
+  /* double | NaN */ dynamic get m22 => js_util.getProperty(this, 'm22');
+  set m22(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm22', newValue);
+  }
+
+  /* double | NaN */ dynamic get m41 => js_util.getProperty(this, 'm41');
+  set m41(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm41', newValue);
+  }
+
+  /* double | NaN */ dynamic get m42 => js_util.getProperty(this, 'm42');
+  set m42(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm42', newValue);
+  }
 }
 
 @anonymous
@@ -932,26 +1111,58 @@ class DOMMatrixInit implements DOMMatrix2DInit {
 }
 
 extension PropsDOMMatrixInit on DOMMatrixInit {
-  external /* double | NaN */ dynamic get m13;
-  external set m13(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m14;
-  external set m14(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m23;
-  external set m23(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m24;
-  external set m24(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m31;
-  external set m31(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m32;
-  external set m32(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m33;
-  external set m33(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m34;
-  external set m34(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m43;
-  external set m43(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get m44;
-  external set m44(/* double | NaN */ dynamic newValue);
-  external bool get is2D;
-  external set is2D(bool newValue);
+  /* double | NaN */ dynamic get m13 => js_util.getProperty(this, 'm13');
+  set m13(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm13', newValue);
+  }
+
+  /* double | NaN */ dynamic get m14 => js_util.getProperty(this, 'm14');
+  set m14(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm14', newValue);
+  }
+
+  /* double | NaN */ dynamic get m23 => js_util.getProperty(this, 'm23');
+  set m23(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm23', newValue);
+  }
+
+  /* double | NaN */ dynamic get m24 => js_util.getProperty(this, 'm24');
+  set m24(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm24', newValue);
+  }
+
+  /* double | NaN */ dynamic get m31 => js_util.getProperty(this, 'm31');
+  set m31(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm31', newValue);
+  }
+
+  /* double | NaN */ dynamic get m32 => js_util.getProperty(this, 'm32');
+  set m32(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm32', newValue);
+  }
+
+  /* double | NaN */ dynamic get m33 => js_util.getProperty(this, 'm33');
+  set m33(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm33', newValue);
+  }
+
+  /* double | NaN */ dynamic get m34 => js_util.getProperty(this, 'm34');
+  set m34(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm34', newValue);
+  }
+
+  /* double | NaN */ dynamic get m43 => js_util.getProperty(this, 'm43');
+  set m43(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm43', newValue);
+  }
+
+  /* double | NaN */ dynamic get m44 => js_util.getProperty(this, 'm44');
+  set m44(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'm44', newValue);
+  }
+
+  bool get is2D => js_util.getProperty(this, 'is2D');
+  set is2D(bool newValue) {
+    js_util.setProperty(this, 'is2D', newValue);
+  }
 }

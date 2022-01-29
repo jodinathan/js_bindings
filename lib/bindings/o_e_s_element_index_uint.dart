@@ -5,6 +5,7 @@
 @staticInterop
 library o_e_s_element_index_uint;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -26,5 +27,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class OES_element_index_uint {
-  external factory OES_element_index_uint();
+  external OES_element_index_uint();
 }

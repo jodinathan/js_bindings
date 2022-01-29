@@ -5,6 +5,7 @@
 @staticInterop
 library o_e_s_standard_derivatives;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -28,5 +29,5 @@ import 'all_bindings.dart';
 @staticInterop
 class OES_standard_derivatives {
   external static int get FRAGMENT_SHADER_DERIVATIVE_HINT_OES;
-  external factory OES_standard_derivatives();
+  external OES_standard_derivatives();
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library get_installed_related_apps;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,12 +22,23 @@ class RelatedApplication {
 }
 
 extension PropsRelatedApplication on RelatedApplication {
-  external String get platform;
-  external set platform(String newValue);
-  external String get url;
-  external set url(String newValue);
-  external String get id;
-  external set id(String newValue);
-  external String get version;
-  external set version(String newValue);
+  String get platform => js_util.getProperty(this, 'platform');
+  set platform(String newValue) {
+    js_util.setProperty(this, 'platform', newValue);
+  }
+
+  String get url => js_util.getProperty(this, 'url');
+  set url(String newValue) {
+    js_util.setProperty(this, 'url', newValue);
+  }
+
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  String get version => js_util.getProperty(this, 'version');
+  set version(String newValue) {
+    js_util.setProperty(this, 'version', newValue);
+  }
 }

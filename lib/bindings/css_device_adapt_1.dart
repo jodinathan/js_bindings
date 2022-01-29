@@ -5,6 +5,7 @@
 @staticInterop
 library css_device_adapt_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,9 +16,9 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CSSViewportRule implements CSSRule {
-  external factory CSSViewportRule();
+  external CSSViewportRule();
 }
 
 extension PropsCSSViewportRule on CSSViewportRule {
-  external CSSStyleDeclaration get style;
+  CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
 }

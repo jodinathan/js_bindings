@@ -5,6 +5,7 @@
 @staticInterop
 library credential_management_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -34,32 +35,32 @@ web_otp */
 @JS()
 @staticInterop
 class Credential {
-  external factory Credential();
+  external Credential();
 }
 
 extension PropsCredential on Credential {
   ///  Returns a [DOMString] containing the credential's identifier.
   /// This might be any one of a GUID, username, or email address.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  Returns a [DOMString] containing the credential's type. Valid
   /// values are [password], [federated] and [public-key]. (For
   /// [PasswordCredential], [FederatedCredential] and
   /// [PublicKeyCredential])
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 }
 
 @JS()
 @staticInterop
 class CredentialUserData {
-  external factory CredentialUserData();
+  external CredentialUserData();
 }
 
 extension PropsCredentialUserData on CredentialUserData {
-  external String get name;
-  external String get iconURL;
+  String get name => js_util.getProperty(this, 'name');
+  String get iconURL => js_util.getProperty(this, 'iconURL');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -74,7 +75,7 @@ extension PropsCredentialUserData on CredentialUserData {
 @JS()
 @staticInterop
 class CredentialsContainer {
-  external factory CredentialsContainer();
+  external CredentialsContainer();
 }
 
 extension PropsCredentialsContainer on CredentialsContainer {
@@ -85,14 +86,16 @@ extension PropsCredentialsContainer on CredentialsContainer {
   ///
   @JS('get')
   @staticInterop
-  external Promise<Credential> mGet([CredentialRequestOptions? options]);
+  Promise<Credential> mGet([CredentialRequestOptions? options]) =>
+      js_util.callMethod(this, 'get', [options]);
 
   ///  Stores a set of credentials for a user, inside a provided
   /// [Credential] instance and returns that instance in a [Promise].
   ///
   /// CredentialsContainer.store(Credential).then(function(Credential) { /* ... */ } )
   ///
-  external Promise<Credential> store(Credential credential);
+  Promise<Credential> store(Credential credential) =>
+      js_util.callMethod(this, 'store', [credential]);
 
   ///  Returns a [Promise] that resolves with a new [Credential]
   /// instance based on the provided options, or [null] if no
@@ -101,7 +104,8 @@ extension PropsCredentialsContainer on CredentialsContainer {
   ///
   /// var promise = CredentialsContainer.create([options])
   ///
-  external Promise<Credential> create([CredentialCreationOptions? options]);
+  Promise<Credential> create([CredentialCreationOptions? options]) =>
+      js_util.callMethod(this, 'create', [options]);
 
   ///  Sets a flag that specifies whether automatic log in is allowed
   /// for future visits to the current origin, then returns an empty
@@ -113,7 +117,8 @@ extension PropsCredentialsContainer on CredentialsContainer {
   ///
   /// var Promise = CredentialsContainer.preventSilentAccess()
   ///
-  external Promise<Object> preventSilentAccess();
+  Promise<Object> preventSilentAccess() =>
+      js_util.callMethod(this, 'preventSilentAccess', []);
 }
 
 @anonymous
@@ -124,8 +129,10 @@ class CredentialData {
 }
 
 extension PropsCredentialData on CredentialData {
-  external String get id;
-  external set id(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 }
 
 @anonymous
@@ -139,10 +146,16 @@ class CredentialRequestOptions {
 }
 
 extension PropsCredentialRequestOptions on CredentialRequestOptions {
-  external CredentialMediationRequirement get mediation;
-  external set mediation(CredentialMediationRequirement newValue);
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
+  CredentialMediationRequirement get mediation =>
+      js_util.getProperty(this, 'mediation');
+  set mediation(CredentialMediationRequirement newValue) {
+    js_util.setProperty(this, 'mediation', newValue);
+  }
+
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 enum CredentialMediationRequirement { silent, optional, valueRequired }
@@ -155,8 +168,10 @@ class CredentialCreationOptions {
 }
 
 extension PropsCredentialCreationOptions on CredentialCreationOptions {
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -174,13 +189,13 @@ extension PropsCredentialCreationOptions on CredentialCreationOptions {
 @JS()
 @staticInterop
 class PasswordCredential implements Credential, CredentialUserData {
-  external factory PasswordCredential(HTMLFormElement form);
+  external PasswordCredential(HTMLFormElement form);
 }
 
 extension PropsPasswordCredential on PasswordCredential {
   /// A [USVString] containing the password of the credential.
   ///
-  external String get password;
+  String get password => js_util.getProperty(this, 'password');
 }
 
 @anonymous
@@ -192,14 +207,25 @@ class PasswordCredentialData implements CredentialData {
 }
 
 extension PropsPasswordCredentialData on PasswordCredentialData {
-  external String get name;
-  external set name(String newValue);
-  external String get iconURL;
-  external set iconURL(String newValue);
-  external String get origin;
-  external set origin(String newValue);
-  external String get password;
-  external set password(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get iconURL => js_util.getProperty(this, 'iconURL');
+  set iconURL(String newValue) {
+    js_util.setProperty(this, 'iconURL', newValue);
+  }
+
+  String get origin => js_util.getProperty(this, 'origin');
+  set origin(String newValue) {
+    js_util.setProperty(this, 'origin', newValue);
+  }
+
+  String get password => js_util.getProperty(this, 'password');
+  set password(String newValue) {
+    js_util.setProperty(this, 'password', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -217,19 +243,19 @@ extension PropsPasswordCredentialData on PasswordCredentialData {
 @JS()
 @staticInterop
 class FederatedCredential implements Credential, CredentialUserData {
-  external factory FederatedCredential(FederatedCredentialInit data);
+  external FederatedCredential(FederatedCredentialInit data);
 }
 
 extension PropsFederatedCredential on FederatedCredential {
   ///  Returns a [USVString] containing a credential's federated
   /// identity provider.
   ///
-  external String get provider;
+  String get provider => js_util.getProperty(this, 'provider');
 
   ///  Returns a [DOMString] containing a credential's federated
   /// identity protocol.
   ///
-  external String? get protocol;
+  String? get protocol => js_util.getProperty(this, 'protocol');
 }
 
 @anonymous
@@ -242,10 +268,15 @@ class FederatedCredentialRequestOptions {
 
 extension PropsFederatedCredentialRequestOptions
     on FederatedCredentialRequestOptions {
-  external Iterable<String> get providers;
-  external set providers(Iterable<String> newValue);
-  external Iterable<String> get protocols;
-  external set protocols(Iterable<String> newValue);
+  Iterable<String> get providers => js_util.getProperty(this, 'providers');
+  set providers(Iterable<String> newValue) {
+    js_util.setProperty(this, 'providers', newValue);
+  }
+
+  Iterable<String> get protocols => js_util.getProperty(this, 'protocols');
+  set protocols(Iterable<String> newValue) {
+    js_util.setProperty(this, 'protocols', newValue);
+  }
 }
 
 @anonymous
@@ -261,14 +292,28 @@ class FederatedCredentialInit implements CredentialData {
 }
 
 extension PropsFederatedCredentialInit on FederatedCredentialInit {
-  external String get name;
-  external set name(String newValue);
-  external String get iconURL;
-  external set iconURL(String newValue);
-  external String get origin;
-  external set origin(String newValue);
-  external String get provider;
-  external set provider(String newValue);
-  external String get protocol;
-  external set protocol(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get iconURL => js_util.getProperty(this, 'iconURL');
+  set iconURL(String newValue) {
+    js_util.setProperty(this, 'iconURL', newValue);
+  }
+
+  String get origin => js_util.getProperty(this, 'origin');
+  set origin(String newValue) {
+    js_util.setProperty(this, 'origin', newValue);
+  }
+
+  String get provider => js_util.getProperty(this, 'provider');
+  set provider(String newValue) {
+    js_util.setProperty(this, 'provider', newValue);
+  }
+
+  String get protocol => js_util.getProperty(this, 'protocol');
+  set protocol(String newValue) {
+    js_util.setProperty(this, 'protocol', newValue);
+  }
 }

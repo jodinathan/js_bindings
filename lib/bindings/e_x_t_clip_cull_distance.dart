@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_clip_cull_distance;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -26,5 +27,5 @@ class EXT_clip_cull_distance {
   external static int get CLIP_DISTANCE5_EXT;
   external static int get CLIP_DISTANCE6_EXT;
   external static int get CLIP_DISTANCE7_EXT;
-  external factory EXT_clip_cull_distance();
+  external EXT_clip_cull_distance();
 }

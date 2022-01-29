@@ -5,6 +5,7 @@
 @staticInterop
 library css_pseudo_4;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -24,17 +25,17 @@ dom */
 @JS()
 @staticInterop
 class CSSPseudoElement implements EventTarget, GeometryUtils {
-  external factory CSSPseudoElement();
+  external CSSPseudoElement();
 }
 
 extension PropsCSSPseudoElement on CSSPseudoElement {
   /// Returns the pseudo-element selector as a [CSSOMString].
   ///
   @experimental
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   /// Returns the originating/parent [Element] of the pseudo-element.
   ///
   @experimental
-  external Element get element;
+  Element get element => js_util.getProperty(this, 'element');
 }

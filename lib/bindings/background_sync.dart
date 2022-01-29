@@ -5,6 +5,7 @@
 @staticInterop
 library background_sync;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -18,7 +19,7 @@ html */
 @JS()
 @staticInterop
 class SyncManager {
-  external factory SyncManager();
+  external SyncManager();
 }
 
 extension PropsSyncManager on SyncManager {
@@ -26,14 +27,16 @@ extension PropsSyncManager on SyncManager {
   ///
   /// SyncManager.register([options]).then(function(syncRegistration) { /* ... */ })
   ///
-  external Promise<Object> register(String tag);
+  Promise<Object> register(String tag) =>
+      js_util.callMethod(this, 'register', [tag]);
 
   ///  Return a list of developer-defined identifiers for SyncManager
   /// registration.
   ///
   /// SyncManager.getTags().then(function(tags[]) { /* ... */ })
   ///
-  external Iterable<Promise<String>> getTags();
+  Iterable<Promise<String>> getTags() =>
+      js_util.callMethod(this, 'getTags', []);
 }
 
 ///  Non-standard: This feature is non-standard and is not on a
@@ -65,18 +68,18 @@ extension PropsSyncManager on SyncManager {
 @JS()
 @staticInterop
 class SyncEvent implements ExtendableEvent {
-  external factory SyncEvent(String type, SyncEventInit init);
+  external SyncEvent(String type, SyncEventInit init);
 }
 
 extension PropsSyncEvent on SyncEvent {
   /// Returns the developer-defined identifier for this [SyncEvent].
   ///
-  external String get tag;
+  String get tag => js_util.getProperty(this, 'tag');
 
   ///  Returns [true] if the user agent will not make further
   /// synchronization attempts after the current attempt.
   ///
-  external bool get lastChance;
+  bool get lastChance => js_util.getProperty(this, 'lastChance');
 }
 
 @anonymous
@@ -87,8 +90,13 @@ class SyncEventInit implements ExtendableEventInit {
 }
 
 extension PropsSyncEventInit on SyncEventInit {
-  external String get tag;
-  external set tag(String newValue);
-  external bool get lastChance;
-  external set lastChance(bool newValue);
+  String get tag => js_util.getProperty(this, 'tag');
+  set tag(String newValue) {
+    js_util.setProperty(this, 'tag', newValue);
+  }
+
+  bool get lastChance => js_util.getProperty(this, 'lastChance');
+  set lastChance(bool newValue) {
+    js_util.setProperty(this, 'lastChance', newValue);
+  }
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library keyboard_lock;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';

@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_compressed_texture_astc;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -57,7 +58,7 @@ class WEBGL_compressed_texture_astc {
   external static int get COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR;
   external static int get COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR;
   external static int get COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR;
-  external factory WEBGL_compressed_texture_astc();
+  external WEBGL_compressed_texture_astc();
 }
 
 extension PropsWEBGL_compressed_texture_astc on WEBGL_compressed_texture_astc {
@@ -66,5 +67,6 @@ extension PropsWEBGL_compressed_texture_astc on WEBGL_compressed_texture_astc {
   ///
   /// sequence<DOMString> ext.getSupportedProfiles();
   ///
-  external Iterable<String> getSupportedProfiles();
+  Iterable<String> getSupportedProfiles() =>
+      js_util.callMethod(this, 'getSupportedProfiles', []);
 }

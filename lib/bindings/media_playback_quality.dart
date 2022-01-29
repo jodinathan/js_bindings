@@ -5,6 +5,7 @@
 @staticInterop
 library media_playback_quality;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -22,7 +23,7 @@ hr_time_3 */
 @JS()
 @staticInterop
 class VideoPlaybackQuality {
-  external factory VideoPlaybackQuality();
+  external VideoPlaybackQuality();
 }
 
 extension PropsVideoPlaybackQuality on VideoPlaybackQuality {
@@ -30,16 +31,17 @@ extension PropsVideoPlaybackQuality on VideoPlaybackQuality {
   /// between the start of the navigation and the creation of the
   /// object.
   ///
-  external double get creationTime;
+  double get creationTime => js_util.getProperty(this, 'creationTime');
 
   ///  An [unsigned long] giving the number of video frames dropped
   /// since the creation of the associated [HTMLVideoElement].
   ///
-  external int get droppedVideoFrames;
+  int get droppedVideoFrames => js_util.getProperty(this, 'droppedVideoFrames');
 
   ///  An [unsigned long] giving the number of video frames created and
   /// dropped since the creation of the associated [HTMLVideoElement].
   ///
-  external int get totalVideoFrames;
-  external int get corruptedVideoFrames;
+  int get totalVideoFrames => js_util.getProperty(this, 'totalVideoFrames');
+  int get corruptedVideoFrames =>
+      js_util.getProperty(this, 'corruptedVideoFrames');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library geolocation_a_p_i;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -30,7 +31,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class Geolocation {
-  external factory Geolocation();
+  external Geolocation();
 }
 
 extension PropsGeolocation on Geolocation {
@@ -39,8 +40,10 @@ extension PropsGeolocation on Geolocation {
   ///
   /// navigator.geolocation.getCurrentPosition(success, error, [options])
   ///
-  external Object getCurrentPosition(PositionCallback successCallback,
-      [PositionErrorCallback? errorCallback, PositionOptions? options]);
+  Object getCurrentPosition(PositionCallback successCallback,
+          [PositionErrorCallback? errorCallback, PositionOptions? options]) =>
+      js_util.callMethod(this, 'getCurrentPosition',
+          [successCallback, errorCallback, options]);
 
   ///  Returns a [long] value representing the newly established
   /// callback function to be invoked whenever the device location
@@ -50,8 +53,10 @@ extension PropsGeolocation on Geolocation {
   /// navigator.geolocation.watchPosition(success, error)
   /// navigator.geolocation.watchPosition(success, error, options)
   ///
-  external int watchPosition(PositionCallback successCallback,
-      [PositionErrorCallback? errorCallback, PositionOptions? options]);
+  int watchPosition(PositionCallback successCallback,
+          [PositionErrorCallback? errorCallback, PositionOptions? options]) =>
+      js_util.callMethod(
+          this, 'watchPosition', [successCallback, errorCallback, options]);
 
   ///  Removes the particular handler previously installed using
   /// [watchPosition()].
@@ -86,7 +91,8 @@ extension PropsGeolocation on Geolocation {
   ///
   /// id = navigator.geolocation.watchPosition(success, error, options);
   ///
-  external Object clearWatch(int watchId);
+  Object clearWatch(int watchId) =>
+      js_util.callMethod(this, 'clearWatch', [watchId]);
 }
 
 @anonymous
@@ -100,12 +106,21 @@ class PositionOptions {
 }
 
 extension PropsPositionOptions on PositionOptions {
-  external bool get enableHighAccuracy;
-  external set enableHighAccuracy(bool newValue);
-  external int get timeout;
-  external set timeout(int newValue);
-  external int get maximumAge;
-  external set maximumAge(int newValue);
+  bool get enableHighAccuracy =>
+      js_util.getProperty(this, 'enableHighAccuracy');
+  set enableHighAccuracy(bool newValue) {
+    js_util.setProperty(this, 'enableHighAccuracy', newValue);
+  }
+
+  int get timeout => js_util.getProperty(this, 'timeout');
+  set timeout(int newValue) {
+    js_util.setProperty(this, 'timeout', newValue);
+  }
+
+  int get maximumAge => js_util.getProperty(this, 'maximumAge');
+  set maximumAge(int newValue) {
+    js_util.setProperty(this, 'maximumAge', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -118,19 +133,19 @@ extension PropsPositionOptions on PositionOptions {
 @JS()
 @staticInterop
 class GeolocationPosition {
-  external factory GeolocationPosition();
+  external GeolocationPosition();
 }
 
 extension PropsGeolocationPosition on GeolocationPosition {
   ///  Returns a [GeolocationCoordinates] object defining the current
   /// location.
   ///
-  external GeolocationCoordinates get coords;
+  GeolocationCoordinates get coords => js_util.getProperty(this, 'coords');
 
   ///  Returns a [DOMTimeStamp] representing the time at which the
   /// location was retrieved.
   ///
-  external int get timestamp;
+  int get timestamp => js_util.getProperty(this, 'timestamp');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -141,35 +156,35 @@ extension PropsGeolocationPosition on GeolocationPosition {
 @JS()
 @staticInterop
 class GeolocationCoordinates {
-  external factory GeolocationCoordinates();
+  external GeolocationCoordinates();
 }
 
 extension PropsGeolocationCoordinates on GeolocationCoordinates {
   ///  Returns a [double] representing the accuracy of the [latitude]
   /// and [longitude] properties, expressed in meters.
   ///
-  external double get accuracy;
+  double get accuracy => js_util.getProperty(this, 'accuracy');
 
   ///  Returns a [double] representing the position's latitude in
   /// decimal degrees.
   ///
-  external double get latitude;
+  double get latitude => js_util.getProperty(this, 'latitude');
 
   ///  Returns a [double] representing the position's longitude in
   /// decimal degrees.
   ///
-  external double get longitude;
+  double get longitude => js_util.getProperty(this, 'longitude');
 
   ///  Returns a [double] representing the position's altitude in
   /// meters, relative to sea level. This value can be [null] if the
   /// implementation cannot provide the data.
   ///
-  external double? get altitude;
+  double? get altitude => js_util.getProperty(this, 'altitude');
 
   ///  Returns a [double] representing the accuracy of the [altitude]
   /// expressed in meters. This value can be [null].
   ///
-  external double? get altitudeAccuracy;
+  double? get altitudeAccuracy => js_util.getProperty(this, 'altitudeAccuracy');
 
   ///  Returns a [double] representing the direction towards which the
   /// device is facing. This value, specified in degrees, indicates how
@@ -179,12 +194,12 @@ extension PropsGeolocationCoordinates on GeolocationCoordinates {
   /// degrees). If [speed] is [0], is [NaN]. If the device is unable to
   /// provide information, this value is [null].
   ///
-  external double? get heading;
+  double? get heading => js_util.getProperty(this, 'heading');
 
   ///  Returns a [double] representing the velocity of the device in
   /// meters per second. This value can be [null].
   ///
-  external double? get speed;
+  double? get speed => js_util.getProperty(this, 'speed');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -197,7 +212,7 @@ class GeolocationPositionError {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;
   external static int get TIMEOUT;
-  external factory GeolocationPositionError();
+  external GeolocationPositionError();
 }
 
 extension PropsGeolocationPositionError on GeolocationPositionError {
@@ -233,12 +248,12 @@ extension PropsGeolocationPositionError on GeolocationPositionError {
   ///
   ///
   ///
-  external int get code;
+  int get code => js_util.getProperty(this, 'code');
 
   ///  Returns a human-readable [DOMString] describing the details of
   /// the error. Specifications note that this is primarily intended
   /// for debugging use and not to be shown directly in a user
   /// interface.
   ///
-  external String get message;
+  String get message => js_util.getProperty(this, 'message');
 }

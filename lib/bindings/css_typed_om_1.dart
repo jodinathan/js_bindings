@@ -5,6 +5,7 @@
 @staticInterop
 library css_typed_om_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -25,12 +26,11 @@ geometry_1 */
 @JS()
 @staticInterop
 class CSSStyleValue {
-  external factory CSSStyleValue();
+  external CSSStyleValue();
 }
 
 extension PropsCSSStyleValue on CSSStyleValue {
-  @JS('toString')
-  external String mToString();
+  String mToString() => js_util.callMethod(this, 'toString', []);
 
   ///  Sets a specific CSS property to the specified values and returns
   /// the first value as a [CSSStyleValue] object.
@@ -70,7 +70,7 @@ extension PropsCSSStyleValue on CSSStyleValue {
 @JS()
 @staticInterop
 class StylePropertyMapReadOnly {
-  external factory StylePropertyMapReadOnly();
+  external StylePropertyMapReadOnly();
 }
 
 extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
@@ -80,7 +80,7 @@ extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
   ///
   @JS('get')
   @staticInterop
-  external dynamic mGet(String property);
+  dynamic mGet(String property) => js_util.callMethod(this, 'get', [property]);
 
   ///  Returns an array of [CSSStyleValue] objects containing the
   /// values for the provided property.
@@ -102,7 +102,8 @@ extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
   /// const allBkImages = allComputedStyles.getAll('background-image');
   /// console.log(allBkImages); // logs an array with each background image as an item
   ///
-  external Iterable<CSSStyleValue> getAll(String property);
+  Iterable<CSSStyleValue> getAll(String property) =>
+      js_util.callMethod(this, 'getAll', [property]);
 
   ///  Indicates whether the specified property is in the
   /// [StylePropertyMapReadOnly] object.
@@ -121,12 +122,12 @@ extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
   ///
   /// console.log(hasPadTop); // logs true if padding-top is present in style attribute
   ///
-  external bool has(String property);
+  bool has(String property) => js_util.callMethod(this, 'has', [property]);
 
   ///  Returns an unsinged long integer containing the size of the
   /// [StylePropertyMapReadOnly] object.
   ///
-  external int get size;
+  int get size => js_util.getProperty(this, 'size');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -151,7 +152,7 @@ extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
 @JS()
 @staticInterop
 class StylePropertyMap implements StylePropertyMapReadOnly {
-  external factory StylePropertyMap();
+  external StylePropertyMap();
 }
 
 extension PropsStylePropertyMap on StylePropertyMap {
@@ -172,7 +173,8 @@ extension PropsStylePropertyMap on StylePropertyMap {
   ///
   @JS('set')
   @staticInterop
-  external Object mSet(String property, [dynamic values]);
+  Object mSet(String property, [dynamic values]) =>
+      js_util.callMethod(this, 'set', [property, values]);
 
   ///  Adds a new CSS declaration to the [StylePropertyMap] with the
   /// given property and value.
@@ -190,7 +192,8 @@ extension PropsStylePropertyMap on StylePropertyMap {
   /// // append another value to the background-image property set on the attribute
   /// buttonEl.attributeStyleMap.append('background-image', 'linear-gradient(180deg, blue, black');
   ///
-  external Object append(String property, [dynamic values]);
+  Object append(String property, [dynamic values]) =>
+      js_util.callMethod(this, 'append', [property, values]);
 
   /// Removes the CSS declaration with the given property.
   ///
@@ -206,7 +209,8 @@ extension PropsStylePropertyMap on StylePropertyMap {
   /// // remove background-image from style attribute
   /// buttonEl.attributeStyleMap.delete('background-image');
   ///
-  external Object delete(String property);
+  Object delete(String property) =>
+      js_util.callMethod(this, 'delete', [property]);
 
   /// Removes all declarations in the [StylePropertyMap].
   ///
@@ -219,7 +223,7 @@ extension PropsStylePropertyMap on StylePropertyMap {
   /// // remove all styles from the style attribute
   /// buttonEl.attributeStyleMap.clear();
   ///
-  external Object clear();
+  Object clear() => js_util.callMethod(this, 'clear', []);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -234,13 +238,13 @@ extension PropsStylePropertyMap on StylePropertyMap {
 @JS()
 @staticInterop
 class CSSUnparsedValue implements CSSStyleValue {
-  external factory CSSUnparsedValue([Iterable<dynamic>? members]);
+  external CSSUnparsedValue([Iterable<dynamic>? members]);
 }
 
 extension PropsCSSUnparsedValue on CSSUnparsedValue {
   /// Returns the number of items in the [CSSUnparsedValue] object.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -255,19 +259,21 @@ extension PropsCSSUnparsedValue on CSSUnparsedValue {
 @JS()
 @staticInterop
 class CSSVariableReferenceValue {
-  external factory CSSVariableReferenceValue(String variable,
+  external CSSVariableReferenceValue(String variable,
       [CSSUnparsedValue? fallback]);
 }
 
 extension PropsCSSVariableReferenceValue on CSSVariableReferenceValue {
   /// Returns the custom name passed to the constructor.
   ///
-  external String get variable;
-  external set variable(String newValue);
+  String get variable => js_util.getProperty(this, 'variable');
+  set variable(String newValue) {
+    js_util.setProperty(this, 'variable', newValue);
+  }
 
   /// Returns the built-in CSS value for the custom name.
   ///
-  external CSSUnparsedValue? get fallback;
+  CSSUnparsedValue? get fallback => js_util.getProperty(this, 'fallback');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -282,14 +288,16 @@ extension PropsCSSVariableReferenceValue on CSSVariableReferenceValue {
 @JS()
 @staticInterop
 class CSSKeywordValue implements CSSStyleValue {
-  external factory CSSKeywordValue(String value);
+  external CSSKeywordValue(String value);
 }
 
 extension PropsCSSKeywordValue on CSSKeywordValue {
   /// Returns or sets the value of the [CSSKeywordValue].
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 enum CSSNumericBaseType {
@@ -318,22 +326,46 @@ class CSSNumericType {
 }
 
 extension PropsCSSNumericType on CSSNumericType {
-  external int get length;
-  external set length(int newValue);
-  external int get angle;
-  external set angle(int newValue);
-  external int get time;
-  external set time(int newValue);
-  external int get frequency;
-  external set frequency(int newValue);
-  external int get resolution;
-  external set resolution(int newValue);
-  external int get flex;
-  external set flex(int newValue);
-  external int get percent;
-  external set percent(int newValue);
-  external CSSNumericBaseType get percentHint;
-  external set percentHint(CSSNumericBaseType newValue);
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
+
+  int get angle => js_util.getProperty(this, 'angle');
+  set angle(int newValue) {
+    js_util.setProperty(this, 'angle', newValue);
+  }
+
+  int get time => js_util.getProperty(this, 'time');
+  set time(int newValue) {
+    js_util.setProperty(this, 'time', newValue);
+  }
+
+  int get frequency => js_util.getProperty(this, 'frequency');
+  set frequency(int newValue) {
+    js_util.setProperty(this, 'frequency', newValue);
+  }
+
+  int get resolution => js_util.getProperty(this, 'resolution');
+  set resolution(int newValue) {
+    js_util.setProperty(this, 'resolution', newValue);
+  }
+
+  int get flex => js_util.getProperty(this, 'flex');
+  set flex(int newValue) {
+    js_util.setProperty(this, 'flex', newValue);
+  }
+
+  int get percent => js_util.getProperty(this, 'percent');
+  set percent(int newValue) {
+    js_util.setProperty(this, 'percent', newValue);
+  }
+
+  CSSNumericBaseType get percentHint =>
+      js_util.getProperty(this, 'percentHint');
+  set percentHint(CSSNumericBaseType newValue) {
+    js_util.setProperty(this, 'percentHint', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -345,20 +377,37 @@ extension PropsCSSNumericType on CSSNumericType {
 @JS()
 @staticInterop
 class CSSNumericValue implements CSSStyleValue {
-  external factory CSSNumericValue();
+  external CSSNumericValue();
 }
 
 extension PropsCSSNumericValue on CSSNumericValue {
-  external CSSNumericValue add([dynamic values]);
-  external CSSNumericValue sub([dynamic values]);
-  external CSSNumericValue mul([dynamic values]);
-  external CSSNumericValue div([dynamic values]);
-  external CSSNumericValue min([dynamic values]);
-  external CSSNumericValue max([dynamic values]);
-  external bool equals([dynamic value]);
-  external CSSUnitValue to(String unit);
-  external CSSMathSum toSum([String units]);
-  external CSSNumericType type();
+  CSSNumericValue add([dynamic values]) =>
+      js_util.callMethod(this, 'add', [values]);
+
+  CSSNumericValue sub([dynamic values]) =>
+      js_util.callMethod(this, 'sub', [values]);
+
+  CSSNumericValue mul([dynamic values]) =>
+      js_util.callMethod(this, 'mul', [values]);
+
+  CSSNumericValue div([dynamic values]) =>
+      js_util.callMethod(this, 'div', [values]);
+
+  CSSNumericValue min([dynamic values]) =>
+      js_util.callMethod(this, 'min', [values]);
+
+  CSSNumericValue max([dynamic values]) =>
+      js_util.callMethod(this, 'max', [values]);
+
+  bool equals([dynamic value]) => js_util.callMethod(this, 'equals', [value]);
+
+  CSSUnitValue to(String unit) => js_util.callMethod(this, 'to', [unit]);
+
+  CSSMathSum toSum([String? units]) =>
+      js_util.callMethod(this, 'toSum', [units]);
+
+  CSSNumericType type() => js_util.callMethod(this, 'type', []);
+
   external static CSSNumericValue parse(String cssText);
 }
 
@@ -372,18 +421,20 @@ extension PropsCSSNumericValue on CSSNumericValue {
 @JS()
 @staticInterop
 class CSSUnitValue implements CSSNumericValue {
-  external factory CSSUnitValue(double value, String unit);
+  external CSSUnitValue(double value, String unit);
 }
 
 extension PropsCSSUnitValue on CSSUnitValue {
   /// Returns a double indicating the number of units.
   ///
-  external double get value;
-  external set value(double newValue);
+  double get value => js_util.getProperty(this, 'value');
+  set value(double newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   /// Returns a [USVString] indicating the type of unit.
   ///
-  external String get unit;
+  String get unit => js_util.getProperty(this, 'unit');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -395,7 +446,7 @@ extension PropsCSSUnitValue on CSSUnitValue {
 @JS()
 @staticInterop
 class CSSMathValue implements CSSNumericValue {
-  external factory CSSMathValue();
+  external CSSMathValue();
 }
 
 extension PropsCSSMathValue on CSSMathValue {
@@ -403,7 +454,7 @@ extension PropsCSSMathValue on CSSMathValue {
   ///
   @JS('operator')
   @staticInterop
-  external CSSMathOperator get mOperator;
+  CSSMathOperator get mOperator => js_util.getProperty(this, 'operator');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -419,14 +470,14 @@ extension PropsCSSMathValue on CSSMathValue {
 @JS()
 @staticInterop
 class CSSMathSum implements CSSMathValue {
-  external factory CSSMathSum([dynamic args]);
+  external CSSMathSum([dynamic args]);
 }
 
 extension PropsCSSMathSum on CSSMathSum {
   ///  Returns a [CSSNumericArray] object which contains one or more
   /// [CSSNumericValue] objects.
   ///
-  external CSSNumericArray get values;
+  CSSNumericArray get values => js_util.getProperty(this, 'values');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -440,14 +491,14 @@ extension PropsCSSMathSum on CSSMathSum {
 @JS()
 @staticInterop
 class CSSMathProduct implements CSSMathValue {
-  external factory CSSMathProduct([dynamic args]);
+  external CSSMathProduct([dynamic args]);
 }
 
 extension PropsCSSMathProduct on CSSMathProduct {
   ///  Returns a [CSSNumericArray] object which contains one or more
   /// [CSSNumericValue] objects.
   ///
-  external CSSNumericArray get values;
+  CSSNumericArray get values => js_util.getProperty(this, 'values');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -460,13 +511,13 @@ extension PropsCSSMathProduct on CSSMathProduct {
 @JS()
 @staticInterop
 class CSSMathNegate implements CSSMathValue {
-  external factory CSSMathNegate(dynamic arg);
+  external CSSMathNegate(dynamic arg);
 }
 
 extension PropsCSSMathNegate on CSSMathNegate {
   /// Returns a [CSSNumericValue] object.
   ///
-  external CSSNumericValue get value;
+  CSSNumericValue get value => js_util.getProperty(this, 'value');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -480,13 +531,13 @@ extension PropsCSSMathNegate on CSSMathNegate {
 @JS()
 @staticInterop
 class CSSMathInvert implements CSSMathValue {
-  external factory CSSMathInvert(dynamic arg);
+  external CSSMathInvert(dynamic arg);
 }
 
 extension PropsCSSMathInvert on CSSMathInvert {
   /// Returns a [CSSNumericValue] object.
   ///
-  external CSSNumericValue get value;
+  CSSNumericValue get value => js_util.getProperty(this, 'value');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -499,14 +550,14 @@ extension PropsCSSMathInvert on CSSMathInvert {
 @JS()
 @staticInterop
 class CSSMathMin implements CSSMathValue {
-  external factory CSSMathMin([dynamic args]);
+  external CSSMathMin([dynamic args]);
 }
 
 extension PropsCSSMathMin on CSSMathMin {
   ///  Returns a [CSSNumericArray] object which contains one or more
   /// [CSSNumericValue] objects.
   ///
-  external CSSNumericArray get values;
+  CSSNumericArray get values => js_util.getProperty(this, 'values');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -519,14 +570,14 @@ extension PropsCSSMathMin on CSSMathMin {
 @JS()
 @staticInterop
 class CSSMathMax implements CSSMathValue {
-  external factory CSSMathMax([dynamic args]);
+  external CSSMathMax([dynamic args]);
 }
 
 extension PropsCSSMathMax on CSSMathMax {
   ///  Returns a [CSSNumericArray] object which contains one or more
   /// [CSSNumericValue] objects.
   ///
-  external CSSNumericArray get values;
+  CSSNumericArray get values => js_util.getProperty(this, 'values');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -538,14 +589,14 @@ extension PropsCSSMathMax on CSSMathMax {
 @JS()
 @staticInterop
 class CSSNumericArray {
-  external factory CSSNumericArray();
+  external CSSNumericArray();
 }
 
 extension PropsCSSNumericArray on CSSNumericArray {
   ///  Returns how many [CSSNumericValue] objects are contained within
   /// the [CSSNumericArray].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 }
 
 enum CSSMathOperator { sum, product, negate, invert, min, max, clamp }
@@ -560,25 +611,24 @@ enum CSSMathOperator { sum, product, negate, invert, min, max, clamp }
 @JS()
 @staticInterop
 class CSSTransformValue implements CSSStyleValue {
-  external factory CSSTransformValue(
-      [Iterable<CSSTransformComponent>? transforms]);
+  external CSSTransformValue([Iterable<CSSTransformComponent>? transforms]);
 }
 
 extension PropsCSSTransformValue on CSSTransformValue {
   ///  Returns how many transform components are contained within the
   /// [CSSTransformValue].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   /// Returns a boolean indicating whether the transform is 2D or 3D.
   ///
-  external bool get is2D;
+  bool get is2D => js_util.getProperty(this, 'is2D');
 
   /// Returns a new [DOMMatrix] object.
   ///
   /// var matrix = CSSTransformValue.toMatrix();
   ///
-  external DOMMatrix toMatrix();
+  DOMMatrix toMatrix() => js_util.callMethod(this, 'toMatrix', []);
 }
 
 ///  The interface of the CSS_Object_Model#css_typed_object_model is
@@ -587,23 +637,24 @@ extension PropsCSSTransformValue on CSSTransformValue {
 @JS()
 @staticInterop
 class CSSTransformComponent {
-  external factory CSSTransformComponent();
+  external CSSTransformComponent();
 }
 
 extension PropsCSSTransformComponent on CSSTransformComponent {
-  @JS('toString')
-  external String mToString();
+  String mToString() => js_util.callMethod(this, 'toString', []);
 
   /// Returns a boolean indicting whether the transform is 2D or 3D.
   ///
-  external bool get is2D;
-  external set is2D(bool newValue);
+  bool get is2D => js_util.getProperty(this, 'is2D');
+  set is2D(bool newValue) {
+    js_util.setProperty(this, 'is2D', newValue);
+  }
 
   /// Returns a new [DOMMatrix] object.
   ///
   /// var matrix = CSSTransformComponent.toMatrix();
   ///
-  external DOMMatrix toMatrix();
+  DOMMatrix toMatrix() => js_util.callMethod(this, 'toMatrix', []);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -617,25 +668,31 @@ extension PropsCSSTransformComponent on CSSTransformComponent {
 @JS()
 @staticInterop
 class CSSTranslate implements CSSTransformComponent {
-  external factory CSSTranslate(CSSNumericValue x, CSSNumericValue y,
+  external CSSTranslate(CSSNumericValue x, CSSNumericValue y,
       [CSSNumericValue? z]);
 }
 
 extension PropsCSSTranslate on CSSTranslate {
   /// Returns or sets the x-axis value.
   ///
-  external CSSNumericValue get x;
-  external set x(CSSNumericValue newValue);
+  CSSNumericValue get x => js_util.getProperty(this, 'x');
+  set x(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
 
   /// Returns or sets the y-axis value.
   ///
-  external CSSNumericValue get y;
-  external set y(CSSNumericValue newValue);
+  CSSNumericValue get y => js_util.getProperty(this, 'y');
+  set y(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
 
   /// Returns or sets the z-axis value.
   ///
-  external CSSNumericValue get z;
-  external set z(CSSNumericValue newValue);
+  CSSNumericValue get z => js_util.getProperty(this, 'z');
+  set z(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -649,30 +706,37 @@ extension PropsCSSTranslate on CSSTranslate {
 @JS()
 @staticInterop
 class CSSRotate implements CSSTransformComponent {
-  external factory CSSRotate(
-      [dynamic x, dynamic y, dynamic z, CSSNumericValue angle]);
+  external CSSRotate([dynamic x, dynamic y, dynamic z, CSSNumericValue? angle]);
 }
 
 extension PropsCSSRotate on CSSRotate {
   /// Returns or sets the x-axis value.
   ///
-  external dynamic get x;
-  external set x(dynamic newValue);
+  dynamic get x => js_util.getProperty(this, 'x');
+  set x(dynamic newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
 
   /// Returns or sets the y-axis value.
   ///
-  external dynamic get y;
-  external set y(dynamic newValue);
+  dynamic get y => js_util.getProperty(this, 'y');
+  set y(dynamic newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
 
   /// Returns or sets the z-axis value.
   ///
-  external dynamic get z;
-  external set z(dynamic newValue);
+  dynamic get z => js_util.getProperty(this, 'z');
+  set z(dynamic newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
 
   /// Returns or sets the angle value.
   ///
-  external CSSNumericValue get angle;
-  external set angle(CSSNumericValue newValue);
+  CSSNumericValue get angle => js_util.getProperty(this, 'angle');
+  set angle(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'angle', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -686,24 +750,30 @@ extension PropsCSSRotate on CSSRotate {
 @JS()
 @staticInterop
 class CSSScale implements CSSTransformComponent {
-  external factory CSSScale(dynamic x, dynamic y, [dynamic z]);
+  external CSSScale(dynamic x, dynamic y, [dynamic z]);
 }
 
 extension PropsCSSScale on CSSScale {
   /// Returns or sets the x-axis value.
   ///
-  external dynamic get x;
-  external set x(dynamic newValue);
+  dynamic get x => js_util.getProperty(this, 'x');
+  set x(dynamic newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
 
   /// Returns or sets the y-axis value.
   ///
-  external dynamic get y;
-  external set y(dynamic newValue);
+  dynamic get y => js_util.getProperty(this, 'y');
+  set y(dynamic newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
 
   /// Returns or sets the z-axis value.
   ///
-  external dynamic get z;
-  external set z(dynamic newValue);
+  dynamic get z => js_util.getProperty(this, 'z');
+  set z(dynamic newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -716,19 +786,23 @@ extension PropsCSSScale on CSSScale {
 @JS()
 @staticInterop
 class CSSSkew implements CSSTransformComponent {
-  external factory CSSSkew(CSSNumericValue ax, CSSNumericValue ay);
+  external CSSSkew(CSSNumericValue ax, CSSNumericValue ay);
 }
 
 extension PropsCSSSkew on CSSSkew {
   /// Returns or sets the x-axis value.
   ///
-  external CSSNumericValue get ax;
-  external set ax(CSSNumericValue newValue);
+  CSSNumericValue get ax => js_util.getProperty(this, 'ax');
+  set ax(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'ax', newValue);
+  }
 
   /// Returns or sets the y-axis value.
   ///
-  external CSSNumericValue get ay;
-  external set ay(CSSNumericValue newValue);
+  CSSNumericValue get ay => js_util.getProperty(this, 'ay');
+  set ay(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'ay', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -742,14 +816,16 @@ extension PropsCSSSkew on CSSSkew {
 @JS()
 @staticInterop
 class CSSSkewX implements CSSTransformComponent {
-  external factory CSSSkewX(CSSNumericValue ax);
+  external CSSSkewX(CSSNumericValue ax);
 }
 
 extension PropsCSSSkewX on CSSSkewX {
   /// Returns or sets the x-axis value.
   ///
-  external CSSNumericValue get ax;
-  external set ax(CSSNumericValue newValue);
+  CSSNumericValue get ax => js_util.getProperty(this, 'ax');
+  set ax(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'ax', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -763,14 +839,16 @@ extension PropsCSSSkewX on CSSSkewX {
 @JS()
 @staticInterop
 class CSSSkewY implements CSSTransformComponent {
-  external factory CSSSkewY(CSSNumericValue ay);
+  external CSSSkewY(CSSNumericValue ay);
 }
 
 extension PropsCSSSkewY on CSSSkewY {
   /// Returns or sets the y-axis value.
   ///
-  external CSSNumericValue get ay;
-  external set ay(CSSNumericValue newValue);
+  CSSNumericValue get ay => js_util.getProperty(this, 'ay');
+  set ay(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'ay', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -784,14 +862,16 @@ extension PropsCSSSkewY on CSSSkewY {
 @JS()
 @staticInterop
 class CSSPerspective implements CSSTransformComponent {
-  external factory CSSPerspective(CSSNumericValue length);
+  external CSSPerspective(CSSNumericValue length);
 }
 
 extension PropsCSSPerspective on CSSPerspective {
   /// Returns or sets the distance from z=0.
   ///
-  external CSSNumericValue get length;
-  external set length(CSSNumericValue newValue);
+  CSSNumericValue get length => js_util.getProperty(this, 'length');
+  set length(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -805,15 +885,17 @@ extension PropsCSSPerspective on CSSPerspective {
 @JS()
 @staticInterop
 class CSSMatrixComponent implements CSSTransformComponent {
-  external factory CSSMatrixComponent(DOMMatrixReadOnly matrix,
+  external CSSMatrixComponent(DOMMatrixReadOnly matrix,
       [CSSMatrixComponentOptions? options]);
 }
 
 extension PropsCSSMatrixComponent on CSSMatrixComponent {
   /// A matrix.
   ///
-  external DOMMatrix get matrix;
-  external set matrix(DOMMatrix newValue);
+  DOMMatrix get matrix => js_util.getProperty(this, 'matrix');
+  set matrix(DOMMatrix newValue) {
+    js_util.setProperty(this, 'matrix', newValue);
+  }
 }
 
 @anonymous
@@ -824,8 +906,10 @@ class CSSMatrixComponentOptions {
 }
 
 extension PropsCSSMatrixComponentOptions on CSSMatrixComponentOptions {
-  external bool get is2D;
-  external set is2D(bool newValue);
+  bool get is2D => js_util.getProperty(this, 'is2D');
+  set is2D(bool newValue) {
+    js_util.setProperty(this, 'is2D', newValue);
+  }
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -844,20 +928,24 @@ extension PropsCSSMatrixComponentOptions on CSSMatrixComponentOptions {
 @JS()
 @staticInterop
 class CSSPositionValue implements CSSStyleValue {
-  external factory CSSPositionValue();
+  external CSSPositionValue();
 }
 
 extension PropsCSSPositionValue on CSSPositionValue {
   ///  Returns the item's position along the web page's horizontal
   /// axis.
   ///
-  external CSSNumericValue get x;
-  external set x(CSSNumericValue newValue);
+  CSSNumericValue get x => js_util.getProperty(this, 'x');
+  set x(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
 
   /// Returns the item's position along the vertical axis.
   ///
-  external CSSNumericValue get y;
-  external set y(CSSNumericValue newValue);
+  CSSNumericValue get y => js_util.getProperty(this, 'y');
+  set y(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -873,153 +961,229 @@ extension PropsCSSPositionValue on CSSPositionValue {
 @JS()
 @staticInterop
 class CSSImageValue implements CSSStyleValue {
-  external factory CSSImageValue();
+  external CSSImageValue();
 }
 
 @JS()
 @staticInterop
 class CSSMathClamp implements CSSMathValue {
-  external factory CSSMathClamp(dynamic min, dynamic val, dynamic max);
+  external CSSMathClamp(dynamic min, dynamic val, dynamic max);
 }
 
 extension PropsCSSMathClamp on CSSMathClamp {
-  external CSSNumericValue get val;
+  CSSNumericValue get val => js_util.getProperty(this, 'val');
 }
 
 @JS()
 @staticInterop
 class CSSColorValue implements CSSStyleValue {
-  external factory CSSColorValue();
+  external CSSColorValue();
 }
 
 extension PropsCSSColorValue on CSSColorValue {
-  external dynamic get colorSpace;
-  external CSSColorValue to(dynamic colorSpace);
+  dynamic get colorSpace => js_util.getProperty(this, 'colorSpace');
+  CSSColorValue to(dynamic colorSpace) =>
+      js_util.callMethod(this, 'to', [colorSpace]);
+
   external static CSSColorValue parse(String cssText);
 }
 
 @JS()
 @staticInterop
 class CSSRGB implements CSSColorValue {
-  external factory CSSRGB(dynamic r, dynamic g, dynamic b, [dynamic alpha = 1]);
+  external CSSRGB(dynamic r, dynamic g, dynamic b, [dynamic alpha = 1]);
 }
 
 extension PropsCSSRGB on CSSRGB {
-  external dynamic get r;
-  external set r(dynamic newValue);
-  external dynamic get g;
-  external set g(dynamic newValue);
-  external dynamic get b;
-  external set b(dynamic newValue);
-  external dynamic get alpha;
-  external set alpha(dynamic newValue);
+  dynamic get r => js_util.getProperty(this, 'r');
+  set r(dynamic newValue) {
+    js_util.setProperty(this, 'r', newValue);
+  }
+
+  dynamic get g => js_util.getProperty(this, 'g');
+  set g(dynamic newValue) {
+    js_util.setProperty(this, 'g', newValue);
+  }
+
+  dynamic get b => js_util.getProperty(this, 'b');
+  set b(dynamic newValue) {
+    js_util.setProperty(this, 'b', newValue);
+  }
+
+  dynamic get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(dynamic newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CSSHSL implements CSSColorValue {
-  external factory CSSHSL(CSSNumericValue h, dynamic s, dynamic l,
-      [dynamic alpha = 1]);
+  external CSSHSL(CSSNumericValue h, dynamic s, dynamic l, [dynamic alpha = 1]);
 }
 
 extension PropsCSSHSL on CSSHSL {
-  external CSSNumericValue get h;
-  external set h(CSSNumericValue newValue);
-  external dynamic get s;
-  external set s(dynamic newValue);
-  external dynamic get l;
-  external set l(dynamic newValue);
-  external dynamic get alpha;
-  external set alpha(dynamic newValue);
+  CSSNumericValue get h => js_util.getProperty(this, 'h');
+  set h(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'h', newValue);
+  }
+
+  dynamic get s => js_util.getProperty(this, 's');
+  set s(dynamic newValue) {
+    js_util.setProperty(this, 's', newValue);
+  }
+
+  dynamic get l => js_util.getProperty(this, 'l');
+  set l(dynamic newValue) {
+    js_util.setProperty(this, 'l', newValue);
+  }
+
+  dynamic get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(dynamic newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CSSHWB implements CSSColorValue {
-  external factory CSSHWB(CSSNumericValue h, dynamic w, dynamic b,
-      [dynamic alpha = 1]);
+  external CSSHWB(CSSNumericValue h, dynamic w, dynamic b, [dynamic alpha = 1]);
 }
 
 extension PropsCSSHWB on CSSHWB {
-  external CSSNumericValue get h;
-  external set h(CSSNumericValue newValue);
-  external dynamic get w;
-  external set w(dynamic newValue);
-  external dynamic get b;
-  external set b(dynamic newValue);
-  external dynamic get alpha;
-  external set alpha(dynamic newValue);
+  CSSNumericValue get h => js_util.getProperty(this, 'h');
+  set h(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'h', newValue);
+  }
+
+  dynamic get w => js_util.getProperty(this, 'w');
+  set w(dynamic newValue) {
+    js_util.setProperty(this, 'w', newValue);
+  }
+
+  dynamic get b => js_util.getProperty(this, 'b');
+  set b(dynamic newValue) {
+    js_util.setProperty(this, 'b', newValue);
+  }
+
+  dynamic get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(dynamic newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CSSLCH implements CSSColorValue {
-  external factory CSSLCH(dynamic l, dynamic c, CSSNumericValue h,
-      [dynamic alpha = 1]);
+  external CSSLCH(dynamic l, dynamic c, CSSNumericValue h, [dynamic alpha = 1]);
 }
 
 extension PropsCSSLCH on CSSLCH {
-  external dynamic get l;
-  external set l(dynamic newValue);
-  external dynamic get c;
-  external set c(dynamic newValue);
-  external CSSNumericValue get h;
-  external set h(CSSNumericValue newValue);
-  external dynamic get alpha;
-  external set alpha(dynamic newValue);
+  dynamic get l => js_util.getProperty(this, 'l');
+  set l(dynamic newValue) {
+    js_util.setProperty(this, 'l', newValue);
+  }
+
+  dynamic get c => js_util.getProperty(this, 'c');
+  set c(dynamic newValue) {
+    js_util.setProperty(this, 'c', newValue);
+  }
+
+  CSSNumericValue get h => js_util.getProperty(this, 'h');
+  set h(CSSNumericValue newValue) {
+    js_util.setProperty(this, 'h', newValue);
+  }
+
+  dynamic get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(dynamic newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CSSLab implements CSSColorValue {
-  external factory CSSLab(dynamic l, dynamic a, dynamic b, [dynamic alpha = 1]);
+  external CSSLab(dynamic l, dynamic a, dynamic b, [dynamic alpha = 1]);
 }
 
 extension PropsCSSLab on CSSLab {
-  external dynamic get l;
-  external set l(dynamic newValue);
-  external dynamic get a;
-  external set a(dynamic newValue);
-  external dynamic get b;
-  external set b(dynamic newValue);
-  external dynamic get alpha;
-  external set alpha(dynamic newValue);
+  dynamic get l => js_util.getProperty(this, 'l');
+  set l(dynamic newValue) {
+    js_util.setProperty(this, 'l', newValue);
+  }
+
+  dynamic get a => js_util.getProperty(this, 'a');
+  set a(dynamic newValue) {
+    js_util.setProperty(this, 'a', newValue);
+  }
+
+  dynamic get b => js_util.getProperty(this, 'b');
+  set b(dynamic newValue) {
+    js_util.setProperty(this, 'b', newValue);
+  }
+
+  dynamic get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(dynamic newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CSSColor implements CSSColorValue {
-  external factory CSSColor(dynamic colorSpace, Iterable<dynamic> channels,
+  external CSSColor(dynamic colorSpace, Iterable<dynamic> channels,
       [dynamic alpha = 1]);
 }
 
 extension PropsCSSColor on CSSColor {
   @override
-  external dynamic get colorSpace;
+  dynamic get colorSpace => js_util.getProperty(this, 'colorSpace');
   @override
-  external set colorSpace(dynamic newValue);
-  external dynamic get channels;
-  external set channels(dynamic newValue);
-  external dynamic get alpha;
-  external set alpha(dynamic newValue);
+  set colorSpace(dynamic newValue) {
+    js_util.setProperty(this, 'colorSpace', newValue);
+  }
+
+  dynamic get channels => js_util.getProperty(this, 'channels');
+  set channels(dynamic newValue) {
+    js_util.setProperty(this, 'channels', newValue);
+  }
+
+  dynamic get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(dynamic newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CSSDeviceCMYK implements CSSColorValue {
-  external factory CSSDeviceCMYK(dynamic c, dynamic m, dynamic y, dynamic k,
+  external CSSDeviceCMYK(dynamic c, dynamic m, dynamic y, dynamic k,
       [dynamic alpha = 1]);
 }
 
 extension PropsCSSDeviceCMYK on CSSDeviceCMYK {
-  external dynamic get c;
-  external set c(dynamic newValue);
-  external dynamic get m;
-  external set m(dynamic newValue);
-  external dynamic get y;
-  external set y(dynamic newValue);
-  external dynamic get k;
-  external set k(dynamic newValue);
-  external dynamic get alpha;
-  external set alpha(dynamic newValue);
+  dynamic get c => js_util.getProperty(this, 'c');
+  set c(dynamic newValue) {
+    js_util.setProperty(this, 'c', newValue);
+  }
+
+  dynamic get m => js_util.getProperty(this, 'm');
+  set m(dynamic newValue) {
+    js_util.setProperty(this, 'm', newValue);
+  }
+
+  dynamic get y => js_util.getProperty(this, 'y');
+  set y(dynamic newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  dynamic get k => js_util.getProperty(this, 'k');
+  set k(dynamic newValue) {
+    js_util.setProperty(this, 'k', newValue);
+  }
+
+  dynamic get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(dynamic newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }

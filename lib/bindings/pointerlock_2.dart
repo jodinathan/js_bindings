@@ -5,6 +5,7 @@
 @staticInterop
 library pointerlock_2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';

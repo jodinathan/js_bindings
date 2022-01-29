@@ -5,6 +5,7 @@
 @staticInterop
 library a_n_g_l_e_instanced_arrays;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -32,7 +33,7 @@ import 'all_bindings.dart';
 @staticInterop
 class ANGLE_instanced_arrays {
   external static int get VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE;
-  external factory ANGLE_instanced_arrays();
+  external ANGLE_instanced_arrays();
 }
 
 extension PropsANGLE_instanced_arrays on ANGLE_instanced_arrays {
@@ -42,8 +43,10 @@ extension PropsANGLE_instanced_arrays on ANGLE_instanced_arrays {
   ///
   /// void ext.drawArraysInstancedANGLE(mode, first, count, primcount);
   ///
-  external Object drawArraysInstancedANGLE(
-      int mode, int first, int count, int primcount);
+  Object drawArraysInstancedANGLE(
+          int mode, int first, int count, int primcount) =>
+      js_util.callMethod(
+          this, 'drawArraysInstancedANGLE', [mode, first, count, primcount]);
 
   ///  Behaves identically to [gl.drawElements()] except that multiple
   /// instances of the set of elements are executed and the instance
@@ -51,8 +54,10 @@ extension PropsANGLE_instanced_arrays on ANGLE_instanced_arrays {
   ///
   /// void ext.drawElementsInstancedANGLE(mode, count, type, offset, primcount);
   ///
-  external Object drawElementsInstancedANGLE(
-      int mode, int count, int type, int offset, int primcount);
+  Object drawElementsInstancedANGLE(
+          int mode, int count, int type, int offset, int primcount) =>
+      js_util.callMethod(this, 'drawElementsInstancedANGLE',
+          [mode, count, type, offset, primcount]);
 
   ///  Modifies the rate at which generic vertex attributes advance
   /// when rendering multiple instances of primitives with
@@ -61,5 +66,6 @@ extension PropsANGLE_instanced_arrays on ANGLE_instanced_arrays {
   ///
   /// void ext.vertexAttribDivisorANGLE(index, divisor);
   ///
-  external Object vertexAttribDivisorANGLE(int index, int divisor);
+  Object vertexAttribDivisorANGLE(int index, int divisor) =>
+      js_util.callMethod(this, 'vertexAttribDivisorANGLE', [index, divisor]);
 }

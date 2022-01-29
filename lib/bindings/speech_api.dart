@@ -5,6 +5,7 @@
 @staticInterop
 library speech_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -26,7 +27,7 @@ html */
 @JS()
 @staticInterop
 class SpeechRecognition implements EventTarget {
-  external factory SpeechRecognition();
+  external SpeechRecognition();
 }
 
 extension PropsSpeechRecognition on SpeechRecognition {
@@ -34,36 +35,46 @@ extension PropsSpeechRecognition on SpeechRecognition {
   /// represent the grammars that will be understood by the current
   /// [SpeechRecognition].
   ///
-  external SpeechGrammarList get grammars;
-  external set grammars(SpeechGrammarList newValue);
+  SpeechGrammarList get grammars => js_util.getProperty(this, 'grammars');
+  set grammars(SpeechGrammarList newValue) {
+    js_util.setProperty(this, 'grammars', newValue);
+  }
 
   ///  Returns and sets the language of the current
   /// [SpeechRecognition]. If not specified, this defaults to the HTML
   /// attribute value, or the user agent's language setting if that
   /// isn't set either.
   ///
-  external String get lang;
-  external set lang(String newValue);
+  String get lang => js_util.getProperty(this, 'lang');
+  set lang(String newValue) {
+    js_util.setProperty(this, 'lang', newValue);
+  }
 
   ///  Controls whether continuous results are returned for each
   /// recognition, or only a single result. Defaults to single
   /// ([false].)
   ///
-  external bool get continuous;
-  external set continuous(bool newValue);
+  bool get continuous => js_util.getProperty(this, 'continuous');
+  set continuous(bool newValue) {
+    js_util.setProperty(this, 'continuous', newValue);
+  }
 
   ///  Controls whether interim results should be returned ([true]) or
   /// not ([false].) Interim results are results that are not yet final
   /// (e.g. the [SpeechRecognitionResult.isFinal] property is [false].)
   ///
-  external bool get interimResults;
-  external set interimResults(bool newValue);
+  bool get interimResults => js_util.getProperty(this, 'interimResults');
+  set interimResults(bool newValue) {
+    js_util.setProperty(this, 'interimResults', newValue);
+  }
 
   ///  Sets the maximum number of [SpeechRecognitionAlternative]s
   /// provided per result. The default value is 1.
   ///
-  external int get maxAlternatives;
-  external set maxAlternatives(int newValue);
+  int get maxAlternatives => js_util.getProperty(this, 'maxAlternatives');
+  set maxAlternatives(int newValue) {
+    js_util.setProperty(this, 'maxAlternatives', newValue);
+  }
 
   ///  Starts the speech recognition service listening to incoming
   /// audio with intent to recognize grammars associated with the
@@ -71,7 +82,7 @@ extension PropsSpeechRecognition on SpeechRecognition {
   ///
   /// start()
   ///
-  external Object start();
+  Object start() => js_util.callMethod(this, 'start', []);
 
   ///  Stops the speech recognition service from listening to incoming
   /// audio, and attempts to return a [SpeechRecognitionResult] using
@@ -79,36 +90,75 @@ extension PropsSpeechRecognition on SpeechRecognition {
   ///
   /// stop();
   ///
-  external Object stop();
+  Object stop() => js_util.callMethod(this, 'stop', []);
 
   ///  Stops the speech recognition service from listening to incoming
   /// audio, and doesn't attempt to return a [SpeechRecognitionResult].
   ///
   /// abort()
   ///
-  external Object abort();
-  external EventHandlerNonNull? get onaudiostart;
-  external set onaudiostart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsoundstart;
-  external set onsoundstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onspeechstart;
-  external set onspeechstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onspeechend;
-  external set onspeechend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsoundend;
-  external set onsoundend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onaudioend;
-  external set onaudioend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onresult;
-  external set onresult(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onnomatch;
-  external set onnomatch(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onstart;
-  external set onstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onend;
-  external set onend(EventHandlerNonNull? newValue);
+  Object abort() => js_util.callMethod(this, 'abort', []);
+
+  EventHandlerNonNull? get onaudiostart =>
+      js_util.getProperty(this, 'onaudiostart');
+  set onaudiostart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onaudiostart', newValue);
+  }
+
+  EventHandlerNonNull? get onsoundstart =>
+      js_util.getProperty(this, 'onsoundstart');
+  set onsoundstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsoundstart', newValue);
+  }
+
+  EventHandlerNonNull? get onspeechstart =>
+      js_util.getProperty(this, 'onspeechstart');
+  set onspeechstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onspeechstart', newValue);
+  }
+
+  EventHandlerNonNull? get onspeechend =>
+      js_util.getProperty(this, 'onspeechend');
+  set onspeechend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onspeechend', newValue);
+  }
+
+  EventHandlerNonNull? get onsoundend =>
+      js_util.getProperty(this, 'onsoundend');
+  set onsoundend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsoundend', newValue);
+  }
+
+  EventHandlerNonNull? get onaudioend =>
+      js_util.getProperty(this, 'onaudioend');
+  set onaudioend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onaudioend', newValue);
+  }
+
+  EventHandlerNonNull? get onresult => js_util.getProperty(this, 'onresult');
+  set onresult(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresult', newValue);
+  }
+
+  EventHandlerNonNull? get onnomatch => js_util.getProperty(this, 'onnomatch');
+  set onnomatch(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onnomatch', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onstart => js_util.getProperty(this, 'onstart');
+  set onstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstart', newValue);
+  }
+
+  EventHandlerNonNull? get onend => js_util.getProperty(this, 'onend');
+  set onend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onend', newValue);
+  }
 }
 
 enum SpeechRecognitionErrorCode {
@@ -130,18 +180,18 @@ enum SpeechRecognitionErrorCode {
 @JS()
 @staticInterop
 class SpeechRecognitionErrorEvent implements Event {
-  external factory SpeechRecognitionErrorEvent(
+  external SpeechRecognitionErrorEvent(
       String type, SpeechRecognitionErrorEventInit eventInitDict);
 }
 
 extension PropsSpeechRecognitionErrorEvent on SpeechRecognitionErrorEvent {
   /// Returns the type of error raised.
   ///
-  external SpeechRecognitionErrorCode get error;
+  SpeechRecognitionErrorCode get error => js_util.getProperty(this, 'error');
 
   /// Returns a message describing the error in more detail.
   ///
-  external String get message;
+  String get message => js_util.getProperty(this, 'message');
 }
 
 @anonymous
@@ -154,10 +204,15 @@ class SpeechRecognitionErrorEventInit implements EventInit {
 
 extension PropsSpeechRecognitionErrorEventInit
     on SpeechRecognitionErrorEventInit {
-  external SpeechRecognitionErrorCode get error;
-  external set error(SpeechRecognitionErrorCode newValue);
-  external String get message;
-  external set message(String newValue);
+  SpeechRecognitionErrorCode get error => js_util.getProperty(this, 'error');
+  set error(SpeechRecognitionErrorCode newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
+
+  String get message => js_util.getProperty(this, 'message');
+  set message(String newValue) {
+    js_util.setProperty(this, 'message', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -169,19 +224,19 @@ extension PropsSpeechRecognitionErrorEventInit
 @JS()
 @staticInterop
 class SpeechRecognitionAlternative {
-  external factory SpeechRecognitionAlternative();
+  external SpeechRecognitionAlternative();
 }
 
 extension PropsSpeechRecognitionAlternative on SpeechRecognitionAlternative {
   ///  Returns a string containing the transcript of the recognized
   /// word.
   ///
-  external String get transcript;
+  String get transcript => js_util.getProperty(this, 'transcript');
 
   ///  Returns a numeric estimate of how confident the speech
   /// recognition system is that the recognition is correct.
   ///
-  external double get confidence;
+  double get confidence => js_util.getProperty(this, 'confidence');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -194,7 +249,7 @@ extension PropsSpeechRecognitionAlternative on SpeechRecognitionAlternative {
 @JS()
 @staticInterop
 class SpeechRecognitionResult {
-  external factory SpeechRecognitionResult();
+  external SpeechRecognitionResult();
 }
 
 extension PropsSpeechRecognitionResult on SpeechRecognitionResult {
@@ -202,21 +257,22 @@ extension PropsSpeechRecognitionResult on SpeechRecognitionResult {
   /// [SpeechRecognitionAlternative] objects contained in the result
   /// (also referred to as "n-best alternatives".)
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  A standard getter that allows [SpeechRecognitionAlternative]
   /// objects within the result to be accessed via array syntax.
   ///
   /// var myAlternative = speechRecognitionResultInstance[0];
   ///
-  external SpeechRecognitionAlternative item(int index);
+  SpeechRecognitionAlternative item(int index) =>
+      js_util.callMethod(this, 'item', [index]);
 
   ///  A boolean value that states whether this result is final (true)
   /// or not (false) — if so, then this is the final time this result
   /// will be returned; if not, then this result is an interim result,
   /// and may be updated later on.
   ///
-  external bool get isFinal;
+  bool get isFinal => js_util.getProperty(this, 'isFinal');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -229,21 +285,22 @@ extension PropsSpeechRecognitionResult on SpeechRecognitionResult {
 @JS()
 @staticInterop
 class SpeechRecognitionResultList {
-  external factory SpeechRecognitionResultList();
+  external SpeechRecognitionResultList();
 }
 
 extension PropsSpeechRecognitionResultList on SpeechRecognitionResultList {
   ///  Returns the length of the "array" — the number of
   /// [SpeechRecognitionResult] objects in the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  A standard getter that allows [SpeechRecognitionResult] objects
   /// in the list to be accessed via array syntax.
   ///
   /// var myResult = speechRecognitionResultListInstance[0];
   ///
-  external SpeechRecognitionResult item(int index);
+  SpeechRecognitionResult item(int index) =>
+      js_util.callMethod(this, 'item', [index]);
 }
 
 ///  The interface of the Web Speech API represents the event object
@@ -253,7 +310,7 @@ extension PropsSpeechRecognitionResultList on SpeechRecognitionResultList {
 @JS()
 @staticInterop
 class SpeechRecognitionEvent implements Event {
-  external factory SpeechRecognitionEvent(
+  external SpeechRecognitionEvent(
       String type, SpeechRecognitionEventInit eventInitDict);
 }
 
@@ -261,12 +318,13 @@ extension PropsSpeechRecognitionEvent on SpeechRecognitionEvent {
   ///  Returns the lowest index value result in the
   /// [SpeechRecognitionResultList] "array" that has actually changed.
   ///
-  external int get resultIndex;
+  int get resultIndex => js_util.getProperty(this, 'resultIndex');
 
   ///  Returns a [SpeechRecognitionResultList] object representing all
   /// the speech recognition results for the current session.
   ///
-  external SpeechRecognitionResultList get results;
+  SpeechRecognitionResultList get results =>
+      js_util.getProperty(this, 'results');
 }
 
 @anonymous
@@ -278,10 +336,16 @@ class SpeechRecognitionEventInit implements EventInit {
 }
 
 extension PropsSpeechRecognitionEventInit on SpeechRecognitionEventInit {
-  external int get resultIndex;
-  external set resultIndex(int newValue);
-  external SpeechRecognitionResultList get results;
-  external set results(SpeechRecognitionResultList newValue);
+  int get resultIndex => js_util.getProperty(this, 'resultIndex');
+  set resultIndex(int newValue) {
+    js_util.setProperty(this, 'resultIndex', newValue);
+  }
+
+  SpeechRecognitionResultList get results =>
+      js_util.getProperty(this, 'results');
+  set results(SpeechRecognitionResultList newValue) {
+    js_util.setProperty(this, 'results', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -296,20 +360,24 @@ extension PropsSpeechRecognitionEventInit on SpeechRecognitionEventInit {
 @JS()
 @staticInterop
 class SpeechGrammar {
-  external factory SpeechGrammar();
+  external SpeechGrammar();
 }
 
 extension PropsSpeechGrammar on SpeechGrammar {
   ///  Sets and returns a string containing the grammar from within in
   /// the [SpeechGrammar] object instance.
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   /// Sets and returns the weight of the [SpeechGrammar] object.
   ///
-  external double get weight;
-  external set weight(double newValue);
+  double get weight => js_util.getProperty(this, 'weight');
+  set weight(double newValue) {
+    js_util.setProperty(this, 'weight', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -324,28 +392,29 @@ extension PropsSpeechGrammar on SpeechGrammar {
 @JS()
 @staticInterop
 class SpeechGrammarList {
-  external factory SpeechGrammarList();
+  external SpeechGrammarList();
 }
 
 extension PropsSpeechGrammarList on SpeechGrammarList {
   ///  Returns the number of [SpeechGrammar] objects contained in the
   /// [SpeechGrammarList].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Standard getter — allows individual [SpeechGrammar] objects to
   /// be retrieved from the [SpeechGrammarList] using array syntax.
   ///
   /// var myFirstGrammar = speechGrammarListInstance[0];
   ///
-  external SpeechGrammar item(int index);
+  SpeechGrammar item(int index) => js_util.callMethod(this, 'item', [index]);
 
   ///  Takes a grammar present at a specific URI and adds it to the
   /// [SpeechGrammarList] as a new [SpeechGrammar] object.
   ///
   /// speechGrammarListInstance.addFromURI(src,weight);
   ///
-  external Object addFromURI(String src, [double? weight = 1.0]);
+  Object addFromURI(String src, [double? weight = 1.0]) =>
+      js_util.callMethod(this, 'addFromURI', [src, weight]);
 
   ///  Takes a grammar present in a specific [DOMString] within the
   /// code base (e.g. stored in a variable) and adds it to the
@@ -353,7 +422,8 @@ extension PropsSpeechGrammarList on SpeechGrammarList {
   ///
   /// speechGrammarListInstance.addFromString(string,weight);
   ///
-  external Object addFromString(String string, [double? weight = 1.0]);
+  Object addFromString(String string, [double? weight = 1.0]) =>
+      js_util.callMethod(this, 'addFromString', [string, weight]);
 }
 
 ///  The interface of the Web Speech API is the controller interface
@@ -363,60 +433,65 @@ extension PropsSpeechGrammarList on SpeechGrammarList {
 @JS()
 @staticInterop
 class SpeechSynthesis implements EventTarget {
-  external factory SpeechSynthesis();
+  external SpeechSynthesis();
 }
 
 extension PropsSpeechSynthesis on SpeechSynthesis {
   ///  A boolean value that returns [true] if the utterance queue
   /// contains as-yet-unspoken utterances.
   ///
-  external bool get pending;
+  bool get pending => js_util.getProperty(this, 'pending');
 
   ///  A boolean value that returns [true] if an utterance is currently
   /// in the process of being spoken — even if [SpeechSynthesis] is in
   /// a paused state.
   ///
-  external bool get speaking;
+  bool get speaking => js_util.getProperty(this, 'speaking');
 
   ///  A boolean value that returns [true] if the [SpeechSynthesis]
   /// object is in a paused state.
   ///
-  external bool get paused;
-  external EventHandlerNonNull? get onvoiceschanged;
-  external set onvoiceschanged(EventHandlerNonNull? newValue);
+  bool get paused => js_util.getProperty(this, 'paused');
+  EventHandlerNonNull? get onvoiceschanged =>
+      js_util.getProperty(this, 'onvoiceschanged');
+  set onvoiceschanged(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onvoiceschanged', newValue);
+  }
 
   ///  Adds an [utterance] to the utterance queue; it will be spoken
   /// when any other utterances queued before it have been spoken.
   ///
   /// speak(utterance)
   ///
-  external Object speak(SpeechSynthesisUtterance utterance);
+  Object speak(SpeechSynthesisUtterance utterance) =>
+      js_util.callMethod(this, 'speak', [utterance]);
 
   /// Removes all utterances from the utterance queue.
   ///
   /// cancel()
   ///
-  external Object cancel();
+  Object cancel() => js_util.callMethod(this, 'cancel', []);
 
   /// Puts the [SpeechSynthesis] object into a paused state.
   ///
   /// pause()
   ///
-  external Object pause();
+  Object pause() => js_util.callMethod(this, 'pause', []);
 
   ///  Puts the [SpeechSynthesis] object into a non-paused state:
   /// resumes it if it was already paused.
   ///
   /// resume()
   ///
-  external Object resume();
+  Object resume() => js_util.callMethod(this, 'resume', []);
 
   ///  Returns a list of [SpeechSynthesisVoice] objects representing
   /// all the available voices on the current device.
   ///
   /// getVoices()
   ///
-  external Iterable<SpeechSynthesisVoice> getVoices();
+  Iterable<SpeechSynthesisVoice> getVoices() =>
+      js_util.callMethod(this, 'getVoices', []);
 }
 
 ///
@@ -429,57 +504,91 @@ extension PropsSpeechSynthesis on SpeechSynthesis {
 @JS()
 @staticInterop
 class SpeechSynthesisUtterance implements EventTarget {
-  external factory SpeechSynthesisUtterance([String? text]);
+  external SpeechSynthesisUtterance([String? text]);
 }
 
 extension PropsSpeechSynthesisUtterance on SpeechSynthesisUtterance {
   ///  Gets and sets the text that will be synthesised when the
   /// utterance is spoken.
   ///
-  external String get text;
-  external set text(String newValue);
+  String get text => js_util.getProperty(this, 'text');
+  set text(String newValue) {
+    js_util.setProperty(this, 'text', newValue);
+  }
 
   /// Gets and sets the language of the utterance.
   ///
-  external String get lang;
-  external set lang(String newValue);
+  String get lang => js_util.getProperty(this, 'lang');
+  set lang(String newValue) {
+    js_util.setProperty(this, 'lang', newValue);
+  }
 
   ///  Gets and sets the voice that will be used to speak the
   /// utterance.
   ///
-  external SpeechSynthesisVoice? get voice;
-  external set voice(SpeechSynthesisVoice? newValue);
+  SpeechSynthesisVoice? get voice => js_util.getProperty(this, 'voice');
+  set voice(SpeechSynthesisVoice? newValue) {
+    js_util.setProperty(this, 'voice', newValue);
+  }
 
   /// Gets and sets the volume that the utterance will be spoken at.
   ///
-  external double get volume;
-  external set volume(double newValue);
+  double get volume => js_util.getProperty(this, 'volume');
+  set volume(double newValue) {
+    js_util.setProperty(this, 'volume', newValue);
+  }
 
   ///  Gets and sets the speed at which the utterance will be spoken
   /// at.
   ///
-  external double get rate;
-  external set rate(double newValue);
+  double get rate => js_util.getProperty(this, 'rate');
+  set rate(double newValue) {
+    js_util.setProperty(this, 'rate', newValue);
+  }
 
   ///  Gets and sets the pitch at which the utterance will be spoken
   /// at.
   ///
-  external double get pitch;
-  external set pitch(double newValue);
-  external EventHandlerNonNull? get onstart;
-  external set onstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onend;
-  external set onend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpause;
-  external set onpause(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onresume;
-  external set onresume(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmark;
-  external set onmark(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onboundary;
-  external set onboundary(EventHandlerNonNull? newValue);
+  double get pitch => js_util.getProperty(this, 'pitch');
+  set pitch(double newValue) {
+    js_util.setProperty(this, 'pitch', newValue);
+  }
+
+  EventHandlerNonNull? get onstart => js_util.getProperty(this, 'onstart');
+  set onstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstart', newValue);
+  }
+
+  EventHandlerNonNull? get onend => js_util.getProperty(this, 'onend');
+  set onend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onend', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onpause => js_util.getProperty(this, 'onpause');
+  set onpause(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpause', newValue);
+  }
+
+  EventHandlerNonNull? get onresume => js_util.getProperty(this, 'onresume');
+  set onresume(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresume', newValue);
+  }
+
+  EventHandlerNonNull? get onmark => js_util.getProperty(this, 'onmark');
+  set onmark(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmark', newValue);
+  }
+
+  EventHandlerNonNull? get onboundary =>
+      js_util.getProperty(this, 'onboundary');
+  set onboundary(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onboundary', newValue);
+  }
 }
 
 ///  The interface of the Web Speech API contains information about
@@ -488,7 +597,7 @@ extension PropsSpeechSynthesisUtterance on SpeechSynthesisUtterance {
 @JS()
 @staticInterop
 class SpeechSynthesisEvent implements Event {
-  external factory SpeechSynthesisEvent(
+  external SpeechSynthesisEvent(
       String type, SpeechSynthesisEventInit eventInitDict);
 }
 
@@ -496,20 +605,21 @@ extension PropsSpeechSynthesisEvent on SpeechSynthesisEvent {
   ///  Returns the [SpeechSynthesisUtterance] instance that the event
   /// was triggered on.
   ///
-  external SpeechSynthesisUtterance get utterance;
+  SpeechSynthesisUtterance get utterance =>
+      js_util.getProperty(this, 'utterance');
 
   ///  Returns the index position of the character in the
   /// [SpeechSynthesisUtterance.text] that was being spoken when the
   /// event was triggered.
   ///
-  external int get charIndex;
-  external int get charLength;
+  int get charIndex => js_util.getProperty(this, 'charIndex');
+  int get charLength => js_util.getProperty(this, 'charLength');
 
   ///  Returns the elapsed time in seconds after the
   /// [SpeechSynthesisUtterance.text] started being spoken that the
   /// event was triggered at.
   ///
-  external double get elapsedTime;
+  double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
 
   ///  Returns the name associated with certain types of events
   /// occurring as the [SpeechSynthesisUtterance.text] is being spoken:
@@ -517,7 +627,7 @@ extension PropsSpeechSynthesisEvent on SpeechSynthesisEvent {
   /// event, or the type of boundary reached in the case of a
   /// [boundary] event.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 }
 
 @anonymous
@@ -533,16 +643,31 @@ class SpeechSynthesisEventInit implements EventInit {
 }
 
 extension PropsSpeechSynthesisEventInit on SpeechSynthesisEventInit {
-  external SpeechSynthesisUtterance get utterance;
-  external set utterance(SpeechSynthesisUtterance newValue);
-  external int get charIndex;
-  external set charIndex(int newValue);
-  external int get charLength;
-  external set charLength(int newValue);
-  external double get elapsedTime;
-  external set elapsedTime(double newValue);
-  external String get name;
-  external set name(String newValue);
+  SpeechSynthesisUtterance get utterance =>
+      js_util.getProperty(this, 'utterance');
+  set utterance(SpeechSynthesisUtterance newValue) {
+    js_util.setProperty(this, 'utterance', newValue);
+  }
+
+  int get charIndex => js_util.getProperty(this, 'charIndex');
+  set charIndex(int newValue) {
+    js_util.setProperty(this, 'charIndex', newValue);
+  }
+
+  int get charLength => js_util.getProperty(this, 'charLength');
+  set charLength(int newValue) {
+    js_util.setProperty(this, 'charLength', newValue);
+  }
+
+  double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
+  set elapsedTime(double newValue) {
+    js_util.setProperty(this, 'elapsedTime', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 }
 
 enum SpeechSynthesisErrorCode {
@@ -570,7 +695,7 @@ enum SpeechSynthesisErrorCode {
 @JS()
 @staticInterop
 class SpeechSynthesisErrorEvent implements SpeechSynthesisEvent {
-  external factory SpeechSynthesisErrorEvent(
+  external SpeechSynthesisErrorEvent(
       String type, SpeechSynthesisErrorEventInit eventInitDict);
 }
 
@@ -578,7 +703,7 @@ extension PropsSpeechSynthesisErrorEvent on SpeechSynthesisErrorEvent {
   ///  Returns an error code indicating what has gone wrong with a
   /// speech synthesis attempt.
   ///
-  external SpeechSynthesisErrorCode get error;
+  SpeechSynthesisErrorCode get error => js_util.getProperty(this, 'error');
 }
 
 @anonymous
@@ -590,8 +715,10 @@ class SpeechSynthesisErrorEventInit implements SpeechSynthesisEventInit {
 }
 
 extension PropsSpeechSynthesisErrorEventInit on SpeechSynthesisErrorEventInit {
-  external SpeechSynthesisErrorCode get error;
-  external set error(SpeechSynthesisErrorCode newValue);
+  SpeechSynthesisErrorCode get error => js_util.getProperty(this, 'error');
+  set error(SpeechSynthesisErrorCode newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }
 
 ///
@@ -603,34 +730,34 @@ extension PropsSpeechSynthesisErrorEventInit on SpeechSynthesisErrorEventInit {
 @JS()
 @staticInterop
 class SpeechSynthesisVoice {
-  external factory SpeechSynthesisVoice();
+  external SpeechSynthesisVoice();
 }
 
 extension PropsSpeechSynthesisVoice on SpeechSynthesisVoice {
   ///  Returns the type of URI and location of the speech synthesis
   /// service for this voice.
   ///
-  external String get voiceURI;
+  String get voiceURI => js_util.getProperty(this, 'voiceURI');
 
   /// Returns a human-readable name that represents the voice.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  Returns a BCP 47 language tag indicating the language of the
   /// voice.
   ///
-  external String get lang;
+  String get lang => js_util.getProperty(this, 'lang');
 
   ///  A boolean value indicating whether the voice is supplied by a
   /// local speech synthesizer service ([true]), or a remote speech
   /// synthesizer service ([false].)
   ///
-  external bool get localService;
+  bool get localService => js_util.getProperty(this, 'localService');
 
   ///  A boolean value indicating whether the voice is the default
   /// voice for the current app language ([true]), or not ([false].)
   ///
   @JS('default')
   @staticInterop
-  external bool get mDefault;
+  bool get mDefault => js_util.getProperty(this, 'default');
 }

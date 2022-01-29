@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_debug_renderer_info;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -40,5 +41,5 @@ import 'all_bindings.dart';
 class WEBGL_debug_renderer_info {
   external static int get UNMASKED_VENDOR_WEBGL;
   external static int get UNMASKED_RENDERER_WEBGL;
-  external factory WEBGL_debug_renderer_info();
+  external WEBGL_debug_renderer_info();
 }

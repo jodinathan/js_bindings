@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_frag_depth;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,5 +26,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class EXT_frag_depth {
-  external factory EXT_frag_depth();
+  external EXT_frag_depth();
 }

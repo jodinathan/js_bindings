@@ -5,6 +5,7 @@
 @staticInterop
 library css_nav_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -26,8 +27,10 @@ class FocusableAreasOption {
 }
 
 extension PropsFocusableAreasOption on FocusableAreasOption {
-  external FocusableAreaSearchMode get mode;
-  external set mode(FocusableAreaSearchMode newValue);
+  FocusableAreaSearchMode get mode => js_util.getProperty(this, 'mode');
+  set mode(FocusableAreaSearchMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
 }
 
 @anonymous
@@ -40,22 +43,26 @@ class SpatialNavigationSearchOptions {
 
 extension PropsSpatialNavigationSearchOptions
     on SpatialNavigationSearchOptions {
-  external Iterable<Node> get candidates;
-  external set candidates(Iterable<Node> newValue);
-  external Node? get container;
-  external set container(Node? newValue);
+  Iterable<Node> get candidates => js_util.getProperty(this, 'candidates');
+  set candidates(Iterable<Node> newValue) {
+    js_util.setProperty(this, 'candidates', newValue);
+  }
+
+  Node? get container => js_util.getProperty(this, 'container');
+  set container(Node? newValue) {
+    js_util.setProperty(this, 'container', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class NavigationEvent implements UIEvent {
-  external factory NavigationEvent(String type,
-      [NavigationEventInit? eventInitDict]);
+  external NavigationEvent(String type, [NavigationEventInit? eventInitDict]);
 }
 
 extension PropsNavigationEvent on NavigationEvent {
-  external SpatialNavigationDirection get dir;
-  external EventTarget? get relatedTarget;
+  SpatialNavigationDirection get dir => js_util.getProperty(this, 'dir');
+  EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');
 }
 
 @anonymous
@@ -67,8 +74,13 @@ class NavigationEventInit implements UIEventInit {
 }
 
 extension PropsNavigationEventInit on NavigationEventInit {
-  external SpatialNavigationDirection get dir;
-  external set dir(SpatialNavigationDirection newValue);
-  external EventTarget? get relatedTarget;
-  external set relatedTarget(EventTarget? newValue);
+  SpatialNavigationDirection get dir => js_util.getProperty(this, 'dir');
+  set dir(SpatialNavigationDirection newValue) {
+    js_util.setProperty(this, 'dir', newValue);
+  }
+
+  EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');
+  set relatedTarget(EventTarget? newValue) {
+    js_util.setProperty(this, 'relatedTarget', newValue);
+  }
 }

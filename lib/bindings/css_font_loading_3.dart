@@ -5,6 +5,7 @@
 @staticInterop
 library css_font_loading_3;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -33,28 +34,61 @@ class FontFaceDescriptors {
 }
 
 extension PropsFontFaceDescriptors on FontFaceDescriptors {
-  external String get style;
-  external set style(String newValue);
-  external String get weight;
-  external set weight(String newValue);
-  external String get stretch;
-  external set stretch(String newValue);
-  external String get unicodeRange;
-  external set unicodeRange(String newValue);
-  external String get variant;
-  external set variant(String newValue);
-  external String get featureSettings;
-  external set featureSettings(String newValue);
-  external String get variationSettings;
-  external set variationSettings(String newValue);
-  external String get display;
-  external set display(String newValue);
-  external String get ascentOverride;
-  external set ascentOverride(String newValue);
-  external String get descentOverride;
-  external set descentOverride(String newValue);
-  external String get lineGapOverride;
-  external set lineGapOverride(String newValue);
+  String get style => js_util.getProperty(this, 'style');
+  set style(String newValue) {
+    js_util.setProperty(this, 'style', newValue);
+  }
+
+  String get weight => js_util.getProperty(this, 'weight');
+  set weight(String newValue) {
+    js_util.setProperty(this, 'weight', newValue);
+  }
+
+  String get stretch => js_util.getProperty(this, 'stretch');
+  set stretch(String newValue) {
+    js_util.setProperty(this, 'stretch', newValue);
+  }
+
+  String get unicodeRange => js_util.getProperty(this, 'unicodeRange');
+  set unicodeRange(String newValue) {
+    js_util.setProperty(this, 'unicodeRange', newValue);
+  }
+
+  String get variant => js_util.getProperty(this, 'variant');
+  set variant(String newValue) {
+    js_util.setProperty(this, 'variant', newValue);
+  }
+
+  String get featureSettings => js_util.getProperty(this, 'featureSettings');
+  set featureSettings(String newValue) {
+    js_util.setProperty(this, 'featureSettings', newValue);
+  }
+
+  String get variationSettings =>
+      js_util.getProperty(this, 'variationSettings');
+  set variationSettings(String newValue) {
+    js_util.setProperty(this, 'variationSettings', newValue);
+  }
+
+  String get display => js_util.getProperty(this, 'display');
+  set display(String newValue) {
+    js_util.setProperty(this, 'display', newValue);
+  }
+
+  String get ascentOverride => js_util.getProperty(this, 'ascentOverride');
+  set ascentOverride(String newValue) {
+    js_util.setProperty(this, 'ascentOverride', newValue);
+  }
+
+  String get descentOverride => js_util.getProperty(this, 'descentOverride');
+  set descentOverride(String newValue) {
+    js_util.setProperty(this, 'descentOverride', newValue);
+  }
+
+  String get lineGapOverride => js_util.getProperty(this, 'lineGapOverride');
+  set lineGapOverride(String newValue) {
+    js_util.setProperty(this, 'lineGapOverride', newValue);
+  }
 }
 
 enum FontFaceLoadStatus { unloaded, loading, loaded, error }
@@ -66,7 +100,7 @@ enum FontFaceLoadStatus { unloaded, loading, loaded, error }
 @JS()
 @staticInterop
 class FontFace {
-  external factory FontFace(String family, dynamic source,
+  external FontFace(String family, dynamic source,
       [FontFaceDescriptors? descriptors]);
 }
 
@@ -74,89 +108,114 @@ extension PropsFontFace on FontFace {
   ///  A [CSSOMString] that retrieves or sets the family of the font.
   /// It is equivalent to the [font-family] descriptor.
   ///
-  external String get family;
-  external set family(String newValue);
+  String get family => js_util.getProperty(this, 'family');
+  set family(String newValue) {
+    js_util.setProperty(this, 'family', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets the style of the font. It
   /// is equivalent to the [font-style] descriptor.
   ///
-  external String get style;
-  external set style(String newValue);
+  String get style => js_util.getProperty(this, 'style');
+  set style(String newValue) {
+    js_util.setProperty(this, 'style', newValue);
+  }
 
   ///  A [CSSOMString] that contains the weight of the font. It is
   /// equivalent to the [font-weight] descriptor.
   ///
-  external String get weight;
-  external set weight(String newValue);
+  String get weight => js_util.getProperty(this, 'weight');
+  set weight(String newValue) {
+    js_util.setProperty(this, 'weight', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets how the font stretches.
   /// It is equivalent to the [font-stretch] descriptor.
   ///
-  external String get stretch;
-  external set stretch(String newValue);
+  String get stretch => js_util.getProperty(this, 'stretch');
+  set stretch(String newValue) {
+    js_util.setProperty(this, 'stretch', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets the range of unicode
   /// codepoints encompassing the font. It is equivalent to the
   /// [unicode-range] descriptor.
   ///
-  external String get unicodeRange;
-  external set unicodeRange(String newValue);
+  String get unicodeRange => js_util.getProperty(this, 'unicodeRange');
+  set unicodeRange(String newValue) {
+    js_util.setProperty(this, 'unicodeRange', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets the variant of the font.
   /// It is equivalent to the [font-variant] descriptor.
   ///
-  external String get variant;
-  external set variant(String newValue);
+  String get variant => js_util.getProperty(this, 'variant');
+  set variant(String newValue) {
+    js_util.setProperty(this, 'variant', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets infrequently used font
   /// features that are not available from a font's variant properties.
   /// It is equivalent to the [font-feature-settings] descriptor.
   ///
-  external String get featureSettings;
-  external set featureSettings(String newValue);
+  String get featureSettings => js_util.getProperty(this, 'featureSettings');
+  set featureSettings(String newValue) {
+    js_util.setProperty(this, 'featureSettings', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets the variation settings of
   /// the font. It is equivalent to the [font-variation-settings]
   /// descriptor.
   ///
-  external String get variationSettings;
-  external set variationSettings(String newValue);
+  String get variationSettings =>
+      js_util.getProperty(this, 'variationSettings');
+  set variationSettings(String newValue) {
+    js_util.setProperty(this, 'variationSettings', newValue);
+  }
 
   ///  A [CSSOMString] that determines how a font face is displayed
   /// based on whether and when it is downloaded and ready to use.
   ///
-  external String get display;
-  external set display(String newValue);
+  String get display => js_util.getProperty(this, 'display');
+  set display(String newValue) {
+    js_util.setProperty(this, 'display', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets the ascent metric of the
   /// font. It is equivalent to the [ascent-override] descriptor.
   ///
-  external String get ascentOverride;
-  external set ascentOverride(String newValue);
+  String get ascentOverride => js_util.getProperty(this, 'ascentOverride');
+  set ascentOverride(String newValue) {
+    js_util.setProperty(this, 'ascentOverride', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets the descent metric of the
   /// font. It is equivalent to the [descent-override] descriptor.
   ///
-  external String get descentOverride;
-  external set descentOverride(String newValue);
+  String get descentOverride => js_util.getProperty(this, 'descentOverride');
+  set descentOverride(String newValue) {
+    js_util.setProperty(this, 'descentOverride', newValue);
+  }
 
   ///  A [CSSOMString] that retrieves or sets the line-gap metric of
   /// the font. It is equivalent to the [line-gap-override] descriptor.
   ///
-  external String get lineGapOverride;
-  external set lineGapOverride(String newValue);
+  String get lineGapOverride => js_util.getProperty(this, 'lineGapOverride');
+  set lineGapOverride(String newValue) {
+    js_util.setProperty(this, 'lineGapOverride', newValue);
+  }
 
   ///  Returns an enumerated value indicating the status of the font,
   /// one of ["unloaded"], ["loading"], ["loaded"], or ["error"].
   ///
-  external FontFaceLoadStatus get status;
-  external Promise<FontFace> load();
+  FontFaceLoadStatus get status => js_util.getProperty(this, 'status');
+  Promise<FontFace> load() => js_util.callMethod(this, 'load', []);
 
   ///  Returns a [Promise] that resolves with the current [FontFace]
   /// object when the font specified in the object's constructor is
   /// done loading or rejects with a [SyntaxError].
   ///
-  external Promise<FontFace> get loaded;
+  Promise<FontFace> get loaded => js_util.getProperty(this, 'loaded');
 }
 
 @anonymous
@@ -168,8 +227,10 @@ class FontFaceSetLoadEventInit implements EventInit {
 }
 
 extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
-  external Iterable<FontFace> get fontfaces;
-  external set fontfaces(Iterable<FontFace> newValue);
+  Iterable<FontFace> get fontfaces => js_util.getProperty(this, 'fontfaces');
+  set fontfaces(Iterable<FontFace> newValue) {
+    js_util.setProperty(this, 'fontfaces', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -181,7 +242,7 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
 @JS()
 @staticInterop
 class FontFaceSetLoadEvent implements Event {
-  external factory FontFaceSetLoadEvent(String type,
+  external FontFaceSetLoadEvent(String type,
       [FontFaceSetLoadEventInit? eventInitDict]);
 }
 
@@ -189,7 +250,7 @@ extension PropsFontFaceSetLoadEvent on FontFaceSetLoadEvent {
   ///  Returns an array of [FontFace] instances each of which
   /// represents a single usable font.
   ///
-  external Iterable<FontFace> get fontfaces;
+  Iterable<FontFace> get fontfaces => js_util.getProperty(this, 'fontfaces');
 }
 
 enum FontFaceSetLoadStatus { loading, loaded }
@@ -200,7 +261,7 @@ enum FontFaceSetLoadStatus { loading, loaded }
 @JS()
 @staticInterop
 class FontFaceSet implements EventTarget {
-  external factory FontFaceSet([Iterable<FontFace>? initialFaces]);
+  external FontFaceSet([Iterable<FontFace>? initialFaces]);
 }
 
 extension PropsFontFaceSet on FontFaceSet {
@@ -208,27 +269,38 @@ extension PropsFontFaceSet on FontFaceSet {
   ///
   /// FontFaceSet.add(font)
   ///
-  external FontFaceSet add(FontFace font);
+  FontFaceSet add(FontFace font) => js_util.callMethod(this, 'add', [font]);
 
   ///  Removes a manually-added font from the font set. CSS-connected
   /// fonts are unaffected.
   ///
   /// FontFaceSet.delete(font)
   ///
-  external bool delete(FontFace font);
+  bool delete(FontFace font) => js_util.callMethod(this, 'delete', [font]);
 
   ///  Removes all manually-added fonts from the font set.
   /// CSS-connected fonts are unaffected.
   ///
   /// FontFaceSet.clear()
   ///
-  external Object clear();
-  external EventHandlerNonNull? get onloading;
-  external set onloading(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onloadingdone;
-  external set onloadingdone(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onloadingerror;
-  external set onloadingerror(EventHandlerNonNull? newValue);
+  Object clear() => js_util.callMethod(this, 'clear', []);
+
+  EventHandlerNonNull? get onloading => js_util.getProperty(this, 'onloading');
+  set onloading(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloading', newValue);
+  }
+
+  EventHandlerNonNull? get onloadingdone =>
+      js_util.getProperty(this, 'onloadingdone');
+  set onloadingdone(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadingdone', newValue);
+  }
+
+  EventHandlerNonNull? get onloadingerror =>
+      js_util.getProperty(this, 'onloadingerror');
+  set onloadingerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadingerror', newValue);
+  }
 
   ///  Returns a [Promise] which resolves to a list of font-faces for a
   /// requested font.
@@ -236,7 +308,8 @@ extension PropsFontFaceSet on FontFaceSet {
   /// aFontFaceSet.load(font);
   /// aFontFaceSet.load(font, text);
   ///
-  external Iterable<Promise<FontFace>> load(String font, [String? text = ' ']);
+  Iterable<Promise<FontFace>> load(String font, [String? text = ' ']) =>
+      js_util.callMethod(this, 'load', [font, text]);
 
   ///  A boolean value that indicates whether a font is loaded, but
   /// doesn't initiate a load when it isn't.
@@ -244,25 +317,26 @@ extension PropsFontFaceSet on FontFaceSet {
   /// aFontFaceSet.check(font);
   /// aFontFaceSet.check(font, text);
   ///
-  external bool check(String font, [String? text = ' ']);
+  bool check(String font, [String? text = ' ']) =>
+      js_util.callMethod(this, 'check', [font, text]);
 
   ///  [Promise] which resolves once font loading and layout operations
   /// have completed.
   ///
-  external Promise<FontFaceSet> get ready;
+  Promise<FontFaceSet> get ready => js_util.getProperty(this, 'ready');
 
   ///  Indicates the font-face's loading status. It will be one of
   /// ['loading'] or ['loaded'].
   ///
-  external FontFaceSetLoadStatus get status;
+  FontFaceSetLoadStatus get status => js_util.getProperty(this, 'status');
 }
 
 @JS()
 @staticInterop
 class FontFaceSource {
-  external factory FontFaceSource();
+  external FontFaceSource();
 }
 
 extension PropsFontFaceSource on FontFaceSource {
-  external FontFaceSet get fonts;
+  FontFaceSet get fonts => js_util.getProperty(this, 'fonts');
 }

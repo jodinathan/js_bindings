@@ -5,6 +5,7 @@
 @staticInterop
 library crash_reporting;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -26,12 +27,12 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CrashReportBody implements ReportBody {
-  external factory CrashReportBody();
+  external CrashReportBody();
 }
 
 extension PropsCrashReportBody on CrashReportBody {
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  A string representing the reason for the crash. Current possible
   /// reasons are:
@@ -41,5 +42,5 @@ extension PropsCrashReportBody on CrashReportBody {
   /// unresponsive.
   ///
   ///
-  external String? get reason;
+  String? get reason => js_util.getProperty(this, 'reason');
 }

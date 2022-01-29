@@ -5,6 +5,7 @@
 @staticInterop
 library server_timing;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -26,28 +27,28 @@ resource_timing_2 */
 @JS()
 @staticInterop
 class PerformanceServerTiming {
-  external factory PerformanceServerTiming();
+  external PerformanceServerTiming();
 }
 
 extension PropsPerformanceServerTiming on PerformanceServerTiming {
   /// A [DOMString] value of the server-specified metric name.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  A double that contains the server-specified metric duration, or
   /// value [0.0].
   ///
-  external double get duration;
+  double get duration => js_util.getProperty(this, 'duration');
 
   ///  A [DOMString] value of the server-specified metric description,
   /// or an empty string.
   ///
-  external String get description;
+  String get description => js_util.getProperty(this, 'description');
 
   ///  Returns a [DOMString] that is the JSON representation of the
   /// [PerformanceServerTiming] object.
   ///
   /// var json = PerformanceServerTiming.toJSON()
   ///
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

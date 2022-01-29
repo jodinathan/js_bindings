@@ -5,6 +5,7 @@
 @staticInterop
 library css_properties_values_api_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -22,14 +23,25 @@ class PropertyDefinition {
 }
 
 extension PropsPropertyDefinition on PropertyDefinition {
-  external String get name;
-  external set name(String newValue);
-  external String get syntax;
-  external set syntax(String newValue);
-  external bool get inherits;
-  external set inherits(bool newValue);
-  external String get initialValue;
-  external set initialValue(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get syntax => js_util.getProperty(this, 'syntax');
+  set syntax(String newValue) {
+    js_util.setProperty(this, 'syntax', newValue);
+  }
+
+  bool get inherits => js_util.getProperty(this, 'inherits');
+  set inherits(bool newValue) {
+    js_util.setProperty(this, 'inherits', newValue);
+  }
+
+  String get initialValue => js_util.getProperty(this, 'initialValue');
+  set initialValue(String newValue) {
+    js_util.setProperty(this, 'initialValue', newValue);
+  }
 }
 
 ///  The interface of the CSS_Properties_and_Values_API represents a
@@ -50,20 +62,20 @@ extension PropsPropertyDefinition on PropertyDefinition {
 @JS()
 @staticInterop
 class CSSPropertyRule implements CSSRule {
-  external factory CSSPropertyRule();
+  external CSSPropertyRule();
 }
 
 extension PropsCSSPropertyRule on CSSPropertyRule {
   /// Returns the name of the custom property.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   /// Returns the literal syntax of the custom property.
   ///
-  external String get syntax;
+  String get syntax => js_util.getProperty(this, 'syntax');
 
   /// Returns the inherit flag of the custom property.
   ///
-  external bool get inherits;
-  external String? get initialValue;
+  bool get inherits => js_util.getProperty(this, 'inherits');
+  String? get initialValue => js_util.getProperty(this, 'initialValue');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library frame_timing;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,5 +16,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class PerformanceFrameTiming implements PerformanceEntry {
-  external factory PerformanceFrameTiming();
+  external PerformanceFrameTiming();
 }

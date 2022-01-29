@@ -5,6 +5,7 @@
 @staticInterop
 library streams;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -20,7 +21,7 @@ dom */
 @JS()
 @staticInterop
 class ReadableStream {
-  external factory ReadableStream(
+  external ReadableStream(
       [dynamic underlyingSource, QueuingStrategy? strategy]);
 }
 
@@ -28,7 +29,7 @@ extension PropsReadableStream on ReadableStream {
   ///  The getter returns whether or not the readable stream is locked
   /// to a reader.
   ///
-  external bool get locked;
+  bool get locked => js_util.getProperty(this, 'locked');
 
   ///  Returns a [Promise] that resolves when the stream is canceled.
   /// Calling this method signals a loss of interest in the stream by a
@@ -37,7 +38,8 @@ extension PropsReadableStream on ReadableStream {
   ///
   /// var promise = readableStream.cancel(reason);
   ///
-  external Promise<Object> cancel([dynamic reason]);
+  Promise<Object> cancel([dynamic reason]) =>
+      js_util.callMethod(this, 'cancel', [reason]);
 
   ///  Creates a reader and locks the stream to it. While the stream is
   /// locked, no other reader can be acquired until this one is
@@ -45,7 +47,8 @@ extension PropsReadableStream on ReadableStream {
   ///
   /// var reader = readableStream.getReader({mode});
   ///
-  external dynamic getReader([ReadableStreamGetReaderOptions? options]);
+  dynamic getReader([ReadableStreamGetReaderOptions? options]) =>
+      js_util.callMethod(this, 'getReader', [options]);
 
   ///  Provides a chainable way of piping the current stream through a
   /// transform stream or any other writable/readable pair.
@@ -53,8 +56,9 @@ extension PropsReadableStream on ReadableStream {
   /// pipeThrough(transformStream);
   /// pipeThrough(transformStream, options);
   ///
-  external ReadableStream pipeThrough(ReadableWritablePair transform,
-      [StreamPipeOptions? options]);
+  ReadableStream pipeThrough(ReadableWritablePair transform,
+          [StreamPipeOptions? options]) =>
+      js_util.callMethod(this, 'pipeThrough', [transform, options]);
 
   ///  Pipes the current ReadableStream to a given [WritableStream] and
   /// returns a [Promise] that fulfills when the piping process
@@ -63,8 +67,9 @@ extension PropsReadableStream on ReadableStream {
   ///
   /// var promise = readableStream.pipeTo(destination[, options]);
   ///
-  external Promise<Object> pipeTo(WritableStream destination,
-      [StreamPipeOptions? options]);
+  Promise<Object> pipeTo(WritableStream destination,
+          [StreamPipeOptions? options]) =>
+      js_util.callMethod(this, 'pipeTo', [destination, options]);
 
   ///  The method tees this readable stream, returning a two-element
   /// array containing the two resulting branches as new
@@ -73,7 +78,7 @@ extension PropsReadableStream on ReadableStream {
   ///
   /// var teedStreams = readableStream.tee();
   ///
-  external Iterable<ReadableStream> tee();
+  Iterable<ReadableStream> tee() => js_util.callMethod(this, 'tee', []);
 }
 
 enum ReadableStreamReaderMode { byob }
@@ -88,8 +93,10 @@ class ReadableStreamGetReaderOptions {
 
 extension PropsReadableStreamGetReaderOptions
     on ReadableStreamGetReaderOptions {
-  external ReadableStreamReaderMode get mode;
-  external set mode(ReadableStreamReaderMode newValue);
+  ReadableStreamReaderMode get mode => js_util.getProperty(this, 'mode');
+  set mode(ReadableStreamReaderMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
 }
 
 @anonymous
@@ -100,8 +107,10 @@ class ReadableStreamIteratorOptions {
 }
 
 extension PropsReadableStreamIteratorOptions on ReadableStreamIteratorOptions {
-  external bool get preventCancel;
-  external set preventCancel(bool newValue);
+  bool get preventCancel => js_util.getProperty(this, 'preventCancel');
+  set preventCancel(bool newValue) {
+    js_util.setProperty(this, 'preventCancel', newValue);
+  }
 }
 
 @anonymous
@@ -113,10 +122,15 @@ class ReadableWritablePair {
 }
 
 extension PropsReadableWritablePair on ReadableWritablePair {
-  external ReadableStream get readable;
-  external set readable(ReadableStream newValue);
-  external WritableStream get writable;
-  external set writable(WritableStream newValue);
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
+  set readable(ReadableStream newValue) {
+    js_util.setProperty(this, 'readable', newValue);
+  }
+
+  WritableStream get writable => js_util.getProperty(this, 'writable');
+  set writable(WritableStream newValue) {
+    js_util.setProperty(this, 'writable', newValue);
+  }
 }
 
 @anonymous
@@ -131,14 +145,25 @@ class StreamPipeOptions {
 }
 
 extension PropsStreamPipeOptions on StreamPipeOptions {
-  external bool get preventClose;
-  external set preventClose(bool newValue);
-  external bool get preventAbort;
-  external set preventAbort(bool newValue);
-  external bool get preventCancel;
-  external set preventCancel(bool newValue);
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
+  bool get preventClose => js_util.getProperty(this, 'preventClose');
+  set preventClose(bool newValue) {
+    js_util.setProperty(this, 'preventClose', newValue);
+  }
+
+  bool get preventAbort => js_util.getProperty(this, 'preventAbort');
+  set preventAbort(bool newValue) {
+    js_util.setProperty(this, 'preventAbort', newValue);
+  }
+
+  bool get preventCancel => js_util.getProperty(this, 'preventCancel');
+  set preventCancel(bool newValue) {
+    js_util.setProperty(this, 'preventCancel', newValue);
+  }
+
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 @anonymous
@@ -154,16 +179,32 @@ class UnderlyingSource {
 }
 
 extension PropsUnderlyingSource on UnderlyingSource {
-  external UnderlyingSourceStartCallback get start;
-  external set start(UnderlyingSourceStartCallback newValue);
-  external UnderlyingSourcePullCallback get pull;
-  external set pull(UnderlyingSourcePullCallback newValue);
-  external UnderlyingSourceCancelCallback get cancel;
-  external set cancel(UnderlyingSourceCancelCallback newValue);
-  external ReadableStreamType get type;
-  external set type(ReadableStreamType newValue);
-  external int get autoAllocateChunkSize;
-  external set autoAllocateChunkSize(int newValue);
+  UnderlyingSourceStartCallback get start => js_util.getProperty(this, 'start');
+  set start(UnderlyingSourceStartCallback newValue) {
+    js_util.setProperty(this, 'start', newValue);
+  }
+
+  UnderlyingSourcePullCallback get pull => js_util.getProperty(this, 'pull');
+  set pull(UnderlyingSourcePullCallback newValue) {
+    js_util.setProperty(this, 'pull', newValue);
+  }
+
+  UnderlyingSourceCancelCallback get cancel =>
+      js_util.getProperty(this, 'cancel');
+  set cancel(UnderlyingSourceCancelCallback newValue) {
+    js_util.setProperty(this, 'cancel', newValue);
+  }
+
+  ReadableStreamType get type => js_util.getProperty(this, 'type');
+  set type(ReadableStreamType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  int get autoAllocateChunkSize =>
+      js_util.getProperty(this, 'autoAllocateChunkSize');
+  set autoAllocateChunkSize(int newValue) {
+    js_util.setProperty(this, 'autoAllocateChunkSize', newValue);
+  }
 }
 
 enum ReadableStreamType { bytes }
@@ -171,12 +212,13 @@ enum ReadableStreamType { bytes }
 @JS()
 @staticInterop
 class ReadableStreamGenericReader {
-  external factory ReadableStreamGenericReader();
+  external ReadableStreamGenericReader();
 }
 
 extension PropsReadableStreamGenericReader on ReadableStreamGenericReader {
-  external Promise<Object> get closed;
-  external Promise<Object> cancel([dynamic reason]);
+  Promise<Object> get closed => js_util.getProperty(this, 'closed');
+  Promise<Object> cancel([dynamic reason]) =>
+      js_util.callMethod(this, 'cancel', [reason]);
 }
 
 ///  The interface of the Streams API represents a default reader
@@ -185,7 +227,7 @@ extension PropsReadableStreamGenericReader on ReadableStreamGenericReader {
 @JS()
 @staticInterop
 class ReadableStreamDefaultReader implements ReadableStreamGenericReader {
-  external factory ReadableStreamDefaultReader(ReadableStream stream);
+  external ReadableStreamDefaultReader(ReadableStream stream);
 }
 
 extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
@@ -194,13 +236,14 @@ extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
   ///
   /// var promise = readableStreamDefaultReader.read();
   ///
-  external Promise<ReadableStreamDefaultReadResult> read();
+  Promise<ReadableStreamDefaultReadResult> read() =>
+      js_util.callMethod(this, 'read', []);
 
   /// Releases the reader's lock on the stream.
   ///
   /// readableStreamDefaultReader.releaseLock();
   ///
-  external Object releaseLock();
+  Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 }
 
 @anonymous
@@ -212,10 +255,15 @@ class ReadableStreamDefaultReadResult {
 
 extension PropsReadableStreamDefaultReadResult
     on ReadableStreamDefaultReadResult {
-  external dynamic get value;
-  external set value(dynamic newValue);
-  external bool get done;
-  external set done(bool newValue);
+  dynamic get value => js_util.getProperty(this, 'value');
+  set value(dynamic newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  bool get done => js_util.getProperty(this, 'done');
+  set done(bool newValue) {
+    js_util.setProperty(this, 'done', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -228,7 +276,7 @@ extension PropsReadableStreamDefaultReadResult
 @JS()
 @staticInterop
 class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
-  external factory ReadableStreamBYOBReader(ReadableStream stream);
+  external ReadableStreamBYOBReader(ReadableStream stream);
 }
 
 extension PropsReadableStreamBYOBReader on ReadableStreamBYOBReader {
@@ -238,13 +286,14 @@ extension PropsReadableStreamBYOBReader on ReadableStreamBYOBReader {
   ///
   /// var promise = readableStreamBYOBReader.read(view);
   ///
-  external Promise<ReadableStreamBYOBReadResult> read(dynamic view);
+  Promise<ReadableStreamBYOBReadResult> read(dynamic view) =>
+      js_util.callMethod(this, 'read', [view]);
 
   /// Releases the reader's lock on the stream.
   ///
   /// readableStreamBYOBReader.releaseLock();
   ///
-  external Object releaseLock();
+  Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 }
 
 @anonymous
@@ -255,10 +304,15 @@ class ReadableStreamBYOBReadResult {
 }
 
 extension PropsReadableStreamBYOBReadResult on ReadableStreamBYOBReadResult {
-  external dynamic get value;
-  external set value(dynamic newValue);
-  external bool get done;
-  external set done(bool newValue);
+  dynamic get value => js_util.getProperty(this, 'value');
+  set value(dynamic newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  bool get done => js_util.getProperty(this, 'done');
+  set done(bool newValue) {
+    js_util.setProperty(this, 'done', newValue);
+  }
 }
 
 ///  The interface of the Streams API represents a controller
@@ -268,7 +322,7 @@ extension PropsReadableStreamBYOBReadResult on ReadableStreamBYOBReadResult {
 @JS()
 @staticInterop
 class ReadableStreamDefaultController {
-  external factory ReadableStreamDefaultController();
+  external ReadableStreamDefaultController();
 }
 
 extension PropsReadableStreamDefaultController
@@ -276,26 +330,28 @@ extension PropsReadableStreamDefaultController
   ///  Returns the desired size required to fill the stream's internal
   /// queue.
   ///
-  external /* double | NaN */ dynamic? get desiredSize;
+  /* double | NaN */ dynamic? get desiredSize =>
+      js_util.getProperty(this, 'desiredSize');
 
   /// Closes the associated stream.
   ///
   /// readableStreamDefaultController.close();
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 
   /// Enqueues a given chunk in the associated stream.
   ///
   /// readableStreamDefaultController.enqueue(chunk);
   ///
-  external Object enqueue([dynamic chunk]);
+  Object enqueue([dynamic chunk]) =>
+      js_util.callMethod(this, 'enqueue', [chunk]);
 
   ///  Causes any future interactions with the associated stream to
   /// error.
   ///
   /// readableStreamDefaultController.error(e);
   ///
-  external Object error([dynamic e]);
+  Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -308,37 +364,39 @@ extension PropsReadableStreamDefaultController
 @JS()
 @staticInterop
 class ReadableByteStreamController {
-  external factory ReadableByteStreamController();
+  external ReadableByteStreamController();
 }
 
 extension PropsReadableByteStreamController on ReadableByteStreamController {
   /// Returns the current BYOB pull request.
   ///
-  external ReadableStreamBYOBRequest? get byobRequest;
+  ReadableStreamBYOBRequest? get byobRequest =>
+      js_util.getProperty(this, 'byobRequest');
 
   ///  Returns the desired size required to fill the stream's internal
   /// queue.
   ///
-  external /* double | NaN */ dynamic? get desiredSize;
+  /* double | NaN */ dynamic? get desiredSize =>
+      js_util.getProperty(this, 'desiredSize');
 
   /// Closes the associated stream.
   ///
   /// readableByteStreamController.close();
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 
   /// Enqueues a given chunk in the associated stream.
   ///
   /// readableByteStreamController.enqueue(chunk);
   ///
-  external Object enqueue(dynamic chunk);
+  Object enqueue(dynamic chunk) => js_util.callMethod(this, 'enqueue', [chunk]);
 
   ///  Causes any future interactions with the associated stream to
   /// error.
   ///
   /// readableByteStreamController.error(e);
   ///
-  external Object error([dynamic e]);
+  Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -354,25 +412,27 @@ extension PropsReadableByteStreamController on ReadableByteStreamController {
 @JS()
 @staticInterop
 class ReadableStreamBYOBRequest {
-  external factory ReadableStreamBYOBRequest();
+  external ReadableStreamBYOBRequest();
 }
 
 extension PropsReadableStreamBYOBRequest on ReadableStreamBYOBRequest {
   /// Returns the current view.
   ///
-  external dynamic get view;
+  dynamic get view => js_util.getProperty(this, 'view');
 
   /// xxx
   ///
   /// readableStreamBYOBRequestInstance.respond(bytesWritten);
   ///
-  external Object respond(int bytesWritten);
+  Object respond(int bytesWritten) =>
+      js_util.callMethod(this, 'respond', [bytesWritten]);
 
   /// xxx
   ///
   /// readableStreamBYOBRequestInstance.respondWithNewView(view);
   ///
-  external Object respondWithNewView(dynamic view);
+  Object respondWithNewView(dynamic view) =>
+      js_util.callMethod(this, 'respondWithNewView', [view]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -385,15 +445,14 @@ extension PropsReadableStreamBYOBRequest on ReadableStreamBYOBRequest {
 @JS()
 @staticInterop
 class WritableStream {
-  external factory WritableStream(
-      [dynamic underlyingSink, QueuingStrategy? strategy]);
+  external WritableStream([dynamic underlyingSink, QueuingStrategy? strategy]);
 }
 
 extension PropsWritableStream on WritableStream {
   ///  A boolean indicating whether the [WritableStream] is locked to a
   /// writer.
   ///
-  external bool get locked;
+  bool get locked => js_util.getProperty(this, 'locked');
 
   ///  Aborts the stream, signaling that the producer can no longer
   /// successfully write to the stream and it is to be immediately
@@ -401,11 +460,12 @@ extension PropsWritableStream on WritableStream {
   ///
   /// var promise = writableStream.abort(reason);
   ///
-  external Promise<Object> abort([dynamic reason]);
+  Promise<Object> abort([dynamic reason]) =>
+      js_util.callMethod(this, 'abort', [reason]);
 
   /// Closes the stream.
   ///
-  external Promise<Object> close();
+  Promise<Object> close() => js_util.callMethod(this, 'close', []);
 
   ///  Returns a new instance of [WritableStreamDefaultWriter] and
   /// locks the stream to that instance. While the stream is locked, no
@@ -413,7 +473,8 @@ extension PropsWritableStream on WritableStream {
   ///
   /// var writer = writableStream.getWriter();
   ///
-  external WritableStreamDefaultWriter getWriter();
+  WritableStreamDefaultWriter getWriter() =>
+      js_util.callMethod(this, 'getWriter', []);
 }
 
 @anonymous
@@ -429,16 +490,30 @@ class UnderlyingSink {
 }
 
 extension PropsUnderlyingSink on UnderlyingSink {
-  external UnderlyingSinkStartCallback get start;
-  external set start(UnderlyingSinkStartCallback newValue);
-  external UnderlyingSinkWriteCallback get write;
-  external set write(UnderlyingSinkWriteCallback newValue);
-  external UnderlyingSinkCloseCallback get close;
-  external set close(UnderlyingSinkCloseCallback newValue);
-  external UnderlyingSinkAbortCallback get abort;
-  external set abort(UnderlyingSinkAbortCallback newValue);
-  external dynamic get type;
-  external set type(dynamic newValue);
+  UnderlyingSinkStartCallback get start => js_util.getProperty(this, 'start');
+  set start(UnderlyingSinkStartCallback newValue) {
+    js_util.setProperty(this, 'start', newValue);
+  }
+
+  UnderlyingSinkWriteCallback get write => js_util.getProperty(this, 'write');
+  set write(UnderlyingSinkWriteCallback newValue) {
+    js_util.setProperty(this, 'write', newValue);
+  }
+
+  UnderlyingSinkCloseCallback get close => js_util.getProperty(this, 'close');
+  set close(UnderlyingSinkCloseCallback newValue) {
+    js_util.setProperty(this, 'close', newValue);
+  }
+
+  UnderlyingSinkAbortCallback get abort => js_util.getProperty(this, 'abort');
+  set abort(UnderlyingSinkAbortCallback newValue) {
+    js_util.setProperty(this, 'abort', newValue);
+  }
+
+  dynamic get type => js_util.getProperty(this, 'type');
+  set type(dynamic newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -452,7 +527,7 @@ extension PropsUnderlyingSink on UnderlyingSink {
 @JS()
 @staticInterop
 class WritableStreamDefaultWriter {
-  external factory WritableStreamDefaultWriter(WritableStream stream);
+  external WritableStreamDefaultWriter(WritableStream stream);
 }
 
 extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
@@ -461,18 +536,19 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   /// becomes closed or the writer's lock is released, or rejects if
   /// the stream errors.
   ///
-  external Promise<Object> get closed;
+  Promise<Object> get closed => js_util.getProperty(this, 'closed');
 
   ///  Returns the desired size required to fill the stream's internal
   /// queue.
   ///
-  external /* double | NaN */ dynamic? get desiredSize;
+  /* double | NaN */ dynamic? get desiredSize =>
+      js_util.getProperty(this, 'desiredSize');
 
   ///  Returns a [Promise] that resolves when the desired size of the
   /// stream's internal queue transitions from non-positive to
   /// positive, signaling that it is no longer applying backpressure.
   ///
-  external Promise<Object> get ready;
+  Promise<Object> get ready => js_util.getProperty(this, 'ready');
 
   ///  Aborts the stream, signaling that the producer can no longer
   /// successfully write to the stream and it is to be immediately
@@ -480,13 +556,14 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   ///
   /// var promise = writableStreamDefaultWriter.abort(reason);
   ///
-  external Promise<Object> abort([dynamic reason]);
+  Promise<Object> abort([dynamic reason]) =>
+      js_util.callMethod(this, 'abort', [reason]);
 
   /// Closes the associated writable stream.
   ///
   /// var promise = writableStreamDefaultWriter.close();
   ///
-  external Promise<Object> close();
+  Promise<Object> close() => js_util.callMethod(this, 'close', []);
 
   ///  Releases the writer's lock on the corresponding stream. After
   /// the lock is released, the writer is no longer active. If the
@@ -496,7 +573,7 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   ///
   /// writableStreamDefaultWritere.releaseLock()
   ///
-  external Object releaseLock();
+  Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 
   ///  Writes a passed chunk of data to a [WritableStream] and its
   /// underlying sink, then returns a [Promise] that resolves to
@@ -504,7 +581,8 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   ///
   /// var promise = writableStreamDefaultWriter.write(chunk);
   ///
-  external Promise<Object> write([dynamic chunk]);
+  Promise<Object> write([dynamic chunk]) =>
+      js_util.callMethod(this, 'write', [chunk]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -518,7 +596,7 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
 @JS()
 @staticInterop
 class WritableStreamDefaultController {
-  external factory WritableStreamDefaultController();
+  external WritableStreamDefaultController();
 }
 
 extension PropsWritableStreamDefaultController
@@ -528,7 +606,7 @@ extension PropsWritableStreamDefaultController
   ///
   /// writableStreamDefaultController.error(e);
   ///
-  external Object error([dynamic e]);
+  Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
 ///  The interface of the Streams API represents a set of
@@ -536,7 +614,7 @@ extension PropsWritableStreamDefaultController
 @JS()
 @staticInterop
 class TransformStream {
-  external factory TransformStream(
+  external TransformStream(
       [dynamic transformer,
       QueuingStrategy? writableStrategy,
       QueuingStrategy? readableStrategy]);
@@ -545,11 +623,11 @@ class TransformStream {
 extension PropsTransformStream on TransformStream {
   /// The end of a TransformStream.
   ///
-  external ReadableStream get readable;
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
 
   /// The end of a TransformStream.
   ///
-  external WritableStream get writable;
+  WritableStream get writable => js_util.getProperty(this, 'writable');
 }
 
 @anonymous
@@ -565,16 +643,31 @@ class Transformer {
 }
 
 extension PropsTransformer on Transformer {
-  external TransformerStartCallback get start;
-  external set start(TransformerStartCallback newValue);
-  external TransformerTransformCallback get transform;
-  external set transform(TransformerTransformCallback newValue);
-  external TransformerFlushCallback get flush;
-  external set flush(TransformerFlushCallback newValue);
-  external dynamic get readableType;
-  external set readableType(dynamic newValue);
-  external dynamic get writableType;
-  external set writableType(dynamic newValue);
+  TransformerStartCallback get start => js_util.getProperty(this, 'start');
+  set start(TransformerStartCallback newValue) {
+    js_util.setProperty(this, 'start', newValue);
+  }
+
+  TransformerTransformCallback get transform =>
+      js_util.getProperty(this, 'transform');
+  set transform(TransformerTransformCallback newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
+
+  TransformerFlushCallback get flush => js_util.getProperty(this, 'flush');
+  set flush(TransformerFlushCallback newValue) {
+    js_util.setProperty(this, 'flush', newValue);
+  }
+
+  dynamic get readableType => js_util.getProperty(this, 'readableType');
+  set readableType(dynamic newValue) {
+    js_util.setProperty(this, 'readableType', newValue);
+  }
+
+  dynamic get writableType => js_util.getProperty(this, 'writableType');
+  set writableType(dynamic newValue) {
+    js_util.setProperty(this, 'writableType', newValue);
+  }
 }
 
 ///  The interface of the Streams API provides methods to manipulate
@@ -585,7 +678,7 @@ extension PropsTransformer on Transformer {
 @JS()
 @staticInterop
 class TransformStreamDefaultController {
-  external factory TransformStreamDefaultController();
+  external TransformStreamDefaultController();
 }
 
 extension PropsTransformStreamDefaultController
@@ -593,28 +686,30 @@ extension PropsTransformStreamDefaultController
   ///  Returns the desired size to fill the readable side of the
   /// stream's internal queue.
   ///
-  external /* double | NaN */ dynamic? get desiredSize;
+  /* double | NaN */ dynamic? get desiredSize =>
+      js_util.getProperty(this, 'desiredSize');
 
   ///  Enqueues a chunk (single piece of data) in the readable side of
   /// the stream.
   ///
   /// TransformStreamDefaultController.enqueue(chunk);
   ///
-  external Object enqueue([dynamic chunk]);
+  Object enqueue([dynamic chunk]) =>
+      js_util.callMethod(this, 'enqueue', [chunk]);
 
   ///  Errors both the readable and writable side of the transform
   /// stream.
   ///
   /// TransformStreamDefaultController.error(reason);
   ///
-  external Object error([dynamic reason]);
+  Object error([dynamic reason]) => js_util.callMethod(this, 'error', [reason]);
 
   ///  Closes the readable side and errors the writable side of the
   /// stream.
   ///
   /// TransformStreamDefaultController.terminate();
   ///
-  external Object terminate();
+  Object terminate() => js_util.callMethod(this, 'terminate', []);
 }
 
 @anonymous
@@ -626,10 +721,16 @@ class QueuingStrategy {
 }
 
 extension PropsQueuingStrategy on QueuingStrategy {
-  external /* double | NaN */ dynamic get highWaterMark;
-  external set highWaterMark(/* double | NaN */ dynamic newValue);
-  external QueuingStrategySize get size;
-  external set size(QueuingStrategySize newValue);
+  /* double | NaN */ dynamic get highWaterMark =>
+      js_util.getProperty(this, 'highWaterMark');
+  set highWaterMark(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'highWaterMark', newValue);
+  }
+
+  QueuingStrategySize get size => js_util.getProperty(this, 'size');
+  set size(QueuingStrategySize newValue) {
+    js_util.setProperty(this, 'size', newValue);
+  }
 }
 
 @anonymous
@@ -641,8 +742,11 @@ class QueuingStrategyInit {
 }
 
 extension PropsQueuingStrategyInit on QueuingStrategyInit {
-  external /* double | NaN */ dynamic get highWaterMark;
-  external set highWaterMark(/* double | NaN */ dynamic newValue);
+  /* double | NaN */ dynamic get highWaterMark =>
+      js_util.getProperty(this, 'highWaterMark');
+  set highWaterMark(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'highWaterMark', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -654,12 +758,13 @@ extension PropsQueuingStrategyInit on QueuingStrategyInit {
 @JS()
 @staticInterop
 class ByteLengthQueuingStrategy {
-  external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
+  external ByteLengthQueuingStrategy(QueuingStrategyInit init);
 }
 
 extension PropsByteLengthQueuingStrategy on ByteLengthQueuingStrategy {
-  external /* double | NaN */ dynamic get highWaterMark;
-  external Function get size;
+  /* double | NaN */ dynamic get highWaterMark =>
+      js_util.getProperty(this, 'highWaterMark');
+  Function get size => js_util.getProperty(this, 'size');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -672,21 +777,22 @@ extension PropsByteLengthQueuingStrategy on ByteLengthQueuingStrategy {
 @JS()
 @staticInterop
 class CountQueuingStrategy {
-  external factory CountQueuingStrategy(QueuingStrategyInit init);
+  external CountQueuingStrategy(QueuingStrategyInit init);
 }
 
 extension PropsCountQueuingStrategy on CountQueuingStrategy {
-  external /* double | NaN */ dynamic get highWaterMark;
-  external Function get size;
+  /* double | NaN */ dynamic get highWaterMark =>
+      js_util.getProperty(this, 'highWaterMark');
+  Function get size => js_util.getProperty(this, 'size');
 }
 
 @JS()
 @staticInterop
 class GenericTransformStream {
-  external factory GenericTransformStream();
+  external GenericTransformStream();
 }
 
 extension PropsGenericTransformStream on GenericTransformStream {
-  external ReadableStream get readable;
-  external WritableStream get writable;
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
+  WritableStream get writable => js_util.getProperty(this, 'writable');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library filter_effects_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -48,7 +49,7 @@ filter_effects_1 */
 @JS()
 @staticInterop
 class SVGFilterElement implements SVGElement, SVGURIReference {
-  external factory SVGFilterElement();
+  external SVGFilterElement();
 }
 
 extension PropsSVGFilterElement on SVGFilterElement {
@@ -56,48 +57,50 @@ extension PropsSVGFilterElement on SVGFilterElement {
   /// [filterUnits] attribute of the given [<filter>] element. Takes
   /// one of the constants defined in [SVGUnitTypes].
   ///
-  external SVGAnimatedEnumeration get filterUnits;
+  SVGAnimatedEnumeration get filterUnits =>
+      js_util.getProperty(this, 'filterUnits');
 
   ///  An [SVGAnimatedEnumeration] that corresponds to the
   /// [primitiveUnits] attribute of the given [<filter>] element. Takes
   /// one of the constants defined in [SVGUnitTypes].
   ///
-  external SVGAnimatedEnumeration get primitiveUnits;
+  SVGAnimatedEnumeration get primitiveUnits =>
+      js_util.getProperty(this, 'primitiveUnits');
 
   ///  An [SVGAnimatedLength] that corresponds to the [x] attribute on
   /// the given [<filter>] element.
   ///
-  external SVGAnimatedLength get x;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedLength] that corresponds to the [y] attribute of
   /// the given [<filter>] element.
   ///
-  external SVGAnimatedLength get y;
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedLength] that corresponds to the [width] attribute
   /// of the given [<filter>] element.
   ///
-  external SVGAnimatedLength get width;
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
 
   ///  An [SVGAnimatedLength] that corresponds to the [height]
   /// attribute of the given [<filter>] element.
   ///
-  external SVGAnimatedLength get height;
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
 }
 
 @JS()
 @staticInterop
 class SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFilterPrimitiveStandardAttributes();
+  external SVGFilterPrimitiveStandardAttributes();
 }
 
 extension PropsSVGFilterPrimitiveStandardAttributes
     on SVGFilterPrimitiveStandardAttributes {
-  external SVGAnimatedLength get x;
-  external SVGAnimatedLength get y;
-  external SVGAnimatedLength get width;
-  external SVGAnimatedLength get height;
-  external SVGAnimatedString get result;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
+  SVGAnimatedString get result => js_util.getProperty(this, 'result');
 }
 
 /// The interface corresponds to the [<feBlend>] element.
@@ -152,25 +155,25 @@ class SVGFEBlendElement
   external static int get SVG_FEBLEND_MODE_SATURATION;
   external static int get SVG_FEBLEND_MODE_COLOR;
   external static int get SVG_FEBLEND_MODE_LUMINOSITY;
-  external factory SVGFEBlendElement();
+  external SVGFEBlendElement();
 }
 
 extension PropsSVGFEBlendElement on SVGFEBlendElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedString] corresponding to the [in2] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in2;
+  SVGAnimatedString get in2 => js_util.getProperty(this, 'in2');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [mode]
   /// attribute of the given element. It takes one of the
   /// [SVG_FEBLEND_MODE_*] constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get mode;
+  SVGAnimatedEnumeration get mode => js_util.getProperty(this, 'mode');
 }
 
 /// The interface corresponds to the [<feColorMatrix>] element.
@@ -213,25 +216,25 @@ class SVGFEColorMatrixElement
   external static int get SVG_FECOLORMATRIX_TYPE_SATURATE;
   external static int get SVG_FECOLORMATRIX_TYPE_HUEROTATE;
   external static int get SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA;
-  external factory SVGFEColorMatrixElement();
+  external SVGFEColorMatrixElement();
 }
 
 extension PropsSVGFEColorMatrixElement on SVGFEColorMatrixElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [type]
   /// attribute of the given element. It takes one of the
   /// [SVG_FECOLORMATRIX_TYPE_*] constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get type;
+  SVGAnimatedEnumeration get type => js_util.getProperty(this, 'type');
 
   ///  An [SVGAnimatedNumberList] corresponding to the [values]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumberList get values;
+  SVGAnimatedNumberList get values => js_util.getProperty(this, 'values');
 }
 
 ///  The interface corresponds to the [<feComponentTransfer>]
@@ -270,14 +273,14 @@ extension PropsSVGFEColorMatrixElement on SVGFEColorMatrixElement {
 @staticInterop
 class SVGFEComponentTransferElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFEComponentTransferElement();
+  external SVGFEComponentTransferElement();
 }
 
 extension PropsSVGFEComponentTransferElement on SVGFEComponentTransferElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 }
 
 ///  The interface defines a base interface used by the component
@@ -321,7 +324,7 @@ class SVGComponentTransferFunctionElement implements SVGElement {
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE;
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_LINEAR;
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_GAMMA;
-  external factory SVGComponentTransferFunctionElement();
+  external SVGComponentTransferFunctionElement();
 }
 
 extension PropsSVGComponentTransferFunctionElement
@@ -331,37 +334,38 @@ extension PropsSVGComponentTransferFunctionElement
   /// [SVG_FECOMPONENTTRANSFER_TYPE_*] constants defined on this
   /// interface.
   ///
-  external SVGAnimatedEnumeration get type;
+  SVGAnimatedEnumeration get type => js_util.getProperty(this, 'type');
 
   ///  An [SVGAnimatedNumberList] corresponding to the [tableValues]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumberList get tableValues;
+  SVGAnimatedNumberList get tableValues =>
+      js_util.getProperty(this, 'tableValues');
 
   ///  An [SVGAnimatedNumber] corresponding to the [slope] attribute of
   /// the given element.
   ///
-  external SVGAnimatedNumber get slope;
+  SVGAnimatedNumber get slope => js_util.getProperty(this, 'slope');
 
   ///  An [SVGAnimatedNumber] corresponding to the [intercept]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get intercept;
+  SVGAnimatedNumber get intercept => js_util.getProperty(this, 'intercept');
 
   ///  An [SVGAnimatedNumber] corresponding to the [amplitude]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get amplitude;
+  SVGAnimatedNumber get amplitude => js_util.getProperty(this, 'amplitude');
 
   ///  An [SVGAnimatedNumber] corresponding to the [exponent] attribute
   /// of the given element.
   ///
-  external SVGAnimatedNumber get exponent;
+  SVGAnimatedNumber get exponent => js_util.getProperty(this, 'exponent');
 
   ///  An [SVGAnimatedNumber] corresponding to the [offset] attribute
   /// of the given element.
   ///
-  external SVGAnimatedNumber get offset;
+  SVGAnimatedNumber get offset => js_util.getProperty(this, 'offset');
 }
 
 /// The interface corresponds to the [<feFuncR>] element.
@@ -404,7 +408,7 @@ extension PropsSVGComponentTransferFunctionElement
 @JS()
 @staticInterop
 class SVGFEFuncRElement implements SVGComponentTransferFunctionElement {
-  external factory SVGFEFuncRElement();
+  external SVGFEFuncRElement();
 }
 
 /// The interface corresponds to the [<feFuncG>] element.
@@ -447,7 +451,7 @@ class SVGFEFuncRElement implements SVGComponentTransferFunctionElement {
 @JS()
 @staticInterop
 class SVGFEFuncGElement implements SVGComponentTransferFunctionElement {
-  external factory SVGFEFuncGElement();
+  external SVGFEFuncGElement();
 }
 
 /// The interface corresponds to the [<feFuncB>] element.
@@ -490,7 +494,7 @@ class SVGFEFuncGElement implements SVGComponentTransferFunctionElement {
 @JS()
 @staticInterop
 class SVGFEFuncBElement implements SVGComponentTransferFunctionElement {
-  external factory SVGFEFuncBElement();
+  external SVGFEFuncBElement();
 }
 
 /// The interface corresponds to the [<feFuncA>] element.
@@ -533,7 +537,7 @@ class SVGFEFuncBElement implements SVGComponentTransferFunctionElement {
 @JS()
 @staticInterop
 class SVGFEFuncAElement implements SVGComponentTransferFunctionElement {
-  external factory SVGFEFuncAElement();
+  external SVGFEFuncAElement();
 }
 
 /// The interface corresponds to the [<feComposite>] element.
@@ -578,22 +582,22 @@ class SVGFECompositeElement
   external static int get SVG_FECOMPOSITE_OPERATOR_ATOP;
   external static int get SVG_FECOMPOSITE_OPERATOR_XOR;
   external static int get SVG_FECOMPOSITE_OPERATOR_ARITHMETIC;
-  external factory SVGFECompositeElement();
+  external SVGFECompositeElement();
 }
 
 extension PropsSVGFECompositeElement on SVGFECompositeElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
-  external SVGAnimatedString get in2;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
+  SVGAnimatedString get in2 => js_util.getProperty(this, 'in2');
   @JS('operator')
   @staticInterop
-  external SVGAnimatedEnumeration get mOperator;
-  external SVGAnimatedNumber get k1;
-  external SVGAnimatedNumber get k2;
-  external SVGAnimatedNumber get k3;
-  external SVGAnimatedNumber get k4;
+  SVGAnimatedEnumeration get mOperator => js_util.getProperty(this, 'operator');
+  SVGAnimatedNumber get k1 => js_util.getProperty(this, 'k1');
+  SVGAnimatedNumber get k2 => js_util.getProperty(this, 'k2');
+  SVGAnimatedNumber get k3 => js_util.getProperty(this, 'k3');
+  SVGAnimatedNumber get k4 => js_util.getProperty(this, 'k4');
 }
 
 /// The interface corresponds to the [<feConvolveMatrix>] element.
@@ -635,70 +639,74 @@ class SVGFEConvolveMatrixElement
   external static int get SVG_EDGEMODE_DUPLICATE;
   external static int get SVG_EDGEMODE_WRAP;
   external static int get SVG_EDGEMODE_NONE;
-  external factory SVGFEConvolveMatrixElement();
+  external SVGFEConvolveMatrixElement();
 }
 
 extension PropsSVGFEConvolveMatrixElement on SVGFEConvolveMatrixElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedInteger] corresponding to the [order] attribute
   /// of the given element.
   ///
-  external SVGAnimatedInteger get orderX;
+  SVGAnimatedInteger get orderX => js_util.getProperty(this, 'orderX');
 
   ///  An [SVGAnimatedInteger] corresponding to the [order] attribute
   /// of the given element.
   ///
-  external SVGAnimatedInteger get orderY;
+  SVGAnimatedInteger get orderY => js_util.getProperty(this, 'orderY');
 
   ///  An [SVGAnimatedNumberList] corresponding to the [kernelMatrix]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumberList get kernelMatrix;
+  SVGAnimatedNumberList get kernelMatrix =>
+      js_util.getProperty(this, 'kernelMatrix');
 
   ///  An [SVGAnimatedNumber] corresponding to the [divisor] attribute
   /// of the given element.
   ///
-  external SVGAnimatedNumber get divisor;
+  SVGAnimatedNumber get divisor => js_util.getProperty(this, 'divisor');
 
   ///  An [SVGAnimatedNumber] corresponding to the [bias] attribute of
   /// the given element.
   ///
-  external SVGAnimatedNumber get bias;
+  SVGAnimatedNumber get bias => js_util.getProperty(this, 'bias');
 
   ///  An [SVGAnimatedInteger] corresponding to the [targetX] attribute
   /// of the given element.
   ///
-  external SVGAnimatedInteger get targetX;
+  SVGAnimatedInteger get targetX => js_util.getProperty(this, 'targetX');
 
   ///  An [SVGAnimatedInteger] corresponding to the [targetY] attribute
   /// of the given element.
   ///
-  external SVGAnimatedInteger get targetY;
+  SVGAnimatedInteger get targetY => js_util.getProperty(this, 'targetY');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [edgeMode]
   /// attribute of the given element. Takes one of the [SVG_EDGEMODE_*]
   /// constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get edgeMode;
+  SVGAnimatedEnumeration get edgeMode => js_util.getProperty(this, 'edgeMode');
 
   ///  An [SVGAnimatedNumber] corresponding to the [kernelUnitLength]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get kernelUnitLengthX;
+  SVGAnimatedNumber get kernelUnitLengthX =>
+      js_util.getProperty(this, 'kernelUnitLengthX');
 
   ///  An [SVGAnimatedNumber] corresponding to the [kernelUnitLength]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get kernelUnitLengthY;
+  SVGAnimatedNumber get kernelUnitLengthY =>
+      js_util.getProperty(this, 'kernelUnitLengthY');
 
   ///  An [SVGAnimatedBoolean] corresponding to the [preserveAlpha]
   /// attribute of the given element.
   ///
-  external SVGAnimatedBoolean get preserveAlpha;
+  SVGAnimatedBoolean get preserveAlpha =>
+      js_util.getProperty(this, 'preserveAlpha');
 }
 
 /// The interface corresponds to the [<feDiffuseLighting>] element.
@@ -736,34 +744,38 @@ extension PropsSVGFEConvolveMatrixElement on SVGFEConvolveMatrixElement {
 @staticInterop
 class SVGFEDiffuseLightingElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFEDiffuseLightingElement();
+  external SVGFEDiffuseLightingElement();
 }
 
 extension PropsSVGFEDiffuseLightingElement on SVGFEDiffuseLightingElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedNumber] corresponding to the [surfaceScale]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get surfaceScale;
+  SVGAnimatedNumber get surfaceScale =>
+      js_util.getProperty(this, 'surfaceScale');
 
   ///  An [SVGAnimatedNumber] corresponding to the [diffuseConstant]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get diffuseConstant;
+  SVGAnimatedNumber get diffuseConstant =>
+      js_util.getProperty(this, 'diffuseConstant');
 
   ///  An [SVGAnimatedNumber] corresponding to the X component of the
   /// [kernelUnitLength] attribute of the given element.
   ///
-  external SVGAnimatedNumber get kernelUnitLengthX;
+  SVGAnimatedNumber get kernelUnitLengthX =>
+      js_util.getProperty(this, 'kernelUnitLengthX');
 
   ///  An [SVGAnimatedNumber] corresponding to the Y component of the
   /// [kernelUnitLength] attribute of the given element.
   ///
-  external SVGAnimatedNumber get kernelUnitLengthY;
+  SVGAnimatedNumber get kernelUnitLengthY =>
+      js_util.getProperty(this, 'kernelUnitLengthY');
 }
 
 /// The interface corresponds to the [<feDistantLight>] element.
@@ -800,19 +812,19 @@ extension PropsSVGFEDiffuseLightingElement on SVGFEDiffuseLightingElement {
 @JS()
 @staticInterop
 class SVGFEDistantLightElement implements SVGElement {
-  external factory SVGFEDistantLightElement();
+  external SVGFEDistantLightElement();
 }
 
 extension PropsSVGFEDistantLightElement on SVGFEDistantLightElement {
   ///  An [SVGAnimatedNumber] corresponding to the [azimuth] attribute
   /// of the given element.
   ///
-  external SVGAnimatedNumber get azimuth;
+  SVGAnimatedNumber get azimuth => js_util.getProperty(this, 'azimuth');
 
   ///  An [SVGAnimatedNumber] corresponding to the [elevation]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get elevation;
+  SVGAnimatedNumber get elevation => js_util.getProperty(this, 'elevation');
 }
 
 /// The interface corresponds to the [<fePointLight>] element.
@@ -849,24 +861,24 @@ extension PropsSVGFEDistantLightElement on SVGFEDistantLightElement {
 @JS()
 @staticInterop
 class SVGFEPointLightElement implements SVGElement {
-  external factory SVGFEPointLightElement();
+  external SVGFEPointLightElement();
 }
 
 extension PropsSVGFEPointLightElement on SVGFEPointLightElement {
   ///  An [SVGAnimatedNumber] corresponding to the [x] attribute of the
   /// given element.
   ///
-  external SVGAnimatedNumber get x;
+  SVGAnimatedNumber get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedNumber] corresponding to the [y] attribute of the
   /// given element.
   ///
-  external SVGAnimatedNumber get y;
+  SVGAnimatedNumber get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedNumber] corresponding to the [z] attribute of the
   /// given element.
   ///
-  external SVGAnimatedNumber get z;
+  SVGAnimatedNumber get z => js_util.getProperty(this, 'z');
 }
 
 /// The interface corresponds to the [<feSpotLight>] element.
@@ -903,37 +915,39 @@ extension PropsSVGFEPointLightElement on SVGFEPointLightElement {
 @JS()
 @staticInterop
 class SVGFESpotLightElement implements SVGElement {
-  external factory SVGFESpotLightElement();
+  external SVGFESpotLightElement();
 }
 
 extension PropsSVGFESpotLightElement on SVGFESpotLightElement {
   ///  An [SVGAnimatedNumber] corresponding to the [x] attribute of the
   /// given element.
   ///
-  external SVGAnimatedNumber get x;
+  SVGAnimatedNumber get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedNumber] corresponding to the [y] attribute of the
   /// given element.
   ///
-  external SVGAnimatedNumber get y;
+  SVGAnimatedNumber get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedNumber] corresponding to the [z] attribute of the
   /// given element.
   ///
-  external SVGAnimatedNumber get z;
-  external SVGAnimatedNumber get pointsAtX;
-  external SVGAnimatedNumber get pointsAtY;
-  external SVGAnimatedNumber get pointsAtZ;
+  SVGAnimatedNumber get z => js_util.getProperty(this, 'z');
+  SVGAnimatedNumber get pointsAtX => js_util.getProperty(this, 'pointsAtX');
+  SVGAnimatedNumber get pointsAtY => js_util.getProperty(this, 'pointsAtY');
+  SVGAnimatedNumber get pointsAtZ => js_util.getProperty(this, 'pointsAtZ');
 
   ///  An [SVGAnimatedNumber] corresponding to the [specularExponent]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get specularExponent;
+  SVGAnimatedNumber get specularExponent =>
+      js_util.getProperty(this, 'specularExponent');
 
   ///  An [SVGAnimatedNumber] corresponding to the [limitingConeAngle]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get limitingConeAngle;
+  SVGAnimatedNumber get limitingConeAngle =>
+      js_util.getProperty(this, 'limitingConeAngle');
 }
 
 /// The interface corresponds to the [<feDisplacementMap>] element.
@@ -976,36 +990,38 @@ class SVGFEDisplacementMapElement
   external static int get SVG_CHANNEL_G;
   external static int get SVG_CHANNEL_B;
   external static int get SVG_CHANNEL_A;
-  external factory SVGFEDisplacementMapElement();
+  external SVGFEDisplacementMapElement();
 }
 
 extension PropsSVGFEDisplacementMapElement on SVGFEDisplacementMapElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedString] corresponding to the [in2] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in2;
+  SVGAnimatedString get in2 => js_util.getProperty(this, 'in2');
 
   ///  An [SVGAnimatedNumber] corresponding to the [scale] attribute of
   /// the given element.
   ///
-  external SVGAnimatedNumber get scale;
+  SVGAnimatedNumber get scale => js_util.getProperty(this, 'scale');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the
   /// [xChannelSelect] attribute of the given element. It takes one of
   /// the [SVG_CHANNEL_*] constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get xChannelSelector;
+  SVGAnimatedEnumeration get xChannelSelector =>
+      js_util.getProperty(this, 'xChannelSelector');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the
   /// [yChannelSelect] attribute of the given element. It takes one of
   /// the [SVG_CHANNEL_*] constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get yChannelSelector;
+  SVGAnimatedEnumeration get yChannelSelector =>
+      js_util.getProperty(this, 'yChannelSelector');
 }
 
 /// The interface corresponds to the [<feDropShadow>] element.
@@ -1043,40 +1059,43 @@ extension PropsSVGFEDisplacementMapElement on SVGFEDisplacementMapElement {
 @staticInterop
 class SVGFEDropShadowElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFEDropShadowElement();
+  external SVGFEDropShadowElement();
 }
 
 extension PropsSVGFEDropShadowElement on SVGFEDropShadowElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedNumber] corresponding to the [dx] attribute of
   /// the given element.
   ///
-  external SVGAnimatedNumber get dx;
+  SVGAnimatedNumber get dx => js_util.getProperty(this, 'dx');
 
   ///  An [SVGAnimatedNumber] corresponding to the [dy] attribute of
   /// the given element.
   ///
-  external SVGAnimatedNumber get dy;
+  SVGAnimatedNumber get dy => js_util.getProperty(this, 'dy');
 
   ///  An [SVGAnimatedNumber] corresponding to the (possibly
   /// automatically computed) X component of the [stdDeviationX]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get stdDeviationX;
+  SVGAnimatedNumber get stdDeviationX =>
+      js_util.getProperty(this, 'stdDeviationX');
 
   ///  An [SVGAnimatedNumber] corresponding to the (possibly
   /// automatically computed) Y component of the [stdDeviationY]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get stdDeviationY;
+  SVGAnimatedNumber get stdDeviationY =>
+      js_util.getProperty(this, 'stdDeviationY');
 
   /// Sets the values for the [stdDeviation] attribute.
   ///
-  external Object setStdDeviation(double stdDeviationX, double stdDeviationY);
+  Object setStdDeviation(double stdDeviationX, double stdDeviationY) => js_util
+      .callMethod(this, 'setStdDeviation', [stdDeviationX, stdDeviationY]);
 }
 
 /// The interface corresponds to the [<feFlood>] element.
@@ -1114,7 +1133,7 @@ extension PropsSVGFEDropShadowElement on SVGFEDropShadowElement {
 @staticInterop
 class SVGFEFloodElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFEFloodElement();
+  external SVGFEFloodElement();
 }
 
 /// The interface corresponds to the [<feGaussianBlur>] element.
@@ -1156,36 +1175,39 @@ class SVGFEGaussianBlurElement
   external static int get SVG_EDGEMODE_DUPLICATE;
   external static int get SVG_EDGEMODE_WRAP;
   external static int get SVG_EDGEMODE_NONE;
-  external factory SVGFEGaussianBlurElement();
+  external SVGFEGaussianBlurElement();
 }
 
 extension PropsSVGFEGaussianBlurElement on SVGFEGaussianBlurElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedNumber] corresponding to the (possibly
   /// automatically computed) X component of the [stdDeviation]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get stdDeviationX;
+  SVGAnimatedNumber get stdDeviationX =>
+      js_util.getProperty(this, 'stdDeviationX');
 
   ///  An [SVGAnimatedNumber] corresponding to the (possibly
   /// automatically computed) Y component of the [stdDeviation]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get stdDeviationY;
+  SVGAnimatedNumber get stdDeviationY =>
+      js_util.getProperty(this, 'stdDeviationY');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [edgeMode]
   /// attribute of the given element. Takes one of the [SVG_EDGEMODE_*]
   /// constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get edgeMode;
+  SVGAnimatedEnumeration get edgeMode => js_util.getProperty(this, 'edgeMode');
 
   /// Sets the values for the [stdDeviation] attribute.
   ///
-  external Object setStdDeviation(double stdDeviationX, double stdDeviationY);
+  Object setStdDeviation(double stdDeviationX, double stdDeviationY) => js_util
+      .callMethod(this, 'setStdDeviation', [stdDeviationX, stdDeviationY]);
 }
 
 /// The interface corresponds to the [<feImage>] element.
@@ -1226,19 +1248,20 @@ class SVGFEImageElement
         SVGElement,
         SVGFilterPrimitiveStandardAttributes,
         SVGURIReference {
-  external factory SVGFEImageElement();
+  external SVGFEImageElement();
 }
 
 extension PropsSVGFEImageElement on SVGFEImageElement {
   ///  An [SVGAnimatedPreserveAspectRatio] corresponding to the
   /// [preserveAspectRatio] attribute of the given element.
   ///
-  external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
+  SVGAnimatedPreserveAspectRatio get preserveAspectRatio =>
+      js_util.getProperty(this, 'preserveAspectRatio');
 
   ///  An [SVGAnimatedString] reflects the [crossorigin] attribute of
   /// the given element, limited to only known values.
   ///
-  external SVGAnimatedString get crossOrigin;
+  SVGAnimatedString get crossOrigin => js_util.getProperty(this, 'crossOrigin');
 }
 
 /// The interface corresponds to the [<feMerge>] element.
@@ -1276,7 +1299,7 @@ extension PropsSVGFEImageElement on SVGFEImageElement {
 @staticInterop
 class SVGFEMergeElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFEMergeElement();
+  external SVGFEMergeElement();
 }
 
 /// The interface corresponds to the [<feMergeNode>] element.
@@ -1313,14 +1336,14 @@ class SVGFEMergeElement
 @JS()
 @staticInterop
 class SVGFEMergeNodeElement implements SVGElement {
-  external factory SVGFEMergeNodeElement();
+  external SVGFEMergeNodeElement();
 }
 
 extension PropsSVGFEMergeNodeElement on SVGFEMergeNodeElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 }
 
 /// The interface corresponds to the [<feMorphology>] element.
@@ -1361,14 +1384,14 @@ class SVGFEMorphologyElement
   external static int get SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
   external static int get SVG_MORPHOLOGY_OPERATOR_ERODE;
   external static int get SVG_MORPHOLOGY_OPERATOR_DILATE;
-  external factory SVGFEMorphologyElement();
+  external SVGFEMorphologyElement();
 }
 
 extension PropsSVGFEMorphologyElement on SVGFEMorphologyElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [operator]
   /// attribute of the given element. It takes one of the
@@ -1376,17 +1399,17 @@ extension PropsSVGFEMorphologyElement on SVGFEMorphologyElement {
   ///
   @JS('operator')
   @staticInterop
-  external SVGAnimatedEnumeration get mOperator;
+  SVGAnimatedEnumeration get mOperator => js_util.getProperty(this, 'operator');
 
   ///  An [SVGAnimatedNumber] corresponding to the X component of the
   /// [radius] attribute of the given element.
   ///
-  external SVGAnimatedNumber get radiusX;
+  SVGAnimatedNumber get radiusX => js_util.getProperty(this, 'radiusX');
 
   ///  An [SVGAnimatedNumber] corresponding to the Y component of the
   /// [radius] attribute of the given element.
   ///
-  external SVGAnimatedNumber get radiusY;
+  SVGAnimatedNumber get radiusY => js_util.getProperty(this, 'radiusY');
 }
 
 /// The interface corresponds to the [<feOffset>] element.
@@ -1424,24 +1447,24 @@ extension PropsSVGFEMorphologyElement on SVGFEMorphologyElement {
 @staticInterop
 class SVGFEOffsetElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFEOffsetElement();
+  external SVGFEOffsetElement();
 }
 
 extension PropsSVGFEOffsetElement on SVGFEOffsetElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedNumber] corresponding to the [dx] attribute of
   /// the given element.
   ///
-  external SVGAnimatedNumber get dx;
+  SVGAnimatedNumber get dx => js_util.getProperty(this, 'dx');
 
   ///  An [SVGAnimatedNumber] corresponding to the [dy] attribute of
   /// the given element.
   ///
-  external SVGAnimatedNumber get dy;
+  SVGAnimatedNumber get dy => js_util.getProperty(this, 'dy');
 }
 
 /// The interface corresponds to the [<feSpecularLighting>] element.
@@ -1479,39 +1502,44 @@ extension PropsSVGFEOffsetElement on SVGFEOffsetElement {
 @staticInterop
 class SVGFESpecularLightingElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFESpecularLightingElement();
+  external SVGFESpecularLightingElement();
 }
 
 extension PropsSVGFESpecularLightingElement on SVGFESpecularLightingElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 
   ///  An [SVGAnimatedNumber] corresponding to the [surfaceScale]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get surfaceScale;
+  SVGAnimatedNumber get surfaceScale =>
+      js_util.getProperty(this, 'surfaceScale');
 
   ///  An [SVGAnimatedNumber] corresponding to the [specularConstant]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get specularConstant;
+  SVGAnimatedNumber get specularConstant =>
+      js_util.getProperty(this, 'specularConstant');
 
   ///  An [SVGAnimatedNumber] corresponding to the [specularExponent]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumber get specularExponent;
+  SVGAnimatedNumber get specularExponent =>
+      js_util.getProperty(this, 'specularExponent');
 
   ///  An [SVGAnimatedNumber] corresponding to the X component of the
   /// [kernelUnitLength] attribute of the given element.
   ///
-  external SVGAnimatedNumber get kernelUnitLengthX;
+  SVGAnimatedNumber get kernelUnitLengthX =>
+      js_util.getProperty(this, 'kernelUnitLengthX');
 
   ///  An [SVGAnimatedNumber] corresponding to the Y component of the
   /// [kernelUnitLength] attribute of the given element.
   ///
-  external SVGAnimatedNumber get kernelUnitLengthY;
+  SVGAnimatedNumber get kernelUnitLengthY =>
+      js_util.getProperty(this, 'kernelUnitLengthY');
 }
 
 /// The interface corresponds to the [<feTile>] element.
@@ -1549,14 +1577,14 @@ extension PropsSVGFESpecularLightingElement on SVGFESpecularLightingElement {
 @staticInterop
 class SVGFETileElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external factory SVGFETileElement();
+  external SVGFETileElement();
 }
 
 extension PropsSVGFETileElement on SVGFETileElement {
   ///  An [SVGAnimatedString] corresponding to the [in] attribute of
   /// the given element.
   ///
-  external SVGAnimatedString get in1;
+  SVGAnimatedString get in1 => js_util.getProperty(this, 'in1');
 }
 
 /// The interface corresponds to the [<feTurbulence>] element.
@@ -1600,39 +1628,42 @@ class SVGFETurbulenceElement
   external static int get SVG_STITCHTYPE_UNKNOWN;
   external static int get SVG_STITCHTYPE_STITCH;
   external static int get SVG_STITCHTYPE_NOSTITCH;
-  external factory SVGFETurbulenceElement();
+  external SVGFETurbulenceElement();
 }
 
 extension PropsSVGFETurbulenceElement on SVGFETurbulenceElement {
   ///  An [SVGAnimatedNumber] corresponding to the X component of the
   /// [baseFrequency] attribute of the given element.
   ///
-  external SVGAnimatedNumber get baseFrequencyX;
+  SVGAnimatedNumber get baseFrequencyX =>
+      js_util.getProperty(this, 'baseFrequencyX');
 
   ///  An [SVGAnimatedNumber] corresponding to the Y component of the
   /// [baseFrequency] attribute of the given element.
   ///
-  external SVGAnimatedNumber get baseFrequencyY;
+  SVGAnimatedNumber get baseFrequencyY =>
+      js_util.getProperty(this, 'baseFrequencyY');
 
   ///  An [SVGAnimatedInteger] corresponding to the [numOctaves]
   /// attribute of the given element.
   ///
-  external SVGAnimatedInteger get numOctaves;
+  SVGAnimatedInteger get numOctaves => js_util.getProperty(this, 'numOctaves');
 
   ///  An [SVGAnimatedNumber] corresponding to the [seed] attribute of
   /// the given element.
   ///
-  external SVGAnimatedNumber get seed;
+  SVGAnimatedNumber get seed => js_util.getProperty(this, 'seed');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [stitchTiles]
   /// attribute of the given element. It takes one of the
   /// [SVG_STITCHTYPE_*] constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get stitchTiles;
+  SVGAnimatedEnumeration get stitchTiles =>
+      js_util.getProperty(this, 'stitchTiles');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [type]
   /// attribute of the given element. It takes one of the
   /// [SVG_TURBULENCE_TYPE_*] constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get type;
+  SVGAnimatedEnumeration get type => js_util.getProperty(this, 'type');
 }

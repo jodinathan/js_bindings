@@ -5,6 +5,7 @@
 @staticInterop
 library css_animations_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -36,7 +37,7 @@ html */
 @JS()
 @staticInterop
 class AnimationEvent implements Event {
-  external factory AnimationEvent(String type,
+  external AnimationEvent(String type,
       [AnimationEventInit? animationEventInitDict]);
 }
 
@@ -44,7 +45,7 @@ extension PropsAnimationEvent on AnimationEvent {
   ///  Is a [DOMString] containing the value of the [animation-name]
   /// that generated the animation.
   ///
-  external String get animationName;
+  String get animationName => js_util.getProperty(this, 'animationName');
 
   ///  Is a [float] giving the amount of time the animation has been
   /// running, in seconds, when this event fired, excluding any time
@@ -52,14 +53,14 @@ extension PropsAnimationEvent on AnimationEvent {
   /// unless there was a negative value for [animation-delay], in which
   /// case the event will be fired with containing [(-1 * delay)].
   ///
-  external double get elapsedTime;
+  double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
 
   ///  Is a [DOMString], starting with ['::'], containing the name of
   /// the pseudo-element the animation runs on. If the animation
   /// doesn't run on a pseudo-element but on the element, an empty
   /// string: [''].
   ///
-  external String get pseudoElement;
+  String get pseudoElement => js_util.getProperty(this, 'pseudoElement');
 }
 
 @anonymous
@@ -73,12 +74,20 @@ class AnimationEventInit implements EventInit {
 }
 
 extension PropsAnimationEventInit on AnimationEventInit {
-  external String get animationName;
-  external set animationName(String newValue);
-  external double get elapsedTime;
-  external set elapsedTime(double newValue);
-  external String get pseudoElement;
-  external set pseudoElement(String newValue);
+  String get animationName => js_util.getProperty(this, 'animationName');
+  set animationName(String newValue) {
+    js_util.setProperty(this, 'animationName', newValue);
+  }
+
+  double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
+  set elapsedTime(double newValue) {
+    js_util.setProperty(this, 'elapsedTime', newValue);
+  }
+
+  String get pseudoElement => js_util.getProperty(this, 'pseudoElement');
+  set pseudoElement(String newValue) {
+    js_util.setProperty(this, 'pseudoElement', newValue);
+  }
 }
 
 ///  The interface describes an object representing a set of styles
@@ -99,7 +108,7 @@ extension PropsAnimationEventInit on AnimationEventInit {
 @JS()
 @staticInterop
 class CSSKeyframeRule implements CSSRule {
-  external factory CSSKeyframeRule();
+  external CSSKeyframeRule();
 }
 
 extension PropsCSSKeyframeRule on CSSKeyframeRule {
@@ -107,13 +116,15 @@ extension PropsCSSKeyframeRule on CSSKeyframeRule {
   /// [from] keyword maps to ['0%'] and the [to] keyword maps to
   /// ['100%'].
   ///
-  external String get keyText;
-  external set keyText(String newValue);
+  String get keyText => js_util.getProperty(this, 'keyText');
+  set keyText(String newValue) {
+    js_util.setProperty(this, 'keyText', newValue);
+  }
 
   ///  Returns a [CSSStyleDeclaration] of the CSS style associated with
   /// the keyframe.
   ///
-  external CSSStyleDeclaration get style;
+  CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
 }
 
 ///  The interface describes an object representing a complete set of
@@ -134,19 +145,21 @@ extension PropsCSSKeyframeRule on CSSKeyframeRule {
 @JS()
 @staticInterop
 class CSSKeyframesRule implements CSSRule {
-  external factory CSSKeyframesRule();
+  external CSSKeyframesRule();
 }
 
 extension PropsCSSKeyframesRule on CSSKeyframesRule {
   ///  Represents the name of the keyframes, used by the
   /// [animation-name] property.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   /// Returns a [CSSRuleList] of the keyframes in the list.
   ///
-  external CSSRuleList get cssRules;
+  CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
 
   ///  Inserts a new keyframe rule into the current CSSKeyframesRule.
   /// The parameter is a [DOMString] containing a keyframe in the same
@@ -172,7 +185,8 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   /// keyframes.appendRule('to {transform: translateX(100%);}');
   /// console.log(keyframes.cssRules); // a CSSRuleList object with two rules
   ///
-  external Object appendRule(String rule);
+  Object appendRule(String rule) =>
+      js_util.callMethod(this, 'appendRule', [rule]);
 
   ///  Deletes a keyframe rule from the current CSSKeyframesRule. The
   /// parameter is the index of the keyframe to be deleted, expressed
@@ -200,7 +214,8 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   /// keyframes.deleteRule('to');
   /// console.log(keyframes.cssRules); // a CSSRuleList object with one rule
   ///
-  external Object deleteRule(String select);
+  Object deleteRule(String select) =>
+      js_util.callMethod(this, 'deleteRule', [select]);
 
   ///  Returns a keyframe rule corresponding to the given key. The key
   /// is a [DOMString] containing an index of the keyframe to be
@@ -227,5 +242,6 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   /// let keyframes = myRules[0]; // a CSSKeyframesRule
   /// console.log(keyframes.findRule('to')); // a CSSKeyframeRule object
   ///
-  external CSSKeyframeRule? findRule(String select);
+  CSSKeyframeRule? findRule(String select) =>
+      js_util.callMethod(this, 'findRule', [select]);
 }

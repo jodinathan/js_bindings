@@ -5,6 +5,7 @@
 @staticInterop
 library screen_orientation;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,7 +22,7 @@ html */
 @JS()
 @staticInterop
 class ScreenOrientation implements EventTarget {
-  external factory ScreenOrientation();
+  external ScreenOrientation();
 }
 
 extension PropsScreenOrientation on ScreenOrientation {
@@ -75,26 +76,29 @@ extension PropsScreenOrientation on ScreenOrientation {
   ///  To test the example, first press the Fullscreen button.
   ///  Once the example is full screen, press the Lock button to switch the orientation, and Unlock to return to the natural orientation.
   ///
-  external Promise<Object> lock(OrientationLockType orientation);
+  Promise<Object> lock(OrientationLockType orientation) =>
+      js_util.callMethod(this, 'lock', [orientation]);
 
   ///  Unlocks the orientation of the containing document from its
   /// default orientation.
   ///
   /// screen.orientation.unlock()
   ///
-  external Object unlock();
+  Object unlock() => js_util.callMethod(this, 'unlock', []);
 
   ///  Returns the document's current orientation type, one of
   /// "portrait-primary", "portrait-secondary", "landscape-primary", or
   /// "landscape-secondary".
   ///
-  external OrientationType get type;
+  OrientationType get type => js_util.getProperty(this, 'type');
 
   /// Returns the document's current orientation angle.
   ///
-  external int get angle;
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
+  int get angle => js_util.getProperty(this, 'angle');
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
 }
 
 enum OrientationLockType {

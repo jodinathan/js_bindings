@@ -5,6 +5,7 @@
 @staticInterop
 library user_timing_3;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,10 +22,15 @@ class PerformanceMarkOptions {
 }
 
 extension PropsPerformanceMarkOptions on PerformanceMarkOptions {
-  external dynamic get detail;
-  external set detail(dynamic newValue);
-  external double get startTime;
-  external set startTime(double newValue);
+  dynamic get detail => js_util.getProperty(this, 'detail');
+  set detail(dynamic newValue) {
+    js_util.setProperty(this, 'detail', newValue);
+  }
+
+  double get startTime => js_util.getProperty(this, 'startTime');
+  set startTime(double newValue) {
+    js_util.setProperty(this, 'startTime', newValue);
+  }
 }
 
 @anonymous
@@ -36,14 +42,25 @@ class PerformanceMeasureOptions {
 }
 
 extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {
-  external dynamic get detail;
-  external set detail(dynamic newValue);
-  external dynamic get start;
-  external set start(dynamic newValue);
-  external double get duration;
-  external set duration(double newValue);
-  external dynamic get end;
-  external set end(dynamic newValue);
+  dynamic get detail => js_util.getProperty(this, 'detail');
+  set detail(dynamic newValue) {
+    js_util.setProperty(this, 'detail', newValue);
+  }
+
+  dynamic get start => js_util.getProperty(this, 'start');
+  set start(dynamic newValue) {
+    js_util.setProperty(this, 'start', newValue);
+  }
+
+  double get duration => js_util.getProperty(this, 'duration');
+  set duration(double newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  dynamic get end => js_util.getProperty(this, 'end');
+  set end(dynamic newValue) {
+    js_util.setProperty(this, 'end', newValue);
+  }
 }
 
 ///   is an abstract interface for [PerformanceEntry] objects with an
@@ -68,12 +85,12 @@ extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {
 @JS()
 @staticInterop
 class PerformanceMark implements PerformanceEntry {
-  external factory PerformanceMark(String markName,
+  external PerformanceMark(String markName,
       [PerformanceMarkOptions? markOptions]);
 }
 
 extension PropsPerformanceMark on PerformanceMark {
-  external dynamic get detail;
+  dynamic get detail => js_util.getProperty(this, 'detail');
 }
 
 ///   is an abstract interface for [PerformanceEntry] objects with an
@@ -99,7 +116,7 @@ extension PropsPerformanceMark on PerformanceMark {
 @JS()
 @staticInterop
 class PerformanceMeasure implements PerformanceEntry {
-  external factory PerformanceMeasure();
+  external PerformanceMeasure();
 }
 
 extension PropsPerformanceMeasure on PerformanceMeasure {
@@ -109,5 +126,5 @@ extension PropsPerformanceMeasure on PerformanceMeasure {
   /// [performance.measure()] argument [MeasureOptions].
   ///
   ///
-  external dynamic get detail;
+  dynamic get detail => js_util.getProperty(this, 'detail');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_color_buffer_float;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,5 +26,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class EXT_color_buffer_float {
-  external factory EXT_color_buffer_float();
+  external EXT_color_buffer_float();
 }

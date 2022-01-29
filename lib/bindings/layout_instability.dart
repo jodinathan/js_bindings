@@ -5,6 +5,7 @@
 @staticInterop
 library layout_instability;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,7 +22,7 @@ geometry_1 */
 @JS()
 @staticInterop
 class LayoutShift implements PerformanceEntry {
-  external factory LayoutShift();
+  external LayoutShift();
 }
 
 extension PropsLayoutShift on LayoutShift {
@@ -29,26 +30,27 @@ extension PropsLayoutShift on LayoutShift {
   /// shifted) times the [distance fraction] (distance moved as a
   /// fraction of viewport).
   ///
-  external double get value;
+  double get value => js_util.getProperty(this, 'value');
 
   ///  Returns [true] if there was a user input in the past 500
   /// milliseconds.
   ///
-  external bool get hadRecentInput;
+  bool get hadRecentInput => js_util.getProperty(this, 'hadRecentInput');
 
   /// Returns the time of the most recent user input.
   ///
-  external double get lastInputTime;
+  double get lastInputTime => js_util.getProperty(this, 'lastInputTime');
 
   ///  Returns an array of [LayoutShiftAttribution] objects with
   /// information on the elements that were shifted.
   ///
-  external Iterable<LayoutShiftAttribution> get sources;
+  Iterable<LayoutShiftAttribution> get sources =>
+      js_util.getProperty(this, 'sources');
 
   /// Converts the properties to JSON.
   ///
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 ///  The interface of the Layout Instability API provides debugging
@@ -58,19 +60,19 @@ extension PropsLayoutShift on LayoutShift {
 @JS()
 @staticInterop
 class LayoutShiftAttribution {
-  external factory LayoutShiftAttribution();
+  external LayoutShiftAttribution();
 }
 
 extension PropsLayoutShiftAttribution on LayoutShiftAttribution {
-  external Node? get node;
+  Node? get node => js_util.getProperty(this, 'node');
 
   ///  Returns a [DOMRectReadOnly] object representing the position of
   /// the element before the shift.
   ///
-  external DOMRectReadOnly get previousRect;
+  DOMRectReadOnly get previousRect => js_util.getProperty(this, 'previousRect');
 
   ///  Returns a [DOMRectReadOnly] object representing the position of
   /// the element after the shift.
   ///
-  external DOMRectReadOnly get currentRect;
+  DOMRectReadOnly get currentRect => js_util.getProperty(this, 'currentRect');
 }

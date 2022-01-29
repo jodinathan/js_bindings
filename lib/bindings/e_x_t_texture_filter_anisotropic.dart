@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_texture_filter_anisotropic;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -29,5 +30,5 @@ import 'all_bindings.dart';
 class EXT_texture_filter_anisotropic {
   external static int get TEXTURE_MAX_ANISOTROPY_EXT;
   external static int get MAX_TEXTURE_MAX_ANISOTROPY_EXT;
-  external factory EXT_texture_filter_anisotropic();
+  external EXT_texture_filter_anisotropic();
 }

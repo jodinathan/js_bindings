@@ -5,6 +5,7 @@
 @staticInterop
 library requestidlecallback;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,8 +22,10 @@ class IdleRequestOptions {
 }
 
 extension PropsIdleRequestOptions on IdleRequestOptions {
-  external int get timeout;
-  external set timeout(int newValue);
+  int get timeout => js_util.getProperty(this, 'timeout');
+  set timeout(int newValue) {
+    js_util.setProperty(this, 'timeout', newValue);
+  }
 }
 
 ///  The interface is used as the data type of the input parameter to
@@ -37,7 +40,7 @@ extension PropsIdleRequestOptions on IdleRequestOptions {
 @JS()
 @staticInterop
 class IdleDeadline {
-  external factory IdleDeadline();
+  external IdleDeadline();
 }
 
 extension PropsIdleDeadline on IdleDeadline {
@@ -54,11 +57,11 @@ extension PropsIdleDeadline on IdleDeadline {
   ///  in the article Cooperative Scheduling
   /// of Background Tasks API.
   ///
-  external double timeRemaining();
+  double timeRemaining() => js_util.callMethod(this, 'timeRemaining', []);
 
   ///  A Boolean whose value is [true] if the callback is being
   /// executed because the timeout specified when the idle callback was
   /// installed has expired.
   ///
-  external bool get didTimeout;
+  bool get didTimeout => js_util.getProperty(this, 'didTimeout');
 }

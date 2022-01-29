@@ -5,9 +5,9 @@
 @staticInterop
 library dom;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
-import 'dart:js_util' as js_util;
 
 import 'callbacks.dart';
 import '../manual.dart';
@@ -71,7 +71,7 @@ font_metrics_api_1 */
 @JS()
 @staticInterop
 class Event {
-  external factory Event(String type, [EventInit? eventInitDict]);
+  external Event(String type, [EventInit? eventInitDict]);
   external static int get NONE;
   external static int get CAPTURING_PHASE;
   external static int get AT_TARGET;
@@ -81,20 +81,20 @@ class Event {
 extension PropsEvent on Event {
   /// The case-insensitive name identifying the type of the event.
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   ///  A reference to the object to which the event was originally
   /// dispatched.
   ///
-  external EventTarget? get target;
-  external EventTarget? get srcElement;
+  EventTarget? get target => js_util.getProperty(this, 'target');
+  EventTarget? get srcElement => js_util.getProperty(this, 'srcElement');
 
   ///  A reference to the currently registered target for the event.
   /// This is the object to which the event is currently slated to be
   /// sent. It's possible this has been changed along the way through
   /// retargeting.
   ///
-  external EventTarget? get currentTarget;
+  EventTarget? get currentTarget => js_util.getProperty(this, 'currentTarget');
 
   ///  Returns the event's path (an array of objects on which listeners
   /// will be invoked). This does not include nodes in shadow trees if
@@ -102,21 +102,25 @@ extension PropsEvent on Event {
   ///
   /// var composed = Event.composedPath();
   ///
-  external Iterable<EventTarget> composedPath();
+  Iterable<EventTarget> composedPath() =>
+      js_util.callMethod(this, 'composedPath', []);
 
   ///  Indicates which phase of the event flow is being processed. It
   /// is one of the following numbers: [NONE], [CAPTURING_PHASE],
   /// [AT_TARGET], [BUBBLING_PHASE].
   ///
-  external int get eventPhase;
+  int get eventPhase => js_util.getProperty(this, 'eventPhase');
 
   /// Stops the propagation of events further along in the DOM.
   ///
   /// event.stopPropagation();
   ///
-  external Object stopPropagation();
-  external bool get cancelBubble;
-  external set cancelBubble(bool newValue);
+  Object stopPropagation() => js_util.callMethod(this, 'stopPropagation', []);
+
+  bool get cancelBubble => js_util.getProperty(this, 'cancelBubble');
+  set cancelBubble(bool newValue) {
+    js_util.setProperty(this, 'cancelBubble', newValue);
+  }
 
   ///  For this particular event, prevent all other listeners from
   /// being called. This includes listeners attached to the same
@@ -125,49 +129,53 @@ extension PropsEvent on Event {
   ///
   /// event.stopImmediatePropagation();
   ///
-  external Object stopImmediatePropagation();
+  Object stopImmediatePropagation() =>
+      js_util.callMethod(this, 'stopImmediatePropagation', []);
 
   ///  A boolean value indicating whether or not the event bubbles up
   /// through the DOM.
   ///
-  external bool get bubbles;
+  bool get bubbles => js_util.getProperty(this, 'bubbles');
 
   /// A boolean value indicating whether the event is cancelable.
   ///
-  external bool get cancelable;
-  external dynamic get returnValue;
-  external set returnValue(dynamic newValue);
+  bool get cancelable => js_util.getProperty(this, 'cancelable');
+  dynamic get returnValue => js_util.getProperty(this, 'returnValue');
+  set returnValue(dynamic newValue) {
+    js_util.setProperty(this, 'returnValue', newValue);
+  }
 
   /// Cancels the event (if it is cancelable).
   ///
   /// event.preventDefault();
   ///
-  external Object preventDefault();
+  Object preventDefault() => js_util.callMethod(this, 'preventDefault', []);
 
   ///  Indicates whether or not the call to [event.preventDefault()]
   /// canceled the event.
   ///
-  external bool get defaultPrevented;
+  bool get defaultPrevented => js_util.getProperty(this, 'defaultPrevented');
 
   ///  A boolean indicating whether or not the event can bubble across
   /// the boundary between the shadow DOM and the regular DOM.
   ///
-  external bool get composed;
+  bool get composed => js_util.getProperty(this, 'composed');
 
   ///  Indicates whether or not the event was initiated by the browser
   /// (after a user click, for instance) or by a script (using an event
   /// creation method, for example).
   ///
-  external bool get isTrusted;
+  bool get isTrusted => js_util.getProperty(this, 'isTrusted');
 
   ///  The time at which the event was created (in milliseconds). By
   /// specification, this value is time since epoch—but in reality,
   /// browsers' definitions vary. In addition, work is underway to
   /// change this to be a [DOMHighResTimeStamp] instead.
   ///
-  external double get timeStamp;
-  external Object initEvent(String type,
-      [bool? bubbles = false, bool? cancelable = false]);
+  double get timeStamp => js_util.getProperty(this, 'timeStamp');
+  Object initEvent(String type,
+          [bool? bubbles = false, bool? cancelable = false]) =>
+      js_util.callMethod(this, 'initEvent', [type, bubbles, cancelable]);
 }
 
 @anonymous
@@ -179,12 +187,20 @@ class EventInit {
 }
 
 extension PropsEventInit on EventInit {
-  external bool get bubbles;
-  external set bubbles(bool newValue);
-  external bool get cancelable;
-  external set cancelable(bool newValue);
-  external bool get composed;
-  external set composed(bool newValue);
+  bool get bubbles => js_util.getProperty(this, 'bubbles');
+  set bubbles(bool newValue) {
+    js_util.setProperty(this, 'bubbles', newValue);
+  }
+
+  bool get cancelable => js_util.getProperty(this, 'cancelable');
+  set cancelable(bool newValue) {
+    js_util.setProperty(this, 'cancelable', newValue);
+  }
+
+  bool get composed => js_util.getProperty(this, 'composed');
+  set composed(bool newValue) {
+    js_util.setProperty(this, 'composed', newValue);
+  }
 }
 
 ///  The interface represents events initialized by an application
@@ -194,13 +210,13 @@ extension PropsEventInit on EventInit {
 @JS()
 @staticInterop
 class CustomEvent implements Event {
-  external factory CustomEvent(String type, [CustomEventInit? eventInitDict]);
+  external CustomEvent(String type, [CustomEventInit? eventInitDict]);
 }
 
 extension PropsCustomEvent on CustomEvent {
   /// Returns any data passed when initializing the event.
   ///
-  external dynamic get detail;
+  dynamic get detail => js_util.getProperty(this, 'detail');
 
   ///  Initializes a [CustomEvent] object. If the event has already
   /// being dispatched, this method does nothing.
@@ -208,8 +224,10 @@ extension PropsCustomEvent on CustomEvent {
   /// event.initCustomEvent(type, canBubble, cancelable, detail);
   ///
   @deprecated
-  external Object initCustomEvent(String type,
-      [bool? bubbles = false, bool? cancelable = false, dynamic detail]);
+  Object initCustomEvent(String type,
+          [bool? bubbles = false, bool? cancelable = false, dynamic detail]) =>
+      js_util.callMethod(
+          this, 'initCustomEvent', [type, bubbles, cancelable, detail]);
 }
 
 @anonymous
@@ -220,8 +238,10 @@ class CustomEventInit implements EventInit {
 }
 
 extension PropsCustomEventInit on CustomEventInit {
-  external dynamic get detail;
-  external set detail(dynamic newValue);
+  dynamic get detail => js_util.getProperty(this, 'detail');
+  set detail(dynamic newValue) {
+    js_util.setProperty(this, 'detail', newValue);
+  }
 }
 
 ///
@@ -241,7 +261,7 @@ extension PropsCustomEventInit on CustomEventInit {
 @JS()
 @staticInterop
 class EventTarget {
-  external factory EventTarget();
+  external EventTarget();
 }
 
 extension PropsEventTarget on EventTarget {
@@ -252,8 +272,9 @@ extension PropsEventTarget on EventTarget {
   /// addEventListener(type, listener, options);
   /// addEventListener(type, listener, useCapture);
   ///
-  external Object addEventListener(String type, EventListener? callback,
-      [dynamic options]);
+  Object addEventListener(String type, EventListener? callback,
+          [dynamic options]) =>
+      js_util.callMethod(this, 'addEventListener', [type, callback, options]);
 
   /// Removes an event listener from the [EventTarget].
   ///
@@ -292,15 +313,18 @@ extension PropsEventTarget on EventTarget {
   ///  );
   /// });
   ///
-  external Object removeEventListener(String type, EventListener? callback,
-      [dynamic options]);
+  Object removeEventListener(String type, EventListener? callback,
+          [dynamic options]) =>
+      js_util
+          .callMethod(this, 'removeEventListener', [type, callback, options]);
 
   /// Dispatches an event to this [EventTarget].
   ///
   /// dispatchEvent(event)
   ///
   /// See Creating and triggering events.
-  external bool dispatchEvent(Event event);
+  bool dispatchEvent(Event event) =>
+      js_util.callMethod(this, 'dispatchEvent', [event]);
 }
 
 ///  The interface represents an object that can handle an event
@@ -313,7 +337,7 @@ extension PropsEventTarget on EventTarget {
 @JS()
 @staticInterop
 class EventListener {
-  external factory EventListener();
+  external EventListener();
 }
 
 extension PropsEventListener on EventListener {
@@ -322,7 +346,8 @@ extension PropsEventListener on EventListener {
   ///
   /// eventListener.handleEvent(event);
   ///
-  external Object handleEvent(Event event);
+  Object handleEvent(Event event) =>
+      js_util.callMethod(this, 'handleEvent', [event]);
 }
 
 @anonymous
@@ -333,8 +358,10 @@ class EventListenerOptions {
 }
 
 extension PropsEventListenerOptions on EventListenerOptions {
-  external bool get capture;
-  external set capture(bool newValue);
+  bool get capture => js_util.getProperty(this, 'capture');
+  set capture(bool newValue) {
+    js_util.setProperty(this, 'capture', newValue);
+  }
 }
 
 @anonymous
@@ -346,12 +373,20 @@ class AddEventListenerOptions implements EventListenerOptions {
 }
 
 extension PropsAddEventListenerOptions on AddEventListenerOptions {
-  external bool get passive;
-  external set passive(bool newValue);
-  external bool get once;
-  external set once(bool newValue);
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
+  bool get passive => js_util.getProperty(this, 'passive');
+  set passive(bool newValue) {
+    js_util.setProperty(this, 'passive', newValue);
+  }
+
+  bool get once => js_util.getProperty(this, 'once');
+  set once(bool newValue) {
+    js_util.setProperty(this, 'once', newValue);
+  }
+
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 ///  The interface represents a controller object that allows you to
@@ -363,14 +398,14 @@ extension PropsAddEventListenerOptions on AddEventListenerOptions {
 @JS()
 @staticInterop
 class AbortController {
-  external factory AbortController();
+  external AbortController();
 }
 
 extension PropsAbortController on AbortController {
   ///  Returns an [AbortSignal] object instance, which can be used to
   /// communicate with, or to abort, a DOM request.
   ///
-  external AbortSignal get signal;
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
 
   ///  Aborts a DOM request before it has completed. This is able to
   /// abort fetch requests, consumption of any response bodies, and
@@ -379,7 +414,7 @@ extension PropsAbortController on AbortController {
   /// abort()
   /// abort(reason)
   ///
-  external Object abort();
+  Object abort() => js_util.callMethod(this, 'abort', []);
 }
 
 ///  The interface represents a signal object that allows you to
@@ -389,7 +424,7 @@ extension PropsAbortController on AbortController {
 @JS()
 @staticInterop
 class AbortSignal implements EventTarget {
-  external factory AbortSignal();
+  external AbortSignal();
 }
 
 extension PropsAbortSignal on AbortSignal {
@@ -398,88 +433,117 @@ extension PropsAbortSignal on AbortSignal {
   ///  A Boolean that indicates whether the request(s) the signal is
   /// communicating with is/are aborted ([true]) or not ([false]).
   ///
-  external bool get aborted;
-  external EventHandlerNonNull? get onabort;
-  external set onabort(EventHandlerNonNull? newValue);
+  bool get aborted => js_util.getProperty(this, 'aborted');
+  EventHandlerNonNull? get onabort => js_util.getProperty(this, 'onabort');
+  set onabort(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onabort', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class NonElementParentNode {
-  external factory NonElementParentNode();
+  external NonElementParentNode();
 }
 
 extension PropsNonElementParentNode on NonElementParentNode {
-  external Element? getElementById(String elementId);
+  Element? getElementById(String elementId) =>
+      js_util.callMethod(this, 'getElementById', [elementId]);
 }
 
 @JS()
 @staticInterop
 class DocumentOrShadowRoot {
-  external factory DocumentOrShadowRoot();
+  external DocumentOrShadowRoot();
 }
 
 extension PropsDocumentOrShadowRoot on DocumentOrShadowRoot {
-  external Iterable<Animation> getAnimations();
-  external Element? get pointerLockElement;
-  external Element? get fullscreenElement;
-  external Iterable<CSSStyleSheet> get adoptedStyleSheets;
-  external set adoptedStyleSheets(Iterable<CSSStyleSheet> newValue);
-  external Element? get pictureInPictureElement;
-  external Element? get activeElement;
-  external StyleSheetList get styleSheets;
+  Iterable<Animation> getAnimations() =>
+      js_util.callMethod(this, 'getAnimations', []);
+
+  Element? get pointerLockElement =>
+      js_util.getProperty(this, 'pointerLockElement');
+  Element? get fullscreenElement =>
+      js_util.getProperty(this, 'fullscreenElement');
+  Iterable<CSSStyleSheet> get adoptedStyleSheets =>
+      js_util.getProperty(this, 'adoptedStyleSheets');
+  set adoptedStyleSheets(Iterable<CSSStyleSheet> newValue) {
+    js_util.setProperty(this, 'adoptedStyleSheets', newValue);
+  }
+
+  Element? get pictureInPictureElement =>
+      js_util.getProperty(this, 'pictureInPictureElement');
+  Element? get activeElement => js_util.getProperty(this, 'activeElement');
+  StyleSheetList get styleSheets => js_util.getProperty(this, 'styleSheets');
 }
 
 @JS()
 @staticInterop
 class ParentNode {
-  external factory ParentNode();
+  external ParentNode();
 }
 
 extension PropsParentNode on ParentNode {
-  external HTMLCollection get children;
-  external Element? get firstElementChild;
-  external Element? get lastElementChild;
-  external int get childElementCount;
-  external Object prepend([dynamic nodes]);
-  external Object append([dynamic nodes]);
-  external Object replaceChildren([dynamic nodes]);
-  external Element? querySelector(String selectors);
-  external NodeList querySelectorAll(String selectors);
+  HTMLCollection get children => js_util.getProperty(this, 'children');
+  Element? get firstElementChild =>
+      js_util.getProperty(this, 'firstElementChild');
+  Element? get lastElementChild =>
+      js_util.getProperty(this, 'lastElementChild');
+  int get childElementCount => js_util.getProperty(this, 'childElementCount');
+  Object prepend([dynamic nodes]) =>
+      js_util.callMethod(this, 'prepend', [nodes]);
+
+  Object append([dynamic nodes]) => js_util.callMethod(this, 'append', [nodes]);
+
+  Object replaceChildren([dynamic nodes]) =>
+      js_util.callMethod(this, 'replaceChildren', [nodes]);
+
+  Element? querySelector(String selectors) =>
+      js_util.callMethod(this, 'querySelector', [selectors]);
+
+  NodeList querySelectorAll(String selectors) =>
+      js_util.callMethod(this, 'querySelectorAll', [selectors]);
 }
 
 @JS()
 @staticInterop
 class NonDocumentTypeChildNode {
-  external factory NonDocumentTypeChildNode();
+  external NonDocumentTypeChildNode();
 }
 
 extension PropsNonDocumentTypeChildNode on NonDocumentTypeChildNode {
-  external Element? get previousElementSibling;
-  external Element? get nextElementSibling;
+  Element? get previousElementSibling =>
+      js_util.getProperty(this, 'previousElementSibling');
+  Element? get nextElementSibling =>
+      js_util.getProperty(this, 'nextElementSibling');
 }
 
 @JS()
 @staticInterop
 class ChildNode {
-  external factory ChildNode();
+  external ChildNode();
 }
 
 extension PropsChildNode on ChildNode {
-  external Object before([dynamic nodes]);
-  external Object after([dynamic nodes]);
-  external Object replaceWith([dynamic nodes]);
-  external Object remove();
+  Object before([dynamic nodes]) => js_util.callMethod(this, 'before', [nodes]);
+
+  Object after([dynamic nodes]) => js_util.callMethod(this, 'after', [nodes]);
+
+  Object replaceWith([dynamic nodes]) =>
+      js_util.callMethod(this, 'replaceWith', [nodes]);
+
+  Object remove() => js_util.callMethod(this, 'remove', []);
 }
 
 @JS()
 @staticInterop
 class Slottable {
-  external factory Slottable();
+  external Slottable();
 }
 
 extension PropsSlottable on Slottable {
-  external HTMLSlotElement? get assignedSlot;
+  HTMLSlotElement? get assignedSlot =>
+      js_util.getProperty(this, 'assignedSlot');
 }
 
 ///   objects are collections of nodes, usually returned by
@@ -497,7 +561,7 @@ extension PropsSlottable on Slottable {
 @JS()
 @staticInterop
 class NodeList {
-  external factory NodeList();
+  external NodeList();
 }
 
 extension PropsNodeList on NodeList {
@@ -521,11 +585,11 @@ extension PropsNodeList on NodeList {
   /// var tables = document.getElementsByTagName("table");
   /// var firstTable = tables.item(1); // or tables[1] - returns the second table in the DOM
   ///
-  external Node? item(int index);
+  Node? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   /// The number of nodes in the [NodeList].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 }
 
 ///  The interface represents a generic collection (array-like object
@@ -543,13 +607,13 @@ extension PropsNodeList on NodeList {
 @JS()
 @staticInterop
 class HTMLCollection {
-  external factory HTMLCollection();
+  external HTMLCollection();
 }
 
 extension PropsHTMLCollection on HTMLCollection {
   /// Returns the number of items in the collection.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns the specific node at the given zero-based [index] into
   /// the list. Returns [null] if the [index] is out of range.
@@ -563,7 +627,7 @@ extension PropsHTMLCollection on HTMLCollection {
   /// var img0 = c.item(0);   // You can use the item() method this way
   /// var img1 = c[1];     // But this notation is easier and more common
   ///
-  external Element? item(int index);
+  Element? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   ///  Returns the specific node whose ID or, as a fallback, name
   /// matches the string specified by [name]. Matching by name is only
@@ -576,7 +640,8 @@ extension PropsHTMLCollection on HTMLCollection {
   ///
   /// const item = collection.namedItem(key);
   ///
-  external dynamic namedItem(String name);
+  dynamic namedItem(String name) =>
+      js_util.callMethod(this, 'namedItem', [name]);
 }
 
 ///  The interface provides the ability to watch for changes being
@@ -586,7 +651,7 @@ extension PropsHTMLCollection on HTMLCollection {
 @JS()
 @staticInterop
 class MutationObserver {
-  external factory MutationObserver(MutationCallback callback);
+  external MutationObserver(MutationCallback callback);
 }
 
 extension PropsMutationObserver on MutationObserver {
@@ -596,7 +661,8 @@ extension PropsMutationObserver on MutationObserver {
   ///
   /// mutationObserver.observe(target, options)
   ///
-  external Object observe(Node target, [MutationObserverInit? options]);
+  Object observe(Node target, [MutationObserverInit? options]) =>
+      js_util.callMethod(this, 'observe', [target, options]);
 
   ///  Stops the [MutationObserver] instance from receiving further
   /// notifications until and unless [observe()] is called again.
@@ -620,7 +686,7 @@ extension PropsMutationObserver on MutationObserver {
   ///
   /// observer.disconnect();
   ///
-  external Object disconnect();
+  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
 
   ///  Removes all pending notifications from the [MutationObserver]'s
   /// notification queue and returns them in a new [Array] of
@@ -658,7 +724,8 @@ extension PropsMutationObserver on MutationObserver {
   ///  to calling disconnect() to stop observing
   ///  the DOM.
   ///
-  external Iterable<MutationRecord> takeRecords();
+  Iterable<MutationRecord> takeRecords() =>
+      js_util.callMethod(this, 'takeRecords', []);
 }
 
 @anonymous
@@ -676,20 +743,42 @@ class MutationObserverInit {
 }
 
 extension PropsMutationObserverInit on MutationObserverInit {
-  external bool get childList;
-  external set childList(bool newValue);
-  external bool get attributes;
-  external set attributes(bool newValue);
-  external bool get characterData;
-  external set characterData(bool newValue);
-  external bool get subtree;
-  external set subtree(bool newValue);
-  external bool get attributeOldValue;
-  external set attributeOldValue(bool newValue);
-  external bool get characterDataOldValue;
-  external set characterDataOldValue(bool newValue);
-  external Iterable<String> get attributeFilter;
-  external set attributeFilter(Iterable<String> newValue);
+  bool get childList => js_util.getProperty(this, 'childList');
+  set childList(bool newValue) {
+    js_util.setProperty(this, 'childList', newValue);
+  }
+
+  bool get attributes => js_util.getProperty(this, 'attributes');
+  set attributes(bool newValue) {
+    js_util.setProperty(this, 'attributes', newValue);
+  }
+
+  bool get characterData => js_util.getProperty(this, 'characterData');
+  set characterData(bool newValue) {
+    js_util.setProperty(this, 'characterData', newValue);
+  }
+
+  bool get subtree => js_util.getProperty(this, 'subtree');
+  set subtree(bool newValue) {
+    js_util.setProperty(this, 'subtree', newValue);
+  }
+
+  bool get attributeOldValue => js_util.getProperty(this, 'attributeOldValue');
+  set attributeOldValue(bool newValue) {
+    js_util.setProperty(this, 'attributeOldValue', newValue);
+  }
+
+  bool get characterDataOldValue =>
+      js_util.getProperty(this, 'characterDataOldValue');
+  set characterDataOldValue(bool newValue) {
+    js_util.setProperty(this, 'characterDataOldValue', newValue);
+  }
+
+  Iterable<String> get attributeFilter =>
+      js_util.getProperty(this, 'attributeFilter');
+  set attributeFilter(Iterable<String> newValue) {
+    js_util.setProperty(this, 'attributeFilter', newValue);
+  }
 }
 
 ///  A represents an individual DOM mutation. It is the object that
@@ -697,19 +786,20 @@ extension PropsMutationObserverInit on MutationObserverInit {
 @JS()
 @staticInterop
 class MutationRecord {
-  external factory MutationRecord();
+  external MutationRecord();
 }
 
 extension PropsMutationRecord on MutationRecord {
-  external String get type;
-  external Node get target;
-  external NodeList get addedNodes;
-  external NodeList get removedNodes;
-  external Node? get previousSibling;
-  external Node? get nextSibling;
-  external String? get attributeName;
-  external String? get attributeNamespace;
-  external String? get oldValue;
+  String get type => js_util.getProperty(this, 'type');
+  Node get target => js_util.getProperty(this, 'target');
+  NodeList get addedNodes => js_util.getProperty(this, 'addedNodes');
+  NodeList get removedNodes => js_util.getProperty(this, 'removedNodes');
+  Node? get previousSibling => js_util.getProperty(this, 'previousSibling');
+  Node? get nextSibling => js_util.getProperty(this, 'nextSibling');
+  String? get attributeName => js_util.getProperty(this, 'attributeName');
+  String? get attributeNamespace =>
+      js_util.getProperty(this, 'attributeNamespace');
+  String? get oldValue => js_util.getProperty(this, 'oldValue');
 }
 
 ///
@@ -770,7 +860,7 @@ class Node implements EventTarget {
   external static int get DOCUMENT_POSITION_CONTAINS;
   external static int get DOCUMENT_POSITION_CONTAINED_BY;
   external static int get DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
-  external factory Node();
+  external Node();
 }
 
 extension PropsNode on Node {
@@ -826,7 +916,7 @@ extension PropsNode on Node {
   ///
   ///
   ///
-  external int get nodeType;
+  int get nodeType => js_util.getProperty(this, 'nodeType');
 
   ///
   ///    Returns a [String] containing the name of the [Node]. The
@@ -839,14 +929,14 @@ extension PropsNode on Node {
   ///    have the ['#document'] string.
   ///
   ///
-  external String get nodeName;
+  String get nodeName => js_util.getProperty(this, 'nodeName');
 
   ///
   ///    Returns a [String] representing the base URL of the document
   ///    containing the [Node].
   ///
   ///
-  external String get baseURI;
+  String get baseURI => js_util.getProperty(this, 'baseURI');
 
   ///
   ///     A boolean indicating whether or not the Node is connected
@@ -856,7 +946,7 @@ extension PropsNode on Node {
   ///    normal DOM, or the [ShadowRoot] in the case of a shadow DOM.
   ///
   ///
-  external bool get isConnected;
+  bool get isConnected => js_util.getProperty(this, 'isConnected');
 
   ///
   ///     Returns the [Document] that this node belongs to. If the node
@@ -864,7 +954,7 @@ extension PropsNode on Node {
   ///    a document, returns [null].
   ///
   ///
-  external Document? get ownerDocument;
+  Document? get ownerDocument => js_util.getProperty(this, 'ownerDocument');
 
   ///
   ///     Returns the context object's root which optionally includes
@@ -875,7 +965,8 @@ extension PropsNode on Node {
   /// getRootNode();
   /// getRootNode(options);
   ///
-  external Node getRootNode([GetRootNodeOptions? options]);
+  Node getRootNode([GetRootNodeOptions? options]) =>
+      js_util.callMethod(this, 'getRootNode', [options]);
 
   ///
   ///     Returns a [Node] that is the parent of this node. If there is
@@ -885,7 +976,7 @@ extension PropsNode on Node {
   ///    this property returns [null].
   ///
   ///
-  external Node? get parentNode;
+  Node? get parentNode => js_util.getProperty(this, 'parentNode');
 
   ///
   ///     Returns an [Element] that is the parent of this node. If the
@@ -895,7 +986,7 @@ extension PropsNode on Node {
   ///    [null].
   ///
   ///
-  external Element? get parentElement;
+  Element? get parentElement => js_util.getProperty(this, 'parentElement');
 
   ///
   ///     Returns a boolean value indicating whether or not the element
@@ -911,7 +1002,7 @@ extension PropsNode on Node {
   ///  // Do something with 'foo.childNodes'
   /// }
   ///
-  external bool hasChildNodes();
+  bool hasChildNodes() => js_util.callMethod(this, 'hasChildNodes', []);
 
   ///
   ///     Returns a live [NodeList] containing all the children of this
@@ -923,7 +1014,7 @@ extension PropsNode on Node {
   ///    automatically updated.
   ///
   ///
-  external NodeList get childNodes;
+  NodeList get childNodes => js_util.getProperty(this, 'childNodes');
 
   ///
   ///     Returns a [Node] representing the first direct child node of
@@ -931,7 +1022,7 @@ extension PropsNode on Node {
   ///    or [null] if the node has no child.
   ///
   ///
-  external Node? get firstChild;
+  Node? get firstChild => js_util.getProperty(this, 'firstChild');
 
   ///
   ///     Returns a [Node] representing the last direct child node of
@@ -939,7 +1030,7 @@ extension PropsNode on Node {
   ///    or [null] if the node has no child.
   ///
   ///
-  external Node? get lastChild;
+  Node? get lastChild => js_util.getProperty(this, 'lastChild');
 
   ///
   ///     Returns a [Node] representing the previous node in the tree,
@@ -947,25 +1038,29 @@ extension PropsNode on Node {
   ///    [null] if there isn't such node.
   ///
   ///
-  external Node? get previousSibling;
+  Node? get previousSibling => js_util.getProperty(this, 'previousSibling');
 
   ///
   ///    Returns a [Node] representing the next node in the tree, or
   ///    [null] if there isn't such node.
   ///
   ///
-  external Node? get nextSibling;
+  Node? get nextSibling => js_util.getProperty(this, 'nextSibling');
 
   /// Returns / Sets the value of the current node.
   ///
-  external String? get nodeValue;
-  external set nodeValue(String? newValue);
+  String? get nodeValue => js_util.getProperty(this, 'nodeValue');
+  set nodeValue(String? newValue) {
+    js_util.setProperty(this, 'nodeValue', newValue);
+  }
 
   ///  Returns / Sets the textual content of an element and all its
   /// descendants.
   ///
-  external String? get textContent;
-  external set textContent(String? newValue);
+  String? get textContent => js_util.getProperty(this, 'textContent');
+  set textContent(String? newValue) {
+    js_util.setProperty(this, 'textContent', newValue);
+  }
 
   ///  Clean up all the text nodes under this element (merge adjacent,
   /// remove empty).
@@ -998,7 +1093,7 @@ extension PropsNode on Node {
   /// const output = document.getElementById("result");
   /// output.innerHTML = result;
   ///
-  external Object normalize();
+  Object normalize() => js_util.callMethod(this, 'normalize', []);
 
   ///
   ///     Clone a [Node], and optionally, all of its contents. By
@@ -1012,7 +1107,8 @@ extension PropsNode on Node {
   /// let p = document.getElementById("para1")
   /// let p_prime = p.cloneNode(true)
   ///
-  external Node cloneNode([bool? deep = false]);
+  Node cloneNode([bool? deep = false]) =>
+      js_util.callMethod(this, 'cloneNode', [deep]);
 
   ///
   ///     Returns a boolean value which indicates whether or not two
@@ -1056,7 +1152,8 @@ extension PropsNode on Node {
   /// ```
   ///
   ///
-  external bool isEqualNode(Node? otherNode);
+  bool isEqualNode(Node? otherNode) =>
+      js_util.callMethod(this, 'isEqualNode', [otherNode]);
 
   ///
   ///     Returns a boolean value indicating whether or not the two
@@ -1100,7 +1197,8 @@ extension PropsNode on Node {
   /// ```
   ///
   ///
-  external bool isSameNode(Node? otherNode);
+  bool isSameNode(Node? otherNode) =>
+      js_util.callMethod(this, 'isSameNode', [otherNode]);
 
   ///
   ///     Compares the position of the current node against another
@@ -1124,7 +1222,8 @@ extension PropsNode on Node {
   ///   must be used for meaningful results.
   ///
   ///
-  external int compareDocumentPosition(Node other);
+  int compareDocumentPosition(Node other) =>
+      js_util.callMethod(this, 'compareDocumentPosition', [other]);
 
   ///
   ///     Returns [true] or [false] value indicating whether or not a
@@ -1143,7 +1242,7 @@ extension PropsNode on Node {
   ///  return (node === document.body) ? false : document.body.contains(node);
   /// }
   ///
-  external bool contains(Node? other);
+  bool contains(Node? other) => js_util.callMethod(this, 'contains', [other]);
 
   ///
   ///     Returns a [DOMString] containing the prefix for a given
@@ -1180,7 +1279,8 @@ extension PropsNode on Node {
   ///  result[6].value = aSvgElt.lookupPrefix("http://www.w3.org/XML/1998/namespace"); // false
   /// });
   ///
-  external String? lookupPrefix(String? namespace);
+  String? lookupPrefix(String? namespace) =>
+      js_util.callMethod(this, 'lookupPrefix', [namespace]);
 
   ///
   ///     Accepts a prefix and returns the namespace URI associated
@@ -1216,7 +1316,8 @@ extension PropsNode on Node {
   ///  result[6].value = aSvgElt.lookupNamespaceURI("xml");
   /// });
   ///
-  external String? lookupNamespaceURI(String? prefix);
+  String? lookupNamespaceURI(String? prefix) =>
+      js_util.callMethod(this, 'lookupNamespaceURI', [prefix]);
 
   ///
   ///     Accepts a namespace URI as an argument and returns a boolean
@@ -1247,7 +1348,8 @@ extension PropsNode on Node {
   ///  result[3].value = aSvgElt.isDefaultNamespace("http://www.w3.org/2000/svg"); // false
   /// });
   ///
-  external bool isDefaultNamespace(String? namespace);
+  bool isDefaultNamespace(String? namespace) =>
+      js_util.callMethod(this, 'isDefaultNamespace', [namespace]);
 
   ///
   ///     Inserts a [Node] before the reference node as a child of a
@@ -1257,7 +1359,8 @@ extension PropsNode on Node {
   ///
   /// insertBefore(newNode, referenceNode);
   ///
-  external Node insertBefore(Node node, Node? child);
+  Node insertBefore(Node node, Node? child) =>
+      js_util.callMethod(this, 'insertBefore', [node, child]);
 
   ///
   ///    Adds the specified [childNode] argument as the last child to
@@ -1273,7 +1376,8 @@ extension PropsNode on Node {
   /// let p = document.createElement("p");
   /// document.body.appendChild(p);
   ///
-  Node appendChild(Node node) => js_util.callMethod(this, 'appendChild', [node]);
+  Node appendChild(Node node) =>
+      js_util.callMethod(this, 'appendChild', [node]);
 
   ///
   ///     Replaces one child [Node] of the current one with the second
@@ -1313,7 +1417,8 @@ extension PropsNode on Node {
   /// //  <span id="newSpan">new replacement span element.</span>
   /// // </div>
   ///
-  external Node replaceChild(Node node, Node child);
+  Node replaceChild(Node node, Node child) =>
+      js_util.callMethod(this, 'replaceChild', [node, child]);
 
   ///
   ///     Removes a child node from the current element, which must be
@@ -1323,7 +1428,8 @@ extension PropsNode on Node {
   ///
   /// removeChild(child);
   ///
-  external Node removeChild(Node child);
+  Node removeChild(Node child) =>
+      js_util.callMethod(this, 'removeChild', [child]);
 }
 
 @anonymous
@@ -1334,8 +1440,10 @@ class GetRootNodeOptions {
 }
 
 extension PropsGetRootNodeOptions on GetRootNodeOptions {
-  external bool get composed;
-  external set composed(bool newValue);
+  bool get composed => js_util.getProperty(this, 'composed');
+  set composed(bool newValue) {
+    js_util.setProperty(this, 'composed', newValue);
+  }
 }
 
 ///  The interface represents any web page loaded in the browser and
@@ -1382,48 +1490,49 @@ class Document
         XPathEvaluatorBase,
         GlobalEventHandlers,
         DocumentAndElementEventHandlers {
-  external factory Document();
+  external Document();
 }
 
 extension PropsDocument on Document {
   ///  Returns the DOM implementation associated with the current
   /// document.
   ///
-  external DOMImplementation get implementation;
-  external String get URL;
+  DOMImplementation get implementation =>
+      js_util.getProperty(this, 'implementation');
+  String get URL => js_util.getProperty(this, 'URL');
 
   /// Returns the document location as a string.
   ///
-  external String get documentURI;
+  String get documentURI => js_util.getProperty(this, 'documentURI');
 
   ///  Indicates whether the document is rendered in quirks or strict
   /// mode.
   ///
   @experimental
-  external String get compatMode;
+  String get compatMode => js_util.getProperty(this, 'compatMode');
 
   /// Returns the character set being used by the document.
   ///
-  external String get characterSet;
-  external String get charset;
-  external String get inputEncoding;
+  String get characterSet => js_util.getProperty(this, 'characterSet');
+  String get charset => js_util.getProperty(this, 'charset');
+  String get inputEncoding => js_util.getProperty(this, 'inputEncoding');
 
   ///  Returns the Content-Type from the MIME Header of the current
   /// document.
   ///
   @experimental
-  external String get contentType;
+  String get contentType => js_util.getProperty(this, 'contentType');
 
   ///  Returns the Document Type Definition (DTD) of the current
   /// document.
   ///
-  external DocumentType? get doctype;
+  DocumentType? get doctype => js_util.getProperty(this, 'doctype');
 
   ///  Returns the [Element] that is a direct child of the document.
   /// For HTML documents, this is normally the [HTMLHtmlElement] object
   /// representing the document's [<html>] element.
   ///
-  external Element? get documentElement;
+  Element? get documentElement => js_util.getProperty(this, 'documentElement');
 
   /// Returns a list of elements with the given tag name.
   ///
@@ -1512,7 +1621,8 @@ extension PropsDocument on Document {
   /// </body>
   /// </html>
   ///
-  external HTMLCollection getElementsByTagName(String qualifiedName);
+  HTMLCollection getElementsByTagName(String qualifiedName) =>
+      js_util.callMethod(this, 'getElementsByTagName', [qualifiedName]);
 
   ///  Returns a list of elements with the given tag name and
   /// namespace.
@@ -1619,8 +1729,9 @@ extension PropsDocument on Document {
   /// </body>
   /// </html>
   ///
-  external HTMLCollection getElementsByTagNameNS(
-      String? namespace, String localName);
+  HTMLCollection getElementsByTagNameNS(String? namespace, String localName) =>
+      js_util
+          .callMethod(this, 'getElementsByTagNameNS', [namespace, localName]);
 
   /// Returns a list of elements with the given class name.
   ///
@@ -1637,7 +1748,8 @@ extension PropsDocument on Document {
   ///   it is called will be used as the root of the search.
   ///
   ///
-  external HTMLCollection getElementsByClassName(String classNames);
+  HTMLCollection getElementsByClassName(String classNames) =>
+      js_util.callMethod(this, 'getElementsByClassName', [classNames]);
 
   /// Creates a new element with the given tag name.
   ///
@@ -1689,8 +1801,10 @@ extension PropsDocument on Document {
   ///   however, the recommendation still applies.
   ///
   ///
-  external Element createElementNS(String? namespace, String qualifiedName,
-      [dynamic options]);
+  Element createElementNS(String? namespace, String qualifiedName,
+          [dynamic options]) =>
+      js_util.callMethod(
+          this, 'createElementNS', [namespace, qualifiedName, options]);
 
   /// Creates a new document fragment.
   ///
@@ -1720,7 +1834,8 @@ extension PropsDocument on Document {
   ///
   /// ```
   ///
-  external DocumentFragment createDocumentFragment();
+  DocumentFragment createDocumentFragment() =>
+      js_util.callMethod(this, 'createDocumentFragment', []);
 
   /// Creates a text node.
   ///
@@ -1756,7 +1871,8 @@ extension PropsDocument on Document {
   /// </body>
   /// </html>
   ///
-  external Text createTextNode(String data);
+  Text createTextNode(String data) =>
+      js_util.callMethod(this, 'createTextNode', [data]);
 
   /// Creates a new CDATA node and returns it.
   ///
@@ -1774,7 +1890,8 @@ extension PropsDocument on Document {
   /// alert(new XMLSerializer().serializeToString(docu));
   /// // Displays: <xml><![CDATA[Some <CDATA> data & then some]]></xml>
   ///
-  external CDATASection createCDATASection(String data);
+  CDATASection createCDATASection(String data) =>
+      js_util.callMethod(this, 'createCDATASection', [data]);
 
   /// Creates a new comment node and returns it.
   ///
@@ -1788,7 +1905,8 @@ extension PropsDocument on Document {
   /// alert(new XMLSerializer().serializeToString(docu));
   /// // Displays: <xml><!--This is a not-so-secret comment in your document--></xml>
   ///
-  external Comment createComment(String data);
+  Comment createComment(String data) =>
+      js_util.callMethod(this, 'createComment', [data]);
 
   /// Creates a new [ProcessingInstruction] object.
   ///
@@ -1802,8 +1920,9 @@ extension PropsDocument on Document {
   /// console.log(new XMLSerializer().serializeToString(doc));
   /// // Displays: <?xml-stylesheet href="mycss.css" type="text/css"?><foo/>
   ///
-  external ProcessingInstruction createProcessingInstruction(
-      String target, String data);
+  ProcessingInstruction createProcessingInstruction(
+          String target, String data) =>
+      js_util.callMethod(this, 'createProcessingInstruction', [target, data]);
 
   /// Returns a clone of a node from an external document.
   ///
@@ -1815,7 +1934,8 @@ extension PropsDocument on Document {
   /// const newNode = document.importNode(oldNode, true);
   /// document.getElementById("container").appendChild(newNode);
   ///
-  external Node importNode(Node node, [bool? deep = false]);
+  Node importNode(Node node, [bool? deep = false]) =>
+      js_util.callMethod(this, 'importNode', [node, deep]);
 
   /// Adopt node from an external document.
   ///
@@ -1829,7 +1949,7 @@ extension PropsDocument on Document {
   ///  newParent.appendChild(document.adoptNode(imgEl));
   /// });
   ///
-  external Node adoptNode(Node node);
+  Node adoptNode(Node node) => js_util.callMethod(this, 'adoptNode', [node]);
 
   /// Creates a new [Attr] object and returns it.
   ///
@@ -1841,12 +1961,14 @@ extension PropsDocument on Document {
   /// node.setAttributeNode(a);
   /// console.log(node.getAttribute("my_attrib")); // "newVal"
   ///
-  external Attr createAttribute(String localName);
+  Attr createAttribute(String localName) =>
+      js_util.callMethod(this, 'createAttribute', [localName]);
 
   ///  Creates a new attribute node in a given namespace and returns
   /// it.
   ///
-  external Attr createAttributeNS(String? namespace, String qualifiedName);
+  Attr createAttributeNS(String? namespace, String qualifiedName) =>
+      js_util.callMethod(this, 'createAttributeNS', [namespace, qualifiedName]);
 
   /// Creates an event object.
   ///
@@ -1873,7 +1995,8 @@ extension PropsDocument on Document {
   /// // Target can be any Element or other EventTarget.
   /// elem.dispatchEvent(event);
   ///
-  external Event createEvent(String mInterface);
+  Event createEvent(String mInterface) =>
+      js_util.callMethod(this, 'createEvent', [mInterface]);
 
   /// Creates a [Range] object.
   ///
@@ -1885,7 +2008,7 @@ extension PropsDocument on Document {
   /// range.setStart(startNode, startOffset);
   /// range.setEnd(endNode, endOffset);
   ///
-  external Range createRange();
+  Range createRange() => js_util.callMethod(this, 'createRange', []);
 
   /// Creates a [NodeIterator] object.
   ///
@@ -1907,8 +2030,10 @@ extension PropsDocument on Document {
   ///  pars.push(currentNode);
   /// }
   ///
-  external NodeIterator createNodeIterator(Node root,
-      [int? whatToShow = 0xFFFFFFFF, NodeFilter? filter]);
+  NodeIterator createNodeIterator(Node root,
+          [int? whatToShow = 0xFFFFFFFF, NodeFilter? filter]) =>
+      js_util
+          .callMethod(this, 'createNodeIterator', [root, whatToShow, filter]);
 
   /// Creates a [TreeWalker] object.
   ///
@@ -1937,103 +2062,216 @@ extension PropsDocument on Document {
   ///  currentNode = treeWalker.nextNode();
   /// }
   ///
-  external TreeWalker createTreeWalker(Node root,
-      [int? whatToShow = 0xFFFFFFFF, NodeFilter? filter]);
-  external bool get hidden;
-  external VisibilityState get visibilityState;
-  external EventHandlerNonNull? get onvisibilitychange;
-  external set onvisibilitychange(EventHandlerNonNull? newValue);
-  external Promise<bool> hasStorageAccess();
-  external Promise<Object> requestStorageAccess();
-  external Selection? getSelection();
-  external DocumentTimeline get timeline;
-  external Element? elementFromPoint(double x, double y);
-  external Iterable<Element> elementsFromPoint(double x, double y);
-  external CaretPosition? caretPositionFromPoint(double x, double y);
-  external Element? get scrollingElement;
-  external EventHandlerNonNull? get onpointerlockchange;
-  external set onpointerlockchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointerlockerror;
-  external set onpointerlockerror(EventHandlerNonNull? newValue);
-  external Object exitPointerLock();
-  external bool get fullscreenEnabled;
-  external bool get fullscreen;
-  external Promise<Object> exitFullscreen();
-  external EventHandlerNonNull? get onfullscreenchange;
-  external set onfullscreenchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onfullscreenerror;
-  external set onfullscreenerror(EventHandlerNonNull? newValue);
-  external bool get pictureInPictureEnabled;
-  external Promise<Object> exitPictureInPicture();
-  external EventHandlerNonNull? get onfreeze;
-  external set onfreeze(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onresume;
-  external set onresume(EventHandlerNonNull? newValue);
-  external bool get wasDiscarded;
-  external NamedFlowMap get namedFlows;
-  external SVGSVGElement? get rootElement;
-  external FragmentDirective get fragmentDirective;
-  external Promise<InterestCohort> interestCohort();
-  external PermissionsPolicy get permissionsPolicy;
-  external Location? get location;
-  external String get domain;
-  external set domain(String newValue);
-  external String get referrer;
-  external String get cookie;
-  external set cookie(String newValue);
-  external String get lastModified;
-  external DocumentReadyState get readyState;
-  external String get title;
-  external set title(String newValue);
-  external String get dir;
-  external set dir(String newValue);
+  TreeWalker createTreeWalker(Node root,
+          [int? whatToShow = 0xFFFFFFFF, NodeFilter? filter]) =>
+      js_util.callMethod(this, 'createTreeWalker', [root, whatToShow, filter]);
+
+  bool get hidden => js_util.getProperty(this, 'hidden');
+  VisibilityState get visibilityState =>
+      js_util.getProperty(this, 'visibilityState');
+  EventHandlerNonNull? get onvisibilitychange =>
+      js_util.getProperty(this, 'onvisibilitychange');
+  set onvisibilitychange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onvisibilitychange', newValue);
+  }
+
+  Promise<bool> hasStorageAccess() =>
+      js_util.callMethod(this, 'hasStorageAccess', []);
+
+  Promise<Object> requestStorageAccess() =>
+      js_util.callMethod(this, 'requestStorageAccess', []);
+
+  Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
+
+  DocumentTimeline get timeline => js_util.getProperty(this, 'timeline');
+  Element? elementFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'elementFromPoint', [x, y]);
+
+  Iterable<Element> elementsFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'elementsFromPoint', [x, y]);
+
+  CaretPosition? caretPositionFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'caretPositionFromPoint', [x, y]);
+
+  Element? get scrollingElement =>
+      js_util.getProperty(this, 'scrollingElement');
+  EventHandlerNonNull? get onpointerlockchange =>
+      js_util.getProperty(this, 'onpointerlockchange');
+  set onpointerlockchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerlockchange', newValue);
+  }
+
+  EventHandlerNonNull? get onpointerlockerror =>
+      js_util.getProperty(this, 'onpointerlockerror');
+  set onpointerlockerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerlockerror', newValue);
+  }
+
+  Object exitPointerLock() => js_util.callMethod(this, 'exitPointerLock', []);
+
+  bool get fullscreenEnabled => js_util.getProperty(this, 'fullscreenEnabled');
+  bool get fullscreen => js_util.getProperty(this, 'fullscreen');
+  Promise<Object> exitFullscreen() =>
+      js_util.callMethod(this, 'exitFullscreen', []);
+
+  EventHandlerNonNull? get onfullscreenchange =>
+      js_util.getProperty(this, 'onfullscreenchange');
+  set onfullscreenchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfullscreenchange', newValue);
+  }
+
+  EventHandlerNonNull? get onfullscreenerror =>
+      js_util.getProperty(this, 'onfullscreenerror');
+  set onfullscreenerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfullscreenerror', newValue);
+  }
+
+  bool get pictureInPictureEnabled =>
+      js_util.getProperty(this, 'pictureInPictureEnabled');
+  Promise<Object> exitPictureInPicture() =>
+      js_util.callMethod(this, 'exitPictureInPicture', []);
+
+  EventHandlerNonNull? get onfreeze => js_util.getProperty(this, 'onfreeze');
+  set onfreeze(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfreeze', newValue);
+  }
+
+  EventHandlerNonNull? get onresume => js_util.getProperty(this, 'onresume');
+  set onresume(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresume', newValue);
+  }
+
+  bool get wasDiscarded => js_util.getProperty(this, 'wasDiscarded');
+  NamedFlowMap get namedFlows => js_util.getProperty(this, 'namedFlows');
+  SVGSVGElement? get rootElement => js_util.getProperty(this, 'rootElement');
+  FragmentDirective get fragmentDirective =>
+      js_util.getProperty(this, 'fragmentDirective');
+  Promise<InterestCohort> interestCohort() =>
+      js_util.callMethod(this, 'interestCohort', []);
+
+  PermissionsPolicy get permissionsPolicy =>
+      js_util.getProperty(this, 'permissionsPolicy');
+  Location? get location => js_util.getProperty(this, 'location');
+  String get domain => js_util.getProperty(this, 'domain');
+  set domain(String newValue) {
+    js_util.setProperty(this, 'domain', newValue);
+  }
+
+  String get referrer => js_util.getProperty(this, 'referrer');
+  String get cookie => js_util.getProperty(this, 'cookie');
+  set cookie(String newValue) {
+    js_util.setProperty(this, 'cookie', newValue);
+  }
+
+  String get lastModified => js_util.getProperty(this, 'lastModified');
+  DocumentReadyState get readyState => js_util.getProperty(this, 'readyState');
+  String get title => js_util.getProperty(this, 'title');
+  set title(String newValue) {
+    js_util.setProperty(this, 'title', newValue);
+  }
+
+  String get dir => js_util.getProperty(this, 'dir');
+  set dir(String newValue) {
+    js_util.setProperty(this, 'dir', newValue);
+  }
+
   HTMLElement? get body => js_util.getProperty(this, 'body');
-  external set body(HTMLElement? newValue);
-  external HTMLHeadElement? get head;
-  external HTMLCollection get images;
-  external HTMLCollection get embeds;
-  external HTMLCollection get plugins;
-  external HTMLCollection get links;
-  external HTMLCollection get forms;
-  external HTMLCollection get scripts;
-  external NodeList getElementsByName(String elementName);
-  external dynamic get currentScript;
-  external Window? open(String url, [String? name, String features]);
-  external Object close();
-  external Object write([String text]);
-  external Object writeln([String text]);
-  external Window? get defaultView;
-  external bool hasFocus();
-  external String get designMode;
-  external set designMode(String newValue);
-  external bool execCommand(String commandId,
-      [bool? showUI = false, String? value = '']);
-  external bool queryCommandEnabled(String commandId);
-  external bool queryCommandIndeterm(String commandId);
-  external bool queryCommandState(String commandId);
-  external bool queryCommandSupported(String commandId);
-  external String queryCommandValue(String commandId);
-  external EventHandlerNonNull? get onreadystatechange;
-  external set onreadystatechange(EventHandlerNonNull? newValue);
-  external String get fgColor;
-  external set fgColor(String newValue);
-  external String get linkColor;
-  external set linkColor(String newValue);
-  external String get vlinkColor;
-  external set vlinkColor(String newValue);
-  external String get alinkColor;
-  external set alinkColor(String newValue);
-  external String get bgColor;
-  external set bgColor(String newValue);
-  external HTMLCollection get anchors;
-  external HTMLCollection get applets;
-  external Object clear();
-  external Object captureEvents();
-  external Object releaseEvents();
-  external HTMLAllCollection get all;
-  external FontMetrics measureElement(Element element);
-  external FontMetrics measureText(
-      String text, StylePropertyMapReadOnly styleMap);
+  set body(HTMLElement? newValue) {
+    js_util.setProperty(this, 'body', newValue);
+  }
+
+  HTMLHeadElement? get head => js_util.getProperty(this, 'head');
+  HTMLCollection get images => js_util.getProperty(this, 'images');
+  HTMLCollection get embeds => js_util.getProperty(this, 'embeds');
+  HTMLCollection get plugins => js_util.getProperty(this, 'plugins');
+  HTMLCollection get links => js_util.getProperty(this, 'links');
+  HTMLCollection get forms => js_util.getProperty(this, 'forms');
+  HTMLCollection get scripts => js_util.getProperty(this, 'scripts');
+  NodeList getElementsByName(String elementName) =>
+      js_util.callMethod(this, 'getElementsByName', [elementName]);
+
+  dynamic get currentScript => js_util.getProperty(this, 'currentScript');
+  Window? open(String url, [String? name, String? features]) =>
+      js_util.callMethod(this, 'open', [url, name, features]);
+
+  Object close() => js_util.callMethod(this, 'close', []);
+
+  Object write([String? text]) => js_util.callMethod(this, 'write', [text]);
+
+  Object writeln([String? text]) => js_util.callMethod(this, 'writeln', [text]);
+
+  Window? get defaultView => js_util.getProperty(this, 'defaultView');
+  bool hasFocus() => js_util.callMethod(this, 'hasFocus', []);
+
+  String get designMode => js_util.getProperty(this, 'designMode');
+  set designMode(String newValue) {
+    js_util.setProperty(this, 'designMode', newValue);
+  }
+
+  bool execCommand(String commandId,
+          [bool? showUI = false, String? value = '']) =>
+      js_util.callMethod(this, 'execCommand', [commandId, showUI, value]);
+
+  bool queryCommandEnabled(String commandId) =>
+      js_util.callMethod(this, 'queryCommandEnabled', [commandId]);
+
+  bool queryCommandIndeterm(String commandId) =>
+      js_util.callMethod(this, 'queryCommandIndeterm', [commandId]);
+
+  bool queryCommandState(String commandId) =>
+      js_util.callMethod(this, 'queryCommandState', [commandId]);
+
+  bool queryCommandSupported(String commandId) =>
+      js_util.callMethod(this, 'queryCommandSupported', [commandId]);
+
+  String queryCommandValue(String commandId) =>
+      js_util.callMethod(this, 'queryCommandValue', [commandId]);
+
+  EventHandlerNonNull? get onreadystatechange =>
+      js_util.getProperty(this, 'onreadystatechange');
+  set onreadystatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onreadystatechange', newValue);
+  }
+
+  String get fgColor => js_util.getProperty(this, 'fgColor');
+  set fgColor(String newValue) {
+    js_util.setProperty(this, 'fgColor', newValue);
+  }
+
+  String get linkColor => js_util.getProperty(this, 'linkColor');
+  set linkColor(String newValue) {
+    js_util.setProperty(this, 'linkColor', newValue);
+  }
+
+  String get vlinkColor => js_util.getProperty(this, 'vlinkColor');
+  set vlinkColor(String newValue) {
+    js_util.setProperty(this, 'vlinkColor', newValue);
+  }
+
+  String get alinkColor => js_util.getProperty(this, 'alinkColor');
+  set alinkColor(String newValue) {
+    js_util.setProperty(this, 'alinkColor', newValue);
+  }
+
+  String get bgColor => js_util.getProperty(this, 'bgColor');
+  set bgColor(String newValue) {
+    js_util.setProperty(this, 'bgColor', newValue);
+  }
+
+  HTMLCollection get anchors => js_util.getProperty(this, 'anchors');
+  HTMLCollection get applets => js_util.getProperty(this, 'applets');
+  Object clear() => js_util.callMethod(this, 'clear', []);
+
+  Object captureEvents() => js_util.callMethod(this, 'captureEvents', []);
+
+  Object releaseEvents() => js_util.callMethod(this, 'releaseEvents', []);
+
+  HTMLAllCollection get all => js_util.getProperty(this, 'all');
+  FontMetrics measureElement(Element element) =>
+      js_util.callMethod(this, 'measureElement', [element]);
+
+  FontMetrics measureText(String text, StylePropertyMapReadOnly styleMap) =>
+      js_util.callMethod(this, 'measureText', [text, styleMap]);
 }
 
 ///  The XMLDocument interface represents an XML document. It
@@ -2067,7 +2305,7 @@ extension PropsDocument on Document {
 @JS()
 @staticInterop
 class XMLDocument implements Document {
-  external factory XMLDocument();
+  external XMLDocument();
 }
 
 @anonymous
@@ -2080,8 +2318,10 @@ class ElementCreationOptions {
 extension PropsElementCreationOptions on ElementCreationOptions {
   @JS('is')
   @staticInterop
-  external String get mIs;
-  external set mIs(String newValue);
+  String get mIs => js_util.getProperty(this, 'is');
+  set mIs(String newValue) {
+    js_util.setProperty(this, 'is', newValue);
+  }
 }
 
 ///  The interface represents an object providing methods which are
@@ -2090,7 +2330,7 @@ extension PropsElementCreationOptions on ElementCreationOptions {
 @JS()
 @staticInterop
 class DOMImplementation {
-  external factory DOMImplementation();
+  external DOMImplementation();
 }
 
 extension PropsDOMImplementation on DOMImplementation {
@@ -2102,8 +2342,10 @@ extension PropsDOMImplementation on DOMImplementation {
   /// var d = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg:svg', dt);
   /// alert(d.doctype.publicId); // -//W3C//DTD SVG 1.1//EN
   ///
-  external DocumentType createDocumentType(
-      String qualifiedName, String publicId, String systemId);
+  DocumentType createDocumentType(
+          String qualifiedName, String publicId, String systemId) =>
+      js_util.callMethod(
+          this, 'createDocumentType', [qualifiedName, publicId, systemId]);
 
   /// Creates and returns an [XMLDocument].
   ///
@@ -2115,8 +2357,10 @@ extension PropsDOMImplementation on DOMImplementation {
   /// doc.documentElement.appendChild(body);
   /// alert(doc.getElementById('abc')); // [object HTMLBodyElement]
   ///
-  external XMLDocument createDocument(String? namespace, String qualifiedName,
-      [DocumentType? doctype]);
+  XMLDocument createDocument(String? namespace, String qualifiedName,
+          [DocumentType? doctype]) =>
+      js_util.callMethod(
+          this, 'createDocument', [namespace, qualifiedName, doctype]);
 
   /// Creates and returns an HTML [Document].
   ///
@@ -2172,7 +2416,8 @@ extension PropsDOMImplementation on DOMImplementation {
   /// </body>
   /// </html>
   ///
-  external Document createHTMLDocument([String? title]);
+  Document createHTMLDocument([String? title]) =>
+      js_util.callMethod(this, 'createHTMLDocument', [title]);
 
   ///  Returns a boolean value indicating if a given feature is
   /// supported or not. This function is unreliable and kept for
@@ -2182,7 +2427,7 @@ extension PropsDOMImplementation on DOMImplementation {
   ///
   /// const flag = document.implementation.hasFeature(feature, version);
   ///
-  external bool hasFeature();
+  bool hasFeature() => js_util.callMethod(this, 'hasFeature', []);
 }
 
 /// The interface represents a [Node] containing a doctype.
@@ -2207,23 +2452,23 @@ extension PropsDOMImplementation on DOMImplementation {
 @JS()
 @staticInterop
 class DocumentType implements Node, ChildNode {
-  external factory DocumentType();
+  external DocumentType();
 }
 
 extension PropsDocumentType on DocumentType {
   /// A [DOMString], eg ["html"] for [<!DOCTYPE HTML>].
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  A [DOMString], eg ["-//W3C//DTD HTML 4.01//EN"], empty string
   /// for HTML5.
   ///
-  external String get publicId;
+  String get publicId => js_util.getProperty(this, 'publicId');
 
   ///  A [DOMString], eg ["http://www.w3.org/TR/html4/strict.dtd"],
   /// empty string for HTML5.
   ///
-  external String get systemId;
+  String get systemId => js_util.getProperty(this, 'systemId');
 }
 
 ///  The interface represents a minimal document object that has no
@@ -2256,7 +2501,7 @@ extension PropsDocumentType on DocumentType {
 @JS()
 @staticInterop
 class DocumentFragment implements Node, NonElementParentNode, ParentNode {
-  external factory DocumentFragment();
+  external DocumentFragment();
 }
 
 ///  The interface of the Shadow DOM API is the root node of a DOM
@@ -2268,7 +2513,7 @@ class DocumentFragment implements Node, NonElementParentNode, ParentNode {
 @JS()
 @staticInterop
 class ShadowRoot implements DocumentFragment, DocumentOrShadowRoot, InnerHTML {
-  external factory ShadowRoot();
+  external ShadowRoot();
 }
 
 extension PropsShadowRoot on ShadowRoot {
@@ -2278,21 +2523,25 @@ extension PropsShadowRoot on ShadowRoot {
   /// features are accessible from JavaScript.
   ///
   ///
-  external ShadowRootMode get mode;
+  ShadowRootMode get mode => js_util.getProperty(this, 'mode');
 
   ///  Returns a boolean that indicates whether was set when the shadow
   /// was attached (see [Element.attachShadow()]).
   ///
   @deprecated
-  external bool get delegatesFocus;
-  external SlotAssignmentMode get slotAssignment;
+  bool get delegatesFocus => js_util.getProperty(this, 'delegatesFocus');
+  SlotAssignmentMode get slotAssignment =>
+      js_util.getProperty(this, 'slotAssignment');
 
   ///  Returns a reference to the DOM element the [ShadowRoot] is
   /// attached to.
   ///
-  external Element get host;
-  external EventHandlerNonNull? get onslotchange;
-  external set onslotchange(EventHandlerNonNull? newValue);
+  Element get host => js_util.getProperty(this, 'host');
+  EventHandlerNonNull? get onslotchange =>
+      js_util.getProperty(this, 'onslotchange');
+  set onslotchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onslotchange', newValue);
+  }
 }
 
 enum ShadowRootMode { open, closed }
@@ -2341,7 +2590,7 @@ class Element
         ChildNode,
         Slottable,
         InnerHTML {
-  external factory Element();
+  external Element();
 }
 
 extension PropsElement on Element {
@@ -2354,56 +2603,62 @@ extension PropsElement on Element {
   /// trees.
   ///
   ///
-  external String? get namespaceURI;
+  String? get namespaceURI => js_util.getProperty(this, 'namespaceURI');
 
   ///  A [DOMString] representing the namespace prefix of the element,
   /// or [null] if no prefix is specified.
   ///
-  external String? get prefix;
+  String? get prefix => js_util.getProperty(this, 'prefix');
 
   ///  A [DOMString] representing the local part of the qualified name
   /// of the element.
   ///
-  external String get localName;
+  String get localName => js_util.getProperty(this, 'localName');
 
   ///  Returns a [String] with the name of the tag for the given
   /// element.
   ///
-  external String get tagName;
+  String get tagName => js_util.getProperty(this, 'tagName');
 
   /// Is a [DOMString] representing the id of the element.
   ///
-  external String get id;
-  external set id(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 
   /// Is a [DOMString] representing the class of the element.
   ///
-  external dynamic get className;
-  external set className(dynamic newValue);
+  dynamic get className => js_util.getProperty(this, 'className');
+  set className(dynamic newValue) {
+    js_util.setProperty(this, 'className', newValue);
+  }
 
   ///  Returns a [DOMTokenList] containing the list of class
   /// attributes.
   ///
-  external DOMTokenList get classList;
+  DOMTokenList get classList => js_util.getProperty(this, 'classList');
 
   ///  Returns the name of the shadow DOM slot the element is inserted
   /// in.
   ///
   @experimental
-  external String get slot;
-  external set slot(String newValue);
+  String get slot => js_util.getProperty(this, 'slot');
+  set slot(String newValue) {
+    js_util.setProperty(this, 'slot', newValue);
+  }
 
   ///  Returns a boolean value indicating if the element has one or
   /// more HTML attributes present.
   ///
   /// var result = element.hasAttributes();
   ///
-  external bool hasAttributes();
+  bool hasAttributes() => js_util.callMethod(this, 'hasAttributes', []);
 
   ///  Returns a [NamedNodeMap] object containing the assigned
   /// attributes of the corresponding HTML element.
   ///
-  external NamedNodeMap get attributes;
+  NamedNodeMap get attributes => js_util.getProperty(this, 'attributes');
 
   /// Returns an array of attribute names from the current element.
   ///
@@ -2440,7 +2695,8 @@ extension PropsElement on Element {
   /// // xlink:href https://example.com
   /// // show new
   ///
-  external Iterable<String> getAttributeNames();
+  Iterable<String> getAttributeNames() =>
+      js_util.callMethod(this, 'getAttributeNames', []);
 
   ///  Retrieves the value of the named attribute from the current node
   /// and returns it as a string.
@@ -2458,7 +2714,8 @@ extension PropsElement on Element {
   ///   want to get.
   ///
   ///
-  external String? getAttribute(String qualifiedName);
+  String? getAttribute(String qualifiedName) =>
+      js_util.callMethod(this, 'getAttribute', [qualifiedName]);
 
   ///  Retrieves the value of the attribute with the specified
   /// namespace and name from the current node and returns it as a
@@ -2466,7 +2723,8 @@ extension PropsElement on Element {
   ///
   /// attrVal = element.getAttributeNS(namespace, name)
   ///
-  external String? getAttributeNS(String? namespace, String localName);
+  String? getAttributeNS(String? namespace, String localName) =>
+      js_util.callMethod(this, 'getAttributeNS', [namespace, localName]);
 
   /// Sets the value of a named attribute of the current node.
   ///
@@ -2527,7 +2785,8 @@ extension PropsElement on Element {
   /// removeAttributeNode
   /// -
   ///
-  external Object setAttribute(String qualifiedName, String value);
+  Object setAttribute(String qualifiedName, String value) =>
+      js_util.callMethod(this, 'setAttribute', [qualifiedName, value]);
 
   ///  Sets the value of the attribute with the specified name and
   /// namespace, from the current node.
@@ -2543,8 +2802,10 @@ extension PropsElement on Element {
   /// let d = document.getElementById('d1');
   /// d.setAttributeNS('http://www.mozilla.org/ns/specialspace', 'spec:align', 'center');
   ///
-  external Object setAttributeNS(
-      String? namespace, String qualifiedName, String value);
+  Object setAttributeNS(
+          String? namespace, String qualifiedName, String value) =>
+      js_util.callMethod(
+          this, 'setAttributeNS', [namespace, qualifiedName, value]);
 
   /// Removes the named attribute from the current node.
   ///
@@ -2554,7 +2815,8 @@ extension PropsElement on Element {
   /// document.getElementById("div1").removeAttribute("align");
   /// // Now: <div id="div1" width="200px">
   ///
-  external Object removeAttribute(String qualifiedName);
+  Object removeAttribute(String qualifiedName) =>
+      js_util.callMethod(this, 'removeAttribute', [qualifiedName]);
 
   ///  Removes the attribute with the specified name and namespace,
   /// from the current node.
@@ -2568,7 +2830,8 @@ extension PropsElement on Element {
   /// d.removeAttributeNS("http://www.mozilla.org/ns/specialspace", "specialAlign");
   /// // Now: <div id="div1" width="200px" />
   ///
-  external Object removeAttributeNS(String? namespace, String localName);
+  Object removeAttributeNS(String? namespace, String localName) =>
+      js_util.callMethod(this, 'removeAttributeNS', [namespace, localName]);
 
   ///  Toggles a boolean attribute, removing it if it is present and
   /// adding it if it is not present, on the specified element.
@@ -2594,7 +2857,8 @@ extension PropsElement on Element {
   ///
   /// ```
   ///
-  external bool toggleAttribute(String qualifiedName, [bool? force]);
+  bool toggleAttribute(String qualifiedName, [bool? force]) =>
+      js_util.callMethod(this, 'toggleAttribute', [qualifiedName, force]);
 
   ///  Returns a boolean value indicating if the element has the
   /// specified attribute or not.
@@ -2614,7 +2878,8 @@ extension PropsElement on Element {
   ///   // do something
   /// }
   ///
-  external bool hasAttribute(String qualifiedName);
+  bool hasAttribute(String qualifiedName) =>
+      js_util.callMethod(this, 'hasAttribute', [qualifiedName]);
 
   ///  Returns a boolean value indicating if the element has the
   /// specified attribute, in the specified namespace, or not.
@@ -2632,7 +2897,8 @@ extension PropsElement on Element {
   ///  d.setAttribute("align", "center");
   /// }
   ///
-  external bool hasAttributeNS(String? namespace, String localName);
+  bool hasAttributeNS(String? namespace, String localName) =>
+      js_util.callMethod(this, 'hasAttributeNS', [namespace, localName]);
 
   ///  Retrieves the node representation of the named attribute from
   /// the current node and returns it as an [Attr].
@@ -2646,7 +2912,8 @@ extension PropsElement on Element {
   /// let idAttr = t.getAttributeNode("id");
   /// alert(idAttr.value == "top")
   ///
-  external Attr? getAttributeNode(String qualifiedName);
+  Attr? getAttributeNode(String qualifiedName) =>
+      js_util.callMethod(this, 'getAttributeNode', [qualifiedName]);
 
   ///  Retrieves the node representation of the attribute with the
   /// specified name and namespace, from the current node and returns
@@ -2657,7 +2924,8 @@ extension PropsElement on Element {
   ///  namespace is a string specifying the namespace of the attribute.
   ///  nodeName is a string specifying the name of the attribute.
   ///
-  external Attr? getAttributeNodeNS(String? namespace, String localName);
+  Attr? getAttributeNodeNS(String? namespace, String localName) =>
+      js_util.callMethod(this, 'getAttributeNodeNS', [namespace, localName]);
 
   ///  Sets the node representation of the named attribute from the
   /// current node.
@@ -2686,7 +2954,8 @@ extension PropsElement on Element {
   ///
   /// ```
   ///
-  external Attr? setAttributeNode(Attr attr);
+  Attr? setAttributeNode(Attr attr) =>
+      js_util.callMethod(this, 'setAttributeNode', [attr]);
 
   ///  Sets the node representation of the attribute with the specified
   /// name and namespace, from the current node.
@@ -2706,7 +2975,8 @@ extension PropsElement on Element {
   /// d2.setAttributeNodeNS(a.cloneNode(true));
   /// alert(d2.attributes[1].value) // returns: `utterleft'
   ///
-  external Attr? setAttributeNodeNS(Attr attr);
+  Attr? setAttributeNodeNS(Attr attr) =>
+      js_util.callMethod(this, 'setAttributeNodeNS', [attr]);
 
   ///  Removes the node representation of the named attribute from the
   /// current node.
@@ -2721,19 +2991,21 @@ extension PropsElement on Element {
   /// d.removeAttributeNode(d_align);
   /// // align is now removed: <div id="top" />
   ///
-  external Attr removeAttributeNode(Attr attr);
+  Attr removeAttributeNode(Attr attr) =>
+      js_util.callMethod(this, 'removeAttributeNode', [attr]);
 
   ///  Attaches a shadow DOM tree to the specified element and returns
   /// a reference to its [ShadowRoot].
   ///
   /// attachShadow(init)
   ///
-  external ShadowRoot attachShadow(ShadowRootInit init);
+  ShadowRoot attachShadow(ShadowRootInit init) =>
+      js_util.callMethod(this, 'attachShadow', [init]);
 
   ///  Returns the open shadow root that is hosted by the element, or
   /// null if no open shadow root is present.
   ///
-  external ShadowRoot? get shadowRoot;
+  ShadowRoot? get shadowRoot => js_util.getProperty(this, 'shadowRoot');
 
   ///  Returns the [Element] which is the closest ancestor of the
   /// current element (or the current element itself) which matches the
@@ -2741,7 +3013,8 @@ extension PropsElement on Element {
   ///
   /// var closestElement = targetElement.closest(selectors);
   ///
-  external Element? closest(String selectors);
+  Element? closest(String selectors) =>
+      js_util.callMethod(this, 'closest', [selectors]);
 
   ///  Returns a boolean value indicating whether or not the element
   /// would be selected by the specified selector string.
@@ -2766,8 +3039,11 @@ extension PropsElement on Element {
   ///  This will log "The Philippine eagle is endangered!" to the console, since the element
   ///  has indeed a class attribute with value endangered.
   ///
-  external bool matches(String selectors);
-  external bool webkitMatchesSelector(String selectors);
+  bool matches(String selectors) =>
+      js_util.callMethod(this, 'matches', [selectors]);
+
+  bool webkitMatchesSelector(String selectors) =>
+      js_util.callMethod(this, 'webkitMatchesSelector', [selectors]);
 
   ///  Returns a live [HTMLCollection] containing all descendant
   /// elements, of a particular tag name, from the current element.
@@ -2799,7 +3075,8 @@ extension PropsElement on Element {
   ///  }
   /// }
   ///
-  external HTMLCollection getElementsByTagName(String qualifiedName);
+  HTMLCollection getElementsByTagName(String qualifiedName) =>
+      js_util.callMethod(this, 'getElementsByTagName', [qualifiedName]);
 
   ///  Returns a live [HTMLCollection] containing all descendant
   /// elements, of a particular tag name and namespace, from the
@@ -2837,8 +3114,9 @@ extension PropsElement on Element {
   ///   }
   /// }
   ///
-  external HTMLCollection getElementsByTagNameNS(
-      String? namespace, String localName);
+  HTMLCollection getElementsByTagNameNS(String? namespace, String localName) =>
+      js_util
+          .callMethod(this, 'getElementsByTagNameNS', [namespace, localName]);
 
   ///  Returns a live [HTMLCollection] that contains all descendants of
   /// the current element that possess the list of classes given in the
@@ -2846,7 +3124,8 @@ extension PropsElement on Element {
   ///
   /// var elements = element.getElementsByClassName(names);
   ///
-  external HTMLCollection getElementsByClassName(String classNames);
+  HTMLCollection getElementsByClassName(String classNames) =>
+      js_util.callMethod(this, 'getElementsByClassName', [classNames]);
 
   ///  Inserts a given element node at a given position relative to the
   /// element it is invoked upon.
@@ -2877,7 +3156,8 @@ extension PropsElement on Element {
   ///  Insert before and Insert after buttons to insert new divs before or
   ///  after the selected element using insertAdjacentElement().
   ///
-  external Element? insertAdjacentElement(String where, Element element);
+  Element? insertAdjacentElement(String where, Element element) =>
+      js_util.callMethod(this, 'insertAdjacentElement', [where, element]);
 
   ///  Inserts a given text node at a given position relative to the
   /// element it is invoked upon.
@@ -2899,49 +3179,106 @@ extension PropsElement on Element {
   ///  insertAdjacentText(). Note that the existing text node is not added to —
   ///  further text nodes are created containing the new additions.
   ///
-  external Object insertAdjacentText(String where, String data);
-  external StylePropertyMapReadOnly computedStyleMap();
-  external DOMRectList getClientRects();
-  external DOMRect getBoundingClientRect();
-  external Object scrollIntoView([dynamic arg]);
-  external Object scroll(
-      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
-  external Object scrollTo(
-      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
-  external Object scrollBy(
-      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
-  external /* double | NaN */ dynamic get scrollTop;
-  external set scrollTop(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get scrollLeft;
-  external set scrollLeft(/* double | NaN */ dynamic newValue);
-  external int get scrollWidth;
-  external int get scrollHeight;
-  external int get clientTop;
-  external int get clientLeft;
-  external int get clientWidth;
-  external int get clientHeight;
-  external Object requestPointerLock();
-  external Promise<Object> requestFullscreen([FullscreenOptions? options]);
-  external EventHandlerNonNull? get onfullscreenchange;
-  external set onfullscreenchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onfullscreenerror;
-  external set onfullscreenerror(EventHandlerNonNull? newValue);
-  external Object setPointerCapture(int pointerId);
-  external Object releasePointerCapture(int pointerId);
-  external bool hasPointerCapture(int pointerId);
-  external CSSPseudoElement? pseudo(String type);
-  external String get outerHTML;
-  external set outerHTML(String newValue);
-  external Object insertAdjacentHTML(String position, String text);
-  external String get elementTiming;
-  external set elementTiming(String newValue);
-  external Node getSpatialNavigationContainer();
-  external Iterable<Node> focusableAreas([FocusableAreasOption? option]);
-  external Node? spatialNavigationSearch(SpatialNavigationDirection dir,
-      [SpatialNavigationSearchOptions? options]);
+  Object insertAdjacentText(String where, String data) =>
+      js_util.callMethod(this, 'insertAdjacentText', [where, data]);
+
+  StylePropertyMapReadOnly computedStyleMap() =>
+      js_util.callMethod(this, 'computedStyleMap', []);
+
+  DOMRectList getClientRects() =>
+      js_util.callMethod(this, 'getClientRects', []);
+
+  DOMRect getBoundingClientRect() =>
+      js_util.callMethod(this, 'getBoundingClientRect', []);
+
+  Object scrollIntoView([dynamic arg]) =>
+      js_util.callMethod(this, 'scrollIntoView', [arg]);
+
+  Object scroll([/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+      js_util.callMethod(this, 'scroll', [x, y]);
+
+  Object scrollTo(
+          [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+      js_util.callMethod(this, 'scrollTo', [x, y]);
+
+  Object scrollBy(
+          [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+      js_util.callMethod(this, 'scrollBy', [x, y]);
+
+  /* double | NaN */ dynamic get scrollTop =>
+      js_util.getProperty(this, 'scrollTop');
+  set scrollTop(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'scrollTop', newValue);
+  }
+
+  /* double | NaN */ dynamic get scrollLeft =>
+      js_util.getProperty(this, 'scrollLeft');
+  set scrollLeft(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'scrollLeft', newValue);
+  }
+
+  int get scrollWidth => js_util.getProperty(this, 'scrollWidth');
+  int get scrollHeight => js_util.getProperty(this, 'scrollHeight');
+  int get clientTop => js_util.getProperty(this, 'clientTop');
+  int get clientLeft => js_util.getProperty(this, 'clientLeft');
+  int get clientWidth => js_util.getProperty(this, 'clientWidth');
+  int get clientHeight => js_util.getProperty(this, 'clientHeight');
+  Object requestPointerLock() =>
+      js_util.callMethod(this, 'requestPointerLock', []);
+
+  Promise<Object> requestFullscreen([FullscreenOptions? options]) =>
+      js_util.callMethod(this, 'requestFullscreen', [options]);
+
+  EventHandlerNonNull? get onfullscreenchange =>
+      js_util.getProperty(this, 'onfullscreenchange');
+  set onfullscreenchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfullscreenchange', newValue);
+  }
+
+  EventHandlerNonNull? get onfullscreenerror =>
+      js_util.getProperty(this, 'onfullscreenerror');
+  set onfullscreenerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfullscreenerror', newValue);
+  }
+
+  Object setPointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'setPointerCapture', [pointerId]);
+
+  Object releasePointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'releasePointerCapture', [pointerId]);
+
+  bool hasPointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'hasPointerCapture', [pointerId]);
+
+  CSSPseudoElement? pseudo(String type) =>
+      js_util.callMethod(this, 'pseudo', [type]);
+
+  String get outerHTML => js_util.getProperty(this, 'outerHTML');
+  set outerHTML(String newValue) {
+    js_util.setProperty(this, 'outerHTML', newValue);
+  }
+
+  Object insertAdjacentHTML(String position, String text) =>
+      js_util.callMethod(this, 'insertAdjacentHTML', [position, text]);
+
+  String get elementTiming => js_util.getProperty(this, 'elementTiming');
+  set elementTiming(String newValue) {
+    js_util.setProperty(this, 'elementTiming', newValue);
+  }
+
+  Node getSpatialNavigationContainer() =>
+      js_util.callMethod(this, 'getSpatialNavigationContainer', []);
+
+  Iterable<Node> focusableAreas([FocusableAreasOption? option]) =>
+      js_util.callMethod(this, 'focusableAreas', [option]);
+
+  Node? spatialNavigationSearch(SpatialNavigationDirection dir,
+          [SpatialNavigationSearchOptions? options]) =>
+      js_util.callMethod(this, 'spatialNavigationSearch', [dir, options]);
+
   @JS('part')
   @staticInterop
-  external DOMTokenList get mPart;
+  DOMTokenList get mPart => js_util.getProperty(this, 'part');
 }
 
 @anonymous
@@ -2949,18 +3286,27 @@ extension PropsElement on Element {
 @staticInterop
 class ShadowRootInit {
   external factory ShadowRootInit(
-      {ShadowRootMode mode,
+      {String mode,
       bool delegatesFocus = false,
       SlotAssignmentMode slotAssignment = SlotAssignmentMode.named});
 }
 
 extension PropsShadowRootInit on ShadowRootInit {
-  external ShadowRootMode get mode;
-  external set mode(ShadowRootMode newValue);
-  external bool get delegatesFocus;
-  external set delegatesFocus(bool newValue);
-  external SlotAssignmentMode get slotAssignment;
-  external set slotAssignment(SlotAssignmentMode newValue);
+  ShadowRootMode get mode => js_util.getProperty(this, 'mode');
+  set mode(ShadowRootMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
+
+  bool get delegatesFocus => js_util.getProperty(this, 'delegatesFocus');
+  set delegatesFocus(bool newValue) {
+    js_util.setProperty(this, 'delegatesFocus', newValue);
+  }
+
+  SlotAssignmentMode get slotAssignment =>
+      js_util.getProperty(this, 'slotAssignment');
+  set slotAssignment(SlotAssignmentMode newValue) {
+    js_util.setProperty(this, 'slotAssignment', newValue);
+  }
 }
 
 ///  The interface represents a collection of [Attr] objects. Objects
@@ -2977,48 +3323,54 @@ extension PropsShadowRootInit on ShadowRootInit {
 @JS()
 @staticInterop
 class NamedNodeMap {
-  external factory NamedNodeMap();
+  external NamedNodeMap();
 }
 
 extension PropsNamedNodeMap on NamedNodeMap {
   /// Returns the amount of objects in the map.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns the [Attr] at the given index, or [null] if the index is
   /// higher or equal to the number of nodes.
   ///
-  external Attr? item(int index);
+  Attr? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   /// Returns a [Attr], corresponding to the given name.
   ///
   /// myAttr = attrs.getNamedItem(name)
   ///
-  external Attr? getNamedItem(String qualifiedName);
+  Attr? getNamedItem(String qualifiedName) =>
+      js_util.callMethod(this, 'getNamedItem', [qualifiedName]);
 
   ///  Returns a [Attr] identified by a namespace and related local
   /// name.
   ///
-  external Attr? getNamedItemNS(String? namespace, String localName);
+  Attr? getNamedItemNS(String? namespace, String localName) =>
+      js_util.callMethod(this, 'getNamedItemNS', [namespace, localName]);
 
   ///  Replaces, or adds, the [Attr] identified in the map by the given
   /// name.
   ///
-  external Attr? setNamedItem(Attr attr);
+  Attr? setNamedItem(Attr attr) =>
+      js_util.callMethod(this, 'setNamedItem', [attr]);
 
   ///  Replaces, or adds, the [Attr] identified in the map by the given
   /// namespace and related local name.
   ///
-  external Attr? setNamedItemNS(Attr attr);
+  Attr? setNamedItemNS(Attr attr) =>
+      js_util.callMethod(this, 'setNamedItemNS', [attr]);
 
   /// Removes the [Attr] identified by the given map.
   ///
-  external Attr removeNamedItem(String qualifiedName);
+  Attr removeNamedItem(String qualifiedName) =>
+      js_util.callMethod(this, 'removeNamedItem', [qualifiedName]);
 
   ///  Removes the [Attr] identified by the given namespace and related
   /// local name.
   ///
-  external Attr removeNamedItemNS(String? namespace, String localName);
+  Attr removeNamedItemNS(String? namespace, String localName) =>
+      js_util.callMethod(this, 'removeNamedItemNS', [namespace, localName]);
 }
 
 ///  The interface represents one of an element's attributes as an
@@ -3099,45 +3451,47 @@ extension PropsNamedNodeMap on NamedNodeMap {
 @JS()
 @staticInterop
 class Attr implements Node {
-  external factory Attr();
+  external Attr();
 }
 
 extension PropsAttr on Attr {
   ///  A [String] representing the URI of the namespace of the
   /// attribute, or [null] if there is no namespace.
   ///
-  external String? get namespaceURI;
+  String? get namespaceURI => js_util.getProperty(this, 'namespaceURI');
 
   ///  A [String] representing the namespace prefix of the attribute,
   /// or [null] if a namespace without prefix or no namespace are
   /// specified.
   ///
-  external String? get prefix;
+  String? get prefix => js_util.getProperty(this, 'prefix');
 
   ///  A [String] representing the local part of the qualified name of
   /// the attribute.
   ///
-  external String get localName;
+  String get localName => js_util.getProperty(this, 'localName');
 
   ///  The attribute's qualified name. If the attribute is not in a
   /// namespace, it will be the same as [localName] property.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  The attribute's value, a string that can be set and get using
   /// this property.
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   /// The [Element] the attribute belongs to.
   ///
-  external Element? get ownerElement;
+  Element? get ownerElement => js_util.getProperty(this, 'ownerElement');
 
   /// This property always returns [true].
   ///
   @deprecated
-  external bool get specified;
+  bool get specified => js_util.getProperty(this, 'specified');
 }
 
 ///  The abstract interface represents a [Node] object that contains
@@ -3166,27 +3520,30 @@ extension PropsAttr on Attr {
 @JS()
 @staticInterop
 class CharacterData implements Node, NonDocumentTypeChildNode, ChildNode {
-  external factory CharacterData();
+  external CharacterData();
 }
 
 extension PropsCharacterData on CharacterData {
   ///  Is a string representing the textual data contained in this
   /// object.
   ///
-  external String get data;
-  external set data(String newValue);
+  String get data => js_util.getProperty(this, 'data');
+  set data(String newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 
   ///  Returns a number representing the size of the string contained
   /// in the object.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns a [String] containing the part of [CharacterData.data]
   /// of the specified length and starting at the specified offset.
   ///
   ///  domString = characterData.substringData(offset, count)
   ///
-  external String substringData(int offset, int count);
+  String substringData(int offset, int count) =>
+      js_util.callMethod(this, 'substringData', [offset, count]);
 
   ///  Appends the given string to the [CharacterData.data] string;
   /// when this method returns, [data] contains the concatenated
@@ -3201,7 +3558,8 @@ extension PropsCharacterData on CharacterData {
   ///
   /// textnode.appendData(" - appended text.");
   ///
-  external Object appendData(String data);
+  Object appendData(String data) =>
+      js_util.callMethod(this, 'appendData', [data]);
 
   ///  Inserts the specified characters, at the specified offset, in
   /// the [CharacterData.data] string; when this method returns, [data]
@@ -3216,7 +3574,8 @@ extension PropsCharacterData on CharacterData {
   ///
   /// textnode.insertData(2, "long ");
   ///
-  external Object insertData(int offset, String data);
+  Object insertData(int offset, String data) =>
+      js_util.callMethod(this, 'insertData', [offset, data]);
 
   ///  Removes the specified amount of characters, starting at the
   /// specified offset, from the [CharacterData.data] string; when this
@@ -3231,7 +3590,8 @@ extension PropsCharacterData on CharacterData {
   ///
   /// textnode.deleteData(1, 5);
   ///
-  external Object deleteData(int offset, int count);
+  Object deleteData(int offset, int count) =>
+      js_util.callMethod(this, 'deleteData', [offset, count]);
 
   ///  Replaces the specified amount of characters, starting at the
   /// specified offset, with the specified [DOMString]; when this
@@ -3246,7 +3606,8 @@ extension PropsCharacterData on CharacterData {
   ///
   /// textnode.replaceData(2, 4, "replaced");
   ///
-  external Object replaceData(int offset, int count, String data);
+  Object replaceData(int offset, int count, String data) =>
+      js_util.callMethod(this, 'replaceData', [offset, count, data]);
 }
 
 /// The interface represents a text [node] in a DOM tree.
@@ -3293,7 +3654,7 @@ extension PropsCharacterData on CharacterData {
 @JS()
 @staticInterop
 class Text implements CharacterData, GeometryUtils, Slottable {
-  external factory Text([String? data = '']);
+  external Text([String? data = '']);
 }
 
 extension PropsText on Text {
@@ -3325,13 +3686,13 @@ extension PropsText on Text {
   ///
   /// // The result is: <p>foo<u> new content </u>bar</p>
   ///
-  external Text splitText(int offset);
+  Text splitText(int offset) => js_util.callMethod(this, 'splitText', [offset]);
 
   ///  Returns a [DOMString] containing the text of all [Text] nodes
   /// logically adjacent to this [Node], concatenated in document
   /// order.
   ///
-  external String get wholeText;
+  String get wholeText => js_util.getProperty(this, 'wholeText');
 }
 
 ///
@@ -3389,7 +3750,7 @@ extension PropsText on Text {
 @JS()
 @staticInterop
 class CDATASection implements Text {
-  external factory CDATASection();
+  external CDATASection();
 }
 
 ///  The interface represents a processing instruction; that is, a
@@ -3440,14 +3801,14 @@ class CDATASection implements Text {
 @JS()
 @staticInterop
 class ProcessingInstruction implements CharacterData, LinkStyle {
-  external factory ProcessingInstruction();
+  external ProcessingInstruction();
 }
 
 extension PropsProcessingInstruction on ProcessingInstruction {
   ///  A name identifying the application to which the instruction is
   /// targeted.
   ///
-  external String get target;
+  String get target => js_util.getProperty(this, 'target');
 }
 
 ///  The interface represents textual notations within markup;
@@ -3483,7 +3844,7 @@ extension PropsProcessingInstruction on ProcessingInstruction {
 @JS()
 @staticInterop
 class Comment implements CharacterData {
-  external factory Comment([String? data = '']);
+  external Comment([String? data = '']);
 }
 
 ///  The abstract interface is the base class upon which all DOM
@@ -3497,39 +3858,39 @@ class Comment implements CharacterData {
 @JS()
 @staticInterop
 class AbstractRange {
-  external factory AbstractRange();
+  external AbstractRange();
 }
 
 extension PropsAbstractRange on AbstractRange {
   ///  The DOM [Node] in which the beginning of the range, as specified
   /// by the [startOffset] property, is located.
   ///
-  external Node get startContainer;
+  Node get startContainer => js_util.getProperty(this, 'startContainer');
 
   ///  An integer value indicating the offset, in characters, from the
   /// beginning of the node's contents to the last character of the
   /// contents referred to by the range object. This value must be less
   /// than the length of the node indicated in [startContainer].
   ///
-  external int get startOffset;
+  int get startOffset => js_util.getProperty(this, 'startOffset');
 
   ///  The DOM [Node] in which the end of the range, as specified by
   /// the [endOffset] property, is located.
   ///
-  external Node get endContainer;
+  Node get endContainer => js_util.getProperty(this, 'endContainer');
 
   ///  An integer value indicating the offset, in characters, from the
   /// beginning of the node's contents to the beginning of the range
   /// represented by the range object. This value must be less than the
   /// length of the [endContainer] node.
   ///
-  external int get endOffset;
+  int get endOffset => js_util.getProperty(this, 'endOffset');
 
   ///  A Boolean value which is [true] if the range is collapsed. A
   /// collapsed range is one whose start position and end position are
   /// the same, resulting in a zero-character-long range.
   ///
-  external bool get collapsed;
+  bool get collapsed => js_util.getProperty(this, 'collapsed');
 }
 
 @anonymous
@@ -3541,14 +3902,25 @@ class StaticRangeInit {
 }
 
 extension PropsStaticRangeInit on StaticRangeInit {
-  external Node get startContainer;
-  external set startContainer(Node newValue);
-  external int get startOffset;
-  external set startOffset(int newValue);
-  external Node get endContainer;
-  external set endContainer(Node newValue);
-  external int get endOffset;
-  external set endOffset(int newValue);
+  Node get startContainer => js_util.getProperty(this, 'startContainer');
+  set startContainer(Node newValue) {
+    js_util.setProperty(this, 'startContainer', newValue);
+  }
+
+  int get startOffset => js_util.getProperty(this, 'startOffset');
+  set startOffset(int newValue) {
+    js_util.setProperty(this, 'startOffset', newValue);
+  }
+
+  Node get endContainer => js_util.getProperty(this, 'endContainer');
+  set endContainer(Node newValue) {
+    js_util.setProperty(this, 'endContainer', newValue);
+  }
+
+  int get endOffset => js_util.getProperty(this, 'endOffset');
+  set endOffset(int newValue) {
+    js_util.setProperty(this, 'endOffset', newValue);
+  }
 }
 
 ///  The DOM interface extends [AbstractRange] to provide a method to
@@ -3572,7 +3944,7 @@ extension PropsStaticRangeInit on StaticRangeInit {
 @JS()
 @staticInterop
 class StaticRange implements AbstractRange {
-  external factory StaticRange(StaticRangeInit init);
+  external StaticRange(StaticRangeInit init);
 }
 
 ///  The interface represents a fragment of a document that can
@@ -3589,20 +3961,22 @@ class Range implements AbstractRange {
   external static int get START_TO_END;
   external static int get END_TO_END;
   external static int get END_TO_START;
-  external factory Range();
+  external Range();
 }
 
 extension PropsRange on Range {
   ///  Returns the deepest [Node] that contains the [startContainer]
   /// and [endContainer] nodes.
   ///
-  external Node get commonAncestorContainer;
+  Node get commonAncestorContainer =>
+      js_util.getProperty(this, 'commonAncestorContainer');
 
   /// Sets the start position of a [Range].
   ///
   /// range.setStart(startNode, startOffset);
   ///
-  external Object setStart(Node node, int offset);
+  Object setStart(Node node, int offset) =>
+      js_util.callMethod(this, 'setStart', [node, offset]);
 
   /// Sets the end position of a [Range].
   ///
@@ -3617,7 +3991,8 @@ extension PropsRange on Range {
   ///   setStart() to fully configure a range.
   ///
   ///
-  external Object setEnd(Node node, int offset);
+  Object setEnd(Node node, int offset) =>
+      js_util.callMethod(this, 'setEnd', [node, offset]);
 
   /// Sets the start position of a [Range] relative to another [Node].
   ///
@@ -3628,7 +4003,8 @@ extension PropsRange on Range {
   ///
   /// range.setStartBefore(referenceNode);
   ///
-  external Object setStartBefore(Node node);
+  Object setStartBefore(Node node) =>
+      js_util.callMethod(this, 'setStartBefore', [node]);
 
   /// Sets the start position of a [Range] relative to another [Node].
   ///
@@ -3639,7 +4015,8 @@ extension PropsRange on Range {
   ///
   /// range.setStartAfter(referenceNode);
   ///
-  external Object setStartAfter(Node node);
+  Object setStartAfter(Node node) =>
+      js_util.callMethod(this, 'setStartAfter', [node]);
 
   /// Sets the end position of a [Range] relative to another [Node].
   ///
@@ -3650,7 +4027,8 @@ extension PropsRange on Range {
   ///
   /// range.setEndBefore(referenceNode);
   ///
-  external Object setEndBefore(Node node);
+  Object setEndBefore(Node node) =>
+      js_util.callMethod(this, 'setEndBefore', [node]);
 
   /// Sets the end position of a [Range] relative to another [Node].
   ///
@@ -3661,7 +4039,8 @@ extension PropsRange on Range {
   ///
   /// range.setEndAfter(referenceNode);
   ///
-  external Object setEndAfter(Node node);
+  Object setEndAfter(Node node) =>
+      js_util.callMethod(this, 'setEndAfter', [node]);
 
   /// Collapses the [Range] to one of its boundary points.
   ///
@@ -3673,7 +4052,8 @@ extension PropsRange on Range {
   /// range.selectNode(referenceNode);
   /// range.collapse(true);
   ///
-  external Object collapse([bool? toStart = false]);
+  Object collapse([bool? toStart = false]) =>
+      js_util.callMethod(this, 'collapse', [toStart]);
 
   /// Sets the [Range] to contain the [Node] and its contents.
   ///
@@ -3684,7 +4064,8 @@ extension PropsRange on Range {
   ///
   /// range.selectNode(referenceNode);
   ///
-  external Object selectNode(Node node);
+  Object selectNode(Node node) =>
+      js_util.callMethod(this, 'selectNode', [node]);
 
   /// Sets the [Range] to contain the contents of a [Node].
   ///
@@ -3694,7 +4075,8 @@ extension PropsRange on Range {
   /// referenceNode = document.getElementsByTagName("div")[0];
   /// range.selectNodeContents(referenceNode);
   ///
-  external Object selectNodeContents(Node node);
+  Object selectNodeContents(Node node) =>
+      js_util.callMethod(this, 'selectNodeContents', [node]);
 
   ///  Compares the boundary points of the [Range] with another
   /// [Range].
@@ -3708,7 +4090,8 @@ extension PropsRange on Range {
   /// sourceRange.selectNode(document.getElementsByTagName("div")[1]);
   /// compare = range.compareBoundaryPoints(Range.START_TO_END, sourceRange);
   ///
-  external int compareBoundaryPoints(int how, Range sourceRange);
+  int compareBoundaryPoints(int how, Range sourceRange) =>
+      js_util.callMethod(this, 'compareBoundaryPoints', [how, sourceRange]);
 
   /// Removes the contents of a [Range] from the [Document].
   ///
@@ -3718,14 +4101,15 @@ extension PropsRange on Range {
   /// range.selectNode(document.getElementsByTagName("div").item(0));
   /// range.deleteContents();
   ///
-  external Object deleteContents();
+  Object deleteContents() => js_util.callMethod(this, 'deleteContents', []);
 
   ///  Moves contents of a [Range] from the document tree into a
   /// [DocumentFragment].
   ///
   /// documentFragment = range.extractContents();
   ///
-  external DocumentFragment extractContents();
+  DocumentFragment extractContents() =>
+      js_util.callMethod(this, 'extractContents', []);
 
   /// Returns a [DocumentFragment] copying the nodes of a [Range].
   ///
@@ -3736,7 +4120,8 @@ extension PropsRange on Range {
   /// documentFragment = range.cloneContents();
   /// document.body.appendChild(documentFragment);
   ///
-  external DocumentFragment cloneContents();
+  DocumentFragment cloneContents() =>
+      js_util.callMethod(this, 'cloneContents', []);
 
   /// Insert a [Node] at the start of a [Range].
   ///
@@ -3748,13 +4133,15 @@ extension PropsRange on Range {
   /// range.selectNode(document.getElementsByTagName("div").item(0));
   /// range.insertNode(newNode);
   ///
-  external Object insertNode(Node node);
+  Object insertNode(Node node) =>
+      js_util.callMethod(this, 'insertNode', [node]);
 
   /// Moves content of a [Range] into a new [Node].
   ///
   /// range.surroundContents(newParent);
   ///
-  external Object surroundContents(Node newParent);
+  Object surroundContents(Node newParent) =>
+      js_util.callMethod(this, 'surroundContents', [newParent]);
 
   ///  Returns a [Range] object with boundary points identical to the
   /// cloned [Range].
@@ -3765,7 +4152,7 @@ extension PropsRange on Range {
   /// range.selectNode(document.getElementsByTagName("div").item(0));
   /// clone = range.cloneRange();
   ///
-  external Range cloneRange();
+  Range cloneRange() => js_util.callMethod(this, 'cloneRange', []);
 
   /// Releases the [Range] from use to improve performance.
   ///
@@ -3776,7 +4163,7 @@ extension PropsRange on Range {
   /// range.selectNode(document.getElementsByTagName("div").item(0));
   /// range.detach();
   ///
-  external Object detach();
+  Object detach() => js_util.callMethod(this, 'detach', []);
 
   ///  Returns a [boolean] indicating whether the given point is in the
   /// [Range].
@@ -3788,7 +4175,8 @@ extension PropsRange on Range {
   /// bool = range.isPointInRange(document.getElementsByTagName("p").item(0),1);
   ///
   @experimental
-  external bool isPointInRange(Node node, int offset);
+  bool isPointInRange(Node node, int offset) =>
+      js_util.callMethod(this, 'isPointInRange', [node, offset]);
 
   ///  Returns -1, 0, or 1 indicating whether the point occurs before,
   /// inside, or after the [Range].
@@ -3800,7 +4188,8 @@ extension PropsRange on Range {
   /// returnValue = range.comparePoint(document.getElementsByTagName('p').item(0), 1);
   ///
   @experimental
-  external int comparePoint(Node node, int offset);
+  int comparePoint(Node node, int offset) =>
+      js_util.callMethod(this, 'comparePoint', [node, offset]);
 
   ///  Returns a [boolean] indicating whether the given node intersects
   /// the [Range].
@@ -3813,12 +4202,19 @@ extension PropsRange on Range {
   /// var bool = range.intersectsNode(document.getElementsByTagName("p").item(0));
   ///
   @experimental
-  external bool intersectsNode(Node node);
-  @JS('toString')
-  external String mToString();
-  external DOMRectList getClientRects();
-  external DOMRect getBoundingClientRect();
-  external DocumentFragment createContextualFragment(String fragment);
+  bool intersectsNode(Node node) =>
+      js_util.callMethod(this, 'intersectsNode', [node]);
+
+  String mToString() => js_util.callMethod(this, 'toString', []);
+
+  DOMRectList getClientRects() =>
+      js_util.callMethod(this, 'getClientRects', []);
+
+  DOMRect getBoundingClientRect() =>
+      js_util.callMethod(this, 'getBoundingClientRect', []);
+
+  DocumentFragment createContextualFragment(String fragment) =>
+      js_util.callMethod(this, 'createContextualFragment', [fragment]);
 }
 
 ///
@@ -3830,7 +4226,7 @@ extension PropsRange on Range {
 @JS()
 @staticInterop
 class NodeIterator {
-  external factory NodeIterator();
+  external NodeIterator();
 }
 
 extension PropsNodeIterator on NodeIterator {
@@ -3840,12 +4236,12 @@ extension PropsNodeIterator on NodeIterator {
   ///    [NodeIterator] was created.
   ///
   ///
-  external Node get root;
+  Node get root => js_util.getProperty(this, 'root');
 
   /// Returns the [Node] to which the iterator is anchored.
   ///
   @experimental
-  external Node get referenceNode;
+  Node get referenceNode => js_util.getProperty(this, 'referenceNode');
 
   ///
   ///    Returns a boolean flag that indicates whether the
@@ -3854,7 +4250,8 @@ extension PropsNodeIterator on NodeIterator {
   ///
   ///
   @experimental
-  external bool get pointerBeforeReferenceNode;
+  bool get pointerBeforeReferenceNode =>
+      js_util.getProperty(this, 'pointerBeforeReferenceNode');
 
   ///
   ///    Returns an [unsigned long] being a bitmask made of constants
@@ -3956,11 +4353,11 @@ extension PropsNodeIterator on NodeIterator {
   ///
   ///
   ///
-  external int get whatToShow;
+  int get whatToShow => js_util.getProperty(this, 'whatToShow');
 
   /// Returns a [NodeFilter] used to select the relevant nodes.
   ///
-  external NodeFilter? get filter;
+  NodeFilter? get filter => js_util.getProperty(this, 'filter');
 
   ///
   ///    Returns the next [Node] in the document, or [null] if
@@ -3977,7 +4374,7 @@ extension PropsNodeIterator on NodeIterator {
   /// );
   /// currentNode = nodeIterator.nextNode(); // returns the next node
   ///
-  external Node? nextNode();
+  Node? nextNode() => js_util.callMethod(this, 'nextNode', []);
 
   ///
   ///    Returns the previous [Node] in the document, or [null] if
@@ -3995,7 +4392,7 @@ extension PropsNodeIterator on NodeIterator {
   /// currentNode = nodeIterator.nextNode(); // returns the next node
   /// previousNode = nodeIterator.previousNode(); // same result, since we backtracked to the previous node
   ///
-  external Node? previousNode();
+  Node? previousNode() => js_util.callMethod(this, 'previousNode', []);
 
   ///
   ///     This operation is a no-op. It doesn't do anything. Previously
@@ -4018,7 +4415,7 @@ extension PropsNodeIterator on NodeIterator {
   /// nodeIterator.nextNode(); // throws an INVALID_STATE_ERR exception
   ///
   @deprecated
-  external Object detach();
+  Object detach() => js_util.callMethod(this, 'detach', []);
 }
 
 ///  The object represents the nodes of a document subtree and a
@@ -4027,14 +4424,14 @@ extension PropsNodeIterator on NodeIterator {
 @JS()
 @staticInterop
 class TreeWalker {
-  external factory TreeWalker();
+  external TreeWalker();
 }
 
 extension PropsTreeWalker on TreeWalker {
   ///  Returns a [Node] representing the root node as specified when
   /// the [TreeWalker] was created.
   ///
-  external Node get root;
+  Node get root => js_util.getProperty(this, 'root');
 
   ///  Returns an [unsigned long] being a bitmask made of constants
   /// describing the types of [Node] that must be presented.
@@ -4132,24 +4529,33 @@ extension PropsTreeWalker on TreeWalker {
   ///
   ///
   ///
-  external int get whatToShow;
+  int get whatToShow => js_util.getProperty(this, 'whatToShow');
 
   /// Returns a [NodeFilter] used to select the relevant nodes.
   ///
-  external NodeFilter? get filter;
+  NodeFilter? get filter => js_util.getProperty(this, 'filter');
 
   ///  Is the [Node] on which the [TreeWalker] is currently pointing
   /// at.
   ///
-  external Node get currentNode;
-  external set currentNode(Node newValue);
-  external Node? parentNode();
-  external Node? firstChild();
-  external Node? lastChild();
-  external Node? previousSibling();
-  external Node? nextSibling();
-  external Node? previousNode();
-  external Node? nextNode();
+  Node get currentNode => js_util.getProperty(this, 'currentNode');
+  set currentNode(Node newValue) {
+    js_util.setProperty(this, 'currentNode', newValue);
+  }
+
+  Node? parentNode() => js_util.callMethod(this, 'parentNode', []);
+
+  Node? firstChild() => js_util.callMethod(this, 'firstChild', []);
+
+  Node? lastChild() => js_util.callMethod(this, 'lastChild', []);
+
+  Node? previousSibling() => js_util.callMethod(this, 'previousSibling', []);
+
+  Node? nextSibling() => js_util.callMethod(this, 'nextSibling', []);
+
+  Node? previousNode() => js_util.callMethod(this, 'previousNode', []);
+
+  Node? nextNode() => js_util.callMethod(this, 'nextNode', []);
 }
 
 ///  A interface represents an object used to filter the nodes in a
@@ -4181,7 +4587,7 @@ class NodeFilter {
   external static int get SHOW_DOCUMENT_TYPE;
   external static int get SHOW_DOCUMENT_FRAGMENT;
   external static int get SHOW_NOTATION;
-  external factory NodeFilter();
+  external NodeFilter();
 }
 
 extension PropsNodeFilter on NodeFilter {
@@ -4270,7 +4676,7 @@ extension PropsNodeFilter on NodeFilter {
   ///  alert(node.data);
   /// }
   ///
-  external int acceptNode(Node node);
+  int acceptNode(Node node) => js_util.callMethod(this, 'acceptNode', [node]);
 }
 
 ///  The interface represents a set of space-separated tokens. Such a
@@ -4281,28 +4687,28 @@ extension PropsNodeFilter on NodeFilter {
 @JS()
 @staticInterop
 class DOMTokenList {
-  external factory DOMTokenList();
+  external DOMTokenList();
 }
 
 extension PropsDOMTokenList on DOMTokenList {
   ///  Is an [integer] representing the number of objects stored in the
   /// object.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns the item in the list by its index, or [undefined] if the
   /// index is greater than or equal to the list's [length].
   ///
   /// tokenList.item(index)
   ///
-  external String? item(int index);
+  String? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   ///  Returns [true] if the list contains the given token, otherwise
   /// [false].
   ///
   /// contains(token);
   ///
-  external bool contains(String token);
+  bool contains(String token) => js_util.callMethod(this, 'contains', [token]);
 
   /// Adds the specified tokens to the list.
   ///
@@ -4310,7 +4716,7 @@ extension PropsDOMTokenList on DOMTokenList {
   /// add(token0, token1);
   /// add(token0, token1, /* ... ,*/ tokenN)
   ///
-  external Object add([String tokens]);
+  Object add([String? tokens]) => js_util.callMethod(this, 'add', [tokens]);
 
   /// Removes the specified tokens from the list.
   ///
@@ -4319,7 +4725,8 @@ extension PropsDOMTokenList on DOMTokenList {
   /// remove(token, token, token);
   /// ...
   ///
-  external Object remove([String tokens]);
+  Object remove([String? tokens]) =>
+      js_util.callMethod(this, 'remove', [tokens]);
 
   ///  Removes the token from the list if it exists, or adds it to the
   /// list if it doesn't. Returns a boolean indicating whether the
@@ -4328,13 +4735,15 @@ extension PropsDOMTokenList on DOMTokenList {
   /// toggle(token);
   /// toggle(token, force);
   ///
-  external bool toggle(String token, [bool? force]);
+  bool toggle(String token, [bool? force]) =>
+      js_util.callMethod(this, 'toggle', [token, force]);
 
   /// Replaces the token with another one.
   ///
   /// replace(oldToken, newToken);
   ///
-  external bool replace(String token, String newToken);
+  bool replace(String token, String newToken) =>
+      js_util.callMethod(this, 'replace', [token, newToken]);
 
   ///  Returns [true] if the given token is in the associated
   /// attribute's supported tokens.
@@ -4356,13 +4765,15 @@ extension PropsDOMTokenList on DOMTokenList {
   ///  //
   /// }
   ///
-  external bool supports(String token);
+  bool supports(String token) => js_util.callMethod(this, 'supports', [token]);
 
   ///  A stringifier property that returns the value of the list as a
   /// string.
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 ///  The interface represents the results generated by evaluating an
@@ -4383,45 +4794,47 @@ class XPathResult {
   external static int get ORDERED_NODE_SNAPSHOT_TYPE;
   external static int get ANY_UNORDERED_NODE_TYPE;
   external static int get FIRST_ORDERED_NODE_TYPE;
-  external factory XPathResult();
+  external XPathResult();
 }
 
 extension PropsXPathResult on XPathResult {
   ///  A [number] code representing the type of the result, as defined
   /// by the type constants.
   ///
-  external int get resultType;
+  int get resultType => js_util.getProperty(this, 'resultType');
 
   ///  A [number] representing the value of the result if [resultType]
   /// is [NUMBER_TYPE].
   ///
-  external /* double | NaN */ dynamic get numberValue;
+  /* double | NaN */ dynamic get numberValue =>
+      js_util.getProperty(this, 'numberValue');
 
   ///  A [string] representing the value of the result if [resultType]
   /// is [STRING_TYPE].
   ///
-  external String get stringValue;
+  String get stringValue => js_util.getProperty(this, 'stringValue');
 
   ///  A [boolean] representing the value of the result if [resultType]
   /// is [BOOLEAN_TYPE].
   ///
-  external bool get booleanValue;
+  bool get booleanValue => js_util.getProperty(this, 'booleanValue');
 
   ///  A [Node] representing the value of the single node result, which
   /// may be [null].
   ///
-  external Node? get singleNodeValue;
+  Node? get singleNodeValue => js_util.getProperty(this, 'singleNodeValue');
 
   ///  Signifies that the iterator has become invalid. It is [true] if
   /// [resultType] is [UNORDERED_NODE_ITERATOR_TYPE] or
   /// [ORDERED_NODE_ITERATOR_TYPE] and the document has been modified
   /// since this result was returned.
   ///
-  external bool get invalidIteratorState;
+  bool get invalidIteratorState =>
+      js_util.getProperty(this, 'invalidIteratorState');
 
   /// The number of nodes in the result snapshot.
   ///
-  external int get snapshotLength;
+  int get snapshotLength => js_util.getProperty(this, 'snapshotLength');
 
   ///  If the result is a node set, this method iterates over it and
   /// returns the next node from it or [null] if there are no more
@@ -4446,7 +4859,7 @@ extension PropsXPathResult on XPathResult {
   ///
   /// ```
   ///
-  external Node? iterateNext();
+  Node? iterateNext() => js_util.callMethod(this, 'iterateNext', []);
 
   ///  Returns an item of the snapshot collection or [null] in case the
   /// index is not within the range of nodes. Unlike the iterator
@@ -4473,7 +4886,8 @@ extension PropsXPathResult on XPathResult {
   ///
   /// ```
   ///
-  external Node? snapshotItem(int index);
+  Node? snapshotItem(int index) =>
+      js_util.callMethod(this, 'snapshotItem', [index]);
 }
 
 ///  This interface is a compiled XPath expression that can be
@@ -4487,7 +4901,7 @@ extension PropsXPathResult on XPathResult {
 @JS()
 @staticInterop
 class XPathExpression {
-  external factory XPathExpression();
+  external XPathExpression();
 }
 
 extension PropsXPathExpression on XPathExpression {
@@ -4509,8 +4923,9 @@ extension PropsXPathExpression on XPathExpression {
   ///
   /// ```
   ///
-  external XPathResult evaluate(Node contextNode,
-      [int? type = 0, XPathResult? result]);
+  XPathResult evaluate(Node contextNode,
+          [int? type = 0, XPathResult? result]) =>
+      js_util.callMethod(this, 'evaluate', [contextNode, type, result]);
 }
 
 ///  The interface permits prefix strings in an XPath expression to
@@ -4521,7 +4936,7 @@ extension PropsXPathExpression on XPathExpression {
 @JS()
 @staticInterop
 class XPathNSResolver {
-  external factory XPathNSResolver();
+  external XPathNSResolver();
 }
 
 extension PropsXPathNSResolver on XPathNSResolver {
@@ -4530,21 +4945,28 @@ extension PropsXPathNSResolver on XPathNSResolver {
   ///
   /// DOMString XPathNSResolver.lookupNamespaceURI(prefix);
   ///
-  external String? lookupNamespaceURI(String? prefix);
+  String? lookupNamespaceURI(String? prefix) =>
+      js_util.callMethod(this, 'lookupNamespaceURI', [prefix]);
 }
 
 @JS()
 @staticInterop
 class XPathEvaluatorBase {
-  external factory XPathEvaluatorBase();
+  external XPathEvaluatorBase();
 }
 
 extension PropsXPathEvaluatorBase on XPathEvaluatorBase {
-  external XPathExpression createExpression(String expression,
-      [XPathNSResolver? resolver]);
-  external XPathNSResolver createNSResolver(Node nodeResolver);
-  external XPathResult evaluate(String expression, Node contextNode,
-      [XPathNSResolver? resolver, int? type = 0, XPathResult? result]);
+  XPathExpression createExpression(String expression,
+          [XPathNSResolver? resolver]) =>
+      js_util.callMethod(this, 'createExpression', [expression, resolver]);
+
+  XPathNSResolver createNSResolver(Node nodeResolver) =>
+      js_util.callMethod(this, 'createNSResolver', [nodeResolver]);
+
+  XPathResult evaluate(String expression, Node contextNode,
+          [XPathNSResolver? resolver, int? type = 0, XPathResult? result]) =>
+      js_util.callMethod(
+          this, 'evaluate', [expression, contextNode, resolver, type, result]);
 }
 
 /// The interface allows to compile and evaluate XPath expressions.
@@ -4552,7 +4974,7 @@ extension PropsXPathEvaluatorBase on XPathEvaluatorBase {
 @JS()
 @staticInterop
 class XPathEvaluator implements XPathEvaluatorBase {
-  external factory XPathEvaluator();
+  external XPathEvaluator();
 }
 
 ///  Non-standard: This feature is non-standard and is not on a
@@ -4573,7 +4995,7 @@ class XPathEvaluator implements XPathEvaluatorBase {
 @JS()
 @staticInterop
 class XSLTProcessor {
-  external factory XSLTProcessor();
+  external XSLTProcessor();
 }
 
 extension PropsXSLTProcessor on XSLTProcessor {
@@ -4585,9 +5007,14 @@ extension PropsXSLTProcessor on XSLTProcessor {
   ///    [<xsl:transform>] element.
   ///
   ///
-  external Object importStylesheet(Node style);
-  external DocumentFragment transformToFragment(Node source, Document output);
-  external Document transformToDocument(Node source);
+  Object importStylesheet(Node style) =>
+      js_util.callMethod(this, 'importStylesheet', [style]);
+
+  DocumentFragment transformToFragment(Node source, Document output) =>
+      js_util.callMethod(this, 'transformToFragment', [source, output]);
+
+  Document transformToDocument(Node source) =>
+      js_util.callMethod(this, 'transformToDocument', [source]);
 
   ///
   ///     Sets a parameter in the XSLT stylesheet that was imported.
@@ -4596,8 +5023,9 @@ extension PropsXSLTProcessor on XSLTProcessor {
   ///    the same as an empty string.
   ///
   ///
-  external Object setParameter(
-      String namespaceURI, String localName, dynamic value);
+  Object setParameter(String namespaceURI, String localName, dynamic value) =>
+      js_util
+          .callMethod(this, 'setParameter', [namespaceURI, localName, value]);
 
   ///
   ///     Gets the value of a parameter from the XSLT stylesheet. A
@@ -4605,7 +5033,8 @@ extension PropsXSLTProcessor on XSLTProcessor {
   ///    [namespaceURI] is treated the same as an empty string.
   ///
   ///
-  external dynamic getParameter(String namespaceURI, String localName);
+  dynamic getParameter(String namespaceURI, String localName) =>
+      js_util.callMethod(this, 'getParameter', [namespaceURI, localName]);
 
   ///
   ///     Removes the parameter if it was previously set. This will
@@ -4617,7 +5046,8 @@ extension PropsXSLTProcessor on XSLTProcessor {
   ///    string.
   ///
   ///
-  external Object removeParameter(String namespaceURI, String localName);
+  Object removeParameter(String namespaceURI, String localName) =>
+      js_util.callMethod(this, 'removeParameter', [namespaceURI, localName]);
 
   ///
   ///    Removes all set parameters from the [XSLTProcessor]. The
@@ -4626,9 +5056,9 @@ extension PropsXSLTProcessor on XSLTProcessor {
   ///    stylesheet.
   ///
   ///
-  external Object clearParameters();
+  Object clearParameters() => js_util.callMethod(this, 'clearParameters', []);
 
   /// Removes all parameters and stylesheets from the [XSLTProcessor].
   ///
-  external Object reset();
+  Object reset() => js_util.callMethod(this, 'reset', []);
 }

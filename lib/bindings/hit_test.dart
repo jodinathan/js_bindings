@@ -5,6 +5,7 @@
 @staticInterop
 library hit_test;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -28,12 +29,21 @@ class XRHitTestOptionsInit {
 }
 
 extension PropsXRHitTestOptionsInit on XRHitTestOptionsInit {
-  external XRSpace get space;
-  external set space(XRSpace newValue);
-  external Iterable<XRHitTestTrackableType> get entityTypes;
-  external set entityTypes(Iterable<XRHitTestTrackableType> newValue);
-  external XRRay get offsetRay;
-  external set offsetRay(XRRay newValue);
+  XRSpace get space => js_util.getProperty(this, 'space');
+  set space(XRSpace newValue) {
+    js_util.setProperty(this, 'space', newValue);
+  }
+
+  Iterable<XRHitTestTrackableType> get entityTypes =>
+      js_util.getProperty(this, 'entityTypes');
+  set entityTypes(Iterable<XRHitTestTrackableType> newValue) {
+    js_util.setProperty(this, 'entityTypes', newValue);
+  }
+
+  XRRay get offsetRay => js_util.getProperty(this, 'offsetRay');
+  set offsetRay(XRRay newValue) {
+    js_util.setProperty(this, 'offsetRay', newValue);
+  }
 }
 
 @anonymous
@@ -48,12 +58,21 @@ class XRTransientInputHitTestOptionsInit {
 
 extension PropsXRTransientInputHitTestOptionsInit
     on XRTransientInputHitTestOptionsInit {
-  external String get profile;
-  external set profile(String newValue);
-  external Iterable<XRHitTestTrackableType> get entityTypes;
-  external set entityTypes(Iterable<XRHitTestTrackableType> newValue);
-  external XRRay get offsetRay;
-  external set offsetRay(XRRay newValue);
+  String get profile => js_util.getProperty(this, 'profile');
+  set profile(String newValue) {
+    js_util.setProperty(this, 'profile', newValue);
+  }
+
+  Iterable<XRHitTestTrackableType> get entityTypes =>
+      js_util.getProperty(this, 'entityTypes');
+  set entityTypes(Iterable<XRHitTestTrackableType> newValue) {
+    js_util.setProperty(this, 'entityTypes', newValue);
+  }
+
+  XRRay get offsetRay => js_util.getProperty(this, 'offsetRay');
+  set offsetRay(XRRay newValue) {
+    js_util.setProperty(this, 'offsetRay', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -68,7 +87,7 @@ extension PropsXRTransientInputHitTestOptionsInit
 @JS()
 @staticInterop
 class XRHitTestSource {
-  external factory XRHitTestSource();
+  external XRHitTestSource();
 }
 
 extension PropsXRHitTestSource on XRHitTestSource {
@@ -76,7 +95,7 @@ extension PropsXRHitTestSource on XRHitTestSource {
   ///
   /// cancel()
   ///
-  external Object cancel();
+  Object cancel() => js_util.callMethod(this, 'cancel', []);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -91,7 +110,7 @@ extension PropsXRHitTestSource on XRHitTestSource {
 @JS()
 @staticInterop
 class XRTransientInputHitTestSource {
-  external factory XRTransientInputHitTestSource();
+  external XRTransientInputHitTestSource();
 }
 
 extension PropsXRTransientInputHitTestSource on XRTransientInputHitTestSource {
@@ -99,7 +118,7 @@ extension PropsXRTransientInputHitTestSource on XRTransientInputHitTestSource {
   ///
   /// cancel()
   ///
-  external Object cancel();
+  Object cancel() => js_util.callMethod(this, 'cancel', []);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -110,7 +129,7 @@ extension PropsXRTransientInputHitTestSource on XRTransientInputHitTestSource {
 @JS()
 @staticInterop
 class XRHitTestResult {
-  external factory XRHitTestResult();
+  external XRHitTestResult();
 }
 
 extension PropsXRHitTestResult on XRHitTestResult {
@@ -119,8 +138,11 @@ extension PropsXRHitTestResult on XRHitTestResult {
   ///
   /// getPose(baseSpace)
   ///
-  external XRPose? getPose(XRSpace baseSpace);
-  external Promise<XRAnchor> createAnchor();
+  XRPose? getPose(XRSpace baseSpace) =>
+      js_util.callMethod(this, 'getPose', [baseSpace]);
+
+  Promise<XRAnchor> createAnchor() =>
+      js_util.callMethod(this, 'createAnchor', []);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -133,21 +155,21 @@ extension PropsXRHitTestResult on XRHitTestResult {
 @JS()
 @staticInterop
 class XRTransientInputHitTestResult {
-  external factory XRTransientInputHitTestResult();
+  external XRTransientInputHitTestResult();
 }
 
 extension PropsXRTransientInputHitTestResult on XRTransientInputHitTestResult {
   ///  Represents the [XRInputSource] that was used to compute the
   /// [results] array.
   ///
-  external XRInputSource get inputSource;
+  XRInputSource get inputSource => js_util.getProperty(this, 'inputSource');
 
   ///  Represents an array of [XRHitTestResult] objects containing the
   /// hit test results for the input source, ordered by the distance
   /// along the ray used to perform the hit test, with the closest
   /// result at position 0.
   ///
-  external Iterable<XRHitTestResult> get results;
+  Iterable<XRHitTestResult> get results => js_util.getProperty(this, 'results');
 }
 
 @anonymous
@@ -159,14 +181,25 @@ class XRRayDirectionInit {
 }
 
 extension PropsXRRayDirectionInit on XRRayDirectionInit {
-  external double get x;
-  external set x(double newValue);
-  external double get y;
-  external set y(double newValue);
-  external double get z;
-  external set z(double newValue);
-  external double get w;
-  external set w(double newValue);
+  double get x => js_util.getProperty(this, 'x');
+  set x(double newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  double get y => js_util.getProperty(this, 'y');
+  set y(double newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  double get z => js_util.getProperty(this, 'z');
+  set z(double newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
+
+  double get w => js_util.getProperty(this, 'w');
+  set w(double newValue) {
+    js_util.setProperty(this, 'w', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -179,23 +212,23 @@ extension PropsXRRayDirectionInit on XRRayDirectionInit {
 @JS()
 @staticInterop
 class XRRay {
-  external factory XRRay([DOMPointInit? origin, XRRayDirectionInit? direction]);
+  external XRRay([DOMPointInit? origin, XRRayDirectionInit? direction]);
 }
 
 extension PropsXRRay on XRRay {
   ///  A [DOMPointReadOnly] representing the 3-dimensional point in
   /// space that the ray originates from, in meters.
   ///
-  external DOMPointReadOnly get origin;
+  DOMPointReadOnly get origin => js_util.getProperty(this, 'origin');
 
   ///  A [DOMPointReadOnly] representing the ray's 3-dimensional
   /// directional vector.
   ///
-  external DOMPointReadOnly get direction;
+  DOMPointReadOnly get direction => js_util.getProperty(this, 'direction');
 
   ///  A transform that can be used to position objects along the
   /// [XRRay]. This is a 4 by 4 matrix given as a 16 element
   /// [Float32Array] in column major order.
   ///
-  external Float32List get matrix;
+  Float32List get matrix => js_util.getProperty(this, 'matrix');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library notifications;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -28,7 +29,7 @@ service_workers_1 */
 @JS()
 @staticInterop
 class Notification implements EventTarget {
-  external factory Notification(String title, [NotificationOptions? options]);
+  external Notification(String title, [NotificationOptions? options]);
 }
 
 extension PropsNotification on Notification {
@@ -36,30 +37,44 @@ extension PropsNotification on Notification {
   external static Promise<NotificationPermission> requestPermission(
       [NotificationPermissionCallback? deprecatedCallback]);
   external static int get maxActions;
-  external EventHandlerNonNull? get onclick;
-  external set onclick(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onshow;
-  external set onshow(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onclose;
-  external set onclose(EventHandlerNonNull? newValue);
-  external String get title;
-  external NotificationDirection get dir;
-  external String get lang;
-  external String get body;
-  external String get tag;
-  external String get image;
-  external String get icon;
-  external String get badge;
-  external Iterable<int> get vibrate;
-  external int get timestamp;
-  external bool get renotify;
-  external bool get silent;
-  external bool get requireInteraction;
-  external dynamic get data;
-  external Iterable<NotificationAction> get actions;
-  external Object close();
+  EventHandlerNonNull? get onclick => js_util.getProperty(this, 'onclick');
+  set onclick(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclick', newValue);
+  }
+
+  EventHandlerNonNull? get onshow => js_util.getProperty(this, 'onshow');
+  set onshow(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onshow', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onclose => js_util.getProperty(this, 'onclose');
+  set onclose(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclose', newValue);
+  }
+
+  String get title => js_util.getProperty(this, 'title');
+  NotificationDirection get dir => js_util.getProperty(this, 'dir');
+  String get lang => js_util.getProperty(this, 'lang');
+  String get body => js_util.getProperty(this, 'body');
+  String get tag => js_util.getProperty(this, 'tag');
+  String get image => js_util.getProperty(this, 'image');
+  String get icon => js_util.getProperty(this, 'icon');
+  String get badge => js_util.getProperty(this, 'badge');
+  Iterable<int> get vibrate => js_util.getProperty(this, 'vibrate');
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  bool get renotify => js_util.getProperty(this, 'renotify');
+  bool get silent => js_util.getProperty(this, 'silent');
+  bool get requireInteraction =>
+      js_util.getProperty(this, 'requireInteraction');
+  dynamic get data => js_util.getProperty(this, 'data');
+  Iterable<NotificationAction> get actions =>
+      js_util.getProperty(this, 'actions');
+  Object close() => js_util.callMethod(this, 'close', []);
 }
 
 @anonymous
@@ -84,34 +99,77 @@ class NotificationOptions {
 }
 
 extension PropsNotificationOptions on NotificationOptions {
-  external NotificationDirection get dir;
-  external set dir(NotificationDirection newValue);
-  external String get lang;
-  external set lang(String newValue);
-  external String get body;
-  external set body(String newValue);
-  external String get tag;
-  external set tag(String newValue);
-  external String get image;
-  external set image(String newValue);
-  external String get icon;
-  external set icon(String newValue);
-  external String get badge;
-  external set badge(String newValue);
-  external dynamic get vibrate;
-  external set vibrate(dynamic newValue);
-  external int get timestamp;
-  external set timestamp(int newValue);
-  external bool get renotify;
-  external set renotify(bool newValue);
-  external bool get silent;
-  external set silent(bool newValue);
-  external bool get requireInteraction;
-  external set requireInteraction(bool newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
-  external Iterable<NotificationAction> get actions;
-  external set actions(Iterable<NotificationAction> newValue);
+  NotificationDirection get dir => js_util.getProperty(this, 'dir');
+  set dir(NotificationDirection newValue) {
+    js_util.setProperty(this, 'dir', newValue);
+  }
+
+  String get lang => js_util.getProperty(this, 'lang');
+  set lang(String newValue) {
+    js_util.setProperty(this, 'lang', newValue);
+  }
+
+  String get body => js_util.getProperty(this, 'body');
+  set body(String newValue) {
+    js_util.setProperty(this, 'body', newValue);
+  }
+
+  String get tag => js_util.getProperty(this, 'tag');
+  set tag(String newValue) {
+    js_util.setProperty(this, 'tag', newValue);
+  }
+
+  String get image => js_util.getProperty(this, 'image');
+  set image(String newValue) {
+    js_util.setProperty(this, 'image', newValue);
+  }
+
+  String get icon => js_util.getProperty(this, 'icon');
+  set icon(String newValue) {
+    js_util.setProperty(this, 'icon', newValue);
+  }
+
+  String get badge => js_util.getProperty(this, 'badge');
+  set badge(String newValue) {
+    js_util.setProperty(this, 'badge', newValue);
+  }
+
+  dynamic get vibrate => js_util.getProperty(this, 'vibrate');
+  set vibrate(dynamic newValue) {
+    js_util.setProperty(this, 'vibrate', newValue);
+  }
+
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(int newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  bool get renotify => js_util.getProperty(this, 'renotify');
+  set renotify(bool newValue) {
+    js_util.setProperty(this, 'renotify', newValue);
+  }
+
+  bool get silent => js_util.getProperty(this, 'silent');
+  set silent(bool newValue) {
+    js_util.setProperty(this, 'silent', newValue);
+  }
+
+  bool get requireInteraction =>
+      js_util.getProperty(this, 'requireInteraction');
+  set requireInteraction(bool newValue) {
+    js_util.setProperty(this, 'requireInteraction', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  Iterable<NotificationAction> get actions =>
+      js_util.getProperty(this, 'actions');
+  set actions(Iterable<NotificationAction> newValue) {
+    js_util.setProperty(this, 'actions', newValue);
+  }
 }
 
 enum NotificationPermission { valueDefault, denied, granted }
@@ -127,12 +185,20 @@ class NotificationAction {
 }
 
 extension PropsNotificationAction on NotificationAction {
-  external String get action;
-  external set action(String newValue);
-  external String get title;
-  external set title(String newValue);
-  external String get icon;
-  external set icon(String newValue);
+  String get action => js_util.getProperty(this, 'action');
+  set action(String newValue) {
+    js_util.setProperty(this, 'action', newValue);
+  }
+
+  String get title => js_util.getProperty(this, 'title');
+  set title(String newValue) {
+    js_util.setProperty(this, 'title', newValue);
+  }
+
+  String get icon => js_util.getProperty(this, 'icon');
+  set icon(String newValue) {
+    js_util.setProperty(this, 'icon', newValue);
+  }
 }
 
 @anonymous
@@ -143,8 +209,10 @@ class GetNotificationOptions {
 }
 
 extension PropsGetNotificationOptions on GetNotificationOptions {
-  external String get tag;
-  external set tag(String newValue);
+  String get tag => js_util.getProperty(this, 'tag');
+  set tag(String newValue) {
+    js_util.setProperty(this, 'tag', newValue);
+  }
 }
 
 ///  The parameter passed into the [onnotificationclick] handler, the
@@ -156,22 +224,21 @@ extension PropsGetNotificationOptions on GetNotificationOptions {
 @JS()
 @staticInterop
 class NotificationEvent implements ExtendableEvent {
-  external factory NotificationEvent(
-      String type, NotificationEventInit eventInitDict);
+  external NotificationEvent(String type, NotificationEventInit eventInitDict);
 }
 
 extension PropsNotificationEvent on NotificationEvent {
   ///  Returns a [Notification] object representing the notification
   /// that was clicked to fire the event.
   ///
-  external Notification get notification;
+  Notification get notification => js_util.getProperty(this, 'notification');
 
   ///  Returns the string ID of the notification button the user
   /// clicked. This value returns an empty string if the user clicked
   /// the notification somewhere other than an action button, or the
   /// notification does not have a button.
   ///
-  external String get action;
+  String get action => js_util.getProperty(this, 'action');
 }
 
 @anonymous
@@ -183,8 +250,13 @@ class NotificationEventInit implements ExtendableEventInit {
 }
 
 extension PropsNotificationEventInit on NotificationEventInit {
-  external Notification get notification;
-  external set notification(Notification newValue);
-  external String get action;
-  external set action(String newValue);
+  Notification get notification => js_util.getProperty(this, 'notification');
+  set notification(Notification newValue) {
+    js_util.setProperty(this, 'notification', newValue);
+  }
+
+  String get action => js_util.getProperty(this, 'action');
+  set action(String newValue) {
+    js_util.setProperty(this, 'action', newValue);
+  }
 }

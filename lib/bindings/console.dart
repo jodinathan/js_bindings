@@ -5,6 +5,7 @@
 @staticInterop
 library console;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -36,7 +37,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class console {
-  external factory console();
+  external console();
 }
 
 extension Propsconsole on console {
@@ -48,20 +49,21 @@ extension Propsconsole on console {
   ///
   @JS('assert')
   @staticInterop
-  external Object mAssert([bool? condition = false, dynamic data]);
+  Object mAssert([bool? condition = false, dynamic data]) =>
+      js_util.callMethod(this, 'assert', [condition, data]);
 
   /// Clear the console.
   ///
   /// console.clear();
   ///
-  external Object clear();
+  Object clear() => js_util.callMethod(this, 'clear', []);
 
   /// Outputs a message to the console with the log level .
   ///
   /// console.debug(obj1 [, obj2, ..., objN]);
   /// console.debug(msg [, subst1, ..., substN]);
   ///
-  external Object debug([dynamic data]);
+  Object debug([dynamic data]) => js_util.callMethod(this, 'debug', [data]);
 
   ///  Outputs an error message. You may use string substitution and
   /// additional arguments with this method.
@@ -69,7 +71,7 @@ extension Propsconsole on console {
   /// console.error(obj1 [, obj2, ..., objN]);
   /// console.error(msg [, subst1, ..., substN]);
   ///
-  external Object error([dynamic data]);
+  Object error([dynamic data]) => js_util.callMethod(this, 'error', [data]);
 
   ///  Informative logging of information. You may use string
   /// substitution and additional arguments with this method.
@@ -77,7 +79,7 @@ extension Propsconsole on console {
   /// console.info(obj1 [, obj2, ..., objN]);
   /// console.info(msg [, subst1, ..., substN]);
   ///
-  external Object info([dynamic data]);
+  Object info([dynamic data]) => js_util.callMethod(this, 'info', [data]);
 
   ///  For general output of logging information. You may use string
   /// substitution and additional arguments with this method.
@@ -85,14 +87,15 @@ extension Propsconsole on console {
   /// console.log(obj1 [, obj2, ..., objN]);
   /// console.log(msg [, subst1, ..., substN]);
   ///
-  external Object log([dynamic data]);
+  Object log([dynamic data]) => js_util.callMethod(this, 'log', [data]);
 
   /// Displays tabular data as a table.
   ///
   /// console.table(data);
   /// console.table(data, columns);
   ///
-  external Object table([dynamic tabularData, Iterable<String>? properties]);
+  Object table([dynamic tabularData, Iterable<String>? properties]) =>
+      js_util.callMethod(this, 'table', [tabularData, properties]);
 
   /// Outputs a stack trace.
   ///
@@ -112,7 +115,7 @@ extension Propsconsole on console {
   /// foo
   /// <anonymous>
   ///
-  external Object trace([dynamic data]);
+  Object trace([dynamic data]) => js_util.callMethod(this, 'trace', [data]);
 
   ///  Outputs a warning message. You may use string substitution and
   /// additional arguments with this method.
@@ -120,7 +123,7 @@ extension Propsconsole on console {
   /// console.warn(obj1 [, obj2, ..., objN]);
   /// console.warn(msg [, subst1, ..., substN]);
   ///
-  external Object warn([dynamic data]);
+  Object warn([dynamic data]) => js_util.callMethod(this, 'warn', [data]);
 
   ///  Displays an interactive listing of the properties of a specified
   /// JavaScript object. This listing lets you use disclosure triangles
@@ -128,7 +131,8 @@ extension Propsconsole on console {
   ///
   /// console.dir(object);
   ///
-  external Object dir([dynamic item, dynamic options]);
+  Object dir([dynamic item, dynamic options]) =>
+      js_util.callMethod(this, 'dir', [item, options]);
 
   ///  Displays an XML/HTML Element representation of the specified
   /// object if possible or the JavaScript Object view if it is not
@@ -136,27 +140,29 @@ extension Propsconsole on console {
   ///
   /// console.dirxml(object);
   ///
-  external Object dirxml([dynamic data]);
+  Object dirxml([dynamic data]) => js_util.callMethod(this, 'dirxml', [data]);
 
   ///  Log the number of times this line has been called with the given
   /// label.
   ///
   /// console.count([label]);
   ///
-  external Object count([String? label = 'default']);
+  Object count([String? label = 'default']) =>
+      js_util.callMethod(this, 'count', [label]);
 
   /// Resets the value of the counter with the given label.
   ///
   /// console.countReset([label]);
   ///
-  external Object countReset([String? label = 'default']);
+  Object countReset([String? label = 'default']) =>
+      js_util.callMethod(this, 'countReset', [label]);
 
   ///  Creates a new inline group, indenting all following output by
   /// another level. To move back out a level, call [groupEnd()].
   ///
   /// console.group([label]);
   ///
-  external Object group([dynamic data]);
+  Object group([dynamic data]) => js_util.callMethod(this, 'group', [data]);
 
   ///  Creates a new inline group, indenting all following output by
   /// another level. However, unlike [group()] this starts with the
@@ -165,31 +171,35 @@ extension Propsconsole on console {
   ///
   /// console.groupCollapsed([label]);
   ///
-  external Object groupCollapsed([dynamic data]);
+  Object groupCollapsed([dynamic data]) =>
+      js_util.callMethod(this, 'groupCollapsed', [data]);
 
   /// Exits the current inline group.
   ///
   /// console.groupEnd();
   ///
-  external Object groupEnd();
+  Object groupEnd() => js_util.callMethod(this, 'groupEnd', []);
 
   ///  Starts a timer with a name specified as an input parameter. Up
   /// to 10,000 simultaneous timers can run on a given page.
   ///
   /// console.time(label);
   ///
-  external Object time([String? label = 'default']);
+  Object time([String? label = 'default']) =>
+      js_util.callMethod(this, 'time', [label]);
 
   /// Logs the value of the specified timer to the console.
   ///
   /// console.timeLog(label);
   ///
-  external Object timeLog([String? label = 'default', dynamic data]);
+  Object timeLog([String? label = 'default', dynamic data]) =>
+      js_util.callMethod(this, 'timeLog', [label, data]);
 
   ///  Stops the specified timer and logs the elapsed time in
   /// milliseconds since it started.
   ///
   /// console.timeEnd(label);
   ///
-  external Object timeEnd([String? label = 'default']);
+  Object timeEnd([String? label = 'default']) =>
+      js_util.callMethod(this, 'timeEnd', [label]);
 }

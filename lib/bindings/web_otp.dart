@@ -5,6 +5,7 @@
 @staticInterop
 library web_otp;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -31,13 +32,13 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class OTPCredential implements Credential {
-  external factory OTPCredential();
+  external OTPCredential();
 }
 
 extension PropsOTPCredential on OTPCredential {
   /// The one-time password.
   ///
-  external String get code;
+  String get code => js_util.getProperty(this, 'code');
 }
 
 @anonymous
@@ -49,8 +50,11 @@ class OTPCredentialRequestOptions {
 }
 
 extension PropsOTPCredentialRequestOptions on OTPCredentialRequestOptions {
-  external Iterable<OTPCredentialTransportType> get transport;
-  external set transport(Iterable<OTPCredentialTransportType> newValue);
+  Iterable<OTPCredentialTransportType> get transport =>
+      js_util.getProperty(this, 'transport');
+  set transport(Iterable<OTPCredentialTransportType> newValue) {
+    js_util.setProperty(this, 'transport', newValue);
+  }
 }
 
 enum OTPCredentialTransportType { sms }

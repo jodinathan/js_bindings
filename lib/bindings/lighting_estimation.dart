@@ -5,6 +5,7 @@
 @staticInterop
 library lighting_estimation;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -30,19 +31,22 @@ webgl1 */
 @JS()
 @staticInterop
 class XRLightProbe implements EventTarget {
-  external factory XRLightProbe();
+  external XRLightProbe();
 }
 
 extension PropsXRLightProbe on XRLightProbe {
   ///  An [XRSpace] tracking the position and orientation the lighting
   /// estimations are relative to.
   ///
-  external XRSpace get probeSpace;
+  XRSpace get probeSpace => js_util.getProperty(this, 'probeSpace');
 
   /// Event handler property for the [reflectionchange] event.
   ///
-  external EventHandlerNonNull? get onreflectionchange;
-  external set onreflectionchange(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onreflectionchange =>
+      js_util.getProperty(this, 'onreflectionchange');
+  set onreflectionchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onreflectionchange', newValue);
+  }
 }
 
 enum XRReflectionFormat { srgba8, rgba16f }
@@ -56,24 +60,27 @@ enum XRReflectionFormat { srgba8, rgba16f }
 @JS()
 @staticInterop
 class XRLightEstimate {
-  external factory XRLightEstimate();
+  external XRLightEstimate();
 }
 
 extension PropsXRLightEstimate on XRLightEstimate {
   /// A [Float32Array] containing 9 spherical harmonics coefficients.
   ///
-  external Float32List get sphericalHarmonicsCoefficients;
+  Float32List get sphericalHarmonicsCoefficients =>
+      js_util.getProperty(this, 'sphericalHarmonicsCoefficients');
 
   ///  A [DOMPointReadOnly] representing the direction to the primary
   /// light source from the [probeSpace] of an [XRLightProbe].
   ///
-  external DOMPointReadOnly get primaryLightDirection;
+  DOMPointReadOnly get primaryLightDirection =>
+      js_util.getProperty(this, 'primaryLightDirection');
 
   ///  A [DOMPointReadOnly] (with the [x], [y], [z] values mapped to
   /// RGB) representing the intensity of the primary light source from
   /// the [probeSpace] of an [XRLightProbe].
   ///
-  external DOMPointReadOnly get primaryLightIntensity;
+  DOMPointReadOnly get primaryLightIntensity =>
+      js_util.getProperty(this, 'primaryLightIntensity');
 }
 
 @anonymous
@@ -85,6 +92,9 @@ class XRLightProbeInit {
 }
 
 extension PropsXRLightProbeInit on XRLightProbeInit {
-  external XRReflectionFormat get reflectionFormat;
-  external set reflectionFormat(XRReflectionFormat newValue);
+  XRReflectionFormat get reflectionFormat =>
+      js_util.getProperty(this, 'reflectionFormat');
+  set reflectionFormat(XRReflectionFormat newValue) {
+    js_util.setProperty(this, 'reflectionFormat', newValue);
+  }
 }

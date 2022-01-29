@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_texture_compression_rgtc;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -32,5 +33,5 @@ class EXT_texture_compression_rgtc {
   external static int get COMPRESSED_SIGNED_RED_RGTC1_EXT;
   external static int get COMPRESSED_RED_GREEN_RGTC2_EXT;
   external static int get COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT;
-  external factory EXT_texture_compression_rgtc();
+  external EXT_texture_compression_rgtc();
 }

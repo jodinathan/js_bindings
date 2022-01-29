@@ -5,6 +5,7 @@
 @staticInterop
 library clipboard_apis;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -24,8 +25,10 @@ class ClipboardEventInit implements EventInit {
 }
 
 extension PropsClipboardEventInit on ClipboardEventInit {
-  external DataTransfer? get clipboardData;
-  external set clipboardData(DataTransfer? newValue);
+  DataTransfer? get clipboardData => js_util.getProperty(this, 'clipboardData');
+  set clipboardData(DataTransfer? newValue) {
+    js_util.setProperty(this, 'clipboardData', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -38,8 +41,7 @@ extension PropsClipboardEventInit on ClipboardEventInit {
 @JS()
 @staticInterop
 class ClipboardEvent implements Event {
-  external factory ClipboardEvent(String type,
-      [ClipboardEventInit? eventInitDict]);
+  external ClipboardEvent(String type, [ClipboardEventInit? eventInitDict]);
 }
 
 extension PropsClipboardEvent on ClipboardEvent {
@@ -47,7 +49,7 @@ extension PropsClipboardEvent on ClipboardEvent {
   /// user-initiated [cut], [copy], or [paste] operation, along with
   /// its MIME type.
   ///
-  external DataTransfer? get clipboardData;
+  DataTransfer? get clipboardData => js_util.getProperty(this, 'clipboardData');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -88,7 +90,7 @@ extension PropsClipboardEvent on ClipboardEvent {
 @JS()
 @staticInterop
 class Clipboard implements EventTarget {
-  external factory Clipboard();
+  external Clipboard();
 }
 
 extension PropsClipboard on Clipboard {
@@ -134,7 +136,8 @@ extension PropsClipboard on Clipboard {
   ///   the API will not work.
   ///
   ///
-  external Promise<Iterable<ClipboardItem>> read();
+  Promise<Iterable<ClipboardItem>> read() =>
+      js_util.callMethod(this, 'read', []);
 
   ///  Requests text from the system clipboard; returns a [Promise]
   /// which is resolved with a [DOMString] containing the clipboard's
@@ -149,7 +152,7 @@ extension PropsClipboard on Clipboard {
   /// navigator.clipboard.readText().then(
   ///  clipText => document.getElementById("outbox").innerText = clipText);
   ///
-  external Promise<String> readText();
+  Promise<String> readText() => js_util.callMethod(this, 'readText', []);
 
   ///  Writes arbitrary data to the system clipboard. This asynchronous
   /// operation signals that it's finished by resolving the returned
@@ -183,7 +186,8 @@ extension PropsClipboard on Clipboard {
   ///  The key of the object passed to the ClipboardItem constructor indicates the content type, the value indicates the content. Then write() is called, specifying both a fulfillment function
   ///  and an error function.
   ///
-  external Promise<Object> write(Iterable<ClipboardItem> data);
+  Promise<Object> write(Iterable<ClipboardItem> data) =>
+      js_util.callMethod(this, 'write', [data]);
 
   ///  Writes text to the system clipboard, returning a [Promise] which
   /// is resolved once the text is fully copied into the clipboard.
@@ -197,7 +201,8 @@ extension PropsClipboard on Clipboard {
   ///  /* clipboard write failed */
   /// });
   ///
-  external Promise<Object> writeText(String data);
+  Promise<Object> writeText(String data) =>
+      js_util.callMethod(this, 'writeText', [data]);
 }
 
 ///  The interface of the [Clipboard API] represents a single item
@@ -220,8 +225,7 @@ extension PropsClipboard on Clipboard {
 @JS()
 @staticInterop
 class ClipboardItem {
-  external factory ClipboardItem(dynamic items,
-      [ClipboardItemOptions? options]);
+  external ClipboardItem(dynamic items, [ClipboardItemOptions? options]);
 }
 
 extension PropsClipboardItem on ClipboardItem {
@@ -231,21 +235,23 @@ extension PropsClipboardItem on ClipboardItem {
   ///  Returns one of the following: ["unspecified"], ["inline"] or
   /// ["attachment"].
   ///
-  external PresentationStyle get presentationStyle;
-  external int get lastModified;
-  external bool get delayed;
+  PresentationStyle get presentationStyle =>
+      js_util.getProperty(this, 'presentationStyle');
+  int get lastModified => js_util.getProperty(this, 'lastModified');
+  bool get delayed => js_util.getProperty(this, 'delayed');
 
   ///  Returns an [Array] of MIME types available within the
   /// [ClipboardItem].
   ///
-  external Iterable<String> get types;
+  Iterable<String> get types => js_util.getProperty(this, 'types');
 
   ///  Returns a [Promise] that resolves with a [Blob] of the requested
   /// MIME type, or an error if the MIME type is not found.
   ///
   /// var blob = clipboardItem.getType(type);
   ///
-  external Promise<Blob> getType(String type);
+  Promise<Blob> getType(String type) =>
+      js_util.callMethod(this, 'getType', [type]);
 }
 
 enum PresentationStyle { unspecified, inline, attachment }
@@ -259,8 +265,11 @@ class ClipboardItemOptions {
 }
 
 extension PropsClipboardItemOptions on ClipboardItemOptions {
-  external PresentationStyle get presentationStyle;
-  external set presentationStyle(PresentationStyle newValue);
+  PresentationStyle get presentationStyle =>
+      js_util.getProperty(this, 'presentationStyle');
+  set presentationStyle(PresentationStyle newValue) {
+    js_util.setProperty(this, 'presentationStyle', newValue);
+  }
 }
 
 @anonymous
@@ -272,6 +281,9 @@ class ClipboardPermissionDescriptor implements PermissionDescriptor {
 }
 
 extension PropsClipboardPermissionDescriptor on ClipboardPermissionDescriptor {
-  external bool get allowWithoutGesture;
-  external set allowWithoutGesture(bool newValue);
+  bool get allowWithoutGesture =>
+      js_util.getProperty(this, 'allowWithoutGesture');
+  set allowWithoutGesture(bool newValue) {
+    js_util.setProperty(this, 'allowWithoutGesture', newValue);
+  }
 }

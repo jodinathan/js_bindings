@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_debug_shaders;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -30,7 +31,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class WEBGL_debug_shaders {
-  external factory WEBGL_debug_shaders();
+  external WEBGL_debug_shaders();
 }
 
 extension PropsWEBGL_debug_shaders on WEBGL_debug_shaders {
@@ -38,5 +39,6 @@ extension PropsWEBGL_debug_shaders on WEBGL_debug_shaders {
   ///
   /// gl.getExtension('WEBGL_debug_shaders').getTranslatedShaderSource(shader);
   ///
-  external String getTranslatedShaderSource(WebGLShader shader);
+  String getTranslatedShaderSource(WebGLShader shader) =>
+      js_util.callMethod(this, 'getTranslatedShaderSource', [shader]);
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library text_detection_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -17,11 +18,12 @@ image_capture */
 @JS()
 @staticInterop
 class TextDetector {
-  external factory TextDetector();
+  external TextDetector();
 }
 
 extension PropsTextDetector on TextDetector {
-  external Iterable<Promise<DetectedText>> detect(dynamic image);
+  Iterable<Promise<DetectedText>> detect(dynamic image) =>
+      js_util.callMethod(this, 'detect', [image]);
 }
 
 @anonymous
@@ -35,10 +37,19 @@ class DetectedText {
 }
 
 extension PropsDetectedText on DetectedText {
-  external DOMRectReadOnly get boundingBox;
-  external set boundingBox(DOMRectReadOnly newValue);
-  external String get rawValue;
-  external set rawValue(String newValue);
-  external Iterable<Point2D> get cornerPoints;
-  external set cornerPoints(Iterable<Point2D> newValue);
+  DOMRectReadOnly get boundingBox => js_util.getProperty(this, 'boundingBox');
+  set boundingBox(DOMRectReadOnly newValue) {
+    js_util.setProperty(this, 'boundingBox', newValue);
+  }
+
+  String get rawValue => js_util.getProperty(this, 'rawValue');
+  set rawValue(String newValue) {
+    js_util.setProperty(this, 'rawValue', newValue);
+  }
+
+  Iterable<Point2D> get cornerPoints =>
+      js_util.getProperty(this, 'cornerPoints');
+  set cornerPoints(Iterable<Point2D> newValue) {
+    js_util.setProperty(this, 'cornerPoints', newValue);
+  }
 }

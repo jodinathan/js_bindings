@@ -5,6 +5,7 @@
 @staticInterop
 library payment_request;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -23,7 +24,7 @@ html */
 @JS()
 @staticInterop
 class PaymentRequest implements EventTarget {
-  external factory PaymentRequest(
+  external PaymentRequest(
       Iterable<PaymentMethodData> methodData, PaymentDetailsInit details);
 }
 
@@ -35,15 +36,16 @@ extension PropsPaymentRequest on PaymentRequest {
   ///
   @JS('show')
   @staticInterop
-  external Promise<PaymentResponse> mShow(
-      [Promise<PaymentDetailsUpdate>? detailsPromise]);
+  Promise<PaymentResponse> mShow(
+          [Promise<PaymentDetailsUpdate>? detailsPromise]) =>
+      js_util.callMethod(this, 'show', [detailsPromise]);
 
   ///  Causes the user agent to end the payment request and to remove
   /// any user interface that might be shown.
   ///
   /// PaymentRequest.abort();
   ///
-  external Promise<Object> abort();
+  Promise<Object> abort() => js_util.callMethod(this, 'abort', []);
 
   ///  Indicates whether the [PaymentRequest] object can make a payment
   /// before calling [show()].
@@ -54,15 +56,19 @@ extension PropsPaymentRequest on PaymentRequest {
   ///
   /// canPay = await paymentRequest.canMakePayment();
   ///
-  external Promise<bool> canMakePayment();
+  Promise<bool> canMakePayment() =>
+      js_util.callMethod(this, 'canMakePayment', []);
 
   ///  An unique identifier for a particular [PaymentRequest], which
   /// can be set via [details.id]. When none is set, it defaults to a
   /// UUID.
   ///
-  external String get id;
-  external EventHandlerNonNull? get onpaymentmethodchange;
-  external set onpaymentmethodchange(EventHandlerNonNull? newValue);
+  String get id => js_util.getProperty(this, 'id');
+  EventHandlerNonNull? get onpaymentmethodchange =>
+      js_util.getProperty(this, 'onpaymentmethodchange');
+  set onpaymentmethodchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpaymentmethodchange', newValue);
+  }
 }
 
 @anonymous
@@ -73,10 +79,15 @@ class PaymentMethodData {
 }
 
 extension PropsPaymentMethodData on PaymentMethodData {
-  external String get supportedMethods;
-  external set supportedMethods(String newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  String get supportedMethods => js_util.getProperty(this, 'supportedMethods');
+  set supportedMethods(String newValue) {
+    js_util.setProperty(this, 'supportedMethods', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 @anonymous
@@ -87,10 +98,15 @@ class PaymentCurrencyAmount {
 }
 
 extension PropsPaymentCurrencyAmount on PaymentCurrencyAmount {
-  external String get currency;
-  external set currency(String newValue);
-  external String get value;
-  external set value(String newValue);
+  String get currency => js_util.getProperty(this, 'currency');
+  set currency(String newValue) {
+    js_util.setProperty(this, 'currency', newValue);
+  }
+
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 @anonymous
@@ -103,10 +119,17 @@ class PaymentDetailsBase {
 }
 
 extension PropsPaymentDetailsBase on PaymentDetailsBase {
-  external Iterable<PaymentItem> get displayItems;
-  external set displayItems(Iterable<PaymentItem> newValue);
-  external Iterable<PaymentDetailsModifier> get modifiers;
-  external set modifiers(Iterable<PaymentDetailsModifier> newValue);
+  Iterable<PaymentItem> get displayItems =>
+      js_util.getProperty(this, 'displayItems');
+  set displayItems(Iterable<PaymentItem> newValue) {
+    js_util.setProperty(this, 'displayItems', newValue);
+  }
+
+  Iterable<PaymentDetailsModifier> get modifiers =>
+      js_util.getProperty(this, 'modifiers');
+  set modifiers(Iterable<PaymentDetailsModifier> newValue) {
+    js_util.setProperty(this, 'modifiers', newValue);
+  }
 }
 
 @anonymous
@@ -117,10 +140,15 @@ class PaymentDetailsInit implements PaymentDetailsBase {
 }
 
 extension PropsPaymentDetailsInit on PaymentDetailsInit {
-  external String get id;
-  external set id(String newValue);
-  external PaymentItem get total;
-  external set total(PaymentItem newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  PaymentItem get total => js_util.getProperty(this, 'total');
+  set total(PaymentItem newValue) {
+    js_util.setProperty(this, 'total', newValue);
+  }
 }
 
 @anonymous
@@ -132,10 +160,16 @@ class PaymentDetailsUpdate implements PaymentDetailsBase {
 }
 
 extension PropsPaymentDetailsUpdate on PaymentDetailsUpdate {
-  external PaymentItem get total;
-  external set total(PaymentItem newValue);
-  external dynamic get paymentMethodErrors;
-  external set paymentMethodErrors(dynamic newValue);
+  PaymentItem get total => js_util.getProperty(this, 'total');
+  set total(PaymentItem newValue) {
+    js_util.setProperty(this, 'total', newValue);
+  }
+
+  dynamic get paymentMethodErrors =>
+      js_util.getProperty(this, 'paymentMethodErrors');
+  set paymentMethodErrors(dynamic newValue) {
+    js_util.setProperty(this, 'paymentMethodErrors', newValue);
+  }
 }
 
 @anonymous
@@ -150,14 +184,26 @@ class PaymentDetailsModifier {
 }
 
 extension PropsPaymentDetailsModifier on PaymentDetailsModifier {
-  external String get supportedMethods;
-  external set supportedMethods(String newValue);
-  external PaymentItem get total;
-  external set total(PaymentItem newValue);
-  external Iterable<PaymentItem> get additionalDisplayItems;
-  external set additionalDisplayItems(Iterable<PaymentItem> newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  String get supportedMethods => js_util.getProperty(this, 'supportedMethods');
+  set supportedMethods(String newValue) {
+    js_util.setProperty(this, 'supportedMethods', newValue);
+  }
+
+  PaymentItem get total => js_util.getProperty(this, 'total');
+  set total(PaymentItem newValue) {
+    js_util.setProperty(this, 'total', newValue);
+  }
+
+  Iterable<PaymentItem> get additionalDisplayItems =>
+      js_util.getProperty(this, 'additionalDisplayItems');
+  set additionalDisplayItems(Iterable<PaymentItem> newValue) {
+    js_util.setProperty(this, 'additionalDisplayItems', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 enum PaymentShippingType { shipping, delivery, pickup }
@@ -176,18 +222,37 @@ class PaymentOptions {
 }
 
 extension PropsPaymentOptions on PaymentOptions {
-  external bool get requestPayerName;
-  external set requestPayerName(bool newValue);
-  external bool get requestBillingAddress;
-  external set requestBillingAddress(bool newValue);
-  external bool get requestPayerEmail;
-  external set requestPayerEmail(bool newValue);
-  external bool get requestPayerPhone;
-  external set requestPayerPhone(bool newValue);
-  external bool get requestShipping;
-  external set requestShipping(bool newValue);
-  external PaymentShippingType get shippingType;
-  external set shippingType(PaymentShippingType newValue);
+  bool get requestPayerName => js_util.getProperty(this, 'requestPayerName');
+  set requestPayerName(bool newValue) {
+    js_util.setProperty(this, 'requestPayerName', newValue);
+  }
+
+  bool get requestBillingAddress =>
+      js_util.getProperty(this, 'requestBillingAddress');
+  set requestBillingAddress(bool newValue) {
+    js_util.setProperty(this, 'requestBillingAddress', newValue);
+  }
+
+  bool get requestPayerEmail => js_util.getProperty(this, 'requestPayerEmail');
+  set requestPayerEmail(bool newValue) {
+    js_util.setProperty(this, 'requestPayerEmail', newValue);
+  }
+
+  bool get requestPayerPhone => js_util.getProperty(this, 'requestPayerPhone');
+  set requestPayerPhone(bool newValue) {
+    js_util.setProperty(this, 'requestPayerPhone', newValue);
+  }
+
+  bool get requestShipping => js_util.getProperty(this, 'requestShipping');
+  set requestShipping(bool newValue) {
+    js_util.setProperty(this, 'requestShipping', newValue);
+  }
+
+  PaymentShippingType get shippingType =>
+      js_util.getProperty(this, 'shippingType');
+  set shippingType(PaymentShippingType newValue) {
+    js_util.setProperty(this, 'shippingType', newValue);
+  }
 }
 
 @anonymous
@@ -199,12 +264,20 @@ class PaymentItem {
 }
 
 extension PropsPaymentItem on PaymentItem {
-  external String get label;
-  external set label(String newValue);
-  external PaymentCurrencyAmount get amount;
-  external set amount(PaymentCurrencyAmount newValue);
-  external bool get pending;
-  external set pending(bool newValue);
+  String get label => js_util.getProperty(this, 'label');
+  set label(String newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
+
+  PaymentCurrencyAmount get amount => js_util.getProperty(this, 'amount');
+  set amount(PaymentCurrencyAmount newValue) {
+    js_util.setProperty(this, 'amount', newValue);
+  }
+
+  bool get pending => js_util.getProperty(this, 'pending');
+  set pending(bool newValue) {
+    js_util.setProperty(this, 'pending', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -228,7 +301,7 @@ extension PropsPaymentItem on PaymentItem {
 @JS()
 @staticInterop
 class PaymentAddress {
-  external factory PaymentAddress();
+  external PaymentAddress();
 }
 
 extension PropsPaymentAddress on PaymentAddress {
@@ -238,13 +311,13 @@ extension PropsPaymentAddress on PaymentAddress {
   /// var json = PaymentAddress.toJSON()
   ///
   @deprecated
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  A [DOMString] which contains the city or town portion of the
   /// address.
   ///
   @deprecated
-  external String get city;
+  String get city => js_util.getProperty(this, 'city');
 
   ///  A [DOMString] specifying the country in which the address is
   /// located, using the ISO-3166-1 alpha-2 standard. The string is
@@ -252,52 +325,53 @@ extension PropsPaymentAddress on PaymentAddress {
   /// valid values: ["US"], ["GB"], ["CN"], or ["JP"].
   ///
   @deprecated
-  external String get country;
+  String get country => js_util.getProperty(this, 'country');
 
   ///  A [DOMString] giving the dependent locality or sublocality
   /// within a city, for example, a neighborhood, borough, district, or
   /// UK dependent locality.
   ///
   @deprecated
-  external String get dependentLocality;
+  String get dependentLocality =>
+      js_util.getProperty(this, 'dependentLocality');
 
   ///  A [DOMString] specifying the name of the organization, firm,
   /// company, or institution at the payment address.
   ///
   @deprecated
-  external String get organization;
+  String get organization => js_util.getProperty(this, 'organization');
 
   ///  A [DOMString] specifying the telephone number of the recipient
   /// or contact person.
   ///
   @deprecated
-  external String get phone;
+  String get phone => js_util.getProperty(this, 'phone');
 
   ///  A [DOMString] specifying a code used by a jurisdiction for mail
   /// routing, for example, the ZIP code in the United States or the
   /// PIN code in India.
   ///
   @deprecated
-  external String get postalCode;
+  String get postalCode => js_util.getProperty(this, 'postalCode');
 
   ///  A [DOMString] giving the name of the recipient, purchaser, or
   /// contact person at the payment address.
   ///
   @deprecated
-  external String get recipient;
+  String get recipient => js_util.getProperty(this, 'recipient');
 
   ///  A [DOMString] containing the top level administrative
   /// subdivision of the country, for example a state, province,
   /// oblast, or prefecture.
   ///
   @deprecated
-  external String get region;
+  String get region => js_util.getProperty(this, 'region');
 
   ///  A [DOMString] providing a postal sorting code such as is used in
   /// France.
   ///
   @deprecated
-  external String get sortingCode;
+  String get sortingCode => js_util.getProperty(this, 'sortingCode');
 
   ///  An array of [DOMString] objects providing each line of the
   /// address not included among the other properties. The exact size
@@ -307,7 +381,7 @@ extension PropsPaymentAddress on PaymentAddress {
   /// number.
   ///
   @deprecated
-  external Iterable<String> get addressLine;
+  Iterable<String> get addressLine => js_util.getProperty(this, 'addressLine');
 }
 
 @anonymous
@@ -328,26 +402,56 @@ class AddressInit {
 }
 
 extension PropsAddressInit on AddressInit {
-  external String get country;
-  external set country(String newValue);
-  external Iterable<String> get addressLine;
-  external set addressLine(Iterable<String> newValue);
-  external String get region;
-  external set region(String newValue);
-  external String get city;
-  external set city(String newValue);
-  external String get dependentLocality;
-  external set dependentLocality(String newValue);
-  external String get postalCode;
-  external set postalCode(String newValue);
-  external String get sortingCode;
-  external set sortingCode(String newValue);
-  external String get organization;
-  external set organization(String newValue);
-  external String get recipient;
-  external set recipient(String newValue);
-  external String get phone;
-  external set phone(String newValue);
+  String get country => js_util.getProperty(this, 'country');
+  set country(String newValue) {
+    js_util.setProperty(this, 'country', newValue);
+  }
+
+  Iterable<String> get addressLine => js_util.getProperty(this, 'addressLine');
+  set addressLine(Iterable<String> newValue) {
+    js_util.setProperty(this, 'addressLine', newValue);
+  }
+
+  String get region => js_util.getProperty(this, 'region');
+  set region(String newValue) {
+    js_util.setProperty(this, 'region', newValue);
+  }
+
+  String get city => js_util.getProperty(this, 'city');
+  set city(String newValue) {
+    js_util.setProperty(this, 'city', newValue);
+  }
+
+  String get dependentLocality =>
+      js_util.getProperty(this, 'dependentLocality');
+  set dependentLocality(String newValue) {
+    js_util.setProperty(this, 'dependentLocality', newValue);
+  }
+
+  String get postalCode => js_util.getProperty(this, 'postalCode');
+  set postalCode(String newValue) {
+    js_util.setProperty(this, 'postalCode', newValue);
+  }
+
+  String get sortingCode => js_util.getProperty(this, 'sortingCode');
+  set sortingCode(String newValue) {
+    js_util.setProperty(this, 'sortingCode', newValue);
+  }
+
+  String get organization => js_util.getProperty(this, 'organization');
+  set organization(String newValue) {
+    js_util.setProperty(this, 'organization', newValue);
+  }
+
+  String get recipient => js_util.getProperty(this, 'recipient');
+  set recipient(String newValue) {
+    js_util.setProperty(this, 'recipient', newValue);
+  }
+
+  String get phone => js_util.getProperty(this, 'phone');
+  set phone(String newValue) {
+    js_util.setProperty(this, 'phone', newValue);
+  }
 }
 
 ///  The dictionary is used by the Payment Request API to report
@@ -384,80 +488,101 @@ extension PropsAddressErrors on AddressErrors {
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get addressLine;
-  external set addressLine(String newValue);
+  String get addressLine => js_util.getProperty(this, 'addressLine');
+  set addressLine(String newValue) {
+    js_util.setProperty(this, 'addressLine', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get city;
-  external set city(String newValue);
+  String get city => js_util.getProperty(this, 'city');
+  set city(String newValue) {
+    js_util.setProperty(this, 'city', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get country;
-  external set country(String newValue);
+  String get country => js_util.getProperty(this, 'country');
+  set country(String newValue) {
+    js_util.setProperty(this, 'country', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get dependentLocality;
-  external set dependentLocality(String newValue);
+  String get dependentLocality =>
+      js_util.getProperty(this, 'dependentLocality');
+  set dependentLocality(String newValue) {
+    js_util.setProperty(this, 'dependentLocality', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get organization;
-  external set organization(String newValue);
+  String get organization => js_util.getProperty(this, 'organization');
+  set organization(String newValue) {
+    js_util.setProperty(this, 'organization', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get phone;
-  external set phone(String newValue);
+  String get phone => js_util.getProperty(this, 'phone');
+  set phone(String newValue) {
+    js_util.setProperty(this, 'phone', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get postalCode;
-  external set postalCode(String newValue);
+  String get postalCode => js_util.getProperty(this, 'postalCode');
+  set postalCode(String newValue) {
+    js_util.setProperty(this, 'postalCode', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get recipient;
-  external set recipient(String newValue);
+  String get recipient => js_util.getProperty(this, 'recipient');
+  set recipient(String newValue) {
+    js_util.setProperty(this, 'recipient', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get region;
-  external set region(String newValue);
+  String get region => js_util.getProperty(this, 'region');
+  set region(String newValue) {
+    js_util.setProperty(this, 'region', newValue);
+  }
 
   ///  A [DOMString] which, if present, indicates that the property of
   /// the [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
-  external String get sortingCode;
-  external set sortingCode(String newValue);
+  String get sortingCode => js_util.getProperty(this, 'sortingCode');
+  set sortingCode(String newValue) {
+    js_util.setProperty(this, 'sortingCode', newValue);
+  }
 }
 
 @anonymous
@@ -472,14 +597,25 @@ class PaymentShippingOption {
 }
 
 extension PropsPaymentShippingOption on PaymentShippingOption {
-  external String get id;
-  external set id(String newValue);
-  external String get label;
-  external set label(String newValue);
-  external PaymentCurrencyAmount get amount;
-  external set amount(PaymentCurrencyAmount newValue);
-  external bool get selected;
-  external set selected(bool newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  String get label => js_util.getProperty(this, 'label');
+  set label(String newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
+
+  PaymentCurrencyAmount get amount => js_util.getProperty(this, 'amount');
+  set amount(PaymentCurrencyAmount newValue) {
+    js_util.setProperty(this, 'amount', newValue);
+  }
+
+  bool get selected => js_util.getProperty(this, 'selected');
+  set selected(bool newValue) {
+    js_util.setProperty(this, 'selected', newValue);
+  }
 }
 
 enum PaymentComplete { fail, success, unknown }
@@ -492,23 +628,23 @@ enum PaymentComplete { fail, success, unknown }
 @JS()
 @staticInterop
 class PaymentResponse implements EventTarget {
-  external factory PaymentResponse();
+  external PaymentResponse();
 }
 
 extension PropsPaymentResponse on PaymentResponse {
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  Returns the identifier of the [PaymentRequest] that produced the
   /// current response. This is the same value supplied in the
   /// [PaymentRequest()] constructor by [details.id].
   ///
-  external String get requestId;
+  String get requestId => js_util.getProperty(this, 'requestId');
 
   ///  Returns the payment method identifier for the payment method
   /// that the user selected, for example, Visa, Mastercard, Paypal,
   /// etc..
   ///
-  external String get methodName;
+  String get methodName => js_util.getProperty(this, 'methodName');
 
   ///  Returns a JSON-serializable object that provides a payment
   /// method specific message used by the merchant to process the
@@ -517,7 +653,7 @@ extension PropsPaymentResponse on PaymentResponse {
   /// need to consult whomever controls the URL for the expected shape
   /// of the details object.
   ///
-  external dynamic get details;
+  dynamic get details => js_util.getProperty(this, 'details');
 
   ///  Notifies the user agent that the user interaction is over. This
   /// causes any remaining user interface to be closed. This method
@@ -526,8 +662,9 @@ extension PropsPaymentResponse on PaymentResponse {
   ///
   /// completePromise = paymentRequest.complete(result);
   ///
-  external Promise<Object> complete(
-      [PaymentComplete? result = PaymentComplete.unknown]);
+  Promise<Object> complete(
+          [PaymentComplete? result = PaymentComplete.unknown]) =>
+      js_util.callMethod(this, 'complete', [result]);
 
   ///  If something is wrong with the payment response's data (and
   /// there is a recoverable error), this method allows a merchant to
@@ -538,7 +675,8 @@ extension PropsPaymentResponse on PaymentResponse {
   ///
   /// retryPromise = paymentRequest.retry(errorFields);
   ///
-  external Promise<Object> retry([PaymentValidationErrors? errorFields]);
+  Promise<Object> retry([PaymentValidationErrors? errorFields]) =>
+      js_util.callMethod(this, 'retry', [errorFields]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -567,14 +705,18 @@ extension PropsPaymentValidationErrors on PaymentValidationErrors {
   /// other properties' values gude the user to errors in specific
   /// fields in the payment form.
   ///
-  external String get error;
-  external set error(String newValue);
+  String get error => js_util.getProperty(this, 'error');
+  set error(String newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 
   ///  Any payment method specific errors which may have occurred. This
   /// object's contents will vary depending on the payment method used.
   ///
-  external dynamic get paymentMethod;
-  external set paymentMethod(dynamic newValue);
+  dynamic get paymentMethod => js_util.getProperty(this, 'paymentMethod');
+  set paymentMethod(dynamic newValue) {
+    js_util.setProperty(this, 'paymentMethod', newValue);
+  }
 }
 
 @anonymous
@@ -585,12 +727,20 @@ class PayerErrors {
 }
 
 extension PropsPayerErrors on PayerErrors {
-  external String get email;
-  external set email(String newValue);
-  external String get name;
-  external set name(String newValue);
-  external String get phone;
-  external set phone(String newValue);
+  String get email => js_util.getProperty(this, 'email');
+  set email(String newValue) {
+    js_util.setProperty(this, 'email', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get phone => js_util.getProperty(this, 'phone');
+  set phone(String newValue) {
+    js_util.setProperty(this, 'phone', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -602,7 +752,7 @@ extension PropsPayerErrors on PayerErrors {
 @JS()
 @staticInterop
 class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
-  external factory PaymentMethodChangeEvent(String type,
+  external PaymentMethodChangeEvent(String type,
       [PaymentMethodChangeEventInit? eventInitDict]);
 }
 
@@ -613,13 +763,13 @@ extension PropsPaymentMethodChangeEvent on PaymentMethodChangeEvent {
   /// may be a standardized non-URL string as well, such as
   /// [basic-card]. The default value is the empty string, [""].
   ///
-  external String get methodName;
+  String get methodName => js_util.getProperty(this, 'methodName');
 
   ///  An object containing payment method-specific data useful when
   /// handling a payment method change. If no such information is
   /// available, this value is [null].
   ///
-  external dynamic get methodDetails;
+  dynamic get methodDetails => js_util.getProperty(this, 'methodDetails');
 }
 
 @anonymous
@@ -631,10 +781,15 @@ class PaymentMethodChangeEventInit implements PaymentRequestUpdateEventInit {
 }
 
 extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
-  external String get methodName;
-  external set methodName(String newValue);
-  external dynamic get methodDetails;
-  external set methodDetails(dynamic newValue);
+  String get methodName => js_util.getProperty(this, 'methodName');
+  set methodName(String newValue) {
+    js_util.setProperty(this, 'methodName', newValue);
+  }
+
+  dynamic get methodDetails => js_util.getProperty(this, 'methodDetails');
+  set methodDetails(dynamic newValue) {
+    js_util.setProperty(this, 'methodDetails', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -664,7 +819,7 @@ extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
 @JS()
 @staticInterop
 class PaymentRequestUpdateEvent implements Event {
-  external factory PaymentRequestUpdateEvent(String type,
+  external PaymentRequestUpdateEvent(String type,
       [PaymentRequestUpdateEventInit? eventInitDict]);
 }
 
@@ -676,7 +831,8 @@ extension PropsPaymentRequestUpdateEvent on PaymentRequestUpdateEvent {
   ///
   /// paymentRequestUpdateEvent.updateWith(details);
   ///
-  external Object updateWith(Promise<PaymentDetailsUpdate> detailsPromise);
+  Object updateWith(Promise<PaymentDetailsUpdate> detailsPromise) =>
+      js_util.callMethod(this, 'updateWith', [detailsPromise]);
 }
 
 @anonymous

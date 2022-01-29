@@ -5,6 +5,7 @@
 @staticInterop
 library intervention_reporting;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -30,7 +31,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class InterventionReportBody implements ReportBody {
-  external factory InterventionReportBody();
+  external InterventionReportBody();
 }
 
 extension PropsInterventionReportBody on InterventionReportBody {
@@ -40,12 +41,12 @@ extension PropsInterventionReportBody on InterventionReportBody {
   /// InterventionReportBody.toJSON();
   ///
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  A [string] representing the intervention that generated the
   /// report. This can be used to group reports.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  A [string] containing a human-readable description of the
   /// intervention, including information such how the intervention
@@ -53,20 +54,20 @@ extension PropsInterventionReportBody on InterventionReportBody {
   /// will display in its DevTools console when an intervention is
   /// imposed, if one is available.
   ///
-  external String get message;
+  String get message => js_util.getProperty(this, 'message');
 
   ///  A [string] containing the path to the source file where the
   /// intervention occurred, if known, or [null] otherwise.
   ///
-  external String? get sourceFile;
+  String? get sourceFile => js_util.getProperty(this, 'sourceFile');
 
   ///  A [string] representing the line in the source file in which the
   /// intervention occurred, if known, or [null] otherwise.
   ///
-  external int? get lineNumber;
+  int? get lineNumber => js_util.getProperty(this, 'lineNumber');
 
   ///  A [string] representing the column in the source file in which
   /// the intervention occurred, if known, or [null] otherwise.
   ///
-  external int? get columnNumber;
+  int? get columnNumber => js_util.getProperty(this, 'columnNumber');
 }

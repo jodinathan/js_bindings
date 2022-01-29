@@ -5,6 +5,7 @@
 @staticInterop
 library css_transitions_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -23,7 +24,7 @@ html */
 @JS()
 @staticInterop
 class TransitionEvent implements Event {
-  external factory TransitionEvent(String type,
+  external TransitionEvent(String type,
       [TransitionEventInit? transitionEventInitDict]);
 }
 
@@ -31,20 +32,20 @@ extension PropsTransitionEvent on TransitionEvent {
   ///  Is a [DOMString] containing the name CSS property associated
   /// with the transition.
   ///
-  external String get propertyName;
+  String get propertyName => js_util.getProperty(this, 'propertyName');
 
   ///  Is a [float] giving the amount of time the transition has been
   /// running, in seconds, when this event fired. This value is not
   /// affected by the [transition-delay] property.
   ///
-  external double get elapsedTime;
+  double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
 
   ///  Is a [DOMString], starting with [::], containing the name of the
   /// pseudo-element the animation runs on. If the transition doesn't
   /// run on a pseudo-element but on the element, an empty string:
   /// [''].
   ///
-  external String get pseudoElement;
+  String get pseudoElement => js_util.getProperty(this, 'pseudoElement');
 }
 
 @anonymous
@@ -58,10 +59,18 @@ class TransitionEventInit implements EventInit {
 }
 
 extension PropsTransitionEventInit on TransitionEventInit {
-  external String get propertyName;
-  external set propertyName(String newValue);
-  external double get elapsedTime;
-  external set elapsedTime(double newValue);
-  external String get pseudoElement;
-  external set pseudoElement(String newValue);
+  String get propertyName => js_util.getProperty(this, 'propertyName');
+  set propertyName(String newValue) {
+    js_util.setProperty(this, 'propertyName', newValue);
+  }
+
+  double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
+  set elapsedTime(double newValue) {
+    js_util.setProperty(this, 'elapsedTime', newValue);
+  }
+
+  String get pseudoElement => js_util.getProperty(this, 'pseudoElement');
+  set pseudoElement(String newValue) {
+    js_util.setProperty(this, 'pseudoElement', newValue);
+  }
 }

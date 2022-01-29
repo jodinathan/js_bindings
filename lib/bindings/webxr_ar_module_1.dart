@@ -5,6 +5,7 @@
 @staticInterop
 library webxr_ar_module_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';

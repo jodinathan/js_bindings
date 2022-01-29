@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_texture_norm16;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -42,5 +43,5 @@ class EXT_texture_norm16 {
   external static int get RG16_SNORM_EXT;
   external static int get RGB16_SNORM_EXT;
   external static int get RGBA16_SNORM_EXT;
-  external factory EXT_texture_norm16();
+  external EXT_texture_norm16();
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library navigation_timing_2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -41,7 +42,7 @@ hr_time_3 */
 @JS()
 @staticInterop
 class PerformanceNavigationTiming implements PerformanceResourceTiming {
-  external factory PerformanceNavigationTiming();
+  external PerformanceNavigationTiming();
 }
 
 extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
@@ -49,54 +50,56 @@ extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
   /// time immediately before the user agent starts the unload event of
   /// the previous document.
   ///
-  external double get unloadEventStart;
+  double get unloadEventStart => js_util.getProperty(this, 'unloadEventStart');
 
   ///  A [DOMHighResTimeStamp] representing the time value equal to the
   /// time immediately after the user agent finishes the unload event
   /// of the previous document.
   ///
-  external double get unloadEventEnd;
+  double get unloadEventEnd => js_util.getProperty(this, 'unloadEventEnd');
 
   ///  A [DOMHighResTimeStamp] representing a [timestamp] representing
   /// the time value equal to the time immediately before the user
   /// agent sets the current document readiness of the current document
   /// to interactive.
   ///
-  external double get domInteractive;
+  double get domInteractive => js_util.getProperty(this, 'domInteractive');
 
   ///  A [DOMHighResTimeStamp] representing the time value equal to the
   /// time immediately before the user agent fires the DOMContentLoaded
   /// event at the current document.
   ///
-  external double get domContentLoadedEventStart;
+  double get domContentLoadedEventStart =>
+      js_util.getProperty(this, 'domContentLoadedEventStart');
 
   ///  A [DOMHighResTimeStamp] representing the time value equal to the
   /// time immediately after the current document's DOMContentLoaded
   /// event completes.
   ///
-  external double get domContentLoadedEventEnd;
+  double get domContentLoadedEventEnd =>
+      js_util.getProperty(this, 'domContentLoadedEventEnd');
 
   ///  A [DOMHighResTimeStamp] representing a time value equal to the
   /// time immediately before the browser sets the current document
   /// readiness of the current document to complete.
   ///
-  external double get domComplete;
+  double get domComplete => js_util.getProperty(this, 'domComplete');
 
   ///  A [DOMHighResTimeStamp] representing the time value equal to the
   /// time immediately before the load event of the current document is
   /// fired.
   ///
-  external double get loadEventStart;
+  double get loadEventStart => js_util.getProperty(this, 'loadEventStart');
 
   ///  A [DOMHighResTimeStamp] representing the time when the load
   /// event of the current document is completed.
   ///
-  external double get loadEventEnd;
+  double get loadEventEnd => js_util.getProperty(this, 'loadEventEnd');
 
   ///  A [string] representing the navigation type. Must be:
   /// "[navigate]", "[reload]", "[back_forward]" or "[prerender]".
   ///
-  external NavigationType get type;
+  NavigationType get type => js_util.getProperty(this, 'type');
 
   ///  A number representing the number of redirects since the last
   /// non-redirect navigation under the current browsing context.
@@ -104,7 +107,7 @@ extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
   /// origin, and that origin does not permit it's timing information
   /// to be exposed to the current origin then the value will be 0.
   ///
-  external int get redirectCount;
+  int get redirectCount => js_util.getProperty(this, 'redirectCount');
 
   ///  Returns a [DOMString] that is the JSON representation of the
   /// [PerformanceNavigationTiming] object.
@@ -121,7 +124,7 @@ extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
   /// console.log("PerformanceNavigationTiming.toJSON() = " + s);
   ///
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 enum NavigationType { navigate, reload, backForward, prerender }
@@ -148,7 +151,7 @@ enum NavigationType { navigate, reload, backForward, prerender }
 @JS()
 @staticInterop
 class PerformanceTiming {
-  external factory PerformanceTiming();
+  external PerformanceTiming();
 }
 
 extension PropsPerformanceTiming on PerformanceTiming {
@@ -157,7 +160,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// this value will be the same as [PerformanceTiming.fetchStart].
   ///
   @deprecated
-  external int get navigationStart;
+  int get navigationStart => js_util.getProperty(this, 'navigationStart');
 
   ///  When the [unload] event has been thrown, indicating the time at
   /// which the previous document in the window began to unload. If
@@ -166,7 +169,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// returned is [0].
   ///
   @deprecated
-  external int get unloadEventStart;
+  int get unloadEventStart => js_util.getProperty(this, 'unloadEventStart');
 
   ///  When the [unload] event handler finishes. If there is no
   /// previous document, or if the previous document, or one of the
@@ -174,14 +177,14 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// is [0].
   ///
   @deprecated
-  external int get unloadEventEnd;
+  int get unloadEventEnd => js_util.getProperty(this, 'unloadEventEnd');
 
   ///  When the first HTTP redirect starts. If there is no redirect, or
   /// if one of the redirects is not of the same origin, the value
   /// returned is [0].
   ///
   @deprecated
-  external int get redirectStart;
+  int get redirectStart => js_util.getProperty(this, 'redirectStart');
 
   ///  When the last HTTP redirect is completed, that is when the last
   /// byte of the HTTP response has been received. If there is no
@@ -189,14 +192,14 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// the value returned is [0].
   ///
   @deprecated
-  external int get redirectEnd;
+  int get redirectEnd => js_util.getProperty(this, 'redirectEnd');
 
   ///  When the browser is ready to fetch the document using an HTTP
   /// request. This moment is before the check to any application
   /// cache.
   ///
   @deprecated
-  external int get fetchStart;
+  int get fetchStart => js_util.getProperty(this, 'fetchStart');
 
   ///  When the domain lookup starts. If a persistent connection is
   /// used, or the information is stored in a cache or a local
@@ -204,7 +207,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// [PerformanceTiming.fetchStart].
   ///
   @deprecated
-  external int get domainLookupStart;
+  int get domainLookupStart => js_util.getProperty(this, 'domainLookupStart');
 
   ///  When the domain lookup is finished. If a persistent connection
   /// is used, or the information is stored in a cache or a local
@@ -212,7 +215,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// [PerformanceTiming.fetchStart].
   ///
   @deprecated
-  external int get domainLookupEnd;
+  int get domainLookupEnd => js_util.getProperty(this, 'domainLookupEnd');
 
   ///  When the request to open a connection is sent to the network. If
   /// the transport layer reports an error and the connection
@@ -221,7 +224,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// value will be the same as [PerformanceTiming.fetchStart].
   ///
   @deprecated
-  external int get connectStart;
+  int get connectStart => js_util.getProperty(this, 'connectStart');
 
   ///  When the connection is opened network. If the transport layer
   /// reports an error and the connection establishment is started
@@ -232,13 +235,14 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// authentication, is terminated.
   ///
   @deprecated
-  external int get connectEnd;
+  int get connectEnd => js_util.getProperty(this, 'connectEnd');
 
   ///  When the secure connection handshake starts. If no such
   /// connection is requested, it returns [0].
   ///
   @deprecated
-  external int get secureConnectionStart;
+  int get secureConnectionStart =>
+      js_util.getProperty(this, 'secureConnectionStart');
 
   ///  When the browser sent the request to obtain the actual document,
   /// from the server or from a cache. If the transport layer fails
@@ -247,73 +251,75 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// request.
   ///
   @deprecated
-  external int get requestStart;
+  int get requestStart => js_util.getProperty(this, 'requestStart');
 
   ///  When the browser received the first byte of the response, from
   /// the server from a cache, or from a local resource.
   ///
   @deprecated
-  external int get responseStart;
+  int get responseStart => js_util.getProperty(this, 'responseStart');
 
   ///  When the browser received the last byte of the response, or when
   /// the connection is closed if this happened first, from the server,
   /// the cache, or from a local resource.
   ///
   @deprecated
-  external int get responseEnd;
+  int get responseEnd => js_util.getProperty(this, 'responseEnd');
 
   ///  When the parser started its work, that is when its
   /// [Document.readyState] changes to ['loading'] and the
   /// corresponding [readystatechange] event is thrown.
   ///
   @deprecated
-  external int get domLoading;
+  int get domLoading => js_util.getProperty(this, 'domLoading');
 
   ///  When the parser finished its work on the main document, that is
   /// when its [Document.readyState] changes to ['interactive'] and the
   /// corresponding [readystatechange] event is thrown.
   ///
   @deprecated
-  external int get domInteractive;
+  int get domInteractive => js_util.getProperty(this, 'domInteractive');
 
   ///  Right before the parser sent the [DOMContentLoaded] event, that
   /// is right after all the scripts that need to be executed right
   /// after parsing have been executed.
   ///
   @deprecated
-  external int get domContentLoadedEventStart;
+  int get domContentLoadedEventStart =>
+      js_util.getProperty(this, 'domContentLoadedEventStart');
 
   ///  Right after all the scripts that need to be executed as soon as
   /// possible, in order or not, have been executed.
   ///
   @deprecated
-  external int get domContentLoadedEventEnd;
+  int get domContentLoadedEventEnd =>
+      js_util.getProperty(this, 'domContentLoadedEventEnd');
 
   ///  When the parser finished its work on the main document, that is
   /// when its [Document.readyState] changes to ['complete'] and the
   /// corresponding [readystatechange] event is thrown.
   ///
   @deprecated
-  external int get domComplete;
+  int get domComplete => js_util.getProperty(this, 'domComplete');
 
   ///  When the [load] event was sent for the current document. If this
   /// event has not yet been sent, it returns [0.]
   ///
   @deprecated
-  external int get loadEventStart;
+  int get loadEventStart => js_util.getProperty(this, 'loadEventStart');
 
   ///  When the [load] event handler terminated, that is when the load
   /// event is completed. If this event has not yet been sent, or is
   /// not yet completed, it returns [0.]
   ///
   @deprecated
-  external int get loadEventEnd;
+  int get loadEventEnd => js_util.getProperty(this, 'loadEventEnd');
 
   ///  Returns a JSON object representing this [PerformanceTiming]
   /// object.
   ///
   @deprecated
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -344,7 +350,7 @@ class PerformanceNavigation {
   external static int get TYPE_RELOAD;
   external static int get TYPE_BACK_FORWARD;
   external static int get TYPE_RESERVED;
-  external factory PerformanceNavigation();
+  external PerformanceNavigation();
 }
 
 extension PropsPerformanceNavigation on PerformanceNavigation {
@@ -373,17 +379,17 @@ extension PropsPerformanceNavigation on PerformanceNavigation {
   ///
   ///
   @deprecated
-  external int get type;
+  int get type => js_util.getProperty(this, 'type');
 
   ///  An [unsigned short] representing the number of REDIRECTs done
   /// before reaching the page.
   ///
   @deprecated
-  external int get redirectCount;
+  int get redirectCount => js_util.getProperty(this, 'redirectCount');
 
   ///  Is a jsonizer returning a json object representing the
   /// [PerformanceNavigation] object.
   ///
   @deprecated
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

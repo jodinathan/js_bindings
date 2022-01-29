@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_disjoint_timer_query;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,7 +16,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class WebGLTimerQueryEXT implements WebGLObject {
-  external factory WebGLTimerQueryEXT();
+  external WebGLTimerQueryEXT();
 }
 
 ///  The EXT_disjoint_timer_query extension is part of the WebGL API
@@ -45,7 +46,7 @@ class EXT_disjoint_timer_query {
   external static int get TIME_ELAPSED_EXT;
   external static int get TIMESTAMP_EXT;
   external static int get GPU_DISJOINT_EXT;
-  external factory EXT_disjoint_timer_query();
+  external EXT_disjoint_timer_query();
 }
 
 extension PropsEXT_disjoint_timer_query on EXT_disjoint_timer_query {
@@ -53,50 +54,58 @@ extension PropsEXT_disjoint_timer_query on EXT_disjoint_timer_query {
   ///
   /// WebGLTimerQueryEXT ext.createQueryEXT();
   ///
-  external WebGLTimerQueryEXT? createQueryEXT();
+  WebGLTimerQueryEXT? createQueryEXT() =>
+      js_util.callMethod(this, 'createQueryEXT', []);
 
   /// Deletes a given [WebGLTimerQueryEXT].
   ///
   /// void ext.deleteQueryEXT(query);
   ///
-  external Object deleteQueryEXT(WebGLTimerQueryEXT? query);
+  Object deleteQueryEXT(WebGLTimerQueryEXT? query) =>
+      js_util.callMethod(this, 'deleteQueryEXT', [query]);
 
   ///  Returns [true] if a given object is a valid
   /// [WebGLTimerQueryEXT].
   ///
   /// GLBoolean ext.isQueryEXT(query);
   ///
-  external bool isQueryEXT(WebGLTimerQueryEXT? query);
+  bool isQueryEXT(WebGLTimerQueryEXT? query) =>
+      js_util.callMethod(this, 'isQueryEXT', [query]);
 
   ///  The timer starts when all commands prior to have been fully
   /// executed.
   ///
   /// void ext.beginQueryEXT(target, query);
   ///
-  external Object beginQueryEXT(int target, WebGLTimerQueryEXT query);
+  Object beginQueryEXT(int target, WebGLTimerQueryEXT query) =>
+      js_util.callMethod(this, 'beginQueryEXT', [target, query]);
 
   ///  The timer stops when all commands prior to have been fully
   /// executed.
   ///
   /// void ext.endQueryEXT(target);
   ///
-  external Object endQueryEXT(int target);
+  Object endQueryEXT(int target) =>
+      js_util.callMethod(this, 'endQueryEXT', [target]);
 
   /// Records the current time into the corresponding query object.
   ///
   /// void ext.queryCounterEXT(query, target);
   ///
-  external Object queryCounterEXT(WebGLTimerQueryEXT query, int target);
+  Object queryCounterEXT(WebGLTimerQueryEXT query, int target) =>
+      js_util.callMethod(this, 'queryCounterEXT', [query, target]);
 
   /// Returns information about a query target.
   ///
   /// any ext.getQueryEXT(target, pname);
   ///
-  external dynamic getQueryEXT(int target, int pname);
+  dynamic getQueryEXT(int target, int pname) =>
+      js_util.callMethod(this, 'getQueryEXT', [target, pname]);
 
   /// Return the state of a query object.
   ///
   /// any ext.getQueryObjectEXT(query, pname);
   ///
-  external dynamic getQueryObjectEXT(WebGLTimerQueryEXT query, int pname);
+  dynamic getQueryObjectEXT(WebGLTimerQueryEXT query, int pname) =>
+      js_util.callMethod(this, 'getQueryObjectEXT', [query, pname]);
 }

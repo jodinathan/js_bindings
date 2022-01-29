@@ -5,6 +5,7 @@
 @staticInterop
 library selection_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -31,7 +32,7 @@ html */
 @JS()
 @staticInterop
 class Selection {
-  external factory Selection();
+  external Selection();
 }
 
 extension PropsSelection on Selection {
@@ -39,7 +40,7 @@ extension PropsSelection on Selection {
   /// [null] if selection never existed in the document (e.g., an
   /// iframe that was never clicked on).
   ///
-  external Node? get anchorNode;
+  Node? get anchorNode => js_util.getProperty(this, 'anchorNode');
 
   ///  Returns a number representing the offset of the selection's
   /// anchor within the [anchorNode]. If [anchorNode] is a text node,
@@ -47,13 +48,13 @@ extension PropsSelection on Selection {
   /// anchor. If [anchorNode] is an element, this is the number of
   /// child nodes of the [anchorNode] preceding the anchor.
   ///
-  external int get anchorOffset;
+  int get anchorOffset => js_util.getProperty(this, 'anchorOffset');
 
   ///  Returns the [Node] in which the selection ends. Can return
   /// [null] if selection never existed in the document (for example,
   /// in an [iframe] that was never clicked on).
   ///
-  external Node? get focusNode;
+  Node? get focusNode => js_util.getProperty(this, 'focusNode');
 
   ///  Returns a number representing the offset of the selection's
   /// anchor within the [focusNode]. If [focusNode] is a text node,
@@ -61,21 +62,21 @@ extension PropsSelection on Selection {
   /// focus. If [focusNode] is an element, this is the number of child
   /// nodes of the [focusNode] preceding the focus.
   ///
-  external int get focusOffset;
+  int get focusOffset => js_util.getProperty(this, 'focusOffset');
 
   ///  Returns a Boolean indicating whether the selection's start and
   /// end points are at the same position.
   ///
-  external bool get isCollapsed;
+  bool get isCollapsed => js_util.getProperty(this, 'isCollapsed');
 
   /// Returns the number of ranges in the selection.
   ///
-  external int get rangeCount;
+  int get rangeCount => js_util.getProperty(this, 'rangeCount');
 
   ///  Returns a [DOMString] describing the type of the current
   /// selection.
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   ///  Returns a [Range] object representing one of the ranges
   /// currently selected.
@@ -93,7 +94,8 @@ extension PropsSelection on Selection {
   ///  * a range object representing one of the
   ///  * ranges in the current selection */
   ///
-  external Range getRangeAt(int index);
+  Range getRangeAt(int index) =>
+      js_util.callMethod(this, 'getRangeAt', [index]);
 
   /// A [Range] object that will be added to the selection.
   ///
@@ -129,61 +131,70 @@ extension PropsSelection on Selection {
   ///
   /// ```
   ///
-  external Object addRange(Range range);
+  Object addRange(Range range) => js_util.callMethod(this, 'addRange', [range]);
 
   /// Removes a range from the selection.
   ///
   /// sel.removeRange(range)
   ///
-  external Object removeRange(Range range);
+  Object removeRange(Range range) =>
+      js_util.callMethod(this, 'removeRange', [range]);
 
   /// Removes all ranges from the selection.
   ///
   /// sel.removeAllRanges();
   ///
-  external Object removeAllRanges();
-  external Object empty();
+  Object removeAllRanges() => js_util.callMethod(this, 'removeAllRanges', []);
+
+  Object empty() => js_util.callMethod(this, 'empty', []);
 
   /// Collapses the current selection to a single point.
   ///
   /// sel.collapse(node, offset);
   ///
-  external Object collapse(Node? node, [int? offset = 0]);
-  external Object setPosition(Node? node, [int? offset = 0]);
+  Object collapse(Node? node, [int? offset = 0]) =>
+      js_util.callMethod(this, 'collapse', [node, offset]);
+
+  Object setPosition(Node? node, [int? offset = 0]) =>
+      js_util.callMethod(this, 'setPosition', [node, offset]);
 
   ///  Collapses the selection to the start of the first range in the
   /// selection.
   ///
   /// sel.collapseToStart()
   ///
-  external Object collapseToStart();
+  Object collapseToStart() => js_util.callMethod(this, 'collapseToStart', []);
 
   ///  Collapses the selection to the end of the last range in the
   /// selection.
   ///
   /// sel.collapseToEnd()
   ///
-  external Object collapseToEnd();
+  Object collapseToEnd() => js_util.callMethod(this, 'collapseToEnd', []);
 
   /// Moves the focus of the selection to a specified point.
   ///
   /// sel.extend(node, offset)
   ///
-  external Object extend(Node node, [int? offset = 0]);
+  Object extend(Node node, [int? offset = 0]) =>
+      js_util.callMethod(this, 'extend', [node, offset]);
 
   ///  Sets the selection to be a range including all or parts of two
   /// specified DOM nodes, and any content located between them.
   ///
   /// sel.setBaseAndExtent(anchorNode,anchorOffset,focusNode,focusOffset)
   ///
-  external Object setBaseAndExtent(
-      Node anchorNode, int anchorOffset, Node focusNode, int focusOffset);
+  Object setBaseAndExtent(
+          Node anchorNode, int anchorOffset, Node focusNode, int focusOffset) =>
+      js_util.callMethod(this, 'setBaseAndExtent',
+          [anchorNode, anchorOffset, focusNode, focusOffset]);
 
   /// Adds all the children of the specified node to the selection.
   ///
   /// sel.selectAllChildren(parentNode)
   ///
-  external Object selectAllChildren(Node node);
+  Object selectAllChildren(Node node) =>
+      js_util.callMethod(this, 'selectAllChildren', [node]);
 
   /// Deletes the selection's content from the document.
   ///
@@ -210,14 +221,15 @@ extension PropsSelection on Selection {
   ///
   /// ```
   ///
-  external Object deleteFromDocument();
+  Object deleteFromDocument() =>
+      js_util.callMethod(this, 'deleteFromDocument', []);
 
   /// Indicates if a certain node is part of the selection.
   ///
   /// sel.containsNode(node, partialContainment)
   ///
-  external bool containsNode(Node node,
-      [bool? allowPartialContainment = false]);
-  @JS('toString')
-  external String mToString();
+  bool containsNode(Node node, [bool? allowPartialContainment = false]) =>
+      js_util.callMethod(this, 'containsNode', [node, allowPartialContainment]);
+
+  String mToString() => js_util.callMethod(this, 'toString', []);
 }

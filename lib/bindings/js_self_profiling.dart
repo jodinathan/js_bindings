@@ -5,6 +5,7 @@
 @staticInterop
 library js_self_profiling;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -16,13 +17,13 @@ hr_time_3 */
 @JS()
 @staticInterop
 class Profiler implements EventTarget {
-  external factory Profiler();
+  external Profiler();
 }
 
 extension PropsProfiler on Profiler {
-  external double get sampleInterval;
-  external bool get stopped;
-  external Promise<ProfilerTrace> stop();
+  double get sampleInterval => js_util.getProperty(this, 'sampleInterval');
+  bool get stopped => js_util.getProperty(this, 'stopped');
+  Promise<ProfilerTrace> stop() => js_util.callMethod(this, 'stop', []);
 }
 
 @anonymous
@@ -37,14 +38,25 @@ class ProfilerTrace {
 }
 
 extension PropsProfilerTrace on ProfilerTrace {
-  external Iterable<String> get resources;
-  external set resources(Iterable<String> newValue);
-  external Iterable<ProfilerFrame> get frames;
-  external set frames(Iterable<ProfilerFrame> newValue);
-  external Iterable<ProfilerStack> get stacks;
-  external set stacks(Iterable<ProfilerStack> newValue);
-  external Iterable<ProfilerSample> get samples;
-  external set samples(Iterable<ProfilerSample> newValue);
+  Iterable<String> get resources => js_util.getProperty(this, 'resources');
+  set resources(Iterable<String> newValue) {
+    js_util.setProperty(this, 'resources', newValue);
+  }
+
+  Iterable<ProfilerFrame> get frames => js_util.getProperty(this, 'frames');
+  set frames(Iterable<ProfilerFrame> newValue) {
+    js_util.setProperty(this, 'frames', newValue);
+  }
+
+  Iterable<ProfilerStack> get stacks => js_util.getProperty(this, 'stacks');
+  set stacks(Iterable<ProfilerStack> newValue) {
+    js_util.setProperty(this, 'stacks', newValue);
+  }
+
+  Iterable<ProfilerSample> get samples => js_util.getProperty(this, 'samples');
+  set samples(Iterable<ProfilerSample> newValue) {
+    js_util.setProperty(this, 'samples', newValue);
+  }
 }
 
 @anonymous
@@ -55,10 +67,15 @@ class ProfilerSample {
 }
 
 extension PropsProfilerSample on ProfilerSample {
-  external double get timestamp;
-  external set timestamp(double newValue);
-  external int get stackId;
-  external set stackId(int newValue);
+  double get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(double newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  int get stackId => js_util.getProperty(this, 'stackId');
+  set stackId(int newValue) {
+    js_util.setProperty(this, 'stackId', newValue);
+  }
 }
 
 @anonymous
@@ -69,10 +86,15 @@ class ProfilerStack {
 }
 
 extension PropsProfilerStack on ProfilerStack {
-  external int get parentId;
-  external set parentId(int newValue);
-  external int get frameId;
-  external set frameId(int newValue);
+  int get parentId => js_util.getProperty(this, 'parentId');
+  set parentId(int newValue) {
+    js_util.setProperty(this, 'parentId', newValue);
+  }
+
+  int get frameId => js_util.getProperty(this, 'frameId');
+  set frameId(int newValue) {
+    js_util.setProperty(this, 'frameId', newValue);
+  }
 }
 
 @anonymous
@@ -84,14 +106,25 @@ class ProfilerFrame {
 }
 
 extension PropsProfilerFrame on ProfilerFrame {
-  external String get name;
-  external set name(String newValue);
-  external int get resourceId;
-  external set resourceId(int newValue);
-  external int get line;
-  external set line(int newValue);
-  external int get column;
-  external set column(int newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  int get resourceId => js_util.getProperty(this, 'resourceId');
+  set resourceId(int newValue) {
+    js_util.setProperty(this, 'resourceId', newValue);
+  }
+
+  int get line => js_util.getProperty(this, 'line');
+  set line(int newValue) {
+    js_util.setProperty(this, 'line', newValue);
+  }
+
+  int get column => js_util.getProperty(this, 'column');
+  set column(int newValue) {
+    js_util.setProperty(this, 'column', newValue);
+  }
 }
 
 @anonymous
@@ -103,8 +136,13 @@ class ProfilerInitOptions {
 }
 
 extension PropsProfilerInitOptions on ProfilerInitOptions {
-  external double get sampleInterval;
-  external set sampleInterval(double newValue);
-  external int get maxBufferSize;
-  external set maxBufferSize(int newValue);
+  double get sampleInterval => js_util.getProperty(this, 'sampleInterval');
+  set sampleInterval(double newValue) {
+    js_util.setProperty(this, 'sampleInterval', newValue);
+  }
+
+  int get maxBufferSize => js_util.getProperty(this, 'maxBufferSize');
+  set maxBufferSize(int newValue) {
+    js_util.setProperty(this, 'maxBufferSize', newValue);
+  }
 }

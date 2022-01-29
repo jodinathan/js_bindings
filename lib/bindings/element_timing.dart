@@ -5,6 +5,7 @@
 @staticInterop
 library element_timing;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -22,58 +23,59 @@ dom */
 @JS()
 @staticInterop
 class PerformanceElementTiming implements PerformanceEntry {
-  external factory PerformanceElementTiming();
+  external PerformanceElementTiming();
 }
 
 extension PropsPerformanceElementTiming on PerformanceElementTiming {
   /// A [DOMHighResTimeStamp] with the renderTime of the element.
   ///
-  external double get renderTime;
+  double get renderTime => js_util.getProperty(this, 'renderTime');
 
   /// A [DOMHighResTimeStamp] with the loadTime of the element.
   ///
-  external double get loadTime;
+  double get loadTime => js_util.getProperty(this, 'loadTime');
 
   ///  A [DOMRectReadOnly] which is the rectangle of the element within
   /// the viewport.
   ///
-  external DOMRectReadOnly get intersectionRect;
+  DOMRectReadOnly get intersectionRect =>
+      js_util.getProperty(this, 'intersectionRect');
 
   ///  A [DOMString] which is the value of the [elementtiming]
   /// attribute on the element.
   ///
-  external String get identifier;
+  String get identifier => js_util.getProperty(this, 'identifier');
 
   ///  An unsigned 32-bit integer (unsigned long) which is the
   /// intrinsic width of the image if this is applied to an image, 0
   /// for text.
   ///
-  external int get naturalWidth;
+  int get naturalWidth => js_util.getProperty(this, 'naturalWidth');
 
   ///  An unsigned 32-bit integer (unsigned long) which is the
   /// intrinsic height of the image if this is applied to an image, 0
   /// for text.
   ///
-  external int get naturalHeight;
+  int get naturalHeight => js_util.getProperty(this, 'naturalHeight');
 
   /// A [DOMString] which is the of the element.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  An [Element] representing the element we are returning
   /// information about.
   ///
-  external Element? get element;
+  Element? get element => js_util.getProperty(this, 'element');
 
   ///  A [DOMString] which is the initial URL of the resources request
   /// for images, 0 for text.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   /// Generates a JSON description of the object.
   ///
   /// var json = PerformanceElementTiming.toJSON();
   ///
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

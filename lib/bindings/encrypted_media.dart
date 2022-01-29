@@ -5,6 +5,7 @@
 @staticInterop
 library encrypted_media;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -32,22 +33,46 @@ class MediaKeySystemConfiguration {
 }
 
 extension PropsMediaKeySystemConfiguration on MediaKeySystemConfiguration {
-  external String get label;
-  external set label(String newValue);
-  external Iterable<String> get initDataTypes;
-  external set initDataTypes(Iterable<String> newValue);
-  external Iterable<MediaKeySystemMediaCapability> get audioCapabilities;
-  external set audioCapabilities(
-      Iterable<MediaKeySystemMediaCapability> newValue);
-  external Iterable<MediaKeySystemMediaCapability> get videoCapabilities;
-  external set videoCapabilities(
-      Iterable<MediaKeySystemMediaCapability> newValue);
-  external MediaKeysRequirement get distinctiveIdentifier;
-  external set distinctiveIdentifier(MediaKeysRequirement newValue);
-  external MediaKeysRequirement get persistentState;
-  external set persistentState(MediaKeysRequirement newValue);
-  external Iterable<String> get sessionTypes;
-  external set sessionTypes(Iterable<String> newValue);
+  String get label => js_util.getProperty(this, 'label');
+  set label(String newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
+
+  Iterable<String> get initDataTypes =>
+      js_util.getProperty(this, 'initDataTypes');
+  set initDataTypes(Iterable<String> newValue) {
+    js_util.setProperty(this, 'initDataTypes', newValue);
+  }
+
+  Iterable<MediaKeySystemMediaCapability> get audioCapabilities =>
+      js_util.getProperty(this, 'audioCapabilities');
+  set audioCapabilities(Iterable<MediaKeySystemMediaCapability> newValue) {
+    js_util.setProperty(this, 'audioCapabilities', newValue);
+  }
+
+  Iterable<MediaKeySystemMediaCapability> get videoCapabilities =>
+      js_util.getProperty(this, 'videoCapabilities');
+  set videoCapabilities(Iterable<MediaKeySystemMediaCapability> newValue) {
+    js_util.setProperty(this, 'videoCapabilities', newValue);
+  }
+
+  MediaKeysRequirement get distinctiveIdentifier =>
+      js_util.getProperty(this, 'distinctiveIdentifier');
+  set distinctiveIdentifier(MediaKeysRequirement newValue) {
+    js_util.setProperty(this, 'distinctiveIdentifier', newValue);
+  }
+
+  MediaKeysRequirement get persistentState =>
+      js_util.getProperty(this, 'persistentState');
+  set persistentState(MediaKeysRequirement newValue) {
+    js_util.setProperty(this, 'persistentState', newValue);
+  }
+
+  Iterable<String> get sessionTypes =>
+      js_util.getProperty(this, 'sessionTypes');
+  set sessionTypes(Iterable<String> newValue) {
+    js_util.setProperty(this, 'sessionTypes', newValue);
+  }
 }
 
 @anonymous
@@ -61,12 +86,20 @@ class MediaKeySystemMediaCapability {
 }
 
 extension PropsMediaKeySystemMediaCapability on MediaKeySystemMediaCapability {
-  external String get contentType;
-  external set contentType(String newValue);
-  external String? get encryptionScheme;
-  external set encryptionScheme(String? newValue);
-  external String get robustness;
-  external set robustness(String newValue);
+  String get contentType => js_util.getProperty(this, 'contentType');
+  set contentType(String newValue) {
+    js_util.setProperty(this, 'contentType', newValue);
+  }
+
+  String? get encryptionScheme => js_util.getProperty(this, 'encryptionScheme');
+  set encryptionScheme(String? newValue) {
+    js_util.setProperty(this, 'encryptionScheme', newValue);
+  }
+
+  String get robustness => js_util.getProperty(this, 'robustness');
+  set robustness(String newValue) {
+    js_util.setProperty(this, 'robustness', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -79,26 +112,28 @@ extension PropsMediaKeySystemMediaCapability on MediaKeySystemMediaCapability {
 @JS()
 @staticInterop
 class MediaKeySystemAccess {
-  external factory MediaKeySystemAccess();
+  external MediaKeySystemAccess();
 }
 
 extension PropsMediaKeySystemAccess on MediaKeySystemAccess {
   /// Returns a [DOMString] identifying the key system being used.
   ///
-  external String get keySystem;
+  String get keySystem => js_util.getProperty(this, 'keySystem');
 
   ///  Returns an object with the supported combination of
   /// configuration options.
   ///
   /// var mediaKeySystemConfiguration = mediaKeySystemAccess.getConfiguration();
   ///
-  external MediaKeySystemConfiguration getConfiguration();
+  MediaKeySystemConfiguration getConfiguration() =>
+      js_util.callMethod(this, 'getConfiguration', []);
 
   /// Returns a [Promise] that resolves to a new [MediaKeys] object.
   ///
   /// var mediaKeys = await mediaKeySystemAccess.createMediaKeys();
   ///
-  external Promise<MediaKeys> createMediaKeys();
+  Promise<MediaKeys> createMediaKeys() =>
+      js_util.callMethod(this, 'createMediaKeys', []);
 }
 
 enum MediaKeySessionType { temporary, persistentLicense }
@@ -112,7 +147,7 @@ enum MediaKeySessionType { temporary, persistentLicense }
 @JS()
 @staticInterop
 class MediaKeys {
-  external factory MediaKeys();
+  external MediaKeys();
 }
 
 extension PropsMediaKeys on MediaKeys {
@@ -122,15 +157,17 @@ extension PropsMediaKeys on MediaKeys {
   ///
   /// var mediaKeySessionObject = MediaKeys.createSession([MediaKeySessionType]);
   ///
-  external MediaKeySession createSession(
-      [MediaKeySessionType? sessionType = MediaKeySessionType.temporary]);
+  MediaKeySession createSession(
+          [MediaKeySessionType? sessionType = MediaKeySessionType.temporary]) =>
+      js_util.callMethod(this, 'createSession', [sessionType]);
 
   ///  Returns a [Promise] to a server certificate to be used to
   /// encrypt messages to the license server.
   ///
   /// MediaKeys.setServerCertificate(serverCertificate).then(function() { /* ... */ });
   ///
-  external Promise<bool> setServerCertificate(dynamic serverCertificate);
+  Promise<bool> setServerCertificate(dynamic serverCertificate) =>
+      js_util.callMethod(this, 'setServerCertificate', [serverCertificate]);
 }
 
 ///  The interface of the EncryptedMediaExtensions API represents a
@@ -139,14 +176,14 @@ extension PropsMediaKeys on MediaKeys {
 @JS()
 @staticInterop
 class MediaKeySession implements EventTarget {
-  external factory MediaKeySession();
+  external MediaKeySession();
 }
 
 extension PropsMediaKeySession on MediaKeySession {
   ///  Contains a unique string generated by the CDM for the current
   /// media object and its associated keys or licenses.
   ///
-  external String get sessionId;
+  String get sessionId => js_util.getProperty(this, 'sessionId');
 
   ///  The time after which the keys in the current session can no
   /// longer be used to decrypt media data, or [NaN] if no such time
@@ -155,45 +192,54 @@ extension PropsMediaKeySession on MediaKeySession {
   /// during a session lifetime, such as when an action triggers the
   /// start of a window.
   ///
-  external /* double | NaN */ dynamic get expiration;
+  /* double | NaN */ dynamic get expiration =>
+      js_util.getProperty(this, 'expiration');
 
   ///  Returns a [Promise] signaling when a [MediaKeySession] closes.
   /// This promise can only be fulfilled and is never rejected. Closing
   /// a session means that licenses and keys associated with it are no
   /// longer valid for decrypting media data.
   ///
-  external Promise<Object> get closed;
+  Promise<Object> get closed => js_util.getProperty(this, 'closed');
 
   ///  Contains a reference to a read-only [MediaKeyStatusMap] of the
   /// current session's keys and their statuses.
   ///
-  external MediaKeyStatusMap get keyStatuses;
-  external EventHandlerNonNull? get onkeystatuseschange;
-  external set onkeystatuseschange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
+  MediaKeyStatusMap get keyStatuses => js_util.getProperty(this, 'keyStatuses');
+  EventHandlerNonNull? get onkeystatuseschange =>
+      js_util.getProperty(this, 'onkeystatuseschange');
+  set onkeystatuseschange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onkeystatuseschange', newValue);
+  }
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
 
   ///  Returns a [Promise] after generating a media request based on
   /// initialization data.
   ///
   /// mediaKeySession.generateRequest().then(function) { /* ... */ });
   ///
-  external Promise<Object> generateRequest(
-      String initDataType, dynamic initData);
+  Promise<Object> generateRequest(String initDataType, dynamic initData) =>
+      js_util.callMethod(this, 'generateRequest', [initDataType, initData]);
 
   ///  Returns a [Promise] that resolves to a boolean value after
   /// loading data for a specified session object.
   ///
   /// mediaKeySession.load(sessionId).then(function(booleanValue) { /* ... */ });
   ///
-  external Promise<bool> load(String sessionId);
+  Promise<bool> load(String sessionId) =>
+      js_util.callMethod(this, 'load', [sessionId]);
 
   ///  Returns a [Promise] after loading messages and licenses to the
   /// CDM.
   ///
   /// mediaKeySession.update(response).then(function() { /* ... */ });
   ///
-  external Promise<Object> update(dynamic response);
+  Promise<Object> update(dynamic response) =>
+      js_util.callMethod(this, 'update', [response]);
 
   ///  Returns a [Promise] after notifying the current media session is
   /// no longer needed and that the CDM should release any resources
@@ -201,12 +247,12 @@ extension PropsMediaKeySession on MediaKeySession {
   ///
   /// mediaKeySession.close().then(function() { /* ... */ });
   ///
-  external Promise<Object> close();
+  Promise<Object> close() => js_util.callMethod(this, 'close', []);
 
   ///  Returns a [Promise] after removing any session data associated
   /// with the current object.
   ///
-  external Promise<Object> remove();
+  Promise<Object> remove() => js_util.callMethod(this, 'remove', []);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -217,20 +263,20 @@ extension PropsMediaKeySession on MediaKeySession {
 @JS()
 @staticInterop
 class MediaKeyStatusMap {
-  external factory MediaKeyStatusMap();
+  external MediaKeyStatusMap();
 }
 
 extension PropsMediaKeyStatusMap on MediaKeyStatusMap {
   /// Returns the number of key/value pars in the status map.
   ///
-  external int get size;
+  int get size => js_util.getProperty(this, 'size');
 
   ///  Returns a boolean asserting whether a value has been associated
   /// with the given key.
   ///
   /// var boolean = mediaKeyStatusMap(key)
   ///
-  external bool has(dynamic keyId);
+  bool has(dynamic keyId) => js_util.callMethod(this, 'has', [keyId]);
 
   ///  Returns the value associated with the given key, or [undefined]
   /// if there is none.
@@ -239,7 +285,7 @@ extension PropsMediaKeyStatusMap on MediaKeyStatusMap {
   ///
   @JS('get')
   @staticInterop
-  external dynamic mGet(dynamic keyId);
+  dynamic mGet(dynamic keyId) => js_util.callMethod(this, 'get', [keyId]);
 }
 
 enum MediaKeyStatus {
@@ -281,7 +327,7 @@ enum MediaKeyMessageType {
 @JS()
 @staticInterop
 class MediaKeyMessageEvent implements Event {
-  external factory MediaKeyMessageEvent(
+  external MediaKeyMessageEvent(
       String type, MediaKeyMessageEventInit eventInitDict);
 }
 
@@ -290,12 +336,13 @@ extension PropsMediaKeyMessageEvent on MediaKeyMessageEvent {
   /// [license-renewal], [license-release], or
   /// [individualization-request].
   ///
-  external MediaKeyMessageType get messageType;
+  MediaKeyMessageType get messageType =>
+      js_util.getProperty(this, 'messageType');
 
   ///  Returns an [ArrayBuffer] with a message from the content
   /// decryption module. Messages vary by key system.
   ///
-  external ByteBuffer get message;
+  ByteBuffer get message => js_util.getProperty(this, 'message');
 }
 
 @anonymous
@@ -307,22 +354,28 @@ class MediaKeyMessageEventInit implements EventInit {
 }
 
 extension PropsMediaKeyMessageEventInit on MediaKeyMessageEventInit {
-  external MediaKeyMessageType get messageType;
-  external set messageType(MediaKeyMessageType newValue);
-  external ByteBuffer get message;
-  external set message(ByteBuffer newValue);
+  MediaKeyMessageType get messageType =>
+      js_util.getProperty(this, 'messageType');
+  set messageType(MediaKeyMessageType newValue) {
+    js_util.setProperty(this, 'messageType', newValue);
+  }
+
+  ByteBuffer get message => js_util.getProperty(this, 'message');
+  set message(ByteBuffer newValue) {
+    js_util.setProperty(this, 'message', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class MediaEncryptedEvent implements Event {
-  external factory MediaEncryptedEvent(String type,
+  external MediaEncryptedEvent(String type,
       [MediaEncryptedEventInit? eventInitDict]);
 }
 
 extension PropsMediaEncryptedEvent on MediaEncryptedEvent {
-  external String get initDataType;
-  external ByteBuffer? get initData;
+  String get initDataType => js_util.getProperty(this, 'initDataType');
+  ByteBuffer? get initData => js_util.getProperty(this, 'initData');
 }
 
 @anonymous
@@ -334,8 +387,13 @@ class MediaEncryptedEventInit implements EventInit {
 }
 
 extension PropsMediaEncryptedEventInit on MediaEncryptedEventInit {
-  external String get initDataType;
-  external set initDataType(String newValue);
-  external ByteBuffer? get initData;
-  external set initData(ByteBuffer? newValue);
+  String get initDataType => js_util.getProperty(this, 'initDataType');
+  set initDataType(String newValue) {
+    js_util.setProperty(this, 'initDataType', newValue);
+  }
+
+  ByteBuffer? get initData => js_util.getProperty(this, 'initData');
+  set initData(ByteBuffer? newValue) {
+    js_util.setProperty(this, 'initData', newValue);
+  }
 }

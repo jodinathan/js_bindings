@@ -5,6 +5,7 @@
 @staticInterop
 library audio_output;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,6 +22,8 @@ class AudioOutputOptions {
 }
 
 extension PropsAudioOutputOptions on AudioOutputOptions {
-  external String get deviceId;
-  external set deviceId(String newValue);
+  String get deviceId => js_util.getProperty(this, 'deviceId');
+  set deviceId(String newValue) {
+    js_util.setProperty(this, 'deviceId', newValue);
+  }
 }

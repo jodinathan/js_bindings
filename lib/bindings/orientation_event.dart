@@ -5,6 +5,7 @@
 @staticInterop
 library orientation_event;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -23,7 +24,7 @@ dom */
 @JS()
 @staticInterop
 class DeviceOrientationEvent implements Event {
-  external factory DeviceOrientationEvent(String type,
+  external DeviceOrientationEvent(String type,
       [DeviceOrientationEventInit? eventInitDict]);
 }
 
@@ -32,26 +33,26 @@ extension PropsDeviceOrientationEvent on DeviceOrientationEvent {
   /// axis, express in degrees with values ranging from 0 (inclusive)
   /// to 360 (exclusive).
   ///
-  external double? get alpha;
+  double? get alpha => js_util.getProperty(this, 'alpha');
 
   ///  A number representing the motion of the device around the x
   /// axis, express in degrees with values ranging from -180
   /// (inclusive) to 180 (exclusive). This represents a front to back
   /// motion of the device.
   ///
-  external double? get beta;
+  double? get beta => js_util.getProperty(this, 'beta');
 
   ///  A number representing the motion of the device around the y
   /// axis, express in degrees with values ranging from -90 (inclusive)
   /// to 90 (exclusive). This represents a left to right motion of the
   /// device.
   ///
-  external double? get gamma;
+  double? get gamma => js_util.getProperty(this, 'gamma');
 
   ///  A boolean that indicates whether or not the device is providing
   /// orientation data absolutely.
   ///
-  external bool get absolute;
+  bool get absolute => js_util.getProperty(this, 'absolute');
   external static Promise<PermissionState> requestPermission();
 }
 
@@ -64,14 +65,25 @@ class DeviceOrientationEventInit implements EventInit {
 }
 
 extension PropsDeviceOrientationEventInit on DeviceOrientationEventInit {
-  external double? get alpha;
-  external set alpha(double? newValue);
-  external double? get beta;
-  external set beta(double? newValue);
-  external double? get gamma;
-  external set gamma(double? newValue);
-  external bool get absolute;
-  external set absolute(bool newValue);
+  double? get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(double? newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
+
+  double? get beta => js_util.getProperty(this, 'beta');
+  set beta(double? newValue) {
+    js_util.setProperty(this, 'beta', newValue);
+  }
+
+  double? get gamma => js_util.getProperty(this, 'gamma');
+  set gamma(double? newValue) {
+    js_util.setProperty(this, 'gamma', newValue);
+  }
+
+  bool get absolute => js_util.getProperty(this, 'absolute');
+  set absolute(bool newValue) {
+    js_util.setProperty(this, 'absolute', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -85,21 +97,21 @@ extension PropsDeviceOrientationEventInit on DeviceOrientationEventInit {
 @JS()
 @staticInterop
 class DeviceMotionEventAcceleration {
-  external factory DeviceMotionEventAcceleration();
+  external DeviceMotionEventAcceleration();
 }
 
 extension PropsDeviceMotionEventAcceleration on DeviceMotionEventAcceleration {
   /// The amount of acceleration along the X axis. Read only.
   ///
-  external double? get x;
+  double? get x => js_util.getProperty(this, 'x');
 
   /// The amount of acceleration along the Y axis. Read only.
   ///
-  external double? get y;
+  double? get y => js_util.getProperty(this, 'y');
 
   /// The amount of acceleration along the Z axis. Read only.
   ///
-  external double? get z;
+  double? get z => js_util.getProperty(this, 'z');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -112,21 +124,21 @@ extension PropsDeviceMotionEventAcceleration on DeviceMotionEventAcceleration {
 @JS()
 @staticInterop
 class DeviceMotionEventRotationRate {
-  external factory DeviceMotionEventRotationRate();
+  external DeviceMotionEventRotationRate();
 }
 
 extension PropsDeviceMotionEventRotationRate on DeviceMotionEventRotationRate {
   /// The amount of rotation around the Z axis, in degrees per second.
   ///
-  external double? get alpha;
+  double? get alpha => js_util.getProperty(this, 'alpha');
 
   /// The amount of rotation around the X axis, in degrees per second.
   ///
-  external double? get beta;
+  double? get beta => js_util.getProperty(this, 'beta');
 
   /// The amount of rotation around the Y axis, in degrees per second.
   ///
-  external double? get gamma;
+  double? get gamma => js_util.getProperty(this, 'gamma');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -142,7 +154,7 @@ extension PropsDeviceMotionEventRotationRate on DeviceMotionEventRotationRate {
 @JS()
 @staticInterop
 class DeviceMotionEvent implements Event {
-  external factory DeviceMotionEvent(String type,
+  external DeviceMotionEvent(String type,
       [DeviceMotionEventInit? eventInitDict]);
 }
 
@@ -150,24 +162,27 @@ extension PropsDeviceMotionEvent on DeviceMotionEvent {
   ///  An object giving the acceleration of the device on the three
   /// axis X, Y and Z. Acceleration is expressed in m/s².
   ///
-  external DeviceMotionEventAcceleration? get acceleration;
+  DeviceMotionEventAcceleration? get acceleration =>
+      js_util.getProperty(this, 'acceleration');
 
   ///  An object giving the acceleration of the device on the three
   /// axis X, Y and Z with the effect of gravity. Acceleration is
   /// expressed in m/s².
   ///
-  external DeviceMotionEventAcceleration? get accelerationIncludingGravity;
+  DeviceMotionEventAcceleration? get accelerationIncludingGravity =>
+      js_util.getProperty(this, 'accelerationIncludingGravity');
 
   ///  An object giving the rate of change of the device's orientation
   /// on the three orientation axis alpha, beta and gamma. Rotation
   /// rate is expressed in degrees per seconds.
   ///
-  external DeviceMotionEventRotationRate? get rotationRate;
+  DeviceMotionEventRotationRate? get rotationRate =>
+      js_util.getProperty(this, 'rotationRate');
 
   ///  A number representing the interval of time, in milliseconds, at
   /// which data is obtained from the device.
   ///
-  external double get interval;
+  double get interval => js_util.getProperty(this, 'interval');
   external static Promise<PermissionState> requestPermission();
 }
 
@@ -181,12 +196,20 @@ class DeviceMotionEventAccelerationInit {
 
 extension PropsDeviceMotionEventAccelerationInit
     on DeviceMotionEventAccelerationInit {
-  external double? get x;
-  external set x(double? newValue);
-  external double? get y;
-  external set y(double? newValue);
-  external double? get z;
-  external set z(double? newValue);
+  double? get x => js_util.getProperty(this, 'x');
+  set x(double? newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  double? get y => js_util.getProperty(this, 'y');
+  set y(double? newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  double? get z => js_util.getProperty(this, 'z');
+  set z(double? newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
 }
 
 @anonymous
@@ -199,12 +222,20 @@ class DeviceMotionEventRotationRateInit {
 
 extension PropsDeviceMotionEventRotationRateInit
     on DeviceMotionEventRotationRateInit {
-  external double? get alpha;
-  external set alpha(double? newValue);
-  external double? get beta;
-  external set beta(double? newValue);
-  external double? get gamma;
-  external set gamma(double? newValue);
+  double? get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(double? newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
+
+  double? get beta => js_util.getProperty(this, 'beta');
+  set beta(double? newValue) {
+    js_util.setProperty(this, 'beta', newValue);
+  }
+
+  double? get gamma => js_util.getProperty(this, 'gamma');
+  set gamma(double? newValue) {
+    js_util.setProperty(this, 'gamma', newValue);
+  }
 }
 
 @anonymous
@@ -219,13 +250,26 @@ class DeviceMotionEventInit implements EventInit {
 }
 
 extension PropsDeviceMotionEventInit on DeviceMotionEventInit {
-  external DeviceMotionEventAccelerationInit get acceleration;
-  external set acceleration(DeviceMotionEventAccelerationInit newValue);
-  external DeviceMotionEventAccelerationInit get accelerationIncludingGravity;
-  external set accelerationIncludingGravity(
-      DeviceMotionEventAccelerationInit newValue);
-  external DeviceMotionEventRotationRateInit get rotationRate;
-  external set rotationRate(DeviceMotionEventRotationRateInit newValue);
-  external double get interval;
-  external set interval(double newValue);
+  DeviceMotionEventAccelerationInit get acceleration =>
+      js_util.getProperty(this, 'acceleration');
+  set acceleration(DeviceMotionEventAccelerationInit newValue) {
+    js_util.setProperty(this, 'acceleration', newValue);
+  }
+
+  DeviceMotionEventAccelerationInit get accelerationIncludingGravity =>
+      js_util.getProperty(this, 'accelerationIncludingGravity');
+  set accelerationIncludingGravity(DeviceMotionEventAccelerationInit newValue) {
+    js_util.setProperty(this, 'accelerationIncludingGravity', newValue);
+  }
+
+  DeviceMotionEventRotationRateInit get rotationRate =>
+      js_util.getProperty(this, 'rotationRate');
+  set rotationRate(DeviceMotionEventRotationRateInit newValue) {
+    js_util.setProperty(this, 'rotationRate', newValue);
+  }
+
+  double get interval => js_util.getProperty(this, 'interval');
+  set interval(double newValue) {
+    js_util.setProperty(this, 'interval', newValue);
+  }
 }

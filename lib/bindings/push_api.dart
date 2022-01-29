@@ -5,6 +5,7 @@
 @staticInterop
 library push_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -24,7 +25,7 @@ html */
 @JS()
 @staticInterop
 class PushManager {
-  external factory PushManager();
+  external PushManager();
 }
 
 extension PropsPushManager on PushManager {
@@ -71,8 +72,8 @@ extension PropsPushManager on PushManager {
   ///   );
   ///  });
   ///
-  external Promise<PushSubscription> subscribe(
-      [PushSubscriptionOptionsInit? options]);
+  Promise<PushSubscription> subscribe([PushSubscriptionOptionsInit? options]) =>
+      js_util.callMethod(this, 'subscribe', [options]);
 
   ///  Retrieves an existing push subscription. It returns a [Promise]
   /// that resolves to a [PushSubscription] object containing details
@@ -113,7 +114,8 @@ extension PropsPushManager on PushManager {
   ///    });
   ///  });
   ///
-  external Promise<PushSubscription> getSubscription();
+  Promise<PushSubscription> getSubscription() =>
+      js_util.callMethod(this, 'getSubscription', []);
 
   ///  Returns a [Promise] that resolves to the permission state of the
   /// current [PushManager], which will be one of ['granted'],
@@ -121,8 +123,9 @@ extension PropsPushManager on PushManager {
   ///
   /// PushManager.permissionState(options).then(function(PushMessagingState) { /* ... */ });
   ///
-  external Promise<PushPermissionState> permissionState(
-      [PushSubscriptionOptionsInit? options]);
+  Promise<PushPermissionState> permissionState(
+          [PushSubscriptionOptionsInit? options]) =>
+      js_util.callMethod(this, 'permissionState', [options]);
 }
 
 ///  The interface of the Push API represents the options associated
@@ -133,7 +136,7 @@ extension PropsPushManager on PushManager {
 @JS()
 @staticInterop
 class PushSubscriptionOptions {
-  external factory PushSubscriptionOptions();
+  external PushSubscriptionOptions();
 }
 
 extension PropsPushSubscriptionOptions on PushSubscriptionOptions {
@@ -143,14 +146,15 @@ extension PropsPushSubscriptionOptions on PushSubscriptionOptions {
   /// made visible to the user.
   ///
   ///
-  external bool get userVisibleOnly;
+  bool get userVisibleOnly => js_util.getProperty(this, 'userVisibleOnly');
 
   ///
   ///    A public key your push server will use to send
   ///    messages to client apps via a push server.
   ///
   ///
-  external ByteBuffer? get applicationServerKey;
+  ByteBuffer? get applicationServerKey =>
+      js_util.getProperty(this, 'applicationServerKey');
 }
 
 @anonymous
@@ -162,10 +166,16 @@ class PushSubscriptionOptionsInit {
 }
 
 extension PropsPushSubscriptionOptionsInit on PushSubscriptionOptionsInit {
-  external bool get userVisibleOnly;
-  external set userVisibleOnly(bool newValue);
-  external dynamic get applicationServerKey;
-  external set applicationServerKey(dynamic newValue);
+  bool get userVisibleOnly => js_util.getProperty(this, 'userVisibleOnly');
+  set userVisibleOnly(bool newValue) {
+    js_util.setProperty(this, 'userVisibleOnly', newValue);
+  }
+
+  dynamic get applicationServerKey =>
+      js_util.getProperty(this, 'applicationServerKey');
+  set applicationServerKey(dynamic newValue) {
+    js_util.setProperty(this, 'applicationServerKey', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -178,25 +188,25 @@ extension PropsPushSubscriptionOptionsInit on PushSubscriptionOptionsInit {
 @JS()
 @staticInterop
 class PushSubscription {
-  external factory PushSubscription();
+  external PushSubscription();
 }
 
 extension PropsPushSubscription on PushSubscription {
   ///  A [USVString] containing the endpoint associated with the push
   /// subscription.
   ///
-  external String get endpoint;
+  String get endpoint => js_util.getProperty(this, 'endpoint');
 
   ///  A [DOMHighResTimeStamp] of the subscription expiration time
   /// associated with the push subscription, if there is one, or null
   /// otherwise.
   ///
-  external int? get expirationTime;
+  int? get expirationTime => js_util.getProperty(this, 'expirationTime');
 
   ///  An object containing the options used to create the
   /// subscription.
   ///
-  external PushSubscriptionOptions get options;
+  PushSubscriptionOptions get options => js_util.getProperty(this, 'options');
 
   ///  Returns an [ArrayBuffer] which contains the client's public key,
   /// which can then be sent to a server and used in encrypting push
@@ -231,7 +241,8 @@ extension PropsPushSubscription on PushSubscription {
   ///
   ///   ...
   ///
-  external ByteBuffer? getKey(PushEncryptionKeyName name);
+  ByteBuffer? getKey(PushEncryptionKeyName name) =>
+      js_util.callMethod(this, 'getKey', [name]);
 
   ///  Starts the asynchronous process of unsubscribing from the push
   /// service, returning a [Promise] that resolves to a boolean value
@@ -249,7 +260,7 @@ extension PropsPushSubscription on PushSubscription {
   ///  })
   /// });
   ///
-  external Promise<bool> unsubscribe();
+  Promise<bool> unsubscribe() => js_util.callMethod(this, 'unsubscribe', []);
 
   ///  Standard serializer — returns a JSON representation of the
   /// subscription properties.
@@ -263,7 +274,7 @@ extension PropsPushSubscription on PushSubscription {
   ///  })
   /// });
   ///
-  external PushSubscriptionJSON toJSON();
+  PushSubscriptionJSON toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 @anonymous
@@ -275,12 +286,20 @@ class PushSubscriptionJSON {
 }
 
 extension PropsPushSubscriptionJSON on PushSubscriptionJSON {
-  external String get endpoint;
-  external set endpoint(String newValue);
-  external int? get expirationTime;
-  external set expirationTime(int? newValue);
-  external dynamic get keys;
-  external set keys(dynamic newValue);
+  String get endpoint => js_util.getProperty(this, 'endpoint');
+  set endpoint(String newValue) {
+    js_util.setProperty(this, 'endpoint', newValue);
+  }
+
+  int? get expirationTime => js_util.getProperty(this, 'expirationTime');
+  set expirationTime(int? newValue) {
+    js_util.setProperty(this, 'expirationTime', newValue);
+  }
+
+  dynamic get keys => js_util.getProperty(this, 'keys');
+  set keys(dynamic newValue) {
+    js_util.setProperty(this, 'keys', newValue);
+  }
 }
 
 enum PushEncryptionKeyName { p256dh, auth }
@@ -300,7 +319,7 @@ enum PushEncryptionKeyName { p256dh, auth }
 @JS()
 @staticInterop
 class PushMessageData {
-  external factory PushMessageData();
+  external PushMessageData();
 }
 
 extension PropsPushMessageData on PushMessageData {
@@ -308,25 +327,25 @@ extension PropsPushMessageData on PushMessageData {
   ///
   /// var myArrayBuffer = PushEvent.data.arrayBuffer();
   ///
-  external ByteBuffer arrayBuffer();
+  ByteBuffer arrayBuffer() => js_util.callMethod(this, 'arrayBuffer', []);
 
   /// Extracts the data as a [Blob] object.
   ///
   /// var myBlob = PushEvent.data.blob();
   ///
-  external Blob blob();
+  Blob blob() => js_util.callMethod(this, 'blob', []);
 
   /// Extracts the data as a JSON object.
   ///
   /// var myData = pushEvent.data.json();
   ///
-  external dynamic json();
+  dynamic json() => js_util.callMethod(this, 'json', []);
 
   /// Extracts the data as a plain text string.
   ///
   /// var myText = pushEvent.data.text();
   ///
-  external String text();
+  String text() => js_util.callMethod(this, 'text', []);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -339,14 +358,14 @@ extension PropsPushMessageData on PushMessageData {
 @JS()
 @staticInterop
 class PushEvent implements ExtendableEvent {
-  external factory PushEvent(String type, [PushEventInit? eventInitDict]);
+  external PushEvent(String type, [PushEventInit? eventInitDict]);
 }
 
 extension PropsPushEvent on PushEvent {
   ///  Returns a reference to a [PushMessageData] object containing
   /// data sent to the [PushSubscription].
   ///
-  external PushMessageData? get data;
+  PushMessageData? get data => js_util.getProperty(this, 'data');
 }
 
 @anonymous
@@ -357,20 +376,24 @@ class PushEventInit implements ExtendableEventInit {
 }
 
 extension PropsPushEventInit on PushEventInit {
-  external dynamic get data;
-  external set data(dynamic newValue);
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class PushSubscriptionChangeEvent implements ExtendableEvent {
-  external factory PushSubscriptionChangeEvent(String type,
+  external PushSubscriptionChangeEvent(String type,
       [PushSubscriptionChangeEventInit? eventInitDict]);
 }
 
 extension PropsPushSubscriptionChangeEvent on PushSubscriptionChangeEvent {
-  external PushSubscription? get newSubscription;
-  external PushSubscription? get oldSubscription;
+  PushSubscription? get newSubscription =>
+      js_util.getProperty(this, 'newSubscription');
+  PushSubscription? get oldSubscription =>
+      js_util.getProperty(this, 'oldSubscription');
 }
 
 @anonymous
@@ -383,10 +406,17 @@ class PushSubscriptionChangeEventInit implements ExtendableEventInit {
 
 extension PropsPushSubscriptionChangeEventInit
     on PushSubscriptionChangeEventInit {
-  external PushSubscription get newSubscription;
-  external set newSubscription(PushSubscription newValue);
-  external PushSubscription get oldSubscription;
-  external set oldSubscription(PushSubscription newValue);
+  PushSubscription get newSubscription =>
+      js_util.getProperty(this, 'newSubscription');
+  set newSubscription(PushSubscription newValue) {
+    js_util.setProperty(this, 'newSubscription', newValue);
+  }
+
+  PushSubscription get oldSubscription =>
+      js_util.getProperty(this, 'oldSubscription');
+  set oldSubscription(PushSubscription newValue) {
+    js_util.setProperty(this, 'oldSubscription', newValue);
+  }
 }
 
 enum PushPermissionState { denied, granted, prompt }

@@ -5,8 +5,8 @@
 @staticInterop
 library d_o_m_parsing;
 
-import 'package:js/js.dart';
 import 'dart:js_util' as js_util;
+import 'package:js/js.dart';
 
 import 'callbacks.dart';
 import '../manual.dart';
@@ -18,7 +18,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class XMLSerializer {
-  external factory XMLSerializer();
+  external XMLSerializer();
 }
 
 extension PropsXMLSerializer on XMLSerializer {
@@ -26,20 +26,20 @@ extension PropsXMLSerializer on XMLSerializer {
   ///
   /// xmlString = anXMLSerializer.serializeToString(rootNode);
   ///
-  external String serializeToString(Node root);
+  String serializeToString(Node root) =>
+      js_util.callMethod(this, 'serializeToString', [root]);
 }
 
 @JS()
 @staticInterop
 class InnerHTML {
-  external factory InnerHTML();
+  external InnerHTML();
 }
 
 extension PropsInnerHTML on InnerHTML {
   String get innerHTML => js_util.getProperty(this, 'innerHTML');
   set innerHTML(String newValue) {
-    js_util.setProperty(this, 'innerHTML',
-        newValue);
+    js_util.setProperty(this, 'innerHTML', newValue);
   }
 }
 

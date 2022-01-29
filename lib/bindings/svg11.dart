@@ -5,6 +5,7 @@
 @staticInterop
 library svg11;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -54,7 +55,7 @@ class SVGElement
         HTMLOrSVGElement,
         SVGElementInstance,
         ElementCSSInlineStyle {
-  external factory SVGElement();
+  external SVGElement();
 }
 
 extension PropsSVGElement on SVGElement {
@@ -66,19 +67,21 @@ extension PropsSVGElement on SVGElement {
   ///
   @override
   @deprecated
-  external SVGAnimatedString get className;
+  SVGAnimatedString get className => js_util.getProperty(this, 'className');
 
   ///  An [SVGSVGElement] referring to the nearest ancestor [<svg>]
   /// element. [null] if the given element is the outermost [<svg>]
   /// element.
   ///
-  external SVGSVGElement? get ownerSVGElement;
+  SVGSVGElement? get ownerSVGElement =>
+      js_util.getProperty(this, 'ownerSVGElement');
 
   ///  The [SVGElement], which established the current viewport. Often,
   /// the nearest ancestor [<svg>] element. [null] if the given element
   /// is the outermost [<svg>] element.
   ///
-  external SVGElement? get viewportElement;
+  SVGElement? get viewportElement =>
+      js_util.getProperty(this, 'viewportElement');
 }
 
 @anonymous
@@ -93,14 +96,25 @@ class SVGBoundingBoxOptions {
 }
 
 extension PropsSVGBoundingBoxOptions on SVGBoundingBoxOptions {
-  external bool get fill;
-  external set fill(bool newValue);
-  external bool get stroke;
-  external set stroke(bool newValue);
-  external bool get markers;
-  external set markers(bool newValue);
-  external bool get clipped;
-  external set clipped(bool newValue);
+  bool get fill => js_util.getProperty(this, 'fill');
+  set fill(bool newValue) {
+    js_util.setProperty(this, 'fill', newValue);
+  }
+
+  bool get stroke => js_util.getProperty(this, 'stroke');
+  set stroke(bool newValue) {
+    js_util.setProperty(this, 'stroke', newValue);
+  }
+
+  bool get markers => js_util.getProperty(this, 'markers');
+  set markers(bool newValue) {
+    js_util.setProperty(this, 'markers', newValue);
+  }
+
+  bool get clipped => js_util.getProperty(this, 'clipped');
+  set clipped(bool newValue) {
+    js_util.setProperty(this, 'clipped', newValue);
+  }
 }
 
 ///  The interface represents SVG elements whose primary purpose is
@@ -138,7 +152,7 @@ extension PropsSVGBoundingBoxOptions on SVGBoundingBoxOptions {
 @JS()
 @staticInterop
 class SVGGraphicsElement implements SVGElement, SVGTests {
-  external factory SVGGraphicsElement();
+  external SVGGraphicsElement();
 }
 
 extension PropsSVGGraphicsElement on SVGGraphicsElement {
@@ -146,26 +160,28 @@ extension PropsSVGGraphicsElement on SVGGraphicsElement {
   /// the property and its corresponding [transform] attribute of the
   /// given element.
   ///
-  external SVGAnimatedTransformList get transform;
+  SVGAnimatedTransformList get transform =>
+      js_util.getProperty(this, 'transform');
 
   ///  Returns a [DOMRect] representing the computed bounding box of
   /// the current element.
   ///
   /// let bboxRect = object.getBBox();
   ///
-  external DOMRect getBBox([SVGBoundingBoxOptions? options]);
+  DOMRect getBBox([SVGBoundingBoxOptions? options]) =>
+      js_util.callMethod(this, 'getBBox', [options]);
 
   ///  Returns a [DOMMatrix] representing the matrix that transforms
   /// the current element's coordinate system to its SVG viewport's
   /// coordinate system.
   ///
-  external DOMMatrix? getCTM();
+  DOMMatrix? getCTM() => js_util.callMethod(this, 'getCTM', []);
 
   ///  Returns a [DOMMatrix] representing the matrix that transforms
   /// the current element's coordinate system to the coordinate system
   /// of the SVG viewport for the SVG document fragment.
   ///
-  external DOMMatrix? getScreenCTM();
+  DOMMatrix? getScreenCTM() => js_util.callMethod(this, 'getScreenCTM', []);
 }
 
 ///  The interface represents SVG elements whose rendering is defined
@@ -210,13 +226,13 @@ extension PropsSVGGraphicsElement on SVGGraphicsElement {
 @JS()
 @staticInterop
 class SVGGeometryElement implements SVGGraphicsElement {
-  external factory SVGGeometryElement();
+  external SVGGeometryElement();
 }
 
 extension PropsSVGGeometryElement on SVGGeometryElement {
   /// This property reflects the [pathLength] attribute.
   ///
-  external SVGAnimatedNumber get pathLength;
+  SVGAnimatedNumber get pathLength => js_util.getProperty(this, 'pathLength');
 
   ///  Determines whether a given point is within the fill shape of an
   /// element. Normal hit testing rules apply; the value of the
@@ -225,7 +241,8 @@ extension PropsSVGGeometryElement on SVGGeometryElement {
   ///
   /// boolean someElement.isPointInFill(DOMPointInit point);
   ///
-  external bool isPointInFill([DOMPointInit? point]);
+  bool isPointInFill([DOMPointInit? point]) =>
+      js_util.callMethod(this, 'isPointInFill', [point]);
 
   ///  Determines whether a given point is within the stroke shape of
   /// an element. Normal hit testing rules apply; the value of the
@@ -234,20 +251,22 @@ extension PropsSVGGeometryElement on SVGGeometryElement {
   ///
   /// boolean someElement.isPointInStroke(DOMPointInit point);
   ///
-  external bool isPointInStroke([DOMPointInit? point]);
+  bool isPointInStroke([DOMPointInit? point]) =>
+      js_util.callMethod(this, 'isPointInStroke', [point]);
 
   ///  Returns the user agent's computed value for the total length of
   /// the path in user units.
   ///
   /// float someElement.getTotalLength();
   ///
-  external double getTotalLength();
+  double getTotalLength() => js_util.callMethod(this, 'getTotalLength', []);
 
   /// Returns the point at a given distance along the path.
   ///
   /// DOMPoint someElement.getPointAtLength(float distance);
   ///
-  external DOMPoint getPointAtLength(double distance);
+  DOMPoint getPointAtLength(double distance) =>
+      js_util.callMethod(this, 'getPointAtLength', [distance]);
 }
 
 /// The interface corresponds to the [<number>] basic data type.
@@ -257,7 +276,7 @@ extension PropsSVGGeometryElement on SVGGeometryElement {
 @JS()
 @staticInterop
 class SVGNumber {
-  external factory SVGNumber();
+  external SVGNumber();
 }
 
 extension PropsSVGNumber on SVGNumber {
@@ -266,8 +285,10 @@ extension PropsSVGNumber on SVGNumber {
   /// the code NO_MODIFICATION_ALLOWED_ERR is raised on an attempt to
   /// change the value.
   ///
-  external double get value;
-  external set value(double newValue);
+  double get value => js_util.getProperty(this, 'value');
+  set value(double newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 @JS()
@@ -284,20 +305,33 @@ class SVGLength {
   external static int get SVG_LENGTHTYPE_IN;
   external static int get SVG_LENGTHTYPE_PT;
   external static int get SVG_LENGTHTYPE_PC;
-  external factory SVGLength();
+  external SVGLength();
 }
 
 extension PropsSVGLength on SVGLength {
-  external int get unitType;
-  external double get value;
-  external set value(double newValue);
-  external double get valueInSpecifiedUnits;
-  external set valueInSpecifiedUnits(double newValue);
-  external String get valueAsString;
-  external set valueAsString(String newValue);
-  external Object newValueSpecifiedUnits(
-      int unitType, double valueInSpecifiedUnits);
-  external Object convertToSpecifiedUnits(int unitType);
+  int get unitType => js_util.getProperty(this, 'unitType');
+  double get value => js_util.getProperty(this, 'value');
+  set value(double newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  double get valueInSpecifiedUnits =>
+      js_util.getProperty(this, 'valueInSpecifiedUnits');
+  set valueInSpecifiedUnits(double newValue) {
+    js_util.setProperty(this, 'valueInSpecifiedUnits', newValue);
+  }
+
+  String get valueAsString => js_util.getProperty(this, 'valueAsString');
+  set valueAsString(String newValue) {
+    js_util.setProperty(this, 'valueAsString', newValue);
+  }
+
+  Object newValueSpecifiedUnits(int unitType, double valueInSpecifiedUnits) =>
+      js_util.callMethod(
+          this, 'newValueSpecifiedUnits', [unitType, valueInSpecifiedUnits]);
+
+  Object convertToSpecifiedUnits(int unitType) =>
+      js_util.callMethod(this, 'convertToSpecifiedUnits', [unitType]);
 }
 
 ///  The interface is used to represent a value that can be an
@@ -327,14 +361,14 @@ class SVGAngle {
   external static int get SVG_ANGLETYPE_DEG;
   external static int get SVG_ANGLETYPE_RAD;
   external static int get SVG_ANGLETYPE_GRAD;
-  external factory SVGAngle();
+  external SVGAngle();
 }
 
 extension PropsSVGAngle on SVGAngle {
   ///  The type of the value as specified by one of the
   /// [SVG_ANGLETYPE_*] constants defined on this interface.
   ///
-  external int get unitType;
+  int get unitType => js_util.getProperty(this, 'unitType');
 
   ///  The value as a floating point value, in user units. Setting this
   /// attribute will cause [valueInSpecifiedUnits] and [valueAsString]
@@ -344,8 +378,10 @@ extension PropsSVGAngle on SVGAngle {
   /// corresponds to a read-only attribute, or when the object itself
   /// is read-only.
   ///
-  external double get value;
-  external set value(double newValue);
+  double get value => js_util.getProperty(this, 'value');
+  set value(double newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   ///  The value as a floating point value, in the units expressed by
   /// [unitType]. Setting this attribute will cause [value] and
@@ -356,8 +392,11 @@ extension PropsSVGAngle on SVGAngle {
   /// corresponds to a read-only attribute, or when the object itself
   /// is read-only.
   ///
-  external double get valueInSpecifiedUnits;
-  external set valueInSpecifiedUnits(double newValue);
+  double get valueInSpecifiedUnits =>
+      js_util.getProperty(this, 'valueInSpecifiedUnits');
+  set valueInSpecifiedUnits(double newValue) {
+    js_util.setProperty(this, 'valueInSpecifiedUnits', newValue);
+  }
 
   ///  The value as a [DOMString] value, in the units expressed by
   /// [unitType]. Setting this attribute will cause [value],
@@ -370,8 +409,10 @@ extension PropsSVGAngle on SVGAngle {
   /// raised when the length corresponds to a read-only attribute, or
   /// when the object itself is read-only.
   ///
-  external String get valueAsString;
-  external set valueAsString(String newValue);
+  String get valueAsString => js_util.getProperty(this, 'valueAsString');
+  set valueAsString(String newValue) {
+    js_util.setProperty(this, 'valueAsString', newValue);
+  }
 
   ///  Reset the value as a number with an associated unitType, thereby
   /// replacing the values for all of the attributes on the object.
@@ -386,117 +427,164 @@ extension PropsSVGAngle on SVGAngle {
   /// when the object itself is read only.
   ///
   ///
-  external Object newValueSpecifiedUnits(
-      int unitType, double valueInSpecifiedUnits);
+  Object newValueSpecifiedUnits(int unitType, double valueInSpecifiedUnits) =>
+      js_util.callMethod(
+          this, 'newValueSpecifiedUnits', [unitType, valueInSpecifiedUnits]);
 
   ///  Preserve the same underlying stored value, but reset the stored
   /// unit identifier to the given [unitType]. Object attributes
   /// [unitType], [valueInSpecifiedUnits], and [valueAsString] might be
   /// modified as a result of this method.
   ///
-  external Object convertToSpecifiedUnits(int unitType);
+  Object convertToSpecifiedUnits(int unitType) =>
+      js_util.callMethod(this, 'convertToSpecifiedUnits', [unitType]);
 }
 
 @JS()
 @staticInterop
 class SVGNumberList {
-  external factory SVGNumberList();
+  external SVGNumberList();
 }
 
 extension PropsSVGNumberList on SVGNumberList {
-  external int get length;
-  external int get numberOfItems;
-  external Object clear();
-  external SVGNumber initialize(SVGNumber newItem);
-  external SVGNumber getItem(int index);
-  external SVGNumber insertItemBefore(SVGNumber newItem, int index);
-  external SVGNumber replaceItem(SVGNumber newItem, int index);
-  external SVGNumber removeItem(int index);
-  external SVGNumber appendItem(SVGNumber newItem);
+  int get length => js_util.getProperty(this, 'length');
+  int get numberOfItems => js_util.getProperty(this, 'numberOfItems');
+  Object clear() => js_util.callMethod(this, 'clear', []);
+
+  SVGNumber initialize(SVGNumber newItem) =>
+      js_util.callMethod(this, 'initialize', [newItem]);
+
+  SVGNumber getItem(int index) => js_util.callMethod(this, 'getItem', [index]);
+
+  SVGNumber insertItemBefore(SVGNumber newItem, int index) =>
+      js_util.callMethod(this, 'insertItemBefore', [newItem, index]);
+
+  SVGNumber replaceItem(SVGNumber newItem, int index) =>
+      js_util.callMethod(this, 'replaceItem', [newItem, index]);
+
+  SVGNumber removeItem(int index) =>
+      js_util.callMethod(this, 'removeItem', [index]);
+
+  SVGNumber appendItem(SVGNumber newItem) =>
+      js_util.callMethod(this, 'appendItem', [newItem]);
 }
 
 @JS()
 @staticInterop
 class SVGLengthList {
-  external factory SVGLengthList();
+  external SVGLengthList();
 }
 
 extension PropsSVGLengthList on SVGLengthList {
-  external int get length;
-  external int get numberOfItems;
-  external Object clear();
-  external SVGLength initialize(SVGLength newItem);
-  external SVGLength getItem(int index);
-  external SVGLength insertItemBefore(SVGLength newItem, int index);
-  external SVGLength replaceItem(SVGLength newItem, int index);
-  external SVGLength removeItem(int index);
-  external SVGLength appendItem(SVGLength newItem);
+  int get length => js_util.getProperty(this, 'length');
+  int get numberOfItems => js_util.getProperty(this, 'numberOfItems');
+  Object clear() => js_util.callMethod(this, 'clear', []);
+
+  SVGLength initialize(SVGLength newItem) =>
+      js_util.callMethod(this, 'initialize', [newItem]);
+
+  SVGLength getItem(int index) => js_util.callMethod(this, 'getItem', [index]);
+
+  SVGLength insertItemBefore(SVGLength newItem, int index) =>
+      js_util.callMethod(this, 'insertItemBefore', [newItem, index]);
+
+  SVGLength replaceItem(SVGLength newItem, int index) =>
+      js_util.callMethod(this, 'replaceItem', [newItem, index]);
+
+  SVGLength removeItem(int index) =>
+      js_util.callMethod(this, 'removeItem', [index]);
+
+  SVGLength appendItem(SVGLength newItem) =>
+      js_util.callMethod(this, 'appendItem', [newItem]);
 }
 
 @JS()
 @staticInterop
 class SVGStringList {
-  external factory SVGStringList();
+  external SVGStringList();
 }
 
 extension PropsSVGStringList on SVGStringList {
-  external int get length;
-  external int get numberOfItems;
-  external Object clear();
-  external String initialize(String newItem);
-  external String getItem(int index);
-  external String insertItemBefore(String newItem, int index);
-  external String replaceItem(String newItem, int index);
-  external String removeItem(int index);
-  external String appendItem(String newItem);
+  int get length => js_util.getProperty(this, 'length');
+  int get numberOfItems => js_util.getProperty(this, 'numberOfItems');
+  Object clear() => js_util.callMethod(this, 'clear', []);
+
+  String initialize(String newItem) =>
+      js_util.callMethod(this, 'initialize', [newItem]);
+
+  String getItem(int index) => js_util.callMethod(this, 'getItem', [index]);
+
+  String insertItemBefore(String newItem, int index) =>
+      js_util.callMethod(this, 'insertItemBefore', [newItem, index]);
+
+  String replaceItem(String newItem, int index) =>
+      js_util.callMethod(this, 'replaceItem', [newItem, index]);
+
+  String removeItem(int index) =>
+      js_util.callMethod(this, 'removeItem', [index]);
+
+  String appendItem(String newItem) =>
+      js_util.callMethod(this, 'appendItem', [newItem]);
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedBoolean {
-  external factory SVGAnimatedBoolean();
+  external SVGAnimatedBoolean();
 }
 
 extension PropsSVGAnimatedBoolean on SVGAnimatedBoolean {
-  external bool get baseVal;
-  external set baseVal(bool newValue);
-  external bool get animVal;
+  bool get baseVal => js_util.getProperty(this, 'baseVal');
+  set baseVal(bool newValue) {
+    js_util.setProperty(this, 'baseVal', newValue);
+  }
+
+  bool get animVal => js_util.getProperty(this, 'animVal');
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedEnumeration {
-  external factory SVGAnimatedEnumeration();
+  external SVGAnimatedEnumeration();
 }
 
 extension PropsSVGAnimatedEnumeration on SVGAnimatedEnumeration {
-  external int get baseVal;
-  external set baseVal(int newValue);
-  external int get animVal;
+  int get baseVal => js_util.getProperty(this, 'baseVal');
+  set baseVal(int newValue) {
+    js_util.setProperty(this, 'baseVal', newValue);
+  }
+
+  int get animVal => js_util.getProperty(this, 'animVal');
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedInteger {
-  external factory SVGAnimatedInteger();
+  external SVGAnimatedInteger();
 }
 
 extension PropsSVGAnimatedInteger on SVGAnimatedInteger {
-  external int get baseVal;
-  external set baseVal(int newValue);
-  external int get animVal;
+  int get baseVal => js_util.getProperty(this, 'baseVal');
+  set baseVal(int newValue) {
+    js_util.setProperty(this, 'baseVal', newValue);
+  }
+
+  int get animVal => js_util.getProperty(this, 'animVal');
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedNumber {
-  external factory SVGAnimatedNumber();
+  external SVGAnimatedNumber();
 }
 
 extension PropsSVGAnimatedNumber on SVGAnimatedNumber {
-  external double get baseVal;
-  external set baseVal(double newValue);
-  external double get animVal;
+  double get baseVal => js_util.getProperty(this, 'baseVal');
+  set baseVal(double newValue) {
+    js_util.setProperty(this, 'baseVal', newValue);
+  }
+
+  double get animVal => js_util.getProperty(this, 'animVal');
 }
 
 ///  The interface represents attributes of type <length> which can
@@ -504,14 +592,14 @@ extension PropsSVGAnimatedNumber on SVGAnimatedNumber {
 @JS()
 @staticInterop
 class SVGAnimatedLength {
-  external factory SVGAnimatedLength();
+  external SVGAnimatedLength();
 }
 
 extension PropsSVGAnimatedLength on SVGAnimatedLength {
   ///  A [SVGLength] representing the base value of the given attribute
   /// before applying any animations.
   ///
-  external SVGLength get baseVal;
+  SVGLength get baseVal => js_util.getProperty(this, 'baseVal');
 
   ///
   ///    If the given attribute or property is being animated,
@@ -522,18 +610,18 @@ extension PropsSVGAnimatedLength on SVGAnimatedLength {
   ///    a [SVGLength] containing the same value as [baseVal].
   ///
   ///
-  external SVGLength get animVal;
+  SVGLength get animVal => js_util.getProperty(this, 'animVal');
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedAngle {
-  external factory SVGAnimatedAngle();
+  external SVGAnimatedAngle();
 }
 
 extension PropsSVGAnimatedAngle on SVGAnimatedAngle {
-  external SVGAngle get baseVal;
-  external SVGAngle get animVal;
+  SVGAngle get baseVal => js_util.getProperty(this, 'baseVal');
+  SVGAngle get animVal => js_util.getProperty(this, 'animVal');
 }
 
 ///  The interface represents string attributes which can be animated
@@ -543,7 +631,7 @@ extension PropsSVGAnimatedAngle on SVGAnimatedAngle {
 @JS()
 @staticInterop
 class SVGAnimatedString {
-  external factory SVGAnimatedString();
+  external SVGAnimatedString();
 }
 
 extension PropsSVGAnimatedString on SVGAnimatedString {
@@ -551,8 +639,10 @@ extension PropsSVGAnimatedString on SVGAnimatedString {
   /// value of the given attribute before applying any animations.
   /// Setter throws DOMException.
   ///
-  external String get baseVal;
-  external set baseVal(String newValue);
+  String get baseVal => js_util.getProperty(this, 'baseVal');
+  set baseVal(String newValue) {
+    js_util.setProperty(this, 'baseVal', newValue);
+  }
 
   ///  This is a [DOMString] representing the animation value. If the
   /// given attribute or property is being animated it contains the
@@ -560,7 +650,7 @@ extension PropsSVGAnimatedString on SVGAnimatedString {
   /// attribute or property is not currently being animated, it
   /// contains the same value as baseVal.
   ///
-  external String get animVal;
+  String get animVal => js_util.getProperty(this, 'animVal');
 }
 
 ///  The interface is used for attributes of basic [SVGRect] which
@@ -568,25 +658,25 @@ extension PropsSVGAnimatedString on SVGAnimatedString {
 @JS()
 @staticInterop
 class SVGAnimatedRect {
-  external factory SVGAnimatedRect();
+  external SVGAnimatedRect();
 }
 
 extension PropsSVGAnimatedRect on SVGAnimatedRect {
-  external DOMRect get baseVal;
-  external DOMRectReadOnly get animVal;
+  DOMRect get baseVal => js_util.getProperty(this, 'baseVal');
+  DOMRectReadOnly get animVal => js_util.getProperty(this, 'animVal');
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedNumberList {
-  external factory SVGAnimatedNumberList();
+  external SVGAnimatedNumberList();
 }
 
 extension PropsSVGAnimatedNumberList on SVGAnimatedNumberList {
   ///  Is a [SVGNumberList] that represents the base value of the given
   /// attribute before applying any animations.
   ///
-  external SVGNumberList get baseVal;
+  SVGNumberList get baseVal => js_util.getProperty(this, 'baseVal');
 
   ///  Is a read only [SVGNumberList] that represents the current
   /// animated value of the given attribute. If the given attribute is
@@ -595,18 +685,18 @@ extension PropsSVGAnimatedNumberList on SVGAnimatedNumberList {
   /// always be distinct from the one referenced by [baseVal], even
   /// when the attribute is not animated.
   ///
-  external SVGNumberList get animVal;
+  SVGNumberList get animVal => js_util.getProperty(this, 'animVal');
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedLengthList {
-  external factory SVGAnimatedLengthList();
+  external SVGAnimatedLengthList();
 }
 
 extension PropsSVGAnimatedLengthList on SVGAnimatedLengthList {
-  external SVGLengthList get baseVal;
-  external SVGLengthList get animVal;
+  SVGLengthList get baseVal => js_util.getProperty(this, 'baseVal');
+  SVGLengthList get animVal => js_util.getProperty(this, 'animVal');
 }
 
 ///  The interface defines a commonly used set of constants used for
@@ -618,39 +708,42 @@ class SVGUnitTypes {
   external static int get SVG_UNIT_TYPE_UNKNOWN;
   external static int get SVG_UNIT_TYPE_USERSPACEONUSE;
   external static int get SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
-  external factory SVGUnitTypes();
+  external SVGUnitTypes();
 }
 
 @JS()
 @staticInterop
 class SVGTests {
-  external factory SVGTests();
+  external SVGTests();
 }
 
 extension PropsSVGTests on SVGTests {
-  external SVGStringList get requiredExtensions;
-  external SVGStringList get systemLanguage;
+  SVGStringList get requiredExtensions =>
+      js_util.getProperty(this, 'requiredExtensions');
+  SVGStringList get systemLanguage =>
+      js_util.getProperty(this, 'systemLanguage');
 }
 
 @JS()
 @staticInterop
 class SVGFitToViewBox {
-  external factory SVGFitToViewBox();
+  external SVGFitToViewBox();
 }
 
 extension PropsSVGFitToViewBox on SVGFitToViewBox {
-  external SVGAnimatedRect get viewBox;
-  external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
+  SVGAnimatedRect get viewBox => js_util.getProperty(this, 'viewBox');
+  SVGAnimatedPreserveAspectRatio get preserveAspectRatio =>
+      js_util.getProperty(this, 'preserveAspectRatio');
 }
 
 @JS()
 @staticInterop
 class SVGURIReference {
-  external factory SVGURIReference();
+  external SVGURIReference();
 }
 
 extension PropsSVGURIReference on SVGURIReference {
-  external SVGAnimatedString get href;
+  SVGAnimatedString get href => js_util.getProperty(this, 'href');
 }
 
 ///  The interface provides access to the properties of [<svg>]
@@ -698,29 +791,29 @@ extension PropsSVGURIReference on SVGURIReference {
 @staticInterop
 class SVGSVGElement
     implements SVGGraphicsElement, SVGFitToViewBox, WindowEventHandlers {
-  external factory SVGSVGElement();
+  external SVGSVGElement();
 }
 
 extension PropsSVGSVGElement on SVGSVGElement {
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given [<svg>] element.
   ///
-  external SVGAnimatedLength get x;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedLength] corresponding to the [y] attribute of the
   /// given [<svg>] element.
   ///
-  external SVGAnimatedLength get y;
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedLength] corresponding to the [width] attribute of
   /// the given [<svg>] element.
   ///
-  external SVGAnimatedLength get width;
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
 
   ///  An [SVGAnimatedLength] corresponding to the [height] attribute
   /// of the given [<svg>] element.
   ///
-  external SVGAnimatedLength get height;
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
 
   ///  On an outermost [<svg>] element, this float attribute indicates
   /// the current scale factor relative to the initial view to take
@@ -733,15 +826,18 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// SVG document fragment (i.e., outside the outermost [<svg>]
   /// element).
   ///
-  external double get currentScale;
-  external set currentScale(double newValue);
+  double get currentScale => js_util.getProperty(this, 'currentScale');
+  set currentScale(double newValue) {
+    js_util.setProperty(this, 'currentScale', newValue);
+  }
 
   ///  An [SVGPoint] representing the translation factor that takes
   /// into account user "magnification" corresponding to an outermost
   /// [<svg>] element. The behavior is undefined for [<svg>] elements
   /// that are not at the outermost level.
   ///
-  external DOMPointReadOnly get currentTranslate;
+  DOMPointReadOnly get currentTranslate =>
+      js_util.getProperty(this, 'currentTranslate');
 
   ///  Returns a [NodeList] of graphics elements whose rendered content
   /// intersects the supplied rectangle. Each candidate graphics
@@ -749,8 +845,9 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// element can be a target of pointer events as defined in
   /// [pointer-events] processing.
   ///
-  external NodeList getIntersectionList(
-      DOMRectReadOnly rect, SVGElement? referenceElement);
+  NodeList getIntersectionList(
+          DOMRectReadOnly rect, SVGElement? referenceElement) =>
+      js_util.callMethod(this, 'getIntersectionList', [rect, referenceElement]);
 
   ///  Returns a [NodeList] of graphics elements whose rendered content
   /// is entirely contained within the supplied rectangle. Each
@@ -758,8 +855,9 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// the same graphics element can be a target of pointer events as
   /// defined in [pointer-events] processing.
   ///
-  external NodeList getEnclosureList(
-      DOMRectReadOnly rect, SVGElement? referenceElement);
+  NodeList getEnclosureList(
+          DOMRectReadOnly rect, SVGElement? referenceElement) =>
+      js_util.callMethod(this, 'getEnclosureList', [rect, referenceElement]);
 
   ///  Returns [true] if the rendered content of the given element
   /// intersects the supplied rectangle. Each candidate graphics
@@ -767,7 +865,8 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// element can be a target of pointer events as defined in
   /// [pointer-events] processing.
   ///
-  external bool checkIntersection(SVGElement element, DOMRectReadOnly rect);
+  bool checkIntersection(SVGElement element, DOMRectReadOnly rect) =>
+      js_util.callMethod(this, 'checkIntersection', [element, rect]);
 
   ///  Returns [true] if the rendered content of the given element is
   /// entirely contained within the supplied rectangle. Each candidate
@@ -775,50 +874,55 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// graphics element can be a target of pointer events as defined in
   /// [pointer-events] processing.
   ///
-  external bool checkEnclosure(SVGElement element, DOMRectReadOnly rect);
+  bool checkEnclosure(SVGElement element, DOMRectReadOnly rect) =>
+      js_util.callMethod(this, 'checkEnclosure', [element, rect]);
 
   ///  Unselects any selected objects, including any selections of text
   /// strings and type-in bars.
   ///
-  external Object deselectAll();
+  Object deselectAll() => js_util.callMethod(this, 'deselectAll', []);
 
   ///  Creates an [SVGNumber] object outside of any document trees. The
   /// object is initialized to [0].
   ///
-  external SVGNumber createSVGNumber();
+  SVGNumber createSVGNumber() =>
+      js_util.callMethod(this, 'createSVGNumber', []);
 
   ///  Creates an [SVGLength] object outside of any document trees. The
   /// object is initialized to [0] user units.
   ///
-  external SVGLength createSVGLength();
+  SVGLength createSVGLength() =>
+      js_util.callMethod(this, 'createSVGLength', []);
 
   ///  Creates an [SVGAngle] object outside of any document trees. The
   /// object is initialized to a value of [0] degrees (unitless).
   ///
-  external SVGAngle createSVGAngle();
+  SVGAngle createSVGAngle() => js_util.callMethod(this, 'createSVGAngle', []);
 
   ///  Creates an [SVGPoint] object outside of any document trees. The
   /// object is initialized to the point [(0,0)] in the user coordinate
   /// system.
   ///
-  external DOMPoint createSVGPoint();
+  DOMPoint createSVGPoint() => js_util.callMethod(this, 'createSVGPoint', []);
 
   ///  Creates an [SVGMatrix] object outside of any document trees. The
   /// object is initialized to the identity matrix.
   ///
-  external DOMMatrix createSVGMatrix();
+  DOMMatrix createSVGMatrix() =>
+      js_util.callMethod(this, 'createSVGMatrix', []);
 
   ///  Creates an [SVGRect] object outside of any document trees. The
   /// object is initialized such that all values are set to [0] user
   /// units.
   ///
-  external DOMRect createSVGRect();
+  DOMRect createSVGRect() => js_util.callMethod(this, 'createSVGRect', []);
 
   ///  Creates an [SVGTransform] object outside of any document trees.
   /// The object is initialized to an identity matrix transform
   /// ([SVG_TRANSFORM_MATRIX]).
   ///
-  external SVGTransform createSVGTransform();
+  SVGTransform createSVGTransform() =>
+      js_util.callMethod(this, 'createSVGTransform', []);
 
   ///  Creates an [SVGTransform] object outside of any document trees.
   /// The object is initialized to the given matrix transform (i.e.,
@@ -826,7 +930,8 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// copied, the matrix parameter is not adopted as
   /// [SVGTransform::matrix].
   ///
-  external SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit? matrix]);
+  SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit? matrix]) =>
+      js_util.callMethod(this, 'createSVGTransformFromMatrix', [matrix]);
 
   ///  Searches this SVG document fragment (i.e., the search is
   /// restricted to a subset of the document tree) for an Element whose
@@ -834,7 +939,8 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// Element is returned. If no such element exists, returns [null].
   /// Behavior is not defined if more than one element has this id.
   ///
-  external Element getElementById(String elementId);
+  Element getElementById(String elementId) =>
+      js_util.callMethod(this, 'getElementById', [elementId]);
 
   ///  Takes a time-out value which indicates that redraw shall not
   /// occur until:
@@ -858,14 +964,16 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// the other [suspendRedraw()] method calls.
   ///
   @deprecated
-  external int suspendRedraw(int maxWaitMilliseconds);
+  int suspendRedraw(int maxWaitMilliseconds) =>
+      js_util.callMethod(this, 'suspendRedraw', [maxWaitMilliseconds]);
 
   ///  Cancels a specified [suspendRedraw()] by providing a unique
   /// suspend handle ID that was returned by a previous
   /// [suspendRedraw()] call.
   ///
   @deprecated
-  external Object unsuspendRedraw(int suspendHandleID);
+  Object unsuspendRedraw(int suspendHandleID) =>
+      js_util.callMethod(this, 'unsuspendRedraw', [suspendHandleID]);
 
   ///  Cancels all currently active [suspendRedraw()] method calls.
   /// This method is most useful at the very end of a set of SVG DOM
@@ -873,19 +981,27 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// have been cancelled.
   ///
   @deprecated
-  external Object unsuspendRedrawAll();
+  Object unsuspendRedrawAll() =>
+      js_util.callMethod(this, 'unsuspendRedrawAll', []);
 
   ///  In rendering environments supporting interactivity, forces the
   /// user agent to immediately redraw all regions of the viewport that
   /// require updating.
   ///
   @deprecated
-  external Object forceRedraw();
-  external Object pauseAnimations();
-  external Object unpauseAnimations();
-  external bool animationsPaused();
-  external double getCurrentTime();
-  external Object setCurrentTime(double seconds);
+  Object forceRedraw() => js_util.callMethod(this, 'forceRedraw', []);
+
+  Object pauseAnimations() => js_util.callMethod(this, 'pauseAnimations', []);
+
+  Object unpauseAnimations() =>
+      js_util.callMethod(this, 'unpauseAnimations', []);
+
+  bool animationsPaused() => js_util.callMethod(this, 'animationsPaused', []);
+
+  double getCurrentTime() => js_util.callMethod(this, 'getCurrentTime', []);
+
+  Object setCurrentTime(double seconds) =>
+      js_util.callMethod(this, 'setCurrentTime', [seconds]);
 }
 
 /// The interface corresponds to the [<g>] element.
@@ -928,7 +1044,7 @@ extension PropsSVGSVGElement on SVGSVGElement {
 @JS()
 @staticInterop
 class SVGGElement implements SVGGraphicsElement {
-  external factory SVGGElement();
+  external SVGGElement();
 }
 
 /// The interface corresponds to the [<defs>] element.
@@ -971,7 +1087,7 @@ class SVGGElement implements SVGGraphicsElement {
 @JS()
 @staticInterop
 class SVGDefsElement implements SVGGraphicsElement {
-  external factory SVGDefsElement();
+  external SVGDefsElement();
 }
 
 /// The interface corresponds to the [<desc>] element.
@@ -1008,7 +1124,7 @@ class SVGDefsElement implements SVGGraphicsElement {
 @JS()
 @staticInterop
 class SVGDescElement implements SVGElement {
-  external factory SVGDescElement();
+  external SVGDescElement();
 }
 
 /// The interface corresponds to the [<metadata>] element.
@@ -1045,7 +1161,7 @@ class SVGDescElement implements SVGElement {
 @JS()
 @staticInterop
 class SVGMetadataElement implements SVGElement {
-  external factory SVGMetadataElement();
+  external SVGMetadataElement();
 }
 
 /// The interface corresponds to the [<title>] element.
@@ -1082,7 +1198,7 @@ class SVGMetadataElement implements SVGElement {
 @JS()
 @staticInterop
 class SVGTitleElement implements SVGElement {
-  external factory SVGTitleElement();
+  external SVGTitleElement();
 }
 
 /// The interface corresponds to the [<symbol>] element.
@@ -1125,64 +1241,67 @@ class SVGTitleElement implements SVGElement {
 @JS()
 @staticInterop
 class SVGSymbolElement implements SVGGraphicsElement, SVGFitToViewBox {
-  external factory SVGSymbolElement();
+  external SVGSymbolElement();
 }
 
 @JS()
 @staticInterop
 class SVGUseElement implements SVGGraphicsElement, SVGURIReference {
-  external factory SVGUseElement();
+  external SVGUseElement();
 }
 
 extension PropsSVGUseElement on SVGUseElement {
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given element.
   ///
-  external SVGAnimatedLength get x;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedLength] corresponding to the [y] attribute of the
   /// given element.
   ///
-  external SVGAnimatedLength get y;
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedLength] corresponding to the [width] attribute of
   /// the given element.
   ///
-  external SVGAnimatedLength get width;
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
 
   ///  An [SVGAnimatedLength] corresponding to the [height] attribute
   /// of the given element.
   ///
-  external SVGAnimatedLength get height;
-  external SVGElement? get instanceRoot;
-  external SVGElement? get animatedInstanceRoot;
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
+  SVGElement? get instanceRoot => js_util.getProperty(this, 'instanceRoot');
+  SVGElement? get animatedInstanceRoot =>
+      js_util.getProperty(this, 'animatedInstanceRoot');
 }
 
 @JS()
 @staticInterop
 class SVGUseElementShadowRoot implements ShadowRoot {
-  external factory SVGUseElementShadowRoot();
+  external SVGUseElementShadowRoot();
 }
 
 @JS()
 @staticInterop
 class SVGElementInstance {
-  external factory SVGElementInstance();
+  external SVGElementInstance();
 }
 
 extension PropsSVGElementInstance on SVGElementInstance {
-  external SVGElement? get correspondingElement;
-  external SVGUseElement? get correspondingUseElement;
+  SVGElement? get correspondingElement =>
+      js_util.getProperty(this, 'correspondingElement');
+  SVGUseElement? get correspondingUseElement =>
+      js_util.getProperty(this, 'correspondingUseElement');
 }
 
 @JS()
 @staticInterop
 class ShadowAnimation implements Animation {
-  external factory ShadowAnimation(Animation source, dynamic newTarget);
+  external ShadowAnimation(Animation source, dynamic newTarget);
 }
 
 extension PropsShadowAnimation on ShadowAnimation {
-  external Animation get sourceAnimation;
+  Animation get sourceAnimation => js_util.getProperty(this, 'sourceAnimation');
 }
 
 /// The interface corresponds to the [<switch>] element.
@@ -1225,23 +1344,23 @@ extension PropsShadowAnimation on ShadowAnimation {
 @JS()
 @staticInterop
 class SVGSwitchElement implements SVGGraphicsElement {
-  external factory SVGSwitchElement();
+  external SVGSwitchElement();
 }
 
 @JS()
 @staticInterop
 class GetSVGDocument {
-  external factory GetSVGDocument();
+  external GetSVGDocument();
 }
 
 extension PropsGetSVGDocument on GetSVGDocument {
-  external Document getSVGDocument();
+  Document getSVGDocument() => js_util.callMethod(this, 'getSVGDocument', []);
 }
 
 @JS()
 @staticInterop
 class SVGStyleElement implements SVGElement, LinkStyle {
-  external factory SVGStyleElement();
+  external SVGStyleElement();
 }
 
 extension PropsSVGStyleElement on SVGStyleElement {
@@ -1251,8 +1370,10 @@ extension PropsSVGStyleElement on SVGStyleElement {
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
   /// of a read-only attribute. This restriction was removed in SVG 2.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  A [DOMString] corresponding to the [media] attribute of the
   /// given element.
@@ -1260,8 +1381,10 @@ extension PropsSVGStyleElement on SVGStyleElement {
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
   /// of a read-only attribute. This restriction was removed in SVG 2.
   ///
-  external String get media;
-  external set media(String newValue);
+  String get media => js_util.getProperty(this, 'media');
+  set media(String newValue) {
+    js_util.setProperty(this, 'media', newValue);
+  }
 
   ///  A [DOMString] corresponding to the [title] attribute of the
   /// given element.
@@ -1269,8 +1392,10 @@ extension PropsSVGStyleElement on SVGStyleElement {
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
   /// of a read-only attribute. This restriction was removed in SVG 2.
   ///
-  external String get title;
-  external set title(String newValue);
+  String get title => js_util.getProperty(this, 'title');
+  set title(String newValue) {
+    js_util.setProperty(this, 'title', newValue);
+  }
 }
 
 @JS()
@@ -1283,50 +1408,76 @@ class SVGTransform {
   external static int get SVG_TRANSFORM_ROTATE;
   external static int get SVG_TRANSFORM_SKEWX;
   external static int get SVG_TRANSFORM_SKEWY;
-  external factory SVGTransform();
+  external SVGTransform();
 }
 
 extension PropsSVGTransform on SVGTransform {
-  external int get type;
-  external DOMMatrix get matrix;
-  external double get angle;
-  external Object setMatrix([DOMMatrix2DInit? matrix]);
-  external Object setTranslate(double tx, double ty);
-  external Object setScale(double sx, double sy);
-  external Object setRotate(double angle, double cx, double cy);
-  external Object setSkewX(double angle);
-  external Object setSkewY(double angle);
+  int get type => js_util.getProperty(this, 'type');
+  DOMMatrix get matrix => js_util.getProperty(this, 'matrix');
+  double get angle => js_util.getProperty(this, 'angle');
+  Object setMatrix([DOMMatrix2DInit? matrix]) =>
+      js_util.callMethod(this, 'setMatrix', [matrix]);
+
+  Object setTranslate(double tx, double ty) =>
+      js_util.callMethod(this, 'setTranslate', [tx, ty]);
+
+  Object setScale(double sx, double sy) =>
+      js_util.callMethod(this, 'setScale', [sx, sy]);
+
+  Object setRotate(double angle, double cx, double cy) =>
+      js_util.callMethod(this, 'setRotate', [angle, cx, cy]);
+
+  Object setSkewX(double angle) =>
+      js_util.callMethod(this, 'setSkewX', [angle]);
+
+  Object setSkewY(double angle) =>
+      js_util.callMethod(this, 'setSkewY', [angle]);
 }
 
 @JS()
 @staticInterop
 class SVGTransformList {
-  external factory SVGTransformList();
+  external SVGTransformList();
 }
 
 extension PropsSVGTransformList on SVGTransformList {
-  external int get length;
-  external int get numberOfItems;
-  external Object clear();
-  external SVGTransform initialize(SVGTransform newItem);
-  external SVGTransform getItem(int index);
-  external SVGTransform insertItemBefore(SVGTransform newItem, int index);
-  external SVGTransform replaceItem(SVGTransform newItem, int index);
-  external SVGTransform removeItem(int index);
-  external SVGTransform appendItem(SVGTransform newItem);
-  external SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit? matrix]);
-  external SVGTransform? consolidate();
+  int get length => js_util.getProperty(this, 'length');
+  int get numberOfItems => js_util.getProperty(this, 'numberOfItems');
+  Object clear() => js_util.callMethod(this, 'clear', []);
+
+  SVGTransform initialize(SVGTransform newItem) =>
+      js_util.callMethod(this, 'initialize', [newItem]);
+
+  SVGTransform getItem(int index) =>
+      js_util.callMethod(this, 'getItem', [index]);
+
+  SVGTransform insertItemBefore(SVGTransform newItem, int index) =>
+      js_util.callMethod(this, 'insertItemBefore', [newItem, index]);
+
+  SVGTransform replaceItem(SVGTransform newItem, int index) =>
+      js_util.callMethod(this, 'replaceItem', [newItem, index]);
+
+  SVGTransform removeItem(int index) =>
+      js_util.callMethod(this, 'removeItem', [index]);
+
+  SVGTransform appendItem(SVGTransform newItem) =>
+      js_util.callMethod(this, 'appendItem', [newItem]);
+
+  SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit? matrix]) =>
+      js_util.callMethod(this, 'createSVGTransformFromMatrix', [matrix]);
+
+  SVGTransform? consolidate() => js_util.callMethod(this, 'consolidate', []);
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedTransformList {
-  external factory SVGAnimatedTransformList();
+  external SVGAnimatedTransformList();
 }
 
 extension PropsSVGAnimatedTransformList on SVGAnimatedTransformList {
-  external SVGTransformList get baseVal;
-  external SVGTransformList get animVal;
+  SVGTransformList get baseVal => js_util.getProperty(this, 'baseVal');
+  SVGTransformList get animVal => js_util.getProperty(this, 'animVal');
 }
 
 @JS()
@@ -1346,20 +1497,25 @@ class SVGPreserveAspectRatio {
   external static int get SVG_MEETORSLICE_UNKNOWN;
   external static int get SVG_MEETORSLICE_MEET;
   external static int get SVG_MEETORSLICE_SLICE;
-  external factory SVGPreserveAspectRatio();
+  external SVGPreserveAspectRatio();
 }
 
 extension PropsSVGPreserveAspectRatio on SVGPreserveAspectRatio {
-  external int get align;
-  external set align(int newValue);
-  external int get meetOrSlice;
-  external set meetOrSlice(int newValue);
+  int get align => js_util.getProperty(this, 'align');
+  set align(int newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  int get meetOrSlice => js_util.getProperty(this, 'meetOrSlice');
+  set meetOrSlice(int newValue) {
+    js_util.setProperty(this, 'meetOrSlice', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedPreserveAspectRatio {
-  external factory SVGAnimatedPreserveAspectRatio();
+  external SVGAnimatedPreserveAspectRatio();
 }
 
 extension PropsSVGAnimatedPreserveAspectRatio
@@ -1367,7 +1523,7 @@ extension PropsSVGAnimatedPreserveAspectRatio
   ///  Is a [SVGPreserveAspectRatio] that represents the base value of
   /// the given attribute before applying any animations.
   ///
-  external SVGPreserveAspectRatio get baseVal;
+  SVGPreserveAspectRatio get baseVal => js_util.getProperty(this, 'baseVal');
 
   ///  Is a [SVGPreserveAspectRatio] that represents the current
   /// animated value of the given attribute. If the given attribute is
@@ -1376,7 +1532,7 @@ extension PropsSVGAnimatedPreserveAspectRatio
   /// by is always distinct from the one referenced by [baseVal], even
   /// when the attribute is not animated.
   ///
-  external SVGPreserveAspectRatio get animVal;
+  SVGPreserveAspectRatio get animVal => js_util.getProperty(this, 'animVal');
 }
 
 /// The interface corresponds to the [<path>] element.
@@ -1431,7 +1587,7 @@ extension PropsSVGAnimatedPreserveAspectRatio
 @JS()
 @staticInterop
 class SVGPathElement implements SVGGeometryElement {
-  external factory SVGPathElement();
+  external SVGPathElement();
 }
 
 ///  The interface provides access to the properties of [<rect>]
@@ -1481,39 +1637,39 @@ class SVGPathElement implements SVGGeometryElement {
 @JS()
 @staticInterop
 class SVGRectElement implements SVGGeometryElement {
-  external factory SVGRectElement();
+  external SVGRectElement();
 }
 
 extension PropsSVGRectElement on SVGRectElement {
   ///  Returns an [SVGAnimatedLength] corresponding to the [x]
   /// attribute of the given [<rect>] element.
   ///
-  external SVGAnimatedLength get x;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
 
   ///  Returns an [SVGAnimatedLength] corresponding to the [y]
   /// attribute of the given [<rect>] element.
   ///
-  external SVGAnimatedLength get y;
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
 
   ///  Returns an [SVGAnimatedLength] corresponding to the [width]
   /// attribute of the given [<rect>] element.
   ///
-  external SVGAnimatedLength get width;
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
 
   ///  Returns an [SVGAnimatedLength] corresponding to the [height]
   /// attribute of the given [<rect>] element.
   ///
-  external SVGAnimatedLength get height;
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
 
   ///  Returns an [SVGAnimatedLength] corresponding to the [rx]
   /// attribute of the given [<rect>] element.
   ///
-  external SVGAnimatedLength get rx;
+  SVGAnimatedLength get rx => js_util.getProperty(this, 'rx');
 
   ///  Returns an [SVGAnimatedLength] corresponding to the [ry]
   /// attribute of the given [<rect>] element.
   ///
-  external SVGAnimatedLength get ry;
+  SVGAnimatedLength get ry => js_util.getProperty(this, 'ry');
 }
 
 /// The interface is an interface for the [<circle>] element.
@@ -1562,7 +1718,7 @@ extension PropsSVGRectElement on SVGRectElement {
 @JS()
 @staticInterop
 class SVGCircleElement implements SVGGeometryElement {
-  external factory SVGCircleElement();
+  external SVGCircleElement();
 }
 
 extension PropsSVGCircleElement on SVGCircleElement {
@@ -1570,18 +1726,18 @@ extension PropsSVGCircleElement on SVGCircleElement {
   /// [<circle>] element. It is denoted by the [cx] attribute of the
   /// element.
   ///
-  external SVGAnimatedLength get cx;
+  SVGAnimatedLength get cx => js_util.getProperty(this, 'cx');
 
   ///  This property defines the y-coordinate of the center of the
   /// [<circle>] element. It is denoted by the [cy] attribute of the
   /// element.
   ///
-  external SVGAnimatedLength get cy;
+  SVGAnimatedLength get cy => js_util.getProperty(this, 'cy');
 
   ///  This property defines the radius of the [<circle>] element. It
   /// is denoted by the [r] of the element.
   ///
-  external SVGAnimatedLength get r;
+  SVGAnimatedLength get r => js_util.getProperty(this, 'r');
 }
 
 ///  The interface provides access to the properties of [<ellipse>]
@@ -1631,29 +1787,29 @@ extension PropsSVGCircleElement on SVGCircleElement {
 @JS()
 @staticInterop
 class SVGEllipseElement implements SVGGeometryElement {
-  external factory SVGEllipseElement();
+  external SVGEllipseElement();
 }
 
 extension PropsSVGEllipseElement on SVGEllipseElement {
   ///  This property returns a [SVGAnimatedLength] reflecting the [cx]
   /// attribute of the given [<ellipse>] element.
   ///
-  external SVGAnimatedLength get cx;
+  SVGAnimatedLength get cx => js_util.getProperty(this, 'cx');
 
   ///  This property returns a [SVGAnimatedLength] reflecting the [cy]
   /// attribute of the given [<ellipse>] element.
   ///
-  external SVGAnimatedLength get cy;
+  SVGAnimatedLength get cy => js_util.getProperty(this, 'cy');
 
   ///  This property returns a [SVGAnimatedLength] reflecting the [rx]
   /// attribute of the given [<ellipse>] element.
   ///
-  external SVGAnimatedLength get rx;
+  SVGAnimatedLength get rx => js_util.getProperty(this, 'rx');
 
   ///  This property returns a [SVGAnimatedLength] reflecting the [ry]
   /// attribute of the given [<ellipse>] element.
   ///
-  external SVGAnimatedLength get ry;
+  SVGAnimatedLength get ry => js_util.getProperty(this, 'ry');
 }
 
 ///  The interface provides access to the properties of [<line>]
@@ -1703,40 +1859,41 @@ extension PropsSVGEllipseElement on SVGEllipseElement {
 @JS()
 @staticInterop
 class SVGLineElement implements SVGGeometryElement {
-  external factory SVGLineElement();
+  external SVGLineElement();
 }
 
 extension PropsSVGLineElement on SVGLineElement {
   ///  Returns an [SVGAnimatedLength] that corresponds to attribute
   /// [x1] on the given [<line>] element.
   ///
-  external SVGAnimatedLength get x1;
+  SVGAnimatedLength get x1 => js_util.getProperty(this, 'x1');
 
   ///  Returns an [SVGAnimatedLength] that corresponds to attribute
   /// [y1] on the given [<line>] element.
   ///
-  external SVGAnimatedLength get y1;
+  SVGAnimatedLength get y1 => js_util.getProperty(this, 'y1');
 
   ///  Returns an [SVGAnimatedLength] that corresponds to attribute
   /// [x2] on the given [<line>] element.
   ///
-  external SVGAnimatedLength get x2;
+  SVGAnimatedLength get x2 => js_util.getProperty(this, 'x2');
 
   ///  Returns an [SVGAnimatedLength] that corresponds to attribute
   /// [y2] on the given [<line>] element.
   ///
-  external SVGAnimatedLength get y2;
+  SVGAnimatedLength get y2 => js_util.getProperty(this, 'y2');
 }
 
 @JS()
 @staticInterop
 class SVGAnimatedPoints {
-  external factory SVGAnimatedPoints();
+  external SVGAnimatedPoints();
 }
 
 extension PropsSVGAnimatedPoints on SVGAnimatedPoints {
-  external SVGPointList get points;
-  external SVGPointList get animatedPoints;
+  SVGPointList get points => js_util.getProperty(this, 'points');
+  SVGPointList get animatedPoints =>
+      js_util.getProperty(this, 'animatedPoints');
 }
 
 /// The interface represents a list of [SVGPoint] objects.
@@ -1745,36 +1902,37 @@ extension PropsSVGAnimatedPoints on SVGAnimatedPoints {
 @JS()
 @staticInterop
 class SVGPointList {
-  external factory SVGPointList();
+  external SVGPointList();
 }
 
 extension PropsSVGPointList on SVGPointList {
   /// Returns the number of points in the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   /// Returns the number of points in the list.
   ///
-  external int get numberOfItems;
+  int get numberOfItems => js_util.getProperty(this, 'numberOfItems');
 
   /// Removes all items in the list.
   ///
   /// SVGPointList.clear();
   ///
-  external Object clear();
+  Object clear() => js_util.callMethod(this, 'clear', []);
 
   ///  First removes all items in the list, then adds a single value to
   /// the list.
   ///
   /// SVGPointList.initialize(obj);
   ///
-  external DOMPoint initialize(DOMPoint newItem);
+  DOMPoint initialize(DOMPoint newItem) =>
+      js_util.callMethod(this, 'initialize', [newItem]);
 
   /// Gets an item from the list at a specified position.
   ///
   /// SVGPointList.getItem(index);
   ///
-  external DOMPoint getItem(int index);
+  DOMPoint getItem(int index) => js_util.callMethod(this, 'getItem', [index]);
 
   /// Inserts an element into the list at a specified position.
   ///
@@ -1788,7 +1946,8 @@ extension PropsSVGPointList on SVGPointList {
   ///   The index of the item the object should be inserted before. If the index passed in is greater than the length of the list, then index will be set to the list length and the item inserted before the last item in the list.
   ///
   ///
-  external DOMPoint insertItemBefore(DOMPoint newItem, int index);
+  DOMPoint insertItemBefore(DOMPoint newItem, int index) =>
+      js_util.callMethod(this, 'insertItemBefore', [newItem, index]);
 
   /// Replaces an item in the list with a new item.
   ///
@@ -1802,7 +1961,8 @@ extension PropsSVGPointList on SVGPointList {
   ///   The index of the item to replace.
   ///
   ///
-  external DOMPoint replaceItem(DOMPoint newItem, int index);
+  DOMPoint replaceItem(DOMPoint newItem, int index) =>
+      js_util.callMethod(this, 'replaceItem', [newItem, index]);
 
   /// Removes an item from the list.
   ///
@@ -1812,7 +1972,8 @@ extension PropsSVGPointList on SVGPointList {
   ///   The index of the item to remove.
   ///
   ///
-  external DOMPoint removeItem(int index);
+  DOMPoint removeItem(int index) =>
+      js_util.callMethod(this, 'removeItem', [index]);
 
   /// Adds an item to the end of the list.
   ///
@@ -1822,7 +1983,8 @@ extension PropsSVGPointList on SVGPointList {
   ///   An SVGPoint object containing the coordinates of the point to be appended.
   ///
   ///
-  external DOMPoint appendItem(DOMPoint newItem);
+  DOMPoint appendItem(DOMPoint newItem) =>
+      js_util.callMethod(this, 'appendItem', [newItem]);
 }
 
 ///  The interface provides access to the properties of [<polyline>]
@@ -1872,7 +2034,7 @@ extension PropsSVGPointList on SVGPointList {
 @JS()
 @staticInterop
 class SVGPolylineElement implements SVGGeometryElement, SVGAnimatedPoints {
-  external factory SVGPolylineElement();
+  external SVGPolylineElement();
 }
 
 ///  The interface provides access to the properties of [<polygon>]
@@ -1922,7 +2084,7 @@ class SVGPolylineElement implements SVGGeometryElement, SVGAnimatedPoints {
 @JS()
 @staticInterop
 class SVGPolygonElement implements SVGGeometryElement, SVGAnimatedPoints {
-  external factory SVGPolygonElement();
+  external SVGPolygonElement();
 }
 
 ///  The interface is implemented by elements that support rendering
@@ -1971,31 +2133,33 @@ class SVGTextContentElement implements SVGGraphicsElement {
   external static int get LENGTHADJUST_UNKNOWN;
   external static int get LENGTHADJUST_SPACING;
   external static int get LENGTHADJUST_SPACINGANDGLYPHS;
-  external factory SVGTextContentElement();
+  external SVGTextContentElement();
 }
 
 extension PropsSVGTextContentElement on SVGTextContentElement {
   ///  An [SVGAnimatedLength] reflecting the [textLength] attribute of
   /// the given element.
   ///
-  external SVGAnimatedLength get textLength;
+  SVGAnimatedLength get textLength => js_util.getProperty(this, 'textLength');
 
   ///  An [SVGAnimatedEnumeration] reflecting the [lengthAdjust]
   /// attribute of the given element. The numeric type values represent
   /// one of the constant values above.
   ///
-  external SVGAnimatedEnumeration get lengthAdjust;
+  SVGAnimatedEnumeration get lengthAdjust =>
+      js_util.getProperty(this, 'lengthAdjust');
 
   ///  Returns a long representing the total number of addressable
   /// characters available for rendering within the current element,
   /// regardless of whether they will be rendered.
   ///
-  external int getNumberOfChars();
+  int getNumberOfChars() => js_util.callMethod(this, 'getNumberOfChars', []);
 
   ///  Returns a float representing the computed length for the text
   /// within the element.
   ///
-  external double getComputedTextLength();
+  double getComputedTextLength() =>
+      js_util.callMethod(this, 'getComputedTextLength', []);
 
   ///  Returns a float representing the computed length of the
   /// formatted text advance distance for a substring of text within
@@ -2004,7 +2168,8 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
   /// the CSS 'letter-spacing' and 'word-spacing' properties. Visual
   /// spacing adjustments made by the 'x' attribute is ignored.
   ///
-  external double getSubStringLength(int charnum, int nchars);
+  double getSubStringLength(int charnum, int nchars) =>
+      js_util.callMethod(this, 'getSubStringLength', [charnum, nchars]);
 
   ///  Returns a [DOMPoint] representing the position of a typographic
   /// character after text layout has been performed.
@@ -2012,7 +2177,8 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
   ///    Note: In SVG 1.1 this method returned an [SVGPoint].
   ///
   ///
-  external DOMPoint getStartPositionOfChar(int charnum);
+  DOMPoint getStartPositionOfChar(int charnum) =>
+      js_util.callMethod(this, 'getStartPositionOfChar', [charnum]);
 
   ///  Returns a [DOMPoint] representing the trailing position of a
   /// typographic character after text layout has been performed.
@@ -2020,18 +2186,21 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
   ///    Note: In SVG 1.1 this method returned an [SVGPoint].
   ///
   ///
-  external DOMPoint getEndPositionOfChar(int charnum);
+  DOMPoint getEndPositionOfChar(int charnum) =>
+      js_util.callMethod(this, 'getEndPositionOfChar', [charnum]);
 
   ///  Returns a [DOMRect] representing the computed tight bounding box
   /// of the glyph cell that corresponds to a given typographic
   /// character.
   ///
-  external DOMRect getExtentOfChar(int charnum);
+  DOMRect getExtentOfChar(int charnum) =>
+      js_util.callMethod(this, 'getExtentOfChar', [charnum]);
 
   ///  Returns a float representing the rotation of typographic
   /// character.
   ///
-  external double getRotationOfChar(int charnum);
+  double getRotationOfChar(int charnum) =>
+      js_util.callMethod(this, 'getRotationOfChar', [charnum]);
 
   ///  Returns a long representing the character which caused a text
   /// glyph to be rendered at a given position in the coordinate
@@ -2039,12 +2208,14 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
   /// not one-to-one, only the first character of the relevant
   /// typographic character is returned
   ///
-  external int getCharNumAtPosition([DOMPointInit? point]);
+  int getCharNumAtPosition([DOMPointInit? point]) =>
+      js_util.callMethod(this, 'getCharNumAtPosition', [point]);
 
   /// Selects text within the element.
   ///
   @deprecated
-  external Object selectSubString(int charnum, int nchars);
+  Object selectSubString(int charnum, int nchars) =>
+      js_util.callMethod(this, 'selectSubString', [charnum, nchars]);
 }
 
 ///  The interface is implemented by elements that support attributes
@@ -2096,34 +2267,34 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
 @JS()
 @staticInterop
 class SVGTextPositioningElement implements SVGTextContentElement {
-  external factory SVGTextPositioningElement();
+  external SVGTextPositioningElement();
 }
 
 extension PropsSVGTextPositioningElement on SVGTextPositioningElement {
   ///  Returns an [SVGAnimatedLengthList] reflecting the [x] attribute
   /// of the given element.
   ///
-  external SVGAnimatedLengthList get x;
+  SVGAnimatedLengthList get x => js_util.getProperty(this, 'x');
 
   ///  Returns an [SVGAnimatedLengthList] reflecting the [y] attribute
   /// of the given element.
   ///
-  external SVGAnimatedLengthList get y;
+  SVGAnimatedLengthList get y => js_util.getProperty(this, 'y');
 
   ///  Returns an [SVGAnimatedLengthList] reflecting the [dx] attribute
   /// of the given element.
   ///
-  external SVGAnimatedLengthList get dx;
+  SVGAnimatedLengthList get dx => js_util.getProperty(this, 'dx');
 
   ///  Returns an [SVGAnimatedLengthList] reflecting the [dy] attribute
   /// of the given element.
   ///
-  external SVGAnimatedLengthList get dy;
+  SVGAnimatedLengthList get dy => js_util.getProperty(this, 'dy');
 
   ///  Returns an [SVGAnimatedNumberList] reflecting the [rotate]
   /// attribute of the given element.
   ///
-  external SVGAnimatedNumberList get rotate;
+  SVGAnimatedNumberList get rotate => js_util.getProperty(this, 'rotate');
 }
 
 /// The interface corresponds to the [<text>] elements.
@@ -2178,7 +2349,7 @@ extension PropsSVGTextPositioningElement on SVGTextPositioningElement {
 @JS()
 @staticInterop
 class SVGTextElement implements SVGTextPositioningElement {
-  external factory SVGTextElement();
+  external SVGTextElement();
 }
 
 /// The interface represents a [<tspan>] element.
@@ -2233,7 +2404,7 @@ class SVGTextElement implements SVGTextPositioningElement {
 @JS()
 @staticInterop
 class SVGTSpanElement implements SVGTextPositioningElement {
-  external factory SVGTSpanElement();
+  external SVGTSpanElement();
 }
 
 /// The interface corresponds to the [<textPath>] element.
@@ -2288,26 +2459,26 @@ class SVGTextPathElement implements SVGTextContentElement, SVGURIReference {
   external static int get TEXTPATH_SPACINGTYPE_UNKNOWN;
   external static int get TEXTPATH_SPACINGTYPE_AUTO;
   external static int get TEXTPATH_SPACINGTYPE_EXACT;
-  external factory SVGTextPathElement();
+  external SVGTextPathElement();
 }
 
 extension PropsSVGTextPathElement on SVGTextPathElement {
   ///  An [SVGAnimatedLength] corresponding to the X component of the
   /// [startOffset] attribute of the given element.
   ///
-  external SVGAnimatedLength get startOffset;
+  SVGAnimatedLength get startOffset => js_util.getProperty(this, 'startOffset');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [method]
   /// attribute of the given element. It takes one of the
   /// [TEXTPATH_METHODTYPE_*] constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get method;
+  SVGAnimatedEnumeration get method => js_util.getProperty(this, 'method');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [spacing]
   /// attribute of the given element. It takes one of the
   /// [TEXTPATH_SPACINGTYPE_*] constants defined on this interface.
   ///
-  external SVGAnimatedEnumeration get spacing;
+  SVGAnimatedEnumeration get spacing => js_util.getProperty(this, 'spacing');
 }
 
 /// The interface corresponds to the [<image>] element.
@@ -2350,40 +2521,43 @@ extension PropsSVGTextPathElement on SVGTextPathElement {
 @JS()
 @staticInterop
 class SVGImageElement implements SVGGraphicsElement, SVGURIReference {
-  external factory SVGImageElement();
+  external SVGImageElement();
 }
 
 extension PropsSVGImageElement on SVGImageElement {
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given [<image>] element.
   ///
-  external SVGAnimatedLength get x;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedLength] corresponding to the [y] attribute of the
   /// given [<image>] element.
   ///
-  external SVGAnimatedLength get y;
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedLength] corresponding to the [width] attribute of
   /// the given [<image>] element.
   ///
-  external SVGAnimatedLength get width;
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
 
   ///  An [SVGAnimatedLength] corresponding to the [height] attribute
   /// of the given [<image>] element.
   ///
-  external SVGAnimatedLength get height;
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
 
   ///  An [SVGAnimatedPreserveAspectRatio] corresponding to the
   /// [preserveAspectRatio] attribute of the given [<image>] element.
   ///
-  external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
+  SVGAnimatedPreserveAspectRatio get preserveAspectRatio =>
+      js_util.getProperty(this, 'preserveAspectRatio');
 
   ///  A [DOMString] corresponding to the [crossorigin] attribute of
   /// the given [<image>] element.
   ///
-  external String? get crossOrigin;
-  external set crossOrigin(String? newValue);
+  String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
+  set crossOrigin(String? newValue) {
+    js_util.setProperty(this, 'crossOrigin', newValue);
+  }
 }
 
 ///  The interface provides access to the properties of
@@ -2428,29 +2602,29 @@ extension PropsSVGImageElement on SVGImageElement {
 @JS()
 @staticInterop
 class SVGForeignObjectElement implements SVGGraphicsElement {
-  external factory SVGForeignObjectElement();
+  external SVGForeignObjectElement();
 }
 
 extension PropsSVGForeignObjectElement on SVGForeignObjectElement {
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given [<foreignObject>] element.
   ///
-  external SVGAnimatedLength get x;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given [<foreignObject>] element.
   ///
-  external SVGAnimatedLength get y;
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedLength] corresponding to the [width] attribute of
   /// the given [<foreignObject>] element.
   ///
-  external SVGAnimatedLength get width;
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
 
   ///  An [SVGAnimatedLength] corresponding to the [height] attribute
   /// of the given [<foreignObject>] element.
   ///
-  external SVGAnimatedLength get height;
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
 }
 
 ///  The interface provides access to the properties of [<marker>]
@@ -2497,19 +2671,19 @@ class SVGMarkerElement implements SVGElement, SVGFitToViewBox {
   external static int get SVG_MARKER_ORIENT_UNKNOWN;
   external static int get SVG_MARKER_ORIENT_AUTO;
   external static int get SVG_MARKER_ORIENT_ANGLE;
-  external factory SVGMarkerElement();
+  external SVGMarkerElement();
 }
 
 extension PropsSVGMarkerElement on SVGMarkerElement {
   ///  Returns an [SVGAnimatedLength] object containing the value of
   /// the [refX] attribute of the [<marker>].
   ///
-  external SVGAnimatedLength get refX;
+  SVGAnimatedLength get refX => js_util.getProperty(this, 'refX');
 
   ///  Returns an [SVGAnimatedLength] object containing the value of
   /// the [refY] attribute of the [<marker>].
   ///
-  external SVGAnimatedLength get refY;
+  SVGAnimatedLength get refY => js_util.getProperty(this, 'refY');
 
   ///  Returns an [SVGAnimatedEnumeration] object, with one of the
   /// following values:
@@ -2531,17 +2705,19 @@ extension PropsSVGMarkerElement on SVGMarkerElement {
   ///
   ///
   ///
-  external SVGAnimatedEnumeration get markerUnits;
+  SVGAnimatedEnumeration get markerUnits =>
+      js_util.getProperty(this, 'markerUnits');
 
   ///  Returns an [SVGAnimatedLength] object containing the width of
   /// the [<marker>] viewport.
   ///
-  external SVGAnimatedLength get markerWidth;
+  SVGAnimatedLength get markerWidth => js_util.getProperty(this, 'markerWidth');
 
   ///  Returns an [SVGAnimatedLength] object containing the height of
   /// the [<marker>] viewport.
   ///
-  external SVGAnimatedLength get markerHeight;
+  SVGAnimatedLength get markerHeight =>
+      js_util.getProperty(this, 'markerHeight');
 
   ///  Returns an [SVGAnimatedEnumeration] object, with one of the
   /// following values:
@@ -2564,27 +2740,31 @@ extension PropsSVGMarkerElement on SVGMarkerElement {
   ///
   ///
   ///
-  external SVGAnimatedEnumeration get orientType;
+  SVGAnimatedEnumeration get orientType =>
+      js_util.getProperty(this, 'orientType');
 
   ///  Returns an [SVGAnimatedAngle] object containing the angle of the
   /// [orient] attribute.
   ///
-  external SVGAnimatedAngle get orientAngle;
-  external String get orient;
-  external set orient(String newValue);
+  SVGAnimatedAngle get orientAngle => js_util.getProperty(this, 'orientAngle');
+  String get orient => js_util.getProperty(this, 'orient');
+  set orient(String newValue) {
+    js_util.setProperty(this, 'orient', newValue);
+  }
 
   /// Sets the value of the [orient] attribute to [auto].
   ///
   /// setOrientToAuto();
   ///
-  external Object setOrientToAuto();
+  Object setOrientToAuto() => js_util.callMethod(this, 'setOrientToAuto', []);
 
   ///  Sets the value of the [orient] attribute to a specific angle
   /// value.
   ///
   /// setOrientToAngle(angle);
   ///
-  external Object setOrientToAngle(SVGAngle angle);
+  Object setOrientToAngle(SVGAngle angle) =>
+      js_util.callMethod(this, 'setOrientToAngle', [angle]);
 }
 
 ///  The [SVGGradient] interface is a base interface used by
@@ -2626,7 +2806,7 @@ class SVGGradientElement implements SVGElement, SVGURIReference {
   external static int get SVG_SPREADMETHOD_PAD;
   external static int get SVG_SPREADMETHOD_REFLECT;
   external static int get SVG_SPREADMETHOD_REPEAT;
-  external factory SVGGradientElement();
+  external SVGGradientElement();
 }
 
 extension PropsSVGGradientElement on SVGGradientElement {
@@ -2634,18 +2814,21 @@ extension PropsSVGGradientElement on SVGGradientElement {
   /// attribute on the given element. This property takes one of the
   /// constants defined in [SVGUnitTypes].
   ///
-  external SVGAnimatedEnumeration get gradientUnits;
+  SVGAnimatedEnumeration get gradientUnits =>
+      js_util.getProperty(this, 'gradientUnits');
 
   ///  An [SVGAnimatedTransformList] corresponding to the
   /// [gradientTransform] attribute on the given element.
   ///
-  external SVGAnimatedTransformList get gradientTransform;
+  SVGAnimatedTransformList get gradientTransform =>
+      js_util.getProperty(this, 'gradientTransform');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [spreadMethod]
   /// attribute on the given element. One of the spread method types
   /// defined on this interface.
   ///
-  external SVGAnimatedEnumeration get spreadMethod;
+  SVGAnimatedEnumeration get spreadMethod =>
+      js_util.getProperty(this, 'spreadMethod');
 }
 
 /// The interface corresponds to the [<linearGradient>] element.
@@ -2688,29 +2871,29 @@ extension PropsSVGGradientElement on SVGGradientElement {
 @JS()
 @staticInterop
 class SVGLinearGradientElement implements SVGGradientElement {
-  external factory SVGLinearGradientElement();
+  external SVGLinearGradientElement();
 }
 
 extension PropsSVGLinearGradientElement on SVGLinearGradientElement {
   ///  An [SVGAnimatedLength] corresponding to the [x1] attribute of
   /// the given [<linearGradient>] element.
   ///
-  external SVGAnimatedLength get x1;
+  SVGAnimatedLength get x1 => js_util.getProperty(this, 'x1');
 
   ///  An [SVGAnimatedLength] corresponding to the [y1] attribute of
   /// the given [<linearGradient>] element.
   ///
-  external SVGAnimatedLength get y1;
+  SVGAnimatedLength get y1 => js_util.getProperty(this, 'y1');
 
   ///  An [SVGAnimatedLength] corresponding to the [x2] attribute of
   /// the given [<linearGradient>] element.
   ///
-  external SVGAnimatedLength get x2;
+  SVGAnimatedLength get x2 => js_util.getProperty(this, 'x2');
 
   ///  An [SVGAnimatedLength] corresponding to the [y2] attribute of
   /// the given [<linearGradient>] element.
   ///
-  external SVGAnimatedLength get y2;
+  SVGAnimatedLength get y2 => js_util.getProperty(this, 'y2');
 }
 
 /// The interface corresponds to the [<RadialGradient>] element.
@@ -2753,31 +2936,31 @@ extension PropsSVGLinearGradientElement on SVGLinearGradientElement {
 @JS()
 @staticInterop
 class SVGRadialGradientElement implements SVGGradientElement {
-  external factory SVGRadialGradientElement();
+  external SVGRadialGradientElement();
 }
 
 extension PropsSVGRadialGradientElement on SVGRadialGradientElement {
   ///  An [SVGAnimatedLength] corresponding to the [cx] attribute of
   /// the given [<RadialGradient>] element.
   ///
-  external SVGAnimatedLength get cx;
-  external SVGAnimatedLength get cy;
+  SVGAnimatedLength get cx => js_util.getProperty(this, 'cx');
+  SVGAnimatedLength get cy => js_util.getProperty(this, 'cy');
 
   ///  An [SVGAnimatedLength] corresponding to the [r] attribute of the
   /// given [<RadialGradient>] element.
   ///
-  external SVGAnimatedLength get r;
+  SVGAnimatedLength get r => js_util.getProperty(this, 'r');
 
   ///  An [SVGAnimatedLength] corresponding to the [fx] attribute of
   /// the given [<RadialGradient>] element.
   ///
-  external SVGAnimatedLength get fx;
+  SVGAnimatedLength get fx => js_util.getProperty(this, 'fx');
 
   ///  An [SVGAnimatedLength] corresponding to the [fy] attribute of
   /// the given [<RadialGradient>] element.
   ///
-  external SVGAnimatedLength get fy;
-  external SVGAnimatedLength get fr;
+  SVGAnimatedLength get fy => js_util.getProperty(this, 'fy');
+  SVGAnimatedLength get fr => js_util.getProperty(this, 'fr');
 }
 
 /// The interface corresponds to the [<stop>] element.
@@ -2814,14 +2997,14 @@ extension PropsSVGRadialGradientElement on SVGRadialGradientElement {
 @JS()
 @staticInterop
 class SVGStopElement implements SVGElement {
-  external factory SVGStopElement();
+  external SVGStopElement();
 }
 
 extension PropsSVGStopElement on SVGStopElement {
   ///  An [SVGAnimatedNumber] corresponding to the [offset] of the
   /// given element.
   ///
-  external SVGAnimatedNumber get offset;
+  SVGAnimatedNumber get offset => js_util.getProperty(this, 'offset');
 }
 
 /// The interface corresponds to the [<pattern>] element.
@@ -2859,7 +3042,7 @@ extension PropsSVGStopElement on SVGStopElement {
 @staticInterop
 class SVGPatternElement
     implements SVGElement, SVGFitToViewBox, SVGURIReference {
-  external factory SVGPatternElement();
+  external SVGPatternElement();
 }
 
 extension PropsSVGPatternElement on SVGPatternElement {
@@ -2867,38 +3050,41 @@ extension PropsSVGPatternElement on SVGPatternElement {
   /// attribute of the given [<pattern>] element. Takes one of the
   /// constants defined in [SVGUnitTypes].
   ///
-  external SVGAnimatedEnumeration get patternUnits;
+  SVGAnimatedEnumeration get patternUnits =>
+      js_util.getProperty(this, 'patternUnits');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the
   /// [patternContentUnits] attribute of the given [<pattern>] element.
   /// Takes one of the constants defined in [SVGUnitTypes].
   ///
-  external SVGAnimatedEnumeration get patternContentUnits;
+  SVGAnimatedEnumeration get patternContentUnits =>
+      js_util.getProperty(this, 'patternContentUnits');
 
   ///  An [SVGAnimatedTransformList] corresponding to the
   /// [patternTransform] attribute of the given [<pattern>] element.
   ///
-  external SVGAnimatedTransformList get patternTransform;
+  SVGAnimatedTransformList get patternTransform =>
+      js_util.getProperty(this, 'patternTransform');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [x] attribute
   /// of the given [<pattern>] element.
   ///
-  external SVGAnimatedLength get x;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [y] attribute
   /// of the given [<pattern>] element.
   ///
-  external SVGAnimatedLength get y;
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [width]
   /// attribute of the given [<pattern>] element.
   ///
-  external SVGAnimatedLength get width;
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the [height]
   /// attribute of the given [<pattern>] element.
   ///
-  external SVGAnimatedLength get height;
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
 }
 
 /// The interface corresponds to the SVG [<script>] element.
@@ -2935,7 +3121,7 @@ extension PropsSVGPatternElement on SVGPatternElement {
 @JS()
 @staticInterop
 class SVGScriptElement implements SVGElement, SVGURIReference {
-  external factory SVGScriptElement();
+  external SVGScriptElement();
 }
 
 extension PropsSVGScriptElement on SVGScriptElement {
@@ -2944,14 +3130,18 @@ extension PropsSVGScriptElement on SVGScriptElement {
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
   /// of a read only attribute.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  A [DOMString] corresponding to the [crossorigin] attribute of
   /// the given [<script>] element.
   ///
-  external String? get crossOrigin;
-  external set crossOrigin(String? newValue);
+  String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
+  set crossOrigin(String? newValue) {
+    js_util.setProperty(this, 'crossOrigin', newValue);
+  }
 }
 
 ///  The interface provides access to the properties of an [<a>]
@@ -2960,58 +3150,72 @@ extension PropsSVGScriptElement on SVGScriptElement {
 @staticInterop
 class SVGAElement
     implements SVGGraphicsElement, HTMLHyperlinkElementUtils, SVGURIReference {
-  external factory SVGAElement();
+  external SVGAElement();
 }
 
 extension PropsSVGAElement on SVGAElement {
   /// It corresponds to the [target] attribute of the given element.
   ///
-  external SVGAnimatedString get target;
+  SVGAnimatedString get target => js_util.getProperty(this, 'target');
 
   /// See [HTMLAnchorElement.download].
   ///
-  external String get download;
-  external set download(String newValue);
+  String get download => js_util.getProperty(this, 'download');
+  set download(String newValue) {
+    js_util.setProperty(this, 'download', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the ping attribute, containing a
   /// space-separated list of URLs to which, when the hyperlink is
   /// followed, [POST] requests with the body [PING] will be sent by
   /// the browser (in the background). Typically used for tracking.
   ///
-  external String get ping;
-  external set ping(String newValue);
+  String get ping => js_util.getProperty(this, 'ping');
+  set ping(String newValue) {
+    js_util.setProperty(this, 'ping', newValue);
+  }
 
   /// See [HTMLAnchorElement.rel].
   ///
-  external String get rel;
-  external set rel(String newValue);
+  String get rel => js_util.getProperty(this, 'rel');
+  set rel(String newValue) {
+    js_util.setProperty(this, 'rel', newValue);
+  }
 
   /// See [HTMLAnchorElement.relList].
   ///
-  external DOMTokenList get relList;
+  DOMTokenList get relList => js_util.getProperty(this, 'relList');
 
   ///  Is a [DOMString] that reflects the attribute, indicating the
   /// language of the linked resource.
   ///
-  external String get hreflang;
-  external set hreflang(String newValue);
+  String get hreflang => js_util.getProperty(this, 'hreflang');
+  set hreflang(String newValue) {
+    js_util.setProperty(this, 'hreflang', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the attribute, indicating the
   /// MIME type of the linked resource.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  Is a [DOMString] being a synonym for the [Node.textContent]
   /// property.
   ///
-  external String get text;
-  external set text(String newValue);
+  String get text => js_util.getProperty(this, 'text');
+  set text(String newValue) {
+    js_util.setProperty(this, 'text', newValue);
+  }
 
   /// See [HTMLAnchorElement.referrerPolicy].
   ///
-  external String get referrerPolicy;
-  external set referrerPolicy(String newValue);
+  String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(String newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
 }
 
 ///  The interface provides access to the properties of [<view>]
@@ -3019,5 +3223,5 @@ extension PropsSVGAElement on SVGAElement {
 @JS()
 @staticInterop
 class SVGViewElement implements SVGElement, SVGFitToViewBox {
-  external factory SVGViewElement();
+  external SVGViewElement();
 }

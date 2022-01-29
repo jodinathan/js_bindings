@@ -5,6 +5,7 @@
 @staticInterop
 library reporting_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -19,7 +20,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class ReportBody {
-  external factory ReportBody();
+  external ReportBody();
 }
 
 extension PropsReportBody on ReportBody {
@@ -28,7 +29,7 @@ extension PropsReportBody on ReportBody {
   ///
   /// ReportBody.toJSON();
   ///
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -51,25 +52,25 @@ extension PropsReportBody on ReportBody {
 @JS()
 @staticInterop
 class Report {
-  external factory Report();
+  external Report();
 }
 
 extension PropsReport on Report {
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  The type of report generated, e.g. [deprecation] or
   /// [intervention].
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   /// The URL of the document that generated the report.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   ///  The body of the report, which is a [ReportBody] object
   /// containing the detailed report information.
   ///
-  external ReportBody? get body;
+  ReportBody? get body => js_util.getProperty(this, 'body');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -81,7 +82,7 @@ extension PropsReport on Report {
 @JS()
 @staticInterop
 class ReportingObserver {
-  external factory ReportingObserver(ReportingObserverCallback callback,
+  external ReportingObserver(ReportingObserverCallback callback,
       [ReportingObserverOptions? options]);
 }
 
@@ -91,21 +92,21 @@ extension PropsReportingObserver on ReportingObserver {
   ///
   /// reportingObserverInstance.observe()
   ///
-  external Object observe();
+  Object observe() => js_util.callMethod(this, 'observe', []);
 
   ///  Stops a reporting observer that had previously started observing
   /// from collecting reports.
   ///
   /// reportingObserverInstance.disconnect()
   ///
-  external Object disconnect();
+  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
 
   ///  Returns the current list of reports contained in the observer's
   /// report queue, and empties the queue.
   ///
   /// reportingObserverInstance.takeRecords()
   ///
-  external Iterable<Report> takeRecords();
+  Iterable<Report> takeRecords() => js_util.callMethod(this, 'takeRecords', []);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -127,15 +128,19 @@ extension PropsReportingObserverOptions on ReportingObserverOptions {
   /// collected by this observer. Available types include
   /// [deprecation], [intervention], and [crash].
   ///
-  external Iterable<String> get types;
-  external set types(Iterable<String> newValue);
+  Iterable<String> get types => js_util.getProperty(this, 'types');
+  set types(Iterable<String> newValue) {
+    js_util.setProperty(this, 'types', newValue);
+  }
 
   ///  A boolean that defines whether the reports that were generated
   /// before the observer was able to be created should be observable
   /// ([true]) or not ([false]).
   ///
-  external bool get buffered;
-  external set buffered(bool newValue);
+  bool get buffered => js_util.getProperty(this, 'buffered');
+  set buffered(bool newValue) {
+    js_util.setProperty(this, 'buffered', newValue);
+  }
 }
 
 @anonymous
@@ -147,8 +152,13 @@ class GenerateTestReportParameters {
 }
 
 extension PropsGenerateTestReportParameters on GenerateTestReportParameters {
-  external String get message;
-  external set message(String newValue);
-  external String get group;
-  external set group(String newValue);
+  String get message => js_util.getProperty(this, 'message');
+  set message(String newValue) {
+    js_util.setProperty(this, 'message', newValue);
+  }
+
+  String get group => js_util.getProperty(this, 'group');
+  set group(String newValue) {
+    js_util.setProperty(this, 'group', newValue);
+  }
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library image_capture;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -24,7 +25,7 @@ html */
 @JS()
 @staticInterop
 class ImageCapture {
-  external factory ImageCapture(MediaStreamTrack videoTrack);
+  external ImageCapture(MediaStreamTrack videoTrack);
 }
 
 extension PropsImageCapture on ImageCapture {
@@ -57,7 +58,8 @@ extension PropsImageCapture on ImageCapture {
   ///  });
   /// }
   ///
-  external Promise<Blob> takePhoto([PhotoSettings? photoSettings]);
+  Promise<Blob> takePhoto([PhotoSettings? photoSettings]) =>
+      js_util.callMethod(this, 'takePhoto', [photoSettings]);
 
   ///  Returns a [Promise] that resolves with a [PhotoCapabilities]
   /// object containing the ranges of available configuration options.
@@ -98,7 +100,8 @@ extension PropsImageCapture on ImageCapture {
   /// })
   /// .catch(error => console.log('Argh!', error.name || error));
   ///
-  external Promise<PhotoCapabilities> getPhotoCapabilities();
+  Promise<PhotoCapabilities> getPhotoCapabilities() =>
+      js_util.callMethod(this, 'getPhotoCapabilities', []);
 
   ///  Returns a [Promise] that resolves with a [PhotoSettings] object
   /// containing the current photo configuration settings.
@@ -139,7 +142,8 @@ extension PropsImageCapture on ImageCapture {
   /// })
   /// .catch(error => console.log('Argh!', error.name || error));
   ///
-  external Promise<PhotoSettings> getPhotoSettings();
+  Promise<PhotoSettings> getPhotoSettings() =>
+      js_util.callMethod(this, 'getPhotoSettings', []);
 
   ///  Takes a snapshot of the live video in a [MediaStreamTrack],
   /// returning an [ImageBitmap], if successful.
@@ -172,12 +176,12 @@ extension PropsImageCapture on ImageCapture {
   ///  });
   /// }
   ///
-  external Promise<ImageBitmap> grabFrame();
+  Promise<ImageBitmap> grabFrame() => js_util.callMethod(this, 'grabFrame', []);
 
   ///  Returns a reference to the [MediaStreamTrack] passed to the
   /// constructor.
   ///
-  external MediaStreamTrack get track;
+  MediaStreamTrack get track => js_util.getProperty(this, 'track');
 }
 
 @anonymous
@@ -192,14 +196,28 @@ class PhotoCapabilities {
 }
 
 extension PropsPhotoCapabilities on PhotoCapabilities {
-  external RedEyeReduction get redEyeReduction;
-  external set redEyeReduction(RedEyeReduction newValue);
-  external MediaSettingsRange get imageHeight;
-  external set imageHeight(MediaSettingsRange newValue);
-  external MediaSettingsRange get imageWidth;
-  external set imageWidth(MediaSettingsRange newValue);
-  external Iterable<FillLightMode> get fillLightMode;
-  external set fillLightMode(Iterable<FillLightMode> newValue);
+  RedEyeReduction get redEyeReduction =>
+      js_util.getProperty(this, 'redEyeReduction');
+  set redEyeReduction(RedEyeReduction newValue) {
+    js_util.setProperty(this, 'redEyeReduction', newValue);
+  }
+
+  MediaSettingsRange get imageHeight =>
+      js_util.getProperty(this, 'imageHeight');
+  set imageHeight(MediaSettingsRange newValue) {
+    js_util.setProperty(this, 'imageHeight', newValue);
+  }
+
+  MediaSettingsRange get imageWidth => js_util.getProperty(this, 'imageWidth');
+  set imageWidth(MediaSettingsRange newValue) {
+    js_util.setProperty(this, 'imageWidth', newValue);
+  }
+
+  Iterable<FillLightMode> get fillLightMode =>
+      js_util.getProperty(this, 'fillLightMode');
+  set fillLightMode(Iterable<FillLightMode> newValue) {
+    js_util.setProperty(this, 'fillLightMode', newValue);
+  }
 }
 
 @anonymous
@@ -214,14 +232,25 @@ class PhotoSettings {
 }
 
 extension PropsPhotoSettings on PhotoSettings {
-  external FillLightMode get fillLightMode;
-  external set fillLightMode(FillLightMode newValue);
-  external double get imageHeight;
-  external set imageHeight(double newValue);
-  external double get imageWidth;
-  external set imageWidth(double newValue);
-  external bool get redEyeReduction;
-  external set redEyeReduction(bool newValue);
+  FillLightMode get fillLightMode => js_util.getProperty(this, 'fillLightMode');
+  set fillLightMode(FillLightMode newValue) {
+    js_util.setProperty(this, 'fillLightMode', newValue);
+  }
+
+  double get imageHeight => js_util.getProperty(this, 'imageHeight');
+  set imageHeight(double newValue) {
+    js_util.setProperty(this, 'imageHeight', newValue);
+  }
+
+  double get imageWidth => js_util.getProperty(this, 'imageWidth');
+  set imageWidth(double newValue) {
+    js_util.setProperty(this, 'imageWidth', newValue);
+  }
+
+  bool get redEyeReduction => js_util.getProperty(this, 'redEyeReduction');
+  set redEyeReduction(bool newValue) {
+    js_util.setProperty(this, 'redEyeReduction', newValue);
+  }
 }
 
 @anonymous
@@ -232,12 +261,20 @@ class MediaSettingsRange {
 }
 
 extension PropsMediaSettingsRange on MediaSettingsRange {
-  external double get max;
-  external set max(double newValue);
-  external double get min;
-  external set min(double newValue);
-  external double get step;
-  external set step(double newValue);
+  double get max => js_util.getProperty(this, 'max');
+  set max(double newValue) {
+    js_util.setProperty(this, 'max', newValue);
+  }
+
+  double get min => js_util.getProperty(this, 'min');
+  set min(double newValue) {
+    js_util.setProperty(this, 'min', newValue);
+  }
+
+  double get step => js_util.getProperty(this, 'step');
+  set step(double newValue) {
+    js_util.setProperty(this, 'step', newValue);
+  }
 }
 
 enum RedEyeReduction { never, always, controllable }
@@ -253,10 +290,15 @@ class ConstrainPoint2DParameters {
 }
 
 extension PropsConstrainPoint2DParameters on ConstrainPoint2DParameters {
-  external Iterable<Point2D> get exact;
-  external set exact(Iterable<Point2D> newValue);
-  external Iterable<Point2D> get ideal;
-  external set ideal(Iterable<Point2D> newValue);
+  Iterable<Point2D> get exact => js_util.getProperty(this, 'exact');
+  set exact(Iterable<Point2D> newValue) {
+    js_util.setProperty(this, 'exact', newValue);
+  }
+
+  Iterable<Point2D> get ideal => js_util.getProperty(this, 'ideal');
+  set ideal(Iterable<Point2D> newValue) {
+    js_util.setProperty(this, 'ideal', newValue);
+  }
 }
 
 enum MeteringMode { none, manual, singleShot, continuous }
@@ -269,8 +311,13 @@ class Point2D {
 }
 
 extension PropsPoint2D on Point2D {
-  external double get x;
-  external set x(double newValue);
-  external double get y;
-  external set y(double newValue);
+  double get x => js_util.getProperty(this, 'x');
+  set x(double newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  double get y => js_util.getProperty(this, 'y');
+  set y(double newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
 }

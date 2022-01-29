@@ -5,6 +5,7 @@
 @staticInterop
 library webmidi;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -23,10 +24,15 @@ class MIDIOptions {
 }
 
 extension PropsMIDIOptions on MIDIOptions {
-  external bool get sysex;
-  external set sysex(bool newValue);
-  external bool get software;
-  external set software(bool newValue);
+  bool get sysex => js_util.getProperty(this, 'sysex');
+  set sysex(bool newValue) {
+    js_util.setProperty(this, 'sysex', newValue);
+  }
+
+  bool get software => js_util.getProperty(this, 'software');
+  set software(bool newValue) {
+    js_util.setProperty(this, 'software', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -39,7 +45,7 @@ extension PropsMIDIOptions on MIDIOptions {
 @JS()
 @staticInterop
 class MIDIInputMap {
-  external factory MIDIInputMap();
+  external MIDIInputMap();
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -52,7 +58,7 @@ class MIDIInputMap {
 @JS()
 @staticInterop
 class MIDIOutputMap {
-  external factory MIDIOutputMap();
+  external MIDIOutputMap();
 }
 
 ///  Secure context: This feature is available only in secure
@@ -63,26 +69,29 @@ class MIDIOutputMap {
 @JS()
 @staticInterop
 class MIDIAccess implements EventTarget {
-  external factory MIDIAccess();
+  external MIDIAccess();
 }
 
 extension PropsMIDIAccess on MIDIAccess {
   ///  Returns an instance of [MIDIInputMap] which provides access to
   /// any available MIDI input ports.
   ///
-  external MIDIInputMap get inputs;
+  MIDIInputMap get inputs => js_util.getProperty(this, 'inputs');
 
   ///  Returns an instance of [MIDIOutputMap] which provides access to
   /// any available MIDI output ports.
   ///
-  external MIDIOutputMap get outputs;
-  external EventHandlerNonNull? get onstatechange;
-  external set onstatechange(EventHandlerNonNull? newValue);
+  MIDIOutputMap get outputs => js_util.getProperty(this, 'outputs');
+  EventHandlerNonNull? get onstatechange =>
+      js_util.getProperty(this, 'onstatechange');
+  set onstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstatechange', newValue);
+  }
 
   ///  A boolean attribute indicating whether system exclusive support
   /// is enabled on the current MIDIAccess instance.
   ///
-  external bool get sysexEnabled;
+  bool get sysexEnabled => js_util.getProperty(this, 'sysexEnabled');
 }
 
 enum MIDIPortType { input, output }
@@ -100,21 +109,21 @@ enum MIDIPortConnectionState { open, closed, pending }
 @JS()
 @staticInterop
 class MIDIPort implements EventTarget {
-  external factory MIDIPort();
+  external MIDIPort();
 }
 
 extension PropsMIDIPort on MIDIPort {
   /// Returns a [string] containing the unique ID of the port.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   /// Returns a [string] containing the manufacturer of the port.
   ///
-  external String? get manufacturer;
+  String? get manufacturer => js_util.getProperty(this, 'manufacturer');
 
   /// Returns a [string] containing the system name of the port.
   ///
-  external String? get name;
+  String? get name => js_util.getProperty(this, 'name');
 
   /// Returns a [string] containing the type of the port, one of:
   ///
@@ -128,11 +137,11 @@ extension PropsMIDIPort on MIDIPort {
   ///
   ///
   ///
-  external MIDIPortType get type;
+  MIDIPortType get type => js_util.getProperty(this, 'type');
 
   /// Returns a [string] containing the version of the port.
   ///
-  external String? get version;
+  String? get version => js_util.getProperty(this, 'version');
 
   /// Returns a [string] containing the state of the port, one of:
   ///
@@ -148,7 +157,7 @@ extension PropsMIDIPort on MIDIPort {
   ///
   ///
   ///
-  external MIDIPortDeviceState get state;
+  MIDIPortDeviceState get state => js_util.getProperty(this, 'state');
 
   ///  Returns a [string] containing the connection state of the port,
   /// one of:
@@ -170,9 +179,13 @@ extension PropsMIDIPort on MIDIPort {
   ///
   ///
   ///
-  external MIDIPortConnectionState get connection;
-  external EventHandlerNonNull? get onstatechange;
-  external set onstatechange(EventHandlerNonNull? newValue);
+  MIDIPortConnectionState get connection =>
+      js_util.getProperty(this, 'connection');
+  EventHandlerNonNull? get onstatechange =>
+      js_util.getProperty(this, 'onstatechange');
+  set onstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstatechange', newValue);
+  }
 
   ///  Makes the MIDI device connected to this [MIDIPort] explicitly
   /// available, and returns a [Promise] which resolves once access to
@@ -181,7 +194,7 @@ extension PropsMIDIPort on MIDIPort {
   /// var output = midiAccess.outputs.get(portID);
   /// output.open(); // opens the port
   ///
-  external Promise<MIDIPort> open();
+  Promise<MIDIPort> open() => js_util.callMethod(this, 'open', []);
 
   ///  Makes the MIDI device connected to this [MIDIPort] unavailable,
   /// changing the [state] from ["open"] to ["closed"]. This returns a
@@ -189,7 +202,7 @@ extension PropsMIDIPort on MIDIPort {
   ///
   /// MIDIPort.close();
   ///
-  external Promise<MIDIPort> close();
+  Promise<MIDIPort> close() => js_util.callMethod(this, 'close', []);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -199,12 +212,15 @@ extension PropsMIDIPort on MIDIPort {
 @JS()
 @staticInterop
 class MIDIInput implements MIDIPort {
-  external factory MIDIInput();
+  external MIDIInput();
 }
 
 extension PropsMIDIInput on MIDIInput {
-  external EventHandlerNonNull? get onmidimessage;
-  external set onmidimessage(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onmidimessage =>
+      js_util.getProperty(this, 'onmidimessage');
+  set onmidimessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmidimessage', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -215,7 +231,7 @@ extension PropsMIDIInput on MIDIInput {
 @JS()
 @staticInterop
 class MIDIOutput implements MIDIPort {
-  external factory MIDIOutput();
+  external MIDIOutput();
 }
 
 extension PropsMIDIOutput on MIDIOutput {
@@ -223,13 +239,14 @@ extension PropsMIDIOutput on MIDIOutput {
   ///
   /// MIDIOutput.send(data, timestamp);
   ///
-  external Object send(Iterable<int> data, [double? timestamp = 0]);
+  Object send(Iterable<int> data, [double? timestamp = 0]) =>
+      js_util.callMethod(this, 'send', [data, timestamp]);
 
   /// Clears any pending send data from the queue.
   ///
   /// MIDIOutput.clear();
   ///
-  external Object clear();
+  Object clear() => js_util.callMethod(this, 'clear', []);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -243,8 +260,7 @@ extension PropsMIDIOutput on MIDIOutput {
 @JS()
 @staticInterop
 class MIDIMessageEvent implements Event {
-  external factory MIDIMessageEvent(String type,
-      [MIDIMessageEventInit? eventInitDict]);
+  external MIDIMessageEvent(String type, [MIDIMessageEventInit? eventInitDict]);
 }
 
 extension PropsMIDIMessageEvent on MIDIMessageEvent {
@@ -252,7 +268,7 @@ extension PropsMIDIMessageEvent on MIDIMessageEvent {
   /// message. See the MIDI specification for more information on its
   /// form.
   ///
-  external Uint8List get data;
+  Uint8List get data => js_util.getProperty(this, 'data');
 }
 
 @anonymous
@@ -263,8 +279,10 @@ class MIDIMessageEventInit implements EventInit {
 }
 
 extension PropsMIDIMessageEventInit on MIDIMessageEventInit {
-  external Uint8List get data;
-  external set data(Uint8List newValue);
+  Uint8List get data => js_util.getProperty(this, 'data');
+  set data(Uint8List newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -279,7 +297,7 @@ extension PropsMIDIMessageEventInit on MIDIMessageEventInit {
 @JS()
 @staticInterop
 class MIDIConnectionEvent implements Event {
-  external factory MIDIConnectionEvent(String type,
+  external MIDIConnectionEvent(String type,
       [MIDIConnectionEventInit? eventInitDict]);
 }
 
@@ -287,7 +305,7 @@ extension PropsMIDIConnectionEvent on MIDIConnectionEvent {
   ///  Returns a reference to a [MIDIPort] instance for a port that has
   /// been connected or disconnected."
   ///
-  external MIDIPort get port;
+  MIDIPort get port => js_util.getProperty(this, 'port');
 }
 
 @anonymous
@@ -298,6 +316,8 @@ class MIDIConnectionEventInit implements EventInit {
 }
 
 extension PropsMIDIConnectionEventInit on MIDIConnectionEventInit {
-  external MIDIPort get port;
-  external set port(MIDIPort newValue);
+  MIDIPort get port => js_util.getProperty(this, 'port');
+  set port(MIDIPort newValue) {
+    js_util.setProperty(this, 'port', newValue);
+  }
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library web_bluetooth;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -24,10 +25,15 @@ class BluetoothDataFilterInit {
 }
 
 extension PropsBluetoothDataFilterInit on BluetoothDataFilterInit {
-  external dynamic get dataPrefix;
-  external set dataPrefix(dynamic newValue);
-  external dynamic get mask;
-  external set mask(dynamic newValue);
+  dynamic get dataPrefix => js_util.getProperty(this, 'dataPrefix');
+  set dataPrefix(dynamic newValue) {
+    js_util.setProperty(this, 'dataPrefix', newValue);
+  }
+
+  dynamic get mask => js_util.getProperty(this, 'mask');
+  set mask(dynamic newValue) {
+    js_util.setProperty(this, 'mask', newValue);
+  }
 }
 
 @anonymous
@@ -39,8 +45,10 @@ class BluetoothManufacturerDataFilterInit implements BluetoothDataFilterInit {
 
 extension PropsBluetoothManufacturerDataFilterInit
     on BluetoothManufacturerDataFilterInit {
-  external int get companyIdentifier;
-  external set companyIdentifier(int newValue);
+  int get companyIdentifier => js_util.getProperty(this, 'companyIdentifier');
+  set companyIdentifier(int newValue) {
+    js_util.setProperty(this, 'companyIdentifier', newValue);
+  }
 }
 
 @anonymous
@@ -52,8 +60,10 @@ class BluetoothServiceDataFilterInit implements BluetoothDataFilterInit {
 
 extension PropsBluetoothServiceDataFilterInit
     on BluetoothServiceDataFilterInit {
-  external dynamic get service;
-  external set service(dynamic newValue);
+  dynamic get service => js_util.getProperty(this, 'service');
+  set service(dynamic newValue) {
+    js_util.setProperty(this, 'service', newValue);
+  }
 }
 
 @anonymous
@@ -69,17 +79,32 @@ class BluetoothLEScanFilterInit {
 }
 
 extension PropsBluetoothLEScanFilterInit on BluetoothLEScanFilterInit {
-  external Iterable<dynamic> get services;
-  external set services(Iterable<dynamic> newValue);
-  external String get name;
-  external set name(String newValue);
-  external String get namePrefix;
-  external set namePrefix(String newValue);
-  external Iterable<BluetoothManufacturerDataFilterInit> get manufacturerData;
-  external set manufacturerData(
-      Iterable<BluetoothManufacturerDataFilterInit> newValue);
-  external Iterable<BluetoothServiceDataFilterInit> get serviceData;
-  external set serviceData(Iterable<BluetoothServiceDataFilterInit> newValue);
+  Iterable<dynamic> get services => js_util.getProperty(this, 'services');
+  set services(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'services', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get namePrefix => js_util.getProperty(this, 'namePrefix');
+  set namePrefix(String newValue) {
+    js_util.setProperty(this, 'namePrefix', newValue);
+  }
+
+  Iterable<BluetoothManufacturerDataFilterInit> get manufacturerData =>
+      js_util.getProperty(this, 'manufacturerData');
+  set manufacturerData(Iterable<BluetoothManufacturerDataFilterInit> newValue) {
+    js_util.setProperty(this, 'manufacturerData', newValue);
+  }
+
+  Iterable<BluetoothServiceDataFilterInit> get serviceData =>
+      js_util.getProperty(this, 'serviceData');
+  set serviceData(Iterable<BluetoothServiceDataFilterInit> newValue) {
+    js_util.setProperty(this, 'serviceData', newValue);
+  }
 }
 
 @anonymous
@@ -94,14 +119,28 @@ class RequestDeviceOptions {
 }
 
 extension PropsRequestDeviceOptions on RequestDeviceOptions {
-  external Iterable<BluetoothLEScanFilterInit> get filters;
-  external set filters(Iterable<BluetoothLEScanFilterInit> newValue);
-  external Iterable<dynamic> get optionalServices;
-  external set optionalServices(Iterable<dynamic> newValue);
-  external Iterable<int> get optionalManufacturerData;
-  external set optionalManufacturerData(Iterable<int> newValue);
-  external bool get acceptAllDevices;
-  external set acceptAllDevices(bool newValue);
+  Iterable<BluetoothLEScanFilterInit> get filters =>
+      js_util.getProperty(this, 'filters');
+  set filters(Iterable<BluetoothLEScanFilterInit> newValue) {
+    js_util.setProperty(this, 'filters', newValue);
+  }
+
+  Iterable<dynamic> get optionalServices =>
+      js_util.getProperty(this, 'optionalServices');
+  set optionalServices(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'optionalServices', newValue);
+  }
+
+  Iterable<int> get optionalManufacturerData =>
+      js_util.getProperty(this, 'optionalManufacturerData');
+  set optionalManufacturerData(Iterable<int> newValue) {
+    js_util.setProperty(this, 'optionalManufacturerData', newValue);
+  }
+
+  bool get acceptAllDevices => js_util.getProperty(this, 'acceptAllDevices');
+  set acceptAllDevices(bool newValue) {
+    js_util.setProperty(this, 'acceptAllDevices', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -123,7 +162,7 @@ class Bluetooth
         BluetoothDeviceEventHandlers,
         CharacteristicEventHandlers,
         ServiceEventHandlers {
-  external factory Bluetooth();
+  external Bluetooth();
 }
 
 extension PropsBluetooth on Bluetooth {
@@ -139,9 +178,14 @@ extension PropsBluetooth on Bluetooth {
   ///
   /// var readerPromise = Bluetooth.getAvailability();
   ///
-  external Promise<bool> getAvailability();
-  external EventHandlerNonNull? get onavailabilitychanged;
-  external set onavailabilitychanged(EventHandlerNonNull? newValue);
+  Promise<bool> getAvailability() =>
+      js_util.callMethod(this, 'getAvailability', []);
+
+  EventHandlerNonNull? get onavailabilitychanged =>
+      js_util.getProperty(this, 'onavailabilitychanged');
+  set onavailabilitychanged(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onavailabilitychanged', newValue);
+  }
 
   ///
   ///     Returns a reference to the device, if any, from which the
@@ -153,7 +197,8 @@ extension PropsBluetooth on Bluetooth {
   ///    through [navigator.bluetooth.referringDevice].
   ///
   ///
-  external BluetoothDevice? get referringDevice;
+  BluetoothDevice? get referringDevice =>
+      js_util.getProperty(this, 'referringDevice');
 
   ///
   ///    Returns a [Promise] that resolved to an array of
@@ -164,7 +209,8 @@ extension PropsBluetooth on Bluetooth {
   ///
   /// var readerPromise = Bluetooth.getDevices();
   ///
-  external Iterable<Promise<BluetoothDevice>> getDevices();
+  Iterable<Promise<BluetoothDevice>> getDevices() =>
+      js_util.callMethod(this, 'getDevices', []);
 
   ///
   ///    Returns a [Promise] to a [BluetoothDevice] object with the
@@ -204,8 +250,8 @@ extension PropsBluetooth on Bluetooth {
   ///
   /// Detailed
   /// examples are in the specification.
-  external Promise<BluetoothDevice> requestDevice(
-      [RequestDeviceOptions? options]);
+  Promise<BluetoothDevice> requestDevice([RequestDeviceOptions? options]) =>
+      js_util.callMethod(this, 'requestDevice', [options]);
 }
 
 @anonymous
@@ -221,16 +267,33 @@ class BluetoothPermissionDescriptor implements PermissionDescriptor {
 }
 
 extension PropsBluetoothPermissionDescriptor on BluetoothPermissionDescriptor {
-  external String get deviceId;
-  external set deviceId(String newValue);
-  external Iterable<BluetoothLEScanFilterInit> get filters;
-  external set filters(Iterable<BluetoothLEScanFilterInit> newValue);
-  external Iterable<dynamic> get optionalServices;
-  external set optionalServices(Iterable<dynamic> newValue);
-  external Iterable<int> get optionalManufacturerData;
-  external set optionalManufacturerData(Iterable<int> newValue);
-  external bool get acceptAllDevices;
-  external set acceptAllDevices(bool newValue);
+  String get deviceId => js_util.getProperty(this, 'deviceId');
+  set deviceId(String newValue) {
+    js_util.setProperty(this, 'deviceId', newValue);
+  }
+
+  Iterable<BluetoothLEScanFilterInit> get filters =>
+      js_util.getProperty(this, 'filters');
+  set filters(Iterable<BluetoothLEScanFilterInit> newValue) {
+    js_util.setProperty(this, 'filters', newValue);
+  }
+
+  Iterable<dynamic> get optionalServices =>
+      js_util.getProperty(this, 'optionalServices');
+  set optionalServices(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'optionalServices', newValue);
+  }
+
+  Iterable<int> get optionalManufacturerData =>
+      js_util.getProperty(this, 'optionalManufacturerData');
+  set optionalManufacturerData(Iterable<int> newValue) {
+    js_util.setProperty(this, 'optionalManufacturerData', newValue);
+  }
+
+  bool get acceptAllDevices => js_util.getProperty(this, 'acceptAllDevices');
+  set acceptAllDevices(bool newValue) {
+    js_util.setProperty(this, 'acceptAllDevices', newValue);
+  }
 }
 
 @anonymous
@@ -245,14 +308,26 @@ class AllowedBluetoothDevice {
 }
 
 extension PropsAllowedBluetoothDevice on AllowedBluetoothDevice {
-  external String get deviceId;
-  external set deviceId(String newValue);
-  external bool get mayUseGATT;
-  external set mayUseGATT(bool newValue);
-  external dynamic get allowedServices;
-  external set allowedServices(dynamic newValue);
-  external Iterable<int> get allowedManufacturerData;
-  external set allowedManufacturerData(Iterable<int> newValue);
+  String get deviceId => js_util.getProperty(this, 'deviceId');
+  set deviceId(String newValue) {
+    js_util.setProperty(this, 'deviceId', newValue);
+  }
+
+  bool get mayUseGATT => js_util.getProperty(this, 'mayUseGATT');
+  set mayUseGATT(bool newValue) {
+    js_util.setProperty(this, 'mayUseGATT', newValue);
+  }
+
+  dynamic get allowedServices => js_util.getProperty(this, 'allowedServices');
+  set allowedServices(dynamic newValue) {
+    js_util.setProperty(this, 'allowedServices', newValue);
+  }
+
+  Iterable<int> get allowedManufacturerData =>
+      js_util.getProperty(this, 'allowedManufacturerData');
+  set allowedManufacturerData(Iterable<int> newValue) {
+    js_util.setProperty(this, 'allowedManufacturerData', newValue);
+  }
 }
 
 @anonymous
@@ -264,29 +339,34 @@ class BluetoothPermissionStorage {
 }
 
 extension PropsBluetoothPermissionStorage on BluetoothPermissionStorage {
-  external Iterable<AllowedBluetoothDevice> get allowedDevices;
-  external set allowedDevices(Iterable<AllowedBluetoothDevice> newValue);
+  Iterable<AllowedBluetoothDevice> get allowedDevices =>
+      js_util.getProperty(this, 'allowedDevices');
+  set allowedDevices(Iterable<AllowedBluetoothDevice> newValue) {
+    js_util.setProperty(this, 'allowedDevices', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class BluetoothPermissionResult implements PermissionStatus {
-  external factory BluetoothPermissionResult();
+  external BluetoothPermissionResult();
 }
 
 extension PropsBluetoothPermissionResult on BluetoothPermissionResult {
-  external Iterable<BluetoothDevice> get devices;
-  external set devices(Iterable<BluetoothDevice> newValue);
+  Iterable<BluetoothDevice> get devices => js_util.getProperty(this, 'devices');
+  set devices(Iterable<BluetoothDevice> newValue) {
+    js_util.setProperty(this, 'devices', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class ValueEvent implements Event {
-  external factory ValueEvent(String type, [ValueEventInit? initDict]);
+  external ValueEvent(String type, [ValueEventInit? initDict]);
 }
 
 extension PropsValueEvent on ValueEvent {
-  external dynamic get value;
+  dynamic get value => js_util.getProperty(this, 'value');
 }
 
 @anonymous
@@ -297,8 +377,10 @@ class ValueEventInit implements EventInit {
 }
 
 extension PropsValueEventInit on ValueEventInit {
-  external dynamic get value;
-  external set value(dynamic newValue);
+  dynamic get value => js_util.getProperty(this, 'value');
+  set value(dynamic newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -331,25 +413,25 @@ class BluetoothDevice
         BluetoothDeviceEventHandlers,
         CharacteristicEventHandlers,
         ServiceEventHandlers {
-  external factory BluetoothDevice();
+  external BluetoothDevice();
 }
 
 extension PropsBluetoothDevice on BluetoothDevice {
   /// A [DOMString] that uniquely identifies a device.
   ///
   @experimental
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  A [DOMString] that provides a human-readable name for the
   /// device.
   ///
   @experimental
-  external String? get name;
+  String? get name => js_util.getProperty(this, 'name');
 
   /// A reference to the device's [BluetoothRemoteGATTServer].
   ///
   @experimental
-  external BluetoothRemoteGATTServer? get gatt;
+  BluetoothRemoteGATTServer? get gatt => js_util.getProperty(this, 'gatt');
 
   ///
   ///    A [Promise] that resolves to [undefined] or is rejected with
@@ -357,9 +439,11 @@ extension PropsBluetoothDevice on BluetoothDevice {
   ///
   ///
   @experimental
-  external Promise<Object> watchAdvertisements(
-      [WatchAdvertisementsOptions? options]);
-  external bool get watchingAdvertisements;
+  Promise<Object> watchAdvertisements([WatchAdvertisementsOptions? options]) =>
+      js_util.callMethod(this, 'watchAdvertisements', [options]);
+
+  bool get watchingAdvertisements =>
+      js_util.getProperty(this, 'watchingAdvertisements');
 }
 
 @anonymous
@@ -370,38 +454,42 @@ class WatchAdvertisementsOptions {
 }
 
 extension PropsWatchAdvertisementsOptions on WatchAdvertisementsOptions {
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class BluetoothManufacturerDataMap {
-  external factory BluetoothManufacturerDataMap();
+  external BluetoothManufacturerDataMap();
 }
 
 @JS()
 @staticInterop
 class BluetoothServiceDataMap {
-  external factory BluetoothServiceDataMap();
+  external BluetoothServiceDataMap();
 }
 
 @JS()
 @staticInterop
 class BluetoothAdvertisingEvent implements Event {
-  external factory BluetoothAdvertisingEvent(
+  external BluetoothAdvertisingEvent(
       String type, BluetoothAdvertisingEventInit init);
 }
 
 extension PropsBluetoothAdvertisingEvent on BluetoothAdvertisingEvent {
-  external BluetoothDevice get device;
-  external Iterable<String> get uuids;
-  external String? get name;
-  external int? get appearance;
-  external int? get txPower;
-  external int? get rssi;
-  external BluetoothManufacturerDataMap get manufacturerData;
-  external BluetoothServiceDataMap get serviceData;
+  BluetoothDevice get device => js_util.getProperty(this, 'device');
+  Iterable<String> get uuids => js_util.getProperty(this, 'uuids');
+  String? get name => js_util.getProperty(this, 'name');
+  int? get appearance => js_util.getProperty(this, 'appearance');
+  int? get txPower => js_util.getProperty(this, 'txPower');
+  int? get rssi => js_util.getProperty(this, 'rssi');
+  BluetoothManufacturerDataMap get manufacturerData =>
+      js_util.getProperty(this, 'manufacturerData');
+  BluetoothServiceDataMap get serviceData =>
+      js_util.getProperty(this, 'serviceData');
 }
 
 @anonymous
@@ -420,22 +508,47 @@ class BluetoothAdvertisingEventInit implements EventInit {
 }
 
 extension PropsBluetoothAdvertisingEventInit on BluetoothAdvertisingEventInit {
-  external BluetoothDevice get device;
-  external set device(BluetoothDevice newValue);
-  external dynamic get uuids;
-  external set uuids(dynamic newValue);
-  external String get name;
-  external set name(String newValue);
-  external int get appearance;
-  external set appearance(int newValue);
-  external int get txPower;
-  external set txPower(int newValue);
-  external int get rssi;
-  external set rssi(int newValue);
-  external BluetoothManufacturerDataMap get manufacturerData;
-  external set manufacturerData(BluetoothManufacturerDataMap newValue);
-  external BluetoothServiceDataMap get serviceData;
-  external set serviceData(BluetoothServiceDataMap newValue);
+  BluetoothDevice get device => js_util.getProperty(this, 'device');
+  set device(BluetoothDevice newValue) {
+    js_util.setProperty(this, 'device', newValue);
+  }
+
+  dynamic get uuids => js_util.getProperty(this, 'uuids');
+  set uuids(dynamic newValue) {
+    js_util.setProperty(this, 'uuids', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  int get appearance => js_util.getProperty(this, 'appearance');
+  set appearance(int newValue) {
+    js_util.setProperty(this, 'appearance', newValue);
+  }
+
+  int get txPower => js_util.getProperty(this, 'txPower');
+  set txPower(int newValue) {
+    js_util.setProperty(this, 'txPower', newValue);
+  }
+
+  int get rssi => js_util.getProperty(this, 'rssi');
+  set rssi(int newValue) {
+    js_util.setProperty(this, 'rssi', newValue);
+  }
+
+  BluetoothManufacturerDataMap get manufacturerData =>
+      js_util.getProperty(this, 'manufacturerData');
+  set manufacturerData(BluetoothManufacturerDataMap newValue) {
+    js_util.setProperty(this, 'manufacturerData', newValue);
+  }
+
+  BluetoothServiceDataMap get serviceData =>
+      js_util.getProperty(this, 'serviceData');
+  set serviceData(BluetoothServiceDataMap newValue) {
+    js_util.setProperty(this, 'serviceData', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -455,13 +568,13 @@ extension PropsBluetoothAdvertisingEventInit on BluetoothAdvertisingEventInit {
 @JS()
 @staticInterop
 class BluetoothRemoteGATTServer {
-  external factory BluetoothRemoteGATTServer();
+  external BluetoothRemoteGATTServer();
 }
 
 extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
   /// A reference to the [BluetoothDevice] running the server.
   ///
-  external BluetoothDevice get device;
+  BluetoothDevice get device => js_util.getProperty(this, 'device');
 
   ///
   ///     A boolean value that returns true while this script execution
@@ -471,7 +584,7 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
   ///    physically connected.
   ///
   ///
-  external bool get connected;
+  bool get connected => js_util.getProperty(this, 'connected');
 
   ///  Causes the script execution environment to connect to
   /// [this.device].
@@ -479,14 +592,15 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
   /// BluetoothRemoteGATTServer.connect()
   ///  .then(function(bluetoothRemoteGATTServer) { /* ... */ })
   ///
-  external Promise<BluetoothRemoteGATTServer> connect();
+  Promise<BluetoothRemoteGATTServer> connect() =>
+      js_util.callMethod(this, 'connect', []);
 
   ///  Causes the script execution environment to disconnect from
   /// [this.device].
   ///
   /// BluetoothRemoteGATTServer.disconnect()
   ///
-  external Object disconnect();
+  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
 
   ///
   ///     Returns a promise to the primary [BluetoothRemoteGATTService]
@@ -496,8 +610,8 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
   ///
   /// BluetoothRemoteGATTServer.getPrimaryService(bluetoothServiceUUID).then(function(bluetoothGATTService) { /* ... */ })
   ///
-  external Promise<BluetoothRemoteGATTService> getPrimaryService(
-      dynamic service);
+  Promise<BluetoothRemoteGATTService> getPrimaryService(dynamic service) =>
+      js_util.callMethod(this, 'getPrimaryService', [service]);
 
   ///
   ///     Returns a promise to a list of primary
@@ -508,8 +622,9 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
   ///
   /// BluetoothRemoteGATTServer.getPrimaryServices(bluetoothServiceUUID).then(function(bluetoothGATTServices) { /* ... */ })
   ///
-  external Iterable<Promise<BluetoothRemoteGATTService>> getPrimaryServices(
-      [dynamic service]);
+  Iterable<Promise<BluetoothRemoteGATTService>> getPrimaryServices(
+          [dynamic service]) =>
+      js_util.callMethod(this, 'getPrimaryServices', [service]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -533,7 +648,7 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
 @staticInterop
 class BluetoothRemoteGATTService
     implements EventTarget, CharacteristicEventHandlers, ServiceEventHandlers {
-  external factory BluetoothRemoteGATTService();
+  external BluetoothRemoteGATTService();
 }
 
 extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
@@ -543,11 +658,11 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
   ///    [BluetoothDevice].
   ///
   ///
-  external BluetoothDevice get device;
+  BluetoothDevice get device => js_util.getProperty(this, 'device');
 
   /// Returns a [DOMString] representing the UUID of this service.
   ///
-  external String get uuid;
+  String get uuid => js_util.getProperty(this, 'uuid');
 
   ///
   ///     Returns a boolean value indicating whether this is a primary
@@ -555,7 +670,7 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
   ///    service.
   ///
   ///
-  external bool get isPrimary;
+  bool get isPrimary => js_util.getProperty(this, 'isPrimary');
 
   ///
   ///    Returns a [Promise] to an instance of
@@ -566,8 +681,9 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
   ///
   /// bluetoothGATTServiceInstance.getCharacteristic(characteristic).then(function(BluetoothGATTCharacteristic) { /* ... */ } )
   ///
-  external Promise<BluetoothRemoteGATTCharacteristic> getCharacteristic(
-      dynamic characteristic);
+  Promise<BluetoothRemoteGATTCharacteristic> getCharacteristic(
+          dynamic characteristic) =>
+      js_util.callMethod(this, 'getCharacteristic', [characteristic]);
 
   ///
   ///    Returns a [Promise] to an [Array] of
@@ -578,12 +694,16 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
   ///
   /// bluetoothGATTServiceInstance.getCharacteristics(characteristics).then(function(BluetoothGATTCharacteristic[]) { /* ... */ } )
   ///
-  external Iterable<Promise<BluetoothRemoteGATTCharacteristic>>
-      getCharacteristics([dynamic characteristic]);
-  external Promise<BluetoothRemoteGATTService> getIncludedService(
-      dynamic service);
-  external Iterable<Promise<BluetoothRemoteGATTService>> getIncludedServices(
-      [dynamic service]);
+  Iterable<Promise<BluetoothRemoteGATTCharacteristic>> getCharacteristics(
+          [dynamic characteristic]) =>
+      js_util.callMethod(this, 'getCharacteristics', [characteristic]);
+
+  Promise<BluetoothRemoteGATTService> getIncludedService(dynamic service) =>
+      js_util.callMethod(this, 'getIncludedService', [service]);
+
+  Iterable<Promise<BluetoothRemoteGATTService>> getIncludedServices(
+          [dynamic service]) =>
+      js_util.callMethod(this, 'getIncludedServices', [service]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -598,7 +718,7 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
 @staticInterop
 class BluetoothRemoteGATTCharacteristic
     implements EventTarget, CharacteristicEventHandlers {
-  external factory BluetoothRemoteGATTCharacteristic();
+  external BluetoothRemoteGATTCharacteristic();
 }
 
 extension PropsBluetoothRemoteGATTCharacteristic
@@ -606,31 +726,33 @@ extension PropsBluetoothRemoteGATTCharacteristic
   ///  Returns the [BluetoothRemoteGATTService] this characteristic
   /// belongs to.
   ///
-  external BluetoothRemoteGATTService get service;
+  BluetoothRemoteGATTService get service =>
+      js_util.getProperty(this, 'service');
 
   ///  Returns a [DOMString] containing the UUID of the characteristic,
   /// for example ['00002a37-0000-1000-8000-00805f9b34fb'] for the
   /// Heart Rate Measurement characteristic.
   ///
-  external String get uuid;
+  String get uuid => js_util.getProperty(this, 'uuid');
 
   /// Returns the properties of this characteristic.
   ///
-  external BluetoothCharacteristicProperties get properties;
+  BluetoothCharacteristicProperties get properties =>
+      js_util.getProperty(this, 'properties');
 
   ///  The currently cached characteristic value. This value gets
   /// updated when the value of the characteristic is read or updated
   /// via a notification or indication.
   ///
-  external ByteData? get value;
+  ByteData? get value => js_util.getProperty(this, 'value');
 
   ///  Returns a [Promise] that resolves to the first
   /// [BluetoothRemoteGATTDescriptor] for a given descriptor UUID.
   ///
   /// BluetoothRemoteGATTCharacteristic.getDescriptor(bluetoothDescriptorUUID).then(function(bluetoothGATTDescriptor) { /* ... */ })
   ///
-  external Promise<BluetoothRemoteGATTDescriptor> getDescriptor(
-      dynamic descriptor);
+  Promise<BluetoothRemoteGATTDescriptor> getDescriptor(dynamic descriptor) =>
+      js_util.callMethod(this, 'getDescriptor', [descriptor]);
 
   ///  Returns a [Promise] that resolves to an [Array] of all
   /// [BluetoothRemoteGATTDescriptor] objects for a given descriptor
@@ -638,8 +760,9 @@ extension PropsBluetoothRemoteGATTCharacteristic
   ///
   /// BluetoothRemoteGATTCharacteristic.getDescriptors(bluetoothDescriptorUUID).then(function(bluetoothGATTDescriptors[]) { /* ... */ })
   ///
-  external Iterable<Promise<BluetoothRemoteGATTDescriptor>> getDescriptors(
-      [dynamic descriptor]);
+  Iterable<Promise<BluetoothRemoteGATTDescriptor>> getDescriptors(
+          [dynamic descriptor]) =>
+      js_util.callMethod(this, 'getDescriptors', [descriptor]);
 
   ///  Returns a [Promise] that resolves to an [ArrayBuffer] holding a
   /// duplicate of the [value] property if it is available and
@@ -647,24 +770,32 @@ extension PropsBluetoothRemoteGATTCharacteristic
   ///
   /// BluetoothRemoteGATTCharacteristic.readValue().then(function(dataView) { /* ... */ })
   ///
-  external Promise<ByteData> readValue();
-  external Promise<Object> writeValue(dynamic value);
-  external Promise<Object> writeValueWithResponse(dynamic value);
-  external Promise<Object> writeValueWithoutResponse(dynamic value);
+  Promise<ByteData> readValue() => js_util.callMethod(this, 'readValue', []);
+
+  Promise<Object> writeValue(dynamic value) =>
+      js_util.callMethod(this, 'writeValue', [value]);
+
+  Promise<Object> writeValueWithResponse(dynamic value) =>
+      js_util.callMethod(this, 'writeValueWithResponse', [value]);
+
+  Promise<Object> writeValueWithoutResponse(dynamic value) =>
+      js_util.callMethod(this, 'writeValueWithoutResponse', [value]);
 
   ///  Returns a [Promise] when [navigator.bluetooth] is added to the
   /// active notification context.
   ///
   /// BluetoothRemoteGATTCharacteristic.startNotifications().then(function(BluetoothRemoteGATTCharacteristic) { /* ... */ })
   ///
-  external Promise<BluetoothRemoteGATTCharacteristic> startNotifications();
+  Promise<BluetoothRemoteGATTCharacteristic> startNotifications() =>
+      js_util.callMethod(this, 'startNotifications', []);
 
   ///  Returns a [Promise] when [navigator.bluetooth] is removed from
   /// the active notification context.
   ///
   /// BluetoothRemoteGATTCharacteristic.stopNotifications().then(function(BluetoothRemoteGATTCharacteristic) { /* ... */ })
   ///
-  external Promise<BluetoothRemoteGATTCharacteristic> stopNotifications();
+  Promise<BluetoothRemoteGATTCharacteristic> stopNotifications() =>
+      js_util.callMethod(this, 'stopNotifications', []);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -680,7 +811,7 @@ extension PropsBluetoothRemoteGATTCharacteristic
 @JS()
 @staticInterop
 class BluetoothCharacteristicProperties {
-  external factory BluetoothCharacteristicProperties();
+  external BluetoothCharacteristicProperties();
 }
 
 extension PropsBluetoothCharacteristicProperties
@@ -689,47 +820,50 @@ extension PropsBluetoothCharacteristicProperties
   /// characteristic value is permitted using the Server Characteristic
   /// Configuration Descriptor.
   ///
-  external bool get broadcast;
+  bool get broadcast => js_util.getProperty(this, 'broadcast');
 
   ///  Returns a [boolean] that is [true] if the reading of the
   /// characteristic value is permitted.
   ///
-  external bool get read;
+  bool get read => js_util.getProperty(this, 'read');
 
   ///  Returns a [boolean] that is [true] if the writing to the
   /// characteristic without response is permitted.
   ///
-  external bool get writeWithoutResponse;
+  bool get writeWithoutResponse =>
+      js_util.getProperty(this, 'writeWithoutResponse');
 
   ///  Returns a [boolean] that is [true] if the writing to the
   /// characteristic with response is permitted.
   ///
-  external bool get write;
+  bool get write => js_util.getProperty(this, 'write');
 
   ///  Returns a [boolean] that is [true] if notifications of the
   /// characteristic value without acknowledgement is permitted.
   ///
-  external bool get notify;
+  bool get notify => js_util.getProperty(this, 'notify');
 
   ///  Returns a [boolean] that is [true] if indications of the
   /// characteristic value with acknowledgement is permitted.
   ///
-  external bool get indicate;
+  bool get indicate => js_util.getProperty(this, 'indicate');
 
   ///  Returns a [boolean] that is [true] if signed writing to the
   /// characteristic value is permitted.
   ///
-  external bool get authenticatedSignedWrites;
+  bool get authenticatedSignedWrites =>
+      js_util.getProperty(this, 'authenticatedSignedWrites');
 
   ///  Returns a [boolean] that is [true] if reliable writes to the
   /// characteristic is permitted.
   ///
-  external bool get reliableWrite;
+  bool get reliableWrite => js_util.getProperty(this, 'reliableWrite');
 
   ///  Returns a [boolean] that is [true] if reliable writes to the
   /// characteristic descriptor is permitted.
   ///
-  external bool get writableAuxiliaries;
+  bool get writableAuxiliaries =>
+      js_util.getProperty(this, 'writableAuxiliaries');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -751,7 +885,7 @@ extension PropsBluetoothCharacteristicProperties
 @JS()
 @staticInterop
 class BluetoothRemoteGATTDescriptor {
-  external factory BluetoothRemoteGATTDescriptor();
+  external BluetoothRemoteGATTDescriptor();
 }
 
 extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
@@ -761,7 +895,8 @@ extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
   ///    to.
   ///
   ///
-  external BluetoothRemoteGATTCharacteristic get characteristic;
+  BluetoothRemoteGATTCharacteristic get characteristic =>
+      js_util.getProperty(this, 'characteristic');
 
   ///
   ///    Returns the UUID of the characteristic descriptor, for
@@ -770,7 +905,7 @@ extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
   ///    Characteristic Configuration descriptor.
   ///
   ///
-  external String get uuid;
+  String get uuid => js_util.getProperty(this, 'uuid');
 
   ///
   ///     Returns the currently cached descriptor value. This value
@@ -778,7 +913,7 @@ extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
   ///    value of the descriptor is read.
   ///
   ///
-  external ByteData? get value;
+  ByteData? get value => js_util.getProperty(this, 'value');
 
   ///
   ///    Returns a [Promise] that resolves to
@@ -789,7 +924,7 @@ extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
   ///
   /// BluetoothRemoteGATTDescriptor.readValue().then(function(value[]) { /* ... */ })
   ///
-  external Promise<ByteData> readValue();
+  Promise<ByteData> readValue() => js_util.callMethod(this, 'readValue', []);
 
   ///
   ///     Sets the value property to the bytes contained in an
@@ -799,46 +934,68 @@ extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
   ///
   /// BluetoothRemoteGATTDescriptor.writeValue(array[]).then(function() { /* ... */ })
   ///
-  external Promise<Object> writeValue(dynamic value);
+  Promise<Object> writeValue(dynamic value) =>
+      js_util.callMethod(this, 'writeValue', [value]);
 }
 
 @JS()
 @staticInterop
 class CharacteristicEventHandlers {
-  external factory CharacteristicEventHandlers();
+  external CharacteristicEventHandlers();
 }
 
 extension PropsCharacteristicEventHandlers on CharacteristicEventHandlers {
-  external EventHandlerNonNull? get oncharacteristicvaluechanged;
-  external set oncharacteristicvaluechanged(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get oncharacteristicvaluechanged =>
+      js_util.getProperty(this, 'oncharacteristicvaluechanged');
+  set oncharacteristicvaluechanged(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncharacteristicvaluechanged', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class BluetoothDeviceEventHandlers {
-  external factory BluetoothDeviceEventHandlers();
+  external BluetoothDeviceEventHandlers();
 }
 
 extension PropsBluetoothDeviceEventHandlers on BluetoothDeviceEventHandlers {
-  external EventHandlerNonNull? get onadvertisementreceived;
-  external set onadvertisementreceived(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ongattserverdisconnected;
-  external set ongattserverdisconnected(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onadvertisementreceived =>
+      js_util.getProperty(this, 'onadvertisementreceived');
+  set onadvertisementreceived(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onadvertisementreceived', newValue);
+  }
+
+  EventHandlerNonNull? get ongattserverdisconnected =>
+      js_util.getProperty(this, 'ongattserverdisconnected');
+  set ongattserverdisconnected(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ongattserverdisconnected', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class ServiceEventHandlers {
-  external factory ServiceEventHandlers();
+  external ServiceEventHandlers();
 }
 
 extension PropsServiceEventHandlers on ServiceEventHandlers {
-  external EventHandlerNonNull? get onserviceadded;
-  external set onserviceadded(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onservicechanged;
-  external set onservicechanged(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onserviceremoved;
-  external set onserviceremoved(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onserviceadded =>
+      js_util.getProperty(this, 'onserviceadded');
+  set onserviceadded(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onserviceadded', newValue);
+  }
+
+  EventHandlerNonNull? get onservicechanged =>
+      js_util.getProperty(this, 'onservicechanged');
+  set onservicechanged(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onservicechanged', newValue);
+  }
+
+  EventHandlerNonNull? get onserviceremoved =>
+      js_util.getProperty(this, 'onserviceremoved');
+  set onserviceremoved(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onserviceremoved', newValue);
+  }
 }
 
 ///
@@ -849,7 +1006,7 @@ extension PropsServiceEventHandlers on ServiceEventHandlers {
 @JS()
 @staticInterop
 class BluetoothUUID {
-  external factory BluetoothUUID();
+  external BluetoothUUID();
 }
 
 extension PropsBluetoothUUID on BluetoothUUID {

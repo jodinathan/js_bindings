@@ -5,6 +5,7 @@
 @staticInterop
 library o_v_r_multiview2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -45,7 +46,7 @@ class OVR_multiview2 {
   external static int get FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR;
   external static int get MAX_VIEWS_OVR;
   external static int get FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR;
-  external factory OVR_multiview2();
+  external OVR_multiview2();
 }
 
 extension PropsOVR_multiview2 on OVR_multiview2 {
@@ -54,6 +55,8 @@ extension PropsOVR_multiview2 on OVR_multiview2 {
   ///
   /// void ext.framebufferTextureMultiviewOVR(target, attachment, texture, level, baseViewIndex, numViews);
   ///
-  external Object framebufferTextureMultiviewOVR(int target, int attachment,
-      WebGLTexture? texture, int level, int baseViewIndex, int numViews);
+  Object framebufferTextureMultiviewOVR(int target, int attachment,
+          WebGLTexture? texture, int level, int baseViewIndex, int numViews) =>
+      js_util.callMethod(this, 'framebufferTextureMultiviewOVR',
+          [target, attachment, texture, level, baseViewIndex, numViews]);
 }

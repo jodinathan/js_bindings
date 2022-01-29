@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_draw_buffers;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -62,7 +63,7 @@ class WEBGL_draw_buffers {
   external static int get DRAW_BUFFER15_WEBGL;
   external static int get MAX_COLOR_ATTACHMENTS_WEBGL;
   external static int get MAX_DRAW_BUFFERS_WEBGL;
-  external factory WEBGL_draw_buffers();
+  external WEBGL_draw_buffers();
 }
 
 extension PropsWEBGL_draw_buffers on WEBGL_draw_buffers {
@@ -72,5 +73,6 @@ extension PropsWEBGL_draw_buffers on WEBGL_draw_buffers {
   ///
   /// void gl.getExtension('WEBGL_draw_buffers').drawBuffersWEBGL(buffers);
   ///
-  external Object drawBuffersWEBGL(Iterable<int> buffers);
+  Object drawBuffersWEBGL(Iterable<int> buffers) =>
+      js_util.callMethod(this, 'drawBuffersWEBGL', [buffers]);
 }

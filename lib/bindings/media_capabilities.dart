@@ -5,6 +5,7 @@
 @staticInterop
 library media_capabilities;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -29,10 +30,15 @@ class MediaConfiguration {
 }
 
 extension PropsMediaConfiguration on MediaConfiguration {
-  external VideoConfiguration get video;
-  external set video(VideoConfiguration newValue);
-  external AudioConfiguration get audio;
-  external set audio(AudioConfiguration newValue);
+  VideoConfiguration get video => js_util.getProperty(this, 'video');
+  set video(VideoConfiguration newValue) {
+    js_util.setProperty(this, 'video', newValue);
+  }
+
+  AudioConfiguration get audio => js_util.getProperty(this, 'audio');
+  set audio(AudioConfiguration newValue) {
+    js_util.setProperty(this, 'audio', newValue);
+  }
 }
 
 ///  The dictionary of the Media Capabilities API is used to define
@@ -50,11 +56,16 @@ class MediaDecodingConfiguration implements MediaConfiguration {
 }
 
 extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
-  external MediaDecodingType get type;
-  external set type(MediaDecodingType newValue);
-  external MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration;
-  external set keySystemConfiguration(
-      MediaCapabilitiesKeySystemConfiguration newValue);
+  MediaDecodingType get type => js_util.getProperty(this, 'type');
+  set type(MediaDecodingType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration =>
+      js_util.getProperty(this, 'keySystemConfiguration');
+  set keySystemConfiguration(MediaCapabilitiesKeySystemConfiguration newValue) {
+    js_util.setProperty(this, 'keySystemConfiguration', newValue);
+  }
 }
 
 ///  The dictionary of the Media Capabilities API is used to define
@@ -70,8 +81,10 @@ class MediaEncodingConfiguration implements MediaConfiguration {
 }
 
 extension PropsMediaEncodingConfiguration on MediaEncodingConfiguration {
-  external MediaEncodingType get type;
-  external set type(MediaEncodingType newValue);
+  MediaEncodingType get type => js_util.getProperty(this, 'type');
+  set type(MediaEncodingType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 enum MediaDecodingType { file, mediaSource, webrtc }
@@ -103,26 +116,57 @@ class VideoConfiguration {
 }
 
 extension PropsVideoConfiguration on VideoConfiguration {
-  external String get contentType;
-  external set contentType(String newValue);
-  external int get width;
-  external set width(int newValue);
-  external int get height;
-  external set height(int newValue);
-  external int get bitrate;
-  external set bitrate(int newValue);
-  external double get framerate;
-  external set framerate(double newValue);
-  external bool get hasAlphaChannel;
-  external set hasAlphaChannel(bool newValue);
-  external HdrMetadataType get hdrMetadataType;
-  external set hdrMetadataType(HdrMetadataType newValue);
-  external ColorGamut get colorGamut;
-  external set colorGamut(ColorGamut newValue);
-  external TransferFunction get transferFunction;
-  external set transferFunction(TransferFunction newValue);
-  external String get scalabilityMode;
-  external set scalabilityMode(String newValue);
+  String get contentType => js_util.getProperty(this, 'contentType');
+  set contentType(String newValue) {
+    js_util.setProperty(this, 'contentType', newValue);
+  }
+
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
+
+  int get bitrate => js_util.getProperty(this, 'bitrate');
+  set bitrate(int newValue) {
+    js_util.setProperty(this, 'bitrate', newValue);
+  }
+
+  double get framerate => js_util.getProperty(this, 'framerate');
+  set framerate(double newValue) {
+    js_util.setProperty(this, 'framerate', newValue);
+  }
+
+  bool get hasAlphaChannel => js_util.getProperty(this, 'hasAlphaChannel');
+  set hasAlphaChannel(bool newValue) {
+    js_util.setProperty(this, 'hasAlphaChannel', newValue);
+  }
+
+  HdrMetadataType get hdrMetadataType =>
+      js_util.getProperty(this, 'hdrMetadataType');
+  set hdrMetadataType(HdrMetadataType newValue) {
+    js_util.setProperty(this, 'hdrMetadataType', newValue);
+  }
+
+  ColorGamut get colorGamut => js_util.getProperty(this, 'colorGamut');
+  set colorGamut(ColorGamut newValue) {
+    js_util.setProperty(this, 'colorGamut', newValue);
+  }
+
+  TransferFunction get transferFunction =>
+      js_util.getProperty(this, 'transferFunction');
+  set transferFunction(TransferFunction newValue) {
+    js_util.setProperty(this, 'transferFunction', newValue);
+  }
+
+  String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
+  set scalabilityMode(String newValue) {
+    js_util.setProperty(this, 'scalabilityMode', newValue);
+  }
 }
 
 enum HdrMetadataType { smpteSt2086, smpteSt209410, smpteSt209440 }
@@ -149,16 +193,30 @@ class AudioConfiguration {
 }
 
 extension PropsAudioConfiguration on AudioConfiguration {
-  external String get contentType;
-  external set contentType(String newValue);
-  external String get channels;
-  external set channels(String newValue);
-  external int get bitrate;
-  external set bitrate(int newValue);
-  external int get samplerate;
-  external set samplerate(int newValue);
-  external bool get spatialRendering;
-  external set spatialRendering(bool newValue);
+  String get contentType => js_util.getProperty(this, 'contentType');
+  set contentType(String newValue) {
+    js_util.setProperty(this, 'contentType', newValue);
+  }
+
+  String get channels => js_util.getProperty(this, 'channels');
+  set channels(String newValue) {
+    js_util.setProperty(this, 'channels', newValue);
+  }
+
+  int get bitrate => js_util.getProperty(this, 'bitrate');
+  set bitrate(int newValue) {
+    js_util.setProperty(this, 'bitrate', newValue);
+  }
+
+  int get samplerate => js_util.getProperty(this, 'samplerate');
+  set samplerate(int newValue) {
+    js_util.setProperty(this, 'samplerate', newValue);
+  }
+
+  bool get spatialRendering => js_util.getProperty(this, 'spatialRendering');
+  set spatialRendering(bool newValue) {
+    js_util.setProperty(this, 'spatialRendering', newValue);
+  }
 }
 
 @anonymous
@@ -178,20 +236,43 @@ class MediaCapabilitiesKeySystemConfiguration {
 
 extension PropsMediaCapabilitiesKeySystemConfiguration
     on MediaCapabilitiesKeySystemConfiguration {
-  external String get keySystem;
-  external set keySystem(String newValue);
-  external String get initDataType;
-  external set initDataType(String newValue);
-  external MediaKeysRequirement get distinctiveIdentifier;
-  external set distinctiveIdentifier(MediaKeysRequirement newValue);
-  external MediaKeysRequirement get persistentState;
-  external set persistentState(MediaKeysRequirement newValue);
-  external Iterable<String> get sessionTypes;
-  external set sessionTypes(Iterable<String> newValue);
-  external KeySystemTrackConfiguration get audio;
-  external set audio(KeySystemTrackConfiguration newValue);
-  external KeySystemTrackConfiguration get video;
-  external set video(KeySystemTrackConfiguration newValue);
+  String get keySystem => js_util.getProperty(this, 'keySystem');
+  set keySystem(String newValue) {
+    js_util.setProperty(this, 'keySystem', newValue);
+  }
+
+  String get initDataType => js_util.getProperty(this, 'initDataType');
+  set initDataType(String newValue) {
+    js_util.setProperty(this, 'initDataType', newValue);
+  }
+
+  MediaKeysRequirement get distinctiveIdentifier =>
+      js_util.getProperty(this, 'distinctiveIdentifier');
+  set distinctiveIdentifier(MediaKeysRequirement newValue) {
+    js_util.setProperty(this, 'distinctiveIdentifier', newValue);
+  }
+
+  MediaKeysRequirement get persistentState =>
+      js_util.getProperty(this, 'persistentState');
+  set persistentState(MediaKeysRequirement newValue) {
+    js_util.setProperty(this, 'persistentState', newValue);
+  }
+
+  Iterable<String> get sessionTypes =>
+      js_util.getProperty(this, 'sessionTypes');
+  set sessionTypes(Iterable<String> newValue) {
+    js_util.setProperty(this, 'sessionTypes', newValue);
+  }
+
+  KeySystemTrackConfiguration get audio => js_util.getProperty(this, 'audio');
+  set audio(KeySystemTrackConfiguration newValue) {
+    js_util.setProperty(this, 'audio', newValue);
+  }
+
+  KeySystemTrackConfiguration get video => js_util.getProperty(this, 'video');
+  set video(KeySystemTrackConfiguration newValue) {
+    js_util.setProperty(this, 'video', newValue);
+  }
 }
 
 @anonymous
@@ -203,10 +284,15 @@ class KeySystemTrackConfiguration {
 }
 
 extension PropsKeySystemTrackConfiguration on KeySystemTrackConfiguration {
-  external String get robustness;
-  external set robustness(String newValue);
-  external String? get encryptionScheme;
-  external set encryptionScheme(String? newValue);
+  String get robustness => js_util.getProperty(this, 'robustness');
+  set robustness(String newValue) {
+    js_util.setProperty(this, 'robustness', newValue);
+  }
+
+  String? get encryptionScheme => js_util.getProperty(this, 'encryptionScheme');
+  set encryptionScheme(String? newValue) {
+    js_util.setProperty(this, 'encryptionScheme', newValue);
+  }
 }
 
 @anonymous
@@ -218,12 +304,20 @@ class MediaCapabilitiesInfo {
 }
 
 extension PropsMediaCapabilitiesInfo on MediaCapabilitiesInfo {
-  external bool get supported;
-  external set supported(bool newValue);
-  external bool get smooth;
-  external set smooth(bool newValue);
-  external bool get powerEfficient;
-  external set powerEfficient(bool newValue);
+  bool get supported => js_util.getProperty(this, 'supported');
+  set supported(bool newValue) {
+    js_util.setProperty(this, 'supported', newValue);
+  }
+
+  bool get smooth => js_util.getProperty(this, 'smooth');
+  set smooth(bool newValue) {
+    js_util.setProperty(this, 'smooth', newValue);
+  }
+
+  bool get powerEfficient => js_util.getProperty(this, 'powerEfficient');
+  set powerEfficient(bool newValue) {
+    js_util.setProperty(this, 'powerEfficient', newValue);
+  }
 }
 
 @anonymous
@@ -236,10 +330,17 @@ class MediaCapabilitiesDecodingInfo implements MediaCapabilitiesInfo {
 }
 
 extension PropsMediaCapabilitiesDecodingInfo on MediaCapabilitiesDecodingInfo {
-  external MediaKeySystemAccess get keySystemAccess;
-  external set keySystemAccess(MediaKeySystemAccess newValue);
-  external MediaDecodingConfiguration get configuration;
-  external set configuration(MediaDecodingConfiguration newValue);
+  MediaKeySystemAccess get keySystemAccess =>
+      js_util.getProperty(this, 'keySystemAccess');
+  set keySystemAccess(MediaKeySystemAccess newValue) {
+    js_util.setProperty(this, 'keySystemAccess', newValue);
+  }
+
+  MediaDecodingConfiguration get configuration =>
+      js_util.getProperty(this, 'configuration');
+  set configuration(MediaDecodingConfiguration newValue) {
+    js_util.setProperty(this, 'configuration', newValue);
+  }
 }
 
 @anonymous
@@ -251,8 +352,11 @@ class MediaCapabilitiesEncodingInfo implements MediaCapabilitiesInfo {
 }
 
 extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
-  external MediaEncodingConfiguration get configuration;
-  external set configuration(MediaEncodingConfiguration newValue);
+  MediaEncodingConfiguration get configuration =>
+      js_util.getProperty(this, 'configuration');
+  set configuration(MediaEncodingConfiguration newValue) {
+    js_util.setProperty(this, 'configuration', newValue);
+  }
 }
 
 ///  The interface of the Media Capabilities API provides information
@@ -268,7 +372,7 @@ extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
 @JS()
 @staticInterop
 class MediaCapabilities {
-  external factory MediaCapabilities();
+  external MediaCapabilities();
 }
 
 extension PropsMediaCapabilities on MediaCapabilities {
@@ -297,8 +401,9 @@ extension PropsMediaCapabilities on MediaCapabilities {
   ///     (result.powerEfficient ? '' : 'not ') + 'power efficient.')
   /// });
   ///
-  external Promise<MediaCapabilitiesDecodingInfo> decodingInfo(
-      MediaDecodingConfiguration configuration);
+  Promise<MediaCapabilitiesDecodingInfo> decodingInfo(
+          MediaDecodingConfiguration configuration) =>
+      js_util.callMethod(this, 'decodingInfo', [configuration]);
 
   ///  When passed a valid media configuration, it returns a promise
   /// with information as to whether the media type is supported, and
@@ -326,6 +431,7 @@ extension PropsMediaCapabilities on MediaCapabilities {
   ///     (result.powerEfficient ? '' : 'not ') + 'power efficient.')
   /// });
   ///
-  external Promise<MediaCapabilitiesEncodingInfo> encodingInfo(
-      MediaEncodingConfiguration configuration);
+  Promise<MediaCapabilitiesEncodingInfo> encodingInfo(
+          MediaEncodingConfiguration configuration) =>
+      js_util.callMethod(this, 'encodingInfo', [configuration]);
 }

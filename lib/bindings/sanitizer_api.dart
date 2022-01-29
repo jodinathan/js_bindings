@@ -5,6 +5,7 @@
 @staticInterop
 library sanitizer_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -36,7 +37,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class Sanitizer {
-  external factory Sanitizer([SanitizerConfig? config]);
+  external Sanitizer([SanitizerConfig? config]);
 }
 
 extension PropsSanitizer on Sanitizer {
@@ -45,9 +46,14 @@ extension PropsSanitizer on Sanitizer {
   ///
   /// sanitize(input)
   ///
-  external DocumentFragment sanitize(dynamic input);
-  external String sanitizeToString(dynamic input);
-  external SanitizerConfig config();
+  DocumentFragment sanitize(dynamic input) =>
+      js_util.callMethod(this, 'sanitize', [input]);
+
+  String sanitizeToString(dynamic input) =>
+      js_util.callMethod(this, 'sanitizeToString', [input]);
+
+  SanitizerConfig config() => js_util.callMethod(this, 'config', []);
+
   external static SanitizerConfig defaultConfig();
 }
 
@@ -65,16 +71,37 @@ class SanitizerConfig {
 }
 
 extension PropsSanitizerConfig on SanitizerConfig {
-  external Iterable<String> get allowElements;
-  external set allowElements(Iterable<String> newValue);
-  external Iterable<String> get blockElements;
-  external set blockElements(Iterable<String> newValue);
-  external Iterable<String> get dropElements;
-  external set dropElements(Iterable<String> newValue);
-  external dynamic get allowAttributes;
-  external set allowAttributes(dynamic newValue);
-  external dynamic get dropAttributes;
-  external set dropAttributes(dynamic newValue);
-  external bool get allowCustomElements;
-  external set allowCustomElements(bool newValue);
+  Iterable<String> get allowElements =>
+      js_util.getProperty(this, 'allowElements');
+  set allowElements(Iterable<String> newValue) {
+    js_util.setProperty(this, 'allowElements', newValue);
+  }
+
+  Iterable<String> get blockElements =>
+      js_util.getProperty(this, 'blockElements');
+  set blockElements(Iterable<String> newValue) {
+    js_util.setProperty(this, 'blockElements', newValue);
+  }
+
+  Iterable<String> get dropElements =>
+      js_util.getProperty(this, 'dropElements');
+  set dropElements(Iterable<String> newValue) {
+    js_util.setProperty(this, 'dropElements', newValue);
+  }
+
+  dynamic get allowAttributes => js_util.getProperty(this, 'allowAttributes');
+  set allowAttributes(dynamic newValue) {
+    js_util.setProperty(this, 'allowAttributes', newValue);
+  }
+
+  dynamic get dropAttributes => js_util.getProperty(this, 'dropAttributes');
+  set dropAttributes(dynamic newValue) {
+    js_util.setProperty(this, 'dropAttributes', newValue);
+  }
+
+  bool get allowCustomElements =>
+      js_util.getProperty(this, 'allowCustomElements');
+  set allowCustomElements(bool newValue) {
+    js_util.setProperty(this, 'allowCustomElements', newValue);
+  }
 }

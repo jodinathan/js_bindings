@@ -5,6 +5,7 @@
 @staticInterop
 library scroll_animations_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -31,27 +32,40 @@ class ScrollTimelineOptions {
 }
 
 extension PropsScrollTimelineOptions on ScrollTimelineOptions {
-  external Element? get source;
-  external set source(Element? newValue);
-  external ScrollDirection get orientation;
-  external set orientation(ScrollDirection newValue);
-  external Iterable<dynamic> get scrollOffsets;
-  external set scrollOffsets(Iterable<dynamic> newValue);
-  external dynamic get timeRange;
-  external set timeRange(dynamic newValue);
+  Element? get source => js_util.getProperty(this, 'source');
+  set source(Element? newValue) {
+    js_util.setProperty(this, 'source', newValue);
+  }
+
+  ScrollDirection get orientation => js_util.getProperty(this, 'orientation');
+  set orientation(ScrollDirection newValue) {
+    js_util.setProperty(this, 'orientation', newValue);
+  }
+
+  Iterable<dynamic> get scrollOffsets =>
+      js_util.getProperty(this, 'scrollOffsets');
+  set scrollOffsets(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'scrollOffsets', newValue);
+  }
+
+  dynamic get timeRange => js_util.getProperty(this, 'timeRange');
+  set timeRange(dynamic newValue) {
+    js_util.setProperty(this, 'timeRange', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class ScrollTimeline implements AnimationTimeline {
-  external factory ScrollTimeline([ScrollTimelineOptions? options]);
+  external ScrollTimeline([ScrollTimelineOptions? options]);
 }
 
 extension PropsScrollTimeline on ScrollTimeline {
-  external Element? get source;
-  external ScrollDirection get orientation;
-  external Iterable<dynamic> get scrollOffsets;
-  external dynamic get timeRange;
+  Element? get source => js_util.getProperty(this, 'source');
+  ScrollDirection get orientation => js_util.getProperty(this, 'orientation');
+  Iterable<dynamic> get scrollOffsets =>
+      js_util.getProperty(this, 'scrollOffsets');
+  dynamic get timeRange => js_util.getProperty(this, 'timeRange');
 }
 
 enum Edge { start, end }
@@ -65,24 +79,32 @@ class ElementBasedOffset {
 }
 
 extension PropsElementBasedOffset on ElementBasedOffset {
-  external Element get target;
-  external set target(Element newValue);
-  external Edge get edge;
-  external set edge(Edge newValue);
-  external double get threshold;
-  external set threshold(double newValue);
+  Element get target => js_util.getProperty(this, 'target');
+  set target(Element newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
+
+  Edge get edge => js_util.getProperty(this, 'edge');
+  set edge(Edge newValue) {
+    js_util.setProperty(this, 'edge', newValue);
+  }
+
+  double get threshold => js_util.getProperty(this, 'threshold');
+  set threshold(double newValue) {
+    js_util.setProperty(this, 'threshold', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CSSScrollTimelineRule implements CSSRule {
-  external factory CSSScrollTimelineRule();
+  external CSSScrollTimelineRule();
 }
 
 extension PropsCSSScrollTimelineRule on CSSScrollTimelineRule {
-  external String get name;
-  external String get source;
-  external String get orientation;
-  external String get scrollOffsets;
-  external String get timeRange;
+  String get name => js_util.getProperty(this, 'name');
+  String get source => js_util.getProperty(this, 'source');
+  String get orientation => js_util.getProperty(this, 'orientation');
+  String get scrollOffsets => js_util.getProperty(this, 'scrollOffsets');
+  String get timeRange => js_util.getProperty(this, 'timeRange');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library o_e_s_texture_half_float;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -27,5 +28,5 @@ import 'all_bindings.dart';
 @staticInterop
 class OES_texture_half_float {
   external static int get HALF_FLOAT_OES;
-  external factory OES_texture_half_float();
+  external OES_texture_half_float();
 }

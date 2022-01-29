@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_compressed_texture_etc1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -28,5 +29,5 @@ import 'all_bindings.dart';
 @staticInterop
 class WEBGL_compressed_texture_etc1 {
   external static int get COMPRESSED_RGB_ETC1_WEBGL;
-  external factory WEBGL_compressed_texture_etc1();
+  external WEBGL_compressed_texture_etc1();
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library ua_client_hints;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -20,10 +21,15 @@ class NavigatorUABrandVersion {
 }
 
 extension PropsNavigatorUABrandVersion on NavigatorUABrandVersion {
-  external String get brand;
-  external set brand(String newValue);
-  external String get version;
-  external set version(String newValue);
+  String get brand => js_util.getProperty(this, 'brand');
+  set brand(String newValue) {
+    js_util.setProperty(this, 'brand', newValue);
+  }
+
+  String get version => js_util.getProperty(this, 'version');
+  set version(String newValue) {
+    js_util.setProperty(this, 'version', newValue);
+  }
 }
 
 @anonymous
@@ -42,22 +48,46 @@ class UADataValues {
 }
 
 extension PropsUADataValues on UADataValues {
-  external Iterable<NavigatorUABrandVersion> get brands;
-  external set brands(Iterable<NavigatorUABrandVersion> newValue);
-  external bool get mobile;
-  external set mobile(bool newValue);
-  external String get platform;
-  external set platform(String newValue);
-  external String get architecture;
-  external set architecture(String newValue);
-  external String get bitness;
-  external set bitness(String newValue);
-  external String get model;
-  external set model(String newValue);
-  external String get platformVersion;
-  external set platformVersion(String newValue);
-  external String get uaFullVersion;
-  external set uaFullVersion(String newValue);
+  Iterable<NavigatorUABrandVersion> get brands =>
+      js_util.getProperty(this, 'brands');
+  set brands(Iterable<NavigatorUABrandVersion> newValue) {
+    js_util.setProperty(this, 'brands', newValue);
+  }
+
+  bool get mobile => js_util.getProperty(this, 'mobile');
+  set mobile(bool newValue) {
+    js_util.setProperty(this, 'mobile', newValue);
+  }
+
+  String get platform => js_util.getProperty(this, 'platform');
+  set platform(String newValue) {
+    js_util.setProperty(this, 'platform', newValue);
+  }
+
+  String get architecture => js_util.getProperty(this, 'architecture');
+  set architecture(String newValue) {
+    js_util.setProperty(this, 'architecture', newValue);
+  }
+
+  String get bitness => js_util.getProperty(this, 'bitness');
+  set bitness(String newValue) {
+    js_util.setProperty(this, 'bitness', newValue);
+  }
+
+  String get model => js_util.getProperty(this, 'model');
+  set model(String newValue) {
+    js_util.setProperty(this, 'model', newValue);
+  }
+
+  String get platformVersion => js_util.getProperty(this, 'platformVersion');
+  set platformVersion(String newValue) {
+    js_util.setProperty(this, 'platformVersion', newValue);
+  }
+
+  String get uaFullVersion => js_util.getProperty(this, 'uaFullVersion');
+  set uaFullVersion(String newValue) {
+    js_util.setProperty(this, 'uaFullVersion', newValue);
+  }
 }
 
 @anonymous
@@ -69,12 +99,21 @@ class UALowEntropyJSON {
 }
 
 extension PropsUALowEntropyJSON on UALowEntropyJSON {
-  external Iterable<NavigatorUABrandVersion> get brands;
-  external set brands(Iterable<NavigatorUABrandVersion> newValue);
-  external bool get mobile;
-  external set mobile(bool newValue);
-  external String get platform;
-  external set platform(String newValue);
+  Iterable<NavigatorUABrandVersion> get brands =>
+      js_util.getProperty(this, 'brands');
+  set brands(Iterable<NavigatorUABrandVersion> newValue) {
+    js_util.setProperty(this, 'brands', newValue);
+  }
+
+  bool get mobile => js_util.getProperty(this, 'mobile');
+  set mobile(bool newValue) {
+    js_util.setProperty(this, 'mobile', newValue);
+  }
+
+  String get platform => js_util.getProperty(this, 'platform');
+  set platform(String newValue) {
+    js_util.setProperty(this, 'platform', newValue);
+  }
 }
 
 ///  The interface of the [User-Agent Client Hints API] returns
@@ -95,44 +134,47 @@ extension PropsUALowEntropyJSON on UALowEntropyJSON {
 @JS()
 @staticInterop
 class NavigatorUAData {
-  external factory NavigatorUAData();
+  external NavigatorUAData();
 }
 
 extension PropsNavigatorUAData on NavigatorUAData {
   ///  Returns an array of brand information containing the browser
   /// name and version.
   ///
-  external Iterable<NavigatorUABrandVersion> get brands;
+  Iterable<NavigatorUABrandVersion> get brands =>
+      js_util.getProperty(this, 'brands');
 
   /// Returns [true] if the user-agent is running on a mobile device.
   ///
-  external bool get mobile;
+  bool get mobile => js_util.getProperty(this, 'mobile');
 
   /// Returns the platform brand the user-agent is running on.
   ///
-  external String get platform;
+  String get platform => js_util.getProperty(this, 'platform');
 
   ///  Returns a [Promise] that resolves with a dictionary object
   /// containing the high entropy values the user-agent returns.
   ///
   /// NavigatorUAData.getHighEntropyValues(hints);
   ///
-  external Promise<UADataValues> getHighEntropyValues(Iterable<String> hints);
+  Promise<UADataValues> getHighEntropyValues(Iterable<String> hints) =>
+      js_util.callMethod(this, 'getHighEntropyValues', [hints]);
 
   ///  A serializer that returns a JSON representation of the low
   /// entropy properties of the [NavigatorUAData] object.
   ///
   /// NavigatorUAData.toJSON();
   ///
-  external UALowEntropyJSON toJSON();
+  UALowEntropyJSON toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 @JS()
 @staticInterop
 class NavigatorUA {
-  external factory NavigatorUA();
+  external NavigatorUA();
 }
 
 extension PropsNavigatorUA on NavigatorUA {
-  external NavigatorUAData get userAgentData;
+  NavigatorUAData get userAgentData =>
+      js_util.getProperty(this, 'userAgentData');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_disjoint_timer_query_webgl2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -20,10 +21,11 @@ class EXT_disjoint_timer_query_webgl2 {
   external static int get TIME_ELAPSED_EXT;
   external static int get TIMESTAMP_EXT;
   external static int get GPU_DISJOINT_EXT;
-  external factory EXT_disjoint_timer_query_webgl2();
+  external EXT_disjoint_timer_query_webgl2();
 }
 
 extension PropsEXT_disjoint_timer_query_webgl2
     on EXT_disjoint_timer_query_webgl2 {
-  external Object queryCounterEXT(WebGLQuery query, int target);
+  Object queryCounterEXT(WebGLQuery query, int target) =>
+      js_util.callMethod(this, 'queryCounterEXT', [query, target]);
 }

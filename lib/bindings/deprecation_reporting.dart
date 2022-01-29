@@ -5,6 +5,7 @@
 @staticInterop
 library deprecation_reporting;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -24,7 +25,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class DeprecationReportBody implements ReportBody {
-  external factory DeprecationReportBody();
+  external DeprecationReportBody();
 }
 
 extension PropsDeprecationReportBody on DeprecationReportBody {
@@ -34,20 +35,21 @@ extension PropsDeprecationReportBody on DeprecationReportBody {
   /// DeprecationReportBody.toJSON();
   ///
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  A string representing the feature or API that is deprecated, for
   /// example [NavigatorGetUserMedia]. This can be used to group
   /// reports by deprecated feature.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  A [Date] object (rendered as a string) representing the date
   /// when the feature is expected to be removed from the current
   /// browser. If the date is not known, this property will return
   /// [null].
   ///
-  external dynamic get anticipatedRemoval;
+  dynamic get anticipatedRemoval =>
+      js_util.getProperty(this, 'anticipatedRemoval');
 
   ///  A string containing a human-readable description of the
   /// deprecation, including information such as what newer feature has
@@ -55,20 +57,20 @@ extension PropsDeprecationReportBody on DeprecationReportBody {
   /// browser will display in its DevTools console when a deprecated
   /// feature is used, if one is available.
   ///
-  external String get message;
+  String get message => js_util.getProperty(this, 'message');
 
   ///  A string containing the path to the source file where the
   /// deprecated feature was used, if known, or [null] otherwise.
   ///
-  external String? get sourceFile;
+  String? get sourceFile => js_util.getProperty(this, 'sourceFile');
 
   ///  A number representing the line in the source file in which the
   /// deprecated feature was used, if known, or [null] otherwise.
   ///
-  external int? get lineNumber;
+  int? get lineNumber => js_util.getProperty(this, 'lineNumber');
 
   ///  A number representing the column in the source file in which the
   /// deprecated feature was used, if known, or [null] otherwise.
   ///
-  external int? get columnNumber;
+  int? get columnNumber => js_util.getProperty(this, 'columnNumber');
 }

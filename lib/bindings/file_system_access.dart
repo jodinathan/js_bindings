@@ -5,6 +5,7 @@
 @staticInterop
 library file_system_access;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -29,10 +30,15 @@ class FileSystemPermissionDescriptor implements PermissionDescriptor {
 
 extension PropsFileSystemPermissionDescriptor
     on FileSystemPermissionDescriptor {
-  external FileSystemHandle get handle;
-  external set handle(FileSystemHandle newValue);
-  external FileSystemPermissionMode get mode;
-  external set mode(FileSystemPermissionMode newValue);
+  FileSystemHandle get handle => js_util.getProperty(this, 'handle');
+  set handle(FileSystemHandle newValue) {
+    js_util.setProperty(this, 'handle', newValue);
+  }
+
+  FileSystemPermissionMode get mode => js_util.getProperty(this, 'mode');
+  set mode(FileSystemPermissionMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
 }
 
 @anonymous
@@ -45,8 +51,10 @@ class FileSystemHandlePermissionDescriptor {
 
 extension PropsFileSystemHandlePermissionDescriptor
     on FileSystemHandlePermissionDescriptor {
-  external FileSystemPermissionMode get mode;
-  external set mode(FileSystemPermissionMode newValue);
+  FileSystemPermissionMode get mode => js_util.getProperty(this, 'mode');
+  set mode(FileSystemPermissionMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
 }
 
 enum FileSystemHandleKind { file, directory }
@@ -61,39 +69,42 @@ enum FileSystemHandleKind { file, directory }
 @JS()
 @staticInterop
 class FileSystemHandle {
-  external factory FileSystemHandle();
+  external FileSystemHandle();
 }
 
 extension PropsFileSystemHandle on FileSystemHandle {
   ///  Returns the type of entry. This is ['file'] if the associated
   /// entry is a file or ['directory'].
   ///
-  external FileSystemHandleKind get kind;
+  FileSystemHandleKind get kind => js_util.getProperty(this, 'kind');
 
   /// Returns the name of the associated entry.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  Compares two [handles] to see if the associated entries (either
   /// a file or directory) match.
   ///
   /// var Boolean = FileSystemHandle1.isSameEntry(FileSystemHandle2);
   ///
-  external Promise<bool> isSameEntry(FileSystemHandle other);
+  Promise<bool> isSameEntry(FileSystemHandle other) =>
+      js_util.callMethod(this, 'isSameEntry', [other]);
 
   /// Queries the current permission state of the current handle.
   ///
   /// var PermissionState = FileSystemHandle.queryPermission(FileSystemHandlePermissionDescriptor);
   ///
-  external Promise<PermissionState> queryPermission(
-      [FileSystemHandlePermissionDescriptor? descriptor]);
+  Promise<PermissionState> queryPermission(
+          [FileSystemHandlePermissionDescriptor? descriptor]) =>
+      js_util.callMethod(this, 'queryPermission', [descriptor]);
 
   /// Requests read or readwrite permissions for the file handle.
   ///
   /// var PermissionState = FileSystemHandle.requestPermission(FileSystemHandlePermissionDescriptor);
   ///
-  external Promise<PermissionState> requestPermission(
-      [FileSystemHandlePermissionDescriptor? descriptor]);
+  Promise<PermissionState> requestPermission(
+          [FileSystemHandlePermissionDescriptor? descriptor]) =>
+      js_util.callMethod(this, 'requestPermission', [descriptor]);
 }
 
 @anonymous
@@ -106,8 +117,10 @@ class FileSystemCreateWritableOptions {
 
 extension PropsFileSystemCreateWritableOptions
     on FileSystemCreateWritableOptions {
-  external bool get keepExistingData;
-  external set keepExistingData(bool newValue);
+  bool get keepExistingData => js_util.getProperty(this, 'keepExistingData');
+  set keepExistingData(bool newValue) {
+    js_util.setProperty(this, 'keepExistingData', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -123,7 +136,7 @@ extension PropsFileSystemCreateWritableOptions
 @JS()
 @staticInterop
 class FileSystemFileHandle implements FileSystemHandle {
-  external factory FileSystemFileHandle();
+  external FileSystemFileHandle();
 }
 
 extension PropsFileSystemFileHandle on FileSystemFileHandle {
@@ -135,7 +148,7 @@ extension PropsFileSystemFileHandle on FileSystemFileHandle {
   ///
   /// const filePromise = FileSystemFileHandle.getFile();
   ///
-  external Promise<File> getFile();
+  Promise<File> getFile() => js_util.callMethod(this, 'getFile', []);
 
   ///
   ///     Returns a [Promise] which resolves to a newly created
@@ -145,8 +158,9 @@ extension PropsFileSystemFileHandle on FileSystemFileHandle {
   ///
   /// const fileStreamPromise = FileSystemFileHandle.createWritable();
   ///
-  external Promise<FileSystemWritableFileStream> createWritable(
-      [FileSystemCreateWritableOptions? options]);
+  Promise<FileSystemWritableFileStream> createWritable(
+          [FileSystemCreateWritableOptions? options]) =>
+      js_util.callMethod(this, 'createWritable', [options]);
 }
 
 @anonymous
@@ -157,8 +171,10 @@ class FileSystemGetFileOptions {
 }
 
 extension PropsFileSystemGetFileOptions on FileSystemGetFileOptions {
-  external bool get create;
-  external set create(bool newValue);
+  bool get create => js_util.getProperty(this, 'create');
+  set create(bool newValue) {
+    js_util.setProperty(this, 'create', newValue);
+  }
 }
 
 @anonymous
@@ -169,8 +185,10 @@ class FileSystemGetDirectoryOptions {
 }
 
 extension PropsFileSystemGetDirectoryOptions on FileSystemGetDirectoryOptions {
-  external bool get create;
-  external set create(bool newValue);
+  bool get create => js_util.getProperty(this, 'create');
+  set create(bool newValue) {
+    js_util.setProperty(this, 'create', newValue);
+  }
 }
 
 @anonymous
@@ -181,8 +199,10 @@ class FileSystemRemoveOptions {
 }
 
 extension PropsFileSystemRemoveOptions on FileSystemRemoveOptions {
-  external bool get recursive;
-  external set recursive(bool newValue);
+  bool get recursive => js_util.getProperty(this, 'recursive');
+  set recursive(bool newValue) {
+    js_util.setProperty(this, 'recursive', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -193,7 +213,7 @@ extension PropsFileSystemRemoveOptions on FileSystemRemoveOptions {
 @JS()
 @staticInterop
 class FileSystemDirectoryHandle implements FileSystemHandle {
-  external factory FileSystemDirectoryHandle();
+  external FileSystemDirectoryHandle();
 }
 
 extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
@@ -202,8 +222,9 @@ extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
   ///
   /// var FileSystemFileHandle = FileSystemDirectoryHandle.getFileHandle(name);
   ///
-  external Promise<FileSystemFileHandle> getFileHandle(String name,
-      [FileSystemGetFileOptions? options]);
+  Promise<FileSystemFileHandle> getFileHandle(String name,
+          [FileSystemGetFileOptions? options]) =>
+      js_util.callMethod(this, 'getFileHandle', [name, options]);
 
   ///  Returns a [FileSystemDirectoryHandle] for a subdirectory with
   /// the specified name within the directory handle on which the
@@ -211,16 +232,18 @@ extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
   ///
   /// var FileSystemDirectoryHandle = FileSystemDirectoryHandle.getDirectoryHandle();
   ///
-  external Promise<FileSystemDirectoryHandle> getDirectoryHandle(String name,
-      [FileSystemGetDirectoryOptions? options]);
+  Promise<FileSystemDirectoryHandle> getDirectoryHandle(String name,
+          [FileSystemGetDirectoryOptions? options]) =>
+      js_util.callMethod(this, 'getDirectoryHandle', [name, options]);
 
   ///  Attempts to remove an entry if the directory handle contains a
   /// file or directory called the name specified.
   ///
   /// FileSystemDirectoryHandle.removeEntry(name).then...
   ///
-  external Promise<Object> removeEntry(String name,
-      [FileSystemRemoveOptions? options]);
+  Promise<Object> removeEntry(String name,
+          [FileSystemRemoveOptions? options]) =>
+      js_util.callMethod(this, 'removeEntry', [name, options]);
 
   ///  Returns an [Array] of directory names from the parent handle to
   /// the specified child entry, with the name of the child entry as
@@ -228,8 +251,8 @@ extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
   ///
   /// var pathArr = FileSystemDirectoryHandle.resolve(possibleDescendant);
   ///
-  external Iterable<Promise<String>> resolve(
-      FileSystemHandle possibleDescendant);
+  Iterable<Promise<String>> resolve(FileSystemHandle possibleDescendant) =>
+      js_util.callMethod(this, 'resolve', [possibleDescendant]);
 }
 
 enum WriteCommandType { write, seek, truncate }
@@ -243,14 +266,25 @@ class WriteParams {
 }
 
 extension PropsWriteParams on WriteParams {
-  external WriteCommandType get type;
-  external set type(WriteCommandType newValue);
-  external int? get size;
-  external set size(int? newValue);
-  external int? get position;
-  external set position(int? newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  WriteCommandType get type => js_util.getProperty(this, 'type');
+  set type(WriteCommandType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  int? get size => js_util.getProperty(this, 'size');
+  set size(int? newValue) {
+    js_util.setProperty(this, 'size', newValue);
+  }
+
+  int? get position => js_util.getProperty(this, 'position');
+  set position(int? newValue) {
+    js_util.setProperty(this, 'position', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -263,7 +297,7 @@ extension PropsWriteParams on WriteParams {
 @JS()
 @staticInterop
 class FileSystemWritableFileStream implements WritableStream {
-  external factory FileSystemWritableFileStream();
+  external FileSystemWritableFileStream();
 }
 
 extension PropsFileSystemWritableFileStream on FileSystemWritableFileStream {
@@ -272,21 +306,24 @@ extension PropsFileSystemWritableFileStream on FileSystemWritableFileStream {
   ///
   /// FileSystemWritableFileStream.write(data).then(...);
   ///
-  external Promise<Object> write(dynamic data);
+  Promise<Object> write(dynamic data) =>
+      js_util.callMethod(this, 'write', [data]);
 
   ///  Updates the current file cursor offset to the position (in
   /// bytes) specified.
   ///
   /// FileSystemWritableStream.seek(position).then(...);
   ///
-  external Promise<Object> seek(int position);
+  Promise<Object> seek(int position) =>
+      js_util.callMethod(this, 'seek', [position]);
 
   ///  Resizes the file associated with the stream to be the specified
   /// size in bytes.
   ///
   /// FileSystemWritableFileStream.truncate().then(...);
   ///
-  external Promise<Object> truncate(int size);
+  Promise<Object> truncate(int size) =>
+      js_util.callMethod(this, 'truncate', [size]);
 }
 
 enum WellKnownDirectory {
@@ -306,10 +343,15 @@ class FilePickerAcceptType {
 }
 
 extension PropsFilePickerAcceptType on FilePickerAcceptType {
-  external String get description;
-  external set description(String newValue);
-  external dynamic get accept;
-  external set accept(dynamic newValue);
+  String get description => js_util.getProperty(this, 'description');
+  set description(String newValue) {
+    js_util.setProperty(this, 'description', newValue);
+  }
+
+  dynamic get accept => js_util.getProperty(this, 'accept');
+  set accept(dynamic newValue) {
+    js_util.setProperty(this, 'accept', newValue);
+  }
 }
 
 @anonymous
@@ -324,14 +366,27 @@ class FilePickerOptions {
 }
 
 extension PropsFilePickerOptions on FilePickerOptions {
-  external Iterable<FilePickerAcceptType> get types;
-  external set types(Iterable<FilePickerAcceptType> newValue);
-  external bool get excludeAcceptAllOption;
-  external set excludeAcceptAllOption(bool newValue);
-  external String get id;
-  external set id(String newValue);
-  external dynamic get startIn;
-  external set startIn(dynamic newValue);
+  Iterable<FilePickerAcceptType> get types =>
+      js_util.getProperty(this, 'types');
+  set types(Iterable<FilePickerAcceptType> newValue) {
+    js_util.setProperty(this, 'types', newValue);
+  }
+
+  bool get excludeAcceptAllOption =>
+      js_util.getProperty(this, 'excludeAcceptAllOption');
+  set excludeAcceptAllOption(bool newValue) {
+    js_util.setProperty(this, 'excludeAcceptAllOption', newValue);
+  }
+
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  dynamic get startIn => js_util.getProperty(this, 'startIn');
+  set startIn(dynamic newValue) {
+    js_util.setProperty(this, 'startIn', newValue);
+  }
 }
 
 @anonymous
@@ -342,8 +397,10 @@ class OpenFilePickerOptions implements FilePickerOptions {
 }
 
 extension PropsOpenFilePickerOptions on OpenFilePickerOptions {
-  external bool get multiple;
-  external set multiple(bool newValue);
+  bool get multiple => js_util.getProperty(this, 'multiple');
+  set multiple(bool newValue) {
+    js_util.setProperty(this, 'multiple', newValue);
+  }
 }
 
 @anonymous
@@ -354,8 +411,10 @@ class SaveFilePickerOptions implements FilePickerOptions {
 }
 
 extension PropsSaveFilePickerOptions on SaveFilePickerOptions {
-  external String? get suggestedName;
-  external set suggestedName(String? newValue);
+  String? get suggestedName => js_util.getProperty(this, 'suggestedName');
+  set suggestedName(String? newValue) {
+    js_util.setProperty(this, 'suggestedName', newValue);
+  }
 }
 
 @anonymous
@@ -366,8 +425,13 @@ class DirectoryPickerOptions {
 }
 
 extension PropsDirectoryPickerOptions on DirectoryPickerOptions {
-  external String get id;
-  external set id(String newValue);
-  external dynamic get startIn;
-  external set startIn(dynamic newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  dynamic get startIn => js_util.getProperty(this, 'startIn');
+  set startIn(dynamic newValue) {
+    js_util.setProperty(this, 'startIn', newValue);
+  }
 }

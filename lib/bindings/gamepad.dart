@@ -5,6 +5,7 @@
 @staticInterop
 library gamepad;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -27,48 +28,50 @@ gamepad_extensions */
 @JS()
 @staticInterop
 class Gamepad {
-  external factory Gamepad();
+  external Gamepad();
 }
 
 extension PropsGamepad on Gamepad {
   ///  A [DOMString] containing identifying information about the
   /// controller.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  An integer that is auto-incremented to be unique for each device
   /// currently connected to the system.
   ///
-  external int get index;
+  int get index => js_util.getProperty(this, 'index');
 
   ///  A boolean indicating whether the gamepad is still connected to
   /// the system.
   ///
-  external bool get connected;
+  bool get connected => js_util.getProperty(this, 'connected');
 
   ///  A [DOMHighResTimeStamp] representing the last time the data for
   /// this gamepad was updated.
   ///
-  external double get timestamp;
+  double get timestamp => js_util.getProperty(this, 'timestamp');
 
   ///  A string indicating whether the browser has remapped the
   /// controls on the device to a known layout.
   ///
-  external GamepadMappingType get mapping;
+  GamepadMappingType get mapping => js_util.getProperty(this, 'mapping');
 
   ///  An array representing the controls with axes present on the
   /// device (e.g. analog thumb sticks).
   ///
-  external Iterable<double> get axes;
+  Iterable<double> get axes => js_util.getProperty(this, 'axes');
 
   ///  An array of [gamepadButton] objects representing the buttons
   /// present on the device.
   ///
-  external Iterable<GamepadButton> get buttons;
-  external GamepadHand get hand;
-  external Iterable<GamepadHapticActuator> get hapticActuators;
-  external GamepadPose? get pose;
-  external Iterable<GamepadTouch> get touchEvents;
+  Iterable<GamepadButton> get buttons => js_util.getProperty(this, 'buttons');
+  GamepadHand get hand => js_util.getProperty(this, 'hand');
+  Iterable<GamepadHapticActuator> get hapticActuators =>
+      js_util.getProperty(this, 'hapticActuators');
+  GamepadPose? get pose => js_util.getProperty(this, 'pose');
+  Iterable<GamepadTouch> get touchEvents =>
+      js_util.getProperty(this, 'touchEvents');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -81,19 +84,19 @@ extension PropsGamepad on Gamepad {
 @JS()
 @staticInterop
 class GamepadButton {
-  external factory GamepadButton();
+  external GamepadButton();
 }
 
 extension PropsGamepadButton on GamepadButton {
   ///  A boolean value indicating whether the button is currently
   /// pressed ([true]) or unpressed ([false]).
   ///
-  external bool get pressed;
+  bool get pressed => js_util.getProperty(this, 'pressed');
 
   ///  A boolean value indicating whether the button is currently
   /// touched ([true]) or not touched ([false]).
   ///
-  external bool get touched;
+  bool get touched => js_util.getProperty(this, 'touched');
 
   ///  A double value used to represent the current state of analog
   /// buttons, such as the triggers on many modern gamepads. The values
@@ -101,7 +104,7 @@ extension PropsGamepadButton on GamepadButton {
   /// button that is not pressed, and 1.0 representing a button that is
   /// fully pressed.
   ///
-  external double get value;
+  double get value => js_util.getProperty(this, 'value');
 }
 
 enum GamepadMappingType { empty, standard, xrStandard }
@@ -115,14 +118,14 @@ enum GamepadMappingType { empty, standard, xrStandard }
 @JS()
 @staticInterop
 class GamepadEvent implements Event {
-  external factory GamepadEvent(String type, GamepadEventInit eventInitDict);
+  external GamepadEvent(String type, GamepadEventInit eventInitDict);
 }
 
 extension PropsGamepadEvent on GamepadEvent {
   ///  Returns a [Gamepad] object, providing access to the associated
   /// gamepad data for the event fired.
   ///
-  external Gamepad get gamepad;
+  Gamepad get gamepad => js_util.getProperty(this, 'gamepad');
 }
 
 @anonymous
@@ -133,6 +136,8 @@ class GamepadEventInit implements EventInit {
 }
 
 extension PropsGamepadEventInit on GamepadEventInit {
-  external Gamepad get gamepad;
-  external set gamepad(Gamepad newValue);
+  Gamepad get gamepad => js_util.getProperty(this, 'gamepad');
+  set gamepad(Gamepad newValue) {
+    js_util.setProperty(this, 'gamepad', newValue);
+  }
 }

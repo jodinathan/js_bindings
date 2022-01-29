@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_blend_equation_advanced_coherent;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -30,5 +31,5 @@ class WEBGL_blend_equation_advanced_coherent {
   external static int get HSL_SATURATION;
   external static int get HSL_COLOR;
   external static int get HSL_LUMINOSITY;
-  external factory WEBGL_blend_equation_advanced_coherent();
+  external WEBGL_blend_equation_advanced_coherent();
 }

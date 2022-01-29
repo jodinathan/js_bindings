@@ -5,6 +5,7 @@
 @staticInterop
 library csp_embedded_enforcement;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';

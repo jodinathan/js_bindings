@@ -5,6 +5,7 @@
 @staticInterop
 library intersection_observer;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -28,7 +29,7 @@ geometry_1 */
 @JS()
 @staticInterop
 class IntersectionObserver {
-  external factory IntersectionObserver(IntersectionObserverCallback callback,
+  external IntersectionObserver(IntersectionObserverCallback callback,
       [IntersectionObserverInit? options]);
 }
 
@@ -38,7 +39,7 @@ extension PropsIntersectionObserver on IntersectionObserver {
   /// passed to the constructor or its value is [null], the top-level
   /// document's viewport is used.
   ///
-  external dynamic get root;
+  dynamic get root => js_util.getProperty(this, 'root');
 
   ///  An offset rectangle applied to the root's bounding box when
   /// calculating intersections, effectively shrinking or growing the
@@ -48,7 +49,7 @@ extension PropsIntersectionObserver on IntersectionObserver {
   /// requirements. Each offset can be expressed in pixels ([px]) or as
   /// a percentage ([%]). The default is "0px 0px 0px 0px".
   ///
-  external String get rootMargin;
+  String get rootMargin => js_util.getProperty(this, 'rootMargin');
 
   ///  A list of thresholds, sorted in increasing numeric order, where
   /// each threshold is a ratio of intersection area to bounding box
@@ -56,13 +57,14 @@ extension PropsIntersectionObserver on IntersectionObserver {
   /// generated when any of the thresholds are crossed for that target.
   /// If no value was passed to the constructor, 0 is used.
   ///
-  external Iterable<double> get thresholds;
+  Iterable<double> get thresholds => js_util.getProperty(this, 'thresholds');
 
   /// Tells the [IntersectionObserver] a target element to observe.
   ///
   /// IntersectionObserver.observe(targetElement);
   ///
-  external Object observe(Element target);
+  Object observe(Element target) =>
+      js_util.callMethod(this, 'observe', [target]);
 
   ///  Tells the [IntersectionObserver] to stop observing a particular
   /// target element.
@@ -80,21 +82,23 @@ extension PropsIntersectionObserver on IntersectionObserver {
   ///
   /// observer.unobserve(document.getElementById("elementToObserve"));
   ///
-  external Object unobserve(Element target);
+  Object unobserve(Element target) =>
+      js_util.callMethod(this, 'unobserve', [target]);
 
   ///  Stops the [IntersectionObserver] object from observing any
   /// target.
   ///
   /// intersectionObserver.disconnect();
   ///
-  external Object disconnect();
+  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
 
   ///  Returns an array of [IntersectionObserverEntry] objects for all
   /// observed targets.
   ///
   /// intersectionObserverEntries = intersectionObserver.takeRecords();
   ///
-  external Iterable<IntersectionObserverEntry> takeRecords();
+  Iterable<IntersectionObserverEntry> takeRecords() =>
+      js_util.callMethod(this, 'takeRecords', []);
 }
 
 ///  The interface of the Intersection Observer API describes the
@@ -106,7 +110,7 @@ extension PropsIntersectionObserver on IntersectionObserver {
 @JS()
 @staticInterop
 class IntersectionObserverEntry {
-  external factory IntersectionObserverEntry(
+  external IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);
 }
 
@@ -115,23 +119,25 @@ extension PropsIntersectionObserverEntry on IntersectionObserverEntry {
   /// intersection was recorded, relative to the
   /// [IntersectionObserver]'s time origin.
   ///
-  external double get time;
+  double get time => js_util.getProperty(this, 'time');
 
   ///  Returns a [DOMRectReadOnly] for the intersection observer's
   /// root.
   ///
-  external DOMRectReadOnly? get rootBounds;
+  DOMRectReadOnly? get rootBounds => js_util.getProperty(this, 'rootBounds');
 
   ///  Returns the bounds rectangle of the target element as a
   /// [DOMRectReadOnly]. The bounds are computed as described in the
   /// documentation for [Element.getBoundingClientRect()].
   ///
-  external DOMRectReadOnly get boundingClientRect;
+  DOMRectReadOnly get boundingClientRect =>
+      js_util.getProperty(this, 'boundingClientRect');
 
   ///  Returns a [DOMRectReadOnly] representing the target's visible
   /// area.
   ///
-  external DOMRectReadOnly get intersectionRect;
+  DOMRectReadOnly get intersectionRect =>
+      js_util.getProperty(this, 'intersectionRect');
 
   ///  A Boolean value which is [true] if the target element intersects
   /// with the intersection observer's root. If this is [true], then,
@@ -139,16 +145,17 @@ extension PropsIntersectionObserverEntry on IntersectionObserverEntry {
   /// state of intersection; if it's [false], then you know the
   /// transition is from intersecting to not-intersecting.
   ///
-  external bool get isIntersecting;
+  bool get isIntersecting => js_util.getProperty(this, 'isIntersecting');
 
   ///  Returns the ratio of the [intersectionRect] to the
   /// [boundingClientRect].
   ///
-  external double get intersectionRatio;
+  double get intersectionRatio =>
+      js_util.getProperty(this, 'intersectionRatio');
 
   /// The [Element] whose intersection with the root changed.
   ///
-  external Element get target;
+  Element get target => js_util.getProperty(this, 'target');
 }
 
 @anonymous
@@ -166,20 +173,43 @@ class IntersectionObserverEntryInit {
 }
 
 extension PropsIntersectionObserverEntryInit on IntersectionObserverEntryInit {
-  external double get time;
-  external set time(double newValue);
-  external DOMRectInit? get rootBounds;
-  external set rootBounds(DOMRectInit? newValue);
-  external DOMRectInit get boundingClientRect;
-  external set boundingClientRect(DOMRectInit newValue);
-  external DOMRectInit get intersectionRect;
-  external set intersectionRect(DOMRectInit newValue);
-  external bool get isIntersecting;
-  external set isIntersecting(bool newValue);
-  external double get intersectionRatio;
-  external set intersectionRatio(double newValue);
-  external Element get target;
-  external set target(Element newValue);
+  double get time => js_util.getProperty(this, 'time');
+  set time(double newValue) {
+    js_util.setProperty(this, 'time', newValue);
+  }
+
+  DOMRectInit? get rootBounds => js_util.getProperty(this, 'rootBounds');
+  set rootBounds(DOMRectInit? newValue) {
+    js_util.setProperty(this, 'rootBounds', newValue);
+  }
+
+  DOMRectInit get boundingClientRect =>
+      js_util.getProperty(this, 'boundingClientRect');
+  set boundingClientRect(DOMRectInit newValue) {
+    js_util.setProperty(this, 'boundingClientRect', newValue);
+  }
+
+  DOMRectInit get intersectionRect =>
+      js_util.getProperty(this, 'intersectionRect');
+  set intersectionRect(DOMRectInit newValue) {
+    js_util.setProperty(this, 'intersectionRect', newValue);
+  }
+
+  bool get isIntersecting => js_util.getProperty(this, 'isIntersecting');
+  set isIntersecting(bool newValue) {
+    js_util.setProperty(this, 'isIntersecting', newValue);
+  }
+
+  double get intersectionRatio =>
+      js_util.getProperty(this, 'intersectionRatio');
+  set intersectionRatio(double newValue) {
+    js_util.setProperty(this, 'intersectionRatio', newValue);
+  }
+
+  Element get target => js_util.getProperty(this, 'target');
+  set target(Element newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
 }
 
 @anonymous
@@ -191,10 +221,18 @@ class IntersectionObserverInit {
 }
 
 extension PropsIntersectionObserverInit on IntersectionObserverInit {
-  external dynamic get root;
-  external set root(dynamic newValue);
-  external String get rootMargin;
-  external set rootMargin(String newValue);
-  external dynamic get threshold;
-  external set threshold(dynamic newValue);
+  dynamic get root => js_util.getProperty(this, 'root');
+  set root(dynamic newValue) {
+    js_util.setProperty(this, 'root', newValue);
+  }
+
+  String get rootMargin => js_util.getProperty(this, 'rootMargin');
+  set rootMargin(String newValue) {
+    js_util.setProperty(this, 'rootMargin', newValue);
+  }
+
+  dynamic get threshold => js_util.getProperty(this, 'threshold');
+  set threshold(dynamic newValue) {
+    js_util.setProperty(this, 'threshold', newValue);
+  }
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library web_crypto_a_p_i;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -26,7 +27,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class Crypto {
-  external factory Crypto();
+  external Crypto();
 }
 
 extension PropsCrypto on Crypto {
@@ -34,14 +35,15 @@ extension PropsCrypto on Crypto {
   /// cryptographic primitives, like hashing, signing, encryption, or
   /// decryption.
   ///
-  external SubtleCrypto get subtle;
+  SubtleCrypto get subtle => js_util.getProperty(this, 'subtle');
 
   ///  Fills the passed [TypedArray] with cryptographically sound
   /// random values.
   ///
   /// crypto.getRandomValues(typedArray)
   ///
-  external dynamic getRandomValues(dynamic array);
+  dynamic getRandomValues(dynamic array) =>
+      js_util.callMethod(this, 'getRandomValues', [array]);
 }
 
 @anonymous
@@ -52,8 +54,10 @@ class Algorithm {
 }
 
 extension PropsAlgorithm on Algorithm {
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 }
 
 @anonymous
@@ -64,8 +68,10 @@ class KeyAlgorithm {
 }
 
 extension PropsKeyAlgorithm on KeyAlgorithm {
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 }
 
 enum KeyType { public, private, secret }
@@ -91,7 +97,7 @@ enum KeyUsage {
 @JS()
 @staticInterop
 class CryptoKey {
-  external factory CryptoKey();
+  external CryptoKey();
 }
 
 extension PropsCryptoKey on CryptoKey {
@@ -105,7 +111,7 @@ extension PropsCryptoKey on CryptoKey {
   /// algorithm's [CryptoKeyPair].
   ///
   ///
-  external KeyType get type;
+  KeyType get type => js_util.getProperty(this, 'type');
 
   ///  A boolean value indicating whether or not the key may be
   /// extracted using [SubtleCrypto.exportKey()] or
@@ -116,7 +122,7 @@ extension PropsCryptoKey on CryptoKey {
   /// [wrapKey()] will throw an exception if used to extract this key.
   ///
   ///
-  external bool get extractable;
+  bool get extractable => js_util.getProperty(this, 'extractable');
 
   ///  An object describing the algorithm for which this key can be
   /// used and any associated extra parameters.
@@ -129,7 +135,7 @@ extension PropsCryptoKey on CryptoKey {
   ///    [HmacKeyGenParams] if the algorithm is HMAC.
   ///
   ///
-  external dynamic get algorithm;
+  dynamic get algorithm => js_util.getProperty(this, 'algorithm');
 
   ///  An [Array] of strings, indicating what can be done with the key.
   /// Possible values for array elements are:
@@ -144,7 +150,7 @@ extension PropsCryptoKey on CryptoKey {
   ///    ["unwrapKey"]: The key may be used to [unwrap a key].
   ///
   ///
-  external dynamic get usages;
+  dynamic get usages => js_util.getProperty(this, 'usages');
 }
 
 enum KeyFormat { raw, spki, pkcs8, jwk }
@@ -174,7 +180,7 @@ enum KeyFormat { raw, spki, pkcs8, jwk }
 @JS()
 @staticInterop
 class SubtleCrypto {
-  external factory SubtleCrypto();
+  external SubtleCrypto();
 }
 
 extension PropsSubtleCrypto on SubtleCrypto {
@@ -184,8 +190,8 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const result = crypto.subtle.encrypt(algorithm, key, data);
   ///
-  external Promise<dynamic> encrypt(
-      dynamic algorithm, CryptoKey key, dynamic data);
+  Promise<dynamic> encrypt(dynamic algorithm, CryptoKey key, dynamic data) =>
+      js_util.callMethod(this, 'encrypt', [algorithm, key, data]);
 
   ///  Returns a [Promise] that fulfills with the clear data
   /// corresponding to the encrypted text, algorithm, and key given as
@@ -193,8 +199,8 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const result = crypto.subtle.decrypt(algorithm, key, data);
   ///
-  external Promise<dynamic> decrypt(
-      dynamic algorithm, CryptoKey key, dynamic data);
+  Promise<dynamic> decrypt(dynamic algorithm, CryptoKey key, dynamic data) =>
+      js_util.callMethod(this, 'decrypt', [algorithm, key, data]);
 
   ///  Returns a [Promise] that fulfills with the signature
   /// corresponding to the text, algorithm, and key given as
@@ -202,8 +208,8 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const signature = crypto.subtle.sign(algorithm, key, data);
   ///
-  external Promise<dynamic> sign(
-      dynamic algorithm, CryptoKey key, dynamic data);
+  Promise<dynamic> sign(dynamic algorithm, CryptoKey key, dynamic data) =>
+      js_util.callMethod(this, 'sign', [algorithm, key, data]);
 
   ///  Returns a [Promise] that fulfills with a boolean value
   /// indicating if the signature given as a parameter matches the
@@ -211,15 +217,17 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const result = crypto.subtle.verify(algorithm, key, signature, data);
   ///
-  external Promise<dynamic> verify(
-      dynamic algorithm, CryptoKey key, dynamic signature, dynamic data);
+  Promise<dynamic> verify(
+          dynamic algorithm, CryptoKey key, dynamic signature, dynamic data) =>
+      js_util.callMethod(this, 'verify', [algorithm, key, signature, data]);
 
   ///  Returns a [Promise] that fulfills with a digest generated from
   /// the algorithm and text given as parameters.
   ///
   /// const digest = crypto.subtle.digest(algorithm, data);
   ///
-  external Promise<dynamic> digest(dynamic algorithm, dynamic data);
+  Promise<dynamic> digest(dynamic algorithm, dynamic data) =>
+      js_util.callMethod(this, 'digest', [algorithm, data]);
 
   ///  Returns a [Promise] that fulfills with a newly-generated
   /// [CryptoKey], for symmetrical algorithms, or a [CryptoKeyPair],
@@ -229,8 +237,10 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const result = crypto.subtle.generateKey(algorithm, extractable, keyUsages);
   ///
-  external Promise<dynamic> generateKey(
-      dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages);
+  Promise<dynamic> generateKey(
+          dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
+      js_util
+          .callMethod(this, 'generateKey', [algorithm, extractable, keyUsages]);
 
   ///  Returns a [Promise] that fulfills with a newly generated
   /// [CryptoKey] derived from the master key and specific algorithm
@@ -244,8 +254,14 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   keyUsages
   /// );
   ///
-  external Promise<dynamic> deriveKey(dynamic algorithm, CryptoKey baseKey,
-      dynamic derivedKeyType, bool extractable, Iterable<KeyUsage> keyUsages);
+  Promise<dynamic> deriveKey(
+          dynamic algorithm,
+          CryptoKey baseKey,
+          dynamic derivedKeyType,
+          bool extractable,
+          Iterable<KeyUsage> keyUsages) =>
+      js_util.callMethod(this, 'deriveKey',
+          [algorithm, baseKey, derivedKeyType, extractable, keyUsages]);
 
   ///  Returns a [Promise] that fulfills with a newly generated buffer
   /// of pseudo-random bits derived from the master key and specific
@@ -257,8 +273,9 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   length
   /// );
   ///
-  external Promise<ByteBuffer> deriveBits(
-      dynamic algorithm, CryptoKey baseKey, int length);
+  Promise<ByteBuffer> deriveBits(
+          dynamic algorithm, CryptoKey baseKey, int length) =>
+      js_util.callMethod(this, 'deriveBits', [algorithm, baseKey, length]);
 
   ///  Returns a [Promise] that fulfills with a [CryptoKey]
   /// corresponding to the format, the algorithm, raw key data, usages,
@@ -272,15 +289,18 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   keyUsages
   /// );
   ///
-  external Promise<CryptoKey> importKey(KeyFormat format, dynamic keyData,
-      dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages);
+  Promise<CryptoKey> importKey(KeyFormat format, dynamic keyData,
+          dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
+      js_util.callMethod(this, 'importKey',
+          [format, keyData, algorithm, extractable, keyUsages]);
 
   ///  Returns a [Promise] that fulfills with a buffer containing the
   /// key in the requested format.
   ///
   /// const result = crypto.subtle.exportKey(format, key);
   ///
-  external Promise<dynamic> exportKey(KeyFormat format, CryptoKey key);
+  Promise<dynamic> exportKey(KeyFormat format, CryptoKey key) =>
+      js_util.callMethod(this, 'exportKey', [format, key]);
 
   ///  Returns a [Promise] that fulfills with a wrapped symmetric key
   /// for usage (transfer and storage) in insecure environments. The
@@ -295,8 +315,10 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   wrapAlgo
   /// );
   ///
-  external Promise<dynamic> wrapKey(KeyFormat format, CryptoKey key,
-      CryptoKey wrappingKey, dynamic wrapAlgorithm);
+  Promise<dynamic> wrapKey(KeyFormat format, CryptoKey key,
+          CryptoKey wrappingKey, dynamic wrapAlgorithm) =>
+      js_util.callMethod(
+          this, 'wrapKey', [format, key, wrappingKey, wrapAlgorithm]);
 
   ///  Returns a [Promise] that fulfills with a [CryptoKey]
   /// corresponding to the wrapped key given in the parameter.
@@ -311,14 +333,23 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   keyUsages
   /// );
   ///
-  external Promise<CryptoKey> unwrapKey(
-      KeyFormat format,
-      dynamic wrappedKey,
-      CryptoKey unwrappingKey,
-      dynamic unwrapAlgorithm,
-      dynamic unwrappedKeyAlgorithm,
-      bool extractable,
-      Iterable<KeyUsage> keyUsages);
+  Promise<CryptoKey> unwrapKey(
+          KeyFormat format,
+          dynamic wrappedKey,
+          CryptoKey unwrappingKey,
+          dynamic unwrapAlgorithm,
+          dynamic unwrappedKeyAlgorithm,
+          bool extractable,
+          Iterable<KeyUsage> keyUsages) =>
+      js_util.callMethod(this, 'unwrapKey', [
+        format,
+        wrappedKey,
+        unwrappingKey,
+        unwrapAlgorithm,
+        unwrappedKeyAlgorithm,
+        extractable,
+        keyUsages
+      ]);
 }
 
 @anonymous
@@ -329,12 +360,20 @@ class RsaOtherPrimesInfo {
 }
 
 extension PropsRsaOtherPrimesInfo on RsaOtherPrimesInfo {
-  external String get r;
-  external set r(String newValue);
-  external String get d;
-  external set d(String newValue);
-  external String get t;
-  external set t(String newValue);
+  String get r => js_util.getProperty(this, 'r');
+  set r(String newValue) {
+    js_util.setProperty(this, 'r', newValue);
+  }
+
+  String get d => js_util.getProperty(this, 'd');
+  set d(String newValue) {
+    js_util.setProperty(this, 'd', newValue);
+  }
+
+  String get t => js_util.getProperty(this, 't');
+  set t(String newValue) {
+    js_util.setProperty(this, 't', newValue);
+  }
 }
 
 @anonymous
@@ -363,42 +402,95 @@ class JsonWebKey {
 }
 
 extension PropsJsonWebKey on JsonWebKey {
-  external String get kty;
-  external set kty(String newValue);
-  external String get use;
-  external set use(String newValue);
-  external Iterable<String> get key_ops;
-  external set key_ops(Iterable<String> newValue);
-  external String get alg;
-  external set alg(String newValue);
-  external bool get ext;
-  external set ext(bool newValue);
-  external String get crv;
-  external set crv(String newValue);
-  external String get x;
-  external set x(String newValue);
-  external String get y;
-  external set y(String newValue);
-  external String get d;
-  external set d(String newValue);
-  external String get n;
-  external set n(String newValue);
-  external String get e;
-  external set e(String newValue);
-  external String get p;
-  external set p(String newValue);
-  external String get q;
-  external set q(String newValue);
-  external String get dp;
-  external set dp(String newValue);
-  external String get dq;
-  external set dq(String newValue);
-  external String get qi;
-  external set qi(String newValue);
-  external Iterable<RsaOtherPrimesInfo> get oth;
-  external set oth(Iterable<RsaOtherPrimesInfo> newValue);
-  external String get k;
-  external set k(String newValue);
+  String get kty => js_util.getProperty(this, 'kty');
+  set kty(String newValue) {
+    js_util.setProperty(this, 'kty', newValue);
+  }
+
+  String get use => js_util.getProperty(this, 'use');
+  set use(String newValue) {
+    js_util.setProperty(this, 'use', newValue);
+  }
+
+  Iterable<String> get key_ops => js_util.getProperty(this, 'key_ops');
+  set key_ops(Iterable<String> newValue) {
+    js_util.setProperty(this, 'key_ops', newValue);
+  }
+
+  String get alg => js_util.getProperty(this, 'alg');
+  set alg(String newValue) {
+    js_util.setProperty(this, 'alg', newValue);
+  }
+
+  bool get ext => js_util.getProperty(this, 'ext');
+  set ext(bool newValue) {
+    js_util.setProperty(this, 'ext', newValue);
+  }
+
+  String get crv => js_util.getProperty(this, 'crv');
+  set crv(String newValue) {
+    js_util.setProperty(this, 'crv', newValue);
+  }
+
+  String get x => js_util.getProperty(this, 'x');
+  set x(String newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  String get y => js_util.getProperty(this, 'y');
+  set y(String newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  String get d => js_util.getProperty(this, 'd');
+  set d(String newValue) {
+    js_util.setProperty(this, 'd', newValue);
+  }
+
+  String get n => js_util.getProperty(this, 'n');
+  set n(String newValue) {
+    js_util.setProperty(this, 'n', newValue);
+  }
+
+  String get e => js_util.getProperty(this, 'e');
+  set e(String newValue) {
+    js_util.setProperty(this, 'e', newValue);
+  }
+
+  String get p => js_util.getProperty(this, 'p');
+  set p(String newValue) {
+    js_util.setProperty(this, 'p', newValue);
+  }
+
+  String get q => js_util.getProperty(this, 'q');
+  set q(String newValue) {
+    js_util.setProperty(this, 'q', newValue);
+  }
+
+  String get dp => js_util.getProperty(this, 'dp');
+  set dp(String newValue) {
+    js_util.setProperty(this, 'dp', newValue);
+  }
+
+  String get dq => js_util.getProperty(this, 'dq');
+  set dq(String newValue) {
+    js_util.setProperty(this, 'dq', newValue);
+  }
+
+  String get qi => js_util.getProperty(this, 'qi');
+  set qi(String newValue) {
+    js_util.setProperty(this, 'qi', newValue);
+  }
+
+  Iterable<RsaOtherPrimesInfo> get oth => js_util.getProperty(this, 'oth');
+  set oth(Iterable<RsaOtherPrimesInfo> newValue) {
+    js_util.setProperty(this, 'oth', newValue);
+  }
+
+  String get k => js_util.getProperty(this, 'k');
+  set k(String newValue) {
+    js_util.setProperty(this, 'k', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents a key pair for
@@ -423,16 +515,20 @@ extension PropsCryptoKeyPair on CryptoKeyPair {
   /// signing and verification algorithms it is used to verify
   /// signatures.
   ///
-  external CryptoKey get publicKey;
-  external set publicKey(CryptoKey newValue);
+  CryptoKey get publicKey => js_util.getProperty(this, 'publicKey');
+  set publicKey(CryptoKey newValue) {
+    js_util.setProperty(this, 'publicKey', newValue);
+  }
 
   ///  A [CryptoKey] object representing the private key. For
   /// encryption and decryption algorithms, this key is used to
   /// decrypt. For signing and verification algorithms it is used to
   /// sign.
   ///
-  external CryptoKey get privateKey;
-  external set privateKey(CryptoKey newValue);
+  CryptoKey get privateKey => js_util.getProperty(this, 'privateKey');
+  set privateKey(CryptoKey newValue) {
+    js_util.setProperty(this, 'privateKey', newValue);
+  }
 }
 
 @anonymous
@@ -444,10 +540,15 @@ class RsaKeyGenParams implements Algorithm {
 }
 
 extension PropsRsaKeyGenParams on RsaKeyGenParams {
-  external int get modulusLength;
-  external set modulusLength(int newValue);
-  external Uint8List get publicExponent;
-  external set publicExponent(Uint8List newValue);
+  int get modulusLength => js_util.getProperty(this, 'modulusLength');
+  set modulusLength(int newValue) {
+    js_util.setProperty(this, 'modulusLength', newValue);
+  }
+
+  Uint8List get publicExponent => js_util.getProperty(this, 'publicExponent');
+  set publicExponent(Uint8List newValue) {
+    js_util.setProperty(this, 'publicExponent', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -473,8 +574,10 @@ extension PropsRsaHashedKeyGenParams on RsaHashedKeyGenParams {
   ///
   @JS('hash')
   @staticInterop
-  external dynamic get mHash;
-  external set mHash(dynamic newValue);
+  dynamic get mHash => js_util.getProperty(this, 'hash');
+  set mHash(dynamic newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 }
 
 @anonymous
@@ -486,10 +589,15 @@ class RsaKeyAlgorithm implements KeyAlgorithm {
 }
 
 extension PropsRsaKeyAlgorithm on RsaKeyAlgorithm {
-  external int get modulusLength;
-  external set modulusLength(int newValue);
-  external Uint8List get publicExponent;
-  external set publicExponent(Uint8List newValue);
+  int get modulusLength => js_util.getProperty(this, 'modulusLength');
+  set modulusLength(int newValue) {
+    js_util.setProperty(this, 'modulusLength', newValue);
+  }
+
+  Uint8List get publicExponent => js_util.getProperty(this, 'publicExponent');
+  set publicExponent(Uint8List newValue) {
+    js_util.setProperty(this, 'publicExponent', newValue);
+  }
 }
 
 @anonymous
@@ -502,8 +610,10 @@ class RsaHashedKeyAlgorithm implements RsaKeyAlgorithm {
 extension PropsRsaHashedKeyAlgorithm on RsaHashedKeyAlgorithm {
   @JS('hash')
   @staticInterop
-  external KeyAlgorithm get mHash;
-  external set mHash(KeyAlgorithm newValue);
+  KeyAlgorithm get mHash => js_util.getProperty(this, 'hash');
+  set mHash(KeyAlgorithm newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -528,8 +638,10 @@ extension PropsRsaHashedImportParams on RsaHashedImportParams {
   ///
   @JS('hash')
   @staticInterop
-  external dynamic get mHash;
-  external set mHash(dynamic newValue);
+  dynamic get mHash => js_util.getProperty(this, 'hash');
+  set mHash(dynamic newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -556,8 +668,10 @@ extension PropsRsaPssParams on RsaPssParams {
   ///    So for a key length of 2048 bits and a digest output size of
   /// 32 bytes, the maximum size would be 222.
   ///
-  external int get saltLength;
-  external set saltLength(int newValue);
+  int get saltLength => js_util.getProperty(this, 'saltLength');
+  set saltLength(int newValue) {
+    js_util.setProperty(this, 'saltLength', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -581,8 +695,10 @@ extension PropsRsaOaepParams on RsaOaepParams {
   /// this argument and it will not affect the security of the
   /// encryption operation.
   ///
-  external dynamic get label;
-  external set label(dynamic newValue);
+  dynamic get label => js_util.getProperty(this, 'label');
+  set label(dynamic newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -611,8 +727,10 @@ extension PropsEcdsaParams on EcdsaParams {
   ///
   @JS('hash')
   @staticInterop
-  external dynamic get mHash;
-  external set mHash(dynamic newValue);
+  dynamic get mHash => js_util.getProperty(this, 'hash');
+  set mHash(dynamic newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -637,8 +755,10 @@ extension PropsEcKeyGenParams on EcKeyGenParams {
   ///    [P-521]
   ///
   ///
-  external String get namedCurve;
-  external set namedCurve(String newValue);
+  String get namedCurve => js_util.getProperty(this, 'namedCurve');
+  set namedCurve(String newValue) {
+    js_util.setProperty(this, 'namedCurve', newValue);
+  }
 }
 
 @anonymous
@@ -649,8 +769,10 @@ class EcKeyAlgorithm implements KeyAlgorithm {
 }
 
 extension PropsEcKeyAlgorithm on EcKeyAlgorithm {
-  external String get namedCurve;
-  external set namedCurve(String newValue);
+  String get namedCurve => js_util.getProperty(this, 'namedCurve');
+  set namedCurve(String newValue) {
+    js_util.setProperty(this, 'namedCurve', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -675,8 +797,10 @@ extension PropsEcKeyImportParams on EcKeyImportParams {
   ///    [P-521]
   ///
   ///
-  external String get namedCurve;
-  external set namedCurve(String newValue);
+  String get namedCurve => js_util.getProperty(this, 'namedCurve');
+  set namedCurve(String newValue) {
+    js_util.setProperty(this, 'namedCurve', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -701,8 +825,10 @@ extension PropsEcdhKeyDeriveParams on EcdhKeyDeriveParams {
   ///  A [CryptoKey] object representing the public key of the other
   /// entity.
   ///
-  external CryptoKey get public;
-  external set public(CryptoKey newValue);
+  CryptoKey get public => js_util.getProperty(this, 'public');
+  set public(CryptoKey newValue) {
+    js_util.setProperty(this, 'public', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -757,8 +883,10 @@ extension PropsAesCtrParams on AesCtrParams {
   /// 64, then the first half of is the nonce and the second half is
   /// used for the counter.
   ///
-  external dynamic get counter;
-  external set counter(dynamic newValue);
+  dynamic get counter => js_util.getProperty(this, 'counter');
+  set counter(dynamic newValue) {
+    js_util.setProperty(this, 'counter', newValue);
+  }
 
   ///  A [Number] — the number of bits in the counter block that are
   /// used for the actual counter. The counter must be big enough that
@@ -768,8 +896,10 @@ extension PropsAesCtrParams on AesCtrParams {
   /// counter should occupy half of the counter block (see Appendix
   /// B.2), so for AES it would be 64.
   ///
-  external int get length;
-  external set length(int newValue);
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 }
 
 @anonymous
@@ -780,8 +910,10 @@ class AesKeyAlgorithm implements KeyAlgorithm {
 }
 
 extension PropsAesKeyAlgorithm on AesKeyAlgorithm {
-  external int get length;
-  external set length(int newValue);
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -800,8 +932,10 @@ extension PropsAesKeyGenParams on AesKeyGenParams {
   ///  A [Number] — the length in bits of the key to generate. This
   /// must be one of: 128, 192, or 256.
   ///
-  external int get length;
-  external set length(int newValue);
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 }
 
 @anonymous
@@ -812,8 +946,10 @@ class AesDerivedKeyParams implements Algorithm {
 }
 
 extension PropsAesDerivedKeyParams on AesDerivedKeyParams {
-  external int get length;
-  external set length(int newValue);
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -834,8 +970,10 @@ extension PropsAesCbcParams on AesCbcParams {
   /// it need not be secret (for example, it may be transmitted
   /// unencrypted along with the ciphertext).
   ///
-  external dynamic get iv;
-  external set iv(dynamic newValue);
+  dynamic get iv => js_util.getProperty(this, 'iv');
+  set iv(dynamic newValue) {
+    js_util.setProperty(this, 'iv', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -865,8 +1003,10 @@ extension PropsAesGcmParams on AesGcmParams {
   /// just unique: so it is OK, for example, to transmit it in the
   /// clear alongside the encrypted message.
   ///
-  external dynamic get iv;
-  external set iv(dynamic newValue);
+  dynamic get iv => js_util.getProperty(this, 'iv');
+  set iv(dynamic newValue) {
+    js_util.setProperty(this, 'iv', newValue);
+  }
 
   ///  A [BufferSource]. This contains additional data that will not be
   /// encrypted but will be authenticated along with the encrypted
@@ -879,8 +1019,10 @@ extension PropsAesGcmParams on AesGcmParams {
   ///    The property is optional and may be omitted without
   /// compromising the security of the encryption operation.
   ///
-  external dynamic get additionalData;
-  external set additionalData(dynamic newValue);
+  dynamic get additionalData => js_util.getProperty(this, 'additionalData');
+  set additionalData(dynamic newValue) {
+    js_util.setProperty(this, 'additionalData', newValue);
+  }
 
   ///  A [Number]. This determines the size in bits of the
   /// authentication tag generated in the encryption operation and used
@@ -893,8 +1035,10 @@ extension PropsAesGcmParams on AesGcmParams {
   /// guidance here.
   ///    is optional and defaults to 128 if it is not specified.
   ///
-  external int get tagLength;
-  external set tagLength(int newValue);
+  int get tagLength => js_util.getProperty(this, 'tagLength');
+  set tagLength(int newValue) {
+    js_util.setProperty(this, 'tagLength', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -918,8 +1062,10 @@ extension PropsHmacImportParams on HmacImportParams {
   ///
   @JS('hash')
   @staticInterop
-  external dynamic get mHash;
-  external set mHash(dynamic newValue);
+  dynamic get mHash => js_util.getProperty(this, 'hash');
+  set mHash(dynamic newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 
   ///  A [Number] representing the length in bits of the key. If this
   /// is omitted the length of the key is equal to the length of the
@@ -927,8 +1073,10 @@ extension PropsHmacImportParams on HmacImportParams {
   /// you have a good reason to use a different length, omit this
   /// property and use the default.
   ///
-  external int get length;
-  external set length(int newValue);
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 }
 
 @anonymous
@@ -941,10 +1089,15 @@ class HmacKeyAlgorithm implements KeyAlgorithm {
 extension PropsHmacKeyAlgorithm on HmacKeyAlgorithm {
   @JS('hash')
   @staticInterop
-  external KeyAlgorithm get mHash;
-  external set mHash(KeyAlgorithm newValue);
-  external int get length;
-  external set length(int newValue);
+  KeyAlgorithm get mHash => js_util.getProperty(this, 'hash');
+  set mHash(KeyAlgorithm newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
+
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -965,16 +1118,20 @@ extension PropsHmacKeyGenParams on HmacKeyGenParams {
   ///
   @JS('hash')
   @staticInterop
-  external dynamic get mHash;
-  external set mHash(dynamic newValue);
+  dynamic get mHash => js_util.getProperty(this, 'hash');
+  set mHash(dynamic newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 
   ///  A [Number] — the length in bits of the key. If this is omitted,
   /// the length of the key is equal to the block size of the hash
   /// function you have chosen. Unless you have a good reason to use a
   /// different length, omit this property and use the default.
   ///
-  external int get length;
-  external set length(int newValue);
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -999,8 +1156,10 @@ extension PropsHkdfParams on HkdfParams {
   ///
   @JS('hash')
   @staticInterop
-  external dynamic get mHash;
-  external set mHash(dynamic newValue);
+  dynamic get mHash => js_util.getProperty(this, 'hash');
+  set mHash(dynamic newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 
   ///  A [BufferSource]. The HKDF specification states that adding salt
   /// "adds significantly to the strength of HKDF". Ideally, the salt
@@ -1008,8 +1167,10 @@ extension PropsHkdfParams on HkdfParams {
   /// output of the digest function. Unlike the input key material
   /// passed into [deriveKey()], salt does not need to be kept secret.
   ///
-  external dynamic get salt;
-  external set salt(dynamic newValue);
+  dynamic get salt => js_util.getProperty(this, 'salt');
+  set salt(dynamic newValue) {
+    js_util.setProperty(this, 'salt', newValue);
+  }
 
   ///  A [BufferSource] representing application-specific contextual
   /// information. This is used to bind the derived key to an
@@ -1019,8 +1180,10 @@ extension PropsHkdfParams on HkdfParams {
   /// material itself. This property is required but may be an empty
   /// buffer.
   ///
-  external dynamic get info;
-  external set info(dynamic newValue);
+  dynamic get info => js_util.getProperty(this, 'info');
+  set info(dynamic newValue) {
+    js_util.setProperty(this, 'info', newValue);
+  }
 }
 
 ///  The dictionary of the Web Crypto API represents the object that
@@ -1038,8 +1201,10 @@ extension PropsPbkdf2Params on Pbkdf2Params {
   /// of at least 16 bytes. Unlike the input key material passed into
   /// [deriveKey()], does not need to be kept secret.
   ///
-  external dynamic get salt;
-  external set salt(dynamic newValue);
+  dynamic get salt => js_util.getProperty(this, 'salt');
+  set salt(dynamic newValue) {
+    js_util.setProperty(this, 'salt', newValue);
+  }
 
   ///  A [Number] representing the number of times the hash function
   /// will be executed in [deriveKey()]. This determines how
@@ -1050,8 +1215,10 @@ extension PropsPbkdf2Params on Pbkdf2Params {
   /// iterations as possible, subject to keeping an acceptable level of
   /// performance for your application.
   ///
-  external int get iterations;
-  external set iterations(int newValue);
+  int get iterations => js_util.getProperty(this, 'iterations');
+  set iterations(int newValue) {
+    js_util.setProperty(this, 'iterations', newValue);
+  }
 
   ///  A [DOMString] representing the digest algorithm to use. This may
   /// be one of:
@@ -1071,6 +1238,8 @@ extension PropsPbkdf2Params on Pbkdf2Params {
   ///
   @JS('hash')
   @staticInterop
-  external dynamic get mHash;
-  external set mHash(dynamic newValue);
+  dynamic get mHash => js_util.getProperty(this, 'hash');
+  set mHash(dynamic newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 }

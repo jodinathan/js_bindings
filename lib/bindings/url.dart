@@ -5,6 +5,7 @@
 @staticInterop
 library url;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -29,88 +30,109 @@ media_source */
 @JS()
 @staticInterop
 class URL {
-  external factory URL(String url, [String? base]);
+  external URL(String url, [String? base]);
 }
 
 extension PropsURL on URL {
   ///  A stringifier that returns a [USVString] containing the whole
   /// URL.
   ///
-  external String get href;
-  external set href(String newValue);
+  String get href => js_util.getProperty(this, 'href');
+  set href(String newValue) {
+    js_util.setProperty(this, 'href', newValue);
+  }
 
   ///  Returns a [USVString] containing the origin of the URL, that is
   /// its scheme, its domain and its port.
   ///
-  external String get origin;
+  String get origin => js_util.getProperty(this, 'origin');
 
   ///  A [USVString] containing the protocol scheme of the URL,
   /// including the final [':'].
   ///
-  external String get protocol;
-  external set protocol(String newValue);
+  String get protocol => js_util.getProperty(this, 'protocol');
+  set protocol(String newValue) {
+    js_util.setProperty(this, 'protocol', newValue);
+  }
 
   ///  A [USVString] containing the username specified before the
   /// domain name.
   ///
-  external String get username;
-  external set username(String newValue);
+  String get username => js_util.getProperty(this, 'username');
+  set username(String newValue) {
+    js_util.setProperty(this, 'username', newValue);
+  }
 
   ///  A [USVString] containing the password specified before the
   /// domain name.
   ///
-  external String get password;
-  external set password(String newValue);
+  String get password => js_util.getProperty(this, 'password');
+  set password(String newValue) {
+    js_util.setProperty(this, 'password', newValue);
+  }
 
   ///  A [USVString] containing the domain (that is the hostname)
   /// followed by (if a port was specified) a [':'] and the port of the
   /// URL.
   ///
-  external String get host;
-  external set host(String newValue);
+  String get host => js_util.getProperty(this, 'host');
+  set host(String newValue) {
+    js_util.setProperty(this, 'host', newValue);
+  }
 
   /// A [USVString] containing the domain of the URL.
   ///
-  external String get hostname;
-  external set hostname(String newValue);
+  String get hostname => js_util.getProperty(this, 'hostname');
+  set hostname(String newValue) {
+    js_util.setProperty(this, 'hostname', newValue);
+  }
 
   /// A [USVString] containing the port number of the URL.
   ///
-  external String get port;
-  external set port(String newValue);
+  String get port => js_util.getProperty(this, 'port');
+  set port(String newValue) {
+    js_util.setProperty(this, 'port', newValue);
+  }
 
   ///  Is a [USVString] containing an initial ['/'] followed by the
   /// path of the URL, not including the query string or fragment.
   ///
-  external String get pathname;
-  external set pathname(String newValue);
+  String get pathname => js_util.getProperty(this, 'pathname');
+  set pathname(String newValue) {
+    js_util.setProperty(this, 'pathname', newValue);
+  }
 
   ///  A [USVString] indicating the URL's parameter string; if any
   /// parameters are provided, this string includes all of them,
   /// beginning with the leading [?] character.
   ///
-  external String get search;
-  external set search(String newValue);
+  String get search => js_util.getProperty(this, 'search');
+  set search(String newValue) {
+    js_util.setProperty(this, 'search', newValue);
+  }
 
   ///  A [URLSearchParams] object which can be used to access the
   /// individual query parameters found in [search].
   ///
-  external URLSearchParams get searchParams;
+  URLSearchParams get searchParams => js_util.getProperty(this, 'searchParams');
 
   ///  A [USVString] containing a ['#'] followed by the fragment
   /// identifier of the URL.
   ///
   @JS('hash')
   @staticInterop
-  external String get mHash;
-  external set mHash(String newValue);
+  String get mHash => js_util.getProperty(this, 'hash');
+  set mHash(String newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 
   ///  Returns a [USVString] containing the whole URL. It returns the
   /// same string as the [href] property.
   ///
   /// const href = url.toJSON()
   ///
-  external String toJSON();
+  String toJSON() => js_util.callMethod(this, 'toJSON', []);
+
   external static String createObjectURL(dynamic obj);
   external static Object revokeObjectURL(String url);
 }
@@ -129,7 +151,7 @@ extension PropsURL on URL {
 @JS()
 @staticInterop
 class URLSearchParams {
-  external factory URLSearchParams([dynamic init]);
+  external URLSearchParams([dynamic init]);
 }
 
 extension PropsURLSearchParams on URLSearchParams {
@@ -137,14 +159,15 @@ extension PropsURLSearchParams on URLSearchParams {
   ///
   /// URLSearchParams.append(name, value)
   ///
-  external Object append(String name, String value);
+  Object append(String name, String value) =>
+      js_util.callMethod(this, 'append', [name, value]);
 
   ///  Deletes the given search parameter, and its associated value,
   /// from the list of all search parameters.
   ///
   /// URLSearchParams.delete(name)
   ///
-  external Object delete(String name);
+  Object delete(String name) => js_util.callMethod(this, 'delete', [name]);
 
   ///  Returns the first value associated with the given search
   /// parameter.
@@ -153,20 +176,21 @@ extension PropsURLSearchParams on URLSearchParams {
   ///
   @JS('get')
   @staticInterop
-  external String? mGet(String name);
+  String? mGet(String name) => js_util.callMethod(this, 'get', [name]);
 
   /// Returns all the values associated with a given search parameter.
   ///
   /// URLSearchParams.getAll(name)
   ///
-  external Iterable<String> getAll(String name);
+  Iterable<String> getAll(String name) =>
+      js_util.callMethod(this, 'getAll', [name]);
 
   ///  Returns a boolean value indicating if such a given parameter
   /// exists.
   ///
   /// var hasName = URLSearchParams.has(name)
   ///
-  external bool has(String name);
+  bool has(String name) => js_util.callMethod(this, 'has', [name]);
 
   ///  Sets the value associated with a given search parameter to the
   /// given value. If there are several values, the others are deleted.
@@ -175,13 +199,14 @@ extension PropsURLSearchParams on URLSearchParams {
   ///
   @JS('set')
   @staticInterop
-  external Object mSet(String name, String value);
+  Object mSet(String name, String value) =>
+      js_util.callMethod(this, 'set', [name, value]);
 
   /// Sorts all key/value pairs, if any, by their keys.
   ///
   /// searchParams.sort();
   ///
-  external Object sort();
-  @JS('toString')
-  external String mToString();
+  Object sort() => js_util.callMethod(this, 'sort', []);
+
+  String mToString() => js_util.callMethod(this, 'toString', []);
 }

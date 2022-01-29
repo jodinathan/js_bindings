@@ -5,6 +5,7 @@
 @staticInterop
 library longtasks_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -33,15 +34,16 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class PerformanceLongTaskTiming implements PerformanceEntry {
-  external factory PerformanceLongTaskTiming();
+  external PerformanceLongTaskTiming();
 }
 
 extension PropsPerformanceLongTaskTiming on PerformanceLongTaskTiming {
   /// Returns a sequence of [TaskAttributionTiming] instances.
   ///
-  external Iterable<TaskAttributionTiming> get attribution;
+  Iterable<TaskAttributionTiming> get attribution =>
+      js_util.getProperty(this, 'attribution');
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -68,26 +70,26 @@ extension PropsPerformanceLongTaskTiming on PerformanceLongTaskTiming {
 @JS()
 @staticInterop
 class TaskAttributionTiming implements PerformanceEntry {
-  external factory TaskAttributionTiming();
+  external TaskAttributionTiming();
 }
 
 extension PropsTaskAttributionTiming on TaskAttributionTiming {
   ///  Returns the type of frame container, one of [iframe], [embed],
   /// or [object].
   ///
-  external String get containerType;
+  String get containerType => js_util.getProperty(this, 'containerType');
 
   /// Returns the container's [src] attribute.
   ///
-  external String get containerSrc;
+  String get containerSrc => js_util.getProperty(this, 'containerSrc');
 
   /// Returns the container's [id] attribute.
   ///
-  external String get containerId;
+  String get containerId => js_util.getProperty(this, 'containerId');
 
   /// Returns the container's [name] attribute.
   ///
-  external String get containerName;
+  String get containerName => js_util.getProperty(this, 'containerName');
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

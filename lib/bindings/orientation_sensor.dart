@@ -5,6 +5,7 @@
 @staticInterop
 library orientation_sensor;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,7 +26,7 @@ generic_sensor */
 @JS()
 @staticInterop
 class OrientationSensor implements Sensor {
-  external factory OrientationSensor();
+  external OrientationSensor();
 }
 
 extension PropsOrientationSensor on OrientationSensor {
@@ -33,7 +34,7 @@ extension PropsOrientationSensor on OrientationSensor {
   /// components of the unit quaternion representing the device's
   /// orientation.
   ///
-  external Iterable<double> get quaternion;
+  Iterable<double> get quaternion => js_util.getProperty(this, 'quaternion');
 
   ///  Populates the given object with the rotation matrix based on the
   /// latest sensor reading. The rotation maxtrix is shown below.
@@ -44,7 +45,8 @@ extension PropsOrientationSensor on OrientationSensor {
   ///
   /// // TBD
   ///
-  external Object populateMatrix(dynamic targetMatrix);
+  Object populateMatrix(dynamic targetMatrix) =>
+      js_util.callMethod(this, 'populateMatrix', [targetMatrix]);
 }
 
 enum OrientationSensorLocalCoordinateSystem { device, screen }
@@ -59,8 +61,11 @@ class OrientationSensorOptions implements SensorOptions {
 }
 
 extension PropsOrientationSensorOptions on OrientationSensorOptions {
-  external OrientationSensorLocalCoordinateSystem get referenceFrame;
-  external set referenceFrame(OrientationSensorLocalCoordinateSystem newValue);
+  OrientationSensorLocalCoordinateSystem get referenceFrame =>
+      js_util.getProperty(this, 'referenceFrame');
+  set referenceFrame(OrientationSensorLocalCoordinateSystem newValue) {
+    js_util.setProperty(this, 'referenceFrame', newValue);
+  }
 }
 
 ///  The interface of the Sensor APIs describes the device's physical
@@ -77,8 +82,7 @@ extension PropsOrientationSensorOptions on OrientationSensorOptions {
 @JS()
 @staticInterop
 class AbsoluteOrientationSensor implements OrientationSensor {
-  external factory AbsoluteOrientationSensor(
-      [OrientationSensorOptions? sensorOptions]);
+  external AbsoluteOrientationSensor([OrientationSensorOptions? sensorOptions]);
 }
 
 ///  The interface of the Sensor APIs describes the device's physical
@@ -95,8 +99,7 @@ class AbsoluteOrientationSensor implements OrientationSensor {
 @JS()
 @staticInterop
 class RelativeOrientationSensor implements OrientationSensor {
-  external factory RelativeOrientationSensor(
-      [OrientationSensorOptions? sensorOptions]);
+  external RelativeOrientationSensor([OrientationSensorOptions? sensorOptions]);
 }
 
 @anonymous
@@ -109,8 +112,10 @@ class AbsoluteOrientationReadingValues {
 
 extension PropsAbsoluteOrientationReadingValues
     on AbsoluteOrientationReadingValues {
-  external Iterable<double> get quaternion;
-  external set quaternion(Iterable<double> newValue);
+  Iterable<double> get quaternion => js_util.getProperty(this, 'quaternion');
+  set quaternion(Iterable<double> newValue) {
+    js_util.setProperty(this, 'quaternion', newValue);
+  }
 }
 
 @anonymous

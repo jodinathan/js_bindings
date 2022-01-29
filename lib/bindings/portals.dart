@@ -5,6 +5,7 @@
 @staticInterop
 library portals;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -17,20 +18,36 @@ service_workers_1 */
 @JS()
 @staticInterop
 class HTMLPortalElement implements HTMLElement {
-  external factory HTMLPortalElement();
+  external HTMLPortalElement();
 }
 
 extension PropsHTMLPortalElement on HTMLPortalElement {
-  external String get src;
-  external set src(String newValue);
-  external String get referrerPolicy;
-  external set referrerPolicy(String newValue);
-  external Promise<Object> activate([PortalActivateOptions? options]);
-  external Object postMessage(dynamic message, [PostMessageOptions? options]);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
+
+  String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(String newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
+
+  Promise<Object> activate([PortalActivateOptions? options]) =>
+      js_util.callMethod(this, 'activate', [options]);
+
+  Object postMessage(dynamic message, [PostMessageOptions? options]) =>
+      js_util.callMethod(this, 'postMessage', [message, options]);
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
 }
 
 @anonymous
@@ -41,34 +58,45 @@ class PortalActivateOptions implements PostMessageOptions {
 }
 
 extension PropsPortalActivateOptions on PortalActivateOptions {
-  external dynamic get data;
-  external set data(dynamic newValue);
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class PortalHost implements EventTarget {
-  external factory PortalHost();
+  external PortalHost();
 }
 
 extension PropsPortalHost on PortalHost {
-  external Object postMessage(dynamic message, [PostMessageOptions? options]);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
+  Object postMessage(dynamic message, [PostMessageOptions? options]) =>
+      js_util.callMethod(this, 'postMessage', [message, options]);
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class PortalActivateEvent implements Event {
-  external factory PortalActivateEvent(String type,
+  external PortalActivateEvent(String type,
       [PortalActivateEventInit? eventInitDict]);
 }
 
 extension PropsPortalActivateEvent on PortalActivateEvent {
-  external dynamic get data;
-  external HTMLPortalElement adoptPredecessor();
+  dynamic get data => js_util.getProperty(this, 'data');
+  HTMLPortalElement adoptPredecessor() =>
+      js_util.callMethod(this, 'adoptPredecessor', []);
 }
 
 @anonymous
@@ -79,6 +107,8 @@ class PortalActivateEventInit implements EventInit {
 }
 
 extension PropsPortalActivateEventInit on PortalActivateEventInit {
-  external dynamic get data;
-  external set data(dynamic newValue);
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }

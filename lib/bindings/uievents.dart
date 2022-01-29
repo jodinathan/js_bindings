@@ -5,6 +5,7 @@
 @staticInterop
 library uievents;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -36,26 +37,30 @@ input_device_capabilities */
 @JS()
 @staticInterop
 class UIEvent implements Event {
-  external factory UIEvent(String type, [UIEventInit? eventInitDict]);
+  external UIEvent(String type, [UIEventInit? eventInitDict]);
 }
 
 extension PropsUIEvent on UIEvent {
   ///  Returns a [WindowProxy] that contains the view that generated
   /// the event.
   ///
-  external Window? get view;
+  Window? get view => js_util.getProperty(this, 'view');
 
   ///  Returns a [long] with details about the event, depending on the
   /// event type.
   ///
-  external int get detail;
-  external InputDeviceCapabilities? get sourceCapabilities;
-  external Object initUIEvent(String typeArg,
-      [bool? bubblesArg = false,
-      bool? cancelableArg = false,
-      Window? viewArg,
-      int? detailArg = 0]);
-  external int get which;
+  int get detail => js_util.getProperty(this, 'detail');
+  InputDeviceCapabilities? get sourceCapabilities =>
+      js_util.getProperty(this, 'sourceCapabilities');
+  Object initUIEvent(String typeArg,
+          [bool? bubblesArg = false,
+          bool? cancelableArg = false,
+          Window? viewArg,
+          int? detailArg = 0]) =>
+      js_util.callMethod(this, 'initUIEvent',
+          [typeArg, bubblesArg, cancelableArg, viewArg, detailArg]);
+
+  int get which => js_util.getProperty(this, 'which');
 }
 
 @anonymous
@@ -66,10 +71,15 @@ class UIEventInit implements EventInit {
 }
 
 extension PropsUIEventInit on UIEventInit {
-  external Window? get view;
-  external set view(Window? newValue);
-  external int get detail;
-  external set detail(int newValue);
+  Window? get view => js_util.getProperty(this, 'view');
+  set view(Window? newValue) {
+    js_util.setProperty(this, 'view', newValue);
+  }
+
+  int get detail => js_util.getProperty(this, 'detail');
+  set detail(int newValue) {
+    js_util.setProperty(this, 'detail', newValue);
+  }
 }
 
 ///  The interface represents focus-related events, including
@@ -95,7 +105,7 @@ extension PropsUIEventInit on UIEventInit {
 @JS()
 @staticInterop
 class FocusEvent implements UIEvent {
-  external factory FocusEvent(String type, [FocusEventInit? eventInitDict]);
+  external FocusEvent(String type, [FocusEventInit? eventInitDict]);
 }
 
 extension PropsFocusEvent on FocusEvent {
@@ -103,7 +113,7 @@ extension PropsFocusEvent on FocusEvent {
   /// event. In some cases (such as when tabbing in or out a page),
   /// this property may be set to [null] for security reasons.
   ///
-  external EventTarget? get relatedTarget;
+  EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');
 }
 
 @anonymous
@@ -114,8 +124,10 @@ class FocusEventInit implements UIEventInit {
 }
 
 extension PropsFocusEventInit on FocusEventInit {
-  external EventTarget? get relatedTarget;
-  external set relatedTarget(EventTarget? newValue);
+  EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');
+  set relatedTarget(EventTarget? newValue) {
+    js_util.setProperty(this, 'relatedTarget', newValue);
+  }
 }
 
 ///
@@ -151,93 +163,112 @@ extension PropsFocusEventInit on FocusEventInit {
 @JS()
 @staticInterop
 class MouseEvent implements UIEvent {
-  external factory MouseEvent(String type, [MouseEventInit? eventInitDict]);
+  external MouseEvent(String type, [MouseEventInit? eventInitDict]);
 }
 
 extension PropsMouseEvent on MouseEvent {
   ///  The X coordinate of the mouse pointer in global (screen)
   /// coordinates.
   ///
-  external dynamic get screenX;
+  dynamic get screenX => js_util.getProperty(this, 'screenX');
 
   ///  The Y coordinate of the mouse pointer in global (screen)
   /// coordinates.
   ///
-  external dynamic get screenY;
+  dynamic get screenY => js_util.getProperty(this, 'screenY');
 
   ///  The X coordinate of the mouse pointer in local (DOM content)
   /// coordinates.
   ///
-  external dynamic get clientX;
+  dynamic get clientX => js_util.getProperty(this, 'clientX');
 
   ///  The Y coordinate of the mouse pointer in local (DOM content)
   /// coordinates.
   ///
-  external dynamic get clientY;
+  dynamic get clientY => js_util.getProperty(this, 'clientY');
 
   ///  Returns [true] if the control key was down when the mouse event
   /// was fired.
   ///
-  external bool get ctrlKey;
+  bool get ctrlKey => js_util.getProperty(this, 'ctrlKey');
 
   ///  Returns [true] if the shift key was down when the mouse event
   /// was fired.
   ///
-  external bool get shiftKey;
+  bool get shiftKey => js_util.getProperty(this, 'shiftKey');
 
   ///  Returns [true] if the alt key was down when the mouse event was
   /// fired.
   ///
-  external bool get altKey;
+  bool get altKey => js_util.getProperty(this, 'altKey');
 
   ///  Returns [true] if the meta key was down when the mouse event was
   /// fired.
   ///
-  external bool get metaKey;
+  bool get metaKey => js_util.getProperty(this, 'metaKey');
 
   ///  The button number that was pressed (if applicable) when the
   /// mouse event was fired.
   ///
-  external int get button;
+  int get button => js_util.getProperty(this, 'button');
 
   ///  The buttons being depressed (if any) when the mouse event was
   /// fired.
   ///
-  external int get buttons;
+  int get buttons => js_util.getProperty(this, 'buttons');
 
   /// The secondary target for the event, if there is one.
   ///
-  external EventTarget? get relatedTarget;
+  EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');
 
   ///  Returns the current state of the specified modifier key. See
   /// [KeyboardEvent.getModifierState()] for details.
   ///
   /// getModifierState(keyArg)
   ///
-  external bool getModifierState(String keyArg);
-  external double get pageX;
-  external double get pageY;
-  external double get x;
-  external double get y;
-  external double get offsetX;
-  external double get offsetY;
-  external int get movementX;
-  external int get movementY;
-  external Object initMouseEvent(String typeArg,
-      [bool? bubblesArg = false,
-      bool? cancelableArg = false,
-      Window? viewArg,
-      int? detailArg = 0,
-      int? screenXArg = 0,
-      int? screenYArg = 0,
-      int? clientXArg = 0,
-      int? clientYArg = 0,
-      bool? ctrlKeyArg = false,
-      bool? altKeyArg = false,
-      bool? shiftKeyArg = false,
-      bool? metaKeyArg = false,
-      int? buttonArg = 0,
-      EventTarget? relatedTargetArg]);
+  bool getModifierState(String keyArg) =>
+      js_util.callMethod(this, 'getModifierState', [keyArg]);
+
+  double get pageX => js_util.getProperty(this, 'pageX');
+  double get pageY => js_util.getProperty(this, 'pageY');
+  double get x => js_util.getProperty(this, 'x');
+  double get y => js_util.getProperty(this, 'y');
+  double get offsetX => js_util.getProperty(this, 'offsetX');
+  double get offsetY => js_util.getProperty(this, 'offsetY');
+  int get movementX => js_util.getProperty(this, 'movementX');
+  int get movementY => js_util.getProperty(this, 'movementY');
+  Object initMouseEvent(String typeArg,
+          [bool? bubblesArg = false,
+          bool? cancelableArg = false,
+          Window? viewArg,
+          int? detailArg = 0,
+          int? screenXArg = 0,
+          int? screenYArg = 0,
+          int? clientXArg = 0,
+          int? clientYArg = 0,
+          bool? ctrlKeyArg = false,
+          bool? altKeyArg = false,
+          bool? shiftKeyArg = false,
+          bool? metaKeyArg = false,
+          int? buttonArg = 0,
+          EventTarget? relatedTargetArg]) =>
+      js_util.callMethod(this, 'initMouseEvent', [
+        typeArg,
+        bubblesArg,
+        cancelableArg,
+        viewArg,
+        detailArg,
+        screenXArg,
+        screenYArg,
+        clientXArg,
+        clientYArg,
+        ctrlKeyArg,
+        altKeyArg,
+        shiftKeyArg,
+        metaKeyArg,
+        buttonArg,
+        relatedTargetArg
+      ]);
 }
 
 @anonymous
@@ -255,20 +286,40 @@ class MouseEventInit implements EventModifierInit {
 }
 
 extension PropsMouseEventInit on MouseEventInit {
-  external int get screenX;
-  external set screenX(int newValue);
-  external int get screenY;
-  external set screenY(int newValue);
-  external int get clientX;
-  external set clientX(int newValue);
-  external int get clientY;
-  external set clientY(int newValue);
-  external int get button;
-  external set button(int newValue);
-  external int get buttons;
-  external set buttons(int newValue);
-  external EventTarget? get relatedTarget;
-  external set relatedTarget(EventTarget? newValue);
+  int get screenX => js_util.getProperty(this, 'screenX');
+  set screenX(int newValue) {
+    js_util.setProperty(this, 'screenX', newValue);
+  }
+
+  int get screenY => js_util.getProperty(this, 'screenY');
+  set screenY(int newValue) {
+    js_util.setProperty(this, 'screenY', newValue);
+  }
+
+  int get clientX => js_util.getProperty(this, 'clientX');
+  set clientX(int newValue) {
+    js_util.setProperty(this, 'clientX', newValue);
+  }
+
+  int get clientY => js_util.getProperty(this, 'clientY');
+  set clientY(int newValue) {
+    js_util.setProperty(this, 'clientY', newValue);
+  }
+
+  int get button => js_util.getProperty(this, 'button');
+  set button(int newValue) {
+    js_util.setProperty(this, 'button', newValue);
+  }
+
+  int get buttons => js_util.getProperty(this, 'buttons');
+  set buttons(int newValue) {
+    js_util.setProperty(this, 'buttons', newValue);
+  }
+
+  EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');
+  set relatedTarget(EventTarget? newValue) {
+    js_util.setProperty(this, 'relatedTarget', newValue);
+  }
 }
 
 @anonymous
@@ -293,34 +344,77 @@ class EventModifierInit implements UIEventInit {
 }
 
 extension PropsEventModifierInit on EventModifierInit {
-  external bool get ctrlKey;
-  external set ctrlKey(bool newValue);
-  external bool get shiftKey;
-  external set shiftKey(bool newValue);
-  external bool get altKey;
-  external set altKey(bool newValue);
-  external bool get metaKey;
-  external set metaKey(bool newValue);
-  external bool get modifierAltGraph;
-  external set modifierAltGraph(bool newValue);
-  external bool get modifierCapsLock;
-  external set modifierCapsLock(bool newValue);
-  external bool get modifierFn;
-  external set modifierFn(bool newValue);
-  external bool get modifierFnLock;
-  external set modifierFnLock(bool newValue);
-  external bool get modifierHyper;
-  external set modifierHyper(bool newValue);
-  external bool get modifierNumLock;
-  external set modifierNumLock(bool newValue);
-  external bool get modifierScrollLock;
-  external set modifierScrollLock(bool newValue);
-  external bool get modifierSuper;
-  external set modifierSuper(bool newValue);
-  external bool get modifierSymbol;
-  external set modifierSymbol(bool newValue);
-  external bool get modifierSymbolLock;
-  external set modifierSymbolLock(bool newValue);
+  bool get ctrlKey => js_util.getProperty(this, 'ctrlKey');
+  set ctrlKey(bool newValue) {
+    js_util.setProperty(this, 'ctrlKey', newValue);
+  }
+
+  bool get shiftKey => js_util.getProperty(this, 'shiftKey');
+  set shiftKey(bool newValue) {
+    js_util.setProperty(this, 'shiftKey', newValue);
+  }
+
+  bool get altKey => js_util.getProperty(this, 'altKey');
+  set altKey(bool newValue) {
+    js_util.setProperty(this, 'altKey', newValue);
+  }
+
+  bool get metaKey => js_util.getProperty(this, 'metaKey');
+  set metaKey(bool newValue) {
+    js_util.setProperty(this, 'metaKey', newValue);
+  }
+
+  bool get modifierAltGraph => js_util.getProperty(this, 'modifierAltGraph');
+  set modifierAltGraph(bool newValue) {
+    js_util.setProperty(this, 'modifierAltGraph', newValue);
+  }
+
+  bool get modifierCapsLock => js_util.getProperty(this, 'modifierCapsLock');
+  set modifierCapsLock(bool newValue) {
+    js_util.setProperty(this, 'modifierCapsLock', newValue);
+  }
+
+  bool get modifierFn => js_util.getProperty(this, 'modifierFn');
+  set modifierFn(bool newValue) {
+    js_util.setProperty(this, 'modifierFn', newValue);
+  }
+
+  bool get modifierFnLock => js_util.getProperty(this, 'modifierFnLock');
+  set modifierFnLock(bool newValue) {
+    js_util.setProperty(this, 'modifierFnLock', newValue);
+  }
+
+  bool get modifierHyper => js_util.getProperty(this, 'modifierHyper');
+  set modifierHyper(bool newValue) {
+    js_util.setProperty(this, 'modifierHyper', newValue);
+  }
+
+  bool get modifierNumLock => js_util.getProperty(this, 'modifierNumLock');
+  set modifierNumLock(bool newValue) {
+    js_util.setProperty(this, 'modifierNumLock', newValue);
+  }
+
+  bool get modifierScrollLock =>
+      js_util.getProperty(this, 'modifierScrollLock');
+  set modifierScrollLock(bool newValue) {
+    js_util.setProperty(this, 'modifierScrollLock', newValue);
+  }
+
+  bool get modifierSuper => js_util.getProperty(this, 'modifierSuper');
+  set modifierSuper(bool newValue) {
+    js_util.setProperty(this, 'modifierSuper', newValue);
+  }
+
+  bool get modifierSymbol => js_util.getProperty(this, 'modifierSymbol');
+  set modifierSymbol(bool newValue) {
+    js_util.setProperty(this, 'modifierSymbol', newValue);
+  }
+
+  bool get modifierSymbolLock =>
+      js_util.getProperty(this, 'modifierSymbolLock');
+  set modifierSymbolLock(bool newValue) {
+    js_util.setProperty(this, 'modifierSymbolLock', newValue);
+  }
 }
 
 ///  The interface represents events that occur due to the user
@@ -368,7 +462,7 @@ extension PropsEventModifierInit on EventModifierInit {
 @JS()
 @staticInterop
 class WheelEvent implements MouseEvent {
-  external factory WheelEvent(String type, [WheelEventInit? eventInitDict]);
+  external WheelEvent(String type, [WheelEventInit? eventInitDict]);
   external static int get DOM_DELTA_PIXEL;
   external static int get DOM_DELTA_LINE;
   external static int get DOM_DELTA_PAGE;
@@ -377,16 +471,16 @@ class WheelEvent implements MouseEvent {
 extension PropsWheelEvent on WheelEvent {
   /// Returns a [double] representing the horizontal scroll amount.
   ///
-  external double get deltaX;
+  double get deltaX => js_util.getProperty(this, 'deltaX');
 
   /// Returns a [double] representing the vertical scroll amount.
   ///
-  external double get deltaY;
+  double get deltaY => js_util.getProperty(this, 'deltaY');
 
   ///  Returns a [double] representing the scroll amount for the
   /// z-axis.
   ///
-  external double get deltaZ;
+  double get deltaZ => js_util.getProperty(this, 'deltaZ');
 
   ///  Returns an [unsigned long] representing the unit of the [delta*]
   /// values' scroll amount. Permitted values are:
@@ -420,7 +514,7 @@ extension PropsWheelEvent on WheelEvent {
   ///
   ///
   ///
-  external int get deltaMode;
+  int get deltaMode => js_util.getProperty(this, 'deltaMode');
 }
 
 @anonymous
@@ -435,14 +529,25 @@ class WheelEventInit implements MouseEventInit {
 }
 
 extension PropsWheelEventInit on WheelEventInit {
-  external double get deltaX;
-  external set deltaX(double newValue);
-  external double get deltaY;
-  external set deltaY(double newValue);
-  external double get deltaZ;
-  external set deltaZ(double newValue);
-  external int get deltaMode;
-  external set deltaMode(int newValue);
+  double get deltaX => js_util.getProperty(this, 'deltaX');
+  set deltaX(double newValue) {
+    js_util.setProperty(this, 'deltaX', newValue);
+  }
+
+  double get deltaY => js_util.getProperty(this, 'deltaY');
+  set deltaY(double newValue) {
+    js_util.setProperty(this, 'deltaY', newValue);
+  }
+
+  double get deltaZ => js_util.getProperty(this, 'deltaZ');
+  set deltaZ(double newValue) {
+    js_util.setProperty(this, 'deltaZ', newValue);
+  }
+
+  int get deltaMode => js_util.getProperty(this, 'deltaMode');
+  set deltaMode(int newValue) {
+    js_util.setProperty(this, 'deltaMode', newValue);
+  }
 }
 
 ///  The interface represents an event notifying the user of editable
@@ -468,7 +573,7 @@ extension PropsWheelEventInit on WheelEventInit {
 @JS()
 @staticInterop
 class InputEvent implements UIEvent {
-  external factory InputEvent(String type, [InputEventInit? eventInitDict]);
+  external InputEvent(String type, [InputEventInit? eventInitDict]);
 }
 
 extension PropsInputEvent on InputEvent {
@@ -476,20 +581,21 @@ extension PropsInputEvent on InputEvent {
   /// an empty string if the change doesn't insert text (such as when
   /// deleting characters, for example).
   ///
-  external String? get data;
+  String? get data => js_util.getProperty(this, 'data');
 
   ///  Returns a [Boolean] value indicating if the event is fired after
   /// [compositionstart] and before [compositionend].
   ///
-  external bool get isComposing;
+  bool get isComposing => js_util.getProperty(this, 'isComposing');
 
   ///  Returns the type of change for editable content such as, for
   /// example, inserting, deleting, or formatting text. See the
   /// property page for a complete list of input types.
   ///
-  external String get inputType;
-  external DataTransfer? get dataTransfer;
-  external Iterable<StaticRange> getTargetRanges();
+  String get inputType => js_util.getProperty(this, 'inputType');
+  DataTransfer? get dataTransfer => js_util.getProperty(this, 'dataTransfer');
+  Iterable<StaticRange> getTargetRanges() =>
+      js_util.callMethod(this, 'getTargetRanges', []);
 }
 
 @anonymous
@@ -501,12 +607,20 @@ class InputEventInit implements UIEventInit {
 }
 
 extension PropsInputEventInit on InputEventInit {
-  external String? get data;
-  external set data(String? newValue);
-  external bool get isComposing;
-  external set isComposing(bool newValue);
-  external String get inputType;
-  external set inputType(String newValue);
+  String? get data => js_util.getProperty(this, 'data');
+  set data(String? newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  bool get isComposing => js_util.getProperty(this, 'isComposing');
+  set isComposing(bool newValue) {
+    js_util.setProperty(this, 'isComposing', newValue);
+  }
+
+  String get inputType => js_util.getProperty(this, 'inputType');
+  set inputType(String newValue) {
+    js_util.setProperty(this, 'inputType', newValue);
+  }
 }
 
 ///   objects describe a user interaction with the keyboard; each
@@ -543,8 +657,7 @@ extension PropsInputEventInit on InputEventInit {
 @JS()
 @staticInterop
 class KeyboardEvent implements UIEvent {
-  external factory KeyboardEvent(String type,
-      [KeyboardEventInit? eventInitDict]);
+  external KeyboardEvent(String type, [KeyboardEventInit? eventInitDict]);
   external static int get DOM_KEY_LOCATION_STANDARD;
   external static int get DOM_KEY_LOCATION_LEFT;
   external static int get DOM_KEY_LOCATION_RIGHT;
@@ -555,7 +668,7 @@ extension PropsKeyboardEvent on KeyboardEvent {
   ///  Returns a [DOMString] representing the key value of the key
   /// represented by the event.
   ///
-  external String get key;
+  String get key => js_util.getProperty(this, 'key');
 
   ///  Returns a [DOMString] with the code value of the physical key
   /// represented by the event.
@@ -571,44 +684,44 @@ extension PropsKeyboardEvent on KeyboardEvent {
   /// [Keyboard.getLayoutMap()].
   ///
   ///
-  external String get code;
+  String get code => js_util.getProperty(this, 'code');
 
   ///  Returns a [Number] representing the location of the key on the
   /// keyboard or other input device. A list of the constants
   /// identifying the locations is shown above in Keyboard locations.
   ///
-  external int get location;
+  int get location => js_util.getProperty(this, 'location');
 
   ///  Returns a boolean value that is [true] if the Ctrl key was
   /// active when the key event was generated.
   ///
-  external bool get ctrlKey;
+  bool get ctrlKey => js_util.getProperty(this, 'ctrlKey');
 
   ///  Returns a boolean value that is [true] if the Shift key was
   /// active when the key event was generated.
   ///
-  external bool get shiftKey;
+  bool get shiftKey => js_util.getProperty(this, 'shiftKey');
 
   ///  Returns a boolean value that is [true] if the Alt (Option or ⌥
   /// on OS X) key was active when the key event was generated.
   ///
-  external bool get altKey;
+  bool get altKey => js_util.getProperty(this, 'altKey');
 
   ///  Returns a boolean value that is [true] if the Meta key (on Mac
   /// keyboards, the ⌘ Command key; on Windows keyboards, the Windows
   /// key (⊞)) was active when the key event was generated.
   ///
-  external bool get metaKey;
+  bool get metaKey => js_util.getProperty(this, 'metaKey');
 
   ///  Returns a boolean value that is [true] if the key is being held
   /// down such that it is automatically repeating.
   ///
-  external bool get repeat;
+  bool get repeat => js_util.getProperty(this, 'repeat');
 
   ///  Returns a boolean value that is [true] if the event is fired
   /// between after [compositionstart] and before [compositionend].
   ///
-  external bool get isComposing;
+  bool get isComposing => js_util.getProperty(this, 'isComposing');
 
   ///  Returns a boolean value indicating if a modifier key such as
   /// Alt, Shift, Ctrl, or Meta, was pressed when the event was
@@ -686,19 +799,34 @@ extension PropsKeyboardEvent on KeyboardEvent {
   ///   event.shiftKey may be more preferable.
   ///
   ///
-  external bool getModifierState(String keyArg);
-  external Object initKeyboardEvent(String typeArg,
-      [bool? bubblesArg = false,
-      bool? cancelableArg = false,
-      Window? viewArg,
-      String? keyArg = '',
-      int? locationArg = 0,
-      bool? ctrlKey = false,
-      bool? altKey = false,
-      bool? shiftKey = false,
-      bool? metaKey = false]);
-  external int get charCode;
-  external int get keyCode;
+  bool getModifierState(String keyArg) =>
+      js_util.callMethod(this, 'getModifierState', [keyArg]);
+
+  Object initKeyboardEvent(String typeArg,
+          [bool? bubblesArg = false,
+          bool? cancelableArg = false,
+          Window? viewArg,
+          String? keyArg = '',
+          int? locationArg = 0,
+          bool? ctrlKey = false,
+          bool? altKey = false,
+          bool? shiftKey = false,
+          bool? metaKey = false]) =>
+      js_util.callMethod(this, 'initKeyboardEvent', [
+        typeArg,
+        bubblesArg,
+        cancelableArg,
+        viewArg,
+        keyArg,
+        locationArg,
+        ctrlKey,
+        altKey,
+        shiftKey,
+        metaKey
+      ]);
+
+  int get charCode => js_util.getProperty(this, 'charCode');
+  int get keyCode => js_util.getProperty(this, 'keyCode');
 }
 
 @anonymous
@@ -714,16 +842,30 @@ class KeyboardEventInit implements EventModifierInit {
 }
 
 extension PropsKeyboardEventInit on KeyboardEventInit {
-  external String get key;
-  external set key(String newValue);
-  external String get code;
-  external set code(String newValue);
-  external int get location;
-  external set location(int newValue);
-  external bool get repeat;
-  external set repeat(bool newValue);
-  external bool get isComposing;
-  external set isComposing(bool newValue);
+  String get key => js_util.getProperty(this, 'key');
+  set key(String newValue) {
+    js_util.setProperty(this, 'key', newValue);
+  }
+
+  String get code => js_util.getProperty(this, 'code');
+  set code(String newValue) {
+    js_util.setProperty(this, 'code', newValue);
+  }
+
+  int get location => js_util.getProperty(this, 'location');
+  set location(int newValue) {
+    js_util.setProperty(this, 'location', newValue);
+  }
+
+  bool get repeat => js_util.getProperty(this, 'repeat');
+  set repeat(bool newValue) {
+    js_util.setProperty(this, 'repeat', newValue);
+  }
+
+  bool get isComposing => js_util.getProperty(this, 'isComposing');
+  set isComposing(bool newValue) {
+    js_util.setProperty(this, 'isComposing', newValue);
+  }
 }
 
 ///  The DOM represents events that occur due to the user indirectly
@@ -749,8 +891,7 @@ extension PropsKeyboardEventInit on KeyboardEventInit {
 @JS()
 @staticInterop
 class CompositionEvent implements UIEvent {
-  external factory CompositionEvent(String type,
-      [CompositionEventInit? eventInitDict]);
+  external CompositionEvent(String type, [CompositionEventInit? eventInitDict]);
 }
 
 extension PropsCompositionEvent on CompositionEvent {
@@ -758,12 +899,14 @@ extension PropsCompositionEvent on CompositionEvent {
   /// the event; its varies depending on the type of event that
   /// generated the [CompositionEvent] object.
   ///
-  external String get data;
-  external Object initCompositionEvent(String typeArg,
-      [bool? bubblesArg = false,
-      bool? cancelableArg = false,
-      Window? viewArg,
-      String? dataArg = '']);
+  String get data => js_util.getProperty(this, 'data');
+  Object initCompositionEvent(String typeArg,
+          [bool? bubblesArg = false,
+          bool? cancelableArg = false,
+          Window? viewArg,
+          String? dataArg = '']) =>
+      js_util.callMethod(this, 'initCompositionEvent',
+          [typeArg, bubblesArg, cancelableArg, viewArg, dataArg]);
 }
 
 @anonymous
@@ -774,8 +917,10 @@ class CompositionEventInit implements UIEventInit {
 }
 
 extension PropsCompositionEventInit on CompositionEventInit {
-  external String get data;
-  external set data(String newValue);
+  String get data => js_util.getProperty(this, 'data');
+  set data(String newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -800,21 +945,31 @@ class MutationEvent implements Event {
   external static int get MODIFICATION;
   external static int get ADDITION;
   external static int get REMOVAL;
-  external factory MutationEvent();
+  external MutationEvent();
 }
 
 extension PropsMutationEvent on MutationEvent {
-  external Node? get relatedNode;
-  external String get prevValue;
-  external String get newValue;
-  external String get attrName;
-  external int get attrChange;
-  external Object initMutationEvent(String typeArg,
-      [bool? bubblesArg = false,
-      bool? cancelableArg = false,
-      Node? relatedNodeArg,
-      String? prevValueArg = '',
-      String? newValueArg = '',
-      String? attrNameArg = '',
-      int? attrChangeArg = 0]);
+  Node? get relatedNode => js_util.getProperty(this, 'relatedNode');
+  String get prevValue => js_util.getProperty(this, 'prevValue');
+  String get newValue => js_util.getProperty(this, 'newValue');
+  String get attrName => js_util.getProperty(this, 'attrName');
+  int get attrChange => js_util.getProperty(this, 'attrChange');
+  Object initMutationEvent(String typeArg,
+          [bool? bubblesArg = false,
+          bool? cancelableArg = false,
+          Node? relatedNodeArg,
+          String? prevValueArg = '',
+          String? newValueArg = '',
+          String? attrNameArg = '',
+          int? attrChangeArg = 0]) =>
+      js_util.callMethod(this, 'initMutationEvent', [
+        typeArg,
+        bubblesArg,
+        cancelableArg,
+        relatedNodeArg,
+        prevValueArg,
+        newValueArg,
+        attrNameArg,
+        attrChangeArg
+      ]);
 }

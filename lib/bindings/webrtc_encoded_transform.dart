@@ -5,6 +5,7 @@
 @staticInterop
 library webrtc_encoded_transform;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -26,10 +27,15 @@ class RTCInsertableStreams {
 }
 
 extension PropsRTCInsertableStreams on RTCInsertableStreams {
-  external ReadableStream get readable;
-  external set readable(ReadableStream newValue);
-  external WritableStream get writable;
-  external set writable(WritableStream newValue);
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
+  set readable(ReadableStream newValue) {
+    js_util.setProperty(this, 'readable', newValue);
+  }
+
+  WritableStream get writable => js_util.getProperty(this, 'writable');
+  set writable(WritableStream newValue) {
+    js_util.setProperty(this, 'writable', newValue);
+  }
 }
 
 enum SFrameTransformRole { encrypt, decrypt }
@@ -43,18 +49,21 @@ class SFrameTransformOptions {
 }
 
 extension PropsSFrameTransformOptions on SFrameTransformOptions {
-  external SFrameTransformRole get role;
-  external set role(SFrameTransformRole newValue);
+  SFrameTransformRole get role => js_util.getProperty(this, 'role');
+  set role(SFrameTransformRole newValue) {
+    js_util.setProperty(this, 'role', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class SFrameTransform implements GenericTransformStream {
-  external factory SFrameTransform([SFrameTransformOptions? options]);
+  external SFrameTransform([SFrameTransformOptions? options]);
 }
 
 extension PropsSFrameTransform on SFrameTransform {
-  external Promise<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]);
+  Promise<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]) =>
+      js_util.callMethod(this, 'setEncryptionKey', [key, keyID]);
 }
 
 enum RTCEncodedVideoFrameType { empty, key, delta }
@@ -75,36 +84,65 @@ class RTCEncodedVideoFrameMetadata {
 }
 
 extension PropsRTCEncodedVideoFrameMetadata on RTCEncodedVideoFrameMetadata {
-  external int get frameId;
-  external set frameId(int newValue);
-  external Iterable<int> get dependencies;
-  external set dependencies(Iterable<int> newValue);
-  external int get width;
-  external set width(int newValue);
-  external int get height;
-  external set height(int newValue);
-  external int get spatialIndex;
-  external set spatialIndex(int newValue);
-  external int get temporalIndex;
-  external set temporalIndex(int newValue);
-  external int get synchronizationSource;
-  external set synchronizationSource(int newValue);
-  external Iterable<int> get contributingSources;
-  external set contributingSources(Iterable<int> newValue);
+  int get frameId => js_util.getProperty(this, 'frameId');
+  set frameId(int newValue) {
+    js_util.setProperty(this, 'frameId', newValue);
+  }
+
+  Iterable<int> get dependencies => js_util.getProperty(this, 'dependencies');
+  set dependencies(Iterable<int> newValue) {
+    js_util.setProperty(this, 'dependencies', newValue);
+  }
+
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
+
+  int get spatialIndex => js_util.getProperty(this, 'spatialIndex');
+  set spatialIndex(int newValue) {
+    js_util.setProperty(this, 'spatialIndex', newValue);
+  }
+
+  int get temporalIndex => js_util.getProperty(this, 'temporalIndex');
+  set temporalIndex(int newValue) {
+    js_util.setProperty(this, 'temporalIndex', newValue);
+  }
+
+  int get synchronizationSource =>
+      js_util.getProperty(this, 'synchronizationSource');
+  set synchronizationSource(int newValue) {
+    js_util.setProperty(this, 'synchronizationSource', newValue);
+  }
+
+  Iterable<int> get contributingSources =>
+      js_util.getProperty(this, 'contributingSources');
+  set contributingSources(Iterable<int> newValue) {
+    js_util.setProperty(this, 'contributingSources', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class RTCEncodedVideoFrame {
-  external factory RTCEncodedVideoFrame();
+  external RTCEncodedVideoFrame();
 }
 
 extension PropsRTCEncodedVideoFrame on RTCEncodedVideoFrame {
-  external RTCEncodedVideoFrameType get type;
-  external int get timestamp;
-  external ByteBuffer get data;
-  external set data(ByteBuffer newValue);
-  external RTCEncodedVideoFrameMetadata getMetadata();
+  RTCEncodedVideoFrameType get type => js_util.getProperty(this, 'type');
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  ByteBuffer get data => js_util.getProperty(this, 'data');
+  set data(ByteBuffer newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  RTCEncodedVideoFrameMetadata getMetadata() =>
+      js_util.callMethod(this, 'getMetadata', []);
 }
 
 @anonymous
@@ -116,50 +154,62 @@ class RTCEncodedAudioFrameMetadata {
 }
 
 extension PropsRTCEncodedAudioFrameMetadata on RTCEncodedAudioFrameMetadata {
-  external int get synchronizationSource;
-  external set synchronizationSource(int newValue);
-  external Iterable<int> get contributingSources;
-  external set contributingSources(Iterable<int> newValue);
+  int get synchronizationSource =>
+      js_util.getProperty(this, 'synchronizationSource');
+  set synchronizationSource(int newValue) {
+    js_util.setProperty(this, 'synchronizationSource', newValue);
+  }
+
+  Iterable<int> get contributingSources =>
+      js_util.getProperty(this, 'contributingSources');
+  set contributingSources(Iterable<int> newValue) {
+    js_util.setProperty(this, 'contributingSources', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class RTCEncodedAudioFrame {
-  external factory RTCEncodedAudioFrame();
+  external RTCEncodedAudioFrame();
 }
 
 extension PropsRTCEncodedAudioFrame on RTCEncodedAudioFrame {
-  external int get timestamp;
-  external ByteBuffer get data;
-  external set data(ByteBuffer newValue);
-  external RTCEncodedAudioFrameMetadata getMetadata();
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  ByteBuffer get data => js_util.getProperty(this, 'data');
+  set data(ByteBuffer newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  RTCEncodedAudioFrameMetadata getMetadata() =>
+      js_util.callMethod(this, 'getMetadata', []);
 }
 
 @JS()
 @staticInterop
 class RTCTransformEvent implements Event {
-  external factory RTCTransformEvent();
+  external RTCTransformEvent();
 }
 
 extension PropsRTCTransformEvent on RTCTransformEvent {
-  external RTCRtpScriptTransformer get transformer;
+  RTCRtpScriptTransformer get transformer =>
+      js_util.getProperty(this, 'transformer');
 }
 
 @JS()
 @staticInterop
 class RTCRtpScriptTransformer {
-  external factory RTCRtpScriptTransformer();
+  external RTCRtpScriptTransformer();
 }
 
 extension PropsRTCRtpScriptTransformer on RTCRtpScriptTransformer {
-  external ReadableStream get readable;
-  external WritableStream get writable;
-  external dynamic get options;
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
+  WritableStream get writable => js_util.getProperty(this, 'writable');
+  dynamic get options => js_util.getProperty(this, 'options');
 }
 
 @JS()
 @staticInterop
 class RTCRtpScriptTransform {
-  external factory RTCRtpScriptTransform(Worker worker,
+  external RTCRtpScriptTransform(Worker worker,
       [dynamic options, Iterable<dynamic>? transfer]);
 }

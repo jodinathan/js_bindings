@@ -5,6 +5,7 @@
 @staticInterop
 library css_nesting_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,14 +16,20 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CSSNestingRule implements CSSRule {
-  external factory CSSNestingRule();
+  external CSSNestingRule();
 }
 
 extension PropsCSSNestingRule on CSSNestingRule {
-  external String get selectorText;
-  external set selectorText(String newValue);
-  external CSSStyleDeclaration get style;
-  external CSSRuleList get cssRules;
-  external int insertRule(String rule, [int? index = 0]);
-  external Object deleteRule(int index);
+  String get selectorText => js_util.getProperty(this, 'selectorText');
+  set selectorText(String newValue) {
+    js_util.setProperty(this, 'selectorText', newValue);
+  }
+
+  CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
+  CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
+  int insertRule(String rule, [int? index = 0]) =>
+      js_util.callMethod(this, 'insertRule', [rule, index]);
+
+  Object deleteRule(int index) =>
+      js_util.callMethod(this, 'deleteRule', [index]);
 }

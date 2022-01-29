@@ -5,6 +5,7 @@
 @staticInterop
 library css_counter_styles_3;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -28,93 +29,115 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CSSCounterStyleRule implements CSSRule {
-  external factory CSSCounterStyleRule();
+  external CSSCounterStyleRule();
 }
 
 extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// [<custom-ident>] defined as the for the associated rule.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
   ///
-  external String get system;
-  external set system(String newValue);
+  String get system => js_util.getProperty(this, 'system');
+  set system(String newValue) {
+    js_util.setProperty(this, 'system', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
   ///
-  external String get symbols;
-  external set symbols(String newValue);
+  String get symbols => js_util.getProperty(this, 'symbols');
+  set symbols(String newValue) {
+    js_util.setProperty(this, 'symbols', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// [additive-symbols] descriptor defined for the associated rule. If
   /// the descriptor was not specified in the associated rule, the
   /// attribute returns an empty string.
   ///
-  external String get additiveSymbols;
-  external set additiveSymbols(String newValue);
+  String get additiveSymbols => js_util.getProperty(this, 'additiveSymbols');
+  set additiveSymbols(String newValue) {
+    js_util.setProperty(this, 'additiveSymbols', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
   ///
-  external String get negative;
-  external set negative(String newValue);
+  String get negative => js_util.getProperty(this, 'negative');
+  set negative(String newValue) {
+    js_util.setProperty(this, 'negative', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
   ///
-  external String get prefix;
-  external set prefix(String newValue);
+  String get prefix => js_util.getProperty(this, 'prefix');
+  set prefix(String newValue) {
+    js_util.setProperty(this, 'prefix', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
   ///
-  external String get suffix;
-  external set suffix(String newValue);
+  String get suffix => js_util.getProperty(this, 'suffix');
+  set suffix(String newValue) {
+    js_util.setProperty(this, 'suffix', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
   ///
-  external String get range;
-  external set range(String newValue);
+  String get range => js_util.getProperty(this, 'range');
+  set range(String newValue) {
+    js_util.setProperty(this, 'range', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
   ///
-  external String get pad;
-  external set pad(String newValue);
+  String get pad => js_util.getProperty(this, 'pad');
+  set pad(String newValue) {
+    js_util.setProperty(this, 'pad', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// [speak-as] descriptor defined for the associated rule. If the
   /// descriptor was not specified in the associated rule, the
   /// attribute returns an empty string.
   ///
-  external String get speakAs;
-  external set speakAs(String newValue);
+  String get speakAs => js_util.getProperty(this, 'speakAs');
+  set speakAs(String newValue) {
+    js_util.setProperty(this, 'speakAs', newValue);
+  }
 
   ///  Is a [CSSOMString] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
   ///
-  external String get fallback;
-  external set fallback(String newValue);
+  String get fallback => js_util.getProperty(this, 'fallback');
+  set fallback(String newValue) {
+    js_util.setProperty(this, 'fallback', newValue);
+  }
 }

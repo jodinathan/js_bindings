@@ -5,6 +5,7 @@
 @staticInterop
 library compression;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -17,7 +18,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CompressionStream implements GenericTransformStream {
-  external factory CompressionStream(String format);
+  external CompressionStream(String format);
 }
 
 ///  The interface of the Compression Streams API is an API for
@@ -25,5 +26,5 @@ class CompressionStream implements GenericTransformStream {
 @JS()
 @staticInterop
 class DecompressionStream implements GenericTransformStream {
-  external factory DecompressionStream(String format);
+  external DecompressionStream(String format);
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library webrtc_identity;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -18,22 +19,24 @@ mediacapture_streams */
 @JS()
 @staticInterop
 class RTCIdentityProviderGlobalScope implements WorkerGlobalScope {
-  external factory RTCIdentityProviderGlobalScope();
+  external RTCIdentityProviderGlobalScope();
 }
 
 extension PropsRTCIdentityProviderGlobalScope
     on RTCIdentityProviderGlobalScope {
-  external RTCIdentityProviderRegistrar get rtcIdentityProvider;
+  RTCIdentityProviderRegistrar get rtcIdentityProvider =>
+      js_util.getProperty(this, 'rtcIdentityProvider');
 }
 
 @JS()
 @staticInterop
 class RTCIdentityProviderRegistrar {
-  external factory RTCIdentityProviderRegistrar();
+  external RTCIdentityProviderRegistrar();
 }
 
 extension PropsRTCIdentityProviderRegistrar on RTCIdentityProviderRegistrar {
-  external Object register(RTCIdentityProvider idp);
+  Object register(RTCIdentityProvider idp) =>
+      js_util.callMethod(this, 'register', [idp]);
 }
 
 @anonymous
@@ -46,10 +49,17 @@ class RTCIdentityProvider {
 }
 
 extension PropsRTCIdentityProvider on RTCIdentityProvider {
-  external GenerateAssertionCallback get generateAssertion;
-  external set generateAssertion(GenerateAssertionCallback newValue);
-  external ValidateAssertionCallback get validateAssertion;
-  external set validateAssertion(ValidateAssertionCallback newValue);
+  GenerateAssertionCallback get generateAssertion =>
+      js_util.getProperty(this, 'generateAssertion');
+  set generateAssertion(GenerateAssertionCallback newValue) {
+    js_util.setProperty(this, 'generateAssertion', newValue);
+  }
+
+  ValidateAssertionCallback get validateAssertion =>
+      js_util.getProperty(this, 'validateAssertion');
+  set validateAssertion(ValidateAssertionCallback newValue) {
+    js_util.setProperty(this, 'validateAssertion', newValue);
+  }
 }
 
 @anonymous
@@ -61,10 +71,15 @@ class RTCIdentityAssertionResult {
 }
 
 extension PropsRTCIdentityAssertionResult on RTCIdentityAssertionResult {
-  external RTCIdentityProviderDetails get idp;
-  external set idp(RTCIdentityProviderDetails newValue);
-  external String get assertion;
-  external set assertion(String newValue);
+  RTCIdentityProviderDetails get idp => js_util.getProperty(this, 'idp');
+  set idp(RTCIdentityProviderDetails newValue) {
+    js_util.setProperty(this, 'idp', newValue);
+  }
+
+  String get assertion => js_util.getProperty(this, 'assertion');
+  set assertion(String newValue) {
+    js_util.setProperty(this, 'assertion', newValue);
+  }
 }
 
 @anonymous
@@ -76,10 +91,15 @@ class RTCIdentityProviderDetails {
 }
 
 extension PropsRTCIdentityProviderDetails on RTCIdentityProviderDetails {
-  external String get domain;
-  external set domain(String newValue);
-  external String get protocol;
-  external set protocol(String newValue);
+  String get domain => js_util.getProperty(this, 'domain');
+  set domain(String newValue) {
+    js_util.setProperty(this, 'domain', newValue);
+  }
+
+  String get protocol => js_util.getProperty(this, 'protocol');
+  set protocol(String newValue) {
+    js_util.setProperty(this, 'protocol', newValue);
+  }
 }
 
 @anonymous
@@ -91,10 +111,15 @@ class RTCIdentityValidationResult {
 }
 
 extension PropsRTCIdentityValidationResult on RTCIdentityValidationResult {
-  external String get identity;
-  external set identity(String newValue);
-  external String get contents;
-  external set contents(String newValue);
+  String get identity => js_util.getProperty(this, 'identity');
+  set identity(String newValue) {
+    js_util.setProperty(this, 'identity', newValue);
+  }
+
+  String get contents => js_util.getProperty(this, 'contents');
+  set contents(String newValue) {
+    js_util.setProperty(this, 'contents', newValue);
+  }
 }
 
 @anonymous
@@ -106,12 +131,20 @@ class RTCIdentityProviderOptions {
 }
 
 extension PropsRTCIdentityProviderOptions on RTCIdentityProviderOptions {
-  external String get protocol;
-  external set protocol(String newValue);
-  external String get usernameHint;
-  external set usernameHint(String newValue);
-  external String get peerIdentity;
-  external set peerIdentity(String newValue);
+  String get protocol => js_util.getProperty(this, 'protocol');
+  set protocol(String newValue) {
+    js_util.setProperty(this, 'protocol', newValue);
+  }
+
+  String get usernameHint => js_util.getProperty(this, 'usernameHint');
+  set usernameHint(String newValue) {
+    js_util.setProperty(this, 'usernameHint', newValue);
+  }
+
+  String get peerIdentity => js_util.getProperty(this, 'peerIdentity');
+  set peerIdentity(String newValue) {
+    js_util.setProperty(this, 'peerIdentity', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -125,19 +158,23 @@ extension PropsRTCIdentityProviderOptions on RTCIdentityProviderOptions {
 @JS()
 @staticInterop
 class RTCIdentityAssertion {
-  external factory RTCIdentityAssertion(String idp, String name);
+  external RTCIdentityAssertion(String idp, String name);
 }
 
 extension PropsRTCIdentityAssertion on RTCIdentityAssertion {
   /// Indicates the provider of the identity assertion.
   ///
-  external String get idp;
-  external set idp(String newValue);
+  String get idp => js_util.getProperty(this, 'idp');
+  set idp(String newValue) {
+    js_util.setProperty(this, 'idp', newValue);
+  }
 
   /// Indicates the name of the identity assertion provider.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 }
 
 enum RTCErrorDetailTypeIdp {

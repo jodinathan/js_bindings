@@ -5,6 +5,7 @@
 @staticInterop
 library payment_handler;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -18,33 +19,44 @@ payment_request */
 @JS()
 @staticInterop
 class PaymentManager {
-  external factory PaymentManager();
+  external PaymentManager();
 }
 
 extension PropsPaymentManager on PaymentManager {
-  external PaymentInstruments get instruments;
-  external String get userHint;
-  external set userHint(String newValue);
+  PaymentInstruments get instruments =>
+      js_util.getProperty(this, 'instruments');
+  String get userHint => js_util.getProperty(this, 'userHint');
+  set userHint(String newValue) {
+    js_util.setProperty(this, 'userHint', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class PaymentInstruments {
-  external factory PaymentInstruments();
+  external PaymentInstruments();
 }
 
 extension PropsPaymentInstruments on PaymentInstruments {
-  external Promise<bool> delete(String instrumentKey);
+  Promise<bool> delete(String instrumentKey) =>
+      js_util.callMethod(this, 'delete', [instrumentKey]);
+
   @JS('get')
   @staticInterop
-  external Promise<dynamic> mGet(String instrumentKey);
-  external Iterable<Promise<String>> keys();
-  external Promise<bool> has(String instrumentKey);
+  Promise<dynamic> mGet(String instrumentKey) =>
+      js_util.callMethod(this, 'get', [instrumentKey]);
+
+  Iterable<Promise<String>> keys() => js_util.callMethod(this, 'keys', []);
+
+  Promise<bool> has(String instrumentKey) =>
+      js_util.callMethod(this, 'has', [instrumentKey]);
+
   @JS('set')
   @staticInterop
-  external Promise<Object> mSet(
-      String instrumentKey, PaymentInstrument details);
-  external Promise<Object> clear();
+  Promise<Object> mSet(String instrumentKey, PaymentInstrument details) =>
+      js_util.callMethod(this, 'set', [instrumentKey, details]);
+
+  Promise<Object> clear() => js_util.callMethod(this, 'clear', []);
 }
 
 @anonymous
@@ -59,14 +71,25 @@ class PaymentInstrument {
 }
 
 extension PropsPaymentInstrument on PaymentInstrument {
-  external String get name;
-  external set name(String newValue);
-  external Iterable<ImageObject> get icons;
-  external set icons(Iterable<ImageObject> newValue);
-  external String get method;
-  external set method(String newValue);
-  external dynamic get capabilities;
-  external set capabilities(dynamic newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  Iterable<ImageObject> get icons => js_util.getProperty(this, 'icons');
+  set icons(Iterable<ImageObject> newValue) {
+    js_util.setProperty(this, 'icons', newValue);
+  }
+
+  String get method => js_util.getProperty(this, 'method');
+  set method(String newValue) {
+    js_util.setProperty(this, 'method', newValue);
+  }
+
+  dynamic get capabilities => js_util.getProperty(this, 'capabilities');
+  set capabilities(dynamic newValue) {
+    js_util.setProperty(this, 'capabilities', newValue);
+  }
 }
 
 @anonymous
@@ -77,26 +100,37 @@ class ImageObject {
 }
 
 extension PropsImageObject on ImageObject {
-  external String get src;
-  external set src(String newValue);
-  external String get sizes;
-  external set sizes(String newValue);
-  external String get type;
-  external set type(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
+
+  String get sizes => js_util.getProperty(this, 'sizes');
+  set sizes(String newValue) {
+    js_util.setProperty(this, 'sizes', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CanMakePaymentEvent implements ExtendableEvent {
-  external factory CanMakePaymentEvent(String type,
+  external CanMakePaymentEvent(String type,
       [CanMakePaymentEventInit? eventInitDict]);
 }
 
 extension PropsCanMakePaymentEvent on CanMakePaymentEvent {
-  external String get topOrigin;
-  external String get paymentRequestOrigin;
-  external Iterable<PaymentMethodData> get methodData;
-  external Object respondWith(Promise<bool> canMakePaymentResponse);
+  String get topOrigin => js_util.getProperty(this, 'topOrigin');
+  String get paymentRequestOrigin =>
+      js_util.getProperty(this, 'paymentRequestOrigin');
+  Iterable<PaymentMethodData> get methodData =>
+      js_util.getProperty(this, 'methodData');
+  Object respondWith(Promise<bool> canMakePaymentResponse) =>
+      js_util.callMethod(this, 'respondWith', [canMakePaymentResponse]);
 }
 
 @anonymous
@@ -110,12 +144,22 @@ class CanMakePaymentEventInit implements ExtendableEventInit {
 }
 
 extension PropsCanMakePaymentEventInit on CanMakePaymentEventInit {
-  external String get topOrigin;
-  external set topOrigin(String newValue);
-  external String get paymentRequestOrigin;
-  external set paymentRequestOrigin(String newValue);
-  external Iterable<PaymentMethodData> get methodData;
-  external set methodData(Iterable<PaymentMethodData> newValue);
+  String get topOrigin => js_util.getProperty(this, 'topOrigin');
+  set topOrigin(String newValue) {
+    js_util.setProperty(this, 'topOrigin', newValue);
+  }
+
+  String get paymentRequestOrigin =>
+      js_util.getProperty(this, 'paymentRequestOrigin');
+  set paymentRequestOrigin(String newValue) {
+    js_util.setProperty(this, 'paymentRequestOrigin', newValue);
+  }
+
+  Iterable<PaymentMethodData> get methodData =>
+      js_util.getProperty(this, 'methodData');
+  set methodData(Iterable<PaymentMethodData> newValue) {
+    js_util.setProperty(this, 'methodData', newValue);
+  }
 }
 
 @anonymous
@@ -130,14 +174,27 @@ class PaymentRequestDetailsUpdate {
 }
 
 extension PropsPaymentRequestDetailsUpdate on PaymentRequestDetailsUpdate {
-  external String get error;
-  external set error(String newValue);
-  external PaymentCurrencyAmount get total;
-  external set total(PaymentCurrencyAmount newValue);
-  external Iterable<PaymentDetailsModifier> get modifiers;
-  external set modifiers(Iterable<PaymentDetailsModifier> newValue);
-  external dynamic get paymentMethodErrors;
-  external set paymentMethodErrors(dynamic newValue);
+  String get error => js_util.getProperty(this, 'error');
+  set error(String newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
+
+  PaymentCurrencyAmount get total => js_util.getProperty(this, 'total');
+  set total(PaymentCurrencyAmount newValue) {
+    js_util.setProperty(this, 'total', newValue);
+  }
+
+  Iterable<PaymentDetailsModifier> get modifiers =>
+      js_util.getProperty(this, 'modifiers');
+  set modifiers(Iterable<PaymentDetailsModifier> newValue) {
+    js_util.setProperty(this, 'modifiers', newValue);
+  }
+
+  dynamic get paymentMethodErrors =>
+      js_util.getProperty(this, 'paymentMethodErrors');
+  set paymentMethodErrors(dynamic newValue) {
+    js_util.setProperty(this, 'paymentMethodErrors', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -149,7 +206,7 @@ extension PropsPaymentRequestDetailsUpdate on PaymentRequestDetailsUpdate {
 @JS()
 @staticInterop
 class PaymentRequestEvent implements ExtendableEvent {
-  external factory PaymentRequestEvent(String type,
+  external PaymentRequestEvent(String type,
       [PaymentRequestEventInit? eventInitDict]);
 }
 
@@ -158,43 +215,46 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
   /// was initialized.
   ///
   @experimental
-  external String get topOrigin;
+  String get topOrigin => js_util.getProperty(this, 'topOrigin');
 
   ///  Returns the origin where the [PaymentRequest] object was
   /// initialized.
   ///
   @experimental
-  external String get paymentRequestOrigin;
+  String get paymentRequestOrigin =>
+      js_util.getProperty(this, 'paymentRequestOrigin');
 
   /// Returns the ID of the [PaymentRequest] object.
   ///
   @experimental
-  external String get paymentRequestId;
+  String get paymentRequestId => js_util.getProperty(this, 'paymentRequestId');
 
   ///  Returns an array of [PaymentMethodData] objects containing
   /// payment method identifiers for the payment methods that the web
   /// site accepts and any associated payment method specific data.
   ///
   @experimental
-  external Iterable<PaymentMethodData> get methodData;
+  Iterable<PaymentMethodData> get methodData =>
+      js_util.getProperty(this, 'methodData');
 
   /// Returns the total amount being requested for payment.
   ///
   @experimental
-  external dynamic get total;
+  dynamic get total => js_util.getProperty(this, 'total');
 
   ///  Returns an array of objects containing changes to payment
   /// details.
   ///
   @experimental
-  external Iterable<PaymentDetailsModifier> get modifiers;
+  Iterable<PaymentDetailsModifier> get modifiers =>
+      js_util.getProperty(this, 'modifiers');
 
   ///  Returns a [PaymentInstrument] object reflecting the payment
   /// instrument selected by the user or an empty string if the user
   /// has not registered or chosen a payment instrument.
   ///
   @experimental
-  external String get instrumentKey;
+  String get instrumentKey => js_util.getProperty(this, 'instrumentKey');
 
   ///  Opens the specified URL in a new window, if and only if the
   /// given URL is on the same origin as the calling page. It returns a
@@ -203,10 +263,13 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
   /// var aPromise = paymentRequestEvent.openWindow(url)
   ///
   @experimental
-  external Promise<WindowClient> openWindow(String url);
-  external Promise<PaymentRequestDetailsUpdate> changePaymentMethod(
-      String methodName,
-      [dynamic methodDetails]);
+  Promise<WindowClient> openWindow(String url) =>
+      js_util.callMethod(this, 'openWindow', [url]);
+
+  Promise<PaymentRequestDetailsUpdate> changePaymentMethod(String methodName,
+          [dynamic methodDetails]) =>
+      js_util
+          .callMethod(this, 'changePaymentMethod', [methodName, methodDetails]);
 
   ///  Prevents the default event handling and allows you to provide a
   /// [Promise] for a [PaymentResponse] object yourself.
@@ -216,8 +279,8 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
   /// )
   ///
   @experimental
-  external Object respondWith(
-      Promise<PaymentHandlerResponse> handlerResponsePromise);
+  Object respondWith(Promise<PaymentHandlerResponse> handlerResponsePromise) =>
+      js_util.callMethod(this, 'respondWith', [handlerResponsePromise]);
 }
 
 @anonymous
@@ -235,20 +298,43 @@ class PaymentRequestEventInit implements ExtendableEventInit {
 }
 
 extension PropsPaymentRequestEventInit on PaymentRequestEventInit {
-  external String get topOrigin;
-  external set topOrigin(String newValue);
-  external String get paymentRequestOrigin;
-  external set paymentRequestOrigin(String newValue);
-  external String get paymentRequestId;
-  external set paymentRequestId(String newValue);
-  external Iterable<PaymentMethodData> get methodData;
-  external set methodData(Iterable<PaymentMethodData> newValue);
-  external PaymentCurrencyAmount get total;
-  external set total(PaymentCurrencyAmount newValue);
-  external Iterable<PaymentDetailsModifier> get modifiers;
-  external set modifiers(Iterable<PaymentDetailsModifier> newValue);
-  external String get instrumentKey;
-  external set instrumentKey(String newValue);
+  String get topOrigin => js_util.getProperty(this, 'topOrigin');
+  set topOrigin(String newValue) {
+    js_util.setProperty(this, 'topOrigin', newValue);
+  }
+
+  String get paymentRequestOrigin =>
+      js_util.getProperty(this, 'paymentRequestOrigin');
+  set paymentRequestOrigin(String newValue) {
+    js_util.setProperty(this, 'paymentRequestOrigin', newValue);
+  }
+
+  String get paymentRequestId => js_util.getProperty(this, 'paymentRequestId');
+  set paymentRequestId(String newValue) {
+    js_util.setProperty(this, 'paymentRequestId', newValue);
+  }
+
+  Iterable<PaymentMethodData> get methodData =>
+      js_util.getProperty(this, 'methodData');
+  set methodData(Iterable<PaymentMethodData> newValue) {
+    js_util.setProperty(this, 'methodData', newValue);
+  }
+
+  PaymentCurrencyAmount get total => js_util.getProperty(this, 'total');
+  set total(PaymentCurrencyAmount newValue) {
+    js_util.setProperty(this, 'total', newValue);
+  }
+
+  Iterable<PaymentDetailsModifier> get modifiers =>
+      js_util.getProperty(this, 'modifiers');
+  set modifiers(Iterable<PaymentDetailsModifier> newValue) {
+    js_util.setProperty(this, 'modifiers', newValue);
+  }
+
+  String get instrumentKey => js_util.getProperty(this, 'instrumentKey');
+  set instrumentKey(String newValue) {
+    js_util.setProperty(this, 'instrumentKey', newValue);
+  }
 }
 
 @anonymous
@@ -259,8 +345,13 @@ class PaymentHandlerResponse {
 }
 
 extension PropsPaymentHandlerResponse on PaymentHandlerResponse {
-  external String get methodName;
-  external set methodName(String newValue);
-  external dynamic get details;
-  external set details(dynamic newValue);
+  String get methodName => js_util.getProperty(this, 'methodName');
+  set methodName(String newValue) {
+    js_util.setProperty(this, 'methodName', newValue);
+  }
+
+  dynamic get details => js_util.getProperty(this, 'details');
+  set details(dynamic newValue) {
+    js_util.setProperty(this, 'details', newValue);
+  }
 }

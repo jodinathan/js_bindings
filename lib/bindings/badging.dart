@@ -5,6 +5,7 @@
 @staticInterop
 library badging;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,10 +16,13 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorBadge {
-  external factory NavigatorBadge();
+  external NavigatorBadge();
 }
 
 extension PropsNavigatorBadge on NavigatorBadge {
-  external Promise<Object> setAppBadge([int? contents]);
-  external Promise<Object> clearAppBadge();
+  Promise<Object> setAppBadge([int? contents]) =>
+      js_util.callMethod(this, 'setAppBadge', [contents]);
+
+  Promise<Object> clearAppBadge() =>
+      js_util.callMethod(this, 'clearAppBadge', []);
 }

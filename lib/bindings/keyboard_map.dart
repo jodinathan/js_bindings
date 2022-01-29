@@ -5,6 +5,7 @@
 @staticInterop
 library keyboard_map;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -25,7 +26,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class KeyboardLayoutMap {
-  external factory KeyboardLayoutMap();
+  external KeyboardLayoutMap();
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -40,7 +41,7 @@ class KeyboardLayoutMap {
 @JS()
 @staticInterop
 class Keyboard {
-  external factory Keyboard();
+  external Keyboard();
 }
 
 extension PropsKeyboard on Keyboard {
@@ -62,5 +63,6 @@ extension PropsKeyboard on Keyboard {
   /// })
   ///
   @experimental
-  external Promise<KeyboardLayoutMap> getLayoutMap();
+  Promise<KeyboardLayoutMap> getLayoutMap() =>
+      js_util.callMethod(this, 'getLayoutMap', []);
 }

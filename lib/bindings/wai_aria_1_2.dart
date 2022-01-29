@@ -5,6 +5,7 @@
 @staticInterop
 library wai_aria_1_2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,186 +16,427 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class AccessibilityRole {
-  external factory AccessibilityRole();
+  external AccessibilityRole();
 }
 
 extension PropsAccessibilityRole on AccessibilityRole {
-  external String get role;
-  external set role(String newValue);
+  String get role => js_util.getProperty(this, 'role');
+  set role(String newValue) {
+    js_util.setProperty(this, 'role', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class AriaAttributes {
-  external factory AriaAttributes();
+  external AriaAttributes();
 }
 
 extension PropsAriaAttributes on AriaAttributes {
-  external String get ariaAtomic;
-  external set ariaAtomic(String newValue);
-  external String get ariaAutoComplete;
-  external set ariaAutoComplete(String newValue);
-  external String get ariaBusy;
-  external set ariaBusy(String newValue);
-  external String get ariaChecked;
-  external set ariaChecked(String newValue);
-  external String get ariaColCount;
-  external set ariaColCount(String newValue);
-  external String get ariaColIndex;
-  external set ariaColIndex(String newValue);
-  external String get ariaColSpan;
-  external set ariaColSpan(String newValue);
-  external String get ariaCurrent;
-  external set ariaCurrent(String newValue);
-  external String get ariaDescription;
-  external set ariaDescription(String newValue);
-  external String get ariaDisabled;
-  external set ariaDisabled(String newValue);
-  external String get ariaExpanded;
-  external set ariaExpanded(String newValue);
-  external String get ariaHasPopup;
-  external set ariaHasPopup(String newValue);
-  external String get ariaHidden;
-  external set ariaHidden(String newValue);
-  external String get ariaInvalid;
-  external set ariaInvalid(String newValue);
-  external String get ariaKeyShortcuts;
-  external set ariaKeyShortcuts(String newValue);
-  external String get ariaLabel;
-  external set ariaLabel(String newValue);
-  external String get ariaLevel;
-  external set ariaLevel(String newValue);
-  external String get ariaLive;
-  external set ariaLive(String newValue);
-  external String get ariaModal;
-  external set ariaModal(String newValue);
-  external String get ariaMultiLine;
-  external set ariaMultiLine(String newValue);
-  external String get ariaMultiSelectable;
-  external set ariaMultiSelectable(String newValue);
-  external String get ariaOrientation;
-  external set ariaOrientation(String newValue);
-  external String get ariaPlaceholder;
-  external set ariaPlaceholder(String newValue);
-  external String get ariaPosInSet;
-  external set ariaPosInSet(String newValue);
-  external String get ariaPressed;
-  external set ariaPressed(String newValue);
-  external String get ariaReadOnly;
-  external set ariaReadOnly(String newValue);
-  external String get ariaRequired;
-  external set ariaRequired(String newValue);
-  external String get ariaRoleDescription;
-  external set ariaRoleDescription(String newValue);
-  external String get ariaRowCount;
-  external set ariaRowCount(String newValue);
-  external String get ariaRowIndex;
-  external set ariaRowIndex(String newValue);
-  external String get ariaRowSpan;
-  external set ariaRowSpan(String newValue);
-  external String get ariaSelected;
-  external set ariaSelected(String newValue);
-  external String get ariaSetSize;
-  external set ariaSetSize(String newValue);
-  external String get ariaSort;
-  external set ariaSort(String newValue);
-  external String get ariaValueMax;
-  external set ariaValueMax(String newValue);
-  external String get ariaValueMin;
-  external set ariaValueMin(String newValue);
-  external String get ariaValueNow;
-  external set ariaValueNow(String newValue);
-  external String get ariaValueText;
-  external set ariaValueText(String newValue);
+  String get ariaAtomic => js_util.getProperty(this, 'ariaAtomic');
+  set ariaAtomic(String newValue) {
+    js_util.setProperty(this, 'ariaAtomic', newValue);
+  }
+
+  String get ariaAutoComplete => js_util.getProperty(this, 'ariaAutoComplete');
+  set ariaAutoComplete(String newValue) {
+    js_util.setProperty(this, 'ariaAutoComplete', newValue);
+  }
+
+  String get ariaBusy => js_util.getProperty(this, 'ariaBusy');
+  set ariaBusy(String newValue) {
+    js_util.setProperty(this, 'ariaBusy', newValue);
+  }
+
+  String get ariaChecked => js_util.getProperty(this, 'ariaChecked');
+  set ariaChecked(String newValue) {
+    js_util.setProperty(this, 'ariaChecked', newValue);
+  }
+
+  String get ariaColCount => js_util.getProperty(this, 'ariaColCount');
+  set ariaColCount(String newValue) {
+    js_util.setProperty(this, 'ariaColCount', newValue);
+  }
+
+  String get ariaColIndex => js_util.getProperty(this, 'ariaColIndex');
+  set ariaColIndex(String newValue) {
+    js_util.setProperty(this, 'ariaColIndex', newValue);
+  }
+
+  String get ariaColSpan => js_util.getProperty(this, 'ariaColSpan');
+  set ariaColSpan(String newValue) {
+    js_util.setProperty(this, 'ariaColSpan', newValue);
+  }
+
+  String get ariaCurrent => js_util.getProperty(this, 'ariaCurrent');
+  set ariaCurrent(String newValue) {
+    js_util.setProperty(this, 'ariaCurrent', newValue);
+  }
+
+  String get ariaDescription => js_util.getProperty(this, 'ariaDescription');
+  set ariaDescription(String newValue) {
+    js_util.setProperty(this, 'ariaDescription', newValue);
+  }
+
+  String get ariaDisabled => js_util.getProperty(this, 'ariaDisabled');
+  set ariaDisabled(String newValue) {
+    js_util.setProperty(this, 'ariaDisabled', newValue);
+  }
+
+  String get ariaExpanded => js_util.getProperty(this, 'ariaExpanded');
+  set ariaExpanded(String newValue) {
+    js_util.setProperty(this, 'ariaExpanded', newValue);
+  }
+
+  String get ariaHasPopup => js_util.getProperty(this, 'ariaHasPopup');
+  set ariaHasPopup(String newValue) {
+    js_util.setProperty(this, 'ariaHasPopup', newValue);
+  }
+
+  String get ariaHidden => js_util.getProperty(this, 'ariaHidden');
+  set ariaHidden(String newValue) {
+    js_util.setProperty(this, 'ariaHidden', newValue);
+  }
+
+  String get ariaInvalid => js_util.getProperty(this, 'ariaInvalid');
+  set ariaInvalid(String newValue) {
+    js_util.setProperty(this, 'ariaInvalid', newValue);
+  }
+
+  String get ariaKeyShortcuts => js_util.getProperty(this, 'ariaKeyShortcuts');
+  set ariaKeyShortcuts(String newValue) {
+    js_util.setProperty(this, 'ariaKeyShortcuts', newValue);
+  }
+
+  String get ariaLabel => js_util.getProperty(this, 'ariaLabel');
+  set ariaLabel(String newValue) {
+    js_util.setProperty(this, 'ariaLabel', newValue);
+  }
+
+  String get ariaLevel => js_util.getProperty(this, 'ariaLevel');
+  set ariaLevel(String newValue) {
+    js_util.setProperty(this, 'ariaLevel', newValue);
+  }
+
+  String get ariaLive => js_util.getProperty(this, 'ariaLive');
+  set ariaLive(String newValue) {
+    js_util.setProperty(this, 'ariaLive', newValue);
+  }
+
+  String get ariaModal => js_util.getProperty(this, 'ariaModal');
+  set ariaModal(String newValue) {
+    js_util.setProperty(this, 'ariaModal', newValue);
+  }
+
+  String get ariaMultiLine => js_util.getProperty(this, 'ariaMultiLine');
+  set ariaMultiLine(String newValue) {
+    js_util.setProperty(this, 'ariaMultiLine', newValue);
+  }
+
+  String get ariaMultiSelectable =>
+      js_util.getProperty(this, 'ariaMultiSelectable');
+  set ariaMultiSelectable(String newValue) {
+    js_util.setProperty(this, 'ariaMultiSelectable', newValue);
+  }
+
+  String get ariaOrientation => js_util.getProperty(this, 'ariaOrientation');
+  set ariaOrientation(String newValue) {
+    js_util.setProperty(this, 'ariaOrientation', newValue);
+  }
+
+  String get ariaPlaceholder => js_util.getProperty(this, 'ariaPlaceholder');
+  set ariaPlaceholder(String newValue) {
+    js_util.setProperty(this, 'ariaPlaceholder', newValue);
+  }
+
+  String get ariaPosInSet => js_util.getProperty(this, 'ariaPosInSet');
+  set ariaPosInSet(String newValue) {
+    js_util.setProperty(this, 'ariaPosInSet', newValue);
+  }
+
+  String get ariaPressed => js_util.getProperty(this, 'ariaPressed');
+  set ariaPressed(String newValue) {
+    js_util.setProperty(this, 'ariaPressed', newValue);
+  }
+
+  String get ariaReadOnly => js_util.getProperty(this, 'ariaReadOnly');
+  set ariaReadOnly(String newValue) {
+    js_util.setProperty(this, 'ariaReadOnly', newValue);
+  }
+
+  String get ariaRequired => js_util.getProperty(this, 'ariaRequired');
+  set ariaRequired(String newValue) {
+    js_util.setProperty(this, 'ariaRequired', newValue);
+  }
+
+  String get ariaRoleDescription =>
+      js_util.getProperty(this, 'ariaRoleDescription');
+  set ariaRoleDescription(String newValue) {
+    js_util.setProperty(this, 'ariaRoleDescription', newValue);
+  }
+
+  String get ariaRowCount => js_util.getProperty(this, 'ariaRowCount');
+  set ariaRowCount(String newValue) {
+    js_util.setProperty(this, 'ariaRowCount', newValue);
+  }
+
+  String get ariaRowIndex => js_util.getProperty(this, 'ariaRowIndex');
+  set ariaRowIndex(String newValue) {
+    js_util.setProperty(this, 'ariaRowIndex', newValue);
+  }
+
+  String get ariaRowSpan => js_util.getProperty(this, 'ariaRowSpan');
+  set ariaRowSpan(String newValue) {
+    js_util.setProperty(this, 'ariaRowSpan', newValue);
+  }
+
+  String get ariaSelected => js_util.getProperty(this, 'ariaSelected');
+  set ariaSelected(String newValue) {
+    js_util.setProperty(this, 'ariaSelected', newValue);
+  }
+
+  String get ariaSetSize => js_util.getProperty(this, 'ariaSetSize');
+  set ariaSetSize(String newValue) {
+    js_util.setProperty(this, 'ariaSetSize', newValue);
+  }
+
+  String get ariaSort => js_util.getProperty(this, 'ariaSort');
+  set ariaSort(String newValue) {
+    js_util.setProperty(this, 'ariaSort', newValue);
+  }
+
+  String get ariaValueMax => js_util.getProperty(this, 'ariaValueMax');
+  set ariaValueMax(String newValue) {
+    js_util.setProperty(this, 'ariaValueMax', newValue);
+  }
+
+  String get ariaValueMin => js_util.getProperty(this, 'ariaValueMin');
+  set ariaValueMin(String newValue) {
+    js_util.setProperty(this, 'ariaValueMin', newValue);
+  }
+
+  String get ariaValueNow => js_util.getProperty(this, 'ariaValueNow');
+  set ariaValueNow(String newValue) {
+    js_util.setProperty(this, 'ariaValueNow', newValue);
+  }
+
+  String get ariaValueText => js_util.getProperty(this, 'ariaValueText');
+  set ariaValueText(String newValue) {
+    js_util.setProperty(this, 'ariaValueText', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class ARIAMixin {
-  external factory ARIAMixin();
+  external ARIAMixin();
 }
 
 extension PropsARIAMixin on ARIAMixin {
-  external String? get role;
-  external set role(String? newValue);
-  external String get ariaAtomic;
-  external set ariaAtomic(String newValue);
-  external String get ariaAutoComplete;
-  external set ariaAutoComplete(String newValue);
-  external String get ariaBusy;
-  external set ariaBusy(String newValue);
-  external String get ariaChecked;
-  external set ariaChecked(String newValue);
-  external String get ariaColCount;
-  external set ariaColCount(String newValue);
-  external String get ariaColIndex;
-  external set ariaColIndex(String newValue);
-  external String get ariaColIndexText;
-  external set ariaColIndexText(String newValue);
-  external String get ariaColSpan;
-  external set ariaColSpan(String newValue);
-  external String get ariaCurrent;
-  external set ariaCurrent(String newValue);
-  external String get ariaDescription;
-  external set ariaDescription(String newValue);
-  external String get ariaDisabled;
-  external set ariaDisabled(String newValue);
-  external String get ariaExpanded;
-  external set ariaExpanded(String newValue);
-  external String get ariaHasPopup;
-  external set ariaHasPopup(String newValue);
-  external String get ariaHidden;
-  external set ariaHidden(String newValue);
-  external String get ariaInvalid;
-  external set ariaInvalid(String newValue);
-  external String get ariaKeyShortcuts;
-  external set ariaKeyShortcuts(String newValue);
-  external String get ariaLabel;
-  external set ariaLabel(String newValue);
-  external String get ariaLevel;
-  external set ariaLevel(String newValue);
-  external String get ariaLive;
-  external set ariaLive(String newValue);
-  external String get ariaModal;
-  external set ariaModal(String newValue);
-  external String get ariaMultiLine;
-  external set ariaMultiLine(String newValue);
-  external String get ariaMultiSelectable;
-  external set ariaMultiSelectable(String newValue);
-  external String get ariaOrientation;
-  external set ariaOrientation(String newValue);
-  external String get ariaPlaceholder;
-  external set ariaPlaceholder(String newValue);
-  external String get ariaPosInSet;
-  external set ariaPosInSet(String newValue);
-  external String get ariaPressed;
-  external set ariaPressed(String newValue);
-  external String get ariaReadOnly;
-  external set ariaReadOnly(String newValue);
-  external String get ariaRequired;
-  external set ariaRequired(String newValue);
-  external String get ariaRoleDescription;
-  external set ariaRoleDescription(String newValue);
-  external String get ariaRowCount;
-  external set ariaRowCount(String newValue);
-  external String get ariaRowIndex;
-  external set ariaRowIndex(String newValue);
-  external String get ariaRowIndexText;
-  external set ariaRowIndexText(String newValue);
-  external String get ariaRowSpan;
-  external set ariaRowSpan(String newValue);
-  external String get ariaSelected;
-  external set ariaSelected(String newValue);
-  external String get ariaSetSize;
-  external set ariaSetSize(String newValue);
-  external String get ariaSort;
-  external set ariaSort(String newValue);
-  external String get ariaValueMax;
-  external set ariaValueMax(String newValue);
-  external String get ariaValueMin;
-  external set ariaValueMin(String newValue);
-  external String get ariaValueNow;
-  external set ariaValueNow(String newValue);
-  external String get ariaValueText;
-  external set ariaValueText(String newValue);
+  String? get role => js_util.getProperty(this, 'role');
+  set role(String? newValue) {
+    js_util.setProperty(this, 'role', newValue);
+  }
+
+  String get ariaAtomic => js_util.getProperty(this, 'ariaAtomic');
+  set ariaAtomic(String newValue) {
+    js_util.setProperty(this, 'ariaAtomic', newValue);
+  }
+
+  String get ariaAutoComplete => js_util.getProperty(this, 'ariaAutoComplete');
+  set ariaAutoComplete(String newValue) {
+    js_util.setProperty(this, 'ariaAutoComplete', newValue);
+  }
+
+  String get ariaBusy => js_util.getProperty(this, 'ariaBusy');
+  set ariaBusy(String newValue) {
+    js_util.setProperty(this, 'ariaBusy', newValue);
+  }
+
+  String get ariaChecked => js_util.getProperty(this, 'ariaChecked');
+  set ariaChecked(String newValue) {
+    js_util.setProperty(this, 'ariaChecked', newValue);
+  }
+
+  String get ariaColCount => js_util.getProperty(this, 'ariaColCount');
+  set ariaColCount(String newValue) {
+    js_util.setProperty(this, 'ariaColCount', newValue);
+  }
+
+  String get ariaColIndex => js_util.getProperty(this, 'ariaColIndex');
+  set ariaColIndex(String newValue) {
+    js_util.setProperty(this, 'ariaColIndex', newValue);
+  }
+
+  String get ariaColIndexText => js_util.getProperty(this, 'ariaColIndexText');
+  set ariaColIndexText(String newValue) {
+    js_util.setProperty(this, 'ariaColIndexText', newValue);
+  }
+
+  String get ariaColSpan => js_util.getProperty(this, 'ariaColSpan');
+  set ariaColSpan(String newValue) {
+    js_util.setProperty(this, 'ariaColSpan', newValue);
+  }
+
+  String get ariaCurrent => js_util.getProperty(this, 'ariaCurrent');
+  set ariaCurrent(String newValue) {
+    js_util.setProperty(this, 'ariaCurrent', newValue);
+  }
+
+  String get ariaDescription => js_util.getProperty(this, 'ariaDescription');
+  set ariaDescription(String newValue) {
+    js_util.setProperty(this, 'ariaDescription', newValue);
+  }
+
+  String get ariaDisabled => js_util.getProperty(this, 'ariaDisabled');
+  set ariaDisabled(String newValue) {
+    js_util.setProperty(this, 'ariaDisabled', newValue);
+  }
+
+  String get ariaExpanded => js_util.getProperty(this, 'ariaExpanded');
+  set ariaExpanded(String newValue) {
+    js_util.setProperty(this, 'ariaExpanded', newValue);
+  }
+
+  String get ariaHasPopup => js_util.getProperty(this, 'ariaHasPopup');
+  set ariaHasPopup(String newValue) {
+    js_util.setProperty(this, 'ariaHasPopup', newValue);
+  }
+
+  String get ariaHidden => js_util.getProperty(this, 'ariaHidden');
+  set ariaHidden(String newValue) {
+    js_util.setProperty(this, 'ariaHidden', newValue);
+  }
+
+  String get ariaInvalid => js_util.getProperty(this, 'ariaInvalid');
+  set ariaInvalid(String newValue) {
+    js_util.setProperty(this, 'ariaInvalid', newValue);
+  }
+
+  String get ariaKeyShortcuts => js_util.getProperty(this, 'ariaKeyShortcuts');
+  set ariaKeyShortcuts(String newValue) {
+    js_util.setProperty(this, 'ariaKeyShortcuts', newValue);
+  }
+
+  String get ariaLabel => js_util.getProperty(this, 'ariaLabel');
+  set ariaLabel(String newValue) {
+    js_util.setProperty(this, 'ariaLabel', newValue);
+  }
+
+  String get ariaLevel => js_util.getProperty(this, 'ariaLevel');
+  set ariaLevel(String newValue) {
+    js_util.setProperty(this, 'ariaLevel', newValue);
+  }
+
+  String get ariaLive => js_util.getProperty(this, 'ariaLive');
+  set ariaLive(String newValue) {
+    js_util.setProperty(this, 'ariaLive', newValue);
+  }
+
+  String get ariaModal => js_util.getProperty(this, 'ariaModal');
+  set ariaModal(String newValue) {
+    js_util.setProperty(this, 'ariaModal', newValue);
+  }
+
+  String get ariaMultiLine => js_util.getProperty(this, 'ariaMultiLine');
+  set ariaMultiLine(String newValue) {
+    js_util.setProperty(this, 'ariaMultiLine', newValue);
+  }
+
+  String get ariaMultiSelectable =>
+      js_util.getProperty(this, 'ariaMultiSelectable');
+  set ariaMultiSelectable(String newValue) {
+    js_util.setProperty(this, 'ariaMultiSelectable', newValue);
+  }
+
+  String get ariaOrientation => js_util.getProperty(this, 'ariaOrientation');
+  set ariaOrientation(String newValue) {
+    js_util.setProperty(this, 'ariaOrientation', newValue);
+  }
+
+  String get ariaPlaceholder => js_util.getProperty(this, 'ariaPlaceholder');
+  set ariaPlaceholder(String newValue) {
+    js_util.setProperty(this, 'ariaPlaceholder', newValue);
+  }
+
+  String get ariaPosInSet => js_util.getProperty(this, 'ariaPosInSet');
+  set ariaPosInSet(String newValue) {
+    js_util.setProperty(this, 'ariaPosInSet', newValue);
+  }
+
+  String get ariaPressed => js_util.getProperty(this, 'ariaPressed');
+  set ariaPressed(String newValue) {
+    js_util.setProperty(this, 'ariaPressed', newValue);
+  }
+
+  String get ariaReadOnly => js_util.getProperty(this, 'ariaReadOnly');
+  set ariaReadOnly(String newValue) {
+    js_util.setProperty(this, 'ariaReadOnly', newValue);
+  }
+
+  String get ariaRequired => js_util.getProperty(this, 'ariaRequired');
+  set ariaRequired(String newValue) {
+    js_util.setProperty(this, 'ariaRequired', newValue);
+  }
+
+  String get ariaRoleDescription =>
+      js_util.getProperty(this, 'ariaRoleDescription');
+  set ariaRoleDescription(String newValue) {
+    js_util.setProperty(this, 'ariaRoleDescription', newValue);
+  }
+
+  String get ariaRowCount => js_util.getProperty(this, 'ariaRowCount');
+  set ariaRowCount(String newValue) {
+    js_util.setProperty(this, 'ariaRowCount', newValue);
+  }
+
+  String get ariaRowIndex => js_util.getProperty(this, 'ariaRowIndex');
+  set ariaRowIndex(String newValue) {
+    js_util.setProperty(this, 'ariaRowIndex', newValue);
+  }
+
+  String get ariaRowIndexText => js_util.getProperty(this, 'ariaRowIndexText');
+  set ariaRowIndexText(String newValue) {
+    js_util.setProperty(this, 'ariaRowIndexText', newValue);
+  }
+
+  String get ariaRowSpan => js_util.getProperty(this, 'ariaRowSpan');
+  set ariaRowSpan(String newValue) {
+    js_util.setProperty(this, 'ariaRowSpan', newValue);
+  }
+
+  String get ariaSelected => js_util.getProperty(this, 'ariaSelected');
+  set ariaSelected(String newValue) {
+    js_util.setProperty(this, 'ariaSelected', newValue);
+  }
+
+  String get ariaSetSize => js_util.getProperty(this, 'ariaSetSize');
+  set ariaSetSize(String newValue) {
+    js_util.setProperty(this, 'ariaSetSize', newValue);
+  }
+
+  String get ariaSort => js_util.getProperty(this, 'ariaSort');
+  set ariaSort(String newValue) {
+    js_util.setProperty(this, 'ariaSort', newValue);
+  }
+
+  String get ariaValueMax => js_util.getProperty(this, 'ariaValueMax');
+  set ariaValueMax(String newValue) {
+    js_util.setProperty(this, 'ariaValueMax', newValue);
+  }
+
+  String get ariaValueMin => js_util.getProperty(this, 'ariaValueMin');
+  set ariaValueMin(String newValue) {
+    js_util.setProperty(this, 'ariaValueMin', newValue);
+  }
+
+  String get ariaValueNow => js_util.getProperty(this, 'ariaValueNow');
+  set ariaValueNow(String newValue) {
+    js_util.setProperty(this, 'ariaValueNow', newValue);
+  }
+
+  String get ariaValueText => js_util.getProperty(this, 'ariaValueText');
+  set ariaValueText(String newValue) {
+    js_util.setProperty(this, 'ariaValueText', newValue);
+  }
 }

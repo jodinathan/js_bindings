@@ -5,6 +5,7 @@
 @staticInterop
 library css_masking_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -47,7 +48,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class SVGClipPathElement implements SVGElement {
-  external factory SVGClipPathElement();
+  external SVGClipPathElement();
 }
 
 extension PropsSVGClipPathElement on SVGClipPathElement {
@@ -55,8 +56,10 @@ extension PropsSVGClipPathElement on SVGClipPathElement {
   /// attribute of the given [<clipPath>] element. Takes one of the
   /// constants defined in [SVGUnitTypes].
   ///
-  external SVGAnimatedEnumeration get clipPathUnits;
-  external SVGAnimatedTransformList get transform;
+  SVGAnimatedEnumeration get clipPathUnits =>
+      js_util.getProperty(this, 'clipPathUnits');
+  SVGAnimatedTransformList get transform =>
+      js_util.getProperty(this, 'transform');
 }
 
 ///  The interface provides access to the properties of [<mask>]
@@ -94,7 +97,7 @@ extension PropsSVGClipPathElement on SVGClipPathElement {
 @JS()
 @staticInterop
 class SVGMaskElement implements SVGElement {
-  external factory SVGMaskElement();
+  external SVGMaskElement();
 }
 
 extension PropsSVGMaskElement on SVGMaskElement {
@@ -102,31 +105,33 @@ extension PropsSVGMaskElement on SVGMaskElement {
   /// attribute of the given [<mask>] element. Takes one of the
   /// constants defined in [SVGUnitTypes].
   ///
-  external SVGAnimatedEnumeration get maskUnits;
+  SVGAnimatedEnumeration get maskUnits =>
+      js_util.getProperty(this, 'maskUnits');
 
   ///  An [SVGAnimatedEnumeration] corresponding to the
   /// [maskContentUnits] attribute of the given [<mask>] element. Takes
   /// one of the constants defined in [SVGUnitTypes].
   ///
-  external SVGAnimatedEnumeration get maskContentUnits;
+  SVGAnimatedEnumeration get maskContentUnits =>
+      js_util.getProperty(this, 'maskContentUnits');
 
   ///  An [SVGAnimatedLength] corresponding to the [x] attribute of the
   /// given [<mask>] element.
   ///
-  external SVGAnimatedLength get x;
+  SVGAnimatedLength get x => js_util.getProperty(this, 'x');
 
   ///  An [SVGAnimatedLength] corresponding to the [y] attribute of the
   /// given [<mask>] element.
   ///
-  external SVGAnimatedLength get y;
+  SVGAnimatedLength get y => js_util.getProperty(this, 'y');
 
   ///  An [SVGAnimatedLength] corresponding to the [width] attribute of
   /// the given [<mask>] element.
   ///
-  external SVGAnimatedLength get width;
+  SVGAnimatedLength get width => js_util.getProperty(this, 'width');
 
   ///  An [SVGAnimatedLength] corresponding to the [height] attribute
   /// of the given [<mask>] element.
   ///
-  external SVGAnimatedLength get height;
+  SVGAnimatedLength get height => js_util.getProperty(this, 'height');
 }

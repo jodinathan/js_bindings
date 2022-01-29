@@ -5,6 +5,7 @@
 @staticInterop
 library shape_detection_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -17,11 +18,12 @@ image_capture */
 @JS()
 @staticInterop
 class FaceDetector {
-  external factory FaceDetector([FaceDetectorOptions? faceDetectorOptions]);
+  external FaceDetector([FaceDetectorOptions? faceDetectorOptions]);
 }
 
 extension PropsFaceDetector on FaceDetector {
-  external Iterable<Promise<DetectedFace>> detect(dynamic image);
+  Iterable<Promise<DetectedFace>> detect(dynamic image) =>
+      js_util.callMethod(this, 'detect', [image]);
 }
 
 @anonymous
@@ -32,10 +34,15 @@ class FaceDetectorOptions {
 }
 
 extension PropsFaceDetectorOptions on FaceDetectorOptions {
-  external int get maxDetectedFaces;
-  external set maxDetectedFaces(int newValue);
-  external bool get fastMode;
-  external set fastMode(bool newValue);
+  int get maxDetectedFaces => js_util.getProperty(this, 'maxDetectedFaces');
+  set maxDetectedFaces(int newValue) {
+    js_util.setProperty(this, 'maxDetectedFaces', newValue);
+  }
+
+  bool get fastMode => js_util.getProperty(this, 'fastMode');
+  set fastMode(bool newValue) {
+    js_util.setProperty(this, 'fastMode', newValue);
+  }
 }
 
 @anonymous
@@ -47,10 +54,15 @@ class DetectedFace {
 }
 
 extension PropsDetectedFace on DetectedFace {
-  external DOMRectReadOnly get boundingBox;
-  external set boundingBox(DOMRectReadOnly newValue);
-  external Iterable<Landmark> get landmarks;
-  external set landmarks(Iterable<Landmark> newValue);
+  DOMRectReadOnly get boundingBox => js_util.getProperty(this, 'boundingBox');
+  set boundingBox(DOMRectReadOnly newValue) {
+    js_util.setProperty(this, 'boundingBox', newValue);
+  }
+
+  Iterable<Landmark> get landmarks => js_util.getProperty(this, 'landmarks');
+  set landmarks(Iterable<Landmark> newValue) {
+    js_util.setProperty(this, 'landmarks', newValue);
+  }
 }
 
 @anonymous
@@ -61,10 +73,15 @@ class Landmark {
 }
 
 extension PropsLandmark on Landmark {
-  external Iterable<Point2D> get locations;
-  external set locations(Iterable<Point2D> newValue);
-  external LandmarkType get type;
-  external set type(LandmarkType newValue);
+  Iterable<Point2D> get locations => js_util.getProperty(this, 'locations');
+  set locations(Iterable<Point2D> newValue) {
+    js_util.setProperty(this, 'locations', newValue);
+  }
+
+  LandmarkType get type => js_util.getProperty(this, 'type');
+  set type(LandmarkType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 enum LandmarkType { mouth, eye, nose }
@@ -76,8 +93,7 @@ enum LandmarkType { mouth, eye, nose }
 @JS()
 @staticInterop
 class BarcodeDetector {
-  external factory BarcodeDetector(
-      [BarcodeDetectorOptions? barcodeDetectorOptions]);
+  external BarcodeDetector([BarcodeDetectorOptions? barcodeDetectorOptions]);
 }
 
 extension PropsBarcodeDetector on BarcodeDetector {
@@ -105,7 +121,8 @@ extension PropsBarcodeDetector on BarcodeDetector {
   ///
   /// var detectedBarcode = BarcodeDetector.detect(ImageBitmapSource);
   ///
-  external Iterable<Promise<DetectedBarcode>> detect(dynamic image);
+  Iterable<Promise<DetectedBarcode>> detect(dynamic image) =>
+      js_util.callMethod(this, 'detect', [image]);
 }
 
 @anonymous
@@ -116,8 +133,10 @@ class BarcodeDetectorOptions {
 }
 
 extension PropsBarcodeDetectorOptions on BarcodeDetectorOptions {
-  external Iterable<BarcodeFormat> get formats;
-  external set formats(Iterable<BarcodeFormat> newValue);
+  Iterable<BarcodeFormat> get formats => js_util.getProperty(this, 'formats');
+  set formats(Iterable<BarcodeFormat> newValue) {
+    js_util.setProperty(this, 'formats', newValue);
+  }
 }
 
 @anonymous
@@ -132,14 +151,26 @@ class DetectedBarcode {
 }
 
 extension PropsDetectedBarcode on DetectedBarcode {
-  external DOMRectReadOnly get boundingBox;
-  external set boundingBox(DOMRectReadOnly newValue);
-  external String get rawValue;
-  external set rawValue(String newValue);
-  external BarcodeFormat get format;
-  external set format(BarcodeFormat newValue);
-  external Iterable<Point2D> get cornerPoints;
-  external set cornerPoints(Iterable<Point2D> newValue);
+  DOMRectReadOnly get boundingBox => js_util.getProperty(this, 'boundingBox');
+  set boundingBox(DOMRectReadOnly newValue) {
+    js_util.setProperty(this, 'boundingBox', newValue);
+  }
+
+  String get rawValue => js_util.getProperty(this, 'rawValue');
+  set rawValue(String newValue) {
+    js_util.setProperty(this, 'rawValue', newValue);
+  }
+
+  BarcodeFormat get format => js_util.getProperty(this, 'format');
+  set format(BarcodeFormat newValue) {
+    js_util.setProperty(this, 'format', newValue);
+  }
+
+  Iterable<Point2D> get cornerPoints =>
+      js_util.getProperty(this, 'cornerPoints');
+  set cornerPoints(Iterable<Point2D> newValue) {
+    js_util.setProperty(this, 'cornerPoints', newValue);
+  }
 }
 
 enum BarcodeFormat {

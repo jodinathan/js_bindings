@@ -5,6 +5,7 @@
 @staticInterop
 library webhid;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -23,14 +24,25 @@ class HIDDeviceFilter {
 }
 
 extension PropsHIDDeviceFilter on HIDDeviceFilter {
-  external int get vendorId;
-  external set vendorId(int newValue);
-  external int get productId;
-  external set productId(int newValue);
-  external int get usagePage;
-  external set usagePage(int newValue);
-  external int get usage;
-  external set usage(int newValue);
+  int get vendorId => js_util.getProperty(this, 'vendorId');
+  set vendorId(int newValue) {
+    js_util.setProperty(this, 'vendorId', newValue);
+  }
+
+  int get productId => js_util.getProperty(this, 'productId');
+  set productId(int newValue) {
+    js_util.setProperty(this, 'productId', newValue);
+  }
+
+  int get usagePage => js_util.getProperty(this, 'usagePage');
+  set usagePage(int newValue) {
+    js_util.setProperty(this, 'usagePage', newValue);
+  }
+
+  int get usage => js_util.getProperty(this, 'usage');
+  set usage(int newValue) {
+    js_util.setProperty(this, 'usage', newValue);
+  }
 }
 
 @anonymous
@@ -41,8 +53,10 @@ class HIDDeviceRequestOptions {
 }
 
 extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
-  external Iterable<HIDDeviceFilter> get filters;
-  external set filters(Iterable<HIDDeviceFilter> newValue);
+  Iterable<HIDDeviceFilter> get filters => js_util.getProperty(this, 'filters');
+  set filters(Iterable<HIDDeviceFilter> newValue) {
+    js_util.setProperty(this, 'filters', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -53,21 +67,28 @@ extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
 @JS()
 @staticInterop
 class HID implements EventTarget {
-  external factory HID();
+  external HID();
 }
 
 extension PropsHID on HID {
-  external EventHandlerNonNull? get onconnect;
-  external set onconnect(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondisconnect;
-  external set ondisconnect(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
+  set onconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnect', newValue);
+  }
+
+  EventHandlerNonNull? get ondisconnect =>
+      js_util.getProperty(this, 'ondisconnect');
+  set ondisconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondisconnect', newValue);
+  }
 
   ///  Returns a [Promise] that resolves with an array of connected
   /// [HIDDevice] objects.
   ///
   /// HID.getDevices();
   ///
-  external Iterable<Promise<HIDDevice>> getDevices();
+  Iterable<Promise<HIDDevice>> getDevices() =>
+      js_util.callMethod(this, 'getDevices', []);
 
   ///  Returns a [Promise] that resolves with an array of connected
   /// [HIDDevice] objects. Calling this function will trigger the user
@@ -76,8 +97,8 @@ extension PropsHID on HID {
   ///
   /// HID.requestDevice(options);
   ///
-  external Iterable<Promise<HIDDevice>> requestDevice(
-      HIDDeviceRequestOptions options);
+  Iterable<Promise<HIDDevice>> requestDevice(HIDDeviceRequestOptions options) =>
+      js_util.callMethod(this, 'requestDevice', [options]);
 }
 
 @anonymous
@@ -88,8 +109,10 @@ class HIDConnectionEventInit implements EventInit {
 }
 
 extension PropsHIDConnectionEventInit on HIDConnectionEventInit {
-  external HIDDevice get device;
-  external set device(HIDDevice newValue);
+  HIDDevice get device => js_util.getProperty(this, 'device');
+  set device(HIDDevice newValue) {
+    js_util.setProperty(this, 'device', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -100,7 +123,7 @@ extension PropsHIDConnectionEventInit on HIDConnectionEventInit {
 @JS()
 @staticInterop
 class HIDConnectionEvent implements Event {
-  external factory HIDConnectionEvent(
+  external HIDConnectionEvent(
       String type, HIDConnectionEventInit eventInitDict);
 }
 
@@ -108,7 +131,7 @@ extension PropsHIDConnectionEvent on HIDConnectionEvent {
   ///  Returns the [HIDDevice] instance representing the device
   /// associated with the connection event.
   ///
-  external HIDDevice get device;
+  HIDDevice get device => js_util.getProperty(this, 'device');
 }
 
 @anonymous
@@ -120,12 +143,20 @@ class HIDInputReportEventInit implements EventInit {
 }
 
 extension PropsHIDInputReportEventInit on HIDInputReportEventInit {
-  external HIDDevice get device;
-  external set device(HIDDevice newValue);
-  external int get reportId;
-  external set reportId(int newValue);
-  external ByteData get data;
-  external set data(ByteData newValue);
+  HIDDevice get device => js_util.getProperty(this, 'device');
+  set device(HIDDevice newValue) {
+    js_util.setProperty(this, 'device', newValue);
+  }
+
+  int get reportId => js_util.getProperty(this, 'reportId');
+  set reportId(int newValue) {
+    js_util.setProperty(this, 'reportId', newValue);
+  }
+
+  ByteData get data => js_util.getProperty(this, 'data');
+  set data(ByteData newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -136,7 +167,7 @@ extension PropsHIDInputReportEventInit on HIDInputReportEventInit {
 @JS()
 @staticInterop
 class HIDInputReportEvent implements Event {
-  external factory HIDInputReportEvent(
+  external HIDInputReportEvent(
       String type, HIDInputReportEventInit eventInitDict);
 }
 
@@ -144,17 +175,17 @@ extension PropsHIDInputReportEvent on HIDInputReportEvent {
   ///  The [HIDDevice] instance that represents the HID interface that
   /// sent the input report.
   ///
-  external HIDDevice get device;
+  HIDDevice get device => js_util.getProperty(this, 'device');
 
   ///  The one-byte identification prefix for this report, or 0 if the
   /// HID interface does not use report IDs.
   ///
-  external int get reportId;
+  int get reportId => js_util.getProperty(this, 'reportId');
 
   ///  A [DataView] containing the data from the input report,
   /// excluding the [reportId] if the HID interface uses report IDs.
   ///
-  external ByteData get data;
+  ByteData get data => js_util.getProperty(this, 'data');
 }
 
 enum HIDUnitSystem {
@@ -203,62 +234,151 @@ class HIDReportItem {
 }
 
 extension PropsHIDReportItem on HIDReportItem {
-  external bool get isAbsolute;
-  external set isAbsolute(bool newValue);
-  external bool get isArray;
-  external set isArray(bool newValue);
-  external bool get isBufferedBytes;
-  external set isBufferedBytes(bool newValue);
-  external bool get isConstant;
-  external set isConstant(bool newValue);
-  external bool get isLinear;
-  external set isLinear(bool newValue);
-  external bool get isRange;
-  external set isRange(bool newValue);
-  external bool get isVolatile;
-  external set isVolatile(bool newValue);
-  external bool get hasNull;
-  external set hasNull(bool newValue);
-  external bool get hasPreferredState;
-  external set hasPreferredState(bool newValue);
-  external bool get wrap;
-  external set wrap(bool newValue);
-  external Iterable<int> get usages;
-  external set usages(Iterable<int> newValue);
-  external int get usageMinimum;
-  external set usageMinimum(int newValue);
-  external int get usageMaximum;
-  external set usageMaximum(int newValue);
-  external int get reportSize;
-  external set reportSize(int newValue);
-  external int get reportCount;
-  external set reportCount(int newValue);
-  external int get unitExponent;
-  external set unitExponent(int newValue);
-  external HIDUnitSystem get unitSystem;
-  external set unitSystem(HIDUnitSystem newValue);
-  external int get unitFactorLengthExponent;
-  external set unitFactorLengthExponent(int newValue);
-  external int get unitFactorMassExponent;
-  external set unitFactorMassExponent(int newValue);
-  external int get unitFactorTimeExponent;
-  external set unitFactorTimeExponent(int newValue);
-  external int get unitFactorTemperatureExponent;
-  external set unitFactorTemperatureExponent(int newValue);
-  external int get unitFactorCurrentExponent;
-  external set unitFactorCurrentExponent(int newValue);
-  external int get unitFactorLuminousIntensityExponent;
-  external set unitFactorLuminousIntensityExponent(int newValue);
-  external int get logicalMinimum;
-  external set logicalMinimum(int newValue);
-  external int get logicalMaximum;
-  external set logicalMaximum(int newValue);
-  external int get physicalMinimum;
-  external set physicalMinimum(int newValue);
-  external int get physicalMaximum;
-  external set physicalMaximum(int newValue);
-  external Iterable<String> get strings;
-  external set strings(Iterable<String> newValue);
+  bool get isAbsolute => js_util.getProperty(this, 'isAbsolute');
+  set isAbsolute(bool newValue) {
+    js_util.setProperty(this, 'isAbsolute', newValue);
+  }
+
+  bool get isArray => js_util.getProperty(this, 'isArray');
+  set isArray(bool newValue) {
+    js_util.setProperty(this, 'isArray', newValue);
+  }
+
+  bool get isBufferedBytes => js_util.getProperty(this, 'isBufferedBytes');
+  set isBufferedBytes(bool newValue) {
+    js_util.setProperty(this, 'isBufferedBytes', newValue);
+  }
+
+  bool get isConstant => js_util.getProperty(this, 'isConstant');
+  set isConstant(bool newValue) {
+    js_util.setProperty(this, 'isConstant', newValue);
+  }
+
+  bool get isLinear => js_util.getProperty(this, 'isLinear');
+  set isLinear(bool newValue) {
+    js_util.setProperty(this, 'isLinear', newValue);
+  }
+
+  bool get isRange => js_util.getProperty(this, 'isRange');
+  set isRange(bool newValue) {
+    js_util.setProperty(this, 'isRange', newValue);
+  }
+
+  bool get isVolatile => js_util.getProperty(this, 'isVolatile');
+  set isVolatile(bool newValue) {
+    js_util.setProperty(this, 'isVolatile', newValue);
+  }
+
+  bool get hasNull => js_util.getProperty(this, 'hasNull');
+  set hasNull(bool newValue) {
+    js_util.setProperty(this, 'hasNull', newValue);
+  }
+
+  bool get hasPreferredState => js_util.getProperty(this, 'hasPreferredState');
+  set hasPreferredState(bool newValue) {
+    js_util.setProperty(this, 'hasPreferredState', newValue);
+  }
+
+  bool get wrap => js_util.getProperty(this, 'wrap');
+  set wrap(bool newValue) {
+    js_util.setProperty(this, 'wrap', newValue);
+  }
+
+  Iterable<int> get usages => js_util.getProperty(this, 'usages');
+  set usages(Iterable<int> newValue) {
+    js_util.setProperty(this, 'usages', newValue);
+  }
+
+  int get usageMinimum => js_util.getProperty(this, 'usageMinimum');
+  set usageMinimum(int newValue) {
+    js_util.setProperty(this, 'usageMinimum', newValue);
+  }
+
+  int get usageMaximum => js_util.getProperty(this, 'usageMaximum');
+  set usageMaximum(int newValue) {
+    js_util.setProperty(this, 'usageMaximum', newValue);
+  }
+
+  int get reportSize => js_util.getProperty(this, 'reportSize');
+  set reportSize(int newValue) {
+    js_util.setProperty(this, 'reportSize', newValue);
+  }
+
+  int get reportCount => js_util.getProperty(this, 'reportCount');
+  set reportCount(int newValue) {
+    js_util.setProperty(this, 'reportCount', newValue);
+  }
+
+  int get unitExponent => js_util.getProperty(this, 'unitExponent');
+  set unitExponent(int newValue) {
+    js_util.setProperty(this, 'unitExponent', newValue);
+  }
+
+  HIDUnitSystem get unitSystem => js_util.getProperty(this, 'unitSystem');
+  set unitSystem(HIDUnitSystem newValue) {
+    js_util.setProperty(this, 'unitSystem', newValue);
+  }
+
+  int get unitFactorLengthExponent =>
+      js_util.getProperty(this, 'unitFactorLengthExponent');
+  set unitFactorLengthExponent(int newValue) {
+    js_util.setProperty(this, 'unitFactorLengthExponent', newValue);
+  }
+
+  int get unitFactorMassExponent =>
+      js_util.getProperty(this, 'unitFactorMassExponent');
+  set unitFactorMassExponent(int newValue) {
+    js_util.setProperty(this, 'unitFactorMassExponent', newValue);
+  }
+
+  int get unitFactorTimeExponent =>
+      js_util.getProperty(this, 'unitFactorTimeExponent');
+  set unitFactorTimeExponent(int newValue) {
+    js_util.setProperty(this, 'unitFactorTimeExponent', newValue);
+  }
+
+  int get unitFactorTemperatureExponent =>
+      js_util.getProperty(this, 'unitFactorTemperatureExponent');
+  set unitFactorTemperatureExponent(int newValue) {
+    js_util.setProperty(this, 'unitFactorTemperatureExponent', newValue);
+  }
+
+  int get unitFactorCurrentExponent =>
+      js_util.getProperty(this, 'unitFactorCurrentExponent');
+  set unitFactorCurrentExponent(int newValue) {
+    js_util.setProperty(this, 'unitFactorCurrentExponent', newValue);
+  }
+
+  int get unitFactorLuminousIntensityExponent =>
+      js_util.getProperty(this, 'unitFactorLuminousIntensityExponent');
+  set unitFactorLuminousIntensityExponent(int newValue) {
+    js_util.setProperty(this, 'unitFactorLuminousIntensityExponent', newValue);
+  }
+
+  int get logicalMinimum => js_util.getProperty(this, 'logicalMinimum');
+  set logicalMinimum(int newValue) {
+    js_util.setProperty(this, 'logicalMinimum', newValue);
+  }
+
+  int get logicalMaximum => js_util.getProperty(this, 'logicalMaximum');
+  set logicalMaximum(int newValue) {
+    js_util.setProperty(this, 'logicalMaximum', newValue);
+  }
+
+  int get physicalMinimum => js_util.getProperty(this, 'physicalMinimum');
+  set physicalMinimum(int newValue) {
+    js_util.setProperty(this, 'physicalMinimum', newValue);
+  }
+
+  int get physicalMaximum => js_util.getProperty(this, 'physicalMaximum');
+  set physicalMaximum(int newValue) {
+    js_util.setProperty(this, 'physicalMaximum', newValue);
+  }
+
+  Iterable<String> get strings => js_util.getProperty(this, 'strings');
+  set strings(Iterable<String> newValue) {
+    js_util.setProperty(this, 'strings', newValue);
+  }
 }
 
 @anonymous
@@ -269,10 +389,15 @@ class HIDReportInfo {
 }
 
 extension PropsHIDReportInfo on HIDReportInfo {
-  external int get reportId;
-  external set reportId(int newValue);
-  external Iterable<HIDReportItem> get items;
-  external set items(Iterable<HIDReportItem> newValue);
+  int get reportId => js_util.getProperty(this, 'reportId');
+  set reportId(int newValue) {
+    js_util.setProperty(this, 'reportId', newValue);
+  }
+
+  Iterable<HIDReportItem> get items => js_util.getProperty(this, 'items');
+  set items(Iterable<HIDReportItem> newValue) {
+    js_util.setProperty(this, 'items', newValue);
+  }
 }
 
 @anonymous
@@ -290,20 +415,44 @@ class HIDCollectionInfo {
 }
 
 extension PropsHIDCollectionInfo on HIDCollectionInfo {
-  external int get usagePage;
-  external set usagePage(int newValue);
-  external int get usage;
-  external set usage(int newValue);
-  external int get type;
-  external set type(int newValue);
-  external Iterable<HIDCollectionInfo> get children;
-  external set children(Iterable<HIDCollectionInfo> newValue);
-  external Iterable<HIDReportInfo> get inputReports;
-  external set inputReports(Iterable<HIDReportInfo> newValue);
-  external Iterable<HIDReportInfo> get outputReports;
-  external set outputReports(Iterable<HIDReportInfo> newValue);
-  external Iterable<HIDReportInfo> get featureReports;
-  external set featureReports(Iterable<HIDReportInfo> newValue);
+  int get usagePage => js_util.getProperty(this, 'usagePage');
+  set usagePage(int newValue) {
+    js_util.setProperty(this, 'usagePage', newValue);
+  }
+
+  int get usage => js_util.getProperty(this, 'usage');
+  set usage(int newValue) {
+    js_util.setProperty(this, 'usage', newValue);
+  }
+
+  int get type => js_util.getProperty(this, 'type');
+  set type(int newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  Iterable<HIDCollectionInfo> get children =>
+      js_util.getProperty(this, 'children');
+  set children(Iterable<HIDCollectionInfo> newValue) {
+    js_util.setProperty(this, 'children', newValue);
+  }
+
+  Iterable<HIDReportInfo> get inputReports =>
+      js_util.getProperty(this, 'inputReports');
+  set inputReports(Iterable<HIDReportInfo> newValue) {
+    js_util.setProperty(this, 'inputReports', newValue);
+  }
+
+  Iterable<HIDReportInfo> get outputReports =>
+      js_util.getProperty(this, 'outputReports');
+  set outputReports(Iterable<HIDReportInfo> newValue) {
+    js_util.setProperty(this, 'outputReports', newValue);
+  }
+
+  Iterable<HIDReportInfo> get featureReports =>
+      js_util.getProperty(this, 'featureReports');
+  set featureReports(Iterable<HIDReportInfo> newValue) {
+    js_util.setProperty(this, 'featureReports', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -327,61 +476,67 @@ extension PropsHIDCollectionInfo on HIDCollectionInfo {
 @JS()
 @staticInterop
 class HIDDevice implements EventTarget {
-  external factory HIDDevice();
+  external HIDDevice();
 }
 
 extension PropsHIDDevice on HIDDevice {
-  external EventHandlerNonNull? get oninputreport;
-  external set oninputreport(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get oninputreport =>
+      js_util.getProperty(this, 'oninputreport');
+  set oninputreport(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oninputreport', newValue);
+  }
 
   /// Returns a [boolean], true if the device has an open connection.
   ///
-  external bool get opened;
+  bool get opened => js_util.getProperty(this, 'opened');
 
   /// Returns the vendorId of the HID device.
   ///
-  external int get vendorId;
+  int get vendorId => js_util.getProperty(this, 'vendorId');
 
   /// Returns the productID of the HID device.
   ///
-  external int get productId;
+  int get productId => js_util.getProperty(this, 'productId');
 
   ///  Returns a [string] containing the product name of the HID
   /// device.
   ///
-  external String get productName;
+  String get productName => js_util.getProperty(this, 'productName');
 
   /// Returns an array of report formats for the HID device.
   ///
-  external Iterable<HIDCollectionInfo> get collections;
+  Iterable<HIDCollectionInfo> get collections =>
+      js_util.getProperty(this, 'collections');
 
   ///  Opens a connection to this HID device, and returns a [Promise]
   /// which resolves once the connection has been successful.
   ///
   /// HIDDevice.open();
   ///
-  external Promise<Object> open();
+  Promise<Object> open() => js_util.callMethod(this, 'open', []);
 
   ///  Closes the connection to this HID device, and returns a
   /// [Promise] which resolves once the connection has been closed.
   ///
   /// HIDDevice.close();
   ///
-  external Promise<Object> close();
+  Promise<Object> close() => js_util.callMethod(this, 'close', []);
 
   ///  Sends an output report to this HID Device, and returns a
   /// [Promise] which resolves once the report has been sent.
   ///
   /// HIDDevice.sendReport(reportId, data);
   ///
-  external Promise<Object> sendReport(int reportId, dynamic data);
+  Promise<Object> sendReport(int reportId, dynamic data) =>
+      js_util.callMethod(this, 'sendReport', [reportId, data]);
 
   ///  Sends a feature report to this HID device, and returns a
   /// [Promise] which resolves once the report has been sent.
   ///
   /// HIDDevice.sendFeatureReport(reportId, data);
   ///
-  external Promise<Object> sendFeatureReport(int reportId, dynamic data);
+  Promise<Object> sendFeatureReport(int reportId, dynamic data) =>
+      js_util.callMethod(this, 'sendFeatureReport', [reportId, data]);
 
   ///  Receives a feature report from this HID device in the form of a
   /// [Promise] which resolves with a [DataView]. This allows typed
@@ -389,5 +544,6 @@ extension PropsHIDDevice on HIDDevice {
   ///
   /// HIDDevice.receiveFeatureReport(reportId);
   ///
-  external Promise<ByteData> receiveFeatureReport(int reportId);
+  Promise<ByteData> receiveFeatureReport(int reportId) =>
+      js_util.callMethod(this, 'receiveFeatureReport', [reportId]);
 }

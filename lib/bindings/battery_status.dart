@@ -5,6 +5,7 @@
 @staticInterop
 library battery_status;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -29,36 +30,53 @@ dom */
 @JS()
 @staticInterop
 class BatteryManager implements EventTarget {
-  external factory BatteryManager();
+  external BatteryManager();
 }
 
 extension PropsBatteryManager on BatteryManager {
   ///  A Boolean value indicating whether the battery is currently
   /// being charged.
   ///
-  external bool get charging;
+  bool get charging => js_util.getProperty(this, 'charging');
 
   ///  A number representing the remaining time in seconds until the
   /// battery is fully charged, or 0 if the battery is already fully
   /// charged.
   ///
-  external /* double | NaN */ dynamic get chargingTime;
+  /* double | NaN */ dynamic get chargingTime =>
+      js_util.getProperty(this, 'chargingTime');
 
   ///  A number representing the remaining time in seconds until the
   /// battery is completely discharged and the system suspends.
   ///
-  external /* double | NaN */ dynamic get dischargingTime;
+  /* double | NaN */ dynamic get dischargingTime =>
+      js_util.getProperty(this, 'dischargingTime');
 
   ///  A number representing the system's battery charge level scaled
   /// to a value between 0.0 and 1.0.
   ///
-  external double get level;
-  external EventHandlerNonNull? get onchargingchange;
-  external set onchargingchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onchargingtimechange;
-  external set onchargingtimechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondischargingtimechange;
-  external set ondischargingtimechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onlevelchange;
-  external set onlevelchange(EventHandlerNonNull? newValue);
+  double get level => js_util.getProperty(this, 'level');
+  EventHandlerNonNull? get onchargingchange =>
+      js_util.getProperty(this, 'onchargingchange');
+  set onchargingchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchargingchange', newValue);
+  }
+
+  EventHandlerNonNull? get onchargingtimechange =>
+      js_util.getProperty(this, 'onchargingtimechange');
+  set onchargingtimechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchargingtimechange', newValue);
+  }
+
+  EventHandlerNonNull? get ondischargingtimechange =>
+      js_util.getProperty(this, 'ondischargingtimechange');
+  set ondischargingtimechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondischargingtimechange', newValue);
+  }
+
+  EventHandlerNonNull? get onlevelchange =>
+      js_util.getProperty(this, 'onlevelchange');
+  set onlevelchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onlevelchange', newValue);
+  }
 }

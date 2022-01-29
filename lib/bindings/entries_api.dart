@@ -5,6 +5,7 @@
 @staticInterop
 library entries_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -24,36 +25,36 @@ html */
 @JS()
 @staticInterop
 class FileSystemEntry {
-  external factory FileSystemEntry();
+  external FileSystemEntry();
 }
 
 extension PropsFileSystemEntry on FileSystemEntry {
   ///  A Boolean which is [true] if the entry represents a file. If
   /// it's not a file, this value is [false].
   ///
-  external bool get isFile;
+  bool get isFile => js_util.getProperty(this, 'isFile');
 
   ///  A boolean value which is [true] if the entry represents a
   /// directory; otherwise, it's [false].
   ///
-  external bool get isDirectory;
+  bool get isDirectory => js_util.getProperty(this, 'isDirectory');
 
   ///  A [USVString] containing the name of the entry (the final part
   /// of the path, after the last "/" character).
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  A [USVString] object which provides the full, absolute path from
   /// the file system's root to the entry; it can also be thought of as
   /// a path which is relative to the root directory, prepended with a
   /// "/" character.
   ///
-  external String get fullPath;
+  String get fullPath => js_util.getProperty(this, 'fullPath');
 
   ///  A [FileSystem] object representing the file system in which the
   /// entry is located.
   ///
-  external FileSystem get filesystem;
+  FileSystem get filesystem => js_util.getProperty(this, 'filesystem');
 
   ///  Returns a [FileSystemDirectoryEntry] representing the entry's
   /// parent directory.
@@ -77,8 +78,10 @@ extension PropsFileSystemEntry on FileSystemEntry {
   ///  moveTo() is used to rename the file within that
   ///  directory.
   ///
-  external Object getParent(
-      [FileSystemEntryCallback? successCallback, ErrorCallback? errorCallback]);
+  Object getParent(
+          [FileSystemEntryCallback? successCallback,
+          ErrorCallback? errorCallback]) =>
+      js_util.callMethod(this, 'getParent', [successCallback, errorCallback]);
 }
 
 ///  The interface of the File and Directory Entries API represents a
@@ -88,7 +91,7 @@ extension PropsFileSystemEntry on FileSystemEntry {
 @JS()
 @staticInterop
 class FileSystemDirectoryEntry implements FileSystemEntry {
-  external factory FileSystemDirectoryEntry();
+  external FileSystemDirectoryEntry();
 }
 
 extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
@@ -126,7 +129,8 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
   ///  end of the directory has been reached, and the recursion ends. Once control is returned
   ///  to readDirectory(), the array is returned to the caller.
   ///
-  external FileSystemDirectoryReader createReader();
+  FileSystemDirectoryReader createReader() =>
+      js_util.callMethod(this, 'createReader', []);
 
   ///  Returns a [FileSystemFileEntry] object representing a file
   /// located within the directory's hierarchy, given a path relative
@@ -169,11 +173,13 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
   ///  loadend event being fired), the loaded text is passed into
   ///  JSON.parse() to be reconstituted into a JavaScript object.
   ///
-  external Object getFile(
-      [String? path,
-      FileSystemFlags? options,
-      FileSystemEntryCallback? successCallback,
-      ErrorCallback? errorCallback]);
+  Object getFile(
+          [String? path,
+          FileSystemFlags? options,
+          FileSystemEntryCallback? successCallback,
+          ErrorCallback? errorCallback]) =>
+      js_util.callMethod(
+          this, 'getFile', [path, options, successCallback, errorCallback]);
 
   ///  Returns a [FileSystemDirectoryEntry] object representing a
   /// directory located at a given path, relative to the directory on
@@ -216,11 +222,13 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
   ///  loadend event being fired), the loaded text is passed into
   ///  JSON.parse() to be reconstituted into a JavaScript object.
   ///
-  external Object getDirectory(
-      [String? path,
-      FileSystemFlags? options,
-      FileSystemEntryCallback? successCallback,
-      ErrorCallback? errorCallback]);
+  Object getDirectory(
+          [String? path,
+          FileSystemFlags? options,
+          FileSystemEntryCallback? successCallback,
+          ErrorCallback? errorCallback]) =>
+      js_util.callMethod(this, 'getDirectory',
+          [path, options, successCallback, errorCallback]);
 }
 
 @anonymous
@@ -232,10 +240,15 @@ class FileSystemFlags {
 }
 
 extension PropsFileSystemFlags on FileSystemFlags {
-  external bool get create;
-  external set create(bool newValue);
-  external bool get exclusive;
-  external set exclusive(bool newValue);
+  bool get create => js_util.getProperty(this, 'create');
+  set create(bool newValue) {
+    js_util.setProperty(this, 'create', newValue);
+  }
+
+  bool get exclusive => js_util.getProperty(this, 'exclusive');
+  set exclusive(bool newValue) {
+    js_util.setProperty(this, 'exclusive', newValue);
+  }
 }
 
 ///  The interface of the File and Directory Entries API lets you
@@ -245,7 +258,7 @@ extension PropsFileSystemFlags on FileSystemFlags {
 @JS()
 @staticInterop
 class FileSystemDirectoryReader {
-  external factory FileSystemDirectoryReader();
+  external FileSystemDirectoryReader();
 }
 
 extension PropsFileSystemDirectoryReader on FileSystemDirectoryReader {
@@ -258,8 +271,9 @@ extension PropsFileSystemDirectoryReader on FileSystemDirectoryReader {
   /// readEntries(successCallback, errorCallback);
   ///
   /// See DataTransferItem.webkitGetAsEntry() for example code that uses this method.
-  external Object readEntries(FileSystemEntriesCallback successCallback,
-      [ErrorCallback? errorCallback]);
+  Object readEntries(FileSystemEntriesCallback successCallback,
+          [ErrorCallback? errorCallback]) =>
+      js_util.callMethod(this, 'readEntries', [successCallback, errorCallback]);
 }
 
 ///  The interface of the File System API represents a file in a file
@@ -269,7 +283,7 @@ extension PropsFileSystemDirectoryReader on FileSystemDirectoryReader {
 @JS()
 @staticInterop
 class FileSystemFileEntry implements FileSystemEntry {
-  external factory FileSystemFileEntry();
+  external FileSystemFileEntry();
 }
 
 extension PropsFileSystemFileEntry on FileSystemFileEntry {
@@ -305,8 +319,8 @@ extension PropsFileSystemFileEntry on FileSystemFileEntry {
   ///  called; similarly, its error handler is set up to call the
   ///  errorCallback specified.
   ///
-  external Object file(FileCallback successCallback,
-      [ErrorCallback? errorCallback]);
+  Object file(FileCallback successCallback, [ErrorCallback? errorCallback]) =>
+      js_util.callMethod(this, 'file', [successCallback, errorCallback]);
 }
 
 ///  The File and Directory Entries API interface is used to
@@ -322,18 +336,18 @@ extension PropsFileSystemFileEntry on FileSystemFileEntry {
 @JS()
 @staticInterop
 class FileSystem {
-  external factory FileSystem();
+  external FileSystem();
 }
 
 extension PropsFileSystem on FileSystem {
   ///  A [USVString] representing the file system's name. This name is
   /// unique among the entire list of exposed file systems.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  A [FileSystemDirectoryEntry] object which represents the file
   /// system's root directory. Through this object, you can gain access
   /// to all files and directories in the file system.
   ///
-  external FileSystemDirectoryEntry get root;
+  FileSystemDirectoryEntry get root => js_util.getProperty(this, 'root');
 }

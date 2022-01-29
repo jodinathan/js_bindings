@@ -5,6 +5,7 @@
 @staticInterop
 library web_locks;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -16,11 +17,11 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorLocks {
-  external factory NavigatorLocks();
+  external NavigatorLocks();
 }
 
 extension PropsNavigatorLocks on NavigatorLocks {
-  external LockManager get locks;
+  LockManager get locks => js_util.getProperty(this, 'locks');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -33,7 +34,7 @@ extension PropsNavigatorLocks on NavigatorLocks {
 @JS()
 @staticInterop
 class LockManager {
-  external factory LockManager();
+  external LockManager();
 }
 
 extension PropsLockManager on LockManager {
@@ -43,8 +44,9 @@ extension PropsLockManager on LockManager {
   /// LockManager.request(name, callback)
   /// LockManager.request(name, {options}, callback)
   ///
-  external Promise<dynamic> request(String name,
-      [LockOptions? options, LockGrantedCallback callback]);
+  Promise<dynamic> request(String name,
+          [LockOptions? options, LockGrantedCallback? callback]) =>
+      js_util.callMethod(this, 'request', [name, options, callback]);
 
   ///  Returns a [Promise] that resolves with an object that contains
   /// information about held and pending locks.
@@ -59,7 +61,7 @@ extension PropsLockManager on LockManager {
   ///  console.log(`requested lock: name ${request.name}, mode ${request.mode}`);
   /// }
   ///
-  external Promise<LockManagerSnapshot> query();
+  Promise<LockManagerSnapshot> query() => js_util.callMethod(this, 'query', []);
 }
 
 enum LockMode { shared, exclusive }
@@ -76,14 +78,25 @@ class LockOptions {
 }
 
 extension PropsLockOptions on LockOptions {
-  external LockMode get mode;
-  external set mode(LockMode newValue);
-  external bool get ifAvailable;
-  external set ifAvailable(bool newValue);
-  external bool get steal;
-  external set steal(bool newValue);
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
+  LockMode get mode => js_util.getProperty(this, 'mode');
+  set mode(LockMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
+
+  bool get ifAvailable => js_util.getProperty(this, 'ifAvailable');
+  set ifAvailable(bool newValue) {
+    js_util.setProperty(this, 'ifAvailable', newValue);
+  }
+
+  bool get steal => js_util.getProperty(this, 'steal');
+  set steal(bool newValue) {
+    js_util.setProperty(this, 'steal', newValue);
+  }
+
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 @anonymous
@@ -95,10 +108,15 @@ class LockManagerSnapshot {
 }
 
 extension PropsLockManagerSnapshot on LockManagerSnapshot {
-  external Iterable<LockInfo> get held;
-  external set held(Iterable<LockInfo> newValue);
-  external Iterable<LockInfo> get pending;
-  external set pending(Iterable<LockInfo> newValue);
+  Iterable<LockInfo> get held => js_util.getProperty(this, 'held');
+  set held(Iterable<LockInfo> newValue) {
+    js_util.setProperty(this, 'held', newValue);
+  }
+
+  Iterable<LockInfo> get pending => js_util.getProperty(this, 'pending');
+  set pending(Iterable<LockInfo> newValue) {
+    js_util.setProperty(this, 'pending', newValue);
+  }
 }
 
 @anonymous
@@ -109,12 +127,20 @@ class LockInfo {
 }
 
 extension PropsLockInfo on LockInfo {
-  external String get name;
-  external set name(String newValue);
-  external LockMode get mode;
-  external set mode(LockMode newValue);
-  external String get clientId;
-  external set clientId(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  LockMode get mode => js_util.getProperty(this, 'mode');
+  set mode(LockMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
+
+  String get clientId => js_util.getProperty(this, 'clientId');
+  set clientId(String newValue) {
+    js_util.setProperty(this, 'clientId', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -131,14 +157,14 @@ extension PropsLockInfo on LockInfo {
 @JS()
 @staticInterop
 class Lock {
-  external factory Lock();
+  external Lock();
 }
 
 extension PropsLock on Lock {
   ///  Returns the name passed to [LockManager.request()] when the lock
   /// was requested.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///
   ///     Returns the access mode passed to [LockManager.request()]
@@ -146,5 +172,5 @@ extension PropsLock on Lock {
   ///    The mode is either ["exclusive"] (the default) or ["shared"].
   ///
   ///
-  external LockMode get mode;
+  LockMode get mode => js_util.getProperty(this, 'mode');
 }

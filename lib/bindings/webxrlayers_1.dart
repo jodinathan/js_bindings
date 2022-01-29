@@ -5,6 +5,7 @@
 @staticInterop
 library webxrlayers_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -44,40 +45,46 @@ enum XRLayerLayout {
 @JS()
 @staticInterop
 class XRCompositionLayer implements XRLayer {
-  external factory XRCompositionLayer();
+  external XRCompositionLayer();
 }
 
 extension PropsXRCompositionLayer on XRCompositionLayer {
   /// The layout type of the layer.
   ///
-  external XRLayerLayout get layout;
+  XRLayerLayout get layout => js_util.getProperty(this, 'layout');
 
   /// A boolean enabling the layer's texture alpha channel.
   ///
-  external bool get blendTextureSourceAlpha;
-  external set blendTextureSourceAlpha(bool newValue);
+  bool get blendTextureSourceAlpha =>
+      js_util.getProperty(this, 'blendTextureSourceAlpha');
+  set blendTextureSourceAlpha(bool newValue) {
+    js_util.setProperty(this, 'blendTextureSourceAlpha', newValue);
+  }
 
   ///  A boolean enabling optical chromatic aberration correction for
   /// the layer if the device supports it, [null] otherwise.
   ///
-  external bool? get chromaticAberrationCorrection;
-  external set chromaticAberrationCorrection(bool? newValue);
+  bool? get chromaticAberrationCorrection =>
+      js_util.getProperty(this, 'chromaticAberrationCorrection');
+  set chromaticAberrationCorrection(bool? newValue) {
+    js_util.setProperty(this, 'chromaticAberrationCorrection', newValue);
+  }
 
   ///  The number of mip levels in the color and texture data for the
   /// layer.
   ///
-  external int get mipLevels;
+  int get mipLevels => js_util.getProperty(this, 'mipLevels');
 
   ///  A boolean signaling that the layer should be rerendered in the
   /// next frame.
   ///
-  external bool get needsRedraw;
+  bool get needsRedraw => js_util.getProperty(this, 'needsRedraw');
 
   /// Deletes the underlying layer attachments.
   ///
   /// destroy()
   ///
-  external Object destroy();
+  Object destroy() => js_util.callMethod(this, 'destroy', []);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -98,35 +105,37 @@ extension PropsXRCompositionLayer on XRCompositionLayer {
 @JS()
 @staticInterop
 class XRProjectionLayer implements XRCompositionLayer {
-  external factory XRProjectionLayer();
+  external XRProjectionLayer();
 }
 
 extension PropsXRProjectionLayer on XRProjectionLayer {
   /// The width in pixels of the color textures of this layer.
   ///
-  external int get textureWidth;
+  int get textureWidth => js_util.getProperty(this, 'textureWidth');
 
   /// The height in pixels of the color textures of this layer.
   ///
-  external int get textureHeight;
+  int get textureHeight => js_util.getProperty(this, 'textureHeight');
 
   ///  The layer's layer count for array textures when using
   /// [texture-array] as the [textureType].
   ///
-  external int get textureArrayLength;
+  int get textureArrayLength => js_util.getProperty(this, 'textureArrayLength');
 
   ///  A boolean indicating that the XR compositor is not making use of
   /// depth buffer values when rendering the layer.
   ///
-  external bool get ignoreDepthValues;
+  bool get ignoreDepthValues => js_util.getProperty(this, 'ignoreDepthValues');
 
   ///  A number indicating the amount of foveation used by the XR
   /// compositor for the layer. Fixed Foveated Rendering (FFR) renders
   /// the edges of the eye textures at a lower resolution than the
   /// center and reduces the GPU load.
   ///
-  external double? get fixedFoveation;
-  external set fixedFoveation(double? newValue);
+  double? get fixedFoveation => js_util.getProperty(this, 'fixedFoveation');
+  set fixedFoveation(double? newValue) {
+    js_util.setProperty(this, 'fixedFoveation', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -150,33 +159,44 @@ extension PropsXRProjectionLayer on XRProjectionLayer {
 @JS()
 @staticInterop
 class XRQuadLayer implements XRCompositionLayer {
-  external factory XRQuadLayer();
+  external XRQuadLayer();
 }
 
 extension PropsXRQuadLayer on XRQuadLayer {
   ///  An [XRSpace] representing the layer's spatial relationship with
   /// the user’s physical environment.
   ///
-  external XRSpace get space;
-  external set space(XRSpace newValue);
+  XRSpace get space => js_util.getProperty(this, 'space');
+  set space(XRSpace newValue) {
+    js_util.setProperty(this, 'space', newValue);
+  }
 
   ///  An [XRRigidTransform] representing the offset and orientation
   /// relative to [space].
   ///
-  external XRRigidTransform get transform;
-  external set transform(XRRigidTransform newValue);
+  XRRigidTransform get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
 
   /// Represents the width of the layer in meters.
   ///
-  external double get width;
-  external set width(double newValue);
+  double get width => js_util.getProperty(this, 'width');
+  set width(double newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   /// Represents the height of the layer in meters.
   ///
-  external double get height;
-  external set height(double newValue);
-  external EventHandlerNonNull? get onredraw;
-  external set onredraw(EventHandlerNonNull? newValue);
+  double get height => js_util.getProperty(this, 'height');
+  set height(double newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
+
+  EventHandlerNonNull? get onredraw => js_util.getProperty(this, 'onredraw');
+  set onredraw(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onredraw', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -198,42 +218,55 @@ extension PropsXRQuadLayer on XRQuadLayer {
 @JS()
 @staticInterop
 class XRCylinderLayer implements XRCompositionLayer {
-  external factory XRCylinderLayer();
+  external XRCylinderLayer();
 }
 
 extension PropsXRCylinderLayer on XRCylinderLayer {
   ///  An [XRSpace] representing the layer's spatial relationship with
   /// the user’s physical environment.
   ///
-  external XRSpace get space;
-  external set space(XRSpace newValue);
+  XRSpace get space => js_util.getProperty(this, 'space');
+  set space(XRSpace newValue) {
+    js_util.setProperty(this, 'space', newValue);
+  }
 
   ///  An [XRRigidTransform] representing the offset and orientation
   /// relative to [space].
   ///
-  external XRRigidTransform get transform;
-  external set transform(XRRigidTransform newValue);
+  XRRigidTransform get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
 
   /// A number indicating the radius of the cylinder.
   ///
-  external double get radius;
-  external set radius(double newValue);
+  double get radius => js_util.getProperty(this, 'radius');
+  set radius(double newValue) {
+    js_util.setProperty(this, 'radius', newValue);
+  }
 
   ///  A number indicating the angle in radians of the visible section
   /// of the cylinder.
   ///
-  external double get centralAngle;
-  external set centralAngle(double newValue);
+  double get centralAngle => js_util.getProperty(this, 'centralAngle');
+  set centralAngle(double newValue) {
+    js_util.setProperty(this, 'centralAngle', newValue);
+  }
 
   ///  A number indicating the ratio of the visible cylinder section.
   /// It is the ratio of the width of the visible section of the
   /// cylinder divided by its height. The width is calculated by
   /// multiplying the [radius] with the [centralAngle].
   ///
-  external double get aspectRatio;
-  external set aspectRatio(double newValue);
-  external EventHandlerNonNull? get onredraw;
-  external set onredraw(EventHandlerNonNull? newValue);
+  double get aspectRatio => js_util.getProperty(this, 'aspectRatio');
+  set aspectRatio(double newValue) {
+    js_util.setProperty(this, 'aspectRatio', newValue);
+  }
+
+  EventHandlerNonNull? get onredraw => js_util.getProperty(this, 'onredraw');
+  set onredraw(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onredraw', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -254,46 +287,64 @@ extension PropsXRCylinderLayer on XRCylinderLayer {
 @JS()
 @staticInterop
 class XREquirectLayer implements XRCompositionLayer {
-  external factory XREquirectLayer();
+  external XREquirectLayer();
 }
 
 extension PropsXREquirectLayer on XREquirectLayer {
   ///  An [XRSpace] representing the layer's spatial relationship with
   /// the user’s physical environment.
   ///
-  external XRSpace get space;
-  external set space(XRSpace newValue);
+  XRSpace get space => js_util.getProperty(this, 'space');
+  set space(XRSpace newValue) {
+    js_util.setProperty(this, 'space', newValue);
+  }
 
   ///  An [XRRigidTransform] representing the offset and orientation
   /// relative to [space].
   ///
-  external XRRigidTransform get transform;
-  external set transform(XRRigidTransform newValue);
+  XRRigidTransform get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
 
   /// A number indicating the radius of the sphere.
   ///
-  external double get radius;
-  external set radius(double newValue);
+  double get radius => js_util.getProperty(this, 'radius');
+  set radius(double newValue) {
+    js_util.setProperty(this, 'radius', newValue);
+  }
 
   ///  A number indicating the central horizontal angle in radians for
   /// the sphere.
   ///
-  external double get centralHorizontalAngle;
-  external set centralHorizontalAngle(double newValue);
+  double get centralHorizontalAngle =>
+      js_util.getProperty(this, 'centralHorizontalAngle');
+  set centralHorizontalAngle(double newValue) {
+    js_util.setProperty(this, 'centralHorizontalAngle', newValue);
+  }
 
   ///  A number indicating the upper vertical angle in radians for the
   /// sphere.
   ///
-  external double get upperVerticalAngle;
-  external set upperVerticalAngle(double newValue);
+  double get upperVerticalAngle =>
+      js_util.getProperty(this, 'upperVerticalAngle');
+  set upperVerticalAngle(double newValue) {
+    js_util.setProperty(this, 'upperVerticalAngle', newValue);
+  }
 
   ///  A number indicating the lower vertical angle in radians for the
   /// sphere.
   ///
-  external double get lowerVerticalAngle;
-  external set lowerVerticalAngle(double newValue);
-  external EventHandlerNonNull? get onredraw;
-  external set onredraw(EventHandlerNonNull? newValue);
+  double get lowerVerticalAngle =>
+      js_util.getProperty(this, 'lowerVerticalAngle');
+  set lowerVerticalAngle(double newValue) {
+    js_util.setProperty(this, 'lowerVerticalAngle', newValue);
+  }
+
+  EventHandlerNonNull? get onredraw => js_util.getProperty(this, 'onredraw');
+  set onredraw(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onredraw', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -309,23 +360,30 @@ extension PropsXREquirectLayer on XREquirectLayer {
 @JS()
 @staticInterop
 class XRCubeLayer implements XRCompositionLayer {
-  external factory XRCubeLayer();
+  external XRCubeLayer();
 }
 
 extension PropsXRCubeLayer on XRCubeLayer {
   ///  An [XRSpace] representing the layer's spatial relationship with
   /// the user’s physical environment.
   ///
-  external XRSpace get space;
-  external set space(XRSpace newValue);
+  XRSpace get space => js_util.getProperty(this, 'space');
+  set space(XRSpace newValue) {
+    js_util.setProperty(this, 'space', newValue);
+  }
 
   ///  A [DOMPointReadOnly] representing the orientation relative to
   /// the [space] property.
   ///
-  external DOMPointReadOnly get orientation;
-  external set orientation(DOMPointReadOnly newValue);
-  external EventHandlerNonNull? get onredraw;
-  external set onredraw(EventHandlerNonNull? newValue);
+  DOMPointReadOnly get orientation => js_util.getProperty(this, 'orientation');
+  set orientation(DOMPointReadOnly newValue) {
+    js_util.setProperty(this, 'orientation', newValue);
+  }
+
+  EventHandlerNonNull? get onredraw => js_util.getProperty(this, 'onredraw');
+  set onredraw(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onredraw', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -335,13 +393,13 @@ extension PropsXRCubeLayer on XRCubeLayer {
 @JS()
 @staticInterop
 class XRSubImage {
-  external factory XRSubImage();
+  external XRSubImage();
 }
 
 extension PropsXRSubImage on XRSubImage {
   /// The [XRViewport] used when rendering the sub image.
   ///
-  external XRViewport get viewport;
+  XRViewport get viewport => js_util.getProperty(this, 'viewport');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -350,32 +408,33 @@ extension PropsXRSubImage on XRSubImage {
 @JS()
 @staticInterop
 class XRWebGLSubImage implements XRSubImage {
-  external factory XRWebGLSubImage();
+  external XRWebGLSubImage();
 }
 
 extension PropsXRWebGLSubImage on XRWebGLSubImage {
   ///  A color [WebGLTexture] object for the [XRCompositionLayer] to
   /// render.
   ///
-  external WebGLTexture get colorTexture;
+  WebGLTexture get colorTexture => js_util.getProperty(this, 'colorTexture');
 
   ///  A depth/stencil [WebGLTexture] object for the
   /// [XRCompositionLayer] to render.
   ///
-  external WebGLTexture? get depthStencilTexture;
+  WebGLTexture? get depthStencilTexture =>
+      js_util.getProperty(this, 'depthStencilTexture');
 
   ///  A number representing the offset into the texture array if the
   /// layer was requested with [texture-array]; [null] otherwise.
   ///
-  external int? get imageIndex;
+  int? get imageIndex => js_util.getProperty(this, 'imageIndex');
 
   /// A number representing the width in pixels of the GL attachment.
   ///
-  external int get textureWidth;
+  int get textureWidth => js_util.getProperty(this, 'textureWidth');
 
   /// A number representing the height in pixels of the GL attachment.
   ///
-  external int get textureHeight;
+  int get textureHeight => js_util.getProperty(this, 'textureHeight');
 }
 
 enum XRTextureType { texture, textureArray }
@@ -392,14 +451,25 @@ class XRProjectionLayerInit {
 }
 
 extension PropsXRProjectionLayerInit on XRProjectionLayerInit {
-  external XRTextureType get textureType;
-  external set textureType(XRTextureType newValue);
-  external int get colorFormat;
-  external set colorFormat(int newValue);
-  external int get depthFormat;
-  external set depthFormat(int newValue);
-  external double get scaleFactor;
-  external set scaleFactor(double newValue);
+  XRTextureType get textureType => js_util.getProperty(this, 'textureType');
+  set textureType(XRTextureType newValue) {
+    js_util.setProperty(this, 'textureType', newValue);
+  }
+
+  int get colorFormat => js_util.getProperty(this, 'colorFormat');
+  set colorFormat(int newValue) {
+    js_util.setProperty(this, 'colorFormat', newValue);
+  }
+
+  int get depthFormat => js_util.getProperty(this, 'depthFormat');
+  set depthFormat(int newValue) {
+    js_util.setProperty(this, 'depthFormat', newValue);
+  }
+
+  double get scaleFactor => js_util.getProperty(this, 'scaleFactor');
+  set scaleFactor(double newValue) {
+    js_util.setProperty(this, 'scaleFactor', newValue);
+  }
 }
 
 @anonymous
@@ -418,22 +488,45 @@ class XRLayerInit {
 }
 
 extension PropsXRLayerInit on XRLayerInit {
-  external XRSpace get space;
-  external set space(XRSpace newValue);
-  external int get colorFormat;
-  external set colorFormat(int newValue);
-  external int? get depthFormat;
-  external set depthFormat(int? newValue);
-  external int get mipLevels;
-  external set mipLevels(int newValue);
-  external int get viewPixelWidth;
-  external set viewPixelWidth(int newValue);
-  external int get viewPixelHeight;
-  external set viewPixelHeight(int newValue);
-  external XRLayerLayout get layout;
-  external set layout(XRLayerLayout newValue);
-  external bool get isStatic;
-  external set isStatic(bool newValue);
+  XRSpace get space => js_util.getProperty(this, 'space');
+  set space(XRSpace newValue) {
+    js_util.setProperty(this, 'space', newValue);
+  }
+
+  int get colorFormat => js_util.getProperty(this, 'colorFormat');
+  set colorFormat(int newValue) {
+    js_util.setProperty(this, 'colorFormat', newValue);
+  }
+
+  int? get depthFormat => js_util.getProperty(this, 'depthFormat');
+  set depthFormat(int? newValue) {
+    js_util.setProperty(this, 'depthFormat', newValue);
+  }
+
+  int get mipLevels => js_util.getProperty(this, 'mipLevels');
+  set mipLevels(int newValue) {
+    js_util.setProperty(this, 'mipLevels', newValue);
+  }
+
+  int get viewPixelWidth => js_util.getProperty(this, 'viewPixelWidth');
+  set viewPixelWidth(int newValue) {
+    js_util.setProperty(this, 'viewPixelWidth', newValue);
+  }
+
+  int get viewPixelHeight => js_util.getProperty(this, 'viewPixelHeight');
+  set viewPixelHeight(int newValue) {
+    js_util.setProperty(this, 'viewPixelHeight', newValue);
+  }
+
+  XRLayerLayout get layout => js_util.getProperty(this, 'layout');
+  set layout(XRLayerLayout newValue) {
+    js_util.setProperty(this, 'layout', newValue);
+  }
+
+  bool get isStatic => js_util.getProperty(this, 'isStatic');
+  set isStatic(bool newValue) {
+    js_util.setProperty(this, 'isStatic', newValue);
+  }
 }
 
 @anonymous
@@ -448,14 +541,25 @@ class XRQuadLayerInit implements XRLayerInit {
 }
 
 extension PropsXRQuadLayerInit on XRQuadLayerInit {
-  external XRTextureType get textureType;
-  external set textureType(XRTextureType newValue);
-  external XRRigidTransform? get transform;
-  external set transform(XRRigidTransform? newValue);
-  external double get width;
-  external set width(double newValue);
-  external double get height;
-  external set height(double newValue);
+  XRTextureType get textureType => js_util.getProperty(this, 'textureType');
+  set textureType(XRTextureType newValue) {
+    js_util.setProperty(this, 'textureType', newValue);
+  }
+
+  XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform? newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
+
+  double get width => js_util.getProperty(this, 'width');
+  set width(double newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  double get height => js_util.getProperty(this, 'height');
+  set height(double newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 }
 
 @anonymous
@@ -471,16 +575,30 @@ class XRCylinderLayerInit implements XRLayerInit {
 }
 
 extension PropsXRCylinderLayerInit on XRCylinderLayerInit {
-  external XRTextureType get textureType;
-  external set textureType(XRTextureType newValue);
-  external XRRigidTransform? get transform;
-  external set transform(XRRigidTransform? newValue);
-  external double get radius;
-  external set radius(double newValue);
-  external double get centralAngle;
-  external set centralAngle(double newValue);
-  external double get aspectRatio;
-  external set aspectRatio(double newValue);
+  XRTextureType get textureType => js_util.getProperty(this, 'textureType');
+  set textureType(XRTextureType newValue) {
+    js_util.setProperty(this, 'textureType', newValue);
+  }
+
+  XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform? newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
+
+  double get radius => js_util.getProperty(this, 'radius');
+  set radius(double newValue) {
+    js_util.setProperty(this, 'radius', newValue);
+  }
+
+  double get centralAngle => js_util.getProperty(this, 'centralAngle');
+  set centralAngle(double newValue) {
+    js_util.setProperty(this, 'centralAngle', newValue);
+  }
+
+  double get aspectRatio => js_util.getProperty(this, 'aspectRatio');
+  set aspectRatio(double newValue) {
+    js_util.setProperty(this, 'aspectRatio', newValue);
+  }
 }
 
 @anonymous
@@ -497,18 +615,38 @@ class XREquirectLayerInit implements XRLayerInit {
 }
 
 extension PropsXREquirectLayerInit on XREquirectLayerInit {
-  external XRTextureType get textureType;
-  external set textureType(XRTextureType newValue);
-  external XRRigidTransform? get transform;
-  external set transform(XRRigidTransform? newValue);
-  external double get radius;
-  external set radius(double newValue);
-  external double get centralHorizontalAngle;
-  external set centralHorizontalAngle(double newValue);
-  external double get upperVerticalAngle;
-  external set upperVerticalAngle(double newValue);
-  external double get lowerVerticalAngle;
-  external set lowerVerticalAngle(double newValue);
+  XRTextureType get textureType => js_util.getProperty(this, 'textureType');
+  set textureType(XRTextureType newValue) {
+    js_util.setProperty(this, 'textureType', newValue);
+  }
+
+  XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform? newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
+
+  double get radius => js_util.getProperty(this, 'radius');
+  set radius(double newValue) {
+    js_util.setProperty(this, 'radius', newValue);
+  }
+
+  double get centralHorizontalAngle =>
+      js_util.getProperty(this, 'centralHorizontalAngle');
+  set centralHorizontalAngle(double newValue) {
+    js_util.setProperty(this, 'centralHorizontalAngle', newValue);
+  }
+
+  double get upperVerticalAngle =>
+      js_util.getProperty(this, 'upperVerticalAngle');
+  set upperVerticalAngle(double newValue) {
+    js_util.setProperty(this, 'upperVerticalAngle', newValue);
+  }
+
+  double get lowerVerticalAngle =>
+      js_util.getProperty(this, 'lowerVerticalAngle');
+  set lowerVerticalAngle(double newValue) {
+    js_util.setProperty(this, 'lowerVerticalAngle', newValue);
+  }
 }
 
 @anonymous
@@ -519,8 +657,10 @@ class XRCubeLayerInit implements XRLayerInit {
 }
 
 extension PropsXRCubeLayerInit on XRCubeLayerInit {
-  external DOMPointReadOnly? get orientation;
-  external set orientation(DOMPointReadOnly? newValue);
+  DOMPointReadOnly? get orientation => js_util.getProperty(this, 'orientation');
+  set orientation(DOMPointReadOnly? newValue) {
+    js_util.setProperty(this, 'orientation', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -529,7 +669,7 @@ extension PropsXRCubeLayerInit on XRCubeLayerInit {
 @JS()
 @staticInterop
 class XRWebGLBinding {
-  external factory XRWebGLBinding(XRSession session, dynamic context);
+  external XRWebGLBinding(XRSession session, dynamic context);
 }
 
 extension PropsXRWebGLBinding on XRWebGLBinding {
@@ -537,7 +677,8 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   /// the projection layer. The native buffer size is scaled by this
   /// number.
   ///
-  external double get nativeProjectionScaleFactor;
+  double get nativeProjectionScaleFactor =>
+      js_util.getProperty(this, 'nativeProjectionScaleFactor');
 
   ///  Returns an [XRProjectionLayer] object which is a layer that
   /// fills the entire view of the observer and is refreshed close to
@@ -545,29 +686,32 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   ///
   /// createProjectionLayer(options)
   ///
-  external XRProjectionLayer createProjectionLayer(
-      [XRProjectionLayerInit? init]);
+  XRProjectionLayer createProjectionLayer([XRProjectionLayerInit? init]) =>
+      js_util.callMethod(this, 'createProjectionLayer', [init]);
 
   ///  Returns an [XRQuadLayer] object which is a two-dimensional
   /// object positioned and oriented in 3D space.
   ///
   /// createQuadLayer(init)
   ///
-  external XRQuadLayer createQuadLayer([XRQuadLayerInit? init]);
+  XRQuadLayer createQuadLayer([XRQuadLayerInit? init]) =>
+      js_util.callMethod(this, 'createQuadLayer', [init]);
 
   ///  Returns an [XRCylinderLayer] object which is a layer that takes
   /// up a curved rectangular space in the virtual environment.
   ///
   /// createCylinderLayer(init)
   ///
-  external XRCylinderLayer createCylinderLayer([XRCylinderLayerInit? init]);
+  XRCylinderLayer createCylinderLayer([XRCylinderLayerInit? init]) =>
+      js_util.callMethod(this, 'createCylinderLayer', [init]);
 
   ///  Returns an [XREquirectLayer] object which is a layer that maps
   /// equirectangular coded data onto the inside of a sphere.
   ///
   /// createEquirectLayer(init)
   ///
-  external XREquirectLayer createEquirectLayer([XREquirectLayerInit? init]);
+  XREquirectLayer createEquirectLayer([XREquirectLayerInit? init]) =>
+      js_util.callMethod(this, 'createEquirectLayer', [init]);
 
   ///  Returns an [XRCubeLayer] object, which is a layer that renders
   /// directly from a cubemap, and projects it onto the inside faces of
@@ -575,7 +719,8 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   ///
   /// createCubeLayer(init)
   ///
-  external XRCubeLayer createCubeLayer([XRCubeLayerInit? init]);
+  XRCubeLayer createCubeLayer([XRCubeLayerInit? init]) =>
+      js_util.callMethod(this, 'createCubeLayer', [init]);
 
   ///  Returns an [XRWebGLSubImage] object representing the WebGL
   /// texture to render.
@@ -583,18 +728,23 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   /// getSubImage(layer, frame)
   /// getSubImage(layer, frame, eye)
   ///
-  external XRWebGLSubImage getSubImage(XRCompositionLayer layer, XRFrame frame,
-      [XREye? eye = XREye.none]);
+  XRWebGLSubImage getSubImage(XRCompositionLayer layer, XRFrame frame,
+          [XREye? eye = XREye.none]) =>
+      js_util.callMethod(this, 'getSubImage', [layer, frame, eye]);
 
   ///  Returns an [XRWebGLSubImage] object representing the WebGL
   /// texture to render for an [XRView].
   ///
   /// getViewSubImage(layer, view)
   ///
-  external XRWebGLSubImage getViewSubImage(
-      XRProjectionLayer layer, XRView view);
-  external XRWebGLDepthInformation? getDepthInformation(XRView view);
-  external WebGLTexture? getReflectionCubeMap(XRLightProbe lightProbe);
+  XRWebGLSubImage getViewSubImage(XRProjectionLayer layer, XRView view) =>
+      js_util.callMethod(this, 'getViewSubImage', [layer, view]);
+
+  XRWebGLDepthInformation? getDepthInformation(XRView view) =>
+      js_util.callMethod(this, 'getDepthInformation', [view]);
+
+  WebGLTexture? getReflectionCubeMap(XRLightProbe lightProbe) =>
+      js_util.callMethod(this, 'getReflectionCubeMap', [lightProbe]);
 }
 
 @anonymous
@@ -608,12 +758,20 @@ class XRMediaLayerInit {
 }
 
 extension PropsXRMediaLayerInit on XRMediaLayerInit {
-  external XRSpace get space;
-  external set space(XRSpace newValue);
-  external XRLayerLayout get layout;
-  external set layout(XRLayerLayout newValue);
-  external bool get invertStereo;
-  external set invertStereo(bool newValue);
+  XRSpace get space => js_util.getProperty(this, 'space');
+  set space(XRSpace newValue) {
+    js_util.setProperty(this, 'space', newValue);
+  }
+
+  XRLayerLayout get layout => js_util.getProperty(this, 'layout');
+  set layout(XRLayerLayout newValue) {
+    js_util.setProperty(this, 'layout', newValue);
+  }
+
+  bool get invertStereo => js_util.getProperty(this, 'invertStereo');
+  set invertStereo(bool newValue) {
+    js_util.setProperty(this, 'invertStereo', newValue);
+  }
 }
 
 @anonymous
@@ -625,12 +783,20 @@ class XRMediaQuadLayerInit implements XRMediaLayerInit {
 }
 
 extension PropsXRMediaQuadLayerInit on XRMediaQuadLayerInit {
-  external XRRigidTransform? get transform;
-  external set transform(XRRigidTransform? newValue);
-  external double? get width;
-  external set width(double? newValue);
-  external double? get height;
-  external set height(double? newValue);
+  XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform? newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
+
+  double? get width => js_util.getProperty(this, 'width');
+  set width(double? newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  double? get height => js_util.getProperty(this, 'height');
+  set height(double? newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 }
 
 @anonymous
@@ -645,14 +811,25 @@ class XRMediaCylinderLayerInit implements XRMediaLayerInit {
 }
 
 extension PropsXRMediaCylinderLayerInit on XRMediaCylinderLayerInit {
-  external XRRigidTransform? get transform;
-  external set transform(XRRigidTransform? newValue);
-  external double get radius;
-  external set radius(double newValue);
-  external double get centralAngle;
-  external set centralAngle(double newValue);
-  external double? get aspectRatio;
-  external set aspectRatio(double? newValue);
+  XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform? newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
+
+  double get radius => js_util.getProperty(this, 'radius');
+  set radius(double newValue) {
+    js_util.setProperty(this, 'radius', newValue);
+  }
+
+  double get centralAngle => js_util.getProperty(this, 'centralAngle');
+  set centralAngle(double newValue) {
+    js_util.setProperty(this, 'centralAngle', newValue);
+  }
+
+  double? get aspectRatio => js_util.getProperty(this, 'aspectRatio');
+  set aspectRatio(double? newValue) {
+    js_util.setProperty(this, 'aspectRatio', newValue);
+  }
 }
 
 @anonymous
@@ -668,16 +845,33 @@ class XRMediaEquirectLayerInit implements XRMediaLayerInit {
 }
 
 extension PropsXRMediaEquirectLayerInit on XRMediaEquirectLayerInit {
-  external XRRigidTransform? get transform;
-  external set transform(XRRigidTransform? newValue);
-  external double get radius;
-  external set radius(double newValue);
-  external double get centralHorizontalAngle;
-  external set centralHorizontalAngle(double newValue);
-  external double get upperVerticalAngle;
-  external set upperVerticalAngle(double newValue);
-  external double get lowerVerticalAngle;
-  external set lowerVerticalAngle(double newValue);
+  XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform? newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
+
+  double get radius => js_util.getProperty(this, 'radius');
+  set radius(double newValue) {
+    js_util.setProperty(this, 'radius', newValue);
+  }
+
+  double get centralHorizontalAngle =>
+      js_util.getProperty(this, 'centralHorizontalAngle');
+  set centralHorizontalAngle(double newValue) {
+    js_util.setProperty(this, 'centralHorizontalAngle', newValue);
+  }
+
+  double get upperVerticalAngle =>
+      js_util.getProperty(this, 'upperVerticalAngle');
+  set upperVerticalAngle(double newValue) {
+    js_util.setProperty(this, 'upperVerticalAngle', newValue);
+  }
+
+  double get lowerVerticalAngle =>
+      js_util.getProperty(this, 'lowerVerticalAngle');
+  set lowerVerticalAngle(double newValue) {
+    js_util.setProperty(this, 'lowerVerticalAngle', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -695,7 +889,7 @@ extension PropsXRMediaEquirectLayerInit on XRMediaEquirectLayerInit {
 @JS()
 @staticInterop
 class XRMediaBinding {
-  external factory XRMediaBinding(XRSession session);
+  external XRMediaBinding(XRSession session);
 }
 
 extension PropsXRMediaBinding on XRMediaBinding {
@@ -703,24 +897,27 @@ extension PropsXRMediaBinding on XRMediaBinding {
   ///
   /// createQuadLayer(video, options)
   ///
-  external XRQuadLayer createQuadLayer(HTMLVideoElement video,
-      [XRMediaQuadLayerInit? init]);
+  XRQuadLayer createQuadLayer(HTMLVideoElement video,
+          [XRMediaQuadLayerInit? init]) =>
+      js_util.callMethod(this, 'createQuadLayer', [video, init]);
 
   ///  Returns an [XRCylinderLayer] object bound to an
   /// [HTMLVideoElement].
   ///
   /// createCylinderLayer(video, options)
   ///
-  external XRCylinderLayer createCylinderLayer(HTMLVideoElement video,
-      [XRMediaCylinderLayerInit? init]);
+  XRCylinderLayer createCylinderLayer(HTMLVideoElement video,
+          [XRMediaCylinderLayerInit? init]) =>
+      js_util.callMethod(this, 'createCylinderLayer', [video, init]);
 
   ///  Returns an [XREquirectLayer] object bound to an
   /// [HTMLVideoElement].
   ///
   /// createEquirectLayer(video, options)
   ///
-  external XREquirectLayer createEquirectLayer(HTMLVideoElement video,
-      [XRMediaEquirectLayerInit? init]);
+  XREquirectLayer createEquirectLayer(HTMLVideoElement video,
+          [XRMediaEquirectLayerInit? init]) =>
+      js_util.callMethod(this, 'createEquirectLayer', [video, init]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -731,13 +928,13 @@ extension PropsXRMediaBinding on XRMediaBinding {
 @JS()
 @staticInterop
 class XRLayerEvent implements Event {
-  external factory XRLayerEvent(String type, XRLayerEventInit eventInitDict);
+  external XRLayerEvent(String type, XRLayerEventInit eventInitDict);
 }
 
 extension PropsXRLayerEvent on XRLayerEvent {
   /// The [XRLayer] which generated the event.
   ///
-  external XRLayer get layer;
+  XRLayer get layer => js_util.getProperty(this, 'layer');
 }
 
 @anonymous
@@ -748,6 +945,8 @@ class XRLayerEventInit implements EventInit {
 }
 
 extension PropsXRLayerEventInit on XRLayerEventInit {
-  external XRLayer get layer;
-  external set layer(XRLayer newValue);
+  XRLayer get layer => js_util.getProperty(this, 'layer');
+  set layer(XRLayer newValue) {
+    js_util.setProperty(this, 'layer', newValue);
+  }
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library html;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -85,13 +86,16 @@ encrypted_media */
 @JS()
 @staticInterop
 class HTMLAllCollection {
-  external factory HTMLAllCollection();
+  external HTMLAllCollection();
 }
 
 extension PropsHTMLAllCollection on HTMLAllCollection {
-  external int get length;
-  external dynamic namedItem(String name);
-  external dynamic item([String? nameOrIndex]);
+  int get length => js_util.getProperty(this, 'length');
+  dynamic namedItem(String name) =>
+      js_util.callMethod(this, 'namedItem', [name]);
+
+  dynamic item([String? nameOrIndex]) =>
+      js_util.callMethod(this, 'item', [nameOrIndex]);
 }
 
 ///  The interface represents a collection of HTML form control
@@ -116,7 +120,7 @@ extension PropsHTMLAllCollection on HTMLAllCollection {
 @JS()
 @staticInterop
 class HTMLFormControlsCollection implements HTMLCollection {
-  external factory HTMLFormControlsCollection();
+  external HTMLFormControlsCollection();
 }
 
 extension PropsHTMLFormControlsCollection on HTMLFormControlsCollection {
@@ -132,7 +136,8 @@ extension PropsHTMLFormControlsCollection on HTMLFormControlsCollection {
   /// var item = collection[str];
   ///
   @override
-  external dynamic namedItem(String name);
+  dynamic namedItem(String name) =>
+      js_util.callMethod(this, 'namedItem', [name]);
 }
 
 ///  The interface represents a collection of radio elements in a
@@ -152,7 +157,7 @@ extension PropsHTMLFormControlsCollection on HTMLFormControlsCollection {
 @JS()
 @staticInterop
 class RadioNodeList implements NodeList {
-  external factory RadioNodeList();
+  external RadioNodeList();
 }
 
 extension PropsRadioNodeList on RadioNodeList {
@@ -165,8 +170,10 @@ extension PropsRadioNodeList on RadioNodeList {
   /// first radio button input element whose property is equal to the
   /// new value will be set to [checked].
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 ///  The interface represents a collection of [<option>] HTML
@@ -189,7 +196,7 @@ extension PropsRadioNodeList on RadioNodeList {
 @JS()
 @staticInterop
 class HTMLOptionsCollection implements HTMLCollection {
-  external factory HTMLOptionsCollection();
+  external HTMLOptionsCollection();
 }
 
 extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
@@ -200,13 +207,21 @@ extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
   /// implementations could potentially throw a DOMException.
   ///
   @override
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
   @override
-  external set length(int newValue);
-  external Object add(dynamic element, [dynamic before]);
-  external Object remove(int index);
-  external int get selectedIndex;
-  external set selectedIndex(int newValue);
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
+
+  Object add(dynamic element, [dynamic before]) =>
+      js_util.callMethod(this, 'add', [element, before]);
+
+  Object remove(int index) => js_util.callMethod(this, 'remove', [index]);
+
+  int get selectedIndex => js_util.getProperty(this, 'selectedIndex');
+  set selectedIndex(int newValue) {
+    js_util.setProperty(this, 'selectedIndex', newValue);
+  }
 }
 
 ///  A type returned by some APIs which contains a list of DOMString
@@ -214,22 +229,23 @@ extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
 @JS()
 @staticInterop
 class DOMStringList {
-  external factory DOMStringList();
+  external DOMStringList();
 }
 
 extension PropsDOMStringList on DOMStringList {
   /// Returns the length of the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   /// Returns a [DOMString].
   ///
-  external String? item(int index);
+  String? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   ///  Returns a boolean value indicating if the given string is in the
   /// list
   ///
-  external bool contains(String string);
+  bool contains(String string) =>
+      js_util.callMethod(this, 'contains', [string]);
 }
 
 enum DocumentReadyState { loading, interactive, complete }
@@ -271,39 +287,49 @@ class HTMLElement
         ElementContentEditable,
         HTMLOrSVGElement,
         ElementCSSInlineStyle {
-  external factory HTMLElement();
+  external HTMLElement();
 }
 
 extension PropsHTMLElement on HTMLElement {
   ///  A string containing the text that appears in a popup box when
   /// mouse is over the element.
   ///
-  external String get title;
-  external set title(String newValue);
+  String get title => js_util.getProperty(this, 'title');
+  set title(String newValue) {
+    js_util.setProperty(this, 'title', newValue);
+  }
 
   ///  A string representing the language of an element's attributes,
   /// text, and element contents.
   ///
-  external String get lang;
-  external set lang(String newValue);
+  String get lang => js_util.getProperty(this, 'lang');
+  set lang(String newValue) {
+    js_util.setProperty(this, 'lang', newValue);
+  }
 
   /// A boolean value representing the translation.
   ///
   @experimental
-  external bool get translate;
-  external set translate(bool newValue);
+  bool get translate => js_util.getProperty(this, 'translate');
+  set translate(bool newValue) {
+    js_util.setProperty(this, 'translate', newValue);
+  }
 
   ///  A string, reflecting the global attribute, representing the
   /// directionality of the element. Possible values are ["ltr"],
   /// ["rtl"], and ["auto"].
   ///
-  external String get dir;
-  external set dir(String newValue);
+  String get dir => js_util.getProperty(this, 'dir');
+  set dir(String newValue) {
+    js_util.setProperty(this, 'dir', newValue);
+  }
 
   /// A boolean value indicating if the element is hidden or not.
   ///
-  external bool get hidden;
-  external set hidden(bool newValue);
+  bool get hidden => js_util.getProperty(this, 'hidden');
+  set hidden(bool newValue) {
+    js_util.setProperty(this, 'hidden', newValue);
+  }
 
   /// Sends a mouse click event to the element.
   ///
@@ -323,40 +349,54 @@ extension PropsHTMLElement on HTMLElement {
   ///
   /// ```
   ///
-  external Object click();
+  Object click() => js_util.callMethod(this, 'click', []);
 
   /// A string representing the access key assigned to the element.
   ///
-  external String get accessKey;
-  external set accessKey(String newValue);
+  String get accessKey => js_util.getProperty(this, 'accessKey');
+  set accessKey(String newValue) {
+    js_util.setProperty(this, 'accessKey', newValue);
+  }
 
   /// Returns a string containing the element's assigned access key.
   ///
-  external String get accessKeyLabel;
+  String get accessKeyLabel => js_util.getProperty(this, 'accessKeyLabel');
 
   /// A boolean value indicating if the element can be dragged.
   ///
-  external bool get draggable;
-  external set draggable(bool newValue);
+  bool get draggable => js_util.getProperty(this, 'draggable');
+  set draggable(bool newValue) {
+    js_util.setProperty(this, 'draggable', newValue);
+  }
 
   ///  A boolean value that controls spell-checking. It is present on
   /// all HTML elements, though it doesn't have an effect on all of
   /// them.
   ///
-  external bool get spellcheck;
-  external set spellcheck(bool newValue);
-  external String get autocapitalize;
-  external set autocapitalize(String newValue);
+  bool get spellcheck => js_util.getProperty(this, 'spellcheck');
+  set spellcheck(bool newValue) {
+    js_util.setProperty(this, 'spellcheck', newValue);
+  }
+
+  String get autocapitalize => js_util.getProperty(this, 'autocapitalize');
+  set autocapitalize(String newValue) {
+    js_util.setProperty(this, 'autocapitalize', newValue);
+  }
 
   ///  Represents the "rendered" text content of a node and its
   /// descendants. As a getter, it approximates the text the user would
   /// get if they highlighted the contents of the element with the
   /// cursor and then copied it to the clipboard.
   ///
-  external String get innerText;
-  external set innerText(String newValue);
-  external String get outerText;
-  external set outerText(String newValue);
+  String get innerText => js_util.getProperty(this, 'innerText');
+  set innerText(String newValue) {
+    js_util.setProperty(this, 'innerText', newValue);
+  }
+
+  String get outerText => js_util.getProperty(this, 'outerText');
+  set outerText(String newValue) {
+    js_util.setProperty(this, 'outerText', newValue);
+  }
 
   ///  Returns an [ElementInternals] object, and enables a custom
   /// element to participate in HTML forms.
@@ -364,12 +404,14 @@ extension PropsHTMLElement on HTMLElement {
   /// var internals = element.attachInternals();
   ///
   @experimental
-  external ElementInternals attachInternals();
-  external Element? get offsetParent;
-  external int get offsetTop;
-  external int get offsetLeft;
-  external int get offsetWidth;
-  external int get offsetHeight;
+  ElementInternals attachInternals() =>
+      js_util.callMethod(this, 'attachInternals', []);
+
+  Element? get offsetParent => js_util.getProperty(this, 'offsetParent');
+  int get offsetTop => js_util.getProperty(this, 'offsetTop');
+  int get offsetLeft => js_util.getProperty(this, 'offsetLeft');
+  int get offsetWidth => js_util.getProperty(this, 'offsetWidth');
+  int get offsetHeight => js_util.getProperty(this, 'offsetHeight');
 }
 
 ///  The interface represents an invalid HTML element and derives
@@ -408,25 +450,36 @@ extension PropsHTMLElement on HTMLElement {
 @JS()
 @staticInterop
 class HTMLUnknownElement implements HTMLElement {
-  external factory HTMLUnknownElement();
+  external HTMLUnknownElement();
 }
 
 @JS()
 @staticInterop
 class HTMLOrSVGElement {
-  external factory HTMLOrSVGElement();
+  external HTMLOrSVGElement();
 }
 
 extension PropsHTMLOrSVGElement on HTMLOrSVGElement {
-  external DOMStringMap get dataset;
-  external String get nonce;
-  external set nonce(String newValue);
-  external bool get autofocus;
-  external set autofocus(bool newValue);
-  external int get tabIndex;
-  external set tabIndex(int newValue);
-  external Object focus([FocusOptions? options]);
-  external Object blur();
+  DOMStringMap get dataset => js_util.getProperty(this, 'dataset');
+  String get nonce => js_util.getProperty(this, 'nonce');
+  set nonce(String newValue) {
+    js_util.setProperty(this, 'nonce', newValue);
+  }
+
+  bool get autofocus => js_util.getProperty(this, 'autofocus');
+  set autofocus(bool newValue) {
+    js_util.setProperty(this, 'autofocus', newValue);
+  }
+
+  int get tabIndex => js_util.getProperty(this, 'tabIndex');
+  set tabIndex(int newValue) {
+    js_util.setProperty(this, 'tabIndex', newValue);
+  }
+
+  Object focus([FocusOptions? options]) =>
+      js_util.callMethod(this, 'focus', [options]);
+
+  Object blur() => js_util.callMethod(this, 'blur', []);
 }
 
 ///  The interface is used for the
@@ -435,7 +488,7 @@ extension PropsHTMLOrSVGElement on HTMLOrSVGElement {
 @JS()
 @staticInterop
 class DOMStringMap {
-  external factory DOMStringMap();
+  external DOMStringMap();
 }
 
 ///  The interface serves as the root node for a given HTML document.
@@ -476,12 +529,14 @@ class DOMStringMap {
 @JS()
 @staticInterop
 class HTMLHtmlElement implements HTMLElement {
-  external factory HTMLHtmlElement();
+  external HTMLHtmlElement();
 }
 
 extension PropsHTMLHtmlElement on HTMLHtmlElement {
-  external String get version;
-  external set version(String newValue);
+  String get version => js_util.getProperty(this, 'version');
+  set version(String newValue) {
+    js_util.setProperty(this, 'version', newValue);
+  }
 }
 
 ///  The interface contains the descriptive information, or metadata,
@@ -520,7 +575,7 @@ extension PropsHTMLHtmlElement on HTMLHtmlElement {
 @JS()
 @staticInterop
 class HTMLHeadElement implements HTMLElement {
-  external factory HTMLHeadElement();
+  external HTMLHeadElement();
 }
 
 ///  The interface contains the title for a document. This element
@@ -559,15 +614,17 @@ class HTMLHeadElement implements HTMLElement {
 @JS()
 @staticInterop
 class HTMLTitleElement implements HTMLElement {
-  external factory HTMLTitleElement();
+  external HTMLTitleElement();
 }
 
 extension PropsHTMLTitleElement on HTMLTitleElement {
   ///  Is a [DOMString] representing the text of the document's title,
   /// and only the text part. For example, consider this:
   ///
-  external String get text;
-  external set text(String newValue);
+  String get text => js_util.getProperty(this, 'text');
+  set text(String newValue) {
+    js_util.setProperty(this, 'text', newValue);
+  }
 }
 
 ///  The interface contains the base URI for a document. This object
@@ -606,22 +663,26 @@ extension PropsHTMLTitleElement on HTMLTitleElement {
 @JS()
 @staticInterop
 class HTMLBaseElement implements HTMLElement {
-  external factory HTMLBaseElement();
+  external HTMLBaseElement();
 }
 
 extension PropsHTMLBaseElement on HTMLBaseElement {
   ///  Is a [DOMString] that reflects the HTML attribute, containing a
   /// base URL for relative URLs in the document.
   ///
-  external String get href;
-  external set href(String newValue);
+  String get href => js_util.getProperty(this, 'href');
+  set href(String newValue) {
+    js_util.setProperty(this, 'href', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing a
   /// default target browsing context or frame for elements that do not
   /// have a target reference specified.
   ///
-  external String get target;
-  external set target(String newValue);
+  String get target => js_util.getProperty(this, 'target');
+  set target(String newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
 }
 
 ///  The interface represents reference information for external
@@ -663,86 +724,121 @@ extension PropsHTMLBaseElement on HTMLBaseElement {
 @JS()
 @staticInterop
 class HTMLLinkElement implements HTMLElement, LinkStyle {
-  external factory HTMLLinkElement();
+  external HTMLLinkElement();
 }
 
 extension PropsHTMLLinkElement on HTMLLinkElement {
   /// A string representing the URI for the target resource.
   ///
-  external String get href;
-  external set href(String newValue);
+  String get href => js_util.getProperty(this, 'href');
+  set href(String newValue) {
+    js_util.setProperty(this, 'href', newValue);
+  }
 
   ///  A string that corresponds to the CORS setting for this link
   /// element. See CORS settings attributes for details.
   ///
   @experimental
-  external String? get crossOrigin;
-  external set crossOrigin(String? newValue);
+  String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
+  set crossOrigin(String? newValue) {
+    js_util.setProperty(this, 'crossOrigin', newValue);
+  }
 
   ///  A string representing the forward relationship of the linked
   /// resource from the document to the resource.
   ///
-  external String get rel;
-  external set rel(String newValue);
+  String get rel => js_util.getProperty(this, 'rel');
+  set rel(String newValue) {
+    js_util.setProperty(this, 'rel', newValue);
+  }
 
   ///  A string representing the type of content being loaded by the
   /// HTML link.
   ///
   @JS('as')
   @staticInterop
-  external String get mAs;
-  external set mAs(String newValue);
+  String get mAs => js_util.getProperty(this, 'as');
+  set mAs(String newValue) {
+    js_util.setProperty(this, 'as', newValue);
+  }
 
   ///  A [DOMTokenList] that reflects the [rel] HTML attribute, as a
   /// list of tokens.
   ///
-  external DOMTokenList get relList;
+  DOMTokenList get relList => js_util.getProperty(this, 'relList');
 
   ///  A string representing a list of one or more media formats to
   /// which the resource applies.
   ///
-  external String get media;
-  external set media(String newValue);
-  external String get integrity;
-  external set integrity(String newValue);
+  String get media => js_util.getProperty(this, 'media');
+  set media(String newValue) {
+    js_util.setProperty(this, 'media', newValue);
+  }
+
+  String get integrity => js_util.getProperty(this, 'integrity');
+  set integrity(String newValue) {
+    js_util.setProperty(this, 'integrity', newValue);
+  }
 
   /// A string representing the language code for the linked resource.
   ///
-  external String get hreflang;
-  external set hreflang(String newValue);
+  String get hreflang => js_util.getProperty(this, 'hreflang');
+  set hreflang(String newValue) {
+    js_util.setProperty(this, 'hreflang', newValue);
+  }
 
   /// A string representing the MIME type of the linked resource.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  A [DOMTokenList] that reflects the HTML attribute, as a list of
   /// tokens.
   ///
-  external DOMTokenList get sizes;
-  external String get imageSrcset;
-  external set imageSrcset(String newValue);
-  external String get imageSizes;
-  external set imageSizes(String newValue);
+  DOMTokenList get sizes => js_util.getProperty(this, 'sizes');
+  String get imageSrcset => js_util.getProperty(this, 'imageSrcset');
+  set imageSrcset(String newValue) {
+    js_util.setProperty(this, 'imageSrcset', newValue);
+  }
+
+  String get imageSizes => js_util.getProperty(this, 'imageSizes');
+  set imageSizes(String newValue) {
+    js_util.setProperty(this, 'imageSizes', newValue);
+  }
 
   ///  A string that reflects the [referrerpolicy] HTML attribute
   /// indicating which referrer to use.
   ///
   @experimental
-  external String get referrerPolicy;
-  external set referrerPolicy(String newValue);
+  String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(String newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
 
   ///  A boolean value which represents whether the link is disabled;
   /// currently only used with style sheet links.
   ///
-  external bool get disabled;
-  external set disabled(bool newValue);
-  external String get charset;
-  external set charset(String newValue);
-  external String get rev;
-  external set rev(String newValue);
-  external String get target;
-  external set target(String newValue);
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
+
+  String get charset => js_util.getProperty(this, 'charset');
+  set charset(String newValue) {
+    js_util.setProperty(this, 'charset', newValue);
+  }
+
+  String get rev => js_util.getProperty(this, 'rev');
+  set rev(String newValue) {
+    js_util.setProperty(this, 'rev', newValue);
+  }
+
+  String get target => js_util.getProperty(this, 'target');
+  set target(String newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
 }
 
 ///  The interface contains descriptive metadata about a document. It
@@ -781,18 +877,29 @@ extension PropsHTMLLinkElement on HTMLLinkElement {
 @JS()
 @staticInterop
 class HTMLMetaElement implements HTMLElement {
-  external factory HTMLMetaElement();
+  external HTMLMetaElement();
 }
 
 extension PropsHTMLMetaElement on HTMLMetaElement {
-  external String get name;
-  external set name(String newValue);
-  external String get httpEquiv;
-  external set httpEquiv(String newValue);
-  external String get content;
-  external set content(String newValue);
-  external String get scheme;
-  external set scheme(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get httpEquiv => js_util.getProperty(this, 'httpEquiv');
+  set httpEquiv(String newValue) {
+    js_util.setProperty(this, 'httpEquiv', newValue);
+  }
+
+  String get content => js_util.getProperty(this, 'content');
+  set content(String newValue) {
+    js_util.setProperty(this, 'content', newValue);
+  }
+
+  String get scheme => js_util.getProperty(this, 'scheme');
+  set scheme(String newValue) {
+    js_util.setProperty(this, 'scheme', newValue);
+  }
 }
 
 ///  The interface represents a [<style>] element. It inherits
@@ -834,17 +941,22 @@ extension PropsHTMLMetaElement on HTMLMetaElement {
 @JS()
 @staticInterop
 class HTMLStyleElement implements HTMLElement, LinkStyle {
-  external factory HTMLStyleElement();
+  external HTMLStyleElement();
 }
 
 extension PropsHTMLStyleElement on HTMLStyleElement {
   ///  Is a [DOMString] reflecting the HTML attribute representing the
   /// intended destination medium for style information.
   ///
-  external String get media;
-  external set media(String newValue);
-  external String get type;
-  external set type(String newValue);
+  String get media => js_util.getProperty(this, 'media');
+  set media(String newValue) {
+    js_util.setProperty(this, 'media', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond those
@@ -883,24 +995,45 @@ extension PropsHTMLStyleElement on HTMLStyleElement {
 @JS()
 @staticInterop
 class HTMLBodyElement implements HTMLElement, WindowEventHandlers {
-  external factory HTMLBodyElement();
+  external HTMLBodyElement();
 }
 
 extension PropsHTMLBodyElement on HTMLBodyElement {
-  external EventHandlerNonNull? get onorientationchange;
-  external set onorientationchange(EventHandlerNonNull? newValue);
-  external String get text;
-  external set text(String newValue);
-  external String get link;
-  external set link(String newValue);
-  external String get vLink;
-  external set vLink(String newValue);
-  external String get aLink;
-  external set aLink(String newValue);
-  external String get bgColor;
-  external set bgColor(String newValue);
-  external String get background;
-  external set background(String newValue);
+  EventHandlerNonNull? get onorientationchange =>
+      js_util.getProperty(this, 'onorientationchange');
+  set onorientationchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onorientationchange', newValue);
+  }
+
+  String get text => js_util.getProperty(this, 'text');
+  set text(String newValue) {
+    js_util.setProperty(this, 'text', newValue);
+  }
+
+  String get link => js_util.getProperty(this, 'link');
+  set link(String newValue) {
+    js_util.setProperty(this, 'link', newValue);
+  }
+
+  String get vLink => js_util.getProperty(this, 'vLink');
+  set vLink(String newValue) {
+    js_util.setProperty(this, 'vLink', newValue);
+  }
+
+  String get aLink => js_util.getProperty(this, 'aLink');
+  set aLink(String newValue) {
+    js_util.setProperty(this, 'aLink', newValue);
+  }
+
+  String get bgColor => js_util.getProperty(this, 'bgColor');
+  set bgColor(String newValue) {
+    js_util.setProperty(this, 'bgColor', newValue);
+  }
+
+  String get background => js_util.getProperty(this, 'background');
+  set background(String newValue) {
+    js_util.setProperty(this, 'background', newValue);
+  }
 }
 
 ///  The interface represents the different heading elements, [<h1>]
@@ -939,12 +1072,14 @@ extension PropsHTMLBodyElement on HTMLBodyElement {
 @JS()
 @staticInterop
 class HTMLHeadingElement implements HTMLElement {
-  external factory HTMLHeadingElement();
+  external HTMLHeadingElement();
 }
 
 extension PropsHTMLHeadingElement on HTMLHeadingElement {
-  external String get align;
-  external set align(String newValue);
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond those of the
@@ -983,12 +1118,14 @@ extension PropsHTMLHeadingElement on HTMLHeadingElement {
 @JS()
 @staticInterop
 class HTMLParagraphElement implements HTMLElement {
-  external factory HTMLParagraphElement();
+  external HTMLParagraphElement();
 }
 
 extension PropsHTMLParagraphElement on HTMLParagraphElement {
-  external String get align;
-  external set align(String newValue);
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond those of the
@@ -1027,20 +1164,34 @@ extension PropsHTMLParagraphElement on HTMLParagraphElement {
 @JS()
 @staticInterop
 class HTMLHRElement implements HTMLElement {
-  external factory HTMLHRElement();
+  external HTMLHRElement();
 }
 
 extension PropsHTMLHRElement on HTMLHRElement {
-  external String get align;
-  external set align(String newValue);
-  external String get color;
-  external set color(String newValue);
-  external bool get noShade;
-  external set noShade(bool newValue);
-  external String get size;
-  external set size(String newValue);
-  external String get width;
-  external set width(String newValue);
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get color => js_util.getProperty(this, 'color');
+  set color(String newValue) {
+    js_util.setProperty(this, 'color', newValue);
+  }
+
+  bool get noShade => js_util.getProperty(this, 'noShade');
+  set noShade(bool newValue) {
+    js_util.setProperty(this, 'noShade', newValue);
+  }
+
+  String get size => js_util.getProperty(this, 'size');
+  set size(String newValue) {
+    js_util.setProperty(this, 'size', newValue);
+  }
+
+  String get width => js_util.getProperty(this, 'width');
+  set width(String newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 }
 
 ///  The interface exposes specific properties and methods (beyond
@@ -1080,12 +1231,14 @@ extension PropsHTMLHRElement on HTMLHRElement {
 @JS()
 @staticInterop
 class HTMLPreElement implements HTMLElement {
-  external factory HTMLPreElement();
+  external HTMLPreElement();
 }
 
 extension PropsHTMLPreElement on HTMLPreElement {
-  external int get width;
-  external set width(int newValue);
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -1125,15 +1278,17 @@ extension PropsHTMLPreElement on HTMLPreElement {
 @JS()
 @staticInterop
 class HTMLQuoteElement implements HTMLElement {
-  external factory HTMLQuoteElement();
+  external HTMLQuoteElement();
 }
 
 extension PropsHTMLQuoteElement on HTMLQuoteElement {
   ///  Is a [DOMString] reflecting the HTML attribute, containing a URL
   /// for the source of the quotation.
   ///
-  external String get cite;
-  external set cite(String newValue);
+  String get cite => js_util.getProperty(this, 'cite');
+  set cite(String newValue) {
+    js_util.setProperty(this, 'cite', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond those defined
@@ -1172,7 +1327,7 @@ extension PropsHTMLQuoteElement on HTMLQuoteElement {
 @JS()
 @staticInterop
 class HTMLOListElement implements HTMLElement {
-  external factory HTMLOListElement();
+  external HTMLOListElement();
 }
 
 extension PropsHTMLOListElement on HTMLOListElement {
@@ -1180,14 +1335,18 @@ extension PropsHTMLOListElement on HTMLOListElement {
   /// is descending, that is its value is [true], or ascending
   /// ([false]).
   ///
-  external bool get reversed;
-  external set reversed(bool newValue);
+  bool get reversed => js_util.getProperty(this, 'reversed');
+  set reversed(bool newValue) {
+    js_util.setProperty(this, 'reversed', newValue);
+  }
 
   ///  Is a [long] value reflecting the and defining the value of the
   /// first number of the first element of the list.
   ///
-  external int get start;
-  external set start(int newValue);
+  int get start => js_util.getProperty(this, 'start');
+  set start(int newValue) {
+    js_util.setProperty(this, 'start', newValue);
+  }
 
   ///  Is a [DOMString] value reflecting the and defining the kind of
   /// marker to be used to display. It can have the following values:
@@ -1204,10 +1363,15 @@ extension PropsHTMLOListElement on HTMLOListElement {
   /// [I], [II], [III], [IV], [V], …
   ///
   ///
-  external String get type;
-  external set type(String newValue);
-  external bool get compact;
-  external set compact(bool newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  bool get compact => js_util.getProperty(this, 'compact');
+  set compact(bool newValue) {
+    js_util.setProperty(this, 'compact', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond those defined
@@ -1246,14 +1410,19 @@ extension PropsHTMLOListElement on HTMLOListElement {
 @JS()
 @staticInterop
 class HTMLUListElement implements HTMLElement {
-  external factory HTMLUListElement();
+  external HTMLUListElement();
 }
 
 extension PropsHTMLUListElement on HTMLUListElement {
-  external bool get compact;
-  external set compact(bool newValue);
-  external String get type;
-  external set type(String newValue);
+  bool get compact => js_util.getProperty(this, 'compact');
+  set compact(bool newValue) {
+    js_util.setProperty(this, 'compact', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -1296,12 +1465,14 @@ extension PropsHTMLUListElement on HTMLUListElement {
 @JS()
 @staticInterop
 class HTMLMenuElement implements HTMLElement {
-  external factory HTMLMenuElement();
+  external HTMLMenuElement();
 }
 
 extension PropsHTMLMenuElement on HTMLMenuElement {
-  external bool get compact;
-  external set compact(bool newValue);
+  bool get compact => js_util.getProperty(this, 'compact');
+  set compact(bool newValue) {
+    js_util.setProperty(this, 'compact', newValue);
+  }
 }
 
 ///  The interface exposes specific properties and methods (beyond
@@ -1340,7 +1511,7 @@ extension PropsHTMLMenuElement on HTMLMenuElement {
 @JS()
 @staticInterop
 class HTMLLIElement implements HTMLElement {
-  external factory HTMLLIElement();
+  external HTMLLIElement();
 }
 
 extension PropsHTMLLIElement on HTMLLIElement {
@@ -1350,10 +1521,15 @@ extension PropsHTMLLIElement on HTMLLIElement {
   /// element is not a child of an [<ol>] element, the property has no
   /// meaning.
   ///
-  external int get value;
-  external set value(int newValue);
-  external String get type;
-  external set type(String newValue);
+  int get value => js_util.getProperty(this, 'value');
+  set value(int newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond those of the
@@ -1392,12 +1568,14 @@ extension PropsHTMLLIElement on HTMLLIElement {
 @JS()
 @staticInterop
 class HTMLDListElement implements HTMLElement {
-  external factory HTMLDListElement();
+  external HTMLDListElement();
 }
 
 extension PropsHTMLDListElement on HTMLDListElement {
-  external bool get compact;
-  external set compact(bool newValue);
+  bool get compact => js_util.getProperty(this, 'compact');
+  set compact(bool newValue) {
+    js_util.setProperty(this, 'compact', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond the regular
@@ -1436,12 +1614,14 @@ extension PropsHTMLDListElement on HTMLDListElement {
 @JS()
 @staticInterop
 class HTMLDivElement implements HTMLElement {
-  external factory HTMLDivElement();
+  external HTMLDivElement();
 }
 
 extension PropsHTMLDivElement on HTMLDivElement {
-  external String get align;
-  external set align(String newValue);
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
 }
 
 ///  The interface represents hyperlink elements and provides special
@@ -1483,15 +1663,17 @@ extension PropsHTMLDivElement on HTMLDivElement {
 @JS()
 @staticInterop
 class HTMLAnchorElement implements HTMLElement, HTMLHyperlinkElementUtils {
-  external factory HTMLAnchorElement();
+  external HTMLAnchorElement();
 }
 
 extension PropsHTMLAnchorElement on HTMLAnchorElement {
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// where to display the linked resource.
   ///
-  external String get target;
-  external set target(String newValue);
+  String get target => js_util.getProperty(this, 'target');
+  set target(String newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
 
   ///  Is a [DOMString] indicating that the linked resource is intended
   /// to be downloaded rather than displayed in the browser. The value
@@ -1499,60 +1681,98 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
   /// valid filename of the underlying OS, browser will adapt it.
   ///
   @experimental
-  external String get download;
-  external set download(String newValue);
-  external String get ping;
-  external set ping(String newValue);
+  String get download => js_util.getProperty(this, 'download');
+  set download(String newValue) {
+    js_util.setProperty(this, 'download', newValue);
+  }
+
+  String get ping => js_util.getProperty(this, 'ping');
+  set ping(String newValue) {
+    js_util.setProperty(this, 'ping', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, specifying
   /// the relationship of the target object to the linked object.
   ///
-  external String get rel;
-  external set rel(String newValue);
+  String get rel => js_util.getProperty(this, 'rel');
+  set rel(String newValue) {
+    js_util.setProperty(this, 'rel', newValue);
+  }
 
   ///  Returns a [DOMTokenList] that reflects the [rel] HTML attribute,
   /// as a list of tokens.
   ///
-  external DOMTokenList get relList;
+  DOMTokenList get relList => js_util.getProperty(this, 'relList');
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// the language of the linked resource.
   ///
-  external String get hreflang;
-  external set hreflang(String newValue);
+  String get hreflang => js_util.getProperty(this, 'hreflang');
+  set hreflang(String newValue) {
+    js_util.setProperty(this, 'hreflang', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// the MIME type of the linked resource.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  Is a [DOMString] being a synonym for the [Node.textContent]
   /// property.
   ///
-  external String get text;
-  external set text(String newValue);
+  String get text => js_util.getProperty(this, 'text');
+  set text(String newValue) {
+    js_util.setProperty(this, 'text', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the [referrerpolicy] HTML
   /// attribute indicating which referrer to use.
   ///
   @experimental
-  external String get referrerPolicy;
-  external set referrerPolicy(String newValue);
-  external int get attributionSourceId;
-  external set attributionSourceId(int newValue);
-  external String get attributionDestination;
-  external set attributionDestination(String newValue);
-  external String get coords;
-  external set coords(String newValue);
-  external String get charset;
-  external set charset(String newValue);
-  external String get name;
-  external set name(String newValue);
-  external String get rev;
-  external set rev(String newValue);
-  external String get shape;
-  external set shape(String newValue);
+  String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(String newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
+
+  int get attributionSourceId =>
+      js_util.getProperty(this, 'attributionSourceId');
+  set attributionSourceId(int newValue) {
+    js_util.setProperty(this, 'attributionSourceId', newValue);
+  }
+
+  String get attributionDestination =>
+      js_util.getProperty(this, 'attributionDestination');
+  set attributionDestination(String newValue) {
+    js_util.setProperty(this, 'attributionDestination', newValue);
+  }
+
+  String get coords => js_util.getProperty(this, 'coords');
+  set coords(String newValue) {
+    js_util.setProperty(this, 'coords', newValue);
+  }
+
+  String get charset => js_util.getProperty(this, 'charset');
+  set charset(String newValue) {
+    js_util.setProperty(this, 'charset', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get rev => js_util.getProperty(this, 'rev');
+  set rev(String newValue) {
+    js_util.setProperty(this, 'rev', newValue);
+  }
+
+  String get shape => js_util.getProperty(this, 'shape');
+  set shape(String newValue) {
+    js_util.setProperty(this, 'shape', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond the regular
@@ -1591,15 +1811,17 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
 @JS()
 @staticInterop
 class HTMLDataElement implements HTMLElement {
-  external factory HTMLDataElement();
+  external HTMLDataElement();
 }
 
 extension PropsHTMLDataElement on HTMLDataElement {
   ///  Is a [DOMString] reflecting the HTML attribute, containing a
   /// machine-readable form of the element's value.
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond the regular
@@ -1638,7 +1860,7 @@ extension PropsHTMLDataElement on HTMLDataElement {
 @JS()
 @staticInterop
 class HTMLTimeElement implements HTMLElement {
-  external factory HTMLTimeElement();
+  external HTMLTimeElement();
 }
 
 extension PropsHTMLTimeElement on HTMLTimeElement {
@@ -1646,8 +1868,10 @@ extension PropsHTMLTimeElement on HTMLTimeElement {
   /// containing a machine-readable form of the element's date and time
   /// value.
   ///
-  external String get dateTime;
-  external set dateTime(String newValue);
+  String get dateTime => js_util.getProperty(this, 'dateTime');
+  set dateTime(String newValue) {
+    js_util.setProperty(this, 'dateTime', newValue);
+  }
 }
 
 ///  The interface represents a [<span>] element and derives from the
@@ -1686,7 +1910,7 @@ extension PropsHTMLTimeElement on HTMLTimeElement {
 @JS()
 @staticInterop
 class HTMLSpanElement implements HTMLElement {
-  external factory HTMLSpanElement();
+  external HTMLSpanElement();
 }
 
 ///  The interface represents an HTML line break element ([<br>]). It
@@ -1724,44 +1948,75 @@ class HTMLSpanElement implements HTMLElement {
 @JS()
 @staticInterop
 class HTMLBRElement implements HTMLElement {
-  external factory HTMLBRElement();
+  external HTMLBRElement();
 }
 
 extension PropsHTMLBRElement on HTMLBRElement {
-  external String get clear;
-  external set clear(String newValue);
+  String get clear => js_util.getProperty(this, 'clear');
+  set clear(String newValue) {
+    js_util.setProperty(this, 'clear', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class HTMLHyperlinkElementUtils {
-  external factory HTMLHyperlinkElementUtils();
+  external HTMLHyperlinkElementUtils();
 }
 
 extension PropsHTMLHyperlinkElementUtils on HTMLHyperlinkElementUtils {
-  external dynamic get href;
-  external set href(dynamic newValue);
-  external String get origin;
-  external String get protocol;
-  external set protocol(String newValue);
-  external String get username;
-  external set username(String newValue);
-  external String get password;
-  external set password(String newValue);
-  external String get host;
-  external set host(String newValue);
-  external String get hostname;
-  external set hostname(String newValue);
-  external String get port;
-  external set port(String newValue);
-  external String get pathname;
-  external set pathname(String newValue);
-  external String get search;
-  external set search(String newValue);
+  dynamic get href => js_util.getProperty(this, 'href');
+  set href(dynamic newValue) {
+    js_util.setProperty(this, 'href', newValue);
+  }
+
+  String get origin => js_util.getProperty(this, 'origin');
+  String get protocol => js_util.getProperty(this, 'protocol');
+  set protocol(String newValue) {
+    js_util.setProperty(this, 'protocol', newValue);
+  }
+
+  String get username => js_util.getProperty(this, 'username');
+  set username(String newValue) {
+    js_util.setProperty(this, 'username', newValue);
+  }
+
+  String get password => js_util.getProperty(this, 'password');
+  set password(String newValue) {
+    js_util.setProperty(this, 'password', newValue);
+  }
+
+  String get host => js_util.getProperty(this, 'host');
+  set host(String newValue) {
+    js_util.setProperty(this, 'host', newValue);
+  }
+
+  String get hostname => js_util.getProperty(this, 'hostname');
+  set hostname(String newValue) {
+    js_util.setProperty(this, 'hostname', newValue);
+  }
+
+  String get port => js_util.getProperty(this, 'port');
+  set port(String newValue) {
+    js_util.setProperty(this, 'port', newValue);
+  }
+
+  String get pathname => js_util.getProperty(this, 'pathname');
+  set pathname(String newValue) {
+    js_util.setProperty(this, 'pathname', newValue);
+  }
+
+  String get search => js_util.getProperty(this, 'search');
+  set search(String newValue) {
+    js_util.setProperty(this, 'search', newValue);
+  }
+
   @JS('hash')
   @staticInterop
-  external String get mHash;
-  external set mHash(String newValue);
+  String get mHash => js_util.getProperty(this, 'hash');
+  set mHash(String newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond the regular
@@ -1801,22 +2056,26 @@ extension PropsHTMLHyperlinkElementUtils on HTMLHyperlinkElementUtils {
 @JS()
 @staticInterop
 class HTMLModElement implements HTMLElement {
-  external factory HTMLModElement();
+  external HTMLModElement();
 }
 
 extension PropsHTMLModElement on HTMLModElement {
   ///  Is a [DOMString] reflecting the HTML attribute, containing a URI
   /// of a resource explaining the change.
   ///
-  external String get cite;
-  external set cite(String newValue);
+  String get cite => js_util.getProperty(this, 'cite');
+  set cite(String newValue) {
+    js_util.setProperty(this, 'cite', newValue);
+  }
 
   ///  Is a [DOMString] reflecting the [datetime] HTML attribute,
   /// containing a date-and-time string representing a timestamp for
   /// the change.
   ///
-  external String get dateTime;
-  external set dateTime(String newValue);
+  String get dateTime => js_util.getProperty(this, 'dateTime');
+  set dateTime(String newValue) {
+    js_util.setProperty(this, 'dateTime', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -1858,7 +2117,7 @@ extension PropsHTMLModElement on HTMLModElement {
 @JS()
 @staticInterop
 class HTMLPictureElement implements HTMLElement {
-  external factory HTMLPictureElement();
+  external HTMLPictureElement();
 }
 
 ///  The interface provides special properties (beyond the regular
@@ -1897,7 +2156,7 @@ class HTMLPictureElement implements HTMLElement {
 @JS()
 @staticInterop
 class HTMLSourceElement implements HTMLElement {
-  external factory HTMLSourceElement();
+  external HTMLSourceElement();
 }
 
 extension PropsHTMLSourceElement on HTMLSourceElement {
@@ -1914,14 +2173,18 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
   /// automatically.
   ///
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   ///  Is a [DOMString] reflecting the HTML attribute, containing the
   /// type of the media resource.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  Is a [DOMString] reflecting the HTML attribute, containing a
   /// list of candidate images, separated by a comma ([',', U+002C
@@ -1929,24 +2192,36 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
   /// width of the images, or an ['x'] followed by the pixel density.
   ///
   @experimental
-  external String get srcset;
-  external set srcset(String newValue);
+  String get srcset => js_util.getProperty(this, 'srcset');
+  set srcset(String newValue) {
+    js_util.setProperty(this, 'srcset', newValue);
+  }
 
   /// Is a [DOMString] representing image sizes between breakpoints
   ///
   @experimental
-  external String get sizes;
-  external set sizes(String newValue);
+  String get sizes => js_util.getProperty(this, 'sizes');
+  set sizes(String newValue) {
+    js_util.setProperty(this, 'sizes', newValue);
+  }
 
   ///  Is a [DOMString] reflecting the HTML attribute, containing the
   /// intended type of the media resource.
   ///
-  external String get media;
-  external set media(String newValue);
-  external int get width;
-  external set width(int newValue);
-  external int get height;
-  external set height(int newValue);
+  String get media => js_util.getProperty(this, 'media');
+  set media(String newValue) {
+    js_util.setProperty(this, 'media', newValue);
+  }
+
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 }
 
 ///  The interface represents an HTML [<img>] element, providing the
@@ -1984,7 +2259,7 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
 @JS()
 @staticInterop
 class HTMLImageElement implements HTMLElement {
-  external factory HTMLImageElement();
+  external HTMLImageElement();
 }
 
 extension PropsHTMLImageElement on HTMLImageElement {
@@ -1992,16 +2267,20 @@ extension PropsHTMLImageElement on HTMLImageElement {
   /// the alternate fallback content to be displayed if the image has
   /// not been loaded.
   ///
-  external String get alt;
-  external set alt(String newValue);
+  String get alt => js_util.getProperty(this, 'alt');
+  set alt(String newValue) {
+    js_util.setProperty(this, 'alt', newValue);
+  }
 
   ///  A [USVString] that reflects the HTML attribute, which contains
   /// the full URL of the image including base URI. You can load a
   /// different image into the element by changing the URL in the
   /// attribute.
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   ///  A [USVString] reflecting the HTML attribute. This specifies a
   /// list of candidate images, separated by commas ([',', U+002C
@@ -2011,8 +2290,10 @@ extension PropsHTMLImageElement on HTMLImageElement {
   /// multiple. Read the page for specifics on the format of the size
   /// substring.
   ///
-  external String get srcset;
-  external set srcset(String newValue);
+  String get srcset => js_util.getProperty(this, 'srcset');
+  set srcset(String newValue) {
+    js_util.setProperty(this, 'srcset', newValue);
+  }
 
   ///  A [DOMString] reflecting the HTML attribute. This string
   /// specifies a list of comma-separated conditional sizes for the
@@ -2020,15 +2301,19 @@ extension PropsHTMLImageElement on HTMLImageElement {
   /// size is to be used. Read the documentation on the page for
   /// details on the format of this string.
   ///
-  external String get sizes;
-  external set sizes(String newValue);
+  String get sizes => js_util.getProperty(this, 'sizes');
+  set sizes(String newValue) {
+    js_util.setProperty(this, 'sizes', newValue);
+  }
 
   ///  A [DOMString] specifying the CORS setting for this image
   /// element. See CORS settings attributes for further details. This
   /// may be [null] if CORS is not used.
   ///
-  external String? get crossOrigin;
-  external set crossOrigin(String? newValue);
+  String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
+  set crossOrigin(String? newValue) {
+    js_util.setProperty(this, 'crossOrigin', newValue);
+  }
 
   ///  A [DOMString] reflecting the [usemap] HTML attribute, containing
   /// the page-local URL of the [<map>] element describing the image
@@ -2037,8 +2322,10 @@ extension PropsHTMLImageElement on HTMLImageElement {
   /// [#my-map-element]. The [<map>] in turn contains [<area>] elements
   /// indicating the clickable areas in the image.
   ///
-  external String get useMap;
-  external set useMap(String newValue);
+  String get useMap => js_util.getProperty(this, 'useMap');
+  set useMap(String newValue) {
+    js_util.setProperty(this, 'useMap', newValue);
+  }
 
   ///  A boolean value that reflects the [ismap] HTML attribute,
   /// indicating that the image is part of a server-side image map.
@@ -2048,56 +2335,64 @@ extension PropsHTMLImageElement on HTMLImageElement {
   /// The image must be contained within an [<a>] element; see the
   /// [ismap] page for details.
   ///
-  external bool get isMap;
-  external set isMap(bool newValue);
+  bool get isMap => js_util.getProperty(this, 'isMap');
+  set isMap(bool newValue) {
+    js_util.setProperty(this, 'isMap', newValue);
+  }
 
   ///  An integer value that reflects the HTML attribute, indicating
   /// the rendered width of the image in CSS pixels.
   ///
-  external int get width;
-  external set width(int newValue);
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   ///  An integer value that reflects the HTML attribute, indicating
   /// the rendered height of the image in CSS pixels.
   ///
-  external int get height;
-  external set height(int newValue);
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 
   ///  An integer value representing the intrinsic width of the image
   /// in CSS pixels, if it is available; otherwise, it will show [0].
   /// This is the width the image would be if it were rendered at its
   /// natural full size.
   ///
-  external int get naturalWidth;
+  int get naturalWidth => js_util.getProperty(this, 'naturalWidth');
 
   ///  Returns an integer value representing the intrinsic height of
   /// the image in CSS pixels, if it is available; else, it shows [0].
   /// This is the height the image would be if it were rendered at its
   /// natural full size.
   ///
-  external int get naturalHeight;
+  int get naturalHeight => js_util.getProperty(this, 'naturalHeight');
 
   ///  Returns a boolean value that is [true] if the browser has
   /// finished fetching the image, whether successful or not. That
   /// means this value is also [true] if the image has no [src] value
   /// indicating an image to load.
   ///
-  external bool get complete;
+  bool get complete => js_util.getProperty(this, 'complete');
 
   ///  Returns a [USVString] representing the URL from which the
   /// currently displayed image was loaded. This may change as the
   /// image is adjusted due to changing conditions, as directed by any
   /// media queries which are in place.
   ///
-  external String get currentSrc;
+  String get currentSrc => js_util.getProperty(this, 'currentSrc');
 
   ///  A [DOMString] that reflects the [referrerpolicy] HTML attribute,
   /// which tells the user agent how to decide which referrer to use in
   /// order to fetch the image. Read this article for details on the
   /// possible values of this string.
   ///
-  external String get referrerPolicy;
-  external set referrerPolicy(String newValue);
+  String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(String newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
 
   ///  An optional [DOMString] representing a hint given to the browser
   /// on how it should decode the image. If this value is provided, it
@@ -2106,15 +2401,19 @@ extension PropsHTMLImageElement on HTMLImageElement {
   /// [auto] to indicate no preference (which is the default). Read the
   /// page for details on the implications of this property's values.
   ///
-  external String get decoding;
-  external set decoding(String newValue);
+  String get decoding => js_util.getProperty(this, 'decoding');
+  set decoding(String newValue) {
+    js_util.setProperty(this, 'decoding', newValue);
+  }
 
   ///  A [DOMString] providing a hint to the browser used to optimize
   /// loading the document by determining whether to load the image
   /// immediately ([eager]) or on an as-needed basis ([lazy]).
   ///
-  external String get loading;
-  external set loading(String newValue);
+  String get loading => js_util.getProperty(this, 'loading');
+  set loading(String newValue) {
+    js_util.setProperty(this, 'loading', newValue);
+  }
 
   ///  Returns a [Promise] that resolves when the image is decoded and
   /// it's safe to append the image to the DOM. This prevents rendering
@@ -2123,23 +2422,44 @@ extension PropsHTMLImageElement on HTMLImageElement {
   ///
   /// var promise = HTMLImageElement.decode();
   ///
-  external Promise<Object> decode();
-  external int get x;
-  external int get y;
-  external String get name;
-  external set name(String newValue);
-  external String get lowsrc;
-  external set lowsrc(String newValue);
-  external String get align;
-  external set align(String newValue);
-  external int get hspace;
-  external set hspace(int newValue);
-  external int get vspace;
-  external set vspace(int newValue);
-  external String get longDesc;
-  external set longDesc(String newValue);
-  external String get border;
-  external set border(String newValue);
+  Promise<Object> decode() => js_util.callMethod(this, 'decode', []);
+
+  int get x => js_util.getProperty(this, 'x');
+  int get y => js_util.getProperty(this, 'y');
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get lowsrc => js_util.getProperty(this, 'lowsrc');
+  set lowsrc(String newValue) {
+    js_util.setProperty(this, 'lowsrc', newValue);
+  }
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  int get hspace => js_util.getProperty(this, 'hspace');
+  set hspace(int newValue) {
+    js_util.setProperty(this, 'hspace', newValue);
+  }
+
+  int get vspace => js_util.getProperty(this, 'vspace');
+  set vspace(int newValue) {
+    js_util.setProperty(this, 'vspace', newValue);
+  }
+
+  String get longDesc => js_util.getProperty(this, 'longDesc');
+  set longDesc(String newValue) {
+    js_util.setProperty(this, 'longDesc', newValue);
+  }
+
+  String get border => js_util.getProperty(this, 'border');
+  set border(String newValue) {
+    js_util.setProperty(this, 'border', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -2179,7 +2499,7 @@ extension PropsHTMLImageElement on HTMLImageElement {
 @JS()
 @staticInterop
 class HTMLIFrameElement implements HTMLElement {
-  external factory HTMLIFrameElement();
+  external HTMLIFrameElement();
 }
 
 extension PropsHTMLIFrameElement on HTMLIFrameElement {
@@ -2190,24 +2510,30 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
   /// the frame in Firefox (from version 65), Chromium-based browsers,
   /// and Safari/iOS.
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   /// A string that represents the content to display in the frame.
   ///
-  external String get srcdoc;
-  external set srcdoc(String newValue);
+  String get srcdoc => js_util.getProperty(this, 'srcdoc');
+  set srcdoc(String newValue) {
+    js_util.setProperty(this, 'srcdoc', newValue);
+  }
 
   ///  A string that reflects the HTML attribute, containing a name by
   /// which to refer to the frame.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  A [DOMTokenList] that reflects the HTML attribute, indicating
   /// extra restrictions on the behavior of the nested content.
   ///
-  external DOMTokenList get sandbox;
+  DOMTokenList get sandbox => js_util.getProperty(this, 'sandbox');
 
   ///  A list of origins the frame is allowed to display content from.
   /// This attribute also accepts the values [self] and [src] which
@@ -2215,58 +2541,94 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
   /// value is [src].
   ///
   @experimental
-  external String get allow;
-  external set allow(String newValue);
-  external bool get allowFullscreen;
-  external set allowFullscreen(bool newValue);
+  String get allow => js_util.getProperty(this, 'allow');
+  set allow(String newValue) {
+    js_util.setProperty(this, 'allow', newValue);
+  }
+
+  bool get allowFullscreen => js_util.getProperty(this, 'allowFullscreen');
+  set allowFullscreen(bool newValue) {
+    js_util.setProperty(this, 'allowFullscreen', newValue);
+  }
 
   ///  A string that reflects the HTML attribute, indicating the width
   /// of the frame.
   ///
-  external String get width;
-  external set width(String newValue);
+  String get width => js_util.getProperty(this, 'width');
+  set width(String newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   ///  A string that reflects the HTML attribute, indicating the height
   /// of the frame.
   ///
-  external String get height;
-  external set height(String newValue);
+  String get height => js_util.getProperty(this, 'height');
+  set height(String newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 
   ///  A string that reflects the [referrerpolicy] HTML attribute
   /// indicating which referrer to use when fetching the linked
   /// resource.
   ///
   @experimental
-  external String get referrerPolicy;
-  external set referrerPolicy(String newValue);
-  external String get loading;
-  external set loading(String newValue);
+  String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(String newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
+
+  String get loading => js_util.getProperty(this, 'loading');
+  set loading(String newValue) {
+    js_util.setProperty(this, 'loading', newValue);
+  }
 
   ///  Returns a [Document], the active document in the inline frame's
   /// nested browsing context.
   ///
-  external Document? get contentDocument;
+  Document? get contentDocument => js_util.getProperty(this, 'contentDocument');
 
   ///  Returns a [WindowProxy], the window proxy for the nested
   /// browsing context.
   ///
-  external Window? get contentWindow;
-  external Document? getSVGDocument();
-  external String get csp;
-  external set csp(String newValue);
-  external PermissionsPolicy get permissionsPolicy;
-  external String get align;
-  external set align(String newValue);
-  external String get scrolling;
-  external set scrolling(String newValue);
-  external String get frameBorder;
-  external set frameBorder(String newValue);
-  external String get longDesc;
-  external set longDesc(String newValue);
-  external String get marginHeight;
-  external set marginHeight(String newValue);
-  external String get marginWidth;
-  external set marginWidth(String newValue);
+  Window? get contentWindow => js_util.getProperty(this, 'contentWindow');
+  Document? getSVGDocument() => js_util.callMethod(this, 'getSVGDocument', []);
+
+  String get csp => js_util.getProperty(this, 'csp');
+  set csp(String newValue) {
+    js_util.setProperty(this, 'csp', newValue);
+  }
+
+  PermissionsPolicy get permissionsPolicy =>
+      js_util.getProperty(this, 'permissionsPolicy');
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get scrolling => js_util.getProperty(this, 'scrolling');
+  set scrolling(String newValue) {
+    js_util.setProperty(this, 'scrolling', newValue);
+  }
+
+  String get frameBorder => js_util.getProperty(this, 'frameBorder');
+  set frameBorder(String newValue) {
+    js_util.setProperty(this, 'frameBorder', newValue);
+  }
+
+  String get longDesc => js_util.getProperty(this, 'longDesc');
+  set longDesc(String newValue) {
+    js_util.setProperty(this, 'longDesc', newValue);
+  }
+
+  String get marginHeight => js_util.getProperty(this, 'marginHeight');
+  set marginHeight(String newValue) {
+    js_util.setProperty(this, 'marginHeight', newValue);
+  }
+
+  String get marginWidth => js_util.getProperty(this, 'marginWidth');
+  set marginWidth(String newValue) {
+    js_util.setProperty(this, 'marginWidth', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond the regular
@@ -2310,38 +2672,53 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
 @JS()
 @staticInterop
 class HTMLEmbedElement implements HTMLElement {
-  external factory HTMLEmbedElement();
+  external HTMLEmbedElement();
 }
 
 extension PropsHTMLEmbedElement on HTMLEmbedElement {
   ///  Is a [DOMString] that reflects the HTML attribute, containing
   /// the address of the resource.
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing
   /// the type of the resource.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing
   /// the displayed width of the resource.
   ///
-  external String get width;
-  external set width(String newValue);
+  String get width => js_util.getProperty(this, 'width');
+  set width(String newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   ///  Is a [DOMString] reflecting the HTML attribute, containing the
   /// displayed height of the resource.
   ///
-  external String get height;
-  external set height(String newValue);
-  external Document? getSVGDocument();
-  external String get align;
-  external set align(String newValue);
-  external String get name;
-  external set name(String newValue);
+  String get height => js_util.getProperty(this, 'height');
+  set height(String newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
+
+  Document? getSVGDocument() => js_util.callMethod(this, 'getSVGDocument', []);
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -2381,68 +2758,78 @@ extension PropsHTMLEmbedElement on HTMLEmbedElement {
 @JS()
 @staticInterop
 class HTMLObjectElement implements HTMLElement {
-  external factory HTMLObjectElement();
+  external HTMLObjectElement();
 }
 
 extension PropsHTMLObjectElement on HTMLObjectElement {
   ///  Returns a [DOMString] that reflects the HTML attribute,
   /// specifying the address of a resource's data.
   ///
-  external String get data;
-  external set data(String newValue);
+  String get data => js_util.getProperty(this, 'data');
+  set data(String newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, specifying
   /// the MIME type of the resource.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  Returns a [DOMString] that reflects the HTML attribute,
   /// specifying the name of the browsing context.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  Returns a [HTMLFormElement] representing the object element's
   /// form owner, or null if there isn't one.
   ///
-  external HTMLFormElement? get form;
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
   ///  Is a [DOMString] that reflects the HTML attribute, specifying
   /// the displayed width of the resource in CSS pixels.
   ///
-  external String get width;
-  external set width(String newValue);
+  String get width => js_util.getProperty(this, 'width');
+  set width(String newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   ///  Returns a [DOMString] that reflects the HTML attribute,
   /// specifying the displayed height of the resource in CSS pixels.
   ///
-  external String get height;
-  external set height(String newValue);
+  String get height => js_util.getProperty(this, 'height');
+  set height(String newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 
   ///  Returns a [Document] representing the active document of the
   /// object element's nested browsing context, if any; otherwise
   /// [null].
   ///
-  external Document? get contentDocument;
+  Document? get contentDocument => js_util.getProperty(this, 'contentDocument');
 
   ///  Returns a [WindowProxy] representing the window proxy of the
   /// object element's nested browsing context, if any; otherwise
   /// [null].
   ///
-  external Window? get contentWindow;
-  external Document? getSVGDocument();
+  Window? get contentWindow => js_util.getProperty(this, 'contentWindow');
+  Document? getSVGDocument() => js_util.callMethod(this, 'getSVGDocument', []);
 
   ///  Returns a boolean value that indicates whether the element is a
   /// candidate for constraint validation. Always [false] for
   /// [HTMLObjectElement] objects.
   ///
-  external bool get willValidate;
+  bool get willValidate => js_util.getProperty(this, 'willValidate');
 
   ///  Returns a [ValidityState] with the validity states that this
   /// element is in.
   ///
-  external ValidityState get validity;
+  ValidityState get validity => js_util.getProperty(this, 'validity');
 
   ///  Returns a [DOMString] representing a localized message that
   /// describes the validation constraints that the control does not
@@ -2450,15 +2837,17 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
   /// a candidate for constraint validation ([willValidate] is
   /// [false]), or it satisfies its constraints.
   ///
-  external String get validationMessage;
+  String get validationMessage =>
+      js_util.getProperty(this, 'validationMessage');
 
   ///  Returns a boolean value that always is [true], because [object]
   /// objects are never candidates for constraint validation.
   ///
   /// const valid = HTMLObjectElement.checkValidity();
   ///
-  external bool checkValidity();
-  external bool reportValidity();
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
+
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
   ///  Sets a custom validity message for the element. If this message
   /// is not the empty string, then the element is suffering from a
@@ -2466,29 +2855,63 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
   ///
   /// HTMLObjectElement.setCustomValidity(message);
   ///
-  external Object setCustomValidity(String error);
-  external String get align;
-  external set align(String newValue);
-  external String get archive;
-  external set archive(String newValue);
-  external String get code;
-  external set code(String newValue);
-  external bool get declare;
-  external set declare(bool newValue);
-  external int get hspace;
-  external set hspace(int newValue);
-  external String get standby;
-  external set standby(String newValue);
-  external int get vspace;
-  external set vspace(int newValue);
-  external String get codeBase;
-  external set codeBase(String newValue);
-  external String get codeType;
-  external set codeType(String newValue);
-  external String get useMap;
-  external set useMap(String newValue);
-  external String get border;
-  external set border(String newValue);
+  Object setCustomValidity(String error) =>
+      js_util.callMethod(this, 'setCustomValidity', [error]);
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get archive => js_util.getProperty(this, 'archive');
+  set archive(String newValue) {
+    js_util.setProperty(this, 'archive', newValue);
+  }
+
+  String get code => js_util.getProperty(this, 'code');
+  set code(String newValue) {
+    js_util.setProperty(this, 'code', newValue);
+  }
+
+  bool get declare => js_util.getProperty(this, 'declare');
+  set declare(bool newValue) {
+    js_util.setProperty(this, 'declare', newValue);
+  }
+
+  int get hspace => js_util.getProperty(this, 'hspace');
+  set hspace(int newValue) {
+    js_util.setProperty(this, 'hspace', newValue);
+  }
+
+  String get standby => js_util.getProperty(this, 'standby');
+  set standby(String newValue) {
+    js_util.setProperty(this, 'standby', newValue);
+  }
+
+  int get vspace => js_util.getProperty(this, 'vspace');
+  set vspace(int newValue) {
+    js_util.setProperty(this, 'vspace', newValue);
+  }
+
+  String get codeBase => js_util.getProperty(this, 'codeBase');
+  set codeBase(String newValue) {
+    js_util.setProperty(this, 'codeBase', newValue);
+  }
+
+  String get codeType => js_util.getProperty(this, 'codeType');
+  set codeType(String newValue) {
+    js_util.setProperty(this, 'codeType', newValue);
+  }
+
+  String get useMap => js_util.getProperty(this, 'useMap');
+  set useMap(String newValue) {
+    js_util.setProperty(this, 'useMap', newValue);
+  }
+
+  String get border => js_util.getProperty(this, 'border');
+  set border(String newValue) {
+    js_util.setProperty(this, 'border', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond those of the
@@ -2528,25 +2951,35 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
 @JS()
 @staticInterop
 class HTMLParamElement implements HTMLElement {
-  external factory HTMLParamElement();
+  external HTMLParamElement();
 }
 
 extension PropsHTMLParamElement on HTMLParamElement {
   ///  Is a [DOMString] representing the name of the parameter. It
   /// reflects the attribute.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  Is a [DOMString] representing the value associated to the
   /// parameter. It reflects the attribute.
   ///
-  external String get value;
-  external set value(String newValue);
-  external String get type;
-  external set type(String newValue);
-  external String get valueType;
-  external set valueType(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  String get valueType => js_util.getProperty(this, 'valueType');
+  set valueType(String newValue) {
+    js_util.setProperty(this, 'valueType', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods for
@@ -2596,52 +3029,85 @@ extension PropsHTMLParamElement on HTMLParamElement {
 @JS()
 @staticInterop
 class HTMLVideoElement implements HTMLMediaElement {
-  external factory HTMLVideoElement();
+  external HTMLVideoElement();
 }
 
 extension PropsHTMLVideoElement on HTMLVideoElement {
   ///  Is a [DOMString] that reflects the HTML attribute, which
   /// specifies the width of the display area, in CSS pixels.
   ///
-  external int get width;
-  external set width(int newValue);
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, which
   /// specifies the height of the display area, in CSS pixels.
   ///
-  external int get height;
-  external set height(int newValue);
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 
   ///  Returns an unsigned integer value indicating the intrinsic width
   /// of the resource in CSS pixels, or 0 if no media is available yet.
   ///
-  external int get videoWidth;
+  int get videoWidth => js_util.getProperty(this, 'videoWidth');
 
   ///  Returns an unsigned integer value indicating the intrinsic
   /// height of the resource in CSS pixels, or 0 if no media is
   /// available yet.
   ///
-  external int get videoHeight;
+  int get videoHeight => js_util.getProperty(this, 'videoHeight');
 
   ///  Is a [DOMString] that reflects the HTML attribute, which
   /// specifies an image to show while no video data is available.
   ///
-  external String get poster;
-  external set poster(String newValue);
-  external bool get playsInline;
-  external set playsInline(bool newValue);
-  external VideoPlaybackQuality getVideoPlaybackQuality();
-  external Promise<PictureInPictureWindow> requestPictureInPicture();
-  external EventHandlerNonNull? get onenterpictureinpicture;
-  external set onenterpictureinpicture(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onleavepictureinpicture;
-  external set onleavepictureinpicture(EventHandlerNonNull? newValue);
-  external bool get autoPictureInPicture;
-  external set autoPictureInPicture(bool newValue);
-  external bool get disablePictureInPicture;
-  external set disablePictureInPicture(bool newValue);
-  external int requestVideoFrameCallback(VideoFrameRequestCallback callback);
-  external Object cancelVideoFrameCallback(int handle);
+  String get poster => js_util.getProperty(this, 'poster');
+  set poster(String newValue) {
+    js_util.setProperty(this, 'poster', newValue);
+  }
+
+  bool get playsInline => js_util.getProperty(this, 'playsInline');
+  set playsInline(bool newValue) {
+    js_util.setProperty(this, 'playsInline', newValue);
+  }
+
+  VideoPlaybackQuality getVideoPlaybackQuality() =>
+      js_util.callMethod(this, 'getVideoPlaybackQuality', []);
+
+  Promise<PictureInPictureWindow> requestPictureInPicture() =>
+      js_util.callMethod(this, 'requestPictureInPicture', []);
+
+  EventHandlerNonNull? get onenterpictureinpicture =>
+      js_util.getProperty(this, 'onenterpictureinpicture');
+  set onenterpictureinpicture(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onenterpictureinpicture', newValue);
+  }
+
+  EventHandlerNonNull? get onleavepictureinpicture =>
+      js_util.getProperty(this, 'onleavepictureinpicture');
+  set onleavepictureinpicture(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onleavepictureinpicture', newValue);
+  }
+
+  bool get autoPictureInPicture =>
+      js_util.getProperty(this, 'autoPictureInPicture');
+  set autoPictureInPicture(bool newValue) {
+    js_util.setProperty(this, 'autoPictureInPicture', newValue);
+  }
+
+  bool get disablePictureInPicture =>
+      js_util.getProperty(this, 'disablePictureInPicture');
+  set disablePictureInPicture(bool newValue) {
+    js_util.setProperty(this, 'disablePictureInPicture', newValue);
+  }
+
+  int requestVideoFrameCallback(VideoFrameRequestCallback callback) =>
+      js_util.callMethod(this, 'requestVideoFrameCallback', [callback]);
+
+  Object cancelVideoFrameCallback(int handle) =>
+      js_util.callMethod(this, 'cancelVideoFrameCallback', [handle]);
 }
 
 ///  The interface provides access to the properties of [<audio>]
@@ -2687,7 +3153,7 @@ extension PropsHTMLVideoElement on HTMLVideoElement {
 @JS()
 @staticInterop
 class HTMLAudioElement implements HTMLMediaElement {
-  external factory HTMLAudioElement();
+  external HTMLAudioElement();
 }
 
 ///  The interface represents an HTML [<track>] element within the
@@ -2731,7 +3197,7 @@ class HTMLTrackElement implements HTMLElement {
   external static int get LOADING;
   external static int get LOADED;
   external static int get ERROR;
-  external factory HTMLTrackElement();
+  external HTMLTrackElement();
 }
 
 extension PropsHTMLTrackElement on HTMLTrackElement {
@@ -2740,26 +3206,34 @@ extension PropsHTMLTrackElement on HTMLTrackElement {
   /// [subtitles], [captions], [descriptions], [chapters], or
   /// [metadata].
   ///
-  external String get kind;
-  external set kind(String newValue);
+  String get kind => js_util.getProperty(this, 'kind');
+  set kind(String newValue) {
+    js_util.setProperty(this, 'kind', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// the address of the text track data.
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// the language of the text track data.
   ///
-  external String get srclang;
-  external set srclang(String newValue);
+  String get srclang => js_util.getProperty(this, 'srclang');
+  set srclang(String newValue) {
+    js_util.setProperty(this, 'srclang', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating a
   /// user-readable title for the track.
   ///
-  external String get label;
-  external set label(String newValue);
+  String get label => js_util.getProperty(this, 'label');
+  set label(String newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
 
   ///  A boolean value reflecting the attribute, indicating that the
   /// track is to be enabled if the user's preferences do not indicate
@@ -2767,8 +3241,10 @@ extension PropsHTMLTrackElement on HTMLTrackElement {
   ///
   @JS('default')
   @staticInterop
-  external bool get mDefault;
-  external set mDefault(bool newValue);
+  bool get mDefault => js_util.getProperty(this, 'default');
+  set mDefault(bool newValue) {
+    js_util.setProperty(this, 'default', newValue);
+  }
 
   ///  Returns an [unsigned short] that show the readiness state of the
   /// track:
@@ -2810,11 +3286,11 @@ extension PropsHTMLTrackElement on HTMLTrackElement {
   ///
   ///
   ///
-  external int get readyState;
+  int get readyState => js_util.getProperty(this, 'readyState');
 
   /// Returns [TextTrack] is the track element's text track data.
   ///
-  external TextTrack get track;
+  TextTrack get track => js_util.getProperty(this, 'track');
 }
 
 enum CanPlayTypeResult { empty, maybe, probably }
@@ -2866,56 +3342,64 @@ class HTMLMediaElement implements HTMLElement {
   external static int get HAVE_CURRENT_DATA;
   external static int get HAVE_FUTURE_DATA;
   external static int get HAVE_ENOUGH_DATA;
-  external factory HTMLMediaElement();
+  external HTMLMediaElement();
 }
 
 extension PropsHTMLMediaElement on HTMLMediaElement {
   ///  Returns a [MediaError] object for the most recent error, or
   /// [null] if there has not been an error.
   ///
-  external MediaError? get error;
+  MediaError? get error => js_util.getProperty(this, 'error');
 
   ///  Is a [DOMString] that reflects the HTML attribute, which
   /// contains the URL of a media resource to use.
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   ///  Is a [MediaStream] representing the media to play or that has
   /// played in the current [HTMLMediaElement], or [null] if not
   /// assigned.
   ///
-  external dynamic get srcObject;
-  external set srcObject(dynamic newValue);
+  dynamic get srcObject => js_util.getProperty(this, 'srcObject');
+  set srcObject(dynamic newValue) {
+    js_util.setProperty(this, 'srcObject', newValue);
+  }
 
   ///  Returns a [DOMString] with the absolute URL of the chosen media
   /// resource.
   ///
-  external String get currentSrc;
+  String get currentSrc => js_util.getProperty(this, 'currentSrc');
 
   ///  A [DOMString] indicating the CORS setting for this media
   /// element.
   ///
-  external String? get crossOrigin;
-  external set crossOrigin(String? newValue);
+  String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
+  set crossOrigin(String? newValue) {
+    js_util.setProperty(this, 'crossOrigin', newValue);
+  }
 
   ///  Returns a [unsigned short] (enumeration) indicating the current
   /// state of fetching the media over the network.
   ///
-  external int get networkState;
+  int get networkState => js_util.getProperty(this, 'networkState');
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// what data should be preloaded, if any. Possible values are:
   /// [none], [metadata], [auto].
   ///
-  external String get preload;
-  external set preload(String newValue);
+  String get preload => js_util.getProperty(this, 'preload');
+  set preload(String newValue) {
+    js_util.setProperty(this, 'preload', newValue);
+  }
 
   ///  Returns a [TimeRanges] object that indicates the ranges of the
   /// media source that the browser has buffered (if any) at the moment
   /// the property is accessed.
   ///
-  external TimeRanges get buffered;
+  TimeRanges get buffered => js_util.getProperty(this, 'buffered');
 
   ///  Resets the media to the beginning and selects the best available
   /// source from the sources provided using the [src] attribute or the
@@ -2930,7 +3414,7 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   /// var mediaElem = document.querySelector("video");
   /// mediaElem.load();
   ///
-  external Object load();
+  Object load() => js_util.callMethod(this, 'load', []);
 
   ///  Given a string specifying a MIME media type (potentially with
   /// the [codecs] parameter included), [canPlayType()] returns the
@@ -2944,17 +3428,18 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   /// var obj = document.createElement('video');
   /// console.log(obj.canPlayType('video/mp4')); // "maybe"
   ///
-  external CanPlayTypeResult canPlayType(String type);
+  CanPlayTypeResult canPlayType(String type) =>
+      js_util.callMethod(this, 'canPlayType', [type]);
 
   ///  Returns a [unsigned short] (enumeration) indicating the
   /// readiness state of the media.
   ///
-  external int get readyState;
+  int get readyState => js_util.getProperty(this, 'readyState');
 
   ///  Returns a [Boolean] that indicates whether the media is in the
   /// process of seeking to a new position.
   ///
-  external bool get seeking;
+  bool get seeking => js_util.getProperty(this, 'seeking');
 
   ///  A double-precision floating-point value indicating the current
   /// playback time in seconds; if the media has not started to play
@@ -2962,8 +3447,10 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   /// playback time. Setting this value seeks the media to the new
   /// time. The time is specified relative to the media's timeline.
   ///
-  external double get currentTime;
-  external set currentTime(double newValue);
+  double get currentTime => js_util.getProperty(this, 'currentTime');
+  set currentTime(double newValue) {
+    js_util.setProperty(this, 'currentTime', newValue);
+  }
 
   /// Quickly seeks to the given time with low precision.
   ///
@@ -2975,7 +3462,7 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   /// myVideo.fastSeek(20);
   ///
   @experimental
-  external Object fastSeek(double time);
+  Object fastSeek(double time) => js_util.callMethod(this, 'fastSeek', [time]);
 
   ///  A read-only double-precision floating-point value indicating the
   /// total duration of the media in seconds. If no media data is
@@ -2983,47 +3470,55 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   /// indefinite length (such as streamed live media, a WebRTC call's
   /// media, or similar), the value is [+Infinity].
   ///
-  external /* double | NaN */ dynamic get duration;
-  external dynamic getStartDate();
+  /* double | NaN */ dynamic get duration =>
+      js_util.getProperty(this, 'duration');
+  dynamic getStartDate() => js_util.callMethod(this, 'getStartDate', []);
 
   ///  Returns a [Boolean] that indicates whether the media element is
   /// paused.
   ///
-  external bool get paused;
+  bool get paused => js_util.getProperty(this, 'paused');
 
   /// A [double] indicating the default playback rate for the media.
   ///
-  external double get defaultPlaybackRate;
-  external set defaultPlaybackRate(double newValue);
+  double get defaultPlaybackRate =>
+      js_util.getProperty(this, 'defaultPlaybackRate');
+  set defaultPlaybackRate(double newValue) {
+    js_util.setProperty(this, 'defaultPlaybackRate', newValue);
+  }
 
   ///  Is a [double] that indicates the rate at which the media is
   /// being played back.
   ///
-  external double get playbackRate;
-  external set playbackRate(double newValue);
+  double get playbackRate => js_util.getProperty(this, 'playbackRate');
+  set playbackRate(double newValue) {
+    js_util.setProperty(this, 'playbackRate', newValue);
+  }
 
   ///  Is a [Boolean] that determines if the pitch of the sound will be
   /// preserved. If set to [false], the pitch will adjust to the speed
   /// of the audio. This is implemented with prefixes in Firefox
   /// ([mozPreservesPitch]) and WebKit ([webkitPreservesPitch]).
   ///
-  external bool get preservesPitch;
-  external set preservesPitch(bool newValue);
+  bool get preservesPitch => js_util.getProperty(this, 'preservesPitch');
+  set preservesPitch(bool newValue) {
+    js_util.setProperty(this, 'preservesPitch', newValue);
+  }
 
   ///  Returns a [TimeRanges] object that contains the ranges of the
   /// media source that the browser has played, if any.
   ///
-  external TimeRanges get played;
+  TimeRanges get played => js_util.getProperty(this, 'played');
 
   ///  Returns a [TimeRanges] object that contains the time ranges that
   /// the user is able to seek to, if any.
   ///
-  external TimeRanges get seekable;
+  TimeRanges get seekable => js_util.getProperty(this, 'seekable');
 
   ///  Returns a [Boolean] that indicates whether the media element has
   /// finished playing.
   ///
-  external bool get ended;
+  bool get ended => js_util.getProperty(this, 'ended');
 
   ///  A boolean value that reflects the HTML attribute, indicating
   /// whether playback should automatically begin as soon as enough
@@ -3037,15 +3532,19 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   /// should ensure that your code isn't dependent on autoplay working.
   ///
   ///
-  external bool get autoplay;
-  external set autoplay(bool newValue);
+  bool get autoplay => js_util.getProperty(this, 'autoplay');
+  set autoplay(bool newValue) {
+    js_util.setProperty(this, 'autoplay', newValue);
+  }
 
   ///  A [Boolean] that reflects the HTML attribute, which indicates
   /// whether the media element should start over when it reaches the
   /// end.
   ///
-  external bool get loop;
-  external set loop(bool newValue);
+  bool get loop => js_util.getProperty(this, 'loop');
+  set loop(bool newValue) {
+    js_util.setProperty(this, 'loop', newValue);
+  }
 
   /// Begins playback of the media.
   ///
@@ -3093,73 +3592,99 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   ///  playVideo().
   ///
   /// You can try out or remix this example in real time on Glitch.
-  external Promise<Object> play();
+  Promise<Object> play() => js_util.callMethod(this, 'play', []);
 
   /// Pauses the media playback.
   ///
   /// HTMLMediaElement.pause()
   ///
-  external Object pause();
+  Object pause() => js_util.callMethod(this, 'pause', []);
 
   ///  Is a [Boolean] that reflects the HTML attribute, indicating
   /// whether user interface items for controlling the resource should
   /// be displayed.
   ///
-  external bool get controls;
-  external set controls(bool newValue);
+  bool get controls => js_util.getProperty(this, 'controls');
+  set controls(bool newValue) {
+    js_util.setProperty(this, 'controls', newValue);
+  }
 
   ///  Is a [double] indicating the audio volume, from 0.0 (silent) to
   /// 1.0 (loudest).
   ///
-  external double get volume;
-  external set volume(double newValue);
+  double get volume => js_util.getProperty(this, 'volume');
+  set volume(double newValue) {
+    js_util.setProperty(this, 'volume', newValue);
+  }
 
   ///  Is a [Boolean] that determines whether audio is muted. [true] if
   /// the audio is muted and [false] otherwise.
   ///
-  external bool get muted;
-  external set muted(bool newValue);
+  bool get muted => js_util.getProperty(this, 'muted');
+  set muted(bool newValue) {
+    js_util.setProperty(this, 'muted', newValue);
+  }
 
   ///  A [Boolean] that reflects the [muted] HTML attribute, which
   /// indicates whether the media element's audio output should be
   /// muted by default.
   ///
-  external bool get defaultMuted;
-  external set defaultMuted(bool newValue);
+  bool get defaultMuted => js_util.getProperty(this, 'defaultMuted');
+  set defaultMuted(bool newValue) {
+    js_util.setProperty(this, 'defaultMuted', newValue);
+  }
 
   ///  A [AudioTrackList] that lists the [AudioTrack] objects contained
   /// in the element.
   ///
-  external AudioTrackList get audioTracks;
+  AudioTrackList get audioTracks => js_util.getProperty(this, 'audioTracks');
 
   ///  Returns a [VideoTrackList] object containing the list of
   /// [VideoTrack] objects contained in the element.
   ///
-  external VideoTrackList get videoTracks;
+  VideoTrackList get videoTracks => js_util.getProperty(this, 'videoTracks');
 
   ///  Returns a [TextTrackList] object containing the list of
   /// [TextTrack] objects contained in the element.
   ///
-  external TextTrackList get textTracks;
+  TextTrackList get textTracks => js_util.getProperty(this, 'textTracks');
 
   ///  Adds a new [TextTrack] object (such as a track for subtitles) to
   /// a media element. This is a programmatic interface only and does
   /// not affect the DOM.
   ///
-  external TextTrack addTextTrack(TextTrackKind kind,
-      [String? label = '', String? language = '']);
-  external MediaStream captureStream();
-  external String get sinkId;
-  external Promise<Object> setSinkId(String sinkId);
-  external RemotePlayback get remote;
-  external bool get disableRemotePlayback;
-  external set disableRemotePlayback(bool newValue);
-  external MediaKeys? get mediaKeys;
-  external EventHandlerNonNull? get onencrypted;
-  external set onencrypted(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onwaitingforkey;
-  external set onwaitingforkey(EventHandlerNonNull? newValue);
-  external Promise<Object> setMediaKeys(MediaKeys? mediaKeys);
+  TextTrack addTextTrack(TextTrackKind kind,
+          [String? label = '', String? language = '']) =>
+      js_util.callMethod(this, 'addTextTrack', [kind, label, language]);
+
+  MediaStream captureStream() => js_util.callMethod(this, 'captureStream', []);
+
+  String get sinkId => js_util.getProperty(this, 'sinkId');
+  Promise<Object> setSinkId(String sinkId) =>
+      js_util.callMethod(this, 'setSinkId', [sinkId]);
+
+  RemotePlayback get remote => js_util.getProperty(this, 'remote');
+  bool get disableRemotePlayback =>
+      js_util.getProperty(this, 'disableRemotePlayback');
+  set disableRemotePlayback(bool newValue) {
+    js_util.setProperty(this, 'disableRemotePlayback', newValue);
+  }
+
+  MediaKeys? get mediaKeys => js_util.getProperty(this, 'mediaKeys');
+  EventHandlerNonNull? get onencrypted =>
+      js_util.getProperty(this, 'onencrypted');
+  set onencrypted(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onencrypted', newValue);
+  }
+
+  EventHandlerNonNull? get onwaitingforkey =>
+      js_util.getProperty(this, 'onwaitingforkey');
+  set onwaitingforkey(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onwaitingforkey', newValue);
+  }
+
+  Promise<Object> setMediaKeys(MediaKeys? mediaKeys) =>
+      js_util.callMethod(this, 'setMediaKeys', [mediaKeys]);
 }
 
 ///  The interface represents an error which occurred while handling
@@ -3175,7 +3700,7 @@ class MediaError {
   external static int get MEDIA_ERR_NETWORK;
   external static int get MEDIA_ERR_DECODE;
   external static int get MEDIA_ERR_SRC_NOT_SUPPORTED;
-  external factory MediaError();
+  external MediaError();
 }
 
 extension PropsMediaError on MediaError {
@@ -3230,7 +3755,7 @@ extension PropsMediaError on MediaError {
   ///
   ///
   ///
-  external int get code;
+  int get code => js_util.getProperty(this, 'code');
 
   ///  A [DOMString] object containing a human-readable string which
   /// provides specific diagnostic information to help the reader
@@ -3242,7 +3767,7 @@ extension PropsMediaError on MediaError {
   /// diagnostics are available, or no explanation can be provided,
   /// this value is an empty string ([""]).
   ///
-  external String get message;
+  String get message => js_util.getProperty(this, 'message');
 }
 
 ///  The interface is used to represent a list of the audio tracks
@@ -3254,13 +3779,13 @@ extension PropsMediaError on MediaError {
 @JS()
 @staticInterop
 class AudioTrackList implements EventTarget {
-  external factory AudioTrackList();
+  external AudioTrackList();
 }
 
 extension PropsAudioTrackList on AudioTrackList {
   /// The number of tracks in the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns the [AudioTrack] found within the [AudioTrackList] whose
   /// [id] matches the specified string. If no match is found, [null]
@@ -3285,13 +3810,25 @@ extension PropsAudioTrackList on AudioTrackList {
   ///  getTrackById() on it, specifying the character's name. The resulting
   ///  track's audio is then disabled by setting its enabled flag to false.
   ///
-  external AudioTrack? getTrackById(String id);
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onaddtrack;
-  external set onaddtrack(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onremovetrack;
-  external set onremovetrack(EventHandlerNonNull? newValue);
+  AudioTrack? getTrackById(String id) =>
+      js_util.callMethod(this, 'getTrackById', [id]);
+
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
+
+  EventHandlerNonNull? get onaddtrack =>
+      js_util.getProperty(this, 'onaddtrack');
+  set onaddtrack(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onaddtrack', newValue);
+  }
+
+  EventHandlerNonNull? get onremovetrack =>
+      js_util.getProperty(this, 'onremovetrack');
+  set onremovetrack(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onremovetrack', newValue);
+  }
 }
 
 ///  The interface represents a single audio track from one of the
@@ -3301,7 +3838,7 @@ extension PropsAudioTrackList on AudioTrackList {
 @JS()
 @staticInterop
 class AudioTrack {
-  external factory AudioTrack();
+  external AudioTrack();
 }
 
 extension PropsAudioTrack on AudioTrack {
@@ -3312,34 +3849,37 @@ extension PropsAudioTrack on AudioTrack {
   /// supports seeking by media fragment per the Media Fragments URI
   /// specification.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  A [DOMString] specifying the category into which the track
   /// falls. For example, the main audio track would have a of
   /// ["main"].
   ///
-  external String get kind;
+  String get kind => js_util.getProperty(this, 'kind');
 
   ///  A [DOMString] providing a human-readable label for the track.
   /// For example, an audio commentary track for a movie might have a
   /// of ["Commentary with director John Q. Public and actors John Doe
   /// and Jane Eod."] This string is empty if no label is provided.
   ///
-  external String get label;
+  String get label => js_util.getProperty(this, 'label');
 
   ///  A [DOMString] specifying the audio track's primary language, or
   /// an empty string if unknown. The language is specified as a BCP 47
   /// (RFC 5646) language code, such as ["en-US"] or ["pt-BR"].
   ///
-  external String get language;
+  String get language => js_util.getProperty(this, 'language');
 
   ///  A Boolean value which controls whether or not the audio track's
   /// sound is enabled. Setting this value to [false] mutes the track's
   /// audio.
   ///
-  external bool get enabled;
-  external set enabled(bool newValue);
-  external SourceBuffer? get sourceBuffer;
+  bool get enabled => js_util.getProperty(this, 'enabled');
+  set enabled(bool newValue) {
+    js_util.setProperty(this, 'enabled', newValue);
+  }
+
+  SourceBuffer? get sourceBuffer => js_util.getProperty(this, 'sourceBuffer');
 }
 
 ///  The interface is used to represent a list of the video tracks
@@ -3352,13 +3892,13 @@ extension PropsAudioTrack on AudioTrack {
 @JS()
 @staticInterop
 class VideoTrackList implements EventTarget {
-  external factory VideoTrackList();
+  external VideoTrackList();
 }
 
 extension PropsVideoTrackList on VideoTrackList {
   /// The number of tracks in the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns the [VideoTrack] found within the [VideoTrackList] whose
   /// [id] matches the specified string. If no match is found, [null]
@@ -3366,18 +3906,29 @@ extension PropsVideoTrackList on VideoTrackList {
   ///
   /// var theTrack = VideoTrackList.getTrackById(id);
   ///
-  external VideoTrack? getTrackById(String id);
+  VideoTrack? getTrackById(String id) =>
+      js_util.callMethod(this, 'getTrackById', [id]);
 
   ///  The index of the currently selected track, if any, or [−1]
   /// otherwise.
   ///
-  external int get selectedIndex;
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onaddtrack;
-  external set onaddtrack(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onremovetrack;
-  external set onremovetrack(EventHandlerNonNull? newValue);
+  int get selectedIndex => js_util.getProperty(this, 'selectedIndex');
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
+
+  EventHandlerNonNull? get onaddtrack =>
+      js_util.getProperty(this, 'onaddtrack');
+  set onaddtrack(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onaddtrack', newValue);
+  }
+
+  EventHandlerNonNull? get onremovetrack =>
+      js_util.getProperty(this, 'onremovetrack');
+  set onremovetrack(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onremovetrack', newValue);
+  }
 }
 
 ///  The interface represents a single video track from a [<video>]
@@ -3388,7 +3939,7 @@ extension PropsVideoTrackList on VideoTrackList {
 @JS()
 @staticInterop
 class VideoTrack {
-  external factory VideoTrack();
+  external VideoTrack();
 }
 
 extension PropsVideoTrack on VideoTrack {
@@ -3399,35 +3950,38 @@ extension PropsVideoTrack on VideoTrack {
   /// supports seeking by media fragment per the Media Fragments URI
   /// specification.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  A [DOMString] specifying the category into which the track
   /// falls. For example, the main video track would have a of
   /// ["main"].
   ///
-  external String get kind;
+  String get kind => js_util.getProperty(this, 'kind');
 
   ///  A [DOMString] providing a human-readable label for the track.
   /// For example, a track whose [kind] is ["sign"] might have a of ["A
   /// sign-language interpretation"]. This string is empty if no label
   /// is provided.
   ///
-  external String get label;
+  String get label => js_util.getProperty(this, 'label');
 
   ///  A [DOMString] specifying the video track's primary language, or
   /// an empty string if unknown. The language is specified as a BCP 47
   /// (RFC 5646) language code, such as ["en-US"] or ["pt-BR"].
   ///
-  external String get language;
+  String get language => js_util.getProperty(this, 'language');
 
   ///  A Boolean value which controls whether or not the video track is
   /// active. Only a single video track can be active at any given
   /// time, so setting this property to [true] for one track while
   /// another track is active will make that other track inactive.
   ///
-  external bool get selected;
-  external set selected(bool newValue);
-  external SourceBuffer? get sourceBuffer;
+  bool get selected => js_util.getProperty(this, 'selected');
+  set selected(bool newValue) {
+    js_util.setProperty(this, 'selected', newValue);
+  }
+
+  SourceBuffer? get sourceBuffer => js_util.getProperty(this, 'sourceBuffer');
 }
 
 ///  The interface is used to represent a list of the text tracks
@@ -3445,13 +3999,13 @@ extension PropsVideoTrack on VideoTrack {
 @JS()
 @staticInterop
 class TextTrackList implements EventTarget {
-  external factory TextTrackList();
+  external TextTrackList();
 }
 
 extension PropsTextTrackList on TextTrackList {
   /// The number of tracks in the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns the [TextTrack] found within the [TextTrackList] whose
   /// [id] matches the specified string. If no match is found, [null]
@@ -3459,13 +4013,25 @@ extension PropsTextTrackList on TextTrackList {
   ///
   /// var theTrack = TextTrackList.getTrackById(id);
   ///
-  external TextTrack? getTrackById(String id);
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onaddtrack;
-  external set onaddtrack(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onremovetrack;
-  external set onremovetrack(EventHandlerNonNull? newValue);
+  TextTrack? getTrackById(String id) =>
+      js_util.callMethod(this, 'getTrackById', [id]);
+
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
+
+  EventHandlerNonNull? get onaddtrack =>
+      js_util.getProperty(this, 'onaddtrack');
+  set onaddtrack(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onaddtrack', newValue);
+  }
+
+  EventHandlerNonNull? get onremovetrack =>
+      js_util.getProperty(this, 'onremovetrack');
+  set onremovetrack(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onremovetrack', newValue);
+  }
 }
 
 enum TextTrackMode { disabled, hidden, showing }
@@ -3478,14 +4044,14 @@ enum TextTrackKind { subtitles, captions, descriptions, chapters, metadata }
 @JS()
 @staticInterop
 class TextTrack implements EventTarget {
-  external factory TextTrack();
+  external TextTrack();
 }
 
 extension PropsTextTrack on TextTrack {
   ///  Returns a [DOMString] indicating what kind of text track the
   /// [TextTrack] describes. It must be one of the permitted values.
   ///
-  external TextTrackKind get kind;
+  TextTrackKind get kind => js_util.getProperty(this, 'kind');
 
   ///  A human-readable [DOMString] which contains the text track's
   /// label, if one is present; otherwise, this is an empty string
@@ -3493,7 +4059,7 @@ extension PropsTextTrack on TextTrack {
   /// your code using other attributes of the track, if the track's
   /// label needs to be exposed to the user.
   ///
-  external String get label;
+  String get label => js_util.getProperty(this, 'label');
 
   ///  A [DOMString] which specifies the text language in which the
   /// text track's contents is written. The value must adhere to the
@@ -3502,19 +4068,20 @@ extension PropsTextTrack on TextTrack {
   /// example, this can be ["en-US"] for United States English or
   /// ["pt-BR"] for Brazilian Portuguese.
   ///
-  external String get language;
+  String get language => js_util.getProperty(this, 'language');
 
   ///  A [DOMString] which identifies the track, if it has one. If it
   /// doesn't have an ID, then this value is an empty string ([""]). If
   /// the [TextTrack] is associated with a [<track>] element, then the
   /// track's ID matches the element's ID.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  Returns a [DOMString] which indicates the track's in-band
   /// metadata track dispatch type.
   ///
-  external String get inBandMetadataTrackDispatchType;
+  String get inBandMetadataTrackDispatchType =>
+      js_util.getProperty(this, 'inBandMetadataTrackDispatchType');
 
   ///  A [DOMString] specifying the track's current mode, which must be
   /// one of the permitted values. Changing this property's value
@@ -3523,12 +4090,14 @@ extension PropsTextTrack on TextTrack {
   /// attribute is specified, in which case the default mode is
   /// [started].
   ///
-  external TextTrackMode get mode;
-  external set mode(TextTrackMode newValue);
+  TextTrackMode get mode => js_util.getProperty(this, 'mode');
+  set mode(TextTrackMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
 
   /// A [TextTrackCueList] which contains all of the track's cues.
   ///
-  external TextTrackCueList? get cues;
+  TextTrackCueList? get cues => js_util.getProperty(this, 'cues');
 
   ///  A [TextTrackCueList] object listing the currently active set of
   /// text track cues. Track cues are active if the current playback
@@ -3536,24 +4105,30 @@ extension PropsTextTrack on TextTrack {
   /// Thus, for displayed cues such as captions or subtitles, the
   /// active cues are currently being displayed.
   ///
-  external TextTrackCueList? get activeCues;
+  TextTrackCueList? get activeCues => js_util.getProperty(this, 'activeCues');
 
   ///  Adds a cue (specified as a [TextTrackCue] object) to the track's
   /// list of cues.
   ///
   /// TextTrack.addCue(cue);
   ///
-  external Object addCue(TextTrackCue cue);
+  Object addCue(TextTrackCue cue) => js_util.callMethod(this, 'addCue', [cue]);
 
   ///  Removes a cue (specified as a [TextTrackCue] object) from the
   /// track's list of cues.
   ///
   /// TextTrack.removeCue(cue);
   ///
-  external Object removeCue(TextTrackCue cue);
-  external EventHandlerNonNull? get oncuechange;
-  external set oncuechange(EventHandlerNonNull? newValue);
-  external SourceBuffer? get sourceBuffer;
+  Object removeCue(TextTrackCue cue) =>
+      js_util.callMethod(this, 'removeCue', [cue]);
+
+  EventHandlerNonNull? get oncuechange =>
+      js_util.getProperty(this, 'oncuechange');
+  set oncuechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncuechange', newValue);
+  }
+
+  SourceBuffer? get sourceBuffer => js_util.getProperty(this, 'sourceBuffer');
 }
 
 ///  The array-like object represents a dynamically updating list of
@@ -3564,20 +4139,21 @@ extension PropsTextTrack on TextTrack {
 @JS()
 @staticInterop
 class TextTrackCueList {
-  external factory TextTrackCueList();
+  external TextTrackCueList();
 }
 
 extension PropsTextTrackCueList on TextTrackCueList {
   /// An [unsigned long] that is the number of cues in the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns the first [TextTrackCue] object with the identifier
   /// passed to it.
   ///
   /// var cue = TextTrackCueList.getCueById(id);
   ///
-  external TextTrackCue? getCueById(String id);
+  TextTrackCue? getCueById(String id) =>
+      js_util.callMethod(this, 'getCueById', [id]);
 }
 
 ///   is an abstract class which is used as the basis for the various
@@ -3591,41 +4167,56 @@ extension PropsTextTrackCueList on TextTrackCueList {
 @JS()
 @staticInterop
 class TextTrackCue implements EventTarget {
-  external factory TextTrackCue();
+  external TextTrackCue();
 }
 
 extension PropsTextTrackCue on TextTrackCue {
   ///  The [TextTrack] that this cue belongs to, or [null] if it
   /// doesn't belong to any.
   ///
-  external TextTrack? get track;
+  TextTrack? get track => js_util.getProperty(this, 'track');
 
   /// A [DOMString] that identifies the cue.
   ///
-  external String get id;
-  external set id(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 
   ///  A [double] that represents the video time that the cue will
   /// start being displayed, in seconds.
   ///
-  external double get startTime;
-  external set startTime(double newValue);
+  double get startTime => js_util.getProperty(this, 'startTime');
+  set startTime(double newValue) {
+    js_util.setProperty(this, 'startTime', newValue);
+  }
 
   ///  A [double] that represents the video time that the cue will stop
   /// being displayed, in seconds.
   ///
-  external /* double | NaN */ dynamic get endTime;
-  external set endTime(/* double | NaN */ dynamic newValue);
+  /* double | NaN */ dynamic get endTime =>
+      js_util.getProperty(this, 'endTime');
+  set endTime(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'endTime', newValue);
+  }
 
   ///  A [boolean] for whether the video will pause when this cue stops
   /// being displayed.
   ///
-  external bool get pauseOnExit;
-  external set pauseOnExit(bool newValue);
-  external EventHandlerNonNull? get onenter;
-  external set onenter(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onexit;
-  external set onexit(EventHandlerNonNull? newValue);
+  bool get pauseOnExit => js_util.getProperty(this, 'pauseOnExit');
+  set pauseOnExit(bool newValue) {
+    js_util.setProperty(this, 'pauseOnExit', newValue);
+  }
+
+  EventHandlerNonNull? get onenter => js_util.getProperty(this, 'onenter');
+  set onenter(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onenter', newValue);
+  }
+
+  EventHandlerNonNull? get onexit => js_util.getProperty(this, 'onexit');
+  set onexit(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onexit', newValue);
+  }
 }
 
 ///  When loading a media resource for use by an [<audio>] or
@@ -3640,14 +4231,14 @@ extension PropsTextTrackCue on TextTrackCue {
 @JS()
 @staticInterop
 class TimeRanges {
-  external factory TimeRanges();
+  external TimeRanges();
 }
 
 extension PropsTimeRanges on TimeRanges {
   ///  Returns an [unsigned long] representing the number of time
   /// ranges represented by the time range object.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns the time for the start of the range with the specified
   /// index.
@@ -3671,7 +4262,7 @@ extension PropsTimeRanges on TimeRanges {
   ///  This example looks at the time ranges and looks to see if the entire video has been
   ///  loaded.
   ///
-  external double start(int index);
+  double start(int index) => js_util.callMethod(this, 'start', [index]);
 
   /// Returns the time for the end of the specified range.
   ///
@@ -3694,7 +4285,7 @@ extension PropsTimeRanges on TimeRanges {
   ///  This example looks at the time ranges and looks to see if the entire video has been
   ///  loaded.
   ///
-  external double end(int index);
+  double end(int index) => js_util.callMethod(this, 'end', [index]);
 }
 
 ///  The interface, which is part of the HTML DOM specification, is
@@ -3717,7 +4308,7 @@ extension PropsTimeRanges on TimeRanges {
 @JS()
 @staticInterop
 class TrackEvent implements Event {
-  external factory TrackEvent(String type, [TrackEventInit? eventInitDict]);
+  external TrackEvent(String type, [TrackEventInit? eventInitDict]);
 }
 
 extension PropsTrackEvent on TrackEvent {
@@ -3725,7 +4316,7 @@ extension PropsTrackEvent on TrackEvent {
   /// [null], this is always an object of one of the media track types:
   /// [AudioTrack], [VideoTrack], or [TextTrack]).
   ///
-  external dynamic get track;
+  dynamic get track => js_util.getProperty(this, 'track');
 }
 
 @anonymous
@@ -3736,8 +4327,10 @@ class TrackEventInit implements EventInit {
 }
 
 extension PropsTrackEventInit on TrackEventInit {
-  external dynamic get track;
-  external set track(dynamic newValue);
+  dynamic get track => js_util.getProperty(this, 'track');
+  set track(dynamic newValue) {
+    js_util.setProperty(this, 'track', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -3777,7 +4370,7 @@ extension PropsTrackEventInit on TrackEventInit {
 @JS()
 @staticInterop
 class HTMLMapElement implements HTMLElement {
-  external factory HTMLMapElement();
+  external HTMLMapElement();
 }
 
 extension PropsHTMLMapElement on HTMLMapElement {
@@ -3785,13 +4378,15 @@ extension PropsHTMLMapElement on HTMLMapElement {
   /// referencing it other context. If the [id] attribute is set, this
   /// must have the same value; and it cannot be [null] or empty.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  Is a live [HTMLCollection] representing the [<area>] elements
   /// associated to this [<map>].
   ///
-  external HTMLCollection get areas;
+  HTMLCollection get areas => js_util.getProperty(this, 'areas');
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -3831,33 +4426,41 @@ extension PropsHTMLMapElement on HTMLMapElement {
 @JS()
 @staticInterop
 class HTMLAreaElement implements HTMLElement, HTMLHyperlinkElementUtils {
-  external factory HTMLAreaElement();
+  external HTMLAreaElement();
 }
 
 extension PropsHTMLAreaElement on HTMLAreaElement {
   ///  Is a [DOMString] that reflects the HTML attribute, containing
   /// alternative text for the element.
   ///
-  external String get alt;
-  external set alt(String newValue);
+  String get alt => js_util.getProperty(this, 'alt');
+  set alt(String newValue) {
+    js_util.setProperty(this, 'alt', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing
   /// coordinates to define the hot-spot region.
   ///
-  external String get coords;
-  external set coords(String newValue);
+  String get coords => js_util.getProperty(this, 'coords');
+  set coords(String newValue) {
+    js_util.setProperty(this, 'coords', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// the shape of the hot-spot, limited to known values.
   ///
-  external String get shape;
-  external set shape(String newValue);
+  String get shape => js_util.getProperty(this, 'shape');
+  set shape(String newValue) {
+    js_util.setProperty(this, 'shape', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// the browsing context in which to open the linked resource.
   ///
-  external String get target;
-  external set target(String newValue);
+  String get target => js_util.getProperty(this, 'target');
+  set target(String newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
 
   ///  Is a [DOMString] indicating that the linked resource is intended
   /// to be downloaded rather than displayed in the browser. The value
@@ -3865,32 +4468,44 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
   /// valid filename of the underlying OS, browser will adapt it.
   ///
   @experimental
-  external String get download;
-  external set download(String newValue);
-  external String get ping;
-  external set ping(String newValue);
+  String get download => js_util.getProperty(this, 'download');
+  set download(String newValue) {
+    js_util.setProperty(this, 'download', newValue);
+  }
+
+  String get ping => js_util.getProperty(this, 'ping');
+  set ping(String newValue) {
+    js_util.setProperty(this, 'ping', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, indicating
   /// relationships of the current document to the linked resource.
   ///
-  external String get rel;
-  external set rel(String newValue);
+  String get rel => js_util.getProperty(this, 'rel');
+  set rel(String newValue) {
+    js_util.setProperty(this, 'rel', newValue);
+  }
 
   ///  Returns a [DOMTokenList] that reflects the [rel] HTML attribute,
   /// indicating relationships of the current document to the linked
   /// resource, as a list of tokens.
   ///
-  external DOMTokenList get relList;
+  DOMTokenList get relList => js_util.getProperty(this, 'relList');
 
   ///  Is a [DOMString] that reflects the [referrerpolicy] HTML
   /// attribute indicating which referrer to use when fetching the
   /// linked resource.
   ///
   @experimental
-  external String get referrerPolicy;
-  external set referrerPolicy(String newValue);
-  external bool get noHref;
-  external set noHref(bool newValue);
+  String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(String newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
+
+  bool get noHref => js_util.getProperty(this, 'noHref');
+  set noHref(bool newValue) {
+    js_util.setProperty(this, 'noHref', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -3930,7 +4545,7 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
 @JS()
 @staticInterop
 class HTMLTableElement implements HTMLElement {
-  external factory HTMLTableElement();
+  external HTMLTableElement();
 }
 
 extension PropsHTMLTableElement on HTMLTableElement {
@@ -3942,8 +4557,10 @@ extension PropsHTMLTableElement on HTMLTableElement {
   /// first child of this element and the first [<caption>] that is a
   /// child of this element is removed from the tree, if any.
   ///
-  external HTMLTableCaptionElement? get caption;
-  external set caption(HTMLTableCaptionElement? newValue);
+  HTMLTableCaptionElement? get caption => js_util.getProperty(this, 'caption');
+  set caption(HTMLTableCaptionElement? newValue) {
+    js_util.setProperty(this, 'caption', newValue);
+  }
 
   ///  Returns an [HTMLElement] representing the first [<caption>] that
   /// is a child of the element. If none is found, a new one is created
@@ -3966,7 +4583,8 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///
   /// ```
   ///
-  external HTMLTableCaptionElement createCaption();
+  HTMLTableCaptionElement createCaption() =>
+      js_util.callMethod(this, 'createCaption', []);
 
   /// Removes the first [<caption>] that is a child of the element.
   ///
@@ -3986,7 +4604,7 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///
   /// ```
   ///
-  external Object deleteCaption();
+  Object deleteCaption() => js_util.callMethod(this, 'deleteCaption', []);
 
   ///  Is a [HTMLTableSectionElement] representing the first [<thead>]
   /// that is a child of the element, or [null] if none is found. When
@@ -3998,8 +4616,10 @@ extension PropsHTMLTableElement on HTMLTableElement {
   /// no such element, and the first [<thead>] that is a child of this
   /// element is removed from the tree, if any.
   ///
-  external HTMLTableSectionElement? get tHead;
-  external set tHead(HTMLTableSectionElement? newValue);
+  HTMLTableSectionElement? get tHead => js_util.getProperty(this, 'tHead');
+  set tHead(HTMLTableSectionElement? newValue) {
+    js_util.setProperty(this, 'tHead', newValue);
+  }
 
   ///  Returns an [HTMLTableSectionElement] representing the first
   /// [<thead>] that is a child of the element. If none is found, a new
@@ -4012,7 +4632,8 @@ extension PropsHTMLTableElement on HTMLTableElement {
   /// let myhead = mytable.createTHead();
   /// // Now this should be true: myhead == mytable.tHead
   ///
-  external HTMLTableSectionElement createTHead();
+  HTMLTableSectionElement createTHead() =>
+      js_util.callMethod(this, 'createTHead', []);
 
   /// Removes the first [<thead>] that is a child of the element.
   ///
@@ -4032,7 +4653,7 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///
   /// ```
   ///
-  external Object deleteTHead();
+  Object deleteTHead() => js_util.callMethod(this, 'deleteTHead', []);
 
   ///  Is a [HTMLTableSectionElement] representing the first [<tfoot>]
   /// that is a child of the element, or [null] if none is found. When
@@ -4044,8 +4665,10 @@ extension PropsHTMLTableElement on HTMLTableElement {
   /// child if there is no such element, and the first [<tfoot>] that
   /// is a child of this element is removed from the tree, if any.
   ///
-  external HTMLTableSectionElement? get tFoot;
-  external set tFoot(HTMLTableSectionElement? newValue);
+  HTMLTableSectionElement? get tFoot => js_util.getProperty(this, 'tFoot');
+  set tFoot(HTMLTableSectionElement? newValue) {
+    js_util.setProperty(this, 'tFoot', newValue);
+  }
 
   ///  Returns an [HTMLTableSectionElement] representing the first
   /// [<tfoot>] that is a child of the element. If none is found, a new
@@ -4056,7 +4679,8 @@ extension PropsHTMLTableElement on HTMLTableElement {
   /// let myfoot = mytable.createTFoot();
   /// // Now this should be true: myfoot == mytable.tFoot
   ///
-  external HTMLTableSectionElement createTFoot();
+  HTMLTableSectionElement createTFoot() =>
+      js_util.callMethod(this, 'createTFoot', []);
 
   /// Removes the first [<tfoot>] that is a child of the element.
   ///
@@ -4077,13 +4701,13 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///
   /// ```
   ///
-  external Object deleteTFoot();
+  Object deleteTFoot() => js_util.callMethod(this, 'deleteTFoot', []);
 
   ///  Returns a live [HTMLCollection] containing all the [<tbody>] of
   /// the element. The [HTMLCollection] is live and is automatically
   /// updated when the [HTMLTableElement] changes.
   ///
-  external HTMLCollection get tBodies;
+  HTMLCollection get tBodies => js_util.getProperty(this, 'tBodies');
 
   ///  Returns a [HTMLTableSectionElement] representing a new [<tbody>]
   /// that is a child of the element. It is inserted in the tree after
@@ -4095,7 +4719,8 @@ extension PropsHTMLTableElement on HTMLTableElement {
   /// let mybody = mytable.createTBody();
   /// // Now this should be true: mybody == mytable.tBodies.item(mytable.tBodies.length - 1)
   ///
-  external HTMLTableSectionElement createTBody();
+  HTMLTableSectionElement createTBody() =>
+      js_util.callMethod(this, 'createTBody', []);
 
   ///  Returns a live [HTMLCollection] containing all the rows of the
   /// element, that is all [<tr>] that are a child of the element, or a
@@ -4105,7 +4730,7 @@ extension PropsHTMLTableElement on HTMLTableElement {
   /// [HTMLCollection] is live and is automatically updated when the
   /// [HTMLTableElement] changes.
   ///
-  external HTMLCollection get rows;
+  HTMLCollection get rows => js_util.getProperty(this, 'rows');
 
   ///  Returns an [HTMLTableRowElement] representing a new row of the
   /// table. It inserts it in the rows collection immediately before
@@ -4154,7 +4779,8 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///
   /// ```
   ///
-  external HTMLTableRowElement insertRow([int? index = -1]);
+  HTMLTableRowElement insertRow([int? index = -1]) =>
+      js_util.callMethod(this, 'insertRow', [index]);
 
   ///  Removes the row corresponding to the [index] given in parameter.
   /// If the [index] value is [-1] the last row is removed; if it is
@@ -4180,25 +4806,52 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///
   /// ```
   ///
-  external Object deleteRow(int index);
-  external String get align;
-  external set align(String newValue);
-  external String get border;
-  external set border(String newValue);
-  external String get frame;
-  external set frame(String newValue);
-  external String get rules;
-  external set rules(String newValue);
-  external String get summary;
-  external set summary(String newValue);
-  external String get width;
-  external set width(String newValue);
-  external String get bgColor;
-  external set bgColor(String newValue);
-  external String get cellPadding;
-  external set cellPadding(String newValue);
-  external String get cellSpacing;
-  external set cellSpacing(String newValue);
+  Object deleteRow(int index) => js_util.callMethod(this, 'deleteRow', [index]);
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get border => js_util.getProperty(this, 'border');
+  set border(String newValue) {
+    js_util.setProperty(this, 'border', newValue);
+  }
+
+  String get frame => js_util.getProperty(this, 'frame');
+  set frame(String newValue) {
+    js_util.setProperty(this, 'frame', newValue);
+  }
+
+  String get rules => js_util.getProperty(this, 'rules');
+  set rules(String newValue) {
+    js_util.setProperty(this, 'rules', newValue);
+  }
+
+  String get summary => js_util.getProperty(this, 'summary');
+  set summary(String newValue) {
+    js_util.setProperty(this, 'summary', newValue);
+  }
+
+  String get width => js_util.getProperty(this, 'width');
+  set width(String newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  String get bgColor => js_util.getProperty(this, 'bgColor');
+  set bgColor(String newValue) {
+    js_util.setProperty(this, 'bgColor', newValue);
+  }
+
+  String get cellPadding => js_util.getProperty(this, 'cellPadding');
+  set cellPadding(String newValue) {
+    js_util.setProperty(this, 'cellPadding', newValue);
+  }
+
+  String get cellSpacing => js_util.getProperty(this, 'cellSpacing');
+  set cellSpacing(String newValue) {
+    js_util.setProperty(this, 'cellSpacing', newValue);
+  }
 }
 
 ///  The interface special properties (beyond the regular
@@ -4237,12 +4890,14 @@ extension PropsHTMLTableElement on HTMLTableElement {
 @JS()
 @staticInterop
 class HTMLTableCaptionElement implements HTMLElement {
-  external factory HTMLTableCaptionElement();
+  external HTMLTableCaptionElement();
 }
 
 extension PropsHTMLTableCaptionElement on HTMLTableCaptionElement {
-  external String get align;
-  external set align(String newValue);
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
 }
 
 ///  The interface provides properties for manipulating single or
@@ -4280,7 +4935,7 @@ extension PropsHTMLTableCaptionElement on HTMLTableCaptionElement {
 @JS()
 @staticInterop
 class HTMLTableColElement implements HTMLElement {
-  external factory HTMLTableColElement();
+  external HTMLTableColElement();
 }
 
 extension PropsHTMLTableColElement on HTMLTableColElement {
@@ -4288,18 +4943,35 @@ extension PropsHTMLTableColElement on HTMLTableColElement {
   /// indicating the number of columns to apply this object's
   /// attributes to. Must be a positive integer.
   ///
-  external int get span;
-  external set span(int newValue);
-  external String get align;
-  external set align(String newValue);
-  external String get ch;
-  external set ch(String newValue);
-  external String get chOff;
-  external set chOff(String newValue);
-  external String get vAlign;
-  external set vAlign(String newValue);
-  external String get width;
-  external set width(String newValue);
+  int get span => js_util.getProperty(this, 'span');
+  set span(int newValue) {
+    js_util.setProperty(this, 'span', newValue);
+  }
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get ch => js_util.getProperty(this, 'ch');
+  set ch(String newValue) {
+    js_util.setProperty(this, 'ch', newValue);
+  }
+
+  String get chOff => js_util.getProperty(this, 'chOff');
+  set chOff(String newValue) {
+    js_util.setProperty(this, 'chOff', newValue);
+  }
+
+  String get vAlign => js_util.getProperty(this, 'vAlign');
+  set vAlign(String newValue) {
+    js_util.setProperty(this, 'vAlign', newValue);
+  }
+
+  String get width => js_util.getProperty(this, 'width');
+  set width(String newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -4339,7 +5011,7 @@ extension PropsHTMLTableColElement on HTMLTableColElement {
 @JS()
 @staticInterop
 class HTMLTableSectionElement implements HTMLElement {
-  external factory HTMLTableSectionElement();
+  external HTMLTableSectionElement();
 }
 
 extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
@@ -4347,7 +5019,7 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
   /// section. The [HTMLCollection] is live and is automatically
   /// updated when rows are added or removed.
   ///
-  external HTMLCollection get rows;
+  HTMLCollection get rows => js_util.getProperty(this, 'rows');
 
   ///  Returns an [HTMLTableRowElement] representing a new row of the
   /// section. It inserts it in the rows collection immediately before
@@ -4357,7 +5029,8 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
   /// in the collection, a [DOMException] with the value
   /// [IndexSizeError] is raised.
   ///
-  external HTMLTableRowElement insertRow([int? index = -1]);
+  HTMLTableRowElement insertRow([int? index = -1]) =>
+      js_util.callMethod(this, 'insertRow', [index]);
 
   ///  Removes the row, corresponding to the [index] given in
   /// parameter, in the section. If the [index] value is [-1] the last
@@ -4365,15 +5038,27 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
   /// amount of rows in the collection, a [DOMException] with the value
   /// [IndexSizeError] is raised.
   ///
-  external Object deleteRow(int index);
-  external String get align;
-  external set align(String newValue);
-  external String get ch;
-  external set ch(String newValue);
-  external String get chOff;
-  external set chOff(String newValue);
-  external String get vAlign;
-  external set vAlign(String newValue);
+  Object deleteRow(int index) => js_util.callMethod(this, 'deleteRow', [index]);
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get ch => js_util.getProperty(this, 'ch');
+  set ch(String newValue) {
+    js_util.setProperty(this, 'ch', newValue);
+  }
+
+  String get chOff => js_util.getProperty(this, 'chOff');
+  set chOff(String newValue) {
+    js_util.setProperty(this, 'chOff', newValue);
+  }
+
+  String get vAlign => js_util.getProperty(this, 'vAlign');
+  set vAlign(String newValue) {
+    js_util.setProperty(this, 'vAlign', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -4413,7 +5098,7 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
 @JS()
 @staticInterop
 class HTMLTableRowElement implements HTMLElement {
-  external factory HTMLTableRowElement();
+  external HTMLTableRowElement();
 }
 
 extension PropsHTMLTableRowElement on HTMLTableRowElement {
@@ -4421,31 +5106,49 @@ extension PropsHTMLTableRowElement on HTMLTableRowElement {
   /// row within the entire table. If the row is not part of a table,
   /// returns [-1].
   ///
-  external int get rowIndex;
+  int get rowIndex => js_util.getProperty(this, 'rowIndex');
 
   ///  Returns a [long] value which gives the logical position of the
   /// row within the table section it belongs to. If the row is not
   /// part of a section, returns [-1].
   ///
-  external int get sectionRowIndex;
+  int get sectionRowIndex => js_util.getProperty(this, 'sectionRowIndex');
 
   ///  Returns a live [HTMLCollection] containing the cells in the row.
   /// The [HTMLCollection] is live and is automatically updated when
   /// cells are added or removed.
   ///
-  external HTMLCollection get cells;
-  external HTMLTableCellElement insertCell([int? index = -1]);
-  external Object deleteCell(int index);
-  external String get align;
-  external set align(String newValue);
-  external String get ch;
-  external set ch(String newValue);
-  external String get chOff;
-  external set chOff(String newValue);
-  external String get vAlign;
-  external set vAlign(String newValue);
-  external String get bgColor;
-  external set bgColor(String newValue);
+  HTMLCollection get cells => js_util.getProperty(this, 'cells');
+  HTMLTableCellElement insertCell([int? index = -1]) =>
+      js_util.callMethod(this, 'insertCell', [index]);
+
+  Object deleteCell(int index) =>
+      js_util.callMethod(this, 'deleteCell', [index]);
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get ch => js_util.getProperty(this, 'ch');
+  set ch(String newValue) {
+    js_util.setProperty(this, 'ch', newValue);
+  }
+
+  String get chOff => js_util.getProperty(this, 'chOff');
+  set chOff(String newValue) {
+    js_util.setProperty(this, 'chOff', newValue);
+  }
+
+  String get vAlign => js_util.getProperty(this, 'vAlign');
+  set vAlign(String newValue) {
+    js_util.setProperty(this, 'vAlign', newValue);
+  }
+
+  String get bgColor => js_util.getProperty(this, 'bgColor');
+  set bgColor(String newValue) {
+    js_util.setProperty(this, 'bgColor', newValue);
+  }
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -4485,7 +5188,7 @@ extension PropsHTMLTableRowElement on HTMLTableRowElement {
 @JS()
 @staticInterop
 class HTMLTableCellElement implements HTMLElement {
-  external factory HTMLTableCellElement();
+  external HTMLTableCellElement();
 }
 
 extension PropsHTMLTableCellElement on HTMLTableCellElement {
@@ -4493,28 +5196,34 @@ extension PropsHTMLTableCellElement on HTMLTableCellElement {
   /// cell must span; this lets the cell occupy space across multiple
   /// columns of the table. It reflects the [colspan] attribute.
   ///
-  external int get colSpan;
-  external set colSpan(int newValue);
+  int get colSpan => js_util.getProperty(this, 'colSpan');
+  set colSpan(int newValue) {
+    js_util.setProperty(this, 'colSpan', newValue);
+  }
 
   ///  An unsigned long integer indicating the number of rows this cell
   /// must span; this lets a cell occupy space across multiple rows of
   /// the table. It reflects the [rowspan] attribute.
   ///
-  external int get rowSpan;
-  external set rowSpan(int newValue);
+  int get rowSpan => js_util.getProperty(this, 'rowSpan');
+  set rowSpan(int newValue) {
+    js_util.setProperty(this, 'rowSpan', newValue);
+  }
 
   ///  A [DOMTokenList] describing a list of [id] of [<th>] elements
   /// that represents headers associated with the cell. It reflects the
   /// attribute.
   ///
-  external String get headers;
-  external set headers(String newValue);
+  String get headers => js_util.getProperty(this, 'headers');
+  set headers(String newValue) {
+    js_util.setProperty(this, 'headers', newValue);
+  }
 
   ///  A long integer representing the cell's position in the [cells]
   /// collection of the [<tr>] the cell is contained within. If the
   /// cell doesn't belong to a [<tr>], it returns [-1].
   ///
-  external int get cellIndex;
+  int get cellIndex => js_util.getProperty(this, 'cellIndex');
 
   ///  A string indicating the scope of a [<th>] cell. Header cells can
   /// be configured, using the property, the apply to a specified row
@@ -4557,8 +5266,10 @@ extension PropsHTMLTableCellElement on HTMLTableCellElement {
   ///
   ///
   ///
-  external String get scope;
-  external set scope(String newValue);
+  String get scope => js_util.getProperty(this, 'scope');
+  set scope(String newValue) {
+    js_util.setProperty(this, 'scope', newValue);
+  }
 
   ///  A string which can be used on [<th>] elements (not on [<td>]),
   /// specifying an alternative label for the header cell. This
@@ -4569,26 +5280,55 @@ extension PropsHTMLTableCellElement on HTMLTableCellElement {
   /// abbreviation or acronym, but can be any text that's appropriate
   /// contextually.
   ///
-  external String get abbr;
-  external set abbr(String newValue);
-  external String get align;
-  external set align(String newValue);
-  external String get axis;
-  external set axis(String newValue);
-  external String get height;
-  external set height(String newValue);
-  external String get width;
-  external set width(String newValue);
-  external String get ch;
-  external set ch(String newValue);
-  external String get chOff;
-  external set chOff(String newValue);
-  external bool get noWrap;
-  external set noWrap(bool newValue);
-  external String get vAlign;
-  external set vAlign(String newValue);
-  external String get bgColor;
-  external set bgColor(String newValue);
+  String get abbr => js_util.getProperty(this, 'abbr');
+  set abbr(String newValue) {
+    js_util.setProperty(this, 'abbr', newValue);
+  }
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get axis => js_util.getProperty(this, 'axis');
+  set axis(String newValue) {
+    js_util.setProperty(this, 'axis', newValue);
+  }
+
+  String get height => js_util.getProperty(this, 'height');
+  set height(String newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
+
+  String get width => js_util.getProperty(this, 'width');
+  set width(String newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  String get ch => js_util.getProperty(this, 'ch');
+  set ch(String newValue) {
+    js_util.setProperty(this, 'ch', newValue);
+  }
+
+  String get chOff => js_util.getProperty(this, 'chOff');
+  set chOff(String newValue) {
+    js_util.setProperty(this, 'chOff', newValue);
+  }
+
+  bool get noWrap => js_util.getProperty(this, 'noWrap');
+  set noWrap(bool newValue) {
+    js_util.setProperty(this, 'noWrap', newValue);
+  }
+
+  String get vAlign => js_util.getProperty(this, 'vAlign');
+  set vAlign(String newValue) {
+    js_util.setProperty(this, 'vAlign', newValue);
+  }
+
+  String get bgColor => js_util.getProperty(this, 'bgColor');
+  set bgColor(String newValue) {
+    js_util.setProperty(this, 'bgColor', newValue);
+  }
 }
 
 ///  The interface represents a [<form>] element in the DOM. It
@@ -4627,7 +5367,7 @@ extension PropsHTMLTableCellElement on HTMLTableCellElement {
 @JS()
 @staticInterop
 class HTMLFormElement implements HTMLElement {
-  external factory HTMLFormElement();
+  external HTMLFormElement();
 }
 
 extension PropsHTMLFormElement on HTMLFormElement {
@@ -4635,71 +5375,95 @@ extension PropsHTMLFormElement on HTMLFormElement {
   /// [accept-charset] HTML attribute, representing the character
   /// encoding that the server accepts.
   ///
-  external String get acceptCharset;
-  external set acceptCharset(String newValue);
+  String get acceptCharset => js_util.getProperty(this, 'acceptCharset');
+  set acceptCharset(String newValue) {
+    js_util.setProperty(this, 'acceptCharset', newValue);
+  }
 
   ///  A [DOMString] reflecting the value of the form's HTML attribute,
   /// containing the URI of a program that processes the information
   /// submitted by the form.
   ///
-  external String get action;
-  external set action(String newValue);
+  String get action => js_util.getProperty(this, 'action');
+  set action(String newValue) {
+    js_util.setProperty(this, 'action', newValue);
+  }
 
   ///  A [DOMString] reflecting the value of the form's HTML attribute,
   /// indicating whether the controls in this form can have their
   /// values automatically populated by the browser.
   ///
-  external String get autocomplete;
-  external set autocomplete(String newValue);
-  external String get enctype;
-  external set enctype(String newValue);
+  String get autocomplete => js_util.getProperty(this, 'autocomplete');
+  set autocomplete(String newValue) {
+    js_util.setProperty(this, 'autocomplete', newValue);
+  }
+
+  String get enctype => js_util.getProperty(this, 'enctype');
+  set enctype(String newValue) {
+    js_util.setProperty(this, 'enctype', newValue);
+  }
 
   ///  A [DOMString] reflecting the value of the form's [enctype] HTML
   /// attribute, indicating the type of content that is used to
   /// transmit the form to the server. Only specified values can be
   /// set. The two properties are synonyms.
   ///
-  external String get encoding;
-  external set encoding(String newValue);
+  String get encoding => js_util.getProperty(this, 'encoding');
+  set encoding(String newValue) {
+    js_util.setProperty(this, 'encoding', newValue);
+  }
 
   ///  A [DOMString] reflecting the value of the form's HTML attribute,
   /// indicating the HTTP method used to submit the form. Only
   /// specified values can be set.
   ///
-  external String get method;
-  external set method(String newValue);
+  String get method => js_util.getProperty(this, 'method');
+  set method(String newValue) {
+    js_util.setProperty(this, 'method', newValue);
+  }
 
   ///  A [DOMString] reflecting the value of the form's HTML attribute,
   /// containing the name of the form.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  A boolean value reflecting the value of the form's [novalidate]
   /// HTML attribute, indicating whether the form should not be
   /// validated.
   ///
-  external bool get noValidate;
-  external set noValidate(bool newValue);
+  bool get noValidate => js_util.getProperty(this, 'noValidate');
+  set noValidate(bool newValue) {
+    js_util.setProperty(this, 'noValidate', newValue);
+  }
 
   ///  A [DOMString] reflecting the value of the form's HTML attribute,
   /// indicating where to display the results received from submitting
   /// the form.
   ///
-  external String get target;
-  external set target(String newValue);
-  external String get rel;
-  external set rel(String newValue);
-  external DOMTokenList get relList;
+  String get target => js_util.getProperty(this, 'target');
+  set target(String newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
+
+  String get rel => js_util.getProperty(this, 'rel');
+  set rel(String newValue) {
+    js_util.setProperty(this, 'rel', newValue);
+  }
+
+  DOMTokenList get relList => js_util.getProperty(this, 'relList');
 
   ///  A [HTMLFormControlsCollection] holding all form controls
   /// belonging to this form element.
   ///
-  external HTMLFormControlsCollection get elements;
+  HTMLFormControlsCollection get elements =>
+      js_util.getProperty(this, 'elements');
 
   /// A [long] reflecting the number of controls in the form.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   /// Submits the form to the server.
   ///
@@ -4707,14 +5471,15 @@ extension PropsHTMLFormElement on HTMLFormElement {
   ///
   /// document.forms["myform"].submit();
   ///
-  external Object submit();
+  Object submit() => js_util.callMethod(this, 'submit', []);
 
   ///  Requests that the form be submitted using the specified submit
   /// button and its corresponding configuration.
   ///
   /// htmlFormElement.requestSubmit(submitter);
   ///
-  external Object requestSubmit([HTMLElement? submitter]);
+  Object requestSubmit([HTMLElement? submitter]) =>
+      js_util.callMethod(this, 'requestSubmit', [submitter]);
 
   /// Resets the form to its initial state.
   ///
@@ -4722,7 +5487,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
   ///
   /// document.getElementById('myform').reset();
   ///
-  external Object reset();
+  Object reset() => js_util.callMethod(this, 'reset', []);
 
   ///  Returns [true] if the element's child controls are subject to
   /// constraint validation and satisfy those constraints; returns
@@ -4732,7 +5497,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
   /// not canceled. It is up to the programmer to decide how to respond
   /// to [false].
   ///
-  external bool checkValidity();
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
 
   ///  Returns [true] if the element's child controls satisfy their
   /// validation constraints. When [false] is returned, cancelable
@@ -4745,7 +5510,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
   ///  document.forms['myform'].reportValidity();
   /// }, false);
   ///
-  external bool reportValidity();
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 }
 
 ///  The interface gives access to properties specific to [<label>]
@@ -4784,7 +5549,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
 @JS()
 @staticInterop
 class HTMLLabelElement implements HTMLElement {
-  external factory HTMLLabelElement();
+  external HTMLLabelElement();
 }
 
 extension PropsHTMLLabelElement on HTMLLabelElement {
@@ -4794,18 +5559,20 @@ extension PropsHTMLLabelElement on HTMLLabelElement {
   /// form. In other words, this is just a shortcut for
   /// [HTMLLabelElement.control.form].
   ///
-  external HTMLFormElement? get form;
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
   ///  Is a string containing the ID of the labeled control. This
   /// reflects the [for] attribute.
   ///
-  external String get htmlFor;
-  external set htmlFor(String newValue);
+  String get htmlFor => js_util.getProperty(this, 'htmlFor');
+  set htmlFor(String newValue) {
+    js_util.setProperty(this, 'htmlFor', newValue);
+  }
 
   ///  Is a [HTMLElement] representing the control with which the label
   /// is associated.
   ///
-  external HTMLElement? get control;
+  HTMLElement? get control => js_util.getProperty(this, 'control');
 }
 
 ///  The interface provides special properties and methods for
@@ -4844,82 +5611,184 @@ extension PropsHTMLLabelElement on HTMLLabelElement {
 @JS()
 @staticInterop
 class HTMLInputElement implements HTMLElement {
-  external factory HTMLInputElement();
+  external HTMLInputElement();
 }
 
 extension PropsHTMLInputElement on HTMLInputElement {
-  external String get accept;
-  external set accept(String newValue);
-  external String get alt;
-  external set alt(String newValue);
-  external String get autocomplete;
-  external set autocomplete(String newValue);
-  external bool get defaultChecked;
-  external set defaultChecked(bool newValue);
-  external bool get checked;
-  external set checked(bool newValue);
-  external String get dirName;
-  external set dirName(String newValue);
-  external bool get disabled;
-  external set disabled(bool newValue);
-  external HTMLFormElement? get form;
-  external FileList? get files;
-  external set files(FileList? newValue);
-  external String get formAction;
-  external set formAction(String newValue);
-  external String get formEnctype;
-  external set formEnctype(String newValue);
-  external String get formMethod;
-  external set formMethod(String newValue);
-  external bool get formNoValidate;
-  external set formNoValidate(bool newValue);
-  external String get formTarget;
-  external set formTarget(String newValue);
-  external int get height;
-  external set height(int newValue);
-  external bool get indeterminate;
-  external set indeterminate(bool newValue);
-  external HTMLElement? get list;
-  external String get max;
-  external set max(String newValue);
-  external int get maxLength;
-  external set maxLength(int newValue);
-  external String get min;
-  external set min(String newValue);
-  external int get minLength;
-  external set minLength(int newValue);
-  external bool get multiple;
-  external set multiple(bool newValue);
-  external String get name;
-  external set name(String newValue);
-  external String get pattern;
-  external set pattern(String newValue);
-  external String get placeholder;
-  external set placeholder(String newValue);
-  external bool get readOnly;
-  external set readOnly(bool newValue);
+  String get accept => js_util.getProperty(this, 'accept');
+  set accept(String newValue) {
+    js_util.setProperty(this, 'accept', newValue);
+  }
+
+  String get alt => js_util.getProperty(this, 'alt');
+  set alt(String newValue) {
+    js_util.setProperty(this, 'alt', newValue);
+  }
+
+  String get autocomplete => js_util.getProperty(this, 'autocomplete');
+  set autocomplete(String newValue) {
+    js_util.setProperty(this, 'autocomplete', newValue);
+  }
+
+  bool get defaultChecked => js_util.getProperty(this, 'defaultChecked');
+  set defaultChecked(bool newValue) {
+    js_util.setProperty(this, 'defaultChecked', newValue);
+  }
+
+  bool get checked => js_util.getProperty(this, 'checked');
+  set checked(bool newValue) {
+    js_util.setProperty(this, 'checked', newValue);
+  }
+
+  String get dirName => js_util.getProperty(this, 'dirName');
+  set dirName(String newValue) {
+    js_util.setProperty(this, 'dirName', newValue);
+  }
+
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
+
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
+  FileList? get files => js_util.getProperty(this, 'files');
+  set files(FileList? newValue) {
+    js_util.setProperty(this, 'files', newValue);
+  }
+
+  String get formAction => js_util.getProperty(this, 'formAction');
+  set formAction(String newValue) {
+    js_util.setProperty(this, 'formAction', newValue);
+  }
+
+  String get formEnctype => js_util.getProperty(this, 'formEnctype');
+  set formEnctype(String newValue) {
+    js_util.setProperty(this, 'formEnctype', newValue);
+  }
+
+  String get formMethod => js_util.getProperty(this, 'formMethod');
+  set formMethod(String newValue) {
+    js_util.setProperty(this, 'formMethod', newValue);
+  }
+
+  bool get formNoValidate => js_util.getProperty(this, 'formNoValidate');
+  set formNoValidate(bool newValue) {
+    js_util.setProperty(this, 'formNoValidate', newValue);
+  }
+
+  String get formTarget => js_util.getProperty(this, 'formTarget');
+  set formTarget(String newValue) {
+    js_util.setProperty(this, 'formTarget', newValue);
+  }
+
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
+
+  bool get indeterminate => js_util.getProperty(this, 'indeterminate');
+  set indeterminate(bool newValue) {
+    js_util.setProperty(this, 'indeterminate', newValue);
+  }
+
+  HTMLElement? get list => js_util.getProperty(this, 'list');
+  String get max => js_util.getProperty(this, 'max');
+  set max(String newValue) {
+    js_util.setProperty(this, 'max', newValue);
+  }
+
+  int get maxLength => js_util.getProperty(this, 'maxLength');
+  set maxLength(int newValue) {
+    js_util.setProperty(this, 'maxLength', newValue);
+  }
+
+  String get min => js_util.getProperty(this, 'min');
+  set min(String newValue) {
+    js_util.setProperty(this, 'min', newValue);
+  }
+
+  int get minLength => js_util.getProperty(this, 'minLength');
+  set minLength(int newValue) {
+    js_util.setProperty(this, 'minLength', newValue);
+  }
+
+  bool get multiple => js_util.getProperty(this, 'multiple');
+  set multiple(bool newValue) {
+    js_util.setProperty(this, 'multiple', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get pattern => js_util.getProperty(this, 'pattern');
+  set pattern(String newValue) {
+    js_util.setProperty(this, 'pattern', newValue);
+  }
+
+  String get placeholder => js_util.getProperty(this, 'placeholder');
+  set placeholder(String newValue) {
+    js_util.setProperty(this, 'placeholder', newValue);
+  }
+
+  bool get readOnly => js_util.getProperty(this, 'readOnly');
+  set readOnly(bool newValue) {
+    js_util.setProperty(this, 'readOnly', newValue);
+  }
+
   @JS('required')
   @staticInterop
-  external bool get mRequired;
-  external set mRequired(bool newValue);
-  external int get size;
-  external set size(int newValue);
-  external String get src;
-  external set src(String newValue);
-  external String get step;
-  external set step(String newValue);
-  external String get type;
-  external set type(String newValue);
-  external String get defaultValue;
-  external set defaultValue(String newValue);
-  external String get value;
-  external set value(String newValue);
-  external dynamic get valueAsDate;
-  external set valueAsDate(dynamic newValue);
-  external /* double | NaN */ dynamic get valueAsNumber;
-  external set valueAsNumber(/* double | NaN */ dynamic newValue);
-  external int get width;
-  external set width(int newValue);
+  bool get mRequired => js_util.getProperty(this, 'required');
+  set mRequired(bool newValue) {
+    js_util.setProperty(this, 'required', newValue);
+  }
+
+  int get size => js_util.getProperty(this, 'size');
+  set size(int newValue) {
+    js_util.setProperty(this, 'size', newValue);
+  }
+
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
+
+  String get step => js_util.getProperty(this, 'step');
+  set step(String newValue) {
+    js_util.setProperty(this, 'step', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  String get defaultValue => js_util.getProperty(this, 'defaultValue');
+  set defaultValue(String newValue) {
+    js_util.setProperty(this, 'defaultValue', newValue);
+  }
+
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  dynamic get valueAsDate => js_util.getProperty(this, 'valueAsDate');
+  set valueAsDate(dynamic newValue) {
+    js_util.setProperty(this, 'valueAsDate', newValue);
+  }
+
+  /* double | NaN */ dynamic get valueAsNumber =>
+      js_util.getProperty(this, 'valueAsNumber');
+  set valueAsNumber(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'valueAsNumber', newValue);
+  }
+
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   ///  Increments the [value] by ([step] * n), where n defaults to 1 if
   /// not specified. Throws an [InvalidStateError] exception:
@@ -4967,7 +5836,7 @@ extension PropsHTMLInputElement on HTMLInputElement {
   ///
   /// ```
   ///
-  external Object stepUp([int? n = 1]);
+  Object stepUp([int? n = 1]) => js_util.callMethod(this, 'stepUp', [n]);
 
   ///  Decrements the [value] by ([step] * n), where n defaults to 1 if
   /// not specified. Throws an [InvalidStateError] exception:
@@ -5015,36 +5884,70 @@ extension PropsHTMLInputElement on HTMLInputElement {
   ///
   /// ```
   ///
-  external Object stepDown([int? n = 1]);
-  external bool get willValidate;
-  external ValidityState get validity;
-  external String get validationMessage;
-  external bool checkValidity();
-  external bool reportValidity();
-  external Object setCustomValidity(String error);
-  external NodeList? get labels;
-  external Object select();
-  external int? get selectionStart;
-  external set selectionStart(int? newValue);
-  external int? get selectionEnd;
-  external set selectionEnd(int? newValue);
-  external String? get selectionDirection;
-  external set selectionDirection(String? newValue);
-  external Object setRangeText(
-      [String? replacement,
-      int start,
-      int end,
-      SelectionMode? selectionMode = SelectionMode.preserve]);
-  external Object setSelectionRange(int start, int end, [String? direction]);
-  external bool get webkitdirectory;
-  external set webkitdirectory(bool newValue);
-  external Iterable<FileSystemEntry> get webkitEntries;
-  external String get capture;
-  external set capture(String newValue);
-  external String get align;
-  external set align(String newValue);
-  external String get useMap;
-  external set useMap(String newValue);
+  Object stepDown([int? n = 1]) => js_util.callMethod(this, 'stepDown', [n]);
+
+  bool get willValidate => js_util.getProperty(this, 'willValidate');
+  ValidityState get validity => js_util.getProperty(this, 'validity');
+  String get validationMessage =>
+      js_util.getProperty(this, 'validationMessage');
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
+
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
+
+  Object setCustomValidity(String error) =>
+      js_util.callMethod(this, 'setCustomValidity', [error]);
+
+  NodeList? get labels => js_util.getProperty(this, 'labels');
+  Object select() => js_util.callMethod(this, 'select', []);
+
+  int? get selectionStart => js_util.getProperty(this, 'selectionStart');
+  set selectionStart(int? newValue) {
+    js_util.setProperty(this, 'selectionStart', newValue);
+  }
+
+  int? get selectionEnd => js_util.getProperty(this, 'selectionEnd');
+  set selectionEnd(int? newValue) {
+    js_util.setProperty(this, 'selectionEnd', newValue);
+  }
+
+  String? get selectionDirection =>
+      js_util.getProperty(this, 'selectionDirection');
+  set selectionDirection(String? newValue) {
+    js_util.setProperty(this, 'selectionDirection', newValue);
+  }
+
+  Object setRangeText(
+          [String? replacement,
+          int? start,
+          int? end,
+          SelectionMode? selectionMode = SelectionMode.preserve]) =>
+      js_util.callMethod(
+          this, 'setRangeText', [replacement, start, end, selectionMode]);
+
+  Object setSelectionRange(int start, int end, [String? direction]) =>
+      js_util.callMethod(this, 'setSelectionRange', [start, end, direction]);
+
+  bool get webkitdirectory => js_util.getProperty(this, 'webkitdirectory');
+  set webkitdirectory(bool newValue) {
+    js_util.setProperty(this, 'webkitdirectory', newValue);
+  }
+
+  Iterable<FileSystemEntry> get webkitEntries =>
+      js_util.getProperty(this, 'webkitEntries');
+  String get capture => js_util.getProperty(this, 'capture');
+  set capture(String newValue) {
+    js_util.setProperty(this, 'capture', newValue);
+  }
+
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
+
+  String get useMap => js_util.getProperty(this, 'useMap');
+  set useMap(String newValue) {
+    js_util.setProperty(this, 'useMap', newValue);
+  }
 }
 
 ///  The interface provides properties and methods (beyond the
@@ -5083,15 +5986,17 @@ extension PropsHTMLInputElement on HTMLInputElement {
 @JS()
 @staticInterop
 class HTMLButtonElement implements HTMLElement {
-  external factory HTMLButtonElement();
+  external HTMLButtonElement();
 }
 
 extension PropsHTMLButtonElement on HTMLButtonElement {
   ///  Is a boolean value indicating whether or not the control is
   /// disabled, meaning that it does not accept any clicks.
   ///
-  external bool get disabled;
-  external set disabled(bool newValue);
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
 
   ///
   ///     Is an [HTMLFormElement] reflecting the form that this button
@@ -5104,54 +6009,66 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
   /// matches.
   ///
   ///
-  external HTMLFormElement? get form;
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
   ///  Is a [DOMString] reflecting the URI of a resource that processes
   /// information submitted by the button. If specified, this attribute
   /// overrides the [action] attribute of the [<form>] element that
   /// owns this element.
   ///
-  external String get formAction;
-  external set formAction(String newValue);
+  String get formAction => js_util.getProperty(this, 'formAction');
+  set formAction(String newValue) {
+    js_util.setProperty(this, 'formAction', newValue);
+  }
 
   ///  Is a [DOMString] reflecting the type of content that is used to
   /// submit the form to the server. If specified, this attribute
   /// overrides the [enctype] attribute of the [<form>] element that
   /// owns this element.
   ///
-  external String get formEnctype;
-  external set formEnctype(String newValue);
+  String get formEnctype => js_util.getProperty(this, 'formEnctype');
+  set formEnctype(String newValue) {
+    js_util.setProperty(this, 'formEnctype', newValue);
+  }
 
   ///  Is a [DOMString] reflecting the HTTP method that the browser
   /// uses to submit the form. If specified, this attribute overrides
   /// the [method] attribute of the [<form>] element that owns this
   /// element.
   ///
-  external String get formMethod;
-  external set formMethod(String newValue);
+  String get formMethod => js_util.getProperty(this, 'formMethod');
+  set formMethod(String newValue) {
+    js_util.setProperty(this, 'formMethod', newValue);
+  }
 
   ///  Is a boolean value indicating that the form is not to be
   /// validated when it is submitted. If specified, this attribute
   /// overrides the [novalidate] attribute of the [<form>] element that
   /// owns this element.
   ///
-  external bool get formNoValidate;
-  external set formNoValidate(bool newValue);
+  bool get formNoValidate => js_util.getProperty(this, 'formNoValidate');
+  set formNoValidate(bool newValue) {
+    js_util.setProperty(this, 'formNoValidate', newValue);
+  }
 
   ///  Is a [DOMString] reflecting a name or keyword indicating where
   /// to display the response that is received after submitting the
   /// form. If specified, this attribute overrides the [target]
   /// attribute of the [<form>] element that owns this element.
   ///
-  external String get formTarget;
-  external set formTarget(String newValue);
+  String get formTarget => js_util.getProperty(this, 'formTarget');
+  set formTarget(String newValue) {
+    js_util.setProperty(this, 'formTarget', newValue);
+  }
 
   ///  Is a [DOMString] representing the name of the object when
   /// submitted with a form. If specified, it must not be the empty
   /// string.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  Is a [DOMString] indicating the behavior of the button. This is
   /// an enumerated attribute with the following possible values:
@@ -5166,14 +6083,18 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
   ///
   ///
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  Is a [DOMString] representing the current form control value of
   /// the button.
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   ///  Is a boolean value indicating whether the button is a candidate
   /// for constraint validation. It is [false] if any conditions bar it
@@ -5181,12 +6102,12 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
   /// [reset] or [button]; it has a [<datalist>] ancestor; or the
   /// [disabled] property is set to [true].
   ///
-  external bool get willValidate;
+  bool get willValidate => js_util.getProperty(this, 'willValidate');
 
   ///  Is a [ValidityState] representing the validity states that this
   /// button is in.
   ///
-  external ValidityState get validity;
+  ValidityState get validity => js_util.getProperty(this, 'validity');
 
   ///  Is a [DOMString] representing the localized message that
   /// describes the validation constraints that the control does not
@@ -5194,15 +6115,19 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
   /// control is not a candidate for constraint validation
   /// ([willValidate] is [false]), or it satisfies its constraints.
   ///
-  external String get validationMessage;
-  external bool checkValidity();
-  external bool reportValidity();
-  external Object setCustomValidity(String error);
+  String get validationMessage =>
+      js_util.getProperty(this, 'validationMessage');
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
+
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
+
+  Object setCustomValidity(String error) =>
+      js_util.callMethod(this, 'setCustomValidity', [error]);
 
   ///  Is a [NodeList] that represents a list of [<label>] elements
   /// that are labels for this button.
   ///
-  external NodeList get labels;
+  NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
 ///  The interface represents a [<select>] HTML Element. These
@@ -5241,37 +6166,45 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
 @JS()
 @staticInterop
 class HTMLSelectElement implements HTMLElement {
-  external factory HTMLSelectElement();
+  external HTMLSelectElement();
 }
 
 extension PropsHTMLSelectElement on HTMLSelectElement {
-  external String get autocomplete;
-  external set autocomplete(String newValue);
+  String get autocomplete => js_util.getProperty(this, 'autocomplete');
+  set autocomplete(String newValue) {
+    js_util.setProperty(this, 'autocomplete', newValue);
+  }
 
   ///  A boolean value reflecting the HTML attribute, which indicates
   /// whether the control is disabled. If it is disabled, it does not
   /// accept clicks.
   ///
-  external bool get disabled;
-  external set disabled(bool newValue);
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
 
   ///  An [HTMLFormElement] referencing the form that this element is
   /// associated with. If the element is not associated with of a
   /// [<form>] element, then it returns [null].
   ///
-  external HTMLFormElement? get form;
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
   ///  A boolean value reflecting the HTML attribute, which indicates
   /// whether multiple items can be selected.
   ///
-  external bool get multiple;
-  external set multiple(bool newValue);
+  bool get multiple => js_util.getProperty(this, 'multiple');
+  set multiple(bool newValue) {
+    js_util.setProperty(this, 'multiple', newValue);
+  }
 
   ///  A [DOMString] reflecting the HTML attribute, containing the name
   /// of this control used by servers and DOM search functions.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  A boolean value reflecting the HTML attribute, which indicates
   /// whether the user is required to select a value before submitting
@@ -5279,32 +6212,38 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   ///
   @JS('required')
   @staticInterop
-  external bool get mRequired;
-  external set mRequired(bool newValue);
+  bool get mRequired => js_util.getProperty(this, 'required');
+  set mRequired(bool newValue) {
+    js_util.setProperty(this, 'required', newValue);
+  }
 
   ///  A [long] reflecting the HTML attribute, which contains the
   /// number of visible items in the control. The default is 1, unless
   /// [multiple] is [true], in which case it is 4.
   ///
-  external int get size;
-  external set size(int newValue);
+  int get size => js_util.getProperty(this, 'size');
+  set size(int newValue) {
+    js_util.setProperty(this, 'size', newValue);
+  }
 
   ///  A [DOMString] representing the form control's type. When
   /// [multiple] is [true], it returns ["select-multiple"]; otherwise,
   /// it returns ["select-one"].
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   ///  An [HTMLOptionsCollection] representing the set of [<option>]
   /// ([HTMLOptionElement]) elements contained by this element.
   ///
-  external HTMLOptionsCollection get options;
+  HTMLOptionsCollection get options => js_util.getProperty(this, 'options');
 
   ///  An [unsigned long] The number of [<option>] elements in this
   /// [select] element.
   ///
-  external int get length;
-  external set length(int newValue);
+  int get length => js_util.getProperty(this, 'length');
+  set length(int newValue) {
+    js_util.setProperty(this, 'length', newValue);
+  }
 
   ///  Gets an item from the options collection for this [<select>]
   /// element. You can also access an item by specifying the index in
@@ -5314,7 +6253,7 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   /// var item = collection.item(index);
   /// var item = collection[index];
   ///
-  external Element? item(int index);
+  Element? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   ///  Gets the item in the options collection with the specified name.
   /// The name string can match either the [id] or the [name] attribute
@@ -5324,14 +6263,16 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   ///
   /// var item = select.namedItem(str);
   ///
-  external HTMLOptionElement? namedItem(String name);
+  HTMLOptionElement? namedItem(String name) =>
+      js_util.callMethod(this, 'namedItem', [name]);
 
   ///  Adds an element to the collection of [option] elements for this
   /// [select] element.
   ///
   /// collection.add(item[, before]);
   ///
-  external Object add(dynamic element, [dynamic before]);
+  Object add(dynamic element, [dynamic before]) =>
+      js_util.callMethod(this, 'add', [element, before]);
 
   ///  Removes the element at the specified index from the options
   /// collection for this [select] element.
@@ -5353,36 +6294,41 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   ///   <option value="3">Option: Value 3</option>
   /// </select>
   ///
-  external Object remove([int? index]);
+  Object remove([int? index]) => js_util.callMethod(this, 'remove', [index]);
 
   ///  An [HTMLCollection] representing the set of [<option>] elements
   /// that are selected.
   ///
-  external HTMLCollection get selectedOptions;
+  HTMLCollection get selectedOptions =>
+      js_util.getProperty(this, 'selectedOptions');
 
   ///  A [long] reflecting the index of the first selected [<option>]
   /// element. The value [-1] indicates no element is selected.
   ///
-  external int get selectedIndex;
-  external set selectedIndex(int newValue);
+  int get selectedIndex => js_util.getProperty(this, 'selectedIndex');
+  set selectedIndex(int newValue) {
+    js_util.setProperty(this, 'selectedIndex', newValue);
+  }
 
   ///  A [DOMString] reflecting the value of the form control. Returns
   /// the property of the first selected option element if there is
   /// one, otherwise the empty string.
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   ///  A boolean value that indicates whether the button is a candidate
   /// for constraint validation. It is [false] if any conditions bar it
   /// from constraint validation.
   ///
-  external bool get willValidate;
+  bool get willValidate => js_util.getProperty(this, 'willValidate');
 
   ///  A [ValidityState] reflecting the validity state that this
   /// control is in.
   ///
-  external ValidityState get validity;
+  ValidityState get validity => js_util.getProperty(this, 'validity');
 
   ///  A [DOMString] representing a localized message that describes
   /// the validation constraints that the control does not satisfy (if
@@ -5390,7 +6336,8 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   /// candidate for constraint validation ([willValidate] is false), or
   /// it satisfies its constraints.
   ///
-  external String get validationMessage;
+  String get validationMessage =>
+      js_util.getProperty(this, 'validationMessage');
 
   ///  Checks whether the element has any constraints and whether it
   /// satisfies them. If the element fails its constraints, the browser
@@ -5399,14 +6346,14 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   ///
   /// var result = selectElt.checkValidity();
   ///
-  external bool checkValidity();
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
 
   ///  This method reports the problems with the constraints on the
   /// element, if any, to the user. If there are problems, it fires a
   /// cancelable [invalid] event at the element, and returns [false];
   /// if there are no problems, it returns [true].
   ///
-  external bool reportValidity();
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
   ///  Sets the custom validity message for the selection element to
   /// the specified message. Use the empty string to indicate that the
@@ -5414,11 +6361,12 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   ///
   /// selectElt.setCustomValidity(string);
   ///
-  external Object setCustomValidity(String error);
+  Object setCustomValidity(String error) =>
+      js_util.callMethod(this, 'setCustomValidity', [error]);
 
   /// A [NodeList] of [<label>] elements associated with the element.
   ///
-  external NodeList get labels;
+  NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
 ///  The interface provides special properties (beyond the
@@ -5458,14 +6406,14 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
 @JS()
 @staticInterop
 class HTMLDataListElement implements HTMLElement {
-  external factory HTMLDataListElement();
+  external HTMLDataListElement();
 }
 
 extension PropsHTMLDataListElement on HTMLDataListElement {
   ///  Is a [HTMLCollection] representing a collection of the contained
   /// option elements.
   ///
-  external HTMLCollection get options;
+  HTMLCollection get options => js_util.getProperty(this, 'options');
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -5505,20 +6453,24 @@ extension PropsHTMLDataListElement on HTMLDataListElement {
 @JS()
 @staticInterop
 class HTMLOptGroupElement implements HTMLElement {
-  external factory HTMLOptGroupElement();
+  external HTMLOptGroupElement();
 }
 
 extension PropsHTMLOptGroupElement on HTMLOptGroupElement {
   ///  Is a boolean value representing whether or not the whole list of
   /// children [<option>] is disabled (true) or not (false).
   ///
-  external bool get disabled;
-  external set disabled(bool newValue);
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
 
   /// Is a [DOMString] representing the label for the group.
   ///
-  external String get label;
-  external set label(String newValue);
+  String get label => js_util.getProperty(this, 'label');
+  set label(String newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
 }
 
 ///  The interface represents [<option>] elements and inherits all
@@ -5556,7 +6508,7 @@ extension PropsHTMLOptGroupElement on HTMLOptGroupElement {
 @JS()
 @staticInterop
 class HTMLOptionElement implements HTMLElement {
-  external factory HTMLOptionElement();
+  external HTMLOptionElement();
 }
 
 extension PropsHTMLOptionElement on HTMLOptionElement {
@@ -5565,53 +6517,65 @@ extension PropsHTMLOptionElement on HTMLOptionElement {
   /// unavailable to be selected. An option can also be disabled if it
   /// is a child of an [<optgroup>] element that is disabled.
   ///
-  external bool get disabled;
-  external set disabled(bool newValue);
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
 
   ///  Is a [HTMLFormElement] representing the same value as the of the
   /// corresponding [<select>] element, if the option is a descendant
   /// of a [<select>] element, or null if none is found.
   ///
-  external HTMLFormElement? get form;
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
   ///  Is a [DOMString] that reflects the value of the HTML attribute,
   /// which provides a label for the option. If this attribute isn't
   /// specifically set, reading it returns the element's text content.
   ///
-  external String get label;
-  external set label(String newValue);
+  String get label => js_util.getProperty(this, 'label');
+  set label(String newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
 
   ///  Has a value of either [true] or [false] that shows the initial
   /// value of the [selected] HTML attribute, indicating whether the
   /// option is selected by default or not.
   ///
-  external bool get defaultSelected;
-  external set defaultSelected(bool newValue);
+  bool get defaultSelected => js_util.getProperty(this, 'defaultSelected');
+  set defaultSelected(bool newValue) {
+    js_util.setProperty(this, 'defaultSelected', newValue);
+  }
 
   ///  Has a value of either [true] or [false] that indicates whether
   /// the option is currently selected.
   ///
-  external bool get selected;
-  external set selected(bool newValue);
+  bool get selected => js_util.getProperty(this, 'selected');
+  set selected(bool newValue) {
+    js_util.setProperty(this, 'selected', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the value of the HTML attribute,
   /// if it exists; otherwise reflects value of the [Node.textContent]
   /// property.
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   /// Is a [DOMString] that contains the text content of the element.
   ///
-  external String get text;
-  external set text(String newValue);
+  String get text => js_util.getProperty(this, 'text');
+  set text(String newValue) {
+    js_util.setProperty(this, 'text', newValue);
+  }
 
   ///  Is a [long] representing the position of the option within the
   /// list of options it belongs to, in tree-order. If the option is
   /// not part of a list of options, like when it is part of the
   /// [<datalist>] element, the value is [0].
   ///
-  external int get index;
+  int get index => js_util.getProperty(this, 'index');
 }
 
 ///  The interface provides special properties and methods for
@@ -5650,63 +6614,125 @@ extension PropsHTMLOptionElement on HTMLOptionElement {
 @JS()
 @staticInterop
 class HTMLTextAreaElement implements HTMLElement {
-  external factory HTMLTextAreaElement();
+  external HTMLTextAreaElement();
 }
 
 extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
-  external String get autocomplete;
-  external set autocomplete(String newValue);
-  external int get cols;
-  external set cols(int newValue);
-  external String get dirName;
-  external set dirName(String newValue);
-  external bool get disabled;
-  external set disabled(bool newValue);
-  external HTMLFormElement? get form;
-  external int get maxLength;
-  external set maxLength(int newValue);
-  external int get minLength;
-  external set minLength(int newValue);
-  external String get name;
-  external set name(String newValue);
-  external String get placeholder;
-  external set placeholder(String newValue);
-  external bool get readOnly;
-  external set readOnly(bool newValue);
+  String get autocomplete => js_util.getProperty(this, 'autocomplete');
+  set autocomplete(String newValue) {
+    js_util.setProperty(this, 'autocomplete', newValue);
+  }
+
+  int get cols => js_util.getProperty(this, 'cols');
+  set cols(int newValue) {
+    js_util.setProperty(this, 'cols', newValue);
+  }
+
+  String get dirName => js_util.getProperty(this, 'dirName');
+  set dirName(String newValue) {
+    js_util.setProperty(this, 'dirName', newValue);
+  }
+
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
+
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
+  int get maxLength => js_util.getProperty(this, 'maxLength');
+  set maxLength(int newValue) {
+    js_util.setProperty(this, 'maxLength', newValue);
+  }
+
+  int get minLength => js_util.getProperty(this, 'minLength');
+  set minLength(int newValue) {
+    js_util.setProperty(this, 'minLength', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get placeholder => js_util.getProperty(this, 'placeholder');
+  set placeholder(String newValue) {
+    js_util.setProperty(this, 'placeholder', newValue);
+  }
+
+  bool get readOnly => js_util.getProperty(this, 'readOnly');
+  set readOnly(bool newValue) {
+    js_util.setProperty(this, 'readOnly', newValue);
+  }
+
   @JS('required')
   @staticInterop
-  external bool get mRequired;
-  external set mRequired(bool newValue);
-  external int get rows;
-  external set rows(int newValue);
-  external String get wrap;
-  external set wrap(String newValue);
-  external String get type;
-  external String get defaultValue;
-  external set defaultValue(String newValue);
-  external String get value;
-  external set value(String newValue);
-  external int get textLength;
-  external bool get willValidate;
-  external ValidityState get validity;
-  external String get validationMessage;
-  external bool checkValidity();
-  external bool reportValidity();
-  external Object setCustomValidity(String error);
-  external NodeList get labels;
-  external Object select();
-  external int get selectionStart;
-  external set selectionStart(int newValue);
-  external int get selectionEnd;
-  external set selectionEnd(int newValue);
-  external String get selectionDirection;
-  external set selectionDirection(String newValue);
-  external Object setRangeText(
-      [String? replacement,
-      int start,
-      int end,
-      SelectionMode? selectionMode = SelectionMode.preserve]);
-  external Object setSelectionRange(int start, int end, [String? direction]);
+  bool get mRequired => js_util.getProperty(this, 'required');
+  set mRequired(bool newValue) {
+    js_util.setProperty(this, 'required', newValue);
+  }
+
+  int get rows => js_util.getProperty(this, 'rows');
+  set rows(int newValue) {
+    js_util.setProperty(this, 'rows', newValue);
+  }
+
+  String get wrap => js_util.getProperty(this, 'wrap');
+  set wrap(String newValue) {
+    js_util.setProperty(this, 'wrap', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  String get defaultValue => js_util.getProperty(this, 'defaultValue');
+  set defaultValue(String newValue) {
+    js_util.setProperty(this, 'defaultValue', newValue);
+  }
+
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  int get textLength => js_util.getProperty(this, 'textLength');
+  bool get willValidate => js_util.getProperty(this, 'willValidate');
+  ValidityState get validity => js_util.getProperty(this, 'validity');
+  String get validationMessage =>
+      js_util.getProperty(this, 'validationMessage');
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
+
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
+
+  Object setCustomValidity(String error) =>
+      js_util.callMethod(this, 'setCustomValidity', [error]);
+
+  NodeList get labels => js_util.getProperty(this, 'labels');
+  Object select() => js_util.callMethod(this, 'select', []);
+
+  int get selectionStart => js_util.getProperty(this, 'selectionStart');
+  set selectionStart(int newValue) {
+    js_util.setProperty(this, 'selectionStart', newValue);
+  }
+
+  int get selectionEnd => js_util.getProperty(this, 'selectionEnd');
+  set selectionEnd(int newValue) {
+    js_util.setProperty(this, 'selectionEnd', newValue);
+  }
+
+  String get selectionDirection =>
+      js_util.getProperty(this, 'selectionDirection');
+  set selectionDirection(String newValue) {
+    js_util.setProperty(this, 'selectionDirection', newValue);
+  }
+
+  Object setRangeText(
+          [String? replacement,
+          int? start,
+          int? end,
+          SelectionMode? selectionMode = SelectionMode.preserve]) =>
+      js_util.callMethod(
+          this, 'setRangeText', [replacement, start, end, selectionMode]);
+
+  Object setSelectionRange(int start, int end, [String? direction]) =>
+      js_util.callMethod(this, 'setSelectionRange', [start, end, direction]);
 }
 
 ///  The interface provides properties and methods (beyond those
@@ -5745,7 +6771,7 @@ extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
 @JS()
 @staticInterop
 class HTMLOutputElement implements HTMLElement {
-  external factory HTMLOutputElement();
+  external HTMLOutputElement();
 }
 
 extension PropsHTMLOutputElement on HTMLOutputElement {
@@ -5753,44 +6779,50 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
   /// a list of IDs of other elements in the same document that
   /// contribute to (or otherwise affect) the calculated [value].
   ///
-  external DOMTokenList get htmlFor;
+  DOMTokenList get htmlFor => js_util.getProperty(this, 'htmlFor');
 
   ///  An [HTMLFormElement] indicating the form associated with the
   /// control, reflecting the HTML attribute if it is defined.
   ///
-  external HTMLFormElement? get form;
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
   ///  A [DOMString] reflecting the HTML attribute, containing the name
   /// for the control that is submitted with form data.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   /// The [DOMString] "[output]".
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   ///  A [DOMString] representing the default value of the element,
   /// initially the empty string.
   ///
-  external String get defaultValue;
-  external set defaultValue(String newValue);
+  String get defaultValue => js_util.getProperty(this, 'defaultValue');
+  set defaultValue(String newValue) {
+    js_util.setProperty(this, 'defaultValue', newValue);
+  }
 
   ///  A [DOMString] representing the value of the contents of the
   /// elements. Behaves like the [Node.textContent] property.
   ///
-  external String get value;
-  external set value(String newValue);
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   ///  A boolean value indicating whether the element is a candidate
   /// for constraint validation.
   ///
-  external bool get willValidate;
+  bool get willValidate => js_util.getProperty(this, 'willValidate');
 
   ///  A [ValidityState] representing the validity states that this
   /// element is in.
   ///
-  external ValidityState get validity;
+  ValidityState get validity => js_util.getProperty(this, 'validity');
 
   ///  A [DOMString] representing a localized message that describes
   /// the validation constraints that the control does not satisfy (if
@@ -5798,12 +6830,13 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
   /// for constraint validation ([willValidate] is [false]), or it
   /// satisfies its constraints.
   ///
-  external String get validationMessage;
+  String get validationMessage =>
+      js_util.getProperty(this, 'validationMessage');
 
   ///  Checks the validity of the element and returns a boolean value
   /// holding the check result.
   ///
-  external bool checkValidity();
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
 
   ///  This method reports the problems with the constraints on the
   /// element, if any, to the user. If there are problems, fires an
@@ -5817,17 +6850,18 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
   /// If the element is not rendered, then the user agent may report
   /// the error for the running script instead of notifying the user.
   ///
-  external bool reportValidity();
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
   ///  Sets a custom validity message for the element. If this message
   /// is not the empty string, then the element is suffering from a
   /// custom validity error, and does not validate.
   ///
-  external Object setCustomValidity(String error);
+  Object setCustomValidity(String error) =>
+      js_util.callMethod(this, 'setCustomValidity', [error]);
 
   /// A [NodeList] of [<label>] elements associated with the element.
   ///
-  external NodeList get labels;
+  NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -5867,33 +6901,37 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
 @JS()
 @staticInterop
 class HTMLProgressElement implements HTMLElement {
-  external factory HTMLProgressElement();
+  external HTMLProgressElement();
 }
 
 extension PropsHTMLProgressElement on HTMLProgressElement {
   ///  Is a [double] value that reflects the current value; if the
   /// progress bar is an indeterminate progress bar, it returns [0].
   ///
-  external double get value;
-  external set value(double newValue);
+  double get value => js_util.getProperty(this, 'value');
+  set value(double newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   ///  Is a [double] value reflecting the content attribute of the same
   /// name, limited to numbers greater than zero. Its default value is
   /// [1.0].
   ///
-  external double get max;
-  external set max(double newValue);
+  double get max => js_util.getProperty(this, 'max');
+  set max(double newValue) {
+    js_util.setProperty(this, 'max', newValue);
+  }
 
   ///  Returns a [double] value returning the result of dividing the
   /// current value ([value]) by the maximum value ([max]); if the
   /// progress bar is an indeterminate progress bar, it returns [-1].
   ///
-  external double get position;
+  double get position => js_util.getProperty(this, 'position');
 
   ///  Returns [NodeList] containing the list of [<label>] elements
   /// that are labels for this element.
   ///
-  external NodeList get labels;
+  NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
 ///  The HTML [<meter>] elements expose the interface, which provides
@@ -5933,49 +6971,61 @@ extension PropsHTMLProgressElement on HTMLProgressElement {
 @JS()
 @staticInterop
 class HTMLMeterElement implements HTMLElement {
-  external factory HTMLMeterElement();
+  external HTMLMeterElement();
 }
 
 extension PropsHTMLMeterElement on HTMLMeterElement {
   ///  A [double] representing the current value, reflecting the
   /// attribute.
   ///
-  external double get value;
-  external set value(double newValue);
+  double get value => js_util.getProperty(this, 'value');
+  set value(double newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 
   ///  A [double] representing the minimum value, reflecting the
   /// attribute.
   ///
-  external double get min;
-  external set min(double newValue);
+  double get min => js_util.getProperty(this, 'min');
+  set min(double newValue) {
+    js_util.setProperty(this, 'min', newValue);
+  }
 
   ///  A [double] representing the maximum value, reflecting the
   /// attribute.
   ///
-  external double get max;
-  external set max(double newValue);
+  double get max => js_util.getProperty(this, 'max');
+  set max(double newValue) {
+    js_util.setProperty(this, 'max', newValue);
+  }
 
   ///  A [double] representing the value of the low boundary,
   /// reflecting the attribute.
   ///
-  external double get low;
-  external set low(double newValue);
+  double get low => js_util.getProperty(this, 'low');
+  set low(double newValue) {
+    js_util.setProperty(this, 'low', newValue);
+  }
 
   ///  A [double] representing the value of the high boundary,
   /// reflecting the attribute.
   ///
-  external double get high;
-  external set high(double newValue);
+  double get high => js_util.getProperty(this, 'high');
+  set high(double newValue) {
+    js_util.setProperty(this, 'high', newValue);
+  }
 
   /// A [double] representing the optimum, reflecting the attribute.
   ///
-  external double get optimum;
-  external set optimum(double newValue);
+  double get optimum => js_util.getProperty(this, 'optimum');
+  set optimum(double newValue) {
+    js_util.setProperty(this, 'optimum', newValue);
+  }
 
   ///  A [NodeList] of [<label>] elements that are associated with the
   /// element.
   ///
-  external NodeList get labels;
+  NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
 ///  The interface provides special properties and methods (beyond
@@ -6015,15 +7065,17 @@ extension PropsHTMLMeterElement on HTMLMeterElement {
 @JS()
 @staticInterop
 class HTMLFieldSetElement implements HTMLElement {
-  external factory HTMLFieldSetElement();
+  external HTMLFieldSetElement();
 }
 
 extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
   ///  A boolean value reflecting the HTML attribute, indicating
   /// whether the user can interact with the control.
   ///
-  external bool get disabled;
-  external set disabled(bool newValue);
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
 
   ///
   ///     An [HTMLFormControlsCollection] or [HTMLCollection]
@@ -6034,35 +7086,37 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
   /// document it is related to, or the [null] value if none matches.
   ///
   ///
-  external HTMLFormElement? get form;
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
   ///  A [DOMString] reflecting the HTML attribute, containing the name
   /// of the field set. This can be used when accessing the field set
   /// in JavaScript. It is not part of the data which is sent to the
   /// server.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   /// The [DOMString] "[fieldset]".
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   ///  The elements belonging to this field set. The type of this
   /// property depends on the version of the spec that is implemented
   /// by the browser.
   ///
-  external HTMLCollection get elements;
+  HTMLCollection get elements => js_util.getProperty(this, 'elements');
 
   ///  A boolean value [false], because [<fieldset>] objects are never
   /// candidates for constraint validation.
   ///
-  external bool get willValidate;
+  bool get willValidate => js_util.getProperty(this, 'willValidate');
 
   ///  A [ValidityState] representing the validity states that this
   /// element is in.
   ///
-  external ValidityState get validity;
+  ValidityState get validity => js_util.getProperty(this, 'validity');
 
   ///  A [DOMString] representing a localized message that describes
   /// the validation constraints that the element does not satisfy (if
@@ -6070,23 +7124,25 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
   /// for constraint validation ([willValidate] is [false]), or it
   /// satisfies its constraints.
   ///
-  external String get validationMessage;
+  String get validationMessage =>
+      js_util.getProperty(this, 'validationMessage');
 
   ///  Always returns [true] because [<fieldset>] objects are never
   /// candidates for constraint validation.
   ///
-  external bool checkValidity();
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
 
   ///  Always returns [true] because [<fieldset>] objects are never
   /// candidates for constraint validation.
   ///
-  external bool reportValidity();
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
   ///  Sets a custom validity message for the field set. If this
   /// message is not the empty string, then the field set is suffering
   /// from a custom validity error, and does not validate.
   ///
-  external Object setCustomValidity(String error);
+  Object setCustomValidity(String error) =>
+      js_util.callMethod(this, 'setCustomValidity', [error]);
 }
 
 ///  The is an interface allowing to access properties of the
@@ -6125,7 +7181,7 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
 @JS()
 @staticInterop
 class HTMLLegendElement implements HTMLElement {
-  external factory HTMLLegendElement();
+  external HTMLLegendElement();
 }
 
 extension PropsHTMLLegendElement on HTMLLegendElement {
@@ -6134,9 +7190,11 @@ extension PropsHTMLLegendElement on HTMLLegendElement {
   /// then this attribute returns the same value as the form attribute
   /// on the parent fieldset element. Otherwise, it returns null.
   ///
-  external HTMLFormElement? get form;
-  external String get align;
-  external set align(String newValue);
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
+  String get align => js_util.getProperty(this, 'align');
+  set align(String newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
 }
 
 enum SelectionMode { select, start, end, preserve }
@@ -6148,7 +7206,7 @@ enum SelectionMode { select, start, end, preserve }
 @JS()
 @staticInterop
 class ValidityState {
-  external factory ValidityState();
+  external ValidityState();
 }
 
 extension PropsValidityState on ValidityState {
@@ -6156,20 +7214,20 @@ extension PropsValidityState on ValidityState {
   /// attribute, but no value, or [false] otherwise. If [true], the
   /// element matches the [:invalid] CSS pseudo-class.
   ///
-  external bool get valueMissing;
+  bool get valueMissing => js_util.getProperty(this, 'valueMissing');
 
   ///  A boolean value that is [true] if the value is not in the
   /// required syntax (when [type] is [email] or [url]), or [false] if
   /// the syntax is correct. If [true], the element matches the
   /// [:invalid] CSS pseudo-class.
   ///
-  external bool get typeMismatch;
+  bool get typeMismatch => js_util.getProperty(this, 'typeMismatch');
 
   ///  A boolean value that is [true] if the value does not match the
   /// specified [pattern], and [false] if it does match. If [true], the
   /// element matches the [:invalid] CSS pseudo-class.
   ///
-  external bool get patternMismatch;
+  bool get patternMismatch => js_util.getProperty(this, 'patternMismatch');
 
   ///  A boolean value that is [true] if the value exceeds the
   /// specified [maxlength] for [HTMLInputElement] or
@@ -6179,7 +7237,7 @@ extension PropsValidityState on ValidityState {
   /// being longer than [maxlength]. If [true], the element matches the
   /// [:invalid] and [:out-of-range] CSS pseudo-classes.
   ///
-  external bool get tooLong;
+  bool get tooLong => js_util.getProperty(this, 'tooLong');
 
   ///  A boolean value that is [true] if the value fails to meet the
   /// specified [minlength] for [HTMLInputElement] or
@@ -6188,21 +7246,21 @@ extension PropsValidityState on ValidityState {
   /// element matches the [:invalid] and [:out-of-range] CSS
   /// pseudo-classes.
   ///
-  external bool get tooShort;
+  bool get tooShort => js_util.getProperty(this, 'tooShort');
 
   ///  A boolean value that is [true] if the value is less than the
   /// minimum specified by the [min] attribute, or [false] if it is
   /// greater than or equal to the minimum. If [true], the element
   /// matches the [:invalid] and [:out-of-range] CSS pseudo-classes.
   ///
-  external bool get rangeUnderflow;
+  bool get rangeUnderflow => js_util.getProperty(this, 'rangeUnderflow');
 
   ///  A boolean value that is [true] if the value is greater than the
   /// maximum specified by the [max] attribute, or [false] if it is
   /// less than or equal to the maximum. If [true], the element matches
   /// the [:invalid] and [:out-of-range] and CSS pseudo-classes.
   ///
-  external bool get rangeOverflow;
+  bool get rangeOverflow => js_util.getProperty(this, 'rangeOverflow');
 
   ///  A boolean value that is [true] if the value does not fit the
   /// rules determined by the [step] attribute (that is, it's not
@@ -6210,18 +7268,18 @@ extension PropsValidityState on ValidityState {
   /// the step rule. If [true], the element matches the [:invalid] and
   /// [:out-of-range] CSS pseudo-classes.
   ///
-  external bool get stepMismatch;
+  bool get stepMismatch => js_util.getProperty(this, 'stepMismatch');
 
   ///  A boolean value that is [true] if the user has provided input
   /// that the browser is unable to convert.
   ///
-  external bool get badInput;
+  bool get badInput => js_util.getProperty(this, 'badInput');
 
   ///  A boolean value indicating whether the element's custom validity
   /// message has been set to a non-empty string by calling the
   /// element's [setCustomValidity()] method.
   ///
-  external bool get customError;
+  bool get customError => js_util.getProperty(this, 'customError');
 
   ///  A boolean value that is [true] if the element meets all its
   /// validation constraints, and is therefore considered to be valid,
@@ -6229,7 +7287,7 @@ extension PropsValidityState on ValidityState {
   /// matches the [:valid] CSS pseudo-class; the [:invalid] CSS
   /// pseudo-class otherwise.
   ///
-  external bool get valid;
+  bool get valid => js_util.getProperty(this, 'valid');
 }
 
 ///  The interface defines the object used to represent an HTML
@@ -6238,14 +7296,14 @@ extension PropsValidityState on ValidityState {
 @JS()
 @staticInterop
 class SubmitEvent implements Event {
-  external factory SubmitEvent(String type, [SubmitEventInit? eventInitDict]);
+  external SubmitEvent(String type, [SubmitEventInit? eventInitDict]);
 }
 
 extension PropsSubmitEvent on SubmitEvent {
   ///  An [HTMLElement] object which identifies the button or other
   /// element which was invoked to trigger the form being submitted.
   ///
-  external HTMLElement? get submitter;
+  HTMLElement? get submitter => js_util.getProperty(this, 'submitter');
 }
 
 @anonymous
@@ -6256,8 +7314,10 @@ class SubmitEventInit implements EventInit {
 }
 
 extension PropsSubmitEventInit on SubmitEventInit {
-  external HTMLElement? get submitter;
-  external set submitter(HTMLElement? newValue);
+  HTMLElement? get submitter => js_util.getProperty(this, 'submitter');
+  set submitter(HTMLElement? newValue) {
+    js_util.setProperty(this, 'submitter', newValue);
+  }
 }
 
 ///  The interface represents a [formdata] event — such an event is
@@ -6273,14 +7333,14 @@ extension PropsSubmitEventInit on SubmitEventInit {
 @JS()
 @staticInterop
 class FormDataEvent implements Event {
-  external factory FormDataEvent(String type, FormDataEventInit eventInitDict);
+  external FormDataEvent(String type, FormDataEventInit eventInitDict);
 }
 
 extension PropsFormDataEvent on FormDataEvent {
   ///  Contains the [FormData] object representing the data contained
   /// in the form when the event was fired.
   ///
-  external FormData get formData;
+  FormData get formData => js_util.getProperty(this, 'formData');
 }
 
 @anonymous
@@ -6291,8 +7351,10 @@ class FormDataEventInit implements EventInit {
 }
 
 extension PropsFormDataEventInit on FormDataEventInit {
-  external FormData get formData;
-  external set formData(FormData newValue);
+  FormData get formData => js_util.getProperty(this, 'formData');
+  set formData(FormData newValue) {
+    js_util.setProperty(this, 'formData', newValue);
+  }
 }
 
 ///  The interface provides special properties (beyond the regular
@@ -6331,7 +7393,7 @@ extension PropsFormDataEventInit on FormDataEventInit {
 @JS()
 @staticInterop
 class HTMLDetailsElement implements HTMLElement {
-  external factory HTMLDetailsElement();
+  external HTMLDetailsElement();
 }
 
 extension PropsHTMLDetailsElement on HTMLDetailsElement {
@@ -6339,8 +7401,10 @@ extension PropsHTMLDetailsElement on HTMLDetailsElement {
   /// whether or not the element's contents (not counting the
   /// [<summary>]) is to be shown to the user.
   ///
-  external bool get open;
-  external set open(bool newValue);
+  bool get open => js_util.getProperty(this, 'open');
+  set open(bool newValue) {
+    js_util.setProperty(this, 'open', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -6383,21 +7447,25 @@ extension PropsHTMLDetailsElement on HTMLDetailsElement {
 @JS()
 @staticInterop
 class HTMLDialogElement implements HTMLElement {
-  external factory HTMLDialogElement();
+  external HTMLDialogElement();
 }
 
 extension PropsHTMLDialogElement on HTMLDialogElement {
   ///  A boolean value reflecting the HTML attribute, indicating
   /// whether the dialog is available for interaction.
   ///
-  external bool get open;
-  external set open(bool newValue);
+  bool get open => js_util.getProperty(this, 'open');
+  set open(bool newValue) {
+    js_util.setProperty(this, 'open', newValue);
+  }
 
   ///  A [DOMString] that sets or returns the return value for the
   /// dialog.
   ///
-  external String get returnValue;
-  external set returnValue(String newValue);
+  String get returnValue => js_util.getProperty(this, 'returnValue');
+  set returnValue(String newValue) {
+    js_util.setProperty(this, 'returnValue', newValue);
+  }
 
   ///  Displays the dialog modelessly, i.e. still allowing interaction
   /// with content outside of the dialog.
@@ -6406,7 +7474,7 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
   ///
   @JS('show')
   @staticInterop
-  external Object mShow();
+  Object mShow() => js_util.callMethod(this, 'show', []);
 
   ///  Displays the dialog as a modal, over the top of any other
   /// dialogs that might be present. Interaction outside the dialog is
@@ -6414,14 +7482,15 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
   ///
   /// dialogInstance.showModal();
   ///
-  external Object showModal();
+  Object showModal() => js_util.callMethod(this, 'showModal', []);
 
   ///  Closes the dialog. An optional [DOMString] may be passed as an
   /// argument, updating the [returnValue] of the dialog.
   ///
   /// dialogInstance.close(returnValue);
   ///
-  external Object close([String? returnValue]);
+  Object close([String? returnValue]) =>
+      js_util.callMethod(this, 'close', [returnValue]);
 }
 
 ///  HTML [<script>] elements expose the interface, which provides
@@ -6467,28 +7536,34 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
 @JS()
 @staticInterop
 class HTMLScriptElement implements HTMLElement {
-  external factory HTMLScriptElement();
+  external HTMLScriptElement();
 }
 
 extension PropsHTMLScriptElement on HTMLScriptElement {
   ///  Is a [DOMString] representing the URL of an external script. It
   /// reflects the attribute.
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   ///  Is a [DOMString] representing the MIME type of the script. It
   /// reflects the attribute.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  Is a boolean value that if true, stops the script's execution in
   /// browsers that support ES2015 modules — used to run fallback
   /// scripts in older browsers that do not support JavaScript modules.
   ///
-  external bool get noModule;
-  external set noModule(bool newValue);
+  bool get noModule => js_util.getProperty(this, 'noModule');
+  set noModule(bool newValue) {
+    js_util.setProperty(this, 'noModule', newValue);
+  }
 
   ///  The and [defer] attributes are boolean attributes that control
   /// how the script should be executed. The [defer] and attributes
@@ -6518,18 +7593,25 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
   ///
   @JS('async')
   @staticInterop
-  external bool get mAsync;
-  external set mAsync(bool newValue);
-  external bool get defer;
-  external set defer(bool newValue);
+  bool get mAsync => js_util.getProperty(this, 'async');
+  set mAsync(bool newValue) {
+    js_util.setProperty(this, 'async', newValue);
+  }
+
+  bool get defer => js_util.getProperty(this, 'defer');
+  set defer(bool newValue) {
+    js_util.setProperty(this, 'defer', newValue);
+  }
 
   ///  Is a [DOMString] reflecting the CORS setting for the script
   /// element. For scripts from other origins, this controls if error
   /// information will be exposed.
   ///
   @experimental
-  external String? get crossOrigin;
-  external set crossOrigin(String? newValue);
+  String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
+  set crossOrigin(String? newValue) {
+    js_util.setProperty(this, 'crossOrigin', newValue);
+  }
 
   ///  Is a [DOMString] that joins and returns the contents of all
   /// [Text] nodes inside the [<script>] element (ignoring other nodes
@@ -6542,23 +7624,39 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
   /// all.
   ///
   ///
-  external String get text;
-  external set text(String newValue);
-  external String get integrity;
-  external set integrity(String newValue);
+  String get text => js_util.getProperty(this, 'text');
+  set text(String newValue) {
+    js_util.setProperty(this, 'text', newValue);
+  }
+
+  String get integrity => js_util.getProperty(this, 'integrity');
+  set integrity(String newValue) {
+    js_util.setProperty(this, 'integrity', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the [referrerpolicy] HTML
   /// attribute indicating which referrer to use when fetching the
   /// script, and fetches done by that script.
   ///
-  external String get referrerPolicy;
-  external set referrerPolicy(String newValue);
-  external String get charset;
-  external set charset(String newValue);
-  external String get event;
-  external set event(String newValue);
-  external String get htmlFor;
-  external set htmlFor(String newValue);
+  String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(String newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
+
+  String get charset => js_util.getProperty(this, 'charset');
+  set charset(String newValue) {
+    js_util.setProperty(this, 'charset', newValue);
+  }
+
+  String get event => js_util.getProperty(this, 'event');
+  set event(String newValue) {
+    js_util.setProperty(this, 'event', newValue);
+  }
+
+  String get htmlFor => js_util.getProperty(this, 'htmlFor');
+  set htmlFor(String newValue) {
+    js_util.setProperty(this, 'htmlFor', newValue);
+  }
 }
 
 ///  The interface enables access to the contents of an HTML
@@ -6596,14 +7694,14 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
 @JS()
 @staticInterop
 class HTMLTemplateElement implements HTMLElement {
-  external factory HTMLTemplateElement();
+  external HTMLTemplateElement();
 }
 
 extension PropsHTMLTemplateElement on HTMLTemplateElement {
   ///  A read-only [DocumentFragment] which contains the DOM subtree
   /// representing the [<template>] element's template contents.
   ///
-  external DocumentFragment get content;
+  DocumentFragment get content => js_util.getProperty(this, 'content');
 }
 
 ///  The interface of the Shadow DOM API enables access to the name
@@ -6611,14 +7709,16 @@ extension PropsHTMLTemplateElement on HTMLTemplateElement {
 @JS()
 @staticInterop
 class HTMLSlotElement implements HTMLElement {
-  external factory HTMLSlotElement();
+  external HTMLSlotElement();
 }
 
 extension PropsHTMLSlotElement on HTMLSlotElement {
   /// A [string] used to get and set the slot's name.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  Returns a sequence of the nodes assigned to this slot. If the
   /// [flatten] option is set to [true], it returns a sequence of both
@@ -6629,7 +7729,8 @@ extension PropsHTMLSlotElement on HTMLSlotElement {
   /// HTMLSlotElement.assignedNodes()
   /// HTMLSlotElement.assignedNodes(options)
   ///
-  external Iterable<Node> assignedNodes([AssignedNodesOptions? options]);
+  Iterable<Node> assignedNodes([AssignedNodesOptions? options]) =>
+      js_util.callMethod(this, 'assignedNodes', [options]);
 
   ///  Returns a sequence of the elements assigned to this slot (and no
   /// other nodes). If the [flatten] option is set to [true], it
@@ -6641,14 +7742,15 @@ extension PropsHTMLSlotElement on HTMLSlotElement {
   /// HTMLSlotElement.assignedElements()
   /// HTMLSlotElement.assignedElements(options)
   ///
-  external Iterable<Element> assignedElements([AssignedNodesOptions? options]);
+  Iterable<Element> assignedElements([AssignedNodesOptions? options]) =>
+      js_util.callMethod(this, 'assignedElements', [options]);
 
   ///  Sets the manually assigned nodes for this slot to the given
   /// nodes.
   ///
   /// HTMLSlotElement.assign(...nodes)
   ///
-  external Object assign([dynamic nodes]);
+  Object assign([dynamic nodes]) => js_util.callMethod(this, 'assign', [nodes]);
 }
 
 @anonymous
@@ -6659,8 +7761,10 @@ class AssignedNodesOptions {
 }
 
 extension PropsAssignedNodesOptions on AssignedNodesOptions {
-  external bool get flatten;
-  external set flatten(bool newValue);
+  bool get flatten => js_util.getProperty(this, 'flatten');
+  set flatten(bool newValue) {
+    js_util.setProperty(this, 'flatten', newValue);
+  }
 }
 
 ///  The interface provides properties and methods for manipulating
@@ -6700,7 +7804,7 @@ extension PropsAssignedNodesOptions on AssignedNodesOptions {
 @JS()
 @staticInterop
 class HTMLCanvasElement implements HTMLElement {
-  external factory HTMLCanvasElement();
+  external HTMLCanvasElement();
 }
 
 extension PropsHTMLCanvasElement on HTMLCanvasElement {
@@ -6713,8 +7817,10 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   /// also be used as the width of the canvas in the length-unit CSS
   /// Pixel.
   ///
-  external int get width;
-  external set width(int newValue);
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   ///  The HTML attribute of the [<canvas>] element is a positive
   /// [integer] reflecting the number of logical pixels (or RGBA
@@ -6725,8 +7831,10 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   /// also be used as the height of the canvas in the length-unit CSS
   /// Pixel.
   ///
-  external int get height;
-  external set height(int newValue);
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 
   ///  Returns a drawing context on the canvas, or null if the context
   /// ID is not supported. A drawing context lets you draw on the
@@ -6739,7 +7847,8 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   /// var ctx = canvas.getContext(contextType);
   /// var ctx = canvas.getContext(contextType, contextAttributes);
   ///
-  external dynamic getContext(String contextId, [dynamic options]);
+  dynamic getContext(String contextId, [dynamic options]) =>
+      js_util.callMethod(this, 'getContext', [contextId, options]);
 
   ///  Returns a data-URL containing a representation of the image in
   /// the format specified by the [type] parameter (defaults to [png]).
@@ -6747,7 +7856,8 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   ///
   /// canvas.toDataURL(type, encoderOptions);
   ///
-  external String toDataURL([String? type = 'image/png', dynamic quality]);
+  String toDataURL([String? type = 'image/png', dynamic quality]) =>
+      js_util.callMethod(this, 'toDataURL', [type, quality]);
 
   ///  Creates a [Blob] object representing the image contained in the
   /// canvas; this file may be cached on the disk or stored in memory
@@ -6755,8 +7865,9 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   ///
   /// toBlob(callback, type, quality)
   ///
-  external Object toBlob(BlobCallback callback,
-      [String? type = 'image/png', dynamic quality]);
+  Object toBlob(BlobCallback callback,
+          [String? type = 'image/png', dynamic quality]) =>
+      js_util.callMethod(this, 'toBlob', [callback, type, quality]);
 
   ///  Transfers control to an [OffscreenCanvas] object, either on the
   /// main thread or on a worker.
@@ -6764,8 +7875,11 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   /// OffscreenCanvas HTMLCanvasElement.transferControlToOffscreen()
   ///
   @experimental
-  external OffscreenCanvas transferControlToOffscreen();
-  external MediaStream captureStream([double? frameRequestRate]);
+  OffscreenCanvas transferControlToOffscreen() =>
+      js_util.callMethod(this, 'transferControlToOffscreen', []);
+
+  MediaStream captureStream([double? frameRequestRate]) =>
+      js_util.callMethod(this, 'captureStream', [frameRequestRate]);
 }
 
 enum PredefinedColorSpace { srgb, displayP3 }
@@ -6784,12 +7898,21 @@ class CanvasRenderingContext2DSettings {
 
 extension PropsCanvasRenderingContext2DSettings
     on CanvasRenderingContext2DSettings {
-  external bool get alpha;
-  external set alpha(bool newValue);
-  external bool get desynchronized;
-  external set desynchronized(bool newValue);
-  external PredefinedColorSpace get colorSpace;
-  external set colorSpace(PredefinedColorSpace newValue);
+  bool get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(bool newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
+
+  bool get desynchronized => js_util.getProperty(this, 'desynchronized');
+  set desynchronized(bool newValue) {
+    js_util.setProperty(this, 'desynchronized', newValue);
+  }
+
+  PredefinedColorSpace get colorSpace =>
+      js_util.getProperty(this, 'colorSpace');
+  set colorSpace(PredefinedColorSpace newValue) {
+    js_util.setProperty(this, 'colorSpace', newValue);
+  }
 }
 
 enum ImageSmoothingQuality { low, medium, high }
@@ -6820,231 +7943,311 @@ class CanvasRenderingContext2D
         CanvasPathDrawingStyles,
         CanvasTextDrawingStyles,
         CanvasPath {
-  external factory CanvasRenderingContext2D();
+  external CanvasRenderingContext2D();
 }
 
 extension PropsCanvasRenderingContext2D on CanvasRenderingContext2D {
-  external HTMLCanvasElement get canvas;
-  external CanvasRenderingContext2DSettings getContextAttributes();
+  HTMLCanvasElement get canvas => js_util.getProperty(this, 'canvas');
+  CanvasRenderingContext2DSettings getContextAttributes() =>
+      js_util.callMethod(this, 'getContextAttributes', []);
 }
 
 @JS()
 @staticInterop
 class CanvasState {
-  external factory CanvasState();
+  external CanvasState();
 }
 
 extension PropsCanvasState on CanvasState {
-  external Object save();
-  external Object restore();
-  external Object reset();
+  Object save() => js_util.callMethod(this, 'save', []);
+
+  Object restore() => js_util.callMethod(this, 'restore', []);
+
+  Object reset() => js_util.callMethod(this, 'reset', []);
 }
 
 @JS()
 @staticInterop
 class CanvasTransform {
-  external factory CanvasTransform();
+  external CanvasTransform();
 }
 
 extension PropsCanvasTransform on CanvasTransform {
-  external Object scale(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
-  external Object rotate(/* double | NaN */ dynamic angle);
-  external Object translate(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
-  external Object transform(
-      /* double | NaN */ dynamic a,
-      /* double | NaN */ dynamic b,
-      /* double | NaN */ dynamic c,
-      /* double | NaN */ dynamic d,
-      /* double | NaN */ dynamic e,
-      /* double | NaN */ dynamic f);
-  external DOMMatrix getTransform();
-  external Object setTransform(
-      [/* double | NaN */ dynamic a,
-      /* double | NaN */ dynamic b,
-      /* double | NaN */ dynamic c,
-      /* double | NaN */ dynamic d,
-      /* double | NaN */ dynamic e,
-      /* double | NaN */ dynamic f]);
-  external Object resetTransform();
+  Object scale(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
+      js_util.callMethod(this, 'scale', [x, y]);
+
+  Object rotate(/* double | NaN */ dynamic angle) =>
+      js_util.callMethod(this, 'rotate', [angle]);
+
+  Object translate(
+          /* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
+      js_util.callMethod(this, 'translate', [x, y]);
+
+  Object transform(
+          /* double | NaN */ dynamic a,
+          /* double | NaN */ dynamic b,
+          /* double | NaN */ dynamic c,
+          /* double | NaN */ dynamic d,
+          /* double | NaN */ dynamic e,
+          /* double | NaN */ dynamic f) =>
+      js_util.callMethod(this, 'transform', [a, b, c, d, e, f]);
+
+  DOMMatrix getTransform() => js_util.callMethod(this, 'getTransform', []);
+
+  Object setTransform(
+          [/* double | NaN */ dynamic a,
+          /* double | NaN */ dynamic b,
+          /* double | NaN */ dynamic c,
+          /* double | NaN */ dynamic d,
+          /* double | NaN */ dynamic e,
+          /* double | NaN */ dynamic f]) =>
+      js_util.callMethod(this, 'setTransform', [a, b, c, d, e, f]);
+
+  Object resetTransform() => js_util.callMethod(this, 'resetTransform', []);
 }
 
 @JS()
 @staticInterop
 class CanvasCompositing {
-  external factory CanvasCompositing();
+  external CanvasCompositing();
 }
 
 extension PropsCanvasCompositing on CanvasCompositing {
-  external /* double | NaN */ dynamic get globalAlpha;
-  external set globalAlpha(/* double | NaN */ dynamic newValue);
-  external String get globalCompositeOperation;
-  external set globalCompositeOperation(String newValue);
+  /* double | NaN */ dynamic get globalAlpha =>
+      js_util.getProperty(this, 'globalAlpha');
+  set globalAlpha(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'globalAlpha', newValue);
+  }
+
+  String get globalCompositeOperation =>
+      js_util.getProperty(this, 'globalCompositeOperation');
+  set globalCompositeOperation(String newValue) {
+    js_util.setProperty(this, 'globalCompositeOperation', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CanvasImageSmoothing {
-  external factory CanvasImageSmoothing();
+  external CanvasImageSmoothing();
 }
 
 extension PropsCanvasImageSmoothing on CanvasImageSmoothing {
-  external bool get imageSmoothingEnabled;
-  external set imageSmoothingEnabled(bool newValue);
-  external ImageSmoothingQuality get imageSmoothingQuality;
-  external set imageSmoothingQuality(ImageSmoothingQuality newValue);
+  bool get imageSmoothingEnabled =>
+      js_util.getProperty(this, 'imageSmoothingEnabled');
+  set imageSmoothingEnabled(bool newValue) {
+    js_util.setProperty(this, 'imageSmoothingEnabled', newValue);
+  }
+
+  ImageSmoothingQuality get imageSmoothingQuality =>
+      js_util.getProperty(this, 'imageSmoothingQuality');
+  set imageSmoothingQuality(ImageSmoothingQuality newValue) {
+    js_util.setProperty(this, 'imageSmoothingQuality', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CanvasFillStrokeStyles {
-  external factory CanvasFillStrokeStyles();
+  external CanvasFillStrokeStyles();
 }
 
 extension PropsCanvasFillStrokeStyles on CanvasFillStrokeStyles {
-  external dynamic get strokeStyle;
-  external set strokeStyle(dynamic newValue);
-  external dynamic get fillStyle;
-  external set fillStyle(dynamic newValue);
-  external CanvasGradient createLinearGradient(
-      double x0, double y0, double x1, double y1);
-  external CanvasGradient createRadialGradient(
-      double x0, double y0, double r0, double x1, double y1, double r1);
-  external CanvasGradient createConicGradient(
-      double startAngle, double x, double y);
-  external CanvasPattern? createPattern(dynamic image, String repetition);
+  dynamic get strokeStyle => js_util.getProperty(this, 'strokeStyle');
+  set strokeStyle(dynamic newValue) {
+    js_util.setProperty(this, 'strokeStyle', newValue);
+  }
+
+  dynamic get fillStyle => js_util.getProperty(this, 'fillStyle');
+  set fillStyle(dynamic newValue) {
+    js_util.setProperty(this, 'fillStyle', newValue);
+  }
+
+  CanvasGradient createLinearGradient(
+          double x0, double y0, double x1, double y1) =>
+      js_util.callMethod(this, 'createLinearGradient', [x0, y0, x1, y1]);
+
+  CanvasGradient createRadialGradient(
+          double x0, double y0, double r0, double x1, double y1, double r1) =>
+      js_util
+          .callMethod(this, 'createRadialGradient', [x0, y0, r0, x1, y1, r1]);
+
+  CanvasGradient createConicGradient(double startAngle, double x, double y) =>
+      js_util.callMethod(this, 'createConicGradient', [startAngle, x, y]);
+
+  CanvasPattern? createPattern(dynamic image, String repetition) =>
+      js_util.callMethod(this, 'createPattern', [image, repetition]);
 }
 
 @JS()
 @staticInterop
 class CanvasShadowStyles {
-  external factory CanvasShadowStyles();
+  external CanvasShadowStyles();
 }
 
 extension PropsCanvasShadowStyles on CanvasShadowStyles {
-  external /* double | NaN */ dynamic get shadowOffsetX;
-  external set shadowOffsetX(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get shadowOffsetY;
-  external set shadowOffsetY(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get shadowBlur;
-  external set shadowBlur(/* double | NaN */ dynamic newValue);
-  external String get shadowColor;
-  external set shadowColor(String newValue);
+  /* double | NaN */ dynamic get shadowOffsetX =>
+      js_util.getProperty(this, 'shadowOffsetX');
+  set shadowOffsetX(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'shadowOffsetX', newValue);
+  }
+
+  /* double | NaN */ dynamic get shadowOffsetY =>
+      js_util.getProperty(this, 'shadowOffsetY');
+  set shadowOffsetY(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'shadowOffsetY', newValue);
+  }
+
+  /* double | NaN */ dynamic get shadowBlur =>
+      js_util.getProperty(this, 'shadowBlur');
+  set shadowBlur(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'shadowBlur', newValue);
+  }
+
+  String get shadowColor => js_util.getProperty(this, 'shadowColor');
+  set shadowColor(String newValue) {
+    js_util.setProperty(this, 'shadowColor', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CanvasFilters {
-  external factory CanvasFilters();
+  external CanvasFilters();
 }
 
 extension PropsCanvasFilters on CanvasFilters {
-  external String get filter;
-  external set filter(String newValue);
+  String get filter => js_util.getProperty(this, 'filter');
+  set filter(String newValue) {
+    js_util.setProperty(this, 'filter', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CanvasRect {
-  external factory CanvasRect();
+  external CanvasRect();
 }
 
 extension PropsCanvasRect on CanvasRect {
-  external Object clearRect(
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y,
-      /* double | NaN */ dynamic w,
-      /* double | NaN */ dynamic h);
-  external Object fillRect(
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y,
-      /* double | NaN */ dynamic w,
-      /* double | NaN */ dynamic h);
-  external Object strokeRect(
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y,
-      /* double | NaN */ dynamic w,
-      /* double | NaN */ dynamic h);
+  Object clearRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic w, /* double | NaN */ dynamic h) =>
+      js_util.callMethod(this, 'clearRect', [x, y, w, h]);
+
+  Object fillRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic w, /* double | NaN */ dynamic h) =>
+      js_util.callMethod(this, 'fillRect', [x, y, w, h]);
+
+  Object strokeRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic w, /* double | NaN */ dynamic h) =>
+      js_util.callMethod(this, 'strokeRect', [x, y, w, h]);
 }
 
 @JS()
 @staticInterop
 class CanvasDrawPath {
-  external factory CanvasDrawPath();
+  external CanvasDrawPath();
 }
 
 extension PropsCanvasDrawPath on CanvasDrawPath {
-  external Object beginPath();
-  external Object fill(
-      [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
-  external Object stroke([Path2D? path]);
-  external Object clip(
-      [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
-  external bool isPointInPath(Path2D path, /* double | NaN */ dynamic x,
-      [/* double | NaN */ dynamic y,
-      CanvasFillRule? fillRule = CanvasFillRule.nonzero]);
-  external bool isPointInStroke(Path2D path,
-      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
+  Object beginPath() => js_util.callMethod(this, 'beginPath', []);
+
+  Object fill(
+          [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]) =>
+      js_util.callMethod(this, 'fill', [path, fillRule]);
+
+  Object stroke([Path2D? path]) => js_util.callMethod(this, 'stroke', [path]);
+
+  Object clip(
+          [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]) =>
+      js_util.callMethod(this, 'clip', [path, fillRule]);
+
+  bool isPointInPath(Path2D path, /* double | NaN */ dynamic x,
+          [/* double | NaN */ dynamic y,
+          CanvasFillRule? fillRule = CanvasFillRule.nonzero]) =>
+      js_util.callMethod(this, 'isPointInPath', [path, x, y, fillRule]);
+
+  bool isPointInStroke(Path2D path,
+          [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+      js_util.callMethod(this, 'isPointInStroke', [path, x, y]);
 }
 
 @JS()
 @staticInterop
 class CanvasUserInterface {
-  external factory CanvasUserInterface();
+  external CanvasUserInterface();
 }
 
 extension PropsCanvasUserInterface on CanvasUserInterface {
-  external Object drawFocusIfNeeded([Path2D? path, Element element]);
-  external Object scrollPathIntoView([Path2D? path]);
+  Object drawFocusIfNeeded([Path2D? path, Element? element]) =>
+      js_util.callMethod(this, 'drawFocusIfNeeded', [path, element]);
+
+  Object scrollPathIntoView([Path2D? path]) =>
+      js_util.callMethod(this, 'scrollPathIntoView', [path]);
 }
 
 @JS()
 @staticInterop
 class CanvasText {
-  external factory CanvasText();
+  external CanvasText();
 }
 
 extension PropsCanvasText on CanvasText {
-  external Object fillText(
-      String text, /* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
-      [/* double | NaN */ dynamic maxWidth]);
-  external Object strokeText(
-      String text, /* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
-      [/* double | NaN */ dynamic maxWidth]);
-  external TextMetrics measureText(String text);
+  Object fillText(String text, /* double | NaN */ dynamic x,
+          /* double | NaN */ dynamic y,
+          [/* double | NaN */ dynamic maxWidth]) =>
+      js_util.callMethod(this, 'fillText', [text, x, y, maxWidth]);
+
+  Object strokeText(String text, /* double | NaN */ dynamic x,
+          /* double | NaN */ dynamic y,
+          [/* double | NaN */ dynamic maxWidth]) =>
+      js_util.callMethod(this, 'strokeText', [text, x, y, maxWidth]);
+
+  TextMetrics measureText(String text) =>
+      js_util.callMethod(this, 'measureText', [text]);
 }
 
 @JS()
 @staticInterop
 class CanvasDrawImage {
-  external factory CanvasDrawImage();
+  external CanvasDrawImage();
 }
 
 extension PropsCanvasDrawImage on CanvasDrawImage {
-  external Object drawImage(dynamic image, /* double | NaN */ dynamic sx,
-      [/* double | NaN */ dynamic sy,
-      /* double | NaN */ dynamic sw,
-      /* double | NaN */ dynamic sh,
-      /* double | NaN */ dynamic dx,
-      /* double | NaN */ dynamic dy,
-      /* double | NaN */ dynamic dw,
-      /* double | NaN */ dynamic dh]);
+  Object drawImage(dynamic image, /* double | NaN */ dynamic sx,
+          [/* double | NaN */ dynamic sy,
+          /* double | NaN */ dynamic sw,
+          /* double | NaN */ dynamic sh,
+          /* double | NaN */ dynamic dx,
+          /* double | NaN */ dynamic dy,
+          /* double | NaN */ dynamic dw,
+          /* double | NaN */ dynamic dh]) =>
+      js_util.callMethod(
+          this, 'drawImage', [image, sx, sy, sw, sh, dx, dy, dw, dh]);
 }
 
 @JS()
 @staticInterop
 class CanvasImageData {
-  external factory CanvasImageData();
+  external CanvasImageData();
 }
 
 extension PropsCanvasImageData on CanvasImageData {
-  external ImageData createImageData(
-      [int? sw, int sh, ImageDataSettings? settings]);
-  external ImageData getImageData(int sx, int sy, int sw, int sh,
-      [ImageDataSettings? settings]);
-  external Object putImageData(ImageData imagedata, int dx,
-      [int? dy, int dirtyX, int dirtyY, int dirtyWidth, int dirtyHeight]);
+  ImageData createImageData([int? sw, int? sh, ImageDataSettings? settings]) =>
+      js_util.callMethod(this, 'createImageData', [sw, sh, settings]);
+
+  ImageData getImageData(int sx, int sy, int sw, int sh,
+          [ImageDataSettings? settings]) =>
+      js_util.callMethod(this, 'getImageData', [sx, sy, sw, sh, settings]);
+
+  Object putImageData(ImageData imagedata, int dx,
+          [int? dy,
+          int? dirtyX,
+          int? dirtyY,
+          int? dirtyWidth,
+          int? dirtyHeight]) =>
+      js_util.callMethod(this, 'putImageData',
+          [imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight]);
 }
 
 enum CanvasLineCap { butt, round, square }
@@ -7098,104 +8301,179 @@ enum CanvasTextRendering {
 @JS()
 @staticInterop
 class CanvasPathDrawingStyles {
-  external factory CanvasPathDrawingStyles();
+  external CanvasPathDrawingStyles();
 }
 
 extension PropsCanvasPathDrawingStyles on CanvasPathDrawingStyles {
-  external /* double | NaN */ dynamic get lineWidth;
-  external set lineWidth(/* double | NaN */ dynamic newValue);
-  external CanvasLineCap get lineCap;
-  external set lineCap(CanvasLineCap newValue);
-  external CanvasLineJoin get lineJoin;
-  external set lineJoin(CanvasLineJoin newValue);
-  external /* double | NaN */ dynamic get miterLimit;
-  external set miterLimit(/* double | NaN */ dynamic newValue);
-  external Object setLineDash(Iterable< /* double | NaN */ dynamic> segments);
-  external Iterable< /* double | NaN */ dynamic> getLineDash();
-  external /* double | NaN */ dynamic get lineDashOffset;
-  external set lineDashOffset(/* double | NaN */ dynamic newValue);
+  /* double | NaN */ dynamic get lineWidth =>
+      js_util.getProperty(this, 'lineWidth');
+  set lineWidth(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'lineWidth', newValue);
+  }
+
+  CanvasLineCap get lineCap => js_util.getProperty(this, 'lineCap');
+  set lineCap(CanvasLineCap newValue) {
+    js_util.setProperty(this, 'lineCap', newValue);
+  }
+
+  CanvasLineJoin get lineJoin => js_util.getProperty(this, 'lineJoin');
+  set lineJoin(CanvasLineJoin newValue) {
+    js_util.setProperty(this, 'lineJoin', newValue);
+  }
+
+  /* double | NaN */ dynamic get miterLimit =>
+      js_util.getProperty(this, 'miterLimit');
+  set miterLimit(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'miterLimit', newValue);
+  }
+
+  Object setLineDash(Iterable< /* double | NaN */ dynamic> segments) =>
+      js_util.callMethod(this, 'setLineDash', [segments]);
+
+  Iterable< /* double | NaN */ dynamic> getLineDash() =>
+      js_util.callMethod(this, 'getLineDash', []);
+
+  /* double | NaN */ dynamic get lineDashOffset =>
+      js_util.getProperty(this, 'lineDashOffset');
+  set lineDashOffset(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'lineDashOffset', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CanvasTextDrawingStyles {
-  external factory CanvasTextDrawingStyles();
+  external CanvasTextDrawingStyles();
 }
 
 extension PropsCanvasTextDrawingStyles on CanvasTextDrawingStyles {
-  external String get font;
-  external set font(String newValue);
-  external CanvasTextAlign get textAlign;
-  external set textAlign(CanvasTextAlign newValue);
-  external CanvasTextBaseline get textBaseline;
-  external set textBaseline(CanvasTextBaseline newValue);
-  external CanvasDirection get direction;
-  external set direction(CanvasDirection newValue);
-  external double get textLetterSpacing;
-  external set textLetterSpacing(double newValue);
-  external double get textWordSpacing;
-  external set textWordSpacing(double newValue);
-  external CanvasFontKerning get fontKerning;
-  external set fontKerning(CanvasFontKerning newValue);
-  external CanvasFontStretch get fontStretch;
-  external set fontStretch(CanvasFontStretch newValue);
-  external CanvasFontVariantCaps get fontVariantCaps;
-  external set fontVariantCaps(CanvasFontVariantCaps newValue);
-  external CanvasTextRendering get textRendering;
-  external set textRendering(CanvasTextRendering newValue);
+  String get font => js_util.getProperty(this, 'font');
+  set font(String newValue) {
+    js_util.setProperty(this, 'font', newValue);
+  }
+
+  CanvasTextAlign get textAlign => js_util.getProperty(this, 'textAlign');
+  set textAlign(CanvasTextAlign newValue) {
+    js_util.setProperty(this, 'textAlign', newValue);
+  }
+
+  CanvasTextBaseline get textBaseline =>
+      js_util.getProperty(this, 'textBaseline');
+  set textBaseline(CanvasTextBaseline newValue) {
+    js_util.setProperty(this, 'textBaseline', newValue);
+  }
+
+  CanvasDirection get direction => js_util.getProperty(this, 'direction');
+  set direction(CanvasDirection newValue) {
+    js_util.setProperty(this, 'direction', newValue);
+  }
+
+  double get textLetterSpacing =>
+      js_util.getProperty(this, 'textLetterSpacing');
+  set textLetterSpacing(double newValue) {
+    js_util.setProperty(this, 'textLetterSpacing', newValue);
+  }
+
+  double get textWordSpacing => js_util.getProperty(this, 'textWordSpacing');
+  set textWordSpacing(double newValue) {
+    js_util.setProperty(this, 'textWordSpacing', newValue);
+  }
+
+  CanvasFontKerning get fontKerning => js_util.getProperty(this, 'fontKerning');
+  set fontKerning(CanvasFontKerning newValue) {
+    js_util.setProperty(this, 'fontKerning', newValue);
+  }
+
+  CanvasFontStretch get fontStretch => js_util.getProperty(this, 'fontStretch');
+  set fontStretch(CanvasFontStretch newValue) {
+    js_util.setProperty(this, 'fontStretch', newValue);
+  }
+
+  CanvasFontVariantCaps get fontVariantCaps =>
+      js_util.getProperty(this, 'fontVariantCaps');
+  set fontVariantCaps(CanvasFontVariantCaps newValue) {
+    js_util.setProperty(this, 'fontVariantCaps', newValue);
+  }
+
+  CanvasTextRendering get textRendering =>
+      js_util.getProperty(this, 'textRendering');
+  set textRendering(CanvasTextRendering newValue) {
+    js_util.setProperty(this, 'textRendering', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CanvasPath {
-  external factory CanvasPath();
+  external CanvasPath();
 }
 
 extension PropsCanvasPath on CanvasPath {
-  external Object closePath();
-  external Object moveTo(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
-  external Object lineTo(
-      /* double | NaN */ dynamic x, /* double | NaN */ dynamic y);
-  external Object quadraticCurveTo(
-      /* double | NaN */ dynamic cpx,
-      /* double | NaN */ dynamic cpy,
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y);
-  external Object bezierCurveTo(
-      /* double | NaN */ dynamic cp1x,
-      /* double | NaN */ dynamic cp1y,
-      /* double | NaN */ dynamic cp2x,
-      /* double | NaN */ dynamic cp2y,
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y);
-  external Object arcTo(
-      /* double | NaN */ dynamic x1,
-      /* double | NaN */ dynamic y1,
-      /* double | NaN */ dynamic x2,
-      /* double | NaN */ dynamic y2,
-      /* double | NaN */ dynamic radius);
-  external Object rect(
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y,
-      /* double | NaN */ dynamic w,
-      /* double | NaN */ dynamic h);
-  external Object arc(
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y,
-      /* double | NaN */ dynamic radius,
-      /* double | NaN */ dynamic startAngle,
-      /* double | NaN */ dynamic endAngle,
-      [bool? counterclockwise = false]);
-  external Object ellipse(
-      /* double | NaN */ dynamic x,
-      /* double | NaN */ dynamic y,
-      /* double | NaN */ dynamic radiusX,
-      /* double | NaN */ dynamic radiusY,
-      /* double | NaN */ dynamic rotation,
-      /* double | NaN */ dynamic startAngle,
-      /* double | NaN */ dynamic endAngle,
-      [bool? counterclockwise = false]);
+  Object closePath() => js_util.callMethod(this, 'closePath', []);
+
+  Object moveTo(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
+      js_util.callMethod(this, 'moveTo', [x, y]);
+
+  Object lineTo(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
+      js_util.callMethod(this, 'lineTo', [x, y]);
+
+  Object quadraticCurveTo(
+          /* double | NaN */ dynamic cpx,
+          /* double | NaN */ dynamic cpy,
+          /* double | NaN */ dynamic x,
+          /* double | NaN */ dynamic y) =>
+      js_util.callMethod(this, 'quadraticCurveTo', [cpx, cpy, x, y]);
+
+  Object bezierCurveTo(
+          /* double | NaN */ dynamic cp1x,
+          /* double | NaN */ dynamic cp1y,
+          /* double | NaN */ dynamic cp2x,
+          /* double | NaN */ dynamic cp2y,
+          /* double | NaN */ dynamic x,
+          /* double | NaN */ dynamic y) =>
+      js_util.callMethod(this, 'bezierCurveTo', [cp1x, cp1y, cp2x, cp2y, x, y]);
+
+  Object arcTo(
+          /* double | NaN */ dynamic x1,
+          /* double | NaN */ dynamic y1,
+          /* double | NaN */ dynamic x2,
+          /* double | NaN */ dynamic y2,
+          /* double | NaN */ dynamic radius) =>
+      js_util.callMethod(this, 'arcTo', [x1, y1, x2, y2, radius]);
+
+  Object rect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic w, /* double | NaN */ dynamic h) =>
+      js_util.callMethod(this, 'rect', [x, y, w, h]);
+
+  Object arc(
+          /* double | NaN */ dynamic x,
+          /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic radius,
+          /* double | NaN */ dynamic startAngle,
+          /* double | NaN */ dynamic endAngle,
+          [bool? counterclockwise = false]) =>
+      js_util.callMethod(
+          this, 'arc', [x, y, radius, startAngle, endAngle, counterclockwise]);
+
+  Object ellipse(
+          /* double | NaN */ dynamic x,
+          /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic radiusX,
+          /* double | NaN */ dynamic radiusY,
+          /* double | NaN */ dynamic rotation,
+          /* double | NaN */ dynamic startAngle,
+          /* double | NaN */ dynamic endAngle,
+          [bool? counterclockwise = false]) =>
+      js_util.callMethod(this, 'ellipse', [
+        x,
+        y,
+        radiusX,
+        radiusY,
+        rotation,
+        startAngle,
+        endAngle,
+        counterclockwise
+      ]);
 }
 
 ///  The interface represents an opaque object describing a gradient.
@@ -7207,7 +8485,7 @@ extension PropsCanvasPath on CanvasPath {
 @JS()
 @staticInterop
 class CanvasGradient {
-  external factory CanvasGradient();
+  external CanvasGradient();
 }
 
 extension PropsCanvasGradient on CanvasGradient {
@@ -7218,7 +8496,8 @@ extension PropsCanvasGradient on CanvasGradient {
   ///
   /// void gradient.addColorStop(offset, color);
   ///
-  external Object addColorStop(double offset, String color);
+  Object addColorStop(double offset, String color) =>
+      js_util.callMethod(this, 'addColorStop', [offset, color]);
 }
 
 ///  The interface represents an opaque object describing a pattern,
@@ -7228,7 +8507,7 @@ extension PropsCanvasGradient on CanvasGradient {
 @JS()
 @staticInterop
 class CanvasPattern {
-  external factory CanvasPattern();
+  external CanvasPattern();
 }
 
 extension PropsCanvasPattern on CanvasPattern {
@@ -7237,7 +8516,8 @@ extension PropsCanvasPattern on CanvasPattern {
   ///
   /// void pattern.setTransform(matrix);
   ///
-  external Object setTransform([DOMMatrix2DInit? transform]);
+  Object setTransform([DOMMatrix2DInit? transform]) =>
+      js_util.callMethod(this, 'setTransform', [transform]);
 }
 
 ///  The interface represents the dimensions of a piece of text in
@@ -7246,7 +8526,7 @@ extension PropsCanvasPattern on CanvasPattern {
 @JS()
 @staticInterop
 class TextMetrics {
-  external factory TextMetrics();
+  external TextMetrics();
 }
 
 extension PropsTextMetrics on TextMetrics {
@@ -7254,7 +8534,7 @@ extension PropsTextMetrics on TextMetrics {
   /// text in CSS pixels. It takes into account the current font of the
   /// context.
   ///
-  external double get width;
+  double get width => js_util.getProperty(this, 'width');
 
   ///  Is a [double] giving the distance parallel to the baseline from
   /// the alignment point given by the
@@ -7263,72 +8543,80 @@ extension PropsTextMetrics on TextMetrics {
   /// numbers indicating a distance going left from the given alignment
   /// point.
   ///
-  external double get actualBoundingBoxLeft;
+  double get actualBoundingBoxLeft =>
+      js_util.getProperty(this, 'actualBoundingBoxLeft');
 
   ///  Is a [double] giving the distance from the alignment point given
   /// by the [CanvasRenderingContext2D.textAlign] property to the right
   /// side of the bounding rectangle of the given text, in CSS pixels.
   /// The distance is measured parallel to the baseline.
   ///
-  external double get actualBoundingBoxRight;
+  double get actualBoundingBoxRight =>
+      js_util.getProperty(this, 'actualBoundingBoxRight');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline]
   /// attribute to the top of the highest bounding rectangle of all the
   /// fonts used to render the text, in CSS pixels.
   ///
-  external double get fontBoundingBoxAscent;
+  double get fontBoundingBoxAscent =>
+      js_util.getProperty(this, 'fontBoundingBoxAscent');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline]
   /// attribute to the bottom of the bounding rectangle of all the
   /// fonts used to render the text, in CSS pixels.
   ///
-  external double get fontBoundingBoxDescent;
+  double get fontBoundingBoxDescent =>
+      js_util.getProperty(this, 'fontBoundingBoxDescent');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline]
   /// attribute to the top of the bounding rectangle used to render the
   /// text, in CSS pixels.
   ///
-  external double get actualBoundingBoxAscent;
+  double get actualBoundingBoxAscent =>
+      js_util.getProperty(this, 'actualBoundingBoxAscent');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline]
   /// attribute to the bottom of the bounding rectangle used to render
   /// the text, in CSS pixels.
   ///
-  external double get actualBoundingBoxDescent;
+  double get actualBoundingBoxDescent =>
+      js_util.getProperty(this, 'actualBoundingBoxDescent');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline] property
   /// to the top of the em square in the line box, in CSS pixels.
   ///
-  external double get emHeightAscent;
+  double get emHeightAscent => js_util.getProperty(this, 'emHeightAscent');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline] property
   /// to the bottom of the em square in the line box, in CSS pixels.
   ///
-  external double get emHeightDescent;
+  double get emHeightDescent => js_util.getProperty(this, 'emHeightDescent');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline] property
   /// to the hanging baseline of the line box, in CSS pixels.
   ///
-  external double get hangingBaseline;
+  double get hangingBaseline => js_util.getProperty(this, 'hangingBaseline');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline] property
   /// to the alphabetic baseline of the line box, in CSS pixels.
   ///
-  external double get alphabeticBaseline;
+  double get alphabeticBaseline =>
+      js_util.getProperty(this, 'alphabeticBaseline');
 
   ///  Is a [double] giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline] property
   /// to the ideographic baseline of the line box, in CSS pixels.
   ///
-  external double get ideographicBaseline;
+  double get ideographicBaseline =>
+      js_util.getProperty(this, 'ideographicBaseline');
 }
 
 @anonymous
@@ -7339,8 +8627,11 @@ class ImageDataSettings {
 }
 
 extension PropsImageDataSettings on ImageDataSettings {
-  external PredefinedColorSpace get colorSpace;
-  external set colorSpace(PredefinedColorSpace newValue);
+  PredefinedColorSpace get colorSpace =>
+      js_util.getProperty(this, 'colorSpace');
+  set colorSpace(PredefinedColorSpace newValue) {
+    js_util.setProperty(this, 'colorSpace', newValue);
+  }
 }
 
 ///  The interface represents the underlying pixel data of an area of
@@ -7354,7 +8645,7 @@ extension PropsImageDataSettings on ImageDataSettings {
 @JS()
 @staticInterop
 class ImageData {
-  external factory ImageData(Uint8ClampedList data, int sw,
+  external ImageData(Uint8ClampedList data, int sw,
       [int? sh, ImageDataSettings? settings]);
 }
 
@@ -7362,19 +8653,20 @@ extension PropsImageData on ImageData {
   ///  Is an [unsigned long] representing the actual width, in pixels,
   /// of the [ImageData].
   ///
-  external int get width;
+  int get width => js_util.getProperty(this, 'width');
 
   ///  Is an [unsigned long] representing the actual height, in pixels,
   /// of the [ImageData].
   ///
-  external int get height;
+  int get height => js_util.getProperty(this, 'height');
 
   ///  Is a [Uint8ClampedArray] representing a one-dimensional array
   /// containing the data in the RGBA order, with integer values
   /// between [0] and [255] (inclusive).
   ///
-  external Uint8ClampedList get data;
-  external PredefinedColorSpace get colorSpace;
+  Uint8ClampedList get data => js_util.getProperty(this, 'data');
+  PredefinedColorSpace get colorSpace =>
+      js_util.getProperty(this, 'colorSpace');
 }
 
 ///  The interface of the Canvas 2D API is used to declare a path
@@ -7385,7 +8677,7 @@ extension PropsImageData on ImageData {
 @JS()
 @staticInterop
 class Path2D implements CanvasPath {
-  external factory Path2D([dynamic path]);
+  external Path2D([dynamic path]);
 }
 
 extension PropsPath2D on Path2D {
@@ -7393,7 +8685,8 @@ extension PropsPath2D on Path2D {
   ///
   /// void path.addPath(path [, transform]);
   ///
-  external Object addPath(Path2D path, [DOMMatrix2DInit? transform]);
+  Object addPath(Path2D path, [DOMMatrix2DInit? transform]) =>
+      js_util.callMethod(this, 'addPath', [path, transform]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -7410,11 +8703,11 @@ extension PropsPath2D on Path2D {
 @JS()
 @staticInterop
 class ImageBitmapRenderingContext {
-  external factory ImageBitmapRenderingContext();
+  external ImageBitmapRenderingContext();
 }
 
 extension PropsImageBitmapRenderingContext on ImageBitmapRenderingContext {
-  external dynamic get canvas;
+  dynamic get canvas => js_util.getProperty(this, 'canvas');
 
   ///  Displays the given [ImageBitmap] in the canvas associated with
   /// this rendering context. Ownership of the [ImageBitmap] is
@@ -7424,7 +8717,8 @@ extension PropsImageBitmapRenderingContext on ImageBitmapRenderingContext {
   ///
   /// void ImageBitmapRenderingContext.transferFromImageBitmap(bitmap)
   ///
-  external Object transferFromImageBitmap(ImageBitmap? bitmap);
+  Object transferFromImageBitmap(ImageBitmap? bitmap) =>
+      js_util.callMethod(this, 'transferFromImageBitmap', [bitmap]);
 }
 
 @anonymous
@@ -7436,8 +8730,10 @@ class ImageBitmapRenderingContextSettings {
 
 extension PropsImageBitmapRenderingContextSettings
     on ImageBitmapRenderingContextSettings {
-  external bool get alpha;
-  external set alpha(bool newValue);
+  bool get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(bool newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }
 
 @anonymous
@@ -7449,10 +8745,16 @@ class ImageEncodeOptions {
 }
 
 extension PropsImageEncodeOptions on ImageEncodeOptions {
-  external String get type;
-  external set type(String newValue);
-  external /* double | NaN */ dynamic get quality;
-  external set quality(/* double | NaN */ dynamic newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  /* double | NaN */ dynamic get quality =>
+      js_util.getProperty(this, 'quality');
+  set quality(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'quality', newValue);
+  }
 }
 
 enum OffscreenRenderingContextId { value2d, bitmaprenderer, webgl, webgl2 }
@@ -7468,33 +8770,39 @@ enum OffscreenRenderingContextId { value2d, bitmaprenderer, webgl, webgl2 }
 @JS()
 @staticInterop
 class OffscreenCanvas implements EventTarget {
-  external factory OffscreenCanvas(int width, int height);
+  external OffscreenCanvas(int width, int height);
 }
 
 extension PropsOffscreenCanvas on OffscreenCanvas {
   /// The width of the offscreen canvas.
   ///
-  external int get width;
-  external set width(int newValue);
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   /// The height of the offscreen canvas.
   ///
-  external int get height;
-  external set height(int newValue);
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 
   /// Returns a rendering context for the offscreen canvas.
   ///
   /// offscreen.getContext(contextType, contextAttributes);
   ///
-  external dynamic getContext(OffscreenRenderingContextId contextId,
-      [dynamic options]);
+  dynamic getContext(OffscreenRenderingContextId contextId,
+          [dynamic options]) =>
+      js_util.callMethod(this, 'getContext', [contextId, options]);
 
   ///  Creates an [ImageBitmap] object from the most recently rendered
   /// image of the [OffscreenCanvas].
   ///
   /// ImageBitmap OffscreenCanvas.transferToImageBitmap()
   ///
-  external ImageBitmap transferToImageBitmap();
+  ImageBitmap transferToImageBitmap() =>
+      js_util.callMethod(this, 'transferToImageBitmap', []);
 
   ///  Creates a [Blob] object representing the image contained in the
   /// canvas.
@@ -7502,7 +8810,8 @@ extension PropsOffscreenCanvas on OffscreenCanvas {
   /// convertToBlob()
   /// convertToBlob(options)
   ///
-  external Promise<Blob> convertToBlob([ImageEncodeOptions? options]);
+  Promise<Blob> convertToBlob([ImageEncodeOptions? options]) =>
+      js_util.callMethod(this, 'convertToBlob', [options]);
 }
 
 @JS()
@@ -7524,13 +8833,14 @@ class OffscreenCanvasRenderingContext2D
         CanvasPathDrawingStyles,
         CanvasTextDrawingStyles,
         CanvasPath {
-  external factory OffscreenCanvasRenderingContext2D();
+  external OffscreenCanvasRenderingContext2D();
 }
 
 extension PropsOffscreenCanvasRenderingContext2D
     on OffscreenCanvasRenderingContext2D {
-  external Object commit();
-  external OffscreenCanvas get canvas;
+  Object commit() => js_util.callMethod(this, 'commit', []);
+
+  OffscreenCanvas get canvas => js_util.getProperty(this, 'canvas');
 }
 
 ///  The interface provides methods for registering custom elements
@@ -7540,7 +8850,7 @@ extension PropsOffscreenCanvasRenderingContext2D
 @JS()
 @staticInterop
 class CustomElementRegistry {
-  external factory CustomElementRegistry();
+  external CustomElementRegistry();
 }
 
 extension PropsCustomElementRegistry on CustomElementRegistry {
@@ -7548,8 +8858,9 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
   ///
   /// customElements.define(name, constructor, options);
   ///
-  external Object define(String name, CustomElementConstructor constructor,
-      [ElementDefinitionOptions? options]);
+  Object define(String name, CustomElementConstructor constructor,
+          [ElementDefinitionOptions? options]) =>
+      js_util.callMethod(this, 'define', [name, constructor, options]);
 
   ///  Returns the constructor for the named custom element, or
   /// [undefined] if the custom element is not defined.
@@ -7558,7 +8869,7 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
   ///
   @JS('get')
   @staticInterop
-  external dynamic mGet(String name);
+  dynamic mGet(String name) => js_util.callMethod(this, 'get', [name]);
 
   ///  Returns an empty [promise] that resolves when a custom element
   /// becomes defined with the given name. If such a custom element is
@@ -7566,14 +8877,15 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
   ///
   /// customElements.whenDefined(name): Promise<CustomElementConstructor>;
   ///
-  external Promise<CustomElementConstructor> whenDefined(String name);
+  Promise<CustomElementConstructor> whenDefined(String name) =>
+      js_util.callMethod(this, 'whenDefined', [name]);
 
   ///  Upgrades a custom element directly, even before it is connected
   /// to its shadow root.
   ///
   /// customElements.upgrade(root);
   ///
-  external Object upgrade(Node root);
+  Object upgrade(Node root) => js_util.callMethod(this, 'upgrade', [root]);
 }
 
 @anonymous
@@ -7586,8 +8898,10 @@ class ElementDefinitionOptions {
 extension PropsElementDefinitionOptions on ElementDefinitionOptions {
   @JS('extends')
   @staticInterop
-  external String get mExtends;
-  external set mExtends(String newValue);
+  String get mExtends => js_util.getProperty(this, 'extends');
+  set mExtends(String newValue) {
+    js_util.setProperty(this, 'extends', newValue);
+  }
 }
 
 ///  The interface of the Document_Object_Model gives web developers
@@ -7598,13 +8912,13 @@ extension PropsElementDefinitionOptions on ElementDefinitionOptions {
 @JS()
 @staticInterop
 class ElementInternals implements ARIAMixin {
-  external factory ElementInternals();
+  external ElementInternals();
 }
 
 extension PropsElementInternals on ElementInternals {
   /// Returns the [ShadowRoot] object associated with this element.
   ///
-  external ShadowRoot? get shadowRoot;
+  ShadowRoot? get shadowRoot => js_util.getProperty(this, 'shadowRoot');
 
   ///  Sets the element's submission value and state, communicating
   /// these to the user agent.
@@ -7612,11 +8926,12 @@ extension PropsElementInternals on ElementInternals {
   /// setFormValue(value)
   /// setFormValue(value, state)
   ///
-  external Object setFormValue(dynamic value, [dynamic state]);
+  Object setFormValue(dynamic value, [dynamic state]) =>
+      js_util.callMethod(this, 'setFormValue', [value, state]);
 
   /// Returns the [HTMLFormElement] associated with this element.
   ///
-  external HTMLFormElement? get form;
+  HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
   /// Sets the validity of the element.
   ///
@@ -7624,8 +8939,9 @@ extension PropsElementInternals on ElementInternals {
   /// ElementInternals.setValidity(flags, message);
   /// ElementInternals.setValidity(flags, message, anchor);
   ///
-  external Object setValidity(
-      [ValidityStateFlags? flags, String? message, HTMLElement? anchor]);
+  Object setValidity(
+          [ValidityStateFlags? flags, String? message, HTMLElement? anchor]) =>
+      js_util.callMethod(this, 'setValidity', [flags, message, anchor]);
 
   ///
   ///     A boolean value which returns true if the element is a
@@ -7633,24 +8949,25 @@ extension PropsElementInternals on ElementInternals {
   ///    constraint validation.
   ///
   ///
-  external bool get willValidate;
+  bool get willValidate => js_util.getProperty(this, 'willValidate');
 
   ///  Returns a [ValidityState] object which represents the different
   /// validity states the element can be in, with respect to constraint
   /// validation.
   ///
-  external ValidityState get validity;
+  ValidityState get validity => js_util.getProperty(this, 'validity');
 
   /// A [string] containing the validation message of this element.
   ///
-  external String get validationMessage;
+  String get validationMessage =>
+      js_util.getProperty(this, 'validationMessage');
 
   ///  Checks if an element meets any constraint validation rules
   /// applied to it.
   ///
   /// ElementInternals.checkValidity();
   ///
-  external bool checkValidity();
+  bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
 
   ///  Checks if an element meets any constraint validation rules
   /// applied to it, and also sends a validation message to the user
@@ -7658,13 +8975,13 @@ extension PropsElementInternals on ElementInternals {
   ///
   /// ElementInternals.reportValidity();
   ///
-  external bool reportValidity();
+  bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
   ///  Returns a [NodeList] of all of the label elements associated
   /// with this element.
   ///
-  external NodeList get labels;
-  external CustomStateSet get states;
+  NodeList get labels => js_util.getProperty(this, 'labels');
+  CustomStateSet get states => js_util.getProperty(this, 'states');
 }
 
 @anonymous
@@ -7685,26 +9002,55 @@ class ValidityStateFlags {
 }
 
 extension PropsValidityStateFlags on ValidityStateFlags {
-  external bool get valueMissing;
-  external set valueMissing(bool newValue);
-  external bool get typeMismatch;
-  external set typeMismatch(bool newValue);
-  external bool get patternMismatch;
-  external set patternMismatch(bool newValue);
-  external bool get tooLong;
-  external set tooLong(bool newValue);
-  external bool get tooShort;
-  external set tooShort(bool newValue);
-  external bool get rangeUnderflow;
-  external set rangeUnderflow(bool newValue);
-  external bool get rangeOverflow;
-  external set rangeOverflow(bool newValue);
-  external bool get stepMismatch;
-  external set stepMismatch(bool newValue);
-  external bool get badInput;
-  external set badInput(bool newValue);
-  external bool get customError;
-  external set customError(bool newValue);
+  bool get valueMissing => js_util.getProperty(this, 'valueMissing');
+  set valueMissing(bool newValue) {
+    js_util.setProperty(this, 'valueMissing', newValue);
+  }
+
+  bool get typeMismatch => js_util.getProperty(this, 'typeMismatch');
+  set typeMismatch(bool newValue) {
+    js_util.setProperty(this, 'typeMismatch', newValue);
+  }
+
+  bool get patternMismatch => js_util.getProperty(this, 'patternMismatch');
+  set patternMismatch(bool newValue) {
+    js_util.setProperty(this, 'patternMismatch', newValue);
+  }
+
+  bool get tooLong => js_util.getProperty(this, 'tooLong');
+  set tooLong(bool newValue) {
+    js_util.setProperty(this, 'tooLong', newValue);
+  }
+
+  bool get tooShort => js_util.getProperty(this, 'tooShort');
+  set tooShort(bool newValue) {
+    js_util.setProperty(this, 'tooShort', newValue);
+  }
+
+  bool get rangeUnderflow => js_util.getProperty(this, 'rangeUnderflow');
+  set rangeUnderflow(bool newValue) {
+    js_util.setProperty(this, 'rangeUnderflow', newValue);
+  }
+
+  bool get rangeOverflow => js_util.getProperty(this, 'rangeOverflow');
+  set rangeOverflow(bool newValue) {
+    js_util.setProperty(this, 'rangeOverflow', newValue);
+  }
+
+  bool get stepMismatch => js_util.getProperty(this, 'stepMismatch');
+  set stepMismatch(bool newValue) {
+    js_util.setProperty(this, 'stepMismatch', newValue);
+  }
+
+  bool get badInput => js_util.getProperty(this, 'badInput');
+  set badInput(bool newValue) {
+    js_util.setProperty(this, 'badInput', newValue);
+  }
+
+  bool get customError => js_util.getProperty(this, 'customError');
+  set customError(bool newValue) {
+    js_util.setProperty(this, 'customError', newValue);
+  }
 }
 
 @anonymous
@@ -7715,24 +9061,34 @@ class FocusOptions {
 }
 
 extension PropsFocusOptions on FocusOptions {
-  external bool get preventScroll;
-  external set preventScroll(bool newValue);
+  bool get preventScroll => js_util.getProperty(this, 'preventScroll');
+  set preventScroll(bool newValue) {
+    js_util.setProperty(this, 'preventScroll', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class ElementContentEditable {
-  external factory ElementContentEditable();
+  external ElementContentEditable();
 }
 
 extension PropsElementContentEditable on ElementContentEditable {
-  external String get contentEditable;
-  external set contentEditable(String newValue);
-  external String get enterKeyHint;
-  external set enterKeyHint(String newValue);
-  external bool get isContentEditable;
-  external String get inputMode;
-  external set inputMode(String newValue);
+  String get contentEditable => js_util.getProperty(this, 'contentEditable');
+  set contentEditable(String newValue) {
+    js_util.setProperty(this, 'contentEditable', newValue);
+  }
+
+  String get enterKeyHint => js_util.getProperty(this, 'enterKeyHint');
+  set enterKeyHint(String newValue) {
+    js_util.setProperty(this, 'enterKeyHint', newValue);
+  }
+
+  bool get isContentEditable => js_util.getProperty(this, 'isContentEditable');
+  String get inputMode => js_util.getProperty(this, 'inputMode');
+  set inputMode(String newValue) {
+    js_util.setProperty(this, 'inputMode', newValue);
+  }
 }
 
 ///  The object is used to hold the data that is being dragged during
@@ -7744,21 +9100,35 @@ extension PropsElementContentEditable on ElementContentEditable {
 @JS()
 @staticInterop
 class DataTransfer {
-  external factory DataTransfer();
+  external DataTransfer();
 }
 
 extension PropsDataTransfer on DataTransfer {
-  external String get dropEffect;
-  external set dropEffect(String newValue);
-  external String get effectAllowed;
-  external set effectAllowed(String newValue);
-  external DataTransferItemList get items;
-  external Object setDragImage(Element image, int x, int y);
-  external Iterable<String> get types;
-  external String getData(String format);
-  external Object setData(String format, String data);
-  external Object clearData([String? format]);
-  external FileList get files;
+  String get dropEffect => js_util.getProperty(this, 'dropEffect');
+  set dropEffect(String newValue) {
+    js_util.setProperty(this, 'dropEffect', newValue);
+  }
+
+  String get effectAllowed => js_util.getProperty(this, 'effectAllowed');
+  set effectAllowed(String newValue) {
+    js_util.setProperty(this, 'effectAllowed', newValue);
+  }
+
+  DataTransferItemList get items => js_util.getProperty(this, 'items');
+  Object setDragImage(Element image, int x, int y) =>
+      js_util.callMethod(this, 'setDragImage', [image, x, y]);
+
+  Iterable<String> get types => js_util.getProperty(this, 'types');
+  String getData(String format) =>
+      js_util.callMethod(this, 'getData', [format]);
+
+  Object setData(String format, String data) =>
+      js_util.callMethod(this, 'setData', [format, data]);
+
+  Object clearData([String? format]) =>
+      js_util.callMethod(this, 'clearData', [format]);
+
+  FileList get files => js_util.getProperty(this, 'files');
 }
 
 ///  The object is a list of [DataTransferItem] objects representing
@@ -7770,13 +9140,13 @@ extension PropsDataTransfer on DataTransfer {
 @JS()
 @staticInterop
 class DataTransferItemList {
-  external factory DataTransferItemList();
+  external DataTransferItemList();
 }
 
 extension PropsDataTransferItemList on DataTransferItemList {
   /// An [unsigned long] that is the number of drag items in the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Adds an item (either a [File] object or a [string]) to the drag
   /// item list and returns a [DataTransferItem] object for the new
@@ -7794,7 +9164,8 @@ extension PropsDataTransferItemList on DataTransferItemList {
   ///
   /// ```
   ///
-  external DataTransferItem? add([String? data, String type]);
+  DataTransferItem? add([String? data, String? type]) =>
+      js_util.callMethod(this, 'add', [data, type]);
 
   /// Removes the drag item from the list at the given index.
   ///
@@ -7868,7 +9239,7 @@ extension PropsDataTransferItemList on DataTransferItemList {
   ///
   /// ```
   ///
-  external Object remove(int index);
+  Object remove(int index) => js_util.callMethod(this, 'remove', [index]);
 
   /// Removes all of the drag items from the list.
   ///
@@ -7951,7 +9322,7 @@ extension PropsDataTransferItemList on DataTransferItemList {
   ///
   /// Result
   /// Result link
-  external Object clear();
+  Object clear() => js_util.callMethod(this, 'clear', []);
 }
 
 ///  The object represents one drag data item. During a drag
@@ -7962,17 +9333,17 @@ extension PropsDataTransferItemList on DataTransferItemList {
 @JS()
 @staticInterop
 class DataTransferItem {
-  external factory DataTransferItem();
+  external DataTransferItem();
 }
 
 extension PropsDataTransferItem on DataTransferItem {
   /// The kind of drag data item, [string] or [file].
   ///
-  external String get kind;
+  String get kind => js_util.getProperty(this, 'kind');
 
   /// The drag data item's type, typically a MIME type.
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   ///  Invokes the specified callback with the drag data item string as
   /// its argument.
@@ -8009,7 +9380,8 @@ extension PropsDataTransferItem on DataTransferItem {
   ///  }
   /// }
   ///
-  external Object getAsString(FunctionStringCallback? callback);
+  Object getAsString(FunctionStringCallback? callback) =>
+      js_util.callMethod(this, 'getAsString', [callback]);
 
   ///  Returns the [File] object associated with the drag data item (or
   /// null if the drag item is not a file).
@@ -8048,9 +9420,13 @@ extension PropsDataTransferItem on DataTransferItem {
   ///  }
   /// }
   ///
-  external File? getAsFile();
-  external FileSystemEntry? webkitGetAsEntry();
-  external Promise<FileSystemHandle> getAsFileSystemHandle();
+  File? getAsFile() => js_util.callMethod(this, 'getAsFile', []);
+
+  FileSystemEntry? webkitGetAsEntry() =>
+      js_util.callMethod(this, 'webkitGetAsEntry', []);
+
+  Promise<FileSystemHandle> getAsFileSystemHandle() =>
+      js_util.callMethod(this, 'getAsFileSystemHandle', []);
 }
 
 ///  The interface is a [DOM event] that represents a drag and drop
@@ -8064,13 +9440,13 @@ extension PropsDataTransferItem on DataTransferItem {
 @JS()
 @staticInterop
 class DragEvent implements MouseEvent {
-  external factory DragEvent(String type, [DragEventInit? eventInitDict]);
+  external DragEvent(String type, [DragEventInit? eventInitDict]);
 }
 
 extension PropsDragEvent on DragEvent {
   /// The data that is transferred during a drag and drop interaction.
   ///
-  external DataTransfer? get dataTransfer;
+  DataTransfer? get dataTransfer => js_util.getProperty(this, 'dataTransfer');
 }
 
 @anonymous
@@ -8081,8 +9457,10 @@ class DragEventInit implements MouseEventInit {
 }
 
 extension PropsDragEventInit on DragEventInit {
-  external DataTransfer? get dataTransfer;
-  external set dataTransfer(DataTransfer? newValue);
+  DataTransfer? get dataTransfer => js_util.getProperty(this, 'dataTransfer');
+  set dataTransfer(DataTransfer? newValue) {
+    js_util.setProperty(this, 'dataTransfer', newValue);
+  }
 }
 
 ///  The interface represents a window containing a DOM document; the
@@ -8128,88 +9506,93 @@ class Window
         AnimationFrameProvider,
         WindowSessionStorage,
         WindowLocalStorage {
-  external factory Window();
+  external Window();
 }
 
 extension PropsWindow on Window {
   /// Returns a reference to the current window.
   ///
-  external Window get window;
+  Window get window => js_util.getProperty(this, 'window');
 
   /// Returns an object reference to the window object itself.
   ///
-  external Window get self;
+  Window get self => js_util.getProperty(this, 'self');
 
   /// Returns a reference to the document that the window contains.
   ///
-  external Document get document;
+  Document get document => js_util.getProperty(this, 'document');
 
   /// Gets/sets the name of the window.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   /// Gets/sets the location, or current URL, of the window object.
   ///
-  external Location get location;
+  Location get location => js_util.getProperty(this, 'location');
 
   /// Returns a reference to the history object.
   ///
-  external History get history;
+  History get history => js_util.getProperty(this, 'history');
 
   ///  Returns a reference to the [CustomElementRegistry] object, which
   /// can be used to register new custom elements and get information
   /// about previously registered custom elements.
   ///
-  external CustomElementRegistry get customElements;
+  CustomElementRegistry get customElements =>
+      js_util.getProperty(this, 'customElements');
 
   ///  Returns the locationbar object, whose visibility can be toggled
   /// in the window.
   ///
-  external BarProp get locationbar;
+  BarProp get locationbar => js_util.getProperty(this, 'locationbar');
 
   ///  Returns the menubar object, whose visibility can be toggled in
   /// the window.
   ///
-  external BarProp get menubar;
+  BarProp get menubar => js_util.getProperty(this, 'menubar');
 
   ///  Returns the personalbar object, whose visibility can be toggled
   /// in the window.
   ///
-  external BarProp get personalbar;
+  BarProp get personalbar => js_util.getProperty(this, 'personalbar');
 
   ///  Returns the scrollbars object, whose visibility can be toggled
   /// in the window.
   ///
-  external BarProp get scrollbars;
+  BarProp get scrollbars => js_util.getProperty(this, 'scrollbars');
 
   ///  Returns the statusbar object, whose visibility can be toggled in
   /// the window.
   ///
-  external BarProp get statusbar;
+  BarProp get statusbar => js_util.getProperty(this, 'statusbar');
 
   ///  Returns the toolbar object, whose visibility can be toggled in
   /// the window.
   ///
-  external BarProp get toolbar;
+  BarProp get toolbar => js_util.getProperty(this, 'toolbar');
 
   ///  Gets/sets the text in the statusbar at the bottom of the
   /// browser.
   ///
   @deprecated
-  external String get status;
-  external set status(String newValue);
+  String get status => js_util.getProperty(this, 'status');
+  set status(String newValue) {
+    js_util.setProperty(this, 'status', newValue);
+  }
 
   /// Closes the current window.
   ///
   /// window.close();
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 
   ///  This property indicates whether the current window is closed or
   /// not.
   ///
-  external bool get closed;
+  bool get closed => js_util.getProperty(this, 'closed');
 
   /// This method stops window loading.
   ///
@@ -8217,7 +9600,7 @@ extension PropsWindow on Window {
   ///
   /// window.stop();
   ///
-  external Object stop();
+  Object stop() => js_util.callMethod(this, 'stop', []);
 
   /// Sets focus on the current window.
   ///
@@ -8225,7 +9608,7 @@ extension PropsWindow on Window {
   ///
   /// if (clicked) { window.focus(); }
   ///
-  external Object focus();
+  Object focus() => js_util.callMethod(this, 'focus', []);
 
   /// Sets focus away from the window.
   ///
@@ -8233,49 +9616,55 @@ extension PropsWindow on Window {
   ///
   /// window.blur();
   ///
-  external Object blur();
+  Object blur() => js_util.callMethod(this, 'blur', []);
 
   /// Returns an array of the subframes in the current window.
   ///
-  external Window get frames;
+  Window get frames => js_util.getProperty(this, 'frames');
 
   ///  Returns the number of frames in the window. See also
   /// [window.frames].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns a reference to the topmost window in the window
   /// hierarchy. This property is read only.
   ///
-  external Window? get top;
+  Window? get top => js_util.getProperty(this, 'top');
 
   ///  Returns a reference to the window that opened this current
   /// window.
   ///
-  external dynamic get opener;
-  external set opener(dynamic newValue);
+  dynamic get opener => js_util.getProperty(this, 'opener');
+  set opener(dynamic newValue) {
+    js_util.setProperty(this, 'opener', newValue);
+  }
 
   ///  Returns a reference to the parent of the current window or
   /// subframe.
   ///
-  external Window? get parent;
+  Window? get parent => js_util.getProperty(this, 'parent');
 
   ///  Returns the element in which the window is embedded, or null if
   /// the window is not embedded.
   ///
-  external Element? get frameElement;
+  Element? get frameElement => js_util.getProperty(this, 'frameElement');
 
   /// Opens a new window.
   ///
   /// var window = window.open(url, windowName, [windowFeatures]);
   ///
-  external Window? open(
-      [String? url = '', String? target = '_blank', String? features = '']);
+  Window? open(
+          [String? url = '',
+          String? target = '_blank',
+          String? features = '']) =>
+      js_util.callMethod(this, 'open', [url, target, features]);
 
   /// Returns a reference to the navigator object.
   ///
-  external Navigator get navigator;
-  external bool get originAgentCluster;
+  Navigator get navigator => js_util.getProperty(this, 'navigator');
+  bool get originAgentCluster =>
+      js_util.getProperty(this, 'originAgentCluster');
 
   /// Displays an alert dialog.
   ///
@@ -8288,7 +9677,8 @@ extension PropsWindow on Window {
   ///
   ///
   ///
-  external Object alert([String? message]);
+  Object alert([String? message]) =>
+      js_util.callMethod(this, 'alert', [message]);
 
   ///  Displays a dialog with a message that the user needs to respond
   /// to.
@@ -8303,7 +9693,8 @@ extension PropsWindow on Window {
   ///
   ///
   ///
-  external bool confirm([String? message = '']);
+  bool confirm([String? message = '']) =>
+      js_util.callMethod(this, 'confirm', [message]);
 
   /// Returns the text entered by the user in a prompt dialog.
   ///
@@ -8326,13 +9717,14 @@ extension PropsWindow on Window {
   ///
   /// The above prompt appears as follows (in Chrome on OS X):
   ///
-  external String? prompt([String? message = '', String? mDefault = '']);
+  String? prompt([String? message = '', String? mDefault = '']) =>
+      js_util.callMethod(this, 'prompt', [message, mDefault]);
 
   /// Opens the Print Dialog to print the current document.
   ///
   /// window.print()
   ///
-  external Object print();
+  Object print() => js_util.callMethod(this, 'print', []);
 
   ///  Provides a secure means for one window to send a string of data
   /// to another window, which need not be within the same domain as
@@ -8437,67 +9829,119 @@ extension PropsWindow on Window {
   ///               event.origin);
   /// }, false);
   ///
-  external Object postMessage(dynamic message,
-      [String? targetOrigin, Iterable<dynamic>? transfer = const []]);
-  external CookieStore get cookieStore;
-  external int requestIdleCallback(IdleRequestCallback callback,
-      [IdleRequestOptions? options]);
-  external Object cancelIdleCallback(int handle);
-  external Selection? getSelection();
-  external MediaQueryList matchMedia(String query);
-  external Screen get screen;
-  external Object moveTo(int x, int y);
-  external Object moveBy(int x, int y);
-  external Object resizeTo(int width, int height);
-  external Object resizeBy(int x, int y);
-  external int get innerWidth;
-  external int get innerHeight;
-  external double get scrollX;
-  external double get pageXOffset;
-  external double get scrollY;
-  external double get pageYOffset;
-  external Object scroll(
-      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
-  external Object scrollTo(
-      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
-  external Object scrollBy(
-      [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]);
-  external int get screenX;
-  external int get screenLeft;
-  external int get screenY;
-  external int get screenTop;
-  external int get outerWidth;
-  external int get outerHeight;
-  external double get devicePixelRatio;
-  external EventHandlerNonNull? get ondeviceorientation;
-  external set ondeviceorientation(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondeviceorientationabsolute;
-  external set ondeviceorientationabsolute(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncompassneedscalibration;
-  external set oncompassneedscalibration(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondevicemotion;
-  external set ondevicemotion(EventHandlerNonNull? newValue);
-  external VisualViewport get visualViewport;
-  external dynamic get event;
-  external PortalHost? get portalHost;
-  external SpeechSynthesis get speechSynthesis;
-  external Iterable<Promise<FileSystemFileHandle>> showOpenFilePicker(
-      [OpenFilePickerOptions? options]);
-  external Promise<FileSystemFileHandle> showSaveFilePicker(
-      [SaveFilePickerOptions? options]);
-  external Promise<FileSystemDirectoryHandle> showDirectoryPicker(
-      [DirectoryPickerOptions? options]);
-  external int get orientation;
-  external EventHandlerNonNull? get onorientationchange;
-  external set onorientationchange(EventHandlerNonNull? newValue);
-  external Object navigate(SpatialNavigationDirection dir);
-  external Object captureEvents();
-  external Object releaseEvents();
+  Object postMessage(dynamic message,
+          [String? targetOrigin, Iterable<dynamic>? transfer = const []]) =>
+      js_util
+          .callMethod(this, 'postMessage', [message, targetOrigin, transfer]);
+
+  CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
+  int requestIdleCallback(IdleRequestCallback callback,
+          [IdleRequestOptions? options]) =>
+      js_util.callMethod(this, 'requestIdleCallback', [callback, options]);
+
+  Object cancelIdleCallback(int handle) =>
+      js_util.callMethod(this, 'cancelIdleCallback', [handle]);
+
+  Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
+
+  MediaQueryList matchMedia(String query) =>
+      js_util.callMethod(this, 'matchMedia', [query]);
+
+  Screen get screen => js_util.getProperty(this, 'screen');
+  Object moveTo(int x, int y) => js_util.callMethod(this, 'moveTo', [x, y]);
+
+  Object moveBy(int x, int y) => js_util.callMethod(this, 'moveBy', [x, y]);
+
+  Object resizeTo(int width, int height) =>
+      js_util.callMethod(this, 'resizeTo', [width, height]);
+
+  Object resizeBy(int x, int y) => js_util.callMethod(this, 'resizeBy', [x, y]);
+
+  int get innerWidth => js_util.getProperty(this, 'innerWidth');
+  int get innerHeight => js_util.getProperty(this, 'innerHeight');
+  double get scrollX => js_util.getProperty(this, 'scrollX');
+  double get pageXOffset => js_util.getProperty(this, 'pageXOffset');
+  double get scrollY => js_util.getProperty(this, 'scrollY');
+  double get pageYOffset => js_util.getProperty(this, 'pageYOffset');
+  Object scroll([/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+      js_util.callMethod(this, 'scroll', [x, y]);
+
+  Object scrollTo(
+          [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+      js_util.callMethod(this, 'scrollTo', [x, y]);
+
+  Object scrollBy(
+          [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+      js_util.callMethod(this, 'scrollBy', [x, y]);
+
+  int get screenX => js_util.getProperty(this, 'screenX');
+  int get screenLeft => js_util.getProperty(this, 'screenLeft');
+  int get screenY => js_util.getProperty(this, 'screenY');
+  int get screenTop => js_util.getProperty(this, 'screenTop');
+  int get outerWidth => js_util.getProperty(this, 'outerWidth');
+  int get outerHeight => js_util.getProperty(this, 'outerHeight');
+  double get devicePixelRatio => js_util.getProperty(this, 'devicePixelRatio');
+  EventHandlerNonNull? get ondeviceorientation =>
+      js_util.getProperty(this, 'ondeviceorientation');
+  set ondeviceorientation(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondeviceorientation', newValue);
+  }
+
+  EventHandlerNonNull? get ondeviceorientationabsolute =>
+      js_util.getProperty(this, 'ondeviceorientationabsolute');
+  set ondeviceorientationabsolute(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondeviceorientationabsolute', newValue);
+  }
+
+  EventHandlerNonNull? get oncompassneedscalibration =>
+      js_util.getProperty(this, 'oncompassneedscalibration');
+  set oncompassneedscalibration(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncompassneedscalibration', newValue);
+  }
+
+  EventHandlerNonNull? get ondevicemotion =>
+      js_util.getProperty(this, 'ondevicemotion');
+  set ondevicemotion(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondevicemotion', newValue);
+  }
+
+  VisualViewport get visualViewport =>
+      js_util.getProperty(this, 'visualViewport');
+  dynamic get event => js_util.getProperty(this, 'event');
+  PortalHost? get portalHost => js_util.getProperty(this, 'portalHost');
+  SpeechSynthesis get speechSynthesis =>
+      js_util.getProperty(this, 'speechSynthesis');
+  Iterable<Promise<FileSystemFileHandle>> showOpenFilePicker(
+          [OpenFilePickerOptions? options]) =>
+      js_util.callMethod(this, 'showOpenFilePicker', [options]);
+
+  Promise<FileSystemFileHandle> showSaveFilePicker(
+          [SaveFilePickerOptions? options]) =>
+      js_util.callMethod(this, 'showSaveFilePicker', [options]);
+
+  Promise<FileSystemDirectoryHandle> showDirectoryPicker(
+          [DirectoryPickerOptions? options]) =>
+      js_util.callMethod(this, 'showDirectoryPicker', [options]);
+
+  int get orientation => js_util.getProperty(this, 'orientation');
+  EventHandlerNonNull? get onorientationchange =>
+      js_util.getProperty(this, 'onorientationchange');
+  set onorientationchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onorientationchange', newValue);
+  }
+
+  Object navigate(SpatialNavigationDirection dir) =>
+      js_util.callMethod(this, 'navigate', [dir]);
+
+  Object captureEvents() => js_util.callMethod(this, 'captureEvents', []);
+
+  Object releaseEvents() => js_util.callMethod(this, 'releaseEvents', []);
+
   @JS('external')
   @staticInterop
-  external External get mExternal;
-  external CSSStyleDeclaration getComputedStyle(Element elt,
-      [String? pseudoElt]);
+  External get mExternal => js_util.getProperty(this, 'external');
+  CSSStyleDeclaration getComputedStyle(Element elt, [String? pseudoElt]) =>
+      js_util.callMethod(this, 'getComputedStyle', [elt, pseudoElt]);
 }
 
 @anonymous
@@ -8508,8 +9952,10 @@ class WindowPostMessageOptions implements PostMessageOptions {
 }
 
 extension PropsWindowPostMessageOptions on WindowPostMessageOptions {
-  external String get targetOrigin;
-  external set targetOrigin(String newValue);
+  String get targetOrigin => js_util.getProperty(this, 'targetOrigin');
+  set targetOrigin(String newValue) {
+    js_util.setProperty(this, 'targetOrigin', newValue);
+  }
 }
 
 ///  The interface of the [Document Object Model] represents the web
@@ -8547,14 +9993,14 @@ extension PropsWindowPostMessageOptions on WindowPostMessageOptions {
 @JS()
 @staticInterop
 class BarProp {
-  external factory BarProp();
+  external BarProp();
 }
 
 extension PropsBarProp on BarProp {
   ///  A [Boolean], which is true if the bar represented by the used
   /// interface element is visible.
   ///
-  external bool get visible;
+  bool get visible => js_util.getProperty(this, 'visible');
 }
 
 enum ScrollRestoration { auto, manual }
@@ -8565,7 +10011,7 @@ enum ScrollRestoration { auto, manual }
 @JS()
 @staticInterop
 class History {
-  external factory History();
+  external History();
 }
 
 extension PropsHistory on History {
@@ -8574,20 +10020,23 @@ extension PropsHistory on History {
   /// example, for a page loaded in a new tab this property returns
   /// [1].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Allows web applications to explicitly set default scroll
   /// restoration behavior on history navigation. This property can be
   /// either [auto] or [manual].
   ///
-  external ScrollRestoration get scrollRestoration;
-  external set scrollRestoration(ScrollRestoration newValue);
+  ScrollRestoration get scrollRestoration =>
+      js_util.getProperty(this, 'scrollRestoration');
+  set scrollRestoration(ScrollRestoration newValue) {
+    js_util.setProperty(this, 'scrollRestoration', newValue);
+  }
 
   ///  Returns an [any] value representing the state at the top of the
   /// history stack. This is a way to look at the state without having
   /// to wait for a [popstate] event.
   ///
-  external dynamic get state;
+  dynamic get state => js_util.getProperty(this, 'state');
 
   ///  Asynchronously loads a page from the session history, identified
   /// by its relative location to the current page, for example [-1]
@@ -8601,7 +10050,7 @@ extension PropsHistory on History {
   ///
   /// history.go([delta])
   ///
-  external Object go([int? delta = 0]);
+  Object go([int? delta = 0]) => js_util.callMethod(this, 'go', [delta]);
 
   ///  This asynchronous method goes to the previous page in session
   /// history, the same action as when the user clicks the browser's
@@ -8611,7 +10060,7 @@ extension PropsHistory on History {
   ///
   /// history.back()
   ///
-  external Object back();
+  Object back() => js_util.callMethod(this, 'back', []);
 
   ///  This asynchronous method goes to the next page in session
   /// history, the same action as when the user clicks the browser's
@@ -8622,7 +10071,7 @@ extension PropsHistory on History {
   ///
   /// history.forward()
   ///
-  external Object forward();
+  Object forward() => js_util.callMethod(this, 'forward', []);
 
   ///  Pushes the given data onto the session history stack with the
   /// specified title (and, if provided, URL). The data is treated as
@@ -8633,7 +10082,8 @@ extension PropsHistory on History {
   ///
   /// history.pushState(state, title [, url])
   ///
-  external Object pushState(dynamic data, String unused, [String? url]);
+  Object pushState(dynamic data, String unused, [String? url]) =>
+      js_util.callMethod(this, 'pushState', [data, unused, url]);
 
   ///  Updates the most recent entry on the history stack to have the
   /// specified data, title, and, if provided, URL. The data is treated
@@ -8644,7 +10094,8 @@ extension PropsHistory on History {
   ///
   /// history.replaceState(stateObj, title, [url])
   ///
-  external Object replaceState(dynamic data, String unused, [String? url]);
+  Object replaceState(dynamic data, String unused, [String? url]) =>
+      js_util.callMethod(this, 'replaceState', [data, unused, url]);
 }
 
 ///  The interface represents the location (URL) of the object it is
@@ -8655,7 +10106,7 @@ extension PropsHistory on History {
 @JS()
 @staticInterop
 class Location {
-  external factory Location();
+  external Location();
 }
 
 extension PropsLocation on Location {
@@ -8664,57 +10115,73 @@ extension PropsLocation on Location {
   /// new page. It can be set from a different origin than the
   /// associated document.
   ///
-  external String get href;
-  external set href(String newValue);
+  String get href => js_util.getProperty(this, 'href');
+  set href(String newValue) {
+    js_util.setProperty(this, 'href', newValue);
+  }
 
   ///  Returns a [USVString] containing the canonical form of the
   /// origin of the specific location.
   ///
-  external String get origin;
+  String get origin => js_util.getProperty(this, 'origin');
 
   ///  Is a [USVString] containing the protocol scheme of the URL,
   /// including the final [':'].
   ///
-  external String get protocol;
-  external set protocol(String newValue);
+  String get protocol => js_util.getProperty(this, 'protocol');
+  set protocol(String newValue) {
+    js_util.setProperty(this, 'protocol', newValue);
+  }
 
   ///  Is a [USVString] containing the host, that is the hostname, a
   /// [':'], and the port of the URL.
   ///
-  external String get host;
-  external set host(String newValue);
+  String get host => js_util.getProperty(this, 'host');
+  set host(String newValue) {
+    js_util.setProperty(this, 'host', newValue);
+  }
 
   /// Is a [USVString] containing the domain of the URL.
   ///
-  external String get hostname;
-  external set hostname(String newValue);
+  String get hostname => js_util.getProperty(this, 'hostname');
+  set hostname(String newValue) {
+    js_util.setProperty(this, 'hostname', newValue);
+  }
 
   /// Is a [USVString] containing the port number of the URL.
   ///
-  external String get port;
-  external set port(String newValue);
+  String get port => js_util.getProperty(this, 'port');
+  set port(String newValue) {
+    js_util.setProperty(this, 'port', newValue);
+  }
 
   ///  Is a [USVString] containing an initial ['/'] followed by the
   /// path of the URL, not including the query string or fragment.
   ///
-  external String get pathname;
-  external set pathname(String newValue);
+  String get pathname => js_util.getProperty(this, 'pathname');
+  set pathname(String newValue) {
+    js_util.setProperty(this, 'pathname', newValue);
+  }
 
   ///  Is a [USVString] containing a ['?'] followed by the parameters
   /// or "querystring" of the URL. Modern browsers provide
   /// URLSearchParams and URL.searchParams to make it easy to parse out
   /// the parameters from the querystring.
   ///
-  external String get search;
-  external set search(String newValue);
+  String get search => js_util.getProperty(this, 'search');
+  set search(String newValue) {
+    js_util.setProperty(this, 'search', newValue);
+  }
 
   ///  Is a [USVString] containing a ['#'] followed by the fragment
   /// identifier of the URL.
   ///
   @JS('hash')
   @staticInterop
-  external String get mHash;
-  external set mHash(String newValue);
+  String get mHash => js_util.getProperty(this, 'hash');
+  set mHash(String newValue) {
+    js_util.setProperty(this, 'hash', newValue);
+  }
 
   /// Loads the resource at the URL provided in parameter.
   ///
@@ -8723,7 +10190,7 @@ extension PropsLocation on Location {
   /// // Navigate to the Location.reload article
   /// window.location.assign('https://developer.mozilla.org/en-US/docs/Web/API/Location/reload');
   ///
-  external Object assign(String url);
+  Object assign(String url) => js_util.callMethod(this, 'assign', [url]);
 
   ///  Replaces the current resource with the one at the provided URL
   /// (redirects to the provided URL). The difference from the
@@ -8734,19 +10201,20 @@ extension PropsLocation on Location {
   ///
   /// object.replace(url);
   ///
-  external Object replace(String url);
+  Object replace(String url) => js_util.callMethod(this, 'replace', [url]);
 
   /// Reloads the current URL, like the Refresh button.
   ///
   /// location.reload();
   ///
-  external Object reload();
+  Object reload() => js_util.callMethod(this, 'reload', []);
 
   ///  Is a static [DOMStringList] containing, in reverse order, the
   /// origins of all ancestor browsing contexts of the document
   /// associated with the given [Location] object.
   ///
-  external DOMStringList get ancestorOrigins;
+  DOMStringList get ancestorOrigins =>
+      js_util.getProperty(this, 'ancestorOrigins');
 }
 
 ///
@@ -8784,12 +10252,11 @@ extension PropsLocation on Location {
 @JS()
 @staticInterop
 class PopStateEvent implements Event {
-  external factory PopStateEvent(String type,
-      [PopStateEventInit? eventInitDict]);
+  external PopStateEvent(String type, [PopStateEventInit? eventInitDict]);
 }
 
 extension PropsPopStateEvent on PopStateEvent {
-  external dynamic get state;
+  dynamic get state => js_util.getProperty(this, 'state');
 }
 
 @anonymous
@@ -8800,8 +10267,10 @@ class PopStateEventInit implements EventInit {
 }
 
 extension PropsPopStateEventInit on PopStateEventInit {
-  external dynamic get state;
-  external set state(dynamic newValue);
+  dynamic get state => js_util.getProperty(this, 'state');
+  set state(dynamic newValue) {
+    js_util.setProperty(this, 'state', newValue);
+  }
 }
 
 ///  The interface represents events that fire when the fragment
@@ -8823,18 +10292,17 @@ extension PropsPopStateEventInit on PopStateEventInit {
 @JS()
 @staticInterop
 class HashChangeEvent implements Event {
-  external factory HashChangeEvent(String type,
-      [HashChangeEventInit? eventInitDict]);
+  external HashChangeEvent(String type, [HashChangeEventInit? eventInitDict]);
 }
 
 extension PropsHashChangeEvent on HashChangeEvent {
   /// The previous URL from which the window was navigated.
   ///
-  external String get oldURL;
+  String get oldURL => js_util.getProperty(this, 'oldURL');
 
   /// The new URL to which the window is navigating.
   ///
-  external String get newURL;
+  String get newURL => js_util.getProperty(this, 'newURL');
 }
 
 @anonymous
@@ -8846,10 +10314,15 @@ class HashChangeEventInit implements EventInit {
 }
 
 extension PropsHashChangeEventInit on HashChangeEventInit {
-  external String get oldURL;
-  external set oldURL(String newValue);
-  external String get newURL;
-  external set newURL(String newValue);
+  String get oldURL => js_util.getProperty(this, 'oldURL');
+  set oldURL(String newValue) {
+    js_util.setProperty(this, 'oldURL', newValue);
+  }
+
+  String get newURL => js_util.getProperty(this, 'newURL');
+  set newURL(String newValue) {
+    js_util.setProperty(this, 'newURL', newValue);
+  }
 }
 
 ///  The event object is available inside handler functions for the
@@ -8870,14 +10343,14 @@ extension PropsHashChangeEventInit on HashChangeEventInit {
 @JS()
 @staticInterop
 class PageTransitionEvent implements Event {
-  external factory PageTransitionEvent(String type,
+  external PageTransitionEvent(String type,
       [PageTransitionEventInit? eventInitDict]);
 }
 
 extension PropsPageTransitionEvent on PageTransitionEvent {
   /// Indicates if the document is loading from a cache.
   ///
-  external bool get persisted;
+  bool get persisted => js_util.getProperty(this, 'persisted');
 }
 
 @anonymous
@@ -8888,8 +10361,10 @@ class PageTransitionEventInit implements EventInit {
 }
 
 extension PropsPageTransitionEventInit on PageTransitionEventInit {
-  external bool get persisted;
-  external set persisted(bool newValue);
+  bool get persisted => js_util.getProperty(this, 'persisted');
+  set persisted(bool newValue) {
+    js_util.setProperty(this, 'persisted', newValue);
+  }
 }
 
 ///  The [beforeunload] event is fired when the window, the document
@@ -8936,14 +10411,16 @@ extension PropsPageTransitionEventInit on PageTransitionEventInit {
 @JS()
 @staticInterop
 class BeforeUnloadEvent implements Event {
-  external factory BeforeUnloadEvent();
+  external BeforeUnloadEvent();
 }
 
 extension PropsBeforeUnloadEvent on BeforeUnloadEvent {
   @override
-  external String get returnValue;
+  String get returnValue => js_util.getProperty(this, 'returnValue');
   @override
-  external set returnValue(String newValue);
+  set returnValue(String newValue) {
+    js_util.setProperty(this, 'returnValue', newValue);
+  }
 }
 
 ///  The interface represents events providing information related to
@@ -8963,34 +10440,34 @@ extension PropsBeforeUnloadEvent on BeforeUnloadEvent {
 @JS()
 @staticInterop
 class ErrorEvent implements Event {
-  external factory ErrorEvent(String type, [ErrorEventInit? eventInitDict]);
+  external ErrorEvent(String type, [ErrorEventInit? eventInitDict]);
 }
 
 extension PropsErrorEvent on ErrorEvent {
   ///  Is a [DOMString] containing a human-readable error message
   /// describing the problem.
   ///
-  external String get message;
+  String get message => js_util.getProperty(this, 'message');
 
   ///  Is a [DOMString] containing the name of the script file in which
   /// the error occurred.
   ///
-  external String get filename;
+  String get filename => js_util.getProperty(this, 'filename');
 
   ///  Is an [integer] containing the line number of the script file on
   /// which the error occurred.
   ///
-  external int get lineno;
+  int get lineno => js_util.getProperty(this, 'lineno');
 
   ///  Is an [integer] containing the column number of the script file
   /// on which the error occurred.
   ///
-  external int get colno;
+  int get colno => js_util.getProperty(this, 'colno');
 
   /// Is a JavaScript [Object] that is concerned by the event.
   ///
   @experimental
-  external dynamic get error;
+  dynamic get error => js_util.getProperty(this, 'error');
 }
 
 @anonymous
@@ -9006,16 +10483,30 @@ class ErrorEventInit implements EventInit {
 }
 
 extension PropsErrorEventInit on ErrorEventInit {
-  external String get message;
-  external set message(String newValue);
-  external String get filename;
-  external set filename(String newValue);
-  external int get lineno;
-  external set lineno(int newValue);
-  external int get colno;
-  external set colno(int newValue);
-  external dynamic get error;
-  external set error(dynamic newValue);
+  String get message => js_util.getProperty(this, 'message');
+  set message(String newValue) {
+    js_util.setProperty(this, 'message', newValue);
+  }
+
+  String get filename => js_util.getProperty(this, 'filename');
+  set filename(String newValue) {
+    js_util.setProperty(this, 'filename', newValue);
+  }
+
+  int get lineno => js_util.getProperty(this, 'lineno');
+  set lineno(int newValue) {
+    js_util.setProperty(this, 'lineno', newValue);
+  }
+
+  int get colno => js_util.getProperty(this, 'colno');
+  set colno(int newValue) {
+    js_util.setProperty(this, 'colno', newValue);
+  }
+
+  dynamic get error => js_util.getProperty(this, 'error');
+  set error(dynamic newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }
 
 ///  The interface represents events which are sent to the global
@@ -9039,19 +10530,19 @@ extension PropsErrorEventInit on ErrorEventInit {
 @JS()
 @staticInterop
 class PromiseRejectionEvent implements Event {
-  external factory PromiseRejectionEvent(
+  external PromiseRejectionEvent(
       String type, PromiseRejectionEventInit eventInitDict);
 }
 
 extension PropsPromiseRejectionEvent on PromiseRejectionEvent {
   /// The JavaScript [Promise] that was rejected.
   ///
-  external Promise<dynamic> get promise;
+  Promise<dynamic> get promise => js_util.getProperty(this, 'promise');
 
   ///  A value or [Object] indicating why the promise was rejected, as
   /// passed to [Promise.reject()].
   ///
-  external dynamic get reason;
+  dynamic get reason => js_util.getProperty(this, 'reason');
 }
 
 @anonymous
@@ -9063,10 +10554,15 @@ class PromiseRejectionEventInit implements EventInit {
 }
 
 extension PropsPromiseRejectionEventInit on PromiseRejectionEventInit {
-  external Promise<dynamic> get promise;
-  external set promise(Promise<dynamic> newValue);
-  external dynamic get reason;
-  external set reason(dynamic newValue);
+  Promise<dynamic> get promise => js_util.getProperty(this, 'promise');
+  set promise(Promise<dynamic> newValue) {
+    js_util.setProperty(this, 'promise', newValue);
+  }
+
+  dynamic get reason => js_util.getProperty(this, 'reason');
+  set reason(dynamic newValue) {
+    js_util.setProperty(this, 'reason', newValue);
+  }
 }
 
 ///  The mixin describes the event handlers common to several
@@ -9080,194 +10576,527 @@ extension PropsPromiseRejectionEventInit on PromiseRejectionEventInit {
 @JS()
 @staticInterop
 class GlobalEventHandlers {
-  external factory GlobalEventHandlers();
+  external GlobalEventHandlers();
 }
 
 extension PropsGlobalEventHandlers on GlobalEventHandlers {
-  external EventHandlerNonNull? get onabort;
-  external set onabort(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onauxclick;
-  external set onauxclick(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onblur;
-  external set onblur(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncancel;
-  external set oncancel(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncanplay;
-  external set oncanplay(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncanplaythrough;
-  external set oncanplaythrough(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onclick;
-  external set onclick(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onclose;
-  external set onclose(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncontextmenu;
-  external set oncontextmenu(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncuechange;
-  external set oncuechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondblclick;
-  external set ondblclick(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondrag;
-  external set ondrag(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondragend;
-  external set ondragend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondragenter;
-  external set ondragenter(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondragleave;
-  external set ondragleave(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondragover;
-  external set ondragover(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondragstart;
-  external set ondragstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondrop;
-  external set ondrop(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondurationchange;
-  external set ondurationchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onemptied;
-  external set onemptied(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onended;
-  external set onended(EventHandlerNonNull? newValue);
-  external OnErrorEventHandlerNonNull? get onerror;
-  external set onerror(OnErrorEventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onfocus;
-  external set onfocus(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onformdata;
-  external set onformdata(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oninput;
-  external set oninput(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oninvalid;
-  external set oninvalid(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onkeydown;
-  external set onkeydown(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onkeypress;
-  external set onkeypress(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onkeyup;
-  external set onkeyup(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onload;
-  external set onload(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onloadeddata;
-  external set onloadeddata(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onloadedmetadata;
-  external set onloadedmetadata(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onloadstart;
-  external set onloadstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmousedown;
-  external set onmousedown(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmouseenter;
-  external set onmouseenter(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmouseleave;
-  external set onmouseleave(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmousemove;
-  external set onmousemove(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmouseout;
-  external set onmouseout(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmouseover;
-  external set onmouseover(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmouseup;
-  external set onmouseup(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpause;
-  external set onpause(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onplay;
-  external set onplay(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onplaying;
-  external set onplaying(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onprogress;
-  external set onprogress(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onratechange;
-  external set onratechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onreset;
-  external set onreset(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onresize;
-  external set onresize(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onscroll;
-  external set onscroll(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsecuritypolicyviolation;
-  external set onsecuritypolicyviolation(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onseeked;
-  external set onseeked(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onseeking;
-  external set onseeking(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onselect;
-  external set onselect(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onslotchange;
-  external set onslotchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onstalled;
-  external set onstalled(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsubmit;
-  external set onsubmit(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsuspend;
-  external set onsuspend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontimeupdate;
-  external set ontimeupdate(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontoggle;
-  external set ontoggle(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onvolumechange;
-  external set onvolumechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onwaiting;
-  external set onwaiting(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onwebkitanimationend;
-  external set onwebkitanimationend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onwebkitanimationiteration;
-  external set onwebkitanimationiteration(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onwebkitanimationstart;
-  external set onwebkitanimationstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onwebkittransitionend;
-  external set onwebkittransitionend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onwheel;
-  external set onwheel(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onselectstart;
-  external set onselectstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onselectionchange;
-  external set onselectionchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontransitionrun;
-  external set ontransitionrun(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontransitionstart;
-  external set ontransitionstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontransitionend;
-  external set ontransitionend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontransitioncancel;
-  external set ontransitioncancel(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontouchstart;
-  external set ontouchstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontouchend;
-  external set ontouchend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontouchmove;
-  external set ontouchmove(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ontouchcancel;
-  external set ontouchcancel(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onanimationstart;
-  external set onanimationstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onanimationiteration;
-  external set onanimationiteration(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onanimationend;
-  external set onanimationend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onanimationcancel;
-  external set onanimationcancel(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ongotpointercapture;
-  external set ongotpointercapture(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onlostpointercapture;
-  external set onlostpointercapture(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointerdown;
-  external set onpointerdown(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointermove;
-  external set onpointermove(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointerrawupdate;
-  external set onpointerrawupdate(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointerup;
-  external set onpointerup(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointercancel;
-  external set onpointercancel(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointerover;
-  external set onpointerover(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointerout;
-  external set onpointerout(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointerenter;
-  external set onpointerenter(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpointerleave;
-  external set onpointerleave(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onbeforexrselect;
-  external set onbeforexrselect(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onabort => js_util.getProperty(this, 'onabort');
+  set onabort(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onabort', newValue);
+  }
+
+  EventHandlerNonNull? get onauxclick =>
+      js_util.getProperty(this, 'onauxclick');
+  set onauxclick(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onauxclick', newValue);
+  }
+
+  EventHandlerNonNull? get onblur => js_util.getProperty(this, 'onblur');
+  set onblur(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onblur', newValue);
+  }
+
+  EventHandlerNonNull? get oncancel => js_util.getProperty(this, 'oncancel');
+  set oncancel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncancel', newValue);
+  }
+
+  EventHandlerNonNull? get oncanplay => js_util.getProperty(this, 'oncanplay');
+  set oncanplay(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncanplay', newValue);
+  }
+
+  EventHandlerNonNull? get oncanplaythrough =>
+      js_util.getProperty(this, 'oncanplaythrough');
+  set oncanplaythrough(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncanplaythrough', newValue);
+  }
+
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
+
+  EventHandlerNonNull? get onclick => js_util.getProperty(this, 'onclick');
+  set onclick(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclick', newValue);
+  }
+
+  EventHandlerNonNull? get onclose => js_util.getProperty(this, 'onclose');
+  set onclose(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclose', newValue);
+  }
+
+  EventHandlerNonNull? get oncontextmenu =>
+      js_util.getProperty(this, 'oncontextmenu');
+  set oncontextmenu(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncontextmenu', newValue);
+  }
+
+  EventHandlerNonNull? get oncuechange =>
+      js_util.getProperty(this, 'oncuechange');
+  set oncuechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncuechange', newValue);
+  }
+
+  EventHandlerNonNull? get ondblclick =>
+      js_util.getProperty(this, 'ondblclick');
+  set ondblclick(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondblclick', newValue);
+  }
+
+  EventHandlerNonNull? get ondrag => js_util.getProperty(this, 'ondrag');
+  set ondrag(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondrag', newValue);
+  }
+
+  EventHandlerNonNull? get ondragend => js_util.getProperty(this, 'ondragend');
+  set ondragend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondragend', newValue);
+  }
+
+  EventHandlerNonNull? get ondragenter =>
+      js_util.getProperty(this, 'ondragenter');
+  set ondragenter(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondragenter', newValue);
+  }
+
+  EventHandlerNonNull? get ondragleave =>
+      js_util.getProperty(this, 'ondragleave');
+  set ondragleave(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondragleave', newValue);
+  }
+
+  EventHandlerNonNull? get ondragover =>
+      js_util.getProperty(this, 'ondragover');
+  set ondragover(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondragover', newValue);
+  }
+
+  EventHandlerNonNull? get ondragstart =>
+      js_util.getProperty(this, 'ondragstart');
+  set ondragstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondragstart', newValue);
+  }
+
+  EventHandlerNonNull? get ondrop => js_util.getProperty(this, 'ondrop');
+  set ondrop(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondrop', newValue);
+  }
+
+  EventHandlerNonNull? get ondurationchange =>
+      js_util.getProperty(this, 'ondurationchange');
+  set ondurationchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondurationchange', newValue);
+  }
+
+  EventHandlerNonNull? get onemptied => js_util.getProperty(this, 'onemptied');
+  set onemptied(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onemptied', newValue);
+  }
+
+  EventHandlerNonNull? get onended => js_util.getProperty(this, 'onended');
+  set onended(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onended', newValue);
+  }
+
+  OnErrorEventHandlerNonNull? get onerror =>
+      js_util.getProperty(this, 'onerror');
+  set onerror(OnErrorEventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onfocus => js_util.getProperty(this, 'onfocus');
+  set onfocus(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfocus', newValue);
+  }
+
+  EventHandlerNonNull? get onformdata =>
+      js_util.getProperty(this, 'onformdata');
+  set onformdata(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onformdata', newValue);
+  }
+
+  EventHandlerNonNull? get oninput => js_util.getProperty(this, 'oninput');
+  set oninput(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oninput', newValue);
+  }
+
+  EventHandlerNonNull? get oninvalid => js_util.getProperty(this, 'oninvalid');
+  set oninvalid(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oninvalid', newValue);
+  }
+
+  EventHandlerNonNull? get onkeydown => js_util.getProperty(this, 'onkeydown');
+  set onkeydown(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onkeydown', newValue);
+  }
+
+  EventHandlerNonNull? get onkeypress =>
+      js_util.getProperty(this, 'onkeypress');
+  set onkeypress(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onkeypress', newValue);
+  }
+
+  EventHandlerNonNull? get onkeyup => js_util.getProperty(this, 'onkeyup');
+  set onkeyup(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onkeyup', newValue);
+  }
+
+  EventHandlerNonNull? get onload => js_util.getProperty(this, 'onload');
+  set onload(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onload', newValue);
+  }
+
+  EventHandlerNonNull? get onloadeddata =>
+      js_util.getProperty(this, 'onloadeddata');
+  set onloadeddata(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadeddata', newValue);
+  }
+
+  EventHandlerNonNull? get onloadedmetadata =>
+      js_util.getProperty(this, 'onloadedmetadata');
+  set onloadedmetadata(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadedmetadata', newValue);
+  }
+
+  EventHandlerNonNull? get onloadstart =>
+      js_util.getProperty(this, 'onloadstart');
+  set onloadstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadstart', newValue);
+  }
+
+  EventHandlerNonNull? get onmousedown =>
+      js_util.getProperty(this, 'onmousedown');
+  set onmousedown(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmousedown', newValue);
+  }
+
+  EventHandlerNonNull? get onmouseenter =>
+      js_util.getProperty(this, 'onmouseenter');
+  set onmouseenter(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmouseenter', newValue);
+  }
+
+  EventHandlerNonNull? get onmouseleave =>
+      js_util.getProperty(this, 'onmouseleave');
+  set onmouseleave(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmouseleave', newValue);
+  }
+
+  EventHandlerNonNull? get onmousemove =>
+      js_util.getProperty(this, 'onmousemove');
+  set onmousemove(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmousemove', newValue);
+  }
+
+  EventHandlerNonNull? get onmouseout =>
+      js_util.getProperty(this, 'onmouseout');
+  set onmouseout(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmouseout', newValue);
+  }
+
+  EventHandlerNonNull? get onmouseover =>
+      js_util.getProperty(this, 'onmouseover');
+  set onmouseover(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmouseover', newValue);
+  }
+
+  EventHandlerNonNull? get onmouseup => js_util.getProperty(this, 'onmouseup');
+  set onmouseup(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmouseup', newValue);
+  }
+
+  EventHandlerNonNull? get onpause => js_util.getProperty(this, 'onpause');
+  set onpause(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpause', newValue);
+  }
+
+  EventHandlerNonNull? get onplay => js_util.getProperty(this, 'onplay');
+  set onplay(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onplay', newValue);
+  }
+
+  EventHandlerNonNull? get onplaying => js_util.getProperty(this, 'onplaying');
+  set onplaying(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onplaying', newValue);
+  }
+
+  EventHandlerNonNull? get onprogress =>
+      js_util.getProperty(this, 'onprogress');
+  set onprogress(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onprogress', newValue);
+  }
+
+  EventHandlerNonNull? get onratechange =>
+      js_util.getProperty(this, 'onratechange');
+  set onratechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onratechange', newValue);
+  }
+
+  EventHandlerNonNull? get onreset => js_util.getProperty(this, 'onreset');
+  set onreset(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onreset', newValue);
+  }
+
+  EventHandlerNonNull? get onresize => js_util.getProperty(this, 'onresize');
+  set onresize(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresize', newValue);
+  }
+
+  EventHandlerNonNull? get onscroll => js_util.getProperty(this, 'onscroll');
+  set onscroll(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onscroll', newValue);
+  }
+
+  EventHandlerNonNull? get onsecuritypolicyviolation =>
+      js_util.getProperty(this, 'onsecuritypolicyviolation');
+  set onsecuritypolicyviolation(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsecuritypolicyviolation', newValue);
+  }
+
+  EventHandlerNonNull? get onseeked => js_util.getProperty(this, 'onseeked');
+  set onseeked(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onseeked', newValue);
+  }
+
+  EventHandlerNonNull? get onseeking => js_util.getProperty(this, 'onseeking');
+  set onseeking(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onseeking', newValue);
+  }
+
+  EventHandlerNonNull? get onselect => js_util.getProperty(this, 'onselect');
+  set onselect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselect', newValue);
+  }
+
+  EventHandlerNonNull? get onslotchange =>
+      js_util.getProperty(this, 'onslotchange');
+  set onslotchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onslotchange', newValue);
+  }
+
+  EventHandlerNonNull? get onstalled => js_util.getProperty(this, 'onstalled');
+  set onstalled(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstalled', newValue);
+  }
+
+  EventHandlerNonNull? get onsubmit => js_util.getProperty(this, 'onsubmit');
+  set onsubmit(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsubmit', newValue);
+  }
+
+  EventHandlerNonNull? get onsuspend => js_util.getProperty(this, 'onsuspend');
+  set onsuspend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsuspend', newValue);
+  }
+
+  EventHandlerNonNull? get ontimeupdate =>
+      js_util.getProperty(this, 'ontimeupdate');
+  set ontimeupdate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontimeupdate', newValue);
+  }
+
+  EventHandlerNonNull? get ontoggle => js_util.getProperty(this, 'ontoggle');
+  set ontoggle(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontoggle', newValue);
+  }
+
+  EventHandlerNonNull? get onvolumechange =>
+      js_util.getProperty(this, 'onvolumechange');
+  set onvolumechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onvolumechange', newValue);
+  }
+
+  EventHandlerNonNull? get onwaiting => js_util.getProperty(this, 'onwaiting');
+  set onwaiting(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onwaiting', newValue);
+  }
+
+  EventHandlerNonNull? get onwebkitanimationend =>
+      js_util.getProperty(this, 'onwebkitanimationend');
+  set onwebkitanimationend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onwebkitanimationend', newValue);
+  }
+
+  EventHandlerNonNull? get onwebkitanimationiteration =>
+      js_util.getProperty(this, 'onwebkitanimationiteration');
+  set onwebkitanimationiteration(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onwebkitanimationiteration', newValue);
+  }
+
+  EventHandlerNonNull? get onwebkitanimationstart =>
+      js_util.getProperty(this, 'onwebkitanimationstart');
+  set onwebkitanimationstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onwebkitanimationstart', newValue);
+  }
+
+  EventHandlerNonNull? get onwebkittransitionend =>
+      js_util.getProperty(this, 'onwebkittransitionend');
+  set onwebkittransitionend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onwebkittransitionend', newValue);
+  }
+
+  EventHandlerNonNull? get onwheel => js_util.getProperty(this, 'onwheel');
+  set onwheel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onwheel', newValue);
+  }
+
+  EventHandlerNonNull? get onselectstart =>
+      js_util.getProperty(this, 'onselectstart');
+  set onselectstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselectstart', newValue);
+  }
+
+  EventHandlerNonNull? get onselectionchange =>
+      js_util.getProperty(this, 'onselectionchange');
+  set onselectionchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselectionchange', newValue);
+  }
+
+  EventHandlerNonNull? get ontransitionrun =>
+      js_util.getProperty(this, 'ontransitionrun');
+  set ontransitionrun(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontransitionrun', newValue);
+  }
+
+  EventHandlerNonNull? get ontransitionstart =>
+      js_util.getProperty(this, 'ontransitionstart');
+  set ontransitionstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontransitionstart', newValue);
+  }
+
+  EventHandlerNonNull? get ontransitionend =>
+      js_util.getProperty(this, 'ontransitionend');
+  set ontransitionend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontransitionend', newValue);
+  }
+
+  EventHandlerNonNull? get ontransitioncancel =>
+      js_util.getProperty(this, 'ontransitioncancel');
+  set ontransitioncancel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontransitioncancel', newValue);
+  }
+
+  EventHandlerNonNull? get ontouchstart =>
+      js_util.getProperty(this, 'ontouchstart');
+  set ontouchstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontouchstart', newValue);
+  }
+
+  EventHandlerNonNull? get ontouchend =>
+      js_util.getProperty(this, 'ontouchend');
+  set ontouchend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontouchend', newValue);
+  }
+
+  EventHandlerNonNull? get ontouchmove =>
+      js_util.getProperty(this, 'ontouchmove');
+  set ontouchmove(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontouchmove', newValue);
+  }
+
+  EventHandlerNonNull? get ontouchcancel =>
+      js_util.getProperty(this, 'ontouchcancel');
+  set ontouchcancel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontouchcancel', newValue);
+  }
+
+  EventHandlerNonNull? get onanimationstart =>
+      js_util.getProperty(this, 'onanimationstart');
+  set onanimationstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onanimationstart', newValue);
+  }
+
+  EventHandlerNonNull? get onanimationiteration =>
+      js_util.getProperty(this, 'onanimationiteration');
+  set onanimationiteration(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onanimationiteration', newValue);
+  }
+
+  EventHandlerNonNull? get onanimationend =>
+      js_util.getProperty(this, 'onanimationend');
+  set onanimationend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onanimationend', newValue);
+  }
+
+  EventHandlerNonNull? get onanimationcancel =>
+      js_util.getProperty(this, 'onanimationcancel');
+  set onanimationcancel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onanimationcancel', newValue);
+  }
+
+  EventHandlerNonNull? get ongotpointercapture =>
+      js_util.getProperty(this, 'ongotpointercapture');
+  set ongotpointercapture(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ongotpointercapture', newValue);
+  }
+
+  EventHandlerNonNull? get onlostpointercapture =>
+      js_util.getProperty(this, 'onlostpointercapture');
+  set onlostpointercapture(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onlostpointercapture', newValue);
+  }
+
+  EventHandlerNonNull? get onpointerdown =>
+      js_util.getProperty(this, 'onpointerdown');
+  set onpointerdown(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerdown', newValue);
+  }
+
+  EventHandlerNonNull? get onpointermove =>
+      js_util.getProperty(this, 'onpointermove');
+  set onpointermove(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointermove', newValue);
+  }
+
+  EventHandlerNonNull? get onpointerrawupdate =>
+      js_util.getProperty(this, 'onpointerrawupdate');
+  set onpointerrawupdate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerrawupdate', newValue);
+  }
+
+  EventHandlerNonNull? get onpointerup =>
+      js_util.getProperty(this, 'onpointerup');
+  set onpointerup(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerup', newValue);
+  }
+
+  EventHandlerNonNull? get onpointercancel =>
+      js_util.getProperty(this, 'onpointercancel');
+  set onpointercancel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointercancel', newValue);
+  }
+
+  EventHandlerNonNull? get onpointerover =>
+      js_util.getProperty(this, 'onpointerover');
+  set onpointerover(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerover', newValue);
+  }
+
+  EventHandlerNonNull? get onpointerout =>
+      js_util.getProperty(this, 'onpointerout');
+  set onpointerout(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerout', newValue);
+  }
+
+  EventHandlerNonNull? get onpointerenter =>
+      js_util.getProperty(this, 'onpointerenter');
+  set onpointerenter(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerenter', newValue);
+  }
+
+  EventHandlerNonNull? get onpointerleave =>
+      js_util.getProperty(this, 'onpointerleave');
+  set onpointerleave(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerleave', newValue);
+  }
+
+  EventHandlerNonNull? get onbeforexrselect =>
+      js_util.getProperty(this, 'onbeforexrselect');
+  set onbeforexrselect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbeforexrselect', newValue);
+  }
 }
 
 ///  The mixin describes the event handlers common to several
@@ -9281,161 +11110,242 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
 @JS()
 @staticInterop
 class WindowEventHandlers {
-  external factory WindowEventHandlers();
+  external WindowEventHandlers();
 }
 
 extension PropsWindowEventHandlers on WindowEventHandlers {
   ///  Is an event handler representing the code to be called when the
   /// [afterprint] event is raised.
   ///
-  external EventHandlerNonNull? get onafterprint;
-  external set onafterprint(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onafterprint =>
+      js_util.getProperty(this, 'onafterprint');
+  set onafterprint(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onafterprint', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [beforeprint] event is raised.
   ///
-  external EventHandlerNonNull? get onbeforeprint;
-  external set onbeforeprint(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onbeforeprint =>
+      js_util.getProperty(this, 'onbeforeprint');
+  set onbeforeprint(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbeforeprint', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [beforeunload] event is raised.
   ///
-  external OnBeforeUnloadEventHandlerNonNull? get onbeforeunload;
-  external set onbeforeunload(OnBeforeUnloadEventHandlerNonNull? newValue);
+  OnBeforeUnloadEventHandlerNonNull? get onbeforeunload =>
+      js_util.getProperty(this, 'onbeforeunload');
+  set onbeforeunload(OnBeforeUnloadEventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbeforeunload', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [hashchange] event is raised.
   ///
-  external EventHandlerNonNull? get onhashchange;
-  external set onhashchange(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onhashchange =>
+      js_util.getProperty(this, 'onhashchange');
+  set onhashchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onhashchange', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [languagechange] event is raised.
   ///
   @experimental
-  external EventHandlerNonNull? get onlanguagechange;
-  external set onlanguagechange(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onlanguagechange =>
+      js_util.getProperty(this, 'onlanguagechange');
+  set onlanguagechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onlanguagechange', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [message] event is raised.
   ///
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [MessageError] event is raised.
   ///
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [offline] event is raised.
   ///
-  external EventHandlerNonNull? get onoffline;
-  external set onoffline(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onoffline => js_util.getProperty(this, 'onoffline');
+  set onoffline(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onoffline', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [online] event is raised.
   ///
-  external EventHandlerNonNull? get ononline;
-  external set ononline(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get ononline => js_util.getProperty(this, 'ononline');
+  set ononline(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ononline', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [pagehide] event is raised.
   ///
-  external EventHandlerNonNull? get onpagehide;
-  external set onpagehide(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onpagehide =>
+      js_util.getProperty(this, 'onpagehide');
+  set onpagehide(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpagehide', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [pageshow] event is raised.
   ///
-  external EventHandlerNonNull? get onpageshow;
-  external set onpageshow(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onpageshow =>
+      js_util.getProperty(this, 'onpageshow');
+  set onpageshow(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpageshow', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [popstate] event is raised.
   ///
-  external EventHandlerNonNull? get onpopstate;
-  external set onpopstate(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onpopstate =>
+      js_util.getProperty(this, 'onpopstate');
+  set onpopstate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpopstate', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [rejectionhandled] event is raised, indicating that a [Promise]
   /// was rejected and the rejection has been handled.
   ///
-  external EventHandlerNonNull? get onrejectionhandled;
-  external set onrejectionhandled(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onrejectionhandled =>
+      js_util.getProperty(this, 'onrejectionhandled');
+  set onrejectionhandled(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onrejectionhandled', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [storage] event is raised.
   ///
-  external EventHandlerNonNull? get onstorage;
-  external set onstorage(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onstorage => js_util.getProperty(this, 'onstorage');
+  set onstorage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstorage', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [unhandledrejection] event is raised, indicating that a [Promise]
   /// was rejected but the rejection was not handled.
   ///
-  external EventHandlerNonNull? get onunhandledrejection;
-  external set onunhandledrejection(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onunhandledrejection =>
+      js_util.getProperty(this, 'onunhandledrejection');
+  set onunhandledrejection(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onunhandledrejection', newValue);
+  }
 
   ///  Is an event handler representing the code to be called when the
   /// [unload] event is raised.
   ///
-  external EventHandlerNonNull? get onunload;
-  external set onunload(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onportalactivate;
-  external set onportalactivate(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ongamepadconnected;
-  external set ongamepadconnected(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ongamepaddisconnected;
-  external set ongamepaddisconnected(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onunload => js_util.getProperty(this, 'onunload');
+  set onunload(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onunload', newValue);
+  }
+
+  EventHandlerNonNull? get onportalactivate =>
+      js_util.getProperty(this, 'onportalactivate');
+  set onportalactivate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onportalactivate', newValue);
+  }
+
+  EventHandlerNonNull? get ongamepadconnected =>
+      js_util.getProperty(this, 'ongamepadconnected');
+  set ongamepadconnected(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ongamepadconnected', newValue);
+  }
+
+  EventHandlerNonNull? get ongamepaddisconnected =>
+      js_util.getProperty(this, 'ongamepaddisconnected');
+  set ongamepaddisconnected(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ongamepaddisconnected', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class DocumentAndElementEventHandlers {
-  external factory DocumentAndElementEventHandlers();
+  external DocumentAndElementEventHandlers();
 }
 
 extension PropsDocumentAndElementEventHandlers
     on DocumentAndElementEventHandlers {
-  external EventHandlerNonNull? get oncopy;
-  external set oncopy(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncut;
-  external set oncut(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpaste;
-  external set onpaste(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get oncopy => js_util.getProperty(this, 'oncopy');
+  set oncopy(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncopy', newValue);
+  }
+
+  EventHandlerNonNull? get oncut => js_util.getProperty(this, 'oncut');
+  set oncut(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncut', newValue);
+  }
+
+  EventHandlerNonNull? get onpaste => js_util.getProperty(this, 'onpaste');
+  set onpaste(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpaste', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class WindowOrWorkerGlobalScope {
-  external factory WindowOrWorkerGlobalScope();
+  external WindowOrWorkerGlobalScope();
 }
 
 extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
-  external String get origin;
-  external bool get isSecureContext;
-  external bool get crossOriginIsolated;
-  external String btoa(String data);
-  external String atob(String data);
-  external int setTimeout(dynamic handler,
-      [int? timeout = 0, dynamic arguments]);
-  external Object clearTimeout([int? handle = 0]);
-  external int setInterval(dynamic handler,
-      [int? timeout = 0, dynamic arguments]);
-  external Object clearInterval([int? handle = 0]);
-  external Object queueMicrotask(VoidFunction callback);
-  external Promise<ImageBitmap> createImageBitmap(dynamic image,
-      [int? sx, int sy, int sw, int sh, ImageBitmapOptions? options]);
-  external Scheduler get scheduler;
-  external TrustedTypePolicyFactory get trustedTypes;
-  external Performance get performance;
-  external CacheStorage get caches;
-  external Promise<Response> fetch(dynamic input, [RequestInit? init]);
-  external Crypto get crypto;
-  external IDBFactory get indexedDB;
-  external Iterable<String> get originPolicyIds;
+  String get origin => js_util.getProperty(this, 'origin');
+  bool get isSecureContext => js_util.getProperty(this, 'isSecureContext');
+  bool get crossOriginIsolated =>
+      js_util.getProperty(this, 'crossOriginIsolated');
+  String btoa(String data) => js_util.callMethod(this, 'btoa', [data]);
+
+  String atob(String data) => js_util.callMethod(this, 'atob', [data]);
+
+  int setTimeout(dynamic handler, [int? timeout = 0, dynamic arguments]) =>
+      js_util.callMethod(this, 'setTimeout', [handler, timeout, arguments]);
+
+  Object clearTimeout([int? handle = 0]) =>
+      js_util.callMethod(this, 'clearTimeout', [handle]);
+
+  int setInterval(dynamic handler, [int? timeout = 0, dynamic arguments]) =>
+      js_util.callMethod(this, 'setInterval', [handler, timeout, arguments]);
+
+  Object clearInterval([int? handle = 0]) =>
+      js_util.callMethod(this, 'clearInterval', [handle]);
+
+  Object queueMicrotask(VoidFunction callback) =>
+      js_util.callMethod(this, 'queueMicrotask', [callback]);
+
+  Promise<ImageBitmap> createImageBitmap(dynamic image,
+          [int? sx, int? sy, int? sw, int? sh, ImageBitmapOptions? options]) =>
+      js_util.callMethod(
+          this, 'createImageBitmap', [image, sx, sy, sw, sh, options]);
+
+  Scheduler get scheduler => js_util.getProperty(this, 'scheduler');
+  TrustedTypePolicyFactory get trustedTypes =>
+      js_util.getProperty(this, 'trustedTypes');
+  Performance get performance => js_util.getProperty(this, 'performance');
+  CacheStorage get caches => js_util.getProperty(this, 'caches');
+  Promise<Response> fetch(dynamic input, [RequestInit? init]) =>
+      js_util.callMethod(this, 'fetch', [input, init]);
+
+  Crypto get crypto => js_util.getProperty(this, 'crypto');
+  IDBFactory get indexedDB => js_util.getProperty(this, 'indexedDB');
+  Iterable<String> get originPolicyIds =>
+      js_util.getProperty(this, 'originPolicyIds');
 }
 
 ///
@@ -9465,7 +11375,7 @@ extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
 @JS()
 @staticInterop
 class DOMParser {
-  external factory DOMParser();
+  external DOMParser();
 }
 
 extension PropsDOMParser on DOMParser {
@@ -9474,7 +11384,8 @@ extension PropsDOMParser on DOMParser {
   ///
   /// const doc = domparser.parseFromString(string, mimeType)
   ///
-  external Document parseFromString(String string, DOMParserSupportedType type);
+  Document parseFromString(String string, DOMParserSupportedType type) =>
+      js_util.callMethod(this, 'parseFromString', [string, type]);
 }
 
 enum DOMParserSupportedType {
@@ -9510,108 +11421,137 @@ class Navigator
         NavigatorPlugins,
         NavigatorConcurrentHardware,
         NavigatorStorage {
-  external factory Navigator();
+  external Navigator();
 }
 
 extension PropsNavigator on Navigator {
-  external Geolocation get geolocation;
-  external MediaCapabilities get mediaCapabilities;
-  external Permissions get permissions;
-  external MediaSession get mediaSession;
-  external Promise<Object> share([ShareData? data]);
-  external Scheduling get scheduling;
-  external ContactsManager get contacts;
-  external WakeLock get wakeLock;
-  external HID get hid;
-  external Clipboard get clipboard;
-  external Presentation get presentation;
-  external CredentialsContainer get credentials;
-  external Bluetooth get bluetooth;
-  external dynamic get keyboard;
-  external ServiceWorkerContainer get serviceWorker;
-  external int get maxTouchPoints;
-  external Promise<Object> setClientBadge([int? contents]);
-  external Promise<Object> clearClientBadge();
-  external MediaDevices get mediaDevices;
-  external Object getUserMedia(
-      MediaStreamConstraints constraints,
-      NavigatorUserMediaSuccessCallback successCallback,
-      NavigatorUserMediaErrorCallback errorCallback);
-  external XRSystem get xr;
-  external Iterable<Promise<RelatedApplication>> getInstalledRelatedApps();
-  external Serial get serial;
-  external bool vibrate(dynamic pattern);
-  external Iterable<Gamepad> getGamepads();
-  external DevicePosture get devicePosture;
-  external bool sendBeacon(String url, [dynamic data]);
-  external USB get usb;
-  external Promise<BatteryManager> getBattery();
-  external Promise<MIDIAccess> requestMIDIAccess([MIDIOptions? options]);
-  external Promise<MediaKeySystemAccess> requestMediaKeySystemAccess(
-      String keySystem,
-      Iterable<MediaKeySystemConfiguration> supportedConfigurations);
+  Geolocation get geolocation => js_util.getProperty(this, 'geolocation');
+  MediaCapabilities get mediaCapabilities =>
+      js_util.getProperty(this, 'mediaCapabilities');
+  Permissions get permissions => js_util.getProperty(this, 'permissions');
+  MediaSession get mediaSession => js_util.getProperty(this, 'mediaSession');
+  Promise<Object> share([ShareData? data]) =>
+      js_util.callMethod(this, 'share', [data]);
+
+  Scheduling get scheduling => js_util.getProperty(this, 'scheduling');
+  ContactsManager get contacts => js_util.getProperty(this, 'contacts');
+  WakeLock get wakeLock => js_util.getProperty(this, 'wakeLock');
+  HID get hid => js_util.getProperty(this, 'hid');
+  Clipboard get clipboard => js_util.getProperty(this, 'clipboard');
+  Presentation get presentation => js_util.getProperty(this, 'presentation');
+  CredentialsContainer get credentials =>
+      js_util.getProperty(this, 'credentials');
+  Bluetooth get bluetooth => js_util.getProperty(this, 'bluetooth');
+  dynamic get keyboard => js_util.getProperty(this, 'keyboard');
+  ServiceWorkerContainer get serviceWorker =>
+      js_util.getProperty(this, 'serviceWorker');
+  int get maxTouchPoints => js_util.getProperty(this, 'maxTouchPoints');
+  Promise<Object> setClientBadge([int? contents]) =>
+      js_util.callMethod(this, 'setClientBadge', [contents]);
+
+  Promise<Object> clearClientBadge() =>
+      js_util.callMethod(this, 'clearClientBadge', []);
+
+  MediaDevices get mediaDevices => js_util.getProperty(this, 'mediaDevices');
+  Object getUserMedia(
+          MediaStreamConstraints constraints,
+          NavigatorUserMediaSuccessCallback successCallback,
+          NavigatorUserMediaErrorCallback errorCallback) =>
+      js_util.callMethod(
+          this, 'getUserMedia', [constraints, successCallback, errorCallback]);
+
+  XRSystem get xr => js_util.getProperty(this, 'xr');
+  Iterable<Promise<RelatedApplication>> getInstalledRelatedApps() =>
+      js_util.callMethod(this, 'getInstalledRelatedApps', []);
+
+  Serial get serial => js_util.getProperty(this, 'serial');
+  bool vibrate(dynamic pattern) =>
+      js_util.callMethod(this, 'vibrate', [pattern]);
+
+  Iterable<Gamepad> getGamepads() =>
+      js_util.callMethod(this, 'getGamepads', []);
+
+  DevicePosture get devicePosture => js_util.getProperty(this, 'devicePosture');
+  bool sendBeacon(String url, [dynamic data]) =>
+      js_util.callMethod(this, 'sendBeacon', [url, data]);
+
+  USB get usb => js_util.getProperty(this, 'usb');
+  Promise<BatteryManager> getBattery() =>
+      js_util.callMethod(this, 'getBattery', []);
+
+  Promise<MIDIAccess> requestMIDIAccess([MIDIOptions? options]) =>
+      js_util.callMethod(this, 'requestMIDIAccess', [options]);
+
+  Promise<MediaKeySystemAccess> requestMediaKeySystemAccess(String keySystem,
+          Iterable<MediaKeySystemConfiguration> supportedConfigurations) =>
+      js_util.callMethod(this, 'requestMediaKeySystemAccess',
+          [keySystem, supportedConfigurations]);
 }
 
 @JS()
 @staticInterop
 class NavigatorID {
-  external factory NavigatorID();
+  external NavigatorID();
 }
 
 extension PropsNavigatorID on NavigatorID {
-  external String get appCodeName;
-  external String get appName;
-  external String get appVersion;
-  external String get platform;
-  external String get product;
-  external String get productSub;
-  external String get userAgent;
-  external String get vendor;
-  external String get vendorSub;
-  external bool taintEnabled();
-  external String get oscpu;
+  String get appCodeName => js_util.getProperty(this, 'appCodeName');
+  String get appName => js_util.getProperty(this, 'appName');
+  String get appVersion => js_util.getProperty(this, 'appVersion');
+  String get platform => js_util.getProperty(this, 'platform');
+  String get product => js_util.getProperty(this, 'product');
+  String get productSub => js_util.getProperty(this, 'productSub');
+  String get userAgent => js_util.getProperty(this, 'userAgent');
+  String get vendor => js_util.getProperty(this, 'vendor');
+  String get vendorSub => js_util.getProperty(this, 'vendorSub');
+  bool taintEnabled() => js_util.callMethod(this, 'taintEnabled', []);
+
+  String get oscpu => js_util.getProperty(this, 'oscpu');
 }
 
 @JS()
 @staticInterop
 class NavigatorLanguage {
-  external factory NavigatorLanguage();
+  external NavigatorLanguage();
 }
 
 extension PropsNavigatorLanguage on NavigatorLanguage {
-  external String get language;
-  external Iterable<String> get languages;
+  String get language => js_util.getProperty(this, 'language');
+  Iterable<String> get languages => js_util.getProperty(this, 'languages');
 }
 
 @JS()
 @staticInterop
 class NavigatorOnLine {
-  external factory NavigatorOnLine();
+  external NavigatorOnLine();
 }
 
 extension PropsNavigatorOnLine on NavigatorOnLine {
-  external bool get onLine;
+  bool get onLine => js_util.getProperty(this, 'onLine');
 }
 
 @JS()
 @staticInterop
 class NavigatorContentUtils {
-  external factory NavigatorContentUtils();
+  external NavigatorContentUtils();
 }
 
 extension PropsNavigatorContentUtils on NavigatorContentUtils {
-  external Object registerProtocolHandler(String scheme, String url);
-  external Object unregisterProtocolHandler(String scheme, String url);
+  Object registerProtocolHandler(String scheme, String url) =>
+      js_util.callMethod(this, 'registerProtocolHandler', [scheme, url]);
+
+  Object unregisterProtocolHandler(String scheme, String url) =>
+      js_util.callMethod(this, 'unregisterProtocolHandler', [scheme, url]);
 }
 
 @JS()
 @staticInterop
 class NavigatorCookies {
-  external factory NavigatorCookies();
+  external NavigatorCookies();
 }
 
 extension PropsNavigatorCookies on NavigatorCookies {
-  external bool get cookieEnabled;
+  bool get cookieEnabled => js_util.getProperty(this, 'cookieEnabled');
 }
 
 ///  The interface represents a bitmap image which can be drawn to a
@@ -9622,26 +11562,26 @@ extension PropsNavigatorCookies on NavigatorCookies {
 @JS()
 @staticInterop
 class ImageBitmap {
-  external factory ImageBitmap();
+  external ImageBitmap();
 }
 
 extension PropsImageBitmap on ImageBitmap {
   ///  Is an [unsigned] [long] representing the width, in CSS pixels,
   /// of the [ImageData].
   ///
-  external int get width;
+  int get width => js_util.getProperty(this, 'width');
 
   ///  Is an [unsigned] [long] representing the height, in CSS pixels,
   /// of the [ImageData].
   ///
-  external int get height;
+  int get height => js_util.getProperty(this, 'height');
 
   ///  Disposes of all graphical resources associated with an
   /// [ImageBitmap].
   ///
   /// void ImageBitmap.close()
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 }
 
 enum ImageOrientation { none, flipY }
@@ -9667,29 +11607,52 @@ class ImageBitmapOptions {
 }
 
 extension PropsImageBitmapOptions on ImageBitmapOptions {
-  external ImageOrientation get imageOrientation;
-  external set imageOrientation(ImageOrientation newValue);
-  external PremultiplyAlpha get premultiplyAlpha;
-  external set premultiplyAlpha(PremultiplyAlpha newValue);
-  external ColorSpaceConversion get colorSpaceConversion;
-  external set colorSpaceConversion(ColorSpaceConversion newValue);
-  external int get resizeWidth;
-  external set resizeWidth(int newValue);
-  external int get resizeHeight;
-  external set resizeHeight(int newValue);
-  external ResizeQuality get resizeQuality;
-  external set resizeQuality(ResizeQuality newValue);
+  ImageOrientation get imageOrientation =>
+      js_util.getProperty(this, 'imageOrientation');
+  set imageOrientation(ImageOrientation newValue) {
+    js_util.setProperty(this, 'imageOrientation', newValue);
+  }
+
+  PremultiplyAlpha get premultiplyAlpha =>
+      js_util.getProperty(this, 'premultiplyAlpha');
+  set premultiplyAlpha(PremultiplyAlpha newValue) {
+    js_util.setProperty(this, 'premultiplyAlpha', newValue);
+  }
+
+  ColorSpaceConversion get colorSpaceConversion =>
+      js_util.getProperty(this, 'colorSpaceConversion');
+  set colorSpaceConversion(ColorSpaceConversion newValue) {
+    js_util.setProperty(this, 'colorSpaceConversion', newValue);
+  }
+
+  int get resizeWidth => js_util.getProperty(this, 'resizeWidth');
+  set resizeWidth(int newValue) {
+    js_util.setProperty(this, 'resizeWidth', newValue);
+  }
+
+  int get resizeHeight => js_util.getProperty(this, 'resizeHeight');
+  set resizeHeight(int newValue) {
+    js_util.setProperty(this, 'resizeHeight', newValue);
+  }
+
+  ResizeQuality get resizeQuality => js_util.getProperty(this, 'resizeQuality');
+  set resizeQuality(ResizeQuality newValue) {
+    js_util.setProperty(this, 'resizeQuality', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class AnimationFrameProvider {
-  external factory AnimationFrameProvider();
+  external AnimationFrameProvider();
 }
 
 extension PropsAnimationFrameProvider on AnimationFrameProvider {
-  external int requestAnimationFrame(FrameRequestCallback callback);
-  external Object cancelAnimationFrame(int handle);
+  int requestAnimationFrame(FrameRequestCallback callback) =>
+      js_util.callMethod(this, 'requestAnimationFrame', [callback]);
+
+  Object cancelAnimationFrame(int handle) =>
+      js_util.callMethod(this, 'cancelAnimationFrame', [handle]);
 }
 
 /// The interface represents a message received by a target object.
@@ -9728,47 +11691,57 @@ extension PropsAnimationFrameProvider on AnimationFrameProvider {
 @JS()
 @staticInterop
 class MessageEvent implements Event {
-  external factory MessageEvent(String type, [MessageEventInit? eventInitDict]);
+  external MessageEvent(String type, [MessageEventInit? eventInitDict]);
 }
 
 extension PropsMessageEvent on MessageEvent {
   /// The data sent by the message emitter.
   ///
-  external dynamic get data;
+  dynamic get data => js_util.getProperty(this, 'data');
 
   /// A [USVString] representing the origin of the message emitter.
   ///
-  external String get origin;
+  String get origin => js_util.getProperty(this, 'origin');
 
   /// A [DOMString] representing a unique ID for the event.
   ///
-  external String get lastEventId;
+  String get lastEventId => js_util.getProperty(this, 'lastEventId');
 
   ///  A [MessageEventSource] (which can be a [WindowProxy],
   /// [MessagePort], or [ServiceWorker] object) representing the
   /// message emitter.
   ///
-  external dynamic get source;
+  dynamic get source => js_util.getProperty(this, 'source');
 
   ///  An array of [MessagePort] objects representing the ports
   /// associated with the channel the message is being sent through
   /// (where appropriate, e.g. in channel messaging or when sending a
   /// message to a shared worker).
   ///
-  external Iterable<MessagePort> get ports;
+  Iterable<MessagePort> get ports => js_util.getProperty(this, 'ports');
 
   ///  Initializes a message event. Do not use this anymore — use the
   /// [MessageEvent()] constructor instead.
   ///
   @deprecated
-  external Object initMessageEvent(String type,
-      [bool? bubbles = false,
-      bool? cancelable = false,
-      dynamic data,
-      String? origin = '',
-      String? lastEventId = '',
-      dynamic source,
-      Iterable<MessagePort>? ports = const []]);
+  Object initMessageEvent(String type,
+          [bool? bubbles = false,
+          bool? cancelable = false,
+          dynamic data,
+          String? origin = '',
+          String? lastEventId = '',
+          dynamic source,
+          Iterable<MessagePort>? ports = const []]) =>
+      js_util.callMethod(this, 'initMessageEvent', [
+        type,
+        bubbles,
+        cancelable,
+        data,
+        origin,
+        lastEventId,
+        source,
+        ports
+      ]);
 }
 
 @anonymous
@@ -9784,16 +11757,30 @@ class MessageEventInit implements EventInit {
 }
 
 extension PropsMessageEventInit on MessageEventInit {
-  external dynamic get data;
-  external set data(dynamic newValue);
-  external String get origin;
-  external set origin(String newValue);
-  external String get lastEventId;
-  external set lastEventId(String newValue);
-  external dynamic get source;
-  external set source(dynamic newValue);
-  external Iterable<MessagePort> get ports;
-  external set ports(Iterable<MessagePort> newValue);
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  String get origin => js_util.getProperty(this, 'origin');
+  set origin(String newValue) {
+    js_util.setProperty(this, 'origin', newValue);
+  }
+
+  String get lastEventId => js_util.getProperty(this, 'lastEventId');
+  set lastEventId(String newValue) {
+    js_util.setProperty(this, 'lastEventId', newValue);
+  }
+
+  dynamic get source => js_util.getProperty(this, 'source');
+  set source(dynamic newValue) {
+    js_util.setProperty(this, 'source', newValue);
+  }
+
+  Iterable<MessagePort> get ports => js_util.getProperty(this, 'ports');
+  set ports(Iterable<MessagePort> newValue) {
+    js_util.setProperty(this, 'ports', newValue);
+  }
 }
 
 /// The interface is web content's interface to server-sent events.
@@ -9829,8 +11816,7 @@ extension PropsMessageEventInit on MessageEventInit {
 @JS()
 @staticInterop
 class EventSource implements EventTarget {
-  external factory EventSource(String url,
-      [EventSourceInit? eventSourceInitDict]);
+  external EventSource(String url, [EventSourceInit? eventSourceInitDict]);
   external static int get CONNECTING;
   external static int get OPEN;
   external static int get CLOSED;
@@ -9839,24 +11825,32 @@ class EventSource implements EventTarget {
 extension PropsEventSource on EventSource {
   /// A [DOMString] representing the URL of the source.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   ///  A boolean value indicating whether the [EventSource] object was
   /// instantiated with cross-origin (CORS) credentials set ([true]),
   /// or not ([false], the default).
   ///
-  external bool get withCredentials;
+  bool get withCredentials => js_util.getProperty(this, 'withCredentials');
 
   ///  A number representing the state of the connection. Possible
   /// values are [CONNECTING] ([0]), [OPEN] ([1]), or [CLOSED] ([2]).
   ///
-  external int get readyState;
-  external EventHandlerNonNull? get onopen;
-  external set onopen(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
+  int get readyState => js_util.getProperty(this, 'readyState');
+  EventHandlerNonNull? get onopen => js_util.getProperty(this, 'onopen');
+  set onopen(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onopen', newValue);
+  }
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
 
   ///  Closes the connection, if any, and sets the [readyState]
   /// attribute to [CLOSED]. If the connection is already closed, the
@@ -9864,7 +11858,7 @@ extension PropsEventSource on EventSource {
   ///
   /// eventSource.close();
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 }
 
 @anonymous
@@ -9875,8 +11869,10 @@ class EventSourceInit {
 }
 
 extension PropsEventSourceInit on EventSourceInit {
-  external bool get withCredentials;
-  external set withCredentials(bool newValue);
+  bool get withCredentials => js_util.getProperty(this, 'withCredentials');
+  set withCredentials(bool newValue) {
+    js_util.setProperty(this, 'withCredentials', newValue);
+  }
 }
 
 enum BinaryType { blob, arraybuffer }
@@ -9890,7 +11886,7 @@ enum BinaryType { blob, arraybuffer }
 @JS()
 @staticInterop
 class WebSocket implements EventTarget {
-  external factory WebSocket(String url, [dynamic protocols = const []]);
+  external WebSocket(String url, [dynamic protocols = const []]);
   external static int get CONNECTING;
   external static int get OPEN;
   external static int get CLOSING;
@@ -9900,29 +11896,37 @@ class WebSocket implements EventTarget {
 extension PropsWebSocket on WebSocket {
   /// The absolute URL of the WebSocket.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   /// The current state of the connection.
   ///
-  external int get readyState;
+  int get readyState => js_util.getProperty(this, 'readyState');
 
   /// The number of bytes of queued data.
   ///
-  external int get bufferedAmount;
-  external EventHandlerNonNull? get onopen;
-  external set onopen(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onclose;
-  external set onclose(EventHandlerNonNull? newValue);
+  int get bufferedAmount => js_util.getProperty(this, 'bufferedAmount');
+  EventHandlerNonNull? get onopen => js_util.getProperty(this, 'onopen');
+  set onopen(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onopen', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onclose => js_util.getProperty(this, 'onclose');
+  set onclose(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclose', newValue);
+  }
 
   /// The extensions selected by the server.
   ///
-  external String get extensions;
+  String get extensions => js_util.getProperty(this, 'extensions');
 
   /// The sub-protocol selected by the server.
   ///
-  external String get protocol;
+  String get protocol => js_util.getProperty(this, 'protocol');
 
   /// Closes the connection.
   ///
@@ -9932,20 +11936,26 @@ extension PropsWebSocket on WebSocket {
   ///
   /// WebSocket.close(code, reason);
   ///
-  external Object close([int? code, String? reason]);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
+  Object close([int? code, String? reason]) =>
+      js_util.callMethod(this, 'close', [code, reason]);
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
 
   /// The binary data type used by the connection.
   ///
-  external BinaryType get binaryType;
-  external set binaryType(BinaryType newValue);
+  BinaryType get binaryType => js_util.getProperty(this, 'binaryType');
+  set binaryType(BinaryType newValue) {
+    js_util.setProperty(this, 'binaryType', newValue);
+  }
 
   /// Enqueues data to be transmitted.
   ///
   /// WebSocket.send("Hello server!");
   ///
-  external Object send(String data);
+  Object send(String data) => js_util.callMethod(this, 'send', [data]);
 }
 
 ///  A is sent to clients using WebSockets when the connection is
@@ -9954,25 +11964,25 @@ extension PropsWebSocket on WebSocket {
 @JS()
 @staticInterop
 class CloseEvent implements Event {
-  external factory CloseEvent(String type, [CloseEventInit? eventInitDict]);
+  external CloseEvent(String type, [CloseEventInit? eventInitDict]);
 }
 
 extension PropsCloseEvent on CloseEvent {
   ///  Returns a boolean value that Indicates whether or not the
   /// connection was cleanly closed.
   ///
-  external bool get wasClean;
+  bool get wasClean => js_util.getProperty(this, 'wasClean');
 
   ///  Returns an [unsigned short] containing the close code sent by
   /// the server.
   ///
-  external int get code;
+  int get code => js_util.getProperty(this, 'code');
 
   ///  Returns a [DOMString] indicating the reason the server closed
   /// the connection. This is specific to the particular server and
   /// sub-protocol.
   ///
-  external String get reason;
+  String get reason => js_util.getProperty(this, 'reason');
 }
 
 @anonymous
@@ -9984,12 +11994,20 @@ class CloseEventInit implements EventInit {
 }
 
 extension PropsCloseEventInit on CloseEventInit {
-  external bool get wasClean;
-  external set wasClean(bool newValue);
-  external int get code;
-  external set code(int newValue);
-  external String get reason;
-  external set reason(String newValue);
+  bool get wasClean => js_util.getProperty(this, 'wasClean');
+  set wasClean(bool newValue) {
+    js_util.setProperty(this, 'wasClean', newValue);
+  }
+
+  int get code => js_util.getProperty(this, 'code');
+  set code(int newValue) {
+    js_util.setProperty(this, 'code', newValue);
+  }
+
+  String get reason => js_util.getProperty(this, 'reason');
+  set reason(String newValue) {
+    js_util.setProperty(this, 'reason', newValue);
+  }
 }
 
 ///  The interface of the Channel Messaging API allows us to create a
@@ -10000,17 +12018,17 @@ extension PropsCloseEventInit on CloseEventInit {
 @JS()
 @staticInterop
 class MessageChannel {
-  external factory MessageChannel();
+  external MessageChannel();
 }
 
 extension PropsMessageChannel on MessageChannel {
   /// Returns port1 of the channel.
   ///
-  external MessagePort get port1;
+  MessagePort get port1 => js_util.getProperty(this, 'port1');
 
   /// Returns port2 of the channel.
   ///
-  external MessagePort get port2;
+  MessagePort get port2 => js_util.getProperty(this, 'port2');
 }
 
 ///  The interface of the Channel Messaging API represents one of the
@@ -10021,7 +12039,7 @@ extension PropsMessageChannel on MessageChannel {
 @JS()
 @staticInterop
 class MessagePort implements EventTarget {
-  external factory MessagePort();
+  external MessagePort();
 }
 
 extension PropsMessagePort on MessagePort {
@@ -10067,7 +12085,8 @@ extension PropsMessagePort on MessagePort {
   /// For a full working example, see our channel
   /// messaging basic demo on Github (run it live
   /// too).
-  external Object postMessage(dynamic message, Iterable<dynamic> transfer);
+  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+      js_util.callMethod(this, 'postMessage', [message, transfer]);
 
   ///  Starts the sending of messages queued on the port (only needed
   /// when using [EventTarget.addEventListener]; it is implied when
@@ -10095,7 +12114,7 @@ extension PropsMessagePort on MessagePort {
   ///
   /// channel.port1.start();
   ///
-  external Object start();
+  Object start() => js_util.callMethod(this, 'start', []);
 
   /// Disconnects the port, so it is no longer active.
   ///
@@ -10117,11 +12136,18 @@ extension PropsMessagePort on MessagePort {
   /// You could stop messages being sent at any time using
   /// channel.port1.close();
   ///
-  external Object close();
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
+  Object close() => js_util.callMethod(this, 'close', []);
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
 }
 
 @anonymous
@@ -10132,8 +12158,10 @@ class PostMessageOptions {
 }
 
 extension PropsPostMessageOptions on PostMessageOptions {
-  external Iterable<dynamic> get transfer;
-  external set transfer(Iterable<dynamic> newValue);
+  Iterable<dynamic> get transfer => js_util.getProperty(this, 'transfer');
+  set transfer(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'transfer', newValue);
+  }
 }
 
 ///  The interface represents a named channel that any browsing
@@ -10159,20 +12187,21 @@ extension PropsPostMessageOptions on PostMessageOptions {
 @JS()
 @staticInterop
 class BroadcastChannel implements EventTarget {
-  external factory BroadcastChannel(String name);
+  external BroadcastChannel(String name);
 }
 
 extension PropsBroadcastChannel on BroadcastChannel {
   /// Returns a [DOMString], the name of the channel.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  Sends the message, of any type of object, to each
   /// [BroadcastChannel] object listening to the same channel.
   ///
   /// channel.postMessage(message);
   ///
-  external Object postMessage(dynamic message);
+  Object postMessage(dynamic message) =>
+      js_util.callMethod(this, 'postMessage', [message]);
 
   ///  Closes the channel object, indicating it won't get any new
   /// messages, and allowing it to be, eventually, garbage collected.
@@ -10187,11 +12216,18 @@ extension PropsBroadcastChannel on BroadcastChannel {
   /// // When done, disconnect from the channel
   /// bc.close();
   ///
-  external Object close();
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
+  Object close() => js_util.callMethod(this, 'close', []);
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
 }
 
 ///  The interface of the Web Workers API is an interface
@@ -10209,26 +12245,49 @@ extension PropsBroadcastChannel on BroadcastChannel {
 @staticInterop
 class WorkerGlobalScope
     implements EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {
-  external factory WorkerGlobalScope();
+  external WorkerGlobalScope();
 }
 
 extension PropsWorkerGlobalScope on WorkerGlobalScope {
-  external WorkerGlobalScope get self;
-  external WorkerLocation get location;
-  external WorkerNavigator get navigator;
-  external Object importScripts([String urls]);
-  external OnErrorEventHandlerNonNull? get onerror;
-  external set onerror(OnErrorEventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onlanguagechange;
-  external set onlanguagechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onoffline;
-  external set onoffline(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ononline;
-  external set ononline(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onrejectionhandled;
-  external set onrejectionhandled(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onunhandledrejection;
-  external set onunhandledrejection(EventHandlerNonNull? newValue);
+  WorkerGlobalScope get self => js_util.getProperty(this, 'self');
+  WorkerLocation get location => js_util.getProperty(this, 'location');
+  WorkerNavigator get navigator => js_util.getProperty(this, 'navigator');
+  Object importScripts([String? urls]) =>
+      js_util.callMethod(this, 'importScripts', [urls]);
+
+  OnErrorEventHandlerNonNull? get onerror =>
+      js_util.getProperty(this, 'onerror');
+  set onerror(OnErrorEventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onlanguagechange =>
+      js_util.getProperty(this, 'onlanguagechange');
+  set onlanguagechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onlanguagechange', newValue);
+  }
+
+  EventHandlerNonNull? get onoffline => js_util.getProperty(this, 'onoffline');
+  set onoffline(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onoffline', newValue);
+  }
+
+  EventHandlerNonNull? get ononline => js_util.getProperty(this, 'ononline');
+  set ononline(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ononline', newValue);
+  }
+
+  EventHandlerNonNull? get onrejectionhandled =>
+      js_util.getProperty(this, 'onrejectionhandled');
+  set onrejectionhandled(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onrejectionhandled', newValue);
+  }
+
+  EventHandlerNonNull? get onunhandledrejection =>
+      js_util.getProperty(this, 'onunhandledrejection');
+  set onunhandledrejection(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onunhandledrejection', newValue);
+  }
 }
 
 ///  The object (the [Worker] global scope) is accessible through the
@@ -10240,7 +12299,7 @@ extension PropsWorkerGlobalScope on WorkerGlobalScope {
 @staticInterop
 class DedicatedWorkerGlobalScope
     implements WorkerGlobalScope, AnimationFrameProvider {
-  external factory DedicatedWorkerGlobalScope();
+  external DedicatedWorkerGlobalScope();
 }
 
 extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
@@ -10248,7 +12307,7 @@ extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
   /// created using the [Worker()] constructor. This is mainly useful
   /// for debugging purposes.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  Sends a message — which can consist of [any] JavaScript object —
   /// to the parent document that first spawned the worker.
@@ -10271,7 +12330,8 @@ extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
   ///
   ///  Note: postMessage() can only send a single object at once. As seen above, if you want to pass multiple values you can send an array.
   ///
-  external Object postMessage(dynamic message, Iterable<dynamic> transfer);
+  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+      js_util.callMethod(this, 'postMessage', [message, transfer]);
 
   ///  Discards any tasks queued in the [WorkerGlobalScope]'s event
   /// loop, effectively closing this particular scope.
@@ -10285,13 +12345,24 @@ extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
   ///
   ///  Note: There is also a way to stop the worker from the main thread: the Worker.terminate method.
   ///
-  external Object close();
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onrtctransform;
-  external set onrtctransform(EventHandlerNonNull? newValue);
+  Object close() => js_util.callMethod(this, 'close', []);
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
+
+  EventHandlerNonNull? get onrtctransform =>
+      js_util.getProperty(this, 'onrtctransform');
+  set onrtctransform(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onrtctransform', newValue);
+  }
 }
 
 ///  The object (the [SharedWorker] global scope) is accessible
@@ -10303,7 +12374,7 @@ extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
 @JS()
 @staticInterop
 class SharedWorkerGlobalScope implements WorkerGlobalScope {
-  external factory SharedWorkerGlobalScope();
+  external SharedWorkerGlobalScope();
 }
 
 extension PropsSharedWorkerGlobalScope on SharedWorkerGlobalScope {
@@ -10311,7 +12382,7 @@ extension PropsSharedWorkerGlobalScope on SharedWorkerGlobalScope {
   /// was created using the [SharedWorker()] constructor. This is
   /// mainly useful for debugging purposes.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  Discards any tasks queued in the [SharedWorkerGlobalScope]'s
   /// event loop, effectively closing this particular scope.
@@ -10325,20 +12396,25 @@ extension PropsSharedWorkerGlobalScope on SharedWorkerGlobalScope {
   ///
   ///  Note: There is also a way to stop the worker from the main thread: the Worker.terminate method.
   ///
-  external Object close();
-  external EventHandlerNonNull? get onconnect;
-  external set onconnect(EventHandlerNonNull? newValue);
+  Object close() => js_util.callMethod(this, 'close', []);
+
+  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
+  set onconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnect', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class AbstractWorker {
-  external factory AbstractWorker();
+  external AbstractWorker();
 }
 
 extension PropsAbstractWorker on AbstractWorker {
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
 }
 
 ///  The interface of the Web Workers API represents a background
@@ -10356,7 +12432,7 @@ extension PropsAbstractWorker on AbstractWorker {
 @JS()
 @staticInterop
 class Worker implements EventTarget, AbstractWorker {
-  external factory Worker(String scriptURL, [WorkerOptions? options]);
+  external Worker(String scriptURL, [WorkerOptions? options]);
 }
 
 extension PropsWorker on Worker {
@@ -10371,7 +12447,7 @@ extension PropsWorker on Worker {
   ///
   /// myWorker.terminate();
   ///
-  external Object terminate();
+  Object terminate() => js_util.callMethod(this, 'terminate', []);
 
   ///  Sends a message — consisting of any JavaScript object — to the
   /// worker's inner scope.
@@ -10395,11 +12471,19 @@ extension PropsWorker on Worker {
   ///
   ///  Note: postMessage() can only send a single object at once. As seen above, if you want to pass multiple values you can send an array.
   ///
-  external Object postMessage(dynamic message, Iterable<dynamic> transfer);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
+  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+      js_util.callMethod(this, 'postMessage', [message, transfer]);
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
 }
 
 @anonymous
@@ -10413,12 +12497,21 @@ class WorkerOptions {
 }
 
 extension PropsWorkerOptions on WorkerOptions {
-  external WorkerType get type;
-  external set type(WorkerType newValue);
-  external RequestCredentials get credentials;
-  external set credentials(RequestCredentials newValue);
-  external String get name;
-  external set name(String newValue);
+  WorkerType get type => js_util.getProperty(this, 'type');
+  set type(WorkerType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  RequestCredentials get credentials =>
+      js_util.getProperty(this, 'credentials');
+  set credentials(RequestCredentials newValue) {
+    js_util.setProperty(this, 'credentials', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 }
 
 enum WorkerType { classic, module }
@@ -10436,24 +12529,25 @@ enum WorkerType { classic, module }
 @JS()
 @staticInterop
 class SharedWorker implements EventTarget, AbstractWorker {
-  external factory SharedWorker(String scriptURL, [dynamic options]);
+  external SharedWorker(String scriptURL, [dynamic options]);
 }
 
 extension PropsSharedWorker on SharedWorker {
   ///  Returns a [MessagePort] object used to communicate with and
   /// control the shared worker.
   ///
-  external MessagePort get port;
+  MessagePort get port => js_util.getProperty(this, 'port');
 }
 
 @JS()
 @staticInterop
 class NavigatorConcurrentHardware {
-  external factory NavigatorConcurrentHardware();
+  external NavigatorConcurrentHardware();
 }
 
 extension PropsNavigatorConcurrentHardware on NavigatorConcurrentHardware {
-  external int get hardwareConcurrency;
+  int get hardwareConcurrency =>
+      js_util.getProperty(this, 'hardwareConcurrency');
 }
 
 ///  The interface represents a subset of the [Navigator] interface
@@ -10476,15 +12570,17 @@ class WorkerNavigator
         NavigatorOnLine,
         NavigatorConcurrentHardware,
         NavigatorStorage {
-  external factory WorkerNavigator();
+  external WorkerNavigator();
 }
 
 extension PropsWorkerNavigator on WorkerNavigator {
-  external MediaCapabilities get mediaCapabilities;
-  external Permissions get permissions;
-  external ServiceWorkerContainer get serviceWorker;
-  external Serial get serial;
-  external USB get usb;
+  MediaCapabilities get mediaCapabilities =>
+      js_util.getProperty(this, 'mediaCapabilities');
+  Permissions get permissions => js_util.getProperty(this, 'permissions');
+  ServiceWorkerContainer get serviceWorker =>
+      js_util.getProperty(this, 'serviceWorker');
+  Serial get serial => js_util.getProperty(this, 'serial');
+  USB get usb => js_util.getProperty(this, 'usb');
 }
 
 ///  The interface defines the absolute location of the script
@@ -10496,54 +12592,54 @@ extension PropsWorkerNavigator on WorkerNavigator {
 @JS()
 @staticInterop
 class WorkerLocation {
-  external factory WorkerLocation();
+  external WorkerLocation();
 }
 
 extension PropsWorkerLocation on WorkerLocation {
   ///  Returns a [USVString] containing the serialized [URL] for the
   /// worker’s location.
   ///
-  external String get href;
+  String get href => js_util.getProperty(this, 'href');
 
   /// Returns the worker’s .
   ///
-  external String get origin;
+  String get origin => js_util.getProperty(this, 'origin');
 
   /// Returns the part of the worker’s location.
   ///
-  external String get protocol;
+  String get protocol => js_util.getProperty(this, 'protocol');
 
   /// Returns the part of the worker’s location.
   ///
-  external String get host;
+  String get host => js_util.getProperty(this, 'host');
 
   /// Returns the part of the worker’s location.
   ///
-  external String get hostname;
+  String get hostname => js_util.getProperty(this, 'hostname');
 
   /// Returns the part of the worker’s location.
   ///
-  external String get port;
+  String get port => js_util.getProperty(this, 'port');
 
   /// Returns the part of the worker’s location.
   ///
-  external String get pathname;
+  String get pathname => js_util.getProperty(this, 'pathname');
 
   /// Returns the part of the worker’s location.
   ///
-  external String get search;
+  String get search => js_util.getProperty(this, 'search');
 
   /// Returns the part of the worker’s location.
   ///
   @JS('hash')
   @staticInterop
-  external String get mHash;
+  String get mHash => js_util.getProperty(this, 'hash');
 }
 
 @JS()
 @staticInterop
 class WorkletGlobalScope {
-  external factory WorkletGlobalScope();
+  external WorkletGlobalScope();
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -10558,7 +12654,7 @@ class WorkletGlobalScope {
 @JS()
 @staticInterop
 class Worklet {
-  external factory Worklet();
+  external Worklet();
 }
 
 extension PropsWorklet on Worklet {
@@ -10568,8 +12664,8 @@ extension PropsWorklet on Worklet {
   /// addPromise = worklet.addModule(moduleURL, options);
   ///
   @experimental
-  external Promise<Object> addModule(String moduleURL,
-      [WorkletOptions? options]);
+  Promise<Object> addModule(String moduleURL, [WorkletOptions? options]) =>
+      js_util.callMethod(this, 'addModule', [moduleURL, options]);
 }
 
 @anonymous
@@ -10581,8 +12677,11 @@ class WorkletOptions {
 }
 
 extension PropsWorkletOptions on WorkletOptions {
-  external RequestCredentials get credentials;
-  external set credentials(RequestCredentials newValue);
+  RequestCredentials get credentials =>
+      js_util.getProperty(this, 'credentials');
+  set credentials(RequestCredentials newValue) {
+    js_util.setProperty(this, 'credentials', newValue);
+  }
 }
 
 ///  The interface of the Web Storage API provides access to a
@@ -10595,21 +12694,21 @@ extension PropsWorkletOptions on WorkletOptions {
 @JS()
 @staticInterop
 class Storage {
-  external factory Storage();
+  external Storage();
 }
 
 extension PropsStorage on Storage {
   ///  Returns an integer representing the number of data items stored
   /// in the [Storage] object.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  When passed a number [n], this method will return the name of
   /// the nth key in the storage.
   ///
   /// var aKeyName = storage.key(index);
   ///
-  external String? key(int index);
+  String? key(int index) => js_util.callMethod(this, 'key', [index]);
 
   /// When passed a key name, will return that key's value.
   ///
@@ -10634,7 +12733,7 @@ extension PropsStorage on Storage {
   /// }
   ///  Note: To see this used within a real world example, see our Web Storage Demo.
   ///
-  external String? getItem(String key);
+  String? getItem(String key) => js_util.callMethod(this, 'getItem', [key]);
 
   ///  When passed a key name and value, will add that key to the
   /// storage, or update that key's value if it already exists.
@@ -10649,7 +12748,8 @@ extension PropsStorage on Storage {
   /// }
   ///  Note: To see this used within a real world example, see our Web Storage Demo.
   ///
-  external Object setItem(String key, String value);
+  Object setItem(String key, String value) =>
+      js_util.callMethod(this, 'setItem', [key, value]);
 
   /// When passed a key name, will remove that key from the storage.
   ///
@@ -10677,33 +12777,34 @@ extension PropsStorage on Storage {
   /// }
   ///  Note: To see this used within a real world example, see our Web Storage Demo.
   ///
-  external Object removeItem(String key);
+  Object removeItem(String key) =>
+      js_util.callMethod(this, 'removeItem', [key]);
 
   /// When invoked, will empty all keys out of the storage.
   ///
   /// storage.clear();
   ///
-  external Object clear();
+  Object clear() => js_util.callMethod(this, 'clear', []);
 }
 
 @JS()
 @staticInterop
 class WindowSessionStorage {
-  external factory WindowSessionStorage();
+  external WindowSessionStorage();
 }
 
 extension PropsWindowSessionStorage on WindowSessionStorage {
-  external Storage get sessionStorage;
+  Storage get sessionStorage => js_util.getProperty(this, 'sessionStorage');
 }
 
 @JS()
 @staticInterop
 class WindowLocalStorage {
-  external factory WindowLocalStorage();
+  external WindowLocalStorage();
 }
 
 extension PropsWindowLocalStorage on WindowLocalStorage {
-  external Storage get localStorage;
+  Storage get localStorage => js_util.getProperty(this, 'localStorage');
 }
 
 ///
@@ -10727,7 +12828,7 @@ extension PropsWindowLocalStorage on WindowLocalStorage {
 @JS()
 @staticInterop
 class StorageEvent implements Event {
-  external factory StorageEvent(String type, [StorageEventInit? eventInitDict]);
+  external StorageEvent(String type, [StorageEventInit? eventInitDict]);
 }
 
 extension PropsStorageEvent on StorageEvent {
@@ -10737,7 +12838,7 @@ extension PropsStorageEvent on StorageEvent {
   ///    when the change is caused by the storage [clear()] method.
   ///
   ///
-  external String? get key;
+  String? get key => js_util.getProperty(this, 'key');
 
   ///
   ///    Returns a [DOMString] with the original value of the [key].
@@ -10745,7 +12846,7 @@ extension PropsStorageEvent on StorageEvent {
   ///    and therefore doesn't have any previous value.
   ///
   ///
-  external String? get oldValue;
+  String? get oldValue => js_util.getProperty(this, 'oldValue');
 
   ///
   ///    Returns a [DOMString] with the new value of the [key].
@@ -10754,17 +12855,17 @@ extension PropsStorageEvent on StorageEvent {
   ///    or the [key] has been removed from the storage.
   ///
   ///
-  external String? get newValue;
+  String? get newValue => js_util.getProperty(this, 'newValue');
 
   ///  Returns [DOMString] with the URL of the document whose [key]
   /// changed.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   ///  Returns a [Storage] object that represents the storage that was
   /// affected.
   ///
-  external Storage? get storageArea;
+  Storage? get storageArea => js_util.getProperty(this, 'storageArea');
 
   ///
   ///     Initializes the event in a manner analogous to the
@@ -10775,14 +12876,24 @@ extension PropsStorageEvent on StorageEvent {
   /// storageEvent.initStorageEvent(type[, canBubble[, cancelable[, key[, oldValue[, newValue[, url[, storageArea]]]]]]])
   ///
   @deprecated
-  external Object initStorageEvent(String type,
-      [bool? bubbles = false,
-      bool? cancelable = false,
-      String? key,
-      String? oldValue,
-      String? newValue,
-      String? url = '',
-      Storage? storageArea]);
+  Object initStorageEvent(String type,
+          [bool? bubbles = false,
+          bool? cancelable = false,
+          String? key,
+          String? oldValue,
+          String? newValue,
+          String? url = '',
+          Storage? storageArea]) =>
+      js_util.callMethod(this, 'initStorageEvent', [
+        type,
+        bubbles,
+        cancelable,
+        key,
+        oldValue,
+        newValue,
+        url,
+        storageArea
+      ]);
 }
 
 @anonymous
@@ -10798,16 +12909,30 @@ class StorageEventInit implements EventInit {
 }
 
 extension PropsStorageEventInit on StorageEventInit {
-  external String? get key;
-  external set key(String? newValue);
-  external String? get oldValue;
-  external set oldValue(String? newValue);
-  external String? get newValue;
-  external set newValue(String? newValue);
-  external String get url;
-  external set url(String newValue);
-  external Storage? get storageArea;
-  external set storageArea(Storage? newValue);
+  String? get key => js_util.getProperty(this, 'key');
+  set key(String? newValue) {
+    js_util.setProperty(this, 'key', newValue);
+  }
+
+  String? get oldValue => js_util.getProperty(this, 'oldValue');
+  set oldValue(String? newValue) {
+    js_util.setProperty(this, 'oldValue', newValue);
+  }
+
+  String? get newValue => js_util.getProperty(this, 'newValue');
+  set newValue(String? newValue) {
+    js_util.setProperty(this, 'newValue', newValue);
+  }
+
+  String get url => js_util.getProperty(this, 'url');
+  set url(String newValue) {
+    js_util.setProperty(this, 'url', newValue);
+  }
+
+  Storage? get storageArea => js_util.getProperty(this, 'storageArea');
+  set storageArea(Storage? newValue) {
+    js_util.setProperty(this, 'storageArea', newValue);
+  }
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -10856,7 +12981,7 @@ extension PropsStorageEventInit on StorageEventInit {
 @JS()
 @staticInterop
 class HTMLMarqueeElement implements HTMLElement {
-  external factory HTMLMarqueeElement();
+  external HTMLMarqueeElement();
 }
 
 extension PropsHTMLMarqueeElement on HTMLMarqueeElement {
@@ -10864,76 +12989,98 @@ extension PropsHTMLMarqueeElement on HTMLMarqueeElement {
   /// values are [scroll], [slide] and [alternate]. If no value is
   /// specified, the default value is [scroll].
   ///
-  external String get behavior;
-  external set behavior(String newValue);
+  String get behavior => js_util.getProperty(this, 'behavior');
+  set behavior(String newValue) {
+    js_util.setProperty(this, 'behavior', newValue);
+  }
 
   ///  Sets the background color through color name or hexadecimal
   /// value.
   ///
-  external String get bgColor;
-  external set bgColor(String newValue);
+  String get bgColor => js_util.getProperty(this, 'bgColor');
+  set bgColor(String newValue) {
+    js_util.setProperty(this, 'bgColor', newValue);
+  }
 
   ///  Sets the direction of the scrolling within the marquee. Possible
   /// values are [left], [right], [up] and [down]. If no value is
   /// specified, the default value is [left].
   ///
-  external String get direction;
-  external set direction(String newValue);
+  String get direction => js_util.getProperty(this, 'direction');
+  set direction(String newValue) {
+    js_util.setProperty(this, 'direction', newValue);
+  }
 
   /// Sets the height in pixels or percentage value.
   ///
-  external String get height;
-  external set height(String newValue);
+  String get height => js_util.getProperty(this, 'height');
+  set height(String newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 
   /// Sets the horizontal margin.
   ///
-  external int get hspace;
-  external set hspace(int newValue);
+  int get hspace => js_util.getProperty(this, 'hspace');
+  set hspace(int newValue) {
+    js_util.setProperty(this, 'hspace', newValue);
+  }
 
   ///  Sets the number of times the marquee will scroll. If no value is
   /// specified, the default value is −1, which means the marquee will
   /// scroll continuously.
   ///
-  external int get loop;
-  external set loop(int newValue);
+  int get loop => js_util.getProperty(this, 'loop');
+  set loop(int newValue) {
+    js_util.setProperty(this, 'loop', newValue);
+  }
 
   ///  Sets the amount of scrolling at each interval in pixels. The
   /// default value is 6.
   ///
-  external int get scrollAmount;
-  external set scrollAmount(int newValue);
+  int get scrollAmount => js_util.getProperty(this, 'scrollAmount');
+  set scrollAmount(int newValue) {
+    js_util.setProperty(this, 'scrollAmount', newValue);
+  }
 
   ///  Sets the interval between each scroll movement in milliseconds.
   /// The default value is 85. Note that any value smaller than 60 is
   /// ignored and the value 60 is used instead, unless [trueSpeed] is
   /// [true].
   ///
-  external int get scrollDelay;
-  external set scrollDelay(int newValue);
+  int get scrollDelay => js_util.getProperty(this, 'scrollDelay');
+  set scrollDelay(int newValue) {
+    js_util.setProperty(this, 'scrollDelay', newValue);
+  }
 
   ///  By default, [scrollDelay] values lower than 60 are ignored. If
   /// is [true], then those values are not ignored.
   ///
-  external bool get trueSpeed;
-  external set trueSpeed(bool newValue);
+  bool get trueSpeed => js_util.getProperty(this, 'trueSpeed');
+  set trueSpeed(bool newValue) {
+    js_util.setProperty(this, 'trueSpeed', newValue);
+  }
 
   /// Sets the vertical margin.
   ///
-  external int get vspace;
-  external set vspace(int newValue);
+  int get vspace => js_util.getProperty(this, 'vspace');
+  set vspace(int newValue) {
+    js_util.setProperty(this, 'vspace', newValue);
+  }
 
   /// Sets the width in pixels or percentage value.
   ///
-  external String get width;
-  external set width(String newValue);
+  String get width => js_util.getProperty(this, 'width');
+  set width(String newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   /// Starts scrolling of the marquee.
   ///
-  external Object start();
+  Object start() => js_util.callMethod(this, 'start', []);
 
   /// Stops scrolling of the marquee.
   ///
-  external Object stop();
+  Object stop() => js_util.callMethod(this, 'stop', []);
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -10951,7 +13098,7 @@ extension PropsHTMLMarqueeElement on HTMLMarqueeElement {
 @JS()
 @staticInterop
 class HTMLFrameSetElement implements HTMLElement, WindowEventHandlers {
-  external factory HTMLFrameSetElement();
+  external HTMLFrameSetElement();
 }
 
 extension PropsHTMLFrameSetElement on HTMLFrameSetElement {
@@ -10959,53 +13106,82 @@ extension PropsHTMLFrameSetElement on HTMLFrameSetElement {
   /// the width of each column inside a frameset.
   ///
   @deprecated
-  external String get cols;
-  external set cols(String newValue);
+  String get cols => js_util.getProperty(this, 'cols');
+  set cols(String newValue) {
+    js_util.setProperty(this, 'cols', newValue);
+  }
 
   ///  Is a [DOMString] structured as a comma-separated list specifying
   /// the height of each column inside a frameset.
   ///
   @deprecated
-  external String get rows;
-  external set rows(String newValue);
+  String get rows => js_util.getProperty(this, 'rows');
+  set rows(String newValue) {
+    js_util.setProperty(this, 'rows', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class HTMLFrameElement implements HTMLElement {
-  external factory HTMLFrameElement();
+  external HTMLFrameElement();
 }
 
 extension PropsHTMLFrameElement on HTMLFrameElement {
-  external String get name;
-  external set name(String newValue);
-  external String get scrolling;
-  external set scrolling(String newValue);
-  external String get src;
-  external set src(String newValue);
-  external String get frameBorder;
-  external set frameBorder(String newValue);
-  external String get longDesc;
-  external set longDesc(String newValue);
-  external bool get noResize;
-  external set noResize(bool newValue);
-  external Document? get contentDocument;
-  external Window? get contentWindow;
-  external String get marginHeight;
-  external set marginHeight(String newValue);
-  external String get marginWidth;
-  external set marginWidth(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get scrolling => js_util.getProperty(this, 'scrolling');
+  set scrolling(String newValue) {
+    js_util.setProperty(this, 'scrolling', newValue);
+  }
+
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
+
+  String get frameBorder => js_util.getProperty(this, 'frameBorder');
+  set frameBorder(String newValue) {
+    js_util.setProperty(this, 'frameBorder', newValue);
+  }
+
+  String get longDesc => js_util.getProperty(this, 'longDesc');
+  set longDesc(String newValue) {
+    js_util.setProperty(this, 'longDesc', newValue);
+  }
+
+  bool get noResize => js_util.getProperty(this, 'noResize');
+  set noResize(bool newValue) {
+    js_util.setProperty(this, 'noResize', newValue);
+  }
+
+  Document? get contentDocument => js_util.getProperty(this, 'contentDocument');
+  Window? get contentWindow => js_util.getProperty(this, 'contentWindow');
+  String get marginHeight => js_util.getProperty(this, 'marginHeight');
+  set marginHeight(String newValue) {
+    js_util.setProperty(this, 'marginHeight', newValue);
+  }
+
+  String get marginWidth => js_util.getProperty(this, 'marginWidth');
+  set marginWidth(String newValue) {
+    js_util.setProperty(this, 'marginWidth', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class HTMLDirectoryElement implements HTMLElement {
-  external factory HTMLDirectoryElement();
+  external HTMLDirectoryElement();
 }
 
 extension PropsHTMLDirectoryElement on HTMLDirectoryElement {
-  external bool get compact;
-  external set compact(bool newValue);
+  bool get compact => js_util.getProperty(this, 'compact');
+  set compact(bool newValue) {
+    js_util.setProperty(this, 'compact', newValue);
+  }
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -11023,7 +13199,7 @@ extension PropsHTMLDirectoryElement on HTMLDirectoryElement {
 @JS()
 @staticInterop
 class HTMLFontElement implements HTMLElement {
-  external factory HTMLFontElement();
+  external HTMLFontElement();
 }
 
 extension PropsHTMLFontElement on HTMLFontElement {
@@ -11031,45 +13207,54 @@ extension PropsHTMLFontElement on HTMLFontElement {
   /// either a named color or a color specified in the hexadecimal
   /// #RRGGBB format.
   ///
-  external String get color;
-  external set color(String newValue);
+  String get color => js_util.getProperty(this, 'color');
+  set color(String newValue) {
+    js_util.setProperty(this, 'color', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing a
   /// comma-separated list of one or more font names.
   ///
-  external String get face;
-  external set face(String newValue);
+  String get face => js_util.getProperty(this, 'face');
+  set face(String newValue) {
+    js_util.setProperty(this, 'face', newValue);
+  }
 
   ///  Is a [DOMString] that reflects the HTML attribute, containing
   /// either a font size number ranging from 1 to 7 or a relative size
   /// to the attribute of the [<basefont>] element, for example -2 or
   /// +1.
   ///
-  external String get size;
-  external set size(String newValue);
+  String get size => js_util.getProperty(this, 'size');
+  set size(String newValue) {
+    js_util.setProperty(this, 'size', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class External {
-  external factory External();
+  external External();
 }
 
 extension PropsExternal on External {
-  external Object AddSearchProvider();
-  external Object IsSearchProviderInstalled();
+  Object AddSearchProvider() =>
+      js_util.callMethod(this, 'AddSearchProvider', []);
+
+  Object IsSearchProviderInstalled() =>
+      js_util.callMethod(this, 'IsSearchProviderInstalled', []);
 }
 
 @JS()
 @staticInterop
 class NavigatorPlugins {
-  external factory NavigatorPlugins();
+  external NavigatorPlugins();
 }
 
 extension PropsNavigatorPlugins on NavigatorPlugins {
-  external PluginArray get plugins;
-  external MimeTypeArray get mimeTypes;
-  external bool javaEnabled();
+  PluginArray get plugins => js_util.getProperty(this, 'plugins');
+  MimeTypeArray get mimeTypes => js_util.getProperty(this, 'mimeTypes');
+  bool javaEnabled() => js_util.callMethod(this, 'javaEnabled', []);
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -11094,26 +13279,27 @@ extension PropsNavigatorPlugins on NavigatorPlugins {
 @JS()
 @staticInterop
 class PluginArray {
-  external factory PluginArray();
+  external PluginArray();
 }
 
 extension PropsPluginArray on PluginArray {
   ///  Refreshes all plugins on the current page, optionally reloading
   /// documents.
   ///
-  external Object refresh();
+  Object refresh() => js_util.callMethod(this, 'refresh', []);
 
   /// The number of plugins in the array.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   /// Returns the [Plugin] at the specified index into the array.
   ///
-  external dynamic item(int index);
+  dynamic item(int index) => js_util.callMethod(this, 'item', [index]);
 
   /// Returns the [Plugin] with the specified name.
   ///
-  external dynamic namedItem(String name);
+  dynamic namedItem(String name) =>
+      js_util.callMethod(this, 'namedItem', [name]);
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -11130,21 +13316,22 @@ extension PropsPluginArray on PluginArray {
 @JS()
 @staticInterop
 class MimeTypeArray {
-  external factory MimeTypeArray();
+  external MimeTypeArray();
 }
 
 extension PropsMimeTypeArray on MimeTypeArray {
   /// The number of items in the array.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   /// Returns the [MimeType] object with the specified index.
   ///
-  external dynamic item(int index);
+  dynamic item(int index) => js_util.callMethod(this, 'item', [index]);
 
   /// Returns the [MimeType] object with the specified name.
   ///
-  external dynamic namedItem(String name);
+  dynamic namedItem(String name) =>
+      js_util.callMethod(this, 'namedItem', [name]);
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -11163,31 +13350,32 @@ extension PropsMimeTypeArray on MimeTypeArray {
 @JS()
 @staticInterop
 class Plugin {
-  external factory Plugin();
+  external Plugin();
 }
 
 extension PropsPlugin on Plugin {
   /// The name of the plugin.
   ///
-  external Object get name;
+  Object get name => js_util.getProperty(this, 'name');
 
   /// A human readable description of the plugin.
   ///
-  external Object get description;
+  Object get description => js_util.getProperty(this, 'description');
 
   /// The filename of the plugin file.
   ///
-  external Object get filename;
-  external Object get length;
+  Object get filename => js_util.getProperty(this, 'filename');
+  Object get length => js_util.getProperty(this, 'length');
 
   ///  Returns the MIME type of a supported content type, given the
   /// index number into a list of supported types.
   ///
-  external Object item(int index);
+  Object item(int index) => js_util.callMethod(this, 'item', [index]);
 
   /// Returns the MIME type of a supported item.
   ///
-  external Object namedItem(String name);
+  Object namedItem(String name) =>
+      js_util.callMethod(this, 'namedItem', [name]);
 }
 
 ///  Deprecated: This feature is no longer recommended. Though some
@@ -11204,18 +13392,18 @@ extension PropsPlugin on Plugin {
 @JS()
 @staticInterop
 class MimeType {
-  external factory MimeType();
+  external MimeType();
 }
 
 extension PropsMimeType on MimeType {
   /// Returns the MIME type of the associated plugin.
   ///
-  external Object get type;
+  Object get type => js_util.getProperty(this, 'type');
 
   ///  Returns a description of the associated plugin or an empty
   /// string if there is none.
   ///
-  external Object get description;
+  Object get description => js_util.getProperty(this, 'description');
 
   ///  A string containing valid file extensions for the data displayed
   /// by the plugin, or an empty string if an extension is not valid
@@ -11224,10 +13412,10 @@ extension PropsMimeType on MimeType {
   /// file extensions than can be anticipated. It might therefore
   /// return an empty string.
   ///
-  external Object get suffixes;
+  Object get suffixes => js_util.getProperty(this, 'suffixes');
 
   ///  Returns an instance of [Plugin] containing information about the
   /// plugin itself.
   ///
-  external Object get enabledPlugin;
+  Object get enabledPlugin => js_util.getProperty(this, 'enabledPlugin');
 }

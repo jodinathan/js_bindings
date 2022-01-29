@@ -5,6 +5,7 @@
 @staticInterop
 library o_e_s_fbo_render_mipmap;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -27,5 +28,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class OES_fbo_render_mipmap {
-  external factory OES_fbo_render_mipmap();
+  external OES_fbo_render_mipmap();
 }

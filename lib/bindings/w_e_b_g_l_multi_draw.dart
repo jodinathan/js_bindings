@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_multi_draw;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -43,7 +44,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class WEBGL_multi_draw {
-  external factory WEBGL_multi_draw();
+  external WEBGL_multi_draw();
 }
 
 extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
@@ -58,8 +59,16 @@ extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
   ///   countsList, countsOffset,
   ///   drawCount);
   ///
-  external Object multiDrawArraysWEBGL(int mode, dynamic firstsList,
-      int firstsOffset, dynamic countsList, int countsOffset, int drawcount);
+  Object multiDrawArraysWEBGL(int mode, dynamic firstsList, int firstsOffset,
+          dynamic countsList, int countsOffset, int drawcount) =>
+      js_util.callMethod(this, 'multiDrawArraysWEBGL', [
+        mode,
+        firstsList,
+        firstsOffset,
+        countsList,
+        countsOffset,
+        drawcount
+      ]);
 
   ///
   ///     Renders multiple primitives from element array data
@@ -73,14 +82,17 @@ extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
   ///   firstsList, firstsOffset,
   ///   drawCount);
   ///
-  external Object multiDrawElementsWEBGL(
-      int mode,
-      dynamic countsList,
-      int countsOffset,
-      int type,
-      dynamic offsetsList,
-      int offsetsOffset,
-      int drawcount);
+  Object multiDrawElementsWEBGL(int mode, dynamic countsList, int countsOffset,
+          int type, dynamic offsetsList, int offsetsOffset, int drawcount) =>
+      js_util.callMethod(this, 'multiDrawElementsWEBGL', [
+        mode,
+        countsList,
+        countsOffset,
+        type,
+        offsetsList,
+        offsetsOffset,
+        drawcount
+      ]);
 
   ///
   ///     Renders multiple primitives from array data (identical to
@@ -94,15 +106,25 @@ extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
   ///   instanceCountsList, instanceCountsOffset,
   ///   drawCount);
   ///
-  external Object multiDrawArraysInstancedWEBGL(
-      int mode,
-      dynamic firstsList,
-      int firstsOffset,
-      dynamic countsList,
-      int countsOffset,
-      dynamic instanceCountsList,
-      int instanceCountsOffset,
-      int drawcount);
+  Object multiDrawArraysInstancedWEBGL(
+          int mode,
+          dynamic firstsList,
+          int firstsOffset,
+          dynamic countsList,
+          int countsOffset,
+          dynamic instanceCountsList,
+          int instanceCountsOffset,
+          int drawcount) =>
+      js_util.callMethod(this, 'multiDrawArraysInstancedWEBGL', [
+        mode,
+        firstsList,
+        firstsOffset,
+        countsList,
+        countsOffset,
+        instanceCountsList,
+        instanceCountsOffset,
+        drawcount
+      ]);
 
   ///
   ///     Renders multiple primitives from element array data
@@ -117,14 +139,25 @@ extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
   ///   instanceCountsList, instanceCountsOffset,
   ///   drawCount);
   ///
-  external Object multiDrawElementsInstancedWEBGL(
-      int mode,
-      dynamic countsList,
-      int countsOffset,
-      int type,
-      dynamic offsetsList,
-      int offsetsOffset,
-      dynamic instanceCountsList,
-      int instanceCountsOffset,
-      int drawcount);
+  Object multiDrawElementsInstancedWEBGL(
+          int mode,
+          dynamic countsList,
+          int countsOffset,
+          int type,
+          dynamic offsetsList,
+          int offsetsOffset,
+          dynamic instanceCountsList,
+          int instanceCountsOffset,
+          int drawcount) =>
+      js_util.callMethod(this, 'multiDrawElementsInstancedWEBGL', [
+        mode,
+        countsList,
+        countsOffset,
+        type,
+        offsetsList,
+        offsetsOffset,
+        instanceCountsList,
+        instanceCountsOffset,
+        drawcount
+      ]);
 }

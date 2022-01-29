@@ -5,6 +5,7 @@
 @staticInterop
 library performance_timeline_2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -31,7 +32,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class PerformanceEntry {
-  external factory PerformanceEntry();
+  external PerformanceEntry();
 }
 
 extension PropsPerformanceEntry on PerformanceEntry {
@@ -39,22 +40,22 @@ extension PropsPerformanceEntry on PerformanceEntry {
   /// [PerformanceEntry.entryType] property. The value of both depends
   /// on the subtype. See property page for valid values.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  A [DOMString] representing the type of performance metric such
   /// as, for example, "[mark]". See property page for valid values.
   ///
-  external String get entryType;
+  String get entryType => js_util.getProperty(this, 'entryType');
 
   ///  A [DOMHighResTimeStamp] representing the starting time for the
   /// performance metric.
   ///
-  external double get startTime;
+  double get startTime => js_util.getProperty(this, 'startTime');
 
   ///  A [DOMHighResTimeStamp] representing the time value of the
   /// duration of the performance event.
   ///
-  external double get duration;
+  double get duration => js_util.getProperty(this, 'duration');
 
   /// Returns a JSON representation of the [PerformanceEntry] object.
   ///
@@ -105,7 +106,7 @@ extension PropsPerformanceEntry on PerformanceEntry {
   ///  }
   /// }
   ///
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 ///  The interface is used to observe performance measurement events
@@ -116,7 +117,7 @@ extension PropsPerformanceEntry on PerformanceEntry {
 @JS()
 @staticInterop
 class PerformanceObserver {
-  external factory PerformanceObserver(PerformanceObserverCallback callback);
+  external PerformanceObserver(PerformanceObserverCallback callback);
 }
 
 extension PropsPerformanceObserver on PerformanceObserver {
@@ -126,7 +127,8 @@ extension PropsPerformanceObserver on PerformanceObserver {
   ///
   /// observer.observe(options);
   ///
-  external Object observe([PerformanceObserverInit? options]);
+  Object observe([PerformanceObserverInit? options]) =>
+      js_util.callMethod(this, 'observe', [options]);
 
   ///  Stops the performance observer callback from receiving
   /// [performance entries].
@@ -150,7 +152,7 @@ extension PropsPerformanceObserver on PerformanceObserver {
   /// var observer2 = new PerformanceObserver(perf_observer);
   /// observer2.observe({entryTypes: ["measure"]});
   ///
-  external Object disconnect();
+  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
 
   ///  Returns the current list of [performance entries] stored in the
   /// performance observer, emptying it out.
@@ -169,7 +171,8 @@ extension PropsPerformanceObserver on PerformanceObserver {
   /// console.log(records[0].startTime);
   /// console.log(records[0].duration);
   ///
-  external Iterable<PerformanceEntry> takeRecords();
+  Iterable<PerformanceEntry> takeRecords() =>
+      js_util.callMethod(this, 'takeRecords', []);
 
   ///  Returns an array of the [entryType] values supported by the user
   /// agent.
@@ -186,12 +189,20 @@ class PerformanceObserverInit {
 }
 
 extension PropsPerformanceObserverInit on PerformanceObserverInit {
-  external Iterable<String> get entryTypes;
-  external set entryTypes(Iterable<String> newValue);
-  external String get type;
-  external set type(String newValue);
-  external bool get buffered;
-  external set buffered(bool newValue);
+  Iterable<String> get entryTypes => js_util.getProperty(this, 'entryTypes');
+  set entryTypes(Iterable<String> newValue) {
+    js_util.setProperty(this, 'entryTypes', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  bool get buffered => js_util.getProperty(this, 'buffered');
+  set buffered(bool newValue) {
+    js_util.setProperty(this, 'buffered', newValue);
+  }
 }
 
 ///  The interface is a list of peformance events that were
@@ -200,7 +211,7 @@ extension PropsPerformanceObserverInit on PerformanceObserverInit {
 @JS()
 @staticInterop
 class PerformanceObserverEntryList {
-  external factory PerformanceObserverEntryList();
+  external PerformanceObserverEntryList();
 }
 
 extension PropsPerformanceObserverEntryList on PerformanceObserverEntryList {
@@ -256,7 +267,8 @@ extension PropsPerformanceObserverEntryList on PerformanceObserverEntryList {
   /// // subscribe to frame event only
   /// observe_frame.observe({entryTypes: ['frame']});
   ///
-  external Iterable<PerformanceEntry> getEntries();
+  Iterable<PerformanceEntry> getEntries() =>
+      js_util.callMethod(this, 'getEntries', []);
 
   ///  Returns a list of explicitly observed [PerformanceEntry] objects
   /// of the given entry type.
@@ -305,7 +317,8 @@ extension PropsPerformanceObserverEntryList on PerformanceObserverEntryList {
   /// // subscribe to only the 'frame' event
   /// observe_frame.observe({entryTypes: ['frame']});
   ///
-  external Iterable<PerformanceEntry> getEntriesByType(String type);
+  Iterable<PerformanceEntry> getEntriesByType(String type) =>
+      js_util.callMethod(this, 'getEntriesByType', [type]);
 
   ///  Returns a list of explicitly observed [PerformanceEntry] objects
   /// based on the given name and entry type.
@@ -354,8 +367,8 @@ extension PropsPerformanceObserverEntryList on PerformanceObserverEntryList {
   /// // subscribe to only the 'frame' event
   /// observe_frame.observe({entryTypes: ['frame']});
   ///
-  external Iterable<PerformanceEntry> getEntriesByName(String name,
-      [String? type]);
+  Iterable<PerformanceEntry> getEntriesByName(String name, [String? type]) =>
+      js_util.callMethod(this, 'getEntriesByName', [name, type]);
 }
 
 @anonymous
@@ -368,6 +381,9 @@ class PerformanceObserverCallbackOptions {
 
 extension PropsPerformanceObserverCallbackOptions
     on PerformanceObserverCallbackOptions {
-  external int get droppedEntriesCount;
-  external set droppedEntriesCount(int newValue);
+  int get droppedEntriesCount =>
+      js_util.getProperty(this, 'droppedEntriesCount');
+  set droppedEntriesCount(int newValue) {
+    js_util.setProperty(this, 'droppedEntriesCount', newValue);
+  }
 }

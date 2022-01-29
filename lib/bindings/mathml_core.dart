@@ -5,6 +5,7 @@
 @staticInterop
 library mathml_core;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -23,5 +24,5 @@ class MathMLElement
         ElementCSSInlineStyle,
         GlobalEventHandlers,
         DocumentAndElementEventHandlers {
-  external factory MathMLElement();
+  external MathMLElement();
 }

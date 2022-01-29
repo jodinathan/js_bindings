@@ -5,6 +5,7 @@
 @staticInterop
 library webvtt1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -29,7 +30,7 @@ enum AlignSetting { start, center, end, left, right }
 @JS()
 @staticInterop
 class VTTCue implements TextTrackCue {
-  external factory VTTCue(
+  external VTTCue(
       double startTime, /* double | NaN */ dynamic endTime, String text);
 }
 
@@ -37,68 +38,90 @@ extension PropsVTTCue on VTTCue {
   ///  A [VTTRegion] object describing the video's sub-region that the
   /// cue will be drawn onto, or [null] if none is assigned.
   ///
-  external VTTRegion? get region;
-  external set region(VTTRegion? newValue);
+  VTTRegion? get region => js_util.getProperty(this, 'region');
+  set region(VTTRegion? newValue) {
+    js_util.setProperty(this, 'region', newValue);
+  }
 
   /// Returns an enum representing the cue writing direction.
   ///
-  external DirectionSetting get vertical;
-  external set vertical(DirectionSetting newValue);
+  DirectionSetting get vertical => js_util.getProperty(this, 'vertical');
+  set vertical(DirectionSetting newValue) {
+    js_util.setProperty(this, 'vertical', newValue);
+  }
 
   ///  Returns true if the [VTTCue.line] attribute is an integer number
   /// of lines or a percentage of the video size.
   ///
-  external bool get snapToLines;
-  external set snapToLines(bool newValue);
+  bool get snapToLines => js_util.getProperty(this, 'snapToLines');
+  set snapToLines(bool newValue) {
+    js_util.setProperty(this, 'snapToLines', newValue);
+  }
 
   ///  Returns the line positioning of the cue. This can be the string
   /// [auto] or a number whose interpretation depends on the value of
   /// [VTTCue.snapToLines].
   ///
-  external dynamic get line;
-  external set line(dynamic newValue);
+  dynamic get line => js_util.getProperty(this, 'line');
+  set line(dynamic newValue) {
+    js_util.setProperty(this, 'line', newValue);
+  }
 
   /// Returns an enum representing the alignment of the [VTTCue.line].
   ///
-  external LineAlignSetting get lineAlign;
-  external set lineAlign(LineAlignSetting newValue);
+  LineAlignSetting get lineAlign => js_util.getProperty(this, 'lineAlign');
+  set lineAlign(LineAlignSetting newValue) {
+    js_util.setProperty(this, 'lineAlign', newValue);
+  }
 
   ///  Returns the indentation of the cue within the line. This can be
   /// the string [auto] or a number representing the percentage of the
   /// [VTTCue.region], or the video size if [VTTCue.region] is [null].
   ///
-  external dynamic get position;
-  external set position(dynamic newValue);
+  dynamic get position => js_util.getProperty(this, 'position');
+  set position(dynamic newValue) {
+    js_util.setProperty(this, 'position', newValue);
+  }
 
   ///  Returns an enum representing the alignment of the cue. This is
   /// used to determine what the [VTTCue.position] is anchored to. The
   /// default is [auto].
   ///
-  external PositionAlignSetting get positionAlign;
-  external set positionAlign(PositionAlignSetting newValue);
+  PositionAlignSetting get positionAlign =>
+      js_util.getProperty(this, 'positionAlign');
+  set positionAlign(PositionAlignSetting newValue) {
+    js_util.setProperty(this, 'positionAlign', newValue);
+  }
 
   ///  Returns a [double] representing the size of the cue, as a
   /// percentage of the video size.
   ///
-  external double get size;
-  external set size(double newValue);
+  double get size => js_util.getProperty(this, 'size');
+  set size(double newValue) {
+    js_util.setProperty(this, 'size', newValue);
+  }
 
   ///  Returns an enum representing the alignment of all the lines of
   /// text within the cue box.
   ///
-  external AlignSetting get align;
-  external set align(AlignSetting newValue);
+  AlignSetting get align => js_util.getProperty(this, 'align');
+  set align(AlignSetting newValue) {
+    js_util.setProperty(this, 'align', newValue);
+  }
 
   /// Returns a [DOMString] with the contents of the cue.
   ///
-  external String get text;
-  external set text(String newValue);
+  String get text => js_util.getProperty(this, 'text');
+  set text(String newValue) {
+    js_util.setProperty(this, 'text', newValue);
+  }
 
   /// Returns the cue text as a [DocumentFragment].
   ///
   /// VTTCue.getCueAsHTML();
   ///
-  external DocumentFragment getCueAsHTML();
+  DocumentFragment getCueAsHTML() =>
+      js_util.callMethod(this, 'getCueAsHTML', []);
 }
 
 enum ScrollSetting { empty, up }
@@ -109,54 +132,70 @@ enum ScrollSetting { empty, up }
 @JS()
 @staticInterop
 class VTTRegion {
-  external factory VTTRegion();
+  external VTTRegion();
 }
 
 extension PropsVTTRegion on VTTRegion {
   /// A [DOMString] that identifies the region.
   ///
-  external String get id;
-  external set id(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 
   ///  A [double] representing the width of the region, as a percentage
   /// of the video.
   ///
-  external double get width;
-  external set width(double newValue);
+  double get width => js_util.getProperty(this, 'width');
+  set width(double newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
 
   ///  A [double] representing the height of the region, in number of
   /// lines.
   ///
-  external int get lines;
-  external set lines(int newValue);
+  int get lines => js_util.getProperty(this, 'lines');
+  set lines(int newValue) {
+    js_util.setProperty(this, 'lines', newValue);
+  }
 
   ///  A [double] representing the region anchor X offset, as a
   /// percentage of the region.
   ///
-  external double get regionAnchorX;
-  external set regionAnchorX(double newValue);
+  double get regionAnchorX => js_util.getProperty(this, 'regionAnchorX');
+  set regionAnchorX(double newValue) {
+    js_util.setProperty(this, 'regionAnchorX', newValue);
+  }
 
   ///  A [double] representing the region anchor Y offset, as a
   /// percentage of the region.
   ///
-  external double get regionAnchorY;
-  external set regionAnchorY(double newValue);
+  double get regionAnchorY => js_util.getProperty(this, 'regionAnchorY');
+  set regionAnchorY(double newValue) {
+    js_util.setProperty(this, 'regionAnchorY', newValue);
+  }
 
   ///  A [double] representing the viewport anchor X offset, as a
   /// percentage of the video.
   ///
-  external double get viewportAnchorX;
-  external set viewportAnchorX(double newValue);
+  double get viewportAnchorX => js_util.getProperty(this, 'viewportAnchorX');
+  set viewportAnchorX(double newValue) {
+    js_util.setProperty(this, 'viewportAnchorX', newValue);
+  }
 
   ///  A [double] representing the viewport anchor Y offset, as a
   /// percentage of the video.
   ///
-  external double get viewportAnchorY;
-  external set viewportAnchorY(double newValue);
+  double get viewportAnchorY => js_util.getProperty(this, 'viewportAnchorY');
+  set viewportAnchorY(double newValue) {
+    js_util.setProperty(this, 'viewportAnchorY', newValue);
+  }
 
   ///  An enum representing how adding new cues will move existing
   /// cues.
   ///
-  external ScrollSetting get scroll;
-  external set scroll(ScrollSetting newValue);
+  ScrollSetting get scroll => js_util.getProperty(this, 'scroll');
+  set scroll(ScrollSetting newValue) {
+    js_util.setProperty(this, 'scroll', newValue);
+  }
 }

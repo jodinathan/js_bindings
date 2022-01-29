@@ -5,6 +5,7 @@
 @staticInterop
 library css_highlight_api_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -16,26 +17,29 @@ cssom_1 */
 @JS()
 @staticInterop
 class Highlight {
-  external factory Highlight([AbstractRange? initialRanges]);
+  external Highlight([AbstractRange? initialRanges]);
 }
 
 extension PropsHighlight on Highlight {
-  external int get priority;
-  external set priority(int newValue);
+  int get priority => js_util.getProperty(this, 'priority');
+  set priority(int newValue) {
+    js_util.setProperty(this, 'priority', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class HighlightsRegister {
-  external factory HighlightsRegister();
+  external HighlightsRegister();
 }
 
 extension PropsHighlightsRegister on HighlightsRegister {
-  external HighlightsRegister add(Highlight value);
+  HighlightsRegister add(Highlight value) =>
+      js_util.callMethod(this, 'add', [value]);
 }
 
 @JS()
 @staticInterop
 class HighlightRegistry {
-  external factory HighlightRegistry();
+  external HighlightRegistry();
 }

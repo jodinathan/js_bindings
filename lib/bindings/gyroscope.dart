@@ -5,6 +5,7 @@
 @staticInterop
 library gyroscope;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -24,24 +25,24 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class Gyroscope implements Sensor {
-  external factory Gyroscope([GyroscopeSensorOptions? sensorOptions]);
+  external Gyroscope([GyroscopeSensorOptions? sensorOptions]);
 }
 
 extension PropsGyroscope on Gyroscope {
   ///  Returns a double, containing the angular velocity of the device
   /// along the device's x axis.
   ///
-  external double? get x;
+  double? get x => js_util.getProperty(this, 'x');
 
   ///  Returns a double, containing the angular velocity of the device
   /// along the device's y axis.
   ///
-  external double? get y;
+  double? get y => js_util.getProperty(this, 'y');
 
   ///  Returns a double, containing the angular velocity of the device
   /// along the device's z axis.
   ///
-  external double? get z;
+  double? get z => js_util.getProperty(this, 'z');
 }
 
 enum GyroscopeLocalCoordinateSystem { device, screen }
@@ -56,8 +57,11 @@ class GyroscopeSensorOptions implements SensorOptions {
 }
 
 extension PropsGyroscopeSensorOptions on GyroscopeSensorOptions {
-  external GyroscopeLocalCoordinateSystem get referenceFrame;
-  external set referenceFrame(GyroscopeLocalCoordinateSystem newValue);
+  GyroscopeLocalCoordinateSystem get referenceFrame =>
+      js_util.getProperty(this, 'referenceFrame');
+  set referenceFrame(GyroscopeLocalCoordinateSystem newValue) {
+    js_util.setProperty(this, 'referenceFrame', newValue);
+  }
 }
 
 @anonymous
@@ -68,10 +72,18 @@ class GyroscopeReadingValues {
 }
 
 extension PropsGyroscopeReadingValues on GyroscopeReadingValues {
-  external double? get x;
-  external set x(double? newValue);
-  external double? get y;
-  external set y(double? newValue);
-  external double? get z;
-  external set z(double? newValue);
+  double? get x => js_util.getProperty(this, 'x');
+  set x(double? newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  double? get y => js_util.getProperty(this, 'y');
+  set y(double? newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  double? get z => js_util.getProperty(this, 'z');
+  set z(double? newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
 }

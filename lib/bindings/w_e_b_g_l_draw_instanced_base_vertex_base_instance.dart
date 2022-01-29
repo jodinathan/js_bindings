@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_draw_instanced_base_vertex_base_instance;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,19 +16,26 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class WEBGL_draw_instanced_base_vertex_base_instance {
-  external factory WEBGL_draw_instanced_base_vertex_base_instance();
+  external WEBGL_draw_instanced_base_vertex_base_instance();
 }
 
 extension PropsWEBGL_draw_instanced_base_vertex_base_instance
     on WEBGL_draw_instanced_base_vertex_base_instance {
-  external Object drawArraysInstancedBaseInstanceWEBGL(
-      int mode, int first, int count, int instanceCount, int baseInstance);
-  external Object drawElementsInstancedBaseVertexBaseInstanceWEBGL(
-      int mode,
-      int count,
-      int type,
-      int offset,
-      int instanceCount,
-      int baseVertex,
-      int baseInstance);
+  Object drawArraysInstancedBaseInstanceWEBGL(int mode, int first, int count,
+          int instanceCount, int baseInstance) =>
+      js_util.callMethod(this, 'drawArraysInstancedBaseInstanceWEBGL',
+          [mode, first, count, instanceCount, baseInstance]);
+
+  Object drawElementsInstancedBaseVertexBaseInstanceWEBGL(
+          int mode,
+          int count,
+          int type,
+          int offset,
+          int instanceCount,
+          int baseVertex,
+          int baseInstance) =>
+      js_util.callMethod(
+          this,
+          'drawElementsInstancedBaseVertexBaseInstanceWEBGL',
+          [mode, count, type, offset, instanceCount, baseVertex, baseInstance]);
 }

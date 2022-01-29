@@ -5,6 +5,7 @@
 @staticInterop
 library xhr;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -33,7 +34,7 @@ file_a_p_i */
 @JS()
 @staticInterop
 class XMLHttpRequestEventTarget implements EventTarget {
-  external factory XMLHttpRequestEventTarget();
+  external XMLHttpRequestEventTarget();
 }
 
 extension PropsXMLHttpRequestEventTarget on XMLHttpRequestEventTarget {
@@ -41,55 +42,71 @@ extension PropsXMLHttpRequestEventTarget on XMLHttpRequestEventTarget {
   /// first begins loading data and the [loadstart] event is received
   /// by this object.
   ///
-  external EventHandlerNonNull? get onloadstart;
-  external set onloadstart(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onloadstart =>
+      js_util.getProperty(this, 'onloadstart');
+  set onloadstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadstart', newValue);
+  }
 
   ///  Contains the function that is called periodically with
   /// information about the progress of the request and the [progress]
   /// event is received by this object.
   ///
-  external EventHandlerNonNull? get onprogress;
-  external set onprogress(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onprogress =>
+      js_util.getProperty(this, 'onprogress');
+  set onprogress(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onprogress', newValue);
+  }
 
   ///  Contains the function to call when a request is aborted and the
   /// [abort] event is received by this object.
   ///
-  external EventHandlerNonNull? get onabort;
-  external set onabort(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onabort => js_util.getProperty(this, 'onabort');
+  set onabort(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onabort', newValue);
+  }
 
   ///  Contains the function to call when a request encounters an error
   /// and the [error] event is received by this object.
   ///
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
 
   ///  Contains the function to call when an HTTP request returns after
   /// successfully fetching content and the [load] event is received by
   /// this object.
   ///
-  external EventHandlerNonNull? get onload;
-  external set onload(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onload => js_util.getProperty(this, 'onload');
+  set onload(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onload', newValue);
+  }
 
   ///  Contains the function that is called if the event times out and
   /// the [timeout] event is received by this object; this only happens
   /// if a timeout has been previously established by setting the value
   /// of the [XMLHttpRequest] object's [timeout] attribute.
   ///
-  external EventHandlerNonNull? get ontimeout;
-  external set ontimeout(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get ontimeout => js_util.getProperty(this, 'ontimeout');
+  set ontimeout(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontimeout', newValue);
+  }
 
   ///  Contains the function that is called when the load is completed,
   /// even if the request failed, and the [loadend] event is received
   /// by this object.
   ///
-  external EventHandlerNonNull? get onloadend;
-  external set onloadend(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onloadend => js_util.getProperty(this, 'onloadend');
+  set onloadend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadend', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class XMLHttpRequestUpload implements XMLHttpRequestEventTarget {
-  external factory XMLHttpRequestUpload();
+  external XMLHttpRequestUpload();
 }
 
 enum XMLHttpRequestResponseType {
@@ -141,57 +158,67 @@ class XMLHttpRequest implements XMLHttpRequestEventTarget {
   external static int get HEADERS_RECEIVED;
   external static int get LOADING;
   external static int get DONE;
-  external factory XMLHttpRequest();
+  external XMLHttpRequest();
 }
 
 extension PropsXMLHttpRequest on XMLHttpRequest {
   ///  An Event handler that is called whenever the [readyState]
   /// attribute changes.
   ///
-  external EventHandlerNonNull? get onreadystatechange;
-  external set onreadystatechange(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onreadystatechange =>
+      js_util.getProperty(this, 'onreadystatechange');
+  set onreadystatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onreadystatechange', newValue);
+  }
 
   /// Returns an [unsigned short], the state of the request.
   ///
-  external int get readyState;
+  int get readyState => js_util.getProperty(this, 'readyState');
 
   /// Initializes a request.
   ///
   /// XMLHttpRequest.open(method, url[, async[, user[, password]]])
   ///
-  external Object open(String method,
-      [String? url, bool mAsync, String? username, String? password]);
+  Object open(String method,
+          [String? url, bool? mAsync, String? username, String? password]) =>
+      js_util
+          .callMethod(this, 'open', [method, url, mAsync, username, password]);
 
   ///  Sets the value of an HTTP request header. You must call
   /// [setRequestHeader()]after [open()], but before [send()].
   ///
   /// XMLHttpRequest.setRequestHeader(header, value)
   ///
-  external Object setRequestHeader(String name, String value);
+  Object setRequestHeader(String name, String value) =>
+      js_util.callMethod(this, 'setRequestHeader', [name, value]);
 
   ///  Is an [unsigned long] representing the number of milliseconds a
   /// request can take before automatically being terminated.
   ///
-  external int get timeout;
-  external set timeout(int newValue);
+  int get timeout => js_util.getProperty(this, 'timeout');
+  set timeout(int newValue) {
+    js_util.setProperty(this, 'timeout', newValue);
+  }
 
   ///  Is a boolean value that indicates whether or not cross-site
   /// [Access-Control] requests should be made using credentials such
   /// as cookies or authorization headers.
   ///
-  external bool get withCredentials;
-  external set withCredentials(bool newValue);
+  bool get withCredentials => js_util.getProperty(this, 'withCredentials');
+  set withCredentials(bool newValue) {
+    js_util.setProperty(this, 'withCredentials', newValue);
+  }
 
   /// Is an [XMLHttpRequestUpload], representing the upload process.
   ///
-  external XMLHttpRequestUpload get upload;
+  XMLHttpRequestUpload get upload => js_util.getProperty(this, 'upload');
 
   ///  Sends the request. If the request is asynchronous (which is the
   /// default), this method returns as soon as the request is sent.
   ///
   /// XMLHttpRequest.send(body)
   ///
-  external Object send([dynamic body]);
+  Object send([dynamic body]) => js_util.callMethod(this, 'send', [body]);
 
   /// Aborts the request if it has already been sent.
   ///
@@ -212,17 +239,17 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   ///  xhr.abort();
   /// }
   ///
-  external Object abort();
+  Object abort() => js_util.callMethod(this, 'abort', []);
 
   ///  Returns the serialized URL of the response or the empty string
   /// if the URL is null.
   ///
-  external String get responseURL;
+  String get responseURL => js_util.getProperty(this, 'responseURL');
 
   ///  Returns an [unsigned short] with the status of the response of
   /// the request.
   ///
-  external int get status;
+  int get status => js_util.getProperty(this, 'status');
 
   ///  Returns a [DOMString] containing the response string returned by
   /// the HTTP server. Unlike [XMLHttpRequest.status], this includes
@@ -235,7 +262,7 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   /// line.
   ///
   ///
-  external String get statusText;
+  String get statusText => js_util.getProperty(this, 'statusText');
 
   ///  Returns the string containing the text of the specified header,
   /// or [null] if either the response has not yet been received or the
@@ -263,7 +290,8 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   ///  }
   /// }
   ///
-  external String? getResponseHeader(String name);
+  String? getResponseHeader(String name) =>
+      js_util.callMethod(this, 'getResponseHeader', [name]);
 
   ///  Returns all the response headers, separated by CRLF, as a
   /// string, or [null] if no response has been received.
@@ -306,7 +334,8 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   ///  This obtains the value of the Content-Type header into the variable
   ///  contentType.
   ///
-  external String getAllResponseHeaders();
+  String getAllResponseHeaders() =>
+      js_util.callMethod(this, 'getAllResponseHeaders', []);
 
   /// Overrides the MIME type returned by the server.
   ///
@@ -332,31 +361,35 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   /// req.open("get", url);
   /// req.send();
   ///
-  external Object overrideMimeType(String mime);
+  Object overrideMimeType(String mime) =>
+      js_util.callMethod(this, 'overrideMimeType', [mime]);
 
   /// Is an enumerated value that defines the response type.
   ///
-  external XMLHttpRequestResponseType get responseType;
-  external set responseType(XMLHttpRequestResponseType newValue);
+  XMLHttpRequestResponseType get responseType =>
+      js_util.getProperty(this, 'responseType');
+  set responseType(XMLHttpRequestResponseType newValue) {
+    js_util.setProperty(this, 'responseType', newValue);
+  }
 
   ///  Returns an [ArrayBuffer], [Blob], [Document], JavaScript object,
   /// or a [DOMString], depending on the value of
   /// [XMLHttpRequest.responseType], that contains the response entity
   /// body.
   ///
-  external dynamic get response;
+  dynamic get response => js_util.getProperty(this, 'response');
 
   ///  Returns a [DOMString] that contains the response to the request
   /// as text, or [null] if the request was unsuccessful or has not yet
   /// been sent.
   ///
-  external String get responseText;
+  String get responseText => js_util.getProperty(this, 'responseText');
 
   ///  Returns a [Document] containing the response to the request, or
   /// [null] if the request was unsuccessful, has not yet been sent, or
   /// cannot be parsed as XML or HTML. Not available in workers.
   ///
-  external Document? get responseXML;
+  Document? get responseXML => js_util.getProperty(this, 'responseXML');
 }
 
 ///  The interface provides a way to easily construct a set of
@@ -376,7 +409,7 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
 @JS()
 @staticInterop
 class FormData {
-  external factory FormData([HTMLFormElement? form]);
+  external FormData([HTMLFormElement? form]);
 }
 
 extension PropsFormData on FormData {
@@ -406,7 +439,8 @@ extension PropsFormData on FormData {
   ///
   /// formData.getAll('name'); // ["true", "74", "John"]
   ///
-  external Object append(String name, [Blob? blobValue, String? filename]);
+  Object append(String name, [Blob? blobValue, String? filename]) =>
+      js_util.callMethod(this, 'append', [name, blobValue, filename]);
 
   /// Deletes a key/value pair from a [FormData] object.
   ///
@@ -418,7 +452,7 @@ extension PropsFormData on FormData {
   /// You can delete keys and their values using delete():
   /// formData.delete('username');
   ///
-  external Object delete(String name);
+  Object delete(String name) => js_util.callMethod(this, 'delete', [name]);
 
   ///  Returns the first value associated with a given key from within
   /// a [FormData] object.
@@ -438,7 +472,7 @@ extension PropsFormData on FormData {
   ///
   @JS('get')
   @staticInterop
-  external dynamic mGet(String name);
+  dynamic mGet(String name) => js_util.callMethod(this, 'get', [name]);
 
   ///  Returns an array of all the values associated with a given key
   /// from within a [FormData].
@@ -455,7 +489,8 @@ extension PropsFormData on FormData {
   /// The following getAll() function will return both username values in an array:
   /// formData.getAll('username'); // Returns ["Chris", "Bob"]
   ///
-  external Iterable<dynamic> getAll(String name);
+  Iterable<dynamic> getAll(String name) =>
+      js_util.callMethod(this, 'getAll', [name]);
 
   ///  Returns a boolean stating whether a [FormData] object contains a
   /// certain key.
@@ -470,7 +505,7 @@ extension PropsFormData on FormData {
   /// formData.append('username', 'Chris');
   /// formData.has('username'); // Returns true
   ///
-  external bool has(String name);
+  bool has(String name) => js_util.callMethod(this, 'has', [name]);
 
   ///  Sets a new value for an existing key inside a [FormData] object,
   /// or adds the key/value if it does not already exist.
@@ -508,7 +543,8 @@ extension PropsFormData on FormData {
   ///
   @JS('set')
   @staticInterop
-  external Object mSet(String name, [Blob? blobValue, String? filename]);
+  Object mSet(String name, [Blob? blobValue, String? filename]) =>
+      js_util.callMethod(this, 'set', [name, blobValue, filename]);
 }
 
 ///  The interface represents events measuring progress of an
@@ -530,8 +566,7 @@ extension PropsFormData on FormData {
 @JS()
 @staticInterop
 class ProgressEvent implements Event {
-  external factory ProgressEvent(String type,
-      [ProgressEventInit? eventInitDict]);
+  external ProgressEvent(String type, [ProgressEventInit? eventInitDict]);
 }
 
 extension PropsProgressEvent on ProgressEvent {
@@ -540,7 +575,7 @@ extension PropsProgressEvent on ProgressEvent {
   /// calculable. In other words, it tells if the progress is
   /// measurable or not.
   ///
-  external bool get lengthComputable;
+  bool get lengthComputable => js_util.getProperty(this, 'lengthComputable');
 
   ///  A 64-bit unsigned integer value indicating the amount of work
   /// already performed by the underlying process. The ratio of work
@@ -549,7 +584,7 @@ extension PropsProgressEvent on ProgressEvent {
   /// counts the body of the HTTP message, and doesn't include headers
   /// and other overhead.
   ///
-  external int get loaded;
+  int get loaded => js_util.getProperty(this, 'loaded');
 
   ///  A 64-bit unsigned integer representing the total amount of work
   /// that the underlying process is in the progress of performing.
@@ -557,7 +592,7 @@ extension PropsProgressEvent on ProgressEvent {
   /// [Content-Length] (the size of the body of the message), and
   /// doesn't include the headers and other overhead.
   ///
-  external int get total;
+  int get total => js_util.getProperty(this, 'total');
 }
 
 @anonymous
@@ -569,10 +604,18 @@ class ProgressEventInit implements EventInit {
 }
 
 extension PropsProgressEventInit on ProgressEventInit {
-  external bool get lengthComputable;
-  external set lengthComputable(bool newValue);
-  external int get loaded;
-  external set loaded(int newValue);
-  external int get total;
-  external set total(int newValue);
+  bool get lengthComputable => js_util.getProperty(this, 'lengthComputable');
+  set lengthComputable(bool newValue) {
+    js_util.setProperty(this, 'lengthComputable', newValue);
+  }
+
+  int get loaded => js_util.getProperty(this, 'loaded');
+  set loaded(int newValue) {
+    js_util.setProperty(this, 'loaded', newValue);
+  }
+
+  int get total => js_util.getProperty(this, 'total');
+  set total(int newValue) {
+    js_util.setProperty(this, 'total', newValue);
+  }
 }

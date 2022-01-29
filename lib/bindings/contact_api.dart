@@ -5,6 +5,7 @@
 @staticInterop
 library contact_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -28,7 +29,7 @@ enum ContactProperty { address, email, icon, name, tel }
 @JS()
 @staticInterop
 class ContactAddress implements PaymentAddress {
-  external factory ContactAddress();
+  external ContactAddress();
 }
 
 @anonymous
@@ -44,16 +45,30 @@ class ContactInfo {
 }
 
 extension PropsContactInfo on ContactInfo {
-  external Iterable<ContactAddress> get address;
-  external set address(Iterable<ContactAddress> newValue);
-  external Iterable<String> get email;
-  external set email(Iterable<String> newValue);
-  external Iterable<Blob> get icon;
-  external set icon(Iterable<Blob> newValue);
-  external Iterable<String> get name;
-  external set name(Iterable<String> newValue);
-  external Iterable<String> get tel;
-  external set tel(Iterable<String> newValue);
+  Iterable<ContactAddress> get address => js_util.getProperty(this, 'address');
+  set address(Iterable<ContactAddress> newValue) {
+    js_util.setProperty(this, 'address', newValue);
+  }
+
+  Iterable<String> get email => js_util.getProperty(this, 'email');
+  set email(Iterable<String> newValue) {
+    js_util.setProperty(this, 'email', newValue);
+  }
+
+  Iterable<Blob> get icon => js_util.getProperty(this, 'icon');
+  set icon(Iterable<Blob> newValue) {
+    js_util.setProperty(this, 'icon', newValue);
+  }
+
+  Iterable<String> get name => js_util.getProperty(this, 'name');
+  set name(Iterable<String> newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  Iterable<String> get tel => js_util.getProperty(this, 'tel');
+  set tel(Iterable<String> newValue) {
+    js_util.setProperty(this, 'tel', newValue);
+  }
 }
 
 @anonymous
@@ -64,8 +79,10 @@ class ContactsSelectOptions {
 }
 
 extension PropsContactsSelectOptions on ContactsSelectOptions {
-  external bool get multiple;
-  external set multiple(bool newValue);
+  bool get multiple => js_util.getProperty(this, 'multiple');
+  set multiple(bool newValue) {
+    js_util.setProperty(this, 'multiple', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -78,7 +95,7 @@ extension PropsContactsSelectOptions on ContactsSelectOptions {
 @JS()
 @staticInterop
 class ContactsManager {
-  external factory ContactsManager();
+  external ContactsManager();
 }
 
 extension PropsContactsManager on ContactsManager {
@@ -87,7 +104,8 @@ extension PropsContactsManager on ContactsManager {
   ///
   /// var ContactProperties = ContactsManager.getProperties();
   ///
-  external Iterable<Promise<ContactProperty>> getProperties();
+  Iterable<Promise<ContactProperty>> getProperties() =>
+      js_util.callMethod(this, 'getProperties', []);
 
   ///  Returns a [Promise] which, when resolved, presents the user with
   /// a contact picker which allows them to select contact(s) they wish
@@ -95,7 +113,7 @@ extension PropsContactsManager on ContactsManager {
   ///
   /// var ContactInfo = ContactsManager.select(properties, options);
   ///
-  external Iterable<Promise<ContactInfo>> select(
-      Iterable<ContactProperty> properties,
-      [ContactsSelectOptions? options]);
+  Iterable<Promise<ContactInfo>> select(Iterable<ContactProperty> properties,
+          [ContactsSelectOptions? options]) =>
+      js_util.callMethod(this, 'select', [properties, options]);
 }

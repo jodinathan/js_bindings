@@ -128,7 +128,7 @@ typedef EffectCallback = Function(
 
 typedef BlobCallback = Function(Blob? blob);
 
-typedef CustomElementConstructor = Function();
+typedef CustomElementConstructor = dynamic;
 
 typedef FunctionStringCallback = Function(String data);
 

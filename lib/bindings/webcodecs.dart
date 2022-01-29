@@ -5,6 +5,7 @@
 @staticInterop
 library webcodecs;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,51 +22,54 @@ dom */
 @JS()
 @staticInterop
 class AudioDecoder {
-  external factory AudioDecoder(AudioDecoderInit init);
+  external AudioDecoder(AudioDecoderInit init);
 }
 
 extension PropsAudioDecoder on AudioDecoder {
   ///  Represents the state of the underlying codec and whether it is
   /// configured for decoding.
   ///
-  external CodecState get state;
+  CodecState get state => js_util.getProperty(this, 'state');
 
   /// An integer representing the number of decode queue requests.
   ///
-  external int get decodeQueueSize;
+  int get decodeQueueSize => js_util.getProperty(this, 'decodeQueueSize');
 
   ///  Enqueues a control message to configure the audio decoder for
   /// decoding chunks.
   ///
   /// AudioDecoder.configure(config)
   ///
-  external Object configure(AudioDecoderConfig config);
+  Object configure(AudioDecoderConfig config) =>
+      js_util.callMethod(this, 'configure', [config]);
 
   /// Enqueues a control message to decode a given chunk of audio.
   ///
   /// AudioDecoder.decode(chunk)
   ///
-  external Object decode(EncodedAudioChunk chunk);
+  Object decode(EncodedAudioChunk chunk) =>
+      js_util.callMethod(this, 'decode', [chunk]);
 
   ///  Returns a promise that resolves once all pending messages in the
   /// queue have been completed.
   ///
   /// AudioDecoder.flush()
   ///
-  external Promise<Object> flush();
+  Promise<Object> flush() => js_util.callMethod(this, 'flush', []);
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
   ///
   /// AudioDecoder.reset()
   ///
-  external Object reset();
+  Object reset() => js_util.callMethod(this, 'reset', []);
 
   /// Ends all pending work and releases system resources.
   ///
   /// AudioDecoder.close()
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
+
   external static Promise<AudioDecoderSupport> isConfigSupported(
       AudioDecoderConfig config);
 }
@@ -79,10 +83,15 @@ class AudioDecoderInit {
 }
 
 extension PropsAudioDecoderInit on AudioDecoderInit {
-  external AudioDataOutputCallback get output;
-  external set output(AudioDataOutputCallback newValue);
-  external WebCodecsErrorCallback get error;
-  external set error(WebCodecsErrorCallback newValue);
+  AudioDataOutputCallback get output => js_util.getProperty(this, 'output');
+  set output(AudioDataOutputCallback newValue) {
+    js_util.setProperty(this, 'output', newValue);
+  }
+
+  WebCodecsErrorCallback get error => js_util.getProperty(this, 'error');
+  set error(WebCodecsErrorCallback newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -91,51 +100,54 @@ extension PropsAudioDecoderInit on AudioDecoderInit {
 @JS()
 @staticInterop
 class VideoDecoder {
-  external factory VideoDecoder(VideoDecoderInit init);
+  external VideoDecoder(VideoDecoderInit init);
 }
 
 extension PropsVideoDecoder on VideoDecoder {
   ///  Indicates whether the underlying codec is configured for
   /// decoding.
   ///
-  external CodecState get state;
+  CodecState get state => js_util.getProperty(this, 'state');
 
   /// An integer representing the number of decode queue requests.
   ///
-  external int get decodeQueueSize;
+  int get decodeQueueSize => js_util.getProperty(this, 'decodeQueueSize');
 
   ///  Enqueues a control message to configure the video decoder for
   /// decoding chunks.
   ///
   /// VideoDecoder.configure(config)
   ///
-  external Object configure(VideoDecoderConfig config);
+  Object configure(VideoDecoderConfig config) =>
+      js_util.callMethod(this, 'configure', [config]);
 
   /// Enqueues a control message to decode a given chunk of video.
   ///
   /// VideoDecoder.decode(chunk)
   ///
-  external Object decode(EncodedVideoChunk chunk);
+  Object decode(EncodedVideoChunk chunk) =>
+      js_util.callMethod(this, 'decode', [chunk]);
 
   ///  Returns a promise that resolves once all pending messages in the
   /// queue have been completed.
   ///
   /// VideoDecoder.flush()
   ///
-  external Promise<Object> flush();
+  Promise<Object> flush() => js_util.callMethod(this, 'flush', []);
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
   ///
   /// VideoDecoder.reset()
   ///
-  external Object reset();
+  Object reset() => js_util.callMethod(this, 'reset', []);
 
   /// Ends all pending work and releases system resources.
   ///
   /// VideoDecoder.close()
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
+
   external static Promise<VideoDecoderSupport> isConfigSupported(
       VideoDecoderConfig config);
 }
@@ -149,62 +161,69 @@ class VideoDecoderInit {
 }
 
 extension PropsVideoDecoderInit on VideoDecoderInit {
-  external VideoFrameOutputCallback get output;
-  external set output(VideoFrameOutputCallback newValue);
-  external WebCodecsErrorCallback get error;
-  external set error(WebCodecsErrorCallback newValue);
+  VideoFrameOutputCallback get output => js_util.getProperty(this, 'output');
+  set output(VideoFrameOutputCallback newValue) {
+    js_util.setProperty(this, 'output', newValue);
+  }
+
+  WebCodecsErrorCallback get error => js_util.getProperty(this, 'error');
+  set error(WebCodecsErrorCallback newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }
 
 /// The interface of the WebCodecs API encodes [AudioData] objects.
 @JS()
 @staticInterop
 class AudioEncoder {
-  external factory AudioEncoder(AudioEncoderInit init);
+  external AudioEncoder(AudioEncoderInit init);
 }
 
 extension PropsAudioEncoder on AudioEncoder {
   ///  Represents the state of the underlying codec and whether it is
   /// configured for encoding.
   ///
-  external CodecState get state;
+  CodecState get state => js_util.getProperty(this, 'state');
 
   /// An integer representing the number of encode queue requests.
   ///
-  external int get encodeQueueSize;
+  int get encodeQueueSize => js_util.getProperty(this, 'encodeQueueSize');
 
   ///  Enqueues a control message to configure the audio encoder for
   /// encoding chunks.
   ///
   /// AudioEncoder.configure(config)
   ///
-  external Object configure(AudioEncoderConfig config);
+  Object configure(AudioEncoderConfig config) =>
+      js_util.callMethod(this, 'configure', [config]);
 
   ///  Enqueues a control message to encode a given [AudioData]
   /// objects.
   ///
   /// AudioEncoder.encode(data);
   ///
-  external Object encode(AudioData data);
+  Object encode(AudioData data) => js_util.callMethod(this, 'encode', [data]);
 
   ///  Returns a promise that resolves once all pending messages in the
   /// queue have been completed.
   ///
   /// AudioEncoder.flush()
   ///
-  external Promise<Object> flush();
+  Promise<Object> flush() => js_util.callMethod(this, 'flush', []);
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
   ///
   /// AudioEncoder.reset()
   ///
-  external Object reset();
+  Object reset() => js_util.callMethod(this, 'reset', []);
 
   /// Ends all pending work and releases system resources.
   ///
   /// AudioEncoder.close()
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
+
   external static Promise<AudioEncoderSupport> isConfigSupported(
       AudioEncoderConfig config);
 }
@@ -218,10 +237,16 @@ class AudioEncoderInit {
 }
 
 extension PropsAudioEncoderInit on AudioEncoderInit {
-  external EncodedAudioChunkOutputCallback get output;
-  external set output(EncodedAudioChunkOutputCallback newValue);
-  external WebCodecsErrorCallback get error;
-  external set error(WebCodecsErrorCallback newValue);
+  EncodedAudioChunkOutputCallback get output =>
+      js_util.getProperty(this, 'output');
+  set output(EncodedAudioChunkOutputCallback newValue) {
+    js_util.setProperty(this, 'output', newValue);
+  }
+
+  WebCodecsErrorCallback get error => js_util.getProperty(this, 'error');
+  set error(WebCodecsErrorCallback newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }
 
 @anonymous
@@ -233,61 +258,66 @@ class EncodedAudioChunkMetadata {
 }
 
 extension PropsEncodedAudioChunkMetadata on EncodedAudioChunkMetadata {
-  external AudioDecoderConfig get decoderConfig;
-  external set decoderConfig(AudioDecoderConfig newValue);
+  AudioDecoderConfig get decoderConfig =>
+      js_util.getProperty(this, 'decoderConfig');
+  set decoderConfig(AudioDecoderConfig newValue) {
+    js_util.setProperty(this, 'decoderConfig', newValue);
+  }
 }
 
 /// The interface of the WebCodecs API encodes [VideoFrame] objects.
 @JS()
 @staticInterop
 class VideoEncoder {
-  external factory VideoEncoder(VideoEncoderInit init);
+  external VideoEncoder(VideoEncoderInit init);
 }
 
 extension PropsVideoEncoder on VideoEncoder {
   ///  Represents the state of the underlying codec and whether it is
   /// configured for encoding.
   ///
-  external CodecState get state;
+  CodecState get state => js_util.getProperty(this, 'state');
 
   /// An integer representing the number of encode queue requests.
   ///
-  external int get encodeQueueSize;
+  int get encodeQueueSize => js_util.getProperty(this, 'encodeQueueSize');
 
   ///  Enqueues a control message to configure the video encoder for
   /// encoding chunks.
   ///
   /// VideoEncoder.configure(config)
   ///
-  external Object configure(VideoEncoderConfig config);
+  Object configure(VideoEncoderConfig config) =>
+      js_util.callMethod(this, 'configure', [config]);
 
   /// Enqueues a control message to encode a given [VideoFrame].
   ///
   /// VideoEncoder.encode(frame);
   /// VideoEncoder.encode(frame, options);
   ///
-  external Object encode(VideoFrame frame,
-      [VideoEncoderEncodeOptions? options]);
+  Object encode(VideoFrame frame, [VideoEncoderEncodeOptions? options]) =>
+      js_util.callMethod(this, 'encode', [frame, options]);
 
   ///  Returns a promise that resolves once all pending messages in the
   /// queue have been completed.
   ///
   /// VideoEncoder.flush()
   ///
-  external Promise<Object> flush();
+  Promise<Object> flush() => js_util.callMethod(this, 'flush', []);
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
   ///
   /// VideoEncoder.reset()
   ///
-  external Object reset();
+  Object reset() => js_util.callMethod(this, 'reset', []);
 
   /// Ends all pending work and releases system resources.
   ///
   /// VideoEncoder.close()
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
+
   external static Promise<bool> isConfigSupported(VideoEncoderConfig config);
 }
 
@@ -300,10 +330,16 @@ class VideoEncoderInit {
 }
 
 extension PropsVideoEncoderInit on VideoEncoderInit {
-  external EncodedVideoChunkOutputCallback get output;
-  external set output(EncodedVideoChunkOutputCallback newValue);
-  external WebCodecsErrorCallback get error;
-  external set error(WebCodecsErrorCallback newValue);
+  EncodedVideoChunkOutputCallback get output =>
+      js_util.getProperty(this, 'output');
+  set output(EncodedVideoChunkOutputCallback newValue) {
+    js_util.setProperty(this, 'output', newValue);
+  }
+
+  WebCodecsErrorCallback get error => js_util.getProperty(this, 'error');
+  set error(WebCodecsErrorCallback newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }
 
 @anonymous
@@ -315,10 +351,16 @@ class EncodedVideoChunkMetadata {
 }
 
 extension PropsEncodedVideoChunkMetadata on EncodedVideoChunkMetadata {
-  external VideoDecoderConfig get decoderConfig;
-  external set decoderConfig(VideoDecoderConfig newValue);
-  external int get temporalLayerId;
-  external set temporalLayerId(int newValue);
+  VideoDecoderConfig get decoderConfig =>
+      js_util.getProperty(this, 'decoderConfig');
+  set decoderConfig(VideoDecoderConfig newValue) {
+    js_util.setProperty(this, 'decoderConfig', newValue);
+  }
+
+  int get temporalLayerId => js_util.getProperty(this, 'temporalLayerId');
+  set temporalLayerId(int newValue) {
+    js_util.setProperty(this, 'temporalLayerId', newValue);
+  }
 }
 
 @anonymous
@@ -330,10 +372,15 @@ class AudioDecoderSupport {
 }
 
 extension PropsAudioDecoderSupport on AudioDecoderSupport {
-  external bool get supported;
-  external set supported(bool newValue);
-  external AudioDecoderConfig get config;
-  external set config(AudioDecoderConfig newValue);
+  bool get supported => js_util.getProperty(this, 'supported');
+  set supported(bool newValue) {
+    js_util.setProperty(this, 'supported', newValue);
+  }
+
+  AudioDecoderConfig get config => js_util.getProperty(this, 'config');
+  set config(AudioDecoderConfig newValue) {
+    js_util.setProperty(this, 'config', newValue);
+  }
 }
 
 @anonymous
@@ -345,10 +392,15 @@ class VideoDecoderSupport {
 }
 
 extension PropsVideoDecoderSupport on VideoDecoderSupport {
-  external bool get supported;
-  external set supported(bool newValue);
-  external VideoDecoderConfig get config;
-  external set config(VideoDecoderConfig newValue);
+  bool get supported => js_util.getProperty(this, 'supported');
+  set supported(bool newValue) {
+    js_util.setProperty(this, 'supported', newValue);
+  }
+
+  VideoDecoderConfig get config => js_util.getProperty(this, 'config');
+  set config(VideoDecoderConfig newValue) {
+    js_util.setProperty(this, 'config', newValue);
+  }
 }
 
 @anonymous
@@ -360,10 +412,15 @@ class AudioEncoderSupport {
 }
 
 extension PropsAudioEncoderSupport on AudioEncoderSupport {
-  external bool get supported;
-  external set supported(bool newValue);
-  external AudioEncoderConfig get config;
-  external set config(AudioEncoderConfig newValue);
+  bool get supported => js_util.getProperty(this, 'supported');
+  set supported(bool newValue) {
+    js_util.setProperty(this, 'supported', newValue);
+  }
+
+  AudioEncoderConfig get config => js_util.getProperty(this, 'config');
+  set config(AudioEncoderConfig newValue) {
+    js_util.setProperty(this, 'config', newValue);
+  }
 }
 
 @anonymous
@@ -375,10 +432,15 @@ class VideoEncoderSupport {
 }
 
 extension PropsVideoEncoderSupport on VideoEncoderSupport {
-  external bool get supported;
-  external set supported(bool newValue);
-  external VideoEncoderConfig get config;
-  external set config(VideoEncoderConfig newValue);
+  bool get supported => js_util.getProperty(this, 'supported');
+  set supported(bool newValue) {
+    js_util.setProperty(this, 'supported', newValue);
+  }
+
+  VideoEncoderConfig get config => js_util.getProperty(this, 'config');
+  set config(VideoEncoderConfig newValue) {
+    js_util.setProperty(this, 'config', newValue);
+  }
 }
 
 @anonymous
@@ -393,14 +455,25 @@ class AudioDecoderConfig {
 }
 
 extension PropsAudioDecoderConfig on AudioDecoderConfig {
-  external String get codec;
-  external set codec(String newValue);
-  external int get sampleRate;
-  external set sampleRate(int newValue);
-  external int get numberOfChannels;
-  external set numberOfChannels(int newValue);
-  external dynamic get description;
-  external set description(dynamic newValue);
+  String get codec => js_util.getProperty(this, 'codec');
+  set codec(String newValue) {
+    js_util.setProperty(this, 'codec', newValue);
+  }
+
+  int get sampleRate => js_util.getProperty(this, 'sampleRate');
+  set sampleRate(int newValue) {
+    js_util.setProperty(this, 'sampleRate', newValue);
+  }
+
+  int get numberOfChannels => js_util.getProperty(this, 'numberOfChannels');
+  set numberOfChannels(int newValue) {
+    js_util.setProperty(this, 'numberOfChannels', newValue);
+  }
+
+  dynamic get description => js_util.getProperty(this, 'description');
+  set description(dynamic newValue) {
+    js_util.setProperty(this, 'description', newValue);
+  }
 }
 
 @anonymous
@@ -418,20 +491,42 @@ class VideoDecoderConfig {
 }
 
 extension PropsVideoDecoderConfig on VideoDecoderConfig {
-  external String get codec;
-  external set codec(String newValue);
-  external dynamic get description;
-  external set description(dynamic newValue);
-  external int get codedWidth;
-  external set codedWidth(int newValue);
-  external int get codedHeight;
-  external set codedHeight(int newValue);
-  external int get displayAspectWidth;
-  external set displayAspectWidth(int newValue);
-  external int get displayAspectHeight;
-  external set displayAspectHeight(int newValue);
-  external HardwareAcceleration get hardwareAcceleration;
-  external set hardwareAcceleration(HardwareAcceleration newValue);
+  String get codec => js_util.getProperty(this, 'codec');
+  set codec(String newValue) {
+    js_util.setProperty(this, 'codec', newValue);
+  }
+
+  dynamic get description => js_util.getProperty(this, 'description');
+  set description(dynamic newValue) {
+    js_util.setProperty(this, 'description', newValue);
+  }
+
+  int get codedWidth => js_util.getProperty(this, 'codedWidth');
+  set codedWidth(int newValue) {
+    js_util.setProperty(this, 'codedWidth', newValue);
+  }
+
+  int get codedHeight => js_util.getProperty(this, 'codedHeight');
+  set codedHeight(int newValue) {
+    js_util.setProperty(this, 'codedHeight', newValue);
+  }
+
+  int get displayAspectWidth => js_util.getProperty(this, 'displayAspectWidth');
+  set displayAspectWidth(int newValue) {
+    js_util.setProperty(this, 'displayAspectWidth', newValue);
+  }
+
+  int get displayAspectHeight =>
+      js_util.getProperty(this, 'displayAspectHeight');
+  set displayAspectHeight(int newValue) {
+    js_util.setProperty(this, 'displayAspectHeight', newValue);
+  }
+
+  HardwareAcceleration get hardwareAcceleration =>
+      js_util.getProperty(this, 'hardwareAcceleration');
+  set hardwareAcceleration(HardwareAcceleration newValue) {
+    js_util.setProperty(this, 'hardwareAcceleration', newValue);
+  }
 }
 
 @anonymous
@@ -443,14 +538,25 @@ class AudioEncoderConfig {
 }
 
 extension PropsAudioEncoderConfig on AudioEncoderConfig {
-  external String get codec;
-  external set codec(String newValue);
-  external int get sampleRate;
-  external set sampleRate(int newValue);
-  external int get numberOfChannels;
-  external set numberOfChannels(int newValue);
-  external int get bitrate;
-  external set bitrate(int newValue);
+  String get codec => js_util.getProperty(this, 'codec');
+  set codec(String newValue) {
+    js_util.setProperty(this, 'codec', newValue);
+  }
+
+  int get sampleRate => js_util.getProperty(this, 'sampleRate');
+  set sampleRate(int newValue) {
+    js_util.setProperty(this, 'sampleRate', newValue);
+  }
+
+  int get numberOfChannels => js_util.getProperty(this, 'numberOfChannels');
+  set numberOfChannels(int newValue) {
+    js_util.setProperty(this, 'numberOfChannels', newValue);
+  }
+
+  int get bitrate => js_util.getProperty(this, 'bitrate');
+  set bitrate(int newValue) {
+    js_util.setProperty(this, 'bitrate', newValue);
+  }
 }
 
 @anonymous
@@ -470,24 +576,51 @@ class VideoEncoderConfig {
 }
 
 extension PropsVideoEncoderConfig on VideoEncoderConfig {
-  external String get codec;
-  external set codec(String newValue);
-  external int get bitrate;
-  external set bitrate(int newValue);
-  external int get width;
-  external set width(int newValue);
-  external int get height;
-  external set height(int newValue);
-  external int get displayWidth;
-  external set displayWidth(int newValue);
-  external int get displayHeight;
-  external set displayHeight(int newValue);
-  external HardwareAcceleration get hardwareAcceleration;
-  external set hardwareAcceleration(HardwareAcceleration newValue);
-  external String get scalabilityMode;
-  external set scalabilityMode(String newValue);
-  external BitrateMode get bitrateMode;
-  external set bitrateMode(BitrateMode newValue);
+  String get codec => js_util.getProperty(this, 'codec');
+  set codec(String newValue) {
+    js_util.setProperty(this, 'codec', newValue);
+  }
+
+  int get bitrate => js_util.getProperty(this, 'bitrate');
+  set bitrate(int newValue) {
+    js_util.setProperty(this, 'bitrate', newValue);
+  }
+
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
+
+  int get displayWidth => js_util.getProperty(this, 'displayWidth');
+  set displayWidth(int newValue) {
+    js_util.setProperty(this, 'displayWidth', newValue);
+  }
+
+  int get displayHeight => js_util.getProperty(this, 'displayHeight');
+  set displayHeight(int newValue) {
+    js_util.setProperty(this, 'displayHeight', newValue);
+  }
+
+  HardwareAcceleration get hardwareAcceleration =>
+      js_util.getProperty(this, 'hardwareAcceleration');
+  set hardwareAcceleration(HardwareAcceleration newValue) {
+    js_util.setProperty(this, 'hardwareAcceleration', newValue);
+  }
+
+  String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
+  set scalabilityMode(String newValue) {
+    js_util.setProperty(this, 'scalabilityMode', newValue);
+  }
+
+  BitrateMode get bitrateMode => js_util.getProperty(this, 'bitrateMode');
+  set bitrateMode(BitrateMode newValue) {
+    js_util.setProperty(this, 'bitrateMode', newValue);
+  }
 }
 
 enum HardwareAcceleration { allow, deny, require }
@@ -500,8 +633,10 @@ class VideoEncoderEncodeOptions {
 }
 
 extension PropsVideoEncoderEncodeOptions on VideoEncoderEncodeOptions {
-  external bool get keyFrame;
-  external set keyFrame(bool newValue);
+  bool get keyFrame => js_util.getProperty(this, 'keyFrame');
+  set keyFrame(bool newValue) {
+    js_util.setProperty(this, 'keyFrame', newValue);
+  }
 }
 
 enum CodecState { unconfigured, configured, closed }
@@ -511,35 +646,36 @@ enum CodecState { unconfigured, configured, closed }
 @JS()
 @staticInterop
 class EncodedAudioChunk {
-  external factory EncodedAudioChunk(EncodedAudioChunkInit init);
+  external EncodedAudioChunk(EncodedAudioChunkInit init);
 }
 
 extension PropsEncodedAudioChunk on EncodedAudioChunk {
   ///  Returns a string indicating whether this chunk of data is a key
   /// chunk.
   ///
-  external EncodedAudioChunkType get type;
+  EncodedAudioChunkType get type => js_util.getProperty(this, 'type');
 
   ///  Returns an integer representing the timestamp of the audio in
   /// microseconds.
   ///
-  external int get timestamp;
+  int get timestamp => js_util.getProperty(this, 'timestamp');
 
   ///  Returns an integer representing the duration of the audio in
   /// microseconds.
   ///
-  external int get duration;
+  int get duration => js_util.getProperty(this, 'duration');
 
   ///  Returns an integer representing the length of the audio in
   /// bytes.
   ///
-  external int get byteLength;
+  int get byteLength => js_util.getProperty(this, 'byteLength');
 
   /// Copies the encoded audio data.
   ///
   /// EncodedAudioChunk.copyTo(destination)
   ///
-  external Object copyTo(dynamic destination);
+  Object copyTo(dynamic destination) =>
+      js_util.callMethod(this, 'copyTo', [destination]);
 }
 
 @anonymous
@@ -551,12 +687,20 @@ class EncodedAudioChunkInit {
 }
 
 extension PropsEncodedAudioChunkInit on EncodedAudioChunkInit {
-  external EncodedAudioChunkType get type;
-  external set type(EncodedAudioChunkType newValue);
-  external int get timestamp;
-  external set timestamp(int newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  EncodedAudioChunkType get type => js_util.getProperty(this, 'type');
+  set type(EncodedAudioChunkType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(int newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 enum EncodedAudioChunkType { key, delta }
@@ -566,35 +710,36 @@ enum EncodedAudioChunkType { key, delta }
 @JS()
 @staticInterop
 class EncodedVideoChunk {
-  external factory EncodedVideoChunk(EncodedVideoChunkInit init);
+  external EncodedVideoChunk(EncodedVideoChunkInit init);
 }
 
 extension PropsEncodedVideoChunk on EncodedVideoChunk {
   ///  Returns a string indicating whether this chunk of data is a key
   /// chunk.
   ///
-  external EncodedVideoChunkType get type;
+  EncodedVideoChunkType get type => js_util.getProperty(this, 'type');
 
   ///  Returns an integer representing the timestamp of the video in
   /// microseconds.
   ///
-  external int get timestamp;
+  int get timestamp => js_util.getProperty(this, 'timestamp');
 
   ///  Returns an integer representing the duration of the video in
   /// microseconds.
   ///
-  external int? get duration;
+  int? get duration => js_util.getProperty(this, 'duration');
 
   ///  Returns an integer representing the length of the video in
   /// bytes.
   ///
-  external int get byteLength;
+  int get byteLength => js_util.getProperty(this, 'byteLength');
 
   /// Copies the encoded video data.
   ///
   /// EncodedVideoChunk.copyTo(destination)
   ///
-  external Object copyTo(dynamic destination);
+  Object copyTo(dynamic destination) =>
+      js_util.callMethod(this, 'copyTo', [destination]);
 }
 
 @anonymous
@@ -606,14 +751,25 @@ class EncodedVideoChunkInit {
 }
 
 extension PropsEncodedVideoChunkInit on EncodedVideoChunkInit {
-  external EncodedVideoChunkType get type;
-  external set type(EncodedVideoChunkType newValue);
-  external int get timestamp;
-  external set timestamp(int newValue);
-  external int get duration;
-  external set duration(int newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  EncodedVideoChunkType get type => js_util.getProperty(this, 'type');
+  set type(EncodedVideoChunkType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(int newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  int get duration => js_util.getProperty(this, 'duration');
+  set duration(int newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 enum EncodedVideoChunkType { key, delta }
@@ -622,55 +778,57 @@ enum EncodedVideoChunkType { key, delta }
 @JS()
 @staticInterop
 class AudioData {
-  external factory AudioData(AudioDataInit init);
+  external AudioData(AudioDataInit init);
 }
 
 extension PropsAudioData on AudioData {
   /// Returns the sample format of the audio.
   ///
-  external AudioSampleFormat get format;
+  AudioSampleFormat get format => js_util.getProperty(this, 'format');
 
   /// Returns the sample rate of the audio in Hz.
   ///
-  external double get sampleRate;
-  external int get numberOfFrames;
-  external int get numberOfChannels;
+  double get sampleRate => js_util.getProperty(this, 'sampleRate');
+  int get numberOfFrames => js_util.getProperty(this, 'numberOfFrames');
+  int get numberOfChannels => js_util.getProperty(this, 'numberOfChannels');
 
   /// Returns the duration of the audio in microseconds.
   ///
-  external int get duration;
+  int get duration => js_util.getProperty(this, 'duration');
 
   /// Returns the timestamp of the audio in microseconds.
   ///
-  external int get timestamp;
+  int get timestamp => js_util.getProperty(this, 'timestamp');
 
   ///  Returns the number of bytes required to hold the sample as
   /// filtered by options passed into the method.
   ///
   /// AudioData.allocationSize(options)
   ///
-  external int allocationSize(AudioDataCopyToOptions options);
+  int allocationSize(AudioDataCopyToOptions options) =>
+      js_util.callMethod(this, 'allocationSize', [options]);
 
   ///  Copies the samples from the specified plane of the [AudioData]
   /// object to the destination.
   ///
   /// AudioData.copyTo(destination, options)
   ///
-  external Object copyTo(dynamic destination, AudioDataCopyToOptions options);
+  Object copyTo(dynamic destination, AudioDataCopyToOptions options) =>
+      js_util.callMethod(this, 'copyTo', [destination, options]);
 
   ///  Creates a new [AudioData] object with reference to the same
   /// media resource as the original.
   ///
   /// AudioData.clone()
   ///
-  external AudioData clone();
+  AudioData clone() => js_util.callMethod(this, 'clone', []);
 
   ///  Clears all states and releases the reference to the media
   /// resource.
   ///
   /// AudioData.close()
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 }
 
 @anonymous
@@ -687,18 +845,35 @@ class AudioDataInit {
 }
 
 extension PropsAudioDataInit on AudioDataInit {
-  external AudioSampleFormat get format;
-  external set format(AudioSampleFormat newValue);
-  external double get sampleRate;
-  external set sampleRate(double newValue);
-  external int get numberOfFrames;
-  external set numberOfFrames(int newValue);
-  external int get numberOfChannels;
-  external set numberOfChannels(int newValue);
-  external int get timestamp;
-  external set timestamp(int newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  AudioSampleFormat get format => js_util.getProperty(this, 'format');
+  set format(AudioSampleFormat newValue) {
+    js_util.setProperty(this, 'format', newValue);
+  }
+
+  double get sampleRate => js_util.getProperty(this, 'sampleRate');
+  set sampleRate(double newValue) {
+    js_util.setProperty(this, 'sampleRate', newValue);
+  }
+
+  int get numberOfFrames => js_util.getProperty(this, 'numberOfFrames');
+  set numberOfFrames(int newValue) {
+    js_util.setProperty(this, 'numberOfFrames', newValue);
+  }
+
+  int get numberOfChannels => js_util.getProperty(this, 'numberOfChannels');
+  set numberOfChannels(int newValue) {
+    js_util.setProperty(this, 'numberOfChannels', newValue);
+  }
+
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(int newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 @anonymous
@@ -710,12 +885,20 @@ class AudioDataCopyToOptions {
 }
 
 extension PropsAudioDataCopyToOptions on AudioDataCopyToOptions {
-  external int get planeIndex;
-  external set planeIndex(int newValue);
-  external int get frameOffset;
-  external set frameOffset(int newValue);
-  external int get frameCount;
-  external set frameCount(int newValue);
+  int get planeIndex => js_util.getProperty(this, 'planeIndex');
+  set planeIndex(int newValue) {
+    js_util.setProperty(this, 'planeIndex', newValue);
+  }
+
+  int get frameOffset => js_util.getProperty(this, 'frameOffset');
+  set frameOffset(int newValue) {
+    js_util.setProperty(this, 'frameOffset', newValue);
+  }
+
+  int get frameCount => js_util.getProperty(this, 'frameCount');
+  set frameCount(int newValue) {
+    js_util.setProperty(this, 'frameCount', newValue);
+  }
 }
 
 enum AudioSampleFormat { u8, s16, s24, s32, flt, u8p, s16p, s24p, s32p, fltp }
@@ -725,55 +908,55 @@ enum AudioSampleFormat { u8, s16, s24, s32, flt, u8p, s16p, s24p, s32p, fltp }
 @JS()
 @staticInterop
 class VideoFrame {
-  external factory VideoFrame(dynamic image, [VideoFrameInit? init]);
+  external VideoFrame(dynamic image, [VideoFrameInit? init]);
 }
 
 extension PropsVideoFrame on VideoFrame {
   /// Returns the pixel format of the [VideoFrame].
   ///
-  external PixelFormat get format;
+  PixelFormat get format => js_util.getProperty(this, 'format');
 
   ///  Returns the width of the [VideoFrame] in pixels, potentially
   /// including non-visible padding, and prior to considering potential
   /// ratio adjustments.
   ///
-  external int get codedWidth;
+  int get codedWidth => js_util.getProperty(this, 'codedWidth');
 
   ///  Returns the height of the [VideoFrame] in pixels, potentially
   /// including non-visible padding, and prior to considering potential
   /// ratio adjustments.
   ///
-  external int get codedHeight;
+  int get codedHeight => js_util.getProperty(this, 'codedHeight');
 
   ///  Returns a [DOMRectReadOnly] with the width and height matching
   /// [codedWidth] and [codedHeight].
   ///
-  external VideoFrameRect get codedRect;
+  VideoFrameRect get codedRect => js_util.getProperty(this, 'codedRect');
 
   ///  Returns a [DOMRectReadOnly] describing the visible rectangle of
   /// pixels for this [VideoFrame].
   ///
-  external VideoFrameRect get visibleRect;
+  VideoFrameRect get visibleRect => js_util.getProperty(this, 'visibleRect');
 
   ///  Returns the width of the [VideoFrame] when displayed after
   /// applying aspect ratio adjustments.
   ///
-  external int get displayWidth;
+  int get displayWidth => js_util.getProperty(this, 'displayWidth');
 
   ///  Returns the height of the [VideoFrame] when displayed after
   /// applying aspect ratio adjustments.
   ///
-  external int get displayHeight;
+  int get displayHeight => js_util.getProperty(this, 'displayHeight');
 
   ///  Returns an integer indicating the duration of the video in
   /// microseconds.
   ///
-  external int? get duration;
+  int? get duration => js_util.getProperty(this, 'duration');
 
   ///  Returns an integer indicating the timestamp of the video in
   /// microseconds.
   ///
-  external int? get timestamp;
+  int? get timestamp => js_util.getProperty(this, 'timestamp');
 
   ///  Returns the number of bytes required to hold the [VideoFrame] as
   /// filtered by options passed into the method.
@@ -781,23 +964,26 @@ extension PropsVideoFrame on VideoFrame {
   /// VideoFrame.allocationSize();
   /// VideoFrame.allocationSize(options);
   ///
-  external int allocationSize([VideoFrameCopyToOptions? options]);
-  external Iterable<Promise<PlaneLayout>> copyTo(dynamic destination,
-      [VideoFrameCopyToOptions? options]);
+  int allocationSize([VideoFrameCopyToOptions? options]) =>
+      js_util.callMethod(this, 'allocationSize', [options]);
+
+  Iterable<Promise<PlaneLayout>> copyTo(dynamic destination,
+          [VideoFrameCopyToOptions? options]) =>
+      js_util.callMethod(this, 'copyTo', [destination, options]);
 
   ///  Creates a new [VideoFrame] object with reference to the same
   /// media resource as the original.
   ///
   /// VideoFrame.clone()
   ///
-  external VideoFrame clone();
+  VideoFrame clone() => js_util.callMethod(this, 'clone', []);
 
   ///  Clears all states and releases the reference to the media
   /// resource.
   ///
   /// VideoFrame.close()
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 }
 
 @anonymous
@@ -808,10 +994,15 @@ class VideoFrameInit {
 }
 
 extension PropsVideoFrameInit on VideoFrameInit {
-  external int get duration;
-  external set duration(int newValue);
-  external int get timestamp;
-  external set timestamp(int newValue);
+  int get duration => js_util.getProperty(this, 'duration');
+  set duration(int newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(int newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
 }
 
 @anonymous
@@ -830,35 +1021,58 @@ class VideoFramePlaneInit {
 }
 
 extension PropsVideoFramePlaneInit on VideoFramePlaneInit {
-  external PixelFormat get format;
-  external set format(PixelFormat newValue);
-  external int get codedWidth;
-  external set codedWidth(int newValue);
-  external int get codedHeight;
-  external set codedHeight(int newValue);
-  external VideoFrameRect get visibleRect;
-  external set visibleRect(VideoFrameRect newValue);
-  external int get displayWidth;
-  external set displayWidth(int newValue);
-  external int get displayHeight;
-  external set displayHeight(int newValue);
-  external int get duration;
-  external set duration(int newValue);
-  external int get timestamp;
-  external set timestamp(int newValue);
+  PixelFormat get format => js_util.getProperty(this, 'format');
+  set format(PixelFormat newValue) {
+    js_util.setProperty(this, 'format', newValue);
+  }
+
+  int get codedWidth => js_util.getProperty(this, 'codedWidth');
+  set codedWidth(int newValue) {
+    js_util.setProperty(this, 'codedWidth', newValue);
+  }
+
+  int get codedHeight => js_util.getProperty(this, 'codedHeight');
+  set codedHeight(int newValue) {
+    js_util.setProperty(this, 'codedHeight', newValue);
+  }
+
+  VideoFrameRect get visibleRect => js_util.getProperty(this, 'visibleRect');
+  set visibleRect(VideoFrameRect newValue) {
+    js_util.setProperty(this, 'visibleRect', newValue);
+  }
+
+  int get displayWidth => js_util.getProperty(this, 'displayWidth');
+  set displayWidth(int newValue) {
+    js_util.setProperty(this, 'displayWidth', newValue);
+  }
+
+  int get displayHeight => js_util.getProperty(this, 'displayHeight');
+  set displayHeight(int newValue) {
+    js_util.setProperty(this, 'displayHeight', newValue);
+  }
+
+  int get duration => js_util.getProperty(this, 'duration');
+  set duration(int newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(int newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class Plane {
-  external factory Plane();
+  external Plane();
 }
 
 extension PropsPlane on Plane {
-  external int get stride;
-  external int get rows;
-  external int get length;
-  external Object readInto(dynamic dst);
+  int get stride => js_util.getProperty(this, 'stride');
+  int get rows => js_util.getProperty(this, 'rows');
+  int get length => js_util.getProperty(this, 'length');
+  Object readInto(dynamic dst) => js_util.callMethod(this, 'readInto', [dst]);
 }
 
 @anonymous
@@ -869,12 +1083,20 @@ class PlaneInit {
 }
 
 extension PropsPlaneInit on PlaneInit {
-  external dynamic get data;
-  external set data(dynamic newValue);
-  external int get stride;
-  external set stride(int newValue);
-  external int get offset;
-  external set offset(int newValue);
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  int get stride => js_util.getProperty(this, 'stride');
+  set stride(int newValue) {
+    js_util.setProperty(this, 'stride', newValue);
+  }
+
+  int get offset => js_util.getProperty(this, 'offset');
+  set offset(int newValue) {
+    js_util.setProperty(this, 'offset', newValue);
+  }
 }
 
 enum PixelFormat { i420 }
@@ -886,42 +1108,44 @@ enum PixelFormat { i420 }
 @JS()
 @staticInterop
 class ImageDecoder {
-  external factory ImageDecoder(ImageDecoderInit init);
+  external ImageDecoder(ImageDecoderInit init);
 }
 
 extension PropsImageDecoder on ImageDecoder {
   ///  Returns a [boolean] indicating whether the data is completely
   /// buffered.
   ///
-  external bool get complete;
+  bool get complete => js_util.getProperty(this, 'complete');
 
   /// Returns a [Promise] that resolves once [complete] is true.
   ///
-  external Promise<Object> get completed;
+  Promise<Object> get completed => js_util.getProperty(this, 'completed');
 
   ///  Returns an [ImageTrackList] object listing the available tracks
   /// and providing a method for selecting a track to decode.
   ///
-  external ImageTrackList get tracks;
+  ImageTrackList get tracks => js_util.getProperty(this, 'tracks');
 
   /// Enqueues a control message to decode the frame of an image.
   ///
   /// ImageDecoder.decode(options)
   ///
-  external Promise<ImageDecodeResult> decode([ImageDecodeOptions? options]);
+  Promise<ImageDecodeResult> decode([ImageDecodeOptions? options]) =>
+      js_util.callMethod(this, 'decode', [options]);
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
   ///
   /// ImageDecoder.reset()
   ///
-  external Object reset();
+  Object reset() => js_util.callMethod(this, 'reset', []);
 
   /// Ends all pending work and releases system resources.
   ///
   /// ImageDecoder.close()
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
+
   external static Promise<bool> isTypeSupported(String type);
 }
 
@@ -941,20 +1165,42 @@ class ImageDecoderInit {
 }
 
 extension PropsImageDecoderInit on ImageDecoderInit {
-  external String get type;
-  external set type(String newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
-  external PremultiplyAlpha get premultiplyAlpha;
-  external set premultiplyAlpha(PremultiplyAlpha newValue);
-  external ColorSpaceConversion get colorSpaceConversion;
-  external set colorSpaceConversion(ColorSpaceConversion newValue);
-  external int get desiredWidth;
-  external set desiredWidth(int newValue);
-  external int get desiredHeight;
-  external set desiredHeight(int newValue);
-  external bool get preferAnimation;
-  external set preferAnimation(bool newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  PremultiplyAlpha get premultiplyAlpha =>
+      js_util.getProperty(this, 'premultiplyAlpha');
+  set premultiplyAlpha(PremultiplyAlpha newValue) {
+    js_util.setProperty(this, 'premultiplyAlpha', newValue);
+  }
+
+  ColorSpaceConversion get colorSpaceConversion =>
+      js_util.getProperty(this, 'colorSpaceConversion');
+  set colorSpaceConversion(ColorSpaceConversion newValue) {
+    js_util.setProperty(this, 'colorSpaceConversion', newValue);
+  }
+
+  int get desiredWidth => js_util.getProperty(this, 'desiredWidth');
+  set desiredWidth(int newValue) {
+    js_util.setProperty(this, 'desiredWidth', newValue);
+  }
+
+  int get desiredHeight => js_util.getProperty(this, 'desiredHeight');
+  set desiredHeight(int newValue) {
+    js_util.setProperty(this, 'desiredHeight', newValue);
+  }
+
+  bool get preferAnimation => js_util.getProperty(this, 'preferAnimation');
+  set preferAnimation(bool newValue) {
+    js_util.setProperty(this, 'preferAnimation', newValue);
+  }
 }
 
 @anonymous
@@ -966,10 +1212,16 @@ class ImageDecodeOptions {
 }
 
 extension PropsImageDecodeOptions on ImageDecodeOptions {
-  external int get frameIndex;
-  external set frameIndex(int newValue);
-  external bool get completeFramesOnly;
-  external set completeFramesOnly(bool newValue);
+  int get frameIndex => js_util.getProperty(this, 'frameIndex');
+  set frameIndex(int newValue) {
+    js_util.setProperty(this, 'frameIndex', newValue);
+  }
+
+  bool get completeFramesOnly =>
+      js_util.getProperty(this, 'completeFramesOnly');
+  set completeFramesOnly(bool newValue) {
+    js_util.setProperty(this, 'completeFramesOnly', newValue);
+  }
 }
 
 @anonymous
@@ -980,10 +1232,15 @@ class ImageDecodeResult {
 }
 
 extension PropsImageDecodeResult on ImageDecodeResult {
-  external VideoFrame get image;
-  external set image(VideoFrame newValue);
-  external bool get complete;
-  external set complete(bool newValue);
+  VideoFrame get image => js_util.getProperty(this, 'image');
+  set image(VideoFrame newValue) {
+    js_util.setProperty(this, 'image', newValue);
+  }
+
+  bool get complete => js_util.getProperty(this, 'complete');
+  set complete(bool newValue) {
+    js_util.setProperty(this, 'complete', newValue);
+  }
 }
 
 ///  The interface of the WebCodecs API represents a list of image
@@ -991,24 +1248,24 @@ extension PropsImageDecodeResult on ImageDecodeResult {
 @JS()
 @staticInterop
 class ImageTrackList {
-  external factory ImageTrackList();
+  external ImageTrackList();
 }
 
 extension PropsImageTrackList on ImageTrackList {
   ///  Returns a [promise] that resolves once the [ImageTrackList] has
   /// been populated with [tracks].
   ///
-  external Promise<Object> get ready;
+  Promise<Object> get ready => js_util.getProperty(this, 'ready');
 
   ///  Returns an integer indicating the length of the
   /// [ImageTrackList].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   /// Returns an integer indicating the index of the [selectedTrack].
   ///
-  external int get selectedIndex;
-  external ImageTrack? get selectedTrack;
+  int get selectedIndex => js_util.getProperty(this, 'selectedIndex');
+  ImageTrack? get selectedTrack => js_util.getProperty(this, 'selectedTrack');
 }
 
 ///  The interface of the WebCodecs API represents an individual
@@ -1016,31 +1273,36 @@ extension PropsImageTrackList on ImageTrackList {
 @JS()
 @staticInterop
 class ImageTrack implements EventTarget {
-  external factory ImageTrack();
+  external ImageTrack();
 }
 
 extension PropsImageTrack on ImageTrack {
   ///  Returns a [boolean] indicating whether the track is animated and
   /// therefore has multiple frames.
   ///
-  external bool get animated;
+  bool get animated => js_util.getProperty(this, 'animated');
 
   /// Returns an integer indicating the number of frames in the track.
   ///
-  external int get frameCount;
+  int get frameCount => js_util.getProperty(this, 'frameCount');
 
   ///  Returns an integer indicating the number of times that the
   /// animation repeats.
   ///
-  external /* double | NaN */ dynamic get repetitionCount;
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
+  /* double | NaN */ dynamic get repetitionCount =>
+      js_util.getProperty(this, 'repetitionCount');
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
 
   ///  Returns a [boolean] indicating whether the track is selected for
   /// decoding.
   ///
-  external bool get selected;
-  external set selected(bool newValue);
+  bool get selected => js_util.getProperty(this, 'selected');
+  set selected(bool newValue) {
+    js_util.setProperty(this, 'selected', newValue);
+  }
 }
 
 @anonymous
@@ -1052,10 +1314,15 @@ class VideoFrameCopyToOptions {
 }
 
 extension PropsVideoFrameCopyToOptions on VideoFrameCopyToOptions {
-  external VideoFrameRect get rect;
-  external set rect(VideoFrameRect newValue);
-  external Iterable<PlaneLayout> get layout;
-  external set layout(Iterable<PlaneLayout> newValue);
+  VideoFrameRect get rect => js_util.getProperty(this, 'rect');
+  set rect(VideoFrameRect newValue) {
+    js_util.setProperty(this, 'rect', newValue);
+  }
+
+  Iterable<PlaneLayout> get layout => js_util.getProperty(this, 'layout');
+  set layout(Iterable<PlaneLayout> newValue) {
+    js_util.setProperty(this, 'layout', newValue);
+  }
 }
 
 @anonymous
@@ -1066,14 +1333,25 @@ class VideoFrameRect {
 }
 
 extension PropsVideoFrameRect on VideoFrameRect {
-  external int get left;
-  external set left(int newValue);
-  external int get top;
-  external set top(int newValue);
-  external int get width;
-  external set width(int newValue);
-  external int get height;
-  external set height(int newValue);
+  int get left => js_util.getProperty(this, 'left');
+  set left(int newValue) {
+    js_util.setProperty(this, 'left', newValue);
+  }
+
+  int get top => js_util.getProperty(this, 'top');
+  set top(int newValue) {
+    js_util.setProperty(this, 'top', newValue);
+  }
+
+  int get width => js_util.getProperty(this, 'width');
+  set width(int newValue) {
+    js_util.setProperty(this, 'width', newValue);
+  }
+
+  int get height => js_util.getProperty(this, 'height');
+  set height(int newValue) {
+    js_util.setProperty(this, 'height', newValue);
+  }
 }
 
 @anonymous
@@ -1084,8 +1362,13 @@ class PlaneLayout {
 }
 
 extension PropsPlaneLayout on PlaneLayout {
-  external int get offset;
-  external set offset(int newValue);
-  external int get stride;
-  external set stride(int newValue);
+  int get offset => js_util.getProperty(this, 'offset');
+  set offset(int newValue) {
+    js_util.setProperty(this, 'offset', newValue);
+  }
+
+  int get stride => js_util.getProperty(this, 'stride');
+  set stride(int newValue) {
+    js_util.setProperty(this, 'stride', newValue);
+  }
 }

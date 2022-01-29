@@ -5,6 +5,7 @@
 @staticInterop
 library touch_events;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -34,25 +35,25 @@ html */
 @JS()
 @staticInterop
 class Touch {
-  external factory Touch(TouchInit touchInitDict);
+  external Touch(TouchInit touchInitDict);
 }
 
 extension PropsTouch on Touch {
-  external int get identifier;
-  external EventTarget get target;
-  external double get screenX;
-  external double get screenY;
-  external double get clientX;
-  external double get clientY;
-  external double get pageX;
-  external double get pageY;
-  external double get radiusX;
-  external double get radiusY;
-  external double get rotationAngle;
-  external double get force;
-  external double get altitudeAngle;
-  external double get azimuthAngle;
-  external TouchType get touchType;
+  int get identifier => js_util.getProperty(this, 'identifier');
+  EventTarget get target => js_util.getProperty(this, 'target');
+  double get screenX => js_util.getProperty(this, 'screenX');
+  double get screenY => js_util.getProperty(this, 'screenY');
+  double get clientX => js_util.getProperty(this, 'clientX');
+  double get clientY => js_util.getProperty(this, 'clientY');
+  double get pageX => js_util.getProperty(this, 'pageX');
+  double get pageY => js_util.getProperty(this, 'pageY');
+  double get radiusX => js_util.getProperty(this, 'radiusX');
+  double get radiusY => js_util.getProperty(this, 'radiusY');
+  double get rotationAngle => js_util.getProperty(this, 'rotationAngle');
+  double get force => js_util.getProperty(this, 'force');
+  double get altitudeAngle => js_util.getProperty(this, 'altitudeAngle');
+  double get azimuthAngle => js_util.getProperty(this, 'azimuthAngle');
+  TouchType get touchType => js_util.getProperty(this, 'touchType');
 }
 
 ///  The interface represents a list of contact points on a touch
@@ -63,13 +64,13 @@ extension PropsTouch on Touch {
 @JS()
 @staticInterop
 class TouchList {
-  external factory TouchList();
+  external TouchList();
 }
 
 extension PropsTouchList on TouchList {
   /// The number of [Touch] objects in the [TouchList].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   /// Returns the [Touch] object at the specified index in the list.
   ///
@@ -95,7 +96,7 @@ extension PropsTouchList on TouchList {
   ///    touch = ev.touches.item(0);
   /// }, false);
   ///
-  external Touch? item(int index);
+  Touch? item(int index) => js_util.callMethod(this, 'item', [index]);
 }
 
 ///  The interface represents an [UIEvent] which is sent when the
@@ -129,7 +130,7 @@ extension PropsTouchList on TouchList {
 @JS()
 @staticInterop
 class TouchEvent implements UIEvent {
-  external factory TouchEvent(String type, [TouchEventInit? eventInitDict]);
+  external TouchEvent(String type, [TouchEventInit? eventInitDict]);
 }
 
 extension PropsTouchEvent on TouchEvent {
@@ -137,39 +138,39 @@ extension PropsTouchEvent on TouchEvent {
   /// current points of contact with the surface, regardless of target
   /// or changed status.
   ///
-  external TouchList get touches;
+  TouchList get touches => js_util.getProperty(this, 'touches');
 
   ///  A [TouchList] of all the [Touch] objects that are both currently
   /// in contact with the touch surface and were also started on the
   /// same element that is the target of the event.
   ///
-  external TouchList get targetTouches;
+  TouchList get targetTouches => js_util.getProperty(this, 'targetTouches');
 
   ///  A [TouchList] of all the [Touch] objects representing individual
   /// points of contact whose states changed between the previous touch
   /// event and this one.
   ///
-  external TouchList get changedTouches;
+  TouchList get changedTouches => js_util.getProperty(this, 'changedTouches');
 
   ///  A Boolean value indicating whether or not the alt key was down
   /// when the touch event was fired.
   ///
-  external bool get altKey;
+  bool get altKey => js_util.getProperty(this, 'altKey');
 
   ///  A Boolean value indicating whether or not the meta key was down
   /// when the touch event was fired.
   ///
-  external bool get metaKey;
+  bool get metaKey => js_util.getProperty(this, 'metaKey');
 
   ///  A Boolean value indicating whether or not the control key was
   /// down when the touch event was fired.
   ///
-  external bool get ctrlKey;
+  bool get ctrlKey => js_util.getProperty(this, 'ctrlKey');
 
   ///  A Boolean value indicating whether or not the shift key was down
   /// when the touch event was fired.
   ///
-  external bool get shiftKey;
+  bool get shiftKey => js_util.getProperty(this, 'shiftKey');
 }
 
 enum TouchType { direct, stylus }
@@ -197,36 +198,80 @@ class TouchInit {
 }
 
 extension PropsTouchInit on TouchInit {
-  external int get identifier;
-  external set identifier(int newValue);
-  external EventTarget get target;
-  external set target(EventTarget newValue);
-  external double get clientX;
-  external set clientX(double newValue);
-  external double get clientY;
-  external set clientY(double newValue);
-  external double get screenX;
-  external set screenX(double newValue);
-  external double get screenY;
-  external set screenY(double newValue);
-  external double get pageX;
-  external set pageX(double newValue);
-  external double get pageY;
-  external set pageY(double newValue);
-  external double get radiusX;
-  external set radiusX(double newValue);
-  external double get radiusY;
-  external set radiusY(double newValue);
-  external double get rotationAngle;
-  external set rotationAngle(double newValue);
-  external double get force;
-  external set force(double newValue);
-  external double get altitudeAngle;
-  external set altitudeAngle(double newValue);
-  external double get azimuthAngle;
-  external set azimuthAngle(double newValue);
-  external TouchType get touchType;
-  external set touchType(TouchType newValue);
+  int get identifier => js_util.getProperty(this, 'identifier');
+  set identifier(int newValue) {
+    js_util.setProperty(this, 'identifier', newValue);
+  }
+
+  EventTarget get target => js_util.getProperty(this, 'target');
+  set target(EventTarget newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
+
+  double get clientX => js_util.getProperty(this, 'clientX');
+  set clientX(double newValue) {
+    js_util.setProperty(this, 'clientX', newValue);
+  }
+
+  double get clientY => js_util.getProperty(this, 'clientY');
+  set clientY(double newValue) {
+    js_util.setProperty(this, 'clientY', newValue);
+  }
+
+  double get screenX => js_util.getProperty(this, 'screenX');
+  set screenX(double newValue) {
+    js_util.setProperty(this, 'screenX', newValue);
+  }
+
+  double get screenY => js_util.getProperty(this, 'screenY');
+  set screenY(double newValue) {
+    js_util.setProperty(this, 'screenY', newValue);
+  }
+
+  double get pageX => js_util.getProperty(this, 'pageX');
+  set pageX(double newValue) {
+    js_util.setProperty(this, 'pageX', newValue);
+  }
+
+  double get pageY => js_util.getProperty(this, 'pageY');
+  set pageY(double newValue) {
+    js_util.setProperty(this, 'pageY', newValue);
+  }
+
+  double get radiusX => js_util.getProperty(this, 'radiusX');
+  set radiusX(double newValue) {
+    js_util.setProperty(this, 'radiusX', newValue);
+  }
+
+  double get radiusY => js_util.getProperty(this, 'radiusY');
+  set radiusY(double newValue) {
+    js_util.setProperty(this, 'radiusY', newValue);
+  }
+
+  double get rotationAngle => js_util.getProperty(this, 'rotationAngle');
+  set rotationAngle(double newValue) {
+    js_util.setProperty(this, 'rotationAngle', newValue);
+  }
+
+  double get force => js_util.getProperty(this, 'force');
+  set force(double newValue) {
+    js_util.setProperty(this, 'force', newValue);
+  }
+
+  double get altitudeAngle => js_util.getProperty(this, 'altitudeAngle');
+  set altitudeAngle(double newValue) {
+    js_util.setProperty(this, 'altitudeAngle', newValue);
+  }
+
+  double get azimuthAngle => js_util.getProperty(this, 'azimuthAngle');
+  set azimuthAngle(double newValue) {
+    js_util.setProperty(this, 'azimuthAngle', newValue);
+  }
+
+  TouchType get touchType => js_util.getProperty(this, 'touchType');
+  set touchType(TouchType newValue) {
+    js_util.setProperty(this, 'touchType', newValue);
+  }
 }
 
 @anonymous
@@ -240,10 +285,20 @@ class TouchEventInit implements EventModifierInit {
 }
 
 extension PropsTouchEventInit on TouchEventInit {
-  external Iterable<Touch> get touches;
-  external set touches(Iterable<Touch> newValue);
-  external Iterable<Touch> get targetTouches;
-  external set targetTouches(Iterable<Touch> newValue);
-  external Iterable<Touch> get changedTouches;
-  external set changedTouches(Iterable<Touch> newValue);
+  Iterable<Touch> get touches => js_util.getProperty(this, 'touches');
+  set touches(Iterable<Touch> newValue) {
+    js_util.setProperty(this, 'touches', newValue);
+  }
+
+  Iterable<Touch> get targetTouches =>
+      js_util.getProperty(this, 'targetTouches');
+  set targetTouches(Iterable<Touch> newValue) {
+    js_util.setProperty(this, 'targetTouches', newValue);
+  }
+
+  Iterable<Touch> get changedTouches =>
+      js_util.getProperty(this, 'changedTouches');
+  set changedTouches(Iterable<Touch> newValue) {
+    js_util.setProperty(this, 'changedTouches', newValue);
+  }
 }

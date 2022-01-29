@@ -5,6 +5,7 @@
 @staticInterop
 library web_animations_2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -19,40 +20,42 @@ enum FillMode { none, forwards, backwards, both, auto }
 @JS()
 @staticInterop
 class GroupEffect {
-  external factory GroupEffect(Iterable<AnimationEffect> children,
-      [dynamic timing]);
+  external GroupEffect(Iterable<AnimationEffect> children, [dynamic timing]);
 }
 
 extension PropsGroupEffect on GroupEffect {
-  external AnimationNodeList get children;
-  external AnimationEffect? get firstChild;
-  external AnimationEffect? get lastChild;
-  external dynamic clone();
-  external Object prepend([AnimationEffect effects]);
-  external Object append([AnimationEffect effects]);
+  AnimationNodeList get children => js_util.getProperty(this, 'children');
+  AnimationEffect? get firstChild => js_util.getProperty(this, 'firstChild');
+  AnimationEffect? get lastChild => js_util.getProperty(this, 'lastChild');
+  dynamic clone() => js_util.callMethod(this, 'clone', []);
+
+  Object prepend([AnimationEffect? effects]) =>
+      js_util.callMethod(this, 'prepend', [effects]);
+
+  Object append([AnimationEffect? effects]) =>
+      js_util.callMethod(this, 'append', [effects]);
 }
 
 @JS()
 @staticInterop
 class AnimationNodeList {
-  external factory AnimationNodeList();
+  external AnimationNodeList();
 }
 
 extension PropsAnimationNodeList on AnimationNodeList {
-  external int get length;
-  external AnimationEffect? item(int index);
+  int get length => js_util.getProperty(this, 'length');
+  AnimationEffect? item(int index) => js_util.callMethod(this, 'item', [index]);
 }
 
 @JS()
 @staticInterop
 class SequenceEffect implements GroupEffect {
-  external factory SequenceEffect(Iterable<AnimationEffect> children,
-      [dynamic timing]);
+  external SequenceEffect(Iterable<AnimationEffect> children, [dynamic timing]);
 }
 
 extension PropsSequenceEffect on SequenceEffect {
   @override
-  external SequenceEffect clone();
+  SequenceEffect clone() => js_util.callMethod(this, 'clone', []);
 }
 
 enum IterationCompositeOperation { replace, accumulate }

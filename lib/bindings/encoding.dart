@@ -5,6 +5,7 @@
 @staticInterop
 library encoding;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -17,13 +18,13 @@ streams */
 @JS()
 @staticInterop
 class TextDecoderCommon {
-  external factory TextDecoderCommon();
+  external TextDecoderCommon();
 }
 
 extension PropsTextDecoderCommon on TextDecoderCommon {
-  external String get encoding;
-  external bool get fatal;
-  external bool get ignoreBOM;
+  String get encoding => js_util.getProperty(this, 'encoding');
+  bool get fatal => js_util.getProperty(this, 'fatal');
+  bool get ignoreBOM => js_util.getProperty(this, 'ignoreBOM');
 }
 
 @anonymous
@@ -35,10 +36,15 @@ class TextDecoderOptions {
 }
 
 extension PropsTextDecoderOptions on TextDecoderOptions {
-  external bool get fatal;
-  external set fatal(bool newValue);
-  external bool get ignoreBOM;
-  external set ignoreBOM(bool newValue);
+  bool get fatal => js_util.getProperty(this, 'fatal');
+  set fatal(bool newValue) {
+    js_util.setProperty(this, 'fatal', newValue);
+  }
+
+  bool get ignoreBOM => js_util.getProperty(this, 'ignoreBOM');
+  set ignoreBOM(bool newValue) {
+    js_util.setProperty(this, 'ignoreBOM', newValue);
+  }
 }
 
 @anonymous
@@ -49,8 +55,10 @@ class TextDecodeOptions {
 }
 
 extension PropsTextDecodeOptions on TextDecodeOptions {
-  external bool get stream;
-  external set stream(bool newValue);
+  bool get stream => js_util.getProperty(this, 'stream');
+  set stream(bool newValue) {
+    js_util.setProperty(this, 'stream', newValue);
+  }
 }
 
 ///  The interface represents a decoder for a specific text encoding,
@@ -63,8 +71,7 @@ extension PropsTextDecodeOptions on TextDecodeOptions {
 @JS()
 @staticInterop
 class TextDecoder implements TextDecoderCommon {
-  external factory TextDecoder(
-      [String? label = 'utf-8', TextDecoderOptions? options]);
+  external TextDecoder([String? label = 'utf-8', TextDecoderOptions? options]);
 }
 
 extension PropsTextDecoder on TextDecoder {
@@ -91,17 +98,18 @@ extension PropsTextDecoder on TextDecoder {
   ///
   /// ```
   ///
-  external String decode([dynamic input, TextDecodeOptions? options]);
+  String decode([dynamic input, TextDecodeOptions? options]) =>
+      js_util.callMethod(this, 'decode', [input, options]);
 }
 
 @JS()
 @staticInterop
 class TextEncoderCommon {
-  external factory TextEncoderCommon();
+  external TextEncoderCommon();
 }
 
 extension PropsTextEncoderCommon on TextEncoderCommon {
-  external String get encoding;
+  String get encoding => js_util.getProperty(this, 'encoding');
 }
 
 @anonymous
@@ -112,10 +120,15 @@ class TextEncoderEncodeIntoResult {
 }
 
 extension PropsTextEncoderEncodeIntoResult on TextEncoderEncodeIntoResult {
-  external int get read;
-  external set read(int newValue);
-  external int get written;
-  external set written(int newValue);
+  int get read => js_util.getProperty(this, 'read');
+  set read(int newValue) {
+    js_util.setProperty(this, 'read', newValue);
+  }
+
+  int get written => js_util.getProperty(this, 'written');
+  set written(int newValue) {
+    js_util.setProperty(this, 'written', newValue);
+  }
 }
 
 ///  The interface takes a stream of code points as input and emits a
@@ -126,7 +139,7 @@ extension PropsTextEncoderEncodeIntoResult on TextEncoderEncodeIntoResult {
 @JS()
 @staticInterop
 class TextEncoder implements TextEncoderCommon {
-  external factory TextEncoder();
+  external TextEncoder();
 }
 
 extension PropsTextEncoder on TextEncoder {
@@ -135,7 +148,8 @@ extension PropsTextEncoder on TextEncoder {
   ///
   /// b1 = encoder.encode(string);
   ///
-  external Uint8List encode([String? input = '']);
+  Uint8List encode([String? input = '']) =>
+      js_util.callMethod(this, 'encode', [input]);
 
   ///  Takes a [USVString] to encode and a destination [Uint8Array] to
   /// put resulting UTF-8 encoded text into, and returns a dictionary
@@ -144,8 +158,9 @@ extension PropsTextEncoder on TextEncoder {
   ///
   /// b1 = encoder.encodeInto(string, uint8Array);
   ///
-  external TextEncoderEncodeIntoResult encodeInto(
-      String source, Uint8List destination);
+  TextEncoderEncodeIntoResult encodeInto(
+          String source, Uint8List destination) =>
+      js_util.callMethod(this, 'encodeInto', [source, destination]);
 }
 
 ///  The interface of the Encoding API converts a stream of strings
@@ -154,7 +169,7 @@ extension PropsTextEncoder on TextEncoder {
 @JS()
 @staticInterop
 class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
-  external factory TextDecoderStream(
+  external TextDecoderStream(
       [String? label = 'utf-8', TextDecoderOptions? options]);
 }
 
@@ -164,5 +179,5 @@ class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
 @JS()
 @staticInterop
 class TextEncoderStream implements TextEncoderCommon, GenericTransformStream {
-  external factory TextEncoderStream();
+  external TextEncoderStream();
 }

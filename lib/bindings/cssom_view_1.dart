@@ -5,6 +5,7 @@
 @staticInterop
 library cssom_view_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -29,8 +30,10 @@ class ScrollOptions {
 }
 
 extension PropsScrollOptions on ScrollOptions {
-  external ScrollBehavior get behavior;
-  external set behavior(ScrollBehavior newValue);
+  ScrollBehavior get behavior => js_util.getProperty(this, 'behavior');
+  set behavior(ScrollBehavior newValue) {
+    js_util.setProperty(this, 'behavior', newValue);
+  }
 }
 
 @anonymous
@@ -42,10 +45,15 @@ class ScrollToOptions implements ScrollOptions {
 }
 
 extension PropsScrollToOptions on ScrollToOptions {
-  external /* double | NaN */ dynamic get left;
-  external set left(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get top;
-  external set top(/* double | NaN */ dynamic newValue);
+  /* double | NaN */ dynamic get left => js_util.getProperty(this, 'left');
+  set left(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'left', newValue);
+  }
+
+  /* double | NaN */ dynamic get top => js_util.getProperty(this, 'top');
+  set top(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'top', newValue);
+  }
 }
 
 ///  A object stores information on a media query applied to a
@@ -63,18 +71,18 @@ extension PropsScrollToOptions on ScrollToOptions {
 @JS()
 @staticInterop
 class MediaQueryList implements EventTarget {
-  external factory MediaQueryList();
+  external MediaQueryList();
 }
 
 extension PropsMediaQueryList on MediaQueryList {
   /// A [DOMString] representing a serialized media query.
   ///
-  external String get media;
+  String get media => js_util.getProperty(this, 'media');
 
   ///  A boolean value that returns [true] if the [document] currently
   /// matches the media query list, or [false] if not.
   ///
-  external bool get matches;
+  bool get matches => js_util.getProperty(this, 'matches');
 
   ///  Adds to the [MediaQueryList] a callback which is invoked
   /// whenever the media query status—whether or not the document
@@ -102,7 +110,8 @@ extension PropsMediaQueryList on MediaQueryList {
   /// mediaQueryList.addListener(screenTest);
   ///
   @deprecated
-  external Object addListener(EventListener? callback);
+  Object addListener(EventListener? callback) =>
+      js_util.callMethod(this, 'addListener', [callback]);
 
   ///  Removes the specified listener callback from the callbacks to be
   /// invoked when the [MediaQueryList] changes media query status,
@@ -136,9 +145,13 @@ extension PropsMediaQueryList on MediaQueryList {
   /// mediaQueryList.removeListener(screenTest);
   ///
   @deprecated
-  external Object removeListener(EventListener? callback);
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
+  Object removeListener(EventListener? callback) =>
+      js_util.callMethod(this, 'removeListener', [callback]);
+
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
 }
 
 ///  The object stores information on the changes that have happened
@@ -149,19 +162,19 @@ extension PropsMediaQueryList on MediaQueryList {
 @JS()
 @staticInterop
 class MediaQueryListEvent implements Event {
-  external factory MediaQueryListEvent(String type,
+  external MediaQueryListEvent(String type,
       [MediaQueryListEventInit? eventInitDict]);
 }
 
 extension PropsMediaQueryListEvent on MediaQueryListEvent {
   /// A [DOMString] representing a serialized media query.
   ///
-  external String get media;
+  String get media => js_util.getProperty(this, 'media');
 
   ///  A boolean value that is [true] if the [document] currently
   /// matches the media query list, or [false] if not.
   ///
-  external bool get matches;
+  bool get matches => js_util.getProperty(this, 'matches');
 }
 
 @anonymous
@@ -173,10 +186,15 @@ class MediaQueryListEventInit implements EventInit {
 }
 
 extension PropsMediaQueryListEventInit on MediaQueryListEventInit {
-  external String get media;
-  external set media(String newValue);
-  external bool get matches;
-  external set matches(bool newValue);
+  String get media => js_util.getProperty(this, 'media');
+  set media(String newValue) {
+    js_util.setProperty(this, 'media', newValue);
+  }
+
+  bool get matches => js_util.getProperty(this, 'matches');
+  set matches(bool newValue) {
+    js_util.setProperty(this, 'matches', newValue);
+  }
 }
 
 ///  The interface represents a screen, usually the one on which the
@@ -187,37 +205,37 @@ extension PropsMediaQueryListEventInit on MediaQueryListEventInit {
 @JS()
 @staticInterop
 class Screen {
-  external factory Screen();
+  external Screen();
 }
 
 extension PropsScreen on Screen {
   ///  Returns the amount of horizontal space in pixels available to
   /// the window.
   ///
-  external int get availWidth;
+  int get availWidth => js_util.getProperty(this, 'availWidth');
 
   ///  Specifies the height of the screen, in pixels, minus permanent
   /// or semipermanent user interface features displayed by the
   /// operating system, such as the Taskbar on Windows.
   ///
-  external int get availHeight;
+  int get availHeight => js_util.getProperty(this, 'availHeight');
 
   /// Returns the width of the screen.
   ///
-  external int get width;
+  int get width => js_util.getProperty(this, 'width');
 
   /// Returns the height of the screen in pixels.
   ///
-  external int get height;
+  int get height => js_util.getProperty(this, 'height');
 
   /// Returns the color depth of the screen.
   ///
-  external int get colorDepth;
+  int get colorDepth => js_util.getProperty(this, 'colorDepth');
 
   /// Gets the bit depth of the screen.
   ///
-  external int get pixelDepth;
-  external ScreenOrientation get orientation;
+  int get pixelDepth => js_util.getProperty(this, 'pixelDepth');
+  ScreenOrientation get orientation => js_util.getProperty(this, 'orientation');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -230,23 +248,23 @@ extension PropsScreen on Screen {
 @JS()
 @staticInterop
 class CaretPosition {
-  external factory CaretPosition();
+  external CaretPosition();
 }
 
 extension PropsCaretPosition on CaretPosition {
   ///  Returns a [Node] containing the found node at the caret's
   /// position.
   ///
-  external Node get offsetNode;
+  Node get offsetNode => js_util.getProperty(this, 'offsetNode');
 
   ///  Returns a [long] representing the character offset in the caret
   /// position node.
   ///
-  external int get offset;
+  int get offset => js_util.getProperty(this, 'offset');
 
   /// Returns the client rectangle for the caret range.
   ///
-  external DOMRect? getClientRect();
+  DOMRect? getClientRect() => js_util.callMethod(this, 'getClientRect', []);
 }
 
 enum ScrollLogicalPosition { start, center, end, nearest }
@@ -261,10 +279,15 @@ class ScrollIntoViewOptions implements ScrollOptions {
 }
 
 extension PropsScrollIntoViewOptions on ScrollIntoViewOptions {
-  external ScrollLogicalPosition get block;
-  external set block(ScrollLogicalPosition newValue);
-  external ScrollLogicalPosition get inline;
-  external set inline(ScrollLogicalPosition newValue);
+  ScrollLogicalPosition get block => js_util.getProperty(this, 'block');
+  set block(ScrollLogicalPosition newValue) {
+    js_util.setProperty(this, 'block', newValue);
+  }
+
+  ScrollLogicalPosition get inline => js_util.getProperty(this, 'inline');
+  set inline(ScrollLogicalPosition newValue) {
+    js_util.setProperty(this, 'inline', newValue);
+  }
 }
 
 enum CSSBoxType { margin, border, padding, content }
@@ -278,10 +301,15 @@ class BoxQuadOptions {
 }
 
 extension PropsBoxQuadOptions on BoxQuadOptions {
-  external CSSBoxType get box;
-  external set box(CSSBoxType newValue);
-  external dynamic get relativeTo;
-  external set relativeTo(dynamic newValue);
+  CSSBoxType get box => js_util.getProperty(this, 'box');
+  set box(CSSBoxType newValue) {
+    js_util.setProperty(this, 'box', newValue);
+  }
+
+  dynamic get relativeTo => js_util.getProperty(this, 'relativeTo');
+  set relativeTo(dynamic newValue) {
+    js_util.setProperty(this, 'relativeTo', newValue);
+  }
 }
 
 @anonymous
@@ -294,24 +322,36 @@ class ConvertCoordinateOptions {
 }
 
 extension PropsConvertCoordinateOptions on ConvertCoordinateOptions {
-  external CSSBoxType get fromBox;
-  external set fromBox(CSSBoxType newValue);
-  external CSSBoxType get toBox;
-  external set toBox(CSSBoxType newValue);
+  CSSBoxType get fromBox => js_util.getProperty(this, 'fromBox');
+  set fromBox(CSSBoxType newValue) {
+    js_util.setProperty(this, 'fromBox', newValue);
+  }
+
+  CSSBoxType get toBox => js_util.getProperty(this, 'toBox');
+  set toBox(CSSBoxType newValue) {
+    js_util.setProperty(this, 'toBox', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class GeometryUtils {
-  external factory GeometryUtils();
+  external GeometryUtils();
 }
 
 extension PropsGeometryUtils on GeometryUtils {
-  external Iterable<DOMQuad> getBoxQuads([BoxQuadOptions? options]);
-  external DOMQuad convertQuadFromNode(DOMQuadInit quad, dynamic from,
-      [ConvertCoordinateOptions? options]);
-  external DOMQuad convertRectFromNode(DOMRectReadOnly rect, dynamic from,
-      [ConvertCoordinateOptions? options]);
-  external DOMPoint convertPointFromNode(DOMPointInit point, dynamic from,
-      [ConvertCoordinateOptions? options]);
+  Iterable<DOMQuad> getBoxQuads([BoxQuadOptions? options]) =>
+      js_util.callMethod(this, 'getBoxQuads', [options]);
+
+  DOMQuad convertQuadFromNode(DOMQuadInit quad, dynamic from,
+          [ConvertCoordinateOptions? options]) =>
+      js_util.callMethod(this, 'convertQuadFromNode', [quad, from, options]);
+
+  DOMQuad convertRectFromNode(DOMRectReadOnly rect, dynamic from,
+          [ConvertCoordinateOptions? options]) =>
+      js_util.callMethod(this, 'convertRectFromNode', [rect, from, options]);
+
+  DOMPoint convertPointFromNode(DOMPointInit point, dynamic from,
+          [ConvertCoordinateOptions? options]) =>
+      js_util.callMethod(this, 'convertPointFromNode', [point, from, options]);
 }

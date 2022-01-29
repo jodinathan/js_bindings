@@ -5,6 +5,7 @@
 @staticInterop
 library resize_observer_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -25,8 +26,10 @@ class ResizeObserverOptions {
 }
 
 extension PropsResizeObserverOptions on ResizeObserverOptions {
-  external ResizeObserverBoxOptions get box;
-  external set box(ResizeObserverBoxOptions newValue);
+  ResizeObserverBoxOptions get box => js_util.getProperty(this, 'box');
+  set box(ResizeObserverBoxOptions newValue) {
+    js_util.setProperty(this, 'box', newValue);
+  }
 }
 
 ///  The interface reports changes to the dimensions of an
@@ -47,7 +50,7 @@ extension PropsResizeObserverOptions on ResizeObserverOptions {
 @JS()
 @staticInterop
 class ResizeObserver {
-  external factory ResizeObserver(ResizeObserverCallback callback);
+  external ResizeObserver(ResizeObserverCallback callback);
 }
 
 extension PropsResizeObserver on ResizeObserver {
@@ -55,20 +58,22 @@ extension PropsResizeObserver on ResizeObserver {
   ///
   /// resizeObserver.observe(target, options);
   ///
-  external Object observe(Element target, [ResizeObserverOptions? options]);
+  Object observe(Element target, [ResizeObserverOptions? options]) =>
+      js_util.callMethod(this, 'observe', [target, options]);
 
   /// Ends the observing of a specified [Element].
   ///
   /// void unobserve(target);
   ///
-  external Object unobserve(Element target);
+  Object unobserve(Element target) =>
+      js_util.callMethod(this, 'unobserve', [target]);
 
   ///  Unobserves all observed [Element] targets of a particular
   /// observer.
   ///
   /// resizeObserver.disconnect();
   ///
-  external Object disconnect();
+  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
 }
 
 ///  The interface represents the object passed to the
@@ -78,13 +83,13 @@ extension PropsResizeObserver on ResizeObserver {
 @JS()
 @staticInterop
 class ResizeObserverEntry {
-  external factory ResizeObserverEntry();
+  external ResizeObserverEntry();
 }
 
 extension PropsResizeObserverEntry on ResizeObserverEntry {
   /// A reference to the [Element] or [SVGElement] being observed.
   ///
-  external Element get target;
+  Element get target => js_util.getProperty(this, 'target');
 
   ///  A [DOMRectReadOnly] object containing the new size of the
   /// observed element when the callback is run. Note that this is
@@ -93,22 +98,25 @@ extension PropsResizeObserverEntry on ResizeObserverEntry {
   /// is still included in the spec for web compat reasons, and may be
   /// deprecated in future versions.
   ///
-  external DOMRectReadOnly get contentRect;
+  DOMRectReadOnly get contentRect => js_util.getProperty(this, 'contentRect');
 
   ///  An object containing the new border box size of the observed
   /// element when the callback is run.
   ///
-  external Iterable<ResizeObserverSize> get borderBoxSize;
+  Iterable<ResizeObserverSize> get borderBoxSize =>
+      js_util.getProperty(this, 'borderBoxSize');
 
   ///  An object containing the new content box size of the observed
   /// element when the callback is run.
   ///
-  external Iterable<ResizeObserverSize> get contentBoxSize;
+  Iterable<ResizeObserverSize> get contentBoxSize =>
+      js_util.getProperty(this, 'contentBoxSize');
 
   ///  An object containing the new content box size in device pixels
   /// of the observed element when the callback is run.
   ///
-  external Iterable<ResizeObserverSize> get devicePixelContentBoxSize;
+  Iterable<ResizeObserverSize> get devicePixelContentBoxSize =>
+      js_util.getProperty(this, 'devicePixelContentBoxSize');
 }
 
 ///  The interface of the [Resize Observer API] is used by the
@@ -121,7 +129,7 @@ extension PropsResizeObserverEntry on ResizeObserverEntry {
 @JS()
 @staticInterop
 class ResizeObserverSize {
-  external factory ResizeObserverSize();
+  external ResizeObserverSize();
 }
 
 extension PropsResizeObserverSize on ResizeObserverSize {
@@ -130,24 +138,28 @@ extension PropsResizeObserverSize on ResizeObserverSize {
   /// the horizontal dimension, or width; if the writing-mode is
   /// vertical, this is the vertical dimension, or height.
   ///
-  external /* double | NaN */ dynamic get inlineSize;
+  /* double | NaN */ dynamic get inlineSize =>
+      js_util.getProperty(this, 'inlineSize');
 
   ///  The length of the observed element's border box in the block
   /// dimension. For boxes with a horizontal [writing-mode], this is
   /// the vertical dimension, or height; if the writing-mode is
   /// vertical, this is the horizontal dimension, or width.
   ///
-  external /* double | NaN */ dynamic get blockSize;
+  /* double | NaN */ dynamic get blockSize =>
+      js_util.getProperty(this, 'blockSize');
 }
 
 @JS()
 @staticInterop
 class ResizeObservation {
-  external factory ResizeObservation();
+  external ResizeObservation();
 }
 
 extension PropsResizeObservation on ResizeObservation {
-  external Element get target;
-  external ResizeObserverBoxOptions get observedBox;
-  external Iterable<ResizeObserverSize> get lastReportedSizes;
+  Element get target => js_util.getProperty(this, 'target');
+  ResizeObserverBoxOptions get observedBox =>
+      js_util.getProperty(this, 'observedBox');
+  Iterable<ResizeObserverSize> get lastReportedSizes =>
+      js_util.getProperty(this, 'lastReportedSizes');
 }

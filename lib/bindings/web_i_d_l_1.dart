@@ -5,6 +5,7 @@
 @staticInterop
 library web_i_d_l_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,7 +22,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class DOMException {
-  external factory DOMException([String? message = '', String? name = 'Error']);
+  external DOMException([String? message = '', String? name = 'Error']);
   external static int get INDEX_SIZE_ERR;
   external static int get DOMSTRING_SIZE_ERR;
   external static int get HIERARCHY_REQUEST_ERR;
@@ -53,12 +54,12 @@ extension PropsDOMException on DOMException {
   ///  Returns a [DOMString] that contains one of the strings
   /// associated with an error name.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  Returns a [DOMString] representing a message or description
   /// associated with the given error name.
   ///
-  external String get message;
+  String get message => js_util.getProperty(this, 'message');
 
   ///  Returns a [short] that contains one of the error code constants,
   /// or [0] if none match. This field is used for historical reasons.
@@ -66,5 +67,5 @@ extension PropsDOMException on DOMException {
   /// the [DOMException.name] attribute.
   ///
   @deprecated
-  external int get code;
+  int get code => js_util.getProperty(this, 'code');
 }

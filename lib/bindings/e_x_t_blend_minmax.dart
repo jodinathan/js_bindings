@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_blend_minmax;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -29,5 +30,5 @@ import 'all_bindings.dart';
 class EXT_blend_minmax {
   external static int get MIN_EXT;
   external static int get MAX_EXT;
-  external factory EXT_blend_minmax();
+  external EXT_blend_minmax();
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_s_r_g_b;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -31,5 +32,5 @@ class EXT_sRGB {
   external static int get SRGB_ALPHA_EXT;
   external static int get SRGB8_ALPHA8_EXT;
   external static int get FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT;
-  external factory EXT_sRGB();
+  external EXT_sRGB();
 }

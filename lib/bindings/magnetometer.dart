@@ -5,6 +5,7 @@
 @staticInterop
 library magnetometer;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,24 +26,24 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class Magnetometer implements Sensor {
-  external factory Magnetometer([MagnetometerSensorOptions? sensorOptions]);
+  external Magnetometer([MagnetometerSensorOptions? sensorOptions]);
 }
 
 extension PropsMagnetometer on Magnetometer {
   ///  Returns a double containing the magnetic field around the
   /// device's x axis.
   ///
-  external double? get x;
+  double? get x => js_util.getProperty(this, 'x');
 
   ///  Returns a double containing the magnetic field around the
   /// device's y axis.
   ///
-  external double? get y;
+  double? get y => js_util.getProperty(this, 'y');
 
   ///  Returns a double containing the magnetic field around the
   /// device's z axis.
   ///
-  external double? get z;
+  double? get z => js_util.getProperty(this, 'z');
 }
 
 enum MagnetometerLocalCoordinateSystem { device, screen }
@@ -57,24 +58,26 @@ class MagnetometerSensorOptions implements SensorOptions {
 }
 
 extension PropsMagnetometerSensorOptions on MagnetometerSensorOptions {
-  external MagnetometerLocalCoordinateSystem get referenceFrame;
-  external set referenceFrame(MagnetometerLocalCoordinateSystem newValue);
+  MagnetometerLocalCoordinateSystem get referenceFrame =>
+      js_util.getProperty(this, 'referenceFrame');
+  set referenceFrame(MagnetometerLocalCoordinateSystem newValue) {
+    js_util.setProperty(this, 'referenceFrame', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class UncalibratedMagnetometer implements Sensor {
-  external factory UncalibratedMagnetometer(
-      [MagnetometerSensorOptions? sensorOptions]);
+  external UncalibratedMagnetometer([MagnetometerSensorOptions? sensorOptions]);
 }
 
 extension PropsUncalibratedMagnetometer on UncalibratedMagnetometer {
-  external double? get x;
-  external double? get y;
-  external double? get z;
-  external double? get xBias;
-  external double? get yBias;
-  external double? get zBias;
+  double? get x => js_util.getProperty(this, 'x');
+  double? get y => js_util.getProperty(this, 'y');
+  double? get z => js_util.getProperty(this, 'z');
+  double? get xBias => js_util.getProperty(this, 'xBias');
+  double? get yBias => js_util.getProperty(this, 'yBias');
+  double? get zBias => js_util.getProperty(this, 'zBias');
 }
 
 @anonymous
@@ -85,12 +88,20 @@ class MagnetometerReadingValues {
 }
 
 extension PropsMagnetometerReadingValues on MagnetometerReadingValues {
-  external double? get x;
-  external set x(double? newValue);
-  external double? get y;
-  external set y(double? newValue);
-  external double? get z;
-  external set z(double? newValue);
+  double? get x => js_util.getProperty(this, 'x');
+  set x(double? newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  double? get y => js_util.getProperty(this, 'y');
+  set y(double? newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  double? get z => js_util.getProperty(this, 'z');
+  set z(double? newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
 }
 
 @anonymous
@@ -108,16 +119,33 @@ class UncalibratedMagnetometerReadingValues {
 
 extension PropsUncalibratedMagnetometerReadingValues
     on UncalibratedMagnetometerReadingValues {
-  external double? get x;
-  external set x(double? newValue);
-  external double? get y;
-  external set y(double? newValue);
-  external double? get z;
-  external set z(double? newValue);
-  external double? get xBias;
-  external set xBias(double? newValue);
-  external double? get yBias;
-  external set yBias(double? newValue);
-  external double? get zBias;
-  external set zBias(double? newValue);
+  double? get x => js_util.getProperty(this, 'x');
+  set x(double? newValue) {
+    js_util.setProperty(this, 'x', newValue);
+  }
+
+  double? get y => js_util.getProperty(this, 'y');
+  set y(double? newValue) {
+    js_util.setProperty(this, 'y', newValue);
+  }
+
+  double? get z => js_util.getProperty(this, 'z');
+  set z(double? newValue) {
+    js_util.setProperty(this, 'z', newValue);
+  }
+
+  double? get xBias => js_util.getProperty(this, 'xBias');
+  set xBias(double? newValue) {
+    js_util.setProperty(this, 'xBias', newValue);
+  }
+
+  double? get yBias => js_util.getProperty(this, 'yBias');
+  set yBias(double? newValue) {
+    js_util.setProperty(this, 'yBias', newValue);
+  }
+
+  double? get zBias => js_util.getProperty(this, 'zBias');
+  set zBias(double? newValue) {
+    js_util.setProperty(this, 'zBias', newValue);
+  }
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library remote_playback;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -19,7 +20,7 @@ html */
 @JS()
 @staticInterop
 class RemotePlayback implements EventTarget {
-  external factory RemotePlayback();
+  external RemotePlayback();
 }
 
 extension PropsRemotePlayback on RemotePlayback {
@@ -28,8 +29,8 @@ extension PropsRemotePlayback on RemotePlayback {
   ///
   /// RemotePlayback.watchAvailability(RemotePlaybackAvailabilityCallback);
   ///
-  external Promise<int> watchAvailability(
-      RemotePlaybackAvailabilityCallback callback);
+  Promise<int> watchAvailability(RemotePlaybackAvailabilityCallback callback) =>
+      js_util.callMethod(this, 'watchAvailability', [callback]);
 
   ///  Cancels the request to monitor the availability of remote
   /// playback devices.
@@ -37,7 +38,8 @@ extension PropsRemotePlayback on RemotePlayback {
   /// RemotePlayback.cancelWatchAvailability();
   /// RemotePlayback.cancelWatchAvailability(id);
   ///
-  external Promise<Object> cancelWatchAvailability([int? id]);
+  Promise<Object> cancelWatchAvailability([int? id]) =>
+      js_util.callMethod(this, 'cancelWatchAvailability', [id]);
 
   /// Represents the [RemotePlayback] connection's state. One of:
   ///
@@ -58,20 +60,30 @@ extension PropsRemotePlayback on RemotePlayback {
   ///
   ///
   ///
-  external RemotePlaybackState get state;
-  external EventHandlerNonNull? get onconnecting;
-  external set onconnecting(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onconnect;
-  external set onconnect(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondisconnect;
-  external set ondisconnect(EventHandlerNonNull? newValue);
+  RemotePlaybackState get state => js_util.getProperty(this, 'state');
+  EventHandlerNonNull? get onconnecting =>
+      js_util.getProperty(this, 'onconnecting');
+  set onconnecting(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnecting', newValue);
+  }
+
+  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
+  set onconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnect', newValue);
+  }
+
+  EventHandlerNonNull? get ondisconnect =>
+      js_util.getProperty(this, 'ondisconnect');
+  set ondisconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondisconnect', newValue);
+  }
 
   ///  Prompts the user to select and give permission to connect to a
   /// remote playback device.
   ///
   /// RemotePlayback.prompt();
   ///
-  external Promise<Object> prompt();
+  Promise<Object> prompt() => js_util.callMethod(this, 'prompt', []);
 }
 
 enum RemotePlaybackState { connecting, connected, disconnected }

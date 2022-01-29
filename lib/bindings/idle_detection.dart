@@ -5,6 +5,7 @@
 @staticInterop
 library idle_detection;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -26,10 +27,15 @@ class IdleOptions {
 }
 
 extension PropsIdleOptions on IdleOptions {
-  external int get threshold;
-  external set threshold(int newValue);
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
+  int get threshold => js_util.getProperty(this, 'threshold');
+  set threshold(int newValue) {
+    js_util.setProperty(this, 'threshold', newValue);
+  }
+
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -41,11 +47,11 @@ extension PropsIdleOptions on IdleOptions {
 @JS()
 @staticInterop
 class IdleDetector implements EventTarget {
-  external factory IdleDetector();
+  external IdleDetector();
 }
 
 extension PropsIdleDetector on IdleDetector {
-  external UserIdleState? get userState;
+  UserIdleState? get userState => js_util.getProperty(this, 'userState');
 
   ///
   ///     Returns a string indicating whether the screen is locked, one
@@ -55,9 +61,11 @@ extension PropsIdleDetector on IdleDetector {
   ///    is called.
   ///
   ///
-  external ScreenIdleState? get screenState;
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
+  ScreenIdleState? get screenState => js_util.getProperty(this, 'screenState');
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
 
   ///
   ///    Returns a [Promise] that resolves when the user has chosen
@@ -85,5 +93,6 @@ extension PropsIdleDetector on IdleDetector {
   /// IdleDetector.start();
   /// IdleDetector.start(options);
   ///
-  external Promise<Object> start([IdleOptions? options]);
+  Promise<Object> start([IdleOptions? options]) =>
+      js_util.callMethod(this, 'start', [options]);
 }

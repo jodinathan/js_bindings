@@ -5,6 +5,7 @@
 @staticInterop
 library webrtc_ice;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -23,8 +24,15 @@ class RTCIceGatherOptions {
 }
 
 extension PropsRTCIceGatherOptions on RTCIceGatherOptions {
-  external RTCIceTransportPolicy get gatherPolicy;
-  external set gatherPolicy(RTCIceTransportPolicy newValue);
-  external Iterable<RTCIceServer> get iceServers;
-  external set iceServers(Iterable<RTCIceServer> newValue);
+  RTCIceTransportPolicy get gatherPolicy =>
+      js_util.getProperty(this, 'gatherPolicy');
+  set gatherPolicy(RTCIceTransportPolicy newValue) {
+    js_util.setProperty(this, 'gatherPolicy', newValue);
+  }
+
+  Iterable<RTCIceServer> get iceServers =>
+      js_util.getProperty(this, 'iceServers');
+  set iceServers(Iterable<RTCIceServer> newValue) {
+    js_util.setProperty(this, 'iceServers', newValue);
+  }
 }

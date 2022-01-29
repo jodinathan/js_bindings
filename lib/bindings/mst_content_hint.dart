@@ -5,6 +5,7 @@
 @staticInterop
 library mst_content_hint;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';

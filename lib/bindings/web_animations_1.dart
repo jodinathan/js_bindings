@@ -5,6 +5,7 @@
 @staticInterop
 library web_animations_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -29,16 +30,17 @@ web_animations_2 */
 @JS()
 @staticInterop
 class AnimationTimeline {
-  external factory AnimationTimeline();
+  external AnimationTimeline();
 }
 
 extension PropsAnimationTimeline on AnimationTimeline {
   ///  Returns the time value in milliseconds for this timeline or
   /// [null] if this timeline is inactive.
   ///
-  external double? get currentTime;
-  external TimelinePhase get phase;
-  external Animation play([AnimationEffect? effect]);
+  double? get currentTime => js_util.getProperty(this, 'currentTime');
+  TimelinePhase get phase => js_util.getProperty(this, 'phase');
+  Animation play([AnimationEffect? effect]) =>
+      js_util.callMethod(this, 'play', [effect]);
 }
 
 @anonymous
@@ -49,8 +51,10 @@ class DocumentTimelineOptions {
 }
 
 extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
-  external double get originTime;
-  external set originTime(double newValue);
+  double get originTime => js_util.getProperty(this, 'originTime');
+  set originTime(double newValue) {
+    js_util.setProperty(this, 'originTime', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -62,7 +66,7 @@ extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
 @JS()
 @staticInterop
 class DocumentTimeline implements AnimationTimeline {
-  external factory DocumentTimeline([DocumentTimelineOptions? options]);
+  external DocumentTimeline([DocumentTimelineOptions? options]);
 }
 
 ///  The interface of the Web Animations API represents a single
@@ -71,89 +75,109 @@ class DocumentTimeline implements AnimationTimeline {
 @JS()
 @staticInterop
 class Animation implements EventTarget {
-  external factory Animation(
-      [AnimationEffect? effect, AnimationTimeline? timeline]);
+  external Animation([AnimationEffect? effect, AnimationTimeline? timeline]);
 }
 
 extension PropsAnimation on Animation {
   /// Gets and sets the [String] used to identify the animation.
   ///
-  external String get id;
-  external set id(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 
   ///  Gets and sets the [AnimationEffect] associated with this
   /// animation. This will usually be a [KeyframeEffect] object.
   ///
-  external AnimationEffect? get effect;
-  external set effect(AnimationEffect? newValue);
+  AnimationEffect? get effect => js_util.getProperty(this, 'effect');
+  set effect(AnimationEffect? newValue) {
+    js_util.setProperty(this, 'effect', newValue);
+  }
 
   /// Gets or sets the associated with this animation.
   ///
-  external AnimationTimeline? get timeline;
-  external set timeline(AnimationTimeline? newValue);
+  AnimationTimeline? get timeline => js_util.getProperty(this, 'timeline');
+  set timeline(AnimationTimeline? newValue) {
+    js_util.setProperty(this, 'timeline', newValue);
+  }
 
   ///  Gets or sets the scheduled time when an animation's playback
   /// should begin.
   ///
-  external double? get startTime;
-  external set startTime(double? newValue);
+  double? get startTime => js_util.getProperty(this, 'startTime');
+  set startTime(double? newValue) {
+    js_util.setProperty(this, 'startTime', newValue);
+  }
 
   ///  The current time value of the animation in milliseconds, whether
   /// running or paused. If the animation lacks a [timeline], is
   /// inactive or hasn't been played yet, its value is [null].
   ///
-  external double? get currentTime;
-  external set currentTime(double? newValue);
+  double? get currentTime => js_util.getProperty(this, 'currentTime');
+  set currentTime(double? newValue) {
+    js_util.setProperty(this, 'currentTime', newValue);
+  }
 
   /// Gets or sets the playback rate of the animation.
   ///
-  external double get playbackRate;
-  external set playbackRate(double newValue);
+  double get playbackRate => js_util.getProperty(this, 'playbackRate');
+  set playbackRate(double newValue) {
+    js_util.setProperty(this, 'playbackRate', newValue);
+  }
 
   ///  Returns an enumerated value describing the playback state of an
   /// animation.
   ///
-  external AnimationPlayState get playState;
+  AnimationPlayState get playState => js_util.getProperty(this, 'playState');
 
   ///  Returns the replace state of the animation. This will be
   /// [active] if the animation has been replaced, or [persisted] if
   /// [Animation.persist()] has been invoked on it.
   ///
-  external AnimationReplaceState get replaceState;
+  AnimationReplaceState get replaceState =>
+      js_util.getProperty(this, 'replaceState');
 
   ///  Indicates whether the animation is currently waiting for an
   /// asynchronous operation such as initiating playback or pausing a
   /// running animation.
   ///
-  external bool get pending;
+  bool get pending => js_util.getProperty(this, 'pending');
 
   /// Returns the current ready Promise for this animation.
   ///
-  external Promise<Animation> get ready;
+  Promise<Animation> get ready => js_util.getProperty(this, 'ready');
 
   /// Returns the current finished Promise for this animation.
   ///
-  external Promise<Animation> get finished;
-  external EventHandlerNonNull? get onfinish;
-  external set onfinish(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncancel;
-  external set oncancel(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onremove;
-  external set onremove(EventHandlerNonNull? newValue);
+  Promise<Animation> get finished => js_util.getProperty(this, 'finished');
+  EventHandlerNonNull? get onfinish => js_util.getProperty(this, 'onfinish');
+  set onfinish(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfinish', newValue);
+  }
+
+  EventHandlerNonNull? get oncancel => js_util.getProperty(this, 'oncancel');
+  set oncancel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncancel', newValue);
+  }
+
+  EventHandlerNonNull? get onremove => js_util.getProperty(this, 'onremove');
+  set onremove(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onremove', newValue);
+  }
 
   ///  Clears all [keyframeEffects] caused by this animation and aborts
   /// its playback.
   ///
   /// Animation.cancel();
   ///
-  external Object cancel();
+  Object cancel() => js_util.callMethod(this, 'cancel', []);
 
   ///  Seeks either end of an animation, depending on whether the
   /// animation is playing or reversing.
   ///
   /// Animation.finish();
   ///
-  external Object finish();
+  Object finish() => js_util.callMethod(this, 'finish', []);
 
   ///  Starts or resumes playing of an animation, or begins the
   /// animation again if it previously finished.
@@ -190,7 +214,7 @@ extension PropsAnimation on Animation {
   /// cake.addEventListener("mousedown", growAlice, false);
   /// cake.addEventListener("touchstart", growAlice, false);
   ///
-  external Object play();
+  Object play() => js_util.callMethod(this, 'play', []);
 
   /// Suspends playing of an animation.
   ///
@@ -223,14 +247,15 @@ extension PropsAnimation on Animation {
   /// cake.addEventListener("mouseup", stopPlayingAlice, false);
   /// bottle.addEventListener("mouseup", stopPlayingAlice, false);
   ///
-  external Object pause();
+  Object pause() => js_util.callMethod(this, 'pause', []);
 
   ///  Sets the speed of an animation after first synchronizing its
   /// playback position.
   ///
   /// Animation.updatePlaybackRate(2);
   ///
-  external Object updatePlaybackRate(double playbackRate);
+  Object updatePlaybackRate(double playbackRate) =>
+      js_util.callMethod(this, 'updatePlaybackRate', [playbackRate]);
 
   ///  Reverses playback direction, stopping at the start of the
   /// animation. If the animation is finished or unplayed, it will play
@@ -257,7 +282,7 @@ extension PropsAnimation on Animation {
   ///  drinking.play()
   /// }
   ///
-  external Object reverse();
+  Object reverse() => js_util.callMethod(this, 'reverse', []);
 
   ///  Explicitly persists an animation, when it would otherwise be
   /// removed due to the browser's Automatically removing filling
@@ -265,7 +290,7 @@ extension PropsAnimation on Animation {
   ///
   /// animation.persist();
   ///
-  external Object persist();
+  Object persist() => js_util.callMethod(this, 'persist', []);
 
   ///  Commits the end styling state of an animation to the element
   /// being animated, even after that animation has been removed. It
@@ -275,7 +300,7 @@ extension PropsAnimation on Animation {
   ///
   /// animation.commitStyles();
   ///
-  external Object commitStyles();
+  Object commitStyles() => js_util.callMethod(this, 'commitStyles', []);
 }
 
 enum AnimationPlayState { idle, running, paused, finished }
@@ -294,7 +319,7 @@ enum TimelinePhase { inactive, before, active, after }
 @JS()
 @staticInterop
 class AnimationEffect {
-  external factory AnimationEffect();
+  external AnimationEffect();
 }
 
 extension PropsAnimationEffect on AnimationEffect {
@@ -303,28 +328,38 @@ extension PropsAnimationEffect on AnimationEffect {
   ///
   /// animationTiming = animation.getTiming();
   ///
-  external EffectTiming getTiming();
+  EffectTiming getTiming() => js_util.callMethod(this, 'getTiming', []);
 
   ///  Returns the calculated timing properties for this
   /// [AnimationEffect].
   ///
   /// var currentTimeValues = animation.getComputedTiming();
   ///
-  external ComputedEffectTiming getComputedTiming();
+  ComputedEffectTiming getComputedTiming() =>
+      js_util.callMethod(this, 'getComputedTiming', []);
 
   ///  Updates the specified timing properties of this
   /// [AnimationEffect].
   ///
   /// animation.updateTiming(timing);
   ///
-  external Object updateTiming([OptionalEffectTiming? timing]);
-  external GroupEffect? get parent;
-  external AnimationEffect? get previousSibling;
-  external AnimationEffect? get nextSibling;
-  external Object before([AnimationEffect effects]);
-  external Object after([AnimationEffect effects]);
-  external Object replace([AnimationEffect effects]);
-  external Object remove();
+  Object updateTiming([OptionalEffectTiming? timing]) =>
+      js_util.callMethod(this, 'updateTiming', [timing]);
+
+  GroupEffect? get parent => js_util.getProperty(this, 'parent');
+  AnimationEffect? get previousSibling =>
+      js_util.getProperty(this, 'previousSibling');
+  AnimationEffect? get nextSibling => js_util.getProperty(this, 'nextSibling');
+  Object before([AnimationEffect? effects]) =>
+      js_util.callMethod(this, 'before', [effects]);
+
+  Object after([AnimationEffect? effects]) =>
+      js_util.callMethod(this, 'after', [effects]);
+
+  Object replace([AnimationEffect? effects]) =>
+      js_util.callMethod(this, 'replace', [effects]);
+
+  Object remove() => js_util.callMethod(this, 'remove', []);
 }
 
 @anonymous
@@ -343,22 +378,46 @@ class EffectTiming {
 }
 
 extension PropsEffectTiming on EffectTiming {
-  external double get delay;
-  external set delay(double newValue);
-  external double get endDelay;
-  external set endDelay(double newValue);
-  external FillMode get fill;
-  external set fill(FillMode newValue);
-  external double get iterationStart;
-  external set iterationStart(double newValue);
-  external /* double | NaN */ dynamic get iterations;
-  external set iterations(/* double | NaN */ dynamic newValue);
-  external dynamic get duration;
-  external set duration(dynamic newValue);
-  external PlaybackDirection get direction;
-  external set direction(PlaybackDirection newValue);
-  external String get easing;
-  external set easing(String newValue);
+  double get delay => js_util.getProperty(this, 'delay');
+  set delay(double newValue) {
+    js_util.setProperty(this, 'delay', newValue);
+  }
+
+  double get endDelay => js_util.getProperty(this, 'endDelay');
+  set endDelay(double newValue) {
+    js_util.setProperty(this, 'endDelay', newValue);
+  }
+
+  FillMode get fill => js_util.getProperty(this, 'fill');
+  set fill(FillMode newValue) {
+    js_util.setProperty(this, 'fill', newValue);
+  }
+
+  double get iterationStart => js_util.getProperty(this, 'iterationStart');
+  set iterationStart(double newValue) {
+    js_util.setProperty(this, 'iterationStart', newValue);
+  }
+
+  /* double | NaN */ dynamic get iterations =>
+      js_util.getProperty(this, 'iterations');
+  set iterations(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'iterations', newValue);
+  }
+
+  dynamic get duration => js_util.getProperty(this, 'duration');
+  set duration(dynamic newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  PlaybackDirection get direction => js_util.getProperty(this, 'direction');
+  set direction(PlaybackDirection newValue) {
+    js_util.setProperty(this, 'direction', newValue);
+  }
+
+  String get easing => js_util.getProperty(this, 'easing');
+  set easing(String newValue) {
+    js_util.setProperty(this, 'easing', newValue);
+  }
 }
 
 @anonymous
@@ -377,22 +436,46 @@ class OptionalEffectTiming {
 }
 
 extension PropsOptionalEffectTiming on OptionalEffectTiming {
-  external double get delay;
-  external set delay(double newValue);
-  external double get endDelay;
-  external set endDelay(double newValue);
-  external FillMode get fill;
-  external set fill(FillMode newValue);
-  external double get iterationStart;
-  external set iterationStart(double newValue);
-  external /* double | NaN */ dynamic get iterations;
-  external set iterations(/* double | NaN */ dynamic newValue);
-  external dynamic get duration;
-  external set duration(dynamic newValue);
-  external PlaybackDirection get direction;
-  external set direction(PlaybackDirection newValue);
-  external String get easing;
-  external set easing(String newValue);
+  double get delay => js_util.getProperty(this, 'delay');
+  set delay(double newValue) {
+    js_util.setProperty(this, 'delay', newValue);
+  }
+
+  double get endDelay => js_util.getProperty(this, 'endDelay');
+  set endDelay(double newValue) {
+    js_util.setProperty(this, 'endDelay', newValue);
+  }
+
+  FillMode get fill => js_util.getProperty(this, 'fill');
+  set fill(FillMode newValue) {
+    js_util.setProperty(this, 'fill', newValue);
+  }
+
+  double get iterationStart => js_util.getProperty(this, 'iterationStart');
+  set iterationStart(double newValue) {
+    js_util.setProperty(this, 'iterationStart', newValue);
+  }
+
+  /* double | NaN */ dynamic get iterations =>
+      js_util.getProperty(this, 'iterations');
+  set iterations(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'iterations', newValue);
+  }
+
+  dynamic get duration => js_util.getProperty(this, 'duration');
+  set duration(dynamic newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  PlaybackDirection get direction => js_util.getProperty(this, 'direction');
+  set direction(PlaybackDirection newValue) {
+    js_util.setProperty(this, 'direction', newValue);
+  }
+
+  String get easing => js_util.getProperty(this, 'easing');
+  set easing(String newValue) {
+    js_util.setProperty(this, 'easing', newValue);
+  }
 }
 
 enum PlaybackDirection { normal, reverse, alternate, alternateReverse }
@@ -410,16 +493,33 @@ class ComputedEffectTiming implements EffectTiming {
 }
 
 extension PropsComputedEffectTiming on ComputedEffectTiming {
-  external /* double | NaN */ dynamic get endTime;
-  external set endTime(/* double | NaN */ dynamic newValue);
-  external /* double | NaN */ dynamic get activeDuration;
-  external set activeDuration(/* double | NaN */ dynamic newValue);
-  external double? get localTime;
-  external set localTime(double? newValue);
-  external double? get progress;
-  external set progress(double? newValue);
-  external /* double | NaN */ dynamic? get currentIteration;
-  external set currentIteration(/* double | NaN */ dynamic? newValue);
+  /* double | NaN */ dynamic get endTime =>
+      js_util.getProperty(this, 'endTime');
+  set endTime(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'endTime', newValue);
+  }
+
+  /* double | NaN */ dynamic get activeDuration =>
+      js_util.getProperty(this, 'activeDuration');
+  set activeDuration(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'activeDuration', newValue);
+  }
+
+  double? get localTime => js_util.getProperty(this, 'localTime');
+  set localTime(double? newValue) {
+    js_util.setProperty(this, 'localTime', newValue);
+  }
+
+  double? get progress => js_util.getProperty(this, 'progress');
+  set progress(double? newValue) {
+    js_util.setProperty(this, 'progress', newValue);
+  }
+
+  /* double | NaN */ dynamic? get currentIteration =>
+      js_util.getProperty(this, 'currentIteration');
+  set currentIteration(/* double | NaN */ dynamic? newValue) {
+    js_util.setProperty(this, 'currentIteration', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -432,7 +532,7 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
 @JS()
 @staticInterop
 class KeyframeEffect implements AnimationEffect {
-  external factory KeyframeEffect(
+  external KeyframeEffect(
       [Element? target, dynamic keyframes, dynamic options]);
 }
 
@@ -442,37 +542,49 @@ extension PropsKeyframeEffect on KeyframeEffect {
   /// for animations that do not target a specific element or
   /// pseudo-element.
   ///
-  external Element? get target;
-  external set target(Element? newValue);
+  Element? get target => js_util.getProperty(this, 'target');
+  set target(Element? newValue) {
+    js_util.setProperty(this, 'target', newValue);
+  }
 
   ///  Gets and sets the selector of the pseudo-element being animated
   /// by this object. This may be [null] for animations that do not
   /// target a pseudo-element.
   ///
   @experimental
-  external String? get pseudoElement;
-  external set pseudoElement(String? newValue);
+  String? get pseudoElement => js_util.getProperty(this, 'pseudoElement');
+  set pseudoElement(String? newValue) {
+    js_util.setProperty(this, 'pseudoElement', newValue);
+  }
 
   ///  Gets and sets the composite operation property for resolving the
   /// property value changes between this and other keyframe effects.
   ///
-  external CompositeOperation get composite;
-  external set composite(CompositeOperation newValue);
+  CompositeOperation get composite => js_util.getProperty(this, 'composite');
+  set composite(CompositeOperation newValue) {
+    js_util.setProperty(this, 'composite', newValue);
+  }
 
   ///  Returns the computed keyframes that make up this effect along
   /// with their computed keyframe offsets.
   ///
   /// var keyframes = keyframeEffect.getKeyframes();
   ///
-  external Iterable<dynamic> getKeyframes();
+  Iterable<dynamic> getKeyframes() =>
+      js_util.callMethod(this, 'getKeyframes', []);
 
   /// Replaces the set of keyframes that make up this effect.
   ///
   /// existingKeyframeEffect.setKeyframes(keyframes);
   ///
-  external Object setKeyframes(dynamic keyframes);
-  external IterationCompositeOperation get iterationComposite;
-  external set iterationComposite(IterationCompositeOperation newValue);
+  Object setKeyframes(dynamic keyframes) =>
+      js_util.callMethod(this, 'setKeyframes', [keyframes]);
+
+  IterationCompositeOperation get iterationComposite =>
+      js_util.getProperty(this, 'iterationComposite');
+  set iterationComposite(IterationCompositeOperation newValue) {
+    js_util.setProperty(this, 'iterationComposite', newValue);
+  }
 }
 
 @anonymous
@@ -487,14 +599,26 @@ class BaseComputedKeyframe {
 }
 
 extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
-  external double? get offset;
-  external set offset(double? newValue);
-  external double get computedOffset;
-  external set computedOffset(double newValue);
-  external String get easing;
-  external set easing(String newValue);
-  external CompositeOperationOrAuto get composite;
-  external set composite(CompositeOperationOrAuto newValue);
+  double? get offset => js_util.getProperty(this, 'offset');
+  set offset(double? newValue) {
+    js_util.setProperty(this, 'offset', newValue);
+  }
+
+  double get computedOffset => js_util.getProperty(this, 'computedOffset');
+  set computedOffset(double newValue) {
+    js_util.setProperty(this, 'computedOffset', newValue);
+  }
+
+  String get easing => js_util.getProperty(this, 'easing');
+  set easing(String newValue) {
+    js_util.setProperty(this, 'easing', newValue);
+  }
+
+  CompositeOperationOrAuto get composite =>
+      js_util.getProperty(this, 'composite');
+  set composite(CompositeOperationOrAuto newValue) {
+    js_util.setProperty(this, 'composite', newValue);
+  }
 }
 
 @anonymous
@@ -508,12 +632,20 @@ class BasePropertyIndexedKeyframe {
 }
 
 extension PropsBasePropertyIndexedKeyframe on BasePropertyIndexedKeyframe {
-  external dynamic get offset;
-  external set offset(dynamic newValue);
-  external dynamic get easing;
-  external set easing(dynamic newValue);
-  external dynamic get composite;
-  external set composite(dynamic newValue);
+  dynamic get offset => js_util.getProperty(this, 'offset');
+  set offset(dynamic newValue) {
+    js_util.setProperty(this, 'offset', newValue);
+  }
+
+  dynamic get easing => js_util.getProperty(this, 'easing');
+  set easing(dynamic newValue) {
+    js_util.setProperty(this, 'easing', newValue);
+  }
+
+  dynamic get composite => js_util.getProperty(this, 'composite');
+  set composite(dynamic newValue) {
+    js_util.setProperty(this, 'composite', newValue);
+  }
 }
 
 @anonymous
@@ -527,12 +659,21 @@ class BaseKeyframe {
 }
 
 extension PropsBaseKeyframe on BaseKeyframe {
-  external double? get offset;
-  external set offset(double? newValue);
-  external String get easing;
-  external set easing(String newValue);
-  external CompositeOperationOrAuto get composite;
-  external set composite(CompositeOperationOrAuto newValue);
+  double? get offset => js_util.getProperty(this, 'offset');
+  set offset(double? newValue) {
+    js_util.setProperty(this, 'offset', newValue);
+  }
+
+  String get easing => js_util.getProperty(this, 'easing');
+  set easing(String newValue) {
+    js_util.setProperty(this, 'easing', newValue);
+  }
+
+  CompositeOperationOrAuto get composite =>
+      js_util.getProperty(this, 'composite');
+  set composite(CompositeOperationOrAuto newValue) {
+    js_util.setProperty(this, 'composite', newValue);
+  }
 }
 
 @anonymous
@@ -545,10 +686,15 @@ class KeyframeEffectOptions implements EffectTiming {
 }
 
 extension PropsKeyframeEffectOptions on KeyframeEffectOptions {
-  external CompositeOperation get composite;
-  external set composite(CompositeOperation newValue);
-  external String? get pseudoElement;
-  external set pseudoElement(String? newValue);
+  CompositeOperation get composite => js_util.getProperty(this, 'composite');
+  set composite(CompositeOperation newValue) {
+    js_util.setProperty(this, 'composite', newValue);
+  }
+
+  String? get pseudoElement => js_util.getProperty(this, 'pseudoElement');
+  set pseudoElement(String? newValue) {
+    js_util.setProperty(this, 'pseudoElement', newValue);
+  }
 }
 
 enum CompositeOperation { replace, add, accumulate }
@@ -558,12 +704,15 @@ enum CompositeOperationOrAuto { replace, add, accumulate, auto }
 @JS()
 @staticInterop
 class Animatable {
-  external factory Animatable();
+  external Animatable();
 }
 
 extension PropsAnimatable on Animatable {
-  external Animation animate(dynamic keyframes, [dynamic options]);
-  external Iterable<Animation> getAnimations([GetAnimationsOptions? options]);
+  Animation animate(dynamic keyframes, [dynamic options]) =>
+      js_util.callMethod(this, 'animate', [keyframes, options]);
+
+  Iterable<Animation> getAnimations([GetAnimationsOptions? options]) =>
+      js_util.callMethod(this, 'getAnimations', [options]);
 }
 
 @anonymous
@@ -575,10 +724,15 @@ class KeyframeAnimationOptions implements KeyframeEffectOptions {
 }
 
 extension PropsKeyframeAnimationOptions on KeyframeAnimationOptions {
-  external String get id;
-  external set id(String newValue);
-  external AnimationTimeline? get timeline;
-  external set timeline(AnimationTimeline? newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  AnimationTimeline? get timeline => js_util.getProperty(this, 'timeline');
+  set timeline(AnimationTimeline? newValue) {
+    js_util.setProperty(this, 'timeline', newValue);
+  }
 }
 
 @anonymous
@@ -589,8 +743,10 @@ class GetAnimationsOptions {
 }
 
 extension PropsGetAnimationsOptions on GetAnimationsOptions {
-  external bool get subtree;
-  external set subtree(bool newValue);
+  bool get subtree => js_util.getProperty(this, 'subtree');
+  set subtree(bool newValue) {
+    js_util.setProperty(this, 'subtree', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -604,13 +760,13 @@ extension PropsGetAnimationsOptions on GetAnimationsOptions {
 @JS()
 @staticInterop
 class AnimationPlaybackEvent implements Event {
-  external factory AnimationPlaybackEvent(String type,
+  external AnimationPlaybackEvent(String type,
       [AnimationPlaybackEventInit? eventInitDict]);
 }
 
 extension PropsAnimationPlaybackEvent on AnimationPlaybackEvent {
-  external double? get currentTime;
-  external double? get timelineTime;
+  double? get currentTime => js_util.getProperty(this, 'currentTime');
+  double? get timelineTime => js_util.getProperty(this, 'timelineTime');
 }
 
 @anonymous
@@ -622,8 +778,13 @@ class AnimationPlaybackEventInit implements EventInit {
 }
 
 extension PropsAnimationPlaybackEventInit on AnimationPlaybackEventInit {
-  external double? get currentTime;
-  external set currentTime(double? newValue);
-  external double? get timelineTime;
-  external set timelineTime(double? newValue);
+  double? get currentTime => js_util.getProperty(this, 'currentTime');
+  set currentTime(double? newValue) {
+    js_util.setProperty(this, 'currentTime', newValue);
+  }
+
+  double? get timelineTime => js_util.getProperty(this, 'timelineTime');
+  set timelineTime(double? newValue) {
+    js_util.setProperty(this, 'timelineTime', newValue);
+  }
 }

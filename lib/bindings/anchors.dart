@@ -5,6 +5,7 @@
 @staticInterop
 library anchors;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,20 +26,20 @@ hit_test */
 @JS()
 @staticInterop
 class XRAnchor {
-  external factory XRAnchor();
+  external XRAnchor();
 }
 
 extension PropsXRAnchor on XRAnchor {
   ///  Returns an [XRSpace] object to locate the anchor relative to
   /// other [XRSpace] objects.
   ///
-  external XRSpace get anchorSpace;
+  XRSpace get anchorSpace => js_util.getProperty(this, 'anchorSpace');
 
   /// Removes the anchor.
   ///
   /// delete()
   ///
-  external Object delete();
+  Object delete() => js_util.callMethod(this, 'delete', []);
 }
 
 ///  The interface exposes a collection of anchors. It is returned by
@@ -46,5 +47,5 @@ extension PropsXRAnchor on XRAnchor {
 @JS()
 @staticInterop
 class XRAnchorSet {
-  external factory XRAnchorSet();
+  external XRAnchorSet();
 }

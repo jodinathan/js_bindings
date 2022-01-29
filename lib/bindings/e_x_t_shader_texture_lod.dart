@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_shader_texture_lod;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -26,5 +27,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class EXT_shader_texture_lod {
-  external factory EXT_shader_texture_lod();
+  external EXT_shader_texture_lod();
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library o_e_s_vertex_array_object;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,7 +16,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class WebGLVertexArrayObjectOES implements WebGLObject {
-  external factory WebGLVertexArrayObjectOES();
+  external WebGLVertexArrayObjectOES();
 }
 
 ///  The OES_vertex_array_object extension is part of the WebGL API
@@ -35,7 +36,7 @@ class WebGLVertexArrayObjectOES implements WebGLObject {
 @staticInterop
 class OES_vertex_array_object {
   external static int get VERTEX_ARRAY_BINDING_OES;
-  external factory OES_vertex_array_object();
+  external OES_vertex_array_object();
 }
 
 extension PropsOES_vertex_array_object on OES_vertex_array_object {
@@ -43,23 +44,27 @@ extension PropsOES_vertex_array_object on OES_vertex_array_object {
   ///
   /// WebGLVertexArrayObjectOES ext.createVertexArrayOES();
   ///
-  external WebGLVertexArrayObjectOES? createVertexArrayOES();
+  WebGLVertexArrayObjectOES? createVertexArrayOES() =>
+      js_util.callMethod(this, 'createVertexArrayOES', []);
 
   /// Deletes a given [WebGLVertexArrayObject].
   ///
   /// void ext.deleteVertexArrayOES(arrayObject);
   ///
-  external Object deleteVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
+  Object deleteVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject) =>
+      js_util.callMethod(this, 'deleteVertexArrayOES', [arrayObject]);
 
   /// Returns [true] if a given object is a [WebGLVertexArrayObject].
   ///
   /// GLBoolean ext.isVertexArrayOES(arrayObject);
   ///
-  external bool isVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
+  bool isVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject) =>
+      js_util.callMethod(this, 'isVertexArrayOES', [arrayObject]);
 
   /// Binds a given [WebGLVertexArrayObject] to the buffer.
   ///
   /// void ext.bindVertexArrayOES(arrayObject);
   ///
-  external Object bindVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
+  Object bindVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject) =>
+      js_util.callMethod(this, 'bindVertexArrayOES', [arrayObject]);
 }

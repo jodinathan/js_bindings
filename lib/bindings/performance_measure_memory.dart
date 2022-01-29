@@ -5,6 +5,7 @@
 @staticInterop
 library performance_measure_memory;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,10 +22,16 @@ class MemoryMeasurement {
 }
 
 extension PropsMemoryMeasurement on MemoryMeasurement {
-  external int get bytes;
-  external set bytes(int newValue);
-  external Iterable<MemoryBreakdownEntry> get breakdown;
-  external set breakdown(Iterable<MemoryBreakdownEntry> newValue);
+  int get bytes => js_util.getProperty(this, 'bytes');
+  set bytes(int newValue) {
+    js_util.setProperty(this, 'bytes', newValue);
+  }
+
+  Iterable<MemoryBreakdownEntry> get breakdown =>
+      js_util.getProperty(this, 'breakdown');
+  set breakdown(Iterable<MemoryBreakdownEntry> newValue) {
+    js_util.setProperty(this, 'breakdown', newValue);
+  }
 }
 
 @anonymous
@@ -38,12 +45,21 @@ class MemoryBreakdownEntry {
 }
 
 extension PropsMemoryBreakdownEntry on MemoryBreakdownEntry {
-  external int get bytes;
-  external set bytes(int newValue);
-  external Iterable<MemoryAttribution> get attribution;
-  external set attribution(Iterable<MemoryAttribution> newValue);
-  external Iterable<String> get types;
-  external set types(Iterable<String> newValue);
+  int get bytes => js_util.getProperty(this, 'bytes');
+  set bytes(int newValue) {
+    js_util.setProperty(this, 'bytes', newValue);
+  }
+
+  Iterable<MemoryAttribution> get attribution =>
+      js_util.getProperty(this, 'attribution');
+  set attribution(Iterable<MemoryAttribution> newValue) {
+    js_util.setProperty(this, 'attribution', newValue);
+  }
+
+  Iterable<String> get types => js_util.getProperty(this, 'types');
+  set types(Iterable<String> newValue) {
+    js_util.setProperty(this, 'types', newValue);
+  }
 }
 
 @anonymous
@@ -55,12 +71,21 @@ class MemoryAttribution {
 }
 
 extension PropsMemoryAttribution on MemoryAttribution {
-  external String get url;
-  external set url(String newValue);
-  external MemoryAttributionContainer get container;
-  external set container(MemoryAttributionContainer newValue);
-  external String get scope;
-  external set scope(String newValue);
+  String get url => js_util.getProperty(this, 'url');
+  set url(String newValue) {
+    js_util.setProperty(this, 'url', newValue);
+  }
+
+  MemoryAttributionContainer get container =>
+      js_util.getProperty(this, 'container');
+  set container(MemoryAttributionContainer newValue) {
+    js_util.setProperty(this, 'container', newValue);
+  }
+
+  String get scope => js_util.getProperty(this, 'scope');
+  set scope(String newValue) {
+    js_util.setProperty(this, 'scope', newValue);
+  }
 }
 
 @anonymous
@@ -71,8 +96,13 @@ class MemoryAttributionContainer {
 }
 
 extension PropsMemoryAttributionContainer on MemoryAttributionContainer {
-  external String get id;
-  external set id(String newValue);
-  external String get src;
-  external set src(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 }

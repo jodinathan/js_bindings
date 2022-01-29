@@ -5,6 +5,7 @@
 @staticInterop
 library mediasession;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -45,29 +46,35 @@ enum MediaSessionAction {
 @JS()
 @staticInterop
 class MediaSession {
-  external factory MediaSession();
+  external MediaSession();
 }
 
 extension PropsMediaSession on MediaSession {
   ///  Returns an instance of [MediaMetadata], which contains rich
   /// media metadata for display in a platform UI.
   ///
-  external MediaMetadata? get metadata;
-  external set metadata(MediaMetadata? newValue);
+  MediaMetadata? get metadata => js_util.getProperty(this, 'metadata');
+  set metadata(MediaMetadata? newValue) {
+    js_util.setProperty(this, 'metadata', newValue);
+  }
 
   ///  Indicates whether the current media session is playing. Valid
   /// values are [none], [paused], or [playing].
   ///
-  external MediaSessionPlaybackState get playbackState;
-  external set playbackState(MediaSessionPlaybackState newValue);
+  MediaSessionPlaybackState get playbackState =>
+      js_util.getProperty(this, 'playbackState');
+  set playbackState(MediaSessionPlaybackState newValue) {
+    js_util.setProperty(this, 'playbackState', newValue);
+  }
 
   ///  Sets an action handler for a media session action, such as play
   /// or pause.
   ///
   /// navigator.mediaSession.setActionHandler(type, callback)
   ///
-  external Object setActionHandler(
-      MediaSessionAction action, MediaSessionActionHandler? handler);
+  Object setActionHandler(
+          MediaSessionAction action, MediaSessionActionHandler? handler) =>
+      js_util.callMethod(this, 'setActionHandler', [action, handler]);
 
   ///  Sets the current playback position and speed of the media
   /// currently being presented.
@@ -99,9 +106,14 @@ extension PropsMediaSession on MediaSession {
   ///
   /// });
   ///
-  external Object setPositionState([MediaPositionState? state]);
-  external Object setMicrophoneActive(bool active);
-  external Object setCameraActive(bool active);
+  Object setPositionState([MediaPositionState? state]) =>
+      js_util.callMethod(this, 'setPositionState', [state]);
+
+  Object setMicrophoneActive(bool active) =>
+      js_util.callMethod(this, 'setMicrophoneActive', [active]);
+
+  Object setCameraActive(bool active) =>
+      js_util.callMethod(this, 'setCameraActive', [active]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -112,32 +124,40 @@ extension PropsMediaSession on MediaSession {
 @JS()
 @staticInterop
 class MediaMetadata {
-  external factory MediaMetadata([MediaMetadataInit? init]);
+  external MediaMetadata([MediaMetadataInit? init]);
 }
 
 extension PropsMediaMetadata on MediaMetadata {
   /// Returns or sets the title of the media to be played.
   ///
-  external String get title;
-  external set title(String newValue);
+  String get title => js_util.getProperty(this, 'title');
+  set title(String newValue) {
+    js_util.setProperty(this, 'title', newValue);
+  }
 
   ///  Returns or sets the name of the artist, group, creator, etc. of
   /// the media to be played.
   ///
-  external String get artist;
-  external set artist(String newValue);
+  String get artist => js_util.getProperty(this, 'artist');
+  set artist(String newValue) {
+    js_util.setProperty(this, 'artist', newValue);
+  }
 
   ///  Returns or sets the name of the album or collection containing
   /// the media to be played.
   ///
-  external String get album;
-  external set album(String newValue);
+  String get album => js_util.getProperty(this, 'album');
+  set album(String newValue) {
+    js_util.setProperty(this, 'album', newValue);
+  }
 
   ///  Returns or sets an array of images associated with playing
   /// media.
   ///
-  external Iterable<MediaImage> get artwork;
-  external set artwork(Iterable<MediaImage> newValue);
+  Iterable<MediaImage> get artwork => js_util.getProperty(this, 'artwork');
+  set artwork(Iterable<MediaImage> newValue) {
+    js_util.setProperty(this, 'artwork', newValue);
+  }
 }
 
 @anonymous
@@ -152,14 +172,25 @@ class MediaMetadataInit {
 }
 
 extension PropsMediaMetadataInit on MediaMetadataInit {
-  external String get title;
-  external set title(String newValue);
-  external String get artist;
-  external set artist(String newValue);
-  external String get album;
-  external set album(String newValue);
-  external Iterable<MediaImage> get artwork;
-  external set artwork(Iterable<MediaImage> newValue);
+  String get title => js_util.getProperty(this, 'title');
+  set title(String newValue) {
+    js_util.setProperty(this, 'title', newValue);
+  }
+
+  String get artist => js_util.getProperty(this, 'artist');
+  set artist(String newValue) {
+    js_util.setProperty(this, 'artist', newValue);
+  }
+
+  String get album => js_util.getProperty(this, 'album');
+  set album(String newValue) {
+    js_util.setProperty(this, 'album', newValue);
+  }
+
+  Iterable<MediaImage> get artwork => js_util.getProperty(this, 'artwork');
+  set artwork(Iterable<MediaImage> newValue) {
+    js_util.setProperty(this, 'artwork', newValue);
+  }
 }
 
 ///  The Media Session API's dictionary describes the images
@@ -178,22 +209,28 @@ class MediaImage {
 extension PropsMediaImage on MediaImage {
   /// The URL from which the user agent fetches the image's data.
   ///
-  external String get src;
-  external set src(String newValue);
+  String get src => js_util.getProperty(this, 'src');
+  set src(String newValue) {
+    js_util.setProperty(this, 'src', newValue);
+  }
 
   ///  Specifies the resource in multiple sizes so the user agent
   /// doesn't have to scale a single image.
   ///
-  external String get sizes;
-  external set sizes(String newValue);
+  String get sizes => js_util.getProperty(this, 'sizes');
+  set sizes(String newValue) {
+    js_util.setProperty(this, 'sizes', newValue);
+  }
 
   ///  The MIME type hint for the user agent that allows it to ignore
   /// images of types that it doesn't support. However, the user agent
   /// may still use MIME type sniffing after downloading the image to
   /// determine its type.
   ///
-  external String get type;
-  external set type(String newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 @anonymous
@@ -205,12 +242,20 @@ class MediaPositionState {
 }
 
 extension PropsMediaPositionState on MediaPositionState {
-  external double get duration;
-  external set duration(double newValue);
-  external double get playbackRate;
-  external set playbackRate(double newValue);
-  external double get position;
-  external set position(double newValue);
+  double get duration => js_util.getProperty(this, 'duration');
+  set duration(double newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  double get playbackRate => js_util.getProperty(this, 'playbackRate');
+  set playbackRate(double newValue) {
+    js_util.setProperty(this, 'playbackRate', newValue);
+  }
+
+  double get position => js_util.getProperty(this, 'position');
+  set position(double newValue) {
+    js_util.setProperty(this, 'position', newValue);
+  }
 }
 
 @anonymous
@@ -225,12 +270,23 @@ class MediaSessionActionDetails {
 }
 
 extension PropsMediaSessionActionDetails on MediaSessionActionDetails {
-  external MediaSessionAction get action;
-  external set action(MediaSessionAction newValue);
-  external double? get seekOffset;
-  external set seekOffset(double? newValue);
-  external double? get seekTime;
-  external set seekTime(double? newValue);
-  external bool? get fastSeek;
-  external set fastSeek(bool? newValue);
+  MediaSessionAction get action => js_util.getProperty(this, 'action');
+  set action(MediaSessionAction newValue) {
+    js_util.setProperty(this, 'action', newValue);
+  }
+
+  double? get seekOffset => js_util.getProperty(this, 'seekOffset');
+  set seekOffset(double? newValue) {
+    js_util.setProperty(this, 'seekOffset', newValue);
+  }
+
+  double? get seekTime => js_util.getProperty(this, 'seekTime');
+  set seekTime(double? newValue) {
+    js_util.setProperty(this, 'seekTime', newValue);
+  }
+
+  bool? get fastSeek => js_util.getProperty(this, 'fastSeek');
+  set fastSeek(bool? newValue) {
+    js_util.setProperty(this, 'fastSeek', newValue);
+  }
 }

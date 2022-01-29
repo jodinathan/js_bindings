@@ -5,6 +5,7 @@
 @staticInterop
 library webdriver2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,10 +16,10 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorAutomationInformation {
-  external factory NavigatorAutomationInformation();
+  external NavigatorAutomationInformation();
 }
 
 extension PropsNavigatorAutomationInformation
     on NavigatorAutomationInformation {
-  external bool get webdriver;
+  bool get webdriver => js_util.getProperty(this, 'webdriver');
 }

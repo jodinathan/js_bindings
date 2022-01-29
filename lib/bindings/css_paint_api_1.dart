@@ -5,6 +5,7 @@
 @staticInterop
 library css_paint_api_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -16,12 +17,15 @@ cssom_1 */
 @JS()
 @staticInterop
 class PaintWorkletGlobalScope implements WorkletGlobalScope {
-  external factory PaintWorkletGlobalScope();
+  external PaintWorkletGlobalScope();
 }
 
 extension PropsPaintWorkletGlobalScope on PaintWorkletGlobalScope {
-  external Object registerPaint(String name, VoidFunction paintCtor);
-  external /* double | NaN */ dynamic get devicePixelRatio;
+  Object registerPaint(String name, VoidFunction paintCtor) =>
+      js_util.callMethod(this, 'registerPaint', [name, paintCtor]);
+
+  /* double | NaN */ dynamic get devicePixelRatio =>
+      js_util.getProperty(this, 'devicePixelRatio');
 }
 
 @anonymous
@@ -33,8 +37,10 @@ class PaintRenderingContext2DSettings {
 
 extension PropsPaintRenderingContext2DSettings
     on PaintRenderingContext2DSettings {
-  external bool get alpha;
-  external set alpha(bool newValue);
+  bool get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(bool newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
 }
 
 @JS()
@@ -52,16 +58,16 @@ class PaintRenderingContext2D
         CanvasDrawImage,
         CanvasPathDrawingStyles,
         CanvasPath {
-  external factory PaintRenderingContext2D();
+  external PaintRenderingContext2D();
 }
 
 @JS()
 @staticInterop
 class PaintSize {
-  external factory PaintSize();
+  external PaintSize();
 }
 
 extension PropsPaintSize on PaintSize {
-  external double get width;
-  external double get height;
+  double get width => js_util.getProperty(this, 'width');
+  double get height => js_util.getProperty(this, 'height');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library web_nfc;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -27,11 +28,11 @@ html */
 @JS()
 @staticInterop
 class NDEFMessage {
-  external factory NDEFMessage(NDEFMessageInit messageInit);
+  external NDEFMessage(NDEFMessageInit messageInit);
 }
 
 extension PropsNDEFMessage on NDEFMessage {
-  external Iterable<NDEFRecord> get records;
+  Iterable<NDEFRecord> get records => js_util.getProperty(this, 'records');
 }
 
 @anonymous
@@ -42,8 +43,10 @@ class NDEFMessageInit {
 }
 
 extension PropsNDEFMessageInit on NDEFMessageInit {
-  external Iterable<NDEFRecordInit> get records;
-  external set records(Iterable<NDEFRecordInit> newValue);
+  Iterable<NDEFRecordInit> get records => js_util.getProperty(this, 'records');
+  set records(Iterable<NDEFRecordInit> newValue) {
+    js_util.setProperty(this, 'records', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -57,7 +60,7 @@ extension PropsNDEFMessageInit on NDEFMessageInit {
 @JS()
 @staticInterop
 class NDEFRecord {
-  external factory NDEFRecord(NDEFRecordInit recordInit);
+  external NDEFRecord(NDEFRecordInit recordInit);
 }
 
 extension PropsNDEFRecord on NDEFRecord {
@@ -68,13 +71,13 @@ extension PropsNDEFRecord on NDEFRecord {
   /// domain name and custom type name separated by a colon (":").
   ///
   @experimental
-  external String get recordType;
+  String get recordType => js_util.getProperty(this, 'recordType');
 
   ///  Returns the MIME type of the record. This value will be [null]
   /// if [recordType] is not equal to ["mime"].
   ///
   @experimental
-  external String? get mediaType;
+  String? get mediaType => js_util.getProperty(this, 'mediaType');
 
   ///  Returns the record identifier, which is an absolute or relative
   /// URL used to identify the record.
@@ -84,24 +87,24 @@ extension PropsNDEFRecord on NDEFRecord {
   ///
   ///
   @experimental
-  external String? get id;
+  String? get id => js_util.getProperty(this, 'id');
 
   ///  Returns a [DataView] containing the raw bytes of the record's
   /// payload.
   ///
   @experimental
-  external ByteData? get data;
+  ByteData? get data => js_util.getProperty(this, 'data');
 
   /// Returns the encoding of a textual payload, or [null] otherwise.
   ///
   @experimental
-  external String? get encoding;
+  String? get encoding => js_util.getProperty(this, 'encoding');
 
   ///  Returns the language of a textual payload, or [null] if one was
   /// not supplied.
   ///
   @experimental
-  external String? get lang;
+  String? get lang => js_util.getProperty(this, 'lang');
 
   ///  Converts [NDEFRecord.data] to a sequence of records. This allows
   /// parsing the payloads of record types which may contain nested
@@ -110,7 +113,7 @@ extension PropsNDEFRecord on NDEFRecord {
   /// NDEFRecord.toRecords()
   ///
   @experimental
-  external Iterable<NDEFRecord> toRecords();
+  Iterable<NDEFRecord> toRecords() => js_util.callMethod(this, 'toRecords', []);
 }
 
 @anonymous
@@ -127,18 +130,35 @@ class NDEFRecordInit {
 }
 
 extension PropsNDEFRecordInit on NDEFRecordInit {
-  external String get recordType;
-  external set recordType(String newValue);
-  external String get mediaType;
-  external set mediaType(String newValue);
-  external String get id;
-  external set id(String newValue);
-  external String get encoding;
-  external set encoding(String newValue);
-  external String get lang;
-  external set lang(String newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  String get recordType => js_util.getProperty(this, 'recordType');
+  set recordType(String newValue) {
+    js_util.setProperty(this, 'recordType', newValue);
+  }
+
+  String get mediaType => js_util.getProperty(this, 'mediaType');
+  set mediaType(String newValue) {
+    js_util.setProperty(this, 'mediaType', newValue);
+  }
+
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  String get encoding => js_util.getProperty(this, 'encoding');
+  set encoding(String newValue) {
+    js_util.setProperty(this, 'encoding', newValue);
+  }
+
+  String get lang => js_util.getProperty(this, 'lang');
+  set lang(String newValue) {
+    js_util.setProperty(this, 'lang', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -153,23 +173,28 @@ extension PropsNDEFRecordInit on NDEFRecordInit {
 @JS()
 @staticInterop
 class NDEFReader implements EventTarget {
-  external factory NDEFReader();
+  external NDEFReader();
 }
 
 extension PropsNDEFReader on NDEFReader {
   /// An event handler called when the [reading] event is raised.
   ///
   @experimental
-  external EventHandlerNonNull? get onreading;
-  external set onreading(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onreading => js_util.getProperty(this, 'onreading');
+  set onreading(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onreading', newValue);
+  }
 
   ///  An event handler called when when the [readingerror] event is
   /// raised. This occurs when a tag is in proximity of a reading
   /// device, but cannot be read.
   ///
   @experimental
-  external EventHandlerNonNull? get onreadingerror;
-  external set onreadingerror(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onreadingerror =>
+      js_util.getProperty(this, 'onreadingerror');
+  set onreadingerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onreadingerror', newValue);
+  }
 
   ///  Activates a reading device and returns a [Promise] that either
   /// resolves when an NFC tag is read or rejects if a hardware or
@@ -180,7 +205,8 @@ extension PropsNDEFReader on NDEFReader {
   /// var readerPromise = NDEFReader.scan(options);
   ///
   @experimental
-  external Promise<Object> scan([NDEFScanOptions? options]);
+  Promise<Object> scan([NDEFScanOptions? options]) =>
+      js_util.callMethod(this, 'scan', [options]);
 
   ///  Attempts to write an NDEF message to a tag and returns a
   /// [Promise] that either resolves when a message has been written to
@@ -192,7 +218,8 @@ extension PropsNDEFReader on NDEFReader {
   ///  NDEFReader.write(message, options);
   ///
   @experimental
-  external Promise<Object> write(dynamic message, [NDEFWriteOptions? options]);
+  Promise<Object> write(dynamic message, [NDEFWriteOptions? options]) =>
+      js_util.callMethod(this, 'write', [message, options]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -205,7 +232,7 @@ extension PropsNDEFReader on NDEFReader {
 @JS()
 @staticInterop
 class NDEFReadingEvent implements Event {
-  external factory NDEFReadingEvent(
+  external NDEFReadingEvent(
       String type, NDEFReadingEventInit readingEventInitDict);
 }
 
@@ -214,11 +241,11 @@ extension PropsNDEFReadingEvent on NDEFReadingEvent {
   /// anti-collision and identification, or an empty string if no
   /// serial number is available.
   ///
-  external String get serialNumber;
+  String get serialNumber => js_util.getProperty(this, 'serialNumber');
 
   /// Returns an [NDEFMessage] object containing the received message.
   ///
-  external NDEFMessage get message;
+  NDEFMessage get message => js_util.getProperty(this, 'message');
 }
 
 @anonymous
@@ -230,10 +257,15 @@ class NDEFReadingEventInit implements EventInit {
 }
 
 extension PropsNDEFReadingEventInit on NDEFReadingEventInit {
-  external String? get serialNumber;
-  external set serialNumber(String? newValue);
-  external NDEFMessageInit get message;
-  external set message(NDEFMessageInit newValue);
+  String? get serialNumber => js_util.getProperty(this, 'serialNumber');
+  set serialNumber(String? newValue) {
+    js_util.setProperty(this, 'serialNumber', newValue);
+  }
+
+  NDEFMessageInit get message => js_util.getProperty(this, 'message');
+  set message(NDEFMessageInit newValue) {
+    js_util.setProperty(this, 'message', newValue);
+  }
 }
 
 @anonymous
@@ -245,10 +277,15 @@ class NDEFWriteOptions {
 }
 
 extension PropsNDEFWriteOptions on NDEFWriteOptions {
-  external bool get overwrite;
-  external set overwrite(bool newValue);
-  external AbortSignal? get signal;
-  external set signal(AbortSignal? newValue);
+  bool get overwrite => js_util.getProperty(this, 'overwrite');
+  set overwrite(bool newValue) {
+    js_util.setProperty(this, 'overwrite', newValue);
+  }
+
+  AbortSignal? get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal? newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 @anonymous
@@ -259,6 +296,8 @@ class NDEFScanOptions {
 }
 
 extension PropsNDEFScanOptions on NDEFScanOptions {
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }

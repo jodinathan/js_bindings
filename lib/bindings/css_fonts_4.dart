@@ -5,6 +5,7 @@
 @staticInterop
 library css_fonts_4;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -28,53 +29,66 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CSSFontFaceRule implements CSSRule {
-  external factory CSSFontFaceRule();
+  external CSSFontFaceRule();
 }
 
 extension PropsCSSFontFaceRule on CSSFontFaceRule {
   /// Returns a [CSSStyleDeclaration].
   ///
-  external CSSStyleDeclaration get style;
+  CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
 }
 
 @JS()
 @staticInterop
 class CSSFontFeatureValuesRule implements CSSRule {
-  external factory CSSFontFeatureValuesRule();
+  external CSSFontFeatureValuesRule();
 }
 
 extension PropsCSSFontFeatureValuesRule on CSSFontFeatureValuesRule {
-  external String get fontFamily;
-  external set fontFamily(String newValue);
-  external CSSFontFeatureValuesMap get annotation;
-  external CSSFontFeatureValuesMap get ornaments;
-  external CSSFontFeatureValuesMap get stylistic;
-  external CSSFontFeatureValuesMap get swash;
-  external CSSFontFeatureValuesMap get characterVariant;
-  external CSSFontFeatureValuesMap get styleset;
+  String get fontFamily => js_util.getProperty(this, 'fontFamily');
+  set fontFamily(String newValue) {
+    js_util.setProperty(this, 'fontFamily', newValue);
+  }
+
+  CSSFontFeatureValuesMap get annotation =>
+      js_util.getProperty(this, 'annotation');
+  CSSFontFeatureValuesMap get ornaments =>
+      js_util.getProperty(this, 'ornaments');
+  CSSFontFeatureValuesMap get stylistic =>
+      js_util.getProperty(this, 'stylistic');
+  CSSFontFeatureValuesMap get swash => js_util.getProperty(this, 'swash');
+  CSSFontFeatureValuesMap get characterVariant =>
+      js_util.getProperty(this, 'characterVariant');
+  CSSFontFeatureValuesMap get styleset => js_util.getProperty(this, 'styleset');
 }
 
 @JS()
 @staticInterop
 class CSSFontFeatureValuesMap {
-  external factory CSSFontFeatureValuesMap();
+  external CSSFontFeatureValuesMap();
 }
 
 extension PropsCSSFontFeatureValuesMap on CSSFontFeatureValuesMap {
   @JS('set')
   @staticInterop
-  external Object mSet(String featureValueName, dynamic values);
+  Object mSet(String featureValueName, dynamic values) =>
+      js_util.callMethod(this, 'set', [featureValueName, values]);
 }
 
 @JS()
 @staticInterop
 class CSSFontPaletteValuesRule implements CSSRule {
-  external factory CSSFontPaletteValuesRule();
+  external CSSFontPaletteValuesRule();
 }
 
 extension PropsCSSFontPaletteValuesRule on CSSFontPaletteValuesRule {
-  external String get fontFamily;
-  external set fontFamily(String newValue);
-  external String get basePalette;
-  external set basePalette(String newValue);
+  String get fontFamily => js_util.getProperty(this, 'fontFamily');
+  set fontFamily(String newValue) {
+    js_util.setProperty(this, 'fontFamily', newValue);
+  }
+
+  String get basePalette => js_util.getProperty(this, 'basePalette');
+  set basePalette(String newValue) {
+    js_util.setProperty(this, 'basePalette', newValue);
+  }
 }

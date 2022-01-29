@@ -5,6 +5,7 @@
 @staticInterop
 library css_animation_worklet_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -17,60 +18,67 @@ web_animations_1 */
 @JS()
 @staticInterop
 class StatelessAnimator {
-  external factory StatelessAnimator();
+  external StatelessAnimator();
 }
 
 @JS()
 @staticInterop
 class StatefulAnimator {
-  external factory StatefulAnimator();
+  external StatefulAnimator();
 }
 
 extension PropsStatefulAnimator on StatefulAnimator {
-  external dynamic state();
+  dynamic state() => js_util.callMethod(this, 'state', []);
 }
 
 @JS()
 @staticInterop
 class AnimationWorkletGlobalScope implements WorkletGlobalScope {
-  external factory AnimationWorkletGlobalScope();
+  external AnimationWorkletGlobalScope();
 }
 
 extension PropsAnimationWorkletGlobalScope on AnimationWorkletGlobalScope {
-  external Object registerAnimator(
-      String name, AnimatorInstanceConstructor animatorCtor);
+  Object registerAnimator(
+          String name, AnimatorInstanceConstructor animatorCtor) =>
+      js_util.callMethod(this, 'registerAnimator', [name, animatorCtor]);
 }
 
 @JS()
 @staticInterop
 class WorkletAnimation implements Animation {
-  external factory WorkletAnimation(String animatorName,
+  external WorkletAnimation(String animatorName,
       [dynamic effects, AnimationTimeline? timeline, dynamic options]);
 }
 
 extension PropsWorkletAnimation on WorkletAnimation {
-  external String get animatorName;
+  String get animatorName => js_util.getProperty(this, 'animatorName');
 }
 
 @JS()
 @staticInterop
 class WorkletGroupEffect {
-  external factory WorkletGroupEffect();
+  external WorkletGroupEffect();
 }
 
 extension PropsWorkletGroupEffect on WorkletGroupEffect {
-  external Iterable<WorkletAnimationEffect> getChildren();
+  Iterable<WorkletAnimationEffect> getChildren() =>
+      js_util.callMethod(this, 'getChildren', []);
 }
 
 @JS()
 @staticInterop
 class WorkletAnimationEffect {
-  external factory WorkletAnimationEffect();
+  external WorkletAnimationEffect();
 }
 
 extension PropsWorkletAnimationEffect on WorkletAnimationEffect {
-  external EffectTiming getTiming();
-  external ComputedEffectTiming getComputedTiming();
-  external double? get localTime;
-  external set localTime(double? newValue);
+  EffectTiming getTiming() => js_util.callMethod(this, 'getTiming', []);
+
+  ComputedEffectTiming getComputedTiming() =>
+      js_util.callMethod(this, 'getComputedTiming', []);
+
+  double? get localTime => js_util.getProperty(this, 'localTime');
+  set localTime(double? newValue) {
+    js_util.setProperty(this, 'localTime', newValue);
+  }
 }

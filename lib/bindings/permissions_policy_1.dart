@@ -5,6 +5,7 @@
 @staticInterop
 library permissions_policy_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -17,27 +18,33 @@ reporting_1 */
 @JS()
 @staticInterop
 class PermissionsPolicy {
-  external factory PermissionsPolicy();
+  external PermissionsPolicy();
 }
 
 extension PropsPermissionsPolicy on PermissionsPolicy {
-  external bool allowsFeature(String feature, [String? origin]);
-  external Iterable<String> features();
-  external Iterable<String> allowedFeatures();
-  external Iterable<String> getAllowlistForFeature(String feature);
+  bool allowsFeature(String feature, [String? origin]) =>
+      js_util.callMethod(this, 'allowsFeature', [feature, origin]);
+
+  Iterable<String> features() => js_util.callMethod(this, 'features', []);
+
+  Iterable<String> allowedFeatures() =>
+      js_util.callMethod(this, 'allowedFeatures', []);
+
+  Iterable<String> getAllowlistForFeature(String feature) =>
+      js_util.callMethod(this, 'getAllowlistForFeature', [feature]);
 }
 
 @JS()
 @staticInterop
 class PermissionsPolicyViolationReportBody implements ReportBody {
-  external factory PermissionsPolicyViolationReportBody();
+  external PermissionsPolicyViolationReportBody();
 }
 
 extension PropsPermissionsPolicyViolationReportBody
     on PermissionsPolicyViolationReportBody {
-  external String get featureId;
-  external String? get sourceFile;
-  external int? get lineNumber;
-  external int? get columnNumber;
-  external String get disposition;
+  String get featureId => js_util.getProperty(this, 'featureId');
+  String? get sourceFile => js_util.getProperty(this, 'sourceFile');
+  int? get lineNumber => js_util.getProperty(this, 'lineNumber');
+  int? get columnNumber => js_util.getProperty(this, 'columnNumber');
+  String get disposition => js_util.getProperty(this, 'disposition');
 }

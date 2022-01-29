@@ -5,6 +5,7 @@
 @staticInterop
 library cookie_store;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,7 +26,7 @@ service_workers_1 */
 @JS()
 @staticInterop
 class CookieStore implements EventTarget {
-  external factory CookieStore();
+  external CookieStore();
 }
 
 extension PropsCookieStore on CookieStore {
@@ -38,7 +39,8 @@ extension PropsCookieStore on CookieStore {
   ///
   @JS('get')
   @staticInterop
-  external Promise<CookieListItem> mGet(String name);
+  Promise<CookieListItem> mGet(String name) =>
+      js_util.callMethod(this, 'get', [name]);
 
   ///  The [getAll()] method gets all matching cookies, it returns a
   /// [Promise] that resolves with a list of cookies.
@@ -46,7 +48,8 @@ extension PropsCookieStore on CookieStore {
   /// var list = cookieStore.getAll(name);
   /// var list = cookieStore.getAll(options);
   ///
-  external Promise<Iterable<CookieListItem>> getAll(String name);
+  Promise<Iterable<CookieListItem>> getAll(String name) =>
+      js_util.callMethod(this, 'getAll', [name]);
 
   ///  The [set()] method sets a cookie with the given name and value
   /// or options object, it returns a [Promise] that resolves when the
@@ -57,7 +60,8 @@ extension PropsCookieStore on CookieStore {
   ///
   @JS('set')
   @staticInterop
-  external Promise<Object> mSet([String? name, String value]);
+  Promise<Object> mSet([String? name, String? value]) =>
+      js_util.callMethod(this, 'set', [name, value]);
 
   ///  The [delete()] method deletes a cookie with the given name or
   /// options object, it returns a [Promise] that resolves when the
@@ -66,9 +70,13 @@ extension PropsCookieStore on CookieStore {
   /// var promise = cookieStore.delete(name);
   /// var promise = cookieStore.delete(options);
   ///
-  external Promise<Object> delete(String name);
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
+  Promise<Object> delete(String name) =>
+      js_util.callMethod(this, 'delete', [name]);
+
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
 }
 
 @anonymous
@@ -79,10 +87,15 @@ class CookieStoreGetOptions {
 }
 
 extension PropsCookieStoreGetOptions on CookieStoreGetOptions {
-  external String get name;
-  external set name(String newValue);
-  external String get url;
-  external set url(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get url => js_util.getProperty(this, 'url');
+  set url(String newValue) {
+    js_util.setProperty(this, 'url', newValue);
+  }
 }
 
 enum CookieSameSite { strict, lax, none }
@@ -101,18 +114,35 @@ class CookieInit {
 }
 
 extension PropsCookieInit on CookieInit {
-  external String get name;
-  external set name(String newValue);
-  external String get value;
-  external set value(String newValue);
-  external int? get expires;
-  external set expires(int? newValue);
-  external String? get domain;
-  external set domain(String? newValue);
-  external String get path;
-  external set path(String newValue);
-  external CookieSameSite get sameSite;
-  external set sameSite(CookieSameSite newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  int? get expires => js_util.getProperty(this, 'expires');
+  set expires(int? newValue) {
+    js_util.setProperty(this, 'expires', newValue);
+  }
+
+  String? get domain => js_util.getProperty(this, 'domain');
+  set domain(String? newValue) {
+    js_util.setProperty(this, 'domain', newValue);
+  }
+
+  String get path => js_util.getProperty(this, 'path');
+  set path(String newValue) {
+    js_util.setProperty(this, 'path', newValue);
+  }
+
+  CookieSameSite get sameSite => js_util.getProperty(this, 'sameSite');
+  set sameSite(CookieSameSite newValue) {
+    js_util.setProperty(this, 'sameSite', newValue);
+  }
 }
 
 @anonymous
@@ -124,12 +154,20 @@ class CookieStoreDeleteOptions {
 }
 
 extension PropsCookieStoreDeleteOptions on CookieStoreDeleteOptions {
-  external String get name;
-  external set name(String newValue);
-  external String? get domain;
-  external set domain(String? newValue);
-  external String get path;
-  external set path(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String? get domain => js_util.getProperty(this, 'domain');
+  set domain(String? newValue) {
+    js_util.setProperty(this, 'domain', newValue);
+  }
+
+  String get path => js_util.getProperty(this, 'path');
+  set path(String newValue) {
+    js_util.setProperty(this, 'path', newValue);
+  }
 }
 
 @anonymous
@@ -147,20 +185,40 @@ class CookieListItem {
 }
 
 extension PropsCookieListItem on CookieListItem {
-  external String get name;
-  external set name(String newValue);
-  external String get value;
-  external set value(String newValue);
-  external String? get domain;
-  external set domain(String? newValue);
-  external String get path;
-  external set path(String newValue);
-  external int? get expires;
-  external set expires(int? newValue);
-  external bool get secure;
-  external set secure(bool newValue);
-  external CookieSameSite get sameSite;
-  external set sameSite(CookieSameSite newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  String? get domain => js_util.getProperty(this, 'domain');
+  set domain(String? newValue) {
+    js_util.setProperty(this, 'domain', newValue);
+  }
+
+  String get path => js_util.getProperty(this, 'path');
+  set path(String newValue) {
+    js_util.setProperty(this, 'path', newValue);
+  }
+
+  int? get expires => js_util.getProperty(this, 'expires');
+  set expires(int? newValue) {
+    js_util.setProperty(this, 'expires', newValue);
+  }
+
+  bool get secure => js_util.getProperty(this, 'secure');
+  set secure(bool newValue) {
+    js_util.setProperty(this, 'secure', newValue);
+  }
+
+  CookieSameSite get sameSite => js_util.getProperty(this, 'sameSite');
+  set sameSite(CookieSameSite newValue) {
+    js_util.setProperty(this, 'sameSite', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -179,7 +237,7 @@ extension PropsCookieListItem on CookieListItem {
 @JS()
 @staticInterop
 class CookieStoreManager {
-  external factory CookieStoreManager();
+  external CookieStoreManager();
 }
 
 extension PropsCookieStoreManager on CookieStoreManager {
@@ -188,15 +246,16 @@ extension PropsCookieStoreManager on CookieStoreManager {
   ///
   /// let promise = registration.cookies.subscribe(subscriptions);
   ///
-  external Promise<Object> subscribe(
-      Iterable<CookieStoreGetOptions> subscriptions);
+  Promise<Object> subscribe(Iterable<CookieStoreGetOptions> subscriptions) =>
+      js_util.callMethod(this, 'subscribe', [subscriptions]);
 
   ///  Returns a [promise] which resolves to a list of the cookie
   /// change subscriptions for this service worker registration.
   ///
   /// let promise = registration.cookies.getSubscriptions();
   ///
-  external Iterable<Promise<CookieStoreGetOptions>> getSubscriptions();
+  Iterable<Promise<CookieStoreGetOptions>> getSubscriptions() =>
+      js_util.callMethod(this, 'getSubscriptions', []);
 
   ///  Unsubscribes the registered service worker from changes to
   /// cookies. It returns a [promise] which resolves when the operation
@@ -204,8 +263,8 @@ extension PropsCookieStoreManager on CookieStoreManager {
   ///
   /// let promise = registration.cookies.unsubscribe(subscriptions);
   ///
-  external Promise<Object> unsubscribe(
-      Iterable<CookieStoreGetOptions> subscriptions);
+  Promise<Object> unsubscribe(Iterable<CookieStoreGetOptions> subscriptions) =>
+      js_util.callMethod(this, 'unsubscribe', [subscriptions]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -228,18 +287,18 @@ extension PropsCookieStoreManager on CookieStoreManager {
 @JS()
 @staticInterop
 class CookieChangeEvent implements Event {
-  external factory CookieChangeEvent(String type,
+  external CookieChangeEvent(String type,
       [CookieChangeEventInit? eventInitDict]);
 }
 
 extension PropsCookieChangeEvent on CookieChangeEvent {
   /// Returns an array containing one or more changed cookies.
   ///
-  external Iterable<CookieListItem> get changed;
+  Iterable<CookieListItem> get changed => js_util.getProperty(this, 'changed');
 
   /// Returns an array containing one or more deleted cookies.
   ///
-  external Iterable<CookieListItem> get deleted;
+  Iterable<CookieListItem> get deleted => js_util.getProperty(this, 'deleted');
 }
 
 @anonymous
@@ -251,10 +310,15 @@ class CookieChangeEventInit implements EventInit {
 }
 
 extension PropsCookieChangeEventInit on CookieChangeEventInit {
-  external Iterable<CookieListItem> get changed;
-  external set changed(Iterable<CookieListItem> newValue);
-  external Iterable<CookieListItem> get deleted;
-  external set deleted(Iterable<CookieListItem> newValue);
+  Iterable<CookieListItem> get changed => js_util.getProperty(this, 'changed');
+  set changed(Iterable<CookieListItem> newValue) {
+    js_util.setProperty(this, 'changed', newValue);
+  }
+
+  Iterable<CookieListItem> get deleted => js_util.getProperty(this, 'deleted');
+  set deleted(Iterable<CookieListItem> newValue) {
+    js_util.setProperty(this, 'deleted', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -277,18 +341,18 @@ extension PropsCookieChangeEventInit on CookieChangeEventInit {
 @JS()
 @staticInterop
 class ExtendableCookieChangeEvent implements ExtendableEvent {
-  external factory ExtendableCookieChangeEvent(String type,
+  external ExtendableCookieChangeEvent(String type,
       [ExtendableCookieChangeEventInit? eventInitDict]);
 }
 
 extension PropsExtendableCookieChangeEvent on ExtendableCookieChangeEvent {
   /// Returns an array containing the changed cookies.
   ///
-  external Iterable<CookieListItem> get changed;
+  Iterable<CookieListItem> get changed => js_util.getProperty(this, 'changed');
 
   /// Returns an array containing the deleted cookies.
   ///
-  external Iterable<CookieListItem> get deleted;
+  Iterable<CookieListItem> get deleted => js_util.getProperty(this, 'deleted');
 }
 
 @anonymous
@@ -301,8 +365,13 @@ class ExtendableCookieChangeEventInit implements ExtendableEventInit {
 
 extension PropsExtendableCookieChangeEventInit
     on ExtendableCookieChangeEventInit {
-  external Iterable<CookieListItem> get changed;
-  external set changed(Iterable<CookieListItem> newValue);
-  external Iterable<CookieListItem> get deleted;
-  external set deleted(Iterable<CookieListItem> newValue);
+  Iterable<CookieListItem> get changed => js_util.getProperty(this, 'changed');
+  set changed(Iterable<CookieListItem> newValue) {
+    js_util.setProperty(this, 'changed', newValue);
+  }
+
+  Iterable<CookieListItem> get deleted => js_util.getProperty(this, 'deleted');
+  set deleted(Iterable<CookieListItem> newValue) {
+    js_util.setProperty(this, 'deleted', newValue);
+  }
 }

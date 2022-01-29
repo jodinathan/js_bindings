@@ -5,6 +5,7 @@
 @staticInterop
 library largest_contentful_paint;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,7 +22,7 @@ dom */
 @JS()
 @staticInterop
 class LargestContentfulPaint implements PerformanceEntry {
-  external factory LargestContentfulPaint();
+  external LargestContentfulPaint();
 }
 
 extension PropsLargestContentfulPaint on LargestContentfulPaint {
@@ -29,34 +30,34 @@ extension PropsLargestContentfulPaint on LargestContentfulPaint {
   /// available if the element is a cross-origin image loaded without
   /// the [Timing-Allow-Origin] header.
   ///
-  external double get renderTime;
+  double get renderTime => js_util.getProperty(this, 'renderTime');
 
   /// The time the element was loaded.
   ///
-  external double get loadTime;
+  double get loadTime => js_util.getProperty(this, 'loadTime');
 
   ///  The intrinsic size of the element returned as the area (width *
   /// height).
   ///
-  external int get size;
+  int get size => js_util.getProperty(this, 'size');
 
   ///  The id of the element. This property returns an empty string
   /// when there is no id.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   /// If the element is an image, the request url of the image.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   /// The element that is the current largest contentful paint.
   ///
-  external Element? get element;
+  Element? get element => js_util.getProperty(this, 'element');
 
   /// Returns the above properties as JSON.
   ///
   /// LargestContentfulPaint.toJSON();
   ///
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

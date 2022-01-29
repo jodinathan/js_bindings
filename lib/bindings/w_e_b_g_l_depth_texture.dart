@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_depth_texture;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -27,5 +28,5 @@ import 'all_bindings.dart';
 @staticInterop
 class WEBGL_depth_texture {
   external static int get UNSIGNED_INT_24_8_WEBGL;
-  external factory WEBGL_depth_texture();
+  external WEBGL_depth_texture();
 }

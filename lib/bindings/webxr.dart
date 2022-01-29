@@ -5,6 +5,7 @@
 @staticInterop
 library webxr;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -38,7 +39,7 @@ gamepad */
 @JS()
 @staticInterop
 class XRSystem implements EventTarget {
-  external factory XRSystem();
+  external XRSystem();
 }
 
 extension PropsXRSystem on XRSystem {
@@ -51,7 +52,8 @@ extension PropsXRSystem on XRSystem {
   /// isSessionSupported(mode)
   ///
   @experimental
-  external Promise<bool> isSessionSupported(XRSessionMode mode);
+  Promise<bool> isSessionSupported(XRSessionMode mode) =>
+      js_util.callMethod(this, 'isSessionSupported', [mode]);
 
   ///  Returns a promise that resolves to a new [XRSession] with the
   /// specified session mode.
@@ -60,10 +62,15 @@ extension PropsXRSystem on XRSystem {
   /// requestSession(mode, options)
   ///
   @experimental
-  external Promise<XRSession> requestSession(XRSessionMode mode,
-      [XRSessionInit? options]);
-  external EventHandlerNonNull? get ondevicechange;
-  external set ondevicechange(EventHandlerNonNull? newValue);
+  Promise<XRSession> requestSession(XRSessionMode mode,
+          [XRSessionInit? options]) =>
+      js_util.callMethod(this, 'requestSession', [mode, options]);
+
+  EventHandlerNonNull? get ondevicechange =>
+      js_util.getProperty(this, 'ondevicechange');
+  set ondevicechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondevicechange', newValue);
+  }
 }
 
 enum XRSessionMode { inline, immersiveVr, immersiveAr }
@@ -77,10 +84,17 @@ class XRSessionInit {
 }
 
 extension PropsXRSessionInit on XRSessionInit {
-  external Iterable<dynamic> get requiredFeatures;
-  external set requiredFeatures(Iterable<dynamic> newValue);
-  external Iterable<dynamic> get optionalFeatures;
-  external set optionalFeatures(Iterable<dynamic> newValue);
+  Iterable<dynamic> get requiredFeatures =>
+      js_util.getProperty(this, 'requiredFeatures');
+  set requiredFeatures(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'requiredFeatures', newValue);
+  }
+
+  Iterable<dynamic> get optionalFeatures =>
+      js_util.getProperty(this, 'optionalFeatures');
+  set optionalFeatures(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'optionalFeatures', newValue);
+  }
 }
 
 enum XRVisibilityState { visible, visibleBlurred, hidden }
@@ -98,7 +112,7 @@ enum XRVisibilityState { visible, visibleBlurred, hidden }
 @JS()
 @staticInterop
 class XRSession implements EventTarget {
-  external factory XRSession();
+  external XRSession();
 }
 
 extension PropsXRSession on XRSession {
@@ -107,7 +121,8 @@ extension PropsXRSession on XRSession {
   /// currently the target for user events.
   ///
   @experimental
-  external XRVisibilityState get visibilityState;
+  XRVisibilityState get visibilityState =>
+      js_util.getProperty(this, 'visibilityState');
 
   ///  An [XRRenderState] object which contains options affecting how
   /// the imagery is rendered. This includes things such as the near
@@ -116,21 +131,23 @@ extension PropsXRSession on XRSession {
   /// view information.
   ///
   @experimental
-  external XRRenderState get renderState;
+  XRRenderState get renderState => js_util.getProperty(this, 'renderState');
 
   ///  Returns a list of this session's [XRInputSource]s, each
   /// representing an input device used to control the camera and/or
   /// scene.
   ///
   @experimental
-  external XRInputSourceArray get inputSources;
+  XRInputSourceArray get inputSources =>
+      js_util.getProperty(this, 'inputSources');
 
   /// Updates the properties of the session's render state.
   ///
   /// updateRenderState()
   /// updateRenderState(state)
   ///
-  external Object updateRenderState([XRRenderStateInit? state]);
+  Object updateRenderState([XRRenderStateInit? state]) =>
+      js_util.callMethod(this, 'updateRenderState', [state]);
 
   ///  Requests that a new [XRReferenceSpace] of the specified type be
   /// created. Returns a promise which resolves with the
@@ -140,8 +157,8 @@ extension PropsXRSession on XRSession {
   ///
   /// requestReferenceSpace(referenceSpaceType)
   ///
-  external Promise<XRReferenceSpace> requestReferenceSpace(
-      XRReferenceSpaceType type);
+  Promise<XRReferenceSpace> requestReferenceSpace(XRReferenceSpaceType type) =>
+      js_util.callMethod(this, 'requestReferenceSpace', [type]);
 
   ///  Schedules the specified method to be called the next time the
   /// user agent is working on rendering an animation frame for the
@@ -222,7 +239,8 @@ extension PropsXRSession on XRSession {
   ///  xrSession = null
   /// }
   ///
-  external int requestAnimationFrame(XRFrameRequestCallback callback);
+  int requestAnimationFrame(XRFrameRequestCallback callback) =>
+      js_util.callMethod(this, 'requestAnimationFrame', [callback]);
 
   ///  Removes a callback from the animation frame painting callback
   /// from [XRSession]'s set of animation frame rendering callbacks,
@@ -276,44 +294,89 @@ extension PropsXRSession on XRSession {
   ///  }
   /// }
   ///
-  external Object cancelAnimationFrame(int handle);
+  Object cancelAnimationFrame(int handle) =>
+      js_util.callMethod(this, 'cancelAnimationFrame', [handle]);
 
   ///  Ends the WebXR session. Returns a [promise] which resolves when
   /// the session has been shut down.
   ///
   /// end()
   ///
-  external Promise<Object> end();
-  external EventHandlerNonNull? get onend;
-  external set onend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oninputsourceschange;
-  external set oninputsourceschange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onselect;
-  external set onselect(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onselectstart;
-  external set onselectstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onselectend;
-  external set onselectend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsqueeze;
-  external set onsqueeze(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsqueezestart;
-  external set onsqueezestart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsqueezeend;
-  external set onsqueezeend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onvisibilitychange;
-  external set onvisibilitychange(EventHandlerNonNull? newValue);
-  external XREnvironmentBlendMode get environmentBlendMode;
-  external XRInteractionMode get interactionMode;
-  external Promise<XRHitTestSource> requestHitTestSource(
-      XRHitTestOptionsInit options);
-  external Promise<XRTransientInputHitTestSource>
-      requestHitTestSourceForTransientInput(
-          XRTransientInputHitTestOptionsInit options);
-  external XRDepthUsage get depthUsage;
-  external XRDepthDataFormat get depthDataFormat;
-  external Promise<XRLightProbe> requestLightProbe([XRLightProbeInit? options]);
-  external XRReflectionFormat get preferredReflectionFormat;
-  external XRDOMOverlayState? get domOverlayState;
+  Promise<Object> end() => js_util.callMethod(this, 'end', []);
+
+  EventHandlerNonNull? get onend => js_util.getProperty(this, 'onend');
+  set onend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onend', newValue);
+  }
+
+  EventHandlerNonNull? get oninputsourceschange =>
+      js_util.getProperty(this, 'oninputsourceschange');
+  set oninputsourceschange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oninputsourceschange', newValue);
+  }
+
+  EventHandlerNonNull? get onselect => js_util.getProperty(this, 'onselect');
+  set onselect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselect', newValue);
+  }
+
+  EventHandlerNonNull? get onselectstart =>
+      js_util.getProperty(this, 'onselectstart');
+  set onselectstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselectstart', newValue);
+  }
+
+  EventHandlerNonNull? get onselectend =>
+      js_util.getProperty(this, 'onselectend');
+  set onselectend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselectend', newValue);
+  }
+
+  EventHandlerNonNull? get onsqueeze => js_util.getProperty(this, 'onsqueeze');
+  set onsqueeze(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsqueeze', newValue);
+  }
+
+  EventHandlerNonNull? get onsqueezestart =>
+      js_util.getProperty(this, 'onsqueezestart');
+  set onsqueezestart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsqueezestart', newValue);
+  }
+
+  EventHandlerNonNull? get onsqueezeend =>
+      js_util.getProperty(this, 'onsqueezeend');
+  set onsqueezeend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsqueezeend', newValue);
+  }
+
+  EventHandlerNonNull? get onvisibilitychange =>
+      js_util.getProperty(this, 'onvisibilitychange');
+  set onvisibilitychange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onvisibilitychange', newValue);
+  }
+
+  XREnvironmentBlendMode get environmentBlendMode =>
+      js_util.getProperty(this, 'environmentBlendMode');
+  XRInteractionMode get interactionMode =>
+      js_util.getProperty(this, 'interactionMode');
+  Promise<XRHitTestSource> requestHitTestSource(XRHitTestOptionsInit options) =>
+      js_util.callMethod(this, 'requestHitTestSource', [options]);
+
+  Promise<XRTransientInputHitTestSource> requestHitTestSourceForTransientInput(
+          XRTransientInputHitTestOptionsInit options) =>
+      js_util
+          .callMethod(this, 'requestHitTestSourceForTransientInput', [options]);
+
+  XRDepthUsage get depthUsage => js_util.getProperty(this, 'depthUsage');
+  XRDepthDataFormat get depthDataFormat =>
+      js_util.getProperty(this, 'depthDataFormat');
+  Promise<XRLightProbe> requestLightProbe([XRLightProbeInit? options]) =>
+      js_util.callMethod(this, 'requestLightProbe', [options]);
+
+  XRReflectionFormat get preferredReflectionFormat =>
+      js_util.getProperty(this, 'preferredReflectionFormat');
+  XRDOMOverlayState? get domOverlayState =>
+      js_util.getProperty(this, 'domOverlayState');
 }
 
 @anonymous
@@ -329,16 +392,31 @@ class XRRenderStateInit {
 }
 
 extension PropsXRRenderStateInit on XRRenderStateInit {
-  external double get depthNear;
-  external set depthNear(double newValue);
-  external double get depthFar;
-  external set depthFar(double newValue);
-  external double get inlineVerticalFieldOfView;
-  external set inlineVerticalFieldOfView(double newValue);
-  external XRWebGLLayer? get baseLayer;
-  external set baseLayer(XRWebGLLayer? newValue);
-  external Iterable<XRLayer> get layers;
-  external set layers(Iterable<XRLayer> newValue);
+  double get depthNear => js_util.getProperty(this, 'depthNear');
+  set depthNear(double newValue) {
+    js_util.setProperty(this, 'depthNear', newValue);
+  }
+
+  double get depthFar => js_util.getProperty(this, 'depthFar');
+  set depthFar(double newValue) {
+    js_util.setProperty(this, 'depthFar', newValue);
+  }
+
+  double get inlineVerticalFieldOfView =>
+      js_util.getProperty(this, 'inlineVerticalFieldOfView');
+  set inlineVerticalFieldOfView(double newValue) {
+    js_util.setProperty(this, 'inlineVerticalFieldOfView', newValue);
+  }
+
+  XRWebGLLayer? get baseLayer => js_util.getProperty(this, 'baseLayer');
+  set baseLayer(XRWebGLLayer? newValue) {
+    js_util.setProperty(this, 'baseLayer', newValue);
+  }
+
+  Iterable<XRLayer> get layers => js_util.getProperty(this, 'layers');
+  set layers(Iterable<XRLayer> newValue) {
+    js_util.setProperty(this, 'layers', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -358,7 +436,7 @@ extension PropsXRRenderStateInit on XRRenderStateInit {
 @JS()
 @staticInterop
 class XRRenderState {
-  external factory XRRenderState();
+  external XRRenderState();
 }
 
 extension PropsXRRenderState on XRRenderState {
@@ -367,26 +445,27 @@ extension PropsXRRenderState on XRRenderState {
   /// which rendering of the scene begins. Any closer to the viewer
   /// than this, and no portions of the scene are drawn.
   ///
-  external double get depthNear;
+  double get depthNear => js_util.getProperty(this, 'depthNear');
 
   ///  The distance, in meters, of the far clip plane from the viewer.
   /// The far clip plane is the plane which is parallel to the display
   /// beyond which rendering of the scene no longer takes place. This,
   /// essentially, specifies the maximum distance the user can see.
   ///
-  external double get depthFar;
+  double get depthFar => js_util.getProperty(this, 'depthFar');
 
   ///  The default vertical field of view, defined in radians, to use
   /// when the session is in [inline] mode. [null] for all immersive
   /// sessions.
   ///
-  external double? get inlineVerticalFieldOfView;
+  double? get inlineVerticalFieldOfView =>
+      js_util.getProperty(this, 'inlineVerticalFieldOfView');
 
   ///  The [XRWebGLLayer] from which the browser's compositing system
   /// obtains the image for the XR session.
   ///
-  external XRWebGLLayer? get baseLayer;
-  external Iterable<XRLayer> get layers;
+  XRWebGLLayer? get baseLayer => js_util.getProperty(this, 'baseLayer');
+  Iterable<XRLayer> get layers => js_util.getProperty(this, 'layers');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -406,7 +485,7 @@ extension PropsXRRenderState on XRRenderState {
 @JS()
 @staticInterop
 class XRFrame {
-  external factory XRFrame();
+  external XRFrame();
 }
 
 extension PropsXRFrame on XRFrame {
@@ -415,35 +494,51 @@ extension PropsXRFrame on XRFrame {
   /// specific object can be obtained by calling one of the methods on
   /// the object.
   ///
-  external XRSession get session;
+  XRSession get session => js_util.getProperty(this, 'session');
 
   ///  Returns an [XRViewerPose] describing the viewer's position and
   /// orientation in a given [XRReferenceSpace].
   ///
   /// getViewerPose(referenceSpace)
   ///
-  external XRViewerPose? getViewerPose(XRReferenceSpace referenceSpace);
+  XRViewerPose? getViewerPose(XRReferenceSpace referenceSpace) =>
+      js_util.callMethod(this, 'getViewerPose', [referenceSpace]);
 
   ///  Returns an [XRPose] object representing the spatial relationship
   /// between the two specified [XRSpace] objects.
   ///
   /// getPose(space, baseSpace)
   ///
-  external XRPose? getPose(XRSpace space, XRSpace baseSpace);
-  external Promise<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space);
-  external XRAnchorSet get trackedAnchors;
-  external Iterable<XRHitTestResult> getHitTestResults(
-      XRHitTestSource hitTestSource);
-  external Iterable<XRTransientInputHitTestResult>
-      getHitTestResultsForTransientInput(
-          XRTransientInputHitTestSource hitTestSource);
-  external XRCPUDepthInformation? getDepthInformation(XRView view);
-  external XRLightEstimate? getLightEstimate(XRLightProbe lightProbe);
-  external XRJointPose? getJointPose(XRJointSpace joint, XRSpace baseSpace);
-  external bool fillJointRadii(
-      Iterable<XRJointSpace> jointSpaces, Float32List radii);
-  external bool fillPoses(
-      Iterable<XRSpace> spaces, XRSpace baseSpace, Float32List transforms);
+  XRPose? getPose(XRSpace space, XRSpace baseSpace) =>
+      js_util.callMethod(this, 'getPose', [space, baseSpace]);
+
+  Promise<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space) =>
+      js_util.callMethod(this, 'createAnchor', [pose, space]);
+
+  XRAnchorSet get trackedAnchors => js_util.getProperty(this, 'trackedAnchors');
+  Iterable<XRHitTestResult> getHitTestResults(XRHitTestSource hitTestSource) =>
+      js_util.callMethod(this, 'getHitTestResults', [hitTestSource]);
+
+  Iterable<XRTransientInputHitTestResult> getHitTestResultsForTransientInput(
+          XRTransientInputHitTestSource hitTestSource) =>
+      js_util.callMethod(
+          this, 'getHitTestResultsForTransientInput', [hitTestSource]);
+
+  XRCPUDepthInformation? getDepthInformation(XRView view) =>
+      js_util.callMethod(this, 'getDepthInformation', [view]);
+
+  XRLightEstimate? getLightEstimate(XRLightProbe lightProbe) =>
+      js_util.callMethod(this, 'getLightEstimate', [lightProbe]);
+
+  XRJointPose? getJointPose(XRJointSpace joint, XRSpace baseSpace) =>
+      js_util.callMethod(this, 'getJointPose', [joint, baseSpace]);
+
+  bool fillJointRadii(Iterable<XRJointSpace> jointSpaces, Float32List radii) =>
+      js_util.callMethod(this, 'fillJointRadii', [jointSpaces, radii]);
+
+  bool fillPoses(Iterable<XRSpace> spaces, XRSpace baseSpace,
+          Float32List transforms) =>
+      js_util.callMethod(this, 'fillPoses', [spaces, baseSpace, transforms]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -467,7 +562,7 @@ extension PropsXRFrame on XRFrame {
 @JS()
 @staticInterop
 class XRSpace implements EventTarget {
-  external factory XRSpace();
+  external XRSpace();
 }
 
 enum XRReferenceSpaceType { viewer, local, localFloor, boundedFloor, unbounded }
@@ -497,7 +592,7 @@ enum XRReferenceSpaceType { viewer, local, localFloor, boundedFloor, unbounded }
 @JS()
 @staticInterop
 class XRReferenceSpace implements XRSpace {
-  external factory XRReferenceSpace();
+  external XRReferenceSpace();
 }
 
 extension PropsXRReferenceSpace on XRReferenceSpace {
@@ -513,10 +608,13 @@ extension PropsXRReferenceSpace on XRReferenceSpace {
   ///
   /// getOffsetReferenceSpace(originOffset)
   ///
-  external XRReferenceSpace getOffsetReferenceSpace(
-      XRRigidTransform originOffset);
-  external EventHandlerNonNull? get onreset;
-  external set onreset(EventHandlerNonNull? newValue);
+  XRReferenceSpace getOffsetReferenceSpace(XRRigidTransform originOffset) =>
+      js_util.callMethod(this, 'getOffsetReferenceSpace', [originOffset]);
+
+  EventHandlerNonNull? get onreset => js_util.getProperty(this, 'onreset');
+  set onreset(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onreset', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -540,7 +638,7 @@ extension PropsXRReferenceSpace on XRReferenceSpace {
 @JS()
 @staticInterop
 class XRBoundedReferenceSpace implements XRReferenceSpace {
-  external factory XRBoundedReferenceSpace();
+  external XRBoundedReferenceSpace();
 }
 
 extension PropsXRBoundedReferenceSpace on XRBoundedReferenceSpace {
@@ -549,7 +647,8 @@ extension PropsXRBoundedReferenceSpace on XRBoundedReferenceSpace {
   /// user will be required to remain. These vertices must be sorted
   /// such that they move clockwise around the viewer's position.
   ///
-  external Iterable<DOMPointReadOnly> get boundsGeometry;
+  Iterable<DOMPointReadOnly> get boundsGeometry =>
+      js_util.getProperty(this, 'boundsGeometry');
 }
 
 enum XREye { none, left, right }
@@ -568,7 +667,7 @@ enum XREye { none, left, right }
 @JS()
 @staticInterop
 class XRView {
-  external factory XRView();
+  external XRView();
 }
 
 extension PropsXRView on XRView {
@@ -580,35 +679,40 @@ extension PropsXRView on XRView {
   /// (such as a 2D image, a full-screen view of text. or a close-up
   /// view of something that doesn't need to appear in 3D).
   ///
-  external XREye get eye;
+  XREye get eye => js_util.getProperty(this, 'eye');
 
   ///  The projection matrix that will transform the scene to appear
   /// correctly given the point-of-view indicated by [eye]. This matrix
   /// should be used directly in order to avoid presentation
   /// distortions that may lead to potentially serious user discomfort.
   ///
-  external Float32List get projectionMatrix;
+  Float32List get projectionMatrix =>
+      js_util.getProperty(this, 'projectionMatrix');
 
   ///  An [XRRigidTransform] which describes the current position and
   /// orientation of the viewpoint in relation to the
   /// [XRReferenceSpace] specified when [getViewerPose()] was called on
   /// the [XRFrame] being rendered.
   ///
-  external XRRigidTransform get transform;
+  XRRigidTransform get transform => js_util.getProperty(this, 'transform');
 
   ///  The recommended viewport scale value that you can use for
   /// [requestViewportScale()] if the user agent has such a
   /// recommendation; [null] otherwise.
   ///
-  external double? get recommendedViewportScale;
+  double? get recommendedViewportScale =>
+      js_util.getProperty(this, 'recommendedViewportScale');
 
   ///  Requests that the user agent should set the requested viewport
   /// scale for this viewport to the requested value.
   ///
   /// requestViewportScale(scale)
   ///
-  external Object requestViewportScale(double? scale);
-  external bool get isFirstPersonObserver;
+  Object requestViewportScale(double? scale) =>
+      js_util.callMethod(this, 'requestViewportScale', [scale]);
+
+  bool get isFirstPersonObserver =>
+      js_util.getProperty(this, 'isFirstPersonObserver');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -619,7 +723,7 @@ extension PropsXRView on XRView {
 @JS()
 @staticInterop
 class XRViewport {
-  external factory XRViewport();
+  external XRViewport();
 }
 
 extension PropsXRViewport on XRViewport {
@@ -627,21 +731,21 @@ extension PropsXRViewport on XRViewport {
   /// (typically a [XRWebGLLayer]) to the left edge of the viewport, in
   /// pixels.
   ///
-  external int get x;
+  int get x => js_util.getProperty(this, 'x');
 
   ///  The offset from the origin of the viewport to the bottom edge of
   /// the viewport; WebGL's coordinate system places (0, 0) at the
   /// bottom left corner of the surface.
   ///
-  external int get y;
+  int get y => js_util.getProperty(this, 'y');
 
   /// The width, in pixels, of the viewport.
   ///
-  external int get width;
+  int get width => js_util.getProperty(this, 'width');
 
   /// The height, in pixels, of the viewport.
   ///
-  external int get height;
+  int get height => js_util.getProperty(this, 'height');
 }
 
 ///  The is a WebXR API interface that represents the 3D geometric
@@ -664,7 +768,7 @@ extension PropsXRViewport on XRViewport {
 @JS()
 @staticInterop
 class XRRigidTransform {
-  external factory XRRigidTransform(
+  external XRRigidTransform(
       [DOMPointInit? position, DOMPointInit? orientation]);
 }
 
@@ -674,21 +778,21 @@ extension PropsXRRigidTransform on XRRigidTransform {
   /// The [w] property is always [1.0].
   ///
   @experimental
-  external DOMPointReadOnly get position;
+  DOMPointReadOnly get position => js_util.getProperty(this, 'position');
 
   ///  A [DOMPointReadOnly] which contains a unit quaternion describing
   /// the rotational component of the transform. As a unit quaternion,
   /// its length is always normalized to [1.0].
   ///
   @experimental
-  external DOMPointReadOnly get orientation;
+  DOMPointReadOnly get orientation => js_util.getProperty(this, 'orientation');
 
   ///  Returns the transform matrix in the form of a 16-member
   /// [Float32Array]. See the section Matrix format for how the array
   /// is used to represent a matrix.
   ///
   @experimental
-  external Float32List get matrix;
+  Float32List get matrix => js_util.getProperty(this, 'matrix');
 
   ///  Returns a [XRRigidTransform] which is the inverse of this
   /// transform. That is, if applied to an object that had been
@@ -696,7 +800,7 @@ extension PropsXRRigidTransform on XRRigidTransform {
   /// the transform and return the original object.
   ///
   @experimental
-  external XRRigidTransform get inverse;
+  XRRigidTransform get inverse => js_util.getProperty(this, 'inverse');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -730,24 +834,26 @@ extension PropsXRRigidTransform on XRRigidTransform {
 @JS()
 @staticInterop
 class XRPose {
-  external factory XRPose();
+  external XRPose();
 }
 
 extension PropsXRPose on XRPose {
   ///  A [XRRigidTransform] which provides the position and orientation
   /// of the pose relative to the base [XRSpace].
   ///
-  external XRRigidTransform get transform;
+  XRRigidTransform get transform => js_util.getProperty(this, 'transform');
 
   ///  A [DOMPointReadOnly] describing the linear velocity in meters
   /// per second relative to the base [XRSpace].
   ///
-  external DOMPointReadOnly? get linearVelocity;
+  DOMPointReadOnly? get linearVelocity =>
+      js_util.getProperty(this, 'linearVelocity');
 
   ///  A [DOMPointReadOnly] describing the angular velocity in radians
   /// per second relative to the base [XRSpace].
   ///
-  external DOMPointReadOnly? get angularVelocity;
+  DOMPointReadOnly? get angularVelocity =>
+      js_util.getProperty(this, 'angularVelocity');
 
   ///  A Boolean value which is [false] if the position and orientation
   /// given by [transform] is obtained directly from a full six degree
@@ -759,7 +865,7 @@ extension PropsXRPose on XRPose {
   /// space), this value is instead [true], indicating that the
   /// [transform] is in part emulated in software.
   ///
-  external bool get emulatedPosition;
+  bool get emulatedPosition => js_util.getProperty(this, 'emulatedPosition');
 }
 
 ///  The WebXR Device API interface represents the pose (the position
@@ -773,7 +879,7 @@ extension PropsXRPose on XRPose {
 @JS()
 @staticInterop
 class XRViewerPose implements XRPose {
-  external factory XRViewerPose();
+  external XRViewerPose();
 }
 
 extension PropsXRViewerPose on XRViewerPose {
@@ -784,7 +890,7 @@ extension PropsXRViewerPose on XRViewerPose {
   /// view represents. Taken together, these views can reproduce the 3D
   /// effect when displayed on the XR device.
   ///
-  external Iterable<XRView> get views;
+  Iterable<XRView> get views => js_util.getProperty(this, 'views');
 }
 
 enum XRHandedness { none, left, right }
@@ -803,7 +909,7 @@ enum XRTargetRayMode { gaze, trackedPointer, screen }
 @JS()
 @staticInterop
 class XRInputSource {
-  external factory XRInputSource();
+  external XRInputSource();
 }
 
 extension PropsXRInputSource on XRInputSource {
@@ -811,18 +917,19 @@ extension PropsXRInputSource on XRInputSource {
   /// by this [XRInputSource] is being used in, if any. The value will
   /// be [left], [right], or [none].
   ///
-  external XRHandedness get handedness;
+  XRHandedness get handedness => js_util.getProperty(this, 'handedness');
 
   ///  A [DOMString] indicating the methodology used to produce the
   /// target ray: [gaze], [tracked-pointer], or [screen].
   ///
-  external XRTargetRayMode get targetRayMode;
+  XRTargetRayMode get targetRayMode =>
+      js_util.getProperty(this, 'targetRayMode');
 
   ///  An [XRSpace] object defining the origin of the target ray and
   /// the direction in which it extends. This space is established
   /// using the method defined by [targetRayMode].
   ///
-  external XRSpace get targetRaySpace;
+  XRSpace get targetRaySpace => js_util.getProperty(this, 'targetRaySpace');
 
   ///  An [XRSpace] whose origin tracks the pose which is used to
   /// render objects which should appear as if they're held in the hand
@@ -831,15 +938,15 @@ extension PropsXRInputSource on XRInputSource {
   /// Read on in the main article on for more details on how to use
   /// this space.
   ///
-  external XRSpace? get gripSpace;
+  XRSpace? get gripSpace => js_util.getProperty(this, 'gripSpace');
 
   ///  An array of [DOMString] objects, each specifying the name of an
   /// input profile describing the preferred visual representation and
   /// behavior of this input source.
   ///
-  external Iterable<String> get profiles;
-  external XRHand? get hand;
-  external Gamepad? get gamepad;
+  Iterable<String> get profiles => js_util.getProperty(this, 'profiles');
+  XRHand? get hand => js_util.getProperty(this, 'hand');
+  Gamepad? get gamepad => js_util.getProperty(this, 'gamepad');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -855,13 +962,13 @@ extension PropsXRInputSource on XRInputSource {
 @JS()
 @staticInterop
 class XRInputSourceArray {
-  external factory XRInputSourceArray();
+  external XRInputSourceArray();
 }
 
 extension PropsXRInputSourceArray on XRInputSourceArray {
   /// The number of [XRInputSource] objects in the list.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -871,7 +978,7 @@ extension PropsXRInputSourceArray on XRInputSourceArray {
 @JS()
 @staticInterop
 class XRLayer implements EventTarget {
-  external factory XRLayer();
+  external XRLayer();
 }
 
 @anonymous
@@ -888,18 +995,36 @@ class XRWebGLLayerInit {
 }
 
 extension PropsXRWebGLLayerInit on XRWebGLLayerInit {
-  external bool get antialias;
-  external set antialias(bool newValue);
-  external bool get depth;
-  external set depth(bool newValue);
-  external bool get stencil;
-  external set stencil(bool newValue);
-  external bool get alpha;
-  external set alpha(bool newValue);
-  external bool get ignoreDepthValues;
-  external set ignoreDepthValues(bool newValue);
-  external double get framebufferScaleFactor;
-  external set framebufferScaleFactor(double newValue);
+  bool get antialias => js_util.getProperty(this, 'antialias');
+  set antialias(bool newValue) {
+    js_util.setProperty(this, 'antialias', newValue);
+  }
+
+  bool get depth => js_util.getProperty(this, 'depth');
+  set depth(bool newValue) {
+    js_util.setProperty(this, 'depth', newValue);
+  }
+
+  bool get stencil => js_util.getProperty(this, 'stencil');
+  set stencil(bool newValue) {
+    js_util.setProperty(this, 'stencil', newValue);
+  }
+
+  bool get alpha => js_util.getProperty(this, 'alpha');
+  set alpha(bool newValue) {
+    js_util.setProperty(this, 'alpha', newValue);
+  }
+
+  bool get ignoreDepthValues => js_util.getProperty(this, 'ignoreDepthValues');
+  set ignoreDepthValues(bool newValue) {
+    js_util.setProperty(this, 'ignoreDepthValues', newValue);
+  }
+
+  double get framebufferScaleFactor =>
+      js_util.getProperty(this, 'framebufferScaleFactor');
+  set framebufferScaleFactor(double newValue) {
+    js_util.setProperty(this, 'framebufferScaleFactor', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -917,7 +1042,7 @@ extension PropsXRWebGLLayerInit on XRWebGLLayerInit {
 @JS()
 @staticInterop
 class XRWebGLLayer implements XRLayer {
-  external factory XRWebGLLayer(XRSession session, dynamic context,
+  external XRWebGLLayer(XRSession session, dynamic context,
       [XRWebGLLayerInit? layerInit]);
 }
 
@@ -926,34 +1051,36 @@ extension PropsXRWebGLLayer on XRWebGLLayer {
   /// framebuffer supports anti-aliasing. The specific type of
   /// anti-aliasing is determined by the user agent.
   ///
-  external bool get antialias;
+  bool get antialias => js_util.getProperty(this, 'antialias');
 
   ///  A Boolean which Indicates whether or not the WebXR compositor
   /// should make use of the contents of the layer's depth buffer while
   /// compositing the scene.
   ///
-  external bool get ignoreDepthValues;
+  bool get ignoreDepthValues => js_util.getProperty(this, 'ignoreDepthValues');
 
   ///  A number indicating the amount of foveation used by the XR
   /// compositor. Fixed Foveated Rendering (FFR) renders the edges of
   /// the eye textures at a lower resolution than the center and
   /// reduces the GPU load.
   ///
-  external double? get fixedFoveation;
-  external set fixedFoveation(double? newValue);
+  double? get fixedFoveation => js_util.getProperty(this, 'fixedFoveation');
+  set fixedFoveation(double? newValue) {
+    js_util.setProperty(this, 'fixedFoveation', newValue);
+  }
 
   ///  Returns a [WebGLFramebuffer] suitable for passing into the
   /// [bindFrameBuffer()] method.
   ///
-  external WebGLFramebuffer? get framebuffer;
+  WebGLFramebuffer? get framebuffer => js_util.getProperty(this, 'framebuffer');
 
   /// Returns the width of the [XRWebGLLayer]'s framebuffer.
   ///
-  external int get framebufferWidth;
+  int get framebufferWidth => js_util.getProperty(this, 'framebufferWidth');
 
   /// Returns the height of the layer's framebuffer.
   ///
-  external int get framebufferHeight;
+  int get framebufferHeight => js_util.getProperty(this, 'framebufferHeight');
 
   ///  Returns a new [XRViewport] instance representing the position,
   /// width, and height to which the WebGL context's viewport must be
@@ -1000,7 +1127,9 @@ extension PropsXRWebGLLayer on XRWebGLLayer {
   ///  }
   /// }
   ///
-  external XRViewport? getViewport(XRView view);
+  XRViewport? getViewport(XRView view) =>
+      js_util.callMethod(this, 'getViewport', [view]);
+
   external static double getNativeFramebufferScaleFactor(XRSession session);
 }
 
@@ -1011,14 +1140,13 @@ extension PropsXRWebGLLayer on XRWebGLLayer {
 @JS()
 @staticInterop
 class XRSessionEvent implements Event {
-  external factory XRSessionEvent(
-      String type, XRSessionEventInit eventInitDict);
+  external XRSessionEvent(String type, XRSessionEventInit eventInitDict);
 }
 
 extension PropsXRSessionEvent on XRSessionEvent {
   /// The [XRSession] to which the event refers.
   ///
-  external XRSession get session;
+  XRSession get session => js_util.getProperty(this, 'session');
 }
 
 @anonymous
@@ -1029,8 +1157,10 @@ class XRSessionEventInit implements EventInit {
 }
 
 extension PropsXRSessionEventInit on XRSessionEventInit {
-  external XRSession get session;
-  external set session(XRSession newValue);
+  XRSession get session => js_util.getProperty(this, 'session');
+  set session(XRSession newValue) {
+    js_util.setProperty(this, 'session', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -1045,7 +1175,7 @@ extension PropsXRSessionEventInit on XRSessionEventInit {
 @JS()
 @staticInterop
 class XRInputSourceEvent implements Event {
-  external factory XRInputSourceEvent(
+  external XRInputSourceEvent(
       String type, XRInputSourceEventInit eventInitDict);
 }
 
@@ -1057,12 +1187,12 @@ extension PropsXRInputSourceEvent on XRInputSourceEvent {
   /// cannot call the [XRFrame] method [getViewerPose()] on it;
   /// instead, use [getPose()].
   ///
-  external XRFrame get frame;
+  XRFrame get frame => js_util.getProperty(this, 'frame');
 
   ///  An [XRInputSource] object indicating which input source
   /// generated the input event.
   ///
-  external XRInputSource get inputSource;
+  XRInputSource get inputSource => js_util.getProperty(this, 'inputSource');
 }
 
 @anonymous
@@ -1074,10 +1204,15 @@ class XRInputSourceEventInit implements EventInit {
 }
 
 extension PropsXRInputSourceEventInit on XRInputSourceEventInit {
-  external XRFrame get frame;
-  external set frame(XRFrame newValue);
-  external XRInputSource get inputSource;
-  external set inputSource(XRInputSource newValue);
+  XRFrame get frame => js_util.getProperty(this, 'frame');
+  set frame(XRFrame newValue) {
+    js_util.setProperty(this, 'frame', newValue);
+  }
+
+  XRInputSource get inputSource => js_util.getProperty(this, 'inputSource');
+  set inputSource(XRInputSource newValue) {
+    js_util.setProperty(this, 'inputSource', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -1088,7 +1223,7 @@ extension PropsXRInputSourceEventInit on XRInputSourceEventInit {
 @JS()
 @staticInterop
 class XRInputSourcesChangeEvent implements Event {
-  external factory XRInputSourcesChangeEvent(
+  external XRInputSourcesChangeEvent(
       String type, XRInputSourcesChangeEventInit eventInitDict);
 }
 
@@ -1096,18 +1231,18 @@ extension PropsXRInputSourcesChangeEvent on XRInputSourcesChangeEvent {
   ///  The [XRSession] to which this input source change event is being
   /// directed.
   ///
-  external XRSession get session;
+  XRSession get session => js_util.getProperty(this, 'session');
 
   ///  An array of zero or more [XRInputSource] objects, each
   /// representing an input device which has been newly connected or
   /// enabled for use.
   ///
-  external Iterable<XRInputSource> get added;
+  Iterable<XRInputSource> get added => js_util.getProperty(this, 'added');
 
   ///  An array of zero or more [XRInputSource] objects representing
   /// the input devices newly connected or enabled for use.
   ///
-  external Iterable<XRInputSource> get removed;
+  Iterable<XRInputSource> get removed => js_util.getProperty(this, 'removed');
 }
 
 @anonymous
@@ -1121,12 +1256,20 @@ class XRInputSourcesChangeEventInit implements EventInit {
 }
 
 extension PropsXRInputSourcesChangeEventInit on XRInputSourcesChangeEventInit {
-  external XRSession get session;
-  external set session(XRSession newValue);
-  external Iterable<XRInputSource> get added;
-  external set added(Iterable<XRInputSource> newValue);
-  external Iterable<XRInputSource> get removed;
-  external set removed(Iterable<XRInputSource> newValue);
+  XRSession get session => js_util.getProperty(this, 'session');
+  set session(XRSession newValue) {
+    js_util.setProperty(this, 'session', newValue);
+  }
+
+  Iterable<XRInputSource> get added => js_util.getProperty(this, 'added');
+  set added(Iterable<XRInputSource> newValue) {
+    js_util.setProperty(this, 'added', newValue);
+  }
+
+  Iterable<XRInputSource> get removed => js_util.getProperty(this, 'removed');
+  set removed(Iterable<XRInputSource> newValue) {
+    js_util.setProperty(this, 'removed', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -1137,7 +1280,7 @@ extension PropsXRInputSourcesChangeEventInit on XRInputSourcesChangeEventInit {
 @JS()
 @staticInterop
 class XRReferenceSpaceEvent implements Event {
-  external factory XRReferenceSpaceEvent(
+  external XRReferenceSpaceEvent(
       String type, XRReferenceSpaceEventInit eventInitDict);
 }
 
@@ -1145,14 +1288,15 @@ extension PropsXRReferenceSpaceEvent on XRReferenceSpaceEvent {
   ///  An [XRReferenceSpace] indicating the reference space that
   /// generated the event.
   ///
-  external XRReferenceSpace get referenceSpace;
+  XRReferenceSpace get referenceSpace =>
+      js_util.getProperty(this, 'referenceSpace');
 
   ///  An [XRRigidTransform] object indicating the position and
   /// orientation of the specified [referenceSpace]'s native origin
   /// after the event, defined relative to the coordinate system before
   /// the event.
   ///
-  external XRRigidTransform? get transform;
+  XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
 }
 
 @anonymous
@@ -1164,10 +1308,16 @@ class XRReferenceSpaceEventInit implements EventInit {
 }
 
 extension PropsXRReferenceSpaceEventInit on XRReferenceSpaceEventInit {
-  external XRReferenceSpace get referenceSpace;
-  external set referenceSpace(XRReferenceSpace newValue);
-  external XRRigidTransform? get transform;
-  external set transform(XRRigidTransform? newValue);
+  XRReferenceSpace get referenceSpace =>
+      js_util.getProperty(this, 'referenceSpace');
+  set referenceSpace(XRReferenceSpace newValue) {
+    js_util.setProperty(this, 'referenceSpace', newValue);
+  }
+
+  XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
+  set transform(XRRigidTransform? newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
 }
 
 @anonymous
@@ -1181,12 +1331,22 @@ class XRPermissionDescriptor implements PermissionDescriptor {
 }
 
 extension PropsXRPermissionDescriptor on XRPermissionDescriptor {
-  external XRSessionMode get mode;
-  external set mode(XRSessionMode newValue);
-  external Iterable<dynamic> get requiredFeatures;
-  external set requiredFeatures(Iterable<dynamic> newValue);
-  external Iterable<dynamic> get optionalFeatures;
-  external set optionalFeatures(Iterable<dynamic> newValue);
+  XRSessionMode get mode => js_util.getProperty(this, 'mode');
+  set mode(XRSessionMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
+
+  Iterable<dynamic> get requiredFeatures =>
+      js_util.getProperty(this, 'requiredFeatures');
+  set requiredFeatures(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'requiredFeatures', newValue);
+  }
+
+  Iterable<dynamic> get optionalFeatures =>
+      js_util.getProperty(this, 'optionalFeatures');
+  set optionalFeatures(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'optionalFeatures', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -1199,7 +1359,7 @@ extension PropsXRPermissionDescriptor on XRPermissionDescriptor {
 @JS()
 @staticInterop
 class XRPermissionStatus implements PermissionStatus {
-  external factory XRPermissionStatus();
+  external XRPermissionStatus();
 }
 
 extension PropsXRPermissionStatus on XRPermissionStatus {
@@ -1210,8 +1370,10 @@ extension PropsXRPermissionStatus on XRPermissionStatus {
   /// calling [navigator.permissions.query()] are listed in if and only
   /// if permission to use them is granted.
   ///
-  external Iterable<dynamic> get granted;
-  external set granted(Iterable<dynamic> newValue);
+  Iterable<dynamic> get granted => js_util.getProperty(this, 'granted');
+  set granted(Iterable<dynamic> newValue) {
+    js_util.setProperty(this, 'granted', newValue);
+  }
 }
 
 @anonymous
@@ -1223,6 +1385,8 @@ class XRSessionSupportedPermissionDescriptor implements PermissionDescriptor {
 
 extension PropsXRSessionSupportedPermissionDescriptor
     on XRSessionSupportedPermissionDescriptor {
-  external XRSessionMode get mode;
-  external set mode(XRSessionMode newValue);
+  XRSessionMode get mode => js_util.getProperty(this, 'mode');
+  set mode(XRSessionMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
 }

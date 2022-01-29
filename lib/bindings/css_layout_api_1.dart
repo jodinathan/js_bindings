@@ -5,6 +5,7 @@
 @staticInterop
 library css_layout_api_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -17,60 +18,76 @@ css_typed_om_1 */
 @JS()
 @staticInterop
 class LayoutChild {
-  external factory LayoutChild();
+  external LayoutChild();
 }
 
 extension PropsLayoutChild on LayoutChild {
-  external StylePropertyMapReadOnly get styleMap;
-  external Promise<IntrinsicSizes> intrinsicSizes();
-  external Promise<LayoutFragment> layoutNextFragment(
-      LayoutConstraintsOptions constraints, ChildBreakToken breakToken);
+  StylePropertyMapReadOnly get styleMap =>
+      js_util.getProperty(this, 'styleMap');
+  Promise<IntrinsicSizes> intrinsicSizes() =>
+      js_util.callMethod(this, 'intrinsicSizes', []);
+
+  Promise<LayoutFragment> layoutNextFragment(
+          LayoutConstraintsOptions constraints, ChildBreakToken breakToken) =>
+      js_util.callMethod(this, 'layoutNextFragment', [constraints, breakToken]);
 }
 
 @JS()
 @staticInterop
 class LayoutFragment {
-  external factory LayoutFragment();
+  external LayoutFragment();
 }
 
 extension PropsLayoutFragment on LayoutFragment {
-  external double get inlineSize;
-  external double get blockSize;
-  external double get inlineOffset;
-  external set inlineOffset(double newValue);
-  external double get blockOffset;
-  external set blockOffset(double newValue);
-  external dynamic get data;
-  external ChildBreakToken? get breakToken;
+  double get inlineSize => js_util.getProperty(this, 'inlineSize');
+  double get blockSize => js_util.getProperty(this, 'blockSize');
+  double get inlineOffset => js_util.getProperty(this, 'inlineOffset');
+  set inlineOffset(double newValue) {
+    js_util.setProperty(this, 'inlineOffset', newValue);
+  }
+
+  double get blockOffset => js_util.getProperty(this, 'blockOffset');
+  set blockOffset(double newValue) {
+    js_util.setProperty(this, 'blockOffset', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  ChildBreakToken? get breakToken => js_util.getProperty(this, 'breakToken');
 }
 
 @JS()
 @staticInterop
 class IntrinsicSizes {
-  external factory IntrinsicSizes();
+  external IntrinsicSizes();
 }
 
 extension PropsIntrinsicSizes on IntrinsicSizes {
-  external double get minContentSize;
-  external double get maxContentSize;
+  double get minContentSize => js_util.getProperty(this, 'minContentSize');
+  double get maxContentSize => js_util.getProperty(this, 'maxContentSize');
 }
 
 @JS()
 @staticInterop
 class LayoutConstraints {
-  external factory LayoutConstraints();
+  external LayoutConstraints();
 }
 
 extension PropsLayoutConstraints on LayoutConstraints {
-  external double get availableInlineSize;
-  external double get availableBlockSize;
-  external double? get fixedInlineSize;
-  external double? get fixedBlockSize;
-  external double get percentageInlineSize;
-  external double get percentageBlockSize;
-  external double? get blockFragmentationOffset;
-  external BlockFragmentationType get blockFragmentationType;
-  external dynamic get data;
+  double get availableInlineSize =>
+      js_util.getProperty(this, 'availableInlineSize');
+  double get availableBlockSize =>
+      js_util.getProperty(this, 'availableBlockSize');
+  double? get fixedInlineSize => js_util.getProperty(this, 'fixedInlineSize');
+  double? get fixedBlockSize => js_util.getProperty(this, 'fixedBlockSize');
+  double get percentageInlineSize =>
+      js_util.getProperty(this, 'percentageInlineSize');
+  double get percentageBlockSize =>
+      js_util.getProperty(this, 'percentageBlockSize');
+  double? get blockFragmentationOffset =>
+      js_util.getProperty(this, 'blockFragmentationOffset');
+  BlockFragmentationType get blockFragmentationType =>
+      js_util.getProperty(this, 'blockFragmentationType');
+  dynamic get data => js_util.getProperty(this, 'data');
 }
 
 @anonymous
@@ -91,24 +108,56 @@ class LayoutConstraintsOptions {
 }
 
 extension PropsLayoutConstraintsOptions on LayoutConstraintsOptions {
-  external double get availableInlineSize;
-  external set availableInlineSize(double newValue);
-  external double get availableBlockSize;
-  external set availableBlockSize(double newValue);
-  external double get fixedInlineSize;
-  external set fixedInlineSize(double newValue);
-  external double get fixedBlockSize;
-  external set fixedBlockSize(double newValue);
-  external double get percentageInlineSize;
-  external set percentageInlineSize(double newValue);
-  external double get percentageBlockSize;
-  external set percentageBlockSize(double newValue);
-  external double get blockFragmentationOffset;
-  external set blockFragmentationOffset(double newValue);
-  external BlockFragmentationType get blockFragmentationType;
-  external set blockFragmentationType(BlockFragmentationType newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  double get availableInlineSize =>
+      js_util.getProperty(this, 'availableInlineSize');
+  set availableInlineSize(double newValue) {
+    js_util.setProperty(this, 'availableInlineSize', newValue);
+  }
+
+  double get availableBlockSize =>
+      js_util.getProperty(this, 'availableBlockSize');
+  set availableBlockSize(double newValue) {
+    js_util.setProperty(this, 'availableBlockSize', newValue);
+  }
+
+  double get fixedInlineSize => js_util.getProperty(this, 'fixedInlineSize');
+  set fixedInlineSize(double newValue) {
+    js_util.setProperty(this, 'fixedInlineSize', newValue);
+  }
+
+  double get fixedBlockSize => js_util.getProperty(this, 'fixedBlockSize');
+  set fixedBlockSize(double newValue) {
+    js_util.setProperty(this, 'fixedBlockSize', newValue);
+  }
+
+  double get percentageInlineSize =>
+      js_util.getProperty(this, 'percentageInlineSize');
+  set percentageInlineSize(double newValue) {
+    js_util.setProperty(this, 'percentageInlineSize', newValue);
+  }
+
+  double get percentageBlockSize =>
+      js_util.getProperty(this, 'percentageBlockSize');
+  set percentageBlockSize(double newValue) {
+    js_util.setProperty(this, 'percentageBlockSize', newValue);
+  }
+
+  double get blockFragmentationOffset =>
+      js_util.getProperty(this, 'blockFragmentationOffset');
+  set blockFragmentationOffset(double newValue) {
+    js_util.setProperty(this, 'blockFragmentationOffset', newValue);
+  }
+
+  BlockFragmentationType get blockFragmentationType =>
+      js_util.getProperty(this, 'blockFragmentationType');
+  set blockFragmentationType(BlockFragmentationType newValue) {
+    js_util.setProperty(this, 'blockFragmentationType', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 enum BlockFragmentationType { none, page, column, region }
@@ -116,23 +165,24 @@ enum BlockFragmentationType { none, page, column, region }
 @JS()
 @staticInterop
 class ChildBreakToken {
-  external factory ChildBreakToken();
+  external ChildBreakToken();
 }
 
 extension PropsChildBreakToken on ChildBreakToken {
-  external BreakType get breakType;
-  external LayoutChild get child;
+  BreakType get breakType => js_util.getProperty(this, 'breakType');
+  LayoutChild get child => js_util.getProperty(this, 'child');
 }
 
 @JS()
 @staticInterop
 class BreakToken {
-  external factory BreakToken();
+  external BreakToken();
 }
 
 extension PropsBreakToken on BreakToken {
-  external Iterable<ChildBreakToken> get childBreakTokens;
-  external dynamic get data;
+  Iterable<ChildBreakToken> get childBreakTokens =>
+      js_util.getProperty(this, 'childBreakTokens');
+  dynamic get data => js_util.getProperty(this, 'data');
 }
 
 @anonymous
@@ -144,10 +194,16 @@ class BreakTokenOptions {
 }
 
 extension PropsBreakTokenOptions on BreakTokenOptions {
-  external Iterable<ChildBreakToken> get childBreakTokens;
-  external set childBreakTokens(Iterable<ChildBreakToken> newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
+  Iterable<ChildBreakToken> get childBreakTokens =>
+      js_util.getProperty(this, 'childBreakTokens');
+  set childBreakTokens(Iterable<ChildBreakToken> newValue) {
+    js_util.setProperty(this, 'childBreakTokens', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
 }
 
 enum BreakType { none, line, column, page, region }
@@ -155,41 +211,42 @@ enum BreakType { none, line, column, page, region }
 @JS()
 @staticInterop
 class LayoutEdgeSizes {
-  external factory LayoutEdgeSizes();
+  external LayoutEdgeSizes();
 }
 
 extension PropsLayoutEdgeSizes on LayoutEdgeSizes {
-  external double get inlineStart;
-  external double get inlineEnd;
-  external double get blockStart;
-  external double get blockEnd;
-  external double get inline;
-  external double get block;
+  double get inlineStart => js_util.getProperty(this, 'inlineStart');
+  double get inlineEnd => js_util.getProperty(this, 'inlineEnd');
+  double get blockStart => js_util.getProperty(this, 'blockStart');
+  double get blockEnd => js_util.getProperty(this, 'blockEnd');
+  double get inline => js_util.getProperty(this, 'inline');
+  double get block => js_util.getProperty(this, 'block');
 }
 
 @JS()
 @staticInterop
 class LayoutEdges {
-  external factory LayoutEdges();
+  external LayoutEdges();
 }
 
 extension PropsLayoutEdges on LayoutEdges {
-  external double get inlineStart;
-  external double get inlineEnd;
-  external double get blockStart;
-  external double get blockEnd;
-  external double get inline;
-  external double get block;
+  double get inlineStart => js_util.getProperty(this, 'inlineStart');
+  double get inlineEnd => js_util.getProperty(this, 'inlineEnd');
+  double get blockStart => js_util.getProperty(this, 'blockStart');
+  double get blockEnd => js_util.getProperty(this, 'blockEnd');
+  double get inline => js_util.getProperty(this, 'inline');
+  double get block => js_util.getProperty(this, 'block');
 }
 
 @JS()
 @staticInterop
 class LayoutWorkletGlobalScope implements WorkletGlobalScope {
-  external factory LayoutWorkletGlobalScope();
+  external LayoutWorkletGlobalScope();
 }
 
 extension PropsLayoutWorkletGlobalScope on LayoutWorkletGlobalScope {
-  external Object registerLayout(String name, VoidFunction layoutCtor);
+  Object registerLayout(String name, VoidFunction layoutCtor) =>
+      js_util.callMethod(this, 'registerLayout', [name, layoutCtor]);
 }
 
 @anonymous
@@ -202,10 +259,16 @@ class LayoutOptions {
 }
 
 extension PropsLayoutOptions on LayoutOptions {
-  external ChildDisplayType get childDisplay;
-  external set childDisplay(ChildDisplayType newValue);
-  external LayoutSizingMode get sizing;
-  external set sizing(LayoutSizingMode newValue);
+  ChildDisplayType get childDisplay =>
+      js_util.getProperty(this, 'childDisplay');
+  set childDisplay(ChildDisplayType newValue) {
+    js_util.setProperty(this, 'childDisplay', newValue);
+  }
+
+  LayoutSizingMode get sizing => js_util.getProperty(this, 'sizing');
+  set sizing(LayoutSizingMode newValue) {
+    js_util.setProperty(this, 'sizing', newValue);
+  }
 }
 
 enum ChildDisplayType { block, normal }
@@ -215,13 +278,13 @@ enum LayoutSizingMode { blockLike, manual }
 @JS()
 @staticInterop
 class IntrinsicSizesRequest {
-  external factory IntrinsicSizesRequest();
+  external IntrinsicSizesRequest();
 }
 
 @JS()
 @staticInterop
 class LayoutFragmentRequest {
-  external factory LayoutFragmentRequest();
+  external LayoutFragmentRequest();
 }
 
 @anonymous
@@ -238,18 +301,36 @@ class FragmentResultOptions {
 }
 
 extension PropsFragmentResultOptions on FragmentResultOptions {
-  external double get inlineSize;
-  external set inlineSize(double newValue);
-  external double get blockSize;
-  external set blockSize(double newValue);
-  external double get autoBlockSize;
-  external set autoBlockSize(double newValue);
-  external Iterable<LayoutFragment> get childFragments;
-  external set childFragments(Iterable<LayoutFragment> newValue);
-  external dynamic get data;
-  external set data(dynamic newValue);
-  external BreakTokenOptions get breakToken;
-  external set breakToken(BreakTokenOptions newValue);
+  double get inlineSize => js_util.getProperty(this, 'inlineSize');
+  set inlineSize(double newValue) {
+    js_util.setProperty(this, 'inlineSize', newValue);
+  }
+
+  double get blockSize => js_util.getProperty(this, 'blockSize');
+  set blockSize(double newValue) {
+    js_util.setProperty(this, 'blockSize', newValue);
+  }
+
+  double get autoBlockSize => js_util.getProperty(this, 'autoBlockSize');
+  set autoBlockSize(double newValue) {
+    js_util.setProperty(this, 'autoBlockSize', newValue);
+  }
+
+  Iterable<LayoutFragment> get childFragments =>
+      js_util.getProperty(this, 'childFragments');
+  set childFragments(Iterable<LayoutFragment> newValue) {
+    js_util.setProperty(this, 'childFragments', newValue);
+  }
+
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  BreakTokenOptions get breakToken => js_util.getProperty(this, 'breakToken');
+  set breakToken(BreakTokenOptions newValue) {
+    js_util.setProperty(this, 'breakToken', newValue);
+  }
 }
 
 @anonymous
@@ -261,19 +342,24 @@ class IntrinsicSizesResultOptions {
 }
 
 extension PropsIntrinsicSizesResultOptions on IntrinsicSizesResultOptions {
-  external double get maxContentSize;
-  external set maxContentSize(double newValue);
-  external double get minContentSize;
-  external set minContentSize(double newValue);
+  double get maxContentSize => js_util.getProperty(this, 'maxContentSize');
+  set maxContentSize(double newValue) {
+    js_util.setProperty(this, 'maxContentSize', newValue);
+  }
+
+  double get minContentSize => js_util.getProperty(this, 'minContentSize');
+  set minContentSize(double newValue) {
+    js_util.setProperty(this, 'minContentSize', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class FragmentResult {
-  external factory FragmentResult([FragmentResultOptions? options]);
+  external FragmentResult([FragmentResultOptions? options]);
 }
 
 extension PropsFragmentResult on FragmentResult {
-  external double get inlineSize;
-  external double get blockSize;
+  double get inlineSize => js_util.getProperty(this, 'inlineSize');
+  double get blockSize => js_util.getProperty(this, 'blockSize');
 }

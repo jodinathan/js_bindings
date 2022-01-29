@@ -5,6 +5,7 @@
 @staticInterop
 library is_input_pending;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -20,16 +21,19 @@ class IsInputPendingOptions {
 }
 
 extension PropsIsInputPendingOptions on IsInputPendingOptions {
-  external bool get includeContinuous;
-  external set includeContinuous(bool newValue);
+  bool get includeContinuous => js_util.getProperty(this, 'includeContinuous');
+  set includeContinuous(bool newValue) {
+    js_util.setProperty(this, 'includeContinuous', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class Scheduling {
-  external factory Scheduling();
+  external Scheduling();
 }
 
 extension PropsScheduling on Scheduling {
-  external bool isInputPending([IsInputPendingOptions? isInputPendingOptions]);
+  bool isInputPending([IsInputPendingOptions? isInputPendingOptions]) =>
+      js_util.callMethod(this, 'isInputPending', [isInputPendingOptions]);
 }

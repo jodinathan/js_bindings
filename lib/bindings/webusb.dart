@@ -5,6 +5,7 @@
 @staticInterop
 library webusb;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -29,18 +30,35 @@ class USBDeviceFilter {
 }
 
 extension PropsUSBDeviceFilter on USBDeviceFilter {
-  external int get vendorId;
-  external set vendorId(int newValue);
-  external int get productId;
-  external set productId(int newValue);
-  external int get classCode;
-  external set classCode(int newValue);
-  external int get subclassCode;
-  external set subclassCode(int newValue);
-  external int get protocolCode;
-  external set protocolCode(int newValue);
-  external String get serialNumber;
-  external set serialNumber(String newValue);
+  int get vendorId => js_util.getProperty(this, 'vendorId');
+  set vendorId(int newValue) {
+    js_util.setProperty(this, 'vendorId', newValue);
+  }
+
+  int get productId => js_util.getProperty(this, 'productId');
+  set productId(int newValue) {
+    js_util.setProperty(this, 'productId', newValue);
+  }
+
+  int get classCode => js_util.getProperty(this, 'classCode');
+  set classCode(int newValue) {
+    js_util.setProperty(this, 'classCode', newValue);
+  }
+
+  int get subclassCode => js_util.getProperty(this, 'subclassCode');
+  set subclassCode(int newValue) {
+    js_util.setProperty(this, 'subclassCode', newValue);
+  }
+
+  int get protocolCode => js_util.getProperty(this, 'protocolCode');
+  set protocolCode(int newValue) {
+    js_util.setProperty(this, 'protocolCode', newValue);
+  }
+
+  String get serialNumber => js_util.getProperty(this, 'serialNumber');
+  set serialNumber(String newValue) {
+    js_util.setProperty(this, 'serialNumber', newValue);
+  }
 }
 
 @anonymous
@@ -51,8 +69,10 @@ class USBDeviceRequestOptions {
 }
 
 extension PropsUSBDeviceRequestOptions on USBDeviceRequestOptions {
-  external Iterable<USBDeviceFilter> get filters;
-  external set filters(Iterable<USBDeviceFilter> newValue);
+  Iterable<USBDeviceFilter> get filters => js_util.getProperty(this, 'filters');
+  set filters(Iterable<USBDeviceFilter> newValue) {
+    js_util.setProperty(this, 'filters', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -78,14 +98,20 @@ extension PropsUSBDeviceRequestOptions on USBDeviceRequestOptions {
 @JS()
 @staticInterop
 class USB implements EventTarget {
-  external factory USB();
+  external USB();
 }
 
 extension PropsUSB on USB {
-  external EventHandlerNonNull? get onconnect;
-  external set onconnect(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondisconnect;
-  external set ondisconnect(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
+  set onconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnect', newValue);
+  }
+
+  EventHandlerNonNull? get ondisconnect =>
+      js_util.getProperty(this, 'ondisconnect');
+  set ondisconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondisconnect', newValue);
+  }
 
   ///  Returns a [Promise] that resolves with an array of [USBDevice]
   /// objects for paired attached devices.
@@ -105,7 +131,8 @@ extension PropsUSB on USB {
   ///  });
   /// });
   ///
-  external Iterable<Promise<USBDevice>> getDevices();
+  Iterable<Promise<USBDevice>> getDevices() =>
+      js_util.callMethod(this, 'getDevices', []);
 
   ///  Returns a [Promise] that resolves with an instance of
   /// [USBDevice] if the specified device is found. Calling this
@@ -136,7 +163,8 @@ extension PropsUSB on USB {
   ///  console.log("There is no device. " + e);
   /// });
   ///
-  external Promise<USBDevice> requestDevice(USBDeviceRequestOptions options);
+  Promise<USBDevice> requestDevice(USBDeviceRequestOptions options) =>
+      js_util.callMethod(this, 'requestDevice', [options]);
 }
 
 @anonymous
@@ -147,8 +175,10 @@ class USBConnectionEventInit implements EventInit {
 }
 
 extension PropsUSBConnectionEventInit on USBConnectionEventInit {
-  external USBDevice get device;
-  external set device(USBDevice newValue);
+  USBDevice get device => js_util.getProperty(this, 'device');
+  set device(USBDevice newValue) {
+    js_util.setProperty(this, 'device', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -159,14 +189,14 @@ extension PropsUSBConnectionEventInit on USBConnectionEventInit {
 @JS()
 @staticInterop
 class USBConnectionEvent implements Event {
-  external factory USBConnectionEvent(
+  external USBConnectionEvent(
       String type, USBConnectionEventInit eventInitDict);
 }
 
 extension PropsUSBConnectionEvent on USBConnectionEvent {
   /// Returns a [USBDevice] object representing the current device.
   ///
-  external USBDevice get device;
+  USBDevice get device => js_util.getProperty(this, 'device');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -177,7 +207,7 @@ extension PropsUSBConnectionEvent on USBConnectionEvent {
 @JS()
 @staticInterop
 class USBDevice {
-  external factory USBDevice();
+  external USBDevice();
 }
 
 extension PropsUSBDevice on USBDevice {
@@ -185,112 +215,116 @@ extension PropsUSBDevice on USBDevice {
   /// supported by the device. The other two properties are
   /// [USBDevice.usbVersionMinor] and [USBDevice.usbVersionSubminor].
   ///
-  external int get usbVersionMajor;
+  int get usbVersionMajor => js_util.getProperty(this, 'usbVersionMajor');
 
   ///  One of three properties that declare the USB protocol version
   /// supported by the device. The other two properties are
   /// [USBDevice.usbVersionMajor] and [USBDevice.usbVersionSubminor].
   ///
-  external int get usbVersionMinor;
+  int get usbVersionMinor => js_util.getProperty(this, 'usbVersionMinor');
 
   ///  One of three properties that declare the USB protocol version
   /// supported by the device. The other two properties are
   /// [USBDevice.usbVersionMajor] and [USBDevice.usbVersionMinor].
   ///
-  external int get usbVersionSubminor;
+  int get usbVersionSubminor => js_util.getProperty(this, 'usbVersionSubminor');
 
   ///  One of three properties that identify USB devices for the
   /// purpose of loading a USB driver that will work with that device.
   /// The other two properties are [USBDevice.deviceSubclass] and
   /// [USBDevice.deviceProtocol].
   ///
-  external int get deviceClass;
+  int get deviceClass => js_util.getProperty(this, 'deviceClass');
 
   ///  One of three properties that identify USB devices for the
   /// purpose of loading a USB driver that will work with that device.
   /// The other two properties are [USBDevice.deviceClass] and
   /// [USBDevice.deviceProtocol].
   ///
-  external int get deviceSubclass;
+  int get deviceSubclass => js_util.getProperty(this, 'deviceSubclass');
 
   ///  One of three properties that identify USB devices for the
   /// purpose of loading a USB driver that will work with that device.
   /// The other two properties are [USBDevice.deviceClass] and
   /// [USBDevice.deviceSubclass].
   ///
-  external int get deviceProtocol;
+  int get deviceProtocol => js_util.getProperty(this, 'deviceProtocol');
 
   /// The official usg.org-assigned vendor ID.
   ///
-  external int get vendorId;
+  int get vendorId => js_util.getProperty(this, 'vendorId');
 
   /// The manufacturer-defined code that identifies a USB device.
   ///
-  external int get productId;
+  int get productId => js_util.getProperty(this, 'productId');
 
   ///  The major version number of the device in a semantic versioning
   /// scheme.
   ///
-  external int get deviceVersionMajor;
+  int get deviceVersionMajor => js_util.getProperty(this, 'deviceVersionMajor');
 
   ///  The minor version number of the device in a semantic versioning
   /// scheme.
   ///
-  external int get deviceVersionMinor;
+  int get deviceVersionMinor => js_util.getProperty(this, 'deviceVersionMinor');
 
   ///  The patch version number of the device in a semantic versioning
   /// scheme.
   ///
-  external int get deviceVersionSubminor;
+  int get deviceVersionSubminor =>
+      js_util.getProperty(this, 'deviceVersionSubminor');
 
   /// The of the organization that manufactured the USB device.
   ///
-  external String? get manufacturerName;
+  String? get manufacturerName => js_util.getProperty(this, 'manufacturerName');
 
   /// The manufacturer-defined name that identifies a USB device.
   ///
-  external String? get productName;
+  String? get productName => js_util.getProperty(this, 'productName');
 
   ///  The manufacturer-defined serial number for the specific USB
   /// device.
   ///
-  external String? get serialNumber;
+  String? get serialNumber => js_util.getProperty(this, 'serialNumber');
 
   ///  A [USBConfiguration] object for the currently selected interface
   /// for a paired USB device.
   ///
-  external USBConfiguration? get configuration;
+  USBConfiguration? get configuration =>
+      js_util.getProperty(this, 'configuration');
 
   ///  An [array] of device-specific interfaces for controlling a
   /// paired USB device.
   ///
-  external Iterable<USBConfiguration> get configurations;
+  Iterable<USBConfiguration> get configurations =>
+      js_util.getProperty(this, 'configurations');
 
   ///  Indicates whether a session has been started with a paired USB
   /// device.
   ///
-  external bool get opened;
+  bool get opened => js_util.getProperty(this, 'opened');
 
   ///  Returns a [Promise] that resolves when a device session has
   /// started.
   ///
   /// var promise = USBDevice.open()
   ///
-  external Promise<Object> open();
+  Promise<Object> open() => js_util.callMethod(this, 'open', []);
 
   ///  Returns a [Promise] that resolves when all open interfaces are
   /// released and the device session has ended.
   ///
   /// var promise = USBDevice.close()
   ///
-  external Promise<Object> close();
+  Promise<Object> close() => js_util.callMethod(this, 'close', []);
 
   ///  Returns a [Promise] that resolves when the specified
   /// configuration is selected.
   ///
   /// var promise = USBDevice.selectConfiguration(configurationValue)
   ///
-  external Promise<Object> selectConfiguration(int configurationValue);
+  Promise<Object> selectConfiguration(int configurationValue) =>
+      js_util.callMethod(this, 'selectConfiguration', [configurationValue]);
 
   ///  Returns a [Promise] that resolves when the requested interface
   /// is claimed for exclusive access.
@@ -308,22 +342,26 @@ extension PropsUSBDevice on USBDevice {
   ///  await usbDevice.claimInterface(0);
   /// }
   ///
-  external Promise<Object> claimInterface(int interfaceNumber);
+  Promise<Object> claimInterface(int interfaceNumber) =>
+      js_util.callMethod(this, 'claimInterface', [interfaceNumber]);
 
   ///  Returns a [Promise] that resolves when a claimed interface is
   /// released from exclusive access.
   ///
   /// var promise = USBDevice.releaseInterface(interfaceNumber)
   ///
-  external Promise<Object> releaseInterface(int interfaceNumber);
+  Promise<Object> releaseInterface(int interfaceNumber) =>
+      js_util.callMethod(this, 'releaseInterface', [interfaceNumber]);
 
   ///  Returns a [Promise] that resolves when the specified alternative
   /// endpoint is selected.
   ///
   /// var promise = USBDevice.selectAlternateInterface(interfaceNumber, alternateSetting)
   ///
-  external Promise<Object> selectAlternateInterface(
-      int interfaceNumber, int alternateSetting);
+  Promise<Object> selectAlternateInterface(
+          int interfaceNumber, int alternateSetting) =>
+      js_util.callMethod(this, 'selectAlternateInterface',
+          [interfaceNumber, alternateSetting]);
 
   ///  Returns a [Promise] that resolves with a [USBInTransferResult]
   /// when a command or status operation has been transmitted to the
@@ -331,8 +369,9 @@ extension PropsUSBDevice on USBDevice {
   ///
   /// var promise = USBDevice.controlTransferIn(setup, length)
   ///
-  external Promise<USBInTransferResult> controlTransferIn(
-      USBControlTransferParameters setup, int length);
+  Promise<USBInTransferResult> controlTransferIn(
+          USBControlTransferParameters setup, int length) =>
+      js_util.callMethod(this, 'controlTransferIn', [setup, length]);
 
   ///  Returns a [Promise] that resolves with a [USBOutTransferResult]
   /// when a command or status operation has been transmitted from the
@@ -340,9 +379,10 @@ extension PropsUSBDevice on USBDevice {
   ///
   /// var promise = USBDevice.controlTransferOut(setup, data)
   ///
-  external Promise<USBOutTransferResult> controlTransferOut(
-      USBControlTransferParameters setup,
-      [dynamic data]);
+  Promise<USBOutTransferResult> controlTransferOut(
+          USBControlTransferParameters setup,
+          [dynamic data]) =>
+      js_util.callMethod(this, 'controlTransferOut', [setup, data]);
 
   ///  Returns a [Promise] that resolves when a halt condition is
   /// cleared.
@@ -372,24 +412,24 @@ extension PropsUSBDevice on USBDevice {
   ///  }
   /// }
   ///
-  external Promise<Object> clearHalt(
-      USBDirection direction, int endpointNumber);
+  Promise<Object> clearHalt(USBDirection direction, int endpointNumber) =>
+      js_util.callMethod(this, 'clearHalt', [direction, endpointNumber]);
 
   ///  Returns a [Promise] that resolves with a [USBInTransferResult]
   /// when bulk or interrupt data is received from the USB device.
   ///
   /// var promise = USBDevice.transferIn(endpointNumber, length)
   ///
-  external Promise<USBInTransferResult> transferIn(
-      int endpointNumber, int length);
+  Promise<USBInTransferResult> transferIn(int endpointNumber, int length) =>
+      js_util.callMethod(this, 'transferIn', [endpointNumber, length]);
 
   ///  Returns a [Promise] that resolves with a [USBOutTransferResult]
   /// when bulk or interrupt data is sent to the USB device.
   ///
   /// var promise = USBDevice.transferOut(endpointNumber, data)
   ///
-  external Promise<USBOutTransferResult> transferOut(
-      int endpointNumber, dynamic data);
+  Promise<USBOutTransferResult> transferOut(int endpointNumber, dynamic data) =>
+      js_util.callMethod(this, 'transferOut', [endpointNumber, data]);
 
   ///  Returns a [Promise] that resolves with a
   /// [USBIsochronousInTransferResult] when time sensitive information
@@ -397,8 +437,10 @@ extension PropsUSBDevice on USBDevice {
   ///
   /// var promise = USBDevice.isochronousTransferIn(endpointNumber, packetLengths)
   ///
-  external Promise<USBIsochronousInTransferResult> isochronousTransferIn(
-      int endpointNumber, Iterable<int> packetLengths);
+  Promise<USBIsochronousInTransferResult> isochronousTransferIn(
+          int endpointNumber, Iterable<int> packetLengths) =>
+      js_util.callMethod(
+          this, 'isochronousTransferIn', [endpointNumber, packetLengths]);
 
   ///  Returns a [Promise] that resolves with a
   /// [USBIsochronousOutTransferResult] when time sensitive information
@@ -406,15 +448,17 @@ extension PropsUSBDevice on USBDevice {
   ///
   /// var promise = USBDevice.isochronousTransferOut(endpointNumber, data, packetLengths)
   ///
-  external Promise<USBIsochronousOutTransferResult> isochronousTransferOut(
-      int endpointNumber, dynamic data, Iterable<int> packetLengths);
+  Promise<USBIsochronousOutTransferResult> isochronousTransferOut(
+          int endpointNumber, dynamic data, Iterable<int> packetLengths) =>
+      js_util.callMethod(this, 'isochronousTransferOut',
+          [endpointNumber, data, packetLengths]);
 
   ///  Returns a [Promise] that resolves when the device is reset and
   /// all app operations canceled and their promises rejected.
   ///
   /// var promise = USBDevice.reset()
   ///
-  external Promise<Object> reset();
+  Promise<Object> reset() => js_util.callMethod(this, 'reset', []);
 }
 
 enum USBRequestType { standard, valueClass, vendor }
@@ -436,16 +480,30 @@ class USBControlTransferParameters {
 }
 
 extension PropsUSBControlTransferParameters on USBControlTransferParameters {
-  external USBRequestType get requestType;
-  external set requestType(USBRequestType newValue);
-  external USBRecipient get recipient;
-  external set recipient(USBRecipient newValue);
-  external int get request;
-  external set request(int newValue);
-  external int get value;
-  external set value(int newValue);
-  external int get index;
-  external set index(int newValue);
+  USBRequestType get requestType => js_util.getProperty(this, 'requestType');
+  set requestType(USBRequestType newValue) {
+    js_util.setProperty(this, 'requestType', newValue);
+  }
+
+  USBRecipient get recipient => js_util.getProperty(this, 'recipient');
+  set recipient(USBRecipient newValue) {
+    js_util.setProperty(this, 'recipient', newValue);
+  }
+
+  int get request => js_util.getProperty(this, 'request');
+  set request(int newValue) {
+    js_util.setProperty(this, 'request', newValue);
+  }
+
+  int get value => js_util.getProperty(this, 'value');
+  set value(int newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  int get index => js_util.getProperty(this, 'index');
+  set index(int newValue) {
+    js_util.setProperty(this, 'index', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -458,15 +516,14 @@ extension PropsUSBControlTransferParameters on USBControlTransferParameters {
 @JS()
 @staticInterop
 class USBInTransferResult {
-  external factory USBInTransferResult(USBTransferStatus status,
-      [ByteData? data]);
+  external USBInTransferResult(USBTransferStatus status, [ByteData? data]);
 }
 
 extension PropsUSBInTransferResult on USBInTransferResult {
   ///  Returns a [DataView] object containing the data received from
   /// the USB device, if any.
   ///
-  external ByteData? get data;
+  ByteData? get data => js_util.getProperty(this, 'data');
 
   /// Returns the status of the transfer request, one of:
   ///
@@ -480,7 +537,7 @@ extension PropsUSBInTransferResult on USBInTransferResult {
   /// expected.
   ///
   ///
-  external USBTransferStatus get status;
+  USBTransferStatus get status => js_util.getProperty(this, 'status');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -493,7 +550,7 @@ extension PropsUSBInTransferResult on USBInTransferResult {
 @JS()
 @staticInterop
 class USBOutTransferResult {
-  external factory USBOutTransferResult(USBTransferStatus status,
+  external USBOutTransferResult(USBTransferStatus status,
       [int? bytesWritten = 0]);
 }
 
@@ -501,7 +558,7 @@ extension PropsUSBOutTransferResult on USBOutTransferResult {
   ///  Returns the number of bytes from the transfer request that were
   /// sent to the device.
   ///
-  external int get bytesWritten;
+  int get bytesWritten => js_util.getProperty(this, 'bytesWritten');
 
   /// Returns the status of the transfer request, one of:
   ///
@@ -512,7 +569,7 @@ extension PropsUSBOutTransferResult on USBOutTransferResult {
   /// [transferOut()] can be called again.
   ///
   ///
-  external USBTransferStatus get status;
+  USBTransferStatus get status => js_util.getProperty(this, 'status');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -526,7 +583,7 @@ extension PropsUSBOutTransferResult on USBOutTransferResult {
 @JS()
 @staticInterop
 class USBIsochronousInTransferPacket {
-  external factory USBIsochronousInTransferPacket(USBTransferStatus status,
+  external USBIsochronousInTransferPacket(USBTransferStatus status,
       [ByteData? data]);
 }
 
@@ -535,7 +592,7 @@ extension PropsUSBIsochronousInTransferPacket
   ///  Returns a [DataView] object containing the data received from
   /// the USB device in this packet, if any.
   ///
-  external ByteData? get data;
+  ByteData? get data => js_util.getProperty(this, 'data');
 
   /// Returns the status of the transfer request, one of:
   ///
@@ -547,7 +604,7 @@ extension PropsUSBIsochronousInTransferPacket
   /// expected.
   ///
   ///
-  external USBTransferStatus get status;
+  USBTransferStatus get status => js_util.getProperty(this, 'status');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -560,7 +617,7 @@ extension PropsUSBIsochronousInTransferPacket
 @JS()
 @staticInterop
 class USBIsochronousInTransferResult {
-  external factory USBIsochronousInTransferResult(
+  external USBIsochronousInTransferResult(
       Iterable<USBIsochronousInTransferPacket> packets,
       [ByteData? data]);
 }
@@ -572,13 +629,14 @@ extension PropsUSBIsochronousInTransferResult
   /// individual [DataView] objects in the [packets] array for the
   /// portion of this buffer containing data from each packet.
   ///
-  external ByteData? get data;
+  ByteData? get data => js_util.getProperty(this, 'data');
 
   ///  Returns an array of [USBIsochronousInTransferPacket] objects
   /// containing the result of each request to receive a packet from
   /// the device.
   ///
-  external Iterable<USBIsochronousInTransferPacket> get packets;
+  Iterable<USBIsochronousInTransferPacket> get packets =>
+      js_util.getProperty(this, 'packets');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -592,7 +650,7 @@ extension PropsUSBIsochronousInTransferResult
 @JS()
 @staticInterop
 class USBIsochronousOutTransferPacket {
-  external factory USBIsochronousOutTransferPacket(USBTransferStatus status,
+  external USBIsochronousOutTransferPacket(USBTransferStatus status,
       [int? bytesWritten = 0]);
 }
 
@@ -601,7 +659,7 @@ extension PropsUSBIsochronousOutTransferPacket
   ///  Returns the number of bytes from the packet that were sent to
   /// the device.
   ///
-  external int get bytesWritten;
+  int get bytesWritten => js_util.getProperty(this, 'bytesWritten');
 
   /// Returns the status of the transfer request, one of:
   ///
@@ -611,7 +669,7 @@ extension PropsUSBIsochronousOutTransferPacket
   /// endpoint does not need to be cleared.
   ///
   ///
-  external USBTransferStatus get status;
+  USBTransferStatus get status => js_util.getProperty(this, 'status');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -624,7 +682,7 @@ extension PropsUSBIsochronousOutTransferPacket
 @JS()
 @staticInterop
 class USBIsochronousOutTransferResult {
-  external factory USBIsochronousOutTransferResult(
+  external USBIsochronousOutTransferResult(
       Iterable<USBIsochronousOutTransferPacket> packets);
 }
 
@@ -634,7 +692,8 @@ extension PropsUSBIsochronousOutTransferResult
   /// containing the result of each request to send a packet to the
   /// device.
   ///
-  external Iterable<USBIsochronousOutTransferPacket> get packets;
+  Iterable<USBIsochronousOutTransferPacket> get packets =>
+      js_util.getProperty(this, 'packets');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -645,7 +704,7 @@ extension PropsUSBIsochronousOutTransferResult
 @JS()
 @staticInterop
 class USBConfiguration {
-  external factory USBConfiguration(USBDevice device, int configurationValue);
+  external USBConfiguration(USBDevice device, int configurationValue);
 }
 
 extension PropsUSBConfiguration on USBConfiguration {
@@ -653,19 +712,21 @@ extension PropsUSBConfiguration on USBConfiguration {
   /// equal to the [bConfigurationValue] field of the configuration
   /// descriptor provided by the device defining this configuration.
   ///
-  external int get configurationValue;
+  int get configurationValue => js_util.getProperty(this, 'configurationValue');
 
   ///  Returns the name provided by the device to describe this
   /// configuration. This is equal to the value of the string
   /// descriptor with the index provided in the [iConfiguration] field
   /// of the configuration descriptor defining this configuration.
   ///
-  external String? get configurationName;
+  String? get configurationName =>
+      js_util.getProperty(this, 'configurationName');
 
   ///  Returns an array containing instances of the [USBInterface]
   /// describing each interface supported by this configuration.
   ///
-  external Iterable<USBInterface> get interfaces;
+  Iterable<USBInterface> get interfaces =>
+      js_util.getProperty(this, 'interfaces');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -678,8 +739,7 @@ extension PropsUSBConfiguration on USBConfiguration {
 @JS()
 @staticInterop
 class USBInterface {
-  external factory USBInterface(
-      USBConfiguration configuration, int interfaceNumber);
+  external USBInterface(USBConfiguration configuration, int interfaceNumber);
 }
 
 extension PropsUSBInterface on USBInterface {
@@ -687,7 +747,7 @@ extension PropsUSBInterface on USBInterface {
   /// the [bInterfaceNumber] field of the interface descriptor defining
   /// this interface.
   ///
-  external int get interfaceNumber;
+  int get interfaceNumber => js_util.getProperty(this, 'interfaceNumber');
 
   ///  Returns the currently selected alternative configuration of this
   /// interface. By default this is the [USBAlternateInterface] from
@@ -695,18 +755,19 @@ extension PropsUSBInterface on USBInterface {
   /// changed by calling [USBDevice.selectAlternateInterface()] with
   /// any other value found in [alternates].
   ///
-  external USBAlternateInterface get alternate;
+  USBAlternateInterface get alternate => js_util.getProperty(this, 'alternate');
 
   ///  Returns an array containing instances of the
   /// [USBAlternateInterface] interface describing each of the
   /// alternative configurations possible for this interface.
   ///
-  external Iterable<USBAlternateInterface> get alternates;
+  Iterable<USBAlternateInterface> get alternates =>
+      js_util.getProperty(this, 'alternates');
 
   ///  Returns whether or not this interface has been claimed by the
   /// current page by calling [USBDevice.claimInterface()].
   ///
-  external bool get claimed;
+  bool get claimed => js_util.getProperty(this, 'claimed');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -720,7 +781,7 @@ extension PropsUSBInterface on USBInterface {
 @JS()
 @staticInterop
 class USBAlternateInterface {
-  external factory USBAlternateInterface(
+  external USBAlternateInterface(
       USBInterface deviceInterface, int alternateSetting);
 }
 
@@ -729,7 +790,7 @@ extension PropsUSBAlternateInterface on USBAlternateInterface {
   /// equal to the [bAlternateSetting] field of the interface
   /// descriptor defining this interface.
   ///
-  external int get alternateSetting;
+  int get alternateSetting => js_util.getProperty(this, 'alternateSetting');
 
   ///  Returns the class of this interface. This is equal to the
   /// [bInterfaceClass] field of the interface descriptor defining this
@@ -737,34 +798,34 @@ extension PropsUSBAlternateInterface on USBAlternateInterface {
   /// USB Implementers Forum. A value of [0xFF] indicates a
   /// vendor-defined interface.
   ///
-  external int get interfaceClass;
+  int get interfaceClass => js_util.getProperty(this, 'interfaceClass');
 
   ///  Returns the subclass of this interface. This is equal to the
   /// [bInterfaceSubClass] field of the interface descriptor defining
   /// this interface. The meaning of this value depends on the
   /// [interfaceClass] field.
   ///
-  external int get interfaceSubclass;
+  int get interfaceSubclass => js_util.getProperty(this, 'interfaceSubclass');
 
   ///  Returns the protocol supported by this interface. This is equal
   /// to the [bInterfaceProtocol] field of the interface descriptor
   /// defining this interface. The meaning of this value depends on the
   /// [interfaceClass] and [interfaceSubclass] fields.
   ///
-  external int get interfaceProtocol;
+  int get interfaceProtocol => js_util.getProperty(this, 'interfaceProtocol');
 
   ///  Returns the name of the interface, if one is provided by the
   /// device. This is the value of the string descriptor with the index
   /// specified by the [iInterface] field of the interface descriptor
   /// defining this interface.
   ///
-  external String? get interfaceName;
+  String? get interfaceName => js_util.getProperty(this, 'interfaceName');
 
   ///  Returns an array containing instances of the [USBEndpoint]
   /// interface describing each of the endpoints that are part of this
   /// interface.
   ///
-  external Iterable<USBEndpoint> get endpoints;
+  Iterable<USBEndpoint> get endpoints => js_util.getProperty(this, 'endpoints');
 }
 
 enum USBDirection { valueIn, out }
@@ -779,8 +840,8 @@ enum USBEndpointType { bulk, interrupt, isochronous }
 @JS()
 @staticInterop
 class USBEndpoint {
-  external factory USBEndpoint(USBAlternateInterface alternate,
-      int endpointNumber, USBDirection direction);
+  external USBEndpoint(USBAlternateInterface alternate, int endpointNumber,
+      USBDirection direction);
 }
 
 extension PropsUSBEndpoint on USBEndpoint {
@@ -789,7 +850,7 @@ extension PropsUSBEndpoint on USBEndpoint {
   /// endpoint descriptor defining this endpoint. This value is used to
   /// identify the endpoint when calling methods on [USBDevice].
   ///
-  external int get endpointNumber;
+  int get endpointNumber => js_util.getProperty(this, 'endpointNumber');
 
   ///  Returns the direction in which this endpoint transfers data, one
   /// of:
@@ -800,7 +861,7 @@ extension PropsUSBEndpoint on USBEndpoint {
   ///    ["out"] - Data is transferred from host to device.
   ///
   ///
-  external USBDirection get direction;
+  USBDirection get direction => js_util.getProperty(this, 'direction');
 
   /// Returns the type of this endpoint, one of:
   ///
@@ -822,12 +883,12 @@ extension PropsUSBEndpoint on USBEndpoint {
   /// dropped.
   ///
   ///
-  external USBEndpointType get type;
+  USBEndpointType get type => js_util.getProperty(this, 'type');
 
   ///  Returns the size of the packets that data sent through this
   /// endpoint will be divided into.
   ///
-  external int get packetSize;
+  int get packetSize => js_util.getProperty(this, 'packetSize');
 }
 
 @anonymous
@@ -838,8 +899,10 @@ class USBPermissionDescriptor implements PermissionDescriptor {
 }
 
 extension PropsUSBPermissionDescriptor on USBPermissionDescriptor {
-  external Iterable<USBDeviceFilter> get filters;
-  external set filters(Iterable<USBDeviceFilter> newValue);
+  Iterable<USBDeviceFilter> get filters => js_util.getProperty(this, 'filters');
+  set filters(Iterable<USBDeviceFilter> newValue) {
+    js_util.setProperty(this, 'filters', newValue);
+  }
 }
 
 @anonymous
@@ -851,12 +914,20 @@ class AllowedUSBDevice {
 }
 
 extension PropsAllowedUSBDevice on AllowedUSBDevice {
-  external int get vendorId;
-  external set vendorId(int newValue);
-  external int get productId;
-  external set productId(int newValue);
-  external String get serialNumber;
-  external set serialNumber(String newValue);
+  int get vendorId => js_util.getProperty(this, 'vendorId');
+  set vendorId(int newValue) {
+    js_util.setProperty(this, 'vendorId', newValue);
+  }
+
+  int get productId => js_util.getProperty(this, 'productId');
+  set productId(int newValue) {
+    js_util.setProperty(this, 'productId', newValue);
+  }
+
+  String get serialNumber => js_util.getProperty(this, 'serialNumber');
+  set serialNumber(String newValue) {
+    js_util.setProperty(this, 'serialNumber', newValue);
+  }
 }
 
 @anonymous
@@ -868,17 +939,22 @@ class USBPermissionStorage {
 }
 
 extension PropsUSBPermissionStorage on USBPermissionStorage {
-  external Iterable<AllowedUSBDevice> get allowedDevices;
-  external set allowedDevices(Iterable<AllowedUSBDevice> newValue);
+  Iterable<AllowedUSBDevice> get allowedDevices =>
+      js_util.getProperty(this, 'allowedDevices');
+  set allowedDevices(Iterable<AllowedUSBDevice> newValue) {
+    js_util.setProperty(this, 'allowedDevices', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class USBPermissionResult implements PermissionStatus {
-  external factory USBPermissionResult();
+  external USBPermissionResult();
 }
 
 extension PropsUSBPermissionResult on USBPermissionResult {
-  external Iterable<USBDevice> get devices;
-  external set devices(Iterable<USBDevice> newValue);
+  Iterable<USBDevice> get devices => js_util.getProperty(this, 'devices');
+  set devices(Iterable<USBDevice> newValue) {
+    js_util.setProperty(this, 'devices', newValue);
+  }
 }

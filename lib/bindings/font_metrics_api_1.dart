@@ -5,6 +5,7 @@
 @staticInterop
 library font_metrics_api_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -16,44 +17,49 @@ css_typed_om_1 */
 @JS()
 @staticInterop
 class FontMetrics {
-  external factory FontMetrics();
+  external FontMetrics();
 }
 
 extension PropsFontMetrics on FontMetrics {
-  external double get width;
-  external Iterable<double> get advances;
-  external double get boundingBoxLeft;
-  external double get boundingBoxRight;
-  external double get height;
-  external double get emHeightAscent;
-  external double get emHeightDescent;
-  external double get boundingBoxAscent;
-  external double get boundingBoxDescent;
-  external double get fontBoundingBoxAscent;
-  external double get fontBoundingBoxDescent;
-  external Baseline get dominantBaseline;
-  external Iterable<Baseline> get baselines;
-  external Iterable<Font> get fonts;
+  double get width => js_util.getProperty(this, 'width');
+  Iterable<double> get advances => js_util.getProperty(this, 'advances');
+  double get boundingBoxLeft => js_util.getProperty(this, 'boundingBoxLeft');
+  double get boundingBoxRight => js_util.getProperty(this, 'boundingBoxRight');
+  double get height => js_util.getProperty(this, 'height');
+  double get emHeightAscent => js_util.getProperty(this, 'emHeightAscent');
+  double get emHeightDescent => js_util.getProperty(this, 'emHeightDescent');
+  double get boundingBoxAscent =>
+      js_util.getProperty(this, 'boundingBoxAscent');
+  double get boundingBoxDescent =>
+      js_util.getProperty(this, 'boundingBoxDescent');
+  double get fontBoundingBoxAscent =>
+      js_util.getProperty(this, 'fontBoundingBoxAscent');
+  double get fontBoundingBoxDescent =>
+      js_util.getProperty(this, 'fontBoundingBoxDescent');
+  Baseline get dominantBaseline =>
+      js_util.getProperty(this, 'dominantBaseline');
+  Iterable<Baseline> get baselines => js_util.getProperty(this, 'baselines');
+  Iterable<Font> get fonts => js_util.getProperty(this, 'fonts');
 }
 
 @JS()
 @staticInterop
 class Baseline {
-  external factory Baseline();
+  external Baseline();
 }
 
 extension PropsBaseline on Baseline {
-  external String get name;
-  external double get value;
+  String get name => js_util.getProperty(this, 'name');
+  double get value => js_util.getProperty(this, 'value');
 }
 
 @JS()
 @staticInterop
 class Font {
-  external factory Font();
+  external Font();
 }
 
 extension PropsFont on Font {
-  external String get name;
-  external int get glyphsRendered;
+  String get name => js_util.getProperty(this, 'name');
+  int get glyphsRendered => js_util.getProperty(this, 'glyphsRendered');
 }

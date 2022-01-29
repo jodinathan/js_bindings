@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dart_style/dart_style.dart';
 import 'package:recase/recase.dart';
 import 'package:collection/collection.dart';
+import 'package:recase/recase.dart';
 
 import '../base.dart';
 
@@ -158,6 +159,8 @@ Future<void> main() async {
             var parentMixin = false;
             var parentHasCtor = false;
             var parentHasCtorWithParams = false;
+            final dictionary = type == 'dictionary';
+            final factory = dictionary ? 'factory ' : '';
 
             Iterable<String> makeParams(Map<String, dynamic> member) {
               return member['arguments'] == null
@@ -223,7 +226,7 @@ Future<void> main() async {
             experimental(item);
             deprecated(item);
 
-            if (type == 'dictionary') {
+            if (dictionary) {
               lines.add('@anonymous');
             }
 
@@ -270,6 +273,7 @@ Future<void> main() async {
                 properties : mainLines;
 
                 var mName = member['name'] as String?;
+                var origMName = mName;
                 var doc = '';
                 final idlType = member['idlType'];
                 final syntax = member['syntax'];
@@ -334,8 +338,7 @@ Future<void> main() async {
                           true;
                     });
 
-                String specStatic() =>
-                    member['special'] == 'static' ? 'static ' : '';
+                final static = member['special'] == 'static';
 
                 switch (mType) {
                   case 'attribute':
@@ -352,16 +355,27 @@ Future<void> main() async {
                       dartType = 'dynamic';
                     }
 
-                    lines.add(
-                        '''external ${specStatic()}$dartType get $mName;''');
+                    if (static) {
+                      lines.add('external static $dartType get $mName;');
+                    } else {
+                      lines.add(
+                          '''$dartType get $mName => 
+                        js_util.getProperty(this, '$origMName');''');
+                    }
 
                     if (member['readonly'] != true) {
                       if (overrides) {
                         lines.add('@override');
                       }
 
-                      lines.add(
-                          '''external set $mName($dartType newValue);''');
+                      if (static) {
+                        lines.add('external static set $mName($dartType newValue);');
+                      } else {
+                        lines.add(
+                            '''set $mName($dartType newValue) {
+                          js_util.setProperty(this, '$origMName', newValue);
+                          }''');
+                      }
                     }
                     break;
                   case 'const':
@@ -402,7 +416,7 @@ Future<void> main() async {
                           print(
                               'Skipping $name constructor because it is a mixin.');
                         } else {
-                          fn = '\nexternal factory $name';
+                          fn = '\nexternal $factory$name';
                           addedCtor = true;
 
                           lines.add(
@@ -417,12 +431,12 @@ Future<void> main() async {
 
                       if (mName == null || mName.isEmpty) {
                         if (member['special'] == 'stringifier') {
-                          lines.add("@JS('toString')");
+                          origMName = 'toString';
                           mName = 'mToString';
                           dartType = 'String';
                         } else if (['jsonifier', 'serializer']
                             .contains(member['special'])) {
-                          mName = 'toJSON';
+                          origMName = mName = 'toJSON';
                           dartType = 'dynamic';
                         } else {
                           if (['getter', 'setter', 'deleter']
@@ -454,9 +468,26 @@ Future<void> main() async {
 
                       assert(dartType.isNotEmpty == true);
 
-                      fn = 'external ${specStatic()}$dartType $mName';
+                      fn = '${static ?
+                      'external static ' : ''}$dartType $mName';
 
-                      lines.add('$fn($params);');
+                      if (static) {
+                        lines.add('$fn($params);');
+                      } else {
+                        lines.add('''
+                      $fn($params) => js_util.callMethod(this, '$origMName',
+                      [${member['arguments'].map(
+                                (arg) {
+                              var name = arg['name'] as String;
+
+                              if (forbidden.contains(name)) {
+                                name = 'm${name.pascalCase}';
+                              }
+
+                              return name;
+                            }).join(', ')}]); 
+                      ''');
+                      }
                     }
                     break;
                   default:
@@ -468,7 +499,7 @@ Future<void> main() async {
             lines = mainLines;
 
             if (!addedCtor) {
-              lines.add('external factory $name();');
+              lines.add('external $factory$name();');
             }
 
             lines.add('}\n'); // /* ${prettyJson(spec.errors)} */
@@ -536,6 +567,7 @@ Future<void> main() async {
       @staticInterop
       library $libraryName;
 
+      import 'dart:js_util' as js_util; 
       import 'package:js/js.dart';
       ${meta ? 'import \'package:meta/meta.dart\';' : ''}
       ${spec.usesTypedData ? 'import \'dart:typed_data\';' : ''}

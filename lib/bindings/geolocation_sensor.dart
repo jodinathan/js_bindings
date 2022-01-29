@@ -5,6 +5,7 @@
 @staticInterop
 library geolocation_sensor;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -17,19 +18,25 @@ hr_time_3 */
 @JS()
 @staticInterop
 class GeolocationSensor implements Sensor {
-  external factory GeolocationSensor([GeolocationSensorOptions? options]);
+  external GeolocationSensor([GeolocationSensorOptions? options]);
 }
 
 extension PropsGeolocationSensor on GeolocationSensor {
   external static Promise<GeolocationSensorReading> read(
       [ReadOptions? readOptions]);
-  external /* double | NaN */ dynamic? get latitude;
-  external /* double | NaN */ dynamic? get longitude;
-  external /* double | NaN */ dynamic? get altitude;
-  external /* double | NaN */ dynamic? get accuracy;
-  external /* double | NaN */ dynamic? get altitudeAccuracy;
-  external /* double | NaN */ dynamic? get heading;
-  external /* double | NaN */ dynamic? get speed;
+  /* double | NaN */ dynamic? get latitude =>
+      js_util.getProperty(this, 'latitude');
+  /* double | NaN */ dynamic? get longitude =>
+      js_util.getProperty(this, 'longitude');
+  /* double | NaN */ dynamic? get altitude =>
+      js_util.getProperty(this, 'altitude');
+  /* double | NaN */ dynamic? get accuracy =>
+      js_util.getProperty(this, 'accuracy');
+  /* double | NaN */ dynamic? get altitudeAccuracy =>
+      js_util.getProperty(this, 'altitudeAccuracy');
+  /* double | NaN */ dynamic? get heading =>
+      js_util.getProperty(this, 'heading');
+  /* double | NaN */ dynamic? get speed => js_util.getProperty(this, 'speed');
 }
 
 @anonymous
@@ -47,8 +54,10 @@ class ReadOptions implements GeolocationSensorOptions {
 }
 
 extension PropsReadOptions on ReadOptions {
-  external AbortSignal? get signal;
-  external set signal(AbortSignal? newValue);
+  AbortSignal? get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal? newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
 }
 
 @anonymous
@@ -67,22 +76,45 @@ class GeolocationSensorReading {
 }
 
 extension PropsGeolocationSensorReading on GeolocationSensorReading {
-  external double? get timestamp;
-  external set timestamp(double? newValue);
-  external double? get latitude;
-  external set latitude(double? newValue);
-  external double? get longitude;
-  external set longitude(double? newValue);
-  external double? get altitude;
-  external set altitude(double? newValue);
-  external double? get accuracy;
-  external set accuracy(double? newValue);
-  external double? get altitudeAccuracy;
-  external set altitudeAccuracy(double? newValue);
-  external double? get heading;
-  external set heading(double? newValue);
-  external double? get speed;
-  external set speed(double? newValue);
+  double? get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(double? newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  double? get latitude => js_util.getProperty(this, 'latitude');
+  set latitude(double? newValue) {
+    js_util.setProperty(this, 'latitude', newValue);
+  }
+
+  double? get longitude => js_util.getProperty(this, 'longitude');
+  set longitude(double? newValue) {
+    js_util.setProperty(this, 'longitude', newValue);
+  }
+
+  double? get altitude => js_util.getProperty(this, 'altitude');
+  set altitude(double? newValue) {
+    js_util.setProperty(this, 'altitude', newValue);
+  }
+
+  double? get accuracy => js_util.getProperty(this, 'accuracy');
+  set accuracy(double? newValue) {
+    js_util.setProperty(this, 'accuracy', newValue);
+  }
+
+  double? get altitudeAccuracy => js_util.getProperty(this, 'altitudeAccuracy');
+  set altitudeAccuracy(double? newValue) {
+    js_util.setProperty(this, 'altitudeAccuracy', newValue);
+  }
+
+  double? get heading => js_util.getProperty(this, 'heading');
+  set heading(double? newValue) {
+    js_util.setProperty(this, 'heading', newValue);
+  }
+
+  double? get speed => js_util.getProperty(this, 'speed');
+  set speed(double? newValue) {
+    js_util.setProperty(this, 'speed', newValue);
+  }
 }
 
 @anonymous
@@ -100,18 +132,38 @@ class GeolocationReadingValues {
 }
 
 extension PropsGeolocationReadingValues on GeolocationReadingValues {
-  external double? get latitude;
-  external set latitude(double? newValue);
-  external double? get longitude;
-  external set longitude(double? newValue);
-  external double? get altitude;
-  external set altitude(double? newValue);
-  external double? get accuracy;
-  external set accuracy(double? newValue);
-  external double? get altitudeAccuracy;
-  external set altitudeAccuracy(double? newValue);
-  external double? get heading;
-  external set heading(double? newValue);
-  external double? get speed;
-  external set speed(double? newValue);
+  double? get latitude => js_util.getProperty(this, 'latitude');
+  set latitude(double? newValue) {
+    js_util.setProperty(this, 'latitude', newValue);
+  }
+
+  double? get longitude => js_util.getProperty(this, 'longitude');
+  set longitude(double? newValue) {
+    js_util.setProperty(this, 'longitude', newValue);
+  }
+
+  double? get altitude => js_util.getProperty(this, 'altitude');
+  set altitude(double? newValue) {
+    js_util.setProperty(this, 'altitude', newValue);
+  }
+
+  double? get accuracy => js_util.getProperty(this, 'accuracy');
+  set accuracy(double? newValue) {
+    js_util.setProperty(this, 'accuracy', newValue);
+  }
+
+  double? get altitudeAccuracy => js_util.getProperty(this, 'altitudeAccuracy');
+  set altitudeAccuracy(double? newValue) {
+    js_util.setProperty(this, 'altitudeAccuracy', newValue);
+  }
+
+  double? get heading => js_util.getProperty(this, 'heading');
+  set heading(double? newValue) {
+    js_util.setProperty(this, 'heading', newValue);
+  }
+
+  double? get speed => js_util.getProperty(this, 'speed');
+  set speed(double? newValue) {
+    js_util.setProperty(this, 'speed', newValue);
+  }
 }

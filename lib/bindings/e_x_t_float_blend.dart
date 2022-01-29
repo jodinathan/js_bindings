@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_float_blend;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -32,5 +33,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class EXT_float_blend {
-  external factory EXT_float_blend();
+  external EXT_float_blend();
 }

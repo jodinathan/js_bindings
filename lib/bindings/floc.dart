@@ -5,6 +5,7 @@
 @staticInterop
 library floc;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -20,8 +21,13 @@ class InterestCohort {
 }
 
 extension PropsInterestCohort on InterestCohort {
-  external String get id;
-  external set id(String newValue);
-  external String get version;
-  external set version(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  String get version => js_util.getProperty(this, 'version');
+  set version(String newValue) {
+    js_util.setProperty(this, 'version', newValue);
+  }
 }

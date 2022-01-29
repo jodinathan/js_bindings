@@ -5,6 +5,7 @@
 @staticInterop
 library depth_sensing;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -29,10 +30,17 @@ class XRDepthStateInit {
 }
 
 extension PropsXRDepthStateInit on XRDepthStateInit {
-  external Iterable<XRDepthUsage> get usagePreference;
-  external set usagePreference(Iterable<XRDepthUsage> newValue);
-  external Iterable<XRDepthDataFormat> get dataFormatPreference;
-  external set dataFormatPreference(Iterable<XRDepthDataFormat> newValue);
+  Iterable<XRDepthUsage> get usagePreference =>
+      js_util.getProperty(this, 'usagePreference');
+  set usagePreference(Iterable<XRDepthUsage> newValue) {
+    js_util.setProperty(this, 'usagePreference', newValue);
+  }
+
+  Iterable<XRDepthDataFormat> get dataFormatPreference =>
+      js_util.getProperty(this, 'dataFormatPreference');
+  set dataFormatPreference(Iterable<XRDepthDataFormat> newValue) {
+    js_util.setProperty(this, 'dataFormatPreference', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -58,17 +66,17 @@ extension PropsXRDepthStateInit on XRDepthStateInit {
 @JS()
 @staticInterop
 class XRDepthInformation {
-  external factory XRDepthInformation();
+  external XRDepthInformation();
 }
 
 extension PropsXRDepthInformation on XRDepthInformation {
   /// Contains the width of the depth buffer (number of columns).
   ///
-  external int get width;
+  int get width => js_util.getProperty(this, 'width');
 
   /// Contains the height of the depth buffer (number of rows).
   ///
-  external int get height;
+  int get height => js_util.getProperty(this, 'height');
 
   ///  An [XRRigidTransform] that needs to be applied when indexing
   /// into the depth buffer. The transformation that the matrix
@@ -77,12 +85,13 @@ extension PropsXRDepthInformation on XRDepthInformation {
   /// be scaled by depth buffer’s [width] and [height] to obtain the
   /// absolute depth-buffer coordinates.
   ///
-  external XRRigidTransform get normDepthBufferFromNormView;
+  XRRigidTransform get normDepthBufferFromNormView =>
+      js_util.getProperty(this, 'normDepthBufferFromNormView');
 
   ///  Contains the scale factor by which the raw depth values must be
   /// multiplied in order to get the depths in meters.
   ///
-  external double get rawValueToMeters;
+  double get rawValueToMeters => js_util.getProperty(this, 'rawValueToMeters');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -106,21 +115,22 @@ extension PropsXRDepthInformation on XRDepthInformation {
 @JS()
 @staticInterop
 class XRCPUDepthInformation implements XRDepthInformation {
-  external factory XRCPUDepthInformation();
+  external XRCPUDepthInformation();
 }
 
 extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
   ///  An [ArrayBuffer] containing depth-buffer information in raw
   /// format.
   ///
-  external ByteBuffer get data;
+  ByteBuffer get data => js_util.getProperty(this, 'data');
 
   ///  Returns the depth in meters at (x, y) in normalized view
   /// coordinates.
   ///
   /// getDepthInMeters(x, y)
   ///
-  external double getDepthInMeters(double x, double y);
+  double getDepthInMeters(double x, double y) =>
+      js_util.callMethod(this, 'getDepthInMeters', [x, y]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -144,12 +154,12 @@ extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
 @JS()
 @staticInterop
 class XRWebGLDepthInformation implements XRDepthInformation {
-  external factory XRWebGLDepthInformation();
+  external XRWebGLDepthInformation();
 }
 
 extension PropsXRWebGLDepthInformation on XRWebGLDepthInformation {
   ///  A [WebGLTexture] containing depth buffer information as an
   /// opaque texture.
   ///
-  external WebGLTexture get texture;
+  WebGLTexture get texture => js_util.getProperty(this, 'texture');
 }

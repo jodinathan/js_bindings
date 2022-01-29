@@ -5,6 +5,7 @@
 @staticInterop
 library mediacapture_automation;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,10 +26,17 @@ class MockCapturePromptResultConfiguration {
 
 extension PropsMockCapturePromptResultConfiguration
     on MockCapturePromptResultConfiguration {
-  external MockCapturePromptResult get getUserMedia;
-  external set getUserMedia(MockCapturePromptResult newValue);
-  external MockCapturePromptResult get getDisplayMedia;
-  external set getDisplayMedia(MockCapturePromptResult newValue);
+  MockCapturePromptResult get getUserMedia =>
+      js_util.getProperty(this, 'getUserMedia');
+  set getUserMedia(MockCapturePromptResult newValue) {
+    js_util.setProperty(this, 'getUserMedia', newValue);
+  }
+
+  MockCapturePromptResult get getDisplayMedia =>
+      js_util.getProperty(this, 'getDisplayMedia');
+  set getDisplayMedia(MockCapturePromptResult newValue) {
+    js_util.setProperty(this, 'getDisplayMedia', newValue);
+  }
 }
 
 @anonymous
@@ -41,12 +49,20 @@ class MockCaptureDeviceConfiguration {
 
 extension PropsMockCaptureDeviceConfiguration
     on MockCaptureDeviceConfiguration {
-  external String get label;
-  external set label(String newValue);
-  external String get deviceId;
-  external set deviceId(String newValue);
-  external String get groupId;
-  external set groupId(String newValue);
+  String get label => js_util.getProperty(this, 'label');
+  set label(String newValue) {
+    js_util.setProperty(this, 'label', newValue);
+  }
+
+  String get deviceId => js_util.getProperty(this, 'deviceId');
+  set deviceId(String newValue) {
+    js_util.setProperty(this, 'deviceId', newValue);
+  }
+
+  String get groupId => js_util.getProperty(this, 'groupId');
+  set groupId(String newValue) {
+    js_util.setProperty(this, 'groupId', newValue);
+  }
 }
 
 @anonymous
@@ -58,10 +74,15 @@ class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
 }
 
 extension PropsMockCameraConfiguration on MockCameraConfiguration {
-  external double get defaultFrameRate;
-  external set defaultFrameRate(double newValue);
-  external String get facingMode;
-  external set facingMode(String newValue);
+  double get defaultFrameRate => js_util.getProperty(this, 'defaultFrameRate');
+  set defaultFrameRate(double newValue) {
+    js_util.setProperty(this, 'defaultFrameRate', newValue);
+  }
+
+  String get facingMode => js_util.getProperty(this, 'facingMode');
+  set facingMode(String newValue) {
+    js_util.setProperty(this, 'facingMode', newValue);
+  }
 }
 
 @anonymous
@@ -72,6 +93,8 @@ class MockMicrophoneConfiguration implements MockCaptureDeviceConfiguration {
 }
 
 extension PropsMockMicrophoneConfiguration on MockMicrophoneConfiguration {
-  external int get defaultSampleRate;
-  external set defaultSampleRate(int newValue);
+  int get defaultSampleRate => js_util.getProperty(this, 'defaultSampleRate');
+  set defaultSampleRate(int newValue) {
+    js_util.setProperty(this, 'defaultSampleRate', newValue);
+  }
 }

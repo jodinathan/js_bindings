@@ -5,6 +5,7 @@
 @staticInterop
 library ambient_light;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -28,14 +29,14 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class AmbientLightSensor implements Sensor {
-  external factory AmbientLightSensor([SensorOptions? sensorOptions]);
+  external AmbientLightSensor([SensorOptions? sensorOptions]);
 }
 
 extension PropsAmbientLightSensor on AmbientLightSensor {
   ///  Returns the current light level in lux of the ambient light
   /// level around the hosting device.
   ///
-  external double? get illuminance;
+  double? get illuminance => js_util.getProperty(this, 'illuminance');
 }
 
 @anonymous
@@ -46,6 +47,8 @@ class AmbientLightReadingValues {
 }
 
 extension PropsAmbientLightReadingValues on AmbientLightReadingValues {
-  external double? get illuminance;
-  external set illuminance(double? newValue);
+  double? get illuminance => js_util.getProperty(this, 'illuminance');
+  set illuminance(double? newValue) {
+    js_util.setProperty(this, 'illuminance', newValue);
+  }
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library media_source;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -41,14 +42,15 @@ enum EndOfStreamError { network, decode }
 @JS()
 @staticInterop
 class MediaSource implements EventTarget {
-  external factory MediaSource();
+  external MediaSource();
 }
 
 extension PropsMediaSource on MediaSource {
   ///  Returns a [SourceBufferList] object containing the list of
   /// [SourceBuffer] objects associated with this [MediaSource].
   ///
-  external SourceBufferList get sourceBuffers;
+  SourceBufferList get sourceBuffers =>
+      js_util.getProperty(this, 'sourceBuffers');
 
   ///  Returns a [SourceBufferList] object containing a subset of the
   /// [SourceBuffer] objects contained within
@@ -56,7 +58,8 @@ extension PropsMediaSource on MediaSource {
   /// selected video track, enabled audio tracks, and shown/hidden text
   /// tracks.
   ///
-  external SourceBufferList get activeSourceBuffers;
+  SourceBufferList get activeSourceBuffers =>
+      js_util.getProperty(this, 'activeSourceBuffers');
 
   ///  Returns an enum representing the state of the current
   /// [MediaSource], whether it is not currently attached to a media
@@ -64,18 +67,33 @@ extension PropsMediaSource on MediaSource {
   /// objects ([open]), or attached but the stream has been ended via
   /// [MediaSource.endOfStream()] ([ended].)
   ///
-  external ReadyState get readyState;
+  ReadyState get readyState => js_util.getProperty(this, 'readyState');
 
   /// Gets and sets the duration of the current media being presented.
   ///
-  external /* double | NaN */ dynamic get duration;
-  external set duration(/* double | NaN */ dynamic newValue);
-  external EventHandlerNonNull? get onsourceopen;
-  external set onsourceopen(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsourceended;
-  external set onsourceended(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsourceclose;
-  external set onsourceclose(EventHandlerNonNull? newValue);
+  /* double | NaN */ dynamic get duration =>
+      js_util.getProperty(this, 'duration');
+  set duration(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  EventHandlerNonNull? get onsourceopen =>
+      js_util.getProperty(this, 'onsourceopen');
+  set onsourceopen(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsourceopen', newValue);
+  }
+
+  EventHandlerNonNull? get onsourceended =>
+      js_util.getProperty(this, 'onsourceended');
+  set onsourceended(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsourceended', newValue);
+  }
+
+  EventHandlerNonNull? get onsourceclose =>
+      js_util.getProperty(this, 'onsourceclose');
+  set onsourceclose(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsourceclose', newValue);
+  }
 
   ///  Creates a new [SourceBuffer] of the given MIME type and adds it
   /// to the [MediaSource.sourceBuffers] list.
@@ -113,14 +131,16 @@ extension PropsMediaSource on MediaSource {
   ///  });
   /// };
   ///
-  external SourceBuffer addSourceBuffer(String type);
+  SourceBuffer addSourceBuffer(String type) =>
+      js_util.callMethod(this, 'addSourceBuffer', [type]);
 
   ///  Removes the given [SourceBuffer] from the
   /// [MediaSource.sourceBuffers] list.
   ///
   /// mediaSource.removeSourceBuffer(sourceBuffer);
   ///
-  external Object removeSourceBuffer(SourceBuffer sourceBuffer);
+  Object removeSourceBuffer(SourceBuffer sourceBuffer) =>
+      js_util.callMethod(this, 'removeSourceBuffer', [sourceBuffer]);
 
   /// Signals the end of the stream.
   ///
@@ -157,7 +177,8 @@ extension PropsMediaSource on MediaSource {
   ///  });
   /// };
   ///
-  external Object endOfStream([EndOfStreamError? error]);
+  Object endOfStream([EndOfStreamError? error]) =>
+      js_util.callMethod(this, 'endOfStream', [error]);
 
   /// Sets the range that the user can seek to in the media element.
   ///
@@ -165,14 +186,17 @@ extension PropsMediaSource on MediaSource {
   ///
   /// // TBD
   ///
-  external Object setLiveSeekableRange(double start, double end);
+  Object setLiveSeekableRange(double start, double end) =>
+      js_util.callMethod(this, 'setLiveSeekableRange', [start, end]);
 
   ///  Clears a seekable range previously set with a call to
   /// [setLiveSeekableRange()].
   ///
   /// mediaSource.clearLiveSeekableRange()
   ///
-  external Object clearLiveSeekableRange();
+  Object clearLiveSeekableRange() =>
+      js_util.callMethod(this, 'clearLiveSeekableRange', []);
+
   external static bool isTypeSupported(String type);
 }
 
@@ -197,7 +221,7 @@ enum AppendMode { segments, sequence }
 @JS()
 @staticInterop
 class SourceBuffer implements EventTarget {
-  external factory SourceBuffer();
+  external SourceBuffer();
 }
 
 extension PropsSourceBuffer on SourceBuffer {
@@ -205,41 +229,45 @@ extension PropsSourceBuffer on SourceBuffer {
   /// is handled, in terms of whether they can be appended in any
   /// order, or they have to be kept in a strict sequence.
   ///
-  external AppendMode get mode;
-  external set mode(AppendMode newValue);
+  AppendMode get mode => js_util.getProperty(this, 'mode');
+  set mode(AppendMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
 
   ///  A boolean indicating whether the [SourceBuffer] is currently
   /// being updated — i.e. whether an [SourceBuffer.appendBuffer()],
   /// [SourceBuffer.appendStream()], or [SourceBuffer.remove()]
   /// operation is currently in progress.
   ///
-  external bool get updating;
+  bool get updating => js_util.getProperty(this, 'updating');
 
   ///  Returns the time ranges that are currently buffered in the
   /// [SourceBuffer].
   ///
-  external TimeRanges get buffered;
+  TimeRanges get buffered => js_util.getProperty(this, 'buffered');
 
   ///  Controls the offset applied to timestamps inside media segments
   /// that are subsequently appended to the [SourceBuffer].
   ///
-  external double get timestampOffset;
-  external set timestampOffset(double newValue);
+  double get timestampOffset => js_util.getProperty(this, 'timestampOffset');
+  set timestampOffset(double newValue) {
+    js_util.setProperty(this, 'timestampOffset', newValue);
+  }
 
   ///  A list of the audio tracks currently contained inside the
   /// [SourceBuffer].
   ///
-  external AudioTrackList get audioTracks;
+  AudioTrackList get audioTracks => js_util.getProperty(this, 'audioTracks');
 
   ///  A list of the video tracks currently contained inside the
   /// [SourceBuffer].
   ///
-  external VideoTrackList get videoTracks;
+  VideoTrackList get videoTracks => js_util.getProperty(this, 'videoTracks');
 
   ///  A list of the text tracks currently contained inside the
   /// [SourceBuffer].
   ///
-  external TextTrackList get textTracks;
+  TextTrackList get textTracks => js_util.getProperty(this, 'textTracks');
 
   ///  Controls the timestamp for the start of the append window. This
   /// is a timestamp range that can be used to filter what media data
@@ -247,23 +275,46 @@ extension PropsSourceBuffer on SourceBuffer {
   /// timestamps within this range will be appended, whereas those
   /// outside the range will be filtered out.
   ///
-  external double get appendWindowStart;
-  external set appendWindowStart(double newValue);
+  double get appendWindowStart =>
+      js_util.getProperty(this, 'appendWindowStart');
+  set appendWindowStart(double newValue) {
+    js_util.setProperty(this, 'appendWindowStart', newValue);
+  }
 
   /// Controls the timestamp for the end of the append window.
   ///
-  external /* double | NaN */ dynamic get appendWindowEnd;
-  external set appendWindowEnd(/* double | NaN */ dynamic newValue);
-  external EventHandlerNonNull? get onupdatestart;
-  external set onupdatestart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onupdate;
-  external set onupdate(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onupdateend;
-  external set onupdateend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onabort;
-  external set onabort(EventHandlerNonNull? newValue);
+  /* double | NaN */ dynamic get appendWindowEnd =>
+      js_util.getProperty(this, 'appendWindowEnd');
+  set appendWindowEnd(/* double | NaN */ dynamic newValue) {
+    js_util.setProperty(this, 'appendWindowEnd', newValue);
+  }
+
+  EventHandlerNonNull? get onupdatestart =>
+      js_util.getProperty(this, 'onupdatestart');
+  set onupdatestart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onupdatestart', newValue);
+  }
+
+  EventHandlerNonNull? get onupdate => js_util.getProperty(this, 'onupdate');
+  set onupdate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onupdate', newValue);
+  }
+
+  EventHandlerNonNull? get onupdateend =>
+      js_util.getProperty(this, 'onupdateend');
+  set onupdateend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onupdateend', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onabort => js_util.getProperty(this, 'onabort');
+  set onabort(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onabort', newValue);
+  }
 
   ///  Appends media segment data from an [ArrayBuffer] or
   /// [ArrayBufferView] object to the [SourceBuffer].
@@ -271,7 +322,8 @@ extension PropsSourceBuffer on SourceBuffer {
   /// sourceBuffer.appendBuffer(source);
   ///
   /// TBD.
-  external Object appendBuffer(dynamic data);
+  Object appendBuffer(dynamic data) =>
+      js_util.callMethod(this, 'appendBuffer', [data]);
 
   /// Aborts the current segment and resets the segment parser.
   ///
@@ -309,7 +361,7 @@ extension PropsSourceBuffer on SourceBuffer {
   ///  and
   ///  getCurrentSegment().)
   ///
-  external Object abort();
+  Object abort() => js_util.callMethod(this, 'abort', []);
 
   ///  Removes media segments within a specific time range from the
   /// [SourceBuffer].
@@ -317,7 +369,8 @@ extension PropsSourceBuffer on SourceBuffer {
   /// sourceBuffer.remove(start, end);
   ///
   /// TBD.
-  external Object remove(double start, /* double | NaN */ dynamic end);
+  Object remove(double start, /* double | NaN */ dynamic end) =>
+      js_util.callMethod(this, 'remove', [start, end]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -346,15 +399,22 @@ extension PropsSourceBuffer on SourceBuffer {
 @JS()
 @staticInterop
 class SourceBufferList implements EventTarget {
-  external factory SourceBufferList();
+  external SourceBufferList();
 }
 
 extension PropsSourceBufferList on SourceBufferList {
   /// Returns the number of [SourceBuffer] objects in the list.
   ///
-  external int get length;
-  external EventHandlerNonNull? get onaddsourcebuffer;
-  external set onaddsourcebuffer(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onremovesourcebuffer;
-  external set onremovesourcebuffer(EventHandlerNonNull? newValue);
+  int get length => js_util.getProperty(this, 'length');
+  EventHandlerNonNull? get onaddsourcebuffer =>
+      js_util.getProperty(this, 'onaddsourcebuffer');
+  set onaddsourcebuffer(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onaddsourcebuffer', newValue);
+  }
+
+  EventHandlerNonNull? get onremovesourcebuffer =>
+      js_util.getProperty(this, 'onremovesourcebuffer');
+  set onremovesourcebuffer(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onremovesourcebuffer', newValue);
+  }
 }

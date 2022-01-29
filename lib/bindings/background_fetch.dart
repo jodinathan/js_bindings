@@ -5,6 +5,7 @@
 @staticInterop
 library background_fetch;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -24,7 +25,7 @@ dom */
 @JS()
 @staticInterop
 class BackgroundFetchManager {
-  external factory BackgroundFetchManager();
+  external BackgroundFetchManager();
 }
 
 extension PropsBackgroundFetchManager on BackgroundFetchManager {
@@ -34,9 +35,9 @@ extension PropsBackgroundFetchManager on BackgroundFetchManager {
   ///
   /// let backgroundFetchRegistration = BackgroundFetchManager.fetch(id, requests [,options]);
   ///
-  external Promise<BackgroundFetchRegistration> fetch(
-      String id, dynamic requests,
-      [BackgroundFetchOptions? options]);
+  Promise<BackgroundFetchRegistration> fetch(String id, dynamic requests,
+          [BackgroundFetchOptions? options]) =>
+      js_util.callMethod(this, 'fetch', [id, requests, options]);
 
   ///  Returns a [Promise] that resolves with the
   /// [BackgroundFetchRegistration] associated with the provided [id]
@@ -46,8 +47,10 @@ extension PropsBackgroundFetchManager on BackgroundFetchManager {
   ///
   @JS('get')
   @staticInterop
-  external Promise<BackgroundFetchRegistration> mGet(String id);
-  external Iterable<Promise<String>> getIds();
+  Promise<BackgroundFetchRegistration> mGet(String id) =>
+      js_util.callMethod(this, 'get', [id]);
+
+  Iterable<Promise<String>> getIds() => js_util.callMethod(this, 'getIds', []);
 }
 
 @anonymous
@@ -59,10 +62,15 @@ class BackgroundFetchUIOptions {
 }
 
 extension PropsBackgroundFetchUIOptions on BackgroundFetchUIOptions {
-  external Iterable<ImageResource> get icons;
-  external set icons(Iterable<ImageResource> newValue);
-  external String get title;
-  external set title(String newValue);
+  Iterable<ImageResource> get icons => js_util.getProperty(this, 'icons');
+  set icons(Iterable<ImageResource> newValue) {
+    js_util.setProperty(this, 'icons', newValue);
+  }
+
+  String get title => js_util.getProperty(this, 'title');
+  set title(String newValue) {
+    js_util.setProperty(this, 'title', newValue);
+  }
 }
 
 @anonymous
@@ -73,8 +81,10 @@ class BackgroundFetchOptions implements BackgroundFetchUIOptions {
 }
 
 extension PropsBackgroundFetchOptions on BackgroundFetchOptions {
-  external int get downloadTotal;
-  external set downloadTotal(int newValue);
+  int get downloadTotal => js_util.getProperty(this, 'downloadTotal');
+  set downloadTotal(int newValue) {
+    js_util.setProperty(this, 'downloadTotal', newValue);
+  }
 }
 
 ///  The interface of the Background Fetch API represents an
@@ -85,38 +95,38 @@ extension PropsBackgroundFetchOptions on BackgroundFetchOptions {
 @JS()
 @staticInterop
 class BackgroundFetchRegistration implements EventTarget {
-  external factory BackgroundFetchRegistration();
+  external BackgroundFetchRegistration();
 }
 
 extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
   /// A [string] containing the background fetch's ID.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   /// A [number] containing the total number of bytes to be uploaded.
   ///
-  external int get uploadTotal;
+  int get uploadTotal => js_util.getProperty(this, 'uploadTotal');
 
   ///  A [number] containing the size in bytes successfully sent,
   /// initially [0].
   ///
-  external int get uploaded;
+  int get uploaded => js_util.getProperty(this, 'uploaded');
 
   ///  A [number] containing the total size in bytes of this download.
   /// This is the value set when the background fetch was registered,
   /// or [0].
   ///
-  external int get downloadTotal;
+  int get downloadTotal => js_util.getProperty(this, 'downloadTotal');
 
   ///  A [number] containing the size in bytes that has been
   /// downloaded, initially [0].
   ///
-  external int get downloaded;
+  int get downloaded => js_util.getProperty(this, 'downloaded');
 
   ///  Returns an empty string initially, on completion either the
   /// string ["success"] or ["failure"].
   ///
-  external BackgroundFetchResult get result;
+  BackgroundFetchResult get result => js_util.getProperty(this, 'result');
 
   /// One of the following strings:
   ///
@@ -150,28 +160,33 @@ extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
   ///
   ///
   ///
-  external BackgroundFetchFailureReason get failureReason;
+  BackgroundFetchFailureReason get failureReason =>
+      js_util.getProperty(this, 'failureReason');
 
   /// A [boolean] indicating whether the flag is set.
   ///
-  external bool get recordsAvailable;
-  external EventHandlerNonNull? get onprogress;
-  external set onprogress(EventHandlerNonNull? newValue);
+  bool get recordsAvailable => js_util.getProperty(this, 'recordsAvailable');
+  EventHandlerNonNull? get onprogress =>
+      js_util.getProperty(this, 'onprogress');
+  set onprogress(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onprogress', newValue);
+  }
 
   ///  Aborts the background fetch. Returns a [Promise] that resolves
   /// with [true] if the fetch was successfully aborted.
   ///
   /// let status = BackgroundFetchRegistration.abort();
   ///
-  external Promise<bool> abort();
+  Promise<bool> abort() => js_util.callMethod(this, 'abort', []);
 
   ///  Returns a single [BackgroundFetchRecord] object which is the
   /// first match for the arguments.
   ///
   /// let record = BackgroundFetchRegistration.match(request, options);
   ///
-  external Promise<BackgroundFetchRecord> match(dynamic request,
-      [CacheQueryOptions? options]);
+  Promise<BackgroundFetchRecord> match(dynamic request,
+          [CacheQueryOptions? options]) =>
+      js_util.callMethod(this, 'match', [request, options]);
 
   ///  Returns a [Promise] that resolves with an array of
   /// [BackgroundFetchRecord] objects containing requests and
@@ -179,8 +194,9 @@ extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
   ///
   /// let records = BackgroundFetchRegistration.matchAll(request,options);
   ///
-  external Iterable<Promise<BackgroundFetchRecord>> matchAll(
-      [dynamic request, CacheQueryOptions? options]);
+  Iterable<Promise<BackgroundFetchRecord>> matchAll(
+          [dynamic request, CacheQueryOptions? options]) =>
+      js_util.callMethod(this, 'matchAll', [request, options]);
 }
 
 enum BackgroundFetchResult { empty, success, failure }
@@ -202,17 +218,18 @@ enum BackgroundFetchFailureReason {
 @JS()
 @staticInterop
 class BackgroundFetchRecord {
-  external factory BackgroundFetchRecord();
+  external BackgroundFetchRecord();
 }
 
 extension PropsBackgroundFetchRecord on BackgroundFetchRecord {
   /// Returns a [Request].
   ///
-  external Request get request;
+  Request get request => js_util.getProperty(this, 'request');
 
   /// Returns a promise that resolves with a [Response].
   ///
-  external Promise<Response> get responseReady;
+  Promise<Response> get responseReady =>
+      js_util.getProperty(this, 'responseReady');
 }
 
 ///  The interface of the Background Fetch API is the event type for
@@ -223,15 +240,15 @@ extension PropsBackgroundFetchRecord on BackgroundFetchRecord {
 @JS()
 @staticInterop
 class BackgroundFetchEvent implements ExtendableEvent {
-  external factory BackgroundFetchEvent(
-      String type, BackgroundFetchEventInit init);
+  external BackgroundFetchEvent(String type, BackgroundFetchEventInit init);
 }
 
 extension PropsBackgroundFetchEvent on BackgroundFetchEvent {
   ///  Returns the [BackgroundFetchRegistration] that the event was
   /// initialized to.
   ///
-  external BackgroundFetchRegistration get registration;
+  BackgroundFetchRegistration get registration =>
+      js_util.getProperty(this, 'registration');
 }
 
 @anonymous
@@ -243,8 +260,11 @@ class BackgroundFetchEventInit implements ExtendableEventInit {
 }
 
 extension PropsBackgroundFetchEventInit on BackgroundFetchEventInit {
-  external BackgroundFetchRegistration get registration;
-  external set registration(BackgroundFetchRegistration newValue);
+  BackgroundFetchRegistration get registration =>
+      js_util.getProperty(this, 'registration');
+  set registration(BackgroundFetchRegistration newValue) {
+    js_util.setProperty(this, 'registration', newValue);
+  }
 }
 
 ///  The interface of the Background Fetch API is an event type
@@ -255,7 +275,7 @@ extension PropsBackgroundFetchEventInit on BackgroundFetchEventInit {
 @JS()
 @staticInterop
 class BackgroundFetchUpdateUIEvent implements BackgroundFetchEvent {
-  external factory BackgroundFetchUpdateUIEvent(
+  external BackgroundFetchUpdateUIEvent(
       String type, BackgroundFetchEventInit init);
 }
 
@@ -265,5 +285,6 @@ extension PropsBackgroundFetchUpdateUIEvent on BackgroundFetchUpdateUIEvent {
   ///
   /// let updateUI = BackgroundFetchUpdateUIEvent.updateUI(options);
   ///
-  external Promise<Object> updateUI([BackgroundFetchUIOptions? options]);
+  Promise<Object> updateUI([BackgroundFetchUIOptions? options]) =>
+      js_util.callMethod(this, 'updateUI', [options]);
 }

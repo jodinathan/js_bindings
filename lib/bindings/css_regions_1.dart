@@ -5,6 +5,7 @@
 @staticInterop
 library css_regions_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,31 +16,36 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class NamedFlowMap {
-  external factory NamedFlowMap();
+  external NamedFlowMap();
 }
 
 @JS()
 @staticInterop
 class NamedFlow implements EventTarget {
-  external factory NamedFlow();
+  external NamedFlow();
 }
 
 extension PropsNamedFlow on NamedFlow {
-  external String get name;
-  external bool get overset;
-  external Iterable<Element> getRegions();
-  external int get firstEmptyRegionIndex;
-  external Iterable<Node> getContent();
-  external Iterable<Element> getRegionsByContent(Node node);
+  String get name => js_util.getProperty(this, 'name');
+  bool get overset => js_util.getProperty(this, 'overset');
+  Iterable<Element> getRegions() => js_util.callMethod(this, 'getRegions', []);
+
+  int get firstEmptyRegionIndex =>
+      js_util.getProperty(this, 'firstEmptyRegionIndex');
+  Iterable<Node> getContent() => js_util.callMethod(this, 'getContent', []);
+
+  Iterable<Element> getRegionsByContent(Node node) =>
+      js_util.callMethod(this, 'getRegionsByContent', [node]);
 }
 
 @JS()
 @staticInterop
 class Region {
-  external factory Region();
+  external Region();
 }
 
 extension PropsRegion on Region {
-  external String get regionOverset;
-  external Iterable<Range> getRegionFlowRanges();
+  String get regionOverset => js_util.getProperty(this, 'regionOverset');
+  Iterable<Range> getRegionFlowRanges() =>
+      js_util.callMethod(this, 'getRegionFlowRanges', []);
 }

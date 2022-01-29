@@ -5,6 +5,7 @@
 @staticInterop
 library presentation_api;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -30,13 +31,17 @@ file_a_p_i */
 @JS()
 @staticInterop
 class Presentation {
-  external factory Presentation();
+  external Presentation();
 }
 
 extension PropsPresentation on Presentation {
-  external PresentationRequest? get defaultRequest;
-  external set defaultRequest(PresentationRequest? newValue);
-  external PresentationReceiver? get receiver;
+  PresentationRequest? get defaultRequest =>
+      js_util.getProperty(this, 'defaultRequest');
+  set defaultRequest(PresentationRequest? newValue) {
+    js_util.setProperty(this, 'defaultRequest', newValue);
+  }
+
+  PresentationReceiver? get receiver => js_util.getProperty(this, 'receiver');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -54,7 +59,7 @@ extension PropsPresentation on Presentation {
 @JS()
 @staticInterop
 class PresentationRequest implements EventTarget {
-  external factory PresentationRequest(String url);
+  external PresentationRequest(String url);
 }
 
 extension PropsPresentationRequest on PresentationRequest {
@@ -66,20 +71,27 @@ extension PropsPresentationRequest on PresentationRequest {
   /// promise.then(function(PresentationConnection) { /* ... */ })
   ///     .catch(function(error) { ...})
   ///
-  external Promise<PresentationConnection> start();
+  Promise<PresentationConnection> start() =>
+      js_util.callMethod(this, 'start', []);
 
   ///  When the [reconnect(presentationId)] method is called on a
   /// [PresentationRequest] presentationRequest, the user agent MUST
   /// run the following steps to reconnect to a presentation.
   ///
-  external Promise<PresentationConnection> reconnect(String presentationId);
+  Promise<PresentationConnection> reconnect(String presentationId) =>
+      js_util.callMethod(this, 'reconnect', [presentationId]);
 
   ///  When the [getAvailability()] method is called, the user agent
   /// MUST run the steps as the link.
   ///
-  external Promise<PresentationAvailability> getAvailability();
-  external EventHandlerNonNull? get onconnectionavailable;
-  external set onconnectionavailable(EventHandlerNonNull? newValue);
+  Promise<PresentationAvailability> getAvailability() =>
+      js_util.callMethod(this, 'getAvailability', []);
+
+  EventHandlerNonNull? get onconnectionavailable =>
+      js_util.getProperty(this, 'onconnectionavailable');
+  set onconnectionavailable(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnectionavailable', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -101,7 +113,7 @@ extension PropsPresentationRequest on PresentationRequest {
 @JS()
 @staticInterop
 class PresentationAvailability implements EventTarget {
-  external factory PresentationAvailability();
+  external PresentationAvailability();
 }
 
 extension PropsPresentationAvailability on PresentationAvailability {
@@ -109,9 +121,11 @@ extension PropsPresentationAvailability on PresentationAvailability {
   /// display is available. The attribute MUST return the last value it
   /// was set to.
   ///
-  external bool get value;
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
+  bool get value => js_util.getProperty(this, 'value');
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -135,7 +149,7 @@ extension PropsPresentationAvailability on PresentationAvailability {
 @JS()
 @staticInterop
 class PresentationConnectionAvailableEvent implements Event {
-  external factory PresentationConnectionAvailableEvent(
+  external PresentationConnectionAvailableEvent(
       String type, PresentationConnectionAvailableEventInit eventInitDict);
 }
 
@@ -144,7 +158,8 @@ extension PropsPresentationConnectionAvailableEvent
   ///  Returns a references to the [PresentationConnection] object that
   /// fired the event.
   ///
-  external PresentationConnection get connection;
+  PresentationConnection get connection =>
+      js_util.getProperty(this, 'connection');
 }
 
 @anonymous
@@ -157,8 +172,11 @@ class PresentationConnectionAvailableEventInit implements EventInit {
 
 extension PropsPresentationConnectionAvailableEventInit
     on PresentationConnectionAvailableEventInit {
-  external PresentationConnection get connection;
-  external set connection(PresentationConnection newValue);
+  PresentationConnection get connection =>
+      js_util.getProperty(this, 'connection');
+  set connection(PresentationConnection newValue) {
+    js_util.setProperty(this, 'connection', newValue);
+  }
 }
 
 enum PresentationConnectionState { connecting, connected, closed, terminated }
@@ -175,54 +193,69 @@ enum PresentationConnectionState { connecting, connected, closed, terminated }
 @JS()
 @staticInterop
 class PresentationConnection implements EventTarget {
-  external factory PresentationConnection();
+  external PresentationConnection();
 }
 
 extension PropsPresentationConnection on PresentationConnection {
   /// Provides the presentation connection identifier.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   /// Returns the URL used to create or reconnect to the presentation.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   /// Returns the presentation connection's current state.
   ///
-  external PresentationConnectionState get state;
+  PresentationConnectionState get state => js_util.getProperty(this, 'state');
 
   ///  Closes the current connection and sends a
   /// [PresentationConnectionCloseEvent] to
   /// [PresentationConnection.onclosed].
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 
   ///  Terminates the current connection and fires
   /// [PresentationConnection.onterminated].
   ///
-  external Object terminate();
-  external EventHandlerNonNull? get onconnect;
-  external set onconnect(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onclose;
-  external set onclose(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onterminate;
-  external set onterminate(EventHandlerNonNull? newValue);
+  Object terminate() => js_util.callMethod(this, 'terminate', []);
+
+  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
+  set onconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnect', newValue);
+  }
+
+  EventHandlerNonNull? get onclose => js_util.getProperty(this, 'onclose');
+  set onclose(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclose', newValue);
+  }
+
+  EventHandlerNonNull? get onterminate =>
+      js_util.getProperty(this, 'onterminate');
+  set onterminate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onterminate', newValue);
+  }
 
   ///  Returns either blob or arrayBuffer. When a
   /// [PresentationConnection] object is created, its IDL attribute
   /// MUST be set to the string " [arraybuffer]".
   ///
-  external BinaryType get binaryType;
-  external set binaryType(BinaryType newValue);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
+  BinaryType get binaryType => js_util.getProperty(this, 'binaryType');
+  set binaryType(BinaryType newValue) {
+    js_util.setProperty(this, 'binaryType', newValue);
+  }
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
 
   ///  Sends either binary or text data between a controlling browsing
   /// context and a presenting browsing context.
   ///
   /// PresentationConnection.send(data);
   ///
-  external Object send(String message);
+  Object send(String message) => js_util.callMethod(this, 'send', [message]);
 }
 
 enum PresentationConnectionCloseReason { error, closed, wentaway }
@@ -237,7 +270,7 @@ enum PresentationConnectionCloseReason { error, closed, wentaway }
 @JS()
 @staticInterop
 class PresentationConnectionCloseEvent implements Event {
-  external factory PresentationConnectionCloseEvent(
+  external PresentationConnectionCloseEvent(
       String type, PresentationConnectionCloseEventInit eventInitDict);
 }
 
@@ -246,12 +279,13 @@ extension PropsPresentationConnectionCloseEvent
   ///  Indicates why the connection was closed. This property takes one
   /// of the following values: [error], [closed], or [wentaway].
   ///
-  external PresentationConnectionCloseReason get reason;
+  PresentationConnectionCloseReason get reason =>
+      js_util.getProperty(this, 'reason');
 
   ///  A human-readable message that provides more information about
   /// why the connection was closed.
   ///
-  external String get message;
+  String get message => js_util.getProperty(this, 'message');
 }
 
 @anonymous
@@ -264,10 +298,16 @@ class PresentationConnectionCloseEventInit implements EventInit {
 
 extension PropsPresentationConnectionCloseEventInit
     on PresentationConnectionCloseEventInit {
-  external PresentationConnectionCloseReason get reason;
-  external set reason(PresentationConnectionCloseReason newValue);
-  external String get message;
-  external set message(String newValue);
+  PresentationConnectionCloseReason get reason =>
+      js_util.getProperty(this, 'reason');
+  set reason(PresentationConnectionCloseReason newValue) {
+    js_util.setProperty(this, 'reason', newValue);
+  }
+
+  String get message => js_util.getProperty(this, 'message');
+  set message(String newValue) {
+    js_util.setProperty(this, 'message', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -282,7 +322,7 @@ extension PropsPresentationConnectionCloseEventInit
 @JS()
 @staticInterop
 class PresentationReceiver {
-  external factory PresentationReceiver();
+  external PresentationReceiver();
 }
 
 extension PropsPresentationReceiver on PresentationReceiver {
@@ -290,7 +330,8 @@ extension PropsPresentationReceiver on PresentationReceiver {
   /// [PresentationConnectionList] object containing a list of incoming
   /// presentation connections.
   ///
-  external Promise<PresentationConnectionList> get connectionList;
+  Promise<PresentationConnectionList> get connectionList =>
+      js_util.getProperty(this, 'connectionList');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -303,14 +344,18 @@ extension PropsPresentationReceiver on PresentationReceiver {
 @JS()
 @staticInterop
 class PresentationConnectionList implements EventTarget {
-  external factory PresentationConnectionList();
+  external PresentationConnectionList();
 }
 
 extension PropsPresentationConnectionList on PresentationConnectionList {
   ///  Returns the non-terminated set of [PresentationConnection]s in
   /// the set of presentation controllers.
   ///
-  external Iterable<PresentationConnection> get connections;
-  external EventHandlerNonNull? get onconnectionavailable;
-  external set onconnectionavailable(EventHandlerNonNull? newValue);
+  Iterable<PresentationConnection> get connections =>
+      js_util.getProperty(this, 'connections');
+  EventHandlerNonNull? get onconnectionavailable =>
+      js_util.getProperty(this, 'onconnectionavailable');
+  set onconnectionavailable(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnectionavailable', newValue);
+  }
 }

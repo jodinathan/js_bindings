@@ -5,6 +5,7 @@
 @staticInterop
 library wasm_js_api_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -23,23 +24,32 @@ class WebAssemblyInstantiatedSource {
 }
 
 extension PropsWebAssemblyInstantiatedSource on WebAssemblyInstantiatedSource {
-  external Module get module;
-  external set module(Module newValue);
-  external Instance get instance;
-  external set instance(Instance newValue);
+  Module get module => js_util.getProperty(this, 'module');
+  set module(Module newValue) {
+    js_util.setProperty(this, 'module', newValue);
+  }
+
+  Instance get instance => js_util.getProperty(this, 'instance');
+  set instance(Instance newValue) {
+    js_util.setProperty(this, 'instance', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class WebAssembly {
-  external factory WebAssembly();
+  external WebAssembly();
 }
 
 extension PropsWebAssembly on WebAssembly {
-  external bool validate(dynamic bytes);
-  external Promise<Module> compile(dynamic bytes);
-  external Promise<WebAssemblyInstantiatedSource> instantiate(dynamic bytes,
-      [dynamic importObject]);
+  bool validate(dynamic bytes) => js_util.callMethod(this, 'validate', [bytes]);
+
+  Promise<Module> compile(dynamic bytes) =>
+      js_util.callMethod(this, 'compile', [bytes]);
+
+  Promise<WebAssemblyInstantiatedSource> instantiate(dynamic bytes,
+          [dynamic importObject]) =>
+      js_util.callMethod(this, 'instantiate', [bytes, importObject]);
 }
 
 enum ImportExportKind { function, table, memory, global }
@@ -52,10 +62,15 @@ class ModuleExportDescriptor {
 }
 
 extension PropsModuleExportDescriptor on ModuleExportDescriptor {
-  external String get name;
-  external set name(String newValue);
-  external ImportExportKind get kind;
-  external set kind(ImportExportKind newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  ImportExportKind get kind => js_util.getProperty(this, 'kind');
+  set kind(ImportExportKind newValue) {
+    js_util.setProperty(this, 'kind', newValue);
+  }
 }
 
 @anonymous
@@ -67,18 +82,26 @@ class ModuleImportDescriptor {
 }
 
 extension PropsModuleImportDescriptor on ModuleImportDescriptor {
-  external String get module;
-  external set module(String newValue);
-  external String get name;
-  external set name(String newValue);
-  external ImportExportKind get kind;
-  external set kind(ImportExportKind newValue);
+  String get module => js_util.getProperty(this, 'module');
+  set module(String newValue) {
+    js_util.setProperty(this, 'module', newValue);
+  }
+
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  ImportExportKind get kind => js_util.getProperty(this, 'kind');
+  set kind(ImportExportKind newValue) {
+    js_util.setProperty(this, 'kind', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class Module {
-  external factory Module(dynamic bytes);
+  external Module(dynamic bytes);
 }
 
 extension PropsModule on Module {
@@ -91,11 +114,11 @@ extension PropsModule on Module {
 @JS()
 @staticInterop
 class Instance {
-  external factory Instance(Module module, [dynamic importObject]);
+  external Instance(Module module, [dynamic importObject]);
 }
 
 extension PropsInstance on Instance {
-  external dynamic get exports;
+  dynamic get exports => js_util.getProperty(this, 'exports');
 }
 
 @anonymous
@@ -106,21 +129,27 @@ class MemoryDescriptor {
 }
 
 extension PropsMemoryDescriptor on MemoryDescriptor {
-  external int get initial;
-  external set initial(int newValue);
-  external int get maximum;
-  external set maximum(int newValue);
+  int get initial => js_util.getProperty(this, 'initial');
+  set initial(int newValue) {
+    js_util.setProperty(this, 'initial', newValue);
+  }
+
+  int get maximum => js_util.getProperty(this, 'maximum');
+  set maximum(int newValue) {
+    js_util.setProperty(this, 'maximum', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class Memory {
-  external factory Memory(MemoryDescriptor descriptor);
+  external Memory(MemoryDescriptor descriptor);
 }
 
 extension PropsMemory on Memory {
-  external int grow(int delta);
-  external ByteBuffer get buffer;
+  int grow(int delta) => js_util.callMethod(this, 'grow', [delta]);
+
+  ByteBuffer get buffer => js_util.getProperty(this, 'buffer');
 }
 
 enum TableKind { externref, anyfunc }
@@ -134,29 +163,42 @@ class TableDescriptor {
 }
 
 extension PropsTableDescriptor on TableDescriptor {
-  external TableKind get element;
-  external set element(TableKind newValue);
-  external int get initial;
-  external set initial(int newValue);
-  external int get maximum;
-  external set maximum(int newValue);
+  TableKind get element => js_util.getProperty(this, 'element');
+  set element(TableKind newValue) {
+    js_util.setProperty(this, 'element', newValue);
+  }
+
+  int get initial => js_util.getProperty(this, 'initial');
+  set initial(int newValue) {
+    js_util.setProperty(this, 'initial', newValue);
+  }
+
+  int get maximum => js_util.getProperty(this, 'maximum');
+  set maximum(int newValue) {
+    js_util.setProperty(this, 'maximum', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class Table {
-  external factory Table(TableDescriptor descriptor, [dynamic value]);
+  external Table(TableDescriptor descriptor, [dynamic value]);
 }
 
 extension PropsTable on Table {
-  external int grow(int delta, [dynamic value]);
+  int grow(int delta, [dynamic value]) =>
+      js_util.callMethod(this, 'grow', [delta, value]);
+
   @JS('get')
   @staticInterop
-  external dynamic mGet(int index);
+  dynamic mGet(int index) => js_util.callMethod(this, 'get', [index]);
+
   @JS('set')
   @staticInterop
-  external Object mSet(int index, [dynamic value]);
-  external int get length;
+  Object mSet(int index, [dynamic value]) =>
+      js_util.callMethod(this, 'set', [index, value]);
+
+  int get length => js_util.getProperty(this, 'length');
 }
 
 enum ValueType { i32, i64, f32, f64, externref, anyfunc }
@@ -169,38 +211,46 @@ class GlobalDescriptor {
 }
 
 extension PropsGlobalDescriptor on GlobalDescriptor {
-  external ValueType get value;
-  external set value(ValueType newValue);
-  external bool get mutable;
-  external set mutable(bool newValue);
+  ValueType get value => js_util.getProperty(this, 'value');
+  set value(ValueType newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  bool get mutable => js_util.getProperty(this, 'mutable');
+  set mutable(bool newValue) {
+    js_util.setProperty(this, 'mutable', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class Global {
-  external factory Global(GlobalDescriptor descriptor, [dynamic v]);
+  external Global(GlobalDescriptor descriptor, [dynamic v]);
 }
 
 extension PropsGlobal on Global {
-  external dynamic valueOf();
-  external dynamic get value;
-  external set value(dynamic newValue);
+  dynamic valueOf() => js_util.callMethod(this, 'valueOf', []);
+
+  dynamic get value => js_util.getProperty(this, 'value');
+  set value(dynamic newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class CompileError {
-  external factory CompileError();
+  external CompileError();
 }
 
 @JS()
 @staticInterop
 class LinkError {
-  external factory LinkError();
+  external LinkError();
 }
 
 @JS()
 @staticInterop
 class RuntimeError {
-  external factory RuntimeError();
+  external RuntimeError();
 }

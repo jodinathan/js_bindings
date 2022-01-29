@@ -5,6 +5,7 @@
 @staticInterop
 library device_memory_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,19 +16,19 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorDeviceClass {
-  external factory NavigatorDeviceClass();
+  external NavigatorDeviceClass();
 }
 
 extension PropsNavigatorDeviceClass on NavigatorDeviceClass {
-  external double get deviceMemory;
+  double get deviceMemory => js_util.getProperty(this, 'deviceMemory');
 }
 
 @JS()
 @staticInterop
 class NavigatorDeviceMemory {
-  external factory NavigatorDeviceMemory();
+  external NavigatorDeviceMemory();
 }
 
 extension PropsNavigatorDeviceMemory on NavigatorDeviceMemory {
-  external double get deviceMemory;
+  double get deviceMemory => js_util.getProperty(this, 'deviceMemory');
 }

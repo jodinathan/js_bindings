@@ -5,6 +5,7 @@
 @staticInterop
 library webxr_hand_input_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -18,13 +19,13 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class XRHand {
-  external factory XRHand();
+  external XRHand();
 }
 
 extension PropsXRHand on XRHand {
   /// Returns [25], the size of the pair iterator.
   ///
-  external int get size;
+  int get size => js_util.getProperty(this, 'size');
 
   ///
   ///     Returns a [XRJointSpace] for a given hand joint or
@@ -34,7 +35,7 @@ extension PropsXRHand on XRHand {
   ///
   @JS('get')
   @staticInterop
-  external XRJointSpace mGet(XRHandJoint key);
+  XRJointSpace mGet(XRHandJoint key) => js_util.callMethod(this, 'get', [key]);
 }
 
 ///  The interface is an [XRSpace] and represents the position and
@@ -42,14 +43,14 @@ extension PropsXRHand on XRHand {
 @JS()
 @staticInterop
 class XRJointSpace implements XRSpace {
-  external factory XRJointSpace();
+  external XRJointSpace();
 }
 
 extension PropsXRJointSpace on XRJointSpace {
   ///  The name of the joint that is tracked. See [XRHand] for possible
   /// hand joint names.
   ///
-  external XRHandJoint get jointName;
+  XRHandJoint get jointName => js_util.getProperty(this, 'jointName');
 }
 
 ///  The interface is an [XRPose] with additional information about
@@ -57,13 +58,13 @@ extension PropsXRJointSpace on XRJointSpace {
 @JS()
 @staticInterop
 class XRJointPose implements XRPose {
-  external factory XRJointPose();
+  external XRJointPose();
 }
 
 extension PropsXRJointPose on XRJointPose {
   /// The radius (distance from skin) for a joint.
   ///
-  external double get radius;
+  double get radius => js_util.getProperty(this, 'radius');
 }
 
 enum XRHandJoint {

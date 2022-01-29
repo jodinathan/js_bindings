@@ -5,6 +5,7 @@
 @staticInterop
 library scheduling_apis;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -24,34 +25,44 @@ class SchedulerPostTaskOptions {
 }
 
 extension PropsSchedulerPostTaskOptions on SchedulerPostTaskOptions {
-  external AbortSignal get signal;
-  external set signal(AbortSignal newValue);
-  external TaskPriority get priority;
-  external set priority(TaskPriority newValue);
-  external int get delay;
-  external set delay(int newValue);
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
+
+  TaskPriority get priority => js_util.getProperty(this, 'priority');
+  set priority(TaskPriority newValue) {
+    js_util.setProperty(this, 'priority', newValue);
+  }
+
+  int get delay => js_util.getProperty(this, 'delay');
+  set delay(int newValue) {
+    js_util.setProperty(this, 'delay', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class Scheduler {
-  external factory Scheduler();
+  external Scheduler();
 }
 
 extension PropsScheduler on Scheduler {
-  external Promise<dynamic> postTask(SchedulerPostTaskCallback callback,
-      [SchedulerPostTaskOptions? options]);
+  Promise<dynamic> postTask(SchedulerPostTaskCallback callback,
+          [SchedulerPostTaskOptions? options]) =>
+      js_util.callMethod(this, 'postTask', [callback, options]);
 }
 
 @JS()
 @staticInterop
 class TaskPriorityChangeEvent implements Event {
-  external factory TaskPriorityChangeEvent(
+  external TaskPriorityChangeEvent(
       String type, TaskPriorityChangeEventInit priorityChangeEventInitDict);
 }
 
 extension PropsTaskPriorityChangeEvent on TaskPriorityChangeEvent {
-  external TaskPriority get previousPriority;
+  TaskPriority get previousPriority =>
+      js_util.getProperty(this, 'previousPriority');
 }
 
 @anonymous
@@ -62,29 +73,35 @@ class TaskPriorityChangeEventInit implements EventInit {
 }
 
 extension PropsTaskPriorityChangeEventInit on TaskPriorityChangeEventInit {
-  external TaskPriority get previousPriority;
-  external set previousPriority(TaskPriority newValue);
+  TaskPriority get previousPriority =>
+      js_util.getProperty(this, 'previousPriority');
+  set previousPriority(TaskPriority newValue) {
+    js_util.setProperty(this, 'previousPriority', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class TaskController implements AbortController {
-  external factory TaskController(
-      [TaskPriority? priority = TaskPriority.userVisible]);
+  external TaskController([TaskPriority? priority = TaskPriority.userVisible]);
 }
 
 extension PropsTaskController on TaskController {
-  external Object setPriority(TaskPriority priority);
+  Object setPriority(TaskPriority priority) =>
+      js_util.callMethod(this, 'setPriority', [priority]);
 }
 
 @JS()
 @staticInterop
 class TaskSignal implements AbortSignal {
-  external factory TaskSignal();
+  external TaskSignal();
 }
 
 extension PropsTaskSignal on TaskSignal {
-  external TaskPriority get priority;
-  external EventHandlerNonNull? get onprioritychange;
-  external set onprioritychange(EventHandlerNonNull? newValue);
+  TaskPriority get priority => js_util.getProperty(this, 'priority');
+  EventHandlerNonNull? get onprioritychange =>
+      js_util.getProperty(this, 'onprioritychange');
+  set onprioritychange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onprioritychange', newValue);
+  }
 }

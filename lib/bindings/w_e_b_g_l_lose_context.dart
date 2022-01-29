@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_lose_context;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,7 +26,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class WEBGL_lose_context {
-  external factory WEBGL_lose_context();
+  external WEBGL_lose_context();
 }
 
 extension PropsWEBGL_lose_context on WEBGL_lose_context {
@@ -33,11 +34,11 @@ extension PropsWEBGL_lose_context on WEBGL_lose_context {
   ///
   /// gl.getExtension('WEBGL_lose_context').loseContext();
   ///
-  external Object loseContext();
+  Object loseContext() => js_util.callMethod(this, 'loseContext', []);
 
   /// Simulates restoring the context.
   ///
   /// gl.getExtension('WEBGL_lose_context').restoreContext();
   ///
-  external Object restoreContext();
+  Object restoreContext() => js_util.callMethod(this, 'restoreContext', []);
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library resource_timing_2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -45,7 +46,7 @@ server_timing */
 @JS()
 @staticInterop
 class PerformanceResourceTiming implements PerformanceEntry {
-  external factory PerformanceResourceTiming();
+  external PerformanceResourceTiming();
 }
 
 extension PropsPerformanceResourceTiming on PerformanceResourceTiming {
@@ -53,12 +54,12 @@ extension PropsPerformanceResourceTiming on PerformanceResourceTiming {
   /// performance entry, as specified in
   /// [PerformanceResourceTiming.initiatorType].
   ///
-  external String get initiatorType;
+  String get initiatorType => js_util.getProperty(this, 'initiatorType');
 
   ///  A [string] representing the network protocol used to fetch the
   /// resource, as identified by the ALPN Protocol ID (RFC7301).
   ///
-  external String get nextHopProtocol;
+  String get nextHopProtocol => js_util.getProperty(this, 'nextHopProtocol');
 
   ///  Returns a [DOMHighResTimeStamp] immediately before dispatching
   /// the [FetchEvent] if a Service Worker thread is already running,
@@ -66,82 +67,84 @@ extension PropsPerformanceResourceTiming on PerformanceResourceTiming {
   /// not already running. If the resource is not intercepted by a
   /// Service Worker the property will always return 0.
   ///
-  external double get workerStart;
+  double get workerStart => js_util.getProperty(this, 'workerStart');
 
   ///  A [DOMHighResTimeStamp] that represents the start time of the
   /// fetch which initiates the redirect.
   ///
-  external double get redirectStart;
+  double get redirectStart => js_util.getProperty(this, 'redirectStart');
 
   ///  A [DOMHighResTimeStamp] immediately after receiving the last
   /// byte of the response of the last redirect.
   ///
-  external double get redirectEnd;
+  double get redirectEnd => js_util.getProperty(this, 'redirectEnd');
 
   ///  A [DOMHighResTimeStamp] immediately before the browser starts to
   /// fetch the resource.
   ///
-  external double get fetchStart;
+  double get fetchStart => js_util.getProperty(this, 'fetchStart');
 
   ///  A [DOMHighResTimeStamp] immediately before the browser starts
   /// the domain name lookup for the resource.
   ///
-  external double get domainLookupStart;
+  double get domainLookupStart =>
+      js_util.getProperty(this, 'domainLookupStart');
 
   ///  A [DOMHighResTimeStamp] representing the time immediately after
   /// the browser finishes the domain name lookup for the resource.
   ///
-  external double get domainLookupEnd;
+  double get domainLookupEnd => js_util.getProperty(this, 'domainLookupEnd');
 
   ///  A [DOMHighResTimeStamp] immediately before the browser starts to
   /// establish the connection to the server to retrieve the resource.
   ///
-  external double get connectStart;
+  double get connectStart => js_util.getProperty(this, 'connectStart');
 
   ///  A [DOMHighResTimeStamp] immediately after the browser finishes
   /// establishing the connection to the server to retrieve the
   /// resource.
   ///
-  external double get connectEnd;
+  double get connectEnd => js_util.getProperty(this, 'connectEnd');
 
   ///  A [DOMHighResTimeStamp] immediately before the browser starts
   /// the handshake process to secure the current connection.
   ///
-  external double get secureConnectionStart;
+  double get secureConnectionStart =>
+      js_util.getProperty(this, 'secureConnectionStart');
 
   ///  A [DOMHighResTimeStamp] immediately before the browser starts
   /// requesting the resource from the server.
   ///
-  external double get requestStart;
+  double get requestStart => js_util.getProperty(this, 'requestStart');
 
   ///  A [DOMHighResTimeStamp] immediately after the browser receives
   /// the first byte of the response from the server.
   ///
-  external double get responseStart;
+  double get responseStart => js_util.getProperty(this, 'responseStart');
 
   ///  A [DOMHighResTimeStamp] immediately after the browser receives
   /// the last byte of the resource or immediately before the transport
   /// connection is closed, whichever comes first.
   ///
-  external double get responseEnd;
+  double get responseEnd => js_util.getProperty(this, 'responseEnd');
 
   ///  A [number] representing the size (in octets) of the fetched
   /// resource. The size includes the response header fields plus the
   /// response payload body.
   ///
-  external int get transferSize;
+  int get transferSize => js_util.getProperty(this, 'transferSize');
 
   ///  A [number] representing the size (in octets) received from the
   /// fetch (HTTP or cache), of the payload body, before removing any
   /// applied content-codings.
   ///
-  external int get encodedBodySize;
+  int get encodedBodySize => js_util.getProperty(this, 'encodedBodySize');
 
   ///  A [number] that is the size (in octets) received from the fetch
   /// (HTTP or cache) of the message body, after removing any applied
   /// content-codings.
   ///
-  external int get decodedBodySize;
+  int get decodedBodySize => js_util.getProperty(this, 'decodedBodySize');
 
   ///  Returns a [DOMString] that is the JSON representation of the
   /// [PerformanceResourceTiming] object.
@@ -158,6 +161,8 @@ extension PropsPerformanceResourceTiming on PerformanceResourceTiming {
   /// console.log("PerformanceEntry.toJSON = " + s);
   ///
   @override
-  external dynamic toJSON();
-  external Iterable<PerformanceServerTiming> get serverTiming;
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
+
+  Iterable<PerformanceServerTiming> get serverTiming =>
+      js_util.getProperty(this, 'serverTiming');
 }

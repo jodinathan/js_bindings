@@ -5,6 +5,7 @@
 @staticInterop
 library visual_viewport;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -32,45 +33,50 @@ geometry_1 */
 @JS()
 @staticInterop
 class VisualViewport implements EventTarget {
-  external factory VisualViewport();
+  external VisualViewport();
 }
 
 extension PropsVisualViewport on VisualViewport {
   ///  Returns the offset of the left edge of the visual viewport from
   /// the left edge of the layout viewport in CSS pixels.
   ///
-  external double get offsetLeft;
+  double get offsetLeft => js_util.getProperty(this, 'offsetLeft');
 
   ///  Returns the offset of the top edge of the visual viewport from
   /// the top edge of the layout viewport in CSS pixels.
   ///
-  external double get offsetTop;
+  double get offsetTop => js_util.getProperty(this, 'offsetTop');
 
   ///  Returns the x coordinate of the visual viewport relative to the
   /// initial containing block origin of the top edge in CSS pixels.
   ///
-  external double get pageLeft;
+  double get pageLeft => js_util.getProperty(this, 'pageLeft');
 
   ///  Returns the y coordinate of the visual viewport relative to the
   /// initial containing block origin of the top edge in CSS pixels.
   ///
-  external double get pageTop;
+  double get pageTop => js_util.getProperty(this, 'pageTop');
 
   /// Returns the width of the visual viewport in CSS pixels.
   ///
-  external double get width;
+  double get width => js_util.getProperty(this, 'width');
 
   /// Returns the height of the visual viewport in CSS pixels.
   ///
-  external double get height;
+  double get height => js_util.getProperty(this, 'height');
 
   ///  Returns the pinch-zoom scaling factor applied to the visual
   /// viewport.
   ///
-  external double get scale;
-  external Iterable<DOMRect> get segments;
-  external EventHandlerNonNull? get onresize;
-  external set onresize(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onscroll;
-  external set onscroll(EventHandlerNonNull? newValue);
+  double get scale => js_util.getProperty(this, 'scale');
+  Iterable<DOMRect> get segments => js_util.getProperty(this, 'segments');
+  EventHandlerNonNull? get onresize => js_util.getProperty(this, 'onresize');
+  set onresize(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresize', newValue);
+  }
+
+  EventHandlerNonNull? get onscroll => js_util.getProperty(this, 'onscroll');
+  set onscroll(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onscroll', newValue);
+  }
 }

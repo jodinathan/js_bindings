@@ -5,6 +5,7 @@
 @staticInterop
 library screen_wake_lock;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -23,12 +24,13 @@ dom */
 @JS()
 @staticInterop
 class WakeLock {
-  external factory WakeLock();
+  external WakeLock();
 }
 
 extension PropsWakeLock on WakeLock {
-  external Promise<WakeLockSentinel> request(
-      [WakeLockType? type = WakeLockType.screen]);
+  Promise<WakeLockSentinel> request(
+          [WakeLockType? type = WakeLockType.screen]) =>
+      js_util.callMethod(this, 'request', [type]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -46,14 +48,14 @@ extension PropsWakeLock on WakeLock {
 @JS()
 @staticInterop
 class WakeLockSentinel implements EventTarget {
-  external factory WakeLockSentinel();
+  external WakeLockSentinel();
 }
 
 extension PropsWakeLockSentinel on WakeLockSentinel {
   ///  Returns a boolean indicating whether the [WakeLockSentinel] has
   /// been released.
   ///
-  external bool get released;
+  bool get released => js_util.getProperty(this, 'released');
 
   ///
   ///     Returns a [String] representation of the currently acquired
@@ -65,16 +67,19 @@ extension PropsWakeLockSentinel on WakeLockSentinel {
   /// or locking the screen.
   ///
   ///
-  external WakeLockType get type;
+  WakeLockType get type => js_util.getProperty(this, 'type');
 
   ///  Releases the [WakeLockSentinel], returning a [Promise] that is
   /// resolved once the sentinel has been successfully released.
   ///
   /// WakeLockSentinel.release().then(...);
   ///
-  external Promise<Object> release();
-  external EventHandlerNonNull? get onrelease;
-  external set onrelease(EventHandlerNonNull? newValue);
+  Promise<Object> release() => js_util.callMethod(this, 'release', []);
+
+  EventHandlerNonNull? get onrelease => js_util.getProperty(this, 'onrelease');
+  set onrelease(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onrelease', newValue);
+  }
 }
 
 enum WakeLockType { screen }

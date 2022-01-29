@@ -5,6 +5,7 @@
 @staticInterop
 library dom_overlays;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -22,8 +23,10 @@ class XRDOMOverlayInit {
 }
 
 extension PropsXRDOMOverlayInit on XRDOMOverlayInit {
-  external Element get root;
-  external set root(Element newValue);
+  Element get root => js_util.getProperty(this, 'root');
+  set root(Element newValue) {
+    js_util.setProperty(this, 'root', newValue);
+  }
 }
 
 enum XRDOMOverlayType { screen, floating, headLocked }
@@ -36,6 +39,8 @@ class XRDOMOverlayState {
 }
 
 extension PropsXRDOMOverlayState on XRDOMOverlayState {
-  external XRDOMOverlayType get type;
-  external set type(XRDOMOverlayType newValue);
+  XRDOMOverlayType get type => js_util.getProperty(this, 'type');
+  set type(XRDOMOverlayType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }

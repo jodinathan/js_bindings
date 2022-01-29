@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_compressed_texture_pvrtc;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -40,5 +41,5 @@ class WEBGL_compressed_texture_pvrtc {
   external static int get COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
   external static int get COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
   external static int get COMPRESSED_RGBA_PVRTC_2BPPV1_IMG;
-  external factory WEBGL_compressed_texture_pvrtc();
+  external WEBGL_compressed_texture_pvrtc();
 }

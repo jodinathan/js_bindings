@@ -5,6 +5,7 @@
 @staticInterop
 library payment_method_basic_card;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -22,10 +23,17 @@ class BasicCardRequest {
 }
 
 extension PropsBasicCardRequest on BasicCardRequest {
-  external Iterable<String> get supportedNetworks;
-  external set supportedNetworks(Iterable<String> newValue);
-  external bool get requestSecurityCode;
-  external set requestSecurityCode(bool newValue);
+  Iterable<String> get supportedNetworks =>
+      js_util.getProperty(this, 'supportedNetworks');
+  set supportedNetworks(Iterable<String> newValue) {
+    js_util.setProperty(this, 'supportedNetworks', newValue);
+  }
+
+  bool get requestSecurityCode =>
+      js_util.getProperty(this, 'requestSecurityCode');
+  set requestSecurityCode(bool newValue) {
+    js_util.setProperty(this, 'requestSecurityCode', newValue);
+  }
 }
 
 @anonymous
@@ -36,8 +44,11 @@ class BasicCardChangeDetails {
 }
 
 extension PropsBasicCardChangeDetails on BasicCardChangeDetails {
-  external PaymentAddress? get billingAddress;
-  external set billingAddress(PaymentAddress? newValue);
+  PaymentAddress? get billingAddress =>
+      js_util.getProperty(this, 'billingAddress');
+  set billingAddress(PaymentAddress? newValue) {
+    js_util.setProperty(this, 'billingAddress', newValue);
+  }
 }
 
 @anonymous
@@ -54,18 +65,36 @@ class BasicCardResponse {
 }
 
 extension PropsBasicCardResponse on BasicCardResponse {
-  external String get cardNumber;
-  external set cardNumber(String newValue);
-  external String get cardholderName;
-  external set cardholderName(String newValue);
-  external String get cardSecurityCode;
-  external set cardSecurityCode(String newValue);
-  external String get expiryMonth;
-  external set expiryMonth(String newValue);
-  external String get expiryYear;
-  external set expiryYear(String newValue);
-  external PaymentAddress? get billingAddress;
-  external set billingAddress(PaymentAddress? newValue);
+  String get cardNumber => js_util.getProperty(this, 'cardNumber');
+  set cardNumber(String newValue) {
+    js_util.setProperty(this, 'cardNumber', newValue);
+  }
+
+  String get cardholderName => js_util.getProperty(this, 'cardholderName');
+  set cardholderName(String newValue) {
+    js_util.setProperty(this, 'cardholderName', newValue);
+  }
+
+  String get cardSecurityCode => js_util.getProperty(this, 'cardSecurityCode');
+  set cardSecurityCode(String newValue) {
+    js_util.setProperty(this, 'cardSecurityCode', newValue);
+  }
+
+  String get expiryMonth => js_util.getProperty(this, 'expiryMonth');
+  set expiryMonth(String newValue) {
+    js_util.setProperty(this, 'expiryMonth', newValue);
+  }
+
+  String get expiryYear => js_util.getProperty(this, 'expiryYear');
+  set expiryYear(String newValue) {
+    js_util.setProperty(this, 'expiryYear', newValue);
+  }
+
+  PaymentAddress? get billingAddress =>
+      js_util.getProperty(this, 'billingAddress');
+  set billingAddress(PaymentAddress? newValue) {
+    js_util.setProperty(this, 'billingAddress', newValue);
+  }
 }
 
 @anonymous
@@ -82,16 +111,34 @@ class BasicCardErrors {
 }
 
 extension PropsBasicCardErrors on BasicCardErrors {
-  external String get cardNumber;
-  external set cardNumber(String newValue);
-  external String get cardholderName;
-  external set cardholderName(String newValue);
-  external String get cardSecurityCode;
-  external set cardSecurityCode(String newValue);
-  external String get expiryMonth;
-  external set expiryMonth(String newValue);
-  external String get expiryYear;
-  external set expiryYear(String newValue);
-  external AddressErrors get billingAddress;
-  external set billingAddress(AddressErrors newValue);
+  String get cardNumber => js_util.getProperty(this, 'cardNumber');
+  set cardNumber(String newValue) {
+    js_util.setProperty(this, 'cardNumber', newValue);
+  }
+
+  String get cardholderName => js_util.getProperty(this, 'cardholderName');
+  set cardholderName(String newValue) {
+    js_util.setProperty(this, 'cardholderName', newValue);
+  }
+
+  String get cardSecurityCode => js_util.getProperty(this, 'cardSecurityCode');
+  set cardSecurityCode(String newValue) {
+    js_util.setProperty(this, 'cardSecurityCode', newValue);
+  }
+
+  String get expiryMonth => js_util.getProperty(this, 'expiryMonth');
+  set expiryMonth(String newValue) {
+    js_util.setProperty(this, 'expiryMonth', newValue);
+  }
+
+  String get expiryYear => js_util.getProperty(this, 'expiryYear');
+  set expiryYear(String newValue) {
+    js_util.setProperty(this, 'expiryYear', newValue);
+  }
+
+  AddressErrors get billingAddress =>
+      js_util.getProperty(this, 'billingAddress');
+  set billingAddress(AddressErrors newValue) {
+    js_util.setProperty(this, 'billingAddress', newValue);
+  }
 }

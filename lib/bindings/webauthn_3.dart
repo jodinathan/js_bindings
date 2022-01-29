@@ -5,6 +5,7 @@
 @staticInterop
 library webauthn_3;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -29,7 +30,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class PublicKeyCredential implements Credential {
-  external factory PublicKeyCredential();
+  external PublicKeyCredential();
 }
 
 extension PropsPublicKeyCredential on PublicKeyCredential {
@@ -37,7 +38,7 @@ extension PropsPublicKeyCredential on PublicKeyCredential {
   /// this [PublicKeyCredential]. This identifier can be used to look
   /// up credentials for future calls to [CredentialsContainer.get].
   ///
-  external ByteBuffer get rawId;
+  ByteBuffer get rawId => js_util.getProperty(this, 'rawId');
 
   ///  An instance of an [AuthenticatorResponse] object. It is either
   /// of type [AuthenticatorAttestationResponse] if the
@@ -46,14 +47,16 @@ extension PropsPublicKeyCredential on PublicKeyCredential {
   /// [AuthenticatorAssertionResponse] if the [PublicKeyCredential] was
   /// the result of a [navigator.credentials.get()] call.
   ///
-  external AuthenticatorResponse get response;
+  AuthenticatorResponse get response => js_util.getProperty(this, 'response');
 
   ///  If any extensions were requested, this method will return the
   /// results of processing those extensions.
   ///
   /// mapArrayBuffer = publicKeyCredential.getClientExtensionResults()
   ///
-  external AuthenticationExtensionsClientOutputs getClientExtensionResults();
+  AuthenticationExtensionsClientOutputs getClientExtensionResults() =>
+      js_util.callMethod(this, 'getClientExtensionResults', []);
+
   external static Promise<bool> isUserVerifyingPlatformAuthenticatorAvailable();
 }
 
@@ -67,7 +70,7 @@ extension PropsPublicKeyCredential on PublicKeyCredential {
 @JS()
 @staticInterop
 class AuthenticatorResponse {
-  external factory AuthenticatorResponse();
+  external AuthenticatorResponse();
 }
 
 extension PropsAuthenticatorResponse on AuthenticatorResponse {
@@ -75,7 +78,7 @@ extension PropsAuthenticatorResponse on AuthenticatorResponse {
   /// that was passed to [CredentialsContainer.create()] or
   /// [CredentialsContainer.get()].
   ///
-  external ByteBuffer get clientDataJSON;
+  ByteBuffer get clientDataJSON => js_util.getProperty(this, 'clientDataJSON');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -94,7 +97,7 @@ extension PropsAuthenticatorResponse on AuthenticatorResponse {
 @JS()
 @staticInterop
 class AuthenticatorAttestationResponse implements AuthenticatorResponse {
-  external factory AuthenticatorAttestationResponse();
+  external AuthenticatorAttestationResponse();
 }
 
 extension PropsAuthenticatorAttestationResponse
@@ -102,7 +105,8 @@ extension PropsAuthenticatorAttestationResponse
   ///  An [ArrayBuffer] containing authenticator data and an
   /// attestation statement for a newly-created key pair.
   ///
-  external ByteBuffer get attestationObject;
+  ByteBuffer get attestationObject =>
+      js_util.getProperty(this, 'attestationObject');
 
   ///  Returns an [Array] of strings describing which transport methods
   /// (e.g. [usb], [nfc]) are believed to be supported with the
@@ -111,10 +115,16 @@ extension PropsAuthenticatorAttestationResponse
   ///
   /// arrTransports = authenticatorAttestationResponse.getTransports()
   ///
-  external Iterable<String> getTransports();
-  external ByteBuffer getAuthenticatorData();
-  external ByteBuffer? getPublicKey();
-  external int getPublicKeyAlgorithm();
+  Iterable<String> getTransports() =>
+      js_util.callMethod(this, 'getTransports', []);
+
+  ByteBuffer getAuthenticatorData() =>
+      js_util.callMethod(this, 'getAuthenticatorData', []);
+
+  ByteBuffer? getPublicKey() => js_util.callMethod(this, 'getPublicKey', []);
+
+  int getPublicKeyAlgorithm() =>
+      js_util.callMethod(this, 'getPublicKeyAlgorithm', []);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -131,7 +141,7 @@ extension PropsAuthenticatorAttestationResponse
 @JS()
 @staticInterop
 class AuthenticatorAssertionResponse implements AuthenticatorResponse {
-  external factory AuthenticatorAssertionResponse();
+  external AuthenticatorAssertionResponse();
 }
 
 extension PropsAuthenticatorAssertionResponse
@@ -141,7 +151,8 @@ extension PropsAuthenticatorAssertionResponse
   /// counter, test of user presence and user verification flags, and
   /// any extensions processed by the authenticator.
   ///
-  external ByteBuffer get authenticatorData;
+  ByteBuffer get authenticatorData =>
+      js_util.getProperty(this, 'authenticatorData');
 
   ///  An assertion signature over
   /// [AuthenticatorAssertionResponse.authenticatorData] and
@@ -150,11 +161,11 @@ extension PropsAuthenticatorAssertionResponse
   /// during the [navigator.credentials.create()] call and verified
   /// using the public key of that same keypair.
   ///
-  external ByteBuffer get signature;
+  ByteBuffer get signature => js_util.getProperty(this, 'signature');
 
   /// An [ArrayBuffer] containing an opaque user identifier.
   ///
-  external ByteBuffer? get userHandle;
+  ByteBuffer? get userHandle => js_util.getProperty(this, 'userHandle');
 }
 
 @anonymous
@@ -165,10 +176,15 @@ class PublicKeyCredentialParameters {
 }
 
 extension PropsPublicKeyCredentialParameters on PublicKeyCredentialParameters {
-  external String get type;
-  external set type(String newValue);
-  external int get alg;
-  external set alg(int newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  int get alg => js_util.getProperty(this, 'alg');
+  set alg(int newValue) {
+    js_util.setProperty(this, 'alg', newValue);
+  }
 }
 
 @anonymous
@@ -189,26 +205,54 @@ class PublicKeyCredentialCreationOptions {
 
 extension PropsPublicKeyCredentialCreationOptions
     on PublicKeyCredentialCreationOptions {
-  external PublicKeyCredentialRpEntity get rp;
-  external set rp(PublicKeyCredentialRpEntity newValue);
-  external PublicKeyCredentialUserEntity get user;
-  external set user(PublicKeyCredentialUserEntity newValue);
-  external dynamic get challenge;
-  external set challenge(dynamic newValue);
-  external Iterable<PublicKeyCredentialParameters> get pubKeyCredParams;
-  external set pubKeyCredParams(
-      Iterable<PublicKeyCredentialParameters> newValue);
-  external int get timeout;
-  external set timeout(int newValue);
-  external Iterable<PublicKeyCredentialDescriptor> get excludeCredentials;
-  external set excludeCredentials(
-      Iterable<PublicKeyCredentialDescriptor> newValue);
-  external AuthenticatorSelectionCriteria get authenticatorSelection;
-  external set authenticatorSelection(AuthenticatorSelectionCriteria newValue);
-  external String get attestation;
-  external set attestation(String newValue);
-  external AuthenticationExtensionsClientInputs get extensions;
-  external set extensions(AuthenticationExtensionsClientInputs newValue);
+  PublicKeyCredentialRpEntity get rp => js_util.getProperty(this, 'rp');
+  set rp(PublicKeyCredentialRpEntity newValue) {
+    js_util.setProperty(this, 'rp', newValue);
+  }
+
+  PublicKeyCredentialUserEntity get user => js_util.getProperty(this, 'user');
+  set user(PublicKeyCredentialUserEntity newValue) {
+    js_util.setProperty(this, 'user', newValue);
+  }
+
+  dynamic get challenge => js_util.getProperty(this, 'challenge');
+  set challenge(dynamic newValue) {
+    js_util.setProperty(this, 'challenge', newValue);
+  }
+
+  Iterable<PublicKeyCredentialParameters> get pubKeyCredParams =>
+      js_util.getProperty(this, 'pubKeyCredParams');
+  set pubKeyCredParams(Iterable<PublicKeyCredentialParameters> newValue) {
+    js_util.setProperty(this, 'pubKeyCredParams', newValue);
+  }
+
+  int get timeout => js_util.getProperty(this, 'timeout');
+  set timeout(int newValue) {
+    js_util.setProperty(this, 'timeout', newValue);
+  }
+
+  Iterable<PublicKeyCredentialDescriptor> get excludeCredentials =>
+      js_util.getProperty(this, 'excludeCredentials');
+  set excludeCredentials(Iterable<PublicKeyCredentialDescriptor> newValue) {
+    js_util.setProperty(this, 'excludeCredentials', newValue);
+  }
+
+  AuthenticatorSelectionCriteria get authenticatorSelection =>
+      js_util.getProperty(this, 'authenticatorSelection');
+  set authenticatorSelection(AuthenticatorSelectionCriteria newValue) {
+    js_util.setProperty(this, 'authenticatorSelection', newValue);
+  }
+
+  String get attestation => js_util.getProperty(this, 'attestation');
+  set attestation(String newValue) {
+    js_util.setProperty(this, 'attestation', newValue);
+  }
+
+  AuthenticationExtensionsClientInputs get extensions =>
+      js_util.getProperty(this, 'extensions');
+  set extensions(AuthenticationExtensionsClientInputs newValue) {
+    js_util.setProperty(this, 'extensions', newValue);
+  }
 }
 
 @anonymous
@@ -219,8 +263,10 @@ class PublicKeyCredentialEntity {
 }
 
 extension PropsPublicKeyCredentialEntity on PublicKeyCredentialEntity {
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 }
 
 @anonymous
@@ -231,8 +277,10 @@ class PublicKeyCredentialRpEntity implements PublicKeyCredentialEntity {
 }
 
 extension PropsPublicKeyCredentialRpEntity on PublicKeyCredentialRpEntity {
-  external String get id;
-  external set id(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 }
 
 @anonymous
@@ -244,10 +292,15 @@ class PublicKeyCredentialUserEntity implements PublicKeyCredentialEntity {
 }
 
 extension PropsPublicKeyCredentialUserEntity on PublicKeyCredentialUserEntity {
-  external dynamic get id;
-  external set id(dynamic newValue);
-  external String get displayName;
-  external set displayName(String newValue);
+  dynamic get id => js_util.getProperty(this, 'id');
+  set id(dynamic newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  String get displayName => js_util.getProperty(this, 'displayName');
+  set displayName(String newValue) {
+    js_util.setProperty(this, 'displayName', newValue);
+  }
 }
 
 @anonymous
@@ -263,14 +316,27 @@ class AuthenticatorSelectionCriteria {
 
 extension PropsAuthenticatorSelectionCriteria
     on AuthenticatorSelectionCriteria {
-  external String get authenticatorAttachment;
-  external set authenticatorAttachment(String newValue);
-  external String get residentKey;
-  external set residentKey(String newValue);
-  external bool get requireResidentKey;
-  external set requireResidentKey(bool newValue);
-  external String get userVerification;
-  external set userVerification(String newValue);
+  String get authenticatorAttachment =>
+      js_util.getProperty(this, 'authenticatorAttachment');
+  set authenticatorAttachment(String newValue) {
+    js_util.setProperty(this, 'authenticatorAttachment', newValue);
+  }
+
+  String get residentKey => js_util.getProperty(this, 'residentKey');
+  set residentKey(String newValue) {
+    js_util.setProperty(this, 'residentKey', newValue);
+  }
+
+  bool get requireResidentKey =>
+      js_util.getProperty(this, 'requireResidentKey');
+  set requireResidentKey(bool newValue) {
+    js_util.setProperty(this, 'requireResidentKey', newValue);
+  }
+
+  String get userVerification => js_util.getProperty(this, 'userVerification');
+  set userVerification(String newValue) {
+    js_util.setProperty(this, 'userVerification', newValue);
+  }
 }
 
 enum AuthenticatorAttachment { platform, crossPlatform }
@@ -304,43 +370,56 @@ extension PropsPublicKeyCredentialRequestOptions
   /// authenticator and the signature will be sent back as part of
   /// [AuthenticatorAssertionResponse.signature].
   ///
-  external dynamic get challenge;
-  external set challenge(dynamic newValue);
+  dynamic get challenge => js_util.getProperty(this, 'challenge');
+  set challenge(dynamic newValue) {
+    js_util.setProperty(this, 'challenge', newValue);
+  }
 
   ///  A numerical hint, in milliseconds, which indicates the time the
   /// caller is willing to wait for the retrieval operation to
   /// complete. This hint may be overridden by the browser.
   ///
-  external int get timeout;
-  external set timeout(int newValue);
+  int get timeout => js_util.getProperty(this, 'timeout');
+  set timeout(int newValue) {
+    js_util.setProperty(this, 'timeout', newValue);
+  }
 
   ///  A [USVString] which indicates the relying party's identifier
   /// (ex. ["login.example.org"]). If this option is not provided, the
   /// client will use the current origin's domain.
   ///
-  external String get rpId;
-  external set rpId(String newValue);
+  String get rpId => js_util.getProperty(this, 'rpId');
+  set rpId(String newValue) {
+    js_util.setProperty(this, 'rpId', newValue);
+  }
 
   ///  An [Array] of credentials descriptor which restricts the
   /// acceptable existing credentials for retrieval.
   ///
-  external Iterable<PublicKeyCredentialDescriptor> get allowCredentials;
-  external set allowCredentials(
-      Iterable<PublicKeyCredentialDescriptor> newValue);
+  Iterable<PublicKeyCredentialDescriptor> get allowCredentials =>
+      js_util.getProperty(this, 'allowCredentials');
+  set allowCredentials(Iterable<PublicKeyCredentialDescriptor> newValue) {
+    js_util.setProperty(this, 'allowCredentials', newValue);
+  }
 
   ///  A string qualifying how the user verification should be part of
   /// the authentication process.
   ///
-  external String get userVerification;
-  external set userVerification(String newValue);
+  String get userVerification => js_util.getProperty(this, 'userVerification');
+  set userVerification(String newValue) {
+    js_util.setProperty(this, 'userVerification', newValue);
+  }
 
   ///  An object with several client extensions' inputs. Those
   /// extensions are used to request additional processing (e.g.
   /// dealing with legacy FIDO APIs credentials, prompting a specific
   /// text on the authenticator, etc.).
   ///
-  external AuthenticationExtensionsClientInputs get extensions;
-  external set extensions(AuthenticationExtensionsClientInputs newValue);
+  AuthenticationExtensionsClientInputs get extensions =>
+      js_util.getProperty(this, 'extensions');
+  set extensions(AuthenticationExtensionsClientInputs newValue) {
+    js_util.setProperty(this, 'extensions', newValue);
+  }
 }
 
 @anonymous
@@ -370,16 +449,30 @@ class CollectedClientData {
 }
 
 extension PropsCollectedClientData on CollectedClientData {
-  external String get type;
-  external set type(String newValue);
-  external String get challenge;
-  external set challenge(String newValue);
-  external String get origin;
-  external set origin(String newValue);
-  external bool get crossOrigin;
-  external set crossOrigin(bool newValue);
-  external TokenBinding get tokenBinding;
-  external set tokenBinding(TokenBinding newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  String get challenge => js_util.getProperty(this, 'challenge');
+  set challenge(String newValue) {
+    js_util.setProperty(this, 'challenge', newValue);
+  }
+
+  String get origin => js_util.getProperty(this, 'origin');
+  set origin(String newValue) {
+    js_util.setProperty(this, 'origin', newValue);
+  }
+
+  bool get crossOrigin => js_util.getProperty(this, 'crossOrigin');
+  set crossOrigin(bool newValue) {
+    js_util.setProperty(this, 'crossOrigin', newValue);
+  }
+
+  TokenBinding get tokenBinding => js_util.getProperty(this, 'tokenBinding');
+  set tokenBinding(TokenBinding newValue) {
+    js_util.setProperty(this, 'tokenBinding', newValue);
+  }
 }
 
 @anonymous
@@ -390,10 +483,15 @@ class TokenBinding {
 }
 
 extension PropsTokenBinding on TokenBinding {
-  external String get status;
-  external set status(String newValue);
-  external String get id;
-  external set id(String newValue);
+  String get status => js_util.getProperty(this, 'status');
+  set status(String newValue) {
+    js_util.setProperty(this, 'status', newValue);
+  }
+
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 }
 
 enum TokenBindingStatus { present, supported }
@@ -409,12 +507,20 @@ class PublicKeyCredentialDescriptor {
 }
 
 extension PropsPublicKeyCredentialDescriptor on PublicKeyCredentialDescriptor {
-  external String get type;
-  external set type(String newValue);
-  external dynamic get id;
-  external set id(dynamic newValue);
-  external Iterable<String> get transports;
-  external set transports(Iterable<String> newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  dynamic get id => js_util.getProperty(this, 'id');
+  set id(dynamic newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  Iterable<String> get transports => js_util.getProperty(this, 'transports');
+  set transports(Iterable<String> newValue) {
+    js_util.setProperty(this, 'transports', newValue);
+  }
 }
 
 enum AuthenticatorTransport { usb, nfc, ble, internal }
@@ -429,8 +535,10 @@ class CredentialPropertiesOutput {
 }
 
 extension PropsCredentialPropertiesOutput on CredentialPropertiesOutput {
-  external bool get rk;
-  external set rk(bool newValue);
+  bool get rk => js_util.getProperty(this, 'rk');
+  set rk(bool newValue) {
+    js_util.setProperty(this, 'rk', newValue);
+  }
 }
 
 enum LargeBlobSupport { valueRequired, preferred }
@@ -445,12 +553,20 @@ class AuthenticationExtensionsLargeBlobInputs {
 
 extension PropsAuthenticationExtensionsLargeBlobInputs
     on AuthenticationExtensionsLargeBlobInputs {
-  external String get support;
-  external set support(String newValue);
-  external bool get read;
-  external set read(bool newValue);
-  external dynamic get write;
-  external set write(dynamic newValue);
+  String get support => js_util.getProperty(this, 'support');
+  set support(String newValue) {
+    js_util.setProperty(this, 'support', newValue);
+  }
+
+  bool get read => js_util.getProperty(this, 'read');
+  set read(bool newValue) {
+    js_util.setProperty(this, 'read', newValue);
+  }
+
+  dynamic get write => js_util.getProperty(this, 'write');
+  set write(dynamic newValue) {
+    js_util.setProperty(this, 'write', newValue);
+  }
 }
 
 @anonymous
@@ -463,10 +579,18 @@ class AuthenticationExtensionsLargeBlobOutputs {
 
 extension PropsAuthenticationExtensionsLargeBlobOutputs
     on AuthenticationExtensionsLargeBlobOutputs {
-  external bool get supported;
-  external set supported(bool newValue);
-  external ByteBuffer get blob;
-  external set blob(ByteBuffer newValue);
-  external bool get written;
-  external set written(bool newValue);
+  bool get supported => js_util.getProperty(this, 'supported');
+  set supported(bool newValue) {
+    js_util.setProperty(this, 'supported', newValue);
+  }
+
+  ByteBuffer get blob => js_util.getProperty(this, 'blob');
+  set blob(ByteBuffer newValue) {
+    js_util.setProperty(this, 'blob', newValue);
+  }
+
+  bool get written => js_util.getProperty(this, 'written');
+  set written(bool newValue) {
+    js_util.setProperty(this, 'written', newValue);
+  }
 }

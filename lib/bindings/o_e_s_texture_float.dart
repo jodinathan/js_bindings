@@ -5,6 +5,7 @@
 @staticInterop
 library o_e_s_texture_float;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -25,5 +26,5 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class OES_texture_float {
-  external factory OES_texture_float();
+  external OES_texture_float();
 }

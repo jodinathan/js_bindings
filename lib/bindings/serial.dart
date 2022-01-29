@@ -5,6 +5,7 @@
 @staticInterop
 library serial;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -19,14 +20,20 @@ streams */
 @JS()
 @staticInterop
 class Serial implements EventTarget {
-  external factory Serial();
+  external Serial();
 }
 
 extension PropsSerial on Serial {
-  external EventHandlerNonNull? get onconnect;
-  external set onconnect(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondisconnect;
-  external set ondisconnect(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
+  set onconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnect', newValue);
+  }
+
+  EventHandlerNonNull? get ondisconnect =>
+      js_util.getProperty(this, 'ondisconnect');
+  set ondisconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondisconnect', newValue);
+  }
 
   ///
   ///     Returns a [Promise] that resolves with an array of
@@ -36,7 +43,8 @@ extension PropsSerial on Serial {
   ///
   /// var promise = Serial.getPorts();
   ///
-  external Iterable<Promise<SerialPort>> getPorts();
+  Iterable<Promise<SerialPort>> getPorts() =>
+      js_util.callMethod(this, 'getPorts', []);
 
   ///  Returns a [Promise] that resolves with an instance of
   /// [SerialPort] representing the device chosen by the user or
@@ -45,7 +53,8 @@ extension PropsSerial on Serial {
   ///
   /// var promise = Serial.requestPort([options]);
   ///
-  external Promise<SerialPort> requestPort([SerialPortRequestOptions? options]);
+  Promise<SerialPort> requestPort([SerialPortRequestOptions? options]) =>
+      js_util.callMethod(this, 'requestPort', [options]);
 }
 
 @anonymous
@@ -57,8 +66,11 @@ class SerialPortRequestOptions {
 }
 
 extension PropsSerialPortRequestOptions on SerialPortRequestOptions {
-  external Iterable<SerialPortFilter> get filters;
-  external set filters(Iterable<SerialPortFilter> newValue);
+  Iterable<SerialPortFilter> get filters =>
+      js_util.getProperty(this, 'filters');
+  set filters(Iterable<SerialPortFilter> newValue) {
+    js_util.setProperty(this, 'filters', newValue);
+  }
 }
 
 @anonymous
@@ -69,10 +81,15 @@ class SerialPortFilter {
 }
 
 extension PropsSerialPortFilter on SerialPortFilter {
-  external int get usbVendorId;
-  external set usbVendorId(int newValue);
-  external int get usbProductId;
-  external set usbProductId(int newValue);
+  int get usbVendorId => js_util.getProperty(this, 'usbVendorId');
+  set usbVendorId(int newValue) {
+    js_util.setProperty(this, 'usbVendorId', newValue);
+  }
+
+  int get usbProductId => js_util.getProperty(this, 'usbProductId');
+  set usbProductId(int newValue) {
+    js_util.setProperty(this, 'usbProductId', newValue);
+  }
 }
 
 ///  Secure context: This feature is available only in secure
@@ -80,31 +97,37 @@ extension PropsSerialPortFilter on SerialPortFilter {
 @JS()
 @staticInterop
 class SerialPort implements EventTarget {
-  external factory SerialPort();
+  external SerialPort();
 }
 
 extension PropsSerialPort on SerialPort {
-  external EventHandlerNonNull? get onconnect;
-  external set onconnect(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondisconnect;
-  external set ondisconnect(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
+  set onconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnect', newValue);
+  }
+
+  EventHandlerNonNull? get ondisconnect =>
+      js_util.getProperty(this, 'ondisconnect');
+  set ondisconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondisconnect', newValue);
+  }
 
   ///  Returns a [ReadableStream] for receiving data from the device
   /// connected to the port.
   ///
-  external ReadableStream get readable;
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
 
   ///  Returns a [WritableStream] for sending data to the device
   /// connected to the port.
   ///
-  external WritableStream get writable;
+  WritableStream get writable => js_util.getProperty(this, 'writable');
 
   ///  Returns a [Promise] that resolves with an object containing
   /// properties of the port.
   ///
   /// var promise = SerialPort.getInfo();
   ///
-  external SerialPortInfo getInfo();
+  SerialPortInfo getInfo() => js_util.callMethod(this, 'getInfo', []);
 
   ///  Returns a [Promise] that resolves when the port is opened. By
   /// default the port is opened with 8 data bits, 1 stop bit and no
@@ -112,27 +135,30 @@ extension PropsSerialPort on SerialPort {
   ///
   /// var promise = SerialPort.open(options);
   ///
-  external Promise<Object> open(SerialOptions options);
+  Promise<Object> open(SerialOptions options) =>
+      js_util.callMethod(this, 'open', [options]);
 
   ///  Sets control signals on the port and returns a [Promise] that
   /// resolves when they are set.
   ///
   /// var promise = SerialPort.setSignals(options);
   ///
-  external Promise<Object> setSignals([SerialOutputSignals? signals]);
+  Promise<Object> setSignals([SerialOutputSignals? signals]) =>
+      js_util.callMethod(this, 'setSignals', [signals]);
 
   ///  Returns a [Promise] that resolves with an object containing the
   /// current state of the port's control signals.
   ///
   /// var promise = SerialPort.getSignals();
   ///
-  external Promise<SerialInputSignals> getSignals();
+  Promise<SerialInputSignals> getSignals() =>
+      js_util.callMethod(this, 'getSignals', []);
 
   /// Returns a [Promise] that resolves when the port closes.
   ///
   /// var promise = SerialPort.close();
   ///
-  external Promise<Object> close();
+  Promise<Object> close() => js_util.callMethod(this, 'close', []);
 }
 
 @anonymous
@@ -143,10 +169,15 @@ class SerialPortInfo {
 }
 
 extension PropsSerialPortInfo on SerialPortInfo {
-  external int get usbVendorId;
-  external set usbVendorId(int newValue);
-  external int get usbProductId;
-  external set usbProductId(int newValue);
+  int get usbVendorId => js_util.getProperty(this, 'usbVendorId');
+  set usbVendorId(int newValue) {
+    js_util.setProperty(this, 'usbVendorId', newValue);
+  }
+
+  int get usbProductId => js_util.getProperty(this, 'usbProductId');
+  set usbProductId(int newValue) {
+    js_util.setProperty(this, 'usbProductId', newValue);
+  }
 }
 
 @anonymous
@@ -163,18 +194,35 @@ class SerialOptions {
 }
 
 extension PropsSerialOptions on SerialOptions {
-  external int get baudRate;
-  external set baudRate(int newValue);
-  external int get dataBits;
-  external set dataBits(int newValue);
-  external int get stopBits;
-  external set stopBits(int newValue);
-  external ParityType get parity;
-  external set parity(ParityType newValue);
-  external int get bufferSize;
-  external set bufferSize(int newValue);
-  external FlowControlType get flowControl;
-  external set flowControl(FlowControlType newValue);
+  int get baudRate => js_util.getProperty(this, 'baudRate');
+  set baudRate(int newValue) {
+    js_util.setProperty(this, 'baudRate', newValue);
+  }
+
+  int get dataBits => js_util.getProperty(this, 'dataBits');
+  set dataBits(int newValue) {
+    js_util.setProperty(this, 'dataBits', newValue);
+  }
+
+  int get stopBits => js_util.getProperty(this, 'stopBits');
+  set stopBits(int newValue) {
+    js_util.setProperty(this, 'stopBits', newValue);
+  }
+
+  ParityType get parity => js_util.getProperty(this, 'parity');
+  set parity(ParityType newValue) {
+    js_util.setProperty(this, 'parity', newValue);
+  }
+
+  int get bufferSize => js_util.getProperty(this, 'bufferSize');
+  set bufferSize(int newValue) {
+    js_util.setProperty(this, 'bufferSize', newValue);
+  }
+
+  FlowControlType get flowControl => js_util.getProperty(this, 'flowControl');
+  set flowControl(FlowControlType newValue) {
+    js_util.setProperty(this, 'flowControl', newValue);
+  }
 }
 
 enum ParityType { none, even, odd }
@@ -190,14 +238,22 @@ class SerialOutputSignals {
 }
 
 extension PropsSerialOutputSignals on SerialOutputSignals {
-  external bool get dataTerminalReady;
-  external set dataTerminalReady(bool newValue);
-  external bool get requestToSend;
-  external set requestToSend(bool newValue);
+  bool get dataTerminalReady => js_util.getProperty(this, 'dataTerminalReady');
+  set dataTerminalReady(bool newValue) {
+    js_util.setProperty(this, 'dataTerminalReady', newValue);
+  }
+
+  bool get requestToSend => js_util.getProperty(this, 'requestToSend');
+  set requestToSend(bool newValue) {
+    js_util.setProperty(this, 'requestToSend', newValue);
+  }
+
   @JS('break')
   @staticInterop
-  external bool get mBreak;
-  external set mBreak(bool newValue);
+  bool get mBreak => js_util.getProperty(this, 'break');
+  set mBreak(bool newValue) {
+    js_util.setProperty(this, 'break', newValue);
+  }
 }
 
 @anonymous
@@ -212,12 +268,23 @@ class SerialInputSignals {
 }
 
 extension PropsSerialInputSignals on SerialInputSignals {
-  external bool get dataCarrierDetect;
-  external set dataCarrierDetect(bool newValue);
-  external bool get clearToSend;
-  external set clearToSend(bool newValue);
-  external bool get ringIndicator;
-  external set ringIndicator(bool newValue);
-  external bool get dataSetReady;
-  external set dataSetReady(bool newValue);
+  bool get dataCarrierDetect => js_util.getProperty(this, 'dataCarrierDetect');
+  set dataCarrierDetect(bool newValue) {
+    js_util.setProperty(this, 'dataCarrierDetect', newValue);
+  }
+
+  bool get clearToSend => js_util.getProperty(this, 'clearToSend');
+  set clearToSend(bool newValue) {
+    js_util.setProperty(this, 'clearToSend', newValue);
+  }
+
+  bool get ringIndicator => js_util.getProperty(this, 'ringIndicator');
+  set ringIndicator(bool newValue) {
+    js_util.setProperty(this, 'ringIndicator', newValue);
+  }
+
+  bool get dataSetReady => js_util.getProperty(this, 'dataSetReady');
+  set dataSetReady(bool newValue) {
+    js_util.setProperty(this, 'dataSetReady', newValue);
+  }
 }

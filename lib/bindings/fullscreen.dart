@@ -5,6 +5,7 @@
 @staticInterop
 library fullscreen;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -24,6 +25,9 @@ class FullscreenOptions {
 }
 
 extension PropsFullscreenOptions on FullscreenOptions {
-  external FullscreenNavigationUI get navigationUI;
-  external set navigationUI(FullscreenNavigationUI newValue);
+  FullscreenNavigationUI get navigationUI =>
+      js_util.getProperty(this, 'navigationUI');
+  set navigationUI(FullscreenNavigationUI newValue) {
+    js_util.setProperty(this, 'navigationUI', newValue);
+  }
 }

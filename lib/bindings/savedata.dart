@@ -5,6 +5,7 @@
 @staticInterop
 library savedata;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -15,9 +16,9 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class NetworkInformationSaveData {
-  external factory NetworkInformationSaveData();
+  external NetworkInformationSaveData();
 }
 
 extension PropsNetworkInformationSaveData on NetworkInformationSaveData {
-  external bool get saveData;
+  bool get saveData => js_util.getProperty(this, 'saveData');
 }

@@ -5,6 +5,7 @@
 @staticInterop
 library webrtc;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -40,18 +41,40 @@ class RTCConfiguration {
 }
 
 extension PropsRTCConfiguration on RTCConfiguration {
-  external Iterable<RTCIceServer> get iceServers;
-  external set iceServers(Iterable<RTCIceServer> newValue);
-  external RTCIceTransportPolicy get iceTransportPolicy;
-  external set iceTransportPolicy(RTCIceTransportPolicy newValue);
-  external RTCBundlePolicy get bundlePolicy;
-  external set bundlePolicy(RTCBundlePolicy newValue);
-  external RTCRtcpMuxPolicy get rtcpMuxPolicy;
-  external set rtcpMuxPolicy(RTCRtcpMuxPolicy newValue);
-  external Iterable<RTCCertificate> get certificates;
-  external set certificates(Iterable<RTCCertificate> newValue);
-  external int get iceCandidatePoolSize;
-  external set iceCandidatePoolSize(int newValue);
+  Iterable<RTCIceServer> get iceServers =>
+      js_util.getProperty(this, 'iceServers');
+  set iceServers(Iterable<RTCIceServer> newValue) {
+    js_util.setProperty(this, 'iceServers', newValue);
+  }
+
+  RTCIceTransportPolicy get iceTransportPolicy =>
+      js_util.getProperty(this, 'iceTransportPolicy');
+  set iceTransportPolicy(RTCIceTransportPolicy newValue) {
+    js_util.setProperty(this, 'iceTransportPolicy', newValue);
+  }
+
+  RTCBundlePolicy get bundlePolicy => js_util.getProperty(this, 'bundlePolicy');
+  set bundlePolicy(RTCBundlePolicy newValue) {
+    js_util.setProperty(this, 'bundlePolicy', newValue);
+  }
+
+  RTCRtcpMuxPolicy get rtcpMuxPolicy =>
+      js_util.getProperty(this, 'rtcpMuxPolicy');
+  set rtcpMuxPolicy(RTCRtcpMuxPolicy newValue) {
+    js_util.setProperty(this, 'rtcpMuxPolicy', newValue);
+  }
+
+  Iterable<RTCCertificate> get certificates =>
+      js_util.getProperty(this, 'certificates');
+  set certificates(Iterable<RTCCertificate> newValue) {
+    js_util.setProperty(this, 'certificates', newValue);
+  }
+
+  int get iceCandidatePoolSize =>
+      js_util.getProperty(this, 'iceCandidatePoolSize');
+  set iceCandidatePoolSize(int newValue) {
+    js_util.setProperty(this, 'iceCandidatePoolSize', newValue);
+  }
 }
 
 enum RTCIceCredentialType { password }
@@ -77,28 +100,37 @@ extension PropsRTCIceServer on RTCIceServer {
   /// array of [DOMString]s, each specifying a URL which can be used to
   /// connect to the server.
   ///
-  external dynamic get urls;
-  external set urls(dynamic newValue);
+  dynamic get urls => js_util.getProperty(this, 'urls');
+  set urls(dynamic newValue) {
+    js_util.setProperty(this, 'urls', newValue);
+  }
 
   ///  If the [RTCIceServer] is a TURN server, then this is the
   /// username to use during the authentication process.
   ///
-  external String get username;
-  external set username(String newValue);
+  String get username => js_util.getProperty(this, 'username');
+  set username(String newValue) {
+    js_util.setProperty(this, 'username', newValue);
+  }
 
   ///  The credential to use when logging into the server. This is only
   /// used if the [RTCIceServer] represents a TURN server.
   ///
-  external String get credential;
-  external set credential(String newValue);
+  String get credential => js_util.getProperty(this, 'credential');
+  set credential(String newValue) {
+    js_util.setProperty(this, 'credential', newValue);
+  }
 
   ///  If the [RTCIceServer] represents a TURN server, this attribute
   /// specifies what kind of [credential] is to be used when
   /// connecting. This must be one of the values defined by the
   /// [RTCIceCredentialType] enum. The default is [password].
   ///
-  external RTCIceCredentialType get credentialType;
-  external set credentialType(RTCIceCredentialType newValue);
+  RTCIceCredentialType get credentialType =>
+      js_util.getProperty(this, 'credentialType');
+  set credentialType(RTCIceCredentialType newValue) {
+    js_util.setProperty(this, 'credentialType', newValue);
+  }
 }
 
 enum RTCIceTransportPolicy { relay, all }
@@ -122,8 +154,10 @@ class RTCOfferOptions implements RTCOfferAnswerOptions {
 }
 
 extension PropsRTCOfferOptions on RTCOfferOptions {
-  external bool get iceRestart;
-  external set iceRestart(bool newValue);
+  bool get iceRestart => js_util.getProperty(this, 'iceRestart');
+  set iceRestart(bool newValue) {
+    js_util.setProperty(this, 'iceRestart', newValue);
+  }
 }
 
 @anonymous
@@ -182,7 +216,7 @@ enum RTCIceConnectionState {
 @JS()
 @staticInterop
 class RTCPeerConnection implements EventTarget {
-  external factory RTCPeerConnection([RTCConfiguration? configuration]);
+  external RTCPeerConnection([RTCConfiguration? configuration]);
 }
 
 extension PropsRTCPeerConnection on RTCPeerConnection {
@@ -192,7 +226,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    If it has not yet been set, returns [null].
   ///
   ///
-  external RTCSessionDescription? get localDescription;
+  RTCSessionDescription? get localDescription =>
+      js_util.getProperty(this, 'localDescription');
 
   ///
   ///    Returns an [RTCSessionDescription] object describing
@@ -207,7 +242,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   /// first instantiated.
   ///
   ///
-  external RTCSessionDescription? get currentLocalDescription;
+  RTCSessionDescription? get currentLocalDescription =>
+      js_util.getProperty(this, 'currentLocalDescription');
 
   ///
   ///    Returns an [RTCSessionDescription] object
@@ -217,7 +253,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    but as it may exist in the near future.
   ///
   ///
-  external RTCSessionDescription? get pendingLocalDescription;
+  RTCSessionDescription? get pendingLocalDescription =>
+      js_util.getProperty(this, 'pendingLocalDescription');
 
   ///
   ///    Returns an [RTCSessionDescription] object
@@ -227,7 +264,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    If this hasn't been set yet, this returns [null].
   ///
   ///
-  external RTCSessionDescription? get remoteDescription;
+  RTCSessionDescription? get remoteDescription =>
+      js_util.getProperty(this, 'remoteDescription');
 
   ///
   ///    Returns an [RTCSessionDescription] object describing
@@ -242,7 +280,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   /// first instantiated.
   ///
   ///
-  external RTCSessionDescription? get currentRemoteDescription;
+  RTCSessionDescription? get currentRemoteDescription =>
+      js_util.getProperty(this, 'currentRemoteDescription');
 
   ///
   ///    Returns an [RTCSessionDescription] object
@@ -252,7 +291,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    but as it may exist in the near future.
   ///
   ///
-  external RTCSessionDescription? get pendingRemoteDescription;
+  RTCSessionDescription? get pendingRemoteDescription =>
+      js_util.getProperty(this, 'pendingRemoteDescription');
 
   ///
   ///    Returns a string
@@ -264,7 +304,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    [have-local-pranswer], [have-remote-pranswer], or [closed].
   ///
   ///
-  external RTCSignalingState get signalingState;
+  RTCSignalingState get signalingState =>
+      js_util.getProperty(this, 'signalingState');
 
   ///
   ///    Returns a string
@@ -275,7 +316,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    [new], [gathering], or [complete].
   ///
   ///
-  external RTCIceGatheringState get iceGatheringState;
+  RTCIceGatheringState get iceGatheringState =>
+      js_util.getProperty(this, 'iceGatheringState');
 
   ///
   ///     Returns a string which state of the ICE agent associated with
@@ -285,7 +327,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    [failed], [disconnected], or [closed].
   ///
   ///
-  external RTCIceConnectionState get iceConnectionState;
+  RTCIceConnectionState get iceConnectionState =>
+      js_util.getProperty(this, 'iceConnectionState');
 
   ///
   ///    Indicates the current state of the peer connection
@@ -294,14 +337,16 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    [failed], or [closed].
   ///
   ///
-  external RTCPeerConnectionState get connectionState;
+  RTCPeerConnectionState get connectionState =>
+      js_util.getProperty(this, 'connectionState');
 
   ///
   ///    Returns a boolean value which indicates whether or not
   ///    the remote peer can accept trickled ICE candidates.
   ///
   ///
-  external bool? get canTrickleIceCandidates;
+  bool? get canTrickleIceCandidates =>
+      js_util.getProperty(this, 'canTrickleIceCandidates');
 
   ///
   ///    Allows to easily request
@@ -334,7 +379,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  the handler for negotiationneeded will trigger an ICE restart rather than
   ///  just a regular renegotiation.
   ///
-  external Object restartIce();
+  Object restartIce() => js_util.callMethod(this, 'restartIce', []);
 
   ///
   ///    Returns an object
@@ -371,7 +416,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  setConfiguration() to add the
   ///  certificate to the connection.
   ///
-  external RTCConfiguration getConfiguration();
+  RTCConfiguration getConfiguration() =>
+      js_util.callMethod(this, 'getConfiguration', []);
 
   ///
   ///    Sets the current configuration of the connection
@@ -412,7 +458,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  handle the process as usual, by setting the local description to the returned offer and
   ///  then sending that offer to the other peer.
   ///
-  external Object setConfiguration([RTCConfiguration? configuration]);
+  Object setConfiguration([RTCConfiguration? configuration]) =>
+      js_util.callMethod(this, 'setConfiguration', [configuration]);
 
   /// Closes the current peer connection.
   ///
@@ -448,21 +495,49 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  console.log("datachannel close");
   /// };
   ///
-  external Object close();
-  external EventHandlerNonNull? get onnegotiationneeded;
-  external set onnegotiationneeded(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onicecandidate;
-  external set onicecandidate(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onicecandidateerror;
-  external set onicecandidateerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsignalingstatechange;
-  external set onsignalingstatechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oniceconnectionstatechange;
-  external set oniceconnectionstatechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onicegatheringstatechange;
-  external set onicegatheringstatechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onconnectionstatechange;
-  external set onconnectionstatechange(EventHandlerNonNull? newValue);
+  Object close() => js_util.callMethod(this, 'close', []);
+
+  EventHandlerNonNull? get onnegotiationneeded =>
+      js_util.getProperty(this, 'onnegotiationneeded');
+  set onnegotiationneeded(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onnegotiationneeded', newValue);
+  }
+
+  EventHandlerNonNull? get onicecandidate =>
+      js_util.getProperty(this, 'onicecandidate');
+  set onicecandidate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onicecandidate', newValue);
+  }
+
+  EventHandlerNonNull? get onicecandidateerror =>
+      js_util.getProperty(this, 'onicecandidateerror');
+  set onicecandidateerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onicecandidateerror', newValue);
+  }
+
+  EventHandlerNonNull? get onsignalingstatechange =>
+      js_util.getProperty(this, 'onsignalingstatechange');
+  set onsignalingstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsignalingstatechange', newValue);
+  }
+
+  EventHandlerNonNull? get oniceconnectionstatechange =>
+      js_util.getProperty(this, 'oniceconnectionstatechange');
+  set oniceconnectionstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oniceconnectionstatechange', newValue);
+  }
+
+  EventHandlerNonNull? get onicegatheringstatechange =>
+      js_util.getProperty(this, 'onicegatheringstatechange');
+  set onicegatheringstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onicegatheringstatechange', newValue);
+  }
+
+  EventHandlerNonNull? get onconnectionstatechange =>
+      js_util.getProperty(this, 'onconnectionstatechange');
+  set onconnectionstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnectionstatechange', newValue);
+  }
 
   ///
   ///    Initiates the creation of an SDP offer
@@ -528,10 +603,12 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   /// video calling for the complete example from which this snippet is derived; this
   ///  will help you to understand how the signaling code here works.
   ///
-  external Promise<Object> createOffer(
-      [RTCSessionDescriptionCallback? successCallback,
-      RTCPeerConnectionErrorCallback failureCallback,
-      RTCOfferOptions? options]);
+  Promise<Object> createOffer(
+          [RTCSessionDescriptionCallback? successCallback,
+          RTCPeerConnectionErrorCallback? failureCallback,
+          RTCOfferOptions? options]) =>
+      js_util.callMethod(
+          this, 'createOffer', [successCallback, failureCallback, options]);
 
   ///
   ///    Changes the local description associated with the connection.
@@ -549,10 +626,12 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///
   ///
   ///
-  external Promise<Object> setLocalDescription(
-      [RTCLocalSessionDescriptionInit? description,
-      VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback]);
+  Promise<Object> setLocalDescription(
+          [RTCLocalSessionDescriptionInit? description,
+          VoidFunction? successCallback,
+          RTCPeerConnectionErrorCallback? failureCallback]) =>
+      js_util.callMethod(this, 'setLocalDescription',
+          [description, successCallback, failureCallback]);
 
   ///
   ///    Initiates the creation an SDP answer
@@ -603,9 +682,11 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  snippet is derived; that will help you understand the signaling process and how answers
   ///  work.
   ///
-  external Promise<Object> createAnswer(
-      [RTCSessionDescriptionCallback? successCallback,
-      RTCPeerConnectionErrorCallback failureCallback]);
+  Promise<Object> createAnswer(
+          [RTCSessionDescriptionCallback? successCallback,
+          RTCPeerConnectionErrorCallback? failureCallback]) =>
+      js_util
+          .callMethod(this, 'createAnswer', [successCallback, failureCallback]);
 
   ///
   ///    Sets the specified session description
@@ -659,10 +740,12 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  that as the configuration at our end of the call before forwarding that answer to the
   ///  caller.
   ///
-  external Promise<Object> setRemoteDescription(
-      [RTCSessionDescriptionInit? description,
-      VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback]);
+  Promise<Object> setRemoteDescription(
+          [RTCSessionDescriptionInit? description,
+          VoidFunction? successCallback,
+          RTCPeerConnectionErrorCallback? failureCallback]) =>
+      js_util.callMethod(this, 'setRemoteDescription',
+          [description, successCallback, failureCallback]);
 
   ///
   ///     Adds a new remote candidate to the [RTCPeerConnection]'s
@@ -674,33 +757,64 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   /// addIceCandidate(candidate)
   /// addIceCandidate(candidate, successCallback, failureCallback) // deprecated
   ///
-  external Promise<Object> addIceCandidate(
-      [RTCIceCandidateInit? candidate,
-      VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback]);
+  Promise<Object> addIceCandidate(
+          [RTCIceCandidateInit? candidate,
+          VoidFunction? successCallback,
+          RTCPeerConnectionErrorCallback? failureCallback]) =>
+      js_util.callMethod(this, 'addIceCandidate',
+          [candidate, successCallback, failureCallback]);
+
   external static Promise<RTCCertificate> generateCertificate(
       dynamic keygenAlgorithm);
-  external Iterable<RTCRtpSender> getSenders();
-  external Iterable<RTCRtpReceiver> getReceivers();
-  external Iterable<RTCRtpTransceiver> getTransceivers();
-  external RTCRtpSender addTrack(MediaStreamTrack track, [MediaStream streams]);
-  external Object removeTrack(RTCRtpSender sender);
-  external RTCRtpTransceiver addTransceiver(dynamic trackOrKind,
-      [RTCRtpTransceiverInit? init]);
-  external EventHandlerNonNull? get ontrack;
-  external set ontrack(EventHandlerNonNull? newValue);
-  external RTCSctpTransport? get sctp;
-  external RTCDataChannel createDataChannel(String label,
-      [RTCDataChannelInit? dataChannelDict]);
-  external EventHandlerNonNull? get ondatachannel;
-  external set ondatachannel(EventHandlerNonNull? newValue);
-  external Promise<RTCStatsReport> getStats([MediaStreamTrack? selector]);
-  external Object setIdentityProvider(String provider,
-      [RTCIdentityProviderOptions? options]);
-  external Promise<String> getIdentityAssertion();
-  external Promise<RTCIdentityAssertion> get peerIdentity;
-  external String? get idpLoginUrl;
-  external String? get idpErrorInfo;
+  Iterable<RTCRtpSender> getSenders() =>
+      js_util.callMethod(this, 'getSenders', []);
+
+  Iterable<RTCRtpReceiver> getReceivers() =>
+      js_util.callMethod(this, 'getReceivers', []);
+
+  Iterable<RTCRtpTransceiver> getTransceivers() =>
+      js_util.callMethod(this, 'getTransceivers', []);
+
+  RTCRtpSender addTrack(MediaStreamTrack track, [MediaStream? streams]) =>
+      js_util.callMethod(this, 'addTrack', [track, streams]);
+
+  Object removeTrack(RTCRtpSender sender) =>
+      js_util.callMethod(this, 'removeTrack', [sender]);
+
+  RTCRtpTransceiver addTransceiver(dynamic trackOrKind,
+          [RTCRtpTransceiverInit? init]) =>
+      js_util.callMethod(this, 'addTransceiver', [trackOrKind, init]);
+
+  EventHandlerNonNull? get ontrack => js_util.getProperty(this, 'ontrack');
+  set ontrack(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontrack', newValue);
+  }
+
+  RTCSctpTransport? get sctp => js_util.getProperty(this, 'sctp');
+  RTCDataChannel createDataChannel(String label,
+          [RTCDataChannelInit? dataChannelDict]) =>
+      js_util.callMethod(this, 'createDataChannel', [label, dataChannelDict]);
+
+  EventHandlerNonNull? get ondatachannel =>
+      js_util.getProperty(this, 'ondatachannel');
+  set ondatachannel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondatachannel', newValue);
+  }
+
+  Promise<RTCStatsReport> getStats([MediaStreamTrack? selector]) =>
+      js_util.callMethod(this, 'getStats', [selector]);
+
+  Object setIdentityProvider(String provider,
+          [RTCIdentityProviderOptions? options]) =>
+      js_util.callMethod(this, 'setIdentityProvider', [provider, options]);
+
+  Promise<String> getIdentityAssertion() =>
+      js_util.callMethod(this, 'getIdentityAssertion', []);
+
+  Promise<RTCIdentityAssertion> get peerIdentity =>
+      js_util.getProperty(this, 'peerIdentity');
+  String? get idpLoginUrl => js_util.getProperty(this, 'idpLoginUrl');
+  String? get idpErrorInfo => js_util.getProperty(this, 'idpErrorInfo');
 }
 
 enum RTCSdpType { offer, pranswer, answer, rollback }
@@ -723,20 +837,19 @@ enum RTCSdpType { offer, pranswer, answer, rollback }
 @JS()
 @staticInterop
 class RTCSessionDescription {
-  external factory RTCSessionDescription(
-      RTCSessionDescriptionInit descriptionInitDict);
+  external RTCSessionDescription(RTCSessionDescriptionInit descriptionInitDict);
 }
 
 extension PropsRTCSessionDescription on RTCSessionDescription {
   ///  An enum of type [RTCSdpType] describing the session
   /// description's type.
   ///
-  external RTCSdpType get type;
+  RTCSdpType get type => js_util.getProperty(this, 'type');
 
   /// A [DOMString] containing the SDP describing the session.
   ///
-  external String get sdp;
-  external dynamic toJSON();
+  String get sdp => js_util.getProperty(this, 'sdp');
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 @anonymous
@@ -748,10 +861,15 @@ class RTCSessionDescriptionInit {
 }
 
 extension PropsRTCSessionDescriptionInit on RTCSessionDescriptionInit {
-  external RTCSdpType get type;
-  external set type(RTCSdpType newValue);
-  external String get sdp;
-  external set sdp(String newValue);
+  RTCSdpType get type => js_util.getProperty(this, 'type');
+  set type(RTCSdpType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  String get sdp => js_util.getProperty(this, 'sdp');
+  set sdp(String newValue) {
+    js_util.setProperty(this, 'sdp', newValue);
+  }
 }
 
 @anonymous
@@ -764,10 +882,15 @@ class RTCLocalSessionDescriptionInit {
 
 extension PropsRTCLocalSessionDescriptionInit
     on RTCLocalSessionDescriptionInit {
-  external RTCSdpType get type;
-  external set type(RTCSdpType newValue);
-  external String get sdp;
-  external set sdp(String newValue);
+  RTCSdpType get type => js_util.getProperty(this, 'type');
+  set type(RTCSdpType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  String get sdp => js_util.getProperty(this, 'sdp');
+  set sdp(String newValue) {
+    js_util.setProperty(this, 'sdp', newValue);
+  }
 }
 
 ///  The interface—part of the WebRTC API—represents a candidate
@@ -786,7 +909,7 @@ extension PropsRTCLocalSessionDescriptionInit
 @JS()
 @staticInterop
 class RTCIceCandidate {
-  external factory RTCIceCandidate([RTCIceCandidateInit? candidateInitDict]);
+  external RTCIceCandidate([RTCIceCandidateInit? candidateInitDict]);
 }
 
 extension PropsRTCIceCandidate on RTCIceCandidate {
@@ -796,20 +919,20 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   /// This string is empty ([""]) if the [RTCIceCandidate] is an "end
   /// of candidates" indicator.
   ///
-  external String get candidate;
+  String get candidate => js_util.getProperty(this, 'candidate');
 
   ///  A [DOMString] specifying the candidate's media stream
   /// identification tag which uniquely identifies the media stream
   /// within the component with which the candidate is associated, or
   /// [null] if no such association exists.
   ///
-  external String? get sdpMid;
+  String? get sdpMid => js_util.getProperty(this, 'sdpMid');
 
   ///  If not [null], indicates the zero-based index number of the
   /// media description (as defined in RFC 4566) in the SDP with which
   /// the candidate is associated.
   ///
-  external int? get sdpMLineIndex;
+  int? get sdpMLineIndex => js_util.getProperty(this, 'sdpMLineIndex');
 
   ///  Returns a [DOMString] containing a unique identifier that is the
   /// same for any candidates of the same type, share the same base
@@ -818,54 +941,54 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   /// performance while prioritizing and correlating candidates that
   /// appear on multiple [RTCIceTransport] objects.
   ///
-  external String? get foundation;
+  String? get foundation => js_util.getProperty(this, 'foundation');
 
   ///  A string which indicates whether the candidate is an RTP or an
   /// RTCP candidate; its value is either [rtp] or [rtcp], and is
   /// derived from the ["component-id"] field in the [candidate] a-line
   /// string.
   ///
-  external RTCIceComponent? get component;
+  RTCIceComponent? get component => js_util.getProperty(this, 'component');
 
   /// A long integer value indicating the candidate's priority.
   ///
-  external int? get priority;
+  int? get priority => js_util.getProperty(this, 'priority');
 
   /// A [DOMString] containing the IP address of the candidate.
   ///
-  external String? get address;
+  String? get address => js_util.getProperty(this, 'address');
 
   ///  A string indicating whether the candidate's protocol is ["tcp"]
   /// or ["udp"].
   ///
-  external RTCIceProtocol? get protocol;
+  RTCIceProtocol? get protocol => js_util.getProperty(this, 'protocol');
 
   /// An integer value indicating the candidate's port number.
   ///
-  external int? get port;
+  int? get port => js_util.getProperty(this, 'port');
 
   ///  A [DOMString] indicating the type of candidate as one of the
   /// strings listed on [RTCIceCandidate.type].
   ///
-  external RTCIceCandidateType? get type;
+  RTCIceCandidateType? get type => js_util.getProperty(this, 'type');
 
   ///  If [protocol] is ["tcp"], represents the type of TCP candidate.
   /// Otherwise, is [null].
   ///
-  external RTCIceTcpCandidateType? get tcpType;
+  RTCIceTcpCandidateType? get tcpType => js_util.getProperty(this, 'tcpType');
 
   ///  If the candidate is derived from another candidate, is a
   /// [DOMString] containing that host candidate's IP address. For host
   /// candidates, this value is [null].
   ///
-  external String? get relatedAddress;
+  String? get relatedAddress => js_util.getProperty(this, 'relatedAddress');
 
   ///  For a candidate that is derived from another, such as a relay or
   /// reflexive candidate, the is a number indicating the port number
   /// of the candidate from which this candidate is derived. For host
   /// candidates, the property is [null].
   ///
-  external int? get relatedPort;
+  int? get relatedPort => js_util.getProperty(this, 'relatedPort');
 
   ///  A [DOMString] containing a randomly-generated username fragment
   /// ("ice-ufrag") which ICE uses for message integrity along with a
@@ -873,7 +996,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   /// to verify generations of ICE generation; each generation of the
   /// same ICE process will use the same , even across ICE restarts.
   ///
-  external String? get usernameFragment;
+  String? get usernameFragment => js_util.getProperty(this, 'usernameFragment');
 
   ///
   ///     Returns a JSON representation of the [RTCIceCandidate]'s
@@ -888,7 +1011,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   /// This simple example obtains a JSON string representing an RTCIceCandidate found in the variable candidate.
   /// let jsonString = candidate.toJSON().stringify();
   ///
-  external RTCIceCandidateInit toJSON();
+  RTCIceCandidateInit toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 @anonymous
@@ -903,14 +1026,25 @@ class RTCIceCandidateInit {
 }
 
 extension PropsRTCIceCandidateInit on RTCIceCandidateInit {
-  external String get candidate;
-  external set candidate(String newValue);
-  external String? get sdpMid;
-  external set sdpMid(String? newValue);
-  external int? get sdpMLineIndex;
-  external set sdpMLineIndex(int? newValue);
-  external String? get usernameFragment;
-  external set usernameFragment(String? newValue);
+  String get candidate => js_util.getProperty(this, 'candidate');
+  set candidate(String newValue) {
+    js_util.setProperty(this, 'candidate', newValue);
+  }
+
+  String? get sdpMid => js_util.getProperty(this, 'sdpMid');
+  set sdpMid(String? newValue) {
+    js_util.setProperty(this, 'sdpMid', newValue);
+  }
+
+  int? get sdpMLineIndex => js_util.getProperty(this, 'sdpMLineIndex');
+  set sdpMLineIndex(int? newValue) {
+    js_util.setProperty(this, 'sdpMLineIndex', newValue);
+  }
+
+  String? get usernameFragment => js_util.getProperty(this, 'usernameFragment');
+  set usernameFragment(String? newValue) {
+    js_util.setProperty(this, 'usernameFragment', newValue);
+  }
 }
 
 enum RTCIceProtocol { udp, tcp }
@@ -926,7 +1060,7 @@ enum RTCIceCandidateType { host, srflx, prflx, relay }
 @JS()
 @staticInterop
 class RTCPeerConnectionIceEvent implements Event {
-  external factory RTCPeerConnectionIceEvent(String type,
+  external RTCPeerConnectionIceEvent(String type,
       [RTCPeerConnectionIceEventInit? eventInitDict]);
 }
 
@@ -935,8 +1069,8 @@ extension PropsRTCPeerConnectionIceEvent on RTCPeerConnectionIceEvent {
   /// associated with the event, or [null] if this event indicates that
   /// there are no further candidates to come.
   ///
-  external RTCIceCandidate? get candidate;
-  external String? get url;
+  RTCIceCandidate? get candidate => js_util.getProperty(this, 'candidate');
+  String? get url => js_util.getProperty(this, 'url');
 }
 
 @anonymous
@@ -948,10 +1082,15 @@ class RTCPeerConnectionIceEventInit implements EventInit {
 }
 
 extension PropsRTCPeerConnectionIceEventInit on RTCPeerConnectionIceEventInit {
-  external RTCIceCandidate? get candidate;
-  external set candidate(RTCIceCandidate? newValue);
-  external String? get url;
-  external set url(String? newValue);
+  RTCIceCandidate? get candidate => js_util.getProperty(this, 'candidate');
+  set candidate(RTCIceCandidate? newValue) {
+    js_util.setProperty(this, 'candidate', newValue);
+  }
+
+  String? get url => js_util.getProperty(this, 'url');
+  set url(String? newValue) {
+    js_util.setProperty(this, 'url', newValue);
+  }
 }
 
 ///  The interface—based upon the [Event] interface—provides details
@@ -960,7 +1099,7 @@ extension PropsRTCPeerConnectionIceEventInit on RTCPeerConnectionIceEventInit {
 @JS()
 @staticInterop
 class RTCPeerConnectionIceErrorEvent implements Event {
-  external factory RTCPeerConnectionIceErrorEvent(
+  external RTCPeerConnectionIceErrorEvent(
       String type, RTCPeerConnectionIceErrorEventInit eventInitDict);
 }
 
@@ -971,19 +1110,19 @@ extension PropsRTCPeerConnectionIceErrorEvent
   /// connection, or [null] if the local IP address has not yet been
   /// exposed as part of a local ICE candidate.
   ///
-  external String? get address;
+  String? get address => js_util.getProperty(this, 'address');
 
   ///  An unsigned integer value giving the port number over which
   /// communication with the STUN or TURN server is taking place, using
   /// the IP address given in [address]. [null] if the connection
   /// hasn't been established (that is, if [address] is [null]).
   ///
-  external int? get port;
+  int? get port => js_util.getProperty(this, 'port');
 
   ///  A [DOMString] indicating the URL of the STUN or TURN server with
   /// which the error occurred.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   ///  An unsigned integer value stating the numeric STUN error code
   /// returned by the STUN or TURN server. If no host candidate can
@@ -992,14 +1131,14 @@ extension PropsRTCPeerConnectionIceErrorEvent
   /// fired only once per server URL, and only while the is
   /// [icegatheringstate] is [gathering].
   ///
-  external int get errorCode;
+  int get errorCode => js_util.getProperty(this, 'errorCode');
 
   ///  A [DOMString] containing the STUN reason text returned by the
   /// STUN or TURN server. If communication with the STUN or TURN
   /// server couldn't be established at all, this string will be a
   /// browser-specific string explaining the error.
   ///
-  external String get errorText;
+  String get errorText => js_util.getProperty(this, 'errorText');
 }
 
 @anonymous
@@ -1016,16 +1155,30 @@ class RTCPeerConnectionIceErrorEventInit implements EventInit {
 
 extension PropsRTCPeerConnectionIceErrorEventInit
     on RTCPeerConnectionIceErrorEventInit {
-  external String? get address;
-  external set address(String? newValue);
-  external int? get port;
-  external set port(int? newValue);
-  external String get url;
-  external set url(String newValue);
-  external int get errorCode;
-  external set errorCode(int newValue);
-  external String get errorText;
-  external set errorText(String newValue);
+  String? get address => js_util.getProperty(this, 'address');
+  set address(String? newValue) {
+    js_util.setProperty(this, 'address', newValue);
+  }
+
+  int? get port => js_util.getProperty(this, 'port');
+  set port(int? newValue) {
+    js_util.setProperty(this, 'port', newValue);
+  }
+
+  String get url => js_util.getProperty(this, 'url');
+  set url(String newValue) {
+    js_util.setProperty(this, 'url', newValue);
+  }
+
+  int get errorCode => js_util.getProperty(this, 'errorCode');
+  set errorCode(int newValue) {
+    js_util.setProperty(this, 'errorCode', newValue);
+  }
+
+  String get errorText => js_util.getProperty(this, 'errorText');
+  set errorText(String newValue) {
+    js_util.setProperty(this, 'errorText', newValue);
+  }
 }
 
 @anonymous
@@ -1036,8 +1189,10 @@ class RTCCertificateExpiration {
 }
 
 extension PropsRTCCertificateExpiration on RTCCertificateExpiration {
-  external int get expires;
-  external set expires(int newValue);
+  int get expires => js_util.getProperty(this, 'expires');
+  set expires(int newValue) {
+    js_util.setProperty(this, 'expires', newValue);
+  }
 }
 
 ///  The interface of the WebRTC API provides an object represents a
@@ -1045,14 +1200,15 @@ extension PropsRTCCertificateExpiration on RTCCertificateExpiration {
 @JS()
 @staticInterop
 class RTCCertificate {
-  external factory RTCCertificate();
+  external RTCCertificate();
 }
 
 extension PropsRTCCertificate on RTCCertificate {
   /// Returns the expiration date of the certificate.
   ///
-  external int get expires;
-  external Iterable<RTCDtlsFingerprint> getFingerprints();
+  int get expires => js_util.getProperty(this, 'expires');
+  Iterable<RTCDtlsFingerprint> getFingerprints() =>
+      js_util.callMethod(this, 'getFingerprints', []);
 }
 
 @anonymous
@@ -1067,12 +1223,22 @@ class RTCRtpTransceiverInit {
 }
 
 extension PropsRTCRtpTransceiverInit on RTCRtpTransceiverInit {
-  external RTCRtpTransceiverDirection get direction;
-  external set direction(RTCRtpTransceiverDirection newValue);
-  external Iterable<MediaStream> get streams;
-  external set streams(Iterable<MediaStream> newValue);
-  external Iterable<RTCRtpEncodingParameters> get sendEncodings;
-  external set sendEncodings(Iterable<RTCRtpEncodingParameters> newValue);
+  RTCRtpTransceiverDirection get direction =>
+      js_util.getProperty(this, 'direction');
+  set direction(RTCRtpTransceiverDirection newValue) {
+    js_util.setProperty(this, 'direction', newValue);
+  }
+
+  Iterable<MediaStream> get streams => js_util.getProperty(this, 'streams');
+  set streams(Iterable<MediaStream> newValue) {
+    js_util.setProperty(this, 'streams', newValue);
+  }
+
+  Iterable<RTCRtpEncodingParameters> get sendEncodings =>
+      js_util.getProperty(this, 'sendEncodings');
+  set sendEncodings(Iterable<RTCRtpEncodingParameters> newValue) {
+    js_util.setProperty(this, 'sendEncodings', newValue);
+  }
 }
 
 enum RTCRtpTransceiverDirection {
@@ -1095,7 +1261,7 @@ enum RTCRtpTransceiverDirection {
 @JS()
 @staticInterop
 class RTCRtpSender {
-  external factory RTCRtpSender();
+  external RTCRtpSender();
 }
 
 extension PropsRTCRtpSender on RTCRtpSender {
@@ -1103,7 +1269,7 @@ extension PropsRTCRtpSender on RTCRtpSender {
   /// [RTCRtpSender]. If is [null], the [RTCRtpSender] doesn't transmit
   /// anything.
   ///
-  external MediaStreamTrack? get track;
+  MediaStreamTrack? get track => js_util.getProperty(this, 'track');
 
   ///  The [RTCDtlsTransport] over which the sender is exchanging the
   /// RTP and RTCP packets used to manage transmission of media and
@@ -1111,7 +1277,7 @@ extension PropsRTCRtpSender on RTCRtpSender {
   /// established. When bundling is in use, more than transceiver may
   /// be sharing the same transport object.
   ///
-  external RTCDtlsTransport? get transport;
+  RTCDtlsTransport? get transport => js_util.getProperty(this, 'transport');
   external static RTCRtpCapabilities? getCapabilities(String kind);
 
   ///  Applies changes to parameters which configure how the [track] is
@@ -1119,7 +1285,8 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///
   /// var promise = rtcRtpSender.setParameters(parameters)
   ///
-  external Promise<Object> setParameters(RTCRtpSendParameters parameters);
+  Promise<Object> setParameters(RTCRtpSendParameters parameters) =>
+      js_util.callMethod(this, 'setParameters', [parameters]);
 
   ///  Returns a [RTCRtpParameters] object describing the current
   /// configuration for the encoding and transmission of media on the
@@ -1127,7 +1294,8 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///
   /// var rtpSendParameters = rtpSender.getParameters()
   ///
-  external RTCRtpSendParameters getParameters();
+  RTCRtpSendParameters getParameters() =>
+      js_util.callMethod(this, 'getParameters', []);
 
   ///  Attempts to replace the track currently being sent by the
   /// [RTCRtpSender] with another track, without performing
@@ -1136,7 +1304,8 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///
   /// trackReplacedPromise = sender.replaceTrack(newTrack);
   ///
-  external Promise<Object> replaceTrack(MediaStreamTrack? withTrack);
+  Promise<Object> replaceTrack(MediaStreamTrack? withTrack) =>
+      js_util.callMethod(this, 'replaceTrack', [withTrack]);
 
   ///  Sets the [MediaStream](s) associated with the [track] being
   /// transmitted by this sender.
@@ -1164,7 +1333,8 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///  connected, we call setStreams() to add the track to the
   ///  stream specified.
   ///
-  external Object setStreams([MediaStream streams]);
+  Object setStreams([MediaStream? streams]) =>
+      js_util.callMethod(this, 'setStreams', [streams]);
 
   ///  Returns a [Promise] which is fulfilled with a [RTCStatsReport]
   /// which provides statistics data for all outbound streams being
@@ -1182,10 +1352,15 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///      stats.roundTripTime;
   /// });
   ///
-  external Promise<RTCStatsReport> getStats();
-  external dynamic get transform;
-  external set transform(dynamic newValue);
-  external RTCDTMFSender? get dtmf;
+  Promise<RTCStatsReport> getStats() =>
+      js_util.callMethod(this, 'getStats', []);
+
+  dynamic get transform => js_util.getProperty(this, 'transform');
+  set transform(dynamic newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
+
+  RTCDTMFSender? get dtmf => js_util.getProperty(this, 'dtmf');
 }
 
 ///  The dictionary is the basic object describing the parameters of
@@ -1214,23 +1389,30 @@ extension PropsRTCRtpParameters on RTCRtpParameters {
   /// extensions are described in RFC 3550: 5.3.1. This parameter
   /// cannot be changed once initially set.
   ///
-  external Iterable<RTCRtpHeaderExtensionParameters> get headerExtensions;
-  external set headerExtensions(
-      Iterable<RTCRtpHeaderExtensionParameters> newValue);
+  Iterable<RTCRtpHeaderExtensionParameters> get headerExtensions =>
+      js_util.getProperty(this, 'headerExtensions');
+  set headerExtensions(Iterable<RTCRtpHeaderExtensionParameters> newValue) {
+    js_util.setProperty(this, 'headerExtensions', newValue);
+  }
 
   ///  An [RTCRtcpParameters] object providing the configuration
   /// parameters used for RTCP on the sender or receiver. This
   /// parameter cannot be changed once initially set.
   ///
-  external RTCRtcpParameters get rtcp;
-  external set rtcp(RTCRtcpParameters newValue);
+  RTCRtcpParameters get rtcp => js_util.getProperty(this, 'rtcp');
+  set rtcp(RTCRtcpParameters newValue) {
+    js_util.setProperty(this, 'rtcp', newValue);
+  }
 
   ///  An array of [RTCRtpCodecParameters] objects describing the set
   /// of codecs from which the sender or receiver will choose. This
   /// parameter cannot be changed once initially set.
   ///
-  external Iterable<RTCRtpCodecParameters> get codecs;
-  external set codecs(Iterable<RTCRtpCodecParameters> newValue);
+  Iterable<RTCRtpCodecParameters> get codecs =>
+      js_util.getProperty(this, 'codecs');
+  set codecs(Iterable<RTCRtpCodecParameters> newValue) {
+    js_util.setProperty(this, 'codecs', newValue);
+  }
 }
 
 ///  The WebRTC API's dictionary is used to specify the parameters
@@ -1250,15 +1432,20 @@ extension PropsRTCRtpSendParameters on RTCRtpSendParameters {
   /// to [getParameters()]. Once this parameter is initially set, it
   /// cannot be changed.
   ///
-  external String get transactionId;
-  external set transactionId(String newValue);
+  String get transactionId => js_util.getProperty(this, 'transactionId');
+  set transactionId(String newValue) {
+    js_util.setProperty(this, 'transactionId', newValue);
+  }
 
   ///  An array of [RTCRtpEncodingParameters] objects, each specifying
   /// the parameters for a single codec that could be used to encode
   /// the track's media.
   ///
-  external Iterable<RTCRtpEncodingParameters> get encodings;
-  external set encodings(Iterable<RTCRtpEncodingParameters> newValue);
+  Iterable<RTCRtpEncodingParameters> get encodings =>
+      js_util.getProperty(this, 'encodings');
+  set encodings(Iterable<RTCRtpEncodingParameters> newValue) {
+    js_util.setProperty(this, 'encodings', newValue);
+  }
 }
 
 ///  The dictionary, based upon the [RTCRtpParameters] dictionary, is
@@ -1280,8 +1467,10 @@ class RTCRtpCodingParameters {
 }
 
 extension PropsRTCRtpCodingParameters on RTCRtpCodingParameters {
-  external String get rid;
-  external set rid(String newValue);
+  String get rid => js_util.getProperty(this, 'rid');
+  set rid(String newValue) {
+    js_util.setProperty(this, 'rid', newValue);
+  }
 }
 
 @anonymous
@@ -1311,16 +1500,20 @@ extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
   /// used to send data, while for receivers, the encoding is being
   /// used to decode received data. The default value is [true].
   ///
-  external bool get active;
-  external set active(bool newValue);
+  bool get active => js_util.getProperty(this, 'active');
+  set active(bool newValue) {
+    js_util.setProperty(this, 'active', newValue);
+  }
 
   ///  An unsigned long integer indicating the maximum number of bits
   /// per second to allow for this encoding. Other parameters may
   /// further constrain the bit rate, such as the value of
   /// [maxFramerate] or transport or physical network limitations.
   ///
-  external int get maxBitrate;
-  external set maxBitrate(int newValue);
+  int get maxBitrate => js_util.getProperty(this, 'maxBitrate');
+  set maxBitrate(int newValue) {
+    js_util.setProperty(this, 'maxBitrate', newValue);
+  }
 
   ///  Only used for senders whose track's [kind] is [video], this is a
   /// double-precision floating-point value specifying a factor by
@@ -1331,8 +1524,11 @@ extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
   /// original. The value must not be less than 1.0 (you can't use this
   /// to scale the video up).
   ///
-  external double get scaleResolutionDownBy;
-  external set scaleResolutionDownBy(double newValue);
+  double get scaleResolutionDownBy =>
+      js_util.getProperty(this, 'scaleResolutionDownBy');
+  set scaleResolutionDownBy(double newValue) {
+    js_util.setProperty(this, 'scaleResolutionDownBy', newValue);
+  }
 }
 
 ///  The dictionary provides parameters of an RTCP connection. It's
@@ -1350,8 +1546,10 @@ extension PropsRTCRtcpParameters on RTCRtcpParameters {
   /// example, in SDES (SDP security descriptions) messages, described
   /// in RFC 4568. This property cannot be changed once initialized.
   ///
-  external String get cname;
-  external set cname(String newValue);
+  String get cname => js_util.getProperty(this, 'cname');
+  set cname(String newValue) {
+    js_util.setProperty(this, 'cname', newValue);
+  }
 
   ///  A Boolean value indicating whether or not reduced size RTCP is
   /// configured. If this value is [true], reduced size RTCP (described
@@ -1359,8 +1557,10 @@ extension PropsRTCRtcpParameters on RTCRtcpParameters {
   /// as found in RFC 3550. This property cannot be changed once
   /// initialized.
   ///
-  external bool get reducedSize;
-  external set reducedSize(bool newValue);
+  bool get reducedSize => js_util.getProperty(this, 'reducedSize');
+  set reducedSize(bool newValue) {
+    js_util.setProperty(this, 'reducedSize', newValue);
+  }
 }
 
 @anonymous
@@ -1373,12 +1573,20 @@ class RTCRtpHeaderExtensionParameters {
 
 extension PropsRTCRtpHeaderExtensionParameters
     on RTCRtpHeaderExtensionParameters {
-  external String get uri;
-  external set uri(String newValue);
-  external int get id;
-  external set id(int newValue);
-  external bool get encrypted;
-  external set encrypted(bool newValue);
+  String get uri => js_util.getProperty(this, 'uri');
+  set uri(String newValue) {
+    js_util.setProperty(this, 'uri', newValue);
+  }
+
+  int get id => js_util.getProperty(this, 'id');
+  set id(int newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  bool get encrypted => js_util.getProperty(this, 'encrypted');
+  set encrypted(bool newValue) {
+    js_util.setProperty(this, 'encrypted', newValue);
+  }
 }
 
 ///  The dictionary, part of the WebRTC API, is used to describe the
@@ -1407,15 +1615,19 @@ class RTCRtpCodecParameters {
 extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
   /// The RTP payload type used to identify this codec.
   ///
-  external int get payloadType;
-  external set payloadType(int newValue);
+  int get payloadType => js_util.getProperty(this, 'payloadType');
+  set payloadType(int newValue) {
+    js_util.setProperty(this, 'payloadType', newValue);
+  }
 
   ///  The codec's MIME media type and subtype specified as a
   /// [DOMString] of the form ["type/subtype"]. IANA maintains a
   /// registry of valid MIME types.
   ///
-  external String get mimeType;
-  external set mimeType(String newValue);
+  String get mimeType => js_util.getProperty(this, 'mimeType');
+  set mimeType(String newValue) {
+    js_util.setProperty(this, 'mimeType', newValue);
+  }
 
   ///  An unsigned long integer value specifying the codec's clock rate
   /// in hertz (Hz). The clock rate is the rate at which the codec's
@@ -1423,15 +1635,19 @@ extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
   /// ranges of values they permit; see the IANA payload format media
   /// type registry for details.
   ///
-  external int get clockRate;
-  external set clockRate(int newValue);
+  int get clockRate => js_util.getProperty(this, 'clockRate');
+  set clockRate(int newValue) {
+    js_util.setProperty(this, 'clockRate', newValue);
+  }
 
   ///  An unsigned short integer indicating the number of channels the
   /// codec should support. For example, for audio codecs, a value of 1
   /// specifies monaural sound while 2 indicates stereo.
   ///
-  external int get channels;
-  external set channels(int newValue);
+  int get channels => js_util.getProperty(this, 'channels');
+  set channels(int newValue) {
+    js_util.setProperty(this, 'channels', newValue);
+  }
 
   ///  A [DOMString] containing the format-specific parameters field
   /// from the ["a=fmtp"] line in the codec's SDP, if one is present;
@@ -1442,8 +1658,10 @@ extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
   /// [RTCRtpSender], they're provided by the local description.
   ///
   ///
-  external String get sdpFmtpLine;
-  external set sdpFmtpLine(String newValue);
+  String get sdpFmtpLine => js_util.getProperty(this, 'sdpFmtpLine');
+  set sdpFmtpLine(String newValue) {
+    js_util.setProperty(this, 'sdpFmtpLine', newValue);
+  }
 }
 
 ///  The dictionary is a data type used to describe the capabilities
@@ -1470,17 +1688,22 @@ extension PropsRTCRtpCapabilities on RTCRtpCapabilities {
   /// [RTCRtpReceiver]. There are some special entries in this array,
   /// described below in the section The codecs array.
   ///
-  external Iterable<RTCRtpCodecCapability> get codecs;
-  external set codecs(Iterable<RTCRtpCodecCapability> newValue);
+  Iterable<RTCRtpCodecCapability> get codecs =>
+      js_util.getProperty(this, 'codecs');
+  set codecs(Iterable<RTCRtpCodecCapability> newValue) {
+    js_util.setProperty(this, 'codecs', newValue);
+  }
 
   ///  An array of objects conforming to the
   /// [RTCRtpHeaderExtensionCapability] dictionary. Each object
   /// contains a single [DOMString], [uri], specifying the URI of the
   /// header extension, as described in RFC 5285.
   ///
-  external Iterable<RTCRtpHeaderExtensionCapability> get headerExtensions;
-  external set headerExtensions(
-      Iterable<RTCRtpHeaderExtensionCapability> newValue);
+  Iterable<RTCRtpHeaderExtensionCapability> get headerExtensions =>
+      js_util.getProperty(this, 'headerExtensions');
+  set headerExtensions(Iterable<RTCRtpHeaderExtensionCapability> newValue) {
+    js_util.setProperty(this, 'headerExtensions', newValue);
+  }
 }
 
 ///  The WebRTC API's dictionary provides information describing the
@@ -1498,31 +1721,39 @@ extension PropsRTCRtpCodecCapability on RTCRtpCodecCapability {
   /// subtype. See Codecs used by WebRTC for details about potential
   /// codecs that might be referenced here.
   ///
-  external String get mimeType;
-  external set mimeType(String newValue);
+  String get mimeType => js_util.getProperty(this, 'mimeType');
+  set mimeType(String newValue) {
+    js_util.setProperty(this, 'mimeType', newValue);
+  }
 
   ///  An unsigned long integer specifying the codec's clock rate in
   /// Hertz (Hz). The IANA maintains a list of codecs and their
   /// parameters, including their clock rates.
   ///
-  external int get clockRate;
-  external set clockRate(int newValue);
+  int get clockRate => js_util.getProperty(this, 'clockRate');
+  set clockRate(int newValue) {
+    js_util.setProperty(this, 'clockRate', newValue);
+  }
 
   ///  An unsigned integer value indicating the maximum number of
   /// channels supported by the codec; for example, a codec that
   /// supports only mono sound would have a value of 1; stereo codecs
   /// would have a 2, etc.
   ///
-  external int get channels;
-  external set channels(int newValue);
+  int get channels => js_util.getProperty(this, 'channels');
+  set channels(int newValue) {
+    js_util.setProperty(this, 'channels', newValue);
+  }
 
   ///  A [DOMString] giving the format specific parameters field from
   /// the [a=fmtp] line in the SDP which corresponds to the codec, if
   /// such a line exists. If there is no parameters field, this
   /// property is left out.
   ///
-  external String get sdpFmtpLine;
-  external set sdpFmtpLine(String newValue);
+  String get sdpFmtpLine => js_util.getProperty(this, 'sdpFmtpLine');
+  set sdpFmtpLine(String newValue) {
+    js_util.setProperty(this, 'sdpFmtpLine', newValue);
+  }
 }
 
 @anonymous
@@ -1534,8 +1765,10 @@ class RTCRtpHeaderExtensionCapability {
 
 extension PropsRTCRtpHeaderExtensionCapability
     on RTCRtpHeaderExtensionCapability {
-  external String get uri;
-  external set uri(String newValue);
+  String get uri => js_util.getProperty(this, 'uri');
+  set uri(String newValue) {
+    js_util.setProperty(this, 'uri', newValue);
+  }
 }
 
 ///  The interface of the WebRTC API manages the reception and
@@ -1544,19 +1777,19 @@ extension PropsRTCRtpHeaderExtensionCapability
 @JS()
 @staticInterop
 class RTCRtpReceiver {
-  external factory RTCRtpReceiver();
+  external RTCRtpReceiver();
 }
 
 extension PropsRTCRtpReceiver on RTCRtpReceiver {
   ///  Returns the [MediaStreamTrack] associated with the current
   /// [RTCRtpReceiver] instance.
   ///
-  external MediaStreamTrack get track;
+  MediaStreamTrack get track => js_util.getProperty(this, 'track');
 
   ///  Returns the [RTCDtlsTransport] instance over which the media for
   /// the receiver's track is received.
   ///
-  external RTCDtlsTransport? get transport;
+  RTCDtlsTransport? get transport => js_util.getProperty(this, 'transport');
   external static RTCRtpCapabilities? getCapabilities(String kind);
 
   ///  Returns an [RTCRtpParameters] object which contains information
@@ -1564,7 +1797,8 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
   ///
   /// let rtpReceiveParameters = rtpReceiver.getParameters();
   ///
-  external RTCRtpReceiveParameters getParameters();
+  RTCRtpReceiveParameters getParameters() =>
+      js_util.callMethod(this, 'getParameters', []);
 
   ///  Returns an array of [RTCRtpContributingSource] instances for
   /// each unique CSRC (contributing source) identifier received by the
@@ -1572,7 +1806,8 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
   ///
   /// var rtcRtpContributingSources = rtcRtpReceiver.getContributingSources()
   ///
-  external Iterable<RTCRtpContributingSource> getContributingSources();
+  Iterable<RTCRtpContributingSource> getContributingSources() =>
+      js_util.callMethod(this, 'getContributingSources', []);
 
   ///  Returns an array including one [RTCRtpSynchronizationSource]
   /// instance for each unique SSRC (synchronization source) identifier
@@ -1580,7 +1815,8 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
   ///
   /// var rtcRtpContributingSources = rtcRtpReceiver.getContributingSources()
   ///
-  external Iterable<RTCRtpSynchronizationSource> getSynchronizationSources();
+  Iterable<RTCRtpSynchronizationSource> getSynchronizationSources() =>
+      js_util.callMethod(this, 'getSynchronizationSources', []);
 
   ///  Returns a [Promise] whose fulfillment handler receives a
   /// [RTCStatsReport] which contains statistics about the incoming
@@ -1598,9 +1834,13 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
   ///      stats.packetsLost;
   /// });
   ///
-  external Promise<RTCStatsReport> getStats();
-  external dynamic get transform;
-  external set transform(dynamic newValue);
+  Promise<RTCStatsReport> getStats() =>
+      js_util.callMethod(this, 'getStats', []);
+
+  dynamic get transform => js_util.getProperty(this, 'transform');
+  set transform(dynamic newValue) {
+    js_util.setProperty(this, 'transform', newValue);
+  }
 }
 
 ///  The dictionary of the WebRTC API is used by
@@ -1622,28 +1862,36 @@ extension PropsRTCRtpContributingSource on RTCRtpContributingSource {
   /// a frame originating from this source was delivered to the
   /// receiver's [MediaStreamTrack]
   ///
-  external double get timestamp;
-  external set timestamp(double newValue);
+  double get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(double newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
 
   ///  A 32-bit unsigned integer value specifying the CSRC identifier
   /// of the contributing source.
   ///
-  external int get source;
-  external set source(int newValue);
+  int get source => js_util.getProperty(this, 'source');
+  set source(int newValue) {
+    js_util.setProperty(this, 'source', newValue);
+  }
 
   ///  A double-precision floating-point value between 0 and 1
   /// specifying the audio level contained in the last RTP packet
   /// played from this source.
   ///
-  external double get audioLevel;
-  external set audioLevel(double newValue);
+  double get audioLevel => js_util.getProperty(this, 'audioLevel');
+  set audioLevel(double newValue) {
+    js_util.setProperty(this, 'audioLevel', newValue);
+  }
 
   ///  The RTP timestamp of the media played out at the time indicated
   /// by [timestamp]. This value is a source-generated time value which
   /// can be used to help with sequencing and synchronization.
   ///
-  external int get rtpTimestamp;
-  external set rtpTimestamp(int newValue);
+  int get rtpTimestamp => js_util.getProperty(this, 'rtpTimestamp');
+  set rtpTimestamp(int newValue) {
+    js_util.setProperty(this, 'rtpTimestamp', newValue);
+  }
 }
 
 @anonymous
@@ -1670,7 +1918,7 @@ class RTCRtpSynchronizationSource implements RTCRtpContributingSource {
 @JS()
 @staticInterop
 class RTCRtpTransceiver {
-  external factory RTCRtpTransceiver();
+  external RTCRtpTransceiver();
 }
 
 extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
@@ -1681,23 +1929,26 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
   /// associated m-line is rejected by either a remote offer or any
   /// answer.
   ///
-  external String? get mid;
+  String? get mid => js_util.getProperty(this, 'mid');
 
   ///  The [RTCRtpSender] object responsible for encoding and sending
   /// data to the remote peer.
   ///
-  external RTCRtpSender get sender;
+  RTCRtpSender get sender => js_util.getProperty(this, 'sender');
 
   ///  The [RTCRtpReceiver] object that handles receiving and decoding
   /// incoming media.
   ///
-  external RTCRtpReceiver get receiver;
+  RTCRtpReceiver get receiver => js_util.getProperty(this, 'receiver');
 
   ///  A string which is used to set the transceiver's desired
   /// direction.
   ///
-  external RTCRtpTransceiverDirection get direction;
-  external set direction(RTCRtpTransceiverDirection newValue);
+  RTCRtpTransceiverDirection get direction =>
+      js_util.getProperty(this, 'direction');
+  set direction(RTCRtpTransceiverDirection newValue) {
+    js_util.setProperty(this, 'direction', newValue);
+  }
 
   ///  A read-only string which indicates the transceiver's current
   /// directionality, or [null] if the transceiver is stopped or has
@@ -1705,7 +1956,8 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
   /// change the transceiver's directionality, set the value of the
   /// [direction] property.
   ///
-  external RTCRtpTransceiverDirection? get currentDirection;
+  RTCRtpTransceiverDirection? get currentDirection =>
+      js_util.getProperty(this, 'currentDirection');
 
   ///  Permanently stops the [RTCRtpTransceiver]. The associated sender
   /// stops sending data, and the associated receiver likewise stops
@@ -1713,7 +1965,7 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
   ///
   /// RTCRtpTransceiver.stop()
   ///
-  external Object stop();
+  Object stop() => js_util.callMethod(this, 'stop', []);
 
   ///  A list of [RTCRtpCodecParameters] objects which override the
   /// default preferences used by the user agent for the transceiver's
@@ -1721,7 +1973,8 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
   ///
   /// rtcRtpTransceiver.setCodecPreferences(codecs)
   ///
-  external Object setCodecPreferences(Iterable<RTCRtpCodecCapability> codecs);
+  Object setCodecPreferences(Iterable<RTCRtpCodecCapability> codecs) =>
+      js_util.callMethod(this, 'setCodecPreferences', [codecs]);
 }
 
 ///  The interface provides access to information about the Datagram
@@ -1750,13 +2003,13 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
 @JS()
 @staticInterop
 class RTCDtlsTransport implements EventTarget {
-  external factory RTCDtlsTransport();
+  external RTCDtlsTransport();
 }
 
 extension PropsRTCDtlsTransport on RTCDtlsTransport {
   /// Returns a reference to the underlying [RTCIceTransport] object.
   ///
-  external RTCIceTransport get iceTransport;
+  RTCIceTransport get iceTransport => js_util.getProperty(this, 'iceTransport');
 
   ///
   ///    Returns a string
@@ -1766,16 +2019,24 @@ extension PropsRTCDtlsTransport on RTCDtlsTransport {
   ///    [new], [connecting], [connected], [closed], or [failed].
   ///
   ///
-  external RTCDtlsTransportState get state;
+  RTCDtlsTransportState get state => js_util.getProperty(this, 'state');
 
   ///  Returns an array of [ArrayBuffer] containing the certificates of
   /// the remote peer of the connection.
   ///
-  external Iterable<ByteBuffer> getRemoteCertificates();
-  external EventHandlerNonNull? get onstatechange;
-  external set onstatechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
+  Iterable<ByteBuffer> getRemoteCertificates() =>
+      js_util.callMethod(this, 'getRemoteCertificates', []);
+
+  EventHandlerNonNull? get onstatechange =>
+      js_util.getProperty(this, 'onstatechange');
+  set onstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstatechange', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
 }
 
 enum RTCDtlsTransportState { valueNew, connecting, connected, closed, failed }
@@ -1788,10 +2049,15 @@ class RTCDtlsFingerprint {
 }
 
 extension PropsRTCDtlsFingerprint on RTCDtlsFingerprint {
-  external String get algorithm;
-  external set algorithm(String newValue);
-  external String get value;
-  external set value(String newValue);
+  String get algorithm => js_util.getProperty(this, 'algorithm');
+  set algorithm(String newValue) {
+    js_util.setProperty(this, 'algorithm', newValue);
+  }
+
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 ///
@@ -1803,7 +2069,7 @@ extension PropsRTCDtlsFingerprint on RTCDtlsFingerprint {
 @JS()
 @staticInterop
 class RTCIceTransport implements EventTarget {
-  external factory RTCIceTransport();
+  external RTCIceTransport();
 }
 
 extension PropsRTCIceTransport on RTCIceTransport {
@@ -1812,13 +2078,13 @@ extension PropsRTCIceTransport on RTCIceTransport {
   /// this indicates whether the ICE agent is the one that makes the
   /// final decision as to the candidate pair to use or not.
   ///
-  external RTCIceRole get role;
+  RTCIceRole get role => js_util.getProperty(this, 'role');
 
   ///  The ICE component being used by the transport. The value is one
   /// of the strings from the [RTCIceTransport] enumerated type:
   /// ["RTP"] or ["RTSP"].
   ///
-  external RTCIceComponent get component;
+  RTCIceComponent get component => js_util.getProperty(this, 'component');
 
   ///  A [DOMString] indicating what the current state of the ICE agent
   /// is. The value of can be used to determine whether the ICE agent
@@ -1828,12 +2094,13 @@ extension PropsRTCIceTransport on RTCIceTransport {
   /// states. See the [RTCIceTransportState] enumerated type for a
   /// complete list of states.
   ///
-  external RTCIceTransportState get state;
+  RTCIceTransportState get state => js_util.getProperty(this, 'state');
 
   ///  A [DOMString] indicating which current gathering state of the
   /// ICE agent: ["new"], ["gathering"], or ["complete"].
   ///
-  external RTCIceGathererState get gatheringState;
+  RTCIceGathererState get gatheringState =>
+      js_util.getProperty(this, 'gatheringState');
 
   ///  Returns an array of [RTCIceCandidate] objects, each describing
   /// one of the ICE candidates that have been gathered so far for the
@@ -1855,7 +2122,8 @@ extension PropsRTCIceTransport on RTCIceTransport {
   ///  console.log("Candidate " + index + ": " + candidate.candidate);
   /// });
   ///
-  external Iterable<RTCIceCandidate> getLocalCandidates();
+  Iterable<RTCIceCandidate> getLocalCandidates() =>
+      js_util.callMethod(this, 'getLocalCandidates', []);
 
   ///  Returns an array of [RTCIceCandidate] objects, one for each of
   /// the remote device's ICE candidates that have been received by the
@@ -1876,7 +2144,8 @@ extension PropsRTCIceTransport on RTCIceTransport {
   ///  console.log("Candidate " + index + ": " + candidate.candidate);
   /// });
   ///
-  external Iterable<RTCIceCandidate> getRemoteCandidates();
+  Iterable<RTCIceCandidate> getRemoteCandidates() =>
+      js_util.callMethod(this, 'getRemoteCandidates', []);
 
   ///  Returns a [RTCIceCandidatePair] object that identifies the two
   /// candidates—one for each end of the connection—that have been
@@ -1887,7 +2156,8 @@ extension PropsRTCIceTransport on RTCIceTransport {
   ///
   /// candidatePair = RTCIceTransport.getSelectedCandidatePair();
   ///
-  external RTCIceCandidatePair? getSelectedCandidatePair();
+  RTCIceCandidatePair? getSelectedCandidatePair() =>
+      js_util.callMethod(this, 'getSelectedCandidatePair', []);
 
   ///  Returns a [RTCIceParameters] object describing the ICE
   /// parameters established by a call to the
@@ -1896,7 +2166,8 @@ extension PropsRTCIceTransport on RTCIceTransport {
   ///
   /// parameters = RTCIceTransport.getLocalParameters();
   ///
-  external RTCIceParameters? getLocalParameters();
+  RTCIceParameters? getLocalParameters() =>
+      js_util.callMethod(this, 'getLocalParameters', []);
 
   ///  Returns a [RTCIceParameters] object containing the ICE
   /// parameters for the remote device, as set by a call to
@@ -1906,23 +2177,50 @@ extension PropsRTCIceTransport on RTCIceTransport {
   ///
   /// parameters = RTCIceTransport.getRemoteParameters();
   ///
-  external RTCIceParameters? getRemoteParameters();
-  external EventHandlerNonNull? get onstatechange;
-  external set onstatechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ongatheringstatechange;
-  external set ongatheringstatechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onselectedcandidatepairchange;
-  external set onselectedcandidatepairchange(EventHandlerNonNull? newValue);
-  external Object gather([RTCIceGatherOptions? options]);
-  external Object start(
-      [RTCIceParameters? remoteParameters,
-      RTCIceRole? role = RTCIceRole.controlled]);
-  external Object stop();
-  external Object addRemoteCandidate([RTCIceCandidateInit? remoteCandidate]);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onicecandidate;
-  external set onicecandidate(EventHandlerNonNull? newValue);
+  RTCIceParameters? getRemoteParameters() =>
+      js_util.callMethod(this, 'getRemoteParameters', []);
+
+  EventHandlerNonNull? get onstatechange =>
+      js_util.getProperty(this, 'onstatechange');
+  set onstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstatechange', newValue);
+  }
+
+  EventHandlerNonNull? get ongatheringstatechange =>
+      js_util.getProperty(this, 'ongatheringstatechange');
+  set ongatheringstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ongatheringstatechange', newValue);
+  }
+
+  EventHandlerNonNull? get onselectedcandidatepairchange =>
+      js_util.getProperty(this, 'onselectedcandidatepairchange');
+  set onselectedcandidatepairchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselectedcandidatepairchange', newValue);
+  }
+
+  Object gather([RTCIceGatherOptions? options]) =>
+      js_util.callMethod(this, 'gather', [options]);
+
+  Object start(
+          [RTCIceParameters? remoteParameters,
+          RTCIceRole? role = RTCIceRole.controlled]) =>
+      js_util.callMethod(this, 'start', [remoteParameters, role]);
+
+  Object stop() => js_util.callMethod(this, 'stop', []);
+
+  Object addRemoteCandidate([RTCIceCandidateInit? remoteCandidate]) =>
+      js_util.callMethod(this, 'addRemoteCandidate', [remoteCandidate]);
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onicecandidate =>
+      js_util.getProperty(this, 'onicecandidate');
+  set onicecandidate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onicecandidate', newValue);
+  }
 }
 
 ///  The dictionary specifies the username fragment and password
@@ -1943,13 +2241,17 @@ extension PropsRTCIceParameters on RTCIceParameters {
   ///  A [DOMString] specifying the value of the ICE session's username
   /// fragment field, [ufrag].
   ///
-  external String get usernameFragment;
-  external set usernameFragment(String newValue);
+  String get usernameFragment => js_util.getProperty(this, 'usernameFragment');
+  set usernameFragment(String newValue) {
+    js_util.setProperty(this, 'usernameFragment', newValue);
+  }
 
   /// A [DOMString] specifying the session's password string.
   ///
-  external String get password;
-  external set password(String newValue);
+  String get password => js_util.getProperty(this, 'password');
+  set password(String newValue) {
+    js_util.setProperty(this, 'password', newValue);
+  }
 }
 
 ///  The dictionary describes a pair of ICE candidates which together
@@ -1969,14 +2271,18 @@ extension PropsRTCIceCandidatePair on RTCIceCandidatePair {
   ///  An [RTCIceCandidate] describing the configuration of the local
   /// end of the connection.
   ///
-  external RTCIceCandidate get local;
-  external set local(RTCIceCandidate newValue);
+  RTCIceCandidate get local => js_util.getProperty(this, 'local');
+  set local(RTCIceCandidate newValue) {
+    js_util.setProperty(this, 'local', newValue);
+  }
 
   ///  The [RTCIceCandidate] describing the configuration of the remote
   /// end of the connection.
   ///
-  external RTCIceCandidate get remote;
-  external set remote(RTCIceCandidate newValue);
+  RTCIceCandidate get remote => js_util.getProperty(this, 'remote');
+  set remote(RTCIceCandidate newValue) {
+    js_util.setProperty(this, 'remote', newValue);
+  }
 }
 
 enum RTCIceGathererState { valueNew, gathering, complete }
@@ -2006,28 +2312,28 @@ enum RTCIceComponent { rtp, rtcp }
 @JS()
 @staticInterop
 class RTCTrackEvent implements Event {
-  external factory RTCTrackEvent(String type, RTCTrackEventInit eventInitDict);
+  external RTCTrackEvent(String type, RTCTrackEventInit eventInitDict);
 }
 
 extension PropsRTCTrackEvent on RTCTrackEvent {
   ///  The [RTCRtpReceiver] used by the track that's been added to the
   /// [RTCPeerConnection].
   ///
-  external RTCRtpReceiver get receiver;
+  RTCRtpReceiver get receiver => js_util.getProperty(this, 'receiver');
 
   /// The [MediaStreamTrack] which has been added to the connection.
   ///
-  external MediaStreamTrack get track;
+  MediaStreamTrack get track => js_util.getProperty(this, 'track');
 
   ///  An array of [MediaStream] objects, each representing one of the
   /// media streams to which the added [track] belongs. By default, the
   /// array is empty, indicating a streamless track.
   ///
-  external Iterable<MediaStream> get streams;
+  Iterable<MediaStream> get streams => js_util.getProperty(this, 'streams');
 
   /// The [RTCRtpTransceiver] being used by the new track.
   ///
-  external RTCRtpTransceiver get transceiver;
+  RTCRtpTransceiver get transceiver => js_util.getProperty(this, 'transceiver');
 }
 
 @anonymous
@@ -2042,14 +2348,25 @@ class RTCTrackEventInit implements EventInit {
 }
 
 extension PropsRTCTrackEventInit on RTCTrackEventInit {
-  external RTCRtpReceiver get receiver;
-  external set receiver(RTCRtpReceiver newValue);
-  external MediaStreamTrack get track;
-  external set track(MediaStreamTrack newValue);
-  external Iterable<MediaStream> get streams;
-  external set streams(Iterable<MediaStream> newValue);
-  external RTCRtpTransceiver get transceiver;
-  external set transceiver(RTCRtpTransceiver newValue);
+  RTCRtpReceiver get receiver => js_util.getProperty(this, 'receiver');
+  set receiver(RTCRtpReceiver newValue) {
+    js_util.setProperty(this, 'receiver', newValue);
+  }
+
+  MediaStreamTrack get track => js_util.getProperty(this, 'track');
+  set track(MediaStreamTrack newValue) {
+    js_util.setProperty(this, 'track', newValue);
+  }
+
+  Iterable<MediaStream> get streams => js_util.getProperty(this, 'streams');
+  set streams(Iterable<MediaStream> newValue) {
+    js_util.setProperty(this, 'streams', newValue);
+  }
+
+  RTCRtpTransceiver get transceiver => js_util.getProperty(this, 'transceiver');
+  set transceiver(RTCRtpTransceiver newValue) {
+    js_util.setProperty(this, 'transceiver', newValue);
+  }
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -2071,32 +2388,36 @@ extension PropsRTCTrackEventInit on RTCTrackEventInit {
 @JS()
 @staticInterop
 class RTCSctpTransport implements EventTarget {
-  external factory RTCSctpTransport();
+  external RTCSctpTransport();
 }
 
 extension PropsRTCSctpTransport on RTCSctpTransport {
   ///  An [RTCDtlsTransport] object representing the DTLS transport
   /// used for the transmission and receipt of data packets.
   ///
-  external RTCDtlsTransport get transport;
+  RTCDtlsTransport get transport => js_util.getProperty(this, 'transport');
 
   ///  A [DOMString] enumerated value indicating the state of the SCTP
   /// transport.
   ///
-  external RTCSctpTransportState get state;
+  RTCSctpTransportState get state => js_util.getProperty(this, 'state');
 
   ///  An integer value indicating the maximum size, in bytes, of a
   /// message which can be sent using the [RTCDataChannel.send()]
   /// method.
   ///
-  external /* double | NaN */ dynamic get maxMessageSize;
+  /* double | NaN */ dynamic get maxMessageSize =>
+      js_util.getProperty(this, 'maxMessageSize');
 
   ///  An integer value indicating the maximum number of
   /// [RTCDataChannel]s that can be open simultaneously.
   ///
-  external int? get maxChannels;
-  external EventHandlerNonNull? get onstatechange;
-  external set onstatechange(EventHandlerNonNull? newValue);
+  int? get maxChannels => js_util.getProperty(this, 'maxChannels');
+  EventHandlerNonNull? get onstatechange =>
+      js_util.getProperty(this, 'onstatechange');
+  set onstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstatechange', newValue);
+  }
 }
 
 enum RTCSctpTransportState { connecting, connected, closed }
@@ -2128,7 +2449,7 @@ enum RTCSctpTransportState { connecting, connected, closed }
 @JS()
 @staticInterop
 class RTCDataChannel implements EventTarget {
-  external factory RTCDataChannel();
+  external RTCDataChannel();
 }
 
 extension PropsRTCDataChannel on RTCDataChannel {
@@ -2138,7 +2459,7 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    These labels are not required to be unique.
   ///
   ///
-  external String get label;
+  String get label => js_util.getProperty(this, 'label');
 
   ///
   ///     Indicates whether or not the data channel guarantees in-order
@@ -2147,7 +2468,7 @@ extension PropsRTCDataChannel on RTCDataChannel {
   /// is indeed ordered.
   ///
   ///
-  external bool get ordered;
+  bool get ordered => js_util.getProperty(this, 'ordered');
 
   ///
   ///    Returns the amount of time,
@@ -2158,7 +2479,7 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    or [null].
   ///
   ///
-  external int? get maxPacketLifeTime;
+  int? get maxPacketLifeTime => js_util.getProperty(this, 'maxPacketLifeTime');
 
   ///
   ///    Returns the maximum number of times
@@ -2168,7 +2489,7 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    or [null], which indicates that there is no maximum.
   ///
   ///
-  external int? get maxRetransmits;
+  int? get maxRetransmits => js_util.getProperty(this, 'maxRetransmits');
 
   ///
   ///     Returns a string containing the name of the subprotocol in
@@ -2178,7 +2499,7 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    then this property's value is the empty string ([""]).
   ///
   ///
-  external String get protocol;
+  String get protocol => js_util.getProperty(this, 'protocol');
 
   ///
   ///    Indicates
@@ -2189,14 +2510,14 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    The default is [false].
   ///
   ///
-  external bool get negotiated;
+  bool get negotiated => js_util.getProperty(this, 'negotiated');
 
   ///
   ///    Returns an ID number (between 0 and 65,534)
   ///    which uniquely identifies the [RTCDataChannel].
   ///
   ///
-  external int? get id;
+  int? get id => js_util.getProperty(this, 'id');
 
   ///
   ///    Returns a string
@@ -2206,14 +2527,14 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    [connecting], [open], [closing], or [closed].
   ///
   ///
-  external RTCDataChannelState get readyState;
+  RTCDataChannelState get readyState => js_util.getProperty(this, 'readyState');
 
   ///
   ///    Returns the number of bytes of data
   ///    currently queued to be sent over the data channel.
   ///
   ///
-  external int get bufferedAmount;
+  int get bufferedAmount => js_util.getProperty(this, 'bufferedAmount');
 
   ///
   ///     Specifies the number of bytes of buffered outgoing data that
@@ -2221,18 +2542,37 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    The default value is 0.
   ///
   ///
-  external int get bufferedAmountLowThreshold;
-  external set bufferedAmountLowThreshold(int newValue);
-  external EventHandlerNonNull? get onopen;
-  external set onopen(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onbufferedamountlow;
-  external set onbufferedamountlow(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onclosing;
-  external set onclosing(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onclose;
-  external set onclose(EventHandlerNonNull? newValue);
+  int get bufferedAmountLowThreshold =>
+      js_util.getProperty(this, 'bufferedAmountLowThreshold');
+  set bufferedAmountLowThreshold(int newValue) {
+    js_util.setProperty(this, 'bufferedAmountLowThreshold', newValue);
+  }
+
+  EventHandlerNonNull? get onopen => js_util.getProperty(this, 'onopen');
+  set onopen(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onopen', newValue);
+  }
+
+  EventHandlerNonNull? get onbufferedamountlow =>
+      js_util.getProperty(this, 'onbufferedamountlow');
+  set onbufferedamountlow(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbufferedamountlow', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onclosing => js_util.getProperty(this, 'onclosing');
+  set onclosing(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclosing', newValue);
+  }
+
+  EventHandlerNonNull? get onclose => js_util.getProperty(this, 'onclose');
+  set onclose(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclose', newValue);
+  }
 
   ///
   ///    Closes the[RTCDataChannel].
@@ -2260,9 +2600,12 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///
   /// // Now negotiate the connection and so forth...
   ///
-  external Object close();
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
+  Object close() => js_util.callMethod(this, 'close', []);
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
 
   ///
   ///    Is a string specifying the type of object
@@ -2275,8 +2618,10 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    The default is [blob].
   ///
   ///
-  external BinaryType get binaryType;
-  external set binaryType(BinaryType newValue);
+  BinaryType get binaryType => js_util.getProperty(this, 'binaryType');
+  set binaryType(BinaryType newValue) {
+    js_util.setProperty(this, 'binaryType', newValue);
+  }
 
   /// Sends data across the data channel to the remote peer.
   ///
@@ -2298,8 +2643,9 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///  dc.send(JSON.stringify(obj));
   /// }
   ///
-  external Object send(String data);
-  external RTCPriorityType get priority;
+  Object send(String data) => js_util.callMethod(this, 'send', [data]);
+
+  RTCPriorityType get priority => js_util.getProperty(this, 'priority');
 }
 
 @anonymous
@@ -2316,18 +2662,35 @@ class RTCDataChannelInit {
 }
 
 extension PropsRTCDataChannelInit on RTCDataChannelInit {
-  external bool get ordered;
-  external set ordered(bool newValue);
-  external int get maxPacketLifeTime;
-  external set maxPacketLifeTime(int newValue);
-  external int get maxRetransmits;
-  external set maxRetransmits(int newValue);
-  external String get protocol;
-  external set protocol(String newValue);
-  external bool get negotiated;
-  external set negotiated(bool newValue);
-  external int get id;
-  external set id(int newValue);
+  bool get ordered => js_util.getProperty(this, 'ordered');
+  set ordered(bool newValue) {
+    js_util.setProperty(this, 'ordered', newValue);
+  }
+
+  int get maxPacketLifeTime => js_util.getProperty(this, 'maxPacketLifeTime');
+  set maxPacketLifeTime(int newValue) {
+    js_util.setProperty(this, 'maxPacketLifeTime', newValue);
+  }
+
+  int get maxRetransmits => js_util.getProperty(this, 'maxRetransmits');
+  set maxRetransmits(int newValue) {
+    js_util.setProperty(this, 'maxRetransmits', newValue);
+  }
+
+  String get protocol => js_util.getProperty(this, 'protocol');
+  set protocol(String newValue) {
+    js_util.setProperty(this, 'protocol', newValue);
+  }
+
+  bool get negotiated => js_util.getProperty(this, 'negotiated');
+  set negotiated(bool newValue) {
+    js_util.setProperty(this, 'negotiated', newValue);
+  }
+
+  int get id => js_util.getProperty(this, 'id');
+  set id(int newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 }
 
 enum RTCDataChannelState { connecting, open, closing, closed }
@@ -2351,14 +2714,14 @@ enum RTCDataChannelState { connecting, open, closing, closed }
 @JS()
 @staticInterop
 class RTCDataChannelEvent implements Event {
-  external factory RTCDataChannelEvent(
+  external RTCDataChannelEvent(
       String type, RTCDataChannelEventInit eventInitDict);
 }
 
 extension PropsRTCDataChannelEvent on RTCDataChannelEvent {
   /// Returns the [RTCDataChannel] associated with the event.
   ///
-  external RTCDataChannel get channel;
+  RTCDataChannel get channel => js_util.getProperty(this, 'channel');
 }
 
 @anonymous
@@ -2369,8 +2732,10 @@ class RTCDataChannelEventInit implements EventInit {
 }
 
 extension PropsRTCDataChannelEventInit on RTCDataChannelEventInit {
-  external RTCDataChannel get channel;
-  external set channel(RTCDataChannel newValue);
+  RTCDataChannel get channel => js_util.getProperty(this, 'channel');
+  set channel(RTCDataChannel newValue) {
+    js_util.setProperty(this, 'channel', newValue);
+  }
 }
 
 ///  The interface provides a mechanism for transmitting DTMF codes
@@ -2399,7 +2764,7 @@ extension PropsRTCDataChannelEventInit on RTCDataChannelEventInit {
 @JS()
 @staticInterop
 class RTCDTMFSender implements EventTarget {
-  external factory RTCDTMFSender();
+  external RTCDTMFSender();
 }
 
 extension PropsRTCDTMFSender on RTCDTMFSender {
@@ -2413,18 +2778,24 @@ extension PropsRTCDTMFSender on RTCDTMFSender {
   /// RTCDTMFSender.insertDTMF(tones[, duration[, interToneGap]]);
   ///
   /// tbd
-  external Object insertDTMF(String tones,
-      [int? duration = 100, int? interToneGap = 70]);
-  external EventHandlerNonNull? get ontonechange;
-  external set ontonechange(EventHandlerNonNull? newValue);
-  external bool get canInsertDTMF;
+  Object insertDTMF(String tones,
+          [int? duration = 100, int? interToneGap = 70]) =>
+      js_util.callMethod(this, 'insertDTMF', [tones, duration, interToneGap]);
+
+  EventHandlerNonNull? get ontonechange =>
+      js_util.getProperty(this, 'ontonechange');
+  set ontonechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontonechange', newValue);
+  }
+
+  bool get canInsertDTMF => js_util.getProperty(this, 'canInsertDTMF');
 
   ///  A [DOMString] which contains the list of DTMF tones currently in
   /// the queue to be transmitted (tones which have already been played
   /// are no longer included in the string). See for details on the
   /// format of the tone buffer.
   ///
-  external String get toneBuffer;
+  String get toneBuffer => js_util.getProperty(this, 'toneBuffer');
 }
 
 ///  The interface represents events sent to indicate that DTMF tones
@@ -2433,7 +2804,7 @@ extension PropsRTCDTMFSender on RTCDTMFSender {
 @JS()
 @staticInterop
 class RTCDTMFToneChangeEvent implements Event {
-  external factory RTCDTMFToneChangeEvent(String type,
+  external RTCDTMFToneChangeEvent(String type,
       [RTCDTMFToneChangeEventInit? eventInitDict]);
 }
 
@@ -2441,7 +2812,7 @@ extension PropsRTCDTMFToneChangeEvent on RTCDTMFToneChangeEvent {
   ///  A [DOMString] specifying the tone which has begun playing, or an
   /// empty string ([""]) if the previous tone has finished playing.
   ///
-  external String get tone;
+  String get tone => js_util.getProperty(this, 'tone');
 }
 
 @anonymous
@@ -2452,8 +2823,10 @@ class RTCDTMFToneChangeEventInit implements EventInit {
 }
 
 extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
-  external String get tone;
-  external set tone(String newValue);
+  String get tone => js_util.getProperty(this, 'tone');
+  set tone(String newValue) {
+    js_util.setProperty(this, 'tone', newValue);
+  }
 }
 
 ///  Draft: This page is not complete.This page is currently
@@ -2475,7 +2848,7 @@ extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
 @JS()
 @staticInterop
 class RTCStatsReport {
-  external factory RTCStatsReport();
+  external RTCStatsReport();
 }
 
 ///  The dictionary is the basic statistics object used by WebRTC's
@@ -2495,20 +2868,26 @@ extension PropsRTCStats on RTCStats {
   ///  A [DOMHighResTimeStamp] object indicating the time at which the
   /// sample was taken for this statistics object.
   ///
-  external double get timestamp;
-  external set timestamp(double newValue);
+  double get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(double newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
 
   ///  A [DOMString] indicating the type of statistics the object
   /// contains, taken from the enum type [RTCStatsType].
   ///
-  external RTCStatsType get type;
-  external set type(RTCStatsType newValue);
+  RTCStatsType get type => js_util.getProperty(this, 'type');
+  set type(RTCStatsType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 
   ///  A [DOMString] which uniquely identifies the object which was
   /// inspected to produce this object based on [RTCStats].
   ///
-  external String get id;
-  external set id(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 }
 
 ///  The interface describes an error which has occurred while
@@ -2517,42 +2896,44 @@ extension PropsRTCStats on RTCStats {
 @JS()
 @staticInterop
 class RTCError implements DOMException {
-  external factory RTCError(RTCErrorInit init, [String? message = '']);
+  external RTCError(RTCErrorInit init, [String? message = '']);
 }
 
 extension PropsRTCError on RTCError {
   ///  A [DOMString] specifying the WebRTC-specific error code
   /// identifying the type of error that occurred.
   ///
-  external RTCErrorDetailType get errorDetail;
+  RTCErrorDetailType get errorDetail =>
+      js_util.getProperty(this, 'errorDetail');
 
   ///  If [errorDetail] is [sdp-syntax-error], this property is a long
   /// integer identifying the line number of the SDP on which the
   /// syntax error occurred. [null] if the error isn't an SDP syntax
   /// error.
   ///
-  external int? get sdpLineNumber;
+  int? get sdpLineNumber => js_util.getProperty(this, 'sdpLineNumber');
 
   ///  If [errorDetail] is [sctp-failure], this property is a long
   /// integer specifying the SCTP cause code indicating the cause of
   /// the failed SCTP negotiation. [null] if the error isn't an SCTP
   /// error.
   ///
-  external int? get sctpCauseCode;
+  int? get sctpCauseCode => js_util.getProperty(this, 'sctpCauseCode');
 
   ///  An unsigned long integer value indicating the fatal DTLS error
   /// which was received from the network. Only valid if the
   /// [errorDetail] string is [dtls-failure]. If [null], no DTLS error
   /// was received.
   ///
-  external int? get receivedAlert;
+  int? get receivedAlert => js_util.getProperty(this, 'receivedAlert');
 
   ///  If [errorDetail] is [dtls-failure], this property is an unsigned
   /// long integer indicating the fatal DTLS error that was sent out by
   /// this device. If [null], no DTLS error was transmitted.
   ///
-  external int? get sentAlert;
-  external int? get httpRequestStatusCode;
+  int? get sentAlert => js_util.getProperty(this, 'sentAlert');
+  int? get httpRequestStatusCode =>
+      js_util.getProperty(this, 'httpRequestStatusCode');
 }
 
 @anonymous
@@ -2568,16 +2949,31 @@ class RTCErrorInit {
 }
 
 extension PropsRTCErrorInit on RTCErrorInit {
-  external RTCErrorDetailType get errorDetail;
-  external set errorDetail(RTCErrorDetailType newValue);
-  external int get sdpLineNumber;
-  external set sdpLineNumber(int newValue);
-  external int get sctpCauseCode;
-  external set sctpCauseCode(int newValue);
-  external int get receivedAlert;
-  external set receivedAlert(int newValue);
-  external int get sentAlert;
-  external set sentAlert(int newValue);
+  RTCErrorDetailType get errorDetail =>
+      js_util.getProperty(this, 'errorDetail');
+  set errorDetail(RTCErrorDetailType newValue) {
+    js_util.setProperty(this, 'errorDetail', newValue);
+  }
+
+  int get sdpLineNumber => js_util.getProperty(this, 'sdpLineNumber');
+  set sdpLineNumber(int newValue) {
+    js_util.setProperty(this, 'sdpLineNumber', newValue);
+  }
+
+  int get sctpCauseCode => js_util.getProperty(this, 'sctpCauseCode');
+  set sctpCauseCode(int newValue) {
+    js_util.setProperty(this, 'sctpCauseCode', newValue);
+  }
+
+  int get receivedAlert => js_util.getProperty(this, 'receivedAlert');
+  set receivedAlert(int newValue) {
+    js_util.setProperty(this, 'receivedAlert', newValue);
+  }
+
+  int get sentAlert => js_util.getProperty(this, 'sentAlert');
+  set sentAlert(int newValue) {
+    js_util.setProperty(this, 'sentAlert', newValue);
+  }
 }
 
 enum RTCErrorDetailType {
@@ -2596,7 +2992,7 @@ enum RTCErrorDetailType {
 @JS()
 @staticInterop
 class RTCErrorEvent implements Event {
-  external factory RTCErrorEvent(String type, RTCErrorEventInit eventInitDict);
+  external RTCErrorEvent(String type, RTCErrorEventInit eventInitDict);
 }
 
 extension PropsRTCErrorEvent on RTCErrorEvent {
@@ -2605,7 +3001,7 @@ extension PropsRTCErrorEvent on RTCErrorEvent {
   /// about where the error occurred (such as which line number in the
   /// SDP or what SCTP cause code was at issue).
   ///
-  external RTCError get error;
+  RTCError get error => js_util.getProperty(this, 'error');
 }
 
 @anonymous
@@ -2616,6 +3012,8 @@ class RTCErrorEventInit implements EventInit {
 }
 
 extension PropsRTCErrorEventInit on RTCErrorEventInit {
-  external RTCError get error;
-  external set error(RTCError newValue);
+  RTCError get error => js_util.getProperty(this, 'error');
+  set error(RTCError newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }

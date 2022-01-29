@@ -5,6 +5,7 @@
 @staticInterop
 library k_h_r_parallel_shader_compile;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -24,5 +25,5 @@ import 'all_bindings.dart';
 @staticInterop
 class KHR_parallel_shader_compile {
   external static int get COMPLETION_STATUS_KHR;
-  external factory KHR_parallel_shader_compile();
+  external KHR_parallel_shader_compile();
 }

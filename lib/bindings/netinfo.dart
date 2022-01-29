@@ -5,6 +5,7 @@
 @staticInterop
 library netinfo;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -32,11 +33,11 @@ enum EffectiveConnectionType { value2g, value3g, value4g, slow2g }
 @JS()
 @staticInterop
 class NavigatorNetworkInformation {
-  external factory NavigatorNetworkInformation();
+  external NavigatorNetworkInformation();
 }
 
 extension PropsNavigatorNetworkInformation on NavigatorNetworkInformation {
-  external NetworkInformation get connection;
+  NetworkInformation get connection => js_util.getProperty(this, 'connection');
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -53,7 +54,7 @@ extension PropsNavigatorNetworkInformation on NavigatorNetworkInformation {
 @JS()
 @staticInterop
 class NetworkInformation implements EventTarget, NetworkInformationSaveData {
-  external factory NetworkInformation();
+  external NetworkInformation();
 }
 
 extension PropsNetworkInformation on NetworkInformation {
@@ -70,29 +71,34 @@ extension PropsNetworkInformation on NetworkInformation {
   ///    [unknown]
   ///
   ///
-  external ConnectionType get type;
+  ConnectionType get type => js_util.getProperty(this, 'type');
 
   ///  Returns the effective type of the connection meaning one of
   /// 'slow-2g', '2g', '3g', or '4g'. This value is determined using a
   /// combination of recently observed round-trip time and downlink
   /// values.
   ///
-  external EffectiveConnectionType get effectiveType;
+  EffectiveConnectionType get effectiveType =>
+      js_util.getProperty(this, 'effectiveType');
 
   ///  Returns the maximum downlink speed, in megabits per second
   /// (Mbps), for the underlying connection technology.
   ///
-  external /* double | NaN */ dynamic get downlinkMax;
+  /* double | NaN */ dynamic get downlinkMax =>
+      js_util.getProperty(this, 'downlinkMax');
 
   ///  Returns the effective bandwidth estimate in megabits per second,
   /// rounded to the nearest multiple of 25 kilobits per seconds.
   ///
-  external /* double | NaN */ dynamic get downlink;
+  /* double | NaN */ dynamic get downlink =>
+      js_util.getProperty(this, 'downlink');
 
   ///  Returns the estimated effective round-trip time of the current
   /// connection, rounded to the nearest multiple of 25 milliseconds.
   ///
-  external int get rtt;
-  external EventHandlerNonNull? get onchange;
-  external set onchange(EventHandlerNonNull? newValue);
+  int get rtt => js_util.getProperty(this, 'rtt');
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
 }

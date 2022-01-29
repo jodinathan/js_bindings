@@ -5,6 +5,7 @@
 @staticInterop
 library content_index;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -30,18 +31,35 @@ class ContentDescription {
 }
 
 extension PropsContentDescription on ContentDescription {
-  external String get id;
-  external set id(String newValue);
-  external String get title;
-  external set title(String newValue);
-  external String get description;
-  external set description(String newValue);
-  external ContentCategory get category;
-  external set category(ContentCategory newValue);
-  external Iterable<ImageResource> get icons;
-  external set icons(Iterable<ImageResource> newValue);
-  external String get url;
-  external set url(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
+
+  String get title => js_util.getProperty(this, 'title');
+  set title(String newValue) {
+    js_util.setProperty(this, 'title', newValue);
+  }
+
+  String get description => js_util.getProperty(this, 'description');
+  set description(String newValue) {
+    js_util.setProperty(this, 'description', newValue);
+  }
+
+  ContentCategory get category => js_util.getProperty(this, 'category');
+  set category(ContentCategory newValue) {
+    js_util.setProperty(this, 'category', newValue);
+  }
+
+  Iterable<ImageResource> get icons => js_util.getProperty(this, 'icons');
+  set icons(Iterable<ImageResource> newValue) {
+    js_util.setProperty(this, 'icons', newValue);
+  }
+
+  String get url => js_util.getProperty(this, 'url');
+  set url(String newValue) {
+    js_util.setProperty(this, 'url', newValue);
+  }
 }
 
 ///  The interface of the [Content Index API] allows developers to
@@ -49,7 +67,7 @@ extension PropsContentDescription on ContentDescription {
 @JS()
 @staticInterop
 class ContentIndex {
-  external factory ContentIndex();
+  external ContentIndex();
 }
 
 extension PropsContentIndex on ContentIndex {
@@ -57,20 +75,22 @@ extension PropsContentIndex on ContentIndex {
   ///
   /// ContentIndex.add(ContentDescription).then(...);
   ///
-  external Promise<Object> add(ContentDescription description);
+  Promise<Object> add(ContentDescription description) =>
+      js_util.callMethod(this, 'add', [description]);
 
   /// Unregisters an item from the currently indexed content.
   ///
   /// ContentIndex.delete(id).then(...);
   ///
-  external Promise<Object> delete(String id);
+  Promise<Object> delete(String id) => js_util.callMethod(this, 'delete', [id]);
 
   ///  Returns a [Promise] that resolves with an iterable list of
   /// content index entries.
   ///
   /// var indexedContent = ContentIndex.getAll();
   ///
-  external Iterable<Promise<ContentDescription>> getAll();
+  Iterable<Promise<ContentDescription>> getAll() =>
+      js_util.callMethod(this, 'getAll', []);
 }
 
 @anonymous
@@ -81,8 +101,10 @@ class ContentIndexEventInit implements ExtendableEventInit {
 }
 
 extension PropsContentIndexEventInit on ContentIndexEventInit {
-  external String get id;
-  external set id(String newValue);
+  String get id => js_util.getProperty(this, 'id');
+  set id(String newValue) {
+    js_util.setProperty(this, 'id', newValue);
+  }
 }
 
 ///  The interface of the [Content Index API] defines the object used
@@ -96,11 +118,11 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
 @JS()
 @staticInterop
 class ContentIndexEvent implements ExtendableEvent {
-  external factory ContentIndexEvent(String type, ContentIndexEventInit init);
+  external ContentIndexEvent(String type, ContentIndexEventInit init);
 }
 
 extension PropsContentIndexEvent on ContentIndexEvent {
   /// A [String] which identifies the deleted content index via it's .
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 }

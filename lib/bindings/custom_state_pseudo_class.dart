@@ -5,6 +5,7 @@
 @staticInterop
 library custom_state_pseudo_class;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -18,7 +19,7 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CustomStateSet {
-  external factory CustomStateSet();
+  external CustomStateSet();
 }
 
 extension PropsCustomStateSet on CustomStateSet {
@@ -27,5 +28,5 @@ extension PropsCustomStateSet on CustomStateSet {
   ///
   /// CustomStateSet.add(value)
   ///
-  external Object add(String value);
+  Object add(String value) => js_util.callMethod(this, 'add', [value]);
 }

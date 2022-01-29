@@ -5,6 +5,7 @@
 @staticInterop
 library css_conditional_3;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -37,14 +38,16 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CSSConditionRule implements CSSGroupingRule {
-  external factory CSSConditionRule();
+  external CSSConditionRule();
 }
 
 extension PropsCSSConditionRule on CSSConditionRule {
   /// Represents the text of the condition of the rule.
   ///
-  external String get conditionText;
-  external set conditionText(String newValue);
+  String get conditionText => js_util.getProperty(this, 'conditionText');
+  set conditionText(String newValue) {
+    js_util.setProperty(this, 'conditionText', newValue);
+  }
 }
 
 /// The interface represents a single CSS [@media] rule.
@@ -75,14 +78,14 @@ extension PropsCSSConditionRule on CSSConditionRule {
 @JS()
 @staticInterop
 class CSSMediaRule implements CSSConditionRule {
-  external factory CSSMediaRule();
+  external CSSMediaRule();
 }
 
 extension PropsCSSMediaRule on CSSMediaRule {
   ///  Returns a [MediaList] representing the intended destination
   /// medium for style information.
   ///
-  external MediaList get media;
+  MediaList get media => js_util.getProperty(this, 'media');
 }
 
 /// The interface represents a single CSS [@supports] [at-rule].
@@ -113,5 +116,5 @@ extension PropsCSSMediaRule on CSSMediaRule {
 @JS()
 @staticInterop
 class CSSSupportsRule implements CSSConditionRule {
-  external factory CSSSupportsRule();
+  external CSSSupportsRule();
 }

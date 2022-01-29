@@ -5,6 +5,7 @@
 @staticInterop
 library fetch;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
@@ -51,7 +52,7 @@ html */
 @JS()
 @staticInterop
 class Headers {
-  external factory Headers([dynamic init]);
+  external Headers([dynamic init]);
 }
 
 extension PropsHeaders on Headers {
@@ -75,7 +76,8 @@ extension PropsHeaders on Headers {
   /// myHeaders.get('Accept-Encoding'); // Returns 'deflate, gzip'
   ///
   /// To overwrite the old value with a new one, use Headers.set.
-  external Object append(String name, String value);
+  Object append(String name, String value) =>
+      js_util.callMethod(this, 'append', [name, value]);
 
   /// Deletes a header from a [Headers] object.
   ///
@@ -92,7 +94,7 @@ extension PropsHeaders on Headers {
   /// myHeaders.delete('Content-Type');
   /// myHeaders.get('Content-Type'); // Returns null, as it has been deleted
   ///
-  external Object delete(String name);
+  Object delete(String name) => js_util.callMethod(this, 'delete', [name]);
 
   ///  Returns a [String] sequence of all the values of a header within
   /// a [Headers] object with a given name.
@@ -117,7 +119,7 @@ extension PropsHeaders on Headers {
   ///
   @JS('get')
   @staticInterop
-  external String? mGet(String name);
+  String? mGet(String name) => js_util.callMethod(this, 'get', [name]);
 
   ///  Returns a boolean stating whether a [Headers] object contains a
   /// certain header.
@@ -133,7 +135,7 @@ extension PropsHeaders on Headers {
   /// myHeaders.has('Content-Type'); // Returns true
   /// myHeaders.has('Accept-Encoding'); // Returns false
   ///
-  external bool has(String name);
+  bool has(String name) => js_util.callMethod(this, 'has', [name]);
 
   ///  Sets a new value for an existing header inside a [Headers]
   /// object, or adds the header if it does not already exist.
@@ -160,23 +162,29 @@ extension PropsHeaders on Headers {
   ///
   @JS('set')
   @staticInterop
-  external Object mSet(String name, String value);
+  Object mSet(String name, String value) =>
+      js_util.callMethod(this, 'set', [name, value]);
 }
 
 @JS()
 @staticInterop
 class Body {
-  external factory Body();
+  external Body();
 }
 
 extension PropsBody on Body {
-  external ReadableStream? get body;
-  external bool get bodyUsed;
-  external Promise<ByteBuffer> arrayBuffer();
-  external Promise<Blob> blob();
-  external Promise<FormData> formData();
-  external Promise<dynamic> json();
-  external Promise<String> text();
+  ReadableStream? get body => js_util.getProperty(this, 'body');
+  bool get bodyUsed => js_util.getProperty(this, 'bodyUsed');
+  Promise<ByteBuffer> arrayBuffer() =>
+      js_util.callMethod(this, 'arrayBuffer', []);
+
+  Promise<Blob> blob() => js_util.callMethod(this, 'blob', []);
+
+  Promise<FormData> formData() => js_util.callMethod(this, 'formData', []);
+
+  Promise<dynamic> json() => js_util.callMethod(this, 'json', []);
+
+  Promise<String> text() => js_util.callMethod(this, 'text', []);
 }
 
 /// The interface of the Fetch API represents a resource request.
@@ -187,64 +195,69 @@ extension PropsBody on Body {
 @JS()
 @staticInterop
 class Request implements Body {
-  external factory Request(dynamic input, [RequestInit? init]);
+  external Request(dynamic input, [RequestInit? init]);
 }
 
 extension PropsRequest on Request {
   /// Contains the request's method ([GET], [POST], etc.)
   ///
-  external String get method;
+  String get method => js_util.getProperty(this, 'method');
 
   /// Contains the URL of the request.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   /// Contains the associated [Headers] object of the request.
   ///
-  external Headers get headers;
+  Headers get headers => js_util.getProperty(this, 'headers');
 
   ///  Returns a string describing the request's destination. This is a
   /// string indicating the type of content being requested.
   ///
-  external RequestDestination get destination;
+  RequestDestination get destination =>
+      js_util.getProperty(this, 'destination');
 
   /// Contains the referrer of the request (e.g., [client]).
   ///
-  external String get referrer;
+  String get referrer => js_util.getProperty(this, 'referrer');
 
   ///  Contains the referrer policy of the request (e.g.,
   /// [no-referrer]).
   ///
-  external ReferrerPolicy get referrerPolicy;
+  ReferrerPolicy get referrerPolicy =>
+      js_util.getProperty(this, 'referrerPolicy');
 
   ///  Contains the mode of the request (e.g., [cors], [no-cors],
   /// [same-origin], [navigate].)
   ///
-  external RequestMode get mode;
+  RequestMode get mode => js_util.getProperty(this, 'mode');
 
   ///  Contains the credentials of the request (e.g., [omit],
   /// [same-origin], [include]). The default is [same-origin].
   ///
-  external RequestCredentials get credentials;
+  RequestCredentials get credentials =>
+      js_util.getProperty(this, 'credentials');
 
   ///  Contains the cache mode of the request (e.g., [default],
   /// [reload], [no-cache]).
   ///
-  external RequestCache get cache;
+  RequestCache get cache => js_util.getProperty(this, 'cache');
 
   ///  Contains the mode for how redirects are handled. It may be one
   /// of [follow], [error], or [manual].
   ///
-  external RequestRedirect get redirect;
+  RequestRedirect get redirect => js_util.getProperty(this, 'redirect');
 
   ///  Contains the subresource integrity value of the request (e.g.,
   /// [sha256-BpfBw7ivV8q2jLiT13fxDYAe2tJllusRSZ273h2nFSE=]).
   ///
-  external String get integrity;
-  external bool get keepalive;
-  external bool get isReloadNavigation;
-  external bool get isHistoryNavigation;
-  external AbortSignal get signal;
+  String get integrity => js_util.getProperty(this, 'integrity');
+  bool get keepalive => js_util.getProperty(this, 'keepalive');
+  bool get isReloadNavigation =>
+      js_util.getProperty(this, 'isReloadNavigation');
+  bool get isHistoryNavigation =>
+      js_util.getProperty(this, 'isHistoryNavigation');
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
 
   /// Creates a copy of the current [Request] object.
   ///
@@ -254,7 +267,7 @@ extension PropsRequest on Request {
   /// var myRequest = new Request('flowers.jpg');
   /// var newRequest = myRequest.clone(); // a copy of the request is now stored in newRequest
   ///
-  external Request clone();
+  Request clone() => js_util.callMethod(this, 'clone', []);
 }
 
 @anonymous
@@ -278,32 +291,72 @@ class RequestInit {
 }
 
 extension PropsRequestInit on RequestInit {
-  external String get method;
-  external set method(String newValue);
-  external dynamic get headers;
-  external set headers(dynamic newValue);
-  external dynamic get body;
-  external set body(dynamic newValue);
-  external String get referrer;
-  external set referrer(String newValue);
-  external ReferrerPolicy get referrerPolicy;
-  external set referrerPolicy(ReferrerPolicy newValue);
-  external RequestMode get mode;
-  external set mode(RequestMode newValue);
-  external RequestCredentials get credentials;
-  external set credentials(RequestCredentials newValue);
-  external RequestCache get cache;
-  external set cache(RequestCache newValue);
-  external RequestRedirect get redirect;
-  external set redirect(RequestRedirect newValue);
-  external String get integrity;
-  external set integrity(String newValue);
-  external bool get keepalive;
-  external set keepalive(bool newValue);
-  external AbortSignal? get signal;
-  external set signal(AbortSignal? newValue);
-  external dynamic get window;
-  external set window(dynamic newValue);
+  String get method => js_util.getProperty(this, 'method');
+  set method(String newValue) {
+    js_util.setProperty(this, 'method', newValue);
+  }
+
+  dynamic get headers => js_util.getProperty(this, 'headers');
+  set headers(dynamic newValue) {
+    js_util.setProperty(this, 'headers', newValue);
+  }
+
+  dynamic get body => js_util.getProperty(this, 'body');
+  set body(dynamic newValue) {
+    js_util.setProperty(this, 'body', newValue);
+  }
+
+  String get referrer => js_util.getProperty(this, 'referrer');
+  set referrer(String newValue) {
+    js_util.setProperty(this, 'referrer', newValue);
+  }
+
+  ReferrerPolicy get referrerPolicy =>
+      js_util.getProperty(this, 'referrerPolicy');
+  set referrerPolicy(ReferrerPolicy newValue) {
+    js_util.setProperty(this, 'referrerPolicy', newValue);
+  }
+
+  RequestMode get mode => js_util.getProperty(this, 'mode');
+  set mode(RequestMode newValue) {
+    js_util.setProperty(this, 'mode', newValue);
+  }
+
+  RequestCredentials get credentials =>
+      js_util.getProperty(this, 'credentials');
+  set credentials(RequestCredentials newValue) {
+    js_util.setProperty(this, 'credentials', newValue);
+  }
+
+  RequestCache get cache => js_util.getProperty(this, 'cache');
+  set cache(RequestCache newValue) {
+    js_util.setProperty(this, 'cache', newValue);
+  }
+
+  RequestRedirect get redirect => js_util.getProperty(this, 'redirect');
+  set redirect(RequestRedirect newValue) {
+    js_util.setProperty(this, 'redirect', newValue);
+  }
+
+  String get integrity => js_util.getProperty(this, 'integrity');
+  set integrity(String newValue) {
+    js_util.setProperty(this, 'integrity', newValue);
+  }
+
+  bool get keepalive => js_util.getProperty(this, 'keepalive');
+  set keepalive(bool newValue) {
+    js_util.setProperty(this, 'keepalive', newValue);
+  }
+
+  AbortSignal? get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal? newValue) {
+    js_util.setProperty(this, 'signal', newValue);
+  }
+
+  dynamic get window => js_util.getProperty(this, 'window');
+  set window(dynamic newValue) {
+    js_util.setProperty(this, 'window', newValue);
+  }
 }
 
 enum RequestDestination {
@@ -353,7 +406,7 @@ enum RequestRedirect { follow, error, manual }
 @JS()
 @staticInterop
 class Response implements Body {
-  external factory Response([dynamic body, ResponseInit? init]);
+  external Response([dynamic body, ResponseInit? init]);
 }
 
 extension PropsResponse on Response {
@@ -374,35 +427,35 @@ extension PropsResponse on Response {
 
   /// The type of the response (e.g., [basic], [cors]).
   ///
-  external ResponseType get type;
+  ResponseType get type => js_util.getProperty(this, 'type');
 
   /// The URL of the response.
   ///
-  external String get url;
+  String get url => js_util.getProperty(this, 'url');
 
   ///  Indicates whether or not the response is the result of a
   /// redirect (that is, its URL list has more than one entry).
   ///
-  external bool get redirected;
+  bool get redirected => js_util.getProperty(this, 'redirected');
 
   ///  The status code of the response. (This will be [200] for a
   /// success).
   ///
-  external int get status;
+  int get status => js_util.getProperty(this, 'status');
 
   ///  A boolean indicating whether the response was successful (status
   /// in the range [200]–[299]) or not.
   ///
-  external bool get ok;
+  bool get ok => js_util.getProperty(this, 'ok');
 
   ///  The status message corresponding to the status code. (e.g., [OK]
   /// for [200]).
   ///
-  external String get statusText;
+  String get statusText => js_util.getProperty(this, 'statusText');
 
   /// The [Headers] object associated with the response.
   ///
-  external Headers get headers;
+  Headers get headers => js_util.getProperty(this, 'headers');
 
   /// Creates a clone of a [Response] object.
   ///
@@ -433,7 +486,7 @@ extension PropsResponse on Response {
   ///  });
   /// });
   ///
-  external Response clone();
+  Response clone() => js_util.callMethod(this, 'clone', []);
 }
 
 @anonymous
@@ -445,12 +498,20 @@ class ResponseInit {
 }
 
 extension PropsResponseInit on ResponseInit {
-  external int get status;
-  external set status(int newValue);
-  external String get statusText;
-  external set statusText(String newValue);
-  external dynamic get headers;
-  external set headers(dynamic newValue);
+  int get status => js_util.getProperty(this, 'status');
+  set status(int newValue) {
+    js_util.setProperty(this, 'status', newValue);
+  }
+
+  String get statusText => js_util.getProperty(this, 'statusText');
+  set statusText(String newValue) {
+    js_util.setProperty(this, 'statusText', newValue);
+  }
+
+  dynamic get headers => js_util.getProperty(this, 'headers');
+  set headers(dynamic newValue) {
+    js_util.setProperty(this, 'headers', newValue);
+  }
 }
 
 enum ResponseType { basic, cors, valueDefault, error, opaque, opaqueredirect }

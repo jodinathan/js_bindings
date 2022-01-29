@@ -5,6 +5,7 @@
 @staticInterop
 library periodic_background_sync;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -21,7 +22,7 @@ html */
 @JS()
 @staticInterop
 class PeriodicSyncManager {
-  external factory PeriodicSyncManager();
+  external PeriodicSyncManager();
 }
 
 extension PropsPeriodicSyncManager on PeriodicSyncManager {
@@ -31,8 +32,8 @@ extension PropsPeriodicSyncManager on PeriodicSyncManager {
   ///
   /// var register = PeriodicSyncManager.register(tag, BackgroundSyncOptions);
   ///
-  external Promise<Object> register(String tag,
-      [BackgroundSyncOptions? options]);
+  Promise<Object> register(String tag, [BackgroundSyncOptions? options]) =>
+      js_util.callMethod(this, 'register', [tag, options]);
 
   ///  Returns a [Promise] that resolves with a list of [strings]
   /// representing the tags that are currently registered for periodic
@@ -40,7 +41,8 @@ extension PropsPeriodicSyncManager on PeriodicSyncManager {
   ///
   /// var tags = PeriodicSyncManager.getTags();
   ///
-  external Iterable<Promise<String>> getTags();
+  Iterable<Promise<String>> getTags() =>
+      js_util.callMethod(this, 'getTags', []);
 
   ///  Unregisters the periodic sync request corresponding to the
   /// specified tag and returns a [Promise] that resolves when
@@ -48,7 +50,8 @@ extension PropsPeriodicSyncManager on PeriodicSyncManager {
   ///
   /// var unregister = PeriodicSyncManager.unregister(tag);
   ///
-  external Promise<Object> unregister(String tag);
+  Promise<Object> unregister(String tag) =>
+      js_util.callMethod(this, 'unregister', [tag]);
 }
 
 @anonymous
@@ -59,8 +62,10 @@ class BackgroundSyncOptions {
 }
 
 extension PropsBackgroundSyncOptions on BackgroundSyncOptions {
-  external int get minInterval;
-  external set minInterval(int newValue);
+  int get minInterval => js_util.getProperty(this, 'minInterval');
+  set minInterval(int newValue) {
+    js_util.setProperty(this, 'minInterval', newValue);
+  }
 }
 
 @anonymous
@@ -71,8 +76,10 @@ class PeriodicSyncEventInit implements ExtendableEventInit {
 }
 
 extension PropsPeriodicSyncEventInit on PeriodicSyncEventInit {
-  external String get tag;
-  external set tag(String newValue);
+  String get tag => js_util.getProperty(this, 'tag');
+  set tag(String newValue) {
+    js_util.setProperty(this, 'tag', newValue);
+  }
 }
 
 ///  The interface of the [Web Periodic Background Synchronization
@@ -87,7 +94,7 @@ extension PropsPeriodicSyncEventInit on PeriodicSyncEventInit {
 @JS()
 @staticInterop
 class PeriodicSyncEvent implements ExtendableEvent {
-  external factory PeriodicSyncEvent(String type, PeriodicSyncEventInit init);
+  external PeriodicSyncEvent(String type, PeriodicSyncEventInit init);
 }
 
 extension PropsPeriodicSyncEvent on PeriodicSyncEvent {
@@ -95,5 +102,5 @@ extension PropsPeriodicSyncEvent on PeriodicSyncEvent {
   /// [PeriodicSyncEvent]. Multiple tags can be used by the web app to
   /// run different periodic tasks at different frequencies.
   ///
-  external String get tag;
+  String get tag => js_util.getProperty(this, 'tag');
 }

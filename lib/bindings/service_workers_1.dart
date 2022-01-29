@@ -5,6 +5,7 @@
 @staticInterop
 library service_workers_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -43,7 +44,7 @@ background_sync */
 @JS()
 @staticInterop
 class ServiceWorker implements EventTarget, AbstractWorker {
-  external factory ServiceWorker();
+  external ServiceWorker();
 }
 
 extension PropsServiceWorker on ServiceWorker {
@@ -51,16 +52,21 @@ extension PropsServiceWorker on ServiceWorker {
   /// part of [ServiceWorkerRegistration]. The URL must be on the same
   /// origin as the document that registers the [ServiceWorker].
   ///
-  external String get scriptURL;
+  String get scriptURL => js_util.getProperty(this, 'scriptURL');
 
   ///  Returns the state of the service worker. It returns one of the
   /// following values: [installing], [installed,] [activating],
   /// [activated], or [redundant].
   ///
-  external ServiceWorkerState get state;
-  external Object postMessage(dynamic message, Iterable<dynamic> transfer);
-  external EventHandlerNonNull? get onstatechange;
-  external set onstatechange(EventHandlerNonNull? newValue);
+  ServiceWorkerState get state => js_util.getProperty(this, 'state');
+  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+      js_util.callMethod(this, 'postMessage', [message, transfer]);
+
+  EventHandlerNonNull? get onstatechange =>
+      js_util.getProperty(this, 'onstatechange');
+  set onstatechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstatechange', newValue);
+  }
 }
 
 enum ServiceWorkerState {
@@ -85,19 +91,19 @@ enum ServiceWorkerState {
 @JS()
 @staticInterop
 class ServiceWorkerRegistration implements EventTarget {
-  external factory ServiceWorkerRegistration();
+  external ServiceWorkerRegistration();
 }
 
 extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   ///  Returns a service worker whose state is . This is initially set
   /// to [null].
   ///
-  external ServiceWorker? get installing;
+  ServiceWorker? get installing => js_util.getProperty(this, 'installing');
 
   ///  Returns a service worker whose state is [installed]. This is
   /// initially set to [null].
   ///
-  external ServiceWorker? get waiting;
+  ServiceWorker? get waiting => js_util.getProperty(this, 'waiting');
 
   ///  Returns a service worker whose state is [activating] or
   /// [activated]. This is initially set to [null]. An active worker
@@ -105,19 +111,21 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   /// scope of the registration (the [scope] option set when
   /// [ServiceWorkerContainer.register] is first called.)
   ///
-  external ServiceWorker? get active;
+  ServiceWorker? get active => js_util.getProperty(this, 'active');
 
   ///  Returns the instance of [NavigationPreloadManager] associated
   /// with the current service worker registration.
   ///
-  external NavigationPreloadManager get navigationPreload;
+  NavigationPreloadManager get navigationPreload =>
+      js_util.getProperty(this, 'navigationPreload');
 
   ///  Returns a unique identifier for a service worker registration.
   /// This must be on the same origin as the document that registers
   /// the [ServiceWorker].
   ///
-  external String get scope;
-  external ServiceWorkerUpdateViaCache get updateViaCache;
+  String get scope => js_util.getProperty(this, 'scope');
+  ServiceWorkerUpdateViaCache get updateViaCache =>
+      js_util.getProperty(this, 'updateViaCache');
 
   ///  Checks the server for an updated version of the service worker
   /// without consulting caches.
@@ -141,7 +149,7 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   ///  });
   /// };
   ///
-  external Promise<Object> update();
+  Promise<Object> update() => js_util.callMethod(this, 'update', []);
 
   ///  Unregisters the service worker registration and returns a
   /// [Promise]. The service worker will finish any ongoing operations
@@ -167,22 +175,34 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   ///  });
   /// };
   ///
-  external Promise<bool> unregister();
-  external EventHandlerNonNull? get onupdatefound;
-  external set onupdatefound(EventHandlerNonNull? newValue);
-  external ContentIndex get index;
-  external PeriodicSyncManager get periodicSync;
-  external PaymentManager get paymentManager;
-  external CookieStoreManager get cookies;
-  external BackgroundFetchManager get backgroundFetch;
-  external Promise<Object> showNotification(String title,
-      [NotificationOptions? options]);
-  external Iterable<Promise<Notification>> getNotifications(
-      [GetNotificationOptions? filter]);
-  external PushManager get pushManager;
+  Promise<bool> unregister() => js_util.callMethod(this, 'unregister', []);
+
+  EventHandlerNonNull? get onupdatefound =>
+      js_util.getProperty(this, 'onupdatefound');
+  set onupdatefound(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onupdatefound', newValue);
+  }
+
+  ContentIndex get index => js_util.getProperty(this, 'index');
+  PeriodicSyncManager get periodicSync =>
+      js_util.getProperty(this, 'periodicSync');
+  PaymentManager get paymentManager =>
+      js_util.getProperty(this, 'paymentManager');
+  CookieStoreManager get cookies => js_util.getProperty(this, 'cookies');
+  BackgroundFetchManager get backgroundFetch =>
+      js_util.getProperty(this, 'backgroundFetch');
+  Promise<Object> showNotification(String title,
+          [NotificationOptions? options]) =>
+      js_util.callMethod(this, 'showNotification', [title, options]);
+
+  Iterable<Promise<Notification>> getNotifications(
+          [GetNotificationOptions? filter]) =>
+      js_util.callMethod(this, 'getNotifications', [filter]);
+
+  PushManager get pushManager => js_util.getProperty(this, 'pushManager');
   @JS('sync')
   @staticInterop
-  external SyncManager get mSync;
+  SyncManager get mSync => js_util.getProperty(this, 'sync');
 }
 
 enum ServiceWorkerUpdateViaCache { imports, all, none }
@@ -200,7 +220,7 @@ enum ServiceWorkerUpdateViaCache { imports, all, none }
 @JS()
 @staticInterop
 class ServiceWorkerContainer implements EventTarget {
-  external factory ServiceWorkerContainer();
+  external ServiceWorkerContainer();
 }
 
 extension PropsServiceWorkerContainer on ServiceWorkerContainer {
@@ -210,7 +230,7 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   /// during a force-refresh request (Shift + refresh) or if there is
   /// no active worker.
   ///
-  external ServiceWorker? get controller;
+  ServiceWorker? get controller => js_util.getProperty(this, 'controller');
 
   ///  Provides a way of delaying code execution until a service worker
   /// is active. It returns a [Promise] that will never reject, and
@@ -219,7 +239,8 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   /// [ServiceWorkerRegistration.active] worker. Once that condition is
   /// met, it resolves with the [ServiceWorkerRegistration].
   ///
-  external Promise<ServiceWorkerRegistration> get ready;
+  Promise<ServiceWorkerRegistration> get ready =>
+      js_util.getProperty(this, 'ready');
 
   ///  Creates or updates a [ServiceWorkerRegistration] for the given
   /// [scriptURL].
@@ -227,8 +248,9 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   /// serviceWorkerContainer.register(scriptURL, options)
   ///  .then(function(serviceWorkerRegistration) { /* ... */ });
   ///
-  external Promise<ServiceWorkerRegistration> register(String scriptURL,
-      [RegistrationOptions? options]);
+  Promise<ServiceWorkerRegistration> register(String scriptURL,
+          [RegistrationOptions? options]) =>
+      js_util.callMethod(this, 'register', [scriptURL, options]);
 
   ///  Gets a [ServiceWorkerRegistration] object whose scope matches
   /// the provided document URL. The method returns a [Promise] that
@@ -242,7 +264,8 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   ///  }
   /// });
   ///
-  external dynamic getRegistration([String? clientURL = '']);
+  dynamic getRegistration([String? clientURL = '']) =>
+      js_util.callMethod(this, 'getRegistration', [clientURL]);
 
   ///  Returns all [ServiceWorkerRegistration] objects associated with
   /// a [ServiceWorkerContainer] in an array. The method returns a
@@ -255,7 +278,8 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   ///  document.querySelector('#status').textContent = 'ServiceWorkerRegistrations found.';
   /// });
   ///
-  external Iterable<Promise<ServiceWorkerRegistration>> getRegistrations();
+  Iterable<Promise<ServiceWorkerRegistration>> getRegistrations() =>
+      js_util.callMethod(this, 'getRegistrations', []);
 
   ///  explicitly starts the flow of messages being dispatched from a
   /// service worker to pages under its control (e.g. sent via
@@ -265,13 +289,24 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   ///
   /// serviceWorkerContainer.startMessages();
   ///
-  external Object startMessages();
-  external EventHandlerNonNull? get oncontrollerchange;
-  external set oncontrollerchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
+  Object startMessages() => js_util.callMethod(this, 'startMessages', []);
+
+  EventHandlerNonNull? get oncontrollerchange =>
+      js_util.getProperty(this, 'oncontrollerchange');
+  set oncontrollerchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncontrollerchange', newValue);
+  }
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
 }
 
 @anonymous
@@ -286,12 +321,21 @@ class RegistrationOptions {
 }
 
 extension PropsRegistrationOptions on RegistrationOptions {
-  external String get scope;
-  external set scope(String newValue);
-  external WorkerType get type;
-  external set type(WorkerType newValue);
-  external ServiceWorkerUpdateViaCache get updateViaCache;
-  external set updateViaCache(ServiceWorkerUpdateViaCache newValue);
+  String get scope => js_util.getProperty(this, 'scope');
+  set scope(String newValue) {
+    js_util.setProperty(this, 'scope', newValue);
+  }
+
+  WorkerType get type => js_util.getProperty(this, 'type');
+  set type(WorkerType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  ServiceWorkerUpdateViaCache get updateViaCache =>
+      js_util.getProperty(this, 'updateViaCache');
+  set updateViaCache(ServiceWorkerUpdateViaCache newValue) {
+    js_util.setProperty(this, 'updateViaCache', newValue);
+  }
 }
 
 ///  The interface of the Service Worker API represents the global
@@ -331,20 +375,21 @@ extension PropsRegistrationOptions on RegistrationOptions {
 @JS()
 @staticInterop
 class ServiceWorkerGlobalScope implements WorkerGlobalScope {
-  external factory ServiceWorkerGlobalScope();
+  external ServiceWorkerGlobalScope();
 }
 
 extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
   ///  Contains the [Clients] object associated with the service
   /// worker.
   ///
-  external Clients get clients;
+  Clients get clients => js_util.getProperty(this, 'clients');
 
   ///  Contains the [ServiceWorkerRegistration] object that represents
   /// the service worker's registration.
   ///
-  external ServiceWorkerRegistration get registration;
-  external ServiceWorker get serviceWorker;
+  ServiceWorkerRegistration get registration =>
+      js_util.getProperty(this, 'registration');
+  ServiceWorker get serviceWorker => js_util.getProperty(this, 'serviceWorker');
 
   ///  Allows the current service worker registration to progress from
   /// waiting to active state while service worker clients are using
@@ -365,46 +410,117 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
   ///  // of event.waitUntil();
   /// });
   ///
-  external Promise<Object> skipWaiting();
-  external EventHandlerNonNull? get oninstall;
-  external set oninstall(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onactivate;
-  external set onactivate(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onfetch;
-  external set onfetch(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessage;
-  external set onmessage(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onmessageerror;
-  external set onmessageerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncontentdelete;
-  external set oncontentdelete(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onperiodicsync;
-  external set onperiodicsync(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncanmakepayment;
-  external set oncanmakepayment(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpaymentrequest;
-  external set onpaymentrequest(EventHandlerNonNull? newValue);
-  external CookieStore get cookieStore;
-  external EventHandlerNonNull? get oncookiechange;
-  external set oncookiechange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onbackgroundfetchsuccess;
-  external set onbackgroundfetchsuccess(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onbackgroundfetchfail;
-  external set onbackgroundfetchfail(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onbackgroundfetchabort;
-  external set onbackgroundfetchabort(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onbackgroundfetchclick;
-  external set onbackgroundfetchclick(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onnotificationclick;
-  external set onnotificationclick(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onnotificationclose;
-  external set onnotificationclose(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpush;
-  external set onpush(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpushsubscriptionchange;
-  external set onpushsubscriptionchange(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onsync;
-  external set onsync(EventHandlerNonNull? newValue);
+  Promise<Object> skipWaiting() => js_util.callMethod(this, 'skipWaiting', []);
+
+  EventHandlerNonNull? get oninstall => js_util.getProperty(this, 'oninstall');
+  set oninstall(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oninstall', newValue);
+  }
+
+  EventHandlerNonNull? get onactivate =>
+      js_util.getProperty(this, 'onactivate');
+  set onactivate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onactivate', newValue);
+  }
+
+  EventHandlerNonNull? get onfetch => js_util.getProperty(this, 'onfetch');
+  set onfetch(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfetch', newValue);
+  }
+
+  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
+  set onmessage(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessage', newValue);
+  }
+
+  EventHandlerNonNull? get onmessageerror =>
+      js_util.getProperty(this, 'onmessageerror');
+  set onmessageerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onmessageerror', newValue);
+  }
+
+  EventHandlerNonNull? get oncontentdelete =>
+      js_util.getProperty(this, 'oncontentdelete');
+  set oncontentdelete(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncontentdelete', newValue);
+  }
+
+  EventHandlerNonNull? get onperiodicsync =>
+      js_util.getProperty(this, 'onperiodicsync');
+  set onperiodicsync(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onperiodicsync', newValue);
+  }
+
+  EventHandlerNonNull? get oncanmakepayment =>
+      js_util.getProperty(this, 'oncanmakepayment');
+  set oncanmakepayment(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncanmakepayment', newValue);
+  }
+
+  EventHandlerNonNull? get onpaymentrequest =>
+      js_util.getProperty(this, 'onpaymentrequest');
+  set onpaymentrequest(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpaymentrequest', newValue);
+  }
+
+  CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
+  EventHandlerNonNull? get oncookiechange =>
+      js_util.getProperty(this, 'oncookiechange');
+  set oncookiechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncookiechange', newValue);
+  }
+
+  EventHandlerNonNull? get onbackgroundfetchsuccess =>
+      js_util.getProperty(this, 'onbackgroundfetchsuccess');
+  set onbackgroundfetchsuccess(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbackgroundfetchsuccess', newValue);
+  }
+
+  EventHandlerNonNull? get onbackgroundfetchfail =>
+      js_util.getProperty(this, 'onbackgroundfetchfail');
+  set onbackgroundfetchfail(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbackgroundfetchfail', newValue);
+  }
+
+  EventHandlerNonNull? get onbackgroundfetchabort =>
+      js_util.getProperty(this, 'onbackgroundfetchabort');
+  set onbackgroundfetchabort(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbackgroundfetchabort', newValue);
+  }
+
+  EventHandlerNonNull? get onbackgroundfetchclick =>
+      js_util.getProperty(this, 'onbackgroundfetchclick');
+  set onbackgroundfetchclick(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbackgroundfetchclick', newValue);
+  }
+
+  EventHandlerNonNull? get onnotificationclick =>
+      js_util.getProperty(this, 'onnotificationclick');
+  set onnotificationclick(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onnotificationclick', newValue);
+  }
+
+  EventHandlerNonNull? get onnotificationclose =>
+      js_util.getProperty(this, 'onnotificationclose');
+  set onnotificationclose(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onnotificationclose', newValue);
+  }
+
+  EventHandlerNonNull? get onpush => js_util.getProperty(this, 'onpush');
+  set onpush(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpush', newValue);
+  }
+
+  EventHandlerNonNull? get onpushsubscriptionchange =>
+      js_util.getProperty(this, 'onpushsubscriptionchange');
+  set onpushsubscriptionchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpushsubscriptionchange', newValue);
+  }
+
+  EventHandlerNonNull? get onsync => js_util.getProperty(this, 'onsync');
+  set onsync(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsync', newValue);
+  }
 }
 
 ///  The interface represents an executable context such as a
@@ -416,31 +532,34 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
 @JS()
 @staticInterop
 class Client {
-  external factory Client();
+  external Client();
 }
 
 extension PropsClient on Client {
   /// The URL of the client as a string.
   ///
-  external String get url;
-  external FrameType get frameType;
+  String get url => js_util.getProperty(this, 'url');
+  FrameType get frameType => js_util.getProperty(this, 'frameType');
 
   /// The universally unique identifier of the client as a string.
   ///
-  external String get id;
+  String get id => js_util.getProperty(this, 'id');
 
   ///  The client's type as a string. It can be "[window"], "[worker"],
   /// or "[sharedworker"].
   ///
-  external ClientType get type;
+  ClientType get type => js_util.getProperty(this, 'type');
 
   /// Sends a message to the client.
   ///
   /// client.postMessage(message[, transfer]);
   /// client.postMessage(message[, { transfer }]);
   ///
-  external Object postMessage(dynamic message, Iterable<dynamic> transfer);
-  external ClientLifecycleState get lifecycleState;
+  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+      js_util.callMethod(this, 'postMessage', [message, transfer]);
+
+  ClientLifecycleState get lifecycleState =>
+      js_util.getProperty(this, 'lifecycleState');
 }
 
 ///  The interface of the ServiceWorker API represents the scope of a
@@ -452,19 +571,21 @@ extension PropsClient on Client {
 @JS()
 @staticInterop
 class WindowClient implements Client {
-  external factory WindowClient();
+  external WindowClient();
 }
 
 extension PropsWindowClient on WindowClient {
   ///  Indicates the visibility of the current client. This value can
   /// be one of ["hidden"], ["visible"], or ["prerender"].
   ///
-  external VisibilityState get visibilityState;
+  VisibilityState get visibilityState =>
+      js_util.getProperty(this, 'visibilityState');
 
   /// A boolean that indicates whether the current client has focus.
   ///
-  external bool get focused;
-  external Iterable<String> get ancestorOrigins;
+  bool get focused => js_util.getProperty(this, 'focused');
+  Iterable<String> get ancestorOrigins =>
+      js_util.getProperty(this, 'ancestorOrigins');
 
   /// Gives user input focus to the current client.
   ///
@@ -491,7 +612,7 @@ extension PropsWindowClient on WindowClient {
   ///  }));
   /// });
   ///
-  external Promise<WindowClient> focus();
+  Promise<WindowClient> focus() => js_util.callMethod(this, 'focus', []);
 
   /// Loads a specified URL into a controlled client page.
   ///
@@ -499,7 +620,8 @@ extension PropsWindowClient on WindowClient {
   ///  // do something with your WindowClient after navigation
   /// });
   ///
-  external Promise<WindowClient> navigate(String url);
+  Promise<WindowClient> navigate(String url) =>
+      js_util.callMethod(this, 'navigate', [url]);
 }
 
 enum FrameType { auxiliary, topLevel, nested, none }
@@ -510,7 +632,7 @@ enum FrameType { auxiliary, topLevel, nested, none }
 @JS()
 @staticInterop
 class Clients {
-  external factory Clients();
+  external Clients();
 }
 
 extension PropsClients on Clients {
@@ -522,7 +644,7 @@ extension PropsClients on Clients {
   ///
   @JS('get')
   @staticInterop
-  external dynamic mGet(String id);
+  dynamic mGet(String id) => js_util.callMethod(this, 'get', [id]);
 
   ///  Returns a [Promise] for an array of [Client] objects. An options
   /// argument allows you to control the types of clients returned.
@@ -531,7 +653,8 @@ extension PropsClients on Clients {
   ///  // do something with your clients list
   /// });
   ///
-  external Iterable<Promise<Client>> matchAll([ClientQueryOptions? options]);
+  Iterable<Promise<Client>> matchAll([ClientQueryOptions? options]) =>
+      js_util.callMethod(this, 'matchAll', [options]);
 
   ///  Opens a new browser window for a given url and returns a
   /// [Promise] for the new [WindowClient].
@@ -540,7 +663,8 @@ extension PropsClients on Clients {
   ///  // Do something with your WindowClient
   /// });
   ///
-  external Promise<WindowClient> openWindow(String url);
+  Promise<WindowClient> openWindow(String url) =>
+      js_util.callMethod(this, 'openWindow', [url]);
 
   ///  Allows an active service worker to set itself as the
   /// [controller] for all clients within its [scope].
@@ -552,7 +676,7 @@ extension PropsClients on Clients {
   ///  event.waitUntil(clients.claim());
   /// });
   ///
-  external Promise<Object> claim();
+  Promise<Object> claim() => js_util.callMethod(this, 'claim', []);
 }
 
 @anonymous
@@ -564,10 +688,16 @@ class ClientQueryOptions {
 }
 
 extension PropsClientQueryOptions on ClientQueryOptions {
-  external bool get includeUncontrolled;
-  external set includeUncontrolled(bool newValue);
-  external ClientType get type;
-  external set type(ClientType newValue);
+  bool get includeUncontrolled =>
+      js_util.getProperty(this, 'includeUncontrolled');
+  set includeUncontrolled(bool newValue) {
+    js_util.setProperty(this, 'includeUncontrolled', newValue);
+  }
+
+  ClientType get type => js_util.getProperty(this, 'type');
+  set type(ClientType newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
 }
 
 enum ClientType { window, worker, sharedworker, all }
@@ -607,8 +737,7 @@ enum ClientType { window, worker, sharedworker, all }
 @JS()
 @staticInterop
 class ExtendableEvent implements Event {
-  external factory ExtendableEvent(String type,
-      [ExtendableEventInit? eventInitDict]);
+  external ExtendableEvent(String type, [ExtendableEventInit? eventInitDict]);
 }
 
 extension PropsExtendableEvent on ExtendableEvent {
@@ -631,7 +760,8 @@ extension PropsExtendableEvent on ExtendableEvent {
   ///  event.waitUntil(preCache());
   /// });
   ///
-  external Object waitUntil(Promise<dynamic> f);
+  Object waitUntil(Promise<dynamic> f) =>
+      js_util.callMethod(this, 'waitUntil', [f]);
 }
 
 @anonymous
@@ -649,33 +779,35 @@ class ExtendableEventInit implements EventInit {
 @JS()
 @staticInterop
 class FetchEvent implements ExtendableEvent {
-  external factory FetchEvent(String type, FetchEventInit eventInitDict);
+  external FetchEvent(String type, FetchEventInit eventInitDict);
 }
 
 extension PropsFetchEvent on FetchEvent {
   /// The [Request] the browser intends to make.
   ///
-  external Request get request;
+  Request get request => js_util.getProperty(this, 'request');
 
   ///  A [Promise] for a [Response], or [undefined] if this fetch is
   /// not a navigation, or navigation preload is not enabled.
   ///
-  external Promise<dynamic> get preloadResponse;
+  Promise<dynamic> get preloadResponse =>
+      js_util.getProperty(this, 'preloadResponse');
 
   /// The [id] of the same-origin [client] that initiated the fetch.
   ///
-  external String get clientId;
+  String get clientId => js_util.getProperty(this, 'clientId');
 
   ///  The [id] of the [client] that replaces the previous client
   /// during a page navigation.
   ///
-  external String get resultingClientId;
+  String get resultingClientId =>
+      js_util.getProperty(this, 'resultingClientId');
 
   ///  The [id] of the [client] that is being replaced during a page
   /// navigation.
   ///
-  external String get replacesClientId;
-  external Promise<Object> get handled;
+  String get replacesClientId => js_util.getProperty(this, 'replacesClientId');
+  Promise<Object> get handled => js_util.getProperty(this, 'handled');
 
   ///  Prevent the browser's default fetch handling, and provide (a
   /// promise for) a response yourself.
@@ -684,7 +816,8 @@ extension PropsFetchEvent on FetchEvent {
   ///  // Promise that resolves to a Response.
   /// );
   ///
-  external Object respondWith(Promise<Response> r);
+  Object respondWith(Promise<Response> r) =>
+      js_util.callMethod(this, 'respondWith', [r]);
 }
 
 @anonymous
@@ -701,18 +834,37 @@ class FetchEventInit implements ExtendableEventInit {
 }
 
 extension PropsFetchEventInit on FetchEventInit {
-  external Request get request;
-  external set request(Request newValue);
-  external Promise<dynamic> get preloadResponse;
-  external set preloadResponse(Promise<dynamic> newValue);
-  external String get clientId;
-  external set clientId(String newValue);
-  external String get resultingClientId;
-  external set resultingClientId(String newValue);
-  external String get replacesClientId;
-  external set replacesClientId(String newValue);
-  external Promise<Object> get handled;
-  external set handled(Promise<Object> newValue);
+  Request get request => js_util.getProperty(this, 'request');
+  set request(Request newValue) {
+    js_util.setProperty(this, 'request', newValue);
+  }
+
+  Promise<dynamic> get preloadResponse =>
+      js_util.getProperty(this, 'preloadResponse');
+  set preloadResponse(Promise<dynamic> newValue) {
+    js_util.setProperty(this, 'preloadResponse', newValue);
+  }
+
+  String get clientId => js_util.getProperty(this, 'clientId');
+  set clientId(String newValue) {
+    js_util.setProperty(this, 'clientId', newValue);
+  }
+
+  String get resultingClientId =>
+      js_util.getProperty(this, 'resultingClientId');
+  set resultingClientId(String newValue) {
+    js_util.setProperty(this, 'resultingClientId', newValue);
+  }
+
+  String get replacesClientId => js_util.getProperty(this, 'replacesClientId');
+  set replacesClientId(String newValue) {
+    js_util.setProperty(this, 'replacesClientId', newValue);
+  }
+
+  Promise<Object> get handled => js_util.getProperty(this, 'handled');
+  set handled(Promise<Object> newValue) {
+    js_util.setProperty(this, 'handled', newValue);
+  }
 }
 
 ///  The interface of the Service Worker API represents the event
@@ -724,33 +876,33 @@ extension PropsFetchEventInit on FetchEventInit {
 @JS()
 @staticInterop
 class ExtendableMessageEvent implements ExtendableEvent {
-  external factory ExtendableMessageEvent(String type,
+  external ExtendableMessageEvent(String type,
       [ExtendableMessageEventInit? eventInitDict]);
 }
 
 extension PropsExtendableMessageEvent on ExtendableMessageEvent {
   /// Returns the event's data. It can be any data type.
   ///
-  external dynamic get data;
+  dynamic get data => js_util.getProperty(this, 'data');
 
   /// Returns the origin of the [Client] that sent the message.
   ///
-  external String get origin;
+  String get origin => js_util.getProperty(this, 'origin');
 
   ///  Represents, in server-sent events, the last event ID of the
   /// event source. This is an empty string.
   ///
-  external String get lastEventId;
+  String get lastEventId => js_util.getProperty(this, 'lastEventId');
 
   ///  Returns a reference to the [Client] object that sent the
   /// message.
   ///
-  external dynamic get source;
+  dynamic get source => js_util.getProperty(this, 'source');
 
   ///  Returns the array containing the [MessagePort] objects
   /// representing the ports of the associated message channel.
   ///
-  external Iterable<MessagePort> get ports;
+  Iterable<MessagePort> get ports => js_util.getProperty(this, 'ports');
 }
 
 @anonymous
@@ -766,16 +918,30 @@ class ExtendableMessageEventInit implements ExtendableEventInit {
 }
 
 extension PropsExtendableMessageEventInit on ExtendableMessageEventInit {
-  external dynamic get data;
-  external set data(dynamic newValue);
-  external String get origin;
-  external set origin(String newValue);
-  external String get lastEventId;
-  external set lastEventId(String newValue);
-  external dynamic get source;
-  external set source(dynamic newValue);
-  external Iterable<MessagePort> get ports;
-  external set ports(Iterable<MessagePort> newValue);
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  String get origin => js_util.getProperty(this, 'origin');
+  set origin(String newValue) {
+    js_util.setProperty(this, 'origin', newValue);
+  }
+
+  String get lastEventId => js_util.getProperty(this, 'lastEventId');
+  set lastEventId(String newValue) {
+    js_util.setProperty(this, 'lastEventId', newValue);
+  }
+
+  dynamic get source => js_util.getProperty(this, 'source');
+  set source(dynamic newValue) {
+    js_util.setProperty(this, 'source', newValue);
+  }
+
+  Iterable<MessagePort> get ports => js_util.getProperty(this, 'ports');
+  set ports(Iterable<MessagePort> newValue) {
+    js_util.setProperty(this, 'ports', newValue);
+  }
 }
 
 ///  The interface provides a persistent storage mechanism for
@@ -816,19 +982,32 @@ extension PropsExtendableMessageEventInit on ExtendableMessageEventInit {
 @JS()
 @staticInterop
 class Cache {
-  external factory Cache();
+  external Cache();
 }
 
 extension PropsCache on Cache {
-  external dynamic match(dynamic request, [CacheQueryOptions? options]);
-  external Iterable<Promise<Response>> matchAll(
-      [dynamic request, CacheQueryOptions? options]);
-  external Promise<Object> add(dynamic request);
-  external Promise<Object> addAll(Iterable<dynamic> requests);
-  external Promise<Object> put(dynamic request, Response response);
-  external Promise<bool> delete(dynamic request, [CacheQueryOptions? options]);
-  external Iterable<Promise<Request>> keys(
-      [dynamic request, CacheQueryOptions? options]);
+  dynamic match(dynamic request, [CacheQueryOptions? options]) =>
+      js_util.callMethod(this, 'match', [request, options]);
+
+  Iterable<Promise<Response>> matchAll(
+          [dynamic request, CacheQueryOptions? options]) =>
+      js_util.callMethod(this, 'matchAll', [request, options]);
+
+  Promise<Object> add(dynamic request) =>
+      js_util.callMethod(this, 'add', [request]);
+
+  Promise<Object> addAll(Iterable<dynamic> requests) =>
+      js_util.callMethod(this, 'addAll', [requests]);
+
+  Promise<Object> put(dynamic request, Response response) =>
+      js_util.callMethod(this, 'put', [request, response]);
+
+  Promise<bool> delete(dynamic request, [CacheQueryOptions? options]) =>
+      js_util.callMethod(this, 'delete', [request, options]);
+
+  Iterable<Promise<Request>> keys(
+          [dynamic request, CacheQueryOptions? options]) =>
+      js_util.callMethod(this, 'keys', [request, options]);
 }
 
 @anonymous
@@ -842,12 +1021,20 @@ class CacheQueryOptions {
 }
 
 extension PropsCacheQueryOptions on CacheQueryOptions {
-  external bool get ignoreSearch;
-  external set ignoreSearch(bool newValue);
-  external bool get ignoreMethod;
-  external set ignoreMethod(bool newValue);
-  external bool get ignoreVary;
-  external set ignoreVary(bool newValue);
+  bool get ignoreSearch => js_util.getProperty(this, 'ignoreSearch');
+  set ignoreSearch(bool newValue) {
+    js_util.setProperty(this, 'ignoreSearch', newValue);
+  }
+
+  bool get ignoreMethod => js_util.getProperty(this, 'ignoreMethod');
+  set ignoreMethod(bool newValue) {
+    js_util.setProperty(this, 'ignoreMethod', newValue);
+  }
+
+  bool get ignoreVary => js_util.getProperty(this, 'ignoreVary');
+  set ignoreVary(bool newValue) {
+    js_util.setProperty(this, 'ignoreVary', newValue);
+  }
 }
 
 /// The interface represents the storage for [Cache] objects.
@@ -893,7 +1080,7 @@ extension PropsCacheQueryOptions on CacheQueryOptions {
 @JS()
 @staticInterop
 class CacheStorage {
-  external factory CacheStorage();
+  external CacheStorage();
 }
 
 extension PropsCacheStorage on CacheStorage {
@@ -905,7 +1092,8 @@ extension PropsCacheStorage on CacheStorage {
   ///  // Do something with the response
   /// });
   ///
-  external dynamic match(dynamic request, [MultiCacheQueryOptions? options]);
+  dynamic match(dynamic request, [MultiCacheQueryOptions? options]) =>
+      js_util.callMethod(this, 'match', [request, options]);
 
   ///  Returns a [Promise] that resolves to [true] if a [Cache] object
   /// matching the [cacheName] exists.
@@ -914,7 +1102,8 @@ extension PropsCacheStorage on CacheStorage {
   ///  // true: your cache exists!
   /// });
   ///
-  external Promise<bool> has(String cacheName);
+  Promise<bool> has(String cacheName) =>
+      js_util.callMethod(this, 'has', [cacheName]);
 
   ///  Returns a [Promise] that resolves to the [Cache] object matching
   /// the [cacheName] (a new cache is created if it doesn't already
@@ -924,7 +1113,8 @@ extension PropsCacheStorage on CacheStorage {
   ///  // Do something with your cache
   /// });
   ///
-  external Promise<Cache> open(String cacheName);
+  Promise<Cache> open(String cacheName) =>
+      js_util.callMethod(this, 'open', [cacheName]);
 
   ///  Finds the [Cache] object matching the [cacheName], and if found,
   /// deletes the [Cache] object and returns a [Promise] that resolves
@@ -934,7 +1124,8 @@ extension PropsCacheStorage on CacheStorage {
   ///  // your cache is now deleted
   /// });
   ///
-  external Promise<bool> delete(String cacheName);
+  Promise<bool> delete(String cacheName) =>
+      js_util.callMethod(this, 'delete', [cacheName]);
 
   ///  Returns a [Promise] that will resolve with an array containing
   /// strings corresponding to all of the named [Cache] objects tracked
@@ -945,7 +1136,7 @@ extension PropsCacheStorage on CacheStorage {
   ///  //do something with your keyList
   /// });
   ///
-  external Iterable<Promise<String>> keys();
+  Iterable<Promise<String>> keys() => js_util.callMethod(this, 'keys', []);
 }
 
 @anonymous
@@ -956,8 +1147,10 @@ class MultiCacheQueryOptions implements CacheQueryOptions {
 }
 
 extension PropsMultiCacheQueryOptions on MultiCacheQueryOptions {
-  external String get cacheName;
-  external set cacheName(String newValue);
+  String get cacheName => js_util.getProperty(this, 'cacheName');
+  set cacheName(String newValue) {
+    js_util.setProperty(this, 'cacheName', newValue);
+  }
 }
 
 ///  The interface of the Service Worker API provides methods for
@@ -965,30 +1158,32 @@ extension PropsMultiCacheQueryOptions on MultiCacheQueryOptions {
 @JS()
 @staticInterop
 class NavigationPreloadManager {
-  external factory NavigationPreloadManager();
+  external NavigationPreloadManager();
 }
 
 extension PropsNavigationPreloadManager on NavigationPreloadManager {
   ///  Enables navigation preloading and returns a [Promise] that
   /// resolves.
   ///
-  external Promise<Object> enable();
+  Promise<Object> enable() => js_util.callMethod(this, 'enable', []);
 
   ///  Disables navigation preloading and returns a [Promise] that
   /// resolves.
   ///
-  external Promise<Object> disable();
+  Promise<Object> disable() => js_util.callMethod(this, 'disable', []);
 
   ///  Sets the value of the [Service-Worker-Navigation-Preload] header
   /// and returns an empty [Promise].
   ///
-  external Promise<Object> setHeaderValue(String value);
+  Promise<Object> setHeaderValue(String value) =>
+      js_util.callMethod(this, 'setHeaderValue', [value]);
 
   ///  Returns a [Promise] that resolves to an object with properties
   /// indicating whether preload is enabled and the contents of the
   /// [Service-Worker-Navigation-Preload].
   ///
-  external Promise<NavigationPreloadState> getState();
+  Promise<NavigationPreloadState> getState() =>
+      js_util.callMethod(this, 'getState', []);
 }
 
 @anonymous
@@ -1000,8 +1195,13 @@ class NavigationPreloadState {
 }
 
 extension PropsNavigationPreloadState on NavigationPreloadState {
-  external bool get enabled;
-  external set enabled(bool newValue);
-  external String get headerValue;
-  external set headerValue(String newValue);
+  bool get enabled => js_util.getProperty(this, 'enabled');
+  set enabled(bool newValue) {
+    js_util.setProperty(this, 'enabled', newValue);
+  }
+
+  String get headerValue => js_util.getProperty(this, 'headerValue');
+  set headerValue(String newValue) {
+    js_util.setProperty(this, 'headerValue', newValue);
+  }
 }

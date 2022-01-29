@@ -5,6 +5,7 @@
 @staticInterop
 library mediastream_recording;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -23,50 +24,68 @@ hr_time_3 */
 @JS()
 @staticInterop
 class MediaRecorder implements EventTarget {
-  external factory MediaRecorder(MediaStream stream,
-      [MediaRecorderOptions? options]);
+  external MediaRecorder(MediaStream stream, [MediaRecorderOptions? options]);
 }
 
 extension PropsMediaRecorder on MediaRecorder {
   ///  Returns the stream that was passed into the constructor when the
   /// [MediaRecorder] was created.
   ///
-  external MediaStream get stream;
+  MediaStream get stream => js_util.getProperty(this, 'stream');
 
   ///  Returns the MIME type that was selected as the recording
   /// container for the [MediaRecorder] object when it was created.
   ///
-  external String get mimeType;
+  String get mimeType => js_util.getProperty(this, 'mimeType');
 
   ///  Returns the current state of the [MediaRecorder] object
   /// ([inactive], [recording], or [paused].)
   ///
-  external RecordingState get state;
-  external EventHandlerNonNull? get onstart;
-  external set onstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onstop;
-  external set onstop(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get ondataavailable;
-  external set ondataavailable(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onpause;
-  external set onpause(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onresume;
-  external set onresume(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
+  RecordingState get state => js_util.getProperty(this, 'state');
+  EventHandlerNonNull? get onstart => js_util.getProperty(this, 'onstart');
+  set onstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstart', newValue);
+  }
+
+  EventHandlerNonNull? get onstop => js_util.getProperty(this, 'onstop');
+  set onstop(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onstop', newValue);
+  }
+
+  EventHandlerNonNull? get ondataavailable =>
+      js_util.getProperty(this, 'ondataavailable');
+  set ondataavailable(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondataavailable', newValue);
+  }
+
+  EventHandlerNonNull? get onpause => js_util.getProperty(this, 'onpause');
+  set onpause(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpause', newValue);
+  }
+
+  EventHandlerNonNull? get onresume => js_util.getProperty(this, 'onresume');
+  set onresume(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresume', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
 
   ///  Returns the video encoding bit rate in use. This may differ from
   /// the bit rate specified in the constructor (if it was provided).
   ///
   @experimental
-  external int get videoBitsPerSecond;
+  int get videoBitsPerSecond => js_util.getProperty(this, 'videoBitsPerSecond');
 
   ///  Returns the audio encoding bit rate in use. This may differ from
   /// the bit rate specified in the constructor (if it was provided).
   ///
   @experimental
-  external int get audioBitsPerSecond;
-  external BitrateMode get audioBitrateMode;
+  int get audioBitsPerSecond => js_util.getProperty(this, 'audioBitsPerSecond');
+  BitrateMode get audioBitrateMode =>
+      js_util.getProperty(this, 'audioBitrateMode');
 
   ///  Begins recording media; this method can optionally be passed a
   /// [timeslice] argument with a value in milliseconds. If this is
@@ -85,7 +104,8 @@ extension PropsMediaRecorder on MediaRecorder {
   ///
   /// ...
   ///
-  external Object start([int? timeslice]);
+  Object start([int? timeslice]) =>
+      js_util.callMethod(this, 'start', [timeslice]);
 
   ///  Stops recording, at which point a [dataavailable] event
   /// containing the final [Blob] of saved data is fired. No more
@@ -102,7 +122,7 @@ extension PropsMediaRecorder on MediaRecorder {
   ///
   /// ...
   ///
-  external Object stop();
+  Object stop() => js_util.callMethod(this, 'stop', []);
 
   /// Pauses the recording of media.
   ///
@@ -117,7 +137,7 @@ extension PropsMediaRecorder on MediaRecorder {
   ///
   /// ...
   ///
-  external Object pause();
+  Object pause() => js_util.callMethod(this, 'pause', []);
 
   /// Resumes recording of media after having been paused.
   ///
@@ -137,7 +157,7 @@ extension PropsMediaRecorder on MediaRecorder {
   ///
   /// ...
   ///
-  external Object resume();
+  Object resume() => js_util.callMethod(this, 'resume', []);
 
   ///  Requests a [Blob] containing the saved data received thus far
   /// (or since the last time [requestData()] was called. After calling
@@ -156,7 +176,8 @@ extension PropsMediaRecorder on MediaRecorder {
   ///
   /// ...
   ///
-  external Object requestData();
+  Object requestData() => js_util.callMethod(this, 'requestData', []);
+
   external static bool isTypeSupported(String type);
 }
 
@@ -173,16 +194,31 @@ class MediaRecorderOptions {
 }
 
 extension PropsMediaRecorderOptions on MediaRecorderOptions {
-  external String get mimeType;
-  external set mimeType(String newValue);
-  external int get audioBitsPerSecond;
-  external set audioBitsPerSecond(int newValue);
-  external int get videoBitsPerSecond;
-  external set videoBitsPerSecond(int newValue);
-  external int get bitsPerSecond;
-  external set bitsPerSecond(int newValue);
-  external BitrateMode get audioBitrateMode;
-  external set audioBitrateMode(BitrateMode newValue);
+  String get mimeType => js_util.getProperty(this, 'mimeType');
+  set mimeType(String newValue) {
+    js_util.setProperty(this, 'mimeType', newValue);
+  }
+
+  int get audioBitsPerSecond => js_util.getProperty(this, 'audioBitsPerSecond');
+  set audioBitsPerSecond(int newValue) {
+    js_util.setProperty(this, 'audioBitsPerSecond', newValue);
+  }
+
+  int get videoBitsPerSecond => js_util.getProperty(this, 'videoBitsPerSecond');
+  set videoBitsPerSecond(int newValue) {
+    js_util.setProperty(this, 'videoBitsPerSecond', newValue);
+  }
+
+  int get bitsPerSecond => js_util.getProperty(this, 'bitsPerSecond');
+  set bitsPerSecond(int newValue) {
+    js_util.setProperty(this, 'bitsPerSecond', newValue);
+  }
+
+  BitrateMode get audioBitrateMode =>
+      js_util.getProperty(this, 'audioBitrateMode');
+  set audioBitrateMode(BitrateMode newValue) {
+    js_util.setProperty(this, 'audioBitrateMode', newValue);
+  }
 }
 
 enum BitrateMode { constant, variable }
@@ -195,7 +231,7 @@ enum RecordingState { inactive, recording, paused }
 @JS()
 @staticInterop
 class BlobEvent implements Event {
-  external factory BlobEvent(String type, BlobEventInit eventInitDict);
+  external BlobEvent(String type, BlobEventInit eventInitDict);
 }
 
 extension PropsBlobEvent on BlobEvent {
@@ -203,7 +239,7 @@ extension PropsBlobEvent on BlobEvent {
   /// event was fired on the [EventTarget] because of something
   /// happening on that specific [Blob].
   ///
-  external Blob get data;
+  Blob get data => js_util.getProperty(this, 'data');
 
   ///  A [DOMHighResTimeStamp] indicating the difference between the
   /// timestamp of the first chunk in data and the timestamp of the
@@ -211,7 +247,7 @@ extension PropsBlobEvent on BlobEvent {
   /// Note that the timecode in the first produced BlobEvent does not
   /// need to be zero.
   ///
-  external double get timecode;
+  double get timecode => js_util.getProperty(this, 'timecode');
 }
 
 @anonymous
@@ -222,10 +258,15 @@ class BlobEventInit {
 }
 
 extension PropsBlobEventInit on BlobEventInit {
-  external Blob get data;
-  external set data(Blob newValue);
-  external double get timecode;
-  external set timecode(double newValue);
+  Blob get data => js_util.getProperty(this, 'data');
+  set data(Blob newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+
+  double get timecode => js_util.getProperty(this, 'timecode');
+  set timecode(double newValue) {
+    js_util.setProperty(this, 'timecode', newValue);
+  }
 }
 
 @anonymous
@@ -236,8 +277,10 @@ class MediaRecorderErrorEventInit implements EventInit {
 }
 
 extension PropsMediaRecorderErrorEventInit on MediaRecorderErrorEventInit {
-  external Exception get error;
-  external set error(Exception newValue);
+  Exception get error => js_util.getProperty(this, 'error');
+  set error(Exception newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }
 
 ///  The interface represents errors returned by the MediaStream
@@ -246,7 +289,7 @@ extension PropsMediaRecorderErrorEventInit on MediaRecorderErrorEventInit {
 @JS()
 @staticInterop
 class MediaRecorderErrorEvent implements Event {
-  external factory MediaRecorderErrorEvent(
+  external MediaRecorderErrorEvent(
       String type, MediaRecorderErrorEventInit eventInitDict);
 }
 
@@ -254,5 +297,5 @@ extension PropsMediaRecorderErrorEvent on MediaRecorderErrorEvent {
   ///  A [DOMException] containing information about the error that
   /// occurred. Read only.
   ///
-  external Exception get error;
+  Exception get error => js_util.getProperty(this, 'error');
 }

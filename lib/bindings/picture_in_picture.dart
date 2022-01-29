@@ -5,6 +5,7 @@
 @staticInterop
 library picture_in_picture;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -22,19 +23,21 @@ dom */
 @JS()
 @staticInterop
 class PictureInPictureWindow implements EventTarget {
-  external factory PictureInPictureWindow();
+  external PictureInPictureWindow();
 }
 
 extension PropsPictureInPictureWindow on PictureInPictureWindow {
   /// Determines the width of the floating video window.
   ///
-  external int get width;
+  int get width => js_util.getProperty(this, 'width');
 
   /// Determines the height of the floating video window.
   ///
-  external int get height;
-  external EventHandlerNonNull? get onresize;
-  external set onresize(EventHandlerNonNull? newValue);
+  int get height => js_util.getProperty(this, 'height');
+  EventHandlerNonNull? get onresize => js_util.getProperty(this, 'onresize');
+  set onresize(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresize', newValue);
+  }
 }
 
 ///  The interface represents picture-in-picture-related events,
@@ -55,12 +58,13 @@ extension PropsPictureInPictureWindow on PictureInPictureWindow {
 @JS()
 @staticInterop
 class PictureInPictureEvent implements Event {
-  external factory PictureInPictureEvent(
+  external PictureInPictureEvent(
       String type, PictureInPictureEventInit eventInitDict);
 }
 
 extension PropsPictureInPictureEvent on PictureInPictureEvent {
-  external PictureInPictureWindow get pictureInPictureWindow;
+  PictureInPictureWindow get pictureInPictureWindow =>
+      js_util.getProperty(this, 'pictureInPictureWindow');
 }
 
 @anonymous
@@ -72,6 +76,9 @@ class PictureInPictureEventInit implements EventInit {
 }
 
 extension PropsPictureInPictureEventInit on PictureInPictureEventInit {
-  external PictureInPictureWindow get pictureInPictureWindow;
-  external set pictureInPictureWindow(PictureInPictureWindow newValue);
+  PictureInPictureWindow get pictureInPictureWindow =>
+      js_util.getProperty(this, 'pictureInPictureWindow');
+  set pictureInPictureWindow(PictureInPictureWindow newValue) {
+    js_util.setProperty(this, 'pictureInPictureWindow', newValue);
+  }
 }

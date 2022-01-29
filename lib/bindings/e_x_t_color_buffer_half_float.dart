@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_color_buffer_half_float;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -33,5 +34,5 @@ class EXT_color_buffer_half_float {
   external static int get RGB16F_EXT;
   external static int get FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT;
   external static int get UNSIGNED_NORMALIZED_EXT;
-  external factory EXT_color_buffer_half_float();
+  external EXT_color_buffer_half_float();
 }

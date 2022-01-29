@@ -5,6 +5,7 @@
 @staticInterop
 library e_x_t_texture_compression_bptc;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -31,5 +32,5 @@ class EXT_texture_compression_bptc {
   external static int get COMPRESSED_SRGB_ALPHA_BPTC_UNORM_EXT;
   external static int get COMPRESSED_RGB_BPTC_SIGNED_FLOAT_EXT;
   external static int get COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT_EXT;
-  external factory EXT_texture_compression_bptc();
+  external EXT_texture_compression_bptc();
 }

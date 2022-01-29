@@ -5,6 +5,7 @@
 @staticInterop
 library event_timing;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -57,35 +58,35 @@ dom */
 @JS()
 @staticInterop
 class PerformanceEventTiming implements PerformanceEntry {
-  external factory PerformanceEventTiming();
+  external PerformanceEventTiming();
 }
 
 extension PropsPerformanceEventTiming on PerformanceEventTiming {
   /// Returns the time at which event dispatch started.
   ///
-  external double get processingStart;
+  double get processingStart => js_util.getProperty(this, 'processingStart');
 
   /// Returns the time at which the event dispatch ended.
   ///
-  external double get processingEnd;
+  double get processingEnd => js_util.getProperty(this, 'processingEnd');
 
   /// Returns the associated event's cancelable attribute.
   ///
-  external bool get cancelable;
+  bool get cancelable => js_util.getProperty(this, 'cancelable');
 
   ///  Returns the associated event's last target, if it is not
   /// removed.
   ///
-  external Node? get target;
+  Node? get target => js_util.getProperty(this, 'target');
 
   /// Converts the PerformanceEventTiming object to JSON.
   ///
   @override
-  external dynamic toJSON();
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
 @JS()
 @staticInterop
 class EventCounts {
-  external factory EventCounts();
+  external EventCounts();
 }

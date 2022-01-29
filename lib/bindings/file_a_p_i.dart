@@ -5,6 +5,7 @@
 @staticInterop
 library file_a_p_i;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
@@ -28,17 +29,21 @@ media_source */
 @JS()
 @staticInterop
 class Blob {
-  external factory Blob(
-      [Iterable<dynamic>? blobParts, BlobPropertyBag? options]);
+  external Blob([Iterable<dynamic>? blobParts, BlobPropertyBag? options]);
 }
 
 extension PropsBlob on Blob {
-  external int get size;
-  external String get type;
-  external Blob slice([int? start, int? end, String? contentType]);
-  external ReadableStream stream();
-  external Promise<String> text();
-  external Promise<ByteBuffer> arrayBuffer();
+  int get size => js_util.getProperty(this, 'size');
+  String get type => js_util.getProperty(this, 'type');
+  Blob slice([int? start, int? end, String? contentType]) =>
+      js_util.callMethod(this, 'slice', [start, end, contentType]);
+
+  ReadableStream stream() => js_util.callMethod(this, 'stream', []);
+
+  Promise<String> text() => js_util.callMethod(this, 'text', []);
+
+  Promise<ByteBuffer> arrayBuffer() =>
+      js_util.callMethod(this, 'arrayBuffer', []);
 }
 
 enum EndingType { transparent, native }
@@ -52,10 +57,15 @@ class BlobPropertyBag {
 }
 
 extension PropsBlobPropertyBag on BlobPropertyBag {
-  external String get type;
-  external set type(String newValue);
-  external EndingType get endings;
-  external set endings(EndingType newValue);
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  EndingType get endings => js_util.getProperty(this, 'endings');
+  set endings(EndingType newValue) {
+    js_util.setProperty(this, 'endings', newValue);
+  }
 }
 
 ///  The interface provides information about files and allows
@@ -86,14 +96,15 @@ extension PropsBlobPropertyBag on BlobPropertyBag {
 @JS()
 @staticInterop
 class File implements Blob {
-  external factory File(Iterable<dynamic> fileBits, String fileName,
+  external File(Iterable<dynamic> fileBits, String fileName,
       [FilePropertyBag? options]);
 }
 
 extension PropsFile on File {
-  external String get name;
-  external int get lastModified;
-  external String get webkitRelativePath;
+  String get name => js_util.getProperty(this, 'name');
+  int get lastModified => js_util.getProperty(this, 'lastModified');
+  String get webkitRelativePath =>
+      js_util.getProperty(this, 'webkitRelativePath');
 }
 
 @anonymous
@@ -104,8 +115,10 @@ class FilePropertyBag implements BlobPropertyBag {
 }
 
 extension PropsFilePropertyBag on FilePropertyBag {
-  external int get lastModified;
-  external set lastModified(int newValue);
+  int get lastModified => js_util.getProperty(this, 'lastModified');
+  set lastModified(int newValue) {
+    js_util.setProperty(this, 'lastModified', newValue);
+  }
 }
 
 ///  An object of this type is returned by the [files] property of
@@ -124,12 +137,13 @@ extension PropsFilePropertyBag on FilePropertyBag {
 @JS()
 @staticInterop
 class FileList {
-  external factory FileList();
+  external FileList();
 }
 
 extension PropsFileList on FileList {
-  external File? item(int index);
-  external int get length;
+  File? item(int index) => js_util.callMethod(this, 'item', [index]);
+
+  int get length => js_util.getProperty(this, 'length');
 }
 
 ///  The object lets web applications asynchronously read the
@@ -155,7 +169,7 @@ class FileReader implements EventTarget {
   external static int get EMPTY;
   external static int get LOADING;
   external static int get DONE;
-  external factory FileReader();
+  external FileReader();
 }
 
 extension PropsFileReader on FileReader {
@@ -165,7 +179,8 @@ extension PropsFileReader on FileReader {
   ///
   /// instanceOfFileReader.readAsArrayBuffer(blob);
   ///
-  external Object readAsArrayBuffer(Blob blob);
+  Object readAsArrayBuffer(Blob blob) =>
+      js_util.callMethod(this, 'readAsArrayBuffer', [blob]);
 
   ///  Starts reading the contents of the specified [Blob], once
   /// finished, the [result] attribute contains the raw binary data
@@ -197,7 +212,8 @@ extension PropsFileReader on FileReader {
   ///  reader.readAsBinaryString(blob);
   /// });
   ///
-  external Object readAsBinaryString(Blob blob);
+  Object readAsBinaryString(Blob blob) =>
+      js_util.callMethod(this, 'readAsBinaryString', [blob]);
 
   ///  Starts reading the contents of the specified [Blob], once
   /// finished, the [result] attribute contains the contents of the
@@ -207,7 +223,8 @@ extension PropsFileReader on FileReader {
   /// readAsText(blob)
   /// readAsText(blob, encoding)
   ///
-  external Object readAsText(Blob blob, [String? encoding]);
+  Object readAsText(Blob blob, [String? encoding]) =>
+      js_util.callMethod(this, 'readAsText', [blob, encoding]);
 
   ///  Starts reading the contents of the specified [Blob], once
   /// finished, the [result] attribute contains a [data:] URL
@@ -215,14 +232,15 @@ extension PropsFileReader on FileReader {
   ///
   /// instanceOfFileReader.readAsDataURL(blob);
   ///
-  external Object readAsDataURL(Blob blob);
+  Object readAsDataURL(Blob blob) =>
+      js_util.callMethod(this, 'readAsDataURL', [blob]);
 
   ///  Aborts the read operation. Upon return, the [readyState] will be
   /// [DONE].
   ///
   /// instanceOfFileReader.abort();
   ///
-  external Object abort();
+  Object abort() => js_util.callMethod(this, 'abort', []);
 
   ///  A number indicating the state of the [FileReader]. This is one
   /// of the following:
@@ -253,30 +271,49 @@ extension PropsFileReader on FileReader {
   ///
   ///
   ///
-  external int get readyState;
+  int get readyState => js_util.getProperty(this, 'readyState');
 
   ///  The file's contents. This property is only valid after the read
   /// operation is complete, and the format of the data depends on
   /// which of the methods was used to initiate the read operation.
   ///
-  external dynamic get result;
+  dynamic get result => js_util.getProperty(this, 'result');
 
   ///  A [DOMException] representing the error that occurred while
   /// reading the file.
   ///
-  external Exception? get error;
-  external EventHandlerNonNull? get onloadstart;
-  external set onloadstart(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onprogress;
-  external set onprogress(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onload;
-  external set onload(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onabort;
-  external set onabort(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onloadend;
-  external set onloadend(EventHandlerNonNull? newValue);
+  Exception? get error => js_util.getProperty(this, 'error');
+  EventHandlerNonNull? get onloadstart =>
+      js_util.getProperty(this, 'onloadstart');
+  set onloadstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadstart', newValue);
+  }
+
+  EventHandlerNonNull? get onprogress =>
+      js_util.getProperty(this, 'onprogress');
+  set onprogress(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onprogress', newValue);
+  }
+
+  EventHandlerNonNull? get onload => js_util.getProperty(this, 'onload');
+  set onload(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onload', newValue);
+  }
+
+  EventHandlerNonNull? get onabort => js_util.getProperty(this, 'onabort');
+  set onabort(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onabort', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onloadend => js_util.getProperty(this, 'onloadend');
+  set onloadend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onloadend', newValue);
+  }
 }
 
 ///  The interface allows to read [File] or [Blob] objects
@@ -288,7 +325,7 @@ extension PropsFileReader on FileReader {
 @JS()
 @staticInterop
 class FileReaderSync {
-  external factory FileReaderSync();
+  external FileReaderSync();
 }
 
 extension PropsFileReaderSync on FileReaderSync {
@@ -297,7 +334,8 @@ extension PropsFileReaderSync on FileReaderSync {
   ///
   /// ArrayBuffer readAsArrayBuffer(blob);
   ///
-  external ByteBuffer readAsArrayBuffer(Blob blob);
+  ByteBuffer readAsArrayBuffer(Blob blob) =>
+      js_util.callMethod(this, 'readAsArrayBuffer', [blob]);
 
   ///  This method converts a specified [Blob] or a [File] into a
   /// [DOMString] representing the input data as a binary string. This
@@ -308,7 +346,8 @@ extension PropsFileReaderSync on FileReaderSync {
   /// readAsBinaryString(Blob);
   ///
   @deprecated
-  external String readAsBinaryString(Blob blob);
+  String readAsBinaryString(Blob blob) =>
+      js_util.callMethod(this, 'readAsBinaryString', [blob]);
 
   ///  This method converts a specified [Blob] or a [File] into a
   /// [DOMString] representing the input data as a text string. The
@@ -321,7 +360,8 @@ extension PropsFileReaderSync on FileReaderSync {
   /// readAsText(File, encoding);
   /// readAsText(Blob, encoding);
   ///
-  external String readAsText(Blob blob, [String? encoding]);
+  String readAsText(Blob blob, [String? encoding]) =>
+      js_util.callMethod(this, 'readAsText', [blob, encoding]);
 
   ///  This method converts a specified [Blob] or a [File] into a
   /// [DOMString] representing the input data as a data URL.
@@ -329,5 +369,6 @@ extension PropsFileReaderSync on FileReaderSync {
   /// readAsDataURL(File);
   /// readAsDataURL(Blob);
   ///
-  external String readAsDataURL(Blob blob);
+  String readAsDataURL(Blob blob) =>
+      js_util.callMethod(this, 'readAsDataURL', [blob]);
 }

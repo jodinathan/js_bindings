@@ -5,6 +5,7 @@
 @staticInterop
 library indexed_d_b_3;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -52,7 +53,7 @@ html */
 @JS()
 @staticInterop
 class IDBRequest implements EventTarget {
-  external factory IDBRequest();
+  external IDBRequest();
 }
 
 extension PropsIDBRequest on IDBRequest {
@@ -60,35 +61,41 @@ extension PropsIDBRequest on IDBRequest {
   /// result is not available, an InvalidStateError exception is
   /// thrown.
   ///
-  external dynamic get result;
+  dynamic get result => js_util.getProperty(this, 'result');
 
   ///  Returns a [DOMException] in the event of an unsuccessful
   /// request, indicating what went wrong.
   ///
-  external Exception? get error;
+  Exception? get error => js_util.getProperty(this, 'error');
 
   ///  The source of the request, such as an [IDBIndex] or an
   /// [IDBObjectStore]. If no source exists (such as when calling
   /// [IDBFactory.open]), it returns null.
   ///
-  external dynamic get source;
+  dynamic get source => js_util.getProperty(this, 'source');
 
   ///  The transaction for the request. This property can be null for
   /// certain requests, for example those returned from
   /// [IDBFactory.open] unless an upgrade is needed. (You're just
   /// connecting to a database, so there is no transaction to return).
   ///
-  external IDBTransaction? get transaction;
+  IDBTransaction? get transaction => js_util.getProperty(this, 'transaction');
 
   ///  The state of the request. Every request starts in the [pending]
   /// state. The state changes to [done] when the request completes
   /// successfully or when an error occurs.
   ///
-  external IDBRequestReadyState get readyState;
-  external EventHandlerNonNull? get onsuccess;
-  external set onsuccess(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
+  IDBRequestReadyState get readyState =>
+      js_util.getProperty(this, 'readyState');
+  EventHandlerNonNull? get onsuccess => js_util.getProperty(this, 'onsuccess');
+  set onsuccess(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsuccess', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
 }
 
 enum IDBRequestReadyState { pending, done }
@@ -119,14 +126,20 @@ enum IDBRequestReadyState { pending, done }
 @JS()
 @staticInterop
 class IDBOpenDBRequest implements IDBRequest {
-  external factory IDBOpenDBRequest();
+  external IDBOpenDBRequest();
 }
 
 extension PropsIDBOpenDBRequest on IDBOpenDBRequest {
-  external EventHandlerNonNull? get onblocked;
-  external set onblocked(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onupgradeneeded;
-  external set onupgradeneeded(EventHandlerNonNull? newValue);
+  EventHandlerNonNull? get onblocked => js_util.getProperty(this, 'onblocked');
+  set onblocked(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onblocked', newValue);
+  }
+
+  EventHandlerNonNull? get onupgradeneeded =>
+      js_util.getProperty(this, 'onupgradeneeded');
+  set onupgradeneeded(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onupgradeneeded', newValue);
+  }
 }
 
 ///  The interface of the IndexedDB API indicates that the version of
@@ -137,18 +150,18 @@ extension PropsIDBOpenDBRequest on IDBOpenDBRequest {
 @JS()
 @staticInterop
 class IDBVersionChangeEvent implements Event {
-  external factory IDBVersionChangeEvent(String type,
+  external IDBVersionChangeEvent(String type,
       [IDBVersionChangeEventInit? eventInitDict]);
 }
 
 extension PropsIDBVersionChangeEvent on IDBVersionChangeEvent {
   /// Returns the old version of the database.
   ///
-  external int get oldVersion;
+  int get oldVersion => js_util.getProperty(this, 'oldVersion');
 
   /// Returns the new version of the database.
   ///
-  external int? get newVersion;
+  int? get newVersion => js_util.getProperty(this, 'newVersion');
 }
 
 @anonymous
@@ -160,10 +173,15 @@ class IDBVersionChangeEventInit implements EventInit {
 }
 
 extension PropsIDBVersionChangeEventInit on IDBVersionChangeEventInit {
-  external int get oldVersion;
-  external set oldVersion(int newValue);
-  external int? get newVersion;
-  external set newVersion(int? newValue);
+  int get oldVersion => js_util.getProperty(this, 'oldVersion');
+  set oldVersion(int newValue) {
+    js_util.setProperty(this, 'oldVersion', newValue);
+  }
+
+  int? get newVersion => js_util.getProperty(this, 'newVersion');
+  set newVersion(int? newValue) {
+    js_util.setProperty(this, 'newVersion', newValue);
+  }
 }
 
 ///  The interface of the IndexedDB API lets applications
@@ -176,7 +194,7 @@ extension PropsIDBVersionChangeEventInit on IDBVersionChangeEventInit {
 @JS()
 @staticInterop
 class IDBFactory {
-  external factory IDBFactory();
+  external IDBFactory();
 }
 
 extension PropsIDBFactory on IDBFactory {
@@ -226,7 +244,8 @@ extension PropsIDBFactory on IDBFactory {
   ///  db = DBOpenRequest.result;
   /// };
   ///
-  external IDBOpenDBRequest open(String name, [int? version]);
+  IDBOpenDBRequest open(String name, [int? version]) =>
+      js_util.callMethod(this, 'open', [name, version]);
 
   /// A method to request the deletion of a database.
   ///
@@ -248,7 +267,8 @@ extension PropsIDBFactory on IDBFactory {
   ///  console.log(event.result); // should be undefined
   /// };
   ///
-  external IDBOpenDBRequest deleteDatabase(String name);
+  IDBOpenDBRequest deleteDatabase(String name) =>
+      js_util.callMethod(this, 'deleteDatabase', [name]);
 
   ///  A method that returns a list of all available databases,
   /// including their names and versions.
@@ -260,7 +280,8 @@ extension PropsIDBFactory on IDBFactory {
   ///  console.log(databases)
   /// })
   ///
-  external Iterable<Promise<IDBDatabaseInfo>> databases();
+  Iterable<Promise<IDBDatabaseInfo>> databases() =>
+      js_util.callMethod(this, 'databases', []);
 
   ///  A method that compares two keys and returns a result indicating
   /// which one is greater in value.
@@ -272,7 +293,8 @@ extension PropsIDBFactory on IDBFactory {
   /// var result = window.indexedDB.cmp(a, b);
   /// console.log( "Comparison results: " + result );
   ///
-  external int cmp(dynamic first, dynamic second);
+  int cmp(dynamic first, dynamic second) =>
+      js_util.callMethod(this, 'cmp', [first, second]);
 }
 
 @anonymous
@@ -283,10 +305,15 @@ class IDBDatabaseInfo {
 }
 
 extension PropsIDBDatabaseInfo on IDBDatabaseInfo {
-  external String get name;
-  external set name(String newValue);
-  external int get version;
-  external set version(int newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  int get version => js_util.getProperty(this, 'version');
+  set version(int newValue) {
+    js_util.setProperty(this, 'version', newValue);
+  }
 }
 
 ///  The interface of the IndexedDB API provides a connection to a
@@ -317,24 +344,25 @@ extension PropsIDBDatabaseInfo on IDBDatabaseInfo {
 @JS()
 @staticInterop
 class IDBDatabase implements EventTarget {
-  external factory IDBDatabase();
+  external IDBDatabase();
 }
 
 extension PropsIDBDatabase on IDBDatabase {
   /// A [DOMString] that contains the name of the connected database.
   ///
-  external String get name;
+  String get name => js_util.getProperty(this, 'name');
 
   ///  A 64-bit integer that contains the version of the connected
   /// database. When a database is first created, this attribute is an
   /// empty string.
   ///
-  external int get version;
+  int get version => js_util.getProperty(this, 'version');
 
   ///  A [DOMStringList] that contains a list of the names of the
   /// object stores currently in the connected database.
   ///
-  external DOMStringList get objectStoreNames;
+  DOMStringList get objectStoreNames =>
+      js_util.getProperty(this, 'objectStoreNames');
 
   ///  Immediately returns a transaction object ([IDBTransaction])
   /// containing the [IDBTransaction.objectStore] method, which you can
@@ -385,9 +413,10 @@ extension PropsIDBDatabase on IDBDatabase {
   /// var objectStore = transaction.objectStore("toDoList");
   /// // etc.
   ///
-  external IDBTransaction transaction(dynamic storeNames,
-      [IDBTransactionMode? mode = IDBTransactionMode.readonly,
-      IDBTransactionOptions? options]);
+  IDBTransaction transaction(dynamic storeNames,
+          [IDBTransactionMode? mode = IDBTransactionMode.readonly,
+          IDBTransactionOptions? options]) =>
+      js_util.callMethod(this, 'transaction', [storeNames, mode, options]);
 
   ///  Returns immediately and closes the connection to a database in a
   /// separate thread.
@@ -412,7 +441,7 @@ extension PropsIDBDatabase on IDBDatabase {
   ///  db.close();
   /// };
   ///
-  external Object close();
+  Object close() => js_util.callMethod(this, 'close', []);
 
   /// Creates and returns a new object store or index.
   ///
@@ -451,8 +480,9 @@ extension PropsIDBDatabase on IDBDatabase {
   ///  note.innerHTML += "<li>Object store created.</li>";
   /// };
   ///
-  external IDBObjectStore createObjectStore(String name,
-      [IDBObjectStoreParameters? options]);
+  IDBObjectStore createObjectStore(String name,
+          [IDBObjectStoreParameters? options]) =>
+      js_util.callMethod(this, 'createObjectStore', [name, options]);
 
   ///  Destroys the object store with the given name in the connected
   /// database, along with any indexes that reference it.
@@ -477,15 +507,29 @@ extension PropsIDBDatabase on IDBDatabase {
   ///  // etc. for version < 3, 4...
   /// };
   ///
-  external Object deleteObjectStore(String name);
-  external EventHandlerNonNull? get onabort;
-  external set onabort(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onclose;
-  external set onclose(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onversionchange;
-  external set onversionchange(EventHandlerNonNull? newValue);
+  Object deleteObjectStore(String name) =>
+      js_util.callMethod(this, 'deleteObjectStore', [name]);
+
+  EventHandlerNonNull? get onabort => js_util.getProperty(this, 'onabort');
+  set onabort(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onabort', newValue);
+  }
+
+  EventHandlerNonNull? get onclose => js_util.getProperty(this, 'onclose');
+  set onclose(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onclose', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+
+  EventHandlerNonNull? get onversionchange =>
+      js_util.getProperty(this, 'onversionchange');
+  set onversionchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onversionchange', newValue);
+  }
 }
 
 enum IDBTransactionDurability { valueDefault, strict, relaxed }
@@ -500,8 +544,11 @@ class IDBTransactionOptions {
 }
 
 extension PropsIDBTransactionOptions on IDBTransactionOptions {
-  external IDBTransactionDurability get durability;
-  external set durability(IDBTransactionDurability newValue);
+  IDBTransactionDurability get durability =>
+      js_util.getProperty(this, 'durability');
+  set durability(IDBTransactionDurability newValue) {
+    js_util.setProperty(this, 'durability', newValue);
+  }
 }
 
 @anonymous
@@ -513,10 +560,15 @@ class IDBObjectStoreParameters {
 }
 
 extension PropsIDBObjectStoreParameters on IDBObjectStoreParameters {
-  external dynamic get keyPath;
-  external set keyPath(dynamic newValue);
-  external bool get autoIncrement;
-  external set autoIncrement(bool newValue);
+  dynamic get keyPath => js_util.getProperty(this, 'keyPath');
+  set keyPath(dynamic newValue) {
+    js_util.setProperty(this, 'keyPath', newValue);
+  }
+
+  bool get autoIncrement => js_util.getProperty(this, 'autoIncrement');
+  set autoIncrement(bool newValue) {
+    js_util.setProperty(this, 'autoIncrement', newValue);
+  }
 }
 
 ///  The interface of the IndexedDB API represents an object store in
@@ -528,32 +580,34 @@ extension PropsIDBObjectStoreParameters on IDBObjectStoreParameters {
 @JS()
 @staticInterop
 class IDBObjectStore {
-  external factory IDBObjectStore();
+  external IDBObjectStore();
 }
 
 extension PropsIDBObjectStore on IDBObjectStore {
   /// The name of this object store.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   ///  The key path of this object store. If this attribute is [null],
   /// the application must provide a key for each modification
   /// operation.
   ///
-  external dynamic get keyPath;
+  dynamic get keyPath => js_util.getProperty(this, 'keyPath');
 
   /// A list of the names of indexes on objects in this object store.
   ///
-  external DOMStringList get indexNames;
+  DOMStringList get indexNames => js_util.getProperty(this, 'indexNames');
 
   /// The [IDBTransaction] object to which this object store belongs.
   ///
-  external IDBTransaction get transaction;
+  IDBTransaction get transaction => js_util.getProperty(this, 'transaction');
 
   /// The value of the auto increment flag for this object store.
   ///
-  external bool get autoIncrement;
+  bool get autoIncrement => js_util.getProperty(this, 'autoIncrement');
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// creates a structured clone of the [value], and stores the cloned
@@ -600,7 +654,8 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  };
   /// };
   ///
-  external IDBRequest put(dynamic value, [dynamic key]);
+  IDBRequest put(dynamic value, [dynamic key]) =>
+      js_util.callMethod(this, 'put', [value, key]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// creates a structured clone of the [value], and stores the cloned
@@ -660,7 +715,8 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  };
   /// };
   ///
-  external IDBRequest add(dynamic value, [dynamic key]);
+  IDBRequest add(dynamic value, [dynamic key]) =>
+      js_util.callMethod(this, 'add', [value, key]);
 
   ///  returns an [IDBRequest] object, and, in a separate thread,
   /// deletes the store object selected by the specified key. This is
@@ -670,7 +726,8 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///
   /// var request = objectStore.delete(KeyRange);
   ///
-  external IDBRequest delete(dynamic query);
+  IDBRequest delete(dynamic query) =>
+      js_util.callMethod(this, 'delete', [query]);
 
   ///  Creates and immediately returns an [IDBRequest] object, and
   /// clears this object store in a separate thread. This is for
@@ -723,7 +780,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  };
   /// };
   ///
-  external IDBRequest clear();
+  IDBRequest clear() => js_util.callMethod(this, 'clear', []);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// returns the store object store selected by the specified key.
@@ -784,7 +841,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///
   @JS('get')
   @staticInterop
-  external IDBRequest mGet(dynamic query);
+  IDBRequest mGet(dynamic query) => js_util.callMethod(this, 'get', [query]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread
   /// retrieves and returns the record key for the object in the object
@@ -807,7 +864,8 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  };
   /// };
   ///
-  external IDBRequest getKey(dynamic query);
+  IDBRequest getKey(dynamic query) =>
+      js_util.callMethod(this, 'getKey', [query]);
 
   ///  Returns an [IDBRequest] object retrieves all objects in the
   /// object store matching the specified parameter or all objects in
@@ -817,7 +875,8 @@ extension PropsIDBObjectStore on IDBObjectStore {
   /// var request = objectStore.getAll(query);
   /// var request = objectStore.getAll(query, count);
   ///
-  external IDBRequest getAll([dynamic query, int? count]);
+  IDBRequest getAll([dynamic query, int? count]) =>
+      js_util.callMethod(this, 'getAll', [query, count]);
 
   ///  Returns an [IDBRequest] object retrieves record keys for all
   /// objects in the object store matching the specified parameter or
@@ -827,7 +886,8 @@ extension PropsIDBObjectStore on IDBObjectStore {
   /// var request = objectStore.getAllKeys(query);
   /// var request = objectStore.getAllKeys(query, count);
   ///
-  external IDBRequest getAllKeys([dynamic query, int? count]);
+  IDBRequest getAllKeys([dynamic query, int? count]) =>
+      js_util.callMethod(this, 'getAllKeys', [query, count]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// returns the total number of records that match the provided key
@@ -850,7 +910,8 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  console.log(countRequest.result);
   /// }
   ///
-  external IDBRequest count([dynamic query]);
+  IDBRequest count([dynamic query]) =>
+      js_util.callMethod(this, 'count', [query]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// returns a new [IDBCursorWithValue] object. Used for iterating
@@ -878,8 +939,10 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  }
   /// };
   ///
-  external IDBRequest openCursor(
-      [dynamic query, IDBCursorDirection? direction = IDBCursorDirection.next]);
+  IDBRequest openCursor(
+          [dynamic query,
+          IDBCursorDirection? direction = IDBCursorDirection.next]) =>
+      js_util.callMethod(this, 'openCursor', [query, direction]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// returns a new [IDBCursor]. Used for iterating through an object
@@ -908,8 +971,10 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  }
   /// };
   ///
-  external IDBRequest openKeyCursor(
-      [dynamic query, IDBCursorDirection? direction = IDBCursorDirection.next]);
+  IDBRequest openKeyCursor(
+          [dynamic query,
+          IDBCursorDirection? direction = IDBCursorDirection.next]) =>
+      js_util.callMethod(this, 'openKeyCursor', [query, direction]);
 
   ///  Opens an index from this object store after which it can, for
   /// example, be used to return a sequence of records sorted by that
@@ -954,7 +1019,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  };
   /// };
   ///
-  external IDBIndex index(String name);
+  IDBIndex index(String name) => js_util.callMethod(this, 'index', [name]);
 
   ///  Creates a new index during a version upgrade, returning a new
   /// [IDBIndex] object in the connected database.
@@ -1016,8 +1081,9 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///  objectStore.createIndex("notified", "notified", { unique: false });
   /// };
   ///
-  external IDBIndex createIndex(String name, dynamic keyPath,
-      [IDBIndexParameters? options]);
+  IDBIndex createIndex(String name, dynamic keyPath,
+          [IDBIndexParameters? options]) =>
+      js_util.callMethod(this, 'createIndex', [name, keyPath, options]);
 
   ///  Destroys the specified index in the connected database, used
   /// during a version upgrade.
@@ -1081,7 +1147,8 @@ extension PropsIDBObjectStore on IDBObjectStore {
   ///
   /// };
   ///
-  external Object deleteIndex(String name);
+  Object deleteIndex(String name) =>
+      js_util.callMethod(this, 'deleteIndex', [name]);
 }
 
 @anonymous
@@ -1093,10 +1160,15 @@ class IDBIndexParameters {
 }
 
 extension PropsIDBIndexParameters on IDBIndexParameters {
-  external bool get unique;
-  external set unique(bool newValue);
-  external bool get multiEntry;
-  external set multiEntry(bool newValue);
+  bool get unique => js_util.getProperty(this, 'unique');
+  set unique(bool newValue) {
+    js_util.setProperty(this, 'unique', newValue);
+  }
+
+  bool get multiEntry => js_util.getProperty(this, 'multiEntry');
+  set multiEntry(bool newValue) {
+    js_util.setProperty(this, 'multiEntry', newValue);
+  }
 }
 
 ///   interface of the IndexedDB API provides asynchronous access to
@@ -1123,34 +1195,36 @@ extension PropsIDBIndexParameters on IDBIndexParameters {
 @JS()
 @staticInterop
 class IDBIndex {
-  external factory IDBIndex();
+  external IDBIndex();
 }
 
 extension PropsIDBIndex on IDBIndex {
   /// The name of this index.
   ///
-  external String get name;
-  external set name(String newValue);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
 
   /// The name of the object store referenced by this index.
   ///
-  external IDBObjectStore get objectStore;
+  IDBObjectStore get objectStore => js_util.getProperty(this, 'objectStore');
 
   ///  The key path of this index. If null, this index is not
   /// auto-populated.
   ///
-  external dynamic get keyPath;
+  dynamic get keyPath => js_util.getProperty(this, 'keyPath');
 
   ///  Affects how the index behaves when the result of evaluating the
   /// index's key path yields an array. If [true], there is one record
   /// in the index for each item in an array of keys. If [false], then
   /// there is one record for each key that is an array.
   ///
-  external bool get multiEntry;
+  bool get multiEntry => js_util.getProperty(this, 'multiEntry');
 
   /// If [true], this index does not allow duplicate values for a key.
   ///
-  external bool get unique;
+  bool get unique => js_util.getProperty(this, 'unique');
 
   ///  Returns an [IDBRequest] object, and, in a separate thread, finds
   /// either the value in the referenced object store that corresponds
@@ -1208,7 +1282,7 @@ extension PropsIDBIndex on IDBIndex {
   ///
   @JS('get')
   @staticInterop
-  external IDBRequest mGet(dynamic query);
+  IDBRequest mGet(dynamic query) => js_util.callMethod(this, 'get', [query]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread, finds
   /// either the given key or the primary key, if [key] is an
@@ -1263,7 +1337,8 @@ extension PropsIDBIndex on IDBIndex {
   ///  };
   /// };
   ///
-  external IDBRequest getKey(dynamic query);
+  IDBRequest getKey(dynamic query) =>
+      js_util.callMethod(this, 'getKey', [query]);
 
   ///  Returns an [IDBRequest] object, in a separate thread, finds all
   /// matching values in the referenced object store that correspond to
@@ -1279,7 +1354,8 @@ extension PropsIDBIndex on IDBIndex {
   ///  console.log(getAllRequest.result);
   /// }
   ///
-  external IDBRequest getAll([dynamic query, int? count]);
+  IDBRequest getAll([dynamic query, int? count]) =>
+      js_util.callMethod(this, 'getAll', [query, count]);
 
   ///  Returns an [IDBRequest] object, in a separate thread, finds all
   /// matching keys in the referenced object store that correspond to
@@ -1295,7 +1371,8 @@ extension PropsIDBIndex on IDBIndex {
   ///  console.log(getAllKeysRequest.result);
   /// }
   ///
-  external IDBRequest getAllKeys([dynamic query, int? count]);
+  IDBRequest getAllKeys([dynamic query, int? count]) =>
+      js_util.callMethod(this, 'getAllKeys', [query, count]);
 
   ///  Returns an [IDBRequest] object, and in a separate thread,
   /// returns the number of records within a key range.
@@ -1350,7 +1427,8 @@ extension PropsIDBIndex on IDBIndex {
   ///  };
   /// };
   ///
-  external IDBRequest count([dynamic query]);
+  IDBRequest count([dynamic query]) =>
+      js_util.callMethod(this, 'count', [query]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// creates a cursor over the specified key range.
@@ -1398,8 +1476,10 @@ extension PropsIDBIndex on IDBIndex {
   ///  };
   /// };
   ///
-  external IDBRequest openCursor(
-      [dynamic query, IDBCursorDirection? direction = IDBCursorDirection.next]);
+  IDBRequest openCursor(
+          [dynamic query,
+          IDBCursorDirection? direction = IDBCursorDirection.next]) =>
+      js_util.callMethod(this, 'openCursor', [query, direction]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// creates a cursor over the specified key range, as arranged by
@@ -1441,8 +1521,10 @@ extension PropsIDBIndex on IDBIndex {
   ///  };
   /// };
   ///
-  external IDBRequest openKeyCursor(
-      [dynamic query, IDBCursorDirection? direction = IDBCursorDirection.next]);
+  IDBRequest openKeyCursor(
+          [dynamic query,
+          IDBCursorDirection? direction = IDBCursorDirection.next]) =>
+      js_util.callMethod(this, 'openKeyCursor', [query, direction]);
 }
 
 ///  The interface of the IndexedDB API represents a continuous
@@ -1526,33 +1608,33 @@ extension PropsIDBIndex on IDBIndex {
 @JS()
 @staticInterop
 class IDBKeyRange {
-  external factory IDBKeyRange();
+  external IDBKeyRange();
 }
 
 extension PropsIDBKeyRange on IDBKeyRange {
   /// Lower bound of the key range.
   ///
-  external dynamic get lower;
+  dynamic get lower => js_util.getProperty(this, 'lower');
 
   /// Upper bound of the key range.
   ///
-  external dynamic get upper;
+  dynamic get upper => js_util.getProperty(this, 'upper');
 
   ///  Returns false if the lower-bound value is included in the key
   /// range.
   ///
-  external bool get lowerOpen;
+  bool get lowerOpen => js_util.getProperty(this, 'lowerOpen');
 
   ///  Returns false if the upper-bound value is included in the key
   /// range.
   ///
-  external bool get upperOpen;
+  bool get upperOpen => js_util.getProperty(this, 'upperOpen');
   external static IDBKeyRange only(dynamic value);
   external static IDBKeyRange lowerBound(dynamic lower, [bool? open = false]);
   external static IDBKeyRange upperBound(dynamic upper, [bool? open = false]);
   external static IDBKeyRange bound(dynamic lower, dynamic upper,
       [bool? lowerOpen = false, bool? upperOpen = false]);
-  external bool includes(dynamic key);
+  bool includes(dynamic key) => js_util.callMethod(this, 'includes', [key]);
 }
 
 ///
@@ -1574,7 +1656,7 @@ extension PropsIDBKeyRange on IDBKeyRange {
 @JS()
 @staticInterop
 class IDBCursor {
-  external factory IDBCursor();
+  external IDBCursor();
 }
 
 extension PropsIDBCursor on IDBCursor {
@@ -1583,29 +1665,29 @@ extension PropsIDBCursor on IDBCursor {
   /// exception, even if the cursor is currently being iterated, has
   /// iterated past its end, or its transaction is not active.
   ///
-  external dynamic get source;
+  dynamic get source => js_util.getProperty(this, 'source');
 
   ///  Returns the direction of traversal of the cursor. See Constants
   /// for possible values.
   ///
-  external IDBCursorDirection get direction;
+  IDBCursorDirection get direction => js_util.getProperty(this, 'direction');
 
   ///  Returns the key for the record at the cursor's position. If the
   /// cursor is outside its range, this is set to [undefined]. The
   /// cursor's key can be any data type.
   ///
-  external dynamic get key;
+  dynamic get key => js_util.getProperty(this, 'key');
 
   ///  Returns the cursor's current effective primary key. If the
   /// cursor is currently being iterated or has iterated outside its
   /// range, this is set to [undefined]. The cursor's primary key can
   /// be any data type.
   ///
-  external dynamic get primaryKey;
+  dynamic get primaryKey => js_util.getProperty(this, 'primaryKey');
 
   /// Returns the [IDBRequest] that was used to obtain the cursor.
   ///
-  external IDBRequest get request;
+  IDBRequest get request => js_util.getProperty(this, 'request');
 
   ///  Sets the number of times a cursor should move its position
   /// forward.
@@ -1641,7 +1723,7 @@ extension PropsIDBCursor on IDBCursor {
   ///  };
   /// };
   ///
-  external Object advance(int count);
+  Object advance(int count) => js_util.callMethod(this, 'advance', [count]);
 
   ///  Advances the cursor to the next position along its direction, to
   /// the item whose key matches the optional [key] parameter.
@@ -1678,7 +1760,8 @@ extension PropsIDBCursor on IDBCursor {
   ///
   @JS('continue')
   @staticInterop
-  external Object mContinue([dynamic key]);
+  Object mContinue([dynamic key]) =>
+      js_util.callMethod(this, 'continue', [key]);
 
   ///  Sets the cursor to the given index key and primary key given as
   /// arguments.
@@ -1709,7 +1792,8 @@ extension PropsIDBCursor on IDBCursor {
   ///   }
   /// };
   ///
-  external Object continuePrimaryKey(dynamic key, dynamic primaryKey);
+  Object continuePrimaryKey(dynamic key, dynamic primaryKey) =>
+      js_util.callMethod(this, 'continuePrimaryKey', [key, primaryKey]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// updates the value at the current position of the cursor in the
@@ -1760,7 +1844,8 @@ extension PropsIDBCursor on IDBCursor {
   ///  };
   /// };
   ///
-  external IDBRequest update(dynamic value);
+  IDBRequest update(dynamic value) =>
+      js_util.callMethod(this, 'update', [value]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// deletes the record at the cursor's position, without changing the
@@ -1805,7 +1890,7 @@ extension PropsIDBCursor on IDBCursor {
   ///  };
   /// };
   ///
-  external IDBRequest delete();
+  IDBRequest delete() => js_util.callMethod(this, 'delete', []);
 }
 
 enum IDBCursorDirection { next, nextunique, prev, prevunique }
@@ -1838,13 +1923,13 @@ enum IDBCursorDirection { next, nextunique, prev, prevunique }
 @JS()
 @staticInterop
 class IDBCursorWithValue implements IDBCursor {
-  external factory IDBCursorWithValue();
+  external IDBCursorWithValue();
 }
 
 extension PropsIDBCursorWithValue on IDBCursorWithValue {
   /// Returns the value of the current cursor.
   ///
-  external dynamic get value;
+  dynamic get value => js_util.getProperty(this, 'value');
 }
 
 ///  The interface of the IndexedDB API provides a static,
@@ -1881,29 +1966,31 @@ extension PropsIDBCursorWithValue on IDBCursorWithValue {
 @JS()
 @staticInterop
 class IDBTransaction implements EventTarget {
-  external factory IDBTransaction();
+  external IDBTransaction();
 }
 
 extension PropsIDBTransaction on IDBTransaction {
   ///  Returns a [DOMStringList] of the names of [IDBObjectStore]
   /// objects associated with the transaction.
   ///
-  external DOMStringList get objectStoreNames;
+  DOMStringList get objectStoreNames =>
+      js_util.getProperty(this, 'objectStoreNames');
 
   ///  The mode for isolating access to data in the object stores that
   /// are in the scope of the transaction. The default value is
   /// [readonly].
   ///
-  external IDBTransactionMode get mode;
+  IDBTransactionMode get mode => js_util.getProperty(this, 'mode');
 
   /// Returns the durability hint the transaction was created with.
   ///
-  external IDBTransactionDurability get durability;
+  IDBTransactionDurability get durability =>
+      js_util.getProperty(this, 'durability');
 
   ///  The database connection with which this transaction is
   /// associated.
   ///
-  external IDBDatabase get db;
+  IDBDatabase get db => js_util.getProperty(this, 'db');
 
   ///  Returns a [DOMException] indicating the type of error that
   /// occurred when there is an unsuccessful transaction. This property
@@ -1911,7 +1998,7 @@ extension PropsIDBTransaction on IDBTransaction {
   /// successfully committed, or was aborted with
   /// the[IDBTransaction.abort()] function.
   ///
-  external Exception? get error;
+  Exception? get error => js_util.getProperty(this, 'error');
 
   ///  Returns an [IDBObjectStore] object representing an object store
   /// that is part of the scope of this transaction.
@@ -1968,7 +2055,8 @@ extension PropsIDBTransaction on IDBTransaction {
   ///   note.innerHTML += '<li>Request successful.</li>';
   ///  };
   ///
-  external IDBObjectStore objectStore(String name);
+  IDBObjectStore objectStore(String name) =>
+      js_util.callMethod(this, 'objectStore', [name]);
 
   ///  For an active transaction, commits the transaction. Note that
   /// this doesn't normally have to be called — a transaction will
@@ -1979,7 +2067,7 @@ extension PropsIDBTransaction on IDBTransaction {
   ///
   /// transaction.commit();
   ///
-  external Object commit();
+  Object commit() => js_util.callMethod(this, 'commit', []);
 
   ///  Rolls back all the changes to objects in the database associated
   /// with this transaction. If this transaction has been aborted or
@@ -2041,13 +2129,23 @@ extension PropsIDBTransaction on IDBTransaction {
   ///  transaction.abort();
   /// };
   ///
-  external Object abort();
-  external EventHandlerNonNull? get onabort;
-  external set onabort(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get oncomplete;
-  external set oncomplete(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
+  Object abort() => js_util.callMethod(this, 'abort', []);
+
+  EventHandlerNonNull? get onabort => js_util.getProperty(this, 'onabort');
+  set onabort(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onabort', newValue);
+  }
+
+  EventHandlerNonNull? get oncomplete =>
+      js_util.getProperty(this, 'oncomplete');
+  set oncomplete(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncomplete', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
 }
 
 enum IDBTransactionMode { readonly, readwrite, versionchange }

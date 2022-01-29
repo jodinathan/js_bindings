@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_compressed_texture_etc;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -37,5 +38,5 @@ class WEBGL_compressed_texture_etc {
   external static int get COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2;
   external static int get COMPRESSED_RGBA8_ETC2_EAC;
   external static int get COMPRESSED_SRGB8_ALPHA8_ETC2_EAC;
-  external factory WEBGL_compressed_texture_etc();
+  external WEBGL_compressed_texture_etc();
 }

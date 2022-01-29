@@ -5,6 +5,7 @@
 @staticInterop
 library css_animations_2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -20,11 +21,11 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CSSAnimation implements Animation {
-  external factory CSSAnimation();
+  external CSSAnimation();
 }
 
 extension PropsCSSAnimation on CSSAnimation {
   /// Returns the animation name as a [CSSOMString].
   ///
-  external String get animationName;
+  String get animationName => js_util.getProperty(this, 'animationName');
 }

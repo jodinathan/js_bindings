@@ -5,6 +5,7 @@
 @staticInterop
 library generic_sensor;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -26,28 +27,28 @@ html */
 @JS()
 @staticInterop
 class Sensor implements EventTarget {
-  external factory Sensor();
+  external Sensor();
 }
 
 extension PropsSensor on Sensor {
   /// Returns a boolean value indicating whether the sensor is active.
   ///
-  external bool get activated;
+  bool get activated => js_util.getProperty(this, 'activated');
 
   ///  Returns a boolean value indicating whether the sensor has a
   /// reading.
   ///
-  external bool get hasReading;
+  bool get hasReading => js_util.getProperty(this, 'hasReading');
 
   /// Returns the time stamp of the latest sensor reading.
   ///
-  external double? get timestamp;
+  double? get timestamp => js_util.getProperty(this, 'timestamp');
 
   /// Activates one of the sensors based on [Sensor].
   ///
   /// Sensor.start()
   ///
-  external Object start();
+  Object start() => js_util.callMethod(this, 'start', []);
 
   /// Deactivates one of the sensors based on [Sensor].
   ///
@@ -55,13 +56,23 @@ extension PropsSensor on Sensor {
   ///
   /// // TBD
   ///
-  external Object stop();
-  external EventHandlerNonNull? get onreading;
-  external set onreading(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onactivate;
-  external set onactivate(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onerror;
-  external set onerror(EventHandlerNonNull? newValue);
+  Object stop() => js_util.callMethod(this, 'stop', []);
+
+  EventHandlerNonNull? get onreading => js_util.getProperty(this, 'onreading');
+  set onreading(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onreading', newValue);
+  }
+
+  EventHandlerNonNull? get onactivate =>
+      js_util.getProperty(this, 'onactivate');
+  set onactivate(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onactivate', newValue);
+  }
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
 }
 
 @anonymous
@@ -72,8 +83,10 @@ class SensorOptions {
 }
 
 extension PropsSensorOptions on SensorOptions {
-  external double get frequency;
-  external set frequency(double newValue);
+  double get frequency => js_util.getProperty(this, 'frequency');
+  set frequency(double newValue) {
+    js_util.setProperty(this, 'frequency', newValue);
+  }
 }
 
 ///  The interface of the Sensor APIs provides information about
@@ -81,7 +94,7 @@ extension PropsSensorOptions on SensorOptions {
 @JS()
 @staticInterop
 class SensorErrorEvent implements Event {
-  external factory SensorErrorEvent(
+  external SensorErrorEvent(
       String type, SensorErrorEventInit errorEventInitDict);
 }
 
@@ -89,7 +102,7 @@ extension PropsSensorErrorEvent on SensorErrorEvent {
   ///  Returns the [DOMException] object passed in the event's
   /// constructor.
   ///
-  external Exception get error;
+  Exception get error => js_util.getProperty(this, 'error');
 }
 
 @anonymous
@@ -100,8 +113,10 @@ class SensorErrorEventInit implements EventInit {
 }
 
 extension PropsSensorErrorEventInit on SensorErrorEventInit {
-  external Exception get error;
-  external set error(Exception newValue);
+  Exception get error => js_util.getProperty(this, 'error');
+  set error(Exception newValue) {
+    js_util.setProperty(this, 'error', newValue);
+  }
 }
 
 @anonymous
@@ -116,14 +131,28 @@ class MockSensorConfiguration {
 }
 
 extension PropsMockSensorConfiguration on MockSensorConfiguration {
-  external MockSensorType get mockSensorType;
-  external set mockSensorType(MockSensorType newValue);
-  external bool get connected;
-  external set connected(bool newValue);
-  external double? get maxSamplingFrequency;
-  external set maxSamplingFrequency(double? newValue);
-  external double? get minSamplingFrequency;
-  external set minSamplingFrequency(double? newValue);
+  MockSensorType get mockSensorType =>
+      js_util.getProperty(this, 'mockSensorType');
+  set mockSensorType(MockSensorType newValue) {
+    js_util.setProperty(this, 'mockSensorType', newValue);
+  }
+
+  bool get connected => js_util.getProperty(this, 'connected');
+  set connected(bool newValue) {
+    js_util.setProperty(this, 'connected', newValue);
+  }
+
+  double? get maxSamplingFrequency =>
+      js_util.getProperty(this, 'maxSamplingFrequency');
+  set maxSamplingFrequency(double? newValue) {
+    js_util.setProperty(this, 'maxSamplingFrequency', newValue);
+  }
+
+  double? get minSamplingFrequency =>
+      js_util.getProperty(this, 'minSamplingFrequency');
+  set minSamplingFrequency(double? newValue) {
+    js_util.setProperty(this, 'minSamplingFrequency', newValue);
+  }
 }
 
 @anonymous
@@ -137,12 +166,23 @@ class MockSensor {
 }
 
 extension PropsMockSensor on MockSensor {
-  external double get maxSamplingFrequency;
-  external set maxSamplingFrequency(double newValue);
-  external double get minSamplingFrequency;
-  external set minSamplingFrequency(double newValue);
-  external double get requestedSamplingFrequency;
-  external set requestedSamplingFrequency(double newValue);
+  double get maxSamplingFrequency =>
+      js_util.getProperty(this, 'maxSamplingFrequency');
+  set maxSamplingFrequency(double newValue) {
+    js_util.setProperty(this, 'maxSamplingFrequency', newValue);
+  }
+
+  double get minSamplingFrequency =>
+      js_util.getProperty(this, 'minSamplingFrequency');
+  set minSamplingFrequency(double newValue) {
+    js_util.setProperty(this, 'minSamplingFrequency', newValue);
+  }
+
+  double get requestedSamplingFrequency =>
+      js_util.getProperty(this, 'requestedSamplingFrequency');
+  set requestedSamplingFrequency(double newValue) {
+    js_util.setProperty(this, 'requestedSamplingFrequency', newValue);
+  }
 }
 
 enum MockSensorType {

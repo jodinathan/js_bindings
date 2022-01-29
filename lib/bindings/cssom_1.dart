@@ -5,6 +5,7 @@
 @staticInterop
 library cssom_1;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -29,7 +30,7 @@ css_parser_api */
 @JS()
 @staticInterop
 class MediaList {
-  external factory MediaList();
+  external MediaList();
 }
 
 extension PropsMediaList on MediaList {
@@ -37,26 +38,30 @@ extension PropsMediaList on MediaList {
   /// [MediaList] as text, and also allows you to set a new
   /// [MediaList].
   ///
-  external String get mediaText;
-  external set mediaText(String newValue);
+  String get mediaText => js_util.getProperty(this, 'mediaText');
+  set mediaText(String newValue) {
+    js_util.setProperty(this, 'mediaText', newValue);
+  }
 
   /// Returns the number of media queries in the [MediaList].
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 
   ///  A getter that returns a [CSSOMString] representing a media query
   /// as text, given the media query's index value inside the
   /// [MediaList].
   ///
-  external String? item(int index);
+  String? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   /// Adds a media query to the [MediaList].
   ///
-  external Object appendMedium(String medium);
+  Object appendMedium(String medium) =>
+      js_util.callMethod(this, 'appendMedium', [medium]);
 
   /// Removes a media query from the [MediaList].
   ///
-  external Object deleteMedium(String medium);
+  Object deleteMedium(String medium) =>
+      js_util.callMethod(this, 'deleteMedium', [medium]);
 }
 
 ///  An object implementing the interface represents a single style
@@ -65,45 +70,48 @@ extension PropsMediaList on MediaList {
 @JS()
 @staticInterop
 class StyleSheet {
-  external factory StyleSheet();
+  external StyleSheet();
 }
 
 extension PropsStyleSheet on StyleSheet {
   ///  Returns a [DOMString] representing the style sheet language for
   /// this style sheet.
   ///
-  external String get type;
+  String get type => js_util.getProperty(this, 'type');
 
   ///  Returns a [DOMString] representing the location of the
   /// stylesheet.
   ///
-  external String? get href;
+  String? get href => js_util.getProperty(this, 'href');
 
   ///  Returns a [Node] associating this style sheet with the current
   /// document.
   ///
-  external dynamic get ownerNode;
+  dynamic get ownerNode => js_util.getProperty(this, 'ownerNode');
 
   ///  Returns a [StyleSheet] including this one, if any; returns
   /// [null] if there aren't any.
   ///
-  external CSSStyleSheet? get parentStyleSheet;
+  CSSStyleSheet? get parentStyleSheet =>
+      js_util.getProperty(this, 'parentStyleSheet');
 
   ///  Returns a [DOMString] representing the advisory title of the
   /// current style sheet.
   ///
-  external String? get title;
+  String? get title => js_util.getProperty(this, 'title');
 
   ///  Returns a [MediaList] representing the intended destination
   /// medium for style information.
   ///
-  external MediaList get media;
+  MediaList get media => js_util.getProperty(this, 'media');
 
   ///  Is a boolean value representing whether the current stylesheet
   /// has been applied or not.
   ///
-  external bool get disabled;
-  external set disabled(bool newValue);
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
 }
 
 ///  The interface represents a single CSS stylesheet, and lets you
@@ -129,7 +137,7 @@ extension PropsStyleSheet on StyleSheet {
 @JS()
 @staticInterop
 class CSSStyleSheet implements StyleSheet {
-  external factory CSSStyleSheet([CSSStyleSheetInit? options]);
+  external CSSStyleSheet([CSSStyleSheetInit? options]);
 }
 
 extension PropsCSSStyleSheet on CSSStyleSheet {
@@ -137,7 +145,7 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
   /// [@import] rule, the property returns the corresponding
   /// [CSSImportRule]; otherwise, this property's value is [null].
   ///
-  external CSSRule? get ownerRule;
+  CSSRule? get ownerRule => js_util.getProperty(this, 'ownerRule');
 
   ///  Returns a live [CSSRuleList] which maintains an up-to-date list
   /// of the [CSSRule] objects that comprise the stylesheet.
@@ -146,14 +154,15 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
   /// different domain, accessing results in a[SecurityError].
   ///
   ///
-  external CSSRuleList get cssRules;
+  CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
 
   ///  Inserts a new rule at the specified position in the stylesheet,
   /// given the textual representation of the rule.
   ///
   /// stylesheet.insertRule(rule [, index])
   ///
-  external int insertRule(String rule, [int? index = 0]);
+  int insertRule(String rule, [int? index = 0]) =>
+      js_util.callMethod(this, 'insertRule', [rule, index]);
 
   ///  Deletes the rule at the specified index into the stylesheet's
   /// rule list.
@@ -163,15 +172,24 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
   /// This example removes the first rule from the stylesheet myStyles.
   ///  myStyles.deleteRule(0);
   ///
-  external Object deleteRule(int index);
-  external Promise<CSSStyleSheet> replace(String text);
-  external Object replaceSync(String text);
-  external CSSRuleList get rules;
-  external int addRule(
-      [String? selector = 'undefined',
-      String? style = 'undefined',
-      int? index]);
-  external Object removeRule([int? index = 0]);
+  Object deleteRule(int index) =>
+      js_util.callMethod(this, 'deleteRule', [index]);
+
+  Promise<CSSStyleSheet> replace(String text) =>
+      js_util.callMethod(this, 'replace', [text]);
+
+  Object replaceSync(String text) =>
+      js_util.callMethod(this, 'replaceSync', [text]);
+
+  CSSRuleList get rules => js_util.getProperty(this, 'rules');
+  int addRule(
+          [String? selector = 'undefined',
+          String? style = 'undefined',
+          int? index]) =>
+      js_util.callMethod(this, 'addRule', [selector, style, index]);
+
+  Object removeRule([int? index = 0]) =>
+      js_util.callMethod(this, 'removeRule', [index]);
 }
 
 ///  The interface represents a list of [CSSStyleSheet] objects. An
@@ -183,7 +201,7 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
 @JS()
 @staticInterop
 class StyleSheetList {
-  external factory StyleSheetList();
+  external StyleSheetList();
 }
 
 extension PropsStyleSheetList on StyleSheetList {
@@ -192,21 +210,21 @@ extension PropsStyleSheetList on StyleSheetList {
   ///
   /// StyleSheetList.item(index);
   ///
-  external CSSStyleSheet? item(int index);
+  CSSStyleSheet? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   /// Returns the number of [CSSStyleSheet] objects in the collection.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 }
 
 @JS()
 @staticInterop
 class LinkStyle {
-  external factory LinkStyle();
+  external LinkStyle();
 }
 
 extension PropsLinkStyle on LinkStyle {
-  external CSSStyleSheet? get sheet;
+  CSSStyleSheet? get sheet => js_util.getProperty(this, 'sheet');
 }
 
 ///  A represents an ordered collection of read-only [CSSRule]
@@ -222,7 +240,7 @@ extension PropsLinkStyle on LinkStyle {
 @JS()
 @staticInterop
 class CSSRuleList {
-  external factory CSSRuleList();
+  external CSSRuleList();
 }
 
 extension PropsCSSRuleList on CSSRuleList {
@@ -230,12 +248,12 @@ extension PropsCSSRuleList on CSSRuleList {
   ///
   /// CSSRuleList.item(index);
   ///
-  external CSSRule? item(int index);
+  CSSRule? item(int index) => js_util.callMethod(this, 'item', [index]);
 
   ///  Returns an integer representing the number of [CSSRule] objects
   /// in the collection.
   ///
-  external int get length;
+  int get length => js_util.getProperty(this, 'length');
 }
 
 ///  The interface represents a single CSS rule. There are several
@@ -273,15 +291,19 @@ class CSSRule {
   external static int get COUNTER_STYLE_RULE;
   external static int get FONT_FEATURE_VALUES_RULE;
   external static int get FONT_PALETTE_VALUES_RULE;
-  external factory CSSRule();
+  external CSSRule();
 }
 
 extension PropsCSSRule on CSSRule {
-  external String get cssText;
-  external set cssText(String newValue);
-  external CSSRule? get parentRule;
-  external CSSStyleSheet? get parentStyleSheet;
-  external int get type;
+  String get cssText => js_util.getProperty(this, 'cssText');
+  set cssText(String newValue) {
+    js_util.setProperty(this, 'cssText', newValue);
+  }
+
+  CSSRule? get parentRule => js_util.getProperty(this, 'parentRule');
+  CSSStyleSheet? get parentStyleSheet =>
+      js_util.getProperty(this, 'parentStyleSheet');
+  int get type => js_util.getProperty(this, 'type');
 }
 
 /// The interface represents a single CSS style rule.
@@ -300,23 +322,28 @@ extension PropsCSSRule on CSSRule {
 @JS()
 @staticInterop
 class CSSStyleRule implements CSSRule {
-  external factory CSSStyleRule();
+  external CSSStyleRule();
 }
 
 extension PropsCSSStyleRule on CSSStyleRule {
   ///  Returns the textual representation of the selector for this
   /// rule, e.g. ["h1,h2"].
   ///
-  external String get selectorText;
-  external set selectorText(String newValue);
+  String get selectorText => js_util.getProperty(this, 'selectorText');
+  set selectorText(String newValue) {
+    js_util.setProperty(this, 'selectorText', newValue);
+  }
 
   /// Returns the [CSSStyleDeclaration] object for the rule.
   ///
-  external CSSStyleDeclaration get style;
-  external StylePropertyMap get styleMap;
-  external CSSRuleList get cssRules;
-  external int insertRule(String rule, [int? index = 0]);
-  external Object deleteRule(int index);
+  CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
+  StylePropertyMap get styleMap => js_util.getProperty(this, 'styleMap');
+  CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
+  int insertRule(String rule, [int? index = 0]) =>
+      js_util.callMethod(this, 'insertRule', [rule, index]);
+
+  Object deleteRule(int index) =>
+      js_util.callMethod(this, 'deleteRule', [index]);
 }
 
 /// The interface represents an [@import] [at-rule].
@@ -335,18 +362,18 @@ extension PropsCSSStyleRule on CSSStyleRule {
 @JS()
 @staticInterop
 class CSSImportRule implements CSSRule {
-  external factory CSSImportRule();
+  external CSSImportRule();
 }
 
 extension PropsCSSImportRule on CSSImportRule {
   /// Returns the url specified by the [@import] rule.
   ///
-  external String get href;
+  String get href => js_util.getProperty(this, 'href');
 
   /// Returns the value of the attribute of the associated stylesheet.
   ///
-  external MediaList get media;
-  external CSSStyleSheet get styleSheet;
+  MediaList get media => js_util.getProperty(this, 'media');
+  CSSStyleSheet get styleSheet => js_util.getProperty(this, 'styleSheet');
 }
 
 ///  The interface of the [CSS Object Model] represents any CSS
@@ -354,26 +381,28 @@ extension PropsCSSImportRule on CSSImportRule {
 @JS()
 @staticInterop
 class CSSGroupingRule implements CSSRule {
-  external factory CSSGroupingRule();
+  external CSSGroupingRule();
 }
 
 extension PropsCSSGroupingRule on CSSGroupingRule {
   /// Returns a [CSSRuleList] of the CSS rules in the media rule.
   ///
-  external CSSRuleList get cssRules;
+  CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
 
   /// Inserts a new style rule into the current style sheet.
   ///
   /// cssGroupingRule.insertRule(rule);
   /// cssGroupingRule.insertRule(rule, index);
   ///
-  external int insertRule(String rule, [int? index = 0]);
+  int insertRule(String rule, [int? index = 0]) =>
+      js_util.callMethod(this, 'insertRule', [rule, index]);
 
   /// Deletes a rule from the style sheet.
   ///
   /// cssGroupingRule.deleteRule(index);
   ///
-  external Object deleteRule(int index);
+  Object deleteRule(int index) =>
+      js_util.callMethod(this, 'deleteRule', [index]);
 }
 
 ///  represents a single CSS [@page] rule.
@@ -398,30 +427,32 @@ extension PropsCSSGroupingRule on CSSGroupingRule {
 @JS()
 @staticInterop
 class CSSPageRule implements CSSGroupingRule {
-  external factory CSSPageRule();
+  external CSSPageRule();
 }
 
 extension PropsCSSPageRule on CSSPageRule {
   ///  Represents the text of the page selector associated with the
   /// at-rule.
   ///
-  external String get selectorText;
-  external set selectorText(String newValue);
+  String get selectorText => js_util.getProperty(this, 'selectorText');
+  set selectorText(String newValue) {
+    js_util.setProperty(this, 'selectorText', newValue);
+  }
 
   /// Returns the declaration block associated with the at-rule.
   ///
-  external CSSStyleDeclaration get style;
+  CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
 }
 
 @JS()
 @staticInterop
 class CSSMarginRule implements CSSRule {
-  external factory CSSMarginRule();
+  external CSSMarginRule();
 }
 
 extension PropsCSSMarginRule on CSSMarginRule {
-  external String get name;
-  external CSSStyleDeclaration get style;
+  String get name => js_util.getProperty(this, 'name');
+  CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
 }
 
 ///  The interface describes an object representing a single CSS
@@ -441,20 +472,20 @@ extension PropsCSSMarginRule on CSSMarginRule {
 @JS()
 @staticInterop
 class CSSNamespaceRule implements CSSRule {
-  external factory CSSNamespaceRule();
+  external CSSNamespaceRule();
 }
 
 extension PropsCSSNamespaceRule on CSSNamespaceRule {
   ///  Returns a [DOMString] containing the text of the URI of the
   /// given namespace.
   ///
-  external String get namespaceURI;
+  String get namespaceURI => js_util.getProperty(this, 'namespaceURI');
 
   ///  Returns a [DOMString] with the name of the prefix associated to
   /// this namespace. If there is no such prefix, returns an empty
   /// string.
   ///
-  external String get prefix;
+  String get prefix => js_util.getProperty(this, 'prefix');
 }
 
 ///  The interface represents an object that is a CSS declaration
@@ -473,13 +504,16 @@ extension PropsCSSNamespaceRule on CSSNamespaceRule {
 @JS()
 @staticInterop
 class CSSStyleDeclaration {
-  external factory CSSStyleDeclaration();
+  external CSSStyleDeclaration();
 }
 
 extension PropsCSSStyleDeclaration on CSSStyleDeclaration {
-  external String get cssText;
-  external set cssText(String newValue);
-  external int get length;
+  String get cssText => js_util.getProperty(this, 'cssText');
+  set cssText(String newValue) {
+    js_util.setProperty(this, 'cssText', newValue);
+  }
+
+  int get length => js_util.getProperty(this, 'length');
 
   ///  Returns a CSS property name by its index, or the empty string if
   /// the index is out-of-bounds.
@@ -489,7 +523,7 @@ extension PropsCSSStyleDeclaration on CSSStyleDeclaration {
   /// var style = document.getElementById('div1').style;
   /// var propertyName = style.item(1); // or style[1] - returns the second style listed
   ///
-  external String item(int index);
+  String item(int index) => js_util.callMethod(this, 'item', [index]);
 
   /// Returns the property value given a property name.
   ///
@@ -502,7 +536,8 @@ extension PropsCSSStyleDeclaration on CSSStyleDeclaration {
   /// var declaration = document.styleSheets[0].cssRules[0].style;
   /// var value = declaration.getPropertyValue('margin'); // "1px 2px"
   ///
-  external String getPropertyValue(String property);
+  String getPropertyValue(String property) =>
+      js_util.callMethod(this, 'getPropertyValue', [property]);
 
   /// Returns the optional priority, "important".
   ///
@@ -515,15 +550,16 @@ extension PropsCSSStyleDeclaration on CSSStyleDeclaration {
   /// var declaration = document.styleSheets[0].cssRules[0].style;
   /// var isImportant = declaration.getPropertyPriority('margin') === 'important';
   ///
-  external String getPropertyPriority(String property);
+  String getPropertyPriority(String property) =>
+      js_util.callMethod(this, 'getPropertyPriority', [property]);
 
   ///  Modifies an existing CSS property or creates a new CSS property
   /// in the declaration block.
   ///
   /// style.setProperty(propertyName, value, priority);
   ///
-  external Object setProperty(String property, String value,
-      [String? priority = '']);
+  Object setProperty(String property, String value, [String? priority = '']) =>
+      js_util.callMethod(this, 'setProperty', [property, value, priority]);
 
   /// Removes a property from the CSS declaration block.
   ///
@@ -536,21 +572,26 @@ extension PropsCSSStyleDeclaration on CSSStyleDeclaration {
   /// var declaration = document.styleSheets[0].rules[0].style;
   /// var oldValue = declaration.removeProperty('background-color');
   ///
-  external String removeProperty(String property);
-  external CSSRule? get parentRule;
-  external String get cssFloat;
-  external set cssFloat(String newValue);
+  String removeProperty(String property) =>
+      js_util.callMethod(this, 'removeProperty', [property]);
+
+  CSSRule? get parentRule => js_util.getProperty(this, 'parentRule');
+  String get cssFloat => js_util.getProperty(this, 'cssFloat');
+  set cssFloat(String newValue) {
+    js_util.setProperty(this, 'cssFloat', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class ElementCSSInlineStyle {
-  external factory ElementCSSInlineStyle();
+  external ElementCSSInlineStyle();
 }
 
 extension PropsElementCSSInlineStyle on ElementCSSInlineStyle {
-  external CSSStyleDeclaration get style;
-  external StylePropertyMap get attributeStyleMap;
+  CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
+  StylePropertyMap get attributeStyleMap =>
+      js_util.getProperty(this, 'attributeStyleMap');
 }
 
 ///  The interface holds useful CSS-related methods. No objects with
@@ -559,9 +600,9 @@ extension PropsElementCSSInlineStyle on ElementCSSInlineStyle {
 @JS()
 @staticInterop
 class CSS {
-  external factory CSS();
+  external CSS();
 }
 
 extension PropsCSS on CSS {
-  external String escape(String ident);
+  String escape(String ident) => js_util.callMethod(this, 'escape', [ident]);
 }

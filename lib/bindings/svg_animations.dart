@@ -5,6 +5,7 @@
 @staticInterop
 library svg_animations;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
@@ -32,20 +33,20 @@ html */
 @JS()
 @staticInterop
 class TimeEvent implements Event {
-  external factory TimeEvent();
+  external TimeEvent();
 }
 
 extension PropsTimeEvent on TimeEvent {
   ///  Is a [WindowProxy] that identifies the Window from which the
   /// event was generated.
   ///
-  external Window? get view;
+  Window? get view => js_util.getProperty(this, 'view');
 
   ///  Is a [long] that specifies some detail information about the
   /// Event, depending on the type of the event. For this event type,
   /// indicates the repeat number for the animation.
   ///
-  external int get detail;
+  int get detail => js_util.getProperty(this, 'detail');
 
   ///  The initTimeEvent method is used to initialize the value of a
   /// TimeEvent created through the DocumentEvent interface. This
@@ -53,7 +54,8 @@ extension PropsTimeEvent on TimeEvent {
   /// dispatched via the dispatchEvent method, though it may be called
   /// multiple times during that phase if necessary.
   ///
-  external Object initTimeEvent(String typeArg, Window? viewArg, int detailArg);
+  Object initTimeEvent(String typeArg, Window? viewArg, int detailArg) =>
+      js_util.callMethod(this, 'initTimeEvent', [typeArg, viewArg, detailArg]);
 }
 
 ///  The interface is the base interface for all of the animation
@@ -93,7 +95,7 @@ extension PropsTimeEvent on TimeEvent {
 @JS()
 @staticInterop
 class SVGAnimationElement implements SVGElement, SVGTests {
-  external factory SVGAnimationElement();
+  external SVGAnimationElement();
 }
 
 extension PropsSVGAnimationElement on SVGAnimationElement {
@@ -102,13 +104,21 @@ extension PropsSVGAnimationElement on SVGAnimationElement {
   /// because the [href] specifies an unknown element) the value
   /// returned is [null].
   ///
-  external SVGElement? get targetElement;
-  external EventHandlerNonNull? get onbegin;
-  external set onbegin(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onend;
-  external set onend(EventHandlerNonNull? newValue);
-  external EventHandlerNonNull? get onrepeat;
-  external set onrepeat(EventHandlerNonNull? newValue);
+  SVGElement? get targetElement => js_util.getProperty(this, 'targetElement');
+  EventHandlerNonNull? get onbegin => js_util.getProperty(this, 'onbegin');
+  set onbegin(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbegin', newValue);
+  }
+
+  EventHandlerNonNull? get onend => js_util.getProperty(this, 'onend');
+  set onend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onend', newValue);
+  }
+
+  EventHandlerNonNull? get onrepeat => js_util.getProperty(this, 'onrepeat');
+  set onrepeat(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onrepeat', newValue);
+  }
 
   ///  Returns a float representing the begin time, in seconds, for
   /// this animation element's current interval, if it exists,
@@ -116,47 +126,50 @@ extension PropsSVGAnimationElement on SVGAnimationElement {
   /// current interval, then a [DOMException] with code
   /// [INVALID_STATE_ERR] is thrown.
   ///
-  external double getStartTime();
+  double getStartTime() => js_util.callMethod(this, 'getStartTime', []);
 
   ///  Returns a float representing the current time in seconds
   /// relative to time zero for the given time container.
   ///
-  external double getCurrentTime();
+  double getCurrentTime() => js_util.callMethod(this, 'getCurrentTime', []);
 
   ///  Returns a float representing the number of seconds for the
   /// simple duration for this animation. If the simple duration is
   /// undefined (e.g., the end time is indefinite), then a
   /// [DOMException] with code [NOT_SUPPORTED_ERR] is raised.
   ///
-  external double getSimpleDuration();
+  double getSimpleDuration() =>
+      js_util.callMethod(this, 'getSimpleDuration', []);
 
   ///  Creates a begin instance time for the current time. The new
   /// instance time is added to the begin instance times list. The
   /// behavior of this method is equivalent to [beginElementAt(0)].
   ///
   @experimental
-  external Object beginElement();
+  Object beginElement() => js_util.callMethod(this, 'beginElement', []);
 
   ///  Creates a begin instance time for the current time plus the
   /// specified offset. The new instance time is added to the begin
   /// instance times list.
   ///
   @experimental
-  external Object beginElementAt(double offset);
+  Object beginElementAt(double offset) =>
+      js_util.callMethod(this, 'beginElementAt', [offset]);
 
   ///  Creates an end instance time for the current time. The new
   /// instance time is added to the end instance times list. The
   /// behavior of this method is equivalent to [endElementAt(0)].
   ///
   @experimental
-  external Object endElement();
+  Object endElement() => js_util.callMethod(this, 'endElement', []);
 
   ///  Creates a end instance time for the current time plus the
   /// specified offset. The new instance time is added to the end
   /// instance times list.
   ///
   @experimental
-  external Object endElementAt(double offset);
+  Object endElementAt(double offset) =>
+      js_util.callMethod(this, 'endElementAt', [offset]);
 }
 
 /// The interface corresponds to the [<animate>] element.
@@ -199,7 +212,7 @@ extension PropsSVGAnimationElement on SVGAnimationElement {
 @JS()
 @staticInterop
 class SVGAnimateElement implements SVGAnimationElement {
-  external factory SVGAnimateElement();
+  external SVGAnimateElement();
 }
 
 /// The interface corresponds to the [<set>] element.
@@ -242,7 +255,7 @@ class SVGAnimateElement implements SVGAnimationElement {
 @JS()
 @staticInterop
 class SVGSetElement implements SVGAnimationElement {
-  external factory SVGSetElement();
+  external SVGSetElement();
 }
 
 /// The interface corresponds to the [<animateMotion>] element.
@@ -285,7 +298,7 @@ class SVGSetElement implements SVGAnimationElement {
 @JS()
 @staticInterop
 class SVGAnimateMotionElement implements SVGAnimationElement {
-  external factory SVGAnimateMotionElement();
+  external SVGAnimateMotionElement();
 }
 
 /// The interface corresponds to the [<mpath>] element.
@@ -322,7 +335,7 @@ class SVGAnimateMotionElement implements SVGAnimationElement {
 @JS()
 @staticInterop
 class SVGMPathElement implements SVGElement, SVGURIReference {
-  external factory SVGMPathElement();
+  external SVGMPathElement();
 }
 
 /// The interface corresponds to the [<animateTransform>] element.
@@ -365,11 +378,11 @@ class SVGMPathElement implements SVGElement, SVGURIReference {
 @JS()
 @staticInterop
 class SVGAnimateTransformElement implements SVGAnimationElement {
-  external factory SVGAnimateTransformElement();
+  external SVGAnimateTransformElement();
 }
 
 @JS()
 @staticInterop
 class SVGDiscardElement implements SVGAnimationElement {
-  external factory SVGDiscardElement();
+  external SVGDiscardElement();
 }

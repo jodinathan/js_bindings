@@ -5,6 +5,7 @@
 @staticInterop
 library css_transitions_2;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -20,11 +21,12 @@ import 'all_bindings.dart';
 @JS()
 @staticInterop
 class CSSTransition implements Animation {
-  external factory CSSTransition();
+  external CSSTransition();
 }
 
 extension PropsCSSTransition on CSSTransition {
   /// Returns the transition CSS property name as a [CSSOMString].
   ///
-  external String get transitionProperty;
+  String get transitionProperty =>
+      js_util.getProperty(this, 'transitionProperty');
 }

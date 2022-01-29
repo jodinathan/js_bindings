@@ -5,6 +5,7 @@
 @staticInterop
 library w_e_b_g_l_color_buffer_float;
 
+import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'callbacks.dart';
@@ -29,5 +30,5 @@ class WEBGL_color_buffer_float {
   external static int get RGBA32F_EXT;
   external static int get FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT;
   external static int get UNSIGNED_NORMALIZED_EXT;
-  external factory WEBGL_color_buffer_float();
+  external WEBGL_color_buffer_float();
 }
