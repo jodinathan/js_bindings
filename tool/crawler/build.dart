@@ -17,9 +17,9 @@ final urls = [];
 
 Future<void> main() async {
   // clones the MDN repo locally
-  //await cloneMDN();
+  await cloneMDN();
   // copy the list of webIDLs, parsed in JSON, from github.com/w3c/webref/
-  //await cloneIDLs();
+  await cloneIDLs();
   // merge ed and tr IDLs into /merged
   await mergeIDLs();
   // startes the MDN web server: localhost:5000

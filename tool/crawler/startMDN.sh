@@ -1,5 +1,5 @@
 cd ./mdn/content-main/ || exit
 
-# yarn install
+yarn install
 
 yarn start
