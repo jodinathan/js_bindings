@@ -21,10 +21,13 @@ void main() {
 
     // if we already have the stream, stop it and change the HTML of the button
     if (ms != null) {
+      // forEach is not working: https://github.com/dart-lang/sdk/issues/48260
+      // ms.getTracks().forEach((track) => track.stop());
+
       for (final track in ms.getTracks()) {
         track.stop();
       }
-      //ms.getTracks().forEach((track) => track.stop());
+
       mstream = null;
       btnMedia.innerHTML = 'Ask for camera access';
       print('Media stopped.');

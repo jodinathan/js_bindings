@@ -1,10 +1,15 @@
 ## 0.0.4-dev
 
+ - Breaking change: The `Promise` is gone. The builder now generates `Future` when it sees a `Promise`. So no need to use `promiseToFuture` at all.
+ - Breaking change: The `allowInterop` is gone. The builder now automatically adds `allowInterop` so you can use regular Dart `Function()` on callbacks.  
+Example: 
+   - Old way: `element.addEventListener('click', allowInterop((ev) {}))`
+   - New way: `element.addEventListener('click', (ev) {})`
  - Removed a number of runtime dependencies. 
  - Require Dart 2.14 or greater
  - Require package:js 0.6.4 or greater
  - Updated the builders to use `@staticInterop` along with dart:js_util
- - The `example` dir is working
+ - The `example` dir is working and has more examples
 
 ## 0.0.3
 
