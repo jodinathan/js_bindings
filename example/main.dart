@@ -1,16 +1,38 @@
 import 'package:js_bindings/js_bindings.dart';
 
 void main() {
-  // create some div
-  final div = document.createElement('div')
-    ..innerHTML = 'This div was created on the fly';
-  final btnMedia = document.getElementById('askMedia')!;
+  document.title = 'JS Bindings example';
+
+  // create the buttons to use in the example
+  final div = (document.createElement('div') as HTMLDivElement)
+    ..id = 'someDiv'
+    ..innerHTML = 'This div was created on the fly'
+    ..style.setProperty('border', '1px solid black')
+    ..style.setProperty('margin', '10px');
+  final btnChanger = (document.createElement('button') as HTMLButtonElement)
+    ..id = 'changeHtml'
+    ..innerText = 'Change the above div HTML';
+  final btnMedia = (document.createElement('button') as HTMLButtonElement)
+    ..innerText = 'Ask for camera access';
+  final video = (document.createElement('video') as HTMLVideoElement)
+    ..autoplay = true
+    ..style.setProperty('border', '1px solid purple')
+    ..style.setProperty('margin', '10px')
+    ..style.setProperty('height', '300px')
+    ..style.setProperty('width', '500px')
+    ..style.setProperty('background', 'black');
   MediaStream? mstream;
+  final body = document.body!;
 
   // add the div and bind a listener to the HTML changer button
-  document
-    ..body!.appendChild(div)
-    ..getElementById('changeHtml')!.addEventListener('click', (e) {
+  body
+    ..appendChild(div)
+    ..appendChild(btnChanger)
+    ..appendChild(btnMedia)
+    ..appendChild(document.createElement('hr'))
+    ..appendChild(video);
+
+  document.getElementById('changeHtml')!.addEventListener('click', (e) {
       print('Changing the HTML');
       document.getElementById('someDiv')!.innerHTML = 'Oh yeah!';
     });
@@ -21,7 +43,8 @@ void main() {
 
     // if we already have the stream, stop it and change the HTML of the button
     if (ms != null) {
-      // forEach is not working: https://github.com/dart-lang/sdk/issues/48260
+      // forEach is not working in Dart2JS:
+      // https://github.com/dart-lang/sdk/issues/48260
       // ms.getTracks().forEach((track) => track.stop());
 
       for (final track in ms.getTracks()) {
@@ -43,9 +66,7 @@ void main() {
 
     // here the media stream is on,
     // lets set it to the source of the video element
-    (document.getElementById('someVideo')! as HTMLVideoElement)
-      ..autoplay = true
-      ..srcObject = media;
+    video.srcObject = media;
 
     if (media.active) {
       // change the label of the button so user
@@ -54,6 +75,4 @@ void main() {
       btnMedia.textContent = 'Stop camera capture';
     }
   });
-
-  document.body!.className += 'ready';
 }
