@@ -513,30 +513,34 @@ extension PropsHIDDevice on HIDDevice {
   ///
   /// HIDDevice.open();
   ///
-  Promise<Object> open() => js_util.callMethod(this, 'open', []);
+  Future<Object> open() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'open', []));
 
   ///  Closes the connection to this HID device, and returns a
   /// [Promise] which resolves once the connection has been closed.
   ///
   /// HIDDevice.close();
   ///
-  Promise<Object> close() => js_util.callMethod(this, 'close', []);
+  Future<Object> close() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
   ///  Sends an output report to this HID Device, and returns a
   /// [Promise] which resolves once the report has been sent.
   ///
   /// HIDDevice.sendReport(reportId, data);
   ///
-  Promise<Object> sendReport(int reportId, dynamic data) =>
-      js_util.callMethod(this, 'sendReport', [reportId, data]);
+  Future<Object> sendReport(int reportId, dynamic data) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'sendReport', [reportId, data]));
 
   ///  Sends a feature report to this HID device, and returns a
   /// [Promise] which resolves once the report has been sent.
   ///
   /// HIDDevice.sendFeatureReport(reportId, data);
   ///
-  Promise<Object> sendFeatureReport(int reportId, dynamic data) =>
-      js_util.callMethod(this, 'sendFeatureReport', [reportId, data]);
+  Future<Object> sendFeatureReport(int reportId, dynamic data) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'sendFeatureReport', [reportId, data]));
 
   ///  Receives a feature report from this HID device in the form of a
   /// [Promise] which resolves with a [DataView]. This allows typed
@@ -544,6 +548,7 @@ extension PropsHIDDevice on HIDDevice {
   ///
   /// HIDDevice.receiveFeatureReport(reportId);
   ///
-  Promise<ByteData> receiveFeatureReport(int reportId) =>
-      js_util.callMethod(this, 'receiveFeatureReport', [reportId]);
+  Future<ByteData> receiveFeatureReport(int reportId) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'receiveFeatureReport', [reportId]));
 }

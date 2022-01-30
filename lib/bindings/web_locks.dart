@@ -44,9 +44,10 @@ extension PropsLockManager on LockManager {
   /// LockManager.request(name, callback)
   /// LockManager.request(name, {options}, callback)
   ///
-  Promise<dynamic> request(String name,
+  Future<dynamic> request(String name,
           [LockOptions? options, LockGrantedCallback? callback]) =>
-      js_util.callMethod(this, 'request', [name, options, callback]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'request',
+          [name, options, callback == null ? null : allowInterop(callback)]));
 
   ///  Returns a [Promise] that resolves with an object that contains
   /// information about held and pending locks.
@@ -61,7 +62,8 @@ extension PropsLockManager on LockManager {
   ///  console.log(`requested lock: name ${request.name}, mode ${request.mode}`);
   /// }
   ///
-  Promise<LockManagerSnapshot> query() => js_util.callMethod(this, 'query', []);
+  Future<LockManagerSnapshot> query() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'query', []));
 }
 
 enum LockMode { shared, exclusive }
@@ -72,9 +74,9 @@ enum LockMode { shared, exclusive }
 class LockOptions {
   external factory LockOptions(
       {LockMode mode = LockMode.exclusive,
-      bool ifAvailable = false,
-      bool steal = false,
-      AbortSignal signal});
+      bool? ifAvailable = false,
+      bool? steal = false,
+      AbortSignal? signal});
 }
 
 extension PropsLockOptions on LockOptions {

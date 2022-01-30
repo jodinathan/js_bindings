@@ -197,7 +197,8 @@ extension PropsMediaSource on MediaSource {
   Object clearLiveSeekableRange() =>
       js_util.callMethod(this, 'clearLiveSeekableRange', []);
 
-  external static bool isTypeSupported(String type);
+  static bool isTypeSupported(String type) =>
+      js_util.callMethod(MediaSource, 'isTypeSupported', [type]);
 }
 
 enum AppendMode { segments, sequence }

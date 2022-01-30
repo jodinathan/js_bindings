@@ -54,8 +54,8 @@ extension PropsTransitionEvent on TransitionEvent {
 class TransitionEventInit implements EventInit {
   external factory TransitionEventInit(
       {String propertyName = '',
-      double elapsedTime = 0.0,
-      String pseudoElement = ''});
+      double? elapsedTime = 0.0,
+      String? pseudoElement = ''});
 }
 
 extension PropsTransitionEventInit on TransitionEventInit {

@@ -175,16 +175,20 @@ class Body {
 extension PropsBody on Body {
   ReadableStream? get body => js_util.getProperty(this, 'body');
   bool get bodyUsed => js_util.getProperty(this, 'bodyUsed');
-  Promise<ByteBuffer> arrayBuffer() =>
-      js_util.callMethod(this, 'arrayBuffer', []);
+  Future<ByteBuffer> arrayBuffer() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'arrayBuffer', []));
 
-  Promise<Blob> blob() => js_util.callMethod(this, 'blob', []);
+  Future<Blob> blob() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'blob', []));
 
-  Promise<FormData> formData() => js_util.callMethod(this, 'formData', []);
+  Future<FormData> formData() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'formData', []));
 
-  Promise<dynamic> json() => js_util.callMethod(this, 'json', []);
+  Future<dynamic> json() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'json', []));
 
-  Promise<String> text() => js_util.callMethod(this, 'text', []);
+  Future<String> text() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'text', []));
 }
 
 /// The interface of the Fetch API represents a resource request.
@@ -415,7 +419,7 @@ extension PropsResponse on Response {
   /// var errorResponse = Response.error();
   ///
   /// TBD (does not yet appear to be supported anywhere).
-  external static Response error();
+  static Response error() => js_util.callMethod(Response, 'error', []);
 
   /// Creates a new response with a different URL.
   ///
@@ -423,7 +427,8 @@ extension PropsResponse on Response {
   ///
   /// Response.redirect('https://www.example.com', 302);
   ///
-  external static Response redirect(String url, [int? status = 302]);
+  static Response redirect(String url, [int? status = 302]) =>
+      js_util.callMethod(Response, 'redirect', [url, status]);
 
   /// The type of the response (e.g., [basic], [cors]).
   ///
@@ -494,7 +499,7 @@ extension PropsResponse on Response {
 @staticInterop
 class ResponseInit {
   external factory ResponseInit(
-      {int status = 200, String statusText = '', dynamic headers});
+      {int status = 200, String? statusText = '', dynamic headers});
 }
 
 extension PropsResponseInit on ResponseInit {

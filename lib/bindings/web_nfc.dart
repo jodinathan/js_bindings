@@ -205,8 +205,8 @@ extension PropsNDEFReader on NDEFReader {
   /// var readerPromise = NDEFReader.scan(options);
   ///
   @experimental
-  Promise<Object> scan([NDEFScanOptions? options]) =>
-      js_util.callMethod(this, 'scan', [options]);
+  Future<Object> scan([NDEFScanOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'scan', [options]));
 
   ///  Attempts to write an NDEF message to a tag and returns a
   /// [Promise] that either resolves when a message has been written to
@@ -218,8 +218,8 @@ extension PropsNDEFReader on NDEFReader {
   ///  NDEFReader.write(message, options);
   ///
   @experimental
-  Promise<Object> write(dynamic message, [NDEFWriteOptions? options]) =>
-      js_util.callMethod(this, 'write', [message, options]);
+  Future<Object> write(dynamic message, [NDEFWriteOptions? options]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'write', [message, options]));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -253,7 +253,7 @@ extension PropsNDEFReadingEvent on NDEFReadingEvent {
 @staticInterop
 class NDEFReadingEventInit implements EventInit {
   external factory NDEFReadingEventInit(
-      {String? serialNumber = '', NDEFMessageInit message});
+      {String? serialNumber = '', NDEFMessageInit? message});
 }
 
 extension PropsNDEFReadingEventInit on NDEFReadingEventInit {

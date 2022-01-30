@@ -136,8 +136,8 @@ extension PropsClipboard on Clipboard {
   ///   the API will not work.
   ///
   ///
-  Promise<Iterable<ClipboardItem>> read() =>
-      js_util.callMethod(this, 'read', []);
+  Future<Iterable<ClipboardItem>> read() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'read', []));
 
   ///  Requests text from the system clipboard; returns a [Promise]
   /// which is resolved with a [DOMString] containing the clipboard's
@@ -152,7 +152,8 @@ extension PropsClipboard on Clipboard {
   /// navigator.clipboard.readText().then(
   ///  clipText => document.getElementById("outbox").innerText = clipText);
   ///
-  Promise<String> readText() => js_util.callMethod(this, 'readText', []);
+  Future<String> readText() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'readText', []));
 
   ///  Writes arbitrary data to the system clipboard. This asynchronous
   /// operation signals that it's finished by resolving the returned
@@ -186,8 +187,8 @@ extension PropsClipboard on Clipboard {
   ///  The key of the object passed to the ClipboardItem constructor indicates the content type, the value indicates the content. Then write() is called, specifying both a fulfillment function
   ///  and an error function.
   ///
-  Promise<Object> write(Iterable<ClipboardItem> data) =>
-      js_util.callMethod(this, 'write', [data]);
+  Future<Object> write(Iterable<ClipboardItem> data) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'write', [data]));
 
   ///  Writes text to the system clipboard, returning a [Promise] which
   /// is resolved once the text is fully copied into the clipboard.
@@ -201,8 +202,8 @@ extension PropsClipboard on Clipboard {
   ///  /* clipboard write failed */
   /// });
   ///
-  Promise<Object> writeText(String data) =>
-      js_util.callMethod(this, 'writeText', [data]);
+  Future<Object> writeText(String data) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'writeText', [data]));
 }
 
 ///  The interface of the [Clipboard API] represents a single item
@@ -229,8 +230,9 @@ class ClipboardItem {
 }
 
 extension PropsClipboardItem on ClipboardItem {
-  external static ClipboardItem createDelayed(dynamic items,
-      [ClipboardItemOptions? options]);
+  static ClipboardItem createDelayed(dynamic items,
+          [ClipboardItemOptions? options]) =>
+      js_util.callMethod(ClipboardItem, 'createDelayed', [items, options]);
 
   ///  Returns one of the following: ["unspecified"], ["inline"] or
   /// ["attachment"].
@@ -250,8 +252,8 @@ extension PropsClipboardItem on ClipboardItem {
   ///
   /// var blob = clipboardItem.getType(type);
   ///
-  Promise<Blob> getType(String type) =>
-      js_util.callMethod(this, 'getType', [type]);
+  Future<Blob> getType(String type) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getType', [type]));
 }
 
 enum PresentationStyle { unspecified, inline, attachment }

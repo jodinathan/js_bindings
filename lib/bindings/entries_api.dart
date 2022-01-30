@@ -81,7 +81,10 @@ extension PropsFileSystemEntry on FileSystemEntry {
   Object getParent(
           [FileSystemEntryCallback? successCallback,
           ErrorCallback? errorCallback]) =>
-      js_util.callMethod(this, 'getParent', [successCallback, errorCallback]);
+      js_util.callMethod(this, 'getParent', [
+        successCallback == null ? null : allowInterop(successCallback),
+        errorCallback == null ? null : allowInterop(errorCallback)
+      ]);
 }
 
 ///  The interface of the File and Directory Entries API represents a
@@ -178,8 +181,12 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
           FileSystemFlags? options,
           FileSystemEntryCallback? successCallback,
           ErrorCallback? errorCallback]) =>
-      js_util.callMethod(
-          this, 'getFile', [path, options, successCallback, errorCallback]);
+      js_util.callMethod(this, 'getFile', [
+        path,
+        options,
+        successCallback == null ? null : allowInterop(successCallback),
+        errorCallback == null ? null : allowInterop(errorCallback)
+      ]);
 
   ///  Returns a [FileSystemDirectoryEntry] object representing a
   /// directory located at a given path, relative to the directory on
@@ -227,8 +234,12 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
           FileSystemFlags? options,
           FileSystemEntryCallback? successCallback,
           ErrorCallback? errorCallback]) =>
-      js_util.callMethod(this, 'getDirectory',
-          [path, options, successCallback, errorCallback]);
+      js_util.callMethod(this, 'getDirectory', [
+        path,
+        options,
+        successCallback == null ? null : allowInterop(successCallback),
+        errorCallback == null ? null : allowInterop(errorCallback)
+      ]);
 }
 
 @anonymous
@@ -236,7 +247,7 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
 @staticInterop
 class FileSystemFlags {
   external factory FileSystemFlags(
-      {bool create = false, bool exclusive = false});
+      {bool create = false, bool? exclusive = false});
 }
 
 extension PropsFileSystemFlags on FileSystemFlags {
@@ -273,7 +284,10 @@ extension PropsFileSystemDirectoryReader on FileSystemDirectoryReader {
   /// See DataTransferItem.webkitGetAsEntry() for example code that uses this method.
   Object readEntries(FileSystemEntriesCallback successCallback,
           [ErrorCallback? errorCallback]) =>
-      js_util.callMethod(this, 'readEntries', [successCallback, errorCallback]);
+      js_util.callMethod(this, 'readEntries', [
+        allowInterop(successCallback),
+        errorCallback == null ? null : allowInterop(errorCallback)
+      ]);
 }
 
 ///  The interface of the File System API represents a file in a file
@@ -320,7 +334,10 @@ extension PropsFileSystemFileEntry on FileSystemFileEntry {
   ///  errorCallback specified.
   ///
   Object file(FileCallback successCallback, [ErrorCallback? errorCallback]) =>
-      js_util.callMethod(this, 'file', [successCallback, errorCallback]);
+      js_util.callMethod(this, 'file', [
+        allowInterop(successCallback),
+        errorCallback == null ? null : allowInterop(errorCallback)
+      ]);
 }
 
 ///  The File and Directory Entries API interface is used to

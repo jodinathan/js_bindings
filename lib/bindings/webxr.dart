@@ -52,8 +52,8 @@ extension PropsXRSystem on XRSystem {
   /// isSessionSupported(mode)
   ///
   @experimental
-  Promise<bool> isSessionSupported(XRSessionMode mode) =>
-      js_util.callMethod(this, 'isSessionSupported', [mode]);
+  Future<bool> isSessionSupported(XRSessionMode mode) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'isSessionSupported', [mode]));
 
   ///  Returns a promise that resolves to a new [XRSession] with the
   /// specified session mode.
@@ -62,9 +62,10 @@ extension PropsXRSystem on XRSystem {
   /// requestSession(mode, options)
   ///
   @experimental
-  Promise<XRSession> requestSession(XRSessionMode mode,
+  Future<XRSession> requestSession(XRSessionMode mode,
           [XRSessionInit? options]) =>
-      js_util.callMethod(this, 'requestSession', [mode, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestSession', [mode, options]));
 
   EventHandlerNonNull? get ondevicechange =>
       js_util.getProperty(this, 'ondevicechange');
@@ -157,8 +158,9 @@ extension PropsXRSession on XRSession {
   ///
   /// requestReferenceSpace(referenceSpaceType)
   ///
-  Promise<XRReferenceSpace> requestReferenceSpace(XRReferenceSpaceType type) =>
-      js_util.callMethod(this, 'requestReferenceSpace', [type]);
+  Future<XRReferenceSpace> requestReferenceSpace(XRReferenceSpaceType type) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestReferenceSpace', [type]));
 
   ///  Schedules the specified method to be called the next time the
   /// user agent is working on rendering an animation frame for the
@@ -239,8 +241,8 @@ extension PropsXRSession on XRSession {
   ///  xrSession = null
   /// }
   ///
-  int requestAnimationFrame(XRFrameRequestCallback callback) =>
-      js_util.callMethod(this, 'requestAnimationFrame', [callback]);
+  int requestAnimationFrame(XRFrameRequestCallback callback) => js_util
+      .callMethod(this, 'requestAnimationFrame', [allowInterop(callback)]);
 
   ///  Removes a callback from the animation frame painting callback
   /// from [XRSession]'s set of animation frame rendering callbacks,
@@ -302,7 +304,8 @@ extension PropsXRSession on XRSession {
   ///
   /// end()
   ///
-  Promise<Object> end() => js_util.callMethod(this, 'end', []);
+  Future<Object> end() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'end', []));
 
   EventHandlerNonNull? get onend => js_util.getProperty(this, 'onend');
   set onend(EventHandlerNonNull? newValue) {
@@ -359,19 +362,21 @@ extension PropsXRSession on XRSession {
       js_util.getProperty(this, 'environmentBlendMode');
   XRInteractionMode get interactionMode =>
       js_util.getProperty(this, 'interactionMode');
-  Promise<XRHitTestSource> requestHitTestSource(XRHitTestOptionsInit options) =>
-      js_util.callMethod(this, 'requestHitTestSource', [options]);
+  Future<XRHitTestSource> requestHitTestSource(XRHitTestOptionsInit options) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestHitTestSource', [options]));
 
-  Promise<XRTransientInputHitTestSource> requestHitTestSourceForTransientInput(
+  Future<XRTransientInputHitTestSource> requestHitTestSourceForTransientInput(
           XRTransientInputHitTestOptionsInit options) =>
-      js_util
-          .callMethod(this, 'requestHitTestSourceForTransientInput', [options]);
+      js_util.promiseToFuture(js_util.callMethod(
+          this, 'requestHitTestSourceForTransientInput', [options]));
 
   XRDepthUsage get depthUsage => js_util.getProperty(this, 'depthUsage');
   XRDepthDataFormat get depthDataFormat =>
       js_util.getProperty(this, 'depthDataFormat');
-  Promise<XRLightProbe> requestLightProbe([XRLightProbeInit? options]) =>
-      js_util.callMethod(this, 'requestLightProbe', [options]);
+  Future<XRLightProbe> requestLightProbe([XRLightProbeInit? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestLightProbe', [options]));
 
   XRReflectionFormat get preferredReflectionFormat =>
       js_util.getProperty(this, 'preferredReflectionFormat');
@@ -512,8 +517,8 @@ extension PropsXRFrame on XRFrame {
   XRPose? getPose(XRSpace space, XRSpace baseSpace) =>
       js_util.callMethod(this, 'getPose', [space, baseSpace]);
 
-  Promise<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space) =>
-      js_util.callMethod(this, 'createAnchor', [pose, space]);
+  Future<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'createAnchor', [pose, space]));
 
   XRAnchorSet get trackedAnchors => js_util.getProperty(this, 'trackedAnchors');
   Iterable<XRHitTestResult> getHitTestResults(XRHitTestSource hitTestSource) =>
@@ -987,11 +992,11 @@ class XRLayer implements EventTarget {
 class XRWebGLLayerInit {
   external factory XRWebGLLayerInit(
       {bool antialias = true,
-      bool depth = true,
-      bool stencil = false,
-      bool alpha = true,
-      bool ignoreDepthValues = false,
-      double framebufferScaleFactor = 1.0});
+      bool? depth = true,
+      bool? stencil = false,
+      bool? alpha = true,
+      bool? ignoreDepthValues = false,
+      double? framebufferScaleFactor = 1.0});
 }
 
 extension PropsXRWebGLLayerInit on XRWebGLLayerInit {
@@ -1130,7 +1135,8 @@ extension PropsXRWebGLLayer on XRWebGLLayer {
   XRViewport? getViewport(XRView view) =>
       js_util.callMethod(this, 'getViewport', [view]);
 
-  external static double getNativeFramebufferScaleFactor(XRSession session);
+  static double getNativeFramebufferScaleFactor(XRSession session) => js_util
+      .callMethod(XRWebGLLayer, 'getNativeFramebufferScaleFactor', [session]);
 }
 
 ///  The WebXR Device API's interface describes an event which

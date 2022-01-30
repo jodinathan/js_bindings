@@ -28,9 +28,9 @@ class WakeLock {
 }
 
 extension PropsWakeLock on WakeLock {
-  Promise<WakeLockSentinel> request(
+  Future<WakeLockSentinel> request(
           [WakeLockType? type = WakeLockType.screen]) =>
-      js_util.callMethod(this, 'request', [type]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'request', [type]));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -74,7 +74,8 @@ extension PropsWakeLockSentinel on WakeLockSentinel {
   ///
   /// WakeLockSentinel.release().then(...);
   ///
-  Promise<Object> release() => js_util.callMethod(this, 'release', []);
+  Future<Object> release() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'release', []));
 
   EventHandlerNonNull? get onrelease => js_util.getProperty(this, 'onrelease');
   set onrelease(EventHandlerNonNull? newValue) {

@@ -70,7 +70,7 @@ extension PropsMockCaptureDeviceConfiguration
 @staticInterop
 class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
   external factory MockCameraConfiguration(
-      {double defaultFrameRate = 30, String facingMode = 'user'});
+      {double defaultFrameRate = 30, String? facingMode = 'user'});
 }
 
 extension PropsMockCameraConfiguration on MockCameraConfiguration {

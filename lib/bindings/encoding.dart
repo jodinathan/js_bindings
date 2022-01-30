@@ -32,7 +32,7 @@ extension PropsTextDecoderCommon on TextDecoderCommon {
 @staticInterop
 class TextDecoderOptions {
   external factory TextDecoderOptions(
-      {bool fatal = false, bool ignoreBOM = false});
+      {bool fatal = false, bool? ignoreBOM = false});
 }
 
 extension PropsTextDecoderOptions on TextDecoderOptions {

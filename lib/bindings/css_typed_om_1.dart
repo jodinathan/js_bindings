@@ -47,7 +47,8 @@ extension PropsCSSStyleValue on CSSStyleValue {
   ///
   /// CSSTransformValue {0: CSSTranslate, 1: CSSScale, length: 2, is2D: false}
   ///
-  external static dynamic parse(String property, String cssText);
+  static dynamic parse(String property, String cssText) =>
+      js_util.callMethod(CSSStyleValue, 'parse', [property, cssText]);
 
   ///  Sets all occurrences of a specific CSS property to the specified
   /// value and returns an array of [CSSStyleValue] objects, each
@@ -55,8 +56,8 @@ extension PropsCSSStyleValue on CSSStyleValue {
   ///
   /// CSSStyleValue.parseAll(property, value)
   ///
-  external static Iterable<CSSStyleValue> parseAll(
-      String property, String cssText);
+  static Iterable<CSSStyleValue> parseAll(String property, String cssText) =>
+      js_util.callMethod(CSSStyleValue, 'parseAll', [property, cssText]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -408,7 +409,8 @@ extension PropsCSSNumericValue on CSSNumericValue {
 
   CSSNumericType type() => js_util.callMethod(this, 'type', []);
 
-  external static CSSNumericValue parse(String cssText);
+  static CSSNumericValue parse(String cssText) =>
+      js_util.callMethod(CSSNumericValue, 'parse', [cssText]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -985,7 +987,8 @@ extension PropsCSSColorValue on CSSColorValue {
   CSSColorValue to(dynamic colorSpace) =>
       js_util.callMethod(this, 'to', [colorSpace]);
 
-  external static CSSColorValue parse(String cssText);
+  static CSSColorValue parse(String cssText) =>
+      js_util.callMethod(CSSColorValue, 'parse', [cssText]);
 }
 
 @JS()

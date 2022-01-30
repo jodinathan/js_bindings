@@ -600,7 +600,7 @@ extension PropsProgressEvent on ProgressEvent {
 @staticInterop
 class ProgressEventInit implements EventInit {
   external factory ProgressEventInit(
-      {bool lengthComputable = false, int loaded = 0, int total = 0});
+      {bool lengthComputable = false, int? loaded = 0, int? total = 0});
 }
 
 extension PropsProgressEventInit on ProgressEventInit {

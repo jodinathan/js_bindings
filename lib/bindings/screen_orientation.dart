@@ -76,8 +76,8 @@ extension PropsScreenOrientation on ScreenOrientation {
   ///  To test the example, first press the Fullscreen button.
   ///  Once the example is full screen, press the Lock button to switch the orientation, and Unlock to return to the natural orientation.
   ///
-  Promise<Object> lock(OrientationLockType orientation) =>
-      js_util.callMethod(this, 'lock', [orientation]);
+  Future<Object> lock(OrientationLockType orientation) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'lock', [orientation]));
 
   ///  Unlocks the orientation of the containing document from its
   /// default orientation.

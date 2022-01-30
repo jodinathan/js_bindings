@@ -53,7 +53,8 @@ extension PropsDeviceOrientationEvent on DeviceOrientationEvent {
   /// orientation data absolutely.
   ///
   bool get absolute => js_util.getProperty(this, 'absolute');
-  external static Promise<PermissionState> requestPermission();
+  static Future<PermissionState> requestPermission() => js_util.promiseToFuture(
+      js_util.callMethod(DeviceOrientationEvent, 'requestPermission', []));
 }
 
 @anonymous
@@ -183,7 +184,8 @@ extension PropsDeviceMotionEvent on DeviceMotionEvent {
   /// which data is obtained from the device.
   ///
   double get interval => js_util.getProperty(this, 'interval');
-  external static Promise<PermissionState> requestPermission();
+  static Future<PermissionState> requestPermission() => js_util.promiseToFuture(
+      js_util.callMethod(DeviceMotionEvent, 'requestPermission', []));
 }
 
 @anonymous

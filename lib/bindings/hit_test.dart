@@ -141,8 +141,8 @@ extension PropsXRHitTestResult on XRHitTestResult {
   XRPose? getPose(XRSpace baseSpace) =>
       js_util.callMethod(this, 'getPose', [baseSpace]);
 
-  Promise<XRAnchor> createAnchor() =>
-      js_util.callMethod(this, 'createAnchor', []);
+  Future<XRAnchor> createAnchor() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'createAnchor', []));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -177,7 +177,7 @@ extension PropsXRTransientInputHitTestResult on XRTransientInputHitTestResult {
 @staticInterop
 class XRRayDirectionInit {
   external factory XRRayDirectionInit(
-      {double x = 0, double y = 0, double z = -1, double w = 0});
+      {double x = 0, double? y = 0, double? z = -1, double? w = 0});
 }
 
 extension PropsXRRayDirectionInit on XRRayDirectionInit {

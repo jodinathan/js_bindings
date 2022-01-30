@@ -445,9 +445,9 @@ enum XRTextureType { texture, textureArray }
 class XRProjectionLayerInit {
   external factory XRProjectionLayerInit(
       {XRTextureType textureType = XRTextureType.texture,
-      int colorFormat = 0x1908,
-      int depthFormat = 0x1902,
-      double scaleFactor = 1.0});
+      int? colorFormat = 0x1908,
+      int? depthFormat = 0x1902,
+      double? scaleFactor = 1.0});
 }
 
 extension PropsXRProjectionLayerInit on XRProjectionLayerInit {
@@ -480,11 +480,11 @@ class XRLayerInit {
       {XRSpace space,
       int colorFormat = 0x1908,
       int? depthFormat,
-      int mipLevels = 1,
-      int viewPixelWidth,
-      int viewPixelHeight,
-      XRLayerLayout layout = XRLayerLayout.mono,
-      bool isStatic = false});
+      int? mipLevels = 1,
+      int? viewPixelWidth,
+      int? viewPixelHeight,
+      XRLayerLayout? layout = XRLayerLayout.mono,
+      bool? isStatic = false});
 }
 
 extension PropsXRLayerInit on XRLayerInit {
@@ -536,8 +536,8 @@ class XRQuadLayerInit implements XRLayerInit {
   external factory XRQuadLayerInit(
       {XRTextureType textureType = XRTextureType.texture,
       XRRigidTransform? transform,
-      double width = 1.0,
-      double height = 1.0});
+      double? width = 1.0,
+      double? height = 1.0});
 }
 
 extension PropsXRQuadLayerInit on XRQuadLayerInit {
@@ -569,9 +569,9 @@ class XRCylinderLayerInit implements XRLayerInit {
   external factory XRCylinderLayerInit(
       {XRTextureType textureType = XRTextureType.texture,
       XRRigidTransform? transform,
-      double radius = 2.0,
-      double centralAngle = 0.78539,
-      double aspectRatio = 2.0});
+      double? radius = 2.0,
+      double? centralAngle = 0.78539,
+      double? aspectRatio = 2.0});
 }
 
 extension PropsXRCylinderLayerInit on XRCylinderLayerInit {
@@ -608,10 +608,10 @@ class XREquirectLayerInit implements XRLayerInit {
   external factory XREquirectLayerInit(
       {XRTextureType textureType = XRTextureType.texture,
       XRRigidTransform? transform,
-      double radius = 0,
-      double centralHorizontalAngle = 6.28318,
-      double upperVerticalAngle = 1.570795,
-      double lowerVerticalAngle = -1.570795});
+      double? radius = 0,
+      double? centralHorizontalAngle = 6.28318,
+      double? upperVerticalAngle = 1.570795,
+      double? lowerVerticalAngle = -1.570795});
 }
 
 extension PropsXREquirectLayerInit on XREquirectLayerInit {
@@ -754,7 +754,7 @@ class XRMediaLayerInit {
   external factory XRMediaLayerInit(
       {XRSpace space,
       XRLayerLayout layout = XRLayerLayout.mono,
-      bool invertStereo = false});
+      bool? invertStereo = false});
 }
 
 extension PropsXRMediaLayerInit on XRMediaLayerInit {
@@ -806,7 +806,7 @@ class XRMediaCylinderLayerInit implements XRMediaLayerInit {
   external factory XRMediaCylinderLayerInit(
       {XRRigidTransform? transform,
       double radius = 2.0,
-      double centralAngle = 0.78539,
+      double? centralAngle = 0.78539,
       double? aspectRatio});
 }
 
@@ -839,9 +839,9 @@ class XRMediaEquirectLayerInit implements XRMediaLayerInit {
   external factory XRMediaEquirectLayerInit(
       {XRRigidTransform? transform,
       double radius = 0.0,
-      double centralHorizontalAngle = 6.28318,
-      double upperVerticalAngle = 1.570795,
-      double lowerVerticalAngle = -1.570795});
+      double? centralHorizontalAngle = 6.28318,
+      double? upperVerticalAngle = 1.570795,
+      double? lowerVerticalAngle = -1.570795});
 }
 
 extension PropsXRMediaEquirectLayerInit on XRMediaEquirectLayerInit {

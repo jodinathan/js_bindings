@@ -71,21 +71,21 @@ extension PropsPresentationRequest on PresentationRequest {
   /// promise.then(function(PresentationConnection) { /* ... */ })
   ///     .catch(function(error) { ...})
   ///
-  Promise<PresentationConnection> start() =>
-      js_util.callMethod(this, 'start', []);
+  Future<PresentationConnection> start() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'start', []));
 
   ///  When the [reconnect(presentationId)] method is called on a
   /// [PresentationRequest] presentationRequest, the user agent MUST
   /// run the following steps to reconnect to a presentation.
   ///
-  Promise<PresentationConnection> reconnect(String presentationId) =>
-      js_util.callMethod(this, 'reconnect', [presentationId]);
+  Future<PresentationConnection> reconnect(String presentationId) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'reconnect', [presentationId]));
 
   ///  When the [getAvailability()] method is called, the user agent
   /// MUST run the steps as the link.
   ///
-  Promise<PresentationAvailability> getAvailability() =>
-      js_util.callMethod(this, 'getAvailability', []);
+  Future<PresentationAvailability> getAvailability() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getAvailability', []));
 
   EventHandlerNonNull? get onconnectionavailable =>
       js_util.getProperty(this, 'onconnectionavailable');
@@ -330,8 +330,8 @@ extension PropsPresentationReceiver on PresentationReceiver {
   /// [PresentationConnectionList] object containing a list of incoming
   /// presentation connections.
   ///
-  Promise<PresentationConnectionList> get connectionList =>
-      js_util.getProperty(this, 'connectionList');
+  Future<PresentationConnectionList> get connectionList =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'connectionList'));
 }
 
 ///  Secure context: This feature is available only in secure

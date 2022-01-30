@@ -62,8 +62,9 @@ class SFrameTransform implements GenericTransformStream {
 }
 
 extension PropsSFrameTransform on SFrameTransform {
-  Promise<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]) =>
-      js_util.callMethod(this, 'setEncryptionKey', [key, keyID]);
+  Future<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'setEncryptionKey', [key, keyID]));
 }
 
 enum RTCEncodedVideoFrameType { empty, key, delta }

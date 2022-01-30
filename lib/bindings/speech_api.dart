@@ -332,7 +332,7 @@ extension PropsSpeechRecognitionEvent on SpeechRecognitionEvent {
 @staticInterop
 class SpeechRecognitionEventInit implements EventInit {
   external factory SpeechRecognitionEventInit(
-      {int resultIndex = 0, SpeechRecognitionResultList results});
+      {int resultIndex = 0, SpeechRecognitionResultList? results});
 }
 
 extension PropsSpeechRecognitionEventInit on SpeechRecognitionEventInit {
@@ -637,9 +637,9 @@ class SpeechSynthesisEventInit implements EventInit {
   external factory SpeechSynthesisEventInit(
       {SpeechSynthesisUtterance utterance,
       int charIndex = 0,
-      int charLength = 0,
-      double elapsedTime = 0,
-      String name = ''});
+      int? charLength = 0,
+      double? elapsedTime = 0,
+      String? name = ''});
 }
 
 extension PropsSpeechSynthesisEventInit on SpeechSynthesisEventInit {

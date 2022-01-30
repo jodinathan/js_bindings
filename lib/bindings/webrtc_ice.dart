@@ -20,7 +20,7 @@ html */
 class RTCIceGatherOptions {
   external factory RTCIceGatherOptions(
       {RTCIceTransportPolicy gatherPolicy = RTCIceTransportPolicy.all,
-      Iterable<RTCIceServer> iceServers});
+      Iterable<RTCIceServer>? iceServers});
 }
 
 extension PropsRTCIceGatherOptions on RTCIceGatherOptions {

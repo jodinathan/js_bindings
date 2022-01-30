@@ -42,8 +42,11 @@ extension PropsGeolocation on Geolocation {
   ///
   Object getCurrentPosition(PositionCallback successCallback,
           [PositionErrorCallback? errorCallback, PositionOptions? options]) =>
-      js_util.callMethod(this, 'getCurrentPosition',
-          [successCallback, errorCallback, options]);
+      js_util.callMethod(this, 'getCurrentPosition', [
+        allowInterop(successCallback),
+        errorCallback == null ? null : allowInterop(errorCallback),
+        options
+      ]);
 
   ///  Returns a [long] value representing the newly established
   /// callback function to be invoked whenever the device location
@@ -55,8 +58,11 @@ extension PropsGeolocation on Geolocation {
   ///
   int watchPosition(PositionCallback successCallback,
           [PositionErrorCallback? errorCallback, PositionOptions? options]) =>
-      js_util.callMethod(
-          this, 'watchPosition', [successCallback, errorCallback, options]);
+      js_util.callMethod(this, 'watchPosition', [
+        allowInterop(successCallback),
+        errorCallback == null ? null : allowInterop(errorCallback),
+        options
+      ]);
 
   ///  Removes the particular handler previously installed using
   /// [watchPosition()].
@@ -101,8 +107,8 @@ extension PropsGeolocation on Geolocation {
 class PositionOptions {
   external factory PositionOptions(
       {bool enableHighAccuracy = false,
-      int timeout = 0xFFFFFFFF,
-      int maximumAge = 0});
+      int? timeout = 0xFFFFFFFF,
+      int? maximumAge = 0});
 }
 
 extension PropsPositionOptions on PositionOptions {

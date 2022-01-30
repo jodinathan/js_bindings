@@ -53,8 +53,8 @@ extension PropsSerial on Serial {
   ///
   /// var promise = Serial.requestPort([options]);
   ///
-  Promise<SerialPort> requestPort([SerialPortRequestOptions? options]) =>
-      js_util.callMethod(this, 'requestPort', [options]);
+  Future<SerialPort> requestPort([SerialPortRequestOptions? options]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'requestPort', [options]));
 }
 
 @anonymous
@@ -135,30 +135,31 @@ extension PropsSerialPort on SerialPort {
   ///
   /// var promise = SerialPort.open(options);
   ///
-  Promise<Object> open(SerialOptions options) =>
-      js_util.callMethod(this, 'open', [options]);
+  Future<Object> open(SerialOptions options) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'open', [options]));
 
   ///  Sets control signals on the port and returns a [Promise] that
   /// resolves when they are set.
   ///
   /// var promise = SerialPort.setSignals(options);
   ///
-  Promise<Object> setSignals([SerialOutputSignals? signals]) =>
-      js_util.callMethod(this, 'setSignals', [signals]);
+  Future<Object> setSignals([SerialOutputSignals? signals]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'setSignals', [signals]));
 
   ///  Returns a [Promise] that resolves with an object containing the
   /// current state of the port's control signals.
   ///
   /// var promise = SerialPort.getSignals();
   ///
-  Promise<SerialInputSignals> getSignals() =>
-      js_util.callMethod(this, 'getSignals', []);
+  Future<SerialInputSignals> getSignals() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getSignals', []));
 
   /// Returns a [Promise] that resolves when the port closes.
   ///
   /// var promise = SerialPort.close();
   ///
-  Promise<Object> close() => js_util.callMethod(this, 'close', []);
+  Future<Object> close() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 }
 
 @anonymous
@@ -187,10 +188,10 @@ class SerialOptions {
   external factory SerialOptions(
       {int baudRate,
       int dataBits = 8,
-      int stopBits = 1,
-      ParityType parity = ParityType.none,
-      int bufferSize = 255,
-      FlowControlType flowControl = FlowControlType.none});
+      int? stopBits = 1,
+      ParityType? parity = ParityType.none,
+      int? bufferSize = 255,
+      FlowControlType? flowControl = FlowControlType.none});
 }
 
 extension PropsSerialOptions on SerialOptions {

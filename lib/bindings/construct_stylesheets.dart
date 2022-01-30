@@ -21,8 +21,8 @@ class CSSStyleSheetInit {
   external factory CSSStyleSheetInit(
       {dynamic media,
       String title = '',
-      bool alternate = false,
-      bool disabled = false});
+      bool? alternate = false,
+      bool? disabled = false});
 }
 
 extension PropsCSSStyleSheetInit on CSSStyleSheetInit {

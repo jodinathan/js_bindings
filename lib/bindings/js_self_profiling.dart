@@ -23,7 +23,8 @@ class Profiler implements EventTarget {
 extension PropsProfiler on Profiler {
   double get sampleInterval => js_util.getProperty(this, 'sampleInterval');
   bool get stopped => js_util.getProperty(this, 'stopped');
-  Promise<ProfilerTrace> stop() => js_util.callMethod(this, 'stop', []);
+  Future<ProfilerTrace> stop() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'stop', []));
 }
 
 @anonymous

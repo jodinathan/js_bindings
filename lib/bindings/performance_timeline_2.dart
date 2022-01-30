@@ -177,7 +177,8 @@ extension PropsPerformanceObserver on PerformanceObserver {
   ///  Returns an array of the [entryType] values supported by the user
   /// agent.
   ///
-  external static Iterable<String> get supportedEntryTypes;
+  Iterable<String> get supportedEntryTypes =>
+      js_util.getProperty(PerformanceObserver, 'supportedEntryTypes');
 }
 
 @anonymous

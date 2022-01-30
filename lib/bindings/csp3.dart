@@ -133,15 +133,15 @@ class SecurityPolicyViolationEventInit implements EventInit {
   external factory SecurityPolicyViolationEventInit(
       {String documentURL,
       String referrer = '',
-      String blockedURL = '',
-      String effectiveDirective,
-      String originalPolicy,
-      String sourceFile = '',
-      String sample = '',
-      SecurityPolicyViolationEventDisposition disposition,
-      int statusCode,
-      int lineno = 0,
-      int colno = 0});
+      String? blockedURL = '',
+      String? effectiveDirective,
+      String? originalPolicy,
+      String? sourceFile = '',
+      String? sample = '',
+      SecurityPolicyViolationEventDisposition? disposition,
+      int? statusCode,
+      int? lineno = 0,
+      int? colno = 0});
 }
 
 extension PropsSecurityPolicyViolationEventInit

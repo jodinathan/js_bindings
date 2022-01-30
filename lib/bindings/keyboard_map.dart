@@ -63,6 +63,6 @@ extension PropsKeyboard on Keyboard {
   /// })
   ///
   @experimental
-  Promise<KeyboardLayoutMap> getLayoutMap() =>
-      js_util.callMethod(this, 'getLayoutMap', []);
+  Future<KeyboardLayoutMap> getLayoutMap() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getLayoutMap', []));
 }

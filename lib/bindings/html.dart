@@ -2422,7 +2422,8 @@ extension PropsHTMLImageElement on HTMLImageElement {
   ///
   /// var promise = HTMLImageElement.decode();
   ///
-  Promise<Object> decode() => js_util.callMethod(this, 'decode', []);
+  Future<Object> decode() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'decode', []));
 
   int get x => js_util.getProperty(this, 'x');
   int get y => js_util.getProperty(this, 'y');
@@ -3076,8 +3077,8 @@ extension PropsHTMLVideoElement on HTMLVideoElement {
   VideoPlaybackQuality getVideoPlaybackQuality() =>
       js_util.callMethod(this, 'getVideoPlaybackQuality', []);
 
-  Promise<PictureInPictureWindow> requestPictureInPicture() =>
-      js_util.callMethod(this, 'requestPictureInPicture', []);
+  Future<PictureInPictureWindow> requestPictureInPicture() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'requestPictureInPicture', []));
 
   EventHandlerNonNull? get onenterpictureinpicture =>
       js_util.getProperty(this, 'onenterpictureinpicture');
@@ -3103,8 +3104,8 @@ extension PropsHTMLVideoElement on HTMLVideoElement {
     js_util.setProperty(this, 'disablePictureInPicture', newValue);
   }
 
-  int requestVideoFrameCallback(VideoFrameRequestCallback callback) =>
-      js_util.callMethod(this, 'requestVideoFrameCallback', [callback]);
+  int requestVideoFrameCallback(VideoFrameRequestCallback callback) => js_util
+      .callMethod(this, 'requestVideoFrameCallback', [allowInterop(callback)]);
 
   Object cancelVideoFrameCallback(int handle) =>
       js_util.callMethod(this, 'cancelVideoFrameCallback', [handle]);
@@ -3592,7 +3593,8 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   ///  playVideo().
   ///
   /// You can try out or remix this example in real time on Glitch.
-  Promise<Object> play() => js_util.callMethod(this, 'play', []);
+  Future<Object> play() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'play', []));
 
   /// Pauses the media playback.
   ///
@@ -3660,8 +3662,8 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   MediaStream captureStream() => js_util.callMethod(this, 'captureStream', []);
 
   String get sinkId => js_util.getProperty(this, 'sinkId');
-  Promise<Object> setSinkId(String sinkId) =>
-      js_util.callMethod(this, 'setSinkId', [sinkId]);
+  Future<Object> setSinkId(String sinkId) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'setSinkId', [sinkId]));
 
   RemotePlayback get remote => js_util.getProperty(this, 'remote');
   bool get disableRemotePlayback =>
@@ -3683,8 +3685,8 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
     js_util.setProperty(this, 'onwaitingforkey', newValue);
   }
 
-  Promise<Object> setMediaKeys(MediaKeys? mediaKeys) =>
-      js_util.callMethod(this, 'setMediaKeys', [mediaKeys]);
+  Future<Object> setMediaKeys(MediaKeys? mediaKeys) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'setMediaKeys', [mediaKeys]));
 }
 
 ///  The interface represents an error which occurred while handling
@@ -7867,7 +7869,8 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   ///
   Object toBlob(BlobCallback callback,
           [String? type = 'image/png', dynamic quality]) =>
-      js_util.callMethod(this, 'toBlob', [callback, type, quality]);
+      js_util
+          .callMethod(this, 'toBlob', [allowInterop(callback), type, quality]);
 
   ///  Transfers control to an [OffscreenCanvas] object, either on the
   /// main thread or on a worker.
@@ -7892,8 +7895,8 @@ enum CanvasFillRule { nonzero, evenodd }
 class CanvasRenderingContext2DSettings {
   external factory CanvasRenderingContext2DSettings(
       {bool alpha = true,
-      bool desynchronized = false,
-      PredefinedColorSpace colorSpace = PredefinedColorSpace.srgb});
+      bool? desynchronized = false,
+      PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb});
 }
 
 extension PropsCanvasRenderingContext2DSettings
@@ -8810,8 +8813,8 @@ extension PropsOffscreenCanvas on OffscreenCanvas {
   /// convertToBlob()
   /// convertToBlob(options)
   ///
-  Promise<Blob> convertToBlob([ImageEncodeOptions? options]) =>
-      js_util.callMethod(this, 'convertToBlob', [options]);
+  Future<Blob> convertToBlob([ImageEncodeOptions? options]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'convertToBlob', [options]));
 }
 
 @JS()
@@ -8860,7 +8863,8 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
   ///
   Object define(String name, CustomElementConstructor constructor,
           [ElementDefinitionOptions? options]) =>
-      js_util.callMethod(this, 'define', [name, constructor, options]);
+      js_util.callMethod(
+          this, 'define', [name, allowInterop(constructor), options]);
 
   ///  Returns the constructor for the named custom element, or
   /// [undefined] if the custom element is not defined.
@@ -8877,8 +8881,8 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
   ///
   /// customElements.whenDefined(name): Promise<CustomElementConstructor>;
   ///
-  Promise<CustomElementConstructor> whenDefined(String name) =>
-      js_util.callMethod(this, 'whenDefined', [name]);
+  Future<CustomElementConstructor> whenDefined(String name) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'whenDefined', [name]));
 
   ///  Upgrades a custom element directly, even before it is connected
   /// to its shadow root.
@@ -8990,15 +8994,15 @@ extension PropsElementInternals on ElementInternals {
 class ValidityStateFlags {
   external factory ValidityStateFlags(
       {bool valueMissing = false,
-      bool typeMismatch = false,
-      bool patternMismatch = false,
-      bool tooLong = false,
-      bool tooShort = false,
-      bool rangeUnderflow = false,
-      bool rangeOverflow = false,
-      bool stepMismatch = false,
-      bool badInput = false,
-      bool customError = false});
+      bool? typeMismatch = false,
+      bool? patternMismatch = false,
+      bool? tooLong = false,
+      bool? tooShort = false,
+      bool? rangeUnderflow = false,
+      bool? rangeOverflow = false,
+      bool? stepMismatch = false,
+      bool? badInput = false,
+      bool? customError = false});
 }
 
 extension PropsValidityStateFlags on ValidityStateFlags {
@@ -9380,8 +9384,8 @@ extension PropsDataTransferItem on DataTransferItem {
   ///  }
   /// }
   ///
-  Object getAsString(FunctionStringCallback? callback) =>
-      js_util.callMethod(this, 'getAsString', [callback]);
+  Object getAsString(FunctionStringCallback? callback) => js_util.callMethod(
+      this, 'getAsString', [callback == null ? null : allowInterop(callback)]);
 
   ///  Returns the [File] object associated with the drag data item (or
   /// null if the drag item is not a file).
@@ -9425,8 +9429,8 @@ extension PropsDataTransferItem on DataTransferItem {
   FileSystemEntry? webkitGetAsEntry() =>
       js_util.callMethod(this, 'webkitGetAsEntry', []);
 
-  Promise<FileSystemHandle> getAsFileSystemHandle() =>
-      js_util.callMethod(this, 'getAsFileSystemHandle', []);
+  Future<FileSystemHandle> getAsFileSystemHandle() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'getAsFileSystemHandle', []));
 }
 
 ///  The interface is a [DOM event] that represents a drag and drop
@@ -9837,7 +9841,8 @@ extension PropsWindow on Window {
   CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
   int requestIdleCallback(IdleRequestCallback callback,
           [IdleRequestOptions? options]) =>
-      js_util.callMethod(this, 'requestIdleCallback', [callback, options]);
+      js_util.callMethod(
+          this, 'requestIdleCallback', [allowInterop(callback), options]);
 
   Object cancelIdleCallback(int handle) =>
       js_util.callMethod(this, 'cancelIdleCallback', [handle]);
@@ -9915,13 +9920,15 @@ extension PropsWindow on Window {
           [OpenFilePickerOptions? options]) =>
       js_util.callMethod(this, 'showOpenFilePicker', [options]);
 
-  Promise<FileSystemFileHandle> showSaveFilePicker(
+  Future<FileSystemFileHandle> showSaveFilePicker(
           [SaveFilePickerOptions? options]) =>
-      js_util.callMethod(this, 'showSaveFilePicker', [options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'showSaveFilePicker', [options]));
 
-  Promise<FileSystemDirectoryHandle> showDirectoryPicker(
+  Future<FileSystemDirectoryHandle> showDirectoryPicker(
           [DirectoryPickerOptions? options]) =>
-      js_util.callMethod(this, 'showDirectoryPicker', [options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'showDirectoryPicker', [options]));
 
   int get orientation => js_util.getProperty(this, 'orientation');
   EventHandlerNonNull? get onorientationchange =>
@@ -10310,7 +10317,7 @@ extension PropsHashChangeEvent on HashChangeEvent {
 @staticInterop
 class HashChangeEventInit implements EventInit {
   external factory HashChangeEventInit(
-      {String oldURL = '', String newURL = ''});
+      {String oldURL = '', String? newURL = ''});
 }
 
 extension PropsHashChangeEventInit on HashChangeEventInit {
@@ -10476,9 +10483,9 @@ extension PropsErrorEvent on ErrorEvent {
 class ErrorEventInit implements EventInit {
   external factory ErrorEventInit(
       {String message = '',
-      String filename = '',
-      int lineno = 0,
-      int colno = 0,
+      String? filename = '',
+      int? lineno = 0,
+      int? colno = 0,
       dynamic error});
 }
 
@@ -10537,7 +10544,8 @@ class PromiseRejectionEvent implements Event {
 extension PropsPromiseRejectionEvent on PromiseRejectionEvent {
   /// The JavaScript [Promise] that was rejected.
   ///
-  Promise<dynamic> get promise => js_util.getProperty(this, 'promise');
+  Future<dynamic> get promise =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'promise'));
 
   ///  A value or [Object] indicating why the promise was rejected, as
   /// passed to [Promise.reject()].
@@ -10550,12 +10558,13 @@ extension PropsPromiseRejectionEvent on PromiseRejectionEvent {
 @staticInterop
 class PromiseRejectionEventInit implements EventInit {
   external factory PromiseRejectionEventInit(
-      {Promise<dynamic> promise, dynamic reason});
+      {Future<dynamic> promise, dynamic reason});
 }
 
 extension PropsPromiseRejectionEventInit on PromiseRejectionEventInit {
-  Promise<dynamic> get promise => js_util.getProperty(this, 'promise');
-  set promise(Promise<dynamic> newValue) {
+  Future<dynamic> get promise =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'promise'));
+  set promise(Future<dynamic> newValue) {
     js_util.setProperty(this, 'promise', newValue);
   }
 
@@ -11327,20 +11336,20 @@ extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
       js_util.callMethod(this, 'clearInterval', [handle]);
 
   Object queueMicrotask(VoidFunction callback) =>
-      js_util.callMethod(this, 'queueMicrotask', [callback]);
+      js_util.callMethod(this, 'queueMicrotask', [allowInterop(callback)]);
 
-  Promise<ImageBitmap> createImageBitmap(dynamic image,
+  Future<ImageBitmap> createImageBitmap(dynamic image,
           [int? sx, int? sy, int? sw, int? sh, ImageBitmapOptions? options]) =>
-      js_util.callMethod(
-          this, 'createImageBitmap', [image, sx, sy, sw, sh, options]);
+      js_util.promiseToFuture(js_util.callMethod(
+          this, 'createImageBitmap', [image, sx, sy, sw, sh, options]));
 
   Scheduler get scheduler => js_util.getProperty(this, 'scheduler');
   TrustedTypePolicyFactory get trustedTypes =>
       js_util.getProperty(this, 'trustedTypes');
   Performance get performance => js_util.getProperty(this, 'performance');
   CacheStorage get caches => js_util.getProperty(this, 'caches');
-  Promise<Response> fetch(dynamic input, [RequestInit? init]) =>
-      js_util.callMethod(this, 'fetch', [input, init]);
+  Future<Response> fetch(dynamic input, [RequestInit? init]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'fetch', [input, init]));
 
   Crypto get crypto => js_util.getProperty(this, 'crypto');
   IDBFactory get indexedDB => js_util.getProperty(this, 'indexedDB');
@@ -11430,8 +11439,8 @@ extension PropsNavigator on Navigator {
       js_util.getProperty(this, 'mediaCapabilities');
   Permissions get permissions => js_util.getProperty(this, 'permissions');
   MediaSession get mediaSession => js_util.getProperty(this, 'mediaSession');
-  Promise<Object> share([ShareData? data]) =>
-      js_util.callMethod(this, 'share', [data]);
+  Future<Object> share([ShareData? data]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'share', [data]));
 
   Scheduling get scheduling => js_util.getProperty(this, 'scheduling');
   ContactsManager get contacts => js_util.getProperty(this, 'contacts');
@@ -11446,19 +11455,22 @@ extension PropsNavigator on Navigator {
   ServiceWorkerContainer get serviceWorker =>
       js_util.getProperty(this, 'serviceWorker');
   int get maxTouchPoints => js_util.getProperty(this, 'maxTouchPoints');
-  Promise<Object> setClientBadge([int? contents]) =>
-      js_util.callMethod(this, 'setClientBadge', [contents]);
+  Future<Object> setClientBadge([int? contents]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'setClientBadge', [contents]));
 
-  Promise<Object> clearClientBadge() =>
-      js_util.callMethod(this, 'clearClientBadge', []);
+  Future<Object> clearClientBadge() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'clearClientBadge', []));
 
   MediaDevices get mediaDevices => js_util.getProperty(this, 'mediaDevices');
   Object getUserMedia(
           MediaStreamConstraints constraints,
           NavigatorUserMediaSuccessCallback successCallback,
           NavigatorUserMediaErrorCallback errorCallback) =>
-      js_util.callMethod(
-          this, 'getUserMedia', [constraints, successCallback, errorCallback]);
+      js_util.callMethod(this, 'getUserMedia', [
+        constraints,
+        allowInterop(successCallback),
+        allowInterop(errorCallback)
+      ]);
 
   XRSystem get xr => js_util.getProperty(this, 'xr');
   Iterable<Promise<RelatedApplication>> getInstalledRelatedApps() =>
@@ -11468,7 +11480,7 @@ extension PropsNavigator on Navigator {
   bool vibrate(dynamic pattern) =>
       js_util.callMethod(this, 'vibrate', [pattern]);
 
-  Iterable<Gamepad> getGamepads() =>
+  Iterable<Gamepad>? getGamepads() =>
       js_util.callMethod(this, 'getGamepads', []);
 
   DevicePosture get devicePosture => js_util.getProperty(this, 'devicePosture');
@@ -11476,16 +11488,17 @@ extension PropsNavigator on Navigator {
       js_util.callMethod(this, 'sendBeacon', [url, data]);
 
   USB get usb => js_util.getProperty(this, 'usb');
-  Promise<BatteryManager> getBattery() =>
-      js_util.callMethod(this, 'getBattery', []);
+  Future<BatteryManager> getBattery() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getBattery', []));
 
-  Promise<MIDIAccess> requestMIDIAccess([MIDIOptions? options]) =>
-      js_util.callMethod(this, 'requestMIDIAccess', [options]);
+  Future<MIDIAccess> requestMIDIAccess([MIDIOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestMIDIAccess', [options]));
 
-  Promise<MediaKeySystemAccess> requestMediaKeySystemAccess(String keySystem,
+  Future<MediaKeySystemAccess> requestMediaKeySystemAccess(String keySystem,
           Iterable<MediaKeySystemConfiguration> supportedConfigurations) =>
-      js_util.callMethod(this, 'requestMediaKeySystemAccess',
-          [keySystem, supportedConfigurations]);
+      js_util.promiseToFuture(js_util.callMethod(this,
+          'requestMediaKeySystemAccess', [keySystem, supportedConfigurations]));
 }
 
 @JS()
@@ -11598,12 +11611,12 @@ enum ResizeQuality { pixelated, low, medium, high }
 class ImageBitmapOptions {
   external factory ImageBitmapOptions(
       {ImageOrientation imageOrientation = ImageOrientation.none,
-      PremultiplyAlpha premultiplyAlpha = PremultiplyAlpha.valueDefault,
-      ColorSpaceConversion colorSpaceConversion =
+      PremultiplyAlpha? premultiplyAlpha = PremultiplyAlpha.valueDefault,
+      ColorSpaceConversion? colorSpaceConversion =
           ColorSpaceConversion.valueDefault,
-      int resizeWidth,
-      int resizeHeight,
-      ResizeQuality resizeQuality = ResizeQuality.low});
+      int? resizeWidth,
+      int? resizeHeight,
+      ResizeQuality? resizeQuality = ResizeQuality.low});
 }
 
 extension PropsImageBitmapOptions on ImageBitmapOptions {
@@ -11648,8 +11661,8 @@ class AnimationFrameProvider {
 }
 
 extension PropsAnimationFrameProvider on AnimationFrameProvider {
-  int requestAnimationFrame(FrameRequestCallback callback) =>
-      js_util.callMethod(this, 'requestAnimationFrame', [callback]);
+  int requestAnimationFrame(FrameRequestCallback callback) => js_util
+      .callMethod(this, 'requestAnimationFrame', [allowInterop(callback)]);
 
   Object cancelAnimationFrame(int handle) =>
       js_util.callMethod(this, 'cancelAnimationFrame', [handle]);
@@ -11751,9 +11764,9 @@ class MessageEventInit implements EventInit {
   external factory MessageEventInit(
       {dynamic data,
       String origin = '',
-      String lastEventId = '',
+      String? lastEventId = '',
       dynamic source,
-      Iterable<MessagePort> ports = const []});
+      Iterable<MessagePort>? ports = const []});
 }
 
 extension PropsMessageEventInit on MessageEventInit {
@@ -11990,7 +12003,7 @@ extension PropsCloseEvent on CloseEvent {
 @staticInterop
 class CloseEventInit implements EventInit {
   external factory CloseEventInit(
-      {bool wasClean = false, int code = 0, String reason = ''});
+      {bool wasClean = false, int? code = 0, String? reason = ''});
 }
 
 extension PropsCloseEventInit on CloseEventInit {
@@ -12492,8 +12505,8 @@ extension PropsWorker on Worker {
 class WorkerOptions {
   external factory WorkerOptions(
       {WorkerType type = WorkerType.classic,
-      RequestCredentials credentials = RequestCredentials.sameOrigin,
-      String name = ''});
+      RequestCredentials? credentials = RequestCredentials.sameOrigin,
+      String? name = ''});
 }
 
 extension PropsWorkerOptions on WorkerOptions {
@@ -12664,8 +12677,9 @@ extension PropsWorklet on Worklet {
   /// addPromise = worklet.addModule(moduleURL, options);
   ///
   @experimental
-  Promise<Object> addModule(String moduleURL, [WorkletOptions? options]) =>
-      js_util.callMethod(this, 'addModule', [moduleURL, options]);
+  Future<Object> addModule(String moduleURL, [WorkletOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'addModule', [moduleURL, options]));
 }
 
 @anonymous

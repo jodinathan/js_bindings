@@ -44,8 +44,8 @@ class ShareTarget {
   external factory ShareTarget(
       {String action,
       String method = 'GET',
-      String enctype = 'application/x-www-form-urlencoded',
-      ShareTargetParams params});
+      String? enctype = 'application/x-www-form-urlencoded',
+      ShareTargetParams? params});
 }
 
 extension PropsShareTarget on ShareTarget {

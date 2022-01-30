@@ -44,12 +44,13 @@ class WebAssembly {
 extension PropsWebAssembly on WebAssembly {
   bool validate(dynamic bytes) => js_util.callMethod(this, 'validate', [bytes]);
 
-  Promise<Module> compile(dynamic bytes) =>
-      js_util.callMethod(this, 'compile', [bytes]);
+  Future<Module> compile(dynamic bytes) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'compile', [bytes]));
 
-  Promise<WebAssemblyInstantiatedSource> instantiate(dynamic bytes,
+  Future<WebAssemblyInstantiatedSource> instantiate(dynamic bytes,
           [dynamic importObject]) =>
-      js_util.callMethod(this, 'instantiate', [bytes, importObject]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'instantiate', [bytes, importObject]));
 }
 
 enum ImportExportKind { function, table, memory, global }
@@ -105,10 +106,15 @@ class Module {
 }
 
 extension PropsModule on Module {
-  external static Iterable<ModuleExportDescriptor> exports(Module moduleObject);
-  external static Iterable<ModuleImportDescriptor> imports(Module moduleObject);
-  external static Iterable<ByteBuffer> customSections(
-      Module moduleObject, String sectionName);
+  static Iterable<ModuleExportDescriptor> exports(Module moduleObject) =>
+      js_util.callMethod(Module, 'exports', [moduleObject]);
+
+  static Iterable<ModuleImportDescriptor> imports(Module moduleObject) =>
+      js_util.callMethod(Module, 'imports', [moduleObject]);
+
+  static Iterable<ByteBuffer> customSections(
+          Module moduleObject, String sectionName) =>
+      js_util.callMethod(Module, 'customSections', [moduleObject, sectionName]);
 }
 
 @JS()

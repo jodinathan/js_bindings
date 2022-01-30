@@ -29,8 +29,9 @@ extension PropsRemotePlayback on RemotePlayback {
   ///
   /// RemotePlayback.watchAvailability(RemotePlaybackAvailabilityCallback);
   ///
-  Promise<int> watchAvailability(RemotePlaybackAvailabilityCallback callback) =>
-      js_util.callMethod(this, 'watchAvailability', [callback]);
+  Future<int> watchAvailability(RemotePlaybackAvailabilityCallback callback) =>
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'watchAvailability', [allowInterop(callback)]));
 
   ///  Cancels the request to monitor the availability of remote
   /// playback devices.
@@ -38,8 +39,8 @@ extension PropsRemotePlayback on RemotePlayback {
   /// RemotePlayback.cancelWatchAvailability();
   /// RemotePlayback.cancelWatchAvailability(id);
   ///
-  Promise<Object> cancelWatchAvailability([int? id]) =>
-      js_util.callMethod(this, 'cancelWatchAvailability', [id]);
+  Future<Object> cancelWatchAvailability([int? id]) => js_util.promiseToFuture(
+      js_util.callMethod(this, 'cancelWatchAvailability', [id]));
 
   /// Represents the [RemotePlayback] connection's state. One of:
   ///
@@ -83,7 +84,8 @@ extension PropsRemotePlayback on RemotePlayback {
   ///
   /// RemotePlayback.prompt();
   ///
-  Promise<Object> prompt() => js_util.callMethod(this, 'prompt', []);
+  Future<Object> prompt() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'prompt', []));
 }
 
 enum RemotePlaybackState { connecting, connected, disconnected }

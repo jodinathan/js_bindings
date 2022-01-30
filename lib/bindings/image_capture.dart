@@ -58,8 +58,8 @@ extension PropsImageCapture on ImageCapture {
   ///  });
   /// }
   ///
-  Promise<Blob> takePhoto([PhotoSettings? photoSettings]) =>
-      js_util.callMethod(this, 'takePhoto', [photoSettings]);
+  Future<Blob> takePhoto([PhotoSettings? photoSettings]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'takePhoto', [photoSettings]));
 
   ///  Returns a [Promise] that resolves with a [PhotoCapabilities]
   /// object containing the ranges of available configuration options.
@@ -100,8 +100,8 @@ extension PropsImageCapture on ImageCapture {
   /// })
   /// .catch(error => console.log('Argh!', error.name || error));
   ///
-  Promise<PhotoCapabilities> getPhotoCapabilities() =>
-      js_util.callMethod(this, 'getPhotoCapabilities', []);
+  Future<PhotoCapabilities> getPhotoCapabilities() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'getPhotoCapabilities', []));
 
   ///  Returns a [Promise] that resolves with a [PhotoSettings] object
   /// containing the current photo configuration settings.
@@ -142,8 +142,8 @@ extension PropsImageCapture on ImageCapture {
   /// })
   /// .catch(error => console.log('Argh!', error.name || error));
   ///
-  Promise<PhotoSettings> getPhotoSettings() =>
-      js_util.callMethod(this, 'getPhotoSettings', []);
+  Future<PhotoSettings> getPhotoSettings() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getPhotoSettings', []));
 
   ///  Takes a snapshot of the live video in a [MediaStreamTrack],
   /// returning an [ImageBitmap], if successful.
@@ -176,7 +176,8 @@ extension PropsImageCapture on ImageCapture {
   ///  });
   /// }
   ///
-  Promise<ImageBitmap> grabFrame() => js_util.callMethod(this, 'grabFrame', []);
+  Future<ImageBitmap> grabFrame() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'grabFrame', []));
 
   ///  Returns a reference to the [MediaStreamTrack] passed to the
   /// constructor.
@@ -307,7 +308,7 @@ enum MeteringMode { none, manual, singleShot, continuous }
 @JS()
 @staticInterop
 class Point2D {
-  external factory Point2D({double x = 0.0, double y = 0.0});
+  external factory Point2D({double x = 0.0, double? y = 0.0});
 }
 
 extension PropsPoint2D on Point2D {

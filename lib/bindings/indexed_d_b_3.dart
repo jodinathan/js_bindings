@@ -1156,7 +1156,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
 @staticInterop
 class IDBIndexParameters {
   external factory IDBIndexParameters(
-      {bool unique = false, bool multiEntry = false});
+      {bool unique = false, bool? multiEntry = false});
 }
 
 extension PropsIDBIndexParameters on IDBIndexParameters {
@@ -1629,11 +1629,20 @@ extension PropsIDBKeyRange on IDBKeyRange {
   /// range.
   ///
   bool get upperOpen => js_util.getProperty(this, 'upperOpen');
-  external static IDBKeyRange only(dynamic value);
-  external static IDBKeyRange lowerBound(dynamic lower, [bool? open = false]);
-  external static IDBKeyRange upperBound(dynamic upper, [bool? open = false]);
-  external static IDBKeyRange bound(dynamic lower, dynamic upper,
-      [bool? lowerOpen = false, bool? upperOpen = false]);
+  static IDBKeyRange only(dynamic value) =>
+      js_util.callMethod(IDBKeyRange, 'only', [value]);
+
+  static IDBKeyRange lowerBound(dynamic lower, [bool? open = false]) =>
+      js_util.callMethod(IDBKeyRange, 'lowerBound', [lower, open]);
+
+  static IDBKeyRange upperBound(dynamic upper, [bool? open = false]) =>
+      js_util.callMethod(IDBKeyRange, 'upperBound', [upper, open]);
+
+  static IDBKeyRange bound(dynamic lower, dynamic upper,
+          [bool? lowerOpen = false, bool? upperOpen = false]) =>
+      js_util.callMethod(
+          IDBKeyRange, 'bound', [lower, upper, lowerOpen, upperOpen]);
+
   bool includes(dynamic key) => js_util.callMethod(this, 'includes', [key]);
 }
 

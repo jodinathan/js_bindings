@@ -14,9 +14,9 @@
   - `cloneMDN`: will download the whole MDN website compressed from MDN github and unzip locally at `tool/crawler/mdn`. 
   - `cloneIDLs`: will recursively check the w3c repo for IDL files and download them at `tool/webIDL/`. 
   - `mergeIDLs`: will open, read and merge the IDLs files downloaded into one at `tool/webIDL/merged`.
-  - `startMdn`: will `cd` into the MDN dir and start their server through `yarn install` and `yarn start`
+  - `startMdn`: will `cd` into the MDN dir and start their web server through `yarn install` and `yarn start`
   - `parseMDN`: will fetch the index page of the MDN web site and then crawl all objects they expose while saving into the json at `tool/webIDL/mdn.json`
-  - `addInfo`: will read both the `mdn.json` and the merged IDL dir and then generate the dir `tool/webIDL/info` which is basically a parsed IDL with MDN info
+  - `addInfo`: will read both the `mdn.json` and the merged IDL dir and then generate the dir `tool/webIDL/info` which is basically a parsed IDL with MDN info attached in the objects
 
 ### Generating the dart files
  The `main` function basically reads the contents of the last dir generated (`tool/webIDL/info`) in the first step and generates all bindings into the `lib/bindings` folder

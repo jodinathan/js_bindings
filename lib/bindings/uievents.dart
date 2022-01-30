@@ -277,11 +277,11 @@ extension PropsMouseEvent on MouseEvent {
 class MouseEventInit implements EventModifierInit {
   external factory MouseEventInit(
       {int screenX = 0,
-      int screenY = 0,
-      int clientX = 0,
-      int clientY = 0,
-      int button = 0,
-      int buttons = 0,
+      int? screenY = 0,
+      int? clientX = 0,
+      int? clientY = 0,
+      int? button = 0,
+      int? buttons = 0,
       EventTarget? relatedTarget});
 }
 
@@ -328,19 +328,19 @@ extension PropsMouseEventInit on MouseEventInit {
 class EventModifierInit implements UIEventInit {
   external factory EventModifierInit(
       {bool ctrlKey = false,
-      bool shiftKey = false,
-      bool altKey = false,
-      bool metaKey = false,
-      bool modifierAltGraph = false,
-      bool modifierCapsLock = false,
-      bool modifierFn = false,
-      bool modifierFnLock = false,
-      bool modifierHyper = false,
-      bool modifierNumLock = false,
-      bool modifierScrollLock = false,
-      bool modifierSuper = false,
-      bool modifierSymbol = false,
-      bool modifierSymbolLock = false});
+      bool? shiftKey = false,
+      bool? altKey = false,
+      bool? metaKey = false,
+      bool? modifierAltGraph = false,
+      bool? modifierCapsLock = false,
+      bool? modifierFn = false,
+      bool? modifierFnLock = false,
+      bool? modifierHyper = false,
+      bool? modifierNumLock = false,
+      bool? modifierScrollLock = false,
+      bool? modifierSuper = false,
+      bool? modifierSymbol = false,
+      bool? modifierSymbolLock = false});
 }
 
 extension PropsEventModifierInit on EventModifierInit {
@@ -523,9 +523,9 @@ extension PropsWheelEvent on WheelEvent {
 class WheelEventInit implements MouseEventInit {
   external factory WheelEventInit(
       {double deltaX = 0.0,
-      double deltaY = 0.0,
-      double deltaZ = 0.0,
-      int deltaMode = 0});
+      double? deltaY = 0.0,
+      double? deltaZ = 0.0,
+      int? deltaMode = 0});
 }
 
 extension PropsWheelEventInit on WheelEventInit {
@@ -603,7 +603,7 @@ extension PropsInputEvent on InputEvent {
 @staticInterop
 class InputEventInit implements UIEventInit {
   external factory InputEventInit(
-      {String? data, bool isComposing = false, String inputType = ''});
+      {String? data, bool isComposing = false, String? inputType = ''});
 }
 
 extension PropsInputEventInit on InputEventInit {
@@ -835,10 +835,10 @@ extension PropsKeyboardEvent on KeyboardEvent {
 class KeyboardEventInit implements EventModifierInit {
   external factory KeyboardEventInit(
       {String key = '',
-      String code = '',
-      int location = 0,
-      bool repeat = false,
-      bool isComposing = false});
+      String? code = '',
+      int? location = 0,
+      bool? repeat = false,
+      bool? isComposing = false});
 }
 
 extension PropsKeyboardEventInit on KeyboardEventInit {

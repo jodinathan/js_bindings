@@ -86,16 +86,16 @@ extension PropsCredentialsContainer on CredentialsContainer {
   ///
   @JS('get')
   @staticInterop
-  Promise<Credential> mGet([CredentialRequestOptions? options]) =>
-      js_util.callMethod(this, 'get', [options]);
+  Future<Credential> mGet([CredentialRequestOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'get', [options]));
 
   ///  Stores a set of credentials for a user, inside a provided
   /// [Credential] instance and returns that instance in a [Promise].
   ///
   /// CredentialsContainer.store(Credential).then(function(Credential) { /* ... */ } )
   ///
-  Promise<Credential> store(Credential credential) =>
-      js_util.callMethod(this, 'store', [credential]);
+  Future<Credential> store(Credential credential) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'store', [credential]));
 
   ///  Returns a [Promise] that resolves with a new [Credential]
   /// instance based on the provided options, or [null] if no
@@ -104,8 +104,8 @@ extension PropsCredentialsContainer on CredentialsContainer {
   ///
   /// var promise = CredentialsContainer.create([options])
   ///
-  Promise<Credential> create([CredentialCreationOptions? options]) =>
-      js_util.callMethod(this, 'create', [options]);
+  Future<Credential> create([CredentialCreationOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'create', [options]));
 
   ///  Sets a flag that specifies whether automatic log in is allowed
   /// for future visits to the current origin, then returns an empty
@@ -117,8 +117,8 @@ extension PropsCredentialsContainer on CredentialsContainer {
   ///
   /// var Promise = CredentialsContainer.preventSilentAccess()
   ///
-  Promise<Object> preventSilentAccess() =>
-      js_util.callMethod(this, 'preventSilentAccess', []);
+  Future<Object> preventSilentAccess() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'preventSilentAccess', []));
 }
 
 @anonymous
@@ -142,7 +142,7 @@ class CredentialRequestOptions {
   external factory CredentialRequestOptions(
       {CredentialMediationRequirement mediation =
           CredentialMediationRequirement.optional,
-      AbortSignal signal});
+      AbortSignal? signal});
 }
 
 extension PropsCredentialRequestOptions on CredentialRequestOptions {

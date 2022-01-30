@@ -133,8 +133,11 @@ extension PropsURL on URL {
   ///
   String toJSON() => js_util.callMethod(this, 'toJSON', []);
 
-  external static String createObjectURL(dynamic obj);
-  external static Object revokeObjectURL(String url);
+  static String createObjectURL(dynamic obj) =>
+      js_util.callMethod(URL, 'createObjectURL', [obj]);
+
+  static Object revokeObjectURL(String url) =>
+      js_util.callMethod(URL, 'revokeObjectURL', [url]);
 }
 
 ///  The interface defines utility methods to work with the query

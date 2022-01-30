@@ -92,8 +92,12 @@ typedef IntersectionObserverCallback = Function(
 
 typedef LockGrantedCallback = Function(Lock? lock);
 
+typedef EventListener = Function(Event event);
+
 typedef MutationCallback = Function(
     Iterable<MutationRecord> mutations, MutationObserver observer);
+
+typedef XPathNSResolver = Function(String? prefix);
 
 typedef ReportingObserverCallback = Function(
     Iterable<Report> reports, ReportingObserver observer);
@@ -128,7 +132,7 @@ typedef EffectCallback = Function(
 
 typedef BlobCallback = Function(Blob? blob);
 
-typedef CustomElementConstructor = dynamic;
+typedef CustomElementConstructor = Function();
 
 typedef FunctionStringCallback = Function(String data);
 

@@ -90,9 +90,9 @@ extension PropsSVGElement on SVGElement {
 class SVGBoundingBoxOptions {
   external factory SVGBoundingBoxOptions(
       {bool fill = true,
-      bool stroke = false,
-      bool markers = false,
-      bool clipped = false});
+      bool? stroke = false,
+      bool? markers = false,
+      bool? clipped = false});
 }
 
 extension PropsSVGBoundingBoxOptions on SVGBoundingBoxOptions {

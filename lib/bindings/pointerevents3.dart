@@ -22,19 +22,19 @@ html */
 class PointerEventInit implements MouseEventInit {
   external factory PointerEventInit(
       {int pointerId = 0,
-      double width = 1,
-      double height = 1,
-      double pressure = 0,
-      double tangentialPressure = 0,
-      int tiltX,
-      int tiltY,
-      int twist = 0,
-      double altitudeAngle,
-      double azimuthAngle,
-      String pointerType = '',
-      bool isPrimary = false,
-      Iterable<PointerEvent> coalescedEvents = const [],
-      Iterable<PointerEvent> predictedEvents = const []});
+      double? width = 1,
+      double? height = 1,
+      double? pressure = 0,
+      double? tangentialPressure = 0,
+      int? tiltX,
+      int? tiltY,
+      int? twist = 0,
+      double? altitudeAngle,
+      double? azimuthAngle,
+      String? pointerType = '',
+      bool? isPrimary = false,
+      Iterable<PointerEvent>? coalescedEvents = const [],
+      Iterable<PointerEvent>? predictedEvents = const []});
 }
 
 extension PropsPointerEventInit on PointerEventInit {

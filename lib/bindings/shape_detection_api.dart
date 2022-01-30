@@ -102,7 +102,8 @@ extension PropsBarcodeDetector on BarcodeDetector {
   ///
   /// var supportedFormats = BarcodeDetector.getSupportedFormats();
   ///
-  external static Iterable<Promise<BarcodeFormat>> getSupportedFormats();
+  static Iterable<Promise<BarcodeFormat>> getSupportedFormats() =>
+      js_util.callMethod(BarcodeDetector, 'getSupportedFormats', []);
 
   ///  Returns a [Promise] which fulfills with an array of
   /// [detectedBarcode] objects with the following properties:

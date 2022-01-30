@@ -53,17 +53,21 @@ Future<void> main() async {
       doneTypedefs.add(name);
 
       final obj = objs[name];
+      final types = obj['type'].toString().split(' ');
+      final args = obj['arguments'] ??
+          obj['members']?[0]?['arguments'];
 
-      if (obj['type'] == 'callback') {
+      if (types.contains('callback') && args != null) {
         var fn = name;
-        final params = spec.makeParams(obj['arguments'] as Iterable);
+        final method = spec.makeMethod(args);
+        final params = method.build();
 
         if (forbidden.contains(fn)) {
           cbacks.add('@JS(\'$fn\')\n@staticInterop');
           fn = 'Fn$fn';
         }
 
-        cbacks.add('typedef $fn = Function(${params.join(', ')});\n');
+        cbacks.add('typedef $fn = Function($params);\n');
       }
     }
   }
@@ -101,7 +105,7 @@ Future<void> main() async {
       for (final name in objs.keys) {
         final item = objs[name] as Map<String, dynamic>;
         final members = item['members'] as Iterable?;
-        final type = item['type'];
+        final type = name == 'EventListener' ? 'callback' : item['type'];
         final properties = <String>[];
 
         lines = mainLines;
@@ -161,13 +165,6 @@ Future<void> main() async {
             var parentHasCtorWithParams = false;
             final dictionary = type == 'dictionary';
             final factory = dictionary ? 'factory ' : '';
-
-            Iterable<String> makeParams(Map<String, dynamic> member) {
-              return member['arguments'] == null
-                  ? <String>[]
-                  : spec.makeParams(member['arguments'] as Iterable,
-                  optionals: type != 'dictionary');
-            }
 
             Map<String, dynamic> findByType(String typeName) {
               final ret = spec.objects.values
@@ -334,7 +331,7 @@ Future<void> main() async {
                       return members?.any((member) =>
                               member['name'] == mName &&
                               dartType !=
-                                  spec.getDartType(member['idlType'])) ==
+                                  spec.getDartType(member['idlType']).fullName) ==
                           true;
                     });
 
@@ -345,23 +342,23 @@ Future<void> main() async {
                   case 'field':
                     var dartType = spec.getDartType(idlType);
                     final subs = item['subs'] as Iterable;
-                    var cov = getCov(subs, dartType);
+                    var cov = getCov(subs, dartType.fullName);
 
                     /// TODO: Check if types has any parent in common to use
                     /// instead of dynamic
                     if (cov != null) {
                       print(
                           'Forcing dynamic because of bad attribute inheritance: $mName = $dartType. Sub: $cov');
-                      dartType = 'dynamic';
+                      dartType = Spec.dynamicType;
                     }
 
-                    if (static) {
-                      lines.add('external static $dartType get $mName;');
-                    } else {
-                      lines.add(
-                          '''$dartType get $mName => 
-                        js_util.getProperty(this, '$origMName');''');
-                    }
+                    final jget = "js_util.getProperty(${static ?
+                    name : 'this'}, '$origMName')";
+
+                    lines.add(
+                        '''$dartType get $mName => ${dartType.isPromise ?
+                        'js_util.promiseToFuture($jget)' : jget}
+                      ;''');
 
                     if (member['readonly'] != true) {
                       if (overrides) {
@@ -369,7 +366,7 @@ Future<void> main() async {
                       }
 
                       if (static) {
-                        lines.add('external static set $mName($dartType newValue);');
+                        lines.add('external static set $mName(${dartType.fullName} newValue);');
                       } else {
                         lines.add(
                             '''set $mName($dartType newValue) {
@@ -407,8 +404,9 @@ Future<void> main() async {
                   case 'constructor':
                     final isc = mType == 'constructor';
                     String fn;
-                    final lparams = makeParams(member);
-                    final params = lparams.join(', ');
+                    final method = spec.makeMethod(member['arguments'] == null
+                        ? [] : member['arguments'] as Iterable);
+                    final params = method.build(optionals: type != 'dictionary');
 
                     if (isc) {
                       if (params.isNotEmpty) {
@@ -426,18 +424,18 @@ Future<void> main() async {
                         }
                       }
                     } else {
-                      String dartType;
+                      DartType dartType;
                       lines = properties;
 
                       if (mName == null || mName.isEmpty) {
                         if (member['special'] == 'stringifier') {
                           origMName = 'toString';
                           mName = 'mToString';
-                          dartType = 'String';
+                          dartType = Spec.nnStringType;
                         } else if (['jsonifier', 'serializer']
                             .contains(member['special'])) {
                           origMName = mName = 'toJSON';
-                          dartType = 'dynamic';
+                          dartType = Spec.nnStringType;
                         } else {
                           if (['getter', 'setter', 'deleter']
                               .contains(member['special'])) {
@@ -452,12 +450,12 @@ Future<void> main() async {
                         dartType = spec.getDartType(idlType);
 
                         final subs = item['subs'] as Iterable;
-                        var cov = getCov(subs, dartType);
+                        var cov = getCov(subs, dartType.fullName);
 
                         if (cov != null) {
                           print(
                               'Forcing dynamic because of bad function inheritance: $mName = $dartType. Sub: $cov');
-                          dartType = 'dynamic';
+                          dartType = Spec.dynamicType;
                         }
 
                         if (forbidden.contains(mName)) {
@@ -466,28 +464,32 @@ Future<void> main() async {
                         }
                       }
 
-                      assert(dartType.isNotEmpty == true);
+                      assert(dartType.dartName.isNotEmpty == true);
 
                       fn = '${static ?
-                      'external static ' : ''}$dartType $mName';
+                      'static ' : ''}$dartType $mName';
 
-                      if (static) {
-                        lines.add('$fn($params);');
-                      } else {
-                        lines.add('''
-                      $fn($params) => js_util.callMethod(this, '$origMName',
-                      [${member['arguments'].map(
-                                (arg) {
-                              var name = arg['name'] as String;
+                      final jsCall = '''
+                      js_util.callMethod(${static ? name : 'this'}, 
+                      '$origMName',
+                    [
+                    ${method.params.map(
+                              (param) {
+                                final name = param.name;
 
-                              if (forbidden.contains(name)) {
-                                name = 'm${name.pascalCase}';
-                              }
+                            if (param.dartType.isCallback) {
+                              return '${param.isNullable ?
+                              '$name == null ? null : ' : ''}allowInterop($name)';
+                            }
 
-                              return name;
-                            }).join(', ')}]); 
-                      ''');
-                      }
+                            return name;
+                          }).join(', ')}
+                    ])
+                      ''';
+                      lines.add('''
+                    $fn($params) => ${dartType.isPromise ?
+                      'js_util.promiseToFuture($jsCall)' : jsCall}; 
+                    ''');
                     }
                     break;
                   default:

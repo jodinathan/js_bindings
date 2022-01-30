@@ -145,11 +145,13 @@ extension PropsAnimation on Animation {
 
   /// Returns the current ready Promise for this animation.
   ///
-  Promise<Animation> get ready => js_util.getProperty(this, 'ready');
+  Future<Animation> get ready =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
 
   /// Returns the current finished Promise for this animation.
   ///
-  Promise<Animation> get finished => js_util.getProperty(this, 'finished');
+  Future<Animation> get finished =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'finished'));
   EventHandlerNonNull? get onfinish => js_util.getProperty(this, 'onfinish');
   set onfinish(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onfinish', newValue);
@@ -368,13 +370,13 @@ extension PropsAnimationEffect on AnimationEffect {
 class EffectTiming {
   external factory EffectTiming(
       {double delay = 0,
-      double endDelay = 0,
-      FillMode fill = FillMode.auto,
-      double iterationStart = 0.0,
+      double? endDelay = 0,
+      FillMode? fill = FillMode.auto,
+      double? iterationStart = 0.0,
       /* double | NaN */ dynamic iterations = 1.0,
       dynamic duration,
-      PlaybackDirection direction = PlaybackDirection.normal,
-      String easing = 'linear'});
+      PlaybackDirection? direction = PlaybackDirection.normal,
+      String? easing = 'linear'});
 }
 
 extension PropsEffectTiming on EffectTiming {
@@ -595,7 +597,7 @@ class BaseComputedKeyframe {
       {double? offset,
       double computedOffset,
       String easing = 'linear',
-      CompositeOperationOrAuto composite = CompositeOperationOrAuto.auto});
+      CompositeOperationOrAuto? composite = CompositeOperationOrAuto.auto});
 }
 
 extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
@@ -655,7 +657,7 @@ class BaseKeyframe {
   external factory BaseKeyframe(
       {double? offset,
       String easing = 'linear',
-      CompositeOperationOrAuto composite = CompositeOperationOrAuto.auto});
+      CompositeOperationOrAuto? composite = CompositeOperationOrAuto.auto});
 }
 
 extension PropsBaseKeyframe on BaseKeyframe {

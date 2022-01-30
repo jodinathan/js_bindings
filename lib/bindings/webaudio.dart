@@ -1030,11 +1030,14 @@ extension PropsBaseAudioContext on BaseAudioContext {
   ///  In this section we will first cover the older callback-based system and then the newer
   ///  promise-based syntax.
   ///
-  Promise<AudioBuffer> decodeAudioData(ByteBuffer audioData,
+  Future<AudioBuffer> decodeAudioData(ByteBuffer audioData,
           [DecodeSuccessCallback? successCallback,
           DecodeErrorCallback? errorCallback]) =>
-      js_util.callMethod(
-          this, 'decodeAudioData', [audioData, successCallback, errorCallback]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'decodeAudioData', [
+        audioData,
+        successCallback == null ? null : allowInterop(successCallback),
+        errorCallback == null ? null : allowInterop(errorCallback)
+      ]));
 }
 
 enum AudioContextLatencyCategory { balanced, interactive, playback }
@@ -1121,7 +1124,8 @@ extension PropsAudioContext on AudioContext {
   ///  }
   /// }
   ///
-  Promise<Object> resume() => js_util.callMethod(this, 'resume', []);
+  Future<Object> resume() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'resume', []));
 
   ///  Suspends the progression of time in the audio context,
   /// temporarily halting audio hardware access and reducing
@@ -1143,7 +1147,8 @@ extension PropsAudioContext on AudioContext {
   ///  }
   /// }
   ///
-  Promise<Object> suspend() => js_util.callMethod(this, 'suspend', []);
+  Future<Object> suspend() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'suspend', []));
 
   ///  Closes the audio context, releasing any system audio resources
   /// that it uses.
@@ -1161,7 +1166,8 @@ extension PropsAudioContext on AudioContext {
   ///  });
   /// }
   ///
-  Promise<Object> close() => js_util.callMethod(this, 'close', []);
+  Future<Object> close() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
   ///  Creates a [MediaElementAudioSourceNode] associated with an
   /// [HTMLMediaElement]. This can be used to play and manipulate audio
@@ -1511,18 +1517,19 @@ extension PropsOfflineAudioContext on OfflineAudioContext {
   ///
   /// getData();
   ///
-  Promise<AudioBuffer> startRendering() =>
-      js_util.callMethod(this, 'startRendering', []);
+  Future<AudioBuffer> startRendering() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'startRendering', []));
 
-  Promise<Object> resume() => js_util.callMethod(this, 'resume', []);
+  Future<Object> resume() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'resume', []));
 
   ///  Schedules a suspension of the time progression in the audio
   /// context at the specified time and returns a promise.
   ///
   /// OfflineAudioContext.suspend(suspendTime).then(function() { /* ... */ });
   ///
-  Promise<Object> suspend(double suspendTime) =>
-      js_util.callMethod(this, 'suspend', [suspendTime]);
+  Future<Object> suspend(double suspendTime) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'suspend', [suspendTime]));
 
   /// An integer representing the size of the buffer in sample-frames.
   ///
@@ -1539,7 +1546,7 @@ extension PropsOfflineAudioContext on OfflineAudioContext {
 @staticInterop
 class OfflineAudioContextOptions {
   external factory OfflineAudioContextOptions(
-      {int numberOfChannels = 1, int length, double sampleRate});
+      {int numberOfChannels = 1, int? length, double? sampleRate});
 }
 
 extension PropsOfflineAudioContextOptions on OfflineAudioContextOptions {
@@ -1731,7 +1738,7 @@ extension PropsAudioBuffer on AudioBuffer {
 @staticInterop
 class AudioBufferOptions {
   external factory AudioBufferOptions(
-      {int numberOfChannels = 1, int length, double sampleRate});
+      {int numberOfChannels = 1, int? length, double? sampleRate});
 }
 
 extension PropsAudioBufferOptions on AudioBufferOptions {
@@ -2419,9 +2426,9 @@ extension PropsAnalyserNode on AnalyserNode {
 class AnalyserOptions implements AudioNodeOptions {
   external factory AnalyserOptions(
       {int fftSize = 2048,
-      double maxDecibels = -30,
-      double minDecibels = -100,
-      double smoothingTimeConstant = 0.8});
+      double? maxDecibels = -30,
+      double? minDecibels = -100,
+      double? smoothingTimeConstant = 0.8});
 }
 
 extension PropsAnalyserOptions on AnalyserOptions {
@@ -2595,10 +2602,10 @@ class AudioBufferSourceOptions {
   external factory AudioBufferSourceOptions(
       {AudioBuffer? buffer,
       double detune = 0,
-      bool loop = false,
-      double loopEnd = 0,
-      double loopStart = 0,
-      double playbackRate = 1});
+      bool? loop = false,
+      double? loopEnd = 0,
+      double? loopStart = 0,
+      double? playbackRate = 1});
 }
 
 extension PropsAudioBufferSourceOptions on AudioBufferSourceOptions {
@@ -3137,10 +3144,10 @@ extension PropsBiquadFilterNode on BiquadFilterNode {
 class BiquadFilterOptions implements AudioNodeOptions {
   external factory BiquadFilterOptions(
       {BiquadFilterType type = BiquadFilterType.lowpass,
-      double Q = 1,
-      double detune = 0,
-      double frequency = 350,
-      double gain = 0});
+      double? Q = 1,
+      double? detune = 0,
+      double? frequency = 350,
+      double? gain = 0});
 }
 
 extension PropsBiquadFilterOptions on BiquadFilterOptions {
@@ -3480,7 +3487,7 @@ extension PropsDelayNode on DelayNode {
 @staticInterop
 class DelayOptions implements AudioNodeOptions {
   external factory DelayOptions(
-      {double maxDelayTime = 1, double delayTime = 0});
+      {double maxDelayTime = 1, double? delayTime = 0});
 }
 
 extension PropsDelayOptions on DelayOptions {
@@ -3571,10 +3578,10 @@ extension PropsDynamicsCompressorNode on DynamicsCompressorNode {
 class DynamicsCompressorOptions implements AudioNodeOptions {
   external factory DynamicsCompressorOptions(
       {double attack = 0.003,
-      double knee = 30,
-      double ratio = 12,
-      double release = 0.25,
-      double threshold = -24});
+      double? knee = 30,
+      double? ratio = 12,
+      double? release = 0.25,
+      double? threshold = -24});
 }
 
 extension PropsDynamicsCompressorOptions on DynamicsCompressorOptions {
@@ -4099,9 +4106,9 @@ extension PropsOscillatorNode on OscillatorNode {
 class OscillatorOptions implements AudioNodeOptions {
   external factory OscillatorOptions(
       {OscillatorType type = OscillatorType.sine,
-      double frequency = 440,
-      double detune = 0,
-      PeriodicWave periodicWave});
+      double? frequency = 440,
+      double? detune = 0,
+      PeriodicWave? periodicWave});
 }
 
 extension PropsOscillatorOptions on OscillatorOptions {
@@ -4319,19 +4326,19 @@ extension PropsPannerNode on PannerNode {
 class PannerOptions implements AudioNodeOptions {
   external factory PannerOptions(
       {PanningModelType panningModel = PanningModelType.equalpower,
-      DistanceModelType distanceModel = DistanceModelType.inverse,
-      double positionX = 0,
-      double positionY = 0,
-      double positionZ = 0,
-      double orientationX = 1,
-      double orientationY = 0,
-      double orientationZ = 0,
-      double refDistance = 1,
-      double maxDistance = 10000,
-      double rolloffFactor = 1,
-      double coneInnerAngle = 360,
-      double coneOuterAngle = 360,
-      double coneOuterGain = 0});
+      DistanceModelType? distanceModel = DistanceModelType.inverse,
+      double? positionX = 0,
+      double? positionY = 0,
+      double? positionZ = 0,
+      double? orientationX = 1,
+      double? orientationY = 0,
+      double? orientationZ = 0,
+      double? refDistance = 1,
+      double? maxDistance = 10000,
+      double? rolloffFactor = 1,
+      double? coneInnerAngle = 360,
+      double? coneOuterAngle = 360,
+      double? coneOuterGain = 0});
 }
 
 extension PropsPannerOptions on PannerOptions {
@@ -4717,7 +4724,8 @@ extension PropsAudioWorkletGlobalScope on AudioWorkletGlobalScope {
   ///
   Object registerProcessor(
           String name, AudioWorkletProcessorConstructor processorCtor) =>
-      js_util.callMethod(this, 'registerProcessor', [name, processorCtor]);
+      js_util.callMethod(
+          this, 'registerProcessor', [name, allowInterop(processorCtor)]);
 
   ///  Returns an integer that represents the ever-increasing current
   /// sample-frame of the audio block being processed. It is
@@ -4799,8 +4807,8 @@ extension PropsAudioWorkletNode on AudioWorkletNode {
 class AudioWorkletNodeOptions implements AudioNodeOptions {
   external factory AudioWorkletNodeOptions(
       {int numberOfInputs = 1,
-      int numberOfOutputs = 1,
-      Iterable<int> outputChannelCount,
+      int? numberOfOutputs = 1,
+      Iterable<int>? outputChannelCount,
       dynamic parameterData,
       dynamic processorOptions});
 }
@@ -4867,9 +4875,9 @@ class AudioParamDescriptor {
   external factory AudioParamDescriptor(
       {String name,
       double defaultValue = 0,
-      double minValue = -3.4028235e38,
-      double maxValue = 3.4028235e38,
-      AutomationRate automationRate = AutomationRate.aRate});
+      double? minValue = -3.4028235e38,
+      double? maxValue = 3.4028235e38,
+      AutomationRate? automationRate = AutomationRate.aRate});
 }
 
 extension PropsAudioParamDescriptor on AudioParamDescriptor {

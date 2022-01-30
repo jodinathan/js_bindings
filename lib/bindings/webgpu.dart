@@ -109,8 +109,9 @@ class GPU {
 }
 
 extension PropsGPU on GPU {
-  Promise<GPUAdapter> requestAdapter([GPURequestAdapterOptions? options]) =>
-      js_util.callMethod(this, 'requestAdapter', [options]);
+  Future<GPUAdapter> requestAdapter([GPURequestAdapterOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestAdapter', [options]));
 }
 
 @anonymous
@@ -147,8 +148,8 @@ extension PropsGPUAdapter on GPUAdapter {
   GPUSupportedFeatures get features => js_util.getProperty(this, 'features');
   GPUSupportedLimits get limits => js_util.getProperty(this, 'limits');
   bool get isSoftware => js_util.getProperty(this, 'isSoftware');
-  Promise<GPUDevice> requestDevice([GPUDeviceDescriptor? descriptor]) =>
-      js_util.callMethod(this, 'requestDevice', [descriptor]);
+  Future<GPUDevice> requestDevice([GPUDeviceDescriptor? descriptor]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'requestDevice', [descriptor]));
 }
 
 @anonymous
@@ -230,13 +231,15 @@ extension PropsGPUDevice on GPUDevice {
           GPURenderPipelineDescriptor descriptor) =>
       js_util.callMethod(this, 'createRenderPipeline', [descriptor]);
 
-  Promise<GPUComputePipeline> createComputePipelineAsync(
+  Future<GPUComputePipeline> createComputePipelineAsync(
           GPUComputePipelineDescriptor descriptor) =>
-      js_util.callMethod(this, 'createComputePipelineAsync', [descriptor]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'createComputePipelineAsync', [descriptor]));
 
-  Promise<GPURenderPipeline> createRenderPipelineAsync(
+  Future<GPURenderPipeline> createRenderPipelineAsync(
           GPURenderPipelineDescriptor descriptor) =>
-      js_util.callMethod(this, 'createRenderPipelineAsync', [descriptor]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'createRenderPipelineAsync', [descriptor]));
 
   GPUCommandEncoder createCommandEncoder(
           [GPUCommandEncoderDescriptor? descriptor]) =>
@@ -249,12 +252,13 @@ extension PropsGPUDevice on GPUDevice {
   GPUQuerySet createQuerySet(GPUQuerySetDescriptor descriptor) =>
       js_util.callMethod(this, 'createQuerySet', [descriptor]);
 
-  Promise<GPUDeviceLostInfo> get lost => js_util.getProperty(this, 'lost');
+  Future<GPUDeviceLostInfo> get lost =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'lost'));
   Object pushErrorScope(GPUErrorFilter filter) =>
       js_util.callMethod(this, 'pushErrorScope', [filter]);
 
-  Promise<dynamic> popErrorScope() =>
-      js_util.callMethod(this, 'popErrorScope', []);
+  Future<dynamic> popErrorScope() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'popErrorScope', []));
 
   EventHandlerNonNull? get onuncapturederror =>
       js_util.getProperty(this, 'onuncapturederror');
@@ -270,8 +274,9 @@ class GPUBuffer implements GPUObjectBase {
 }
 
 extension PropsGPUBuffer on GPUBuffer {
-  Promise<Object> mapAsync(int mode, [int? offset = 0, int? size]) =>
-      js_util.callMethod(this, 'mapAsync', [mode, offset, size]);
+  Future<Object> mapAsync(int mode, [int? offset = 0, int? size]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'mapAsync', [mode, offset, size]));
 
   ByteBuffer getMappedRange([int? offset = 0, int? size]) =>
       js_util.callMethod(this, 'getMappedRange', [offset, size]);
@@ -350,10 +355,10 @@ class GPUTextureDescriptor implements GPUObjectDescriptorBase {
   external factory GPUTextureDescriptor(
       {dynamic size,
       int mipLevelCount = 1,
-      int sampleCount = 1,
-      GPUTextureDimension dimension = GPUTextureDimension.value2d,
-      GPUTextureFormat format,
-      int usage});
+      int? sampleCount = 1,
+      GPUTextureDimension? dimension = GPUTextureDimension.value2d,
+      GPUTextureFormat? format,
+      int? usage});
 }
 
 extension PropsGPUTextureDescriptor on GPUTextureDescriptor {
@@ -415,10 +420,10 @@ class GPUTextureViewDescriptor implements GPUObjectDescriptorBase {
       {GPUTextureFormat format,
       GPUTextureViewDimension dimension,
       GPUTextureAspect aspect = GPUTextureAspect.all,
-      int baseMipLevel = 0,
-      int mipLevelCount,
-      int baseArrayLayer = 0,
-      int arrayLayerCount});
+      int? baseMipLevel = 0,
+      int? mipLevelCount,
+      int? baseArrayLayer = 0,
+      int? arrayLayerCount});
 }
 
 extension PropsGPUTextureViewDescriptor on GPUTextureViewDescriptor {
@@ -570,15 +575,15 @@ class GPUSampler implements GPUObjectBase {
 class GPUSamplerDescriptor implements GPUObjectDescriptorBase {
   external factory GPUSamplerDescriptor(
       {GPUAddressMode addressModeU = GPUAddressMode.clampToEdge,
-      GPUAddressMode addressModeV = GPUAddressMode.clampToEdge,
-      GPUAddressMode addressModeW = GPUAddressMode.clampToEdge,
-      GPUFilterMode magFilter = GPUFilterMode.nearest,
-      GPUFilterMode minFilter = GPUFilterMode.nearest,
-      GPUFilterMode mipmapFilter = GPUFilterMode.nearest,
-      double lodMinClamp = 0,
-      double lodMaxClamp = 0xffffffff,
-      GPUCompareFunction compare,
-      int maxAnisotropy = 1});
+      GPUAddressMode? addressModeV = GPUAddressMode.clampToEdge,
+      GPUAddressMode? addressModeW = GPUAddressMode.clampToEdge,
+      GPUFilterMode? magFilter = GPUFilterMode.nearest,
+      GPUFilterMode? minFilter = GPUFilterMode.nearest,
+      GPUFilterMode? mipmapFilter = GPUFilterMode.nearest,
+      double? lodMinClamp = 0,
+      double? lodMaxClamp = 0xffffffff,
+      GPUCompareFunction? compare,
+      int? maxAnisotropy = 1});
 }
 
 extension PropsGPUSamplerDescriptor on GPUSamplerDescriptor {
@@ -740,8 +745,8 @@ enum GPUBufferBindingType { uniform, storage, readOnlyStorage }
 class GPUBufferBindingLayout {
   external factory GPUBufferBindingLayout(
       {GPUBufferBindingType type = GPUBufferBindingType.uniform,
-      bool hasDynamicOffset = false,
-      int minBindingSize = 0});
+      bool? hasDynamicOffset = false,
+      int? minBindingSize = 0});
 }
 
 extension PropsGPUBufferBindingLayout on GPUBufferBindingLayout {
@@ -786,8 +791,8 @@ enum GPUTextureSampleType { float, unfilterableFloat, depth, sint, uint }
 class GPUTextureBindingLayout {
   external factory GPUTextureBindingLayout(
       {GPUTextureSampleType sampleType = GPUTextureSampleType.float,
-      GPUTextureViewDimension viewDimension = GPUTextureViewDimension.value2d,
-      bool multisampled = false});
+      GPUTextureViewDimension? viewDimension = GPUTextureViewDimension.value2d,
+      bool? multisampled = false});
 }
 
 extension PropsGPUTextureBindingLayout on GPUTextureBindingLayout {
@@ -898,7 +903,7 @@ extension PropsGPUBindGroupEntry on GPUBindGroupEntry {
 @staticInterop
 class GPUBufferBinding {
   external factory GPUBufferBinding(
-      {GPUBuffer buffer, int offset = 0, int size});
+      {GPUBuffer buffer, int offset = 0, int? size});
 }
 
 extension PropsGPUBufferBinding on GPUBufferBinding {
@@ -947,8 +952,8 @@ class GPUShaderModule implements GPUObjectBase {
 }
 
 extension PropsGPUShaderModule on GPUShaderModule {
-  Promise<GPUCompilationInfo> compilationInfo() =>
-      js_util.callMethod(this, 'compilationInfo', []);
+  Future<GPUCompilationInfo> compilationInfo() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'compilationInfo', []));
 }
 
 @anonymous
@@ -1129,10 +1134,10 @@ enum GPUPrimitiveTopology {
 class GPUPrimitiveState {
   external factory GPUPrimitiveState(
       {GPUPrimitiveTopology topology = GPUPrimitiveTopology.triangleList,
-      GPUIndexFormat stripIndexFormat,
-      GPUFrontFace frontFace = GPUFrontFace.ccw,
-      GPUCullMode cullMode = GPUCullMode.none,
-      bool clampDepth = false});
+      GPUIndexFormat? stripIndexFormat,
+      GPUFrontFace? frontFace = GPUFrontFace.ccw,
+      GPUCullMode? cullMode = GPUCullMode.none,
+      bool? clampDepth = false});
 }
 
 extension PropsGPUPrimitiveState on GPUPrimitiveState {
@@ -1173,8 +1178,8 @@ enum GPUCullMode { none, front, back }
 class GPUMultisampleState {
   external factory GPUMultisampleState(
       {int count = 1,
-      int mask = 0xFFFFFFFF,
-      bool alphaToCoverageEnabled = false});
+      int? mask = 0xFFFFFFFF,
+      bool? alphaToCoverageEnabled = false});
 }
 
 extension PropsGPUMultisampleState on GPUMultisampleState {
@@ -1272,8 +1277,8 @@ class GPUColorWrite {
 class GPUBlendComponent {
   external factory GPUBlendComponent(
       {GPUBlendFactor srcFactor = GPUBlendFactor.one,
-      GPUBlendFactor dstFactor = GPUBlendFactor.zero,
-      GPUBlendOperation operation = GPUBlendOperation.add});
+      GPUBlendFactor? dstFactor = GPUBlendFactor.zero,
+      GPUBlendOperation? operation = GPUBlendOperation.add});
 }
 
 extension PropsGPUBlendComponent on GPUBlendComponent {
@@ -1318,14 +1323,14 @@ class GPUDepthStencilState {
   external factory GPUDepthStencilState(
       {GPUTextureFormat format,
       bool depthWriteEnabled = false,
-      GPUCompareFunction depthCompare = GPUCompareFunction.always,
-      GPUStencilFaceState stencilFront,
-      GPUStencilFaceState stencilBack,
-      int stencilReadMask = 0xFFFFFFFF,
-      int stencilWriteMask = 0xFFFFFFFF,
-      int depthBias = 0,
-      double depthBiasSlopeScale = 0,
-      double depthBiasClamp = 0});
+      GPUCompareFunction? depthCompare = GPUCompareFunction.always,
+      GPUStencilFaceState? stencilFront,
+      GPUStencilFaceState? stencilBack,
+      int? stencilReadMask = 0xFFFFFFFF,
+      int? stencilWriteMask = 0xFFFFFFFF,
+      int? depthBias = 0,
+      double? depthBiasSlopeScale = 0,
+      double? depthBiasClamp = 0});
 }
 
 extension PropsGPUDepthStencilState on GPUDepthStencilState {
@@ -1390,9 +1395,9 @@ extension PropsGPUDepthStencilState on GPUDepthStencilState {
 class GPUStencilFaceState {
   external factory GPUStencilFaceState(
       {GPUCompareFunction compare = GPUCompareFunction.always,
-      GPUStencilOperation failOp = GPUStencilOperation.keep,
-      GPUStencilOperation depthFailOp = GPUStencilOperation.keep,
-      GPUStencilOperation passOp = GPUStencilOperation.keep});
+      GPUStencilOperation? failOp = GPUStencilOperation.keep,
+      GPUStencilOperation? depthFailOp = GPUStencilOperation.keep,
+      GPUStencilOperation? passOp = GPUStencilOperation.keep});
 }
 
 extension PropsGPUStencilFaceState on GPUStencilFaceState {
@@ -1471,13 +1476,13 @@ enum GPUInputStepMode { vertex, instance }
 @staticInterop
 class GPUVertexState implements GPUProgrammableStage {
   external factory GPUVertexState(
-      {Iterable<GPUVertexBufferLayout> buffers = const []});
+      {Iterable<GPUVertexBufferLayout>? buffers = const []});
 }
 
 extension PropsGPUVertexState on GPUVertexState {
-  Iterable<GPUVertexBufferLayout> get buffers =>
+  Iterable<GPUVertexBufferLayout>? get buffers =>
       js_util.getProperty(this, 'buffers');
-  set buffers(Iterable<GPUVertexBufferLayout> newValue) {
+  set buffers(Iterable<GPUVertexBufferLayout>? newValue) {
     js_util.setProperty(this, 'buffers', newValue);
   }
 }
@@ -1489,7 +1494,7 @@ class GPUVertexBufferLayout {
   external factory GPUVertexBufferLayout(
       {int arrayStride,
       GPUInputStepMode stepMode = GPUInputStepMode.vertex,
-      Iterable<GPUVertexAttribute> attributes});
+      Iterable<GPUVertexAttribute>? attributes});
 }
 
 extension PropsGPUVertexBufferLayout on GPUVertexBufferLayout {
@@ -1542,8 +1547,8 @@ class GPUCommandBuffer implements GPUObjectBase {
 }
 
 extension PropsGPUCommandBuffer on GPUCommandBuffer {
-  Promise<double> get executionTime =>
-      js_util.getProperty(this, 'executionTime');
+  Future<double> get executionTime =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'executionTime'));
 }
 
 @anonymous
@@ -1628,7 +1633,7 @@ extension PropsGPUCommandEncoderDescriptor on GPUCommandEncoderDescriptor {
 @staticInterop
 class GPUImageDataLayout {
   external factory GPUImageDataLayout(
-      {int offset = 0, int bytesPerRow, int rowsPerImage});
+      {int offset = 0, int? bytesPerRow, int? rowsPerImage});
 }
 
 extension PropsGPUImageDataLayout on GPUImageDataLayout {
@@ -1670,7 +1675,7 @@ class GPUImageCopyTexture {
       {GPUTexture texture,
       int mipLevel = 0,
       dynamic origin,
-      GPUTextureAspect aspect = GPUTextureAspect.all});
+      GPUTextureAspect? aspect = GPUTextureAspect.all});
 }
 
 extension PropsGPUImageCopyTexture on GPUImageCopyTexture {
@@ -1940,8 +1945,8 @@ class GPURenderPassDepthStencilAttachment {
       GPUStoreOp depthStoreOp,
       bool depthReadOnly = false,
       dynamic stencilLoadValue,
-      GPUStoreOp stencilStoreOp,
-      bool stencilReadOnly = false});
+      GPUStoreOp? stencilStoreOp,
+      bool? stencilReadOnly = false});
 }
 
 extension PropsGPURenderPassDepthStencilAttachment
@@ -2051,8 +2056,8 @@ extension PropsGPUQueue on GPUQueue {
   Object submit(Iterable<GPUCommandBuffer> commandBuffers) =>
       js_util.callMethod(this, 'submit', [commandBuffers]);
 
-  Promise<Object> onSubmittedWorkDone() =>
-      js_util.callMethod(this, 'onSubmittedWorkDone', []);
+  Future<Object> onSubmittedWorkDone() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'onSubmittedWorkDone', []));
 
   Object writeBuffer(GPUBuffer buffer, int bufferOffset, dynamic data,
           [int? dataOffset = 0, int? size]) =>
@@ -2142,7 +2147,7 @@ class GPUSwapChainDescriptor implements GPUObjectDescriptorBase {
       {GPUDevice device,
       GPUTextureFormat format,
       int usage = 0x10,
-      GPUCanvasCompositingAlphaMode compositingAlphaMode =
+      GPUCanvasCompositingAlphaMode? compositingAlphaMode =
           GPUCanvasCompositingAlphaMode.opaque,
       dynamic size});
 }
@@ -2275,7 +2280,7 @@ extension PropsGPUColorDict on GPUColorDict {
 @JS()
 @staticInterop
 class GPUOrigin2DDict {
-  external factory GPUOrigin2DDict({int x = 0, int y = 0});
+  external factory GPUOrigin2DDict({int x = 0, int? y = 0});
 }
 
 extension PropsGPUOrigin2DDict on GPUOrigin2DDict {
@@ -2294,7 +2299,7 @@ extension PropsGPUOrigin2DDict on GPUOrigin2DDict {
 @JS()
 @staticInterop
 class GPUOrigin3DDict {
-  external factory GPUOrigin3DDict({int x = 0, int y = 0, int z = 0});
+  external factory GPUOrigin3DDict({int x = 0, int? y = 0, int? z = 0});
 }
 
 extension PropsGPUOrigin3DDict on GPUOrigin3DDict {
@@ -2319,7 +2324,7 @@ extension PropsGPUOrigin3DDict on GPUOrigin3DDict {
 @staticInterop
 class GPUExtent3DDict {
   external factory GPUExtent3DDict(
-      {int width, int height = 1, int depthOrArrayLayers = 1});
+      {int width, int height = 1, int? depthOrArrayLayers = 1});
 }
 
 extension PropsGPUExtent3DDict on GPUExtent3DDict {
@@ -2364,7 +2369,7 @@ class GPUPresentationConfiguration implements GPUObjectDescriptorBase {
       {GPUDevice device,
       GPUTextureFormat format,
       int usage = 0x10,
-      GPUCanvasCompositingAlphaMode compositingAlphaMode =
+      GPUCanvasCompositingAlphaMode? compositingAlphaMode =
           GPUCanvasCompositingAlphaMode.opaque,
       dynamic size});
 }

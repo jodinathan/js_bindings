@@ -47,7 +47,8 @@ class DOMPointReadOnly {
 }
 
 extension PropsDOMPointReadOnly on DOMPointReadOnly {
-  external static dynamic fromPoint([DOMPointInit? other]);
+  static dynamic fromPoint([DOMPointInit? other]) =>
+      js_util.callMethod(DOMPointReadOnly, 'fromPoint', [other]);
 
   /// The point's horizontal coordinate, .
   ///
@@ -106,7 +107,8 @@ class DOMPoint implements DOMPointReadOnly {
 }
 
 extension PropsDOMPoint on DOMPoint {
-  external static DOMPoint fromPoint([DOMPointInit? other]);
+  static DOMPoint fromPoint([DOMPointInit? other]) =>
+      js_util.callMethod(DOMPoint, 'fromPoint', [other]);
 
   /// The coordinate of the [DOMPoint].
   ///
@@ -191,7 +193,8 @@ class DOMRectReadOnly {
 }
 
 extension PropsDOMRectReadOnly on DOMRectReadOnly {
-  external static dynamic fromRect([DOMRectInit? other]);
+  static dynamic fromRect([DOMRectInit? other]) =>
+      js_util.callMethod(DOMRectReadOnly, 'fromRect', [other]);
 
   /// The x coordinate of the [DOMRect]'s origin.
   ///
@@ -261,7 +264,8 @@ class DOMRect implements DOMRectReadOnly {
 }
 
 extension PropsDOMRect on DOMRect {
-  external static DOMRect fromRect([DOMRectInit? other]);
+  static DOMRect fromRect([DOMRectInit? other]) =>
+      js_util.callMethod(DOMRect, 'fromRect', [other]);
 
   ///  The x coordinate of the [DOMRect]'s origin (typically the
   /// top-left corner of the rectangle).
@@ -367,12 +371,15 @@ extension PropsDOMQuad on DOMQuad {
   ///  Returns a new [DOMQuad] object based on the passed set of
   /// coordinates.
   ///
-  external static DOMQuad fromRect([DOMRectInit? other]);
+  static DOMQuad fromRect([DOMRectInit? other]) =>
+      js_util.callMethod(DOMQuad, 'fromRect', [other]);
 
   ///  Returns a new [DOMQuad] object based on the passed set of
   /// coordinates.
   ///
-  external static DOMQuad fromQuad([DOMQuadInit? other]);
+  static DOMQuad fromQuad([DOMQuadInit? other]) =>
+      js_util.callMethod(DOMQuad, 'fromQuad', [other]);
+
   DOMPoint get p1 => js_util.getProperty(this, 'p1');
   DOMPoint get p2 => js_util.getProperty(this, 'p2');
   DOMPoint get p3 => js_util.getProperty(this, 'p3');
@@ -431,9 +438,14 @@ class DOMMatrixReadOnly {
 }
 
 extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
-  external static dynamic fromMatrix([DOMMatrixInit? other]);
-  external static dynamic fromFloat32Array(Float32List array32);
-  external static dynamic fromFloat64Array(Float64List array64);
+  static dynamic fromMatrix([DOMMatrixInit? other]) =>
+      js_util.callMethod(DOMMatrixReadOnly, 'fromMatrix', [other]);
+
+  static dynamic fromFloat32Array(Float32List array32) =>
+      js_util.callMethod(DOMMatrixReadOnly, 'fromFloat32Array', [array32]);
+
+  static dynamic fromFloat64Array(Float64List array64) =>
+      js_util.callMethod(DOMMatrixReadOnly, 'fromFloat64Array', [array64]);
 
   ///  Double-precision floating-point values representing the
   /// components of a 4×4 matrix which are required in order to perform
@@ -707,9 +719,14 @@ class DOMMatrix implements DOMMatrixReadOnly {
 }
 
 extension PropsDOMMatrix on DOMMatrix {
-  external static DOMMatrix fromMatrix([DOMMatrixInit? other]);
-  external static DOMMatrix fromFloat32Array(Float32List array32);
-  external static DOMMatrix fromFloat64Array(Float64List array64);
+  static DOMMatrix fromMatrix([DOMMatrixInit? other]) =>
+      js_util.callMethod(DOMMatrix, 'fromMatrix', [other]);
+
+  static DOMMatrix fromFloat32Array(Float32List array32) =>
+      js_util.callMethod(DOMMatrix, 'fromFloat32Array', [array32]);
+
+  static DOMMatrix fromFloat64Array(Float64List array64) =>
+      js_util.callMethod(DOMMatrix, 'fromFloat64Array', [array64]);
 
   ///  Double-precision floating-point values representing the
   /// components of a 4×4 matrix which are required in order to perform
@@ -1107,7 +1124,7 @@ class DOMMatrixInit implements DOMMatrix2DInit {
       /* double | NaN */ dynamic m34 = 0,
       /* double | NaN */ dynamic m43 = 0,
       /* double | NaN */ dynamic m44 = 1,
-      bool is2D});
+      bool? is2D});
 }
 
 extension PropsDOMMatrixInit on DOMMatrixInit {

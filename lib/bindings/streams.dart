@@ -38,8 +38,8 @@ extension PropsReadableStream on ReadableStream {
   ///
   /// var promise = readableStream.cancel(reason);
   ///
-  Promise<Object> cancel([dynamic reason]) =>
-      js_util.callMethod(this, 'cancel', [reason]);
+  Future<Object> cancel([dynamic reason]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'cancel', [reason]));
 
   ///  Creates a reader and locks the stream to it. While the stream is
   /// locked, no other reader can be acquired until this one is
@@ -67,9 +67,10 @@ extension PropsReadableStream on ReadableStream {
   ///
   /// var promise = readableStream.pipeTo(destination[, options]);
   ///
-  Promise<Object> pipeTo(WritableStream destination,
+  Future<Object> pipeTo(WritableStream destination,
           [StreamPipeOptions? options]) =>
-      js_util.callMethod(this, 'pipeTo', [destination, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'pipeTo', [destination, options]));
 
   ///  The method tees this readable stream, returning a two-element
   /// array containing the two resulting branches as new
@@ -139,9 +140,9 @@ extension PropsReadableWritablePair on ReadableWritablePair {
 class StreamPipeOptions {
   external factory StreamPipeOptions(
       {bool preventClose = false,
-      bool preventAbort = false,
-      bool preventCancel = false,
-      AbortSignal signal});
+      bool? preventAbort = false,
+      bool? preventCancel = false,
+      AbortSignal? signal});
 }
 
 extension PropsStreamPipeOptions on StreamPipeOptions {
@@ -216,9 +217,10 @@ class ReadableStreamGenericReader {
 }
 
 extension PropsReadableStreamGenericReader on ReadableStreamGenericReader {
-  Promise<Object> get closed => js_util.getProperty(this, 'closed');
-  Promise<Object> cancel([dynamic reason]) =>
-      js_util.callMethod(this, 'cancel', [reason]);
+  Future<Object> get closed =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
+  Future<Object> cancel([dynamic reason]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'cancel', [reason]));
 }
 
 ///  The interface of the Streams API represents a default reader
@@ -236,8 +238,8 @@ extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
   ///
   /// var promise = readableStreamDefaultReader.read();
   ///
-  Promise<ReadableStreamDefaultReadResult> read() =>
-      js_util.callMethod(this, 'read', []);
+  Future<ReadableStreamDefaultReadResult> read() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'read', []));
 
   /// Releases the reader's lock on the stream.
   ///
@@ -286,8 +288,8 @@ extension PropsReadableStreamBYOBReader on ReadableStreamBYOBReader {
   ///
   /// var promise = readableStreamBYOBReader.read(view);
   ///
-  Promise<ReadableStreamBYOBReadResult> read(dynamic view) =>
-      js_util.callMethod(this, 'read', [view]);
+  Future<ReadableStreamBYOBReadResult> read(dynamic view) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'read', [view]));
 
   /// Releases the reader's lock on the stream.
   ///
@@ -460,12 +462,13 @@ extension PropsWritableStream on WritableStream {
   ///
   /// var promise = writableStream.abort(reason);
   ///
-  Promise<Object> abort([dynamic reason]) =>
-      js_util.callMethod(this, 'abort', [reason]);
+  Future<Object> abort([dynamic reason]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'abort', [reason]));
 
   /// Closes the stream.
   ///
-  Promise<Object> close() => js_util.callMethod(this, 'close', []);
+  Future<Object> close() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
   ///  Returns a new instance of [WritableStreamDefaultWriter] and
   /// locks the stream to that instance. While the stream is locked, no
@@ -536,7 +539,8 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   /// becomes closed or the writer's lock is released, or rejects if
   /// the stream errors.
   ///
-  Promise<Object> get closed => js_util.getProperty(this, 'closed');
+  Future<Object> get closed =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
 
   ///  Returns the desired size required to fill the stream's internal
   /// queue.
@@ -548,7 +552,8 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   /// stream's internal queue transitions from non-positive to
   /// positive, signaling that it is no longer applying backpressure.
   ///
-  Promise<Object> get ready => js_util.getProperty(this, 'ready');
+  Future<Object> get ready =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
 
   ///  Aborts the stream, signaling that the producer can no longer
   /// successfully write to the stream and it is to be immediately
@@ -556,14 +561,15 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   ///
   /// var promise = writableStreamDefaultWriter.abort(reason);
   ///
-  Promise<Object> abort([dynamic reason]) =>
-      js_util.callMethod(this, 'abort', [reason]);
+  Future<Object> abort([dynamic reason]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'abort', [reason]));
 
   /// Closes the associated writable stream.
   ///
   /// var promise = writableStreamDefaultWriter.close();
   ///
-  Promise<Object> close() => js_util.callMethod(this, 'close', []);
+  Future<Object> close() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
   ///  Releases the writer's lock on the corresponding stream. After
   /// the lock is released, the writer is no longer active. If the
@@ -581,8 +587,8 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   ///
   /// var promise = writableStreamDefaultWriter.write(chunk);
   ///
-  Promise<Object> write([dynamic chunk]) =>
-      js_util.callMethod(this, 'write', [chunk]);
+  Future<Object> write([dynamic chunk]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'write', [chunk]));
 }
 
 ///  Experimental: This is an experimental technologyCheck the

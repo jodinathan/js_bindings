@@ -183,7 +183,7 @@ extension PropsEvent on Event {
 @staticInterop
 class EventInit {
   external factory EventInit(
-      {bool bubbles = false, bool cancelable = false, bool composed = false});
+      {bool bubbles = false, bool? cancelable = false, bool? composed = false});
 }
 
 extension PropsEventInit on EventInit {
@@ -274,7 +274,8 @@ extension PropsEventTarget on EventTarget {
   ///
   Object addEventListener(String type, EventListener? callback,
           [dynamic options]) =>
-      js_util.callMethod(this, 'addEventListener', [type, callback, options]);
+      js_util.callMethod(this, 'addEventListener',
+          [type, callback == null ? null : allowInterop(callback), options]);
 
   /// Removes an event listener from the [EventTarget].
   ///
@@ -315,8 +316,8 @@ extension PropsEventTarget on EventTarget {
   ///
   Object removeEventListener(String type, EventListener? callback,
           [dynamic options]) =>
-      js_util
-          .callMethod(this, 'removeEventListener', [type, callback, options]);
+      js_util.callMethod(this, 'removeEventListener',
+          [type, callback == null ? null : allowInterop(callback), options]);
 
   /// Dispatches an event to this [EventTarget].
   ///
@@ -325,29 +326,6 @@ extension PropsEventTarget on EventTarget {
   /// See Creating and triggering events.
   bool dispatchEvent(Event event) =>
       js_util.callMethod(this, 'dispatchEvent', [event]);
-}
-
-///  The interface represents an object that can handle an event
-/// dispatched by an [EventTarget] object.
-///
-///   Note: Due to the need for compatibility with legacy content,
-/// accepts both a function and an object with a [handleEvent()]
-/// property function. This is shown in the example below.
-///
-@JS()
-@staticInterop
-class EventListener {
-  external EventListener();
-}
-
-extension PropsEventListener on EventListener {
-  ///  A function that is called whenever an event of the specified
-  /// type occurs.
-  ///
-  /// eventListener.handleEvent(event);
-  ///
-  Object handleEvent(Event event) =>
-      js_util.callMethod(this, 'handleEvent', [event]);
 }
 
 @anonymous
@@ -369,7 +347,7 @@ extension PropsEventListenerOptions on EventListenerOptions {
 @staticInterop
 class AddEventListenerOptions implements EventListenerOptions {
   external factory AddEventListenerOptions(
-      {bool passive = false, bool once = false, AbortSignal signal});
+      {bool passive = false, bool? once = false, AbortSignal? signal});
 }
 
 extension PropsAddEventListenerOptions on AddEventListenerOptions {
@@ -428,7 +406,7 @@ class AbortSignal implements EventTarget {
 }
 
 extension PropsAbortSignal on AbortSignal {
-  external static AbortSignal abort();
+  static AbortSignal abort() => js_util.callMethod(AbortSignal, 'abort', []);
 
   ///  A Boolean that indicates whether the request(s) the signal is
   /// communicating with is/are aborted ([true]) or not ([false]).
@@ -734,12 +712,12 @@ extension PropsMutationObserver on MutationObserver {
 class MutationObserverInit {
   external factory MutationObserverInit(
       {bool childList = false,
-      bool attributes,
-      bool characterData,
-      bool subtree = false,
-      bool attributeOldValue,
-      bool characterDataOldValue,
-      Iterable<String> attributeFilter});
+      bool? attributes,
+      bool? characterData,
+      bool? subtree = false,
+      bool? attributeOldValue,
+      bool? characterDataOldValue,
+      Iterable<String>? attributeFilter});
 }
 
 extension PropsMutationObserverInit on MutationObserverInit {
@@ -2075,11 +2053,11 @@ extension PropsDocument on Document {
     js_util.setProperty(this, 'onvisibilitychange', newValue);
   }
 
-  Promise<bool> hasStorageAccess() =>
-      js_util.callMethod(this, 'hasStorageAccess', []);
+  Future<bool> hasStorageAccess() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'hasStorageAccess', []));
 
-  Promise<Object> requestStorageAccess() =>
-      js_util.callMethod(this, 'requestStorageAccess', []);
+  Future<Object> requestStorageAccess() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'requestStorageAccess', []));
 
   Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
 
@@ -2111,8 +2089,8 @@ extension PropsDocument on Document {
 
   bool get fullscreenEnabled => js_util.getProperty(this, 'fullscreenEnabled');
   bool get fullscreen => js_util.getProperty(this, 'fullscreen');
-  Promise<Object> exitFullscreen() =>
-      js_util.callMethod(this, 'exitFullscreen', []);
+  Future<Object> exitFullscreen() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'exitFullscreen', []));
 
   EventHandlerNonNull? get onfullscreenchange =>
       js_util.getProperty(this, 'onfullscreenchange');
@@ -2128,8 +2106,8 @@ extension PropsDocument on Document {
 
   bool get pictureInPictureEnabled =>
       js_util.getProperty(this, 'pictureInPictureEnabled');
-  Promise<Object> exitPictureInPicture() =>
-      js_util.callMethod(this, 'exitPictureInPicture', []);
+  Future<Object> exitPictureInPicture() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'exitPictureInPicture', []));
 
   EventHandlerNonNull? get onfreeze => js_util.getProperty(this, 'onfreeze');
   set onfreeze(EventHandlerNonNull? newValue) {
@@ -2146,8 +2124,8 @@ extension PropsDocument on Document {
   SVGSVGElement? get rootElement => js_util.getProperty(this, 'rootElement');
   FragmentDirective get fragmentDirective =>
       js_util.getProperty(this, 'fragmentDirective');
-  Promise<InterestCohort> interestCohort() =>
-      js_util.callMethod(this, 'interestCohort', []);
+  Future<InterestCohort> interestCohort() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'interestCohort', []));
 
   PermissionsPolicy get permissionsPolicy =>
       js_util.getProperty(this, 'permissionsPolicy');
@@ -3226,8 +3204,9 @@ extension PropsElement on Element {
   Object requestPointerLock() =>
       js_util.callMethod(this, 'requestPointerLock', []);
 
-  Promise<Object> requestFullscreen([FullscreenOptions? options]) =>
-      js_util.callMethod(this, 'requestFullscreen', [options]);
+  Future<Object> requestFullscreen([FullscreenOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestFullscreen', [options]));
 
   EventHandlerNonNull? get onfullscreenchange =>
       js_util.getProperty(this, 'onfullscreenchange');
@@ -3286,9 +3265,9 @@ extension PropsElement on Element {
 @staticInterop
 class ShadowRootInit {
   external factory ShadowRootInit(
-      {String mode,
+      {ShadowRootMode mode,
       bool delegatesFocus = false,
-      SlotAssignmentMode slotAssignment = SlotAssignmentMode.named});
+      SlotAssignmentMode? slotAssignment = SlotAssignmentMode.named});
 }
 
 extension PropsShadowRootInit on ShadowRootInit {

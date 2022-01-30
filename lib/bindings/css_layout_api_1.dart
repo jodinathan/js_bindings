@@ -24,12 +24,13 @@ class LayoutChild {
 extension PropsLayoutChild on LayoutChild {
   StylePropertyMapReadOnly get styleMap =>
       js_util.getProperty(this, 'styleMap');
-  Promise<IntrinsicSizes> intrinsicSizes() =>
-      js_util.callMethod(this, 'intrinsicSizes', []);
+  Future<IntrinsicSizes> intrinsicSizes() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'intrinsicSizes', []));
 
-  Promise<LayoutFragment> layoutNextFragment(
+  Future<LayoutFragment> layoutNextFragment(
           LayoutConstraintsOptions constraints, ChildBreakToken breakToken) =>
-      js_util.callMethod(this, 'layoutNextFragment', [constraints, breakToken]);
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'layoutNextFragment', [constraints, breakToken]));
 }
 
 @JS()
@@ -245,8 +246,8 @@ class LayoutWorkletGlobalScope implements WorkletGlobalScope {
 }
 
 extension PropsLayoutWorkletGlobalScope on LayoutWorkletGlobalScope {
-  Object registerLayout(String name, VoidFunction layoutCtor) =>
-      js_util.callMethod(this, 'registerLayout', [name, layoutCtor]);
+  Object registerLayout(String name, VoidFunction layoutCtor) => js_util
+      .callMethod(this, 'registerLayout', [name, allowInterop(layoutCtor)]);
 }
 
 @anonymous
@@ -255,7 +256,7 @@ extension PropsLayoutWorkletGlobalScope on LayoutWorkletGlobalScope {
 class LayoutOptions {
   external factory LayoutOptions(
       {ChildDisplayType childDisplay = ChildDisplayType.block,
-      LayoutSizingMode sizing = LayoutSizingMode.blockLike});
+      LayoutSizingMode? sizing = LayoutSizingMode.blockLike});
 }
 
 extension PropsLayoutOptions on LayoutOptions {
@@ -293,11 +294,11 @@ class LayoutFragmentRequest {
 class FragmentResultOptions {
   external factory FragmentResultOptions(
       {double inlineSize = 0,
-      double blockSize = 0,
-      double autoBlockSize = 0,
-      Iterable<LayoutFragment> childFragments = const [],
+      double? blockSize = 0,
+      double? autoBlockSize = 0,
+      Iterable<LayoutFragment>? childFragments = const [],
       dynamic data,
-      BreakTokenOptions breakToken});
+      BreakTokenOptions? breakToken});
 }
 
 extension PropsFragmentResultOptions on FragmentResultOptions {

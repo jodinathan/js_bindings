@@ -39,8 +39,8 @@ extension PropsCookieStore on CookieStore {
   ///
   @JS('get')
   @staticInterop
-  Promise<CookieListItem> mGet(String name) =>
-      js_util.callMethod(this, 'get', [name]);
+  Future<CookieListItem> mGet(String name) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'get', [name]));
 
   ///  The [getAll()] method gets all matching cookies, it returns a
   /// [Promise] that resolves with a list of cookies.
@@ -48,8 +48,8 @@ extension PropsCookieStore on CookieStore {
   /// var list = cookieStore.getAll(name);
   /// var list = cookieStore.getAll(options);
   ///
-  Promise<Iterable<CookieListItem>> getAll(String name) =>
-      js_util.callMethod(this, 'getAll', [name]);
+  Future<Iterable<CookieListItem>> getAll(String name) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getAll', [name]));
 
   ///  The [set()] method sets a cookie with the given name and value
   /// or options object, it returns a [Promise] that resolves when the
@@ -60,8 +60,8 @@ extension PropsCookieStore on CookieStore {
   ///
   @JS('set')
   @staticInterop
-  Promise<Object> mSet([String? name, String? value]) =>
-      js_util.callMethod(this, 'set', [name, value]);
+  Future<Object> mSet([String? name, String? value]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'set', [name, value]));
 
   ///  The [delete()] method deletes a cookie with the given name or
   /// options object, it returns a [Promise] that resolves when the
@@ -70,8 +70,8 @@ extension PropsCookieStore on CookieStore {
   /// var promise = cookieStore.delete(name);
   /// var promise = cookieStore.delete(options);
   ///
-  Promise<Object> delete(String name) =>
-      js_util.callMethod(this, 'delete', [name]);
+  Future<Object> delete(String name) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'delete', [name]));
 
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
@@ -110,7 +110,7 @@ class CookieInit {
       int? expires,
       String? domain,
       String path = '/',
-      CookieSameSite sameSite = CookieSameSite.strict});
+      CookieSameSite? sameSite = CookieSameSite.strict});
 }
 
 extension PropsCookieInit on CookieInit {
@@ -246,8 +246,9 @@ extension PropsCookieStoreManager on CookieStoreManager {
   ///
   /// let promise = registration.cookies.subscribe(subscriptions);
   ///
-  Promise<Object> subscribe(Iterable<CookieStoreGetOptions> subscriptions) =>
-      js_util.callMethod(this, 'subscribe', [subscriptions]);
+  Future<Object> subscribe(Iterable<CookieStoreGetOptions> subscriptions) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'subscribe', [subscriptions]));
 
   ///  Returns a [promise] which resolves to a list of the cookie
   /// change subscriptions for this service worker registration.
@@ -263,8 +264,9 @@ extension PropsCookieStoreManager on CookieStoreManager {
   ///
   /// let promise = registration.cookies.unsubscribe(subscriptions);
   ///
-  Promise<Object> unsubscribe(Iterable<CookieStoreGetOptions> subscriptions) =>
-      js_util.callMethod(this, 'unsubscribe', [subscriptions]);
+  Future<Object> unsubscribe(Iterable<CookieStoreGetOptions> subscriptions) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'unsubscribe', [subscriptions]));
 }
 
 ///  Secure context: This feature is available only in secure

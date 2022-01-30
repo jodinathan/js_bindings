@@ -52,7 +52,8 @@ extension PropsStorageManager on StorageManager {
   ///    console.log("Storage may be cleared by the UA under storage pressure.");
   ///  });
   ///
-  Promise<bool> persisted() => js_util.callMethod(this, 'persisted', []);
+  Future<bool> persisted() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'persisted', []));
 
   ///  Returns a [Promise] that resolves to [true] if the user agent is
   /// able to persist your site's storage.
@@ -67,7 +68,8 @@ extension PropsStorageManager on StorageManager {
   ///    console.log("Storage may be cleared by the UA under storage pressure.");
   ///  });
   ///
-  Promise<bool> persist() => js_util.callMethod(this, 'persist', []);
+  Future<bool> persist() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'persist', []));
 
   ///  Returns a [Promise] that resolves to an object containing usage
   /// and quota numbers for your origin.
@@ -75,11 +77,11 @@ extension PropsStorageManager on StorageManager {
   /// const estimatePromise = StorageManager.estimate();
   ///
   /// In this example, we obtain the usage estimates and present the percentage of storage capacity currently used to the user.
-  Promise<StorageEstimate> estimate() =>
-      js_util.callMethod(this, 'estimate', []);
+  Future<StorageEstimate> estimate() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'estimate', []));
 
-  Promise<FileSystemDirectoryHandle> getDirectory() =>
-      js_util.callMethod(this, 'getDirectory', []);
+  Future<FileSystemDirectoryHandle> getDirectory() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getDirectory', []));
 }
 
 @anonymous

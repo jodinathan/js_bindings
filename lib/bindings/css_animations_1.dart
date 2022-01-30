@@ -69,8 +69,8 @@ extension PropsAnimationEvent on AnimationEvent {
 class AnimationEventInit implements EventInit {
   external factory AnimationEventInit(
       {String animationName = '',
-      double elapsedTime = 0.0,
-      String pseudoElement = ''});
+      double? elapsedTime = 0.0,
+      String? pseudoElement = ''});
 }
 
 extension PropsAnimationEventInit on AnimationEventInit {

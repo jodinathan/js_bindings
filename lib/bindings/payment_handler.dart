@@ -38,25 +38,27 @@ class PaymentInstruments {
 }
 
 extension PropsPaymentInstruments on PaymentInstruments {
-  Promise<bool> delete(String instrumentKey) =>
-      js_util.callMethod(this, 'delete', [instrumentKey]);
+  Future<bool> delete(String instrumentKey) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'delete', [instrumentKey]));
 
   @JS('get')
   @staticInterop
-  Promise<dynamic> mGet(String instrumentKey) =>
-      js_util.callMethod(this, 'get', [instrumentKey]);
+  Future<dynamic> mGet(String instrumentKey) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'get', [instrumentKey]));
 
   Iterable<Promise<String>> keys() => js_util.callMethod(this, 'keys', []);
 
-  Promise<bool> has(String instrumentKey) =>
-      js_util.callMethod(this, 'has', [instrumentKey]);
+  Future<bool> has(String instrumentKey) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'has', [instrumentKey]));
 
   @JS('set')
   @staticInterop
-  Promise<Object> mSet(String instrumentKey, PaymentInstrument details) =>
-      js_util.callMethod(this, 'set', [instrumentKey, details]);
+  Future<Object> mSet(String instrumentKey, PaymentInstrument details) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'set', [instrumentKey, details]));
 
-  Promise<Object> clear() => js_util.callMethod(this, 'clear', []);
+  Future<Object> clear() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'clear', []));
 }
 
 @anonymous
@@ -129,7 +131,7 @@ extension PropsCanMakePaymentEvent on CanMakePaymentEvent {
       js_util.getProperty(this, 'paymentRequestOrigin');
   Iterable<PaymentMethodData> get methodData =>
       js_util.getProperty(this, 'methodData');
-  Object respondWith(Promise<bool> canMakePaymentResponse) =>
+  Object respondWith(Future<bool> canMakePaymentResponse) =>
       js_util.callMethod(this, 'respondWith', [canMakePaymentResponse]);
 }
 
@@ -263,13 +265,13 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
   /// var aPromise = paymentRequestEvent.openWindow(url)
   ///
   @experimental
-  Promise<WindowClient> openWindow(String url) =>
-      js_util.callMethod(this, 'openWindow', [url]);
+  Future<WindowClient> openWindow(String url) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'openWindow', [url]));
 
-  Promise<PaymentRequestDetailsUpdate> changePaymentMethod(String methodName,
+  Future<PaymentRequestDetailsUpdate> changePaymentMethod(String methodName,
           [dynamic methodDetails]) =>
-      js_util
-          .callMethod(this, 'changePaymentMethod', [methodName, methodDetails]);
+      js_util.promiseToFuture(js_util.callMethod(
+          this, 'changePaymentMethod', [methodName, methodDetails]));
 
   ///  Prevents the default event handling and allows you to provide a
   /// [Promise] for a [PaymentResponse] object yourself.
@@ -279,7 +281,7 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
   /// )
   ///
   @experimental
-  Object respondWith(Promise<PaymentHandlerResponse> handlerResponsePromise) =>
+  Object respondWith(Future<PaymentHandlerResponse> handlerResponsePromise) =>
       js_util.callMethod(this, 'respondWith', [handlerResponsePromise]);
 }
 

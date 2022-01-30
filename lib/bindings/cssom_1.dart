@@ -175,8 +175,8 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
   Object deleteRule(int index) =>
       js_util.callMethod(this, 'deleteRule', [index]);
 
-  Promise<CSSStyleSheet> replace(String text) =>
-      js_util.callMethod(this, 'replace', [text]);
+  Future<CSSStyleSheet> replace(String text) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'replace', [text]));
 
   Object replaceSync(String text) =>
       js_util.callMethod(this, 'replaceSync', [text]);

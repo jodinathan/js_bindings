@@ -149,7 +149,8 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   ///  });
   /// };
   ///
-  Promise<Object> update() => js_util.callMethod(this, 'update', []);
+  Future<Object> update() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'update', []));
 
   ///  Unregisters the service worker registration and returns a
   /// [Promise]. The service worker will finish any ongoing operations
@@ -175,7 +176,8 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   ///  });
   /// };
   ///
-  Promise<bool> unregister() => js_util.callMethod(this, 'unregister', []);
+  Future<bool> unregister() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'unregister', []));
 
   EventHandlerNonNull? get onupdatefound =>
       js_util.getProperty(this, 'onupdatefound');
@@ -191,9 +193,10 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   CookieStoreManager get cookies => js_util.getProperty(this, 'cookies');
   BackgroundFetchManager get backgroundFetch =>
       js_util.getProperty(this, 'backgroundFetch');
-  Promise<Object> showNotification(String title,
+  Future<Object> showNotification(String title,
           [NotificationOptions? options]) =>
-      js_util.callMethod(this, 'showNotification', [title, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'showNotification', [title, options]));
 
   Iterable<Promise<Notification>> getNotifications(
           [GetNotificationOptions? filter]) =>
@@ -239,8 +242,8 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   /// [ServiceWorkerRegistration.active] worker. Once that condition is
   /// met, it resolves with the [ServiceWorkerRegistration].
   ///
-  Promise<ServiceWorkerRegistration> get ready =>
-      js_util.getProperty(this, 'ready');
+  Future<ServiceWorkerRegistration> get ready =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
 
   ///  Creates or updates a [ServiceWorkerRegistration] for the given
   /// [scriptURL].
@@ -248,9 +251,10 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   /// serviceWorkerContainer.register(scriptURL, options)
   ///  .then(function(serviceWorkerRegistration) { /* ... */ });
   ///
-  Promise<ServiceWorkerRegistration> register(String scriptURL,
+  Future<ServiceWorkerRegistration> register(String scriptURL,
           [RegistrationOptions? options]) =>
-      js_util.callMethod(this, 'register', [scriptURL, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'register', [scriptURL, options]));
 
   ///  Gets a [ServiceWorkerRegistration] object whose scope matches
   /// the provided document URL. The method returns a [Promise] that
@@ -316,7 +320,7 @@ class RegistrationOptions {
   external factory RegistrationOptions(
       {String scope,
       WorkerType type = WorkerType.classic,
-      ServiceWorkerUpdateViaCache updateViaCache =
+      ServiceWorkerUpdateViaCache? updateViaCache =
           ServiceWorkerUpdateViaCache.imports});
 }
 
@@ -410,7 +414,8 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
   ///  // of event.waitUntil();
   /// });
   ///
-  Promise<Object> skipWaiting() => js_util.callMethod(this, 'skipWaiting', []);
+  Future<Object> skipWaiting() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'skipWaiting', []));
 
   EventHandlerNonNull? get oninstall => js_util.getProperty(this, 'oninstall');
   set oninstall(EventHandlerNonNull? newValue) {
@@ -612,7 +617,8 @@ extension PropsWindowClient on WindowClient {
   ///  }));
   /// });
   ///
-  Promise<WindowClient> focus() => js_util.callMethod(this, 'focus', []);
+  Future<WindowClient> focus() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'focus', []));
 
   /// Loads a specified URL into a controlled client page.
   ///
@@ -620,8 +626,8 @@ extension PropsWindowClient on WindowClient {
   ///  // do something with your WindowClient after navigation
   /// });
   ///
-  Promise<WindowClient> navigate(String url) =>
-      js_util.callMethod(this, 'navigate', [url]);
+  Future<WindowClient> navigate(String url) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'navigate', [url]));
 }
 
 enum FrameType { auxiliary, topLevel, nested, none }
@@ -663,8 +669,8 @@ extension PropsClients on Clients {
   ///  // Do something with your WindowClient
   /// });
   ///
-  Promise<WindowClient> openWindow(String url) =>
-      js_util.callMethod(this, 'openWindow', [url]);
+  Future<WindowClient> openWindow(String url) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'openWindow', [url]));
 
   ///  Allows an active service worker to set itself as the
   /// [controller] for all clients within its [scope].
@@ -676,7 +682,8 @@ extension PropsClients on Clients {
   ///  event.waitUntil(clients.claim());
   /// });
   ///
-  Promise<Object> claim() => js_util.callMethod(this, 'claim', []);
+  Future<Object> claim() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'claim', []));
 }
 
 @anonymous
@@ -684,7 +691,7 @@ extension PropsClients on Clients {
 @staticInterop
 class ClientQueryOptions {
   external factory ClientQueryOptions(
-      {bool includeUncontrolled = false, ClientType type = ClientType.window});
+      {bool includeUncontrolled = false, ClientType? type = ClientType.window});
 }
 
 extension PropsClientQueryOptions on ClientQueryOptions {
@@ -760,7 +767,7 @@ extension PropsExtendableEvent on ExtendableEvent {
   ///  event.waitUntil(preCache());
   /// });
   ///
-  Object waitUntil(Promise<dynamic> f) =>
+  Object waitUntil(Future<dynamic> f) =>
       js_util.callMethod(this, 'waitUntil', [f]);
 }
 
@@ -790,8 +797,8 @@ extension PropsFetchEvent on FetchEvent {
   ///  A [Promise] for a [Response], or [undefined] if this fetch is
   /// not a navigation, or navigation preload is not enabled.
   ///
-  Promise<dynamic> get preloadResponse =>
-      js_util.getProperty(this, 'preloadResponse');
+  Future<dynamic> get preloadResponse =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'preloadResponse'));
 
   /// The [id] of the same-origin [client] that initiated the fetch.
   ///
@@ -807,7 +814,8 @@ extension PropsFetchEvent on FetchEvent {
   /// navigation.
   ///
   String get replacesClientId => js_util.getProperty(this, 'replacesClientId');
-  Promise<Object> get handled => js_util.getProperty(this, 'handled');
+  Future<Object> get handled =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'handled'));
 
   ///  Prevent the browser's default fetch handling, and provide (a
   /// promise for) a response yourself.
@@ -816,7 +824,7 @@ extension PropsFetchEvent on FetchEvent {
   ///  // Promise that resolves to a Response.
   /// );
   ///
-  Object respondWith(Promise<Response> r) =>
+  Object respondWith(Future<Response> r) =>
       js_util.callMethod(this, 'respondWith', [r]);
 }
 
@@ -826,11 +834,11 @@ extension PropsFetchEvent on FetchEvent {
 class FetchEventInit implements ExtendableEventInit {
   external factory FetchEventInit(
       {Request request,
-      Promise<dynamic> preloadResponse,
+      Future<dynamic> preloadResponse,
       String clientId = '',
-      String resultingClientId = '',
-      String replacesClientId = '',
-      Promise<Object> handled});
+      String? resultingClientId = '',
+      String? replacesClientId = '',
+      Future<Object>? handled});
 }
 
 extension PropsFetchEventInit on FetchEventInit {
@@ -839,9 +847,9 @@ extension PropsFetchEventInit on FetchEventInit {
     js_util.setProperty(this, 'request', newValue);
   }
 
-  Promise<dynamic> get preloadResponse =>
-      js_util.getProperty(this, 'preloadResponse');
-  set preloadResponse(Promise<dynamic> newValue) {
+  Future<dynamic> get preloadResponse =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'preloadResponse'));
+  set preloadResponse(Future<dynamic> newValue) {
     js_util.setProperty(this, 'preloadResponse', newValue);
   }
 
@@ -861,8 +869,9 @@ extension PropsFetchEventInit on FetchEventInit {
     js_util.setProperty(this, 'replacesClientId', newValue);
   }
 
-  Promise<Object> get handled => js_util.getProperty(this, 'handled');
-  set handled(Promise<Object> newValue) {
+  Future<Object> get handled =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'handled'));
+  set handled(Future<Object> newValue) {
     js_util.setProperty(this, 'handled', newValue);
   }
 }
@@ -912,9 +921,9 @@ class ExtendableMessageEventInit implements ExtendableEventInit {
   external factory ExtendableMessageEventInit(
       {dynamic data,
       String origin = '',
-      String lastEventId = '',
+      String? lastEventId = '',
       dynamic source,
-      Iterable<MessagePort> ports = const []});
+      Iterable<MessagePort>? ports = const []});
 }
 
 extension PropsExtendableMessageEventInit on ExtendableMessageEventInit {
@@ -993,17 +1002,17 @@ extension PropsCache on Cache {
           [dynamic request, CacheQueryOptions? options]) =>
       js_util.callMethod(this, 'matchAll', [request, options]);
 
-  Promise<Object> add(dynamic request) =>
-      js_util.callMethod(this, 'add', [request]);
+  Future<Object> add(dynamic request) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'add', [request]));
 
-  Promise<Object> addAll(Iterable<dynamic> requests) =>
-      js_util.callMethod(this, 'addAll', [requests]);
+  Future<Object> addAll(Iterable<dynamic> requests) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'addAll', [requests]));
 
-  Promise<Object> put(dynamic request, Response response) =>
-      js_util.callMethod(this, 'put', [request, response]);
+  Future<Object> put(dynamic request, Response response) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'put', [request, response]));
 
-  Promise<bool> delete(dynamic request, [CacheQueryOptions? options]) =>
-      js_util.callMethod(this, 'delete', [request, options]);
+  Future<bool> delete(dynamic request, [CacheQueryOptions? options]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'delete', [request, options]));
 
   Iterable<Promise<Request>> keys(
           [dynamic request, CacheQueryOptions? options]) =>
@@ -1016,8 +1025,8 @@ extension PropsCache on Cache {
 class CacheQueryOptions {
   external factory CacheQueryOptions(
       {bool ignoreSearch = false,
-      bool ignoreMethod = false,
-      bool ignoreVary = false});
+      bool? ignoreMethod = false,
+      bool? ignoreVary = false});
 }
 
 extension PropsCacheQueryOptions on CacheQueryOptions {
@@ -1102,8 +1111,8 @@ extension PropsCacheStorage on CacheStorage {
   ///  // true: your cache exists!
   /// });
   ///
-  Promise<bool> has(String cacheName) =>
-      js_util.callMethod(this, 'has', [cacheName]);
+  Future<bool> has(String cacheName) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'has', [cacheName]));
 
   ///  Returns a [Promise] that resolves to the [Cache] object matching
   /// the [cacheName] (a new cache is created if it doesn't already
@@ -1113,8 +1122,8 @@ extension PropsCacheStorage on CacheStorage {
   ///  // Do something with your cache
   /// });
   ///
-  Promise<Cache> open(String cacheName) =>
-      js_util.callMethod(this, 'open', [cacheName]);
+  Future<Cache> open(String cacheName) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'open', [cacheName]));
 
   ///  Finds the [Cache] object matching the [cacheName], and if found,
   /// deletes the [Cache] object and returns a [Promise] that resolves
@@ -1124,8 +1133,8 @@ extension PropsCacheStorage on CacheStorage {
   ///  // your cache is now deleted
   /// });
   ///
-  Promise<bool> delete(String cacheName) =>
-      js_util.callMethod(this, 'delete', [cacheName]);
+  Future<bool> delete(String cacheName) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'delete', [cacheName]));
 
   ///  Returns a [Promise] that will resolve with an array containing
   /// strings corresponding to all of the named [Cache] objects tracked
@@ -1165,25 +1174,27 @@ extension PropsNavigationPreloadManager on NavigationPreloadManager {
   ///  Enables navigation preloading and returns a [Promise] that
   /// resolves.
   ///
-  Promise<Object> enable() => js_util.callMethod(this, 'enable', []);
+  Future<Object> enable() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'enable', []));
 
   ///  Disables navigation preloading and returns a [Promise] that
   /// resolves.
   ///
-  Promise<Object> disable() => js_util.callMethod(this, 'disable', []);
+  Future<Object> disable() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'disable', []));
 
   ///  Sets the value of the [Service-Worker-Navigation-Preload] header
   /// and returns an empty [Promise].
   ///
-  Promise<Object> setHeaderValue(String value) =>
-      js_util.callMethod(this, 'setHeaderValue', [value]);
+  Future<Object> setHeaderValue(String value) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'setHeaderValue', [value]));
 
   ///  Returns a [Promise] that resolves to an object with properties
   /// indicating whether preload is enabled and the contents of the
   /// [Service-Worker-Navigation-Preload].
   ///
-  Promise<NavigationPreloadState> getState() =>
-      js_util.callMethod(this, 'getState', []);
+  Future<NavigationPreloadState> getState() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getState', []));
 }
 
 @anonymous
@@ -1191,7 +1202,7 @@ extension PropsNavigationPreloadManager on NavigationPreloadManager {
 @staticInterop
 class NavigationPreloadState {
   external factory NavigationPreloadState(
-      {bool enabled = false, String headerValue});
+      {bool enabled = false, String? headerValue});
 }
 
 extension PropsNavigationPreloadState on NavigationPreloadState {

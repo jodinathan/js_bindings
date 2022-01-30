@@ -27,8 +27,8 @@ extension PropsSyncManager on SyncManager {
   ///
   /// SyncManager.register([options]).then(function(syncRegistration) { /* ... */ })
   ///
-  Promise<Object> register(String tag) =>
-      js_util.callMethod(this, 'register', [tag]);
+  Future<Object> register(String tag) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'register', [tag]));
 
   ///  Return a list of developer-defined identifiers for SyncManager
   /// registration.

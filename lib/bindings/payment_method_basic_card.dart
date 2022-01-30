@@ -19,7 +19,7 @@ import 'all_bindings.dart';
 class BasicCardRequest {
   external factory BasicCardRequest(
       {Iterable<String> supportedNetworks = const [],
-      bool requestSecurityCode = true});
+      bool? requestSecurityCode = true});
 }
 
 extension PropsBasicCardRequest on BasicCardRequest {
@@ -58,9 +58,9 @@ class BasicCardResponse {
   external factory BasicCardResponse(
       {String cardNumber,
       String cardholderName = '',
-      String cardSecurityCode = '',
-      String expiryMonth = '',
-      String expiryYear = '',
+      String? cardSecurityCode = '',
+      String? expiryMonth = '',
+      String? expiryYear = '',
       PaymentAddress? billingAddress});
 }
 

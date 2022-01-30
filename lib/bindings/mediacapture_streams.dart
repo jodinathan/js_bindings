@@ -309,8 +309,9 @@ extension PropsMediaStreamTrack on MediaStreamTrack {
   ///
   /// const appliedPromise = track.applyConstraints([constraints])
   ///
-  Promise<Object> applyConstraints([MediaTrackConstraints? constraints]) =>
-      js_util.callMethod(this, 'applyConstraints', [constraints]);
+  Future<Object> applyConstraints([MediaTrackConstraints? constraints]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'applyConstraints', [constraints]));
 
   String get contentHint => js_util.getProperty(this, 'contentHint');
   set contentHint(String newValue) {
@@ -350,20 +351,20 @@ enum MediaStreamTrackState { live, ended }
 class MediaTrackSupportedConstraints {
   external factory MediaTrackSupportedConstraints(
       {bool width = true,
-      bool height = true,
-      bool aspectRatio = true,
-      bool frameRate = true,
-      bool facingMode = true,
-      bool resizeMode = true,
-      bool sampleRate = true,
-      bool sampleSize = true,
-      bool echoCancellation = true,
-      bool autoGainControl = true,
-      bool noiseSuppression = true,
-      bool latency = true,
-      bool channelCount = true,
-      bool deviceId = true,
-      bool groupId = true});
+      bool? height = true,
+      bool? aspectRatio = true,
+      bool? frameRate = true,
+      bool? facingMode = true,
+      bool? resizeMode = true,
+      bool? sampleRate = true,
+      bool? sampleSize = true,
+      bool? echoCancellation = true,
+      bool? autoGainControl = true,
+      bool? noiseSuppression = true,
+      bool? latency = true,
+      bool? channelCount = true,
+      bool? deviceId = true,
+      bool? groupId = true});
 }
 
 extension PropsMediaTrackSupportedConstraints
@@ -950,18 +951,21 @@ extension PropsMediaDevices on MediaDevices {
   Iterable<Promise<MediaDeviceInfo>> enumerateDevices() =>
       js_util.callMethod(this, 'enumerateDevices', []);
 
-  Promise<MediaDeviceInfo> selectAudioOutput([AudioOutputOptions? options]) =>
-      js_util.callMethod(this, 'selectAudioOutput', [options]);
+  Future<MediaDeviceInfo> selectAudioOutput([AudioOutputOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'selectAudioOutput', [options]));
 
   MediaTrackSupportedConstraints getSupportedConstraints() =>
       js_util.callMethod(this, 'getSupportedConstraints', []);
 
-  Promise<MediaStream> getUserMedia([MediaStreamConstraints? constraints]) =>
-      js_util.callMethod(this, 'getUserMedia', [constraints]);
+  Future<MediaStream> getUserMedia([MediaStreamConstraints? constraints]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getUserMedia', [constraints]));
 
-  Promise<MediaStream> getDisplayMedia(
+  Future<MediaStream> getDisplayMedia(
           [DisplayMediaStreamConstraints? constraints]) =>
-      js_util.callMethod(this, 'getDisplayMedia', [constraints]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getDisplayMedia', [constraints]));
 }
 
 ///  The interface contains information that describes a single media

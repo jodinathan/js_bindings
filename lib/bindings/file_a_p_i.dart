@@ -40,10 +40,11 @@ extension PropsBlob on Blob {
 
   ReadableStream stream() => js_util.callMethod(this, 'stream', []);
 
-  Promise<String> text() => js_util.callMethod(this, 'text', []);
+  Future<String> text() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'text', []));
 
-  Promise<ByteBuffer> arrayBuffer() =>
-      js_util.callMethod(this, 'arrayBuffer', []);
+  Future<ByteBuffer> arrayBuffer() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'arrayBuffer', []));
 }
 
 enum EndingType { transparent, native }
@@ -53,7 +54,7 @@ enum EndingType { transparent, native }
 @staticInterop
 class BlobPropertyBag {
   external factory BlobPropertyBag(
-      {String type = '', EndingType endings = EndingType.transparent});
+      {String type = '', EndingType? endings = EndingType.transparent});
 }
 
 extension PropsBlobPropertyBag on BlobPropertyBag {

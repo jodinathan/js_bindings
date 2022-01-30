@@ -20,9 +20,9 @@ class NavigatorBadge {
 }
 
 extension PropsNavigatorBadge on NavigatorBadge {
-  Promise<Object> setAppBadge([int? contents]) =>
-      js_util.callMethod(this, 'setAppBadge', [contents]);
+  Future<Object> setAppBadge([int? contents]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'setAppBadge', [contents]));
 
-  Promise<Object> clearAppBadge() =>
-      js_util.callMethod(this, 'clearAppBadge', []);
+  Future<Object> clearAppBadge() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'clearAppBadge', []));
 }

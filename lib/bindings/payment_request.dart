@@ -36,16 +36,18 @@ extension PropsPaymentRequest on PaymentRequest {
   ///
   @JS('show')
   @staticInterop
-  Promise<PaymentResponse> mShow(
-          [Promise<PaymentDetailsUpdate>? detailsPromise]) =>
-      js_util.callMethod(this, 'show', [detailsPromise]);
+  Future<PaymentResponse> mShow(
+          [Future<PaymentDetailsUpdate>? detailsPromise]) =>
+      js_util
+          .promiseToFuture(js_util.callMethod(this, 'show', [detailsPromise]));
 
   ///  Causes the user agent to end the payment request and to remove
   /// any user interface that might be shown.
   ///
   /// PaymentRequest.abort();
   ///
-  Promise<Object> abort() => js_util.callMethod(this, 'abort', []);
+  Future<Object> abort() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'abort', []));
 
   ///  Indicates whether the [PaymentRequest] object can make a payment
   /// before calling [show()].
@@ -56,8 +58,8 @@ extension PropsPaymentRequest on PaymentRequest {
   ///
   /// canPay = await paymentRequest.canMakePayment();
   ///
-  Promise<bool> canMakePayment() =>
-      js_util.callMethod(this, 'canMakePayment', []);
+  Future<bool> canMakePayment() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'canMakePayment', []));
 
   ///  An unique identifier for a particular [PaymentRequest], which
   /// can be set via [details.id]. When none is set, it defaults to a
@@ -214,11 +216,11 @@ enum PaymentShippingType { shipping, delivery, pickup }
 class PaymentOptions {
   external factory PaymentOptions(
       {bool requestPayerName = false,
-      bool requestBillingAddress = false,
-      bool requestPayerEmail = false,
-      bool requestPayerPhone = false,
-      bool requestShipping = false,
-      PaymentShippingType shippingType = PaymentShippingType.shipping});
+      bool? requestBillingAddress = false,
+      bool? requestPayerEmail = false,
+      bool? requestPayerPhone = false,
+      bool? requestShipping = false,
+      PaymentShippingType? shippingType = PaymentShippingType.shipping});
 }
 
 extension PropsPaymentOptions on PaymentOptions {
@@ -390,15 +392,15 @@ extension PropsPaymentAddress on PaymentAddress {
 class AddressInit {
   external factory AddressInit(
       {String country = '',
-      Iterable<String> addressLine = const [],
-      String region = '',
-      String city = '',
-      String dependentLocality = '',
-      String postalCode = '',
-      String sortingCode = '',
-      String organization = '',
-      String recipient = '',
-      String phone = ''});
+      Iterable<String>? addressLine = const [],
+      String? region = '',
+      String? city = '',
+      String? dependentLocality = '',
+      String? postalCode = '',
+      String? sortingCode = '',
+      String? organization = '',
+      String? recipient = '',
+      String? phone = ''});
 }
 
 extension PropsAddressInit on AddressInit {
@@ -662,9 +664,9 @@ extension PropsPaymentResponse on PaymentResponse {
   ///
   /// completePromise = paymentRequest.complete(result);
   ///
-  Promise<Object> complete(
+  Future<Object> complete(
           [PaymentComplete? result = PaymentComplete.unknown]) =>
-      js_util.callMethod(this, 'complete', [result]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'complete', [result]));
 
   ///  If something is wrong with the payment response's data (and
   /// there is a recoverable error), this method allows a merchant to
@@ -675,8 +677,8 @@ extension PropsPaymentResponse on PaymentResponse {
   ///
   /// retryPromise = paymentRequest.retry(errorFields);
   ///
-  Promise<Object> retry([PaymentValidationErrors? errorFields]) =>
-      js_util.callMethod(this, 'retry', [errorFields]);
+  Future<Object> retry([PaymentValidationErrors? errorFields]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'retry', [errorFields]));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -831,7 +833,7 @@ extension PropsPaymentRequestUpdateEvent on PaymentRequestUpdateEvent {
   ///
   /// paymentRequestUpdateEvent.updateWith(details);
   ///
-  Object updateWith(Promise<PaymentDetailsUpdate> detailsPromise) =>
+  Object updateWith(Future<PaymentDetailsUpdate> detailsPromise) =>
       js_util.callMethod(this, 'updateWith', [detailsPromise]);
 }
 

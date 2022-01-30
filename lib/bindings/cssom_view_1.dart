@@ -110,8 +110,8 @@ extension PropsMediaQueryList on MediaQueryList {
   /// mediaQueryList.addListener(screenTest);
   ///
   @deprecated
-  Object addListener(EventListener? callback) =>
-      js_util.callMethod(this, 'addListener', [callback]);
+  Object addListener(EventListener? callback) => js_util.callMethod(
+      this, 'addListener', [callback == null ? null : allowInterop(callback)]);
 
   ///  Removes the specified listener callback from the callbacks to be
   /// invoked when the [MediaQueryList] changes media query status,
@@ -145,8 +145,8 @@ extension PropsMediaQueryList on MediaQueryList {
   /// mediaQueryList.removeListener(screenTest);
   ///
   @deprecated
-  Object removeListener(EventListener? callback) =>
-      js_util.callMethod(this, 'removeListener', [callback]);
+  Object removeListener(EventListener? callback) => js_util.callMethod(this,
+      'removeListener', [callback == null ? null : allowInterop(callback)]);
 
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
@@ -182,7 +182,7 @@ extension PropsMediaQueryListEvent on MediaQueryListEvent {
 @staticInterop
 class MediaQueryListEventInit implements EventInit {
   external factory MediaQueryListEventInit(
-      {String media = '', bool matches = false});
+      {String media = '', bool? matches = false});
 }
 
 extension PropsMediaQueryListEventInit on MediaQueryListEventInit {
@@ -275,7 +275,7 @@ enum ScrollLogicalPosition { start, center, end, nearest }
 class ScrollIntoViewOptions implements ScrollOptions {
   external factory ScrollIntoViewOptions(
       {ScrollLogicalPosition block = ScrollLogicalPosition.start,
-      ScrollLogicalPosition inline = ScrollLogicalPosition.nearest});
+      ScrollLogicalPosition? inline = ScrollLogicalPosition.nearest});
 }
 
 extension PropsScrollIntoViewOptions on ScrollIntoViewOptions {
@@ -318,7 +318,7 @@ extension PropsBoxQuadOptions on BoxQuadOptions {
 class ConvertCoordinateOptions {
   external factory ConvertCoordinateOptions(
       {CSSBoxType fromBox = CSSBoxType.border,
-      CSSBoxType toBox = CSSBoxType.border});
+      CSSBoxType? toBox = CSSBoxType.border});
 }
 
 extension PropsConvertCoordinateOptions on ConvertCoordinateOptions {

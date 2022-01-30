@@ -82,14 +82,14 @@ extension PropsPermissions on Permissions {
   ///  // Don't do anything if the permission was denied.
   /// });
   ///
-  Promise<PermissionStatus> query(dynamic permissionDesc) =>
-      js_util.callMethod(this, 'query', [permissionDesc]);
+  Future<PermissionStatus> query(dynamic permissionDesc) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'query', [permissionDesc]));
 
-  Promise<PermissionStatus> request(dynamic permissionDesc) =>
-      js_util.callMethod(this, 'request', [permissionDesc]);
+  Future<PermissionStatus> request(dynamic permissionDesc) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'request', [permissionDesc]));
 
-  Promise<PermissionStatus> revoke(dynamic permissionDesc) =>
-      js_util.callMethod(this, 'revoke', [permissionDesc]);
+  Future<PermissionStatus> revoke(dynamic permissionDesc) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'revoke', [permissionDesc]));
 }
 
 @anonymous

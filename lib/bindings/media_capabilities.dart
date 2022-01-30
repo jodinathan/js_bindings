@@ -226,12 +226,12 @@ class MediaCapabilitiesKeySystemConfiguration {
   external factory MediaCapabilitiesKeySystemConfiguration(
       {String keySystem,
       String initDataType = '',
-      MediaKeysRequirement distinctiveIdentifier =
+      MediaKeysRequirement? distinctiveIdentifier =
           MediaKeysRequirement.optional,
-      MediaKeysRequirement persistentState = MediaKeysRequirement.optional,
-      Iterable<String> sessionTypes,
-      KeySystemTrackConfiguration audio,
-      KeySystemTrackConfiguration video});
+      MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
+      Iterable<String>? sessionTypes,
+      KeySystemTrackConfiguration? audio,
+      KeySystemTrackConfiguration? video});
 }
 
 extension PropsMediaCapabilitiesKeySystemConfiguration
@@ -401,9 +401,10 @@ extension PropsMediaCapabilities on MediaCapabilities {
   ///     (result.powerEfficient ? '' : 'not ') + 'power efficient.')
   /// });
   ///
-  Promise<MediaCapabilitiesDecodingInfo> decodingInfo(
+  Future<MediaCapabilitiesDecodingInfo> decodingInfo(
           MediaDecodingConfiguration configuration) =>
-      js_util.callMethod(this, 'decodingInfo', [configuration]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'decodingInfo', [configuration]));
 
   ///  When passed a valid media configuration, it returns a promise
   /// with information as to whether the media type is supported, and
@@ -431,7 +432,8 @@ extension PropsMediaCapabilities on MediaCapabilities {
   ///     (result.powerEfficient ? '' : 'not ') + 'power efficient.')
   /// });
   ///
-  Promise<MediaCapabilitiesEncodingInfo> encodingInfo(
+  Future<MediaCapabilitiesEncodingInfo> encodingInfo(
           MediaEncodingConfiguration configuration) =>
-      js_util.callMethod(this, 'encodingInfo', [configuration]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'encodingInfo', [configuration]));
 }

@@ -25,9 +25,10 @@ class UnidirectionalStreamsTransport {
 
 extension PropsUnidirectionalStreamsTransport
     on UnidirectionalStreamsTransport {
-  Promise<SendStream> createUnidirectionalStream(
+  Future<SendStream> createUnidirectionalStream(
           [SendStreamParameters? parameters]) =>
-      js_util.callMethod(this, 'createUnidirectionalStream', [parameters]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'createUnidirectionalStream', [parameters]));
 
   ReadableStream get incomingUnidirectionalStreams =>
       js_util.getProperty(this, 'incomingUnidirectionalStreams');
@@ -47,8 +48,9 @@ class BidirectionalStreamsTransport {
 }
 
 extension PropsBidirectionalStreamsTransport on BidirectionalStreamsTransport {
-  Promise<BidirectionalStream> createBidirectionalStream() =>
-      js_util.callMethod(this, 'createBidirectionalStream', []);
+  Future<BidirectionalStream> createBidirectionalStream() =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'createBidirectionalStream', []));
 
   ReadableStream get incomingBidirectionalStreams =>
       js_util.getProperty(this, 'incomingBidirectionalStreams');
@@ -83,13 +85,14 @@ class WebTransport implements UnidirectionalStreamsTransport {
 }
 
 extension PropsWebTransport on WebTransport {
-  Promise<WebTransportStats> getStats() =>
-      js_util.callMethod(this, 'getStats', []);
+  Future<WebTransportStats> getStats() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
 
   WebTransportState get state => js_util.getProperty(this, 'state');
-  Promise<Object> get ready => js_util.getProperty(this, 'ready');
-  Promise<WebTransportCloseInfo> get closed =>
-      js_util.getProperty(this, 'closed');
+  Future<Object> get ready =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
+  Future<WebTransportCloseInfo> get closed =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
   Object close([WebTransportCloseInfo? closeInfo]) =>
       js_util.callMethod(this, 'close', [closeInfo]);
 
@@ -101,8 +104,9 @@ extension PropsWebTransport on WebTransport {
 
   int get maxDatagramSize => js_util.getProperty(this, 'maxDatagramSize');
   DatagramDuplexStream get datagrams => js_util.getProperty(this, 'datagrams');
-  Promise<BidirectionalStream> createBidirectionalStream() =>
-      js_util.callMethod(this, 'createBidirectionalStream', []);
+  Future<BidirectionalStream> createBidirectionalStream() =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'createBidirectionalStream', []));
 
   ReadableStream get incomingBidirectionalStreams =>
       js_util.getProperty(this, 'incomingBidirectionalStreams');
@@ -137,7 +141,7 @@ enum WebTransportState { connecting, connected, closed, failed }
 @staticInterop
 class WebTransportCloseInfo {
   external factory WebTransportCloseInfo(
-      {int errorCode = 0, String reason = ''});
+      {int errorCode = 0, String? reason = ''});
 }
 
 extension PropsWebTransportCloseInfo on WebTransportCloseInfo {
@@ -225,8 +229,8 @@ class SendStream implements WritableStream {
 }
 
 extension PropsSendStream on SendStream {
-  Promise<StreamAbortInfo> get remoteCanceled =>
-      js_util.getProperty(this, 'remoteCanceled');
+  Future<StreamAbortInfo> get remoteCanceled =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'remoteCanceled'));
   Object reset([StreamAbortInfo? abortInfo]) =>
       js_util.callMethod(this, 'reset', [abortInfo]);
 }
@@ -252,8 +256,8 @@ class ReceiveStream implements ReadableStream {
 }
 
 extension PropsReceiveStream on ReceiveStream {
-  Promise<StreamAbortInfo> get remoteReset =>
-      js_util.getProperty(this, 'remoteReset');
+  Future<StreamAbortInfo> get remoteReset =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'remoteReset'));
 }
 
 @JS()

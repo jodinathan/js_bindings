@@ -127,7 +127,9 @@ extension PropsRTCIdentityValidationResult on RTCIdentityValidationResult {
 @staticInterop
 class RTCIdentityProviderOptions {
   external factory RTCIdentityProviderOptions(
-      {String protocol = 'default', String usernameHint, String peerIdentity});
+      {String protocol = 'default',
+      String? usernameHint,
+      String? peerIdentity});
 }
 
 extension PropsRTCIdentityProviderOptions on RTCIdentityProviderOptions {

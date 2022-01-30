@@ -74,7 +74,8 @@ extension PropsMediaSession on MediaSession {
   ///
   Object setActionHandler(
           MediaSessionAction action, MediaSessionActionHandler? handler) =>
-      js_util.callMethod(this, 'setActionHandler', [action, handler]);
+      js_util.callMethod(this, 'setActionHandler',
+          [action, handler == null ? null : allowInterop(handler)]);
 
   ///  Sets the current playback position and speed of the media
   /// currently being presented.
@@ -166,9 +167,9 @@ extension PropsMediaMetadata on MediaMetadata {
 class MediaMetadataInit {
   external factory MediaMetadataInit(
       {String title = '',
-      String artist = '',
-      String album = '',
-      Iterable<MediaImage> artwork = const []});
+      String? artist = '',
+      String? album = '',
+      Iterable<MediaImage>? artwork = const []});
 }
 
 extension PropsMediaMetadataInit on MediaMetadataInit {
@@ -203,7 +204,7 @@ extension PropsMediaMetadataInit on MediaMetadataInit {
 @staticInterop
 class MediaImage {
   external factory MediaImage(
-      {String src, String sizes = '', String type = ''});
+      {String src, String sizes = '', String? type = ''});
 }
 
 extension PropsMediaImage on MediaImage {

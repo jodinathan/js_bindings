@@ -55,7 +55,8 @@ extension PropsAudioDecoder on AudioDecoder {
   ///
   /// AudioDecoder.flush()
   ///
-  Promise<Object> flush() => js_util.callMethod(this, 'flush', []);
+  Future<Object> flush() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'flush', []));
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
@@ -70,8 +71,10 @@ extension PropsAudioDecoder on AudioDecoder {
   ///
   Object close() => js_util.callMethod(this, 'close', []);
 
-  external static Promise<AudioDecoderSupport> isConfigSupported(
-      AudioDecoderConfig config);
+  static Future<AudioDecoderSupport> isConfigSupported(
+          AudioDecoderConfig config) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(AudioDecoder, 'isConfigSupported', [config]));
 }
 
 @anonymous
@@ -133,7 +136,8 @@ extension PropsVideoDecoder on VideoDecoder {
   ///
   /// VideoDecoder.flush()
   ///
-  Promise<Object> flush() => js_util.callMethod(this, 'flush', []);
+  Future<Object> flush() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'flush', []));
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
@@ -148,8 +152,10 @@ extension PropsVideoDecoder on VideoDecoder {
   ///
   Object close() => js_util.callMethod(this, 'close', []);
 
-  external static Promise<VideoDecoderSupport> isConfigSupported(
-      VideoDecoderConfig config);
+  static Future<VideoDecoderSupport> isConfigSupported(
+          VideoDecoderConfig config) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(VideoDecoder, 'isConfigSupported', [config]));
 }
 
 @anonymous
@@ -209,7 +215,8 @@ extension PropsAudioEncoder on AudioEncoder {
   ///
   /// AudioEncoder.flush()
   ///
-  Promise<Object> flush() => js_util.callMethod(this, 'flush', []);
+  Future<Object> flush() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'flush', []));
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
@@ -224,8 +231,10 @@ extension PropsAudioEncoder on AudioEncoder {
   ///
   Object close() => js_util.callMethod(this, 'close', []);
 
-  external static Promise<AudioEncoderSupport> isConfigSupported(
-      AudioEncoderConfig config);
+  static Future<AudioEncoderSupport> isConfigSupported(
+          AudioEncoderConfig config) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(AudioEncoder, 'isConfigSupported', [config]));
 }
 
 @anonymous
@@ -303,7 +312,8 @@ extension PropsVideoEncoder on VideoEncoder {
   ///
   /// VideoEncoder.flush()
   ///
-  Promise<Object> flush() => js_util.callMethod(this, 'flush', []);
+  Future<Object> flush() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'flush', []));
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
@@ -318,7 +328,9 @@ extension PropsVideoEncoder on VideoEncoder {
   ///
   Object close() => js_util.callMethod(this, 'close', []);
 
-  external static Promise<bool> isConfigSupported(VideoEncoderConfig config);
+  static Future<bool> isConfigSupported(VideoEncoderConfig config) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(VideoEncoder, 'isConfigSupported', [config]));
 }
 
 @anonymous
@@ -571,8 +583,8 @@ class VideoEncoderConfig {
       int displayWidth,
       int displayHeight,
       HardwareAcceleration hardwareAcceleration = HardwareAcceleration.allow,
-      String scalabilityMode,
-      BitrateMode bitrateMode = BitrateMode.variable});
+      String? scalabilityMode,
+      BitrateMode? bitrateMode = BitrateMode.variable});
 }
 
 extension PropsVideoEncoderConfig on VideoEncoderConfig {
@@ -881,7 +893,7 @@ extension PropsAudioDataInit on AudioDataInit {
 @staticInterop
 class AudioDataCopyToOptions {
   external factory AudioDataCopyToOptions(
-      {int planeIndex, int frameOffset = 0, int frameCount});
+      {int planeIndex, int frameOffset = 0, int? frameCount});
 }
 
 extension PropsAudioDataCopyToOptions on AudioDataCopyToOptions {
@@ -1119,7 +1131,8 @@ extension PropsImageDecoder on ImageDecoder {
 
   /// Returns a [Promise] that resolves once [complete] is true.
   ///
-  Promise<Object> get completed => js_util.getProperty(this, 'completed');
+  Future<Object> get completed =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'completed'));
 
   ///  Returns an [ImageTrackList] object listing the available tracks
   /// and providing a method for selecting a track to decode.
@@ -1130,8 +1143,8 @@ extension PropsImageDecoder on ImageDecoder {
   ///
   /// ImageDecoder.decode(options)
   ///
-  Promise<ImageDecodeResult> decode([ImageDecodeOptions? options]) =>
-      js_util.callMethod(this, 'decode', [options]);
+  Future<ImageDecodeResult> decode([ImageDecodeOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'decode', [options]));
 
   ///  Resets all states including configuration, control messages in
   /// the control message queue, and all pending callbacks.
@@ -1146,7 +1159,8 @@ extension PropsImageDecoder on ImageDecoder {
   ///
   Object close() => js_util.callMethod(this, 'close', []);
 
-  external static Promise<bool> isTypeSupported(String type);
+  static Future<bool> isTypeSupported(String type) => js_util.promiseToFuture(
+      js_util.callMethod(ImageDecoder, 'isTypeSupported', [type]));
 }
 
 @anonymous
@@ -1157,11 +1171,11 @@ class ImageDecoderInit {
       {String type,
       dynamic data,
       PremultiplyAlpha premultiplyAlpha = PremultiplyAlpha.valueDefault,
-      ColorSpaceConversion colorSpaceConversion =
+      ColorSpaceConversion? colorSpaceConversion =
           ColorSpaceConversion.valueDefault,
-      int desiredWidth,
-      int desiredHeight,
-      bool preferAnimation});
+      int? desiredWidth,
+      int? desiredHeight,
+      bool? preferAnimation});
 }
 
 extension PropsImageDecoderInit on ImageDecoderInit {
@@ -1208,7 +1222,7 @@ extension PropsImageDecoderInit on ImageDecoderInit {
 @staticInterop
 class ImageDecodeOptions {
   external factory ImageDecodeOptions(
-      {int frameIndex = 0, bool completeFramesOnly = true});
+      {int frameIndex = 0, bool? completeFramesOnly = true});
 }
 
 extension PropsImageDecodeOptions on ImageDecodeOptions {
@@ -1255,7 +1269,8 @@ extension PropsImageTrackList on ImageTrackList {
   ///  Returns a [promise] that resolves once the [ImageTrackList] has
   /// been populated with [tracks].
   ///
-  Promise<Object> get ready => js_util.getProperty(this, 'ready');
+  Future<Object> get ready =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
 
   ///  Returns an integer indicating the length of the
   /// [ImageTrackList].

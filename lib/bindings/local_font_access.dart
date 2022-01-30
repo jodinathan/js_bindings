@@ -39,7 +39,7 @@ extension PropsFontManager on FontManager {
 @staticInterop
 class QueryOptions {
   external factory QueryOptions(
-      {bool persistentAccess = false, Iterable<String> select = const []});
+      {bool persistentAccess = false, Iterable<String>? select = const []});
 }
 
 extension PropsQueryOptions on QueryOptions {
@@ -61,7 +61,8 @@ class FontMetadata {
 }
 
 extension PropsFontMetadata on FontMetadata {
-  Promise<Blob> blob() => js_util.callMethod(this, 'blob', []);
+  Future<Blob> blob() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'blob', []));
 
   String get postscriptName => js_util.getProperty(this, 'postscriptName');
   String get fullName => js_util.getProperty(this, 'fullName');

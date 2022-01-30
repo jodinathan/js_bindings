@@ -23,13 +23,13 @@ enum MediaKeysRequirement { valueRequired, optional, notAllowed }
 class MediaKeySystemConfiguration {
   external factory MediaKeySystemConfiguration(
       {String label = '',
-      Iterable<String> initDataTypes = const [],
-      Iterable<MediaKeySystemMediaCapability> audioCapabilities = const [],
-      Iterable<MediaKeySystemMediaCapability> videoCapabilities = const [],
-      MediaKeysRequirement distinctiveIdentifier =
+      Iterable<String>? initDataTypes = const [],
+      Iterable<MediaKeySystemMediaCapability>? audioCapabilities = const [],
+      Iterable<MediaKeySystemMediaCapability>? videoCapabilities = const [],
+      MediaKeysRequirement? distinctiveIdentifier =
           MediaKeysRequirement.optional,
-      MediaKeysRequirement persistentState = MediaKeysRequirement.optional,
-      Iterable<String> sessionTypes});
+      MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
+      Iterable<String>? sessionTypes});
 }
 
 extension PropsMediaKeySystemConfiguration on MediaKeySystemConfiguration {
@@ -82,7 +82,7 @@ class MediaKeySystemMediaCapability {
   external factory MediaKeySystemMediaCapability(
       {String contentType = '',
       String? encryptionScheme,
-      String robustness = ''});
+      String? robustness = ''});
 }
 
 extension PropsMediaKeySystemMediaCapability on MediaKeySystemMediaCapability {
@@ -132,8 +132,8 @@ extension PropsMediaKeySystemAccess on MediaKeySystemAccess {
   ///
   /// var mediaKeys = await mediaKeySystemAccess.createMediaKeys();
   ///
-  Promise<MediaKeys> createMediaKeys() =>
-      js_util.callMethod(this, 'createMediaKeys', []);
+  Future<MediaKeys> createMediaKeys() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'createMediaKeys', []));
 }
 
 enum MediaKeySessionType { temporary, persistentLicense }
@@ -166,8 +166,9 @@ extension PropsMediaKeys on MediaKeys {
   ///
   /// MediaKeys.setServerCertificate(serverCertificate).then(function() { /* ... */ });
   ///
-  Promise<bool> setServerCertificate(dynamic serverCertificate) =>
-      js_util.callMethod(this, 'setServerCertificate', [serverCertificate]);
+  Future<bool> setServerCertificate(dynamic serverCertificate) =>
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'setServerCertificate', [serverCertificate]));
 }
 
 ///  The interface of the EncryptedMediaExtensions API represents a
@@ -200,7 +201,8 @@ extension PropsMediaKeySession on MediaKeySession {
   /// a session means that licenses and keys associated with it are no
   /// longer valid for decrypting media data.
   ///
-  Promise<Object> get closed => js_util.getProperty(this, 'closed');
+  Future<Object> get closed =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
 
   ///  Contains a reference to a read-only [MediaKeyStatusMap] of the
   /// current session's keys and their statuses.
@@ -222,24 +224,25 @@ extension PropsMediaKeySession on MediaKeySession {
   ///
   /// mediaKeySession.generateRequest().then(function) { /* ... */ });
   ///
-  Promise<Object> generateRequest(String initDataType, dynamic initData) =>
-      js_util.callMethod(this, 'generateRequest', [initDataType, initData]);
+  Future<Object> generateRequest(String initDataType, dynamic initData) =>
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'generateRequest', [initDataType, initData]));
 
   ///  Returns a [Promise] that resolves to a boolean value after
   /// loading data for a specified session object.
   ///
   /// mediaKeySession.load(sessionId).then(function(booleanValue) { /* ... */ });
   ///
-  Promise<bool> load(String sessionId) =>
-      js_util.callMethod(this, 'load', [sessionId]);
+  Future<bool> load(String sessionId) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'load', [sessionId]));
 
   ///  Returns a [Promise] after loading messages and licenses to the
   /// CDM.
   ///
   /// mediaKeySession.update(response).then(function() { /* ... */ });
   ///
-  Promise<Object> update(dynamic response) =>
-      js_util.callMethod(this, 'update', [response]);
+  Future<Object> update(dynamic response) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'update', [response]));
 
   ///  Returns a [Promise] after notifying the current media session is
   /// no longer needed and that the CDM should release any resources
@@ -247,12 +250,14 @@ extension PropsMediaKeySession on MediaKeySession {
   ///
   /// mediaKeySession.close().then(function() { /* ... */ });
   ///
-  Promise<Object> close() => js_util.callMethod(this, 'close', []);
+  Future<Object> close() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
   ///  Returns a [Promise] after removing any session data associated
   /// with the current object.
   ///
-  Promise<Object> remove() => js_util.callMethod(this, 'remove', []);
+  Future<Object> remove() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'remove', []));
 }
 
 ///  Experimental: This is an experimental technologyCheck the

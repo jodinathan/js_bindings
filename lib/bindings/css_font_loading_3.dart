@@ -21,16 +21,16 @@ html */
 class FontFaceDescriptors {
   external factory FontFaceDescriptors(
       {String style = 'normal',
-      String weight = 'normal',
-      String stretch = 'normal',
-      String unicodeRange = 'U+0-10FFFF',
-      String variant = 'normal',
-      String featureSettings = 'normal',
-      String variationSettings = 'normal',
-      String display = 'auto',
-      String ascentOverride = 'normal',
-      String descentOverride = 'normal',
-      String lineGapOverride = 'normal'});
+      String? weight = 'normal',
+      String? stretch = 'normal',
+      String? unicodeRange = 'U+0-10FFFF',
+      String? variant = 'normal',
+      String? featureSettings = 'normal',
+      String? variationSettings = 'normal',
+      String? display = 'auto',
+      String? ascentOverride = 'normal',
+      String? descentOverride = 'normal',
+      String? lineGapOverride = 'normal'});
 }
 
 extension PropsFontFaceDescriptors on FontFaceDescriptors {
@@ -209,13 +209,15 @@ extension PropsFontFace on FontFace {
   /// one of ["unloaded"], ["loading"], ["loaded"], or ["error"].
   ///
   FontFaceLoadStatus get status => js_util.getProperty(this, 'status');
-  Promise<FontFace> load() => js_util.callMethod(this, 'load', []);
+  Future<FontFace> load() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'load', []));
 
   ///  Returns a [Promise] that resolves with the current [FontFace]
   /// object when the font specified in the object's constructor is
   /// done loading or rejects with a [SyntaxError].
   ///
-  Promise<FontFace> get loaded => js_util.getProperty(this, 'loaded');
+  Future<FontFace> get loaded =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'loaded'));
 }
 
 @anonymous
@@ -323,7 +325,8 @@ extension PropsFontFaceSet on FontFaceSet {
   ///  [Promise] which resolves once font loading and layout operations
   /// have completed.
   ///
-  Promise<FontFaceSet> get ready => js_util.getProperty(this, 'ready');
+  Future<FontFaceSet> get ready =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
 
   ///  Indicates the font-face's loading status. It will be one of
   /// ['loading'] or ['loaded'].

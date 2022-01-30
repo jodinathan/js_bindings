@@ -48,9 +48,10 @@ class Scheduler {
 }
 
 extension PropsScheduler on Scheduler {
-  Promise<dynamic> postTask(SchedulerPostTaskCallback callback,
+  Future<dynamic> postTask(SchedulerPostTaskCallback callback,
           [SchedulerPostTaskOptions? options]) =>
-      js_util.callMethod(this, 'postTask', [callback, options]);
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'postTask', [allowInterop(callback), options]));
 }
 
 @JS()

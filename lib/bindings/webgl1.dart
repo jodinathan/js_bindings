@@ -23,14 +23,14 @@ enum WebGLPowerPreference { valueDefault, lowPower, highPerformance }
 class WebGLContextAttributes {
   external factory WebGLContextAttributes(
       {bool alpha = true,
-      bool depth = true,
-      bool stencil = false,
-      bool antialias = true,
-      bool premultipliedAlpha = true,
-      bool preserveDrawingBuffer = false,
-      WebGLPowerPreference powerPreference = WebGLPowerPreference.valueDefault,
-      bool failIfMajorPerformanceCaveat = false,
-      bool desynchronized = false});
+      bool? depth = true,
+      bool? stencil = false,
+      bool? antialias = true,
+      bool? premultipliedAlpha = true,
+      bool? preserveDrawingBuffer = false,
+      WebGLPowerPreference? powerPreference = WebGLPowerPreference.valueDefault,
+      bool? failIfMajorPerformanceCaveat = false,
+      bool? desynchronized = false});
 }
 
 extension PropsWebGLContextAttributes on WebGLContextAttributes {
@@ -913,8 +913,8 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   Object viewport(int x, int y, int width, int height) =>
       js_util.callMethod(this, 'viewport', [x, y, width, height]);
 
-  Promise<Object> makeXRCompatible() =>
-      js_util.callMethod(this, 'makeXRCompatible', []);
+  Future<Object> makeXRCompatible() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'makeXRCompatible', []));
 }
 
 @JS()

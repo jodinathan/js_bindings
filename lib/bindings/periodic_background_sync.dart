@@ -32,8 +32,9 @@ extension PropsPeriodicSyncManager on PeriodicSyncManager {
   ///
   /// var register = PeriodicSyncManager.register(tag, BackgroundSyncOptions);
   ///
-  Promise<Object> register(String tag, [BackgroundSyncOptions? options]) =>
-      js_util.callMethod(this, 'register', [tag, options]);
+  Future<Object> register(String tag, [BackgroundSyncOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'register', [tag, options]));
 
   ///  Returns a [Promise] that resolves with a list of [strings]
   /// representing the tags that are currently registered for periodic
@@ -50,8 +51,8 @@ extension PropsPeriodicSyncManager on PeriodicSyncManager {
   ///
   /// var unregister = PeriodicSyncManager.unregister(tag);
   ///
-  Promise<Object> unregister(String tag) =>
-      js_util.callMethod(this, 'unregister', [tag]);
+  Future<Object> unregister(String tag) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'unregister', [tag]));
 }
 
 @anonymous

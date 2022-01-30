@@ -603,12 +603,15 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   /// video calling for the complete example from which this snippet is derived; this
   ///  will help you to understand how the signaling code here works.
   ///
-  Promise<Object> createOffer(
+  Future<Object> createOffer(
           [RTCSessionDescriptionCallback? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback,
           RTCOfferOptions? options]) =>
-      js_util.callMethod(
-          this, 'createOffer', [successCallback, failureCallback, options]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'createOffer', [
+        successCallback == null ? null : allowInterop(successCallback),
+        failureCallback == null ? null : allowInterop(failureCallback),
+        options
+      ]));
 
   ///
   ///    Changes the local description associated with the connection.
@@ -626,12 +629,15 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///
   ///
   ///
-  Promise<Object> setLocalDescription(
+  Future<Object> setLocalDescription(
           [RTCLocalSessionDescriptionInit? description,
           VoidFunction? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
-      js_util.callMethod(this, 'setLocalDescription',
-          [description, successCallback, failureCallback]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'setLocalDescription', [
+        description,
+        successCallback == null ? null : allowInterop(successCallback),
+        failureCallback == null ? null : allowInterop(failureCallback)
+      ]));
 
   ///
   ///    Initiates the creation an SDP answer
@@ -682,11 +688,13 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  snippet is derived; that will help you understand the signaling process and how answers
   ///  work.
   ///
-  Promise<Object> createAnswer(
+  Future<Object> createAnswer(
           [RTCSessionDescriptionCallback? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
-      js_util
-          .callMethod(this, 'createAnswer', [successCallback, failureCallback]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'createAnswer', [
+        successCallback == null ? null : allowInterop(successCallback),
+        failureCallback == null ? null : allowInterop(failureCallback)
+      ]));
 
   ///
   ///    Sets the specified session description
@@ -740,12 +748,15 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  that as the configuration at our end of the call before forwarding that answer to the
   ///  caller.
   ///
-  Promise<Object> setRemoteDescription(
+  Future<Object> setRemoteDescription(
           [RTCSessionDescriptionInit? description,
           VoidFunction? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
-      js_util.callMethod(this, 'setRemoteDescription',
-          [description, successCallback, failureCallback]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'setRemoteDescription', [
+        description,
+        successCallback == null ? null : allowInterop(successCallback),
+        failureCallback == null ? null : allowInterop(failureCallback)
+      ]));
 
   ///
   ///     Adds a new remote candidate to the [RTCPeerConnection]'s
@@ -757,15 +768,20 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   /// addIceCandidate(candidate)
   /// addIceCandidate(candidate, successCallback, failureCallback) // deprecated
   ///
-  Promise<Object> addIceCandidate(
+  Future<Object> addIceCandidate(
           [RTCIceCandidateInit? candidate,
           VoidFunction? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
-      js_util.callMethod(this, 'addIceCandidate',
-          [candidate, successCallback, failureCallback]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'addIceCandidate', [
+        candidate,
+        successCallback == null ? null : allowInterop(successCallback),
+        failureCallback == null ? null : allowInterop(failureCallback)
+      ]));
 
-  external static Promise<RTCCertificate> generateCertificate(
-      dynamic keygenAlgorithm);
+  static Future<RTCCertificate> generateCertificate(dynamic keygenAlgorithm) =>
+      js_util.promiseToFuture(js_util.callMethod(
+          RTCPeerConnection, 'generateCertificate', [keygenAlgorithm]));
+
   Iterable<RTCRtpSender> getSenders() =>
       js_util.callMethod(this, 'getSenders', []);
 
@@ -801,18 +817,18 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
     js_util.setProperty(this, 'ondatachannel', newValue);
   }
 
-  Promise<RTCStatsReport> getStats([MediaStreamTrack? selector]) =>
-      js_util.callMethod(this, 'getStats', [selector]);
+  Future<RTCStatsReport> getStats([MediaStreamTrack? selector]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getStats', [selector]));
 
   Object setIdentityProvider(String provider,
           [RTCIdentityProviderOptions? options]) =>
       js_util.callMethod(this, 'setIdentityProvider', [provider, options]);
 
-  Promise<String> getIdentityAssertion() =>
-      js_util.callMethod(this, 'getIdentityAssertion', []);
+  Future<String> getIdentityAssertion() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'getIdentityAssertion', []));
 
-  Promise<RTCIdentityAssertion> get peerIdentity =>
-      js_util.getProperty(this, 'peerIdentity');
+  Future<RTCIdentityAssertion> get peerIdentity =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'peerIdentity'));
   String? get idpLoginUrl => js_util.getProperty(this, 'idpLoginUrl');
   String? get idpErrorInfo => js_util.getProperty(this, 'idpErrorInfo');
 }
@@ -1218,8 +1234,8 @@ class RTCRtpTransceiverInit {
   external factory RTCRtpTransceiverInit(
       {RTCRtpTransceiverDirection direction =
           RTCRtpTransceiverDirection.sendrecv,
-      Iterable<MediaStream> streams = const [],
-      Iterable<RTCRtpEncodingParameters> sendEncodings = const []});
+      Iterable<MediaStream>? streams = const [],
+      Iterable<RTCRtpEncodingParameters>? sendEncodings = const []});
 }
 
 extension PropsRTCRtpTransceiverInit on RTCRtpTransceiverInit {
@@ -1278,15 +1294,16 @@ extension PropsRTCRtpSender on RTCRtpSender {
   /// be sharing the same transport object.
   ///
   RTCDtlsTransport? get transport => js_util.getProperty(this, 'transport');
-  external static RTCRtpCapabilities? getCapabilities(String kind);
+  static RTCRtpCapabilities? getCapabilities(String kind) =>
+      js_util.callMethod(RTCRtpSender, 'getCapabilities', [kind]);
 
   ///  Applies changes to parameters which configure how the [track] is
   /// encoded and transmitted to the remote peer.
   ///
   /// var promise = rtcRtpSender.setParameters(parameters)
   ///
-  Promise<Object> setParameters(RTCRtpSendParameters parameters) =>
-      js_util.callMethod(this, 'setParameters', [parameters]);
+  Future<Object> setParameters(RTCRtpSendParameters parameters) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'setParameters', [parameters]));
 
   ///  Returns a [RTCRtpParameters] object describing the current
   /// configuration for the encoding and transmission of media on the
@@ -1304,8 +1321,8 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///
   /// trackReplacedPromise = sender.replaceTrack(newTrack);
   ///
-  Promise<Object> replaceTrack(MediaStreamTrack? withTrack) =>
-      js_util.callMethod(this, 'replaceTrack', [withTrack]);
+  Future<Object> replaceTrack(MediaStreamTrack? withTrack) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'replaceTrack', [withTrack]));
 
   ///  Sets the [MediaStream](s) associated with the [track] being
   /// transmitted by this sender.
@@ -1352,8 +1369,8 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///      stats.roundTripTime;
   /// });
   ///
-  Promise<RTCStatsReport> getStats() =>
-      js_util.callMethod(this, 'getStats', []);
+  Future<RTCStatsReport> getStats() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
 
   dynamic get transform => js_util.getProperty(this, 'transform');
   set transform(dynamic newValue) {
@@ -1491,7 +1508,7 @@ class RTCRtpDecodingParameters implements RTCRtpCodingParameters {
 @staticInterop
 class RTCRtpEncodingParameters implements RTCRtpCodingParameters {
   external factory RTCRtpEncodingParameters(
-      {bool active = true, int maxBitrate, double scaleResolutionDownBy});
+      {bool active = true, int? maxBitrate, double? scaleResolutionDownBy});
 }
 
 extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
@@ -1790,7 +1807,8 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
   /// the receiver's track is received.
   ///
   RTCDtlsTransport? get transport => js_util.getProperty(this, 'transport');
-  external static RTCRtpCapabilities? getCapabilities(String kind);
+  static RTCRtpCapabilities? getCapabilities(String kind) =>
+      js_util.callMethod(RTCRtpReceiver, 'getCapabilities', [kind]);
 
   ///  Returns an [RTCRtpParameters] object which contains information
   /// about how the RTC data is to be decoded.
@@ -1834,8 +1852,8 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
   ///      stats.packetsLost;
   /// });
   ///
-  Promise<RTCStatsReport> getStats() =>
-      js_util.callMethod(this, 'getStats', []);
+  Future<RTCStatsReport> getStats() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
 
   dynamic get transform => js_util.getProperty(this, 'transform');
   set transform(dynamic newValue) {
@@ -2344,7 +2362,7 @@ class RTCTrackEventInit implements EventInit {
       {RTCRtpReceiver receiver,
       MediaStreamTrack track,
       Iterable<MediaStream> streams = const [],
-      RTCRtpTransceiver transceiver});
+      RTCRtpTransceiver? transceiver});
 }
 
 extension PropsRTCTrackEventInit on RTCTrackEventInit {
@@ -2654,11 +2672,11 @@ extension PropsRTCDataChannel on RTCDataChannel {
 class RTCDataChannelInit {
   external factory RTCDataChannelInit(
       {bool ordered = true,
-      int maxPacketLifeTime,
-      int maxRetransmits,
-      String protocol = '',
-      bool negotiated = false,
-      int id});
+      int? maxPacketLifeTime,
+      int? maxRetransmits,
+      String? protocol = '',
+      bool? negotiated = false,
+      int? id});
 }
 
 extension PropsRTCDataChannelInit on RTCDataChannelInit {

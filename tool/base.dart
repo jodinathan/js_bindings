@@ -170,6 +170,162 @@ final missing = {
   }
 };
 
+class DartType {
+  DartType({
+    required this.name,
+    required bool nullable,
+    this.isCallback = false
+  }) : fullName = '$name${nullable && name != 'dynamic' ? '?' : ''}',
+  nullable = nullable || name == 'dynamic',
+  isDynamic = name == 'dynamic',
+  isPromise = name == 'Promise' || name.startsWith('Promise<');
+
+  final String name;
+  final String fullName;
+  final bool nullable;
+  final bool isDynamic;
+  final bool isPromise;
+  final bool isCallback;
+
+  String get dartName => isPromise ?
+    (name == 'Promise' ? 'Future' : name.replaceAll('Promise<', 'Future<')) :
+    fullName;
+
+  @override
+  String toString() => dartName;
+}
+
+class MethodParam {
+  MethodParam({
+    required this.name,
+    required this.dartType,
+    required this.typeName,
+    this.isNullable = false,
+    this.isOptional = false,
+    this.isVariadic = false,
+    this.defaultValue
+  });
+
+  final String name;
+  final bool isNullable;
+  final bool isOptional;
+  final bool isVariadic;
+  final DartType dartType;
+  final String typeName;
+  final Object? defaultValue;
+}
+
+class Method {
+  Method(this.spec);
+
+  final List<MethodParam> params = [];
+  final Spec spec;
+
+  void parse(Iterable args) {
+    var optional = false;
+
+    for (final arg in args) {
+      var nopt = arg['optional'] == true || arg['variadic'] == true;
+      var name = arg['name'] as String;
+      var dtype = spec.getDartType(arg['idlType']);
+      var type = dtype.dartName;
+
+      if ((optional || nopt) &&
+          !dtype.nullable &&
+          !type.endsWith(' dynamic') &&
+          type != 'dynamic') {
+        type += '?';
+      }
+
+      if (forbidden.contains(name)) {
+        name = 'm${name.pascalCase}';
+      }
+
+      final defs = arg['default'] as Map<String, dynamic>?;
+      Object? defaultValue;
+
+      if (defs != null) {
+        var val = defs['value'];
+
+        if (val != null) {
+          final type = defs['type'];
+
+          if (type == 'string') {
+            if (arg['idlType'] is Map<String, dynamic> &&
+                types[arg['idlType']['idlType']] != 'String') {
+              if (arg['idlType']['idlType'] is String &&
+                  val is String &&
+                  val.isNotEmpty) {
+                var label = val.camelCase.replaceAll('+', '');
+
+                if (label.isEmpty) {
+                  label = 'empty';
+                } else if (int.tryParse(label.substring(0, 1)) != null ||
+                    forbidden.contains(label)) {
+                  label = 'value${label.pascalCase}';
+                }
+                val = '${arg['idlType']['idlType']}.$label';
+              } else {
+                val = null;
+              }
+            } else {
+              val = "'$val'";
+            }
+          } else if (val is Iterable) {
+            val = 'const [${val.join(', ')}]';
+          }
+
+          if (val != null) {
+            nopt = true;
+            defaultValue = val.toString();
+            //assert(optionals);
+          }
+        }
+      }
+
+      if (nopt && !optional) {
+        optional = true;
+      }
+
+      params.add(MethodParam(
+        name: name,
+        typeName: type,
+        dartType: dtype,
+        defaultValue: defaultValue,
+        isNullable: dtype.nullable || optional,
+        isOptional: optional,
+        isVariadic: arg['variadic'] == true
+      ));
+    }
+  }
+
+  String build({bool optionals = true}) {
+    var ret = <String>[];
+    var optional = false;
+
+    for (final arg in params) {
+      var call = '${arg.typeName} ${arg.name}';
+
+      if (arg.isOptional && !optional && optionals) {
+        call = '[$call';
+        optional = true;
+      }
+
+      if (arg.defaultValue != null) {
+        call += ' = ${arg.defaultValue}';
+      }
+
+      ret.add(call);
+    }
+
+    if (optional) {
+      ret.add('${ret.removeLast()}]');
+    }
+
+    return ret.join(', ');
+  }
+}
+
 class Spec {
   final String name;
   final String path;
@@ -180,10 +336,12 @@ class Spec {
   final Map<String, dynamic> inheritance = {};
   final Map<String, String> typedefs = {'WindowProxy': 'Window'};
   final SpecGroup group;
+  static final dynamicType = DartType(name: 'dynamic', nullable: true);
+  static final nnStringType = DartType(name: 'String', nullable: false);
   var usesTypedData = false;
   final errors = {'types': [], 'forbidden': []};
 
-  String getDartType(Map<String, dynamic> returnTypeBlock) {
+  DartType getDartType(Map<String, dynamic> returnTypeBlock) {
     String returnType;
     var gen = <String>[];
     var nullable = false;
@@ -193,11 +351,11 @@ class Spec {
       returnType = returnTypeBlock['idlType'];
     } else if (returnTypeBlock['idlType'] is Iterable) {
       while (returnTypeBlock['idlType'] is Iterable) {
-        final dyn = returnTypeBlock['idlType'].length > 1;
+        final bool dyn = returnTypeBlock['idlType'].length > 1;
 
         if (dyn) {
           print('Must be dynamic because it is a union.\n$returnTypeBlock');
-          return 'dynamic';
+          return dynamicType;
         }
         gen.add(returnTypeBlock['generic']);
         returnTypeBlock = returnTypeBlock['idlType'][0];
@@ -263,18 +421,23 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
     if (gen.isNotEmpty) {
       gen.insert(0, ret);
 
-      return gen.reduce(
-          (val, el) => '${el == 'Promise' ? 'Promise' : 'Iterable'}<$val>');
+      ret = gen.reduce(
+              (val, el) => '${el == 'Promise' ? 'Promise' : 'Iterable'}<$val>');
     }
 
     // for sanity check ret should never be a typedef like EventHandler
     assert(ret != 'EventHandler');
 
-    if (nullable && ret != 'dynamic') {
-      ret += '?';
+    final spt = specType(ret);
+    final type = spt?['type']?.toString().split(' ') ?? [];
+
+    if (ret == 'FileSystemEntryCallback') {
+      print('FileSystemEntryCallback $spt\n$nullable\n$returnTypeBlock');
     }
 
-    return ret;
+    return DartType(name: ret, nullable: nullable,
+        isCallback: type.contains('callback') && (ret == 'EventListener' ||
+        type.length == 1));
   }
 
   String makeDoc(String? rbuf, {bool wrap = true}) {
@@ -326,81 +489,22 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
     return ret.map((r) => '/// $r').join('\n').trim();
   }
 
-  Iterable<String> makeParams(Iterable args, {bool optionals = true}) {
-    var params = <String>[];
-    var optional = false;
+  Method makeMethod(Iterable args) {
+    return Method(this)..parse(args);
+  }
 
-    for (final arg in args) {
-      var nopt = arg['optional'] == true || arg['variadic'] == true;
-      var name = arg['name'] as String;
-      var type = getDartType(arg['idlType']);
-
-      if ((optional || nopt) &&
-          !type.endsWith('?') &&
-          !type.endsWith(' dynamic') &&
-          type != 'dynamic') {
-        type += '?';
-      }
-
-      if (forbidden.contains(name)) {
-        name = 'm${name.pascalCase}';
-      }
-
-      var call = '$type $name';
-      final defs = arg['default'] as Map<String, dynamic>?;
-
-      if (defs != null) {
-        var val = defs['value'];
-
-        if (val != null) {
-          final type = defs['type'];
-
-          if (type == 'string') {
-            if (arg['idlType'] is Map<String, dynamic> &&
-                types[arg['idlType']['idlType']] != 'String') {
-              if (arg['idlType']['idlType'] is String &&
-                  val is String &&
-                  val.isNotEmpty) {
-                var label = val.camelCase.replaceAll('+', '');
-
-                if (label.isEmpty) {
-                  label = 'empty';
-                } else if (int.tryParse(label.substring(0, 1)) != null ||
-                    forbidden.contains(label)) {
-                  label = 'value${label.pascalCase}';
-                }
-                val = '${arg['idlType']['idlType']}.$label';
-              } else {
-                val = null;
-              }
-            } else {
-              val = "'$val'";
-            }
-          } else if (val is Iterable) {
-            val = 'const [${val.join(', ')}]';
-          }
-
-          if (val != null) {
-            call += ' = $val';
-            nopt = true;
-            //assert(optionals);
-          }
-        }
-      }
-
-      if (nopt && !optional && optionals) {
-        call = '[$call';
-        optional = true;
-      }
-
-      params.add(call);
+  Map<String, dynamic>? specType(String name) {
+    if (objects.containsKey(name)) {
+      return objects[name];
     }
 
-    if (optional) {
-      params.add('${params.removeLast()}]');
+    for (final spec in group.specs) {
+      if (spec.objects.containsKey(name)) {
+        return spec.objects[name];
+      }
     }
 
-    return params;
+    return null;
   }
 
   Spec(this.group, this.path, this.basename, this.json)
@@ -550,7 +654,7 @@ Future<SpecGroup> getSpecs() async {
       final obj = spec.objects[name];
 
       if (obj != null && obj['type'] == 'typedef') {
-        spec.typedefs[name] = spec.getDartType(obj['idlType']);
+        spec.typedefs[name] = spec.getDartType(obj['idlType']).fullName;
       }
 
       for (var spec in ret.specs) {

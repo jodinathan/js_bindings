@@ -54,7 +54,8 @@ extension PropsSanitizer on Sanitizer {
 
   SanitizerConfig config() => js_util.callMethod(this, 'config', []);
 
-  external static SanitizerConfig defaultConfig();
+  static SanitizerConfig defaultConfig() =>
+      js_util.callMethod(Sanitizer, 'defaultConfig', []);
 }
 
 @anonymous

@@ -42,8 +42,8 @@ extension PropsGamepadHapticActuator on GamepadHapticActuator {
   ///
   /// gamepadHapticActuatorInstance.pulse(value, duration).then(function(result) { /* ... */ });
   ///
-  Promise<bool> pulse(double value, double duration) =>
-      js_util.callMethod(this, 'pulse', [value, duration]);
+  Future<bool> pulse(double value, double duration) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'pulse', [value, duration]));
 }
 
 enum GamepadHapticActuatorType { vibration }

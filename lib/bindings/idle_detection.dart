@@ -76,7 +76,8 @@ extension PropsIdleDetector on IdleDetector {
   ///
   /// IdleDetector.requestPermission()
   ///
-  external static Promise<PermissionState> requestPermission();
+  static Future<PermissionState> requestPermission() => js_util.promiseToFuture(
+      js_util.callMethod(IdleDetector, 'requestPermission', []));
 
   ///
   ///     Returns a [Promise] that resolves when the detector starts
@@ -93,6 +94,6 @@ extension PropsIdleDetector on IdleDetector {
   /// IdleDetector.start();
   /// IdleDetector.start(options);
   ///
-  Promise<Object> start([IdleOptions? options]) =>
-      js_util.callMethod(this, 'start', [options]);
+  Future<Object> start([IdleOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'start', [options]));
 }

@@ -33,10 +33,16 @@ class Notification implements EventTarget {
 }
 
 extension PropsNotification on Notification {
-  external static NotificationPermission get permission;
-  external static Promise<NotificationPermission> requestPermission(
-      [NotificationPermissionCallback? deprecatedCallback]);
-  external static int get maxActions;
+  NotificationPermission get permission =>
+      js_util.getProperty(Notification, 'permission');
+  static Future<NotificationPermission> requestPermission(
+          [NotificationPermissionCallback? deprecatedCallback]) =>
+      js_util.promiseToFuture(js_util.callMethod(
+          Notification, 'requestPermission', [
+        deprecatedCallback == null ? null : allowInterop(deprecatedCallback)
+      ]));
+
+  int get maxActions => js_util.getProperty(Notification, 'maxActions');
   EventHandlerNonNull? get onclick => js_util.getProperty(this, 'onclick');
   set onclick(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onclick', newValue);
@@ -83,19 +89,19 @@ extension PropsNotification on Notification {
 class NotificationOptions {
   external factory NotificationOptions(
       {NotificationDirection dir = NotificationDirection.auto,
-      String lang = '',
-      String body = '',
-      String tag = '',
-      String image,
-      String icon,
-      String badge,
+      String? lang = '',
+      String? body = '',
+      String? tag = '',
+      String? image,
+      String? icon,
+      String? badge,
       dynamic vibrate,
-      int timestamp,
-      bool renotify = false,
-      bool silent = false,
-      bool requireInteraction = false,
+      int? timestamp,
+      bool? renotify = false,
+      bool? silent = false,
+      bool? requireInteraction = false,
       dynamic data,
-      Iterable<NotificationAction> actions = const []});
+      Iterable<NotificationAction>? actions = const []});
 }
 
 extension PropsNotificationOptions on NotificationOptions {

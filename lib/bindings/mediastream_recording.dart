@@ -178,7 +178,8 @@ extension PropsMediaRecorder on MediaRecorder {
   ///
   Object requestData() => js_util.callMethod(this, 'requestData', []);
 
-  external static bool isTypeSupported(String type);
+  static bool isTypeSupported(String type) =>
+      js_util.callMethod(MediaRecorder, 'isTypeSupported', [type]);
 }
 
 @anonymous
@@ -187,10 +188,10 @@ extension PropsMediaRecorder on MediaRecorder {
 class MediaRecorderOptions {
   external factory MediaRecorderOptions(
       {String mimeType = '',
-      int audioBitsPerSecond,
-      int videoBitsPerSecond,
-      int bitsPerSecond,
-      BitrateMode audioBitrateMode = BitrateMode.variable});
+      int? audioBitsPerSecond,
+      int? videoBitsPerSecond,
+      int? bitsPerSecond,
+      BitrateMode? audioBitrateMode = BitrateMode.variable});
 }
 
 extension PropsMediaRecorderOptions on MediaRecorderOptions {

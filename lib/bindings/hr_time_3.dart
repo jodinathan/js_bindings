@@ -93,12 +93,13 @@ extension PropsPerformance on Performance {
   PerformanceTiming get timing => js_util.getProperty(this, 'timing');
   PerformanceNavigation get navigation =>
       js_util.getProperty(this, 'navigation');
-  Promise<Profiler> profile(ProfilerInitOptions options) =>
-      js_util.callMethod(this, 'profile', [options]);
+  Future<Profiler> profile(ProfilerInitOptions options) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'profile', [options]));
 
   EventCounts get eventCounts => js_util.getProperty(this, 'eventCounts');
-  Promise<MemoryMeasurement> measureUserAgentSpecificMemory() =>
-      js_util.callMethod(this, 'measureUserAgentSpecificMemory', []);
+  Future<MemoryMeasurement> measureUserAgentSpecificMemory() =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'measureUserAgentSpecificMemory', []));
 
   PerformanceMark mark(String markName,
           [PerformanceMarkOptions? markOptions]) =>

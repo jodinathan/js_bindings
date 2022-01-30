@@ -57,7 +57,9 @@ extension PropsPublicKeyCredential on PublicKeyCredential {
   AuthenticationExtensionsClientOutputs getClientExtensionResults() =>
       js_util.callMethod(this, 'getClientExtensionResults', []);
 
-  external static Promise<bool> isUserVerifyingPlatformAuthenticatorAvailable();
+  static Future<bool> isUserVerifyingPlatformAuthenticatorAvailable() =>
+      js_util.promiseToFuture(js_util.callMethod(PublicKeyCredential,
+          'isUserVerifyingPlatformAuthenticatorAvailable', []));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -198,9 +200,9 @@ class PublicKeyCredentialCreationOptions {
       Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
       int timeout,
       Iterable<PublicKeyCredentialDescriptor> excludeCredentials = const [],
-      AuthenticatorSelectionCriteria authenticatorSelection,
-      String attestation = 'none',
-      AuthenticationExtensionsClientInputs extensions});
+      AuthenticatorSelectionCriteria? authenticatorSelection,
+      String? attestation = 'none',
+      AuthenticationExtensionsClientInputs? extensions});
 }
 
 extension PropsPublicKeyCredentialCreationOptions
@@ -311,7 +313,7 @@ class AuthenticatorSelectionCriteria {
       {String authenticatorAttachment,
       String residentKey,
       bool requireResidentKey = false,
-      String userVerification = 'preferred'});
+      String? userVerification = 'preferred'});
 }
 
 extension PropsAuthenticatorSelectionCriteria
@@ -359,8 +361,8 @@ class PublicKeyCredentialRequestOptions {
       int timeout,
       String rpId,
       Iterable<PublicKeyCredentialDescriptor> allowCredentials = const [],
-      String userVerification = 'preferred',
-      AuthenticationExtensionsClientInputs extensions});
+      String? userVerification = 'preferred',
+      AuthenticationExtensionsClientInputs? extensions});
 }
 
 extension PropsPublicKeyCredentialRequestOptions

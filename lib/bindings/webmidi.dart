@@ -194,7 +194,8 @@ extension PropsMIDIPort on MIDIPort {
   /// var output = midiAccess.outputs.get(portID);
   /// output.open(); // opens the port
   ///
-  Promise<MIDIPort> open() => js_util.callMethod(this, 'open', []);
+  Future<MIDIPort> open() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'open', []));
 
   ///  Makes the MIDI device connected to this [MIDIPort] unavailable,
   /// changing the [state] from ["open"] to ["closed"]. This returns a
@@ -202,7 +203,8 @@ extension PropsMIDIPort on MIDIPort {
   ///
   /// MIDIPort.close();
   ///
-  Promise<MIDIPort> close() => js_util.callMethod(this, 'close', []);
+  Future<MIDIPort> close() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 }
 
 ///  Secure context: This feature is available only in secure

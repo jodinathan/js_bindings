@@ -87,24 +87,26 @@ extension PropsFileSystemHandle on FileSystemHandle {
   ///
   /// var Boolean = FileSystemHandle1.isSameEntry(FileSystemHandle2);
   ///
-  Promise<bool> isSameEntry(FileSystemHandle other) =>
-      js_util.callMethod(this, 'isSameEntry', [other]);
+  Future<bool> isSameEntry(FileSystemHandle other) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'isSameEntry', [other]));
 
   /// Queries the current permission state of the current handle.
   ///
   /// var PermissionState = FileSystemHandle.queryPermission(FileSystemHandlePermissionDescriptor);
   ///
-  Promise<PermissionState> queryPermission(
+  Future<PermissionState> queryPermission(
           [FileSystemHandlePermissionDescriptor? descriptor]) =>
-      js_util.callMethod(this, 'queryPermission', [descriptor]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'queryPermission', [descriptor]));
 
   /// Requests read or readwrite permissions for the file handle.
   ///
   /// var PermissionState = FileSystemHandle.requestPermission(FileSystemHandlePermissionDescriptor);
   ///
-  Promise<PermissionState> requestPermission(
+  Future<PermissionState> requestPermission(
           [FileSystemHandlePermissionDescriptor? descriptor]) =>
-      js_util.callMethod(this, 'requestPermission', [descriptor]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestPermission', [descriptor]));
 }
 
 @anonymous
@@ -148,7 +150,8 @@ extension PropsFileSystemFileHandle on FileSystemFileHandle {
   ///
   /// const filePromise = FileSystemFileHandle.getFile();
   ///
-  Promise<File> getFile() => js_util.callMethod(this, 'getFile', []);
+  Future<File> getFile() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getFile', []));
 
   ///
   ///     Returns a [Promise] which resolves to a newly created
@@ -158,9 +161,10 @@ extension PropsFileSystemFileHandle on FileSystemFileHandle {
   ///
   /// const fileStreamPromise = FileSystemFileHandle.createWritable();
   ///
-  Promise<FileSystemWritableFileStream> createWritable(
+  Future<FileSystemWritableFileStream> createWritable(
           [FileSystemCreateWritableOptions? options]) =>
-      js_util.callMethod(this, 'createWritable', [options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'createWritable', [options]));
 }
 
 @anonymous
@@ -222,9 +226,10 @@ extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
   ///
   /// var FileSystemFileHandle = FileSystemDirectoryHandle.getFileHandle(name);
   ///
-  Promise<FileSystemFileHandle> getFileHandle(String name,
+  Future<FileSystemFileHandle> getFileHandle(String name,
           [FileSystemGetFileOptions? options]) =>
-      js_util.callMethod(this, 'getFileHandle', [name, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getFileHandle', [name, options]));
 
   ///  Returns a [FileSystemDirectoryHandle] for a subdirectory with
   /// the specified name within the directory handle on which the
@@ -232,18 +237,19 @@ extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
   ///
   /// var FileSystemDirectoryHandle = FileSystemDirectoryHandle.getDirectoryHandle();
   ///
-  Promise<FileSystemDirectoryHandle> getDirectoryHandle(String name,
+  Future<FileSystemDirectoryHandle> getDirectoryHandle(String name,
           [FileSystemGetDirectoryOptions? options]) =>
-      js_util.callMethod(this, 'getDirectoryHandle', [name, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getDirectoryHandle', [name, options]));
 
   ///  Attempts to remove an entry if the directory handle contains a
   /// file or directory called the name specified.
   ///
   /// FileSystemDirectoryHandle.removeEntry(name).then...
   ///
-  Promise<Object> removeEntry(String name,
-          [FileSystemRemoveOptions? options]) =>
-      js_util.callMethod(this, 'removeEntry', [name, options]);
+  Future<Object> removeEntry(String name, [FileSystemRemoveOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'removeEntry', [name, options]));
 
   ///  Returns an [Array] of directory names from the parent handle to
   /// the specified child entry, with the name of the child entry as
@@ -306,24 +312,24 @@ extension PropsFileSystemWritableFileStream on FileSystemWritableFileStream {
   ///
   /// FileSystemWritableFileStream.write(data).then(...);
   ///
-  Promise<Object> write(dynamic data) =>
-      js_util.callMethod(this, 'write', [data]);
+  Future<Object> write(dynamic data) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'write', [data]));
 
   ///  Updates the current file cursor offset to the position (in
   /// bytes) specified.
   ///
   /// FileSystemWritableStream.seek(position).then(...);
   ///
-  Promise<Object> seek(int position) =>
-      js_util.callMethod(this, 'seek', [position]);
+  Future<Object> seek(int position) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'seek', [position]));
 
   ///  Resizes the file associated with the stream to be the specified
   /// size in bytes.
   ///
   /// FileSystemWritableFileStream.truncate().then(...);
   ///
-  Promise<Object> truncate(int size) =>
-      js_util.callMethod(this, 'truncate', [size]);
+  Future<Object> truncate(int size) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'truncate', [size]));
 }
 
 enum WellKnownDirectory {
@@ -361,7 +367,7 @@ class FilePickerOptions {
   external factory FilePickerOptions(
       {Iterable<FilePickerAcceptType> types,
       bool excludeAcceptAllOption = false,
-      String id,
+      String? id,
       dynamic startIn});
 }
 

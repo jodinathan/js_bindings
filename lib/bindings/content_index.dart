@@ -27,7 +27,7 @@ class ContentDescription {
       String description,
       ContentCategory category,
       Iterable<ImageResource> icons = const [],
-      String url});
+      String? url});
 }
 
 extension PropsContentDescription on ContentDescription {
@@ -75,14 +75,15 @@ extension PropsContentIndex on ContentIndex {
   ///
   /// ContentIndex.add(ContentDescription).then(...);
   ///
-  Promise<Object> add(ContentDescription description) =>
-      js_util.callMethod(this, 'add', [description]);
+  Future<Object> add(ContentDescription description) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'add', [description]));
 
   /// Unregisters an item from the currently indexed content.
   ///
   /// ContentIndex.delete(id).then(...);
   ///
-  Promise<Object> delete(String id) => js_util.callMethod(this, 'delete', [id]);
+  Future<Object> delete(String id) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'delete', [id]));
 
   ///  Returns a [Promise] that resolves with an iterable list of
   /// content index entries.

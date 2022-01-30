@@ -32,8 +32,8 @@ extension PropsHTMLPortalElement on HTMLPortalElement {
     js_util.setProperty(this, 'referrerPolicy', newValue);
   }
 
-  Promise<Object> activate([PortalActivateOptions? options]) =>
-      js_util.callMethod(this, 'activate', [options]);
+  Future<Object> activate([PortalActivateOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'activate', [options]));
 
   Object postMessage(dynamic message, [PostMessageOptions? options]) =>
       js_util.callMethod(this, 'postMessage', [message, options]);

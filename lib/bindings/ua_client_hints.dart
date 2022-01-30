@@ -157,8 +157,9 @@ extension PropsNavigatorUAData on NavigatorUAData {
   ///
   /// NavigatorUAData.getHighEntropyValues(hints);
   ///
-  Promise<UADataValues> getHighEntropyValues(Iterable<String> hints) =>
-      js_util.callMethod(this, 'getHighEntropyValues', [hints]);
+  Future<UADataValues> getHighEntropyValues(Iterable<String> hints) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getHighEntropyValues', [hints]));
 
   ///  A serializer that returns a JSON representation of the low
   /// entropy properties of the [NavigatorUAData] object.

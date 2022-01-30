@@ -27,7 +27,7 @@ class ScrollTimelineOptions {
   external factory ScrollTimelineOptions(
       {Element? source,
       ScrollDirection orientation = ScrollDirection.block,
-      Iterable<dynamic> scrollOffsets = const [],
+      Iterable<dynamic>? scrollOffsets = const [],
       dynamic timeRange});
 }
 
@@ -75,7 +75,7 @@ enum Edge { start, end }
 @staticInterop
 class ElementBasedOffset {
   external factory ElementBasedOffset(
-      {Element target, Edge edge = Edge.start, double threshold = 0.0});
+      {Element target, Edge edge = Edge.start, double? threshold = 0.0});
 }
 
 extension PropsElementBasedOffset on ElementBasedOffset {

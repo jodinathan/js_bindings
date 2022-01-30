@@ -32,7 +32,8 @@ extension PropsPushManager on PushManager {
   ///  Returns an array of supported content codings that can be used
   /// to encrypt the payload of a push message.
   ///
-  external static Iterable<String> get supportedContentEncodings;
+  Iterable<String> get supportedContentEncodings =>
+      js_util.getProperty(PushManager, 'supportedContentEncodings');
 
   ///  Subscribes to a push service. It returns a [Promise] that
   /// resolves to a [PushSubscription] object containing details of a
@@ -72,8 +73,8 @@ extension PropsPushManager on PushManager {
   ///   );
   ///  });
   ///
-  Promise<PushSubscription> subscribe([PushSubscriptionOptionsInit? options]) =>
-      js_util.callMethod(this, 'subscribe', [options]);
+  Future<PushSubscription> subscribe([PushSubscriptionOptionsInit? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'subscribe', [options]));
 
   ///  Retrieves an existing push subscription. It returns a [Promise]
   /// that resolves to a [PushSubscription] object containing details
@@ -114,8 +115,8 @@ extension PropsPushManager on PushManager {
   ///    });
   ///  });
   ///
-  Promise<PushSubscription> getSubscription() =>
-      js_util.callMethod(this, 'getSubscription', []);
+  Future<PushSubscription> getSubscription() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getSubscription', []));
 
   ///  Returns a [Promise] that resolves to the permission state of the
   /// current [PushManager], which will be one of ['granted'],
@@ -123,9 +124,10 @@ extension PropsPushManager on PushManager {
   ///
   /// PushManager.permissionState(options).then(function(PushMessagingState) { /* ... */ });
   ///
-  Promise<PushPermissionState> permissionState(
+  Future<PushPermissionState> permissionState(
           [PushSubscriptionOptionsInit? options]) =>
-      js_util.callMethod(this, 'permissionState', [options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'permissionState', [options]));
 }
 
 ///  The interface of the Push API represents the options associated
@@ -260,7 +262,8 @@ extension PropsPushSubscription on PushSubscription {
   ///  })
   /// });
   ///
-  Promise<bool> unsubscribe() => js_util.callMethod(this, 'unsubscribe', []);
+  Future<bool> unsubscribe() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'unsubscribe', []));
 
   ///  Standard serializer — returns a JSON representation of the
   /// subscription properties.

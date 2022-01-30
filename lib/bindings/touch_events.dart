@@ -183,18 +183,18 @@ class TouchInit {
       {int identifier,
       EventTarget target,
       double clientX = 0,
-      double clientY = 0,
-      double screenX = 0,
-      double screenY = 0,
-      double pageX = 0,
-      double pageY = 0,
-      double radiusX = 0,
-      double radiusY = 0,
-      double rotationAngle = 0,
-      double force = 0,
-      double altitudeAngle = 0,
-      double azimuthAngle = 0,
-      TouchType touchType = TouchType.direct});
+      double? clientY = 0,
+      double? screenX = 0,
+      double? screenY = 0,
+      double? pageX = 0,
+      double? pageY = 0,
+      double? radiusX = 0,
+      double? radiusY = 0,
+      double? rotationAngle = 0,
+      double? force = 0,
+      double? altitudeAngle = 0,
+      double? azimuthAngle = 0,
+      TouchType? touchType = TouchType.direct});
 }
 
 extension PropsTouchInit on TouchInit {
@@ -280,8 +280,8 @@ extension PropsTouchInit on TouchInit {
 class TouchEventInit implements EventModifierInit {
   external factory TouchEventInit(
       {Iterable<Touch> touches = const [],
-      Iterable<Touch> targetTouches = const [],
-      Iterable<Touch> changedTouches = const []});
+      Iterable<Touch>? targetTouches = const [],
+      Iterable<Touch>? changedTouches = const []});
 }
 
 extension PropsTouchEventInit on TouchEventInit {

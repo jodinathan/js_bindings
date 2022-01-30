@@ -22,8 +22,10 @@ class GeolocationSensor implements Sensor {
 }
 
 extension PropsGeolocationSensor on GeolocationSensor {
-  external static Promise<GeolocationSensorReading> read(
-      [ReadOptions? readOptions]);
+  static Future<GeolocationSensorReading> read([ReadOptions? readOptions]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(GeolocationSensor, 'read', [readOptions]));
+
   /* double | NaN */ dynamic? get latitude =>
       js_util.getProperty(this, 'latitude');
   /* double | NaN */ dynamic? get longitude =>

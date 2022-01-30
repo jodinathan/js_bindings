@@ -35,9 +35,10 @@ extension PropsBackgroundFetchManager on BackgroundFetchManager {
   ///
   /// let backgroundFetchRegistration = BackgroundFetchManager.fetch(id, requests [,options]);
   ///
-  Promise<BackgroundFetchRegistration> fetch(String id, dynamic requests,
+  Future<BackgroundFetchRegistration> fetch(String id, dynamic requests,
           [BackgroundFetchOptions? options]) =>
-      js_util.callMethod(this, 'fetch', [id, requests, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'fetch', [id, requests, options]));
 
   ///  Returns a [Promise] that resolves with the
   /// [BackgroundFetchRegistration] associated with the provided [id]
@@ -47,8 +48,8 @@ extension PropsBackgroundFetchManager on BackgroundFetchManager {
   ///
   @JS('get')
   @staticInterop
-  Promise<BackgroundFetchRegistration> mGet(String id) =>
-      js_util.callMethod(this, 'get', [id]);
+  Future<BackgroundFetchRegistration> mGet(String id) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'get', [id]));
 
   Iterable<Promise<String>> getIds() => js_util.callMethod(this, 'getIds', []);
 }
@@ -177,16 +178,18 @@ extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
   ///
   /// let status = BackgroundFetchRegistration.abort();
   ///
-  Promise<bool> abort() => js_util.callMethod(this, 'abort', []);
+  Future<bool> abort() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'abort', []));
 
   ///  Returns a single [BackgroundFetchRecord] object which is the
   /// first match for the arguments.
   ///
   /// let record = BackgroundFetchRegistration.match(request, options);
   ///
-  Promise<BackgroundFetchRecord> match(dynamic request,
+  Future<BackgroundFetchRecord> match(dynamic request,
           [CacheQueryOptions? options]) =>
-      js_util.callMethod(this, 'match', [request, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'match', [request, options]));
 
   ///  Returns a [Promise] that resolves with an array of
   /// [BackgroundFetchRecord] objects containing requests and
@@ -228,8 +231,8 @@ extension PropsBackgroundFetchRecord on BackgroundFetchRecord {
 
   /// Returns a promise that resolves with a [Response].
   ///
-  Promise<Response> get responseReady =>
-      js_util.getProperty(this, 'responseReady');
+  Future<Response> get responseReady =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'responseReady'));
 }
 
 ///  The interface of the Background Fetch API is the event type for
@@ -285,6 +288,6 @@ extension PropsBackgroundFetchUpdateUIEvent on BackgroundFetchUpdateUIEvent {
   ///
   /// let updateUI = BackgroundFetchUpdateUIEvent.updateUI(options);
   ///
-  Promise<Object> updateUI([BackgroundFetchUIOptions? options]) =>
-      js_util.callMethod(this, 'updateUI', [options]);
+  Future<Object> updateUI([BackgroundFetchUIOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'updateUI', [options]));
 }

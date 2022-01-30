@@ -190,8 +190,9 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const result = crypto.subtle.encrypt(algorithm, key, data);
   ///
-  Promise<dynamic> encrypt(dynamic algorithm, CryptoKey key, dynamic data) =>
-      js_util.callMethod(this, 'encrypt', [algorithm, key, data]);
+  Future<dynamic> encrypt(dynamic algorithm, CryptoKey key, dynamic data) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'encrypt', [algorithm, key, data]));
 
   ///  Returns a [Promise] that fulfills with the clear data
   /// corresponding to the encrypted text, algorithm, and key given as
@@ -199,8 +200,9 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const result = crypto.subtle.decrypt(algorithm, key, data);
   ///
-  Promise<dynamic> decrypt(dynamic algorithm, CryptoKey key, dynamic data) =>
-      js_util.callMethod(this, 'decrypt', [algorithm, key, data]);
+  Future<dynamic> decrypt(dynamic algorithm, CryptoKey key, dynamic data) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'decrypt', [algorithm, key, data]));
 
   ///  Returns a [Promise] that fulfills with the signature
   /// corresponding to the text, algorithm, and key given as
@@ -208,8 +210,9 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const signature = crypto.subtle.sign(algorithm, key, data);
   ///
-  Promise<dynamic> sign(dynamic algorithm, CryptoKey key, dynamic data) =>
-      js_util.callMethod(this, 'sign', [algorithm, key, data]);
+  Future<dynamic> sign(dynamic algorithm, CryptoKey key, dynamic data) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'sign', [algorithm, key, data]));
 
   ///  Returns a [Promise] that fulfills with a boolean value
   /// indicating if the signature given as a parameter matches the
@@ -217,17 +220,18 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const result = crypto.subtle.verify(algorithm, key, signature, data);
   ///
-  Promise<dynamic> verify(
+  Future<dynamic> verify(
           dynamic algorithm, CryptoKey key, dynamic signature, dynamic data) =>
-      js_util.callMethod(this, 'verify', [algorithm, key, signature, data]);
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'verify', [algorithm, key, signature, data]));
 
   ///  Returns a [Promise] that fulfills with a digest generated from
   /// the algorithm and text given as parameters.
   ///
   /// const digest = crypto.subtle.digest(algorithm, data);
   ///
-  Promise<dynamic> digest(dynamic algorithm, dynamic data) =>
-      js_util.callMethod(this, 'digest', [algorithm, data]);
+  Future<dynamic> digest(dynamic algorithm, dynamic data) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'digest', [algorithm, data]));
 
   ///  Returns a [Promise] that fulfills with a newly-generated
   /// [CryptoKey], for symmetrical algorithms, or a [CryptoKeyPair],
@@ -237,10 +241,10 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///
   /// const result = crypto.subtle.generateKey(algorithm, extractable, keyUsages);
   ///
-  Promise<dynamic> generateKey(
+  Future<dynamic> generateKey(
           dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
-      js_util
-          .callMethod(this, 'generateKey', [algorithm, extractable, keyUsages]);
+      js_util.promiseToFuture(js_util.callMethod(
+          this, 'generateKey', [algorithm, extractable, keyUsages]));
 
   ///  Returns a [Promise] that fulfills with a newly generated
   /// [CryptoKey] derived from the master key and specific algorithm
@@ -254,14 +258,14 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   keyUsages
   /// );
   ///
-  Promise<dynamic> deriveKey(
+  Future<dynamic> deriveKey(
           dynamic algorithm,
           CryptoKey baseKey,
           dynamic derivedKeyType,
           bool extractable,
           Iterable<KeyUsage> keyUsages) =>
-      js_util.callMethod(this, 'deriveKey',
-          [algorithm, baseKey, derivedKeyType, extractable, keyUsages]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'deriveKey',
+          [algorithm, baseKey, derivedKeyType, extractable, keyUsages]));
 
   ///  Returns a [Promise] that fulfills with a newly generated buffer
   /// of pseudo-random bits derived from the master key and specific
@@ -273,9 +277,10 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   length
   /// );
   ///
-  Promise<ByteBuffer> deriveBits(
+  Future<ByteBuffer> deriveBits(
           dynamic algorithm, CryptoKey baseKey, int length) =>
-      js_util.callMethod(this, 'deriveBits', [algorithm, baseKey, length]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'deriveBits', [algorithm, baseKey, length]));
 
   ///  Returns a [Promise] that fulfills with a [CryptoKey]
   /// corresponding to the format, the algorithm, raw key data, usages,
@@ -289,18 +294,18 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   keyUsages
   /// );
   ///
-  Promise<CryptoKey> importKey(KeyFormat format, dynamic keyData,
+  Future<CryptoKey> importKey(KeyFormat format, dynamic keyData,
           dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
-      js_util.callMethod(this, 'importKey',
-          [format, keyData, algorithm, extractable, keyUsages]);
+      js_util.promiseToFuture(js_util.callMethod(this, 'importKey',
+          [format, keyData, algorithm, extractable, keyUsages]));
 
   ///  Returns a [Promise] that fulfills with a buffer containing the
   /// key in the requested format.
   ///
   /// const result = crypto.subtle.exportKey(format, key);
   ///
-  Promise<dynamic> exportKey(KeyFormat format, CryptoKey key) =>
-      js_util.callMethod(this, 'exportKey', [format, key]);
+  Future<dynamic> exportKey(KeyFormat format, CryptoKey key) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'exportKey', [format, key]));
 
   ///  Returns a [Promise] that fulfills with a wrapped symmetric key
   /// for usage (transfer and storage) in insecure environments. The
@@ -315,10 +320,10 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   wrapAlgo
   /// );
   ///
-  Promise<dynamic> wrapKey(KeyFormat format, CryptoKey key,
+  Future<dynamic> wrapKey(KeyFormat format, CryptoKey key,
           CryptoKey wrappingKey, dynamic wrapAlgorithm) =>
-      js_util.callMethod(
-          this, 'wrapKey', [format, key, wrappingKey, wrapAlgorithm]);
+      js_util.promiseToFuture(js_util.callMethod(
+          this, 'wrapKey', [format, key, wrappingKey, wrapAlgorithm]));
 
   ///  Returns a [Promise] that fulfills with a [CryptoKey]
   /// corresponding to the wrapped key given in the parameter.
@@ -333,7 +338,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
   ///   keyUsages
   /// );
   ///
-  Promise<CryptoKey> unwrapKey(
+  Future<CryptoKey> unwrapKey(
           KeyFormat format,
           dynamic wrappedKey,
           CryptoKey unwrappingKey,
@@ -341,7 +346,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
           dynamic unwrappedKeyAlgorithm,
           bool extractable,
           Iterable<KeyUsage> keyUsages) =>
-      js_util.callMethod(this, 'unwrapKey', [
+      js_util.promiseToFuture(js_util.callMethod(this, 'unwrapKey', [
         format,
         wrappedKey,
         unwrappingKey,
@@ -349,7 +354,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
         unwrappedKeyAlgorithm,
         extractable,
         keyUsages
-      ]);
+      ]));
 }
 
 @anonymous
