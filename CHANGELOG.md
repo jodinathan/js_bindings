@@ -1,3 +1,5 @@
+## 0.0.4-dev.4
+ - Updated the documentation to use Dart types instead of JS types. Ie: `Some method returns a [Promise] of a [DomString]` to `Some method returns a [Future] of a [String]` 
 ## 0.0.4-dev.3
 
  - Changed the example to use dynamic generated elements
