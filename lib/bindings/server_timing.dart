@@ -31,7 +31,7 @@ class PerformanceServerTiming {
 }
 
 extension PropsPerformanceServerTiming on PerformanceServerTiming {
-  /// A [DOMString] value of the server-specified metric name.
+  /// A [String] value of the server-specified metric name.
   ///
   String get name => js_util.getProperty(this, 'name');
 
@@ -40,12 +40,12 @@ extension PropsPerformanceServerTiming on PerformanceServerTiming {
   ///
   double get duration => js_util.getProperty(this, 'duration');
 
-  ///  A [DOMString] value of the server-specified metric description,
-  /// or an empty string.
+  ///  A [String] value of the server-specified metric description, or
+  /// an empty string.
   ///
   String get description => js_util.getProperty(this, 'description');
 
-  ///  Returns a [DOMString] that is the JSON representation of the
+  ///  Returns a [String] that is the JSON representation of the
   /// [PerformanceServerTiming] object.
   ///
   /// var json = PerformanceServerTiming.toJSON()

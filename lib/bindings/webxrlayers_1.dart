@@ -694,7 +694,105 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   ///
   /// createQuadLayer(init)
   ///
-  XRQuadLayer createQuadLayer([XRQuadLayerInit? init]) =>
+  XRQuadLayer createQuadLayer(
+          [
+
+          ///  An object to configure the [XRQuadLayer]. It must have the
+          /// [space], [viewPixelHeight], and [viewPixelWidth] properties. has
+          /// the following properties:
+          ///
+          ///     [colorFormat]: Optional. A [GLenum] defining the data type of
+          /// the color texture data. Possible values:
+          ///
+          ///      [gl.RGB]
+          ///      [gl.RGBA]
+          ///      Additionally, for contexts with the [EXT_sRGB] extension
+          /// enabled:
+          ///
+          ///      [ext.SRGB_EXT]
+          ///      [ext.SRGB_ALPHA_EXT]
+          ///     Additionally, for [WebGL2RenderingContext] contexts:
+          ///
+          ///      [gl.RGBA8]
+          ///      [gl.RGB8]
+          ///      [gl.SRGB8]
+          ///      [gl.RGB8_ALPHA8]
+          ///      Additionally, for contexts with the
+          /// [WEBGL_compressed_texture_etc] extension enabled:
+          ///
+          ///      [ext.COMPRESSED_RGB8_ETC2]
+          ///      [ext.COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2]
+          ///      [ext.COMPRESSED_RGBA8_ETC2_EAC]
+          ///      [ext.COMPRESSED_SRGB8_ETC2]
+          ///      [ext.COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2]
+          ///      [ext.COMPRESSED_SRGB8_ALPHA8_ETC2_EAC]
+          ///      Additionally, for contexts with the
+          /// [WEBGL_compressed_texture_astc] extension enabled:
+          ///
+          ///      All of the formats the extension supports.
+          ///     The default value is [gl.RGBA].
+          ///
+          ///
+          ///      [depthFormat]: Optional. A [GLenum] defining the data type
+          /// of the depth texture data or [0] indicating that the layer should
+          /// not provide a depth texture (in that case
+          /// [XRProjectionLayer.ignoreDepthValues] will be [true]).
+          ///      Possible values within [WebGLRenderingContext] contexts with
+          /// the [WEBGL_depth_texture] extension enabled, or within
+          /// [WebGL2RenderingContext] contexts (no extension required):
+          ///
+          ///      [gl.DEPTH_COMPONENT]
+          ///      [gl.DEPTH_STENCIL]
+          ///     Additionally, for [WebGL2RenderingContext] contexts:
+          ///
+          ///      [gl.DEPTH_COMPONENT24]
+          ///      [gl.DEPTH24_STENCIL24]
+          ///     The default value is [gl.DEPTH_COMPONENT].
+          ///
+          ///     [height]: Optional. A number specifying the height of the
+          /// layer in meters. The default value is [1.0].
+          ///     [isStatic]: Optional. A boolean that, if true, indicates you
+          /// can only draw to this layer when [needsRedraw] is [true]. The
+          /// default value is [false].
+          ///     [layout]: Optional. A string indicating the layout of the
+          /// layer. Possible values:
+          ///
+          ///      [default]: The layer accommodates all views of the session.
+          ///       [mono]: A single [XRSubImage] is allocated and presented to
+          /// both eyes.
+          ///       [stereo]: The user agent decides how it allocates the
+          /// [XRSubImage] (one or two) and the layout (top/bottom or
+          /// left/right).
+          ///       [stereo-left-right]: A single [XRSubImage] is allocated.
+          /// Left eye gets the left area of the texture, right eye the right.
+          ///       [stereo-top-bottom]: A single [XRSubImage] is allocated.
+          /// Left eye gets the top area of the texture, right eye the bottom.
+          ///     The default value is [mono].
+          ///
+          ///     [mipLevels]: Optional. A number specifying desired number of
+          /// mip levels. The default value is [1].
+          ///     [space]: Required. An [XRSpace] object defining the layer's
+          /// spatial relationship with the user’s physical environment.
+          ///     [textureType]: Optional. A string defining the type of
+          /// texture the layer will have. Possible values:
+          ///
+          ///       [texture]: The textures of [XRWebGLSubImage] will be of
+          /// type [gl.TEXTURE_2D].
+          ///       [texture-array]: the textures of [XRWebGLSubImage] will be
+          /// of type [gl.TEXTURE_2D_ARRAY] (WebGL 2 contexts only).
+          ///     The default value is [texture].
+          ///
+          ///     [transform]: Optional. An [XRRigidTransform] object defining
+          /// the offset and orientation relative to [space].
+          ///     [viewPixelHeight]: Required. A number specifying the pixel
+          /// height of the layer view.
+          ///     [viewPixelWidth]: Required. A number specifying the pixel
+          /// width of the layer view.
+          ///     [width]: Optional. A number specifying the width of the layer
+          /// in meters. The default value is [1.0].
+          ///
+          ///
+          XRQuadLayerInit? init]) =>
       js_util.callMethod(this, 'createQuadLayer', [init]);
 
   ///  Returns an [XRCylinderLayer] object which is a layer that takes
@@ -702,7 +800,111 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   ///
   /// createCylinderLayer(init)
   ///
-  XRCylinderLayer createCylinderLayer([XRCylinderLayerInit? init]) =>
+  XRCylinderLayer createCylinderLayer(
+          [
+
+          ///  An object to configure the [XRCylinderLayer]. It must have the
+          /// [space], [viewPixelHeight], and [viewPixelWidth] properties. has
+          /// the following properties:
+          ///
+          ///     [aspectRatio]: Optional. A number indicating the ratio of the
+          /// visible cylinder section. It is the ratio of the width of the
+          /// visible section of the cylinder divided by its height. The width
+          /// is calculated by multiplying the [radius] with the
+          /// [centralAngle]. The default value is [2.0].
+          ///     [centralAngle]: Optional. A number indicating the angle in
+          /// radians of the visible section of the cylinder. Default value:
+          /// [0.78539] (π / 4).
+          ///     [colorFormat]: Optional. A [GLenum] defining the data type of
+          /// the color texture data. Possible values:
+          ///
+          ///      [gl.RGB]
+          ///      [gl.RGBA]
+          ///      Additionally, for contexts with the [EXT_sRGB] extension
+          /// enabled:
+          ///
+          ///      [ext.SRGB_EXT]
+          ///      [ext.SRGB_ALPHA_EXT]
+          ///     Additionally, for [WebGL2RenderingContext] contexts:
+          ///
+          ///      [gl.RGBA8]
+          ///      [gl.RGB8]
+          ///      [gl.SRGB8]
+          ///      [gl.RGB8_ALPHA8]
+          ///      Additionally, for contexts with the
+          /// [WEBGL_compressed_texture_etc] extension enabled:
+          ///
+          ///      [ext.COMPRESSED_RGB8_ETC2]
+          ///      [ext.COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2]
+          ///      [ext.COMPRESSED_RGBA8_ETC2_EAC]
+          ///      [ext.COMPRESSED_SRGB8_ETC2]
+          ///      [ext.COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2]
+          ///      [ext.COMPRESSED_SRGB8_ALPHA8_ETC2_EAC]
+          ///      Additionally, for contexts with the
+          /// [WEBGL_compressed_texture_astc] extension enabled:
+          ///
+          ///      All of the formats the extension supports.
+          ///     The default value is [gl.RGBA].
+          ///
+          ///
+          ///      [depthFormat]: Optional. A [GLenum] defining the data type
+          /// of the depth texture data or [0] indicating that the layer should
+          /// not provide a depth texture (in that case
+          /// [XRProjectionLayer.ignoreDepthValues] will be [true]).
+          ///      Possible values within [WebGLRenderingContext] contexts with
+          /// the [WEBGL_depth_texture] extension enabled, or within
+          /// [WebGL2RenderingContext] contexts (no extension required):
+          ///
+          ///      [gl.DEPTH_COMPONENT]
+          ///      [gl.DEPTH_STENCIL]
+          ///     Additionally, for [WebGL2RenderingContext] contexts:
+          ///
+          ///      [gl.DEPTH_COMPONENT24]
+          ///      [gl.DEPTH24_STENCIL24]
+          ///     The default value is [gl.DEPTH_COMPONENT].
+          ///
+          ///     [isStatic]: Optional. A boolean that, if true, indicates you
+          /// can only draw to this layer when [needsRedraw] is [true]. The
+          /// default value is [false].
+          ///     [layout]: Optional. A string indicating the layout of the
+          /// layer. Possible values:
+          ///
+          ///      [default]: The layer accommodates all views of the session.
+          ///       [mono]: A single [XRSubImage] is allocated and presented to
+          /// both eyes.
+          ///       [stereo]: The user agent decides how it allocates the
+          /// [XRSubImage] (one or two) and the layout (top/bottom or
+          /// left/right).
+          ///       [stereo-left-right]: A single [XRSubImage] is allocated.
+          /// Left eye gets the left area of the texture, right eye the right.
+          ///       [stereo-top-bottom]: A single [XRSubImage] is allocated.
+          /// Left eye gets the top area of the texture, right eye the bottom.
+          ///     The default value is [mono].
+          ///
+          ///     [mipLevels]: Optional. A number specifying desired number of
+          /// mip levels. The default value is [1].
+          ///     [radius]: Optional. A number indicating the radius of the
+          /// cylinder. Default value: [2.0].
+          ///     [space]: Required. An [XRSpace] object defining the layer's
+          /// spatial relationship with the user’s physical environment.
+          ///     [textureType]: Optional. A string defining the type of
+          /// texture the layer will have. Possible values:
+          ///
+          ///       [texture]: The textures of [XRWebGLSubImage] will be of
+          /// type [gl.TEXTURE_2D].
+          ///       [texture-array]: the textures of [XRWebGLSubImage] will be
+          /// of type [gl.TEXTURE_2D_ARRAY] (WebGL 2 contexts only).
+          ///     The default value is [texture].
+          ///
+          ///     [transform]: Optional. An [XRRigidTransform] object defining
+          /// the offset and orientation relative to [space].
+          ///     [viewPixelHeight]: Required. A number specifying the pixel
+          /// height of the layer view.
+          ///     [viewPixelWidth]: Required. A number specifying the pixel
+          /// width of the layer view.
+          ///
+          ///
+          XRCylinderLayerInit? init]) =>
       js_util.callMethod(this, 'createCylinderLayer', [init]);
 
   ///  Returns an [XREquirectLayer] object which is a layer that maps
@@ -710,7 +912,112 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   ///
   /// createEquirectLayer(init)
   ///
-  XREquirectLayer createEquirectLayer([XREquirectLayerInit? init]) =>
+  XREquirectLayer createEquirectLayer(
+          [
+
+          ///  An object to configure the [XREquirectLayer]. It must have the
+          /// [space], [viewPixelHeight], and [viewPixelWidth] properties. has
+          /// the following properties:
+          ///
+          ///     [centralHorizontalAngle]: Optional. A number indicating the
+          /// central horizontal angle in radians of the sphere. Default value:
+          /// [6.28318] (2π).
+          ///     [colorFormat]: Optional. A [GLenum] defining the data type of
+          /// the color texture data. Possible values:
+          ///
+          ///      [gl.RGB]
+          ///      [gl.RGBA]
+          ///      Additionally, for contexts with the [EXT_sRGB] extension
+          /// enabled:
+          ///
+          ///      [ext.SRGB_EXT]
+          ///      [ext.SRGB_ALPHA_EXT]
+          ///     Additionally, for [WebGL2RenderingContext] contexts:
+          ///
+          ///      [gl.RGBA8]
+          ///      [gl.RGB8]
+          ///      [gl.SRGB8]
+          ///      [gl.RGB8_ALPHA8]
+          ///      Additionally, for contexts with the
+          /// [WEBGL_compressed_texture_etc] extension enabled:
+          ///
+          ///      [ext.COMPRESSED_RGB8_ETC2]
+          ///      [ext.COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2]
+          ///      [ext.COMPRESSED_RGBA8_ETC2_EAC]
+          ///      [ext.COMPRESSED_SRGB8_ETC2]
+          ///      [ext.COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2]
+          ///      [ext.COMPRESSED_SRGB8_ALPHA8_ETC2_EAC]
+          ///      Additionally, for contexts with the
+          /// [WEBGL_compressed_texture_astc] extension enabled:
+          ///
+          ///      All of the formats the extension supports.
+          ///     The default value is [gl.RGBA].
+          ///
+          ///
+          ///      [depthFormat]: Optional. A [GLenum] defining the data type
+          /// of the depth texture data, or else [0] to indicate that the layer
+          /// should not provide a depth texture (in that case
+          /// [XRProjectionLayer.ignoreDepthValues] will be [true]).
+          ///      Possible values within [WebGLRenderingContext] contexts with
+          /// the [WEBGL_depth_texture] extension enabled, or within
+          /// [WebGL2RenderingContext] contexts (no extension required):
+          ///
+          ///      [gl.DEPTH_COMPONENT]
+          ///      [gl.DEPTH_STENCIL]
+          ///     Additionally, for [WebGL2RenderingContext] contexts:
+          ///
+          ///      [gl.DEPTH_COMPONENT24]
+          ///      [gl.DEPTH24_STENCIL24]
+          ///     The default value is [gl.DEPTH_COMPONENT].
+          ///
+          ///     [isStatic]: Optional. A boolean that, if true, indicates you
+          /// can only draw to this layer when [needsRedraw] is [true]. The
+          /// default value is [false].
+          ///     [layout]: Optional. A string indicating the layout of the
+          /// layer. Possible values:
+          ///
+          ///      [default]: The layer accommodates all views of the session.
+          ///       [mono]: A single [XRSubImage] is allocated and presented to
+          /// both eyes.
+          ///       [stereo]: The user agent decides how it allocates the
+          /// [XRSubImage] (one or two) and the layout (top/bottom or
+          /// left/right).
+          ///       [stereo-left-right]: A single [XRSubImage] is allocated.
+          /// Left eye gets the left area of the texture, right eye the right.
+          ///       [stereo-top-bottom]: A single [XRSubImage] is allocated.
+          /// Left eye gets the top area of the texture, right eye the bottom.
+          ///     The default value is [mono].
+          ///
+          ///     [lowerVerticalAngle]: Optional. A number indicating the lower
+          /// vertical angle in radians of the sphere. Default value:
+          /// [-1.570795] (-π/2).
+          ///     [mipLevels]: Optional. A number specifying desired number of
+          /// mip levels. The default value is [1].
+          ///     [radius]: Optional. A number indicating the radius of the
+          /// sphere. Default value: [0] (infinite sphere).
+          ///     [space]: Required. An [XRSpace] object defining the layer's
+          /// spatial relationship with the user’s physical environment.
+          ///     [textureType]: Optional. A string defining the type of
+          /// texture the layer will have. Possible values:
+          ///
+          ///       [texture]: The textures of [XRWebGLSubImage] will be of
+          /// type [gl.TEXTURE_2D].
+          ///       [texture-array]: the textures of [XRWebGLSubImage] will be
+          /// of type [gl.TEXTURE_2D_ARRAY] (WebGL 2 contexts only).
+          ///     The default value is [texture].
+          ///
+          ///     [transform]: Optional. An [XRRigidTransform] object defining
+          /// the offset and orientation relative to [space].
+          ///     [upperVerticalAngle]: Optional. A number indicating the upper
+          /// vertical angle in radians of the sphere. Default value:
+          /// [1.570795] (π/2).
+          ///     [viewPixelHeight]: Required. A number specifying the pixel
+          /// height of the layer view.
+          ///     [viewPixelWidth]: Required. A number specifying the pixel
+          /// width of the layer view.
+          ///
+          ///
+          XREquirectLayerInit? init]) =>
       js_util.callMethod(this, 'createEquirectLayer', [init]);
 
   ///  Returns an [XRCubeLayer] object, which is a layer that renders
@@ -719,7 +1026,94 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   ///
   /// createCubeLayer(init)
   ///
-  XRCubeLayer createCubeLayer([XRCubeLayerInit? init]) =>
+  XRCubeLayer createCubeLayer(
+          [
+
+          ///  An object to configure the [XRCubeLayer]. It must have the
+          /// [space], [viewPixelHeight], and [viewPixelWidth] properties. has
+          /// the following properties:
+          ///
+          ///     [colorFormat]: Optional. A [GLenum] defining the data type of
+          /// the color texture data. Possible values:
+          ///
+          ///      [gl.RGB]
+          ///      [gl.RGBA] (Default)
+          ///      Additionally, for contexts with the [EXT_sRGB] extension
+          /// enabled:
+          ///
+          ///      [ext.SRGB_EXT]
+          ///      [ext.SRGB_ALPHA_EXT]
+          ///     Additionally, for [WebGL2RenderingContext] contexts:
+          ///
+          ///      [gl.RGBA8]
+          ///      [gl.RGB8]
+          ///      [gl.SRGB8]
+          ///      [gl.RGB8_ALPHA8]
+          ///      Additionally, for contexts with the
+          /// [WEBGL_compressed_texture_etc] extension enabled:
+          ///
+          ///      [ext.COMPRESSED_RGB8_ETC2]
+          ///      [ext.COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2]
+          ///      [ext.COMPRESSED_RGBA8_ETC2_EAC]
+          ///      [ext.COMPRESSED_SRGB8_ETC2]
+          ///      [ext.COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2]
+          ///      [ext.COMPRESSED_SRGB8_ALPHA8_ETC2_EAC]
+          ///      Additionally, for contexts with the
+          /// [WEBGL_compressed_texture_astc] extension enabled:
+          ///
+          ///      All of the formats the extension supports.
+          ///
+          ///
+          ///
+          ///      [depthFormat]: Optional. A [GLenum] defining the data type
+          /// of the depth texture data or [0] indicating that the layer should
+          /// not provide a depth texture. (In that case
+          /// [XRProjectionLayer.ignoreDepthValues] will be [true].)
+          ///      Possible values for [WebGLRenderingContext] contexts with
+          /// the [WEBGL_depth_texture] extension enabled, or for
+          /// [WebGL2RenderingContext] contexts (no extension required):
+          ///
+          ///      [gl.DEPTH_COMPONENT] (Default)
+          ///      [gl.DEPTH_STENCIL]
+          ///     Additionally, for [WebGL2RenderingContext] contexts:
+          ///
+          ///      [gl.DEPTH_COMPONENT24]
+          ///      [gl.DEPTH24_STENCIL24]
+          ///
+          ///
+          ///     [isStatic]: Optional. A boolean that, if true, indicates you
+          /// can only draw to this layer when [needsRedraw] is [true]. The
+          /// default value is [false].
+          ///     [layout]: Optional. A string indicating the layout of the
+          /// layer. Possible values:
+          ///
+          ///      [default]: The layer accommodates all views of the session.
+          ///       [mono]: A single [XRSubImage] is allocated and presented to
+          /// both eyes.
+          ///       [stereo]: The user agent decides how it allocates the
+          /// [XRSubImage] (one or two) and the layout (top/bottom or
+          /// left/right).
+          ///       [stereo-left-right]: A single [XRSubImage] is allocated.
+          /// The left eye gets the left area of the texture, the right eye the
+          /// right.
+          ///       [stereo-top-bottom]: A single [XRSubImage] is allocated.
+          /// The left eye gets the top area of the texture, the right eye the
+          /// bottom.
+          ///     The default value is [mono].
+          ///
+          ///     [mipLevels]: Optional. A number specifying the desired number
+          /// of mip levels. The default value is [1].
+          ///     [orientation]: Optional. A [DOMPointReadOnly] specifying the
+          /// orientation relative to the [space] property.
+          ///     [space]: Required. An [XRSpace] object defining the layer's
+          /// spatial relationship with the user’s physical environment.
+          ///     [viewPixelHeight]: Required. A number specifying the pixel
+          /// height of the layer view.
+          ///     [viewPixelWidth]: Required. A number specifying the pixel
+          /// width of the layer view.
+          ///
+          ///
+          XRCubeLayerInit? init]) =>
       js_util.callMethod(this, 'createCubeLayer', [init]);
 
   ///  Returns an [XRWebGLSubImage] object representing the WebGL
@@ -728,8 +1122,32 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   /// getSubImage(layer, frame)
   /// getSubImage(layer, frame, eye)
   ///
-  XRWebGLSubImage getSubImage(XRCompositionLayer layer, XRFrame frame,
-          [XREye? eye = XREye.none]) =>
+  XRWebGLSubImage getSubImage(
+
+          ///  The [XRCompositionLayer] to use for rendering (can be all types
+          /// of [XRCompositionLayer] objects except [XRProjectionLayer], see
+          /// [XRWebGLBinding.getViewSubImage()] for rendering projection
+          /// layers).
+          ///
+          XRCompositionLayer layer,
+
+          /// The [XRFrame] frame to use for rendering.
+          ///
+          XRFrame frame,
+          [
+
+          ///  An optional [XRView.eye] indicating which view's eye to use for
+          /// rendering. Possible values:
+          ///
+          ///     [left]: The [XRView] represents the point-of-view of the
+          /// viewer's left eye.
+          ///    [right]: The view represents the viewer's right eye.
+          ///     [none]: The view describes a monoscopic view, or the view
+          /// otherwise doesn't represent a particular eye's point-of-view.
+          ///
+          ///   Defaults to [none].
+          ///
+          XREye? eye = XREye.none]) =>
       js_util.callMethod(this, 'getSubImage', [layer, frame, eye]);
 
   ///  Returns an [XRWebGLSubImage] object representing the WebGL
@@ -737,7 +1155,16 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   ///
   /// getViewSubImage(layer, view)
   ///
-  XRWebGLSubImage getViewSubImage(XRProjectionLayer layer, XRView view) =>
+  XRWebGLSubImage getViewSubImage(
+
+          ///  The [XRProjectionLayer] to use for rendering (to render other
+          /// layer types, see [XRWebGLBinding.getSubImage()]).
+          ///
+          XRProjectionLayer layer,
+
+          /// The [XRView] to use for rendering.
+          ///
+          XRView view) =>
       js_util.callMethod(this, 'getViewSubImage', [layer, view]);
 
   XRWebGLDepthInformation? getDepthInformation(XRView view) =>
@@ -897,7 +1324,11 @@ extension PropsXRMediaBinding on XRMediaBinding {
   ///
   /// createQuadLayer(video, options)
   ///
-  XRQuadLayer createQuadLayer(HTMLVideoElement video,
+  XRQuadLayer createQuadLayer(
+
+          /// An [HTMLVideoElement] to display.
+          ///
+          HTMLVideoElement video,
           [XRMediaQuadLayerInit? init]) =>
       js_util.callMethod(this, 'createQuadLayer', [video, init]);
 
@@ -906,7 +1337,11 @@ extension PropsXRMediaBinding on XRMediaBinding {
   ///
   /// createCylinderLayer(video, options)
   ///
-  XRCylinderLayer createCylinderLayer(HTMLVideoElement video,
+  XRCylinderLayer createCylinderLayer(
+
+          /// An [HTMLVideoElement] to display.
+          ///
+          HTMLVideoElement video,
           [XRMediaCylinderLayerInit? init]) =>
       js_util.callMethod(this, 'createCylinderLayer', [video, init]);
 
@@ -915,7 +1350,11 @@ extension PropsXRMediaBinding on XRMediaBinding {
   ///
   /// createEquirectLayer(video, options)
   ///
-  XREquirectLayer createEquirectLayer(HTMLVideoElement video,
+  XREquirectLayer createEquirectLayer(
+
+          /// An [HTMLVideoElement] to display.
+          ///
+          HTMLVideoElement video,
           [XRMediaEquirectLayerInit? init]) =>
       js_util.callMethod(this, 'createEquirectLayer', [video, init]);
 }

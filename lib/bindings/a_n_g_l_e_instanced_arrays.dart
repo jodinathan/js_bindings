@@ -44,7 +44,25 @@ extension PropsANGLE_instanced_arrays on ANGLE_instanced_arrays {
   /// void ext.drawArraysInstancedANGLE(mode, first, count, primcount);
   ///
   Object drawArraysInstancedANGLE(
-          int mode, int first, int count, int primcount) =>
+
+          ///  A [GLenum] specifying the type primitive to render. Possible
+          /// values are:
+          ///
+          ///    [gl.POINTS]: Draws a single dot.
+          ///    [gl.LINE_STRIP]: Draws a straight line to the next vertex.
+          ///     [gl.LINE_LOOP]: Draws a straight line to the next vertex, and
+          /// connects the last vertex back to the first.
+          ///    [gl.LINES]: Draws a line between a pair of vertices.
+          ///    [gl.TRIANGLE_STRIP]
+          ///    [gl.TRIANGLE_FAN]
+          ///     [gl.TRIANGLES]: Draws a triangle for a group of three
+          /// vertices.
+          ///
+          ///
+          int mode,
+          int first,
+          int count,
+          int primcount) =>
       js_util.callMethod(
           this, 'drawArraysInstancedANGLE', [mode, first, count, primcount]);
 
@@ -55,7 +73,26 @@ extension PropsANGLE_instanced_arrays on ANGLE_instanced_arrays {
   /// void ext.drawElementsInstancedANGLE(mode, count, type, offset, primcount);
   ///
   Object drawElementsInstancedANGLE(
-          int mode, int count, int type, int offset, int primcount) =>
+
+          ///  A [GLenum] specifying the type primitive to render. Possible
+          /// values are:
+          ///
+          ///    [gl.POINTS]: Draws a single dot.
+          ///    [gl.LINE_STRIP]: Draws a straight line to the next vertex.
+          ///     [gl.LINE_LOOP]: Draws a straight line to the next vertex, and
+          /// connects the last vertex back to the first.
+          ///    [gl.LINES]: Draws a line between a pair of vertices.
+          ///    [gl.TRIANGLE_STRIP]
+          ///    [gl.TRIANGLE_FAN]
+          ///     [gl.TRIANGLES]: Draws a triangle for a group of three
+          /// vertices.
+          ///
+          ///
+          int mode,
+          int count,
+          int type,
+          int offset,
+          int primcount) =>
       js_util.callMethod(this, 'drawElementsInstancedANGLE',
           [mode, count, type, offset, primcount]);
 
@@ -66,6 +103,16 @@ extension PropsANGLE_instanced_arrays on ANGLE_instanced_arrays {
   ///
   /// void ext.vertexAttribDivisorANGLE(index, divisor);
   ///
-  Object vertexAttribDivisorANGLE(int index, int divisor) =>
+  Object vertexAttribDivisorANGLE(
+
+          ///  A [GLuint] specifying the index of the generic vertex
+          /// attributes.
+          ///
+          int index,
+
+          ///  A [GLuint] specifying the number of instances that will pass
+          /// between updates of the generic attribute.
+          ///
+          int divisor) =>
       js_util.callMethod(this, 'vertexAttribDivisorANGLE', [index, divisor]);
 }

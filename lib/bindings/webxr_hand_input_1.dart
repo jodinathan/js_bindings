@@ -28,8 +28,8 @@ extension PropsXRHand on XRHand {
   int get size => js_util.getProperty(this, 'size');
 
   ///
-  ///     Returns a [XRJointSpace] for a given hand joint or
-  /// [undefined] if no such hand joint key is in the map.
+  ///     Returns a [XRJointSpace] for a given hand joint or [Object]
+  /// if no such hand joint key is in the map.
   ///    See [Map.prototype.get()] for more details.
   ///
   ///

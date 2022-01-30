@@ -46,7 +46,8 @@ extension PropsPaymentInstruments on PaymentInstruments {
   Future<dynamic> mGet(String instrumentKey) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'get', [instrumentKey]));
 
-  Iterable<Promise<String>> keys() => js_util.callMethod(this, 'keys', []);
+  Future<Iterable<String>> keys() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'keys', []));
 
   Future<bool> has(String instrumentKey) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'has', [instrumentKey]));
@@ -260,7 +261,7 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
 
   ///  Opens the specified URL in a new window, if and only if the
   /// given URL is on the same origin as the calling page. It returns a
-  /// [Promise] that resolves with a reference to a [WindowClient].
+  /// [Future] that resolves with a reference to a [WindowClient].
   ///
   /// var aPromise = paymentRequestEvent.openWindow(url)
   ///
@@ -274,7 +275,7 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
           this, 'changePaymentMethod', [methodName, methodDetails]));
 
   ///  Prevents the default event handling and allows you to provide a
-  /// [Promise] for a [PaymentResponse] object yourself.
+  /// [Future] for a [PaymentResponse] object yourself.
   ///
   /// paymentRequestEvent.respondWith(
   ///  // Promise that resolves with a PaymentResponse.

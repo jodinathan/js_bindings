@@ -42,18 +42,18 @@ extension PropsPerformanceEntry on PerformanceEntry {
   ///
   String get name => js_util.getProperty(this, 'name');
 
-  ///  A [DOMString] representing the type of performance metric such
-  /// as, for example, "[mark]". See property page for valid values.
+  ///  A [String] representing the type of performance metric such as,
+  /// for example, "[mark]". See property page for valid values.
   ///
   String get entryType => js_util.getProperty(this, 'entryType');
 
-  ///  A [DOMHighResTimeStamp] representing the starting time for the
-  /// performance metric.
+  ///  A [double] representing the starting time for the performance
+  /// metric.
   ///
   double get startTime => js_util.getProperty(this, 'startTime');
 
-  ///  A [DOMHighResTimeStamp] representing the time value of the
-  /// duration of the performance event.
+  ///  A [double] representing the time value of the duration of the
+  /// performance event.
   ///
   double get duration => js_util.getProperty(this, 'duration');
 
@@ -127,7 +127,45 @@ extension PropsPerformanceObserver on PerformanceObserver {
   ///
   /// observer.observe(options);
   ///
-  Object observe([PerformanceObserverInit? options]) =>
+  Object observe(
+          [
+
+          ///
+          ///     A [PerformanceObserverInit] dictionary with the following
+          /// possible
+          ///    members:
+          ///
+          ///
+          ///
+          ///     [entryTypes]: An array of [String] objects, each
+          ///      specifying one performance entry type to observe. May not be
+          /// used together with
+          ///     the "[type]" or "[buffered]" options.
+          ///
+          ///
+          ///     [type]: A single [String] specifying exactly one
+          ///      performance entry type to observe. May not be used together
+          /// with the
+          ///     [entryTypes] option.
+          ///
+          ///
+          ///     [buffered]: A boolean flag to indicate whether buffered
+          ///      entries should be queued into the observer's buffer. Must be
+          /// used only with the
+          ///     "[type]" option.
+          ///
+          ///
+          ///
+          ///     See [PerformanceEntry.entryType] for a list of valid
+          /// performance entry
+          ///     type names. Unrecognized types are ignored, though the
+          /// browser may output a warning
+          ///     message to the console to help developers debug their code.
+          /// If no valid types are
+          ///    found, [observe()] has no effect.
+          ///
+          ///
+          PerformanceObserverInit? options]) =>
       js_util.callMethod(this, 'observe', [options]);
 
   ///  Stops the performance observer callback from receiving
@@ -318,7 +356,12 @@ extension PropsPerformanceObserverEntryList on PerformanceObserverEntryList {
   /// // subscribe to only the 'frame' event
   /// observe_frame.observe({entryTypes: ['frame']});
   ///
-  Iterable<PerformanceEntry> getEntriesByType(String type) =>
+  Iterable<PerformanceEntry> getEntriesByType(
+
+          ///  The type of entry to retrieve such as "[frame]". The valid entry
+          /// types are listed in [PerformanceEntry.entryType].
+          ///
+          String type) =>
       js_util.callMethod(this, 'getEntriesByType', [type]);
 
   ///  Returns a list of explicitly observed [PerformanceEntry] objects
@@ -368,7 +411,20 @@ extension PropsPerformanceObserverEntryList on PerformanceObserverEntryList {
   /// // subscribe to only the 'frame' event
   /// observe_frame.observe({entryTypes: ['frame']});
   ///
-  Iterable<PerformanceEntry> getEntriesByName(String name, [String? type]) =>
+  Iterable<PerformanceEntry> getEntriesByName(
+
+          /// A [String] representing the name of the entry to retrieve.
+          ///
+          String name,
+          [
+
+          ///
+          ///    A [String] representing the type of entry to retrieve such as
+          ///    "[mark]". The valid entry types are listed in
+          ///    [PerformanceEntry.entryType].
+          ///
+          ///
+          String? type]) =>
       js_util.callMethod(this, 'getEntriesByName', [name, type]);
 }
 

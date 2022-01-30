@@ -63,8 +63,8 @@ extension PropsIDBRequest on IDBRequest {
   ///
   dynamic get result => js_util.getProperty(this, 'result');
 
-  ///  Returns a [DOMException] in the event of an unsuccessful
-  /// request, indicating what went wrong.
+  ///  Returns a [Exception] in the event of an unsuccessful request,
+  /// indicating what went wrong.
   ///
   Exception? get error => js_util.getProperty(this, 'error');
 
@@ -280,8 +280,8 @@ extension PropsIDBFactory on IDBFactory {
   ///  console.log(databases)
   /// })
   ///
-  Iterable<Promise<IDBDatabaseInfo>> databases() =>
-      js_util.callMethod(this, 'databases', []);
+  Future<Iterable<IDBDatabaseInfo>> databases() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'databases', []));
 
   ///  A method that compares two keys and returns a result indicating
   /// which one is greater in value.
@@ -348,7 +348,7 @@ class IDBDatabase implements EventTarget {
 }
 
 extension PropsIDBDatabase on IDBDatabase {
-  /// A [DOMString] that contains the name of the connected database.
+  /// A [String] that contains the name of the connected database.
   ///
   String get name => js_util.getProperty(this, 'name');
 
@@ -413,8 +413,111 @@ extension PropsIDBDatabase on IDBDatabase {
   /// var objectStore = transaction.objectStore("toDoList");
   /// // etc.
   ///
-  IDBTransaction transaction(dynamic storeNames,
-          [IDBTransactionMode? mode = IDBTransactionMode.readonly,
+  IDBTransaction transaction(
+
+          ///
+          ///     The names of object stores that are in the scope of the new
+          /// transaction, declared as
+          ///     an array of strings. Specify only the object stores that you
+          /// need to access.
+          ///     If you need to access only one object store, you can specify
+          /// its name as a string.
+          ///    Therefore the following lines are equivalent:
+          ///
+          ///   [var transaction = db.transaction(['my-store-name']);
+          /// var transaction = db.transaction('my-store-name');
+          /// ]
+          ///
+          ///     If you need to access all object stores in the database, you
+          /// can use the property
+          ///    [IDBDatabase.objectStoreNames]:
+          ///
+          ///   [var transaction = db.transaction(db.objectStoreNames);
+          /// ]
+          ///   Passing an empty array will throw an exception.
+          ///
+          dynamic storeNames,
+          [
+
+          ///
+          ///     The types of access that can be performed in the transaction.
+          /// Transactions are
+          ///    opened in one of three modes: [readonly], [readwrite] and
+          ///     [readwriteflush] (non-standard, Firefox-only.)
+          /// [versionchange]
+          ///     mode can't be specified here. If you don't provide the
+          /// parameter, the default access
+          ///     mode is [readonly]. To avoid slowing things down, don't open
+          /// a
+          ///     [readwrite] transaction unless you actually need to write
+          /// into the
+          ///    database.
+          ///
+          ///
+          ///     If you need to open the object store in [readwrite] mode to
+          /// change data,
+          ///    you would use the following:
+          ///
+          ///    [var transaction = db.transaction('my-store-name',
+          /// "readwrite");
+          /// ]
+          ///
+          ///     As of Firefox 40, IndexedDB transactions have relaxed
+          /// durability guarantees to
+          ///     increase performance (see bug 1112702), which is the same
+          /// behavior as other
+          ///     IndexedDB-supporting browsers. Previously in a [readwrite]
+          /// transaction
+          ///     [IDBTransaction.oncomplete] was fired only when all data was
+          /// guaranteed
+          ///     to have been flushed to disk. In Firefox 40+ the [complete]
+          /// event is
+          ///     fired after the OS has been told to write the data but
+          /// potentially before that data
+          ///     has actually been flushed to disk. The [complete] event may
+          /// thus be
+          ///     delivered quicker than before, however, there exists a small
+          /// chance that the entire
+          ///     transaction will be lost if the OS crashes or there is a loss
+          /// of system power before
+          ///     the data is flushed to disk. Since such catastrophic events
+          /// are rare most consumers
+          ///    should not need to concern themselves further.
+          ///
+          ///
+          ///
+          ///     Note: In Firefox, if you wish to ensure durability for some
+          ///      reason (e.g. you're storing critical data that cannot be
+          /// recomputed later) you can
+          ///      force a transaction to flush to disk before delivering the
+          /// [complete]
+          ///      event by creating a transaction using the experimental
+          /// (non-standard)
+          ///     [readwriteflush] mode (see [IDBDatabase.transaction].)
+          ///     This is currently experimental, and can only be used if the
+          ///     [dom.indexedDB.experimental] pref is set to [true] in
+          ///     [about:config].
+          ///
+          ///
+          ///
+          IDBTransactionMode? mode = IDBTransactionMode.readonly,
+
+          /// Dictionary of other options. Available options are:
+          ///
+          ///
+          ///     [durability]: ["default"], ["strict"], or
+          ///     ["relaxed"]. The default is ["default"]. Using
+          ///      ["relaxed"] provides better performance, but with fewer
+          /// guarantees. Web
+          ///      applications are encouraged to use ["relaxed"] for ephemeral
+          /// data such
+          ///      as caches or quickly changing records, and ["strict"] in
+          /// cases where
+          ///      reducing the risk of data loss outweighs the impact to
+          /// performance and power.
+          ///
+          ///
+          ///
           IDBTransactionOptions? options]) =>
       js_util.callMethod(this, 'transaction', [storeNames, mode, options]);
 
@@ -480,7 +583,15 @@ extension PropsIDBDatabase on IDBDatabase {
   ///  note.innerHTML += "<li>Object store created.</li>";
   /// };
   ///
-  IDBObjectStore createObjectStore(String name,
+  IDBObjectStore createObjectStore(
+
+          ///
+          ///     The name of the new object store to be created. Note that it
+          /// is possible to create
+          ///    an object store with an empty name.
+          ///
+          ///
+          String name,
           [IDBObjectStoreParameters? options]) =>
       js_util.callMethod(this, 'createObjectStore', [name, options]);
 
@@ -507,7 +618,14 @@ extension PropsIDBDatabase on IDBDatabase {
   ///  // etc. for version < 3, 4...
   /// };
   ///
-  Object deleteObjectStore(String name) =>
+  Object deleteObjectStore(
+
+          ///
+          ///    The name of the object store you want to delete. Names are
+          ///    case sensitive.
+          ///
+          ///
+          String name) =>
       js_util.callMethod(this, 'deleteObjectStore', [name]);
 
   EventHandlerNonNull? get onabort => js_util.getProperty(this, 'onabort');
@@ -1590,14 +1708,14 @@ extension PropsIDBIndex on IDBIndex {
 ///
 ///  The lower value of the key range is one of the following:
 ///
-///    [undefined]
+///    [Object]
 ///    Less than key value
 ///    Equal to key value if [lowerOpen] is [false].
 ///
 ///
 ///  The upper value of the key range is one of the following:
 ///
-///    [undefined]
+///    [Object]
 ///    Greater than key value
 ///    Equal to key value if [upperOpen] is [false].
 ///
@@ -1682,15 +1800,15 @@ extension PropsIDBCursor on IDBCursor {
   IDBCursorDirection get direction => js_util.getProperty(this, 'direction');
 
   ///  Returns the key for the record at the cursor's position. If the
-  /// cursor is outside its range, this is set to [undefined]. The
+  /// cursor is outside its range, this is set to [Object]. The
   /// cursor's key can be any data type.
   ///
   dynamic get key => js_util.getProperty(this, 'key');
 
   ///  Returns the cursor's current effective primary key. If the
   /// cursor is currently being iterated or has iterated outside its
-  /// range, this is set to [undefined]. The cursor's primary key can
-  /// be any data type.
+  /// range, this is set to [Object]. The cursor's primary key can be
+  /// any data type.
   ///
   dynamic get primaryKey => js_util.getProperty(this, 'primaryKey');
 
@@ -1732,7 +1850,12 @@ extension PropsIDBCursor on IDBCursor {
   ///  };
   /// };
   ///
-  Object advance(int count) => js_util.callMethod(this, 'advance', [count]);
+  Object advance(
+
+          /// The number of times to move the cursor forward.
+          ///
+          int count) =>
+      js_util.callMethod(this, 'advance', [count]);
 
   ///  Advances the cursor to the next position along its direction, to
   /// the item whose key matches the optional [key] parameter.
@@ -1769,7 +1892,12 @@ extension PropsIDBCursor on IDBCursor {
   ///
   @JS('continue')
   @staticInterop
-  Object mContinue([dynamic key]) =>
+  Object mContinue(
+          [
+
+          /// The key to position the cursor at.
+          ///
+          dynamic key]) =>
       js_util.callMethod(this, 'continue', [key]);
 
   ///  Sets the cursor to the given index key and primary key given as
@@ -1801,7 +1929,15 @@ extension PropsIDBCursor on IDBCursor {
   ///   }
   /// };
   ///
-  Object continuePrimaryKey(dynamic key, dynamic primaryKey) =>
+  Object continuePrimaryKey(
+
+          /// The key to position the cursor at.
+          ///
+          dynamic key,
+
+          /// The primary key to position the cursor at.
+          ///
+          dynamic primaryKey) =>
       js_util.callMethod(this, 'continuePrimaryKey', [key, primaryKey]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
@@ -2001,9 +2137,9 @@ extension PropsIDBTransaction on IDBTransaction {
   ///
   IDBDatabase get db => js_util.getProperty(this, 'db');
 
-  ///  Returns a [DOMException] indicating the type of error that
-  /// occurred when there is an unsuccessful transaction. This property
-  /// is [null] if the transaction is not finished, is finished and
+  ///  Returns a [Exception] indicating the type of error that occurred
+  /// when there is an unsuccessful transaction. This property is
+  /// [null] if the transaction is not finished, is finished and
   /// successfully committed, or was aborted with
   /// the[IDBTransaction.abort()] function.
   ///
@@ -2064,7 +2200,11 @@ extension PropsIDBTransaction on IDBTransaction {
   ///   note.innerHTML += '<li>Request successful.</li>';
   ///  };
   ///
-  IDBObjectStore objectStore(String name) =>
+  IDBObjectStore objectStore(
+
+          /// The name of the requested object store.
+          ///
+          String name) =>
       js_util.callMethod(this, 'objectStore', [name]);
 
   ///  For an active transaction, commits the transaction. Note that

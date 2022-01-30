@@ -153,7 +153,7 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
       js_util.promiseToFuture(js_util.callMethod(this, 'update', []));
 
   ///  Unregisters the service worker registration and returns a
-  /// [Promise]. The service worker will finish any ongoing operations
+  /// [Future]. The service worker will finish any ongoing operations
   /// before it is unregistered.
   ///
   /// serviceWorkerRegistration.unregister().then(function(boolean) {
@@ -198,9 +198,10 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'showNotification', [title, options]));
 
-  Iterable<Promise<Notification>> getNotifications(
+  Future<Iterable<Notification>> getNotifications(
           [GetNotificationOptions? filter]) =>
-      js_util.callMethod(this, 'getNotifications', [filter]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getNotifications', [filter]));
 
   PushManager get pushManager => js_util.getProperty(this, 'pushManager');
   @JS('sync')
@@ -236,7 +237,7 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   ServiceWorker? get controller => js_util.getProperty(this, 'controller');
 
   ///  Provides a way of delaying code execution until a service worker
-  /// is active. It returns a [Promise] that will never reject, and
+  /// is active. It returns a [Future] that will never reject, and
   /// which waits indefinitely until the [ServiceWorkerRegistration]
   /// associated with the current page has an
   /// [ServiceWorkerRegistration.active] worker. Once that condition is
@@ -251,14 +252,69 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   /// serviceWorkerContainer.register(scriptURL, options)
   ///  .then(function(serviceWorkerRegistration) { /* ... */ });
   ///
-  Future<ServiceWorkerRegistration> register(String scriptURL,
-          [RegistrationOptions? options]) =>
+  Future<ServiceWorkerRegistration> register(
+
+          ///
+          ///     The URL of the service worker script. The registered service
+          /// worker file needs to
+          ///    have a valid JavaScript
+          /// MIME type.
+          ///
+          ///
+          String scriptURL,
+          [
+
+          ///  An object containing registration options. Currently available
+          /// options are:
+          ///
+          ///
+          ///     [scope]: A [String] representing a URL that defines a
+          ///      service worker's registration scope; that is, what range of
+          /// URLs a service worker
+          ///      can control. This is usually a relative URL. It is relative
+          /// to the base URL of the
+          ///      application. By default, the [scope] value for a service
+          /// worker
+          ///      registration is set to the directory where the service
+          /// worker script is located.
+          ///     See the Examples section for more information on how it
+          ///     works.
+          ///
+          ///
+          ///     [type]: A [String]
+          ///     specifying the type of worker to create. Valid values are:
+          ///
+          ///       ['classic']: The loaded service worker is in a standard
+          /// script. This is the default.
+          ///
+          ///       [module]: The loaded service worker is in an
+          ///       ES module
+          ///       and the import statement is available on
+          ///       worker contexts.
+          ///
+          ///
+          ///
+          ///     [updateViaCache]: A string indicating how much of a service
+          /// worker's resources will be updated when a call is made to
+          /// [ServiceWorkerRegistration.updateViaCache]. Valid values are:
+          ///
+          ///       ['all']: The service worker script and all of its imports
+          /// will be updated.
+          ///       ['imports']: Only imports referenced by the service worker
+          /// script will be updated. This is the default.
+          ///       ['none']: Neither the service worker, nor its imports will
+          /// be updated.
+          ///
+          ///
+          ///
+          ///
+          RegistrationOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'register', [scriptURL, options]));
 
   ///  Gets a [ServiceWorkerRegistration] object whose scope matches
-  /// the provided document URL. The method returns a [Promise] that
-  /// resolves to a [ServiceWorkerRegistration] or [undefined].
+  /// the provided document URL. The method returns a [Future] that
+  /// resolves to a [ServiceWorkerRegistration] or [Object].
   ///
   /// serviceWorkerContainer.getRegistration(clientURL).then(function(serviceWorkerRegistration) { /* ... */ });
   ///
@@ -268,12 +324,20 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   ///  }
   /// });
   ///
-  dynamic getRegistration([String? clientURL = '']) =>
+  dynamic getRegistration(
+          [
+
+          ///  The registration whose scope matches this URL will be returned.
+          /// Relative URLs are resolved with the current client as the base.
+          /// If this parameter is not provided, the current client's URL will
+          /// be used by default.
+          ///
+          String? clientURL = '']) =>
       js_util.callMethod(this, 'getRegistration', [clientURL]);
 
   ///  Returns all [ServiceWorkerRegistration] objects associated with
   /// a [ServiceWorkerContainer] in an array. The method returns a
-  /// [Promise] that resolves to an array of
+  /// [Future] that resolves to an array of
   /// [ServiceWorkerRegistration].
   ///
   /// serviceWorkerContainer.getRegistrations().then(function(serviceWorkerRegistrations) { /* ... */ });
@@ -282,8 +346,8 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
   ///  document.querySelector('#status').textContent = 'ServiceWorkerRegistrations found.';
   /// });
   ///
-  Iterable<Promise<ServiceWorkerRegistration>> getRegistrations() =>
-      js_util.callMethod(this, 'getRegistrations', []);
+  Future<Iterable<ServiceWorkerRegistration>> getRegistrations() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getRegistrations', []));
 
   ///  explicitly starts the flow of messages being dispatched from a
   /// service worker to pages under its control (e.g. sent via
@@ -560,7 +624,23 @@ extension PropsClient on Client {
   /// client.postMessage(message[, transfer]);
   /// client.postMessage(message[, { transfer }]);
   ///
-  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+  Object postMessage(
+
+          ///  The message to send to the client. This can be any
+          /// structured-clonable
+          /// type.
+          ///
+          dynamic message,
+
+          ///
+          ///     A sequence of objects that are transferred with the message.
+          /// The
+          ///     ownership of these objects is given to the destination side
+          /// and they are no longer
+          ///    usable on the sending side.
+          ///
+          ///
+          Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
   ClientLifecycleState get lifecycleState =>
@@ -626,7 +706,11 @@ extension PropsWindowClient on WindowClient {
   ///  // do something with your WindowClient after navigation
   /// });
   ///
-  Future<WindowClient> navigate(String url) =>
+  Future<WindowClient> navigate(
+
+          /// The location to navigate to.
+          ///
+          String url) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'navigate', [url]));
 }
 
@@ -642,7 +726,7 @@ class Clients {
 }
 
 extension PropsClients on Clients {
-  /// Returns a [Promise] for a [Client] matching a given [id].
+  /// Returns a [Future] for a [Client] matching a given [id].
   ///
   /// self.clients.get(id).then(function(client) {
   ///  // do something with your returned client
@@ -650,26 +734,68 @@ extension PropsClients on Clients {
   ///
   @JS('get')
   @staticInterop
-  dynamic mGet(String id) => js_util.callMethod(this, 'get', [id]);
+  dynamic mGet(
 
-  ///  Returns a [Promise] for an array of [Client] objects. An options
+          /// A [String] representing the id of the client you want to get.
+          ///
+          String id) =>
+      js_util.callMethod(this, 'get', [id]);
+
+  ///  Returns a [Future] for an array of [Client] objects. An options
   /// argument allows you to control the types of clients returned.
   ///
   /// self.clients.matchAll(options).then(function(clients) {
   ///  // do something with your clients list
   /// });
   ///
-  Iterable<Promise<Client>> matchAll([ClientQueryOptions? options]) =>
-      js_util.callMethod(this, 'matchAll', [options]);
+  Future<Iterable<Client>> matchAll(
+          [
+
+          ///
+          ///     An options object allowing you to set options for the
+          /// matching operation. Available
+          ///    options are:
+          ///
+          ///
+          ///
+          ///     [includeUncontrolled]: A boolean value — if set to
+          ///      [true], the matching operation will return all service
+          /// worker clients
+          ///      who share the same origin as the current service worker.
+          /// Otherwise, it returns
+          ///      only the service worker clients controlled by the current
+          /// service worker. The
+          ///     default is [false].
+          ///
+          ///
+          ///      [type]: Sets the type of clients you want matched. Available
+          /// values
+          ///     are ["window"], ["worker"], ["sharedworker"], and
+          ///     ["all"]. The default is ["window"].
+          ///
+          ///
+          ///
+          ClientQueryOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'matchAll', [options]));
 
   ///  Opens a new browser window for a given url and returns a
-  /// [Promise] for the new [WindowClient].
+  /// [Future] for the new [WindowClient].
   ///
   /// self.clients.openWindow(url).then(function(windowClient) {
   ///  // Do something with your WindowClient
   /// });
   ///
-  Future<WindowClient> openWindow(String url) =>
+  Future<WindowClient> openWindow(
+
+          ///
+          ///     A [String] representing the URL of the client you want to
+          /// open in
+          ///     the window. Generally this value must be a URL from the same
+          /// origin as the calling
+          ///    script.
+          ///
+          ///
+          String url) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'openWindow', [url]));
 
   ///  Allows an active service worker to set itself as the
@@ -794,8 +920,8 @@ extension PropsFetchEvent on FetchEvent {
   ///
   Request get request => js_util.getProperty(this, 'request');
 
-  ///  A [Promise] for a [Response], or [undefined] if this fetch is
-  /// not a navigation, or navigation preload is not enabled.
+  ///  A [Future] for a [Response], or [Object] if this fetch is not a
+  /// navigation, or navigation preload is not enabled.
   ///
   Future<dynamic> get preloadResponse =>
       js_util.promiseToFuture(js_util.getProperty(this, 'preloadResponse'));
@@ -998,9 +1124,10 @@ extension PropsCache on Cache {
   dynamic match(dynamic request, [CacheQueryOptions? options]) =>
       js_util.callMethod(this, 'match', [request, options]);
 
-  Iterable<Promise<Response>> matchAll(
+  Future<Iterable<Response>> matchAll(
           [dynamic request, CacheQueryOptions? options]) =>
-      js_util.callMethod(this, 'matchAll', [request, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'matchAll', [request, options]));
 
   Future<Object> add(dynamic request) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'add', [request]));
@@ -1014,9 +1141,10 @@ extension PropsCache on Cache {
   Future<bool> delete(dynamic request, [CacheQueryOptions? options]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'delete', [request, options]));
 
-  Iterable<Promise<Request>> keys(
+  Future<Iterable<Request>> keys(
           [dynamic request, CacheQueryOptions? options]) =>
-      js_util.callMethod(this, 'keys', [request, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'keys', [request, options]));
 }
 
 @anonymous
@@ -1095,7 +1223,7 @@ class CacheStorage {
 extension PropsCacheStorage on CacheStorage {
   ///  Checks if a given [Request] is a key in any of the [Cache]
   /// objects that the [CacheStorage] object tracks, and returns a
-  /// [Promise] that resolves to that match.
+  /// [Future] that resolves to that match.
   ///
   /// caches.match(request, options).then(function(response) {
   ///  // Do something with the response
@@ -1104,17 +1232,24 @@ extension PropsCacheStorage on CacheStorage {
   dynamic match(dynamic request, [MultiCacheQueryOptions? options]) =>
       js_util.callMethod(this, 'match', [request, options]);
 
-  ///  Returns a [Promise] that resolves to [true] if a [Cache] object
+  ///  Returns a [Future] that resolves to [true] if a [Cache] object
   /// matching the [cacheName] exists.
   ///
   /// caches.has(cacheName).then(function(boolean) {
   ///  // true: your cache exists!
   /// });
   ///
-  Future<bool> has(String cacheName) =>
+  Future<bool> has(
+
+          ///
+          ///    A [String] representing the name of the [Cache] object
+          ///    you are looking for in the [CacheStorage].
+          ///
+          ///
+          String cacheName) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'has', [cacheName]));
 
-  ///  Returns a [Promise] that resolves to the [Cache] object matching
+  ///  Returns a [Future] that resolves to the [Cache] object matching
   /// the [cacheName] (a new cache is created if it doesn't already
   /// exist.)
   ///
@@ -1126,17 +1261,21 @@ extension PropsCacheStorage on CacheStorage {
       js_util.promiseToFuture(js_util.callMethod(this, 'open', [cacheName]));
 
   ///  Finds the [Cache] object matching the [cacheName], and if found,
-  /// deletes the [Cache] object and returns a [Promise] that resolves
+  /// deletes the [Cache] object and returns a [Future] that resolves
   /// to [true]. If no [Cache] object is found, it resolves to [false].
   ///
   /// caches.delete(cacheName).then(function(boolean) {
   ///  // your cache is now deleted
   /// });
   ///
-  Future<bool> delete(String cacheName) =>
+  Future<bool> delete(
+
+          /// The name of the cache you want to delete.
+          ///
+          String cacheName) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'delete', [cacheName]));
 
-  ///  Returns a [Promise] that will resolve with an array containing
+  ///  Returns a [Future] that will resolve with an array containing
   /// strings corresponding to all of the named [Cache] objects tracked
   /// by the [CacheStorage]. Use this method to iterate over a list of
   /// all the [Cache] objects.
@@ -1145,7 +1284,8 @@ extension PropsCacheStorage on CacheStorage {
   ///  //do something with your keyList
   /// });
   ///
-  Iterable<Promise<String>> keys() => js_util.callMethod(this, 'keys', []);
+  Future<Iterable<String>> keys() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'keys', []));
 }
 
 @anonymous
@@ -1171,25 +1311,25 @@ class NavigationPreloadManager {
 }
 
 extension PropsNavigationPreloadManager on NavigationPreloadManager {
-  ///  Enables navigation preloading and returns a [Promise] that
+  ///  Enables navigation preloading and returns a [Future] that
   /// resolves.
   ///
   Future<Object> enable() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'enable', []));
 
-  ///  Disables navigation preloading and returns a [Promise] that
+  ///  Disables navigation preloading and returns a [Future] that
   /// resolves.
   ///
   Future<Object> disable() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'disable', []));
 
   ///  Sets the value of the [Service-Worker-Navigation-Preload] header
-  /// and returns an empty [Promise].
+  /// and returns an empty [Future].
   ///
   Future<Object> setHeaderValue(String value) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setHeaderValue', [value]));
 
-  ///  Returns a [Promise] that resolves to an object with properties
+  ///  Returns a [Future] that resolves to an object with properties
   /// indicating whether preload is enabled and the contents of the
   /// [Service-Worker-Navigation-Preload].
   ///

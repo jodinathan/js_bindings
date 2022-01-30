@@ -184,7 +184,7 @@ class SubtleCrypto {
 }
 
 extension PropsSubtleCrypto on SubtleCrypto {
-  ///  Returns a [Promise] that fufills with the encrypted data
+  ///  Returns a [Future] that fufills with the encrypted data
   /// corresponding to the clear text, algorithm, and key given as
   /// parameters.
   ///
@@ -194,7 +194,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'encrypt', [algorithm, key, data]));
 
-  ///  Returns a [Promise] that fulfills with the clear data
+  ///  Returns a [Future] that fulfills with the clear data
   /// corresponding to the encrypted text, algorithm, and key given as
   /// parameters.
   ///
@@ -204,7 +204,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'decrypt', [algorithm, key, data]));
 
-  ///  Returns a [Promise] that fulfills with the signature
+  ///  Returns a [Future] that fulfills with the signature
   /// corresponding to the text, algorithm, and key given as
   /// parameters.
   ///
@@ -214,9 +214,9 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'sign', [algorithm, key, data]));
 
-  ///  Returns a [Promise] that fulfills with a boolean value
-  /// indicating if the signature given as a parameter matches the
-  /// text, algorithm, and key that are also given as parameters.
+  ///  Returns a [Future] that fulfills with a boolean value indicating
+  /// if the signature given as a parameter matches the text,
+  /// algorithm, and key that are also given as parameters.
   ///
   /// const result = crypto.subtle.verify(algorithm, key, signature, data);
   ///
@@ -225,7 +225,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(js_util
           .callMethod(this, 'verify', [algorithm, key, signature, data]));
 
-  ///  Returns a [Promise] that fulfills with a digest generated from
+  ///  Returns a [Future] that fulfills with a digest generated from
   /// the algorithm and text given as parameters.
   ///
   /// const digest = crypto.subtle.digest(algorithm, data);
@@ -233,7 +233,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
   Future<dynamic> digest(dynamic algorithm, dynamic data) => js_util
       .promiseToFuture(js_util.callMethod(this, 'digest', [algorithm, data]));
 
-  ///  Returns a [Promise] that fulfills with a newly-generated
+  ///  Returns a [Future] that fulfills with a newly-generated
   /// [CryptoKey], for symmetrical algorithms, or a [CryptoKeyPair],
   /// containing two newly generated keys, for asymmetrical algorithms.
   /// These will match the algorithm, usages, and extractability given
@@ -246,7 +246,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(js_util.callMethod(
           this, 'generateKey', [algorithm, extractable, keyUsages]));
 
-  ///  Returns a [Promise] that fulfills with a newly generated
+  ///  Returns a [Future] that fulfills with a newly generated
   /// [CryptoKey] derived from the master key and specific algorithm
   /// given as parameters.
   ///
@@ -267,7 +267,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(js_util.callMethod(this, 'deriveKey',
           [algorithm, baseKey, derivedKeyType, extractable, keyUsages]));
 
-  ///  Returns a [Promise] that fulfills with a newly generated buffer
+  ///  Returns a [Future] that fulfills with a newly generated buffer
   /// of pseudo-random bits derived from the master key and specific
   /// algorithm given as parameters.
   ///
@@ -282,7 +282,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'deriveBits', [algorithm, baseKey, length]));
 
-  ///  Returns a [Promise] that fulfills with a [CryptoKey]
+  ///  Returns a [Future] that fulfills with a [CryptoKey]
   /// corresponding to the format, the algorithm, raw key data, usages,
   /// and extractability given as parameters.
   ///
@@ -299,7 +299,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(js_util.callMethod(this, 'importKey',
           [format, keyData, algorithm, extractable, keyUsages]));
 
-  ///  Returns a [Promise] that fulfills with a buffer containing the
+  ///  Returns a [Future] that fulfills with a buffer containing the
   /// key in the requested format.
   ///
   /// const result = crypto.subtle.exportKey(format, key);
@@ -307,7 +307,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
   Future<dynamic> exportKey(KeyFormat format, CryptoKey key) => js_util
       .promiseToFuture(js_util.callMethod(this, 'exportKey', [format, key]));
 
-  ///  Returns a [Promise] that fulfills with a wrapped symmetric key
+  ///  Returns a [Future] that fulfills with a wrapped symmetric key
   /// for usage (transfer and storage) in insecure environments. The
   /// wrapped key matches the format specified in the given parameters,
   /// and wrapping is done by the given wrapping key, using the
@@ -325,7 +325,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
       js_util.promiseToFuture(js_util.callMethod(
           this, 'wrapKey', [format, key, wrappingKey, wrapAlgorithm]));
 
-  ///  Returns a [Promise] that fulfills with a [CryptoKey]
+  ///  Returns a [Future] that fulfills with a [CryptoKey]
   /// corresponding to the wrapped key given in the parameter.
   ///
   /// const result = crypto.subtle.unwrapKey(
@@ -569,8 +569,8 @@ class RsaHashedKeyGenParams implements RsaKeyGenParams {
 }
 
 extension PropsRsaHashedKeyGenParams on RsaHashedKeyGenParams {
-  ///  A [DOMString] representing the name of the digest function to
-  /// use. You can pass any of [SHA-256], [SHA-384], or [SHA-512] here.
+  ///  A [String] representing the name of the digest function to use.
+  /// You can pass any of [SHA-256], [SHA-384], or [SHA-512] here.
   ///
   ///     Warning: Although you can technically pass [SHA-1] as a value
   /// here, this is strongly discouraged as SHA-1 is considered
@@ -634,8 +634,8 @@ class RsaHashedImportParams implements Algorithm {
 }
 
 extension PropsRsaHashedImportParams on RsaHashedImportParams {
-  ///  A [DOMString] representing the name of the digest function to
-  /// use. This can be one of [SHA-256], [SHA-384], or [SHA-512].
+  ///  A [String] representing the name of the digest function to use.
+  /// This can be one of [SHA-256], [SHA-384], or [SHA-512].
   ///
   ///     Warning: Although you can technically pass [SHA-1] here, this
   /// is strongly discouraged as it is considered vulnerable.
@@ -661,7 +661,7 @@ class RsaPssParams implements Algorithm {
 }
 
 extension PropsRsaPssParams on RsaPssParams {
-  ///  A [long] integer representing the length of the random salt to
+  ///  A [int] integer representing the length of the random salt to
   /// use, in bytes.
   ///    RFC 3447 says that "Typical salt lengths" are either 0 or the
   /// length of the output of the digest algorithm that was selected
@@ -718,8 +718,8 @@ class EcdsaParams implements Algorithm {
 }
 
 extension PropsEcdsaParams on EcdsaParams {
-  ///  A [DOMString]. An identifier for the digest algorithm to use.
-  /// This should be one of the following:
+  ///  A [String]. An identifier for the digest algorithm to use. This
+  /// should be one of the following:
   ///
   ///    [SHA-256]: selects the SHA-256 algorithm.
   ///    [SHA-384]: selects the SHA-384 algorithm.
@@ -751,9 +751,8 @@ class EcKeyGenParams implements Algorithm {
 }
 
 extension PropsEcKeyGenParams on EcKeyGenParams {
-  ///  A [DOMString] representing the name of the elliptic curve to
-  /// use. This may be any of the following names for NIST-approved
-  /// curves:
+  ///  A [String] representing the name of the elliptic curve to use.
+  /// This may be any of the following names for NIST-approved curves:
   ///
   ///    [P-256]
   ///    [P-384]
@@ -793,9 +792,8 @@ class EcKeyImportParams implements Algorithm {
 }
 
 extension PropsEcKeyImportParams on EcKeyImportParams {
-  ///  A [DOMString] representing the name of the elliptic curve to
-  /// use. This may be any of the following names for NIST-approved
-  /// curves:
+  ///  A [String] representing the name of the elliptic curve to use.
+  /// This may be any of the following names for NIST-approved curves:
   ///
   ///    [P-256]
   ///    [P-384]
@@ -1058,8 +1056,8 @@ class HmacImportParams implements Algorithm {
 }
 
 extension PropsHmacImportParams on HmacImportParams {
-  ///  A [DOMString] representing the name of the digest function to
-  /// use. The can take a value of [SHA-256], [SHA-384], or [SHA-512].
+  ///  A [String] representing the name of the digest function to use.
+  /// The can take a value of [SHA-256], [SHA-384], or [SHA-512].
   ///
   ///     Warning: Although you can technically pass [SHA-1] here, this
   /// is strongly discouraged as it is considered vulnerable.
@@ -1117,9 +1115,9 @@ class HmacKeyGenParams implements Algorithm {
 }
 
 extension PropsHmacKeyGenParams on HmacKeyGenParams {
-  ///  A [DOMString] representing the name of the digest function to
-  /// use. You can pass any of [SHA-1], [SHA-256], [SHA-384], or
-  /// [SHA-512] here.
+  ///  A [String] representing the name of the digest function to use.
+  /// You can pass any of [SHA-1], [SHA-256], [SHA-384], or [SHA-512]
+  /// here.
   ///
   @JS('hash')
   @staticInterop
@@ -1150,8 +1148,8 @@ class HkdfParams implements Algorithm {
 }
 
 extension PropsHkdfParams on HkdfParams {
-  ///  A [DOMString] representing the digest algorithm to use. This may
-  /// be one of:
+  ///  A [String] representing the digest algorithm to use. This may be
+  /// one of:
   ///
   ///    [SHA-1]
   ///    [SHA-256]
@@ -1225,8 +1223,8 @@ extension PropsPbkdf2Params on Pbkdf2Params {
     js_util.setProperty(this, 'iterations', newValue);
   }
 
-  ///  A [DOMString] representing the digest algorithm to use. This may
-  /// be one of:
+  ///  A [String] representing the digest algorithm to use. This may be
+  /// one of:
   ///
   ///    [SHA-1]
   ///    [SHA-256]

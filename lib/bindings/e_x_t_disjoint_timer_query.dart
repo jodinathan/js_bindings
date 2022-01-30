@@ -61,7 +61,11 @@ extension PropsEXT_disjoint_timer_query on EXT_disjoint_timer_query {
   ///
   /// void ext.deleteQueryEXT(query);
   ///
-  Object deleteQueryEXT(WebGLTimerQueryEXT? query) =>
+  Object deleteQueryEXT(
+
+          /// A [WebGLQuery] object to delete.
+          ///
+          WebGLTimerQueryEXT? query) =>
       js_util.callMethod(this, 'deleteQueryEXT', [query]);
 
   ///  Returns [true] if a given object is a valid
@@ -69,7 +73,11 @@ extension PropsEXT_disjoint_timer_query on EXT_disjoint_timer_query {
   ///
   /// GLBoolean ext.isQueryEXT(query);
   ///
-  bool isQueryEXT(WebGLTimerQueryEXT? query) =>
+  bool isQueryEXT(
+
+          /// A [WebGLQuery] object to test.
+          ///
+          WebGLTimerQueryEXT? query) =>
       js_util.callMethod(this, 'isQueryEXT', [query]);
 
   ///  The timer starts when all commands prior to have been fully
@@ -77,7 +85,12 @@ extension PropsEXT_disjoint_timer_query on EXT_disjoint_timer_query {
   ///
   /// void ext.beginQueryEXT(target, query);
   ///
-  Object beginQueryEXT(int target, WebGLTimerQueryEXT query) =>
+  Object beginQueryEXT(
+          int target,
+
+          /// A [WebGLQuery] object for which to start the time querying.
+          ///
+          WebGLTimerQueryEXT query) =>
       js_util.callMethod(this, 'beginQueryEXT', [target, query]);
 
   ///  The timer stops when all commands prior to have been fully
@@ -92,20 +105,44 @@ extension PropsEXT_disjoint_timer_query on EXT_disjoint_timer_query {
   ///
   /// void ext.queryCounterEXT(query, target);
   ///
-  Object queryCounterEXT(WebGLTimerQueryEXT query, int target) =>
+  Object queryCounterEXT(
+
+          /// A [WebGLQuery] object for which to record the current time.
+          ///
+          WebGLTimerQueryEXT query,
+          int target) =>
       js_util.callMethod(this, 'queryCounterEXT', [query, target]);
 
   /// Returns information about a query target.
   ///
   /// any ext.getQueryEXT(target, pname);
   ///
-  dynamic getQueryEXT(int target, int pname) =>
+  dynamic getQueryEXT(
+          int target,
+
+          ///
+          ///    A [GLenum] specifying which information to return. Must be
+          ///    [ext.CURRENT_QUERY_EXT] or [ext.QUERY_COUNTER_BITS_EXT].
+          ///
+          ///
+          int pname) =>
       js_util.callMethod(this, 'getQueryEXT', [target, pname]);
 
   /// Return the state of a query object.
   ///
   /// any ext.getQueryObjectEXT(query, pname);
   ///
-  dynamic getQueryObjectEXT(WebGLTimerQueryEXT query, int pname) =>
+  dynamic getQueryObjectEXT(
+
+          /// A [WebGLQuery] object from which to return information.
+          ///
+          WebGLTimerQueryEXT query,
+
+          ///
+          ///    A [GLenum] specifying which information to return. Must be
+          ///    [ext.QUERY_RESULT_EXT] or [ext.QUERY_RESULT_AVAILABLE_EXT].
+          ///
+          ///
+          int pname) =>
       js_util.callMethod(this, 'getQueryObjectEXT', [query, pname]);
 }

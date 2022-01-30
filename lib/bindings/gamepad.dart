@@ -32,7 +32,7 @@ class Gamepad {
 }
 
 extension PropsGamepad on Gamepad {
-  ///  A [DOMString] containing identifying information about the
+  ///  A [String] containing identifying information about the
   /// controller.
   ///
   String get id => js_util.getProperty(this, 'id');
@@ -47,8 +47,8 @@ extension PropsGamepad on Gamepad {
   ///
   bool get connected => js_util.getProperty(this, 'connected');
 
-  ///  A [DOMHighResTimeStamp] representing the last time the data for
-  /// this gamepad was updated.
+  ///  A [double] representing the last time the data for this gamepad
+  /// was updated.
   ///
   double get timestamp => js_util.getProperty(this, 'timestamp');
 

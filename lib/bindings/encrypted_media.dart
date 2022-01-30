@@ -116,7 +116,7 @@ class MediaKeySystemAccess {
 }
 
 extension PropsMediaKeySystemAccess on MediaKeySystemAccess {
-  /// Returns a [DOMString] identifying the key system being used.
+  /// Returns a [String] identifying the key system being used.
   ///
   String get keySystem => js_util.getProperty(this, 'keySystem');
 
@@ -128,7 +128,7 @@ extension PropsMediaKeySystemAccess on MediaKeySystemAccess {
   MediaKeySystemConfiguration getConfiguration() =>
       js_util.callMethod(this, 'getConfiguration', []);
 
-  /// Returns a [Promise] that resolves to a new [MediaKeys] object.
+  /// Returns a [Future] that resolves to a new [MediaKeys] object.
   ///
   /// var mediaKeys = await mediaKeySystemAccess.createMediaKeys();
   ///
@@ -161,8 +161,8 @@ extension PropsMediaKeys on MediaKeys {
           [MediaKeySessionType? sessionType = MediaKeySessionType.temporary]) =>
       js_util.callMethod(this, 'createSession', [sessionType]);
 
-  ///  Returns a [Promise] to a server certificate to be used to
-  /// encrypt messages to the license server.
+  ///  Returns a [Future] to a server certificate to be used to encrypt
+  /// messages to the license server.
   ///
   /// MediaKeys.setServerCertificate(serverCertificate).then(function() { /* ... */ });
   ///
@@ -187,7 +187,7 @@ extension PropsMediaKeySession on MediaKeySession {
   String get sessionId => js_util.getProperty(this, 'sessionId');
 
   ///  The time after which the keys in the current session can no
-  /// longer be used to decrypt media data, or [NaN] if no such time
+  /// longer be used to decrypt media data, or [Object] if no such time
   /// exists. This value is determined by the CDM and measured in
   /// milliseconds since January 1, 1970, UTC. This value may change
   /// during a session lifetime, such as when an action triggers the
@@ -196,7 +196,7 @@ extension PropsMediaKeySession on MediaKeySession {
   /* double | NaN */ dynamic get expiration =>
       js_util.getProperty(this, 'expiration');
 
-  ///  Returns a [Promise] signaling when a [MediaKeySession] closes.
+  ///  Returns a [Future] signaling when a [MediaKeySession] closes.
   /// This promise can only be fulfilled and is never rejected. Closing
   /// a session means that licenses and keys associated with it are no
   /// longer valid for decrypting media data.
@@ -219,7 +219,7 @@ extension PropsMediaKeySession on MediaKeySession {
     js_util.setProperty(this, 'onmessage', newValue);
   }
 
-  ///  Returns a [Promise] after generating a media request based on
+  ///  Returns a [Future] after generating a media request based on
   /// initialization data.
   ///
   /// mediaKeySession.generateRequest().then(function) { /* ... */ });
@@ -228,7 +228,7 @@ extension PropsMediaKeySession on MediaKeySession {
       js_util.promiseToFuture(js_util
           .callMethod(this, 'generateRequest', [initDataType, initData]));
 
-  ///  Returns a [Promise] that resolves to a boolean value after
+  ///  Returns a [Future] that resolves to a boolean value after
   /// loading data for a specified session object.
   ///
   /// mediaKeySession.load(sessionId).then(function(booleanValue) { /* ... */ });
@@ -236,7 +236,7 @@ extension PropsMediaKeySession on MediaKeySession {
   Future<bool> load(String sessionId) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'load', [sessionId]));
 
-  ///  Returns a [Promise] after loading messages and licenses to the
+  ///  Returns a [Future] after loading messages and licenses to the
   /// CDM.
   ///
   /// mediaKeySession.update(response).then(function() { /* ... */ });
@@ -244,7 +244,7 @@ extension PropsMediaKeySession on MediaKeySession {
   Future<Object> update(dynamic response) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'update', [response]));
 
-  ///  Returns a [Promise] after notifying the current media session is
+  ///  Returns a [Future] after notifying the current media session is
   /// no longer needed and that the CDM should release any resources
   /// associated with this object and close it.
   ///
@@ -253,7 +253,7 @@ extension PropsMediaKeySession on MediaKeySession {
   Future<Object> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
-  ///  Returns a [Promise] after removing any session data associated
+  ///  Returns a [Future] after removing any session data associated
   /// with the current object.
   ///
   Future<Object> remove() =>
@@ -283,8 +283,8 @@ extension PropsMediaKeyStatusMap on MediaKeyStatusMap {
   ///
   bool has(dynamic keyId) => js_util.callMethod(this, 'has', [keyId]);
 
-  ///  Returns the value associated with the given key, or [undefined]
-  /// if there is none.
+  ///  Returns the value associated with the given key, or [Object] if
+  /// there is none.
   ///
   /// var value = mediaKeyStatusMap.get(key);
   ///

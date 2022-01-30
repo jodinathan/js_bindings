@@ -180,7 +180,11 @@ extension PropsFileReader on FileReader {
   ///
   /// instanceOfFileReader.readAsArrayBuffer(blob);
   ///
-  Object readAsArrayBuffer(Blob blob) =>
+  Object readAsArrayBuffer(
+
+          /// The [Blob] or [File] from which to read.
+          ///
+          Blob blob) =>
       js_util.callMethod(this, 'readAsArrayBuffer', [blob]);
 
   ///  Starts reading the contents of the specified [Blob], once
@@ -213,7 +217,11 @@ extension PropsFileReader on FileReader {
   ///  reader.readAsBinaryString(blob);
   /// });
   ///
-  Object readAsBinaryString(Blob blob) =>
+  Object readAsBinaryString(
+
+          /// The [Blob] or [File] from which to read.
+          ///
+          Blob blob) =>
       js_util.callMethod(this, 'readAsBinaryString', [blob]);
 
   ///  Starts reading the contents of the specified [Blob], once
@@ -224,7 +232,17 @@ extension PropsFileReader on FileReader {
   /// readAsText(blob)
   /// readAsText(blob, encoding)
   ///
-  Object readAsText(Blob blob, [String? encoding]) =>
+  Object readAsText(
+
+          /// The [Blob] or [File] from which to read.
+          ///
+          Blob blob,
+          [
+
+          ///  A string specifying the encoding to use for the returned data.
+          /// By default, UTF-8 is assumed if this parameter is not specified.
+          ///
+          String? encoding]) =>
       js_util.callMethod(this, 'readAsText', [blob, encoding]);
 
   ///  Starts reading the contents of the specified [Blob], once
@@ -233,7 +251,11 @@ extension PropsFileReader on FileReader {
   ///
   /// instanceOfFileReader.readAsDataURL(blob);
   ///
-  Object readAsDataURL(Blob blob) =>
+  Object readAsDataURL(
+
+          /// The [Blob] or [File] from which to read.
+          ///
+          Blob blob) =>
       js_util.callMethod(this, 'readAsDataURL', [blob]);
 
   ///  Aborts the read operation. Upon return, the [readyState] will be
@@ -280,8 +302,8 @@ extension PropsFileReader on FileReader {
   ///
   dynamic get result => js_util.getProperty(this, 'result');
 
-  ///  A [DOMException] representing the error that occurred while
-  /// reading the file.
+  ///  A [Exception] representing the error that occurred while reading
+  /// the file.
   ///
   Exception? get error => js_util.getProperty(this, 'error');
   EventHandlerNonNull? get onloadstart =>
@@ -335,11 +357,15 @@ extension PropsFileReaderSync on FileReaderSync {
   ///
   /// ArrayBuffer readAsArrayBuffer(blob);
   ///
-  ByteBuffer readAsArrayBuffer(Blob blob) =>
+  ByteBuffer readAsArrayBuffer(
+
+          /// The [File] or [Blob] to read into the [File] or [ArrayBuffer].
+          ///
+          Blob blob) =>
       js_util.callMethod(this, 'readAsArrayBuffer', [blob]);
 
   ///  This method converts a specified [Blob] or a [File] into a
-  /// [DOMString] representing the input data as a binary string. This
+  /// [String] representing the input data as a binary string. This
   /// method is deprecated, consider using [readAsArrayBuffer()]
   /// instead.
   ///
@@ -347,11 +373,15 @@ extension PropsFileReaderSync on FileReaderSync {
   /// readAsBinaryString(Blob);
   ///
   @deprecated
-  String readAsBinaryString(Blob blob) =>
+  String readAsBinaryString(
+
+          /// The [File] or [Blob] to read.
+          ///
+          Blob blob) =>
       js_util.callMethod(this, 'readAsBinaryString', [blob]);
 
   ///  This method converts a specified [Blob] or a [File] into a
-  /// [DOMString] representing the input data as a text string. The
+  /// [String] representing the input data as a text string. The
   /// optional [encoding] parameter indicates the encoding to be used
   /// (e.g., iso-8859-1 or UTF-8). If not present, the method will
   /// apply a detection algorithm for it.
@@ -361,15 +391,30 @@ extension PropsFileReaderSync on FileReaderSync {
   /// readAsText(File, encoding);
   /// readAsText(Blob, encoding);
   ///
-  String readAsText(Blob blob, [String? encoding]) =>
+  String readAsText(
+
+          /// The [File] or [Blob] to read.
+          ///
+          Blob blob,
+          [
+
+          ///  The optional parameter specifies encoding to be used (e.g.,
+          /// [iso-8859-1] or [UTF-8]). If not present, the method will apply a
+          /// detection algorithm for it.
+          ///
+          String? encoding]) =>
       js_util.callMethod(this, 'readAsText', [blob, encoding]);
 
   ///  This method converts a specified [Blob] or a [File] into a
-  /// [DOMString] representing the input data as a data URL.
+  /// [String] representing the input data as a data URL.
   ///
   /// readAsDataURL(File);
   /// readAsDataURL(Blob);
   ///
-  String readAsDataURL(Blob blob) =>
+  String readAsDataURL(
+
+          /// The [File] or [Blob] to read.
+          ///
+          Blob blob) =>
       js_util.callMethod(this, 'readAsDataURL', [blob]);
 }

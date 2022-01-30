@@ -30,8 +30,8 @@ class FontManager {
 }
 
 extension PropsFontManager on FontManager {
-  Iterable<Promise<FontMetadata>> query([QueryOptions? options]) =>
-      js_util.callMethod(this, 'query', [options]);
+  Future<Iterable<FontMetadata>> query([QueryOptions? options]) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'query', [options]));
 }
 
 @anonymous

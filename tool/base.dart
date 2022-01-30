@@ -39,6 +39,7 @@ const types = {
   'undefined': 'Object',
   'NaN': 'Object',
   'DOMException': 'Exception',
+  'Promise': 'Future',
   ///////////////////////////////////
   // Types not yet ready:
   // https://github.com/w3c/css-houdini-drafts/issues/1041
@@ -170,10 +171,14 @@ final missing = {
   }
 };
 
+String docClear(String buf) => buf.replaceAll('  ', ' ')
+    .replaceAll('\n\n\n', '\n');
+
 class DartType {
   DartType({
     required this.name,
     required bool nullable,
+    this.description,
     this.isCallback = false
   }) : fullName = '$name${nullable && name != 'dynamic' ? '?' : ''}',
   nullable = nullable || name == 'dynamic',
@@ -186,6 +191,7 @@ class DartType {
   final bool isDynamic;
   final bool isPromise;
   final bool isCallback;
+  final String? description;
 
   String get dartName => isPromise ?
     (name == 'Promise' ? 'Future' : name.replaceAll('Promise<', 'Future<')) :
@@ -203,10 +209,12 @@ class MethodParam {
     this.isNullable = false,
     this.isOptional = false,
     this.isVariadic = false,
-    this.defaultValue
+    this.defaultValue,
+    this.description = ''
   });
 
   final String name;
+  final String description;
   final bool isNullable;
   final bool isOptional;
   final bool isVariadic;
@@ -289,6 +297,7 @@ class Method {
 
       params.add(MethodParam(
         name: name,
+        description: arg['desc'] ?? '',
         typeName: type,
         dartType: dtype,
         defaultValue: defaultValue,
@@ -299,12 +308,15 @@ class Method {
     }
   }
 
-  String build({bool optionals = true}) {
+  String build({bool optionals = true, bool documentation = true}) {
     var ret = <String>[];
     var optional = false;
 
     for (final arg in params) {
-      var call = '${arg.typeName} ${arg.name}';
+      var call = '${documentation &&
+          arg.description.isNotEmpty ?
+          '${makeDoc(arg.description)}\n'
+          : ''}${arg.typeName} ${arg.name}';
 
       if (arg.isOptional && !optional && optionals) {
         call = '[$call';
@@ -419,10 +431,20 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
     }
 
     if (gen.isNotEmpty) {
-      gen.insert(0, ret);
+      print('BundleGen $gen\n$ret');
+      final myt = ret;
+      gen.add(myt);
+      ret = '';
 
-      ret = gen.reduce(
-              (val, el) => '${el == 'Promise' ? 'Promise' : 'Iterable'}<$val>');
+      for (final g in gen.reversed) {
+        final type = g == 'Promise' ? 'Promise' : (g == myt ? myt : 'Iterable');
+
+        if (ret != '') {
+          ret = '$type<$ret>';
+        } else {
+          ret = type;
+        }
+      }
     }
 
     // for sanity check ret should never be a typedef like EventHandler
@@ -431,62 +453,9 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
     final spt = specType(ret);
     final type = spt?['type']?.toString().split(' ') ?? [];
 
-    if (ret == 'FileSystemEntryCallback') {
-      print('FileSystemEntryCallback $spt\n$nullable\n$returnTypeBlock');
-    }
-
     return DartType(name: ret, nullable: nullable,
         isCallback: type.contains('callback') && (ret == 'EventListener' ||
         type.length == 1));
-  }
-
-  String makeDoc(String? rbuf, {bool wrap = true}) {
-    if (rbuf == null) {
-      return '';
-    }
-
-    var buf = rbuf;
-    const max = 65;
-    final ret = <String>[];
-
-    while (true) {
-      final bb = buf.replaceAll('  ', ' ').replaceAll('\n\n\n', '\n');
-      final len = bb.length;
-
-      buf = bb;
-
-      if (len == buf.length) {
-        break;
-      }
-    }
-    var lines = buf.split('\n');
-
-    for (final line in lines) {
-      if (line.length < max || !wrap) {
-        ret.add(line);
-        continue;
-      }
-
-      final words = line.split(RegExp(r'\s'));
-      var buf = '';
-
-      for (final word in words) {
-        buf += ' ';
-
-        if (buf.length + word.length > max) {
-          ret.add(buf);
-          buf = '';
-        }
-
-        buf += word;
-      }
-
-      if (buf.isNotEmpty) {
-        ret.add(buf);
-      }
-    }
-
-    return ret.map((r) => '/// $r').join('\n').trim();
   }
 
   Method makeMethod(Iterable args) {
@@ -865,4 +834,60 @@ Future<Iterable<Map<String, dynamic>>> getIDLs({String dir = 'ed'}) async {
   }
 
   return ret;
+}
+
+String replaceAllByMap(String buf, Map<String, dynamic> map) =>
+    buf.replaceAllMapped(
+    RegExp(map.keys.map((k) => '\\$k').join('|')), (match) => map[match[0]]!);
+
+String makeDoc(String? rbuf, {bool wrap = true}) {
+  if (rbuf == null) {
+    return '';
+  }
+
+  var buf = replaceAllByMap(rbuf, {
+    for (final key in types.keys)
+      '[$key]': '[${types[key]!}]'
+  });
+  const max = 65;
+  final ret = <String>[];
+
+  while (true) {
+    final bb = docClear(buf);
+    final len = bb.length;
+
+    buf = bb;
+
+    if (len == buf.length) {
+      break;
+    }
+  }
+  var lines = buf.split('\n');
+
+  for (final line in lines) {
+    if (line.length < max || !wrap) {
+      ret.add(line);
+      continue;
+    }
+
+    final words = line.split(RegExp(r'\s'));
+    var buf = '';
+
+    for (final word in words) {
+      buf += ' ';
+
+      if (buf.length + word.length > max) {
+        ret.add(buf);
+        buf = '';
+      }
+
+      buf += word;
+    }
+
+    if (buf.isNotEmpty) {
+      ret.add(buf);
+    }
+  }
+
+  return ret.map((r) => '/// $r').join('\n').trim();
 }

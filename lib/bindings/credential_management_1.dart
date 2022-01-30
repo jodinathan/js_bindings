@@ -39,12 +39,12 @@ class Credential {
 }
 
 extension PropsCredential on Credential {
-  ///  Returns a [DOMString] containing the credential's identifier.
-  /// This might be any one of a GUID, username, or email address.
+  ///  Returns a [String] containing the credential's identifier. This
+  /// might be any one of a GUID, username, or email address.
   ///
   String get id => js_util.getProperty(this, 'id');
 
-  ///  Returns a [DOMString] containing the credential's type. Valid
+  ///  Returns a [String] containing the credential's type. Valid
   /// values are [password], [federated] and [public-key]. (For
   /// [PasswordCredential], [FederatedCredential] and
   /// [PublicKeyCredential])
@@ -79,7 +79,7 @@ class CredentialsContainer {
 }
 
 extension PropsCredentialsContainer on CredentialsContainer {
-  ///  Returns a [Promise] that resolves with the [Credential] instance
+  ///  Returns a [Future] that resolves with the [Credential] instance
   /// that matches the provided parameters.
   ///
   /// var promise = CredentialsContainer.get([options])
@@ -90,17 +90,17 @@ extension PropsCredentialsContainer on CredentialsContainer {
       js_util.promiseToFuture(js_util.callMethod(this, 'get', [options]));
 
   ///  Stores a set of credentials for a user, inside a provided
-  /// [Credential] instance and returns that instance in a [Promise].
+  /// [Credential] instance and returns that instance in a [Future].
   ///
   /// CredentialsContainer.store(Credential).then(function(Credential) { /* ... */ } )
   ///
   Future<Credential> store(Credential credential) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'store', [credential]));
 
-  ///  Returns a [Promise] that resolves with a new [Credential]
+  ///  Returns a [Future] that resolves with a new [Credential]
   /// instance based on the provided options, or [null] if no
   /// [Credential] object can be created. In exceptional circumstances,
-  /// the [Promise] may reject.
+  /// the [Future] may reject.
   ///
   /// var promise = CredentialsContainer.create([options])
   ///
@@ -109,7 +109,7 @@ extension PropsCredentialsContainer on CredentialsContainer {
 
   ///  Sets a flag that specifies whether automatic log in is allowed
   /// for future visits to the current origin, then returns an empty
-  /// [Promise]. For example, you might call this, after a user signs
+  /// [Future]. For example, you might call this, after a user signs
   /// out of a website to ensure that they aren't automatically signed
   /// in on the next site visit. Earlier versions of the spec called
   /// this method [requireUserMediation()]. See Browser compatibility
@@ -193,7 +193,7 @@ class PasswordCredential implements Credential, CredentialUserData {
 }
 
 extension PropsPasswordCredential on PasswordCredential {
-  /// A [USVString] containing the password of the credential.
+  /// A [String] containing the password of the credential.
   ///
   String get password => js_util.getProperty(this, 'password');
 }
@@ -247,13 +247,13 @@ class FederatedCredential implements Credential, CredentialUserData {
 }
 
 extension PropsFederatedCredential on FederatedCredential {
-  ///  Returns a [USVString] containing a credential's federated
-  /// identity provider.
+  ///  Returns a [String] containing a credential's federated identity
+  /// provider.
   ///
   String get provider => js_util.getProperty(this, 'provider');
 
-  ///  Returns a [DOMString] containing a credential's federated
-  /// identity protocol.
+  ///  Returns a [String] containing a credential's federated identity
+  /// protocol.
   ///
   String? get protocol => js_util.getProperty(this, 'protocol');
 }

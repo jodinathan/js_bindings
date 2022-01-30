@@ -29,29 +29,48 @@ class BackgroundFetchManager {
 }
 
 extension PropsBackgroundFetchManager on BackgroundFetchManager {
-  ///  Returns a [Promise] that resolves with a
+  ///  Returns a [Future] that resolves with a
   /// [BackgroundFetchRegistration] object for a supplied array of URLs
   /// and [Request] objects.
   ///
   /// let backgroundFetchRegistration = BackgroundFetchManager.fetch(id, requests [,options]);
   ///
-  Future<BackgroundFetchRegistration> fetch(String id, dynamic requests,
-          [BackgroundFetchOptions? options]) =>
+  Future<BackgroundFetchRegistration> fetch(
+
+          ///  A developer-defined identifier that can be passed to the other
+          /// methods to retrieve a [backgroundFetchRegistration].
+          ///
+          String id,
+
+          /// A [RequestInfo] object or an array of such objects.
+          ///
+          dynamic requests,
+          [
+
+          /// A [BackgroundFetchOptions] object.
+          ///
+          BackgroundFetchOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'fetch', [id, requests, options]));
 
-  ///  Returns a [Promise] that resolves with the
+  ///  Returns a [Future] that resolves with the
   /// [BackgroundFetchRegistration] associated with the provided [id]
-  /// or [undefined] if the [id] is not found.
+  /// or [Object] if the [id] is not found.
   ///
   /// let backgroundFetchRegistration = BackgroundFetchManager.get(id);
   ///
   @JS('get')
   @staticInterop
-  Future<BackgroundFetchRegistration> mGet(String id) =>
+  Future<BackgroundFetchRegistration> mGet(
+
+          ///  the ID of a [backgroundFetchRegistration] defined by calling
+          /// [fetch()].
+          ///
+          String id) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'get', [id]));
 
-  Iterable<Promise<String>> getIds() => js_util.callMethod(this, 'getIds', []);
+  Future<Iterable<String>> getIds() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getIds', []));
 }
 
 @anonymous
@@ -164,7 +183,7 @@ extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
   BackgroundFetchFailureReason get failureReason =>
       js_util.getProperty(this, 'failureReason');
 
-  /// A [boolean] indicating whether the flag is set.
+  /// A [bool] indicating whether the flag is set.
   ///
   bool get recordsAvailable => js_util.getProperty(this, 'recordsAvailable');
   EventHandlerNonNull? get onprogress =>
@@ -173,7 +192,7 @@ extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
     js_util.setProperty(this, 'onprogress', newValue);
   }
 
-  ///  Aborts the background fetch. Returns a [Promise] that resolves
+  ///  Aborts the background fetch. Returns a [Future] that resolves
   /// with [true] if the fetch was successfully aborted.
   ///
   /// let status = BackgroundFetchRegistration.abort();
@@ -186,20 +205,111 @@ extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
   ///
   /// let record = BackgroundFetchRegistration.match(request, options);
   ///
-  Future<BackgroundFetchRecord> match(dynamic request,
-          [CacheQueryOptions? options]) =>
+  Future<BackgroundFetchRecord> match(
+
+          ///
+          ///    The [Request] for which you are attempting to find records.
+          ///    This can be a [Request] object or a URL.
+          ///
+          ///
+          dynamic request,
+          [
+
+          ///
+          ///     An object that sets options for the [match] operation. The
+          /// available
+          ///    options are:
+          ///
+          ///
+          ///    [ignoreSearch]
+          ///
+          ///
+          ///      A boolean value that specifies whether to
+          ///      ignore the query string in the URL. For example, if set to
+          ///      [true] the [?value=bar] part of
+          ///       [http://foo.com/?value=bar] would be ignored when
+          /// performing a match.
+          ///      It defaults to [false].
+          ///
+          ///
+          ///    [ignoreMethod]
+          ///
+          ///
+          ///      A boolean value. When [true],
+          ///       prevents matching operations from validating the [Request]
+          /// [http] method.
+          ///      If [false] (the default) only [GET] and [HEAD] are allowed.
+          ///
+          ///
+          ///    [ignoreVary]
+          ///
+          ///
+          ///      A boolean value. When [true] indicates that the [VARY]
+          ///      header should be ignored.
+          ///      It defaults to [false].
+          ///
+          ///
+          ///
+          ///
+          CacheQueryOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'match', [request, options]));
 
-  ///  Returns a [Promise] that resolves with an array of
+  ///  Returns a [Future] that resolves with an array of
   /// [BackgroundFetchRecord] objects containing requests and
   /// responses.
   ///
   /// let records = BackgroundFetchRegistration.matchAll(request,options);
   ///
-  Iterable<Promise<BackgroundFetchRecord>> matchAll(
-          [dynamic request, CacheQueryOptions? options]) =>
-      js_util.callMethod(this, 'matchAll', [request, options]);
+  Future<Iterable<BackgroundFetchRecord>> matchAll(
+          [
+
+          ///
+          ///    The [Request] for which you are attempting to find records.
+          ///    This can be a [Request] object or a URL.
+          ///
+          ///
+          dynamic request,
+
+          ///
+          ///     An object that sets options for the [match] operation. The
+          /// available
+          ///    options are:
+          ///
+          ///
+          ///    [ignoreSearch]
+          ///
+          ///
+          ///      A boolean value that specifies whether to
+          ///      ignore the query string in the URL. For example, if set to
+          ///      [true] the [?value=bar] part of
+          ///       [http://foo.com/?value=bar] would be ignored when
+          /// performing a match.
+          ///      It defaults to [false].
+          ///
+          ///
+          ///    [ignoreMethod]
+          ///
+          ///
+          ///      A boolean value. When [true],
+          ///       prevents matching operations from validating the [Request]
+          /// [http] method.
+          ///      If [false] (the default) only [GET] and [HEAD] are allowed.
+          ///
+          ///
+          ///    [ignoreVary]
+          ///
+          ///
+          ///      A boolean value. When [true] indicates that the [VARY]
+          ///      header should be ignored.
+          ///      It defaults to [false].
+          ///
+          ///
+          ///
+          ///
+          CacheQueryOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'matchAll', [request, options]));
 }
 
 enum BackgroundFetchResult { empty, success, failure }
@@ -284,10 +394,40 @@ class BackgroundFetchUpdateUIEvent implements BackgroundFetchEvent {
 
 extension PropsBackgroundFetchUpdateUIEvent on BackgroundFetchUpdateUIEvent {
   ///  Updates the title and icon in the user interface to show the
-  /// status of a background fetch. Resolves with a [Promise].
+  /// status of a background fetch. Resolves with a [Future].
   ///
   /// let updateUI = BackgroundFetchUpdateUIEvent.updateUI(options);
   ///
-  Future<Object> updateUI([BackgroundFetchUIOptions? options]) =>
+  Future<Object> updateUI(
+          [
+
+          /// An object containing any of the following:
+          ///
+          ///    [icons]Optional
+          ///
+          ///      A list of one or more image resources, containing icons for
+          /// use in the user interface. An image resource is an object
+          /// containing:
+          ///
+          ///      [src]
+          ///
+          ///       A [string] which is a URL of an image.
+          ///
+          ///      [sizes]Optional
+          ///
+          ///        A [string] which is equivalent to a [<link>] [sizes]
+          /// attribute.
+          ///
+          ///      [type]Optional
+          ///
+          ///       A [string] containing an image MIME type.
+          ///
+          ///      [label]Optional
+          ///
+          ///       A [string] providing a name for the associated image.
+          ///
+          ///
+          ///
+          BackgroundFetchUIOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'updateUI', [options]));
 }

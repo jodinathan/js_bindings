@@ -34,7 +34,7 @@ class MediaList {
 }
 
 extension PropsMediaList on MediaList {
-  ///  A stringifier that returns a [DOMString] representing the
+  ///  A stringifier that returns a [String] representing the
   /// [MediaList] as text, and also allows you to set a new
   /// [MediaList].
   ///
@@ -47,9 +47,8 @@ extension PropsMediaList on MediaList {
   ///
   int get length => js_util.getProperty(this, 'length');
 
-  ///  A getter that returns a [CSSOMString] representing a media query
-  /// as text, given the media query's index value inside the
-  /// [MediaList].
+  ///  A getter that returns a [String] representing a media query as
+  /// text, given the media query's index value inside the [MediaList].
   ///
   String? item(int index) => js_util.callMethod(this, 'item', [index]);
 
@@ -74,13 +73,12 @@ class StyleSheet {
 }
 
 extension PropsStyleSheet on StyleSheet {
-  ///  Returns a [DOMString] representing the style sheet language for
+  ///  Returns a [String] representing the style sheet language for
   /// this style sheet.
   ///
   String get type => js_util.getProperty(this, 'type');
 
-  ///  Returns a [DOMString] representing the location of the
-  /// stylesheet.
+  /// Returns a [String] representing the location of the stylesheet.
   ///
   String? get href => js_util.getProperty(this, 'href');
 
@@ -95,7 +93,7 @@ extension PropsStyleSheet on StyleSheet {
   CSSStyleSheet? get parentStyleSheet =>
       js_util.getProperty(this, 'parentStyleSheet');
 
-  ///  Returns a [DOMString] representing the advisory title of the
+  ///  Returns a [String] representing the advisory title of the
   /// current style sheet.
   ///
   String? get title => js_util.getProperty(this, 'title');
@@ -161,7 +159,38 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
   ///
   /// stylesheet.insertRule(rule [, index])
   ///
-  int insertRule(String rule, [int? index = 0]) =>
+  int insertRule(
+
+          ///
+          ///     A [String] containing the rule to be inserted. What the
+          /// inserted
+          ///    rule must contain depends on its type:
+          ///
+          ///
+          ///
+          ///     For rule-sets, both
+          ///     a selector and a
+          ///     style declaration.
+          ///
+          ///
+          ///     For at-rules, both an
+          ///     at-identifier and the rule content.
+          ///
+          ///
+          ///
+          String rule,
+          [
+
+          ///
+          ///     A positive integer less than or equal to
+          /// [stylesheet.cssRules.length],
+          ///    representing the newly inserted rule's position in
+          ///    [CSSStyleSheet.cssRules]. The default is
+          ///     [0]. (In older implementations, this was required. See
+          /// Browser compatibility for details.)
+          ///
+          ///
+          int? index = 0]) =>
       js_util.callMethod(this, 'insertRule', [rule, index]);
 
   ///  Deletes the rule at the specified index into the stylesheet's
@@ -172,7 +201,15 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
   /// This example removes the first rule from the stylesheet myStyles.
   ///  myStyles.deleteRule(0);
   ///
-  Object deleteRule(int index) =>
+  Object deleteRule(
+
+          ///
+          ///     The index into the stylesheet's [CSSRuleList] indicating the
+          /// rule to be
+          ///    removed.
+          ///
+          ///
+          int index) =>
       js_util.callMethod(this, 'deleteRule', [index]);
 
   Future<CSSStyleSheet> replace(String text) =>
@@ -210,7 +247,13 @@ extension PropsStyleSheetList on StyleSheetList {
   ///
   /// StyleSheetList.item(index);
   ///
-  CSSStyleSheet? item(int index) => js_util.callMethod(this, 'item', [index]);
+  CSSStyleSheet? item(
+
+          ///  An integer which is the index of the item in the collection to
+          /// be returned.
+          ///
+          int index) =>
+      js_util.callMethod(this, 'item', [index]);
 
   /// Returns the number of [CSSStyleSheet] objects in the collection.
   ///
@@ -248,7 +291,12 @@ extension PropsCSSRuleList on CSSRuleList {
   ///
   /// CSSRuleList.item(index);
   ///
-  CSSRule? item(int index) => js_util.callMethod(this, 'item', [index]);
+  CSSRule? item(
+
+          /// An integer.
+          ///
+          int index) =>
+      js_util.callMethod(this, 'item', [index]);
 
   ///  Returns an integer representing the number of [CSSRule] objects
   /// in the collection.
@@ -476,12 +524,12 @@ class CSSNamespaceRule implements CSSRule {
 }
 
 extension PropsCSSNamespaceRule on CSSNamespaceRule {
-  ///  Returns a [DOMString] containing the text of the URI of the
-  /// given namespace.
+  ///  Returns a [String] containing the text of the URI of the given
+  /// namespace.
   ///
   String get namespaceURI => js_util.getProperty(this, 'namespaceURI');
 
-  ///  Returns a [DOMString] with the name of the prefix associated to
+  ///  Returns a [String] with the name of the prefix associated to
   /// this namespace. If there is no such prefix, returns an empty
   /// string.
   ///
@@ -558,7 +606,35 @@ extension PropsCSSStyleDeclaration on CSSStyleDeclaration {
   ///
   /// style.setProperty(propertyName, value, priority);
   ///
-  Object setProperty(String property, String value, [String? priority = '']) =>
+  Object setProperty(
+          String property,
+
+          ///
+          ///     A [String] containing the new property value. If not
+          /// specified, treated
+          ///    as the empty string.
+          ///
+          ///
+          ///     Note: must not contain ["!important"], that should be set
+          /// using the [priority] parameter.
+          ///
+          ///
+          String value,
+          [
+
+          ///
+          ///     A [String] allowing the "important" CSS priority to be set.
+          /// If not
+          ///     specified, treated as the empty string. The following values
+          /// are accepted:
+          ///
+          ///
+          ///    String value ["important"]
+          ///    Keyword [Object]
+          ///    String empty value [""]
+          ///
+          ///
+          String? priority = '']) =>
       js_util.callMethod(this, 'setProperty', [property, value, priority]);
 
   /// Removes a property from the CSS declaration block.

@@ -200,11 +200,11 @@ class HTMLOptionsCollection implements HTMLCollection {
 }
 
 extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
-  ///  [unsigned long]. As optionally allowed by the spec, this
-  /// property isn't read-only. You can either remove options from the
-  /// end by lowering the value, or add blank options at the end by
-  /// raising the value. Mozilla allows this, while other
-  /// implementations could potentially throw a DOMException.
+  ///  [int]. As optionally allowed by the spec, this property isn't
+  /// read-only. You can either remove options from the end by lowering
+  /// the value, or add blank options at the end by raising the value.
+  /// Mozilla allows this, while other implementations could
+  /// potentially throw a DOMException.
   ///
   @override
   int get length => js_util.getProperty(this, 'length');
@@ -237,7 +237,7 @@ extension PropsDOMStringList on DOMStringList {
   ///
   int get length => js_util.getProperty(this, 'length');
 
-  /// Returns a [DOMString].
+  /// Returns a [String].
   ///
   String? item(int index) => js_util.callMethod(this, 'item', [index]);
 
@@ -618,8 +618,8 @@ class HTMLTitleElement implements HTMLElement {
 }
 
 extension PropsHTMLTitleElement on HTMLTitleElement {
-  ///  Is a [DOMString] representing the text of the document's title,
-  /// and only the text part. For example, consider this:
+  ///  Is a [String] representing the text of the document's title, and
+  /// only the text part. For example, consider this:
   ///
   String get text => js_util.getProperty(this, 'text');
   set text(String newValue) {
@@ -667,7 +667,7 @@ class HTMLBaseElement implements HTMLElement {
 }
 
 extension PropsHTMLBaseElement on HTMLBaseElement {
-  ///  Is a [DOMString] that reflects the HTML attribute, containing a
+  ///  Is a [String] that reflects the HTML attribute, containing a
   /// base URL for relative URLs in the document.
   ///
   String get href => js_util.getProperty(this, 'href');
@@ -675,7 +675,7 @@ extension PropsHTMLBaseElement on HTMLBaseElement {
     js_util.setProperty(this, 'href', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, containing a
+  ///  Is a [String] that reflects the HTML attribute, containing a
   /// default target browsing context or frame for elements that do not
   /// have a target reference specified.
   ///
@@ -945,7 +945,7 @@ class HTMLStyleElement implements HTMLElement, LinkStyle {
 }
 
 extension PropsHTMLStyleElement on HTMLStyleElement {
-  ///  Is a [DOMString] reflecting the HTML attribute representing the
+  ///  Is a [String] reflecting the HTML attribute representing the
   /// intended destination medium for style information.
   ///
   String get media => js_util.getProperty(this, 'media');
@@ -1282,7 +1282,7 @@ class HTMLQuoteElement implements HTMLElement {
 }
 
 extension PropsHTMLQuoteElement on HTMLQuoteElement {
-  ///  Is a [DOMString] reflecting the HTML attribute, containing a URL
+  ///  Is a [String] reflecting the HTML attribute, containing a URL
   /// for the source of the quotation.
   ///
   String get cite => js_util.getProperty(this, 'cite');
@@ -1340,7 +1340,7 @@ extension PropsHTMLOListElement on HTMLOListElement {
     js_util.setProperty(this, 'reversed', newValue);
   }
 
-  ///  Is a [long] value reflecting the and defining the value of the
+  ///  Is a [int] value reflecting the and defining the value of the
   /// first number of the first element of the list.
   ///
   int get start => js_util.getProperty(this, 'start');
@@ -1348,7 +1348,7 @@ extension PropsHTMLOListElement on HTMLOListElement {
     js_util.setProperty(this, 'start', newValue);
   }
 
-  ///  Is a [DOMString] value reflecting the and defining the kind of
+  ///  Is a [String] value reflecting the and defining the kind of
   /// marker to be used to display. It can have the following values:
   ///
   ///     ['1'] meaning that decimal numbers are used: [1], [2], [3],
@@ -1515,7 +1515,7 @@ class HTMLLIElement implements HTMLElement {
 }
 
 extension PropsHTMLLIElement on HTMLLIElement {
-  ///  Is a [long] indicating the ordinal position of the list element
+  ///  Is a [int] indicating the ordinal position of the list element
   /// inside a given [<ol>]. It reflects the attribute of the HTML
   /// [<li>] element, and can be smaller than [0]. If the [<li>]
   /// element is not a child of an [<ol>] element, the property has no
@@ -1667,16 +1667,16 @@ class HTMLAnchorElement implements HTMLElement, HTMLHyperlinkElementUtils {
 }
 
 extension PropsHTMLAnchorElement on HTMLAnchorElement {
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// where to display the linked resource.
+  ///  Is a [String] that reflects the HTML attribute, indicating where
+  /// to display the linked resource.
   ///
   String get target => js_util.getProperty(this, 'target');
   set target(String newValue) {
     js_util.setProperty(this, 'target', newValue);
   }
 
-  ///  Is a [DOMString] indicating that the linked resource is intended
-  /// to be downloaded rather than displayed in the browser. The value
+  ///  Is a [String] indicating that the linked resource is intended to
+  /// be downloaded rather than displayed in the browser. The value
   /// represent the proposed name of the file. If the name is not a
   /// valid filename of the underlying OS, browser will adapt it.
   ///
@@ -1691,8 +1691,8 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
     js_util.setProperty(this, 'ping', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, specifying
-  /// the relationship of the target object to the linked object.
+  ///  Is a [String] that reflects the HTML attribute, specifying the
+  /// relationship of the target object to the linked object.
   ///
   String get rel => js_util.getProperty(this, 'rel');
   set rel(String newValue) {
@@ -1704,23 +1704,23 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
   ///
   DOMTokenList get relList => js_util.getProperty(this, 'relList');
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// the language of the linked resource.
+  ///  Is a [String] that reflects the HTML attribute, indicating the
+  /// language of the linked resource.
   ///
   String get hreflang => js_util.getProperty(this, 'hreflang');
   set hreflang(String newValue) {
     js_util.setProperty(this, 'hreflang', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// the MIME type of the linked resource.
+  ///  Is a [String] that reflects the HTML attribute, indicating the
+  /// MIME type of the linked resource.
   ///
   String get type => js_util.getProperty(this, 'type');
   set type(String newValue) {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  Is a [DOMString] being a synonym for the [Node.textContent]
+  ///  Is a [String] being a synonym for the [Node.textContent]
   /// property.
   ///
   String get text => js_util.getProperty(this, 'text');
@@ -1728,8 +1728,8 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
     js_util.setProperty(this, 'text', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the [referrerpolicy] HTML
-  /// attribute indicating which referrer to use.
+  ///  Is a [String] that reflects the [referrerpolicy] HTML attribute
+  /// indicating which referrer to use.
   ///
   @experimental
   String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
@@ -1815,7 +1815,7 @@ class HTMLDataElement implements HTMLElement {
 }
 
 extension PropsHTMLDataElement on HTMLDataElement {
-  ///  Is a [DOMString] reflecting the HTML attribute, containing a
+  ///  Is a [String] reflecting the HTML attribute, containing a
   /// machine-readable form of the element's value.
   ///
   String get value => js_util.getProperty(this, 'value');
@@ -1864,7 +1864,7 @@ class HTMLTimeElement implements HTMLElement {
 }
 
 extension PropsHTMLTimeElement on HTMLTimeElement {
-  ///  Is a [DOMString] that reflects the [datetime] HTML attribute,
+  ///  Is a [String] that reflects the [datetime] HTML attribute,
   /// containing a machine-readable form of the element's date and time
   /// value.
   ///
@@ -2060,15 +2060,15 @@ class HTMLModElement implements HTMLElement {
 }
 
 extension PropsHTMLModElement on HTMLModElement {
-  ///  Is a [DOMString] reflecting the HTML attribute, containing a URI
-  /// of a resource explaining the change.
+  ///  Is a [String] reflecting the HTML attribute, containing a URI of
+  /// a resource explaining the change.
   ///
   String get cite => js_util.getProperty(this, 'cite');
   set cite(String newValue) {
     js_util.setProperty(this, 'cite', newValue);
   }
 
-  ///  Is a [DOMString] reflecting the [datetime] HTML attribute,
+  ///  Is a [String] reflecting the [datetime] HTML attribute,
   /// containing a date-and-time string representing a timestamp for
   /// the change.
   ///
@@ -2160,11 +2160,11 @@ class HTMLSourceElement implements HTMLElement {
 }
 
 extension PropsHTMLSourceElement on HTMLSourceElement {
-  ///  Is a [DOMString] reflecting the HTML attribute, containing the
-  /// URL for the media resource. The [HTMLSourceElement.src] property
-  /// has a meaning only when the associated [<source>] element is
-  /// nested in a media element that is a [<video>] or an [<audio>]
-  /// element. It has no meaning and is ignored when it is nested in a
+  ///  Is a [String] reflecting the HTML attribute, containing the URL
+  /// for the media resource. The [HTMLSourceElement.src] property has
+  /// a meaning only when the associated [<source>] element is nested
+  /// in a media element that is a [<video>] or an [<audio>] element.
+  /// It has no meaning and is ignored when it is nested in a
   /// [<picture>] element.
   ///
   ///     Note: If the property is updated (along with any siblings),
@@ -2178,18 +2178,18 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
     js_util.setProperty(this, 'src', newValue);
   }
 
-  ///  Is a [DOMString] reflecting the HTML attribute, containing the
-  /// type of the media resource.
+  ///  Is a [String] reflecting the HTML attribute, containing the type
+  /// of the media resource.
   ///
   String get type => js_util.getProperty(this, 'type');
   set type(String newValue) {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  Is a [DOMString] reflecting the HTML attribute, containing a
-  /// list of candidate images, separated by a comma ([',', U+002C
-  /// COMMA]). A candidate image is a URL followed by a ['w'] with the
-  /// width of the images, or an ['x'] followed by the pixel density.
+  ///  Is a [String] reflecting the HTML attribute, containing a list
+  /// of candidate images, separated by a comma ([',', U+002C COMMA]).
+  /// A candidate image is a URL followed by a ['w'] with the width of
+  /// the images, or an ['x'] followed by the pixel density.
   ///
   @experimental
   String get srcset => js_util.getProperty(this, 'srcset');
@@ -2197,7 +2197,7 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
     js_util.setProperty(this, 'srcset', newValue);
   }
 
-  /// Is a [DOMString] representing image sizes between breakpoints
+  /// Is a [String] representing image sizes between breakpoints
   ///
   @experimental
   String get sizes => js_util.getProperty(this, 'sizes');
@@ -2205,7 +2205,7 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
     js_util.setProperty(this, 'sizes', newValue);
   }
 
-  ///  Is a [DOMString] reflecting the HTML attribute, containing the
+  ///  Is a [String] reflecting the HTML attribute, containing the
   /// intended type of the media resource.
   ///
   String get media => js_util.getProperty(this, 'media');
@@ -2263,17 +2263,17 @@ class HTMLImageElement implements HTMLElement {
 }
 
 extension PropsHTMLImageElement on HTMLImageElement {
-  ///  A [DOMString] that reflects the HTML attribute, thus indicating
-  /// the alternate fallback content to be displayed if the image has
-  /// not been loaded.
+  ///  A [String] that reflects the HTML attribute, thus indicating the
+  /// alternate fallback content to be displayed if the image has not
+  /// been loaded.
   ///
   String get alt => js_util.getProperty(this, 'alt');
   set alt(String newValue) {
     js_util.setProperty(this, 'alt', newValue);
   }
 
-  ///  A [USVString] that reflects the HTML attribute, which contains
-  /// the full URL of the image including base URI. You can load a
+  ///  A [String] that reflects the HTML attribute, which contains the
+  /// full URL of the image including base URI. You can load a
   /// different image into the element by changing the URL in the
   /// attribute.
   ///
@@ -2282,40 +2282,39 @@ extension PropsHTMLImageElement on HTMLImageElement {
     js_util.setProperty(this, 'src', newValue);
   }
 
-  ///  A [USVString] reflecting the HTML attribute. This specifies a
-  /// list of candidate images, separated by commas ([',', U+002C
-  /// COMMA]). Each candidate image is a URL followed by a space,
-  /// followed by a specially-formatted string indicating the size of
-  /// the image. The size may be specified either the width or a size
-  /// multiple. Read the page for specifics on the format of the size
-  /// substring.
+  ///  A [String] reflecting the HTML attribute. This specifies a list
+  /// of candidate images, separated by commas ([',', U+002C COMMA]).
+  /// Each candidate image is a URL followed by a space, followed by a
+  /// specially-formatted string indicating the size of the image. The
+  /// size may be specified either the width or a size multiple. Read
+  /// the page for specifics on the format of the size substring.
   ///
   String get srcset => js_util.getProperty(this, 'srcset');
   set srcset(String newValue) {
     js_util.setProperty(this, 'srcset', newValue);
   }
 
-  ///  A [DOMString] reflecting the HTML attribute. This string
-  /// specifies a list of comma-separated conditional sizes for the
-  /// image; that is, for a given viewport size, a particular image
-  /// size is to be used. Read the documentation on the page for
-  /// details on the format of this string.
+  ///  A [String] reflecting the HTML attribute. This string specifies
+  /// a list of comma-separated conditional sizes for the image; that
+  /// is, for a given viewport size, a particular image size is to be
+  /// used. Read the documentation on the page for details on the
+  /// format of this string.
   ///
   String get sizes => js_util.getProperty(this, 'sizes');
   set sizes(String newValue) {
     js_util.setProperty(this, 'sizes', newValue);
   }
 
-  ///  A [DOMString] specifying the CORS setting for this image
-  /// element. See CORS settings attributes for further details. This
-  /// may be [null] if CORS is not used.
+  ///  A [String] specifying the CORS setting for this image element.
+  /// See CORS settings attributes for further details. This may be
+  /// [null] if CORS is not used.
   ///
   String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
   set crossOrigin(String? newValue) {
     js_util.setProperty(this, 'crossOrigin', newValue);
   }
 
-  ///  A [DOMString] reflecting the [usemap] HTML attribute, containing
+  ///  A [String] reflecting the [usemap] HTML attribute, containing
   /// the page-local URL of the [<map>] element describing the image
   /// map to use. The page-local URL is a pound (hash) symbol ([#])
   /// followed by the ID of the [<map>] element, such as
@@ -2377,14 +2376,14 @@ extension PropsHTMLImageElement on HTMLImageElement {
   ///
   bool get complete => js_util.getProperty(this, 'complete');
 
-  ///  Returns a [USVString] representing the URL from which the
-  /// currently displayed image was loaded. This may change as the
-  /// image is adjusted due to changing conditions, as directed by any
-  /// media queries which are in place.
+  ///  Returns a [String] representing the URL from which the currently
+  /// displayed image was loaded. This may change as the image is
+  /// adjusted due to changing conditions, as directed by any media
+  /// queries which are in place.
   ///
   String get currentSrc => js_util.getProperty(this, 'currentSrc');
 
-  ///  A [DOMString] that reflects the [referrerpolicy] HTML attribute,
+  ///  A [String] that reflects the [referrerpolicy] HTML attribute,
   /// which tells the user agent how to decide which referrer to use in
   /// order to fetch the image. Read this article for details on the
   /// possible values of this string.
@@ -2394,8 +2393,8 @@ extension PropsHTMLImageElement on HTMLImageElement {
     js_util.setProperty(this, 'referrerPolicy', newValue);
   }
 
-  ///  An optional [DOMString] representing a hint given to the browser
-  /// on how it should decode the image. If this value is provided, it
+  ///  An optional [String] representing a hint given to the browser on
+  /// how it should decode the image. If this value is provided, it
   /// must be one of the possible permitted values: [sync] to decode
   /// the image synchronously, [async] to decode it asynchronously, or
   /// [auto] to indicate no preference (which is the default). Read the
@@ -2406,7 +2405,7 @@ extension PropsHTMLImageElement on HTMLImageElement {
     js_util.setProperty(this, 'decoding', newValue);
   }
 
-  ///  A [DOMString] providing a hint to the browser used to optimize
+  ///  A [String] providing a hint to the browser used to optimize
   /// loading the document by determining whether to load the image
   /// immediately ([eager]) or on an as-needed basis ([lazy]).
   ///
@@ -2415,7 +2414,7 @@ extension PropsHTMLImageElement on HTMLImageElement {
     js_util.setProperty(this, 'loading', newValue);
   }
 
-  ///  Returns a [Promise] that resolves when the image is decoded and
+  ///  Returns a [Future] that resolves when the image is decoded and
   /// it's safe to append the image to the DOM. This prevents rendering
   /// of the next frame from having to pause to decode the image, as
   /// would happen if an undecoded image were added to the DOM.
@@ -2677,31 +2676,31 @@ class HTMLEmbedElement implements HTMLElement {
 }
 
 extension PropsHTMLEmbedElement on HTMLEmbedElement {
-  ///  Is a [DOMString] that reflects the HTML attribute, containing
-  /// the address of the resource.
+  ///  Is a [String] that reflects the HTML attribute, containing the
+  /// address of the resource.
   ///
   String get src => js_util.getProperty(this, 'src');
   set src(String newValue) {
     js_util.setProperty(this, 'src', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, containing
-  /// the type of the resource.
+  ///  Is a [String] that reflects the HTML attribute, containing the
+  /// type of the resource.
   ///
   String get type => js_util.getProperty(this, 'type');
   set type(String newValue) {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, containing
-  /// the displayed width of the resource.
+  ///  Is a [String] that reflects the HTML attribute, containing the
+  /// displayed width of the resource.
   ///
   String get width => js_util.getProperty(this, 'width');
   set width(String newValue) {
     js_util.setProperty(this, 'width', newValue);
   }
 
-  ///  Is a [DOMString] reflecting the HTML attribute, containing the
+  ///  Is a [String] reflecting the HTML attribute, containing the
   /// displayed height of the resource.
   ///
   String get height => js_util.getProperty(this, 'height');
@@ -2763,24 +2762,24 @@ class HTMLObjectElement implements HTMLElement {
 }
 
 extension PropsHTMLObjectElement on HTMLObjectElement {
-  ///  Returns a [DOMString] that reflects the HTML attribute,
-  /// specifying the address of a resource's data.
+  ///  Returns a [String] that reflects the HTML attribute, specifying
+  /// the address of a resource's data.
   ///
   String get data => js_util.getProperty(this, 'data');
   set data(String newValue) {
     js_util.setProperty(this, 'data', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, specifying
-  /// the MIME type of the resource.
+  ///  Is a [String] that reflects the HTML attribute, specifying the
+  /// MIME type of the resource.
   ///
   String get type => js_util.getProperty(this, 'type');
   set type(String newValue) {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  Returns a [DOMString] that reflects the HTML attribute,
-  /// specifying the name of the browsing context.
+  ///  Returns a [String] that reflects the HTML attribute, specifying
+  /// the name of the browsing context.
   ///
   String get name => js_util.getProperty(this, 'name');
   set name(String newValue) {
@@ -2792,16 +2791,16 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
   ///
   HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
-  ///  Is a [DOMString] that reflects the HTML attribute, specifying
-  /// the displayed width of the resource in CSS pixels.
+  ///  Is a [String] that reflects the HTML attribute, specifying the
+  /// displayed width of the resource in CSS pixels.
   ///
   String get width => js_util.getProperty(this, 'width');
   set width(String newValue) {
     js_util.setProperty(this, 'width', newValue);
   }
 
-  ///  Returns a [DOMString] that reflects the HTML attribute,
-  /// specifying the displayed height of the resource in CSS pixels.
+  ///  Returns a [String] that reflects the HTML attribute, specifying
+  /// the displayed height of the resource in CSS pixels.
   ///
   String get height => js_util.getProperty(this, 'height');
   set height(String newValue) {
@@ -2832,7 +2831,7 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
   ///
   ValidityState get validity => js_util.getProperty(this, 'validity');
 
-  ///  Returns a [DOMString] representing a localized message that
+  ///  Returns a [String] representing a localized message that
   /// describes the validation constraints that the control does not
   /// satisfy (if any). This is the empty string if the control is not
   /// a candidate for constraint validation ([willValidate] is
@@ -2841,7 +2840,7 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
   String get validationMessage =>
       js_util.getProperty(this, 'validationMessage');
 
-  ///  Returns a boolean value that always is [true], because [object]
+  ///  Returns a boolean value that always is [true], because [dynamic]
   /// objects are never candidates for constraint validation.
   ///
   /// const valid = HTMLObjectElement.checkValidity();
@@ -2956,7 +2955,7 @@ class HTMLParamElement implements HTMLElement {
 }
 
 extension PropsHTMLParamElement on HTMLParamElement {
-  ///  Is a [DOMString] representing the name of the parameter. It
+  ///  Is a [String] representing the name of the parameter. It
   /// reflects the attribute.
   ///
   String get name => js_util.getProperty(this, 'name');
@@ -2964,7 +2963,7 @@ extension PropsHTMLParamElement on HTMLParamElement {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  ///  Is a [DOMString] representing the value associated to the
+  ///  Is a [String] representing the value associated to the
   /// parameter. It reflects the attribute.
   ///
   String get value => js_util.getProperty(this, 'value');
@@ -3034,16 +3033,16 @@ class HTMLVideoElement implements HTMLMediaElement {
 }
 
 extension PropsHTMLVideoElement on HTMLVideoElement {
-  ///  Is a [DOMString] that reflects the HTML attribute, which
-  /// specifies the width of the display area, in CSS pixels.
+  ///  Is a [String] that reflects the HTML attribute, which specifies
+  /// the width of the display area, in CSS pixels.
   ///
   int get width => js_util.getProperty(this, 'width');
   set width(int newValue) {
     js_util.setProperty(this, 'width', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, which
-  /// specifies the height of the display area, in CSS pixels.
+  ///  Is a [String] that reflects the HTML attribute, which specifies
+  /// the height of the display area, in CSS pixels.
   ///
   int get height => js_util.getProperty(this, 'height');
   set height(int newValue) {
@@ -3061,8 +3060,8 @@ extension PropsHTMLVideoElement on HTMLVideoElement {
   ///
   int get videoHeight => js_util.getProperty(this, 'videoHeight');
 
-  ///  Is a [DOMString] that reflects the HTML attribute, which
-  /// specifies an image to show while no video data is available.
+  ///  Is a [String] that reflects the HTML attribute, which specifies
+  /// an image to show while no video data is available.
   ///
   String get poster => js_util.getProperty(this, 'poster');
   set poster(String newValue) {
@@ -3202,8 +3201,8 @@ class HTMLTrackElement implements HTMLElement {
 }
 
 extension PropsHTMLTrackElement on HTMLTrackElement {
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// how the text track is meant to be used. Possible values are:
+  ///  Is a [String] that reflects the HTML attribute, indicating how
+  /// the text track is meant to be used. Possible values are:
   /// [subtitles], [captions], [descriptions], [chapters], or
   /// [metadata].
   ///
@@ -3212,23 +3211,23 @@ extension PropsHTMLTrackElement on HTMLTrackElement {
     js_util.setProperty(this, 'kind', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// the address of the text track data.
+  ///  Is a [String] that reflects the HTML attribute, indicating the
+  /// address of the text track data.
   ///
   String get src => js_util.getProperty(this, 'src');
   set src(String newValue) {
     js_util.setProperty(this, 'src', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// the language of the text track data.
+  ///  Is a [String] that reflects the HTML attribute, indicating the
+  /// language of the text track data.
   ///
   String get srclang => js_util.getProperty(this, 'srclang');
   set srclang(String newValue) {
     js_util.setProperty(this, 'srclang', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating a
+  ///  Is a [String] that reflects the HTML attribute, indicating a
   /// user-readable title for the track.
   ///
   String get label => js_util.getProperty(this, 'label');
@@ -3247,8 +3246,7 @@ extension PropsHTMLTrackElement on HTMLTrackElement {
     js_util.setProperty(this, 'default', newValue);
   }
 
-  ///  Returns an [unsigned short] that show the readiness state of the
-  /// track:
+  /// Returns an [int] that show the readiness state of the track:
   ///
   ///
   ///
@@ -3352,8 +3350,8 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   ///
   MediaError? get error => js_util.getProperty(this, 'error');
 
-  ///  Is a [DOMString] that reflects the HTML attribute, which
-  /// contains the URL of a media resource to use.
+  ///  Is a [String] that reflects the HTML attribute, which contains
+  /// the URL of a media resource to use.
   ///
   String get src => js_util.getProperty(this, 'src');
   set src(String newValue) {
@@ -3369,27 +3367,26 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
     js_util.setProperty(this, 'srcObject', newValue);
   }
 
-  ///  Returns a [DOMString] with the absolute URL of the chosen media
+  ///  Returns a [String] with the absolute URL of the chosen media
   /// resource.
   ///
   String get currentSrc => js_util.getProperty(this, 'currentSrc');
 
-  ///  A [DOMString] indicating the CORS setting for this media
-  /// element.
+  /// A [String] indicating the CORS setting for this media element.
   ///
   String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
   set crossOrigin(String? newValue) {
     js_util.setProperty(this, 'crossOrigin', newValue);
   }
 
-  ///  Returns a [unsigned short] (enumeration) indicating the current
-  /// state of fetching the media over the network.
+  ///  Returns a [int] (enumeration) indicating the current state of
+  /// fetching the media over the network.
   ///
   int get networkState => js_util.getProperty(this, 'networkState');
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// what data should be preloaded, if any. Possible values are:
-  /// [none], [metadata], [auto].
+  ///  Is a [String] that reflects the HTML attribute, indicating what
+  /// data should be preloaded, if any. Possible values are: [none],
+  /// [metadata], [auto].
   ///
   String get preload => js_util.getProperty(this, 'preload');
   set preload(String newValue) {
@@ -3432,8 +3429,8 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   CanPlayTypeResult canPlayType(String type) =>
       js_util.callMethod(this, 'canPlayType', [type]);
 
-  ///  Returns a [unsigned short] (enumeration) indicating the
-  /// readiness state of the media.
+  ///  Returns a [int] (enumeration) indicating the readiness state of
+  /// the media.
   ///
   int get readyState => js_util.getProperty(this, 'readyState');
 
@@ -3467,7 +3464,7 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
 
   ///  A read-only double-precision floating-point value indicating the
   /// total duration of the media in seconds. If no media data is
-  /// available, the returned value is [NaN]. If the media is of
+  /// available, the returned value is [Object]. If the media is of
   /// indefinite length (such as streamed live media, a WebRTC call's
   /// media, or similar), the value is [+Infinity].
   ///
@@ -3759,7 +3756,7 @@ extension PropsMediaError on MediaError {
   ///
   int get code => js_util.getProperty(this, 'code');
 
-  ///  A [DOMString] object containing a human-readable string which
+  ///  A [String] object containing a human-readable string which
   /// provides specific diagnostic information to help the reader
   /// understand the error condition which occurred; specifically, it
   /// isn't a summary of what the error code means, but actual
@@ -3812,7 +3809,15 @@ extension PropsAudioTrackList on AudioTrackList {
   ///  getTrackById() on it, specifying the character's name. The resulting
   ///  track's audio is then disabled by setting its enabled flag to false.
   ///
-  AudioTrack? getTrackById(String id) =>
+  AudioTrack? getTrackById(
+
+          ///
+          ///     A [String] indicating the ID of the track to locate within
+          /// the track
+          ///    list.
+          ///
+          ///
+          String id) =>
       js_util.callMethod(this, 'getTrackById', [id]);
 
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
@@ -3844,30 +3849,29 @@ class AudioTrack {
 }
 
 extension PropsAudioTrack on AudioTrack {
-  ///  A [DOMString] which uniquely identifies the track within the
-  /// media. This ID can be used to locate a specific track within an
-  /// audio track list by calling [AudioTrackList.getTrackById()]. The
-  /// ID can also be used as the fragment part of the URL if the media
+  ///  A [String] which uniquely identifies the track within the media.
+  /// This ID can be used to locate a specific track within an audio
+  /// track list by calling [AudioTrackList.getTrackById()]. The ID can
+  /// also be used as the fragment part of the URL if the media
   /// supports seeking by media fragment per the Media Fragments URI
   /// specification.
   ///
   String get id => js_util.getProperty(this, 'id');
 
-  ///  A [DOMString] specifying the category into which the track
-  /// falls. For example, the main audio track would have a of
-  /// ["main"].
+  ///  A [String] specifying the category into which the track falls.
+  /// For example, the main audio track would have a of ["main"].
   ///
   String get kind => js_util.getProperty(this, 'kind');
 
-  ///  A [DOMString] providing a human-readable label for the track.
-  /// For example, an audio commentary track for a movie might have a
-  /// of ["Commentary with director John Q. Public and actors John Doe
-  /// and Jane Eod."] This string is empty if no label is provided.
+  ///  A [String] providing a human-readable label for the track. For
+  /// example, an audio commentary track for a movie might have a of
+  /// ["Commentary with director John Q. Public and actors John Doe and
+  /// Jane Eod."] This string is empty if no label is provided.
   ///
   String get label => js_util.getProperty(this, 'label');
 
-  ///  A [DOMString] specifying the audio track's primary language, or
-  /// an empty string if unknown. The language is specified as a BCP 47
+  ///  A [String] specifying the audio track's primary language, or an
+  /// empty string if unknown. The language is specified as a BCP 47
   /// (RFC 5646) language code, such as ["en-US"] or ["pt-BR"].
   ///
   String get language => js_util.getProperty(this, 'language');
@@ -3908,7 +3912,15 @@ extension PropsVideoTrackList on VideoTrackList {
   ///
   /// var theTrack = VideoTrackList.getTrackById(id);
   ///
-  VideoTrack? getTrackById(String id) =>
+  VideoTrack? getTrackById(
+
+          ///
+          ///     A [String] indicating the ID of the track to locate within
+          /// the track
+          ///    list.
+          ///
+          ///
+          String id) =>
       js_util.callMethod(this, 'getTrackById', [id]);
 
   ///  The index of the currently selected track, if any, or [−1]
@@ -3945,30 +3957,29 @@ class VideoTrack {
 }
 
 extension PropsVideoTrack on VideoTrack {
-  ///  A [DOMString] which uniquely identifies the track within the
-  /// media. This ID can be used to locate a specific track within a
-  /// video track list by calling [VideoTrackList.getTrackById()]. The
-  /// ID can also be used as the fragment part of the URL if the media
+  ///  A [String] which uniquely identifies the track within the media.
+  /// This ID can be used to locate a specific track within a video
+  /// track list by calling [VideoTrackList.getTrackById()]. The ID can
+  /// also be used as the fragment part of the URL if the media
   /// supports seeking by media fragment per the Media Fragments URI
   /// specification.
   ///
   String get id => js_util.getProperty(this, 'id');
 
-  ///  A [DOMString] specifying the category into which the track
-  /// falls. For example, the main video track would have a of
-  /// ["main"].
+  ///  A [String] specifying the category into which the track falls.
+  /// For example, the main video track would have a of ["main"].
   ///
   String get kind => js_util.getProperty(this, 'kind');
 
-  ///  A [DOMString] providing a human-readable label for the track.
-  /// For example, a track whose [kind] is ["sign"] might have a of ["A
+  ///  A [String] providing a human-readable label for the track. For
+  /// example, a track whose [kind] is ["sign"] might have a of ["A
   /// sign-language interpretation"]. This string is empty if no label
   /// is provided.
   ///
   String get label => js_util.getProperty(this, 'label');
 
-  ///  A [DOMString] specifying the video track's primary language, or
-  /// an empty string if unknown. The language is specified as a BCP 47
+  ///  A [String] specifying the video track's primary language, or an
+  /// empty string if unknown. The language is specified as a BCP 47
   /// (RFC 5646) language code, such as ["en-US"] or ["pt-BR"].
   ///
   String get language => js_util.getProperty(this, 'language');
@@ -4015,7 +4026,15 @@ extension PropsTextTrackList on TextTrackList {
   ///
   /// var theTrack = TextTrackList.getTrackById(id);
   ///
-  TextTrack? getTrackById(String id) =>
+  TextTrack? getTrackById(
+
+          ///
+          ///     A [String] indicating the ID of the track to locate within
+          /// the track
+          ///    list.
+          ///
+          ///
+          String id) =>
       js_util.callMethod(this, 'getTrackById', [id]);
 
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
@@ -4050,42 +4069,42 @@ class TextTrack implements EventTarget {
 }
 
 extension PropsTextTrack on TextTrack {
-  ///  Returns a [DOMString] indicating what kind of text track the
+  ///  Returns a [String] indicating what kind of text track the
   /// [TextTrack] describes. It must be one of the permitted values.
   ///
   TextTrackKind get kind => js_util.getProperty(this, 'kind');
 
-  ///  A human-readable [DOMString] which contains the text track's
-  /// label, if one is present; otherwise, this is an empty string
-  /// ([""]), in which case a custom label may need to be generated by
-  /// your code using other attributes of the track, if the track's
-  /// label needs to be exposed to the user.
+  ///  A human-readable [String] which contains the text track's label,
+  /// if one is present; otherwise, this is an empty string ([""]), in
+  /// which case a custom label may need to be generated by your code
+  /// using other attributes of the track, if the track's label needs
+  /// to be exposed to the user.
   ///
   String get label => js_util.getProperty(this, 'label');
 
-  ///  A [DOMString] which specifies the text language in which the
-  /// text track's contents is written. The value must adhere to the
-  /// format specified in RFC 5646: Tags for Identifying Languages
-  /// (also known as BCP 47), just like the HTML [lang] attribute. For
-  /// example, this can be ["en-US"] for United States English or
-  /// ["pt-BR"] for Brazilian Portuguese.
+  ///  A [String] which specifies the text language in which the text
+  /// track's contents is written. The value must adhere to the format
+  /// specified in RFC 5646: Tags for Identifying Languages (also known
+  /// as BCP 47), just like the HTML [lang] attribute. For example,
+  /// this can be ["en-US"] for United States English or ["pt-BR"] for
+  /// Brazilian Portuguese.
   ///
   String get language => js_util.getProperty(this, 'language');
 
-  ///  A [DOMString] which identifies the track, if it has one. If it
+  ///  A [String] which identifies the track, if it has one. If it
   /// doesn't have an ID, then this value is an empty string ([""]). If
   /// the [TextTrack] is associated with a [<track>] element, then the
   /// track's ID matches the element's ID.
   ///
   String get id => js_util.getProperty(this, 'id');
 
-  ///  Returns a [DOMString] which indicates the track's in-band
-  /// metadata track dispatch type.
+  ///  Returns a [String] which indicates the track's in-band metadata
+  /// track dispatch type.
   ///
   String get inBandMetadataTrackDispatchType =>
       js_util.getProperty(this, 'inBandMetadataTrackDispatchType');
 
-  ///  A [DOMString] specifying the track's current mode, which must be
+  ///  A [String] specifying the track's current mode, which must be
   /// one of the permitted values. Changing this property's value
   /// changes the track's current mode to match. The default is
   /// [disabled], unless the [<track>] element's [default] Boolean
@@ -4114,14 +4133,23 @@ extension PropsTextTrack on TextTrack {
   ///
   /// TextTrack.addCue(cue);
   ///
-  Object addCue(TextTrackCue cue) => js_util.callMethod(this, 'addCue', [cue]);
+  Object addCue(
+
+          /// A [TextTrackCue].
+          ///
+          TextTrackCue cue) =>
+      js_util.callMethod(this, 'addCue', [cue]);
 
   ///  Removes a cue (specified as a [TextTrackCue] object) from the
   /// track's list of cues.
   ///
   /// TextTrack.removeCue(cue);
   ///
-  Object removeCue(TextTrackCue cue) =>
+  Object removeCue(
+
+          /// A [TextTrackCue].
+          ///
+          TextTrackCue cue) =>
       js_util.callMethod(this, 'removeCue', [cue]);
 
   EventHandlerNonNull? get oncuechange =>
@@ -4145,7 +4173,7 @@ class TextTrackCueList {
 }
 
 extension PropsTextTrackCueList on TextTrackCueList {
-  /// An [unsigned long] that is the number of cues in the list.
+  /// An [int] that is the number of cues in the list.
   ///
   int get length => js_util.getProperty(this, 'length');
 
@@ -4178,7 +4206,7 @@ extension PropsTextTrackCue on TextTrackCue {
   ///
   TextTrack? get track => js_util.getProperty(this, 'track');
 
-  /// A [DOMString] that identifies the cue.
+  /// A [String] that identifies the cue.
   ///
   String get id => js_util.getProperty(this, 'id');
   set id(String newValue) {
@@ -4202,7 +4230,7 @@ extension PropsTextTrackCue on TextTrackCue {
     js_util.setProperty(this, 'endTime', newValue);
   }
 
-  ///  A [boolean] for whether the video will pause when this cue stops
+  ///  A [bool] for whether the video will pause when this cue stops
   /// being displayed.
   ///
   bool get pauseOnExit => js_util.getProperty(this, 'pauseOnExit');
@@ -4237,8 +4265,8 @@ class TimeRanges {
 }
 
 extension PropsTimeRanges on TimeRanges {
-  ///  Returns an [unsigned long] representing the number of time
-  /// ranges represented by the time range object.
+  ///  Returns an [int] representing the number of time ranges
+  /// represented by the time range object.
   ///
   int get length => js_util.getProperty(this, 'length');
 
@@ -4376,9 +4404,9 @@ class HTMLMapElement implements HTMLElement {
 }
 
 extension PropsHTMLMapElement on HTMLMapElement {
-  ///  Is a [DOMString] representing the [<map>] element for
-  /// referencing it other context. If the [id] attribute is set, this
-  /// must have the same value; and it cannot be [null] or empty.
+  ///  Is a [String] representing the [<map>] element for referencing
+  /// it other context. If the [id] attribute is set, this must have
+  /// the same value; and it cannot be [null] or empty.
   ///
   String get name => js_util.getProperty(this, 'name');
   set name(String newValue) {
@@ -4432,7 +4460,7 @@ class HTMLAreaElement implements HTMLElement, HTMLHyperlinkElementUtils {
 }
 
 extension PropsHTMLAreaElement on HTMLAreaElement {
-  ///  Is a [DOMString] that reflects the HTML attribute, containing
+  ///  Is a [String] that reflects the HTML attribute, containing
   /// alternative text for the element.
   ///
   String get alt => js_util.getProperty(this, 'alt');
@@ -4440,7 +4468,7 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
     js_util.setProperty(this, 'alt', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, containing
+  ///  Is a [String] that reflects the HTML attribute, containing
   /// coordinates to define the hot-spot region.
   ///
   String get coords => js_util.getProperty(this, 'coords');
@@ -4448,24 +4476,24 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
     js_util.setProperty(this, 'coords', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// the shape of the hot-spot, limited to known values.
+  ///  Is a [String] that reflects the HTML attribute, indicating the
+  /// shape of the hot-spot, limited to known values.
   ///
   String get shape => js_util.getProperty(this, 'shape');
   set shape(String newValue) {
     js_util.setProperty(this, 'shape', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
-  /// the browsing context in which to open the linked resource.
+  ///  Is a [String] that reflects the HTML attribute, indicating the
+  /// browsing context in which to open the linked resource.
   ///
   String get target => js_util.getProperty(this, 'target');
   set target(String newValue) {
     js_util.setProperty(this, 'target', newValue);
   }
 
-  ///  Is a [DOMString] indicating that the linked resource is intended
-  /// to be downloaded rather than displayed in the browser. The value
+  ///  Is a [String] indicating that the linked resource is intended to
+  /// be downloaded rather than displayed in the browser. The value
   /// represent the proposed name of the file. If the name is not a
   /// valid filename of the underlying OS, browser will adapt it.
   ///
@@ -4480,7 +4508,7 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
     js_util.setProperty(this, 'ping', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, indicating
+  ///  Is a [String] that reflects the HTML attribute, indicating
   /// relationships of the current document to the linked resource.
   ///
   String get rel => js_util.getProperty(this, 'rel');
@@ -4494,9 +4522,9 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
   ///
   DOMTokenList get relList => js_util.getProperty(this, 'relList');
 
-  ///  Is a [DOMString] that reflects the [referrerpolicy] HTML
-  /// attribute indicating which referrer to use when fetching the
-  /// linked resource.
+  ///  Is a [String] that reflects the [referrerpolicy] HTML attribute
+  /// indicating which referrer to use when fetching the linked
+  /// resource.
   ///
   @experimental
   String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
@@ -4554,10 +4582,10 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///  Is a [HTMLTableCaptionElement] representing the first
   /// [<caption>] that is a child of the element, or [null] if none is
   /// found. When set, if the object doesn't represent a [<caption>], a
-  /// [DOMException] with the [HierarchyRequestError] name is thrown.
-  /// If a correct object is given, it is inserted in the tree as the
-  /// first child of this element and the first [<caption>] that is a
-  /// child of this element is removed from the tree, if any.
+  /// [Exception] with the [HierarchyRequestError] name is thrown. If a
+  /// correct object is given, it is inserted in the tree as the first
+  /// child of this element and the first [<caption>] that is a child
+  /// of this element is removed from the tree, if any.
   ///
   HTMLTableCaptionElement? get caption => js_util.getProperty(this, 'caption');
   set caption(HTMLTableCaptionElement? newValue) {
@@ -4610,13 +4638,13 @@ extension PropsHTMLTableElement on HTMLTableElement {
 
   ///  Is a [HTMLTableSectionElement] representing the first [<thead>]
   /// that is a child of the element, or [null] if none is found. When
-  /// set, if the object doesn't represent a [<thead>], a
-  /// [DOMException] with the [HierarchyRequestError] name is thrown.
-  /// If a correct object is given, it is inserted in the tree
-  /// immediately before the first element that is neither a
-  /// [<caption>], nor a [<colgroup>], or as the last child if there is
-  /// no such element, and the first [<thead>] that is a child of this
-  /// element is removed from the tree, if any.
+  /// set, if the object doesn't represent a [<thead>], a [Exception]
+  /// with the [HierarchyRequestError] name is thrown. If a correct
+  /// object is given, it is inserted in the tree immediately before
+  /// the first element that is neither a [<caption>], nor a
+  /// [<colgroup>], or as the last child if there is no such element,
+  /// and the first [<thead>] that is a child of this element is
+  /// removed from the tree, if any.
   ///
   HTMLTableSectionElement? get tHead => js_util.getProperty(this, 'tHead');
   set tHead(HTMLTableSectionElement? newValue) {
@@ -4659,13 +4687,13 @@ extension PropsHTMLTableElement on HTMLTableElement {
 
   ///  Is a [HTMLTableSectionElement] representing the first [<tfoot>]
   /// that is a child of the element, or [null] if none is found. When
-  /// set, if the object doesn't represent a [<tfoot>], a
-  /// [DOMException] with the [HierarchyRequestError] name is thrown.
-  /// If a correct object is given, it is inserted in the tree
-  /// immediately before the first element that is neither a
-  /// [<caption>], a [<colgroup>], nor a [<thead>], or as the last
-  /// child if there is no such element, and the first [<tfoot>] that
-  /// is a child of this element is removed from the tree, if any.
+  /// set, if the object doesn't represent a [<tfoot>], a [Exception]
+  /// with the [HierarchyRequestError] name is thrown. If a correct
+  /// object is given, it is inserted in the tree immediately before
+  /// the first element that is neither a [<caption>], a [<colgroup>],
+  /// nor a [<thead>], or as the last child if there is no such
+  /// element, and the first [<tfoot>] that is a child of this element
+  /// is removed from the tree, if any.
   ///
   HTMLTableSectionElement? get tFoot => js_util.getProperty(this, 'tFoot');
   set tFoot(HTMLTableSectionElement? newValue) {
@@ -4740,7 +4768,7 @@ extension PropsHTMLTableElement on HTMLTableElement {
   /// [<tbody>] is created. If the [index] is [-1], the new row is
   /// appended to the collection. If the [index] is smaller than [-1]
   /// or greater than the number of rows in the collection, a
-  /// [DOMException] with the value [IndexSizeError] is raised.
+  /// [Exception] with the value [IndexSizeError] is raised.
   ///
   /// var newRow = HTMLTableElement.insertRow(index);
   ///  HTMLTableElement is a reference to an HTML <table>
@@ -4781,13 +4809,22 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///
   /// ```
   ///
-  HTMLTableRowElement insertRow([int? index = -1]) =>
+  HTMLTableRowElement insertRow(
+          [
+
+          ///
+          ///    The row index of the new row. If is [-1] or equal to
+          ///    the number of rows, the row is appended as the last row.
+          ///    If is omitted it defaults to [-1].
+          ///
+          ///
+          int? index = -1]) =>
       js_util.callMethod(this, 'insertRow', [index]);
 
   ///  Removes the row corresponding to the [index] given in parameter.
   /// If the [index] value is [-1] the last row is removed; if it is
   /// smaller than [-1] or greater than the amount of rows in the
-  /// collection, a [DOMException] with the value [IndexSizeError] is
+  /// collection, a [Exception] with the value [IndexSizeError] is
   /// raised.
   ///
   /// HTMLTableElement.deleteRow(index)
@@ -4808,7 +4845,17 @@ extension PropsHTMLTableElement on HTMLTableElement {
   ///
   /// ```
   ///
-  Object deleteRow(int index) => js_util.callMethod(this, 'deleteRow', [index]);
+  Object deleteRow(
+
+          ///
+          ///     is an integer representing the row that should be deleted.
+          ///     However, the special index [-1] can be used to remove the
+          /// very last row of
+          ///    a table.
+          ///
+          ///
+          int index) =>
+      js_util.callMethod(this, 'deleteRow', [index]);
 
   String get align => js_util.getProperty(this, 'align');
   set align(String newValue) {
@@ -4941,9 +4988,9 @@ class HTMLTableColElement implements HTMLElement {
 }
 
 extension PropsHTMLTableColElement on HTMLTableColElement {
-  ///  Is an [unsigned long] that reflects the HTML attribute,
-  /// indicating the number of columns to apply this object's
-  /// attributes to. Must be a positive integer.
+  ///  Is an [int] that reflects the HTML attribute, indicating the
+  /// number of columns to apply this object's attributes to. Must be a
+  /// positive integer.
   ///
   int get span => js_util.getProperty(this, 'span');
   set span(int newValue) {
@@ -5028,8 +5075,8 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
   /// the [<tr>] element at the given [index] position. If the [index]
   /// is [-1], the new row is appended to the collection. If the
   /// [index] is smaller than [-1] or greater than the number of rows
-  /// in the collection, a [DOMException] with the value
-  /// [IndexSizeError] is raised.
+  /// in the collection, a [Exception] with the value [IndexSizeError]
+  /// is raised.
   ///
   HTMLTableRowElement insertRow([int? index = -1]) =>
       js_util.callMethod(this, 'insertRow', [index]);
@@ -5037,7 +5084,7 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
   ///  Removes the row, corresponding to the [index] given in
   /// parameter, in the section. If the [index] value is [-1] the last
   /// row is removed; if it smaller than [-1] or greater than the
-  /// amount of rows in the collection, a [DOMException] with the value
+  /// amount of rows in the collection, a [Exception] with the value
   /// [IndexSizeError] is raised.
   ///
   Object deleteRow(int index) => js_util.callMethod(this, 'deleteRow', [index]);
@@ -5104,13 +5151,13 @@ class HTMLTableRowElement implements HTMLElement {
 }
 
 extension PropsHTMLTableRowElement on HTMLTableRowElement {
-  ///  Returns a [long] value which gives the logical position of the
+  ///  Returns a [int] value which gives the logical position of the
   /// row within the entire table. If the row is not part of a table,
   /// returns [-1].
   ///
   int get rowIndex => js_util.getProperty(this, 'rowIndex');
 
-  ///  Returns a [long] value which gives the logical position of the
+  ///  Returns a [int] value which gives the logical position of the
   /// row within the table section it belongs to. If the row is not
   /// part of a section, returns [-1].
   ///
@@ -5373,16 +5420,16 @@ class HTMLFormElement implements HTMLElement {
 }
 
 extension PropsHTMLFormElement on HTMLFormElement {
-  ///  A [DOMString] reflecting the value of the form's
-  /// [accept-charset] HTML attribute, representing the character
-  /// encoding that the server accepts.
+  ///  A [String] reflecting the value of the form's [accept-charset]
+  /// HTML attribute, representing the character encoding that the
+  /// server accepts.
   ///
   String get acceptCharset => js_util.getProperty(this, 'acceptCharset');
   set acceptCharset(String newValue) {
     js_util.setProperty(this, 'acceptCharset', newValue);
   }
 
-  ///  A [DOMString] reflecting the value of the form's HTML attribute,
+  ///  A [String] reflecting the value of the form's HTML attribute,
   /// containing the URI of a program that processes the information
   /// submitted by the form.
   ///
@@ -5391,7 +5438,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
     js_util.setProperty(this, 'action', newValue);
   }
 
-  ///  A [DOMString] reflecting the value of the form's HTML attribute,
+  ///  A [String] reflecting the value of the form's HTML attribute,
   /// indicating whether the controls in this form can have their
   /// values automatically populated by the browser.
   ///
@@ -5405,7 +5452,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
     js_util.setProperty(this, 'enctype', newValue);
   }
 
-  ///  A [DOMString] reflecting the value of the form's [enctype] HTML
+  ///  A [String] reflecting the value of the form's [enctype] HTML
   /// attribute, indicating the type of content that is used to
   /// transmit the form to the server. Only specified values can be
   /// set. The two properties are synonyms.
@@ -5415,7 +5462,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
     js_util.setProperty(this, 'encoding', newValue);
   }
 
-  ///  A [DOMString] reflecting the value of the form's HTML attribute,
+  ///  A [String] reflecting the value of the form's HTML attribute,
   /// indicating the HTTP method used to submit the form. Only
   /// specified values can be set.
   ///
@@ -5424,7 +5471,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
     js_util.setProperty(this, 'method', newValue);
   }
 
-  ///  A [DOMString] reflecting the value of the form's HTML attribute,
+  ///  A [String] reflecting the value of the form's HTML attribute,
   /// containing the name of the form.
   ///
   String get name => js_util.getProperty(this, 'name');
@@ -5441,7 +5488,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
     js_util.setProperty(this, 'noValidate', newValue);
   }
 
-  ///  A [DOMString] reflecting the value of the form's HTML attribute,
+  ///  A [String] reflecting the value of the form's HTML attribute,
   /// indicating where to display the results received from submitting
   /// the form.
   ///
@@ -5463,7 +5510,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
   HTMLFormControlsCollection get elements =>
       js_util.getProperty(this, 'elements');
 
-  /// A [long] reflecting the number of controls in the form.
+  /// A [int] reflecting the number of controls in the form.
   ///
   int get length => js_util.getProperty(this, 'length');
 
@@ -5480,7 +5527,22 @@ extension PropsHTMLFormElement on HTMLFormElement {
   ///
   /// htmlFormElement.requestSubmit(submitter);
   ///
-  Object requestSubmit([HTMLElement? submitter]) =>
+  Object requestSubmit(
+          [
+
+          ///
+          ///     The submit button whose attributes describe the method by
+          /// which the form is to be
+          ///    submitted. This may be either an [<input>] or
+          ///    [<button>] element whose [type] attribute
+          ///    is [submit].
+          ///
+          ///
+          ///    If you omit the parameter, the form element
+          ///    itself is used as the submitter.
+          ///
+          ///
+          HTMLElement? submitter]) =>
       js_util.callMethod(this, 'requestSubmit', [submitter]);
 
   /// Resets the form to its initial state.
@@ -6013,7 +6075,7 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
   ///
   HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
-  ///  Is a [DOMString] reflecting the URI of a resource that processes
+  ///  Is a [String] reflecting the URI of a resource that processes
   /// information submitted by the button. If specified, this attribute
   /// overrides the [action] attribute of the [<form>] element that
   /// owns this element.
@@ -6023,7 +6085,7 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
     js_util.setProperty(this, 'formAction', newValue);
   }
 
-  ///  Is a [DOMString] reflecting the type of content that is used to
+  ///  Is a [String] reflecting the type of content that is used to
   /// submit the form to the server. If specified, this attribute
   /// overrides the [enctype] attribute of the [<form>] element that
   /// owns this element.
@@ -6033,9 +6095,9 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
     js_util.setProperty(this, 'formEnctype', newValue);
   }
 
-  ///  Is a [DOMString] reflecting the HTTP method that the browser
-  /// uses to submit the form. If specified, this attribute overrides
-  /// the [method] attribute of the [<form>] element that owns this
+  ///  Is a [String] reflecting the HTTP method that the browser uses
+  /// to submit the form. If specified, this attribute overrides the
+  /// [method] attribute of the [<form>] element that owns this
   /// element.
   ///
   String get formMethod => js_util.getProperty(this, 'formMethod');
@@ -6053,27 +6115,26 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
     js_util.setProperty(this, 'formNoValidate', newValue);
   }
 
-  ///  Is a [DOMString] reflecting a name or keyword indicating where
-  /// to display the response that is received after submitting the
-  /// form. If specified, this attribute overrides the [target]
-  /// attribute of the [<form>] element that owns this element.
+  ///  Is a [String] reflecting a name or keyword indicating where to
+  /// display the response that is received after submitting the form.
+  /// If specified, this attribute overrides the [target] attribute of
+  /// the [<form>] element that owns this element.
   ///
   String get formTarget => js_util.getProperty(this, 'formTarget');
   set formTarget(String newValue) {
     js_util.setProperty(this, 'formTarget', newValue);
   }
 
-  ///  Is a [DOMString] representing the name of the object when
-  /// submitted with a form. If specified, it must not be the empty
-  /// string.
+  ///  Is a [String] representing the name of the object when submitted
+  /// with a form. If specified, it must not be the empty string.
   ///
   String get name => js_util.getProperty(this, 'name');
   set name(String newValue) {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  ///  Is a [DOMString] indicating the behavior of the button. This is
-  /// an enumerated attribute with the following possible values:
+  ///  Is a [String] indicating the behavior of the button. This is an
+  /// enumerated attribute with the following possible values:
   ///
   ///     [submit]: The button submits the form. This is the default
   /// value if the attribute is not specified, or if it is dynamically
@@ -6090,8 +6151,8 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  Is a [DOMString] representing the current form control value of
-  /// the button.
+  ///  Is a [String] representing the current form control value of the
+  /// button.
   ///
   String get value => js_util.getProperty(this, 'value');
   set value(String newValue) {
@@ -6111,11 +6172,11 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
   ///
   ValidityState get validity => js_util.getProperty(this, 'validity');
 
-  ///  Is a [DOMString] representing the localized message that
-  /// describes the validation constraints that the control does not
-  /// satisfy (if any). This attribute is the empty string if the
-  /// control is not a candidate for constraint validation
-  /// ([willValidate] is [false]), or it satisfies its constraints.
+  ///  Is a [String] representing the localized message that describes
+  /// the validation constraints that the control does not satisfy (if
+  /// any). This attribute is the empty string if the control is not a
+  /// candidate for constraint validation ([willValidate] is [false]),
+  /// or it satisfies its constraints.
   ///
   String get validationMessage =>
       js_util.getProperty(this, 'validationMessage');
@@ -6200,8 +6261,8 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
     js_util.setProperty(this, 'multiple', newValue);
   }
 
-  ///  A [DOMString] reflecting the HTML attribute, containing the name
-  /// of this control used by servers and DOM search functions.
+  ///  A [String] reflecting the HTML attribute, containing the name of
+  /// this control used by servers and DOM search functions.
   ///
   String get name => js_util.getProperty(this, 'name');
   set name(String newValue) {
@@ -6219,8 +6280,8 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
     js_util.setProperty(this, 'required', newValue);
   }
 
-  ///  A [long] reflecting the HTML attribute, which contains the
-  /// number of visible items in the control. The default is 1, unless
+  ///  A [int] reflecting the HTML attribute, which contains the number
+  /// of visible items in the control. The default is 1, unless
   /// [multiple] is [true], in which case it is 4.
   ///
   int get size => js_util.getProperty(this, 'size');
@@ -6228,9 +6289,9 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
     js_util.setProperty(this, 'size', newValue);
   }
 
-  ///  A [DOMString] representing the form control's type. When
-  /// [multiple] is [true], it returns ["select-multiple"]; otherwise,
-  /// it returns ["select-one"].
+  ///  A [String] representing the form control's type. When [multiple]
+  /// is [true], it returns ["select-multiple"]; otherwise, it returns
+  /// ["select-one"].
   ///
   String get type => js_util.getProperty(this, 'type');
 
@@ -6239,8 +6300,8 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   ///
   HTMLOptionsCollection get options => js_util.getProperty(this, 'options');
 
-  ///  An [unsigned long] The number of [<option>] elements in this
-  /// [select] element.
+  ///  An [int] The number of [<option>] elements in this [select]
+  /// element.
   ///
   int get length => js_util.getProperty(this, 'length');
   set length(int newValue) {
@@ -6304,7 +6365,7 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   HTMLCollection get selectedOptions =>
       js_util.getProperty(this, 'selectedOptions');
 
-  ///  A [long] reflecting the index of the first selected [<option>]
+  ///  A [int] reflecting the index of the first selected [<option>]
   /// element. The value [-1] indicates no element is selected.
   ///
   int get selectedIndex => js_util.getProperty(this, 'selectedIndex');
@@ -6312,9 +6373,9 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
     js_util.setProperty(this, 'selectedIndex', newValue);
   }
 
-  ///  A [DOMString] reflecting the value of the form control. Returns
-  /// the property of the first selected option element if there is
-  /// one, otherwise the empty string.
+  ///  A [String] reflecting the value of the form control. Returns the
+  /// property of the first selected option element if there is one,
+  /// otherwise the empty string.
   ///
   String get value => js_util.getProperty(this, 'value');
   set value(String newValue) {
@@ -6332,8 +6393,8 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   ///
   ValidityState get validity => js_util.getProperty(this, 'validity');
 
-  ///  A [DOMString] representing a localized message that describes
-  /// the validation constraints that the control does not satisfy (if
+  ///  A [String] representing a localized message that describes the
+  /// validation constraints that the control does not satisfy (if
   /// any). This attribute is the empty string if the control is not a
   /// candidate for constraint validation ([willValidate] is false), or
   /// it satisfies its constraints.
@@ -6467,7 +6528,7 @@ extension PropsHTMLOptGroupElement on HTMLOptGroupElement {
     js_util.setProperty(this, 'disabled', newValue);
   }
 
-  /// Is a [DOMString] representing the label for the group.
+  /// Is a [String] representing the label for the group.
   ///
   String get label => js_util.getProperty(this, 'label');
   set label(String newValue) {
@@ -6530,7 +6591,7 @@ extension PropsHTMLOptionElement on HTMLOptionElement {
   ///
   HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
-  ///  Is a [DOMString] that reflects the value of the HTML attribute,
+  ///  Is a [String] that reflects the value of the HTML attribute,
   /// which provides a label for the option. If this attribute isn't
   /// specifically set, reading it returns the element's text content.
   ///
@@ -6556,8 +6617,8 @@ extension PropsHTMLOptionElement on HTMLOptionElement {
     js_util.setProperty(this, 'selected', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the value of the HTML attribute,
-  /// if it exists; otherwise reflects value of the [Node.textContent]
+  ///  Is a [String] that reflects the value of the HTML attribute, if
+  /// it exists; otherwise reflects value of the [Node.textContent]
   /// property.
   ///
   String get value => js_util.getProperty(this, 'value');
@@ -6565,14 +6626,14 @@ extension PropsHTMLOptionElement on HTMLOptionElement {
     js_util.setProperty(this, 'value', newValue);
   }
 
-  /// Is a [DOMString] that contains the text content of the element.
+  /// Is a [String] that contains the text content of the element.
   ///
   String get text => js_util.getProperty(this, 'text');
   set text(String newValue) {
     js_util.setProperty(this, 'text', newValue);
   }
 
-  ///  Is a [long] representing the position of the option within the
+  ///  Is a [int] representing the position of the option within the
   /// list of options it belongs to, in tree-order. If the option is
   /// not part of a list of options, like when it is part of the
   /// [<datalist>] element, the value is [0].
@@ -6788,7 +6849,7 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
   ///
   HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
-  ///  A [DOMString] reflecting the HTML attribute, containing the name
+  ///  A [String] reflecting the HTML attribute, containing the name
   /// for the control that is submitted with form data.
   ///
   String get name => js_util.getProperty(this, 'name');
@@ -6796,11 +6857,11 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  /// The [DOMString] "[output]".
+  /// The [String] "[output]".
   ///
   String get type => js_util.getProperty(this, 'type');
 
-  ///  A [DOMString] representing the default value of the element,
+  ///  A [String] representing the default value of the element,
   /// initially the empty string.
   ///
   String get defaultValue => js_util.getProperty(this, 'defaultValue');
@@ -6808,7 +6869,7 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
     js_util.setProperty(this, 'defaultValue', newValue);
   }
 
-  ///  A [DOMString] representing the value of the contents of the
+  ///  A [String] representing the value of the contents of the
   /// elements. Behaves like the [Node.textContent] property.
   ///
   String get value => js_util.getProperty(this, 'value');
@@ -6826,8 +6887,8 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
   ///
   ValidityState get validity => js_util.getProperty(this, 'validity');
 
-  ///  A [DOMString] representing a localized message that describes
-  /// the validation constraints that the control does not satisfy (if
+  ///  A [String] representing a localized message that describes the
+  /// validation constraints that the control does not satisfy (if
   /// any). This is the empty string if the control is not a candidate
   /// for constraint validation ([willValidate] is [false]), or it
   /// satisfies its constraints.
@@ -7090,9 +7151,9 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
   ///
   HTMLFormElement? get form => js_util.getProperty(this, 'form');
 
-  ///  A [DOMString] reflecting the HTML attribute, containing the name
-  /// of the field set. This can be used when accessing the field set
-  /// in JavaScript. It is not part of the data which is sent to the
+  ///  A [String] reflecting the HTML attribute, containing the name of
+  /// the field set. This can be used when accessing the field set in
+  /// JavaScript. It is not part of the data which is sent to the
   /// server.
   ///
   String get name => js_util.getProperty(this, 'name');
@@ -7100,7 +7161,7 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  /// The [DOMString] "[fieldset]".
+  /// The [String] "[fieldset]".
   ///
   String get type => js_util.getProperty(this, 'type');
 
@@ -7120,8 +7181,8 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
   ///
   ValidityState get validity => js_util.getProperty(this, 'validity');
 
-  ///  A [DOMString] representing a localized message that describes
-  /// the validation constraints that the element does not satisfy (if
+  ///  A [String] representing a localized message that describes the
+  /// validation constraints that the element does not satisfy (if
   /// any). This is the empty string if the element is not a candidate
   /// for constraint validation ([willValidate] is [false]), or it
   /// satisfies its constraints.
@@ -7461,8 +7522,7 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
     js_util.setProperty(this, 'open', newValue);
   }
 
-  ///  A [DOMString] that sets or returns the return value for the
-  /// dialog.
+  /// A [String] that sets or returns the return value for the dialog.
   ///
   String get returnValue => js_util.getProperty(this, 'returnValue');
   set returnValue(String newValue) {
@@ -7486,7 +7546,7 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
   ///
   Object showModal() => js_util.callMethod(this, 'showModal', []);
 
-  ///  Closes the dialog. An optional [DOMString] may be passed as an
+  ///  Closes the dialog. An optional [String] may be passed as an
   /// argument, updating the [returnValue] of the dialog.
   ///
   /// dialogInstance.close(returnValue);
@@ -7542,7 +7602,7 @@ class HTMLScriptElement implements HTMLElement {
 }
 
 extension PropsHTMLScriptElement on HTMLScriptElement {
-  ///  Is a [DOMString] representing the URL of an external script. It
+  ///  Is a [String] representing the URL of an external script. It
   /// reflects the attribute.
   ///
   String get src => js_util.getProperty(this, 'src');
@@ -7550,7 +7610,7 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
     js_util.setProperty(this, 'src', newValue);
   }
 
-  ///  Is a [DOMString] representing the MIME type of the script. It
+  ///  Is a [String] representing the MIME type of the script. It
   /// reflects the attribute.
   ///
   String get type => js_util.getProperty(this, 'type');
@@ -7605,7 +7665,7 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
     js_util.setProperty(this, 'defer', newValue);
   }
 
-  ///  Is a [DOMString] reflecting the CORS setting for the script
+  ///  Is a [String] reflecting the CORS setting for the script
   /// element. For scripts from other origins, this controls if error
   /// information will be exposed.
   ///
@@ -7615,10 +7675,10 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
     js_util.setProperty(this, 'crossOrigin', newValue);
   }
 
-  ///  Is a [DOMString] that joins and returns the contents of all
-  /// [Text] nodes inside the [<script>] element (ignoring other nodes
-  /// like comments) in tree order. On setting, it acts the same way as
-  /// the [textContent] IDL attribute.
+  ///  Is a [String] that joins and returns the contents of all [Text]
+  /// nodes inside the [<script>] element (ignoring other nodes like
+  /// comments) in tree order. On setting, it acts the same way as the
+  /// [textContent] IDL attribute.
   ///
   ///     Note: When inserted using the [document.write()] method,
   /// [<script>] elements execute (typically synchronously), but when
@@ -7636,9 +7696,9 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
     js_util.setProperty(this, 'integrity', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the [referrerpolicy] HTML
-  /// attribute indicating which referrer to use when fetching the
-  /// script, and fetches done by that script.
+  ///  Is a [String] that reflects the [referrerpolicy] HTML attribute
+  /// indicating which referrer to use when fetching the script, and
+  /// fetches done by that script.
   ///
   String get referrerPolicy => js_util.getProperty(this, 'referrerPolicy');
   set referrerPolicy(String newValue) {
@@ -7731,7 +7791,21 @@ extension PropsHTMLSlotElement on HTMLSlotElement {
   /// HTMLSlotElement.assignedNodes()
   /// HTMLSlotElement.assignedNodes(options)
   ///
-  Iterable<Node> assignedNodes([AssignedNodesOptions? options]) =>
+  Iterable<Node> assignedNodes(
+          [
+
+          ///  An object that sets options for the nodes to be returned. The
+          /// available options are:
+          ///
+          ///    [flatten]
+          ///
+          ///      A boolean value indicating whether to return the assigned
+          /// nodes of any available child [<slot>] elements ([true]) or not
+          /// ([false]). Defaults to [false].
+          ///
+          ///
+          ///
+          AssignedNodesOptions? options]) =>
       js_util.callMethod(this, 'assignedNodes', [options]);
 
   ///  Returns a sequence of the elements assigned to this slot (and no
@@ -7744,7 +7818,23 @@ extension PropsHTMLSlotElement on HTMLSlotElement {
   /// HTMLSlotElement.assignedElements()
   /// HTMLSlotElement.assignedElements(options)
   ///
-  Iterable<Element> assignedElements([AssignedNodesOptions? options]) =>
+  Iterable<Element> assignedElements(
+          [
+
+          ///  An object that sets options for the nodes to be returned. The
+          /// available options are:
+          ///
+          ///    [flatten]
+          ///
+          ///
+          ///      A boolean value indicating whether to return the
+          ///      assigned elements of any available child [<slot>] elements
+          ///      ([true]) or not ([false]). Defaults to [false].
+          ///
+          ///
+          ///
+          ///
+          AssignedNodesOptions? options]) =>
       js_util.callMethod(this, 'assignedElements', [options]);
 
   ///  Sets the manually assigned nodes for this slot to the given
@@ -7752,7 +7842,13 @@ extension PropsHTMLSlotElement on HTMLSlotElement {
   ///
   /// HTMLSlotElement.assign(...nodes)
   ///
-  Object assign([dynamic nodes]) => js_util.callMethod(this, 'assign', [nodes]);
+  Object assign(
+          [
+
+          /// A set of [Element] or [Text] nodes.
+          ///
+          dynamic nodes]) =>
+      js_util.callMethod(this, 'assign', [nodes]);
 }
 
 @anonymous
@@ -7858,7 +7954,17 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   ///
   /// canvas.toDataURL(type, encoderOptions);
   ///
-  String toDataURL([String? type = 'image/png', dynamic quality]) =>
+  String toDataURL(
+          [
+
+          ///
+          ///    A [String] indicating the image format.
+          ///     The default type is [image/png]; this image format will be
+          /// also used if the specified type is not supported.
+          ///
+          ///
+          String? type = 'image/png',
+          dynamic quality]) =>
       js_util.callMethod(this, 'toDataURL', [type, quality]);
 
   ///  Creates a [Blob] object representing the image contained in the
@@ -7867,8 +7973,36 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   ///
   /// toBlob(callback, type, quality)
   ///
-  Object toBlob(BlobCallback callback,
-          [String? type = 'image/png', dynamic quality]) =>
+  Object toBlob(
+
+          ///
+          ///     A callback function with the resulting [Blob] object as a
+          /// single argument.
+          ///     [null] may be passed if the image cannot be created for any
+          /// reason.
+          ///
+          ///
+          BlobCallback callback,
+          [
+
+          ///
+          ///    A [String] indicating the image format.
+          ///     The default type is [image/png]; that type is also used if
+          /// the given type isn't supported.
+          ///
+          ///
+          String? type = 'image/png',
+
+          ///
+          ///     A [Number] between [0] and [1] indicating the image quality
+          /// to be used when creating images using file formats that support
+          /// lossy compression (such as [image/jpeg] or [image/webp]).
+          ///     A user agent will use its default quality value if this
+          /// option is not specified, or if the number is outside the allowed
+          /// range.
+          ///
+          ///
+          dynamic quality]) =>
       js_util
           .callMethod(this, 'toBlob', [allowInterop(callback), type, quality]);
 
@@ -8499,7 +8633,26 @@ extension PropsCanvasGradient on CanvasGradient {
   ///
   /// void gradient.addColorStop(offset, color);
   ///
-  Object addColorStop(double offset, String color) =>
+  Object addColorStop(
+
+          ///
+          ///    A number between [0] and [1], inclusive, representing the
+          ///     position of the color stop. [0] represents the start of the
+          /// gradient and
+          ///    [1] represents the end; an [INDEX_SIZE_ERR] is raised if the
+          ///    number is outside that range.
+          ///
+          ///
+          double offset,
+
+          ///
+          ///    A CSS [<color>] value
+          ///     representing the color of the stop. A [SYNTAX_ERR] is raised
+          /// if the value
+          ///    cannot be parsed as a CSS [<color>] value.
+          ///
+          ///
+          String color) =>
       js_util.callMethod(this, 'addColorStop', [offset, color]);
 }
 
@@ -8653,13 +8806,13 @@ class ImageData {
 }
 
 extension PropsImageData on ImageData {
-  ///  Is an [unsigned long] representing the actual width, in pixels,
-  /// of the [ImageData].
+  ///  Is an [int] representing the actual width, in pixels, of the
+  /// [ImageData].
   ///
   int get width => js_util.getProperty(this, 'width');
 
-  ///  Is an [unsigned long] representing the actual height, in pixels,
-  /// of the [ImageData].
+  ///  Is an [int] representing the actual height, in pixels, of the
+  /// [ImageData].
   ///
   int get height => js_util.getProperty(this, 'height');
 
@@ -8688,7 +8841,20 @@ extension PropsPath2D on Path2D {
   ///
   /// void path.addPath(path [, transform]);
   ///
-  Object addPath(Path2D path, [DOMMatrix2DInit? transform]) =>
+  Object addPath(
+
+          /// A [Path2D] path to add.
+          ///
+          Path2D path,
+          [
+
+          ///
+          ///     A [DOMMatrix] to be used as the transformation matrix for the
+          /// path that
+          ///    is added. (Technically a [DOMMatrixInit] object).
+          ///
+          ///
+          DOMMatrix2DInit? transform]) =>
       js_util.callMethod(this, 'addPath', [path, transform]);
 }
 
@@ -8720,7 +8886,11 @@ extension PropsImageBitmapRenderingContext on ImageBitmapRenderingContext {
   ///
   /// void ImageBitmapRenderingContext.transferFromImageBitmap(bitmap)
   ///
-  Object transferFromImageBitmap(ImageBitmap? bitmap) =>
+  Object transferFromImageBitmap(
+
+          /// An [ImageBitmap] object to transfer.
+          ///
+          ImageBitmap? bitmap) =>
       js_util.callMethod(this, 'transferFromImageBitmap', [bitmap]);
 }
 
@@ -8813,8 +8983,35 @@ extension PropsOffscreenCanvas on OffscreenCanvas {
   /// convertToBlob()
   /// convertToBlob(options)
   ///
-  Future<Blob> convertToBlob([ImageEncodeOptions? options]) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'convertToBlob', [options]));
+  Future<Blob> convertToBlob(
+          [
+
+          /// An object with the following properties:
+          ///
+          ///    [type]
+          ///
+          ///
+          ///      A string indicating the image format.
+          ///       The default type is [image/png]; this image format will be
+          /// also used if the specified type is not supported.
+          ///
+          ///
+          ///    [quality]
+          ///
+          ///
+          ///       A [Number] between [0] and [1] indicating the image quality
+          /// to be used when creating images using file formats that support
+          /// lossy compression (such as [image/jpeg] or [image/webp]).
+          ///       A user agent will use its default quality value if this
+          /// option is not specified, or if the number is outside the allowed
+          /// range.
+          ///
+          ///
+          ///
+          ///
+          ImageEncodeOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'convertToBlob', [options]));
 }
 
 @JS()
@@ -8867,7 +9064,7 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
           this, 'define', [name, allowInterop(constructor), options]);
 
   ///  Returns the constructor for the named custom element, or
-  /// [undefined] if the custom element is not defined.
+  /// [Object] if the custom element is not defined.
   ///
   /// constructor = customElements.get(name);
   ///
@@ -8889,7 +9086,18 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
   ///
   /// customElements.upgrade(root);
   ///
-  Object upgrade(Node root) => js_util.callMethod(this, 'upgrade', [root]);
+  Object upgrade(
+
+          ///
+          ///     A [Node] instance with shadow-containing descendant elements
+          /// that are
+          ///     to be upgraded. If there are no descendant elements that can
+          /// be upgraded, no error is
+          ///    thrown.
+          ///
+          ///
+          Node root) =>
+      js_util.callMethod(this, 'upgrade', [root]);
 }
 
 @anonymous
@@ -8930,7 +9138,23 @@ extension PropsElementInternals on ElementInternals {
   /// setFormValue(value)
   /// setFormValue(value, state)
   ///
-  Object setFormValue(dynamic value, [dynamic state]) =>
+  Object setFormValue(
+
+          ///  A [File], or a [string], or [FormData] as the value to be
+          /// submitted to the server.
+          ///
+          dynamic value,
+          [
+
+          ///
+          ///     A [File], or a [string], or [FormData] representing the input
+          /// made by the user.
+          ///     This allows the application to re-display the information
+          /// that the user submitted, in the form that they submitted it, if
+          /// required.
+          ///
+          ///
+          dynamic state]) =>
       js_util.callMethod(this, 'setFormValue', [value, state]);
 
   /// Returns the [HTMLFormElement] associated with this element.
@@ -8944,7 +9168,100 @@ extension PropsElementInternals on ElementInternals {
   /// ElementInternals.setValidity(flags, message, anchor);
   ///
   Object setValidity(
-          [ValidityStateFlags? flags, String? message, HTMLElement? anchor]) =>
+          [
+
+          ///  A dictionary object containing one or more flags indicating the
+          /// validity state of the element:
+          ///
+          ///    [valueMissing]
+          ///
+          ///      A boolean value that is [true] if the element has a
+          /// [required] attribute, but no value, or [false] otherwise. If
+          /// [true], the element matches the [:invalid] CSS pseudo-class.
+          ///
+          ///    [typeMismatch]
+          ///
+          ///      A boolean value that is [true] if the value is not in the
+          /// required syntax (when [type] is [email] or [url]), or [false] if
+          /// the syntax is correct. If [true], the element matches the
+          /// [:invalid] CSS pseudo-class.
+          ///
+          ///    [patternMismatch]
+          ///
+          ///      A boolean value that is [true] if the value does not match
+          /// the specified [pattern], and [false] if it does match. If [true],
+          /// the element matches the [:invalid] CSS pseudo-class.
+          ///
+          ///    [tooLong]
+          ///
+          ///      A boolean value that is [true] if the value exceeds the
+          /// specified [maxlength] for [HTMLInputElement] or
+          /// [HTMLTextAreaElement] objects, or [false] if its length is less
+          /// than or equal to the maximum length. If [true], the element
+          /// matches the [:invalid] and [:out-of-range] CSS pseudo-classes.
+          ///
+          ///    [tooShort]
+          ///
+          ///      A boolean value that is [true] if the value fails to meet
+          /// the specified [minlength] for [HTMLInputElement] or
+          /// [HTMLTextAreaElement] objects, or [false] if its length is
+          /// greater than or equal to the minimum length. If [true], the
+          /// element matches the [:invalid] and [:out-of-range] CSS
+          /// pseudo-classes.
+          ///
+          ///    [rangeUnderflow]
+          ///
+          ///      A boolean value that is [true] if the value is less than the
+          /// minimum specified by the [min] attribute, or [false] if it is
+          /// greater than or equal to the minimum. If [true], the element
+          /// matches the [:invalid] and [:out-of-range] CSS pseudo-classes.
+          ///
+          ///    [rangeOverflow]
+          ///
+          ///      A boolean value that is [true] if the value is greater than
+          /// the maximum specified by the [max] attribute, or [false] if it is
+          /// less than or equal to the maximum. If [true], the element matches
+          /// the [:invalid] and [:out-of-range] and CSS pseudo-classes.
+          ///
+          ///    [stepMismatch]
+          ///
+          ///      A boolean value that is [true] if the value does not fit the
+          /// rules determined by the [step] attribute (that is, it's not
+          /// evenly divisible by the step value), or [false] if it does fit
+          /// the step rule. If [true], the element matches the [:invalid] and
+          /// [:out-of-range] CSS pseudo-classes.
+          ///
+          ///    [badInput]
+          ///
+          ///      A boolean value that is [true] if the user has provided
+          /// input that the browser is unable to convert.
+          ///
+          ///    [customError]
+          ///
+          ///      A boolean value indicating whether the element's custom
+          /// validity message has been set to a non-empty string by calling
+          /// the element's [setCustomValidity()] method.
+          ///
+          ///
+          ///
+          ///     Note: To set all flags to [false], indicating that this
+          /// element passes all constraints validation, pass in an empty
+          /// object [{}]. In this case, you do not need to also pass a
+          /// [message].
+          ///
+          ///
+          ValidityStateFlags? flags,
+
+          ///  A [string] containing a message, which will be set if any
+          /// [flags] are [true]. This parameter is only optional if all
+          /// [flags] are [false].
+          ///
+          String? message,
+
+          ///  An [HTMLElement] which can be used by the user agent to report
+          /// problems with this form submission.
+          ///
+          HTMLElement? anchor]) =>
       js_util.callMethod(this, 'setValidity', [flags, message, anchor]);
 
   ///
@@ -9148,7 +9465,7 @@ class DataTransferItemList {
 }
 
 extension PropsDataTransferItemList on DataTransferItemList {
-  /// An [unsigned long] that is the number of drag items in the list.
+  /// An [int] that is the number of drag items in the list.
   ///
   int get length => js_util.getProperty(this, 'length');
 
@@ -9168,7 +9485,19 @@ extension PropsDataTransferItemList on DataTransferItemList {
   ///
   /// ```
   ///
-  DataTransferItem? add([String? data, String? type]) =>
+  DataTransferItem? add(
+          [
+
+          /// A [string] representing the drag item's data.
+          ///
+          String? data,
+
+          ///
+          ///    A [string] of the drag item's type. Some example types are
+          ///    [text/html] and [text/plain].
+          ///
+          ///
+          String? type]) =>
       js_util.callMethod(this, 'add', [data, type]);
 
   /// Removes the drag item from the list at the given index.
@@ -9243,7 +9572,18 @@ extension PropsDataTransferItemList on DataTransferItemList {
   ///
   /// ```
   ///
-  Object remove(int index) => js_util.callMethod(this, 'remove', [index]);
+  Object remove(
+
+          ///
+          ///     The zero-based index number of the item in the drag data list
+          /// to remove. If the
+          ///      doesn't correspond to an existing item in the list, the list
+          /// is
+          ///    left unchanged.
+          ///
+          ///
+          int index) =>
+      js_util.callMethod(this, 'remove', [index]);
 
   /// Removes all of the drag items from the list.
   ///
@@ -9384,8 +9724,14 @@ extension PropsDataTransferItem on DataTransferItem {
   ///  }
   /// }
   ///
-  Object getAsString(FunctionStringCallback? callback) => js_util.callMethod(
-      this, 'getAsString', [callback == null ? null : allowInterop(callback)]);
+  Object getAsString(
+
+          /// A callback function that has access to the [data
+          ///   transfer item's] string data. See Callback below for details.
+          ///
+          FunctionStringCallback? callback) =>
+      js_util.callMethod(this, 'getAsString',
+          [callback == null ? null : allowInterop(callback)]);
 
   ///  Returns the [File] object associated with the drag data item (or
   /// null if the drag item is not a file).
@@ -9659,7 +10005,18 @@ extension PropsWindow on Window {
   /// var window = window.open(url, windowName, [windowFeatures]);
   ///
   Window? open(
-          [String? url = '',
+          [
+
+          ///
+          ///     A [String] indicating the URL of the resource to be loaded.
+          /// This can
+          ///     be a path or URL to an HTML page, image file, or any other
+          /// resource that is supported
+          ///    by the browser. If the empty string ("") is specified as ,
+          ///    a blank page is opened into the targeted browsing context.
+          ///
+          ///
+          String? url = '',
           String? target = '_blank',
           String? features = '']) =>
       js_util.callMethod(this, 'open', [url, target, features]);
@@ -9681,7 +10038,16 @@ extension PropsWindow on Window {
   ///
   ///
   ///
-  Object alert([String? message]) =>
+  Object alert(
+          [
+
+          ///
+          ///     A string you want to display in the alert dialog, or,
+          /// alternatively, an object that
+          ///    is converted into a string and displayed.
+          ///
+          ///
+          String? message]) =>
       js_util.callMethod(this, 'alert', [message]);
 
   ///  Displays a dialog with a message that the user needs to respond
@@ -9697,7 +10063,12 @@ extension PropsWindow on Window {
   ///
   ///
   ///
-  bool confirm([String? message = '']) =>
+  bool confirm(
+          [
+
+          /// A string you want to display in the confirmation dialog.
+          ///
+          String? message = '']) =>
       js_util.callMethod(this, 'confirm', [message]);
 
   /// Returns the text entered by the user in a prompt dialog.
@@ -9721,7 +10092,26 @@ extension PropsWindow on Window {
   ///
   /// The above prompt appears as follows (in Chrome on OS X):
   ///
-  String? prompt([String? message = '', String? mDefault = '']) =>
+  String? prompt(
+          [
+
+          ///
+          ///     A string of text to display to the user. Can be omitted if
+          /// there is nothing to show
+          ///    in the prompt window.
+          ///
+          ///
+          String? message = '',
+
+          ///
+          ///     A string containing the default value displayed in the text
+          /// input field. Note that
+          ///     in Internet Explorer 7 and 8, if you do not provide this
+          /// parameter, the string
+          ///    ["undefined"] is the default value.
+          ///
+          ///
+          String? mDefault = '']) =>
       js_util.callMethod(this, 'prompt', [message, mDefault]);
 
   /// Opens the Print Dialog to print the current document.
@@ -9916,9 +10306,10 @@ extension PropsWindow on Window {
   PortalHost? get portalHost => js_util.getProperty(this, 'portalHost');
   SpeechSynthesis get speechSynthesis =>
       js_util.getProperty(this, 'speechSynthesis');
-  Iterable<Promise<FileSystemFileHandle>> showOpenFilePicker(
+  Future<Iterable<FileSystemFileHandle>> showOpenFilePicker(
           [OpenFilePickerOptions? options]) =>
-      js_util.callMethod(this, 'showOpenFilePicker', [options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'showOpenFilePicker', [options]));
 
   Future<FileSystemFileHandle> showSaveFilePicker(
           [SaveFilePickerOptions? options]) =>
@@ -10039,9 +10430,9 @@ extension PropsHistory on History {
     js_util.setProperty(this, 'scrollRestoration', newValue);
   }
 
-  ///  Returns an [any] value representing the state at the top of the
-  /// history stack. This is a way to look at the state without having
-  /// to wait for a [popstate] event.
+  ///  Returns an [dynamic] value representing the state at the top of
+  /// the history stack. This is a way to look at the state without
+  /// having to wait for a [popstate] event.
   ///
   dynamic get state => js_util.getProperty(this, 'state');
 
@@ -10057,7 +10448,22 @@ extension PropsHistory on History {
   ///
   /// history.go([delta])
   ///
-  Object go([int? delta = 0]) => js_util.callMethod(this, 'go', [delta]);
+  Object go(
+          [
+
+          ///
+          ///     The position in the history to which you want to move,
+          /// relative to the current page.
+          ///     A negative value moves backwards, a positive value moves
+          /// forwards. So, for example,
+          ///    [history.go(2)] moves forward two pages and [history.go(-2)]
+          ///     moves back two pages. If no value is passed or if equals 0,
+          /// it has
+          ///    the same result as calling [location.reload()].
+          ///
+          ///
+          int? delta = 0]) =>
+      js_util.callMethod(this, 'go', [delta]);
 
   ///  This asynchronous method goes to the previous page in session
   /// history, the same action as when the user clicks the browser's
@@ -10089,7 +10495,26 @@ extension PropsHistory on History {
   ///
   /// history.pushState(state, title [, url])
   ///
-  Object pushState(dynamic data, String unused, [String? url]) =>
+  Object pushState(dynamic data, String unused,
+          [
+
+          ///
+          ///     The new history entry's URL is given by this parameter. Note
+          /// that the browser won't
+          ///     attempt to load this URL after a call to [pushState()], but
+          /// it might
+          ///     attempt to load the URL later, for instance after the user
+          /// restarts the browser. The
+          ///     new URL does not need to be absolute; if it's relative, it's
+          /// resolved relative to the
+          ///     current URL. The new URL must be of the same origin as the
+          /// current
+          ///     URL; otherwise, [pushState()] will throw an exception. If
+          /// this parameter
+          ///    isn't specified, it's set to the document's current URL.
+          ///
+          ///
+          String? url]) =>
       js_util.callMethod(this, 'pushState', [data, unused, url]);
 
   ///  Updates the most recent entry on the history stack to have the
@@ -10101,7 +10526,16 @@ extension PropsHistory on History {
   ///
   /// history.replaceState(stateObj, title, [url])
   ///
-  Object replaceState(dynamic data, String unused, [String? url]) =>
+  Object replaceState(dynamic data, String unused,
+          [
+
+          ///
+          ///     The URL of the history entry. The new URL must be of the same
+          /// origin as the current
+          ///    URL; otherwise replaceState throws an exception.
+          ///
+          ///
+          String? url]) =>
       js_util.callMethod(this, 'replaceState', [data, unused, url]);
 }
 
@@ -10117,22 +10551,22 @@ class Location {
 }
 
 extension PropsLocation on Location {
-  ///  Is a stringifier that returns a [USVString] containing the
-  /// entire URL. If changed, the associated document navigates to the
-  /// new page. It can be set from a different origin than the
-  /// associated document.
+  ///  Is a stringifier that returns a [String] containing the entire
+  /// URL. If changed, the associated document navigates to the new
+  /// page. It can be set from a different origin than the associated
+  /// document.
   ///
   String get href => js_util.getProperty(this, 'href');
   set href(String newValue) {
     js_util.setProperty(this, 'href', newValue);
   }
 
-  ///  Returns a [USVString] containing the canonical form of the
-  /// origin of the specific location.
+  ///  Returns a [String] containing the canonical form of the origin
+  /// of the specific location.
   ///
   String get origin => js_util.getProperty(this, 'origin');
 
-  ///  Is a [USVString] containing the protocol scheme of the URL,
+  ///  Is a [String] containing the protocol scheme of the URL,
   /// including the final [':'].
   ///
   String get protocol => js_util.getProperty(this, 'protocol');
@@ -10140,7 +10574,7 @@ extension PropsLocation on Location {
     js_util.setProperty(this, 'protocol', newValue);
   }
 
-  ///  Is a [USVString] containing the host, that is the hostname, a
+  ///  Is a [String] containing the host, that is the hostname, a
   /// [':'], and the port of the URL.
   ///
   String get host => js_util.getProperty(this, 'host');
@@ -10148,39 +10582,39 @@ extension PropsLocation on Location {
     js_util.setProperty(this, 'host', newValue);
   }
 
-  /// Is a [USVString] containing the domain of the URL.
+  /// Is a [String] containing the domain of the URL.
   ///
   String get hostname => js_util.getProperty(this, 'hostname');
   set hostname(String newValue) {
     js_util.setProperty(this, 'hostname', newValue);
   }
 
-  /// Is a [USVString] containing the port number of the URL.
+  /// Is a [String] containing the port number of the URL.
   ///
   String get port => js_util.getProperty(this, 'port');
   set port(String newValue) {
     js_util.setProperty(this, 'port', newValue);
   }
 
-  ///  Is a [USVString] containing an initial ['/'] followed by the
-  /// path of the URL, not including the query string or fragment.
+  ///  Is a [String] containing an initial ['/'] followed by the path
+  /// of the URL, not including the query string or fragment.
   ///
   String get pathname => js_util.getProperty(this, 'pathname');
   set pathname(String newValue) {
     js_util.setProperty(this, 'pathname', newValue);
   }
 
-  ///  Is a [USVString] containing a ['?'] followed by the parameters
-  /// or "querystring" of the URL. Modern browsers provide
-  /// URLSearchParams and URL.searchParams to make it easy to parse out
-  /// the parameters from the querystring.
+  ///  Is a [String] containing a ['?'] followed by the parameters or
+  /// "querystring" of the URL. Modern browsers provide URLSearchParams
+  /// and URL.searchParams to make it easy to parse out the parameters
+  /// from the querystring.
   ///
   String get search => js_util.getProperty(this, 'search');
   set search(String newValue) {
     js_util.setProperty(this, 'search', newValue);
   }
 
-  ///  Is a [USVString] containing a ['#'] followed by the fragment
+  ///  Is a [String] containing a ['#'] followed by the fragment
   /// identifier of the URL.
   ///
   @JS('hash')
@@ -10197,7 +10631,12 @@ extension PropsLocation on Location {
   /// // Navigate to the Location.reload article
   /// window.location.assign('https://developer.mozilla.org/en-US/docs/Web/API/Location/reload');
   ///
-  Object assign(String url) => js_util.callMethod(this, 'assign', [url]);
+  Object assign(
+
+          /// Is a [String] containing the URL of the page to navigate to.
+          ///
+          String url) =>
+      js_util.callMethod(this, 'assign', [url]);
 
   ///  Replaces the current resource with the one at the provided URL
   /// (redirects to the provided URL). The difference from the
@@ -10208,7 +10647,12 @@ extension PropsLocation on Location {
   ///
   /// object.replace(url);
   ///
-  Object replace(String url) => js_util.callMethod(this, 'replace', [url]);
+  Object replace(
+
+          /// Is a [String] containing the URL of the page to navigate to.
+          ///
+          String url) =>
+      js_util.callMethod(this, 'replace', [url]);
 
   /// Reloads the current URL, like the Refresh button.
   ///
@@ -10451,12 +10895,12 @@ class ErrorEvent implements Event {
 }
 
 extension PropsErrorEvent on ErrorEvent {
-  ///  Is a [DOMString] containing a human-readable error message
+  ///  Is a [String] containing a human-readable error message
   /// describing the problem.
   ///
   String get message => js_util.getProperty(this, 'message');
 
-  ///  Is a [DOMString] containing the name of the script file in which
+  ///  Is a [String] containing the name of the script file in which
   /// the error occurred.
   ///
   String get filename => js_util.getProperty(this, 'filename');
@@ -10517,7 +10961,7 @@ extension PropsErrorEventInit on ErrorEventInit {
 }
 
 ///  The interface represents events which are sent to the global
-/// script context when JavaScript [Promise]s are rejected. These
+/// script context when JavaScript [Future]s are rejected. These
 /// events are particularly useful for telemetry and debugging
 /// purposes.
 ///  For details on promise rejection events, see Promise rejection
@@ -10542,7 +10986,7 @@ class PromiseRejectionEvent implements Event {
 }
 
 extension PropsPromiseRejectionEvent on PromiseRejectionEvent {
-  /// The JavaScript [Promise] that was rejected.
+  /// The JavaScript [Future] that was rejected.
   ///
   Future<dynamic> get promise =>
       js_util.promiseToFuture(js_util.getProperty(this, 'promise'));
@@ -11230,7 +11674,7 @@ extension PropsWindowEventHandlers on WindowEventHandlers {
   }
 
   ///  Is an event handler representing the code to be called when the
-  /// [rejectionhandled] event is raised, indicating that a [Promise]
+  /// [rejectionhandled] event is raised, indicating that a [Future]
   /// was rejected and the rejection has been handled.
   ///
   EventHandlerNonNull? get onrejectionhandled =>
@@ -11248,7 +11692,7 @@ extension PropsWindowEventHandlers on WindowEventHandlers {
   }
 
   ///  Is an event handler representing the code to be called when the
-  /// [unhandledrejection] event is raised, indicating that a [Promise]
+  /// [unhandledrejection] event is raised, indicating that a [Future]
   /// was rejected but the rejection was not handled.
   ///
   EventHandlerNonNull? get onunhandledrejection =>
@@ -11393,7 +11837,16 @@ extension PropsDOMParser on DOMParser {
   ///
   /// const doc = domparser.parseFromString(string, mimeType)
   ///
-  Document parseFromString(String string, DOMParserSupportedType type) =>
+  Document parseFromString(
+
+          ///
+          ///    The [String] to be parsed. It must contain either an
+          ///    HTML, xml, xhtml+xml, or
+          ///    svg document.
+          ///
+          ///
+          String string,
+          DOMParserSupportedType type) =>
       js_util.callMethod(this, 'parseFromString', [string, type]);
 }
 
@@ -11473,8 +11926,8 @@ extension PropsNavigator on Navigator {
       ]);
 
   XRSystem get xr => js_util.getProperty(this, 'xr');
-  Iterable<Promise<RelatedApplication>> getInstalledRelatedApps() =>
-      js_util.callMethod(this, 'getInstalledRelatedApps', []);
+  Future<Iterable<RelatedApplication>> getInstalledRelatedApps() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'getInstalledRelatedApps', []));
 
   Serial get serial => js_util.getProperty(this, 'serial');
   bool vibrate(dynamic pattern) =>
@@ -11579,12 +12032,12 @@ class ImageBitmap {
 }
 
 extension PropsImageBitmap on ImageBitmap {
-  ///  Is an [unsigned] [long] representing the width, in CSS pixels,
-  /// of the [ImageData].
+  ///  Is an [unsigned] [int] representing the width, in CSS pixels, of
+  /// the [ImageData].
   ///
   int get width => js_util.getProperty(this, 'width');
 
-  ///  Is an [unsigned] [long] representing the height, in CSS pixels,
+  ///  Is an [unsigned] [int] representing the height, in CSS pixels,
   /// of the [ImageData].
   ///
   int get height => js_util.getProperty(this, 'height');
@@ -11712,11 +12165,11 @@ extension PropsMessageEvent on MessageEvent {
   ///
   dynamic get data => js_util.getProperty(this, 'data');
 
-  /// A [USVString] representing the origin of the message emitter.
+  /// A [String] representing the origin of the message emitter.
   ///
   String get origin => js_util.getProperty(this, 'origin');
 
-  /// A [DOMString] representing a unique ID for the event.
+  /// A [String] representing a unique ID for the event.
   ///
   String get lastEventId => js_util.getProperty(this, 'lastEventId');
 
@@ -11836,7 +12289,7 @@ class EventSource implements EventTarget {
 }
 
 extension PropsEventSource on EventSource {
-  /// A [DOMString] representing the URL of the source.
+  /// A [String] representing the URL of the source.
   ///
   String get url => js_util.getProperty(this, 'url');
 
@@ -11949,7 +12402,27 @@ extension PropsWebSocket on WebSocket {
   ///
   /// WebSocket.close(code, reason);
   ///
-  Object close([int? code, String? reason]) =>
+  Object close(
+          [
+
+          ///
+          ///     A numeric value indicating the status code explaining why the
+          /// connection is being
+          ///     closed. If this parameter is not specified, a default value
+          /// of 1005 is assumed. See
+          ///    the list of status codes of
+          ///    [CloseEvent] for permitted values.
+          ///
+          ///
+          int? code,
+
+          ///
+          ///     A human-readable string explaining why the connection is
+          /// closing. This string must
+          ///    be no longer than 123 bytes of UTF-8 text (not characters).
+          ///
+          ///
+          String? reason]) =>
       js_util.callMethod(this, 'close', [code, reason]);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
@@ -11968,7 +12441,56 @@ extension PropsWebSocket on WebSocket {
   ///
   /// WebSocket.send("Hello server!");
   ///
-  Object send(String data) => js_util.callMethod(this, 'send', [data]);
+  Object send(
+
+          ///  The data to send to the server. It may be one of the following
+          /// types:
+          ///
+          ///    [String]
+          ///
+          ///
+          ///       A text string. The string is added to the buffer in UTF-8
+          /// format, and the value
+          ///       of [bufferedAmount] is increased by the number of bytes
+          /// required to
+          ///      represent the UTF-8 string.
+          ///
+          ///
+          ///    [ArrayBuffer]
+          ///
+          ///
+          ///       You can send the underlying binary data used by a typed
+          /// array object; its binary
+          ///       data contents are queued in the buffer, increasing the
+          /// value of
+          ///      [bufferedAmount] by the requisite number of bytes.
+          ///
+          ///
+          ///    [Blob]
+          ///
+          ///
+          ///       Specifying a [Blob] enqueues the blob's raw data to be
+          /// transmitted in
+          ///       a binary frame. The value of [bufferedAmount] is increased
+          /// by the byte
+          ///      size of that raw data.
+          ///
+          ///
+          ///    [ArrayBufferView]
+          ///
+          ///
+          ///      You can send any JavaScript
+          ///  typed array object as a binary frame; its binary data contents
+          /// are queued in
+          ///       the buffer, increasing the value of [bufferedAmount] by the
+          /// requisite
+          ///      number of bytes.
+          ///
+          ///
+          ///
+          ///
+          String data) =>
+      js_util.callMethod(this, 'send', [data]);
 }
 
 ///  A is sent to clients using WebSockets when the connection is
@@ -11986,13 +12508,12 @@ extension PropsCloseEvent on CloseEvent {
   ///
   bool get wasClean => js_util.getProperty(this, 'wasClean');
 
-  ///  Returns an [unsigned short] containing the close code sent by
-  /// the server.
+  /// Returns an [int] containing the close code sent by the server.
   ///
   int get code => js_util.getProperty(this, 'code');
 
-  ///  Returns a [DOMString] indicating the reason the server closed
-  /// the connection. This is specific to the particular server and
+  ///  Returns a [String] indicating the reason the server closed the
+  /// connection. This is specific to the particular server and
   /// sub-protocol.
   ///
   String get reason => js_util.getProperty(this, 'reason');
@@ -12204,7 +12725,7 @@ class BroadcastChannel implements EventTarget {
 }
 
 extension PropsBroadcastChannel on BroadcastChannel {
-  /// Returns a [DOMString], the name of the channel.
+  /// Returns a [String], the name of the channel.
   ///
   String get name => js_util.getProperty(this, 'name');
 
@@ -12213,7 +12734,17 @@ extension PropsBroadcastChannel on BroadcastChannel {
   ///
   /// channel.postMessage(message);
   ///
-  Object postMessage(dynamic message) =>
+  Object postMessage(
+
+          ///
+          ///     Data to be sent to the other window. The data is serialized
+          /// using the structured clone algorithm.
+          ///     This means you can pass a broad variety of data objects
+          /// safely to the destination window without having to serialize them
+          /// yourself.
+          ///
+          ///
+          dynamic message) =>
       js_util.callMethod(this, 'postMessage', [message]);
 
   ///  Closes the channel object, indicating it won't get any new
@@ -12322,8 +12853,8 @@ extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
   ///
   String get name => js_util.getProperty(this, 'name');
 
-  ///  Sends a message — which can consist of [any] JavaScript object —
-  /// to the parent document that first spawned the worker.
+  ///  Sends a message — which can consist of [dynamic] JavaScript
+  /// object — to the parent document that first spawned the worker.
   ///
   /// postMessage(aMessage, transferList)
   ///
@@ -12609,7 +13140,7 @@ class WorkerLocation {
 }
 
 extension PropsWorkerLocation on WorkerLocation {
-  ///  Returns a [USVString] containing the serialized [URL] for the
+  ///  Returns a [String] containing the serialized [URL] for the
   /// worker’s location.
   ///
   String get href => js_util.getProperty(this, 'href');
@@ -12677,7 +13208,30 @@ extension PropsWorklet on Worklet {
   /// addPromise = worklet.addModule(moduleURL, options);
   ///
   @experimental
-  Future<Object> addModule(String moduleURL, [WorkletOptions? options]) =>
+  Future<Object> addModule(
+
+          ///
+          ///     A [String] containing the URL of a JavaScript file with the
+          /// module to
+          ///    add.
+          ///
+          ///
+          String moduleURL,
+          [
+
+          /// An object with any of the following options:
+          ///
+          ///
+          ///     [credentials]: A [RequestCredentials] value that
+          ///      indicates whether to send credentials (e.g. cookies and HTTP
+          /// authentication)
+          ///     when loading the module. Can be one of ["omit"],
+          ///     ["same-origin"], or ["include"]. Defaults to
+          ///     ["same-origin"]. See also [Request.credentials].
+          ///
+          ///
+          ///
+          WorkletOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'addModule', [moduleURL, options]));
 }
@@ -12722,7 +13276,16 @@ extension PropsStorage on Storage {
   ///
   /// var aKeyName = storage.key(index);
   ///
-  String? key(int index) => js_util.callMethod(this, 'key', [index]);
+  String? key(
+
+          ///
+          ///     An integer representing the number of the key you want to get
+          /// the name of. This is a
+          ///    zero-based index.
+          ///
+          ///
+          int index) =>
+      js_util.callMethod(this, 'key', [index]);
 
   /// When passed a key name, will return that key's value.
   ///
@@ -12847,7 +13410,7 @@ class StorageEvent implements Event {
 
 extension PropsStorageEvent on StorageEvent {
   ///
-  ///    Returns a [DOMString] that represents the key changed.
+  ///    Returns a [String] that represents the key changed.
   ///    The attribute is [null]
   ///    when the change is caused by the storage [clear()] method.
   ///
@@ -12855,7 +13418,7 @@ extension PropsStorageEvent on StorageEvent {
   String? get key => js_util.getProperty(this, 'key');
 
   ///
-  ///    Returns a [DOMString] with the original value of the [key].
+  ///    Returns a [String] with the original value of the [key].
   ///    This value is [null] when the [key] has been newly added
   ///    and therefore doesn't have any previous value.
   ///
@@ -12863,7 +13426,7 @@ extension PropsStorageEvent on StorageEvent {
   String? get oldValue => js_util.getProperty(this, 'oldValue');
 
   ///
-  ///    Returns a [DOMString] with the new value of the [key].
+  ///    Returns a [String] with the new value of the [key].
   ///    This value is [null]
   ///    when the change has been invoked by storage [clear()] method,
   ///    or the [key] has been removed from the storage.
@@ -12871,7 +13434,7 @@ extension PropsStorageEvent on StorageEvent {
   ///
   String? get newValue => js_util.getProperty(this, 'newValue');
 
-  ///  Returns [DOMString] with the URL of the document whose [key]
+  ///  Returns [String] with the URL of the document whose [key]
   /// changed.
   ///
   String get url => js_util.getProperty(this, 'url');
@@ -12892,11 +13455,33 @@ extension PropsStorageEvent on StorageEvent {
   @deprecated
   Object initStorageEvent(String type,
           [bool? bubbles = false,
+
+          /// A boolean indicating whether the event is cancelable.
+          ///
           bool? cancelable = false,
+
+          /// The key whose value is changing as a result of this event.
+          ///
           String? key,
+
+          /// The key's old value.
+          ///
           String? oldValue,
+
+          /// The key's new value.
+          ///
           String? newValue,
+
+          /// The URL of the document initiating the change.
+          ///
           String? url = '',
+
+          ///
+          ///     The [Storage] object representing the storage area on which
+          /// this event
+          ///    occurred.
+          ///
+          ///
           Storage? storageArea]) =>
       js_util.callMethod(this, 'initStorageEvent', [
         type,
@@ -13116,7 +13701,7 @@ class HTMLFrameSetElement implements HTMLElement, WindowEventHandlers {
 }
 
 extension PropsHTMLFrameSetElement on HTMLFrameSetElement {
-  ///  Is a [DOMString] structured as a comma-separated list specifying
+  ///  Is a [String] structured as a comma-separated list specifying
   /// the width of each column inside a frameset.
   ///
   @deprecated
@@ -13125,7 +13710,7 @@ extension PropsHTMLFrameSetElement on HTMLFrameSetElement {
     js_util.setProperty(this, 'cols', newValue);
   }
 
-  ///  Is a [DOMString] structured as a comma-separated list specifying
+  ///  Is a [String] structured as a comma-separated list specifying
   /// the height of each column inside a frameset.
   ///
   @deprecated
@@ -13217,7 +13802,7 @@ class HTMLFontElement implements HTMLElement {
 }
 
 extension PropsHTMLFontElement on HTMLFontElement {
-  ///  Is a [DOMString] that reflects the HTML attribute, containing
+  ///  Is a [String] that reflects the HTML attribute, containing
   /// either a named color or a color specified in the hexadecimal
   /// #RRGGBB format.
   ///
@@ -13226,7 +13811,7 @@ extension PropsHTMLFontElement on HTMLFontElement {
     js_util.setProperty(this, 'color', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, containing a
+  ///  Is a [String] that reflects the HTML attribute, containing a
   /// comma-separated list of one or more font names.
   ///
   String get face => js_util.getProperty(this, 'face');
@@ -13234,7 +13819,7 @@ extension PropsHTMLFontElement on HTMLFontElement {
     js_util.setProperty(this, 'face', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the HTML attribute, containing
+  ///  Is a [String] that reflects the HTML attribute, containing
   /// either a font size number ranging from 1 to 7 or a relative size
   /// to the attribute of the [<basefont>] element, for example -2 or
   /// +1.

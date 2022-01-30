@@ -188,7 +188,7 @@ extension PropsMIDIPort on MIDIPort {
   }
 
   ///  Makes the MIDI device connected to this [MIDIPort] explicitly
-  /// available, and returns a [Promise] which resolves once access to
+  /// available, and returns a [Future] which resolves once access to
   /// the port has been successful.
   ///
   /// var output = midiAccess.outputs.get(portID);
@@ -199,7 +199,7 @@ extension PropsMIDIPort on MIDIPort {
 
   ///  Makes the MIDI device connected to this [MIDIPort] unavailable,
   /// changing the [state] from ["open"] to ["closed"]. This returns a
-  /// [Promise] which resolves once the port has been closed.
+  /// [Future] which resolves once the port has been closed.
   ///
   /// MIDIPort.close();
   ///
@@ -241,7 +241,18 @@ extension PropsMIDIOutput on MIDIOutput {
   ///
   /// MIDIOutput.send(data, timestamp);
   ///
-  Object send(Iterable<int> data, [double? timestamp = 0]) =>
+  Object send(
+
+          ///  A sequence of one or more valid MIDI messages. Each entry
+          /// represents a single byte of data.
+          ///
+          Iterable<int> data,
+          [
+
+          ///  A [DOMHighResTimestamp] with the time in milliseconds, which is
+          /// the delay before sending the message.
+          ///
+          double? timestamp = 0]) =>
       js_util.callMethod(this, 'send', [data, timestamp]);
 
   /// Clears any pending send data from the queue.

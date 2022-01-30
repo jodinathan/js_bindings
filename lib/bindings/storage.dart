@@ -39,7 +39,7 @@ class StorageManager {
 }
 
 extension PropsStorageManager on StorageManager {
-  ///  Returns a [Promise] that resolves to [true] if persistence has
+  ///  Returns a [Future] that resolves to [true] if persistence has
   /// already been granted for your site's storage.
   ///
   /// navigator.storage.persisted().then(function(persistent) { /* ... */ })
@@ -55,7 +55,7 @@ extension PropsStorageManager on StorageManager {
   Future<bool> persisted() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'persisted', []));
 
-  ///  Returns a [Promise] that resolves to [true] if the user agent is
+  ///  Returns a [Future] that resolves to [true] if the user agent is
   /// able to persist your site's storage.
   ///
   /// navigator.storage.persist().then(function(persistent) { /* ... */ })
@@ -71,7 +71,7 @@ extension PropsStorageManager on StorageManager {
   Future<bool> persist() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'persist', []));
 
-  ///  Returns a [Promise] that resolves to an object containing usage
+  ///  Returns a [Future] that resolves to an object containing usage
   /// and quota numbers for your origin.
   ///
   /// const estimatePromise = StorageManager.estimate();

@@ -82,23 +82,55 @@ extension PropsHID on HID {
     js_util.setProperty(this, 'ondisconnect', newValue);
   }
 
-  ///  Returns a [Promise] that resolves with an array of connected
+  ///  Returns a [Future] that resolves with an array of connected
   /// [HIDDevice] objects.
   ///
   /// HID.getDevices();
   ///
-  Iterable<Promise<HIDDevice>> getDevices() =>
-      js_util.callMethod(this, 'getDevices', []);
+  Future<Iterable<HIDDevice>> getDevices() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getDevices', []));
 
-  ///  Returns a [Promise] that resolves with an array of connected
+  ///  Returns a [Future] that resolves with an array of connected
   /// [HIDDevice] objects. Calling this function will trigger the user
   /// agent's permission flow in order to gain permission to access one
   /// selected device from the returned list of devices.
   ///
   /// HID.requestDevice(options);
   ///
-  Iterable<Promise<HIDDevice>> requestDevice(HIDDeviceRequestOptions options) =>
-      js_util.callMethod(this, 'requestDevice', [options]);
+  Future<Iterable<HIDDevice>> requestDevice(
+
+          ///  An object containing an array of filter objects for possible
+          /// devices to pair with. Each filter object can have the following
+          /// properties:
+          ///
+          ///    [vendorId]Optional
+          ///
+          ///      An integer representing the vendorId of the requested HID
+          /// device
+          ///
+          ///    [productId]Optional
+          ///
+          ///      An integer representing the productId of the requested HID
+          /// device.
+          ///
+          ///    [usagePage]Optional
+          ///
+          ///      An integer representing the usage page component of the HID
+          /// usage of the requested device. The usage for a top level
+          /// collection is used to identify the device type.
+          ///      Standard HID usage values can be found in the HID Usage
+          /// Tables document
+          ///
+          ///    [usage]Optional
+          ///
+          ///      An integer representing the usage ID component of the HID
+          /// usage of the requested device.
+          ///
+          ///
+          ///
+          HIDDeviceRequestOptions options) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestDevice', [options]));
 }
 
 @anonymous
@@ -486,7 +518,7 @@ extension PropsHIDDevice on HIDDevice {
     js_util.setProperty(this, 'oninputreport', newValue);
   }
 
-  /// Returns a [boolean], true if the device has an open connection.
+  /// Returns a [bool], true if the device has an open connection.
   ///
   bool get opened => js_util.getProperty(this, 'opened');
 
@@ -508,7 +540,7 @@ extension PropsHIDDevice on HIDDevice {
   Iterable<HIDCollectionInfo> get collections =>
       js_util.getProperty(this, 'collections');
 
-  ///  Opens a connection to this HID device, and returns a [Promise]
+  ///  Opens a connection to this HID device, and returns a [Future]
   /// which resolves once the connection has been successful.
   ///
   /// HIDDevice.open();
@@ -516,8 +548,8 @@ extension PropsHIDDevice on HIDDevice {
   Future<Object> open() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'open', []));
 
-  ///  Closes the connection to this HID device, and returns a
-  /// [Promise] which resolves once the connection has been closed.
+  ///  Closes the connection to this HID device, and returns a [Future]
+  /// which resolves once the connection has been closed.
   ///
   /// HIDDevice.close();
   ///
@@ -525,30 +557,53 @@ extension PropsHIDDevice on HIDDevice {
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
   ///  Sends an output report to this HID Device, and returns a
-  /// [Promise] which resolves once the report has been sent.
+  /// [Future] which resolves once the report has been sent.
   ///
   /// HIDDevice.sendReport(reportId, data);
   ///
-  Future<Object> sendReport(int reportId, dynamic data) =>
+  Future<Object> sendReport(
+
+          ///  An 8-bit report ID. If the HID device does not use report IDs,
+          /// send [0].
+          ///
+          int reportId,
+
+          /// Bytes as a [BufferSource].
+          ///
+          dynamic data) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'sendReport', [reportId, data]));
 
   ///  Sends a feature report to this HID device, and returns a
-  /// [Promise] which resolves once the report has been sent.
+  /// [Future] which resolves once the report has been sent.
   ///
   /// HIDDevice.sendFeatureReport(reportId, data);
   ///
-  Future<Object> sendFeatureReport(int reportId, dynamic data) =>
+  Future<Object> sendFeatureReport(
+
+          ///  An 8-bit report ID. If the HID device does not use report IDs,
+          /// send [0].
+          ///
+          int reportId,
+
+          /// Bytes as a [BufferSource].
+          ///
+          dynamic data) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'sendFeatureReport', [reportId, data]));
 
   ///  Receives a feature report from this HID device in the form of a
-  /// [Promise] which resolves with a [DataView]. This allows typed
+  /// [Future] which resolves with a [DataView]. This allows typed
   /// access to the contents of this message.
   ///
   /// HIDDevice.receiveFeatureReport(reportId);
   ///
-  Future<ByteData> receiveFeatureReport(int reportId) =>
+  Future<ByteData> receiveFeatureReport(
+
+          ///  An 8-bit report ID. If the HID device does not use report IDs,
+          /// send [0].
+          ///
+          int reportId) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'receiveFeatureReport', [reportId]));
 }

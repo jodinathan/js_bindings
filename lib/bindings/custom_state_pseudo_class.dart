@@ -28,5 +28,11 @@ extension PropsCustomStateSet on CustomStateSet {
   ///
   /// CustomStateSet.add(value)
   ///
-  Object add(String value) => js_util.callMethod(this, 'add', [value]);
+  Object add(
+
+          ///  A [String] which must be a [<dashed-ident>], with the form
+          /// [--mystate].
+          ///
+          String value) =>
+      js_util.callMethod(this, 'add', [value]);
 }

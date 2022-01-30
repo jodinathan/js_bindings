@@ -105,23 +105,23 @@ class FontFace {
 }
 
 extension PropsFontFace on FontFace {
-  ///  A [CSSOMString] that retrieves or sets the family of the font.
-  /// It is equivalent to the [font-family] descriptor.
+  ///  A [String] that retrieves or sets the family of the font. It is
+  /// equivalent to the [font-family] descriptor.
   ///
   String get family => js_util.getProperty(this, 'family');
   set family(String newValue) {
     js_util.setProperty(this, 'family', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets the style of the font. It
-  /// is equivalent to the [font-style] descriptor.
+  ///  A [String] that retrieves or sets the style of the font. It is
+  /// equivalent to the [font-style] descriptor.
   ///
   String get style => js_util.getProperty(this, 'style');
   set style(String newValue) {
     js_util.setProperty(this, 'style', newValue);
   }
 
-  ///  A [CSSOMString] that contains the weight of the font. It is
+  ///  A [String] that contains the weight of the font. It is
   /// equivalent to the [font-weight] descriptor.
   ///
   String get weight => js_util.getProperty(this, 'weight');
@@ -129,15 +129,15 @@ extension PropsFontFace on FontFace {
     js_util.setProperty(this, 'weight', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets how the font stretches.
-  /// It is equivalent to the [font-stretch] descriptor.
+  ///  A [String] that retrieves or sets how the font stretches. It is
+  /// equivalent to the [font-stretch] descriptor.
   ///
   String get stretch => js_util.getProperty(this, 'stretch');
   set stretch(String newValue) {
     js_util.setProperty(this, 'stretch', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets the range of unicode
+  ///  A [String] that retrieves or sets the range of unicode
   /// codepoints encompassing the font. It is equivalent to the
   /// [unicode-range] descriptor.
   ///
@@ -146,15 +146,15 @@ extension PropsFontFace on FontFace {
     js_util.setProperty(this, 'unicodeRange', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets the variant of the font.
-  /// It is equivalent to the [font-variant] descriptor.
+  ///  A [String] that retrieves or sets the variant of the font. It is
+  /// equivalent to the [font-variant] descriptor.
   ///
   String get variant => js_util.getProperty(this, 'variant');
   set variant(String newValue) {
     js_util.setProperty(this, 'variant', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets infrequently used font
+  ///  A [String] that retrieves or sets infrequently used font
   /// features that are not available from a font's variant properties.
   /// It is equivalent to the [font-feature-settings] descriptor.
   ///
@@ -163,8 +163,8 @@ extension PropsFontFace on FontFace {
     js_util.setProperty(this, 'featureSettings', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets the variation settings of
-  /// the font. It is equivalent to the [font-variation-settings]
+  ///  A [String] that retrieves or sets the variation settings of the
+  /// font. It is equivalent to the [font-variation-settings]
   /// descriptor.
   ///
   String get variationSettings =>
@@ -173,23 +173,23 @@ extension PropsFontFace on FontFace {
     js_util.setProperty(this, 'variationSettings', newValue);
   }
 
-  ///  A [CSSOMString] that determines how a font face is displayed
-  /// based on whether and when it is downloaded and ready to use.
+  ///  A [String] that determines how a font face is displayed based on
+  /// whether and when it is downloaded and ready to use.
   ///
   String get display => js_util.getProperty(this, 'display');
   set display(String newValue) {
     js_util.setProperty(this, 'display', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets the ascent metric of the
-  /// font. It is equivalent to the [ascent-override] descriptor.
+  ///  A [String] that retrieves or sets the ascent metric of the font.
+  /// It is equivalent to the [ascent-override] descriptor.
   ///
   String get ascentOverride => js_util.getProperty(this, 'ascentOverride');
   set ascentOverride(String newValue) {
     js_util.setProperty(this, 'ascentOverride', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets the descent metric of the
+  ///  A [String] that retrieves or sets the descent metric of the
   /// font. It is equivalent to the [descent-override] descriptor.
   ///
   String get descentOverride => js_util.getProperty(this, 'descentOverride');
@@ -197,8 +197,8 @@ extension PropsFontFace on FontFace {
     js_util.setProperty(this, 'descentOverride', newValue);
   }
 
-  ///  A [CSSOMString] that retrieves or sets the line-gap metric of
-  /// the font. It is equivalent to the [line-gap-override] descriptor.
+  ///  A [String] that retrieves or sets the line-gap metric of the
+  /// font. It is equivalent to the [line-gap-override] descriptor.
   ///
   String get lineGapOverride => js_util.getProperty(this, 'lineGapOverride');
   set lineGapOverride(String newValue) {
@@ -212,7 +212,7 @@ extension PropsFontFace on FontFace {
   Future<FontFace> load() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'load', []));
 
-  ///  Returns a [Promise] that resolves with the current [FontFace]
+  ///  Returns a [Future] that resolves with the current [FontFace]
   /// object when the font specified in the object's constructor is
   /// done loading or rejects with a [SyntaxError].
   ///
@@ -271,14 +271,24 @@ extension PropsFontFaceSet on FontFaceSet {
   ///
   /// FontFaceSet.add(font)
   ///
-  FontFaceSet add(FontFace font) => js_util.callMethod(this, 'add', [font]);
+  FontFaceSet add(
+
+          /// A [FontFace] to be added to the set.
+          ///
+          FontFace font) =>
+      js_util.callMethod(this, 'add', [font]);
 
   ///  Removes a manually-added font from the font set. CSS-connected
   /// fonts are unaffected.
   ///
   /// FontFaceSet.delete(font)
   ///
-  bool delete(FontFace font) => js_util.callMethod(this, 'delete', [font]);
+  bool delete(
+
+          /// A [FontFace] to be removed from the set.
+          ///
+          FontFace font) =>
+      js_util.callMethod(this, 'delete', [font]);
 
   ///  Removes all manually-added fonts from the font set.
   /// CSS-connected fonts are unaffected.
@@ -304,14 +314,26 @@ extension PropsFontFaceSet on FontFaceSet {
     js_util.setProperty(this, 'onloadingerror', newValue);
   }
 
-  ///  Returns a [Promise] which resolves to a list of font-faces for a
+  ///  Returns a [Future] which resolves to a list of font-faces for a
   /// requested font.
   ///
   /// aFontFaceSet.load(font);
   /// aFontFaceSet.load(font, text);
   ///
-  Iterable<Promise<FontFace>> load(String font, [String? text = ' ']) =>
-      js_util.callMethod(this, 'load', [font, text]);
+  Future<Iterable<FontFace>> load(
+
+          ///  a font specification using the CSS value syntax, e.g. "italic
+          /// bold 16px Roboto"
+          ///
+          String font,
+          [
+
+          ///  limit the font faces to those whose Unicode range contains at
+          /// least one of the characters in text. This does not check for
+          /// individual glyph coverage.
+          ///
+          String? text = ' ']) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'load', [font, text]));
 
   ///  A boolean value that indicates whether a font is loaded, but
   /// doesn't initiate a load when it isn't.
@@ -319,10 +341,22 @@ extension PropsFontFaceSet on FontFaceSet {
   /// aFontFaceSet.check(font);
   /// aFontFaceSet.check(font, text);
   ///
-  bool check(String font, [String? text = ' ']) =>
+  bool check(
+
+          ///  a font specification using the CSS value syntax, for example
+          /// ["italic bold 16px Roboto"]
+          ///
+          String font,
+          [
+
+          ///  limit the font faces to those whose Unicode range contains at
+          /// least one of the characters in text. This does not check for
+          /// individual glyph coverage.
+          ///
+          String? text = ' ']) =>
       js_util.callMethod(this, 'check', [font, text]);
 
-  ///  [Promise] which resolves once font loading and layout operations
+  ///  [Future] which resolves once font loading and layout operations
   /// have completed.
   ///
   Future<FontFaceSet> get ready =>

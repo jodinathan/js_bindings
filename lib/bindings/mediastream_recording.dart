@@ -104,7 +104,21 @@ extension PropsMediaRecorder on MediaRecorder {
   ///
   /// ...
   ///
-  Object start([int? timeslice]) =>
+  Object start(
+          [
+
+          ///
+          ///     The number of milliseconds to record into each [Blob]. If
+          /// this
+          ///     parameter isn't included, the entire media duration is
+          /// recorded into a single
+          ///    [Blob] unless the [requestData()]
+          ///     method is called to obtain the [Blob] and trigger the
+          /// creation of a new
+          ///    [Blob] into which the media continues to be recorded.
+          ///
+          ///
+          int? timeslice]) =>
       js_util.callMethod(this, 'start', [timeslice]);
 
   ///  Stops recording, at which point a [dataavailable] event
@@ -242,11 +256,11 @@ extension PropsBlobEvent on BlobEvent {
   ///
   Blob get data => js_util.getProperty(this, 'data');
 
-  ///  A [DOMHighResTimeStamp] indicating the difference between the
-  /// timestamp of the first chunk in data and the timestamp of the
-  /// first chunk in the first BlobEvent produced by this recorder.
-  /// Note that the timecode in the first produced BlobEvent does not
-  /// need to be zero.
+  ///  A [double] indicating the difference between the timestamp of
+  /// the first chunk in data and the timestamp of the first chunk in
+  /// the first BlobEvent produced by this recorder. Note that the
+  /// timecode in the first produced BlobEvent does not need to be
+  /// zero.
   ///
   double get timecode => js_util.getProperty(this, 'timecode');
 }
@@ -286,7 +300,7 @@ extension PropsMediaRecorderErrorEventInit on MediaRecorderErrorEventInit {
 
 ///  The interface represents errors returned by the MediaStream
 /// Recording API. It is an [Event] object that encapsulates a
-/// reference to a [DOMException] describing the error that occurred.
+/// reference to a [Exception] describing the error that occurred.
 @JS()
 @staticInterop
 class MediaRecorderErrorEvent implements Event {
@@ -295,7 +309,7 @@ class MediaRecorderErrorEvent implements Event {
 }
 
 extension PropsMediaRecorderErrorEvent on MediaRecorderErrorEvent {
-  ///  A [DOMException] containing information about the error that
+  ///  A [Exception] containing information about the error that
   /// occurred. Read only.
   ///
   Exception get error => js_util.getProperty(this, 'error');

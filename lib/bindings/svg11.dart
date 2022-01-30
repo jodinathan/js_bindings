@@ -265,7 +265,11 @@ extension PropsSVGGeometryElement on SVGGeometryElement {
   ///
   /// DOMPoint someElement.getPointAtLength(float distance);
   ///
-  DOMPoint getPointAtLength(double distance) =>
+  DOMPoint getPointAtLength(
+
+          /// A float referring to the distance along the path.
+          ///
+          double distance) =>
       js_util.callMethod(this, 'getPointAtLength', [distance]);
 }
 
@@ -281,8 +285,8 @@ class SVGNumber {
 
 extension PropsSVGNumber on SVGNumber {
   /// A float representing the number.
-  ///    Note: If the [SVGNumber] is read-only, a [DOMException] with
-  /// the code NO_MODIFICATION_ALLOWED_ERR is raised on an attempt to
+  ///    Note: If the [SVGNumber] is read-only, a [Exception] with the
+  /// code NO_MODIFICATION_ALLOWED_ERR is raised on an attempt to
   /// change the value.
   ///
   double get value => js_util.getProperty(this, 'value');
@@ -373,7 +377,7 @@ extension PropsSVGAngle on SVGAngle {
   ///  The value as a floating point value, in user units. Setting this
   /// attribute will cause [valueInSpecifiedUnits] and [valueAsString]
   /// to be updated automatically to reflect this setting.
-  ///    Exceptions on setting: A [DOMException] with code
+  ///    Exceptions on setting: A [Exception] with code
   /// [NO_MODIFICATION_ALLOWED_ERR] is raised when the length
   /// corresponds to a read-only attribute, or when the object itself
   /// is read-only.
@@ -387,7 +391,7 @@ extension PropsSVGAngle on SVGAngle {
   /// [unitType]. Setting this attribute will cause [value] and
   /// [valueAsString] to be updated automatically to reflect this
   /// setting.
-  ///    Exceptions on setting: A [DOMException] with code
+  ///    Exceptions on setting: A [Exception] with code
   /// [NO_MODIFICATION_ALLOWED_ERR] is raised when the length
   /// corresponds to a read-only attribute, or when the object itself
   /// is read-only.
@@ -398,14 +402,14 @@ extension PropsSVGAngle on SVGAngle {
     js_util.setProperty(this, 'valueInSpecifiedUnits', newValue);
   }
 
-  ///  The value as a [DOMString] value, in the units expressed by
+  ///  The value as a [String] value, in the units expressed by
   /// [unitType]. Setting this attribute will cause [value],
   /// [valueInSpecifiedUnits], and [unitType] to be updated
   /// automatically to reflect this setting.
   ///   Exceptions on setting:
-  ///    A [DOMException] with code [SYNTAX_ERR] is raised if the
-  /// assigned string cannot be parsed as a valid [<angle>].
-  ///    A [DOMException] with code [NO_MODIFICATION_ALLOWED_ERR] is
+  ///    A [Exception] with code [SYNTAX_ERR] is raised if the assigned
+  /// string cannot be parsed as a valid [<angle>].
+  ///    A [Exception] with code [NO_MODIFICATION_ALLOWED_ERR] is
   /// raised when the length corresponds to a read-only attribute, or
   /// when the object itself is read-only.
   ///
@@ -418,11 +422,11 @@ extension PropsSVGAngle on SVGAngle {
   /// replacing the values for all of the attributes on the object.
   ///   Exceptions:
   ///
-  ///     A [DOMException] with code [NOT_SUPPORTED_ERR] is raised if
+  ///     A [Exception] with code [NOT_SUPPORTED_ERR] is raised if
   /// [unitType] is [SVG_ANGLETYPE_UNKNOWN] or not a valid unit type
   /// constant (one of the other [SVG_ANGLETYPE_*] constants defined on
   /// this interface).
-  ///     A [DOMException] with code [NO_MODIFICATION_ALLOWED_ERR] is
+  ///     A [Exception] with code [NO_MODIFICATION_ALLOWED_ERR] is
   /// raised when the length corresponds to a read only attribute or
   /// when the object itself is read only.
   ///
@@ -635,16 +639,16 @@ class SVGAnimatedString {
 }
 
 extension PropsSVGAnimatedString on SVGAnimatedString {
-  ///  This is a [DOMString] representing the base value. The base
-  /// value of the given attribute before applying any animations.
-  /// Setter throws DOMException.
+  ///  This is a [String] representing the base value. The base value
+  /// of the given attribute before applying any animations. Setter
+  /// throws DOMException.
   ///
   String get baseVal => js_util.getProperty(this, 'baseVal');
   set baseVal(String newValue) {
     js_util.setProperty(this, 'baseVal', newValue);
   }
 
-  ///  This is a [DOMString] representing the animation value. If the
+  ///  This is a [String] representing the animation value. If the
   /// given attribute or property is being animated it contains the
   /// current animated value of the attribute or property. If the given
   /// attribute or property is not currently being animated, it
@@ -1364,9 +1368,9 @@ class SVGStyleElement implements SVGElement, LinkStyle {
 }
 
 extension PropsSVGStyleElement on SVGStyleElement {
-  ///  A [DOMString] corresponding to the [type] attribute of the given
+  ///  A [String] corresponding to the [type] attribute of the given
   /// element.
-  ///    SVG 1.1 defined that a [DOMException] is raised with code
+  ///    SVG 1.1 defined that a [Exception] is raised with code
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
   /// of a read-only attribute. This restriction was removed in SVG 2.
   ///
@@ -1375,9 +1379,9 @@ extension PropsSVGStyleElement on SVGStyleElement {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  A [DOMString] corresponding to the [media] attribute of the
-  /// given element.
-  ///    SVG 1.1 defined that a [DOMException] is raised with code
+  ///  A [String] corresponding to the [media] attribute of the given
+  /// element.
+  ///    SVG 1.1 defined that a [Exception] is raised with code
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
   /// of a read-only attribute. This restriction was removed in SVG 2.
   ///
@@ -1386,9 +1390,9 @@ extension PropsSVGStyleElement on SVGStyleElement {
     js_util.setProperty(this, 'media', newValue);
   }
 
-  ///  A [DOMString] corresponding to the [title] attribute of the
-  /// given element.
-  ///    SVG 1.1 defined that a [DOMException] is raised with code
+  ///  A [String] corresponding to the [title] attribute of the given
+  /// element.
+  ///    SVG 1.1 defined that a [Exception] is raised with code
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
   /// of a read-only attribute. This restriction was removed in SVG 2.
   ///
@@ -1932,7 +1936,12 @@ extension PropsSVGPointList on SVGPointList {
   ///
   /// SVGPointList.getItem(index);
   ///
-  DOMPoint getItem(int index) => js_util.callMethod(this, 'getItem', [index]);
+  DOMPoint getItem(
+
+          /// The index of the item to return.
+          ///
+          int index) =>
+      js_util.callMethod(this, 'getItem', [index]);
 
   /// Inserts an element into the list at a specified position.
   ///
@@ -2551,8 +2560,8 @@ extension PropsSVGImageElement on SVGImageElement {
   SVGAnimatedPreserveAspectRatio get preserveAspectRatio =>
       js_util.getProperty(this, 'preserveAspectRatio');
 
-  ///  A [DOMString] corresponding to the [crossorigin] attribute of
-  /// the given [<image>] element.
+  ///  A [String] corresponding to the [crossorigin] attribute of the
+  /// given [<image>] element.
   ///
   String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
   set crossOrigin(String? newValue) {
@@ -2763,7 +2772,11 @@ extension PropsSVGMarkerElement on SVGMarkerElement {
   ///
   /// setOrientToAngle(angle);
   ///
-  Object setOrientToAngle(SVGAngle angle) =>
+  Object setOrientToAngle(
+
+          /// An [SVGAngle].
+          ///
+          SVGAngle angle) =>
       js_util.callMethod(this, 'setOrientToAngle', [angle]);
 }
 
@@ -3125,8 +3138,8 @@ class SVGScriptElement implements SVGElement, SVGURIReference {
 }
 
 extension PropsSVGScriptElement on SVGScriptElement {
-  ///  A [DOMString] corresponding to the [type] attribute of the given
-  /// [<script>] element. A [DOMException] is raised with the code
+  ///  A [String] corresponding to the [type] attribute of the given
+  /// [<script>] element. A [Exception] is raised with the code
   /// [NO_MODIFICATION_ALLOWED_ERR] on an attempt to change the value
   /// of a read only attribute.
   ///
@@ -3135,8 +3148,8 @@ extension PropsSVGScriptElement on SVGScriptElement {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  A [DOMString] corresponding to the [crossorigin] attribute of
-  /// the given [<script>] element.
+  ///  A [String] corresponding to the [crossorigin] attribute of the
+  /// given [<script>] element.
   ///
   String? get crossOrigin => js_util.getProperty(this, 'crossOrigin');
   set crossOrigin(String? newValue) {
@@ -3165,7 +3178,7 @@ extension PropsSVGAElement on SVGAElement {
     js_util.setProperty(this, 'download', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the ping attribute, containing a
+  ///  Is a [String] that reflects the ping attribute, containing a
   /// space-separated list of URLs to which, when the hyperlink is
   /// followed, [POST] requests with the body [PING] will be sent by
   /// the browser (in the background). Typically used for tracking.
@@ -3186,7 +3199,7 @@ extension PropsSVGAElement on SVGAElement {
   ///
   DOMTokenList get relList => js_util.getProperty(this, 'relList');
 
-  ///  Is a [DOMString] that reflects the attribute, indicating the
+  ///  Is a [String] that reflects the attribute, indicating the
   /// language of the linked resource.
   ///
   String get hreflang => js_util.getProperty(this, 'hreflang');
@@ -3194,15 +3207,15 @@ extension PropsSVGAElement on SVGAElement {
     js_util.setProperty(this, 'hreflang', newValue);
   }
 
-  ///  Is a [DOMString] that reflects the attribute, indicating the
-  /// MIME type of the linked resource.
+  ///  Is a [String] that reflects the attribute, indicating the MIME
+  /// type of the linked resource.
   ///
   String get type => js_util.getProperty(this, 'type');
   set type(String newValue) {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  Is a [DOMString] being a synonym for the [Node.textContent]
+  ///  Is a [String] being a synonym for the [Node.textContent]
   /// property.
   ///
   String get text => js_util.getProperty(this, 'text');

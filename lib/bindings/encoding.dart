@@ -75,8 +75,8 @@ class TextDecoder implements TextDecoderCommon {
 }
 
 extension PropsTextDecoder on TextDecoder {
-  ///  Returns a [DOMString] containing the text decoded with the
-  /// method of the specific [TextDecoder] object.
+  ///  Returns a [String] containing the text decoded with the method
+  /// of the specific [TextDecoder] object.
   ///
   /// b1 = decoder.decode(buffer, options);
   /// b2 = decoder.decode(buffer);
@@ -98,7 +98,25 @@ extension PropsTextDecoder on TextDecoder {
   ///
   /// ```
   ///
-  String decode([dynamic input, TextDecodeOptions? options]) =>
+  String decode(
+          [dynamic input,
+
+          /// Is a [TextDecodeOptions] dictionary with the property:
+          ///
+          ///    [stream]
+          ///
+          ///
+          ///       A boolean flag indicating that additional data will follow
+          /// in
+          ///       subsequent calls to decode(). Set to true if processing the
+          /// data in chunks, and
+          ///       false for the final chunk or if the data is not chunked. It
+          /// defaults to false.
+          ///
+          ///
+          ///
+          ///
+          TextDecodeOptions? options]) =>
       js_util.callMethod(this, 'decode', [input, options]);
 }
 
@@ -143,16 +161,16 @@ class TextEncoder implements TextEncoderCommon {
 }
 
 extension PropsTextEncoder on TextEncoder {
-  ///  Takes a [USVString] as input, and returns a [Uint8Array]
-  /// containing UTF-8 encoded text.
+  ///  Takes a [String] as input, and returns a [Uint8Array] containing
+  /// UTF-8 encoded text.
   ///
   /// b1 = encoder.encode(string);
   ///
   Uint8List encode([String? input = '']) =>
       js_util.callMethod(this, 'encode', [input]);
 
-  ///  Takes a [USVString] to encode and a destination [Uint8Array] to
-  /// put resulting UTF-8 encoded text into, and returns a dictionary
+  ///  Takes a [String] to encode and a destination [Uint8Array] to put
+  /// resulting UTF-8 encoded text into, and returns a dictionary
   /// object indicating the progress of the encoding. This is
   /// potentially more performant than the older [encode()] method.
   ///

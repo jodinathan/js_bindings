@@ -40,14 +40,47 @@ extension PropsAudioDecoder on AudioDecoder {
   ///
   /// AudioDecoder.configure(config)
   ///
-  Object configure(AudioDecoderConfig config) =>
+  Object configure(
+
+          /// A dictionary object containing the following members:
+          ///
+          ///    [codec]
+          ///
+          ///      : A [string] containing a valid codec string.
+          ///
+          ///
+          ///    [sampleRate]
+          ///
+          ///       : An integer representing the number of frame samples per
+          /// second.
+          ///
+          ///
+          ///    [numberOfChannels]
+          ///
+          ///      : An integer representing the number of audio channels.
+          ///
+          ///
+          ///    [description]Optional
+          ///
+          ///       A [BufferSource] containing a sequence of codec specific
+          /// bytes, commonly known as extradata.
+          ///
+          ///
+          ///
+          ///
+          AudioDecoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
   /// Enqueues a control message to decode a given chunk of audio.
   ///
   /// AudioDecoder.decode(chunk)
   ///
-  Object decode(EncodedAudioChunk chunk) =>
+  Object decode(
+
+          ///  An [EncodedAudioChunk] object representing a chunk of encoded
+          /// audio.
+          ///
+          EncodedAudioChunk chunk) =>
       js_util.callMethod(this, 'decode', [chunk]);
 
   ///  Returns a promise that resolves once all pending messages in the
@@ -121,14 +154,90 @@ extension PropsVideoDecoder on VideoDecoder {
   ///
   /// VideoDecoder.configure(config)
   ///
-  Object configure(VideoDecoderConfig config) =>
+  Object configure(
+
+          /// An object containing the following members:
+          ///
+          ///    [codec]
+          ///
+          ///     A [string] containing a valid codec string.
+          ///
+          ///    [description]Optional
+          ///
+          ///      A [BufferSource] containing a sequence of codec specific
+          /// bytes, commonly known as extradata.
+          ///
+          ///    [codedWidth]Optional
+          ///
+          ///      An integer representing the width of the [VideoFrame] in
+          /// pixels, including any non-visible padding, before any ratio
+          /// adjustments.
+          ///
+          ///    [codedHeight]Optional
+          ///
+          ///      An integer representing the height of the [VideoFrame] in
+          /// pixels, including any non-visible padding, before any ratio
+          /// adjustments.
+          ///
+          ///    [displayAspectWidth]Optional
+          ///
+          ///      An integer representing the horizontal dimension of the
+          /// [VideoFrame] in pixels when displayed.
+          ///
+          ///    [displayAspectHeight]Optional
+          ///
+          ///      An integer representing the vertical dimension of the
+          /// [VideoFrame] in pixels when displayed.
+          ///
+          ///    [colorSpace]
+          ///
+          ///      An object. representing a [VideoColorSpace], containing the
+          /// following members:
+          ///
+          ///      [primaries]
+          ///
+          ///        A string representing the color gamut of the video sample.
+          /// One of:
+          ///
+          ///        ["bt709"]
+          ///        ["bt470bg"]
+          ///        ["smpte170m"]
+          ///
+          ///
+          ///      [transfer]
+          ///
+          ///       A string representing transfer characteristics. One of:
+          ///
+          ///        ["bt709"]
+          ///        ["smpte170m"]
+          ///        ["iec61966-2-1"]
+          ///
+          ///
+          ///      [matrix]
+          ///
+          ///       A string representing a matrix coefficient. One of:
+          ///
+          ///        ["rgb"]
+          ///        ["bt709"]
+          ///        ["bt470bg"]
+          ///        ["smpte170m"]
+          ///
+          ///
+          ///
+          ///
+          VideoDecoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
   /// Enqueues a control message to decode a given chunk of video.
   ///
   /// VideoDecoder.decode(chunk)
   ///
-  Object decode(EncodedVideoChunk chunk) =>
+  Object decode(
+
+          ///  An [EncodedVideoChunk] object representing a chunk of encoded
+          /// video.
+          ///
+          EncodedVideoChunk chunk) =>
       js_util.callMethod(this, 'decode', [chunk]);
 
   ///  Returns a promise that resolves once all pending messages in the
@@ -200,7 +309,30 @@ extension PropsAudioEncoder on AudioEncoder {
   ///
   /// AudioEncoder.configure(config)
   ///
-  Object configure(AudioEncoderConfig config) =>
+  Object configure(
+
+          /// A dictionary object containing the following members:
+          ///
+          ///    [codec]
+          ///
+          ///     A [string] containing a valid codec string.
+          ///
+          ///    [sampleRate]Optional
+          ///
+          ///      An integer representing the number of frame samples per
+          /// second.
+          ///
+          ///    [numberOfChannels]Optional
+          ///
+          ///     An integer representing the number of audio channels.
+          ///
+          ///    [bitrate]Optional
+          ///
+          ///     An integer representing the bitrate.
+          ///
+          ///
+          ///
+          AudioEncoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
   ///  Enqueues a control message to encode a given [AudioData]
@@ -208,7 +340,12 @@ extension PropsAudioEncoder on AudioEncoder {
   ///
   /// AudioEncoder.encode(data);
   ///
-  Object encode(AudioData data) => js_util.callMethod(this, 'encode', [data]);
+  Object encode(
+
+          /// An [AudioData] object.
+          ///
+          AudioData data) =>
+      js_util.callMethod(this, 'encode', [data]);
 
   ///  Returns a promise that resolves once all pending messages in the
   /// queue have been completed.
@@ -296,7 +433,89 @@ extension PropsVideoEncoder on VideoEncoder {
   ///
   /// VideoEncoder.configure(config)
   ///
-  Object configure(VideoEncoderConfig config) =>
+  Object configure(
+
+          /// A dictionary object containing the following members:
+          ///
+          ///    [codec]
+          ///
+          ///     A [string] containing a valid codec string.
+          ///
+          ///    [width]Optional
+          ///
+          ///      An integer representing the width of each output
+          /// [EncodedVideoChunk] in pixels, before any ratio adjustments.
+          ///
+          ///    [height]Optional
+          ///
+          ///      An integer representing the height of each output
+          /// [EncodedVideoChunk] in pixels, before any ratio adjustments.
+          ///
+          ///    [displayWidth]Optional
+          ///
+          ///      An integer representing the intended display width of each
+          /// output [EncodedVideoChunk] in pixels when displayed.
+          ///
+          ///    [displayHeight]Optional
+          ///
+          ///      An integer representing the vertical dimension of each
+          /// output [EncodedVideoChunk] in pixels when displayed.
+          ///
+          ///    [hardwareAcceleration]
+          ///
+          ///      A hint that configures the hardware acceleration method of
+          /// this codec. One of:
+          ///
+          ///      ["no-preference"]
+          ///      ["prefer-hardware"]
+          ///      ["prefer-software"]
+          ///
+          ///
+          ///    [bitrate]
+          ///
+          ///      An integer containing the average bitrate of the encoded
+          /// video in units of bits per second.
+          ///
+          ///    [framerate]
+          ///
+          ///      An integer containing the expected frame rate in frames per
+          /// second.
+          ///
+          ///    [alpha]
+          ///
+          ///      A string indicating whether the alpha component of the
+          /// [VideoFrame] inputs should be kept or discarded prior to
+          /// encoding. One of:
+          ///
+          ///      ["discard"] (default)
+          ///      ["keep"]
+          ///
+          ///
+          ///    [scalabilityMode]
+          ///
+          ///      A [string] containing an encoding scalability mode
+          /// identifier as defined in WebRTC.
+          ///
+          ///    [bitrateMode]
+          ///
+          ///     A string containing a bitrate mode. One of:
+          ///
+          ///      ["constant"]
+          ///      ["variable"] (default)
+          ///
+          ///
+          ///    [latencyMode]
+          ///
+          ///      A string containing a value that configures the latency
+          /// behavior of this codec. One of:
+          ///
+          ///      ["quality"] (default)
+          ///      ["realtime"]
+          ///
+          ///
+          ///
+          ///
+          VideoEncoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
   /// Enqueues a control message to encode a given [VideoFrame].
@@ -304,7 +523,25 @@ extension PropsVideoEncoder on VideoEncoder {
   /// VideoEncoder.encode(frame);
   /// VideoEncoder.encode(frame, options);
   ///
-  Object encode(VideoFrame frame, [VideoEncoderEncodeOptions? options]) =>
+  Object encode(
+
+          /// A [VideoFrame] object.
+          ///
+          VideoFrame frame,
+          [
+
+          /// An object containing the following member:
+          ///
+          ///    [keyFrame]
+          ///
+          ///      A [bool], defaulting to [false] giving the user agent
+          /// flexibility to decide if this frame should be encoded as a key
+          /// frame. If [true] this indicates that the given frame must be
+          /// encoded as a key frame.
+          ///
+          ///
+          ///
+          VideoEncoderEncodeOptions? options]) =>
       js_util.callMethod(this, 'encode', [frame, options]);
 
   ///  Returns a promise that resolves once all pending messages in the
@@ -686,7 +923,11 @@ extension PropsEncodedAudioChunk on EncodedAudioChunk {
   ///
   /// EncodedAudioChunk.copyTo(destination)
   ///
-  Object copyTo(dynamic destination) =>
+  Object copyTo(
+
+          /// A [BufferSource] that the data can be copied to.
+          ///
+          dynamic destination) =>
       js_util.callMethod(this, 'copyTo', [destination]);
 }
 
@@ -750,7 +991,11 @@ extension PropsEncodedVideoChunk on EncodedVideoChunk {
   ///
   /// EncodedVideoChunk.copyTo(destination)
   ///
-  Object copyTo(dynamic destination) =>
+  Object copyTo(
+
+          /// A [BufferSource] that the data can be copied to.
+          ///
+          dynamic destination) =>
       js_util.callMethod(this, 'copyTo', [destination]);
 }
 
@@ -817,7 +1062,28 @@ extension PropsAudioData on AudioData {
   ///
   /// AudioData.allocationSize(options)
   ///
-  int allocationSize(AudioDataCopyToOptions options) =>
+  int allocationSize(
+
+          /// An object containing the following:
+          ///
+          ///    [planeIndex]
+          ///
+          ///     The index of the plane to return the size of.
+          ///
+          ///    [frameOffset]Optional
+          ///
+          ///      An integer giving an offset into the plane data indicating
+          /// which plane to begin from. Defaults to [0].
+          ///
+          ///    [frameCount]Optional
+          ///
+          ///      An integer giving the number of frames to return the size
+          /// of. If omitted then all frames in the plane will be used,
+          /// beginning with the frame specified in [frameOffset].
+          ///
+          ///
+          ///
+          AudioDataCopyToOptions options) =>
       js_util.callMethod(this, 'allocationSize', [options]);
 
   ///  Copies the samples from the specified plane of the [AudioData]
@@ -825,7 +1091,32 @@ extension PropsAudioData on AudioData {
   ///
   /// AudioData.copyTo(destination, options)
   ///
-  Object copyTo(dynamic destination, AudioDataCopyToOptions options) =>
+  Object copyTo(
+
+          /// The [buffer] to copy the plane to.
+          ///
+          dynamic destination,
+
+          /// An object containing the following:
+          ///
+          ///    [planeIndex]
+          ///
+          ///     The index of the plane to copy from.
+          ///
+          ///    [frameOffset]Optional
+          ///
+          ///      An integer giving an offset into the plane data indicating
+          /// which plane to begin copying from. Defaults to [0].
+          ///
+          ///    [frameCount]Optional
+          ///
+          ///      An integer giving the number of frames to copy. If omitted
+          /// then all frames in the plane will be copied, beginning with the
+          /// frame specified in [frameOffset].
+          ///
+          ///
+          ///
+          AudioDataCopyToOptions options) =>
       js_util.callMethod(this, 'copyTo', [destination, options]);
 
   ///  Creates a new [AudioData] object with reference to the same
@@ -976,12 +1267,44 @@ extension PropsVideoFrame on VideoFrame {
   /// VideoFrame.allocationSize();
   /// VideoFrame.allocationSize(options);
   ///
-  int allocationSize([VideoFrameCopyToOptions? options]) =>
+  int allocationSize(
+          [
+
+          /// An object containing the following:
+          ///
+          ///    [rect]Optional
+          ///
+          ///      The rectangle of pixels to copy from the [VideoFrame]. If
+          /// unspecified the [visibleRect] will be used. This is in the format
+          /// of a dictionary object containing:
+          ///
+          ///      [x]: The x-coordinate.
+          ///      [y]: The y-coordinate.
+          ///      [width]: The width of the frame.
+          ///      [height]: The height of the frame.
+          ///
+          ///
+          ///    [layout]Optional
+          ///
+          ///      A list containing the following values for each plane in the
+          /// [VideoFrame]. Planes may not overlap. If unspecified the planes
+          /// will be tightly packed:
+          ///
+          ///       [offset]: An integer representing the offset in bytes where
+          /// the given plane begins.
+          ///       [stride]: An integer representing the number of bytes,
+          /// including padding, used by each row of the plane.
+          ///
+          ///
+          ///
+          ///
+          VideoFrameCopyToOptions? options]) =>
       js_util.callMethod(this, 'allocationSize', [options]);
 
-  Iterable<Promise<PlaneLayout>> copyTo(dynamic destination,
+  Future<Iterable<PlaneLayout>> copyTo(dynamic destination,
           [VideoFrameCopyToOptions? options]) =>
-      js_util.callMethod(this, 'copyTo', [destination, options]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'copyTo', [destination, options]));
 
   ///  Creates a new [VideoFrame] object with reference to the same
   /// media resource as the original.
@@ -1124,12 +1447,12 @@ class ImageDecoder {
 }
 
 extension PropsImageDecoder on ImageDecoder {
-  ///  Returns a [boolean] indicating whether the data is completely
+  ///  Returns a [bool] indicating whether the data is completely
   /// buffered.
   ///
   bool get complete => js_util.getProperty(this, 'complete');
 
-  /// Returns a [Promise] that resolves once [complete] is true.
+  /// Returns a [Future] that resolves once [complete] is true.
   ///
   Future<Object> get completed =>
       js_util.promiseToFuture(js_util.getProperty(this, 'completed'));
@@ -1143,7 +1466,25 @@ extension PropsImageDecoder on ImageDecoder {
   ///
   /// ImageDecoder.decode(options)
   ///
-  Future<ImageDecodeResult> decode([ImageDecodeOptions? options]) =>
+  Future<ImageDecodeResult> decode(
+          [
+
+          /// An object containing the following members:
+          ///
+          ///    [frameIndex]Optional
+          ///
+          ///      An integer representing the index of the frame to decode.
+          /// Defaults to [0] (the first frame).
+          ///
+          ///    [completeFramesOnly]Optional
+          ///
+          ///      A [bool] defaulting to [true]. When [false] indicates that
+          /// for progressive images the decoder may output an image with
+          /// reduced detail.
+          ///
+          ///
+          ///
+          ImageDecodeOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'decode', [options]));
 
   ///  Resets all states including configuration, control messages in
@@ -1292,7 +1633,7 @@ class ImageTrack implements EventTarget {
 }
 
 extension PropsImageTrack on ImageTrack {
-  ///  Returns a [boolean] indicating whether the track is animated and
+  ///  Returns a [bool] indicating whether the track is animated and
   /// therefore has multiple frames.
   ///
   bool get animated => js_util.getProperty(this, 'animated');
@@ -1311,7 +1652,7 @@ extension PropsImageTrack on ImageTrack {
     js_util.setProperty(this, 'onchange', newValue);
   }
 
-  ///  Returns a [boolean] indicating whether the track is selected for
+  ///  Returns a [bool] indicating whether the track is selected for
   /// decoding.
   ///
   bool get selected => js_util.getProperty(this, 'selected');

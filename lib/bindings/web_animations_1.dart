@@ -345,7 +345,12 @@ extension PropsAnimationEffect on AnimationEffect {
   ///
   /// animation.updateTiming(timing);
   ///
-  Object updateTiming([OptionalEffectTiming? timing]) =>
+  Object updateTiming(
+          [
+
+          /// An object containing the timing properties to update.
+          ///
+          OptionalEffectTiming? timing]) =>
       js_util.callMethod(this, 'updateTiming', [timing]);
 
   GroupEffect? get parent => js_util.getProperty(this, 'parent');

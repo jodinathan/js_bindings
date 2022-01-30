@@ -36,17 +36,17 @@ extension PropsSerial on Serial {
   }
 
   ///
-  ///     Returns a [Promise] that resolves with an array of
+  ///     Returns a [Future] that resolves with an array of
   /// [SerialPort] objects representing serial ports connected to
   ///    the host which the origin has permission to access.
   ///
   ///
   /// var promise = Serial.getPorts();
   ///
-  Iterable<Promise<SerialPort>> getPorts() =>
-      js_util.callMethod(this, 'getPorts', []);
+  Future<Iterable<SerialPort>> getPorts() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getPorts', []));
 
-  ///  Returns a [Promise] that resolves with an instance of
+  ///  Returns a [Future] that resolves with an instance of
   /// [SerialPort] representing the device chosen by the user or
   /// rejects if no device was selected.
   ///   This method must be called with user activation.
@@ -122,23 +122,60 @@ extension PropsSerialPort on SerialPort {
   ///
   WritableStream get writable => js_util.getProperty(this, 'writable');
 
-  ///  Returns a [Promise] that resolves with an object containing
+  ///  Returns a [Future] that resolves with an object containing
   /// properties of the port.
   ///
   /// var promise = SerialPort.getInfo();
   ///
   SerialPortInfo getInfo() => js_util.callMethod(this, 'getInfo', []);
 
-  ///  Returns a [Promise] that resolves when the port is opened. By
+  ///  Returns a [Future] that resolves when the port is opened. By
   /// default the port is opened with 8 data bits, 1 stop bit and no
   /// parity checking.
   ///
   /// var promise = SerialPort.open(options);
   ///
-  Future<Object> open(SerialOptions options) =>
+  Future<Object> open(
+
+          /// An object with any of the following values:
+          ///
+          ///    [baudRate]
+          ///
+          ///      A positive, non-zero value indicating the baud rate at which
+          /// serial communication should be established.
+          ///
+          ///    [bufferSize]Optional
+          ///
+          ///      An unsigned long integer indicating the size of the read and
+          /// write buffers that are to be established. If not passed, defaults
+          /// to 255.
+          ///
+          ///    [dataBits]Optional
+          ///
+          ///      An integer value of 7 or 8 indicating the number of data
+          /// bits per frame. If not passed, defaults to 8.
+          ///
+          ///    [flowControl]Optional
+          ///
+          ///      The flow control type, either ["none"] or ["hardware"]. The
+          /// default value is ["none:].
+          ///
+          ///    [parity]Optional
+          ///
+          ///      The parity mode, either ["none"], ["even"], or ["odd"]. The
+          /// default value is ["none"].
+          ///
+          ///    [stopBits]Optional
+          ///
+          ///      An integer value of 1 or 2 indicating the number of stop
+          /// bits at the end of the frame. If not passed, defaults to 1.
+          ///
+          ///
+          ///
+          SerialOptions options) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'open', [options]));
 
-  ///  Sets control signals on the port and returns a [Promise] that
+  ///  Sets control signals on the port and returns a [Future] that
   /// resolves when they are set.
   ///
   /// var promise = SerialPort.setSignals(options);
@@ -146,7 +183,7 @@ extension PropsSerialPort on SerialPort {
   Future<Object> setSignals([SerialOutputSignals? signals]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setSignals', [signals]));
 
-  ///  Returns a [Promise] that resolves with an object containing the
+  ///  Returns a [Future] that resolves with an object containing the
   /// current state of the port's control signals.
   ///
   /// var promise = SerialPort.getSignals();
@@ -154,7 +191,7 @@ extension PropsSerialPort on SerialPort {
   Future<SerialInputSignals> getSignals() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getSignals', []));
 
-  /// Returns a [Promise] that resolves when the port closes.
+  /// Returns a [Future] that resolves when the port closes.
   ///
   /// var promise = SerialPort.close();
   ///

@@ -556,11 +556,52 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// DOMMatrixReadOnly.scale(scaleX, scaleY, scaleZ, originX, originY, originZ);
   ///
   DOMMatrix scale(
-          [/* double | NaN */ dynamic scaleX = 1,
+          [
+
+          /// A multiplier for the scale value on the x-axis.
+          ///
+          /* double | NaN */ dynamic scaleX = 1,
+
+          ///
+          ///     A multiplier for the scale value on the y-axis. If not
+          /// supplied, this defaults to
+          ///    the value of [scaleX].
+          ///
+          ///
           /* double | NaN */ dynamic scaleY,
+
+          ///
+          ///     A multiplier for the scale value on the z-axis. If this value
+          /// is anything other
+          ///    than 1, the resulting matrix will be 3D.
+          ///
+          ///
           /* double | NaN */ dynamic scaleZ = 1,
+
+          ///
+          ///     An x-coordinate for the origin of the transformation. If no
+          /// origin is supplied,
+          ///    this defaults to 0.
+          ///
+          ///
           /* double | NaN */ dynamic originX = 0,
+
+          ///
+          ///     A y-coordinate for the origin of the transformation. If no
+          /// origin is supplied, this
+          ///    defaults to 0.
+          ///
+          ///
           /* double | NaN */ dynamic originY = 0,
+
+          ///
+          ///     A z-coordinate for the origin of the transformation. If no
+          /// origin is supplied, this
+          ///     defaults to 0. If this value is anything other than 0, the
+          /// resulting matrix will be
+          ///    3D.
+          ///
+          ///
           /* double | NaN */ dynamic originZ = 0]) =>
       js_util.callMethod(
           this, 'scale', [scaleX, scaleY, scaleZ, originX, originY, originZ]);
@@ -662,8 +703,8 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
 
   ///  Returns a new [DOMMatrix] created by inverting the source
   /// matrix. If the matrix cannot be inverted, the new matrix's
-  /// components are all set to [NaN] and its [is2D] property is set to
-  /// [false]. The original matrix is not altered.
+  /// components are all set to [Object] and its [is2D] property is set
+  /// to [false]. The original matrix is not altered.
   ///
   DOMMatrix inverse() => js_util.callMethod(this, 'inverse', []);
 
@@ -1016,8 +1057,8 @@ extension PropsDOMMatrix on DOMMatrix {
       js_util.callMethod(this, 'skewYSelf', [sy]);
 
   ///  Modifies the matrix by inverting it. If the matrix can't be
-  /// inverted, its components are all set to [NaN], and [is2D] returns
-  /// [false].
+  /// inverted, its components are all set to [Object], and [is2D]
+  /// returns [false].
   ///
   DOMMatrix invertSelf() => js_util.callMethod(this, 'invertSelf', []);
 

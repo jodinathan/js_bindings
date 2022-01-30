@@ -42,7 +42,7 @@ extension PropsTimeEvent on TimeEvent {
   ///
   Window? get view => js_util.getProperty(this, 'view');
 
-  ///  Is a [long] that specifies some detail information about the
+  ///  Is a [int] that specifies some detail information about the
   /// Event, depending on the type of the event. For this event type,
   /// indicates the repeat number for the animation.
   ///
@@ -123,7 +123,7 @@ extension PropsSVGAnimationElement on SVGAnimationElement {
   ///  Returns a float representing the begin time, in seconds, for
   /// this animation element's current interval, if it exists,
   /// regardless of whether the interval has begun yet. If there is no
-  /// current interval, then a [DOMException] with code
+  /// current interval, then a [Exception] with code
   /// [INVALID_STATE_ERR] is thrown.
   ///
   double getStartTime() => js_util.callMethod(this, 'getStartTime', []);
@@ -135,8 +135,8 @@ extension PropsSVGAnimationElement on SVGAnimationElement {
 
   ///  Returns a float representing the number of seconds for the
   /// simple duration for this animation. If the simple duration is
-  /// undefined (e.g., the end time is indefinite), then a
-  /// [DOMException] with code [NOT_SUPPORTED_ERR] is raised.
+  /// undefined (e.g., the end time is indefinite), then a [Exception]
+  /// with code [NOT_SUPPORTED_ERR] is raised.
   ///
   double getSimpleDuration() =>
       js_util.callMethod(this, 'getSimpleDuration', []);

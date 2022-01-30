@@ -195,7 +195,27 @@ extension PropsBaseAudioContext on BaseAudioContext {
   /// var buffer = baseAudioContext.createBuffer(numOfchannels, length, sampleRate);
   ///
   AudioBuffer createBuffer(
-          int numberOfChannels, int length, double sampleRate) =>
+          int numberOfChannels,
+
+          ///
+          ///     An integer representing the size of the buffer in
+          /// sample-frames (where each
+          ///    sample-frame is the size of a sample in bytes multiplied by
+          ///    [numOfChannels]). To determine the to use for a
+          ///     specific number of seconds of audio, use [numSeconds *
+          /// sampleRate].
+          ///
+          ///
+          int length,
+
+          ///
+          ///     The sample rate of the linear audio data in sample-frames per
+          /// second. All browsers
+          ///     must support sample rates in at least the range 8,000 Hz to
+          /// 96,000 Hz.
+          ///
+          ///
+          double sampleRate) =>
       js_util.callMethod(
           this, 'createBuffer', [numberOfChannels, length, sampleRate]);
 
@@ -447,7 +467,17 @@ extension PropsBaseAudioContext on BaseAudioContext {
   ///  synthDelay.delayTime.setValueAtTime(delay1, audioCtx.currentTime);
   /// }
   ///
-  DelayNode createDelay([double? maxDelayTime = 1.0]) =>
+  DelayNode createDelay(
+          [
+
+          ///
+          ///     The maximum amount of time, in seconds, that the audio signal
+          /// can be delayed by.
+          ///     Must be less than 180 seconds, and defaults to 1 second if
+          /// not specified.
+          ///
+          ///
+          double? maxDelayTime = 1.0]) =>
       js_util.callMethod(this, 'createDelay', [maxDelayTime]);
 
   ///  Creates a [DynamicsCompressorNode], which can be used to apply
@@ -571,7 +601,26 @@ extension PropsBaseAudioContext on BaseAudioContext {
   /// var iirFilter = AudioContext.createIIRFilter(feedforward, feedback);
   ///
   IIRFilterNode createIIRFilter(
-          Iterable<double> feedforward, Iterable<double> feedback) =>
+
+          ///
+          ///     An array of floating-point values specifying the feedforward
+          /// (numerator)
+          ///     coefficients for the transfer function of the IIR filter. The
+          /// maximum length of this
+          ///    array is 20, and at least one value must be nonzero.
+          ///
+          ///
+          Iterable<double> feedforward,
+
+          ///
+          ///     An array of floating-point values specifying the feedback
+          /// (denominator) coefficients
+          ///     for the transfer function of the IIR filter. This array may
+          /// have up to 20 members, the
+          ///    first of which must not be zero.
+          ///
+          ///
+          Iterable<double> feedback) =>
       js_util.callMethod(this, 'createIIRFilter', [feedforward, feedback]);
 
   ///  Creates an [OscillatorNode], a source representing a periodic
@@ -820,8 +869,33 @@ extension PropsBaseAudioContext on BaseAudioContext {
   ///  etc.) and can be positive or negative. A simple way of manually obtaining such
   ///  coefficients (though not the best) is to use a graphing calculator.
   ///
-  PeriodicWave createPeriodicWave(Iterable<double> real, Iterable<double> imag,
-          [PeriodicWaveConstraints? constraints]) =>
+  PeriodicWave createPeriodicWave(
+
+          /// An array of cosine terms (traditionally the A terms).
+          ///
+          Iterable<double> real,
+
+          /// An array of sine terms (traditionally the B terms).
+          ///
+          Iterable<double> imag,
+          [
+
+          ///
+          ///     An dictionary object that specifies whether normalization
+          /// should be disabled (if
+          ///     not specified, normalization is enabled by default.) It takes
+          /// one property:
+          ///
+          ///
+          ///
+          ///     [disableNormalization]: If set to [true],
+          ///      normalization is disabled for the periodic wave. The default
+          /// is
+          ///     [false].
+          ///
+          ///
+          ///
+          PeriodicWaveConstraints? constraints]) =>
       js_util.callMethod(this, 'createPeriodicWave', [real, imag, constraints]);
 
   ///  Creates a [ScriptProcessorNode], which can be used for direct
@@ -915,8 +989,49 @@ extension PropsBaseAudioContext on BaseAudioContext {
   ///
   @deprecated
   ScriptProcessorNode createScriptProcessor(
-          [int? bufferSize = 0,
+          [
+
+          ///
+          ///     The buffer size in units of sample-frames. If specified, the
+          /// bufferSize must be one
+          ///     of the following values: 256, 512, 1024, 2048, 4096, 8192,
+          /// 16384. If it's not passed
+          ///     in, or if the value is 0, then the implementation will choose
+          /// the best buffer size for
+          ///     the given environment, which will be a constant power of 2
+          /// throughout the lifetime of
+          ///    the node.
+          ///
+          ///
+          ///     This value controls how frequently the [audioprocess] event
+          /// is dispatched
+          ///     and how many sample-frames need to be processed each call.
+          /// Lower values for
+          ///      will result in a lower (better) latency. Higher values will
+          /// be
+          ///     necessary to avoid audio breakup and glitches. It is
+          /// recommended for authors to not
+          ///     specify this buffer size and allow the implementation to pick
+          /// a good buffer size to
+          ///    balance between latency and audio quality.
+          ///
+          ///
+          int? bufferSize = 0,
+
+          ///
+          ///     Integer specifying the number of channels for this node's
+          /// input, defaults to 2.
+          ///    Values of up to 32 are supported.
+          ///
+          ///
           int? numberOfInputChannels = 2,
+
+          ///
+          ///     Integer specifying the number of channels for this node's
+          /// output, defaults to 2.
+          ///    Values of up to 32 are supported.
+          ///
+          ///
           int? numberOfOutputChannels = 2]) =>
       js_util.callMethod(this, 'createScriptProcessor',
           [bufferSize, numberOfInputChannels, numberOfOutputChannels]);
@@ -1710,7 +1825,19 @@ extension PropsAudioBuffer on AudioBuffer {
   /// var anotherArray = new Float32Array(length);
   /// myArrayBuffer.copyFromChannel(anotherArray, 1, 0);
   ///
-  Object copyFromChannel(Float32List destination, int channelNumber,
+  Object copyFromChannel(
+
+          /// A [Float32Array] to copy the channel's samples to.
+          ///
+          Float32List destination,
+
+          ///
+          ///     The channel number of the current [AudioBuffer] to copy the
+          /// channel data
+          ///    from.
+          ///
+          ///
+          int channelNumber,
           [int? bufferOffset = 0]) =>
       js_util.callMethod(
           this, 'copyFromChannel', [destination, channelNumber, bufferOffset]);
@@ -1829,7 +1956,20 @@ extension PropsAudioNode on AudioNode {
   ///
   /// gainNode.disconnect();
   ///
-  Object disconnect([AudioNode? destinationNode, int? output, int? input]) =>
+  Object disconnect(
+          [AudioNode? destinationNode,
+
+          ///  An index describing which output from the current [AudioNode] is
+          /// to be disconnected. The index numbers are defined according to
+          /// the number of output channels (see Audio channels).
+          ///
+          int? output,
+
+          ///  An index describing which input into the specified destination
+          /// [AudioNode] is to be disconnected. The index numbers are defined
+          /// according to the number of input channels (see Audio channels).
+          ///
+          int? input]) =>
       js_util.callMethod(this, 'disconnect', [destinationNode, output, input]);
 
   ///  Returns the associated [BaseAudioContext], that is the object
@@ -2062,7 +2202,38 @@ extension PropsAudioParam on AudioParam {
   /// var paramRef = param.setValueCurveAtTime(values, startTime, duration);
   ///
   AudioParam setValueCurveAtTime(
-          Iterable<double> values, double startTime, double duration) =>
+
+          ///
+          ///     An array of floating-point numbers representing the value
+          /// curve the
+          ///    [AudioParam] will change through along the specified
+          ///     [duration]. Every value in the array must be a finite number;
+          /// if any value
+          ///    is [Object], [Infinity], or [-Infinity], a
+          ///    [TypeError] exception is thrown.
+          ///
+          ///
+          Iterable<double> values,
+
+          ///
+          ///     A double representing the time (in seconds) after the
+          /// [AudioContext]
+          ///     was first created that the change in value will happen. If
+          /// this value is lower than
+          ///    [AudioContext.currentTime], it is clamped to [currentTime].
+          ///
+          ///
+          double startTime,
+
+          ///
+          ///     A double representing the total time (in seconds) over which
+          /// the parameter's
+          ///     [value] will change following the specified curve. The
+          /// specified values are
+          ///    spaced equally along this duration.
+          ///
+          ///
+          double duration) =>
       js_util.callMethod(
           this, 'setValueCurveAtTime', [values, startTime, duration]);
 
@@ -2131,7 +2302,22 @@ extension PropsAudioScheduledSourceNode on AudioScheduledSourceNode {
   /// osc.start(context.currentTime + 2);
   /// osc.stop(context.currentTime + 3);
   ///
-  Object start([double? when = 0]) => js_util.callMethod(this, 'start', [when]);
+  Object start(
+          [
+
+          ///
+          ///     The time, in seconds, at which the sound should begin to
+          /// play. This value is
+          ///     specified in the same time coordinate system as the
+          /// [AudioContext] is
+          ///    using for its [currentTime] attribute. A
+          ///     value of 0 (or omitting the parameter entirely) causes the
+          /// sound to
+          ///    start playback immediately.
+          ///
+          ///
+          double? when = 0]) =>
+      js_util.callMethod(this, 'start', [when]);
 
   ///  Schedules the node to stop playing at the specified time. If no
   /// time is specified, the node stops playing at once.
@@ -2153,7 +2339,22 @@ extension PropsAudioScheduledSourceNode on AudioScheduledSourceNode {
   /// osc.start();
   /// osc.stop(context.currentTime + 1);
   ///
-  Object stop([double? when = 0]) => js_util.callMethod(this, 'stop', [when]);
+  Object stop(
+          [
+
+          ///
+          ///     The time, in seconds, at which the sound should stop playing.
+          /// This value is
+          ///     specified in the same time coordinate system as the
+          /// [AudioContext] is
+          ///    using for its [currentTime] attribute.
+          ///     Omitting this parameter, specifying a value of 0, or passing
+          /// a negative value causes
+          ///    the sound to stop playback immediately.
+          ///
+          ///
+          double? when = 0]) =>
+      js_util.callMethod(this, 'stop', [when]);
 }
 
 ///  The interface represents a node able to provide real-time
@@ -2211,7 +2412,18 @@ extension PropsAnalyserNode on AnalyserNode {
   /// // fill the Float32Array with data returned from getFloatFrequencyData()
   /// analyser.getFloatFrequencyData(myDataArray);
   ///
-  Object getFloatFrequencyData(Float32List array) =>
+  Object getFloatFrequencyData(
+
+          ///
+          ///     The [Float32Array] that the frequency domain data will be
+          /// copied to. For any sample which is silent, the value is
+          /// [-Infinity].
+          ///     If the array has fewer elements than the
+          /// [AnalyserNode.frequencyBinCount], excess elements are dropped. If
+          /// it has more elements than needed, excess elements are ignored.
+          ///
+          ///
+          Float32List array) =>
       js_util.callMethod(this, 'getFloatFrequencyData', [array]);
 
   ///  Copies the current frequency data into a [Uint8Array] (unsigned
@@ -2260,7 +2472,18 @@ extension PropsAnalyserNode on AnalyserNode {
   ///
   /// draw();
   ///
-  Object getByteFrequencyData(Uint8List array) =>
+  Object getByteFrequencyData(
+
+          ///
+          ///     The [Uint8Array] that the frequency domain data will be
+          /// copied to. For any sample which is silent, the value is
+          /// [-Infinity].
+          ///     If the array has fewer elements than the
+          /// [AnalyserNode.frequencyBinCount], excess elements are dropped. If
+          /// it has more elements than needed, excess elements are ignored.
+          ///
+          ///
+          Uint8List array) =>
       js_util.callMethod(this, 'getByteFrequencyData', [array]);
 
   ///  Copies the current waveform, or time-domain, data into a
@@ -2315,7 +2538,17 @@ extension PropsAnalyserNode on AnalyserNode {
   ///
   /// draw();
   ///
-  Object getFloatTimeDomainData(Float32List array) =>
+  Object getFloatTimeDomainData(
+
+          ///
+          ///     The [Float32Array] that the time domain data will be copied
+          /// to.
+          ///     If the array has fewer elements than the
+          /// [AnalyserNode.frequencyBinCount], excess elements are dropped. If
+          /// it has more elements than needed, excess elements are ignored.
+          ///
+          ///
+          Float32List array) =>
       js_util.callMethod(this, 'getFloatTimeDomainData', [array]);
 
   ///  Copies the current waveform, or time-domain, data into a
@@ -2370,7 +2603,16 @@ extension PropsAnalyserNode on AnalyserNode {
   ///
   /// draw();
   ///
-  Object getByteTimeDomainData(Uint8List array) =>
+  Object getByteTimeDomainData(
+
+          ///
+          ///    The [Uint8Array] that the time domain data will be copied to.
+          ///     If the array has fewer elements than the
+          /// [AnalyserNode.fftSize], excess elements are dropped. If it has
+          /// more elements than needed, excess elements are ignored.
+          ///
+          ///
+          Uint8List array) =>
       js_util.callMethod(this, 'getByteTimeDomainData', [array]);
 
   ///  Is an unsigned long value representing the size of the FFT (Fast
@@ -2591,7 +2833,56 @@ extension PropsAudioBufferSourceNode on AudioBufferSourceNode {
   /// AudioBufferSourceNode.start([when][, offset][, duration]);
   ///
   @override
-  Object start([double? when = 0, double? offset, double? duration]) =>
+  Object start(
+          [
+
+          ///
+          ///     The time, in seconds, at which the sound should begin to
+          /// play, in the same time
+          ///    coordinate system used by the [AudioContext]. If is
+          ///     less than ([AudioContext.currentTime], or if it's 0, the
+          /// sound begins to
+          ///    play at once. The default value is 0.
+          ///
+          ///
+          double? when = 0,
+
+          ///
+          ///     An offset, specified as the number of seconds in the same
+          /// time coordinate system as
+          ///     the [AudioContext], to the time within the audio buffer that
+          /// playback
+          ///     should begin. For example, to start playback halfway through
+          /// a 10-second audio clip,
+          ///      should be 5. The default value, 0, will begin playback at
+          /// the
+          ///     beginning of the audio buffer, and offsets past the end of
+          /// the audio which will be
+          ///    played (based on the audio buffer's [duration]
+          ///    and/or the [loopEnd] property) are
+          ///     silently clamped to the maximum value allowed. The
+          /// computation of the offset into the
+          ///     sound is performed using the sound buffer's natural sample
+          /// rate, rather than the
+          ///     current playback rate, so even if the sound is playing at
+          /// twice its normal speed, the
+          ///    midway point through a 10-second audio buffer is still 5.
+          ///
+          ///
+          double? offset,
+
+          ///
+          ///     The duration of the sound to be played, specified in seconds.
+          /// If this parameter
+          ///     isn't specified, the sound plays until it reaches its natural
+          /// conclusion or is stopped
+          ///    using the [stop()] method. Using this
+          ///     parameter is functionally identical to calling [start(when,
+          /// offset)] and
+          ///    then calling [stop(when+duration)].
+          ///
+          ///
+          double? duration]) =>
       js_util.callMethod(this, 'start', [when, offset, duration]);
 }
 
@@ -2681,8 +2972,8 @@ class AudioDestinationNode implements AudioNode {
 }
 
 extension PropsAudioDestinationNode on AudioDestinationNode {
-  ///  Is an [unsigned long] defining the maximum number of channels
-  /// that the physical device can handle.
+  ///  Is an [int] defining the maximum number of channels that the
+  /// physical device can handle.
   ///
   int get maxChannelCount => js_util.getProperty(this, 'maxChannelCount');
 }
@@ -3556,8 +3847,8 @@ extension PropsDynamicsCompressorNode on DynamicsCompressorNode {
   ///
   AudioParam get ratio => js_util.getProperty(this, 'ratio');
 
-  ///  Is a [float] representing the amount of gain reduction currently
-  /// applied by the compressor to the signal.
+  ///  Is a [double] representing the amount of gain reduction
+  /// currently applied by the compressor to the signal.
   ///
   double get reduction => js_util.getProperty(this, 'reduction');
 
@@ -4723,7 +5014,15 @@ extension PropsAudioWorkletGlobalScope on AudioWorkletGlobalScope {
   /// AudioWorkletGlobalScope.registerProcessor(name, processorCtor);
   ///
   Object registerProcessor(
-          String name, AudioWorkletProcessorConstructor processorCtor) =>
+
+          ///  A string representing the name under which the processor will be
+          /// registered.
+          ///
+          String name,
+
+          /// The constructor of a class derived from [AudioWorkletProcessor].
+          ///
+          AudioWorkletProcessorConstructor processorCtor) =>
       js_util.callMethod(
           this, 'registerProcessor', [name, allowInterop(processorCtor)]);
 
@@ -4747,9 +5046,8 @@ extension PropsAudioWorkletGlobalScope on AudioWorkletGlobalScope {
 }
 
 ///  The Web Audio API interface represents a set of multiple audio
-/// parameters, each described as a mapping of a [DOMString]
-/// identifying the parameter to the [AudioParam] object representing
-/// its value.
+/// parameters, each described as a mapping of a [String] identifying
+/// the parameter to the [AudioParam] object representing its value.
 @experimental
 @JS()
 @staticInterop
@@ -4881,7 +5179,7 @@ class AudioParamDescriptor {
 }
 
 extension PropsAudioParamDescriptor on AudioParamDescriptor {
-  ///  The [DOMString] which represents the name of the [AudioParam].
+  ///  The [String] which represents the name of the [AudioParam].
   /// Under this name the [AudioParam] will be available in the
   /// [parameters] property of the node, and under this name the
   /// [AudioWorkletProcessor.process] method will acquire the
@@ -4892,7 +5190,7 @@ extension PropsAudioParamDescriptor on AudioParamDescriptor {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  ///  A [float] which represents initial value of the [AudioParam].
+  ///  A [double] which represents initial value of the [AudioParam].
   /// Defaults to [0].
   ///
   double get defaultValue => js_util.getProperty(this, 'defaultValue');
@@ -4900,7 +5198,7 @@ extension PropsAudioParamDescriptor on AudioParamDescriptor {
     js_util.setProperty(this, 'defaultValue', newValue);
   }
 
-  ///  A [float] which represents minimum value of the [AudioParam].
+  ///  A [double] which represents minimum value of the [AudioParam].
   /// Defaults to [-3.4028235e38].
   ///
   double get minValue => js_util.getProperty(this, 'minValue');
@@ -4908,7 +5206,7 @@ extension PropsAudioParamDescriptor on AudioParamDescriptor {
     js_util.setProperty(this, 'minValue', newValue);
   }
 
-  ///  A [float] which represents maximum value of the [AudioParam].
+  ///  A [double] which represents maximum value of the [AudioParam].
   /// Defaults to [3.4028235e38].
   ///
   double get maxValue => js_util.getProperty(this, 'maxValue');

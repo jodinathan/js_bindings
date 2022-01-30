@@ -43,7 +43,7 @@ extension PropsDeprecationReportBody on DeprecationReportBody {
   ///
   String get id => js_util.getProperty(this, 'id');
 
-  ///  A [Date] object (rendered as a string) representing the date
+  ///  A [DateTime] object (rendered as a string) representing the date
   /// when the feature is expected to be removed from the current
   /// browser. If the date is not known, this property will return
   /// [null].

@@ -143,7 +143,7 @@ class FileSystemFileHandle implements FileSystemHandle {
 
 extension PropsFileSystemFileHandle on FileSystemFileHandle {
   ///
-  ///    Returns a [Promise] which resolves to a [File] object
+  ///    Returns a [Future] which resolves to a [File] object
   ///     representing the state on disk of the entry represented by
   /// the handle.
   ///
@@ -154,7 +154,7 @@ extension PropsFileSystemFileHandle on FileSystemFileHandle {
       js_util.promiseToFuture(js_util.callMethod(this, 'getFile', []));
 
   ///
-  ///     Returns a [Promise] which resolves to a newly created
+  ///     Returns a [Future] which resolves to a newly created
   /// [FileSystemWritableFileStream]
   ///    object that can be used to write to a file.
   ///
@@ -257,8 +257,9 @@ extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
   ///
   /// var pathArr = FileSystemDirectoryHandle.resolve(possibleDescendant);
   ///
-  Iterable<Promise<String>> resolve(FileSystemHandle possibleDescendant) =>
-      js_util.callMethod(this, 'resolve', [possibleDescendant]);
+  Future<Iterable<String>> resolve(FileSystemHandle possibleDescendant) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'resolve', [possibleDescendant]));
 }
 
 enum WriteCommandType { write, seek, truncate }
@@ -312,7 +313,41 @@ extension PropsFileSystemWritableFileStream on FileSystemWritableFileStream {
   ///
   /// FileSystemWritableFileStream.write(data).then(...);
   ///
-  Future<Object> write(dynamic data) =>
+  Future<Object> write(
+
+          ///
+          ///     Can be either the file data to write, in the form of a
+          /// [BufferSource],
+          ///    [Blob] or [String]. Or an object containing the following
+          ///    properties:
+          ///
+          ///
+          ///
+          ///     [type]: One of ['write'],
+          ///     ['seek'] or ['truncate']. This is required if the object is
+          ///     passed into the [write()] method.
+          ///
+          ///
+          ///     : The file data to write. Can be a
+          ///     [BufferSource], [Blob] or [String]. This
+          ///     is required if the [type] is set to ['write'].
+          ///
+          ///
+          ///     [position]: The byte position the current file
+          ///      cursor should move to if type ['seek'] is used. Can also be
+          /// set with
+          ///      ['write'] in which case the write will start at the
+          /// position.
+          ///
+          ///
+          ///     [size]: An unsigned long value representing the
+          ///      amount of bytes the stream should contain. This is required
+          /// if the
+          ///     [type] is set to ['truncate']
+          ///
+          ///
+          ///
+          dynamic data) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'write', [data]));
 
   ///  Updates the current file cursor offset to the position (in
@@ -320,7 +355,12 @@ extension PropsFileSystemWritableFileStream on FileSystemWritableFileStream {
   ///
   /// FileSystemWritableStream.seek(position).then(...);
   ///
-  Future<Object> seek(int position) =>
+  Future<Object> seek(
+
+          ///  An unsigned long describing the byte position from the top
+          /// (beginning) of the file.
+          ///
+          int position) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'seek', [position]));
 
   ///  Resizes the file associated with the stream to be the specified

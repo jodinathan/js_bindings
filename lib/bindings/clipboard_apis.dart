@@ -70,9 +70,9 @@ extension PropsClipboardEvent on ClipboardEvent {
 /// Clipboard availability for details.
 ///
 ///  All of the Clipboard API methods operate asynchronously; they
-/// return a [Promise] which is resolved once the clipboard access
-/// has been completed. The promise is rejected if clipboard access
-/// is denied.
+/// return a [Future] which is resolved once the clipboard access has
+/// been completed. The promise is rejected if clipboard access is
+/// denied.
 ///
 ///
 ///    Note: The clipboard is a data buffer that is used for
@@ -95,7 +95,7 @@ class Clipboard implements EventTarget {
 
 extension PropsClipboard on Clipboard {
   ///  Requests arbitrary data (such as images) from the clipboard,
-  /// returning a [Promise]. When the data has been retrieved, the
+  /// returning a [Future]. When the data has been retrieved, the
   /// promise is resolved with a [DataTransfer] object that provides
   /// the data.
   ///
@@ -139,9 +139,9 @@ extension PropsClipboard on Clipboard {
   Future<Iterable<ClipboardItem>> read() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'read', []));
 
-  ///  Requests text from the system clipboard; returns a [Promise]
-  /// which is resolved with a [DOMString] containing the clipboard's
-  /// text once it's available.
+  ///  Requests text from the system clipboard; returns a [Future]
+  /// which is resolved with a [String] containing the clipboard's text
+  /// once it's available.
   ///
   /// var promise = navigator.clipboard.readText()
   ///
@@ -157,7 +157,7 @@ extension PropsClipboard on Clipboard {
 
   ///  Writes arbitrary data to the system clipboard. This asynchronous
   /// operation signals that it's finished by resolving the returned
-  /// [Promise].
+  /// [Future].
   ///
   /// var promise = navigator.clipboard.write(data)
   ///
@@ -187,10 +187,18 @@ extension PropsClipboard on Clipboard {
   ///  The key of the object passed to the ClipboardItem constructor indicates the content type, the value indicates the content. Then write() is called, specifying both a fulfillment function
   ///  and an error function.
   ///
-  Future<Object> write(Iterable<ClipboardItem> data) =>
+  Future<Object> write(
+
+          ///
+          ///     An array of [ClipboardItem] objects containing data to be
+          /// written to
+          ///    the clipboard.
+          ///
+          ///
+          Iterable<ClipboardItem> data) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'write', [data]));
 
-  ///  Writes text to the system clipboard, returning a [Promise] which
+  ///  Writes text to the system clipboard, returning a [Future] which
   /// is resolved once the text is fully copied into the clipboard.
   ///
   /// var promise = navigator.clipboard.writeText(newClipText)
@@ -247,12 +255,16 @@ extension PropsClipboardItem on ClipboardItem {
   ///
   Iterable<String> get types => js_util.getProperty(this, 'types');
 
-  ///  Returns a [Promise] that resolves with a [Blob] of the requested
+  ///  Returns a [Future] that resolves with a [Blob] of the requested
   /// MIME type, or an error if the MIME type is not found.
   ///
   /// var blob = clipboardItem.getType(type);
   ///
-  Future<Blob> getType(String type) =>
+  Future<Blob> getType(
+
+          /// A valid MIME type.
+          ///
+          String type) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getType', [type]));
 }
 

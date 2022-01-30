@@ -129,7 +129,15 @@ extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
   ///
   /// getDepthInMeters(x, y)
   ///
-  double getDepthInMeters(double x, double y) =>
+  double getDepthInMeters(
+
+          /// X coordinate (origin at the left, grows to the right).
+          ///
+          double x,
+
+          /// Y coordinate (origin at the top, grows downward).
+          ///
+          double y) =>
       js_util.callMethod(this, 'getDepthInMeters', [x, y]);
 }
 

@@ -29,18 +29,18 @@ class TransitionEvent implements Event {
 }
 
 extension PropsTransitionEvent on TransitionEvent {
-  ///  Is a [DOMString] containing the name CSS property associated
-  /// with the transition.
+  ///  Is a [String] containing the name CSS property associated with
+  /// the transition.
   ///
   String get propertyName => js_util.getProperty(this, 'propertyName');
 
-  ///  Is a [float] giving the amount of time the transition has been
+  ///  Is a [double] giving the amount of time the transition has been
   /// running, in seconds, when this event fired. This value is not
   /// affected by the [transition-delay] property.
   ///
   double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
 
-  ///  Is a [DOMString], starting with [::], containing the name of the
+  ///  Is a [String], starting with [::], containing the name of the
   /// pseudo-element the animation runs on. If the transition doesn't
   /// run on a pseudo-element but on the element, an empty string:
   /// [''].

@@ -56,46 +56,46 @@ class SecurityPolicyViolationEvent implements Event {
 extension PropsSecurityPolicyViolationEvent on SecurityPolicyViolationEvent {
   String get documentURL => js_util.getProperty(this, 'documentURL');
 
-  ///  A [USVString] representing the URI of the document or worker in
+  ///  A [String] representing the URI of the document or worker in
   /// which the violation was found.
   ///
   String get documentURI => js_util.getProperty(this, 'documentURI');
 
-  ///  A [USVString] representing the referrer of the resources whose
+  ///  A [String] representing the referrer of the resources whose
   /// policy was violated. This will be a URL or [null].
   ///
   String get referrer => js_util.getProperty(this, 'referrer');
   String get blockedURL => js_util.getProperty(this, 'blockedURL');
 
-  ///  A [USVString] representing the URI of the resource that was
-  /// blocked because it violates a policy.
+  ///  A [String] representing the URI of the resource that was blocked
+  /// because it violates a policy.
   ///
   String get blockedURI => js_util.getProperty(this, 'blockedURI');
 
-  ///  A [DOMString] representing the directive whose enforcement
+  ///  A [String] representing the directive whose enforcement
   /// uncovered the violation.
   ///
   String get effectiveDirective =>
       js_util.getProperty(this, 'effectiveDirective');
 
-  ///  A [DOMString] representing the directive whose enforcement
+  ///  A [String] representing the directive whose enforcement
   /// uncovered the violation.
   ///
   String get violatedDirective =>
       js_util.getProperty(this, 'violatedDirective');
 
-  ///  A [DOMString] containing the policy whose enforcement uncovered
-  /// the violation.
+  ///  A [String] containing the policy whose enforcement uncovered the
+  /// violation.
   ///
   String get originalPolicy => js_util.getProperty(this, 'originalPolicy');
 
-  ///  A [USVString] representing the URI of the document or worker in
+  ///  A [String] representing the URI of the document or worker in
   /// which the violation was found.
   ///
   String get sourceFile => js_util.getProperty(this, 'sourceFile');
 
-  ///  A [DOMString] representing a sample of the resource that caused
-  /// the violation, usually the first 40 characters. This will only be
+  ///  A [String] representing a sample of the resource that caused the
+  /// violation, usually the first 40 characters. This will only be
   /// populated if the resource is an inline script, event handler, or
   /// style — external resources causing a violation will not generate
   /// a sample.

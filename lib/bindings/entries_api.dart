@@ -39,12 +39,12 @@ extension PropsFileSystemEntry on FileSystemEntry {
   ///
   bool get isDirectory => js_util.getProperty(this, 'isDirectory');
 
-  ///  A [USVString] containing the name of the entry (the final part
-  /// of the path, after the last "/" character).
+  ///  A [String] containing the name of the entry (the final part of
+  /// the path, after the last "/" character).
   ///
   String get name => js_util.getProperty(this, 'name');
 
-  ///  A [USVString] object which provides the full, absolute path from
+  ///  A [String] object which provides the full, absolute path from
   /// the file system's root to the entry; it can also be thought of as
   /// a path which is relative to the root directory, prepended with a
   /// "/" character.
@@ -79,7 +79,27 @@ extension PropsFileSystemEntry on FileSystemEntry {
   ///  directory.
   ///
   Object getParent(
-          [FileSystemEntryCallback? successCallback,
+          [
+
+          ///
+          ///     A function which is called when the parent directory entry
+          /// has been retrieved. The
+          ///     callback receives a single input parameter: a
+          /// [FileSystemDirectoryEntry]
+          ///     object representing the parent directory. The parent of the
+          /// root directory is
+          ///     considered to be the root directory, itself, so be sure to
+          /// watch for that.
+          ///
+          ///
+          FileSystemEntryCallback? successCallback,
+
+          ///
+          ///     An optional callback which is executed if an error occurs.
+          /// There's a single
+          ///    parameter: a [Exception] describing what went wrong.
+          ///
+          ///
           ErrorCallback? errorCallback]) =>
       js_util.callMethod(this, 'getParent', [
         successCallback == null ? null : allowInterop(successCallback),
@@ -177,9 +197,44 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
   ///  JSON.parse() to be reconstituted into a JavaScript object.
   ///
   Object getFile(
-          [String? path,
+          [
+
+          ///
+          ///     A [String] specifying the path, relative to the directory on
+          /// which
+          ///     the method is called, describing which file's entry to
+          /// return.
+          ///
+          ///
+          String? path,
+
+          ///
+          ///    An object which allows you
+          ///     to specify whether or not to create the entry if it's missing
+          /// and if it's an error if
+          ///     the file already exists. These options are currently not
+          /// useful in Web contexts.
+          ///    See the options parameter section for more details.
+          ///
+          ///
           FileSystemFlags? options,
+
+          ///
+          ///     A method to be called once the [FileSystemFileEntry] has been
+          /// created.
+          ///     The method receives a single parameter: the
+          /// [FileSystemFileEntry] object
+          ///    representing the file in question.
+          ///
+          ///
           FileSystemEntryCallback? successCallback,
+
+          ///
+          ///     A method to be called if an error occurs. Receives as its
+          /// sole input parameter a
+          ///    [Exception] object describing the error which occurred.
+          ///
+          ///
           ErrorCallback? errorCallback]) =>
       js_util.callMethod(this, 'getFile', [
         path,
@@ -230,9 +285,46 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
   ///  JSON.parse() to be reconstituted into a JavaScript object.
   ///
   Object getDirectory(
-          [String? path,
+          [
+
+          ///
+          ///     A [String] representing an absolute path or a path relative
+          /// to the
+          ///     directory on which the method is called, describing which
+          /// directory entry to return.
+          ///     Absolute paths may not be able to be used, for security
+          /// reasons.
+          ///
+          ///
+          String? path,
+
+          ///
+          ///    An object which allows you
+          ///     to specify whether or not to create the entry if it's missing
+          /// and if it's an error if
+          ///     the file already exists. These options are currently not
+          /// useful in Web contexts.
+          ///    See the options parameter section for more details.
+          ///
+          ///
           FileSystemFlags? options,
+
+          ///
+          ///     A method to be called once the [FileSystemDirectoryEntry] has
+          /// been
+          ///    created. The method receives a single parameter: the
+          ///     [FileSystemDirectoryEntry] object representing the directory
+          /// in question.
+          ///
+          ///
           FileSystemEntryCallback? successCallback,
+
+          ///
+          ///     A method to be called if an error occurs. Receives as its
+          /// sole input parameter a
+          ///    [DomException] object describing the error which occurred.
+          ///
+          ///
           ErrorCallback? errorCallback]) =>
       js_util.callMethod(this, 'getDirectory', [
         path,
@@ -282,8 +374,35 @@ extension PropsFileSystemDirectoryReader on FileSystemDirectoryReader {
   /// readEntries(successCallback, errorCallback);
   ///
   /// See DataTransferItem.webkitGetAsEntry() for example code that uses this method.
-  Object readEntries(FileSystemEntriesCallback successCallback,
-          [ErrorCallback? errorCallback]) =>
+  Object readEntries(
+
+          ///
+          ///     A function which is called when the directory's contents have
+          /// been retrieved. The
+          ///     function receives a single input parameter: an array of file
+          /// system entry objects,
+          ///    each based on [FileSystemEntry]. Generally, they are either
+          ///     [FileSystemFileEntry] objects, which represent standard
+          /// files, or
+          ///     [FileSystemDirectoryEntry] objects, which represent
+          /// directories. If there
+          ///     are no files left, or you've already called [readEntries()]
+          /// on this
+          ///    [FileSystemDirectoryReader], the array is empty.
+          ///
+          ///
+          FileSystemEntriesCallback successCallback,
+          [
+
+          ///
+          ///     A callback function which is called if an error occurs while
+          /// reading from the
+          ///     directory. It receives one input parameter: a [Exception]
+          /// object
+          ///    describing the error which occurred.
+          ///
+          ///
+          ErrorCallback? errorCallback]) =>
       js_util.callMethod(this, 'readEntries', [
         allowInterop(successCallback),
         errorCallback == null ? null : allowInterop(errorCallback)
@@ -333,7 +452,26 @@ extension PropsFileSystemFileEntry on FileSystemFileEntry {
   ///  called; similarly, its error handler is set up to call the
   ///  errorCallback specified.
   ///
-  Object file(FileCallback successCallback, [ErrorCallback? errorCallback]) =>
+  Object file(
+
+          ///
+          ///     A callback function which is called when the [File] has been
+          /// created
+          ///     successfully; the [File] is passed into the callback as the
+          /// only parameter.
+          ///
+          ///
+          FileCallback successCallback,
+          [
+
+          ///
+          ///     If provided, this must be a method which is called when an
+          /// error occurs while trying
+          ///    to create the [File]. This callback receives as input a
+          ///    [Exception] object describing the error.
+          ///
+          ///
+          ErrorCallback? errorCallback]) =>
       js_util.callMethod(this, 'file', [
         allowInterop(successCallback),
         errorCallback == null ? null : allowInterop(errorCallback)
@@ -357,7 +495,7 @@ class FileSystem {
 }
 
 extension PropsFileSystem on FileSystem {
-  ///  A [USVString] representing the file system's name. This name is
+  ///  A [String] representing the file system's name. This name is
   /// unique among the entire list of exposed file systems.
   ///
   String get name => js_util.getProperty(this, 'name');

@@ -31,7 +31,7 @@ class CookieStore implements EventTarget {
 
 extension PropsCookieStore on CookieStore {
   ///  The [get()] method gets a single cookie with the given name or
-  /// options object, it returns a [Promise] that resolves with details
+  /// options object, it returns a [Future] that resolves with details
   /// of a single cookie.
   ///
   /// var cookie = CookieStore.get(name);
@@ -39,20 +39,28 @@ extension PropsCookieStore on CookieStore {
   ///
   @JS('get')
   @staticInterop
-  Future<CookieListItem> mGet(String name) =>
+  Future<CookieListItem> mGet(
+
+          /// A [String] with the name of a cookie.
+          ///
+          String name) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'get', [name]));
 
   ///  The [getAll()] method gets all matching cookies, it returns a
-  /// [Promise] that resolves with a list of cookies.
+  /// [Future] that resolves with a list of cookies.
   ///
   /// var list = cookieStore.getAll(name);
   /// var list = cookieStore.getAll(options);
   ///
-  Future<Iterable<CookieListItem>> getAll(String name) =>
+  Future<Iterable<CookieListItem>> getAll(
+
+          /// A [String] with the name of a cookie.
+          ///
+          String name) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getAll', [name]));
 
   ///  The [set()] method sets a cookie with the given name and value
-  /// or options object, it returns a [Promise] that resolves when the
+  /// or options object, it returns a [Future] that resolves when the
   /// cookie is set.
   ///
   /// var promise = cookieStore.set(name,value);
@@ -60,17 +68,30 @@ extension PropsCookieStore on CookieStore {
   ///
   @JS('set')
   @staticInterop
-  Future<Object> mSet([String? name, String? value]) =>
+  Future<Object> mSet(
+          [
+
+          /// A [String] with the name of a cookie.
+          ///
+          String? name,
+
+          /// A [String] with the value of the cookie.
+          ///
+          String? value]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'set', [name, value]));
 
   ///  The [delete()] method deletes a cookie with the given name or
-  /// options object, it returns a [Promise] that resolves when the
+  /// options object, it returns a [Future] that resolves when the
   /// deletion completes.
   ///
   /// var promise = cookieStore.delete(name);
   /// var promise = cookieStore.delete(options);
   ///
-  Future<Object> delete(String name) =>
+  Future<Object> delete(
+
+          /// A [String] with the name of a cookie.
+          ///
+          String name) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'delete', [name]));
 
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
@@ -255,8 +276,8 @@ extension PropsCookieStoreManager on CookieStoreManager {
   ///
   /// let promise = registration.cookies.getSubscriptions();
   ///
-  Iterable<Promise<CookieStoreGetOptions>> getSubscriptions() =>
-      js_util.callMethod(this, 'getSubscriptions', []);
+  Future<Iterable<CookieStoreGetOptions>> getSubscriptions() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getSubscriptions', []));
 
   ///  Unsubscribes the registered service worker from changes to
   /// cookies. It returns a [promise] which resolves when the operation

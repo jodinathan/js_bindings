@@ -45,7 +45,7 @@ class Keyboard {
 }
 
 extension PropsKeyboard on Keyboard {
-  ///  Returns a [Promise] that resolves with an instance of
+  ///  Returns a [Future] that resolves with an instance of
   /// [KeyboardLayoutMap] which is a map-like object with functions for
   /// retrieving the strings associated with specific physical keys.
   ///

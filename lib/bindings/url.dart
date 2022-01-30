@@ -34,75 +34,73 @@ class URL {
 }
 
 extension PropsURL on URL {
-  ///  A stringifier that returns a [USVString] containing the whole
-  /// URL.
+  /// A stringifier that returns a [String] containing the whole URL.
   ///
   String get href => js_util.getProperty(this, 'href');
   set href(String newValue) {
     js_util.setProperty(this, 'href', newValue);
   }
 
-  ///  Returns a [USVString] containing the origin of the URL, that is
-  /// its scheme, its domain and its port.
+  ///  Returns a [String] containing the origin of the URL, that is its
+  /// scheme, its domain and its port.
   ///
   String get origin => js_util.getProperty(this, 'origin');
 
-  ///  A [USVString] containing the protocol scheme of the URL,
-  /// including the final [':'].
+  ///  A [String] containing the protocol scheme of the URL, including
+  /// the final [':'].
   ///
   String get protocol => js_util.getProperty(this, 'protocol');
   set protocol(String newValue) {
     js_util.setProperty(this, 'protocol', newValue);
   }
 
-  ///  A [USVString] containing the username specified before the
-  /// domain name.
+  ///  A [String] containing the username specified before the domain
+  /// name.
   ///
   String get username => js_util.getProperty(this, 'username');
   set username(String newValue) {
     js_util.setProperty(this, 'username', newValue);
   }
 
-  ///  A [USVString] containing the password specified before the
-  /// domain name.
+  ///  A [String] containing the password specified before the domain
+  /// name.
   ///
   String get password => js_util.getProperty(this, 'password');
   set password(String newValue) {
     js_util.setProperty(this, 'password', newValue);
   }
 
-  ///  A [USVString] containing the domain (that is the hostname)
-  /// followed by (if a port was specified) a [':'] and the port of the
-  /// URL.
+  ///  A [String] containing the domain (that is the hostname) followed
+  /// by (if a port was specified) a [':'] and the port of the URL.
   ///
   String get host => js_util.getProperty(this, 'host');
   set host(String newValue) {
     js_util.setProperty(this, 'host', newValue);
   }
 
-  /// A [USVString] containing the domain of the URL.
+  /// A [String] containing the domain of the URL.
   ///
   String get hostname => js_util.getProperty(this, 'hostname');
   set hostname(String newValue) {
     js_util.setProperty(this, 'hostname', newValue);
   }
 
-  /// A [USVString] containing the port number of the URL.
+  /// A [String] containing the port number of the URL.
   ///
   String get port => js_util.getProperty(this, 'port');
   set port(String newValue) {
     js_util.setProperty(this, 'port', newValue);
   }
 
-  ///  Is a [USVString] containing an initial ['/'] followed by the
-  /// path of the URL, not including the query string or fragment.
+  ///  Is a [String] containing an initial ['/'] followed by the path
+  /// of the URL, not including the query string or fragment.
   ///
   String get pathname => js_util.getProperty(this, 'pathname');
   set pathname(String newValue) {
     js_util.setProperty(this, 'pathname', newValue);
   }
 
-  ///  A [USVString] indicating the URL's parameter string; if any
+  ///  A [String] indicating the URL's parameter string; if any
   /// parameters are provided, this string includes all of them,
   /// beginning with the leading [?] character.
   ///
@@ -116,7 +114,7 @@ extension PropsURL on URL {
   ///
   URLSearchParams get searchParams => js_util.getProperty(this, 'searchParams');
 
-  ///  A [USVString] containing a ['#'] followed by the fragment
+  ///  A [String] containing a ['#'] followed by the fragment
   /// identifier of the URL.
   ///
   @JS('hash')
@@ -126,8 +124,8 @@ extension PropsURL on URL {
     js_util.setProperty(this, 'hash', newValue);
   }
 
-  ///  Returns a [USVString] containing the whole URL. It returns the
-  /// same string as the [href] property.
+  ///  Returns a [String] containing the whole URL. It returns the same
+  /// string as the [href] property.
   ///
   /// const href = url.toJSON()
   ///
@@ -202,7 +200,15 @@ extension PropsURLSearchParams on URLSearchParams {
   ///
   @JS('set')
   @staticInterop
-  Object mSet(String name, String value) =>
+  Object mSet(
+
+          /// The name of the parameter to set.
+          ///
+          String name,
+
+          /// The value of the parameter to set.
+          ///
+          String value) =>
       js_util.callMethod(this, 'set', [name, value]);
 
   /// Sorts all key/value pairs, if any, by their keys.

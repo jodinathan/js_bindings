@@ -41,14 +41,50 @@ extension PropsGeolocation on Geolocation {
   /// navigator.geolocation.getCurrentPosition(success, error, [options])
   ///
   Object getCurrentPosition(PositionCallback successCallback,
-          [PositionErrorCallback? errorCallback, PositionOptions? options]) =>
+          [PositionErrorCallback? errorCallback,
+
+          /// An optional object including the following parameters:
+          ///
+          ///    [maximumAge]
+          ///
+          ///       : Is a positive [int] value indicating the maximum age in
+          /// milliseconds of a possible cached position that is acceptable to
+          /// return. If set to [0], it means that the device cannot use a
+          /// cached position and must attempt to retrieve the real current
+          /// position. If set to [Infinity] the device must return a cached
+          /// position regardless of its age. Default: 0.
+          ///
+          ///
+          ///
+          ///     [timeout]
+          ///      : Is a positive [int] value representing the maximum length
+          /// of time (in milliseconds) the device is allowed to take in order
+          /// to return a position. The default value is [Infinity], meaning
+          /// that [getCurrentPosition()] won't return until the position is
+          /// available.
+          ///
+          ///    [enableHighAccuracy]
+          ///
+          ///       : Is a boolean value that indicates the application would
+          /// like to receive the best possible results. If [true] and if the
+          /// device is able to provide a more accurate position, it will do
+          /// so. Note that this can result in slower response times or
+          /// increased power consumption (with a GPS chip on a mobile device
+          /// for example). On the other hand, if [false], the device can take
+          /// the liberty to save resources by responding more quickly and/or
+          /// using less power. Default: [false].
+          ///
+          ///
+          ///
+          ///
+          PositionOptions? options]) =>
       js_util.callMethod(this, 'getCurrentPosition', [
         allowInterop(successCallback),
         errorCallback == null ? null : allowInterop(errorCallback),
         options
       ]);
 
-  ///  Returns a [long] value representing the newly established
+  ///  Returns a [int] value representing the newly established
   /// callback function to be invoked whenever the device location
   /// changes.
   ///
@@ -57,7 +93,16 @@ extension PropsGeolocation on Geolocation {
   /// navigator.geolocation.watchPosition(success, error, options)
   ///
   int watchPosition(PositionCallback successCallback,
-          [PositionErrorCallback? errorCallback, PositionOptions? options]) =>
+          [PositionErrorCallback? errorCallback,
+
+          ///
+          ///     An optional object that provides configuration options for
+          /// the location watch.
+          ///     See [Geolocation.getCurrentPosition()] for more details on
+          /// possible options.
+          ///
+          ///
+          PositionOptions? options]) =>
       js_util.callMethod(this, 'watchPosition', [
         allowInterop(successCallback),
         errorCallback == null ? null : allowInterop(errorCallback),
@@ -148,8 +193,8 @@ extension PropsGeolocationPosition on GeolocationPosition {
   ///
   GeolocationCoordinates get coords => js_util.getProperty(this, 'coords');
 
-  ///  Returns a [DOMTimeStamp] representing the time at which the
-  /// location was retrieved.
+  ///  Returns a [int] representing the time at which the location was
+  /// retrieved.
   ///
   int get timestamp => js_util.getProperty(this, 'timestamp');
 }
@@ -197,8 +242,8 @@ extension PropsGeolocationCoordinates on GeolocationCoordinates {
   /// far off from heading true north the device is. [0] degrees
   /// represents true north, and the direction is determined clockwise
   /// (which means that east is [90] degrees and west is [270]
-  /// degrees). If [speed] is [0], is [NaN]. If the device is unable to
-  /// provide information, this value is [null].
+  /// degrees). If [speed] is [0], is [Object]. If the device is unable
+  /// to provide information, this value is [null].
   ///
   double? get heading => js_util.getProperty(this, 'heading');
 
@@ -222,8 +267,8 @@ class GeolocationPositionError {
 }
 
 extension PropsGeolocationPositionError on GeolocationPositionError {
-  ///  Returns an [unsigned short] representing the error code. The
-  /// following values are possible:
+  ///  Returns an [int] representing the error code. The following
+  /// values are possible:
   ///
   ///
   ///
@@ -256,10 +301,9 @@ extension PropsGeolocationPositionError on GeolocationPositionError {
   ///
   int get code => js_util.getProperty(this, 'code');
 
-  ///  Returns a human-readable [DOMString] describing the details of
-  /// the error. Specifications note that this is primarily intended
-  /// for debugging use and not to be shown directly in a user
-  /// interface.
+  ///  Returns a human-readable [String] describing the details of the
+  /// error. Specifications note that this is primarily intended for
+  /// debugging use and not to be shown directly in a user interface.
   ///
   String get message => js_util.getProperty(this, 'message');
 }

@@ -99,21 +99,33 @@ class ContactsManager {
 }
 
 extension PropsContactsManager on ContactsManager {
-  ///  Returns a [Promise] which resolves with an [Array] of [strings]
+  ///  Returns a [Future] which resolves with an [Array] of [strings]
   /// indicating which contact properties are available.
   ///
   /// var ContactProperties = ContactsManager.getProperties();
   ///
-  Iterable<Promise<ContactProperty>> getProperties() =>
-      js_util.callMethod(this, 'getProperties', []);
+  Future<Iterable<ContactProperty>> getProperties() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getProperties', []));
 
-  ///  Returns a [Promise] which, when resolved, presents the user with
+  ///  Returns a [Future] which, when resolved, presents the user with
   /// a contact picker which allows them to select contact(s) they wish
   /// to share.
   ///
   /// var ContactInfo = ContactsManager.select(properties, options);
   ///
-  Iterable<Promise<ContactInfo>> select(Iterable<ContactProperty> properties,
-          [ContactsSelectOptions? options]) =>
-      js_util.callMethod(this, 'select', [properties, options]);
+  Future<Iterable<ContactInfo>> select(Iterable<ContactProperty> properties,
+          [
+
+          /// Options are as follows:
+          ///
+          ///
+          ///      [multiple]: A Boolean that allows multiple contacts to be
+          /// selected.
+          ///     The default is [false].
+          ///
+          ///
+          ///
+          ContactsSelectOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'select', [properties, options]));
 }

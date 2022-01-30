@@ -196,7 +196,7 @@ extension PropsNDEFReader on NDEFReader {
     js_util.setProperty(this, 'onreadingerror', newValue);
   }
 
-  ///  Activates a reading device and returns a [Promise] that either
+  ///  Activates a reading device and returns a [Future] that either
   /// resolves when an NFC tag is read or rejects if a hardware or
   /// permission error is encountered. This method triggers a
   /// permission prompt if the "nfc" permission has not been previously
@@ -205,11 +205,22 @@ extension PropsNDEFReader on NDEFReader {
   /// var readerPromise = NDEFReader.scan(options);
   ///
   @experimental
-  Future<Object> scan([NDEFScanOptions? options]) =>
+  Future<Object> scan(
+          [
+
+          /// An object with the following properties:
+          ///
+          ///
+          ///     [signal] -- An [AbortSignal] that allows cancelling
+          ///     this [scan()] operation.
+          ///
+          ///
+          ///
+          NDEFScanOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'scan', [options]));
 
   ///  Attempts to write an NDEF message to a tag and returns a
-  /// [Promise] that either resolves when a message has been written to
+  /// [Future] that either resolves when a message has been written to
   /// the tag or rejects if a hardware or permission error is
   /// encountered. This method triggers a permission prompt if the
   /// "nfc" permission has not been previously granted.
@@ -218,8 +229,88 @@ extension PropsNDEFReader on NDEFReader {
   ///  NDEFReader.write(message, options);
   ///
   @experimental
-  Future<Object> write(dynamic message, [NDEFWriteOptions? options]) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'write', [message, options]));
+  Future<Object> write(
+
+          ///
+          ///    The message to be written, one of [String],
+          ///     [BufferSource], or an array of records. A record has the
+          /// following members:
+          ///
+          ///
+          ///    [data] Optional
+          ///
+          ///      Contains the data to be transmitted, one of a string, a
+          /// [BufferSource], or an array of nested records.
+          ///
+          ///    [encoding] Optional
+          ///
+          ///     A string specifying the record's encoding.
+          ///
+          ///    [id] Optional
+          ///
+          ///     A developer-defined identifier for the record.
+          ///
+          ///    [lang] Optional
+          ///
+          ///      A valid language tag according to RFC 5646: Tags for
+          /// Identifying Languages (also known as BCP 47).
+          ///
+          ///    [mediaType] Optional
+          ///
+          ///     A valid MIME type.
+          ///
+          ///    [recordType]
+          ///
+          ///      A string indicating the type of data stored in [data]. It
+          /// must be one of the following values:
+          ///
+          ///      ["absolute-url"]
+          ///
+          ///       An absolute URL to the data.
+          ///
+          ///      ["empty"]
+          ///
+          ///       An empty [NDEFRecord].
+          ///
+          ///      ["mime"]
+          ///
+          ///       A valid MIME type.
+          ///
+          ///      ["smart-poster"]
+          ///
+          ///        A smart poster as defined by the NDEF-SMARTPOSTER
+          /// specification.
+          ///
+          ///      ["text"]
+          ///
+          ///       Text as defined by the NDEF-TEXT specification.
+          ///
+          ///      ["unknown"]
+          ///
+          ///       The record type is not known.
+          ///
+          ///      ["URL"]
+          ///
+          ///       A URL as defined by the NDEF-URI specification.
+          ///
+          ///
+          ///
+          dynamic message,
+          [
+
+          /// An object with the following properties:
+          ///
+          ///
+          ///     [overwrite] -- A [Boolean] specifying whether or not
+          ///     existing records should be overwritten, if such exists.
+          ///
+          ///     [signal] -- An optional [AbortSignal] that allows the current
+          /// write operation to be canceled.
+          ///
+          ///
+          NDEFWriteOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'write', [message, options]));
 }
 
 ///  Secure context: This feature is available only in secure

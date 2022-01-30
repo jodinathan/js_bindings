@@ -25,7 +25,7 @@ class CSSTransition implements Animation {
 }
 
 extension PropsCSSTransition on CSSTransition {
-  /// Returns the transition CSS property name as a [CSSOMString].
+  /// Returns the transition CSS property name as a [String].
   ///
   String get transitionProperty =>
       js_util.getProperty(this, 'transitionProperty');

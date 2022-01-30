@@ -109,7 +109,7 @@ extension PropsVTTCue on VTTCue {
     js_util.setProperty(this, 'align', newValue);
   }
 
-  /// Returns a [DOMString] with the contents of the cue.
+  /// Returns a [String] with the contents of the cue.
   ///
   String get text => js_util.getProperty(this, 'text');
   set text(String newValue) {
@@ -136,7 +136,7 @@ class VTTRegion {
 }
 
 extension PropsVTTRegion on VTTRegion {
-  /// A [DOMString] that identifies the region.
+  /// A [String] that identifies the region.
   ///
   String get id => js_util.getProperty(this, 'id');
   set id(String newValue) {

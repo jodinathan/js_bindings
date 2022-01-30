@@ -59,8 +59,63 @@ extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
   ///   countsList, countsOffset,
   ///   drawCount);
   ///
-  Object multiDrawArraysWEBGL(int mode, dynamic firstsList, int firstsOffset,
-          dynamic countsList, int countsOffset, int drawcount) =>
+  Object multiDrawArraysWEBGL(
+
+          ///
+          ///    A [GLenum]
+          ///    specifying the type primitive to render. Possible values are:
+          ///
+          ///
+          ///    [gl.POINTS]: Draws a single dot.
+          ///    [gl.LINE_STRIP]: Draws a straight line to the next vertex.
+          ///
+          ///      [gl.LINE_LOOP]: Draws a straight line to the next vertex,
+          /// and
+          ///     connects the
+          ///     last vertex back to the first.
+          ///
+          ///    [gl.LINES]: Draws a line between a pair of vertices.
+          ///    [gl.TRIANGLE_STRIP]
+          ///    [gl.TRIANGLE_FAN]
+          ///     [gl.TRIANGLES]: Draws a triangle for a group of three
+          /// vertices.
+          ///
+          ///
+          int mode,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLint])
+          ///     specifying a list of starting indices for the arrays of
+          /// vector points.
+          ///
+          ///
+          dynamic firstsList,
+
+          ///
+          ///    A [GLuint]
+          ///    defining the starting point into the [firstsLists] array.
+          ///
+          ///
+          int firstsOffset,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLsizei])
+          ///    specifying a list of numbers of indices to be rendered.
+          ///
+          ///
+          dynamic countsList,
+
+          ///
+          ///    A [GLuint]
+          ///    defining the starting point into the [countsList] array.
+          ///
+          ///
+          int countsOffset,
+          int drawcount) =>
       js_util.callMethod(this, 'multiDrawArraysWEBGL', [
         mode,
         firstsList,
@@ -82,8 +137,64 @@ extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
   ///   firstsList, firstsOffset,
   ///   drawCount);
   ///
-  Object multiDrawElementsWEBGL(int mode, dynamic countsList, int countsOffset,
-          int type, dynamic offsetsList, int offsetsOffset, int drawcount) =>
+  Object multiDrawElementsWEBGL(
+
+          ///
+          ///    A [GLenum]
+          ///    specifying the type primitive to render. Possible values are:
+          ///
+          ///
+          ///    [gl.POINTS]: Draws a single dot.
+          ///    [gl.LINE_STRIP]: Draws a straight line to the next vertex.
+          ///
+          ///      [gl.LINE_LOOP]: Draws a straight line to the next vertex,
+          /// and
+          ///     connects the
+          ///     last vertex back to the first.
+          ///
+          ///    [gl.LINES]: Draws a line between a pair of vertices.
+          ///    [gl.TRIANGLE_STRIP]
+          ///    [gl.TRIANGLE_FAN]
+          ///     [gl.TRIANGLES]: Draws a triangle for a group of three
+          /// vertices.
+          ///
+          ///
+          int mode,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLint])
+          ///    specifying a list of numbers of indices to be rendered.
+          ///
+          ///
+          dynamic countsList,
+
+          ///
+          ///    A [GLUint]
+          ///    defining the starting point into the [countsList] array.
+          ///
+          ///
+          int countsOffset,
+          int type,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLsizei])
+          ///     specifying a list of starting indices for the arrays of
+          /// vector points.
+          ///
+          ///
+          dynamic offsetsList,
+
+          ///
+          ///    A [GLuint]
+          ///    defining the starting point into the [offsetsList] array.
+          ///
+          ///
+          int offsetsOffset,
+          int drawcount) =>
       js_util.callMethod(this, 'multiDrawElementsWEBGL', [
         mode,
         countsList,
@@ -107,12 +218,78 @@ extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
   ///   drawCount);
   ///
   Object multiDrawArraysInstancedWEBGL(
+
+          ///
+          ///    A [GLenum]
+          ///    specifying the type primitive to render. Possible values are:
+          ///
+          ///
+          ///    [gl.POINTS]: Draws a single dot.
+          ///    [gl.LINE_STRIP]: Draws a straight line to the next vertex.
+          ///
+          ///      [gl.LINE_LOOP]: Draws a straight line to the next vertex,
+          /// and
+          ///     connects the
+          ///     last vertex back to the first.
+          ///
+          ///    [gl.LINES]: Draws a line between a pair of vertices.
+          ///    [gl.TRIANGLE_STRIP]
+          ///    [gl.TRIANGLE_FAN]
+          ///     [gl.TRIANGLES]: Draws a triangle for a group of three
+          /// vertices.
+          ///
+          ///
           int mode,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLint])
+          ///     specifying a list of starting indices for the arrays of
+          /// vector points.
+          ///
+          ///
           dynamic firstsList,
+
+          ///
+          ///    A [GLuint]
+          ///    defining the starting point into the [firstsLists] array.
+          ///
+          ///
           int firstsOffset,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLsizei])
+          ///    specifying a list of numbers of indices to be rendered.
+          ///
+          ///
           dynamic countsList,
+
+          ///
+          ///    A [GLuint]
+          ///    defining the starting point into the [countsList] array.
+          ///
+          ///
           int countsOffset,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLsizei])
+          ///     specifying a list of number sof instances of the range of
+          /// elements to execute.
+          ///
+          ///
           dynamic instanceCountsList,
+
+          ///
+          ///    A [GLuint]
+          ///     defining the starting point into the [instanceCountsList]
+          /// array.
+          ///
+          ///
           int instanceCountsOffset,
           int drawcount) =>
       js_util.callMethod(this, 'multiDrawArraysInstancedWEBGL', [
@@ -140,13 +317,79 @@ extension PropsWEBGL_multi_draw on WEBGL_multi_draw {
   ///   drawCount);
   ///
   Object multiDrawElementsInstancedWEBGL(
+
+          ///
+          ///    A [GLenum]
+          ///    specifying the type primitive to render. Possible values are:
+          ///
+          ///
+          ///    [gl.POINTS]: Draws a single dot.
+          ///    [gl.LINE_STRIP]: Draws a straight line to the next vertex.
+          ///
+          ///      [gl.LINE_LOOP]: Draws a straight line to the next vertex,
+          /// and
+          ///     connects the
+          ///     last vertex back to the first.
+          ///
+          ///    [gl.LINES]: Draws a line between a pair of vertices.
+          ///    [gl.TRIANGLE_STRIP]
+          ///    [gl.TRIANGLE_FAN]
+          ///     [gl.TRIANGLES]: Draws a triangle for a group of three
+          /// vertices.
+          ///
+          ///
           int mode,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLint])
+          ///    specifying a list of numbers of indices to be rendered.
+          ///
+          ///
           dynamic countsList,
+
+          ///
+          ///    A [GLUint]
+          ///    defining the starting point into the [countsList] array.
+          ///
+          ///
           int countsOffset,
           int type,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLsizei])
+          ///     specifying a list of starting indices for the arrays of
+          /// vector points.
+          ///
+          ///
           dynamic offsetsList,
+
+          ///
+          ///    A [GLuint]
+          ///    defining the starting point into the [offsetsList] array.
+          ///
+          ///
           int offsetsOffset,
+
+          ///
+          ///    An [Int32Array]
+          ///    or [Array]
+          ///    (of [GLsizei])
+          ///     specifying a list of number sof instances of the range of
+          /// elements to execute.
+          ///
+          ///
           dynamic instanceCountsList,
+
+          ///
+          ///    A [GLuint]
+          ///     defining the starting point into the [instanceCountsList]
+          /// array.
+          ///
+          ///
           int instanceCountsOffset,
           int drawcount) =>
       js_util.callMethod(this, 'multiDrawElementsInstancedWEBGL', [

@@ -23,7 +23,7 @@ class SyncManager {
 }
 
 extension PropsSyncManager on SyncManager {
-  /// Create a new sync registration and return a [Promise].
+  /// Create a new sync registration and return a [Future].
   ///
   /// SyncManager.register([options]).then(function(syncRegistration) { /* ... */ })
   ///
@@ -35,8 +35,8 @@ extension PropsSyncManager on SyncManager {
   ///
   /// SyncManager.getTags().then(function(tags[]) { /* ... */ })
   ///
-  Iterable<Promise<String>> getTags() =>
-      js_util.callMethod(this, 'getTags', []);
+  Future<Iterable<String>> getTags() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getTags', []));
 }
 
 ///  Non-standard: This feature is non-standard and is not on a

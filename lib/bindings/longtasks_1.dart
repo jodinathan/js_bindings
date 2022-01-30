@@ -75,7 +75,7 @@ class TaskAttributionTiming implements PerformanceEntry {
 
 extension PropsTaskAttributionTiming on TaskAttributionTiming {
   ///  Returns the type of frame container, one of [iframe], [embed],
-  /// or [object].
+  /// or [dynamic].
   ///
   String get containerType => js_util.getProperty(this, 'containerType');
 

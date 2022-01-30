@@ -150,7 +150,7 @@ extension PropsRequestDeviceOptions on RequestDeviceOptions {
 /// production.
 ///
 ///  The interface of the Web Bluetooth API returns a
-///  [Promise] to a [BluetoothDevice] object with the specified
+///  [Future] to a [BluetoothDevice] object with the specified
 ///  options.
 ///
 @experimental
@@ -167,7 +167,7 @@ class Bluetooth
 
 extension PropsBluetooth on Bluetooth {
   ///
-  ///     Returns a [Promise] that resolved to a boolean value
+  ///     Returns a [Future] that resolved to a boolean value
   /// indicating
   ///     whether the user-agent has the ability to support Bluetooth.
   /// Some user-agents let the
@@ -201,7 +201,7 @@ extension PropsBluetooth on Bluetooth {
       js_util.getProperty(this, 'referringDevice');
 
   ///
-  ///    Returns a [Promise] that resolved to an array of
+  ///    Returns a [Future] that resolved to an array of
   ///     [BluetoothDevice]s which the origin already obtained
   /// permission for via a
   ///    call to [Bluetooth.requestDevice()].
@@ -209,11 +209,11 @@ extension PropsBluetooth on Bluetooth {
   ///
   /// var readerPromise = Bluetooth.getDevices();
   ///
-  Iterable<Promise<BluetoothDevice>> getDevices() =>
-      js_util.callMethod(this, 'getDevices', []);
+  Future<Iterable<BluetoothDevice>> getDevices() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getDevices', []));
 
   ///
-  ///    Returns a [Promise] to a [BluetoothDevice] object with the
+  ///    Returns a [Future] to a [BluetoothDevice] object with the
   ///    specified options.
   ///
   ///
@@ -418,13 +418,12 @@ class BluetoothDevice
 }
 
 extension PropsBluetoothDevice on BluetoothDevice {
-  /// A [DOMString] that uniquely identifies a device.
+  /// A [String] that uniquely identifies a device.
   ///
   @experimental
   String get id => js_util.getProperty(this, 'id');
 
-  ///  A [DOMString] that provides a human-readable name for the
-  /// device.
+  /// A [String] that provides a human-readable name for the device.
   ///
   @experimental
   String? get name => js_util.getProperty(this, 'name');
@@ -435,7 +434,7 @@ extension PropsBluetoothDevice on BluetoothDevice {
   BluetoothRemoteGATTServer? get gatt => js_util.getProperty(this, 'gatt');
 
   ///
-  ///    A [Promise] that resolves to [undefined] or is rejected with
+  ///    A [Future] that resolves to [Object] or is rejected with
   ///    an error if advertisements can’t be shown for any reason.
   ///
   ///
@@ -625,9 +624,10 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
   ///
   /// BluetoothRemoteGATTServer.getPrimaryServices(bluetoothServiceUUID).then(function(bluetoothGATTServices) { /* ... */ })
   ///
-  Iterable<Promise<BluetoothRemoteGATTService>> getPrimaryServices(
+  Future<Iterable<BluetoothRemoteGATTService>> getPrimaryServices(
           [dynamic service]) =>
-      js_util.callMethod(this, 'getPrimaryServices', [service]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getPrimaryServices', [service]));
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -663,7 +663,7 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
   ///
   BluetoothDevice get device => js_util.getProperty(this, 'device');
 
-  /// Returns a [DOMString] representing the UUID of this service.
+  /// Returns a [String] representing the UUID of this service.
   ///
   String get uuid => js_util.getProperty(this, 'uuid');
 
@@ -676,7 +676,7 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
   bool get isPrimary => js_util.getProperty(this, 'isPrimary');
 
   ///
-  ///    Returns a [Promise] to an instance of
+  ///    Returns a [Future] to an instance of
   ///     [BluetoothRemoteGATTCharacteristic] for a given universally
   /// unique identifier
   ///    (UUID).
@@ -690,7 +690,7 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
           js_util.callMethod(this, 'getCharacteristic', [characteristic]));
 
   ///
-  ///    Returns a [Promise] to an [Array] of
+  ///    Returns a [Future] to an [Array] of
   ///     [BluetoothRemoteGATTCharacteristic] instances for an optional
   /// universally
   ///    unique identifier (UUID).
@@ -698,17 +698,19 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
   ///
   /// bluetoothGATTServiceInstance.getCharacteristics(characteristics).then(function(BluetoothGATTCharacteristic[]) { /* ... */ } )
   ///
-  Iterable<Promise<BluetoothRemoteGATTCharacteristic>> getCharacteristics(
+  Future<Iterable<BluetoothRemoteGATTCharacteristic>> getCharacteristics(
           [dynamic characteristic]) =>
-      js_util.callMethod(this, 'getCharacteristics', [characteristic]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getCharacteristics', [characteristic]));
 
   Future<BluetoothRemoteGATTService> getIncludedService(dynamic service) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'getIncludedService', [service]));
 
-  Iterable<Promise<BluetoothRemoteGATTService>> getIncludedServices(
+  Future<Iterable<BluetoothRemoteGATTService>> getIncludedServices(
           [dynamic service]) =>
-      js_util.callMethod(this, 'getIncludedServices', [service]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getIncludedServices', [service]));
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -734,7 +736,7 @@ extension PropsBluetoothRemoteGATTCharacteristic
   BluetoothRemoteGATTService get service =>
       js_util.getProperty(this, 'service');
 
-  ///  Returns a [DOMString] containing the UUID of the characteristic,
+  ///  Returns a [String] containing the UUID of the characteristic,
   /// for example ['00002a37-0000-1000-8000-00805f9b34fb'] for the
   /// Heart Rate Measurement characteristic.
   ///
@@ -751,7 +753,7 @@ extension PropsBluetoothRemoteGATTCharacteristic
   ///
   ByteData? get value => js_util.getProperty(this, 'value');
 
-  ///  Returns a [Promise] that resolves to the first
+  ///  Returns a [Future] that resolves to the first
   /// [BluetoothRemoteGATTDescriptor] for a given descriptor UUID.
   ///
   /// BluetoothRemoteGATTCharacteristic.getDescriptor(bluetoothDescriptorUUID).then(function(bluetoothGATTDescriptor) { /* ... */ })
@@ -760,17 +762,18 @@ extension PropsBluetoothRemoteGATTCharacteristic
       js_util.promiseToFuture(
           js_util.callMethod(this, 'getDescriptor', [descriptor]));
 
-  ///  Returns a [Promise] that resolves to an [Array] of all
+  ///  Returns a [Future] that resolves to an [Array] of all
   /// [BluetoothRemoteGATTDescriptor] objects for a given descriptor
   /// UUID.
   ///
   /// BluetoothRemoteGATTCharacteristic.getDescriptors(bluetoothDescriptorUUID).then(function(bluetoothGATTDescriptors[]) { /* ... */ })
   ///
-  Iterable<Promise<BluetoothRemoteGATTDescriptor>> getDescriptors(
+  Future<Iterable<BluetoothRemoteGATTDescriptor>> getDescriptors(
           [dynamic descriptor]) =>
-      js_util.callMethod(this, 'getDescriptors', [descriptor]);
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getDescriptors', [descriptor]));
 
-  ///  Returns a [Promise] that resolves to an [ArrayBuffer] holding a
+  ///  Returns a [Future] that resolves to an [ArrayBuffer] holding a
   /// duplicate of the [value] property if it is available and
   /// supported. Otherwise it throws an error.
   ///
@@ -790,7 +793,7 @@ extension PropsBluetoothRemoteGATTCharacteristic
       js_util.promiseToFuture(
           js_util.callMethod(this, 'writeValueWithoutResponse', [value]));
 
-  ///  Returns a [Promise] when [navigator.bluetooth] is added to the
+  ///  Returns a [Future] when [navigator.bluetooth] is added to the
   /// active notification context.
   ///
   /// BluetoothRemoteGATTCharacteristic.startNotifications().then(function(BluetoothRemoteGATTCharacteristic) { /* ... */ })
@@ -798,7 +801,7 @@ extension PropsBluetoothRemoteGATTCharacteristic
   Future<BluetoothRemoteGATTCharacteristic> startNotifications() => js_util
       .promiseToFuture(js_util.callMethod(this, 'startNotifications', []));
 
-  ///  Returns a [Promise] when [navigator.bluetooth] is removed from
+  ///  Returns a [Future] when [navigator.bluetooth] is removed from
   /// the active notification context.
   ///
   /// BluetoothRemoteGATTCharacteristic.stopNotifications().then(function(BluetoothRemoteGATTCharacteristic) { /* ... */ })
@@ -825,50 +828,50 @@ class BluetoothCharacteristicProperties {
 
 extension PropsBluetoothCharacteristicProperties
     on BluetoothCharacteristicProperties {
-  ///  Returns a [boolean] that is [true] if the broadcast of the
+  ///  Returns a [bool] that is [true] if the broadcast of the
   /// characteristic value is permitted using the Server Characteristic
   /// Configuration Descriptor.
   ///
   bool get broadcast => js_util.getProperty(this, 'broadcast');
 
-  ///  Returns a [boolean] that is [true] if the reading of the
+  ///  Returns a [bool] that is [true] if the reading of the
   /// characteristic value is permitted.
   ///
   bool get read => js_util.getProperty(this, 'read');
 
-  ///  Returns a [boolean] that is [true] if the writing to the
+  ///  Returns a [bool] that is [true] if the writing to the
   /// characteristic without response is permitted.
   ///
   bool get writeWithoutResponse =>
       js_util.getProperty(this, 'writeWithoutResponse');
 
-  ///  Returns a [boolean] that is [true] if the writing to the
+  ///  Returns a [bool] that is [true] if the writing to the
   /// characteristic with response is permitted.
   ///
   bool get write => js_util.getProperty(this, 'write');
 
-  ///  Returns a [boolean] that is [true] if notifications of the
+  ///  Returns a [bool] that is [true] if notifications of the
   /// characteristic value without acknowledgement is permitted.
   ///
   bool get notify => js_util.getProperty(this, 'notify');
 
-  ///  Returns a [boolean] that is [true] if indications of the
+  ///  Returns a [bool] that is [true] if indications of the
   /// characteristic value with acknowledgement is permitted.
   ///
   bool get indicate => js_util.getProperty(this, 'indicate');
 
-  ///  Returns a [boolean] that is [true] if signed writing to the
+  ///  Returns a [bool] that is [true] if signed writing to the
   /// characteristic value is permitted.
   ///
   bool get authenticatedSignedWrites =>
       js_util.getProperty(this, 'authenticatedSignedWrites');
 
-  ///  Returns a [boolean] that is [true] if reliable writes to the
+  ///  Returns a [bool] that is [true] if reliable writes to the
   /// characteristic is permitted.
   ///
   bool get reliableWrite => js_util.getProperty(this, 'reliableWrite');
 
-  ///  Returns a [boolean] that is [true] if reliable writes to the
+  ///  Returns a [bool] that is [true] if reliable writes to the
   /// characteristic descriptor is permitted.
   ///
   bool get writableAuxiliaries =>
@@ -925,7 +928,7 @@ extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
   ByteData? get value => js_util.getProperty(this, 'value');
 
   ///
-  ///    Returns a [Promise] that resolves to
+  ///    Returns a [Future] that resolves to
   ///    an [ArrayBuffer] holding a duplicate of the [value] property
   ///     if it is available and supported. Otherwise it throws an
   /// error.
@@ -939,7 +942,7 @@ extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
   ///
   ///     Sets the value property to the bytes contained in an
   /// [ArrayBuffer] and
-  ///    returns a [Promise].
+  ///    returns a [Future].
   ///
   ///
   /// BluetoothRemoteGATTDescriptor.writeValue(array[]).then(function() { /* ... */ })
@@ -1025,7 +1028,11 @@ extension PropsBluetoothUUID on BluetoothUUID {
   ///
   /// BluetoothUUID.getService(name);
   ///
-  static String getService(dynamic name) =>
+  static String getService(
+
+          /// A [string] containing the name of the service.
+          ///
+          dynamic name) =>
       js_util.callMethod(BluetoothUUID, 'getService', [name]);
 
   ///  Returns the 128-bit UUID representing a registered
@@ -1034,7 +1041,11 @@ extension PropsBluetoothUUID on BluetoothUUID {
   ///
   /// BluetoothUUID.getCharacteristic(name);
   ///
-  static String getCharacteristic(dynamic name) =>
+  static String getCharacteristic(
+
+          /// A [string] containing the name of the characteristic.
+          ///
+          dynamic name) =>
       js_util.callMethod(BluetoothUUID, 'getCharacteristic', [name]);
 
   ///  Returns a UUID representing a registered descriptor when passed
@@ -1042,7 +1053,11 @@ extension PropsBluetoothUUID on BluetoothUUID {
   ///
   /// BluetoothUUID.getDescriptor(name);
   ///
-  static String getDescriptor(dynamic name) =>
+  static String getDescriptor(
+
+          /// A [string] containing the name of the descriptor.
+          ///
+          dynamic name) =>
       js_util.callMethod(BluetoothUUID, 'getDescriptor', [name]);
 
   ///  Returns the 128-bit UUID when passed the 16- or 32-bit UUID
@@ -1050,6 +1065,10 @@ extension PropsBluetoothUUID on BluetoothUUID {
   ///
   /// BluetoothUUID.canonicalUUID(alias);
   ///
-  static String canonicalUUID(int alias) =>
+  static String canonicalUUID(
+
+          /// A [string] containing a 16- or 32- bit UUID alias.
+          ///
+          int alias) =>
       js_util.callMethod(BluetoothUUID, 'canonicalUUID', [alias]);
 }

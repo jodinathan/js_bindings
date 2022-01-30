@@ -46,7 +46,7 @@ extension PropsUIEvent on UIEvent {
   ///
   Window? get view => js_util.getProperty(this, 'view');
 
-  ///  Returns a [long] with details about the event, depending on the
+  ///  Returns a [int] with details about the event, depending on the
   /// event type.
   ///
   int get detail => js_util.getProperty(this, 'detail');
@@ -226,7 +226,18 @@ extension PropsMouseEvent on MouseEvent {
   ///
   /// getModifierState(keyArg)
   ///
-  bool getModifierState(String keyArg) =>
+  bool getModifierState(
+
+          ///
+          ///    A modifier key value.
+          ///     The value must be one of the [KeyboardEvent.key] values which
+          /// represent modifier keys or ["Accel"]
+          ///
+          /// .
+          ///    This is case-sensitive.
+          ///
+          ///
+          String keyArg) =>
       js_util.callMethod(this, 'getModifierState', [keyArg]);
 
   double get pageX => js_util.getProperty(this, 'pageX');
@@ -482,8 +493,8 @@ extension PropsWheelEvent on WheelEvent {
   ///
   double get deltaZ => js_util.getProperty(this, 'deltaZ');
 
-  ///  Returns an [unsigned long] representing the unit of the [delta*]
-  /// values' scroll amount. Permitted values are:
+  ///  Returns an [int] representing the unit of the [delta*] values'
+  /// scroll amount. Permitted values are:
   ///
   ///
   ///
@@ -577,8 +588,8 @@ class InputEvent implements UIEvent {
 }
 
 extension PropsInputEvent on InputEvent {
-  ///  Returns a [DOMString] with the inserted characters. This may be
-  /// an empty string if the change doesn't insert text (such as when
+  ///  Returns a [String] with the inserted characters. This may be an
+  /// empty string if the change doesn't insert text (such as when
   /// deleting characters, for example).
   ///
   String? get data => js_util.getProperty(this, 'data');
@@ -665,12 +676,12 @@ class KeyboardEvent implements UIEvent {
 }
 
 extension PropsKeyboardEvent on KeyboardEvent {
-  ///  Returns a [DOMString] representing the key value of the key
+  ///  Returns a [String] representing the key value of the key
   /// represented by the event.
   ///
   String get key => js_util.getProperty(this, 'key');
 
-  ///  Returns a [DOMString] with the code value of the physical key
+  ///  Returns a [String] with the code value of the physical key
   /// represented by the event.
   ///
   ///     Warning: This ignores the user's keyboard layout, so that if
@@ -799,7 +810,18 @@ extension PropsKeyboardEvent on KeyboardEvent {
   ///   event.shiftKey may be more preferable.
   ///
   ///
-  bool getModifierState(String keyArg) =>
+  bool getModifierState(
+
+          ///
+          ///     A modifier key value. The value must be one of the
+          /// [KeyboardEvent.key]
+          ///    values which represent modifier keys, or the string ["Accel"]
+          ///
+          ///
+          /// . This is case-sensitive.
+          ///
+          ///
+          String keyArg) =>
       js_util.callMethod(this, 'getModifierState', [keyArg]);
 
   Object initKeyboardEvent(String typeArg,

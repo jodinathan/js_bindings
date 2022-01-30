@@ -386,8 +386,8 @@ extension PropsPublicKeyCredentialRequestOptions
     js_util.setProperty(this, 'timeout', newValue);
   }
 
-  ///  A [USVString] which indicates the relying party's identifier
-  /// (ex. ["login.example.org"]). If this option is not provided, the
+  ///  A [String] which indicates the relying party's identifier (ex.
+  /// ["login.example.org"]). If this option is not provided, the
   /// client will use the current origin's domain.
   ///
   String get rpId => js_util.getProperty(this, 'rpId');

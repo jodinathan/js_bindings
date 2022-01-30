@@ -49,7 +49,7 @@ extension PropsLockManager on LockManager {
       js_util.promiseToFuture(js_util.callMethod(this, 'request',
           [name, options, callback == null ? null : allowInterop(callback)]));
 
-  ///  Returns a [Promise] that resolves with an object that contains
+  ///  Returns a [Future] that resolves with an object that contains
   /// information about held and pending locks.
   ///
   /// LockManager.query()

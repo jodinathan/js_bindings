@@ -27,11 +27,11 @@ class PerformanceElementTiming implements PerformanceEntry {
 }
 
 extension PropsPerformanceElementTiming on PerformanceElementTiming {
-  /// A [DOMHighResTimeStamp] with the renderTime of the element.
+  /// A [double] with the renderTime of the element.
   ///
   double get renderTime => js_util.getProperty(this, 'renderTime');
 
-  /// A [DOMHighResTimeStamp] with the loadTime of the element.
+  /// A [double] with the loadTime of the element.
   ///
   double get loadTime => js_util.getProperty(this, 'loadTime');
 
@@ -41,8 +41,8 @@ extension PropsPerformanceElementTiming on PerformanceElementTiming {
   DOMRectReadOnly get intersectionRect =>
       js_util.getProperty(this, 'intersectionRect');
 
-  ///  A [DOMString] which is the value of the [elementtiming]
-  /// attribute on the element.
+  ///  A [String] which is the value of the [elementtiming] attribute
+  /// on the element.
   ///
   String get identifier => js_util.getProperty(this, 'identifier');
 
@@ -58,7 +58,7 @@ extension PropsPerformanceElementTiming on PerformanceElementTiming {
   ///
   int get naturalHeight => js_util.getProperty(this, 'naturalHeight');
 
-  /// A [DOMString] which is the of the element.
+  /// A [String] which is the of the element.
   ///
   String get id => js_util.getProperty(this, 'id');
 
@@ -67,8 +67,8 @@ extension PropsPerformanceElementTiming on PerformanceElementTiming {
   ///
   Element? get element => js_util.getProperty(this, 'element');
 
-  ///  A [DOMString] which is the initial URL of the resources request
-  /// for images, 0 for text.
+  ///  A [String] which is the initial URL of the resources request for
+  /// images, 0 for text.
   ///
   String get url => js_util.getProperty(this, 'url');
 

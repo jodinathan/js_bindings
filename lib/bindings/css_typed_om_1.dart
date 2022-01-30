@@ -434,7 +434,7 @@ extension PropsCSSUnitValue on CSSUnitValue {
     js_util.setProperty(this, 'value', newValue);
   }
 
-  /// Returns a [USVString] indicating the type of unit.
+  /// Returns a [String] indicating the type of unit.
   ///
   String get unit => js_util.getProperty(this, 'unit');
 }

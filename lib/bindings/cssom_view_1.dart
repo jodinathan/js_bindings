@@ -75,7 +75,7 @@ class MediaQueryList implements EventTarget {
 }
 
 extension PropsMediaQueryList on MediaQueryList {
-  /// A [DOMString] representing a serialized media query.
+  /// A [String] representing a serialized media query.
   ///
   String get media => js_util.getProperty(this, 'media');
 
@@ -167,7 +167,7 @@ class MediaQueryListEvent implements Event {
 }
 
 extension PropsMediaQueryListEvent on MediaQueryListEvent {
-  /// A [DOMString] representing a serialized media query.
+  /// A [String] representing a serialized media query.
   ///
   String get media => js_util.getProperty(this, 'media');
 
@@ -257,7 +257,7 @@ extension PropsCaretPosition on CaretPosition {
   ///
   Node get offsetNode => js_util.getProperty(this, 'offsetNode');
 
-  ///  Returns a [long] representing the character offset in the caret
+  ///  Returns a [int] representing the character offset in the caret
   /// position node.
   ///
   int get offset => js_util.getProperty(this, 'offset');

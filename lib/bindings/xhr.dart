@@ -171,7 +171,7 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
     js_util.setProperty(this, 'onreadystatechange', newValue);
   }
 
-  /// Returns an [unsigned short], the state of the request.
+  /// Returns an [int], the state of the request.
   ///
   int get readyState => js_util.getProperty(this, 'readyState');
 
@@ -179,8 +179,54 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   ///
   /// XMLHttpRequest.open(method, url[, async[, user[, password]]])
   ///
-  Object open(String method,
-          [String? url, bool? mAsync, String? username, String? password]) =>
+  Object open(
+
+          ///
+          ///    The HTTP request method to use, such as
+          ///    ["GET"], ["POST"], ["PUT"], ["DELETE"],
+          ///    etc. Ignored for non-HTTP(S) URLs.
+          ///
+          ///
+          String method,
+          [
+
+          /// A [String] representing the URL to send the request to.
+          ///
+          String? url,
+
+          ///
+          ///     An optional Boolean parameter, defaulting to [true],
+          /// indicating whether
+          ///     or not to perform the operation asynchronously. If this value
+          /// is [false],
+          ///     the [send()] method does not return until the response is
+          /// received. If
+          ///     [true], notification of a completed transaction is provided
+          /// using event
+          ///    listeners. This must be true if the [multipart] attribute is
+          ///    [true], or an exception will be thrown.
+          ///
+          ///
+          ///
+          ///     Note: Synchronous requests on the main thread can
+          ///      be easily disruptive to the user experience and should be
+          /// avoided; in fact, many
+          ///      browsers have deprecated synchronous XHR support on the main
+          /// thread entirely.
+          ///     Synchronous requests are permitted in [Worker]s.
+          ///
+          ///
+          ///
+          bool? mAsync,
+          String? username,
+
+          ///
+          ///     The optional password to use for authentication purposes; by
+          /// default, this is the
+          ///    [null] value.
+          ///
+          ///
+          String? password]) =>
       js_util
           .callMethod(this, 'open', [method, url, mAsync, username, password]);
 
@@ -189,11 +235,16 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   ///
   /// XMLHttpRequest.setRequestHeader(header, value)
   ///
-  Object setRequestHeader(String name, String value) =>
+  Object setRequestHeader(
+          String name,
+
+          /// The value to set as the body of the header.
+          ///
+          String value) =>
       js_util.callMethod(this, 'setRequestHeader', [name, value]);
 
-  ///  Is an [unsigned long] representing the number of milliseconds a
-  /// request can take before automatically being terminated.
+  ///  Is an [int] representing the number of milliseconds a request
+  /// can take before automatically being terminated.
   ///
   int get timeout => js_util.getProperty(this, 'timeout');
   set timeout(int newValue) {
@@ -218,7 +269,26 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   ///
   /// XMLHttpRequest.send(body)
   ///
-  Object send([dynamic body]) => js_util.callMethod(this, 'send', [body]);
+  Object send(
+          [
+
+          /// A body of data to be sent in the XHR request. This can be:
+          ///
+          ///     A [Document], in which case it is serialized before being
+          /// sent.
+          ///
+          ///     An [XMLHttpRequestBodyInit], which per the
+          /// Fetch spec can be a [Blob], [BufferSource],
+          ///     [FormData], [URLSearchParams], or
+          ///     [String] object.
+          ///
+          ///    [null]
+          ///
+          ///    If no value is specified for the body, a default value of
+          /// [null] is used.
+          ///
+          dynamic body]) =>
+      js_util.callMethod(this, 'send', [body]);
 
   /// Aborts the request if it has already been sent.
   ///
@@ -246,12 +316,11 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   ///
   String get responseURL => js_util.getProperty(this, 'responseURL');
 
-  ///  Returns an [unsigned short] with the status of the response of
-  /// the request.
+  /// Returns an [int] with the status of the response of the request.
   ///
   int get status => js_util.getProperty(this, 'status');
 
-  ///  Returns a [DOMString] containing the response string returned by
+  ///  Returns a [String] containing the response string returned by
   /// the HTTP server. Unlike [XMLHttpRequest.status], this includes
   /// the entire text of the response message ("[200 OK]", for
   /// example).
@@ -373,14 +442,14 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   }
 
   ///  Returns an [ArrayBuffer], [Blob], [Document], JavaScript object,
-  /// or a [DOMString], depending on the value of
+  /// or a [String], depending on the value of
   /// [XMLHttpRequest.responseType], that contains the response entity
   /// body.
   ///
   dynamic get response => js_util.getProperty(this, 'response');
 
-  ///  Returns a [DOMString] that contains the response to the request
-  /// as text, or [null] if the request was unsuccessful or has not yet
+  ///  Returns a [String] that contains the response to the request as
+  /// text, or [null] if the request was unsuccessful or has not yet
   /// been sent.
   ///
   String get responseText => js_util.getProperty(this, 'responseText');
@@ -439,7 +508,19 @@ extension PropsFormData on FormData {
   ///
   /// formData.getAll('name'); // ["true", "74", "John"]
   ///
-  Object append(String name, [Blob? blobValue, String? filename]) =>
+  Object append(
+
+          /// The name of the field whose data is contained in [value].
+          ///
+          String name,
+          [Blob? blobValue,
+
+          ///  The filename reported to the server (a [String]), when a [Blob]
+          /// or [File] is passed as the second parameter. The default filename
+          /// for [Blob] objects is "blob". The default filename for [File]
+          /// objects is the file's filename.
+          ///
+          String? filename]) =>
       js_util.callMethod(this, 'append', [name, blobValue, filename]);
 
   /// Deletes a key/value pair from a [FormData] object.
@@ -452,7 +533,12 @@ extension PropsFormData on FormData {
   /// You can delete keys and their values using delete():
   /// formData.delete('username');
   ///
-  Object delete(String name) => js_util.callMethod(this, 'delete', [name]);
+  Object delete(
+
+          /// The name of the key you want to delete.
+          ///
+          String name) =>
+      js_util.callMethod(this, 'delete', [name]);
 
   ///  Returns the first value associated with a given key from within
   /// a [FormData] object.
@@ -472,7 +558,13 @@ extension PropsFormData on FormData {
   ///
   @JS('get')
   @staticInterop
-  dynamic mGet(String name) => js_util.callMethod(this, 'get', [name]);
+  dynamic mGet(
+
+          ///  A [String] representing the name of the key you want to
+          /// retrieve.
+          ///
+          String name) =>
+      js_util.callMethod(this, 'get', [name]);
 
   ///  Returns an array of all the values associated with a given key
   /// from within a [FormData].
@@ -489,7 +581,12 @@ extension PropsFormData on FormData {
   /// The following getAll() function will return both username values in an array:
   /// formData.getAll('username'); // Returns ["Chris", "Bob"]
   ///
-  Iterable<dynamic> getAll(String name) =>
+  Iterable<dynamic> getAll(
+
+          ///  A [String] representing the name of the key you want to
+          /// retrieve.
+          ///
+          String name) =>
       js_util.callMethod(this, 'getAll', [name]);
 
   ///  Returns a boolean stating whether a [FormData] object contains a
@@ -505,7 +602,13 @@ extension PropsFormData on FormData {
   /// formData.append('username', 'Chris');
   /// formData.has('username'); // Returns true
   ///
-  bool has(String name) => js_util.callMethod(this, 'has', [name]);
+  bool has(
+
+          ///  A [String] representing the name of the key you want to test
+          /// for.
+          ///
+          String name) =>
+      js_util.callMethod(this, 'has', [name]);
 
   ///  Sets a new value for an existing key inside a [FormData] object,
   /// or adds the key/value if it does not already exist.

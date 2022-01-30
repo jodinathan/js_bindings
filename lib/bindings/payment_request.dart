@@ -37,7 +37,58 @@ extension PropsPaymentRequest on PaymentRequest {
   @JS('show')
   @staticInterop
   Future<PaymentResponse> mShow(
-          [Future<PaymentDetailsUpdate>? detailsPromise]) =>
+          [
+
+          ///
+          ///     An optional [Future] that you can provide if your
+          /// architecture requires
+          ///     that the payment request's details need to be updated between
+          /// instantiating the
+          ///     payment interface and the user beginning to interact with it.
+          /// The promise should
+          ///    resolve with an object containing the updated information:
+          ///
+          ///
+          ///    [displayItems] Optional
+          ///
+          ///      An array of objects, each describing one line item for the
+          /// payment request. These represent the line items on a receipt or
+          /// invoice, each with the following properties:
+          ///
+          ///      [amount]
+          ///
+          ///        An object describing the monetary value of the item. This
+          /// object includes the following fields:
+          ///
+          ///         [currency]: A string containing a valid 3-letter ISO 4217
+          /// currency identifier (ISO 4217) indicating the currency used for
+          /// the payment [value].
+          ///         [value]: A string containing a valid decimal value
+          /// representing the mount of currency constituting the payment
+          /// amount. This string must only contain an optional leading "-" to
+          /// indicate a negative value, then one or more digits from 0 to 9,
+          /// and an optional decimal point (".", regardless of locale)
+          /// followed by at least one more digit. No whitespace is permitted.
+          ///
+          ///
+          ///      [label]
+          ///
+          ///        A string specifying a human-readable name or description
+          /// of the item or service being charged for. This may be displayed
+          /// to the user by the user agent, depending on the design of the
+          /// interface.
+          ///
+          ///      [pending]
+          ///
+          ///        A Boolean value which is [true] if the specified [amount]
+          /// has not yet been finalized. This can be used to show items such
+          /// as shipping or tax amounts that depend upon the selection of
+          /// shipping address, shipping option, or so forth. The user agent
+          /// may show this information but is not required to do so.
+          ///
+          ///
+          ///
+          Future<PaymentDetailsUpdate>? detailsPromise]) =>
       js_util
           .promiseToFuture(js_util.callMethod(this, 'show', [detailsPromise]));
 
@@ -315,13 +366,13 @@ extension PropsPaymentAddress on PaymentAddress {
   @deprecated
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
-  ///  A [DOMString] which contains the city or town portion of the
+  ///  A [String] which contains the city or town portion of the
   /// address.
   ///
   @deprecated
   String get city => js_util.getProperty(this, 'city');
 
-  ///  A [DOMString] specifying the country in which the address is
+  ///  A [String] specifying the country in which the address is
   /// located, using the ISO-3166-1 alpha-2 standard. The string is
   /// always given in its canonical upper-case form. Some examples of
   /// valid values: ["US"], ["GB"], ["CN"], or ["JP"].
@@ -329,55 +380,55 @@ extension PropsPaymentAddress on PaymentAddress {
   @deprecated
   String get country => js_util.getProperty(this, 'country');
 
-  ///  A [DOMString] giving the dependent locality or sublocality
-  /// within a city, for example, a neighborhood, borough, district, or
-  /// UK dependent locality.
+  ///  A [String] giving the dependent locality or sublocality within a
+  /// city, for example, a neighborhood, borough, district, or UK
+  /// dependent locality.
   ///
   @deprecated
   String get dependentLocality =>
       js_util.getProperty(this, 'dependentLocality');
 
-  ///  A [DOMString] specifying the name of the organization, firm,
+  ///  A [String] specifying the name of the organization, firm,
   /// company, or institution at the payment address.
   ///
   @deprecated
   String get organization => js_util.getProperty(this, 'organization');
 
-  ///  A [DOMString] specifying the telephone number of the recipient
-  /// or contact person.
+  ///  A [String] specifying the telephone number of the recipient or
+  /// contact person.
   ///
   @deprecated
   String get phone => js_util.getProperty(this, 'phone');
 
-  ///  A [DOMString] specifying a code used by a jurisdiction for mail
+  ///  A [String] specifying a code used by a jurisdiction for mail
   /// routing, for example, the ZIP code in the United States or the
   /// PIN code in India.
   ///
   @deprecated
   String get postalCode => js_util.getProperty(this, 'postalCode');
 
-  ///  A [DOMString] giving the name of the recipient, purchaser, or
+  ///  A [String] giving the name of the recipient, purchaser, or
   /// contact person at the payment address.
   ///
   @deprecated
   String get recipient => js_util.getProperty(this, 'recipient');
 
-  ///  A [DOMString] containing the top level administrative
-  /// subdivision of the country, for example a state, province,
-  /// oblast, or prefecture.
+  ///  A [String] containing the top level administrative subdivision
+  /// of the country, for example a state, province, oblast, or
+  /// prefecture.
   ///
   @deprecated
   String get region => js_util.getProperty(this, 'region');
 
-  ///  A [DOMString] providing a postal sorting code such as is used in
+  ///  A [String] providing a postal sorting code such as is used in
   /// France.
   ///
   @deprecated
   String get sortingCode => js_util.getProperty(this, 'sortingCode');
 
-  ///  An array of [DOMString] objects providing each line of the
-  /// address not included among the other properties. The exact size
-  /// and content varies by country or location and can include, for
+  ///  An array of [String] objects providing each line of the address
+  /// not included among the other properties. The exact size and
+  /// content varies by country or location and can include, for
   /// example, a street name, house number, apartment number, rural
   /// delivery route, descriptive instructions, or post office box
   /// number.
@@ -485,8 +536,8 @@ class AddressErrors {
 }
 
 extension PropsAddressErrors on AddressErrors {
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -495,8 +546,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'addressLine', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -505,8 +556,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'city', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -515,8 +566,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'country', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -526,8 +577,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'dependentLocality', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -536,8 +587,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'organization', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -546,8 +597,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'phone', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -556,8 +607,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'postalCode', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -566,8 +617,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'recipient', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -576,8 +627,8 @@ extension PropsAddressErrors on AddressErrors {
     js_util.setProperty(this, 'region', newValue);
   }
 
-  ///  A [DOMString] which, if present, indicates that the property of
-  /// the [PaymentAddress] could not be validated. The contents of the
+  ///  A [String] which, if present, indicates that the property of the
+  /// [PaymentAddress] could not be validated. The contents of the
   /// string provide a human-readable explanation of the validation
   /// failure, and ideally suggestions to correct the problem.
   ///
@@ -665,7 +716,53 @@ extension PropsPaymentResponse on PaymentResponse {
   /// completePromise = paymentRequest.complete(result);
   ///
   Future<Object> complete(
-          [PaymentComplete? result = PaymentComplete.unknown]) =>
+          [
+
+          ///
+          ///    A [String] indicating the state of the payment operation upon
+          ///    completion. It must be one of the following:
+          ///
+          ///
+          ///    [success]
+          ///
+          ///
+          ///       The payment was successfully processed. The user agent may
+          /// or may not present
+          ///      some form of "payment successful" indication to the user.
+          ///
+          ///
+          ///    [fail]
+          ///
+          ///
+          ///       The payment was not successfully processed. The failure may
+          /// or may not be
+          ///       announced to the user by the user agent, depending on its
+          /// design.
+          ///
+          ///
+          ///    [unknown]
+          ///
+          ///
+          ///       The success or failure status of the transaction is unknown
+          /// or irrelevant, and
+          ///       the user agent should not present any notification, even if
+          /// it normally would.
+          ///      This is the default value.
+          ///
+          ///
+          ///
+          ///
+          ///
+          ///      Note: In older versions of the specification, an empty
+          /// string,
+          ///     [""], was used instead of [unknown] to indicate a completion
+          ///      without a known result state. See the Browser compatibility
+          /// section
+          ///     below for details.
+          ///
+          ///
+          ///
+          PaymentComplete? result = PaymentComplete.unknown]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'complete', [result]));
 
   ///  If something is wrong with the payment response's data (and
@@ -677,7 +774,30 @@ extension PropsPaymentResponse on PaymentResponse {
   ///
   /// retryPromise = paymentRequest.retry(errorFields);
   ///
-  Future<Object> retry([PaymentValidationErrors? errorFields]) =>
+  Future<Object> retry(
+          [
+
+          ///  A [PaymentValidationErrors] object, with the following
+          /// properties:
+          ///  [error] Optional
+          ///
+          ///    A general description of a payment error from which the user
+          /// may attempt to recover by retrying the payment, possibly after
+          /// correcting mistakes in the payment information. [error] can be
+          /// provided all by itself to provide only a generic error message,
+          /// or in concert with the other properties to serve as an overview
+          /// while other properties' values gude the user to errors in
+          /// specific fields in the payment form.
+          ///
+          ///  [paymentMethod] Optional
+          ///
+          ///    Any payment method specific errors which may have occurred.
+          /// This object's contents will vary depending on the payment method
+          /// used.
+          ///
+          ///
+          ///
+          PaymentValidationErrors? errorFields]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'retry', [errorFields]));
 }
 
@@ -759,7 +879,7 @@ class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
 }
 
 extension PropsPaymentMethodChangeEvent on PaymentMethodChangeEvent {
-  ///  A [DOMString] containing the payment method identifier, a string
+  ///  A [String] containing the payment method identifier, a string
   /// which uniquely identifies a particular payment method. This
   /// identifier is usually a URL used during the payment process, but
   /// may be a standardized non-URL string as well, such as

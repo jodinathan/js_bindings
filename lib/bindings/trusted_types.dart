@@ -100,8 +100,34 @@ extension PropsTrustedTypePolicyFactory on TrustedTypePolicyFactory {
   ///
   /// var policy = TrustedTypePolicyFactory.createPolicy(policyName,policyOptions);
   ///
-  TrustedTypePolicy createPolicy(String policyName,
-          [TrustedTypePolicyOptions? policyOptions]) =>
+  TrustedTypePolicy createPolicy(
+
+          /// A [String] with the name of the policy.
+          ///
+          String policyName,
+          [
+
+          ///  User-defined functions for converting strings into trusted
+          /// values.
+          ///
+          ///    [CreateHTML(input[,args])]
+          ///
+          ///      A callback function in the form of a [string] that contains
+          /// code to run when creating a [TrustedHTML] object.
+          ///
+          ///    [CreateScript(input[,args])]
+          ///
+          ///      A callback function in the form of a [string] that contains
+          /// code to run when creating a [TrustedScript] object.
+          ///
+          ///    [CreateScriptURL(input[,args])]
+          ///
+          ///      A callback function in the form of a [string] that contains
+          /// code to run when creating a [TrustedScriptURL] object.
+          ///
+          ///
+          ///
+          TrustedTypePolicyOptions? policyOptions]) =>
       js_util.callMethod(this, 'createPolicy', [policyName, policyOptions]);
 
   ///  When passed a value checks that it is a valid [TrustedHTML]
@@ -109,21 +135,35 @@ extension PropsTrustedTypePolicyFactory on TrustedTypePolicyFactory {
   ///
   /// var isHTML = TrustedTypePolicyFactory.isHTML(value);
   ///
-  bool isHTML(dynamic value) => js_util.callMethod(this, 'isHTML', [value]);
+  bool isHTML(
+
+          /// A [TrustedHTML] object.
+          ///
+          dynamic value) =>
+      js_util.callMethod(this, 'isHTML', [value]);
 
   ///  When passed a value checks that it is a valid [TrustedScript]
   /// object.
   ///
   /// var isScript = TrustedTypePolicyFactory.isScript(value);
   ///
-  bool isScript(dynamic value) => js_util.callMethod(this, 'isScript', [value]);
+  bool isScript(
+
+          /// A [TrustedScript] object.
+          ///
+          dynamic value) =>
+      js_util.callMethod(this, 'isScript', [value]);
 
   ///  When passed a value checks that it is a valid [TrustedScriptURL]
   /// object.
   ///
   /// var isScriptURL = TrustedTypePolicyFactory.isScriptURL(value);
   ///
-  bool isScriptURL(dynamic value) =>
+  bool isScriptURL(
+
+          /// A [TrustedScriptURL] object.
+          ///
+          dynamic value) =>
       js_util.callMethod(this, 'isScriptURL', [value]);
 
   /// Returns a [TrustedHTML] object containing an empty string.
@@ -141,8 +181,25 @@ extension PropsTrustedTypePolicyFactory on TrustedTypePolicyFactory {
   /// TrustedTypePolicyFactory.getAttributeType(tagName, attribute, elementNs)
   /// TrustedTypePolicyFactory.getAttributeType(tagName, attribute, elementNs, attrNs)
   ///
-  String? getAttributeType(String tagName, String attribute,
-          [String? elementNs = '', String? attrNs = '']) =>
+  String? getAttributeType(
+
+          /// A [string] containing the name of an HTML tag.
+          ///
+          String tagName,
+
+          /// A [string] containing an attribute.
+          ///
+          String attribute,
+          [
+
+          ///  A [string] containing a namespace, if empty defaults to the HTML
+          /// namespace.
+          ///
+          String? elementNs = '',
+
+          /// A [string] containing a namespace, if empty defaults to null.
+          ///
+          String? attrNs = '']) =>
       js_util.callMethod(
           this, 'getAttributeType', [tagName, attribute, elementNs, attrNs]);
 
@@ -152,8 +209,21 @@ extension PropsTrustedTypePolicyFactory on TrustedTypePolicyFactory {
   /// TrustedTypePolicyFactory.getPropertyType(tagName, property)
   /// TrustedTypePolicyFactory.getPropertyType(tagName, property, elementNS)
   ///
-  String? getPropertyType(String tagName, String property,
-          [String? elementNs = '']) =>
+  String? getPropertyType(
+
+          /// A [string] containing the name of an HTML tag.
+          ///
+          String tagName,
+
+          /// A [string] containing a property, for example ["innerHTML"].
+          ///
+          String property,
+          [
+
+          ///  A [string] containing a namespace, if empty defaults to the HTML
+          /// namespace.
+          ///
+          String? elementNs = '']) =>
       js_util
           .callMethod(this, 'getPropertyType', [tagName, property, elementNs]);
 
@@ -176,7 +246,7 @@ class TrustedTypePolicy {
 }
 
 extension PropsTrustedTypePolicy on TrustedTypePolicy {
-  /// A [DOMString] containing the name of the policy.
+  /// A [String] containing the name of the policy.
   ///
   String get name => js_util.getProperty(this, 'name');
 
@@ -184,21 +254,36 @@ extension PropsTrustedTypePolicy on TrustedTypePolicy {
   ///
   /// var str = TrustedTypePolicy.createHTML(input[,args]);
   ///
-  TrustedHTML createHTML(String input, [dynamic arguments]) =>
+  TrustedHTML createHTML(
+
+          /// A [String] containing the string to be sanitized by the policy.
+          ///
+          String input,
+          [dynamic arguments]) =>
       js_util.callMethod(this, 'createHTML', [input, arguments]);
 
   /// Creates a [TrustedScript] object.
   ///
   /// var str = TrustedTypePolicy.createScript(input[,args]);
   ///
-  TrustedScript createScript(String input, [dynamic arguments]) =>
+  TrustedScript createScript(
+
+          /// A [String] containing the string to be sanitized by the policy.
+          ///
+          String input,
+          [dynamic arguments]) =>
       js_util.callMethod(this, 'createScript', [input, arguments]);
 
   /// Creates a [TrustedScriptURL] object.
   ///
   /// var str = TrustedTypePolicy.createScriptURL(input[,args]);
   ///
-  TrustedScriptURL createScriptURL(String input, [dynamic arguments]) =>
+  TrustedScriptURL createScriptURL(
+
+          /// A [String] containing the string to be sanitized by the policy.
+          ///
+          String input,
+          [dynamic arguments]) =>
       js_util.callMethod(this, 'createScriptURL', [input, arguments]);
 }
 

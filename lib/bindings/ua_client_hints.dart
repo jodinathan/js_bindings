@@ -128,7 +128,7 @@ extension PropsUALowEntropyJSON on UALowEntropyJSON {
 /// unlikely to identify a user. The values returned by
 /// [NavigatorUAData.getHighEntropyValues()] could potentially reveal
 /// more information. These values are therefore retrieved via a
-/// [Promise], allowing time for the browser to request user
+/// [Future], allowing time for the browser to request user
 /// permission, or make other checks.
 ///
 @JS()
@@ -152,12 +152,23 @@ extension PropsNavigatorUAData on NavigatorUAData {
   ///
   String get platform => js_util.getProperty(this, 'platform');
 
-  ///  Returns a [Promise] that resolves with a dictionary object
+  ///  Returns a [Future] that resolves with a dictionary object
   /// containing the high entropy values the user-agent returns.
   ///
   /// NavigatorUAData.getHighEntropyValues(hints);
   ///
-  Future<UADataValues> getHighEntropyValues(Iterable<String> hints) =>
+  Future<UADataValues> getHighEntropyValues(
+
+          /// An array containing the hints to be returned, one or more of:
+          ///
+          ///    ["architecture"]
+          ///    ["bitness"]
+          ///    ["model"]
+          ///    ["platformVersion"]
+          ///    ["uaFullVersion"]
+          ///
+          ///
+          Iterable<String> hints) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'getHighEntropyValues', [hints]));
 

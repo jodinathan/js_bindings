@@ -46,7 +46,11 @@ extension PropsSanitizer on Sanitizer {
   ///
   /// sanitize(input)
   ///
-  DocumentFragment sanitize(dynamic input) =>
+  DocumentFragment sanitize(
+
+          /// A [DocumentFragment] or [Document] to be sanitized.
+          ///
+          dynamic input) =>
       js_util.callMethod(this, 'sanitize', [input]);
 
   String sanitizeToString(dynamic input) =>

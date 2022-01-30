@@ -63,9 +63,9 @@ class PresentationRequest implements EventTarget {
 }
 
 extension PropsPresentationRequest on PresentationRequest {
-  ///  Returns a [Promise] that resolves with a
-  /// [PresentationConnection] after the user agent prompts the user to
-  /// select a display and grant permission to use that display.
+  ///  Returns a [Future] that resolves with a [PresentationConnection]
+  /// after the user agent prompts the user to select a display and
+  /// grant permission to use that display.
   ///
   /// var promise = presentationRequest.start()
   /// promise.then(function(PresentationConnection) { /* ... */ })
@@ -326,7 +326,7 @@ class PresentationReceiver {
 }
 
 extension PropsPresentationReceiver on PresentationReceiver {
-  ///  Returns a [Promise] that resolves with a
+  ///  Returns a [Future] that resolves with a
   /// [PresentationConnectionList] object containing a list of incoming
   /// presentation connections.
   ///

@@ -138,7 +138,12 @@ extension PropsXRHitTestResult on XRHitTestResult {
   ///
   /// getPose(baseSpace)
   ///
-  XRPose? getPose(XRSpace baseSpace) =>
+  XRPose? getPose(
+
+          ///  An [XRSpace] to use as the base or origin for computing the
+          /// relative position and orientation of hit test results.
+          ///
+          XRSpace baseSpace) =>
       js_util.callMethod(this, 'getPose', [baseSpace]);
 
   Future<XRAnchor> createAnchor() =>

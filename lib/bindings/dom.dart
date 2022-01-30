@@ -170,7 +170,7 @@ extension PropsEvent on Event {
   ///  The time at which the event was created (in milliseconds). By
   /// specification, this value is time since epoch—but in reality,
   /// browsers' definitions vary. In addition, work is underway to
-  /// change this to be a [DOMHighResTimeStamp] instead.
+  /// change this to be a [double] instead.
   ///
   double get timeStamp => js_util.getProperty(this, 'timeStamp');
   Object initEvent(String type,
@@ -224,8 +224,21 @@ extension PropsCustomEvent on CustomEvent {
   /// event.initCustomEvent(type, canBubble, cancelable, detail);
   ///
   @deprecated
-  Object initCustomEvent(String type,
-          [bool? bubbles = false, bool? cancelable = false, dynamic detail]) =>
+  Object initCustomEvent(
+
+          /// A string containing the name of the event.
+          ///
+          String type,
+          [bool? bubbles = false,
+
+          /// Is a boolean value indicating whether the event is cancelable.
+          ///
+          bool? cancelable = false,
+
+          ///  Any data that will be available to the handler through the
+          /// [CustomEvent.detail] property.
+          ///
+          dynamic detail]) =>
       js_util.callMethod(
           this, 'initCustomEvent', [type, bubbles, cancelable, detail]);
 }
@@ -272,8 +285,61 @@ extension PropsEventTarget on EventTarget {
   /// addEventListener(type, listener, options);
   /// addEventListener(type, listener, useCapture);
   ///
-  Object addEventListener(String type, EventListener? callback,
-          [dynamic options]) =>
+  Object addEventListener(
+
+          ///  A case-sensitive string representing the event type to listen
+          /// for.
+          ///
+          String type,
+          EventListener? callback,
+          [
+
+          ///
+          ///     An object that specifies characteristics about the event
+          /// listener. The available
+          ///    options are:
+          ///
+          ///
+          ///    [capture]
+          ///
+          ///
+          ///       A boolean value indicating that events of this type will be
+          /// dispatched
+          ///      to the registered [listener] before being dispatched to any
+          ///      [EventTarget] beneath it in the DOM tree.
+          ///
+          ///
+          ///    [once]
+          ///
+          ///
+          ///      A boolean value indicating that the [listener]
+          ///       should be invoked at most once after being added. If
+          /// [true], the
+          ///      [listener] would be automatically removed when invoked.
+          ///
+          ///
+          ///    [passive]
+          ///
+          ///
+          ///       A boolean value that, if [true], indicates that the
+          /// function
+          ///      specified by [listener] will never call
+          ///      [preventDefault()]. If a passive listener
+          ///       does call [preventDefault()], the user agent will do
+          /// nothing other than
+          ///      generate a console warning.
+          ///       See Improving scrolling performance with passive listeners
+          /// to learn more.
+          ///
+          ///
+          ///    [signal]
+          ///
+          ///      An [AbortSignal]. The listener will be removed when the
+          /// given [AbortSignal] object's [abort()] method is called.
+          ///
+          ///
+          ///
+          dynamic options]) =>
       js_util.callMethod(this, 'addEventListener',
           [type, callback == null ? null : allowInterop(callback), options]);
 
@@ -314,8 +380,26 @@ extension PropsEventTarget on EventTarget {
   ///  );
   /// });
   ///
-  Object removeEventListener(String type, EventListener? callback,
-          [dynamic options]) =>
+  Object removeEventListener(
+
+          ///  A string which specifies the type of event for which to remove
+          /// an event listener.
+          ///
+          String type,
+          EventListener? callback,
+          [
+
+          ///  An options object that specifies characteristics about the event
+          /// listener.
+          ///   The available options are:
+          ///
+          ///     [capture]: A boolean value that specifies whether the
+          /// [EventListener] to be removed is registered as a capturing
+          /// listener or not. If this parameter is absent, a default value of
+          /// [false] is assumed.
+          ///
+          ///
+          dynamic options]) =>
       js_util.callMethod(this, 'removeEventListener',
           [type, callback == null ? null : allowInterop(callback), options]);
 
@@ -546,7 +630,7 @@ extension PropsNodeList on NodeList {
   ///  Returns an item in the list by its index, or [null] if the index
   /// is out-of-bounds.
   ///    An alternative to accessing [nodeList[i]] (which instead
-  /// returns [undefined] when [i] is out-of-bounds). This is mostly
+  /// returns [Object] when [i] is out-of-bounds). This is mostly
   /// useful for non-JavaScript DOM implementations.
   ///
   /// nodeItem = nodeList.item(index)
@@ -596,7 +680,7 @@ extension PropsHTMLCollection on HTMLCollection {
   ///  Returns the specific node at the given zero-based [index] into
   /// the list. Returns [null] if the [index] is out of range.
   ///    An alternative to accessing [collection[i]] (which instead
-  /// returns [undefined] when [i] is out-of-bounds). This is mostly
+  /// returns [Object] when [i] is out-of-bounds). This is mostly
   /// useful for non-JavaScript DOM implementations.
   ///
   /// var element = HTMLCollection.item(index)
@@ -605,7 +689,18 @@ extension PropsHTMLCollection on HTMLCollection {
   /// var img0 = c.item(0);   // You can use the item() method this way
   /// var img1 = c[1];     // But this notation is easier and more common
   ///
-  Element? item(int index) => js_util.callMethod(this, 'item', [index]);
+  Element? item(
+
+          ///
+          ///     The position of the [Node] to be returned. Elements appear in
+          /// an
+          ///     [HTMLCollection] in the same order in which they appear in
+          /// the document's
+          ///    source.
+          ///
+          ///
+          int index) =>
+      js_util.callMethod(this, 'item', [index]);
 
   ///  Returns the specific node whose ID or, as a fallback, name
   /// matches the string specified by [name]. Matching by name is only
@@ -613,7 +708,7 @@ extension PropsHTMLCollection on HTMLCollection {
   /// element supports the [name] attribute. Returns [null] if no node
   /// exists by the given name.
   ///    An alternative to accessing [collection[name]] (which instead
-  /// returns [undefined] when [name] does not exist). This is mostly
+  /// returns [Object] when [name] does not exist). This is mostly
   /// useful for non-JavaScript DOM implementations.
   ///
   /// const item = collection.namedItem(key);
@@ -639,7 +734,100 @@ extension PropsMutationObserver on MutationObserver {
   ///
   /// mutationObserver.observe(target, options)
   ///
-  Object observe(Node target, [MutationObserverInit? options]) =>
+  Object observe(
+
+          ///
+          ///    A DOM [Node] (which may be an [Element]) within the DOM
+          ///     tree to watch for changes, or to be the root of a subtree of
+          /// nodes to be watched.
+          ///
+          ///
+          Node target,
+          [
+
+          ///
+          ///     An object providing options that describe which DOM mutations
+          /// should be reported to [mutationObserver]’s [callback].
+          ///     At a minimum, one of [childList], [attributes], and/or
+          /// [characterData] must be [true] when you call [observe()].
+          ///    Otherwise, a [TypeError] exception will be thrown.
+          ///
+          ///   Options are as follows:
+          ///
+          ///    [subtree] Optional
+          ///
+          ///
+          ///        : Set to [true] to extend monitoring to the entire subtree
+          /// of nodes rooted at [target].
+          ///        All of the other properties are then extended to all of
+          /// the nodes in the subtree instead of applying solely to the
+          /// [target] node. The default value is [false].
+          ///
+          ///
+          ///
+          ///    [childList] Optional
+          ///
+          ///
+          ///        : Set to [true] to monitor the target node (and, if
+          /// [subtree] is [true], its descendants) for the addition of new
+          /// child nodes or removal of existing child nodes.
+          ///       The default value is [false].
+          ///
+          ///
+          ///
+          ///    [attributes] Optional
+          ///
+          ///       : Set to [true] to watch for changes to the value of
+          /// attributes on the node or nodes being monitored.
+          ///       The default value is [true] if either of [attributeFilter]
+          /// or [attributeOldValue] is specified, otherwise the default value
+          /// is [false].
+          ///
+          ///
+          ///    [attributeFilter] Optional
+          ///
+          ///
+          ///       : An array of specific attribute names to be monitored.
+          ///        If this property isn't included, changes to all attributes
+          /// cause mutation notifications.
+          ///
+          ///
+          ///
+          ///    [attributeOldValue] Optional
+          ///
+          ///
+          ///        : Set to [true] to record the previous value of any
+          /// attribute that changes when monitoring the node or nodes for
+          /// attribute changes;
+          ///        see Monitoring attribute values in MutationObserver for
+          /// details on watching for attribute changes and value recording.
+          ///       The default value is [false].
+          ///
+          ///
+          ///
+          ///    [characterData] Optional
+          ///
+          ///
+          ///        : Set to [true] to monitor the specified target node (and,
+          /// if [subtree] is [true], its descendants) for changes to the
+          /// character data contained within the node or nodes.
+          ///        The default value is [true] if [characterDataOldValue] is
+          /// specified, otherwise the default value is [false].
+          ///
+          ///
+          ///
+          ///    [characterDataOldValue] Optional
+          ///
+          ///
+          ///        : Set to [true] to record the previous value of a node's
+          /// text whenever the text changes on nodes being monitored.
+          ///       The default value is [false].
+          ///
+          ///
+          ///
+          ///
+          ///
+          MutationObserverInit? options]) =>
       js_util.callMethod(this, 'observe', [target, options]);
 
   ///  Stops the [MutationObserver] instance from receiving further
@@ -843,8 +1031,7 @@ class Node implements EventTarget {
 
 extension PropsNode on Node {
   ///
-  ///     Returns an [unsigned short] representing the type of the
-  /// node. Possible
+  ///    Returns an [int] representing the type of the node. Possible
   ///    values are:
   ///
   ///
@@ -943,7 +1130,22 @@ extension PropsNode on Node {
   /// getRootNode();
   /// getRootNode(options);
   ///
-  Node getRootNode([GetRootNodeOptions? options]) =>
+  Node getRootNode(
+          [
+
+          ///  An object that sets options for getting the root node. The
+          /// available options are:
+          ///
+          ///
+          ///      [composed]: A boolean value that indicates whether the
+          /// shadow
+          ///      root should be returned ([false], the default), or a root
+          /// node beyond
+          ///     shadow root ([true]).
+          ///
+          ///
+          ///
+          GetRootNodeOptions? options]) =>
       js_util.callMethod(this, 'getRootNode', [options]);
 
   ///
@@ -1085,7 +1287,25 @@ extension PropsNode on Node {
   /// let p = document.getElementById("para1")
   /// let p_prime = p.cloneNode(true)
   ///
-  Node cloneNode([bool? deep = false]) =>
+  Node cloneNode(
+          [
+
+          ///
+          ///    If [true], then the node and its whole subtree,
+          ///    including text that may be in child [Text] nodes,
+          ///    is also copied.
+          ///
+          ///
+          ///    If [false], only the node will be cloned.
+          ///     The subtree, including any text that the node contains, is
+          /// not cloned.
+          ///
+          ///
+          ///    Note that has no effect on empty elements,
+          ///    such as the [<img>] and [<input>] elements.
+          ///
+          ///
+          bool? deep = false]) =>
       js_util.callMethod(this, 'cloneNode', [deep]);
 
   ///
@@ -1130,7 +1350,15 @@ extension PropsNode on Node {
   /// ```
   ///
   ///
-  bool isEqualNode(Node? otherNode) =>
+  bool isEqualNode(
+
+          /// The [Node] to compare equality with.
+          ///
+          ///     Note: This parameter is not optional, but can be set to
+          /// [null].
+          ///
+          ///
+          Node? otherNode) =>
       js_util.callMethod(this, 'isEqualNode', [otherNode]);
 
   ///
@@ -1175,7 +1403,15 @@ extension PropsNode on Node {
   /// ```
   ///
   ///
-  bool isSameNode(Node? otherNode) =>
+  bool isSameNode(
+
+          /// The [Node] to test against.
+          ///
+          ///     Note: This parameter is not optional, but can be set to
+          /// [null].
+          ///
+          ///
+          Node? otherNode) =>
       js_util.callMethod(this, 'isSameNode', [otherNode]);
 
   ///
@@ -1223,7 +1459,7 @@ extension PropsNode on Node {
   bool contains(Node? other) => js_util.callMethod(this, 'contains', [other]);
 
   ///
-  ///     Returns a [DOMString] containing the prefix for a given
+  ///     Returns a [String] containing the prefix for a given
   /// namespace URI,
   ///     if present, and [null] if not. When multiple prefixes are
   /// possible, the
@@ -1257,7 +1493,15 @@ extension PropsNode on Node {
   ///  result[6].value = aSvgElt.lookupPrefix("http://www.w3.org/XML/1998/namespace"); // false
   /// });
   ///
-  String? lookupPrefix(String? namespace) =>
+  String? lookupPrefix(
+
+          /// A string containing the namespace to look the prefix up.
+          ///
+          ///     Note: This parameter is not optional but can be set to
+          /// [null].
+          ///
+          ///
+          String? namespace) =>
       js_util.callMethod(this, 'lookupPrefix', [namespace]);
 
   ///
@@ -1294,7 +1538,15 @@ extension PropsNode on Node {
   ///  result[6].value = aSvgElt.lookupNamespaceURI("xml");
   /// });
   ///
-  String? lookupNamespaceURI(String? prefix) =>
+  String? lookupNamespaceURI(
+
+          /// The prefix to look for.
+          ///
+          ///     Note: This parameter is not optional, but can be set to
+          /// [null].
+          ///
+          ///
+          String? prefix) =>
       js_util.callMethod(this, 'lookupNamespaceURI', [prefix]);
 
   ///
@@ -1406,7 +1658,11 @@ extension PropsNode on Node {
   ///
   /// removeChild(child);
   ///
-  Node removeChild(Node child) =>
+  Node removeChild(
+
+          /// A [Node] that is the child node to be removed from the DOM.
+          ///
+          Node child) =>
       js_util.callMethod(this, 'removeChild', [child]);
 }
 
@@ -1912,7 +2168,26 @@ extension PropsDocument on Document {
   /// const newNode = document.importNode(oldNode, true);
   /// document.getElementById("container").appendChild(newNode);
   ///
-  Node importNode(Node node, [bool? deep = false]) =>
+  Node importNode(Node node,
+          [
+
+          ///
+          ///    A boolean flag, whose default value is [false],
+          ///    which controls whether to include the entire DOM subtree
+          ///    of the [externalNode] in the import.
+          ///
+          ///
+          ///
+          ///     If is set to [true], then
+          ///     [externalNode] and all of its descendants are copied.
+          ///
+          ///
+          ///     If is set to [false], then only
+          ///     [externalNode] is imported — the new node has no children.
+          ///
+          ///
+          ///
+          bool? deep = false]) =>
       js_util.callMethod(this, 'importNode', [node, deep]);
 
   /// Adopt node from an external document.
@@ -2040,8 +2315,127 @@ extension PropsDocument on Document {
   ///  currentNode = treeWalker.nextNode();
   /// }
   ///
-  TreeWalker createTreeWalker(Node root,
-          [int? whatToShow = 0xFFFFFFFF, NodeFilter? filter]) =>
+  TreeWalker createTreeWalker(
+
+          ///
+          ///    A root [Node] of this [TreeWalker] traversal. Typically
+          ///    this will be an element owned by the document.
+          ///
+          ///
+          Node root,
+          [
+
+          ///
+          ///    A [int] representing a bitmask created by combining the
+          ///    constant properties of
+          ///    [NodeFilter].
+          ///     It is a convenient way of filtering for certain types of
+          /// node. It defaults to
+          ///    [0xFFFFFFFF] representing the [SHOW_ALL] constant.
+          ///
+          ///
+          ///
+          ///
+          ///      Constant
+          ///      Numerical value
+          ///      Description
+          ///
+          ///
+          ///
+          ///
+          ///      [NodeFilter.SHOW_ALL]
+          ///      [4294967295] (that is the max value of [int])
+          ///      Shows all nodes.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_ATTRIBUTE]
+          ///
+          ///
+          ///      [2]
+          ///       Shows attribute [Attr] nodes. This is meaningful only when
+          /// creating a [TreeWalker] with an [Attr] node as its root; in this
+          /// case, it means that the attribute node will appear in the first
+          /// position of the iteration or traversal. Since attributes are
+          /// never children of other nodes, they do not appear when traversing
+          /// over the document tree.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_CDATA_SECTION]
+          ///
+          ///
+          ///      [8]
+          ///      Shows [CDATASection] nodes.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_COMMENT]
+          ///      [128]
+          ///      Shows [Comment] nodes.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_DOCUMENT]
+          ///      [256]
+          ///      Shows [Document] nodes.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_DOCUMENT_FRAGMENT]
+          ///      [1024]
+          ///      Shows [DocumentFragment] nodes.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_DOCUMENT_TYPE]
+          ///      [512]
+          ///      Shows [DocumentType] nodes.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_ELEMENT]
+          ///      [1]
+          ///      Shows [Element] nodes.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_ENTITY]
+          ///
+          ///
+          ///      [32]
+          ///      Legacy, no more usable.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_ENTITY_REFERENCE]
+          ///
+          ///
+          ///      [16]
+          ///      Legacy, no more usable.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_NOTATION]
+          ///
+          ///
+          ///      [2048]
+          ///      Legacy, no more usable.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_PROCESSING_INSTRUCTION]
+          ///      [64]
+          ///      Shows [ProcessingInstruction] nodes.
+          ///
+          ///
+          ///      [NodeFilter.SHOW_TEXT]
+          ///      [4]
+          ///      Shows [Text] nodes.
+          ///
+          ///
+          ///
+          ///
+          int? whatToShow = 0xFFFFFFFF,
+
+          ///
+          ///    A [NodeFilter], that is an object with a method
+          ///     [acceptNode], which is called by the [TreeWalker] to
+          /// determine
+          ///     whether or not to accept a node that has passed the
+          /// [whatToShow] check.
+          ///
+          ///
+          NodeFilter? filter]) =>
       js_util.callMethod(this, 'createTreeWalker', [root, whatToShow, filter]);
 
   bool get hidden => js_util.getProperty(this, 'hidden');
@@ -2321,7 +2715,15 @@ extension PropsDOMImplementation on DOMImplementation {
   /// alert(d.doctype.publicId); // -//W3C//DTD SVG 1.1//EN
   ///
   DocumentType createDocumentType(
-          String qualifiedName, String publicId, String systemId) =>
+          String qualifiedName,
+
+          /// Is a [String] containing the [PUBLIC] identifier.
+          ///
+          String publicId,
+
+          /// Is a [String] containing the [SYSTEM] identifiers.
+          ///
+          String systemId) =>
       js_util.callMethod(
           this, 'createDocumentType', [qualifiedName, publicId, systemId]);
 
@@ -2394,7 +2796,12 @@ extension PropsDOMImplementation on DOMImplementation {
   /// </body>
   /// </html>
   ///
-  Document createHTMLDocument([String? title]) =>
+  Document createHTMLDocument(
+          [
+
+          /// A [String] containing the title to give the new HTML document.
+          ///
+          String? title]) =>
       js_util.callMethod(this, 'createHTMLDocument', [title]);
 
   ///  Returns a boolean value indicating if a given feature is
@@ -2434,17 +2841,17 @@ class DocumentType implements Node, ChildNode {
 }
 
 extension PropsDocumentType on DocumentType {
-  /// A [DOMString], eg ["html"] for [<!DOCTYPE HTML>].
+  /// A [String], eg ["html"] for [<!DOCTYPE HTML>].
   ///
   String get name => js_util.getProperty(this, 'name');
 
-  ///  A [DOMString], eg ["-//W3C//DTD HTML 4.01//EN"], empty string
-  /// for HTML5.
+  ///  A [String], eg ["-//W3C//DTD HTML 4.01//EN"], empty string for
+  /// HTML5.
   ///
   String get publicId => js_util.getProperty(this, 'publicId');
 
-  ///  A [DOMString], eg ["http://www.w3.org/TR/html4/strict.dtd"],
-  /// empty string for HTML5.
+  ///  A [String], eg ["http://www.w3.org/TR/html4/strict.dtd"], empty
+  /// string for HTML5.
   ///
   String get systemId => js_util.getProperty(this, 'systemId');
 }
@@ -2583,13 +2990,13 @@ extension PropsElement on Element {
   ///
   String? get namespaceURI => js_util.getProperty(this, 'namespaceURI');
 
-  ///  A [DOMString] representing the namespace prefix of the element,
-  /// or [null] if no prefix is specified.
+  ///  A [String] representing the namespace prefix of the element, or
+  /// [null] if no prefix is specified.
   ///
   String? get prefix => js_util.getProperty(this, 'prefix');
 
-  ///  A [DOMString] representing the local part of the qualified name
-  /// of the element.
+  ///  A [String] representing the local part of the qualified name of
+  /// the element.
   ///
   String get localName => js_util.getProperty(this, 'localName');
 
@@ -2598,14 +3005,14 @@ extension PropsElement on Element {
   ///
   String get tagName => js_util.getProperty(this, 'tagName');
 
-  /// Is a [DOMString] representing the id of the element.
+  /// Is a [String] representing the id of the element.
   ///
   String get id => js_util.getProperty(this, 'id');
   set id(String newValue) {
     js_util.setProperty(this, 'id', newValue);
   }
 
-  /// Is a [DOMString] representing the class of the element.
+  /// Is a [String] representing the class of the element.
   ///
   dynamic get className => js_util.getProperty(this, 'className');
   set className(dynamic newValue) {
@@ -2701,7 +3108,12 @@ extension PropsElement on Element {
   ///
   /// attrVal = element.getAttributeNS(namespace, name)
   ///
-  String? getAttributeNS(String? namespace, String localName) =>
+  String? getAttributeNS(
+
+          /// The namespace in which to look for the specified attribute.
+          ///
+          String? namespace,
+          String localName) =>
       js_util.callMethod(this, 'getAttributeNS', [namespace, localName]);
 
   /// Sets the value of a named attribute of the current node.
@@ -2763,7 +3175,17 @@ extension PropsElement on Element {
   /// removeAttributeNode
   /// -
   ///
-  Object setAttribute(String qualifiedName, String value) =>
+  Object setAttribute(
+          String qualifiedName,
+
+          ///
+          ///     A [String] containing the value to assign to the attribute.
+          /// Any
+          ///     non-string value specified is converted automatically into a
+          /// string.
+          ///
+          ///
+          String value) =>
       js_util.callMethod(this, 'setAttribute', [qualifiedName, value]);
 
   ///  Sets the value of the attribute with the specified name and
@@ -2835,7 +3257,21 @@ extension PropsElement on Element {
   ///
   /// ```
   ///
-  bool toggleAttribute(String qualifiedName, [bool? force]) =>
+  bool toggleAttribute(String qualifiedName,
+          [
+
+          /// A boolean value which has the following effects:
+          ///
+          ///     if not specified at all, the [toggleAttribute] method
+          /// “toggles” the attribute named [name] — removing it if it is
+          /// present, or else adding it if it is not present
+          ///     if true, the [toggleAttribute] method adds an attribute named
+          /// [name]
+          ///     if false, the [toggleAttribute] method removes the attribute
+          /// named [name]
+          ///
+          ///
+          bool? force]) =>
       js_util.callMethod(this, 'toggleAttribute', [qualifiedName, force]);
 
   ///  Returns a boolean value indicating if the element has the
@@ -2977,7 +3413,47 @@ extension PropsElement on Element {
   ///
   /// attachShadow(init)
   ///
-  ShadowRoot attachShadow(ShadowRootInit init) =>
+  ShadowRoot attachShadow(
+
+          /// A object that contain the following fields:
+          ///
+          ///    [mode]
+          ///
+          ///
+          ///       A string specifying the encapsulation mode for the shadow
+          /// DOM tree.
+          ///      This can be one of:
+          ///
+          ///
+          ///
+          ///        [open]: Elements of the shadow root are accessible from
+          /// JavaScript outside the root,
+          ///       for example using [Element.shadowRoot]:
+          ///       [element.shadowRoot; // Returns a ShadowRoot obj
+          /// ]
+          ///
+          ///
+          ///        [closed]: Denies access to the node(s) of a closed shadow
+          /// root
+          ///       from JavaScript outside it:
+          ///       [element.shadowRoot; // Returns null
+          /// ]
+          ///
+          ///
+          ///
+          ///    [delegatesFocus]
+          ///
+          ///
+          ///       A boolean that, when set to [true], specifies behavior that
+          /// mitigates custom element issues around focusability.
+          ///       When a non-focusable part of the shadow DOM is clicked, the
+          /// first focusable part is given focus, and the shadow host is given
+          /// any available [:focus] styling.
+          ///
+          ///
+          ///
+          ///
+          ShadowRootInit init) =>
       js_util.callMethod(this, 'attachShadow', [init]);
 
   ///  Returns the open shadow root that is hosted by the element, or
@@ -3134,7 +3610,12 @@ extension PropsElement on Element {
   ///  Insert before and Insert after buttons to insert new divs before or
   ///  after the selected element using insertAdjacentElement().
   ///
-  Element? insertAdjacentElement(String where, Element element) =>
+  Element? insertAdjacentElement(
+          String where,
+
+          /// The element to be inserted into the tree.
+          ///
+          Element element) =>
       js_util.callMethod(this, 'insertAdjacentElement', [where, element]);
 
   ///  Inserts a given text node at a given position relative to the
@@ -3157,7 +3638,36 @@ extension PropsElement on Element {
   ///  insertAdjacentText(). Note that the existing text node is not added to —
   ///  further text nodes are created containing the new additions.
   ///
-  Object insertAdjacentText(String where, String data) =>
+  Object insertAdjacentText(
+
+          ///  A string representing the position relative to the element the
+          /// method is called from; must be one of the following strings:
+          ///
+          ///
+          ///     ['beforebegin']: Before the [element]
+          ///     itself.
+          ///
+          ///
+          ///     ['afterbegin']: Just inside the
+          ///     [element], before its first child.
+          ///
+          ///
+          ///     ['beforeend']: Just inside the
+          ///     [element], after its last child.
+          ///
+          ///
+          ///     ['afterend']: After the [element]
+          ///     itself.
+          ///
+          ///
+          ///
+          String where,
+
+          ///  A string from which to create a new text node to insert at the
+          /// given position [where] relative to the element the method is
+          /// called from.
+          ///
+          String data) =>
       js_util.callMethod(this, 'insertAdjacentText', [where, data]);
 
   StylePropertyMapReadOnly computedStyleMap() =>
@@ -3521,12 +4031,24 @@ extension PropsCharacterData on CharacterData {
   ///
   ///  domString = characterData.substringData(offset, count)
   ///
-  String substringData(int offset, int count) =>
+  String substringData(
+
+          ///
+          ///     The index of the first character to include in the returned
+          /// substring.
+          ///    [0] is the first character of the string.
+          ///
+          ///
+          int offset,
+
+          /// The number of characters to return.
+          ///
+          int count) =>
       js_util.callMethod(this, 'substringData', [offset, count]);
 
   ///  Appends the given string to the [CharacterData.data] string;
   /// when this method returns, [data] contains the concatenated
-  /// [DOMString].
+  /// [String].
   ///
   /// appendData(data);
   ///
@@ -3537,12 +4059,16 @@ extension PropsCharacterData on CharacterData {
   ///
   /// textnode.appendData(" - appended text.");
   ///
-  Object appendData(String data) =>
+  Object appendData(
+
+          /// The data to append to the current node.
+          ///
+          String data) =>
       js_util.callMethod(this, 'appendData', [data]);
 
   ///  Inserts the specified characters, at the specified offset, in
   /// the [CharacterData.data] string; when this method returns, [data]
-  /// contains the modified [DOMString].
+  /// contains the modified [String].
   ///
   /// characterData.insertData(offset, data)
   ///
@@ -3553,7 +4079,19 @@ extension PropsCharacterData on CharacterData {
   ///
   /// textnode.insertData(2, "long ");
   ///
-  Object insertData(int offset, String data) =>
+  Object insertData(
+
+          ///
+          ///     The offset number of characters to insert the provided data
+          /// at.
+          ///    [0] is the first character of the string.
+          ///
+          ///
+          int offset,
+
+          /// The data to insert.
+          ///
+          String data) =>
       js_util.callMethod(this, 'insertData', [offset, data]);
 
   ///  Removes the specified amount of characters, starting at the
@@ -3569,12 +4107,24 @@ extension PropsCharacterData on CharacterData {
   ///
   /// textnode.deleteData(1, 5);
   ///
-  Object deleteData(int offset, int count) =>
+  Object deleteData(
+
+          ///
+          ///     The number of bytes from the start of the data to remove
+          /// from.
+          ///    [0] is the first character of the string.
+          ///
+          ///
+          int offset,
+
+          /// The number of bytes to remove.
+          ///
+          int count) =>
       js_util.callMethod(this, 'deleteData', [offset, count]);
 
   ///  Replaces the specified amount of characters, starting at the
-  /// specified offset, with the specified [DOMString]; when this
-  /// method returns, [data] contains the modified string.
+  /// specified offset, with the specified [String]; when this method
+  /// returns, [data] contains the modified string.
   ///
   /// characterData.replaceData(offset, count, data)
   ///
@@ -3585,7 +4135,23 @@ extension PropsCharacterData on CharacterData {
   ///
   /// textnode.replaceData(2, 4, "replaced");
   ///
-  Object replaceData(int offset, int count, String data) =>
+  Object replaceData(
+
+          ///
+          ///     The number of characters from the start of the data to insert
+          /// at.
+          ///    [0] is the first character of the string.
+          ///
+          ///
+          int offset,
+
+          /// The number of characters to replace with the provided data.
+          ///
+          int count,
+
+          /// The data to insert.
+          ///
+          String data) =>
       js_util.callMethod(this, 'replaceData', [offset, count, data]);
 }
 
@@ -3665,9 +4231,14 @@ extension PropsText on Text {
   ///
   /// // The result is: <p>foo<u> new content </u>bar</p>
   ///
-  Text splitText(int offset) => js_util.callMethod(this, 'splitText', [offset]);
+  Text splitText(
 
-  ///  Returns a [DOMString] containing the text of all [Text] nodes
+          /// The index immediately before which to break the text node.
+          ///
+          int offset) =>
+      js_util.callMethod(this, 'splitText', [offset]);
+
+  ///  Returns a [String] containing the text of all [Text] nodes
   /// logically adjacent to this [Node], concatenated in document
   /// order.
   ///
@@ -4031,7 +4602,18 @@ extension PropsRange on Range {
   /// range.selectNode(referenceNode);
   /// range.collapse(true);
   ///
-  Object collapse([bool? toStart = false]) =>
+  Object collapse(
+          [
+
+          ///
+          ///    A boolean value: [true] collapses the [Range]
+          ///    to its start, [false] to its end. If omitted, it defaults to
+          ///    [false]
+          ///
+          /// .
+          ///
+          ///
+          bool? toStart = false]) =>
       js_util.callMethod(this, 'collapse', [toStart]);
 
   /// Sets the [Range] to contain the [Node] and its contents.
@@ -4069,7 +4651,33 @@ extension PropsRange on Range {
   /// sourceRange.selectNode(document.getElementsByTagName("div")[1]);
   /// compare = range.compareBoundaryPoints(Range.START_TO_END, sourceRange);
   ///
-  int compareBoundaryPoints(int how, Range sourceRange) =>
+  int compareBoundaryPoints(
+
+          /// A constant describing the comparison method:
+          ///
+          ///
+          ///     [Range.END_TO_END] compares the end boundary-point of
+          ///     sourceRange to the end boundary-point of [Range].
+          ///
+          ///
+          ///     [Range.END_TO_START] compares the end boundary-point of
+          ///     sourceRange to the start boundary-point of [Range].
+          ///
+          ///
+          ///     [Range.START_TO_END] compares the start boundary-point of
+          ///     sourceRange to the end boundary-point of [Range].
+          ///
+          ///
+          ///     [Range.START_TO_START] compares the start boundary-point of
+          ///     sourceRange to the start boundary-point of [Range].
+          ///
+          ///
+          ///
+          int how,
+
+          /// A [Range] to compare boundary points with the range.
+          ///
+          Range sourceRange) =>
       js_util.callMethod(this, 'compareBoundaryPoints', [how, sourceRange]);
 
   /// Removes the contents of a [Range] from the [Document].
@@ -4119,7 +4727,11 @@ extension PropsRange on Range {
   ///
   /// range.surroundContents(newParent);
   ///
-  Object surroundContents(Node newParent) =>
+  Object surroundContents(
+
+          /// A [Node] with which to surround the contents.
+          ///
+          Node newParent) =>
       js_util.callMethod(this, 'surroundContents', [newParent]);
 
   ///  Returns a [Range] object with boundary points identical to the
@@ -4144,7 +4756,7 @@ extension PropsRange on Range {
   ///
   Object detach() => js_util.callMethod(this, 'detach', []);
 
-  ///  Returns a [boolean] indicating whether the given point is in the
+  ///  Returns a [bool] indicating whether the given point is in the
   /// [Range].
   ///
   /// bool = range.isPointInRange( referenceNode, offset )
@@ -4167,10 +4779,19 @@ extension PropsRange on Range {
   /// returnValue = range.comparePoint(document.getElementsByTagName('p').item(0), 1);
   ///
   @experimental
-  int comparePoint(Node node, int offset) =>
+  int comparePoint(
+          Node node,
+
+          ///
+          ///     An integer greater than or equal to zero representing the
+          /// offset inside the
+          ///    referenceNode.
+          ///
+          ///
+          int offset) =>
       js_util.callMethod(this, 'comparePoint', [node, offset]);
 
-  ///  Returns a [boolean] indicating whether the given node intersects
+  ///  Returns a [bool] indicating whether the given node intersects
   /// the [Range].
   ///
   /// bool = range.intersectsNode( referenceNode )
@@ -4233,7 +4854,7 @@ extension PropsNodeIterator on NodeIterator {
       js_util.getProperty(this, 'pointerBeforeReferenceNode');
 
   ///
-  ///    Returns an [unsigned long] being a bitmask made of constants
+  ///    Returns an [int] being a bitmask made of constants
   ///    describing the types of [Node] that must to be presented.
   ///     Non-matching nodes are skipped, but their children may be
   /// included, if
@@ -4251,7 +4872,7 @@ extension PropsNodeIterator on NodeIterator {
   ///
   ///
   ///      [NodeFilter.SHOW_ALL]
-  ///      [4294967295] (that is the max value of [unsigned long])
+  ///      [4294967295] (that is the max value of [int])
   ///      Shows all nodes.
   ///
   ///
@@ -4412,10 +5033,10 @@ extension PropsTreeWalker on TreeWalker {
   ///
   Node get root => js_util.getProperty(this, 'root');
 
-  ///  Returns an [unsigned long] being a bitmask made of constants
-  /// describing the types of [Node] that must be presented.
-  /// Non-matching nodes are skipped, but their children may be
-  /// included, if relevant. The possible values are:
+  ///  Returns an [int] being a bitmask made of constants describing
+  /// the types of [Node] that must be presented. Non-matching nodes
+  /// are skipped, but their children may be included, if relevant. The
+  /// possible values are:
   ///
   ///
   ///
@@ -4427,7 +5048,7 @@ extension PropsTreeWalker on TreeWalker {
   ///
   ///
   ///      [NodeFilter.SHOW_ALL]
-  ///      [4294967295] (that is the max value of [unsigned long])
+  ///      [4294967295] (that is the max value of [int])
   ///      Shows all nodes.
   ///
   ///
@@ -4570,9 +5191,9 @@ class NodeFilter {
 }
 
 extension PropsNodeFilter on NodeFilter {
-  ///  Returns an [unsigned short] that will be used to tell if a given
-  /// [Node] must be accepted or not by the [NodeIterator] or
-  /// [TreeWalker] iteration algorithm.
+  ///  Returns an [int] that will be used to tell if a given [Node]
+  /// must be accepted or not by the [NodeIterator] or [TreeWalker]
+  /// iteration algorithm.
   ///    This method is expected to be written by the user of a
   /// [NodeFilter]. Possible return values are:
   ///
@@ -4675,19 +5296,33 @@ extension PropsDOMTokenList on DOMTokenList {
   ///
   int get length => js_util.getProperty(this, 'length');
 
-  ///  Returns the item in the list by its index, or [undefined] if the
+  ///  Returns the item in the list by its index, or [Object] if the
   /// index is greater than or equal to the list's [length].
   ///
   /// tokenList.item(index)
   ///
-  String? item(int index) => js_util.callMethod(this, 'item', [index]);
+  String? item(
+
+          ///  A number representing the index of the item you want to return.
+          /// If it isn't an integer, only the integer part is considered.
+          ///
+          int index) =>
+      js_util.callMethod(this, 'item', [index]);
 
   ///  Returns [true] if the list contains the given token, otherwise
   /// [false].
   ///
   /// contains(token);
   ///
-  bool contains(String token) => js_util.callMethod(this, 'contains', [token]);
+  bool contains(
+
+          ///
+          ///    A string representing the token
+          ///    you want to check for the existence of in the list.
+          ///
+          ///
+          String token) =>
+      js_util.callMethod(this, 'contains', [token]);
 
   /// Adds the specified tokens to the list.
   ///
@@ -4714,14 +5349,35 @@ extension PropsDOMTokenList on DOMTokenList {
   /// toggle(token);
   /// toggle(token, force);
   ///
-  bool toggle(String token, [bool? force]) =>
+  bool toggle(
+
+          /// A string representing the token you want to toggle.
+          ///
+          String token,
+          [
+
+          ///
+          ///    If included, turns the toggle into a one way-only operation.
+          ///     If set to [false], then [token] will only be removed, but not
+          /// added.
+          ///     If set to [true], then [token] will only be added, but not
+          /// removed.
+          ///
+          ///
+          bool? force]) =>
       js_util.callMethod(this, 'toggle', [token, force]);
 
   /// Replaces the token with another one.
   ///
   /// replace(oldToken, newToken);
   ///
-  bool replace(String token, String newToken) =>
+  bool replace(
+          String token,
+
+          ///  A string representing the token you want to replace [oldToken]
+          /// with.
+          ///
+          String newToken) =>
       js_util.callMethod(this, 'replace', [token, newToken]);
 
   ///  Returns [true] if the given token is in the associated
@@ -4744,7 +5400,12 @@ extension PropsDOMTokenList on DOMTokenList {
   ///  //
   /// }
   ///
-  bool supports(String token) => js_util.callMethod(this, 'supports', [token]);
+  bool supports(
+
+          /// A string containing the token to query for.
+          ///
+          String token) =>
+      js_util.callMethod(this, 'supports', [token]);
 
   ///  A stringifier property that returns the value of the list as a
   /// string.
@@ -4793,8 +5454,8 @@ extension PropsXPathResult on XPathResult {
   ///
   String get stringValue => js_util.getProperty(this, 'stringValue');
 
-  ///  A [boolean] representing the value of the result if [resultType]
-  /// is [BOOLEAN_TYPE].
+  ///  A [bool] representing the value of the result if [resultType] is
+  /// [BOOLEAN_TYPE].
   ///
   bool get booleanValue => js_util.getProperty(this, 'booleanValue');
 

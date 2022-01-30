@@ -73,8 +73,7 @@ extension PropsSelection on Selection {
   ///
   int get rangeCount => js_util.getProperty(this, 'rangeCount');
 
-  ///  Returns a [DOMString] describing the type of the current
-  /// selection.
+  /// Returns a [String] describing the type of the current selection.
   ///
   String get type => js_util.getProperty(this, 'type');
 
@@ -94,7 +93,16 @@ extension PropsSelection on Selection {
   ///  * a range object representing one of the
   ///  * ranges in the current selection */
   ///
-  Range getRangeAt(int index) =>
+  Range getRangeAt(
+
+          ///
+          ///     The zero-based index of the range to return. A negative
+          /// number or a number greater
+          ///     than or equal to [Selection.rangeCount] will result in an
+          /// error.
+          ///
+          ///
+          int index) =>
       js_util.callMethod(this, 'getRangeAt', [index]);
 
   /// A [Range] object that will be added to the selection.
@@ -131,13 +139,22 @@ extension PropsSelection on Selection {
   ///
   /// ```
   ///
-  Object addRange(Range range) => js_util.callMethod(this, 'addRange', [range]);
+  Object addRange(
+
+          /// A [Range] object that will be added to the [Selection].
+          ///
+          Range range) =>
+      js_util.callMethod(this, 'addRange', [range]);
 
   /// Removes a range from the selection.
   ///
   /// sel.removeRange(range)
   ///
-  Object removeRange(Range range) =>
+  Object removeRange(
+
+          /// A range object that will be removed to the selection.
+          ///
+          Range range) =>
       js_util.callMethod(this, 'removeRange', [range]);
 
   /// Removes all ranges from the selection.
@@ -152,7 +169,27 @@ extension PropsSelection on Selection {
   ///
   /// sel.collapse(node, offset);
   ///
-  Object collapse(Node? node, [int? offset = 0]) =>
+  Object collapse(
+
+          ///
+          ///     The caret location will be within this node. This value can
+          /// also be set to
+          ///    [null] — if [null] is specified, the method will behave like
+          ///     [Selection.removeAllRanges()], i.e. all ranges will be
+          /// removed from the
+          ///    selection.
+          ///
+          ///
+          Node? node,
+          [
+
+          ///
+          ///     The offset in [node] to which the selection will be
+          /// collapsed. If not
+          ///    specified, the default value [0] is used.
+          ///
+          ///
+          int? offset = 0]) =>
       js_util.callMethod(this, 'collapse', [node, offset]);
 
   Object setPosition(Node? node, [int? offset = 0]) =>
@@ -176,7 +213,20 @@ extension PropsSelection on Selection {
   ///
   /// sel.extend(node, offset)
   ///
-  Object extend(Node node, [int? offset = 0]) =>
+  Object extend(
+
+          /// The node within which the focus will be moved.
+          ///
+          Node node,
+          [
+
+          ///
+          ///     The offset position within [node] where the focus will be
+          /// moved to. If
+          ///    not specified, the default value [0] is used.
+          ///
+          ///
+          int? offset = 0]) =>
       js_util.callMethod(this, 'extend', [node, offset]);
 
   ///  Sets the selection to be a range including all or parts of two
@@ -185,7 +235,35 @@ extension PropsSelection on Selection {
   /// sel.setBaseAndExtent(anchorNode,anchorOffset,focusNode,focusOffset)
   ///
   Object setBaseAndExtent(
-          Node anchorNode, int anchorOffset, Node focusNode, int focusOffset) =>
+
+          /// The node at the start of the selection.
+          ///
+          Node anchorNode,
+
+          ///
+          ///     The number of child nodes from the start of the anchor node
+          /// that should be excluded
+          ///     from the selection. So for example, if the value is 0 the
+          /// whole node is included. If
+          ///     the value is 1, the whole node minus the first child node is
+          /// included. And so on.
+          ///
+          ///
+          int anchorOffset,
+
+          /// The node at the end of the selection.
+          ///
+          Node focusNode,
+
+          ///
+          ///     The number of child nodes from the start of the focus node
+          /// that should be included
+          ///     in the selection. So for example, if the value is 0 the whole
+          /// node is excluded. If the
+          ///    value is 1, the first child node is included. And so on.
+          ///
+          ///
+          int focusOffset) =>
       js_util.callMethod(this, 'setBaseAndExtent',
           [anchorNode, anchorOffset, focusNode, focusOffset]);
 
@@ -228,7 +306,12 @@ extension PropsSelection on Selection {
   ///
   /// sel.containsNode(node, partialContainment)
   ///
-  bool containsNode(Node node, [bool? allowPartialContainment = false]) =>
+  bool containsNode(
+
+          /// The node that is being looked for in the selection.
+          ///
+          Node node,
+          [bool? allowPartialContainment = false]) =>
       js_util.callMethod(this, 'containsNode', [node, allowPartialContainment]);
 
   String mToString() => js_util.callMethod(this, 'toString', []);

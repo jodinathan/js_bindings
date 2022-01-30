@@ -92,7 +92,15 @@ typedef IntersectionObserverCallback = Function(
 
 typedef LockGrantedCallback = Function(Lock? lock);
 
-typedef EventListener = Function(Event event);
+typedef EventListener = Function(
+
+    ///
+    ///     An [Event] object describing the event that has been fired
+    /// and needs
+    ///    to be processed.
+    ///
+    ///
+    Event event);
 
 typedef MutationCallback = Function(
     Iterable<MutationRecord> mutations, MutationObserver observer);

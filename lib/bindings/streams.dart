@@ -31,7 +31,7 @@ extension PropsReadableStream on ReadableStream {
   ///
   bool get locked => js_util.getProperty(this, 'locked');
 
-  ///  Returns a [Promise] that resolves when the stream is canceled.
+  ///  Returns a [Future] that resolves when the stream is canceled.
   /// Calling this method signals a loss of interest in the stream by a
   /// consumer. The supplied [reason] argument will be given to the
   /// underlying source, which may or may not use it.
@@ -61,7 +61,7 @@ extension PropsReadableStream on ReadableStream {
       js_util.callMethod(this, 'pipeThrough', [transform, options]);
 
   ///  Pipes the current ReadableStream to a given [WritableStream] and
-  /// returns a [Promise] that fulfills when the piping process
+  /// returns a [Future] that fulfills when the piping process
   /// completes successfully, or rejects if any errors were
   /// encountered.
   ///
@@ -282,7 +282,7 @@ class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
 }
 
 extension PropsReadableStreamBYOBReader on ReadableStreamBYOBReader {
-  ///  Returns a [Promise] that resolves with an object indicating the
+  ///  Returns a [Future] that resolves with an object indicating the
   /// state of the stream: either the next chunk in the stream or an
   /// indication that the stream is closed.
   ///
@@ -548,7 +548,7 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   /* double | NaN */ dynamic? get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
 
-  ///  Returns a [Promise] that resolves when the desired size of the
+  ///  Returns a [Future] that resolves when the desired size of the
   /// stream's internal queue transitions from non-positive to
   /// positive, signaling that it is no longer applying backpressure.
   ///
@@ -582,7 +582,7 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 
   ///  Writes a passed chunk of data to a [WritableStream] and its
-  /// underlying sink, then returns a [Promise] that resolves to
+  /// underlying sink, then returns a [Future] that resolves to
   /// indicate the success or failure of the write operation.
   ///
   /// var promise = writableStreamDefaultWriter.write(chunk);
@@ -700,7 +700,14 @@ extension PropsTransformStreamDefaultController
   ///
   /// TransformStreamDefaultController.enqueue(chunk);
   ///
-  Object enqueue([dynamic chunk]) =>
+  Object enqueue(
+          [
+
+          ///  The chunk being queued. A chunk is a single piece of data. It
+          /// can be any type of data, and a stream can contain chunks of
+          /// different types.
+          ///
+          dynamic chunk]) =>
       js_util.callMethod(this, 'enqueue', [chunk]);
 
   ///  Errors both the readable and writable side of the transform
@@ -708,7 +715,14 @@ extension PropsTransformStreamDefaultController
   ///
   /// TransformStreamDefaultController.error(reason);
   ///
-  Object error([dynamic reason]) => js_util.callMethod(this, 'error', [reason]);
+  Object error(
+          [
+
+          ///  A string containing the error message to be returned on any
+          /// further interaction with the stream.
+          ///
+          dynamic reason]) =>
+      js_util.callMethod(this, 'error', [reason]);
 
   ///  Closes the readable side and errors the writable side of the
   /// stream.

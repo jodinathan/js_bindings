@@ -27,7 +27,7 @@ class PeriodicSyncManager {
 
 extension PropsPeriodicSyncManager on PeriodicSyncManager {
   ///  Registers a periodic sync request with the browser with the
-  /// specified tag and options. Returns a [Promise] that resolves when
+  /// specified tag and options. Returns a [Future] that resolves when
   /// the registration completes.
   ///
   /// var register = PeriodicSyncManager.register(tag, BackgroundSyncOptions);
@@ -36,17 +36,17 @@ extension PropsPeriodicSyncManager on PeriodicSyncManager {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'register', [tag, options]));
 
-  ///  Returns a [Promise] that resolves with a list of [strings]
+  ///  Returns a [Future] that resolves with a list of [strings]
   /// representing the tags that are currently registered for periodic
   /// syncing.
   ///
   /// var tags = PeriodicSyncManager.getTags();
   ///
-  Iterable<Promise<String>> getTags() =>
-      js_util.callMethod(this, 'getTags', []);
+  Future<Iterable<String>> getTags() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getTags', []));
 
   ///  Unregisters the periodic sync request corresponding to the
-  /// specified tag and returns a [Promise] that resolves when
+  /// specified tag and returns a [Future] that resolves when
   /// unregistration completes.
   ///
   /// var unregister = PeriodicSyncManager.unregister(tag);

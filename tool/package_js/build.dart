@@ -155,7 +155,7 @@ Future<void> main() async {
           case 'namespace':
           case 'callback interface':
             final inherits = item['inheritance'];
-            final doc = spec.makeDoc(item['desc']);
+            final doc = makeDoc(item['desc']);
             final abstract = item['abstract'] == true ? 'abstract ' : '';
             dynamic parent;
             final mixin = type == 'interface mixin';
@@ -290,14 +290,14 @@ Future<void> main() async {
                             ?.firstWhereOrNull((i) => i['name'] == mName) !=
                         null;
 
-                doc = spec.makeDoc(member['desc']);
+                doc = makeDoc(member['desc']);
 
                 if (syntax is String) {
-                  doc += '\n' + spec.makeDoc(syntax, wrap: false);
+                  doc += '\n' + makeDoc(syntax, wrap: false);
                 }
 
                 if (example is String) {
-                  doc += '\n' + spec.makeDoc(example, wrap: false);
+                  doc += '\n' + makeDoc(example, wrap: false);
                 }
 
                 if (doc.isNotEmpty) {

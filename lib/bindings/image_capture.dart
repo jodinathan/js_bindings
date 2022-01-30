@@ -30,7 +30,7 @@ class ImageCapture {
 
 extension PropsImageCapture on ImageCapture {
   ///  Takes a single exposure using the video capture device sourcing
-  /// a [MediaStreamTrack] and returns a [Promise] that resolves with a
+  /// a [MediaStreamTrack] and returns a [Future] that resolves with a
   /// [Blob] containing the data.
   ///
   /// const blobPromise = imageCaptureObj.takePhoto()
@@ -58,10 +58,43 @@ extension PropsImageCapture on ImageCapture {
   ///  });
   /// }
   ///
-  Future<Blob> takePhoto([PhotoSettings? photoSettings]) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'takePhoto', [photoSettings]));
+  Future<Blob> takePhoto(
+          [
 
-  ///  Returns a [Promise] that resolves with a [PhotoCapabilities]
+          ///  An object that sets options for the photo to be taken. The
+          /// available options are:
+          ///
+          ///
+          ///      [fillLightMode]: The flash setting of the capture device,
+          /// one of
+          ///     ["auto"], ["off"], or ["flash"].
+          ///
+          ///
+          ///      [imageHeight]: The desired image height as an integer. The
+          /// user agent
+          ///      selects the closest height value to this setting if it only
+          /// supports discrete
+          ///     heights.
+          ///
+          ///
+          ///      [imageWidth]: The desired image width as an integer. The
+          /// user agent
+          ///      selects the closest width value to this setting if it only
+          /// supports discrete
+          ///     widths.
+          ///
+          ///
+          ///      [redEyeReduction]: A boolean indicating whether the red-eye
+          /// reduction
+          ///     should be used if it is available.
+          ///
+          ///
+          ///
+          PhotoSettings? photoSettings]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'takePhoto', [photoSettings]));
+
+  ///  Returns a [Future] that resolves with a [PhotoCapabilities]
   /// object containing the ranges of available configuration options.
   ///
   /// const capabilitiesPromise = imageCaptureObj.getPhotoCapabilities()
@@ -103,7 +136,7 @@ extension PropsImageCapture on ImageCapture {
   Future<PhotoCapabilities> getPhotoCapabilities() => js_util
       .promiseToFuture(js_util.callMethod(this, 'getPhotoCapabilities', []));
 
-  ///  Returns a [Promise] that resolves with a [PhotoSettings] object
+  ///  Returns a [Future] that resolves with a [PhotoSettings] object
   /// containing the current photo configuration settings.
   ///
   /// const settingsPromise = imageCapture.getPhotoSettings()

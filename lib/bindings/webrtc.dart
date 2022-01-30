@@ -96,9 +96,9 @@ class RTCIceServer {
 }
 
 extension PropsRTCIceServer on RTCIceServer {
-  ///  This required property is either a single [DOMString] or an
-  /// array of [DOMString]s, each specifying a URL which can be used to
-  /// connect to the server.
+  ///  This required property is either a single [String] or an array
+  /// of [String]s, each specifying a URL which can be used to connect
+  /// to the server.
   ///
   dynamic get urls => js_util.getProperty(this, 'urls');
   set urls(dynamic newValue) {
@@ -458,7 +458,17 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///  handle the process as usual, by setting the local description to the returned offer and
   ///  then sending that offer to the other peer.
   ///
-  Object setConfiguration([RTCConfiguration? configuration]) =>
+  Object setConfiguration(
+          [
+
+          ///
+          ///    An object which provides the options to be set. The
+          ///     changes are not additive; instead, the new values completely
+          /// replace the existing ones. See [RTCPeerConnection()] for more
+          /// information on what options are allowed.
+          ///
+          ///
+          RTCConfiguration? configuration]) =>
       js_util.callMethod(this, 'setConfiguration', [configuration]);
 
   /// Closes the current peer connection.
@@ -606,6 +616,42 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   Future<Object> createOffer(
           [RTCSessionDescriptionCallback? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback,
+
+          ///  An object providing the following options requested for the
+          /// offer:
+          ///
+          ///    [iceRestart] Optional
+          ///
+          ///
+          ///       To restart ICE on an active connection, set this to [true].
+          /// This will
+          ///       cause the returned offer to have different credentials than
+          /// those already in place. If
+          ///       you then apply the returned offer, ICE will restart.
+          /// Specify [false] to
+          ///       keep the same credentials and therefore not restart ICE.
+          /// The default is
+          /// [false].
+          ///
+          ///
+          ///    [offerToReceiveAudio] Optional
+          ///
+          ///
+          ///
+          ///      Provides additional control over the directionality of
+          /// audio. For example, it can be used to ensure that audio can be
+          /// received, regardless if audio is sent or not.
+          ///
+          ///    [offerToReceiveVideo] Optional
+          ///
+          ///
+          ///
+          ///      Provides additional control over the directionality of
+          /// video. For example, it can be used to ensure that video can be
+          /// received, regardless if video is sent or not.
+          ///
+          ///
+          ///
           RTCOfferOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'createOffer', [
         successCallback == null ? null : allowInterop(successCallback),
@@ -618,7 +664,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///     This description specifies the properties of the local end of
   /// the connection,
   ///    including the media format.
-  ///    It returns a [Promise]
+  ///    It returns a [Future]
   ///    which is fulfilled
   ///    once the description has been changed, asynchronously.
   ///
@@ -702,7 +748,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///     The description specifies the properties of the remote end of
   /// the connection,
   ///    including the media format.
-  ///    It returns a [Promise]
+  ///    It returns a [Future]
   ///    which is fulfilled
   ///    once the description has been changed, asynchronously.
   ///
@@ -769,7 +815,113 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   /// addIceCandidate(candidate, successCallback, failureCallback) // deprecated
   ///
   Future<Object> addIceCandidate(
-          [RTCIceCandidateInit? candidate,
+          [
+
+          ///  An [RTCIceCandidate] object, or an object that has the following
+          /// properties:
+          ///
+          ///     Optional
+          ///
+          ///
+          ///       A [String] describing the properties of the candidate,
+          /// taken directly from the SDP attribute ["candidate"].
+          ///       The candidate string specifies the network connectivity
+          /// information for the candidate.
+          ///       If the is an empty string ([""]), the end of the candidate
+          /// list has been reached; this candidate is known as the
+          /// "end-of-candidates" marker.
+          ///
+          ///
+          ///       The syntax of the candidate string is described in RFC
+          /// 5245, section 15.1.
+          ///      For an a-line (attribute line) that looks like this:
+          ///
+          ///      a=candidate:4234997325 1 udp 2043278322 192.168.0.56 44323
+          /// typ host
+          ///
+          ///
+          ///      the corresponding string's value will be
+          ///       ["candidate:4234997325 1 udp 2043278322 192.168.0.56 44323
+          /// typ host"].
+          ///
+          ///
+          ///       The user agent always prefers candidates with the highest
+          /// [priority], all else being equal.
+          ///       In the example above, the priority is [2043278322]. The
+          /// attributes are all separated by a single space character, and are
+          /// in a specific order.
+          ///       The complete list of attributes for this example candidate
+          /// is:
+          ///
+          ///
+          ///      [foundation] = 4234997325
+          ///       [component] = ["rtp"] (the number 1 is encoded to this
+          /// string; 2 becomes ["rtcp"])
+          ///      [protocol] = ["udp"]
+          ///      [priority] = 2043278322
+          ///      [ip] = ["192.168.0.56"]
+          ///      [port] = 44323
+          ///      [type] = ["host"]
+          ///
+          ///      Additional information can be found in
+          /// [RTCIceCandidate.candidate].
+          ///
+          ///       Note: For backward compatibility with older versions of the
+          /// WebRTC specification, the constructor also accepts this string
+          /// directly as an argument.
+          ///
+          ///
+          ///    [sdpMid] Optional
+          ///
+          ///      A [String] containing the identification tag of the media
+          /// stream with which the candidate is associated, or [null] if there
+          /// is no associated media stream. The default is [null].
+          ///      Additional information can be found in
+          /// [RTCIceCandidate.sdpMid].
+          ///
+          ///    [sdpMLineIndex] Optional
+          ///
+          ///      A number property containing the zero-based index of the
+          /// m-line with which the candidate is associated, within the SDP of
+          /// the media description, or [null] if no such associated exists.
+          /// The default is [null].
+          ///      Additional information can be found in
+          /// [RTCIceCandidate.sdpMLineIndex].
+          ///
+          ///    [usernameFragment] Optional
+          ///
+          ///
+          ///       A [String] containing the username fragment (usually
+          /// referred to in shorthand as "ufrag" or "ice-ufrag").
+          ///       This fragment, along with the ICE password ("ice-pwd"),
+          /// uniquely identifies a single ongoing ICE interaction (including
+          /// for any communication with the STUN server).
+          ///
+          ///
+          ///       The string is generated by WebRTC at the beginning of the
+          /// session.
+          ///       It may be up to 256 characters long, and at least 24 bits
+          /// must contain random data.
+          ///       It has no default value and is not present unless set
+          /// explicitly.
+          ///
+          ///      Additional information can be found in
+          /// [RTCIceCandidate.usernameFragment].
+          ///
+          ///
+          ///    The method will throw a [TypeError] exception if both [sdpMid]
+          /// and [sdpMLineIndex] are [null].
+          ///    The contents of the object should be constructed from a
+          /// message received over the signaling channel, describing a newly
+          /// received ICE candidate that's ready to be delivered to the local
+          /// ICE agent.
+          ///    If no object is specified, or its value is [null], an
+          /// end-of-candidates signal is sent to the remote peer using the
+          /// [end-of-candidates] a-line, formatted like this:
+          ///   a=end-of-candidates
+          ///
+          ///
+          RTCIceCandidateInit? candidate,
           VoidFunction? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'addIceCandidate', [
@@ -862,7 +1014,7 @@ extension PropsRTCSessionDescription on RTCSessionDescription {
   ///
   RTCSdpType get type => js_util.getProperty(this, 'type');
 
-  /// A [DOMString] containing the SDP describing the session.
+  /// A [String] containing the SDP describing the session.
   ///
   String get sdp => js_util.getProperty(this, 'sdp');
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
@@ -929,15 +1081,15 @@ class RTCIceCandidate {
 }
 
 extension PropsRTCIceCandidate on RTCIceCandidate {
-  ///  A [DOMString] representing the transport address for the
-  /// candidate that can be used for connectivity checks. The format of
-  /// this address is a [candidate-attribute] as defined in RFC 5245.
-  /// This string is empty ([""]) if the [RTCIceCandidate] is an "end
-  /// of candidates" indicator.
+  ///  A [String] representing the transport address for the candidate
+  /// that can be used for connectivity checks. The format of this
+  /// address is a [candidate-attribute] as defined in RFC 5245. This
+  /// string is empty ([""]) if the [RTCIceCandidate] is an "end of
+  /// candidates" indicator.
   ///
   String get candidate => js_util.getProperty(this, 'candidate');
 
-  ///  A [DOMString] specifying the candidate's media stream
+  ///  A [String] specifying the candidate's media stream
   /// identification tag which uniquely identifies the media stream
   /// within the component with which the candidate is associated, or
   /// [null] if no such association exists.
@@ -950,7 +1102,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   ///
   int? get sdpMLineIndex => js_util.getProperty(this, 'sdpMLineIndex');
 
-  ///  Returns a [DOMString] containing a unique identifier that is the
+  ///  Returns a [String] containing a unique identifier that is the
   /// same for any candidates of the same type, share the same base
   /// (the address from which the ICE agent sent the candidate), and
   /// come from the same STUN server. This is used to help optimize ICE
@@ -970,7 +1122,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   ///
   int? get priority => js_util.getProperty(this, 'priority');
 
-  /// A [DOMString] containing the IP address of the candidate.
+  /// A [String] containing the IP address of the candidate.
   ///
   String? get address => js_util.getProperty(this, 'address');
 
@@ -983,7 +1135,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   ///
   int? get port => js_util.getProperty(this, 'port');
 
-  ///  A [DOMString] indicating the type of candidate as one of the
+  ///  A [String] indicating the type of candidate as one of the
   /// strings listed on [RTCIceCandidate.type].
   ///
   RTCIceCandidateType? get type => js_util.getProperty(this, 'type');
@@ -994,7 +1146,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   RTCIceTcpCandidateType? get tcpType => js_util.getProperty(this, 'tcpType');
 
   ///  If the candidate is derived from another candidate, is a
-  /// [DOMString] containing that host candidate's IP address. For host
+  /// [String] containing that host candidate's IP address. For host
   /// candidates, this value is [null].
   ///
   String? get relatedAddress => js_util.getProperty(this, 'relatedAddress');
@@ -1006,7 +1158,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   ///
   int? get relatedPort => js_util.getProperty(this, 'relatedPort');
 
-  ///  A [DOMString] containing a randomly-generated username fragment
+  ///  A [String] containing a randomly-generated username fragment
   /// ("ice-ufrag") which ICE uses for message integrity along with a
   /// randomly-generated password ("ice-pwd"). You can use this string
   /// to verify generations of ICE generation; each generation of the
@@ -1121,7 +1273,7 @@ class RTCPeerConnectionIceErrorEvent implements Event {
 
 extension PropsRTCPeerConnectionIceErrorEvent
     on RTCPeerConnectionIceErrorEvent {
-  ///  A [DOMString] providing the local IP address used to communicate
+  ///  A [String] providing the local IP address used to communicate
   /// with the STUN or TURN server being used to negotiate the
   /// connection, or [null] if the local IP address has not yet been
   /// exposed as part of a local ICE candidate.
@@ -1135,7 +1287,7 @@ extension PropsRTCPeerConnectionIceErrorEvent
   ///
   int? get port => js_util.getProperty(this, 'port');
 
-  ///  A [DOMString] indicating the URL of the STUN or TURN server with
+  ///  A [String] indicating the URL of the STUN or TURN server with
   /// which the error occurred.
   ///
   String get url => js_util.getProperty(this, 'url');
@@ -1149,9 +1301,9 @@ extension PropsRTCPeerConnectionIceErrorEvent
   ///
   int get errorCode => js_util.getProperty(this, 'errorCode');
 
-  ///  A [DOMString] containing the STUN reason text returned by the
-  /// STUN or TURN server. If communication with the STUN or TURN
-  /// server couldn't be established at all, this string will be a
+  ///  A [String] containing the STUN reason text returned by the STUN
+  /// or TURN server. If communication with the STUN or TURN server
+  /// couldn't be established at all, this string will be a
   /// browser-specific string explaining the error.
   ///
   String get errorText => js_util.getProperty(this, 'errorText');
@@ -1302,8 +1454,53 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///
   /// var promise = rtcRtpSender.setParameters(parameters)
   ///
-  Future<Object> setParameters(RTCRtpSendParameters parameters) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'setParameters', [parameters]));
+  Future<Object> setParameters(
+
+          ///
+          ///    A parameters object previously obtained by calling the same
+          ///    sender's [getParameters()] method, with
+          ///     the desired changes to the sender's configuration parameters.
+          /// These parameters
+          ///     include potential codecs that could be use for encoding the
+          /// sender's
+          ///    [track]. The available parameters are:
+          ///
+          ///
+          ///    [encodings]
+          ///
+          ///      An array of [RTCRtpEncodingParameters] objects, each
+          /// specifying the parameters for a single codec that could be used
+          /// to encode the track's media.
+          ///
+          ///    [transactionId]
+          ///
+          ///      A string containing a unique ID for the last set of
+          /// parameters applied; this value is used to ensure that
+          /// [setParameters()] can only be called to alter changes made by a
+          /// specific previous call to [getParameters()]. Once this parameter
+          /// is initially set, it cannot be changed.
+          ///
+          ///    [degradationPreference]
+          ///
+          ///
+          ///
+          ///      Specifies the preferred way the WebRTC layer should handle
+          /// optimizing bandwidth against quality in constrained-bandwidth
+          /// situations; the value comes from the [RTCDegradationPreference]
+          /// enumerated string type, and the default is [balanced].
+          ///
+          ///    [priority]
+          ///
+          ///
+          ///
+          ///      A string from the [RTCPriorityType] enumerated type which
+          /// indicates the encoding's priority. The default value is [low].
+          ///
+          ///
+          ///
+          RTCRtpSendParameters parameters) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'setParameters', [parameters]));
 
   ///  Returns a [RTCRtpParameters] object describing the current
   /// configuration for the encoding and transmission of media on the
@@ -1353,7 +1550,7 @@ extension PropsRTCRtpSender on RTCRtpSender {
   Object setStreams([MediaStream? streams]) =>
       js_util.callMethod(this, 'setStreams', [streams]);
 
-  ///  Returns a [Promise] which is fulfilled with a [RTCStatsReport]
+  ///  Returns a [Future] which is fulfilled with a [RTCStatsReport]
   /// which provides statistics data for all outbound streams being
   /// sent using this [RTCRtpSender].
   ///
@@ -1637,9 +1834,9 @@ extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
     js_util.setProperty(this, 'payloadType', newValue);
   }
 
-  ///  The codec's MIME media type and subtype specified as a
-  /// [DOMString] of the form ["type/subtype"]. IANA maintains a
-  /// registry of valid MIME types.
+  ///  The codec's MIME media type and subtype specified as a [String]
+  /// of the form ["type/subtype"]. IANA maintains a registry of valid
+  /// MIME types.
   ///
   String get mimeType => js_util.getProperty(this, 'mimeType');
   set mimeType(String newValue) {
@@ -1666,9 +1863,9 @@ extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
     js_util.setProperty(this, 'channels', newValue);
   }
 
-  ///  A [DOMString] containing the format-specific parameters field
-  /// from the ["a=fmtp"] line in the codec's SDP, if one is present;
-  /// see section 5.8 of the IETF specification for JSEP.
+  ///  A [String] containing the format-specific parameters field from
+  /// the ["a=fmtp"] line in the codec's SDP, if one is present; see
+  /// section 5.8 of the IETF specification for JSEP.
   ///
   ///     Note: On an [RTCRtpReceiver], the format-specific parameters
   /// come from the SDP sent by the remote peer, while for
@@ -1713,7 +1910,7 @@ extension PropsRTCRtpCapabilities on RTCRtpCapabilities {
 
   ///  An array of objects conforming to the
   /// [RTCRtpHeaderExtensionCapability] dictionary. Each object
-  /// contains a single [DOMString], [uri], specifying the URI of the
+  /// contains a single [String], [uri], specifying the URI of the
   /// header extension, as described in RFC 5285.
   ///
   Iterable<RTCRtpHeaderExtensionCapability> get headerExtensions =>
@@ -1734,9 +1931,9 @@ class RTCRtpCodecCapability {
 }
 
 extension PropsRTCRtpCodecCapability on RTCRtpCodecCapability {
-  ///  A [DOMString] indicating the codec's MIME media type and
-  /// subtype. See Codecs used by WebRTC for details about potential
-  /// codecs that might be referenced here.
+  ///  A [String] indicating the codec's MIME media type and subtype.
+  /// See Codecs used by WebRTC for details about potential codecs that
+  /// might be referenced here.
   ///
   String get mimeType => js_util.getProperty(this, 'mimeType');
   set mimeType(String newValue) {
@@ -1762,10 +1959,10 @@ extension PropsRTCRtpCodecCapability on RTCRtpCodecCapability {
     js_util.setProperty(this, 'channels', newValue);
   }
 
-  ///  A [DOMString] giving the format specific parameters field from
-  /// the [a=fmtp] line in the SDP which corresponds to the codec, if
-  /// such a line exists. If there is no parameters field, this
-  /// property is left out.
+  ///  A [String] giving the format specific parameters field from the
+  /// [a=fmtp] line in the SDP which corresponds to the codec, if such
+  /// a line exists. If there is no parameters field, this property is
+  /// left out.
   ///
   String get sdpFmtpLine => js_util.getProperty(this, 'sdpFmtpLine');
   set sdpFmtpLine(String newValue) {
@@ -1836,7 +2033,7 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
   Iterable<RTCRtpSynchronizationSource> getSynchronizationSources() =>
       js_util.callMethod(this, 'getSynchronizationSources', []);
 
-  ///  Returns a [Promise] whose fulfillment handler receives a
+  ///  Returns a [Future] whose fulfillment handler receives a
   /// [RTCStatsReport] which contains statistics about the incoming
   /// streams and their dependencies.
   ///
@@ -1876,9 +2073,9 @@ class RTCRtpContributingSource {
 }
 
 extension PropsRTCRtpContributingSource on RTCRtpContributingSource {
-  ///  A [DOMHighResTimeStamp] indicating the most recent time at which
-  /// a frame originating from this source was delivered to the
-  /// receiver's [MediaStreamTrack]
+  ///  A [double] indicating the most recent time at which a frame
+  /// originating from this source was delivered to the receiver's
+  /// [MediaStreamTrack]
   ///
   double get timestamp => js_util.getProperty(this, 'timestamp');
   set timestamp(double newValue) {
@@ -1991,7 +2188,27 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
   ///
   /// rtcRtpTransceiver.setCodecPreferences(codecs)
   ///
-  Object setCodecPreferences(Iterable<RTCRtpCodecCapability> codecs) =>
+  Object setCodecPreferences(
+
+          ///
+          ///     An array of [RTCRtpCodecCapability] objects, in order of
+          /// preference,
+          ///     each providing the parameters for one of the transceiver's
+          /// supported codecs. If
+          ///      is empty, the codec configurations are all returned to the
+          /// user
+          ///    agent's defaults.
+          ///
+          ///
+          ///
+          ///     Note: Any codecs not included in
+          ///      will not be considered during the process of negotiating a
+          ///      connection. This lets you prevent the use of codecs you
+          /// don't wish to use.
+          ///
+          ///
+          ///
+          Iterable<RTCRtpCodecCapability> codecs) =>
       js_util.callMethod(this, 'setCodecPreferences', [codecs]);
 }
 
@@ -2091,7 +2308,7 @@ class RTCIceTransport implements EventTarget {
 }
 
 extension PropsRTCIceTransport on RTCIceTransport {
-  ///  Returns a [DOMString] whose value is one of the members of the
+  ///  Returns a [String] whose value is one of the members of the
   /// [RTCIceRole] enumerated type: ["controlling"] or ["controlled"];
   /// this indicates whether the ICE agent is the one that makes the
   /// final decision as to the candidate pair to use or not.
@@ -2104,7 +2321,7 @@ extension PropsRTCIceTransport on RTCIceTransport {
   ///
   RTCIceComponent get component => js_util.getProperty(this, 'component');
 
-  ///  A [DOMString] indicating what the current state of the ICE agent
+  ///  A [String] indicating what the current state of the ICE agent
   /// is. The value of can be used to determine whether the ICE agent
   /// has made an initial connection using a viable candidate pair
   /// (["connected"]), made its final selection of candidate pairs
@@ -2114,8 +2331,8 @@ extension PropsRTCIceTransport on RTCIceTransport {
   ///
   RTCIceTransportState get state => js_util.getProperty(this, 'state');
 
-  ///  A [DOMString] indicating which current gathering state of the
-  /// ICE agent: ["new"], ["gathering"], or ["complete"].
+  ///  A [String] indicating which current gathering state of the ICE
+  /// agent: ["new"], ["gathering"], or ["complete"].
   ///
   RTCIceGathererState get gatheringState =>
       js_util.getProperty(this, 'gatheringState');
@@ -2256,7 +2473,7 @@ class RTCIceParameters {
 }
 
 extension PropsRTCIceParameters on RTCIceParameters {
-  ///  A [DOMString] specifying the value of the ICE session's username
+  ///  A [String] specifying the value of the ICE session's username
   /// fragment field, [ufrag].
   ///
   String get usernameFragment => js_util.getProperty(this, 'usernameFragment');
@@ -2264,7 +2481,7 @@ extension PropsRTCIceParameters on RTCIceParameters {
     js_util.setProperty(this, 'usernameFragment', newValue);
   }
 
-  /// A [DOMString] specifying the session's password string.
+  /// A [String] specifying the session's password string.
   ///
   String get password => js_util.getProperty(this, 'password');
   set password(String newValue) {
@@ -2415,7 +2632,7 @@ extension PropsRTCSctpTransport on RTCSctpTransport {
   ///
   RTCDtlsTransport get transport => js_util.getProperty(this, 'transport');
 
-  ///  A [DOMString] enumerated value indicating the state of the SCTP
+  ///  A [String] enumerated value indicating the state of the SCTP
   /// transport.
   ///
   RTCSctpTransportState get state => js_util.getProperty(this, 'state');
@@ -2661,7 +2878,17 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///  dc.send(JSON.stringify(obj));
   /// }
   ///
-  Object send(String data) => js_util.callMethod(this, 'send', [data]);
+  Object send(
+
+          ///
+          ///     The data to transmit across the connection. This may be a
+          /// [String],
+          ///    a [Blob], an [ArrayBuffer], or an
+          ///    [ArrayBufferView].
+          ///
+          ///
+          String data) =>
+      js_util.callMethod(this, 'send', [data]);
 
   RTCPriorityType get priority => js_util.getProperty(this, 'priority');
 }
@@ -2796,8 +3023,38 @@ extension PropsRTCDTMFSender on RTCDTMFSender {
   /// RTCDTMFSender.insertDTMF(tones[, duration[, interToneGap]]);
   ///
   /// tbd
-  Object insertDTMF(String tones,
-          [int? duration = 100, int? interToneGap = 70]) =>
+  Object insertDTMF(
+
+          ///
+          ///    A [String] containing the DTMF codes to be transmitted to the
+          ///     recipient. Specifying an empty string as the parameter clears
+          /// the
+          ///     tone buffer, aborting any currently queued tones. A ","
+          /// character inserts a two second
+          ///    delay.
+          ///
+          ///
+          String tones,
+          [
+
+          ///
+          ///     The amount of time, in milliseconds, that each DTMF tone
+          /// should last. This value
+          ///     must be between 40 ms and 6000 ms (6 seconds), inclusive. The
+          /// default is 100 ms.
+          ///
+          ///
+          int? duration = 100,
+
+          ///
+          ///     The length of time, in milliseconds, to wait between tones.
+          /// The browser will enforce
+          ///     a minimum value of 30 ms (that is, if you specify a lower
+          /// value, 30 ms will be used
+          ///    instead); the default is 70 ms.
+          ///
+          ///
+          int? interToneGap = 70]) =>
       js_util.callMethod(this, 'insertDTMF', [tones, duration, interToneGap]);
 
   EventHandlerNonNull? get ontonechange =>
@@ -2808,7 +3065,7 @@ extension PropsRTCDTMFSender on RTCDTMFSender {
 
   bool get canInsertDTMF => js_util.getProperty(this, 'canInsertDTMF');
 
-  ///  A [DOMString] which contains the list of DTMF tones currently in
+  ///  A [String] which contains the list of DTMF tones currently in
   /// the queue to be transmitted (tones which have already been played
   /// are no longer included in the string). See for details on the
   /// format of the tone buffer.
@@ -2827,7 +3084,7 @@ class RTCDTMFToneChangeEvent implements Event {
 }
 
 extension PropsRTCDTMFToneChangeEvent on RTCDTMFToneChangeEvent {
-  ///  A [DOMString] specifying the tone which has begun playing, or an
+  ///  A [String] specifying the tone which has begun playing, or an
   /// empty string ([""]) if the previous tone has finished playing.
   ///
   String get tone => js_util.getProperty(this, 'tone');
@@ -2883,15 +3140,15 @@ class RTCStats {
 }
 
 extension PropsRTCStats on RTCStats {
-  ///  A [DOMHighResTimeStamp] object indicating the time at which the
-  /// sample was taken for this statistics object.
+  ///  A [double] object indicating the time at which the sample was
+  /// taken for this statistics object.
   ///
   double get timestamp => js_util.getProperty(this, 'timestamp');
   set timestamp(double newValue) {
     js_util.setProperty(this, 'timestamp', newValue);
   }
 
-  ///  A [DOMString] indicating the type of statistics the object
+  ///  A [String] indicating the type of statistics the object
   /// contains, taken from the enum type [RTCStatsType].
   ///
   RTCStatsType get type => js_util.getProperty(this, 'type');
@@ -2899,7 +3156,7 @@ extension PropsRTCStats on RTCStats {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  ///  A [DOMString] which uniquely identifies the object which was
+  ///  A [String] which uniquely identifies the object which was
   /// inspected to produce this object based on [RTCStats].
   ///
   String get id => js_util.getProperty(this, 'id');
@@ -2910,7 +3167,7 @@ extension PropsRTCStats on RTCStats {
 
 ///  The interface describes an error which has occurred while
 /// handling WebRTC operations. It's based upon the standard
-/// [DOMException] interface that describes general DOM errors.
+/// [Exception] interface that describes general DOM errors.
 @JS()
 @staticInterop
 class RTCError implements DOMException {
@@ -2918,8 +3175,8 @@ class RTCError implements DOMException {
 }
 
 extension PropsRTCError on RTCError {
-  ///  A [DOMString] specifying the WebRTC-specific error code
-  /// identifying the type of error that occurred.
+  ///  A [String] specifying the WebRTC-specific error code identifying
+  /// the type of error that occurred.
   ///
   RTCErrorDetailType get errorDetail =>
       js_util.getProperty(this, 'errorDetail');

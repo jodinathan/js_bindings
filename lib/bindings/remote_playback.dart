@@ -24,7 +24,7 @@ class RemotePlayback implements EventTarget {
 }
 
 extension PropsRemotePlayback on RemotePlayback {
-  ///  A [Promise] that resolves with a [callbackId] of an available
+  ///  A [Future] that resolves with a [callbackId] of an available
   /// remote playback device.
   ///
   /// RemotePlayback.watchAvailability(RemotePlaybackAvailabilityCallback);
@@ -39,8 +39,17 @@ extension PropsRemotePlayback on RemotePlayback {
   /// RemotePlayback.cancelWatchAvailability();
   /// RemotePlayback.cancelWatchAvailability(id);
   ///
-  Future<Object> cancelWatchAvailability([int? id]) => js_util.promiseToFuture(
-      js_util.callMethod(this, 'cancelWatchAvailability', [id]));
+  Future<Object> cancelWatchAvailability(
+          [
+
+          /// The [callbackId] of a particular remote playback device.
+          ///    If a [callbackId] of a specific device is passed in, then that
+          /// device will be removed from the list of watched devices.
+          /// Otherwise, the whole list will be cleared.
+          ///
+          int? id]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'cancelWatchAvailability', [id]));
 
   /// Represents the [RemotePlayback] connection's state. One of:
   ///

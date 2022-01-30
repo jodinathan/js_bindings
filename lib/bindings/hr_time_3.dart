@@ -41,8 +41,8 @@ class Performance implements EventTarget {
 }
 
 extension PropsPerformance on Performance {
-  ///  Returns a [DOMHighResTimeStamp] representing the number of
-  /// milliseconds elapsed since a reference instant.
+  ///  Returns a [double] representing the number of milliseconds
+  /// elapsed since a reference instant.
   ///
   /// t = performance.now();
   ///

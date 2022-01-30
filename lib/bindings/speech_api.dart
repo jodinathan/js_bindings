@@ -416,8 +416,8 @@ extension PropsSpeechGrammarList on SpeechGrammarList {
   Object addFromURI(String src, [double? weight = 1.0]) =>
       js_util.callMethod(this, 'addFromURI', [src, weight]);
 
-  ///  Takes a grammar present in a specific [DOMString] within the
-  /// code base (e.g. stored in a variable) and adds it to the
+  ///  Takes a grammar present in a specific [String] within the code
+  /// base (e.g. stored in a variable) and adds it to the
   /// [SpeechGrammarList] as a new [SpeechGrammar] object.
   ///
   /// speechGrammarListInstance.addFromString(string,weight);
@@ -463,7 +463,11 @@ extension PropsSpeechSynthesis on SpeechSynthesis {
   ///
   /// speak(utterance)
   ///
-  Object speak(SpeechSynthesisUtterance utterance) =>
+  Object speak(
+
+          /// A [SpeechSynthesisUtterance] object.
+          ///
+          SpeechSynthesisUtterance utterance) =>
       js_util.callMethod(this, 'speak', [utterance]);
 
   /// Removes all utterances from the utterance queue.

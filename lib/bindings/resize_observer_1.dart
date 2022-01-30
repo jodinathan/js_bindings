@@ -58,14 +58,29 @@ extension PropsResizeObserver on ResizeObserver {
   ///
   /// resizeObserver.observe(target, options);
   ///
-  Object observe(Element target, [ResizeObserverOptions? options]) =>
+  Object observe(
+
+          ///
+          ///    A reference to an [Element] or [SVGElement] to be
+          ///    observed.
+          ///
+          ///
+          Element target,
+          [ResizeObserverOptions? options]) =>
       js_util.callMethod(this, 'observe', [target, options]);
 
   /// Ends the observing of a specified [Element].
   ///
   /// void unobserve(target);
   ///
-  Object unobserve(Element target) =>
+  Object unobserve(
+
+          ///
+          ///    A reference to an [Element] or [SVGElement] to be
+          ///    unobserved.
+          ///
+          ///
+          Element target) =>
       js_util.callMethod(this, 'unobserve', [target]);
 
   ///  Unobserves all observed [Element] targets of a particular

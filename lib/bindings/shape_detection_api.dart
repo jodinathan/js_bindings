@@ -22,8 +22,8 @@ class FaceDetector {
 }
 
 extension PropsFaceDetector on FaceDetector {
-  Iterable<Promise<DetectedFace>> detect(dynamic image) =>
-      js_util.callMethod(this, 'detect', [image]);
+  Future<Iterable<DetectedFace>> detect(dynamic image) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'detect', [image]));
 }
 
 @anonymous
@@ -97,15 +97,16 @@ class BarcodeDetector {
 }
 
 extension PropsBarcodeDetector on BarcodeDetector {
-  ///  Returns a [Promise] which fulfills with an [Array] of supported
+  ///  Returns a [Future] which fulfills with an [Array] of supported
   /// barcode format types.
   ///
   /// var supportedFormats = BarcodeDetector.getSupportedFormats();
   ///
-  static Iterable<Promise<BarcodeFormat>> getSupportedFormats() =>
-      js_util.callMethod(BarcodeDetector, 'getSupportedFormats', []);
+  static Future<Iterable<BarcodeFormat>> getSupportedFormats() =>
+      js_util.promiseToFuture(
+          js_util.callMethod(BarcodeDetector, 'getSupportedFormats', []));
 
-  ///  Returns a [Promise] which fulfills with an array of
+  ///  Returns a [Future] which fulfills with an array of
   /// [detectedBarcode] objects with the following properties:
   ///
   ///     [boundingBox]: A [DOMRectReadOnly], which returns the
@@ -122,8 +123,8 @@ extension PropsBarcodeDetector on BarcodeDetector {
   ///
   /// var detectedBarcode = BarcodeDetector.detect(ImageBitmapSource);
   ///
-  Iterable<Promise<DetectedBarcode>> detect(dynamic image) =>
-      js_util.callMethod(this, 'detect', [image]);
+  Future<Iterable<DetectedBarcode>> detect(dynamic image) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'detect', [image]));
 }
 
 @anonymous

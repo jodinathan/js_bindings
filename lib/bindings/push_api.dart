@@ -35,7 +35,7 @@ extension PropsPushManager on PushManager {
   Iterable<String> get supportedContentEncodings =>
       js_util.getProperty(PushManager, 'supportedContentEncodings');
 
-  ///  Subscribes to a push service. It returns a [Promise] that
+  ///  Subscribes to a push service. It returns a [Future] that
   /// resolves to a [PushSubscription] object containing details of a
   /// push subscription. A new push subscription is created if the
   /// current service worker does not have an existing subscription.
@@ -73,10 +73,47 @@ extension PropsPushManager on PushManager {
   ///   );
   ///  });
   ///
-  Future<PushSubscription> subscribe([PushSubscriptionOptionsInit? options]) =>
+  Future<PushSubscription> subscribe(
+          [
+
+          ///
+          ///     An object containing optional configuration parameters. It
+          /// can have the following
+          ///    properties:
+          ///
+          ///
+          ///
+          ///      [userVisibleOnly]: A boolean indicating that the returned
+          /// push
+          ///      subscription will only be used for messages whose effect is
+          /// made visible to the
+          ///     user.
+          ///
+          ///
+          ///     [applicationServerKey]: A Base64-encoded [String] or
+          ///     [ArrayBuffer] containing an ECDSA
+          ///      P-256 public key that the push server will use to
+          /// authenticate your application
+          ///      server. If specified, all messages from your application
+          /// server must use the VAPID authentication scheme, and
+          ///      include a JWT signed with the corresponding private key.
+          /// This key IS
+          /// NOT the same ECDH key that you use to encrypt the data. For more
+          ///     information, see "Using
+          /// VAPID with WebPush".
+          ///
+          ///
+          ///
+          ///
+          ///     Note: This parameter is required in some browsers like
+          ///     Chrome and Edge.
+          ///
+          ///
+          ///
+          PushSubscriptionOptionsInit? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'subscribe', [options]));
 
-  ///  Retrieves an existing push subscription. It returns a [Promise]
+  ///  Retrieves an existing push subscription. It returns a [Future]
   /// that resolves to a [PushSubscription] object containing details
   /// of an existing subscription. If no existing subscription exists,
   /// this resolves to a [null] value.
@@ -118,7 +155,7 @@ extension PropsPushManager on PushManager {
   Future<PushSubscription> getSubscription() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getSubscription', []));
 
-  ///  Returns a [Promise] that resolves to the permission state of the
+  ///  Returns a [Future] that resolves to the permission state of the
   /// current [PushManager], which will be one of ['granted'],
   /// ['denied'], or ['prompt'].
   ///
@@ -194,14 +231,13 @@ class PushSubscription {
 }
 
 extension PropsPushSubscription on PushSubscription {
-  ///  A [USVString] containing the endpoint associated with the push
+  ///  A [String] containing the endpoint associated with the push
   /// subscription.
   ///
   String get endpoint => js_util.getProperty(this, 'endpoint');
 
-  ///  A [DOMHighResTimeStamp] of the subscription expiration time
-  /// associated with the push subscription, if there is one, or null
-  /// otherwise.
+  ///  A [double] of the subscription expiration time associated with
+  /// the push subscription, if there is one, or null otherwise.
   ///
   int? get expirationTime => js_util.getProperty(this, 'expirationTime');
 
@@ -247,7 +283,7 @@ extension PropsPushSubscription on PushSubscription {
       js_util.callMethod(this, 'getKey', [name]);
 
   ///  Starts the asynchronous process of unsubscribing from the push
-  /// service, returning a [Promise] that resolves to a boolean value
+  /// service, returning a [Future] that resolves to a boolean value
   /// when the current subscription is successfully unregistered.
   ///
   /// PushSubscription.unsubscribe().then(function(Boolean) { /* ... */ });

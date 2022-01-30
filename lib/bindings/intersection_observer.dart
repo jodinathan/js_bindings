@@ -82,7 +82,16 @@ extension PropsIntersectionObserver on IntersectionObserver {
   ///
   /// observer.unobserve(document.getElementById("elementToObserve"));
   ///
-  Object unobserve(Element target) =>
+  Object unobserve(
+
+          ///
+          ///     The [Element] to cease observing. If the specified element
+          /// isn't being
+          ///     observed, this method does nothing and no exception is
+          /// thrown.
+          ///
+          ///
+          Element target) =>
       js_util.callMethod(this, 'unobserve', [target]);
 
   ///  Stops the [IntersectionObserver] object from observing any
@@ -115,9 +124,8 @@ class IntersectionObserverEntry {
 }
 
 extension PropsIntersectionObserverEntry on IntersectionObserverEntry {
-  ///  A [DOMHighResTimeStamp] indicating the time at which the
-  /// intersection was recorded, relative to the
-  /// [IntersectionObserver]'s time origin.
+  ///  A [double] indicating the time at which the intersection was
+  /// recorded, relative to the [IntersectionObserver]'s time origin.
   ///
   double get time => js_util.getProperty(this, 'time');
 

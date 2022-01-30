@@ -96,7 +96,17 @@ extension PropsTouchList on TouchList {
   ///    touch = ev.touches.item(0);
   /// }, false);
   ///
-  Touch? item(int index) => js_util.callMethod(this, 'item', [index]);
+  Touch? item(
+
+          ///
+          ///     The index of the [Touch] object to retrieve. The index is a
+          /// number in
+          ///     the range of 0 to one less than the length of the
+          /// [TouchList].
+          ///
+          ///
+          int index) =>
+      js_util.callMethod(this, 'item', [index]);
 }
 
 ///  The interface represents an [UIEvent] which is sent when the

@@ -69,7 +69,7 @@ extension PropsWakeLockSentinel on WakeLockSentinel {
   ///
   WakeLockType get type => js_util.getProperty(this, 'type');
 
-  ///  Releases the [WakeLockSentinel], returning a [Promise] that is
+  ///  Releases the [WakeLockSentinel], returning a [Future] that is
   /// resolved once the sentinel has been successfully released.
   ///
   /// WakeLockSentinel.release().then(...);

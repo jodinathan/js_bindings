@@ -99,7 +99,7 @@ class SensorErrorEvent implements Event {
 }
 
 extension PropsSensorErrorEvent on SensorErrorEvent {
-  ///  Returns the [DOMException] object passed in the event's
+  ///  Returns the [Exception] object passed in the event's
   /// constructor.
   ///
   Exception get error => js_util.getProperty(this, 'error');

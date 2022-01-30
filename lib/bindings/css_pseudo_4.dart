@@ -29,7 +29,7 @@ class CSSPseudoElement implements EventTarget, GeometryUtils {
 }
 
 extension PropsCSSPseudoElement on CSSPseudoElement {
-  /// Returns the pseudo-element selector as a [CSSOMString].
+  /// Returns the pseudo-element selector as a [String].
   ///
   @experimental
   String get type => js_util.getProperty(this, 'type');

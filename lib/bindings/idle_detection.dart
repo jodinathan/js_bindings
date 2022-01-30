@@ -68,7 +68,7 @@ extension PropsIdleDetector on IdleDetector {
   }
 
   ///
-  ///    Returns a [Promise] that resolves when the user has chosen
+  ///    Returns a [Future] that resolves when the user has chosen
   ///     whether to grant the origin access to their idle state.
   /// Resolves with
   ///    ["granted"] on acceptance and ["denied"] on refusal.
@@ -80,7 +80,7 @@ extension PropsIdleDetector on IdleDetector {
       js_util.callMethod(IdleDetector, 'requestPermission', []));
 
   ///
-  ///     Returns a [Promise] that resolves when the detector starts
+  ///     Returns a [Future] that resolves when the detector starts
   /// listening for
   ///     changes in the user's idle state. [userState] and
   /// [screenState] are given
@@ -94,6 +94,17 @@ extension PropsIdleDetector on IdleDetector {
   /// IdleDetector.start();
   /// IdleDetector.start(options);
   ///
-  Future<Object> start([IdleOptions? options]) =>
+  Future<Object> start(
+          [
+
+          /// An object with the following properties:
+          ///
+          ///     [threshold]: The minimum number of idle milliseconds before
+          /// reporting should begin.
+          ///     [signal]: A reference to an [AbortSignal] instance allowing
+          /// you to abort idel detection.
+          ///
+          ///
+          IdleOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'start', [options]));
 }

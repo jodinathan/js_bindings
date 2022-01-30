@@ -27,19 +27,18 @@ class VideoPlaybackQuality {
 }
 
 extension PropsVideoPlaybackQuality on VideoPlaybackQuality {
-  ///  A [DOMHighResTimeStamp] containing the time in milliseconds
-  /// between the start of the navigation and the creation of the
-  /// object.
+  ///  A [double] containing the time in milliseconds between the start
+  /// of the navigation and the creation of the object.
   ///
   double get creationTime => js_util.getProperty(this, 'creationTime');
 
-  ///  An [unsigned long] giving the number of video frames dropped
-  /// since the creation of the associated [HTMLVideoElement].
+  ///  An [int] giving the number of video frames dropped since the
+  /// creation of the associated [HTMLVideoElement].
   ///
   int get droppedVideoFrames => js_util.getProperty(this, 'droppedVideoFrames');
 
-  ///  An [unsigned long] giving the number of video frames created and
-  /// dropped since the creation of the associated [HTMLVideoElement].
+  ///  An [int] giving the number of video frames created and dropped
+  /// since the creation of the associated [HTMLVideoElement].
   ///
   int get totalVideoFrames => js_util.getProperty(this, 'totalVideoFrames');
   int get corruptedVideoFrames =>

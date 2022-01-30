@@ -147,14 +147,34 @@ extension Propsconsole on console {
   ///
   /// console.count([label]);
   ///
-  Object count([String? label = 'default']) =>
+  Object count(
+          [
+
+          ///
+          ///    A [String]. If supplied, [count()] outputs the number of
+          ///     times it has been called with that label. If omitted,
+          /// [count()] behaves as
+          ///    though it was called with the "default" label.
+          ///
+          ///
+          String? label = 'default']) =>
       js_util.callMethod(this, 'count', [label]);
 
   /// Resets the value of the counter with the given label.
   ///
   /// console.countReset([label]);
   ///
-  Object countReset([String? label = 'default']) =>
+  Object countReset(
+          [
+
+          ///
+          ///    A [String]. If supplied, [countReset()] resets the count for
+          ///     that label to 0. If omitted, [countReset()] resets the
+          /// default counter to
+          ///    0.
+          ///
+          ///
+          String? label = 'default']) =>
       js_util.callMethod(this, 'countReset', [label]);
 
   ///  Creates a new inline group, indenting all following output by
@@ -185,14 +205,31 @@ extension Propsconsole on console {
   ///
   /// console.time(label);
   ///
-  Object time([String? label = 'default']) =>
+  Object time(
+          [
+
+          ///
+          ///     The name to give the new timer. This will identify the timer;
+          /// use the same name when
+          ///     calling [console.timeEnd()] to stop the timer and get the
+          /// time output to
+          ///    the console.
+          ///
+          ///
+          String? label = 'default']) =>
       js_util.callMethod(this, 'time', [label]);
 
   /// Logs the value of the specified timer to the console.
   ///
   /// console.timeLog(label);
   ///
-  Object timeLog([String? label = 'default', dynamic data]) =>
+  Object timeLog(
+          [
+
+          /// The name of the timer to log to the console.
+          ///
+          String? label = 'default',
+          dynamic data]) =>
       js_util.callMethod(this, 'timeLog', [label, data]);
 
   ///  Stops the specified timer and logs the elapsed time in
@@ -200,6 +237,16 @@ extension Propsconsole on console {
   ///
   /// console.timeEnd(label);
   ///
-  Object timeEnd([String? label = 'default']) =>
+  Object timeEnd(
+          [
+
+          ///
+          ///     The name of the timer to stop. Once stopped, the elapsed time
+          /// is automatically
+          ///    displayed in the Web console along
+          ///    with an indicator that the time has ended.
+          ///
+          ///
+          String? label = 'default']) =>
       js_util.callMethod(this, 'timeEnd', [label]);
 }

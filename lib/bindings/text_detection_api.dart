@@ -22,8 +22,8 @@ class TextDetector {
 }
 
 extension PropsTextDetector on TextDetector {
-  Iterable<Promise<DetectedText>> detect(dynamic image) =>
-      js_util.callMethod(this, 'detect', [image]);
+  Future<Iterable<DetectedText>> detect(dynamic image) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'detect', [image]));
 }
 
 @anonymous

@@ -85,13 +85,13 @@ extension PropsContentIndex on ContentIndex {
   Future<Object> delete(String id) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'delete', [id]));
 
-  ///  Returns a [Promise] that resolves with an iterable list of
+  ///  Returns a [Future] that resolves with an iterable list of
   /// content index entries.
   ///
   /// var indexedContent = ContentIndex.getAll();
   ///
-  Iterable<Promise<ContentDescription>> getAll() =>
-      js_util.callMethod(this, 'getAll', []);
+  Future<Iterable<ContentDescription>> getAll() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getAll', []));
 }
 
 @anonymous

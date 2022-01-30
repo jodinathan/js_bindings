@@ -76,7 +76,16 @@ extension PropsHeaders on Headers {
   /// myHeaders.get('Accept-Encoding'); // Returns 'deflate, gzip'
   ///
   /// To overwrite the old value with a new one, use Headers.set.
-  Object append(String name, String value) =>
+  Object append(
+
+          ///  The name of the HTTP header you want to add to the [Headers]
+          /// object.
+          ///
+          String name,
+
+          /// The value of the HTTP header you want to add.
+          ///
+          String value) =>
       js_util.callMethod(this, 'append', [name, value]);
 
   /// Deletes a header from a [Headers] object.
@@ -94,7 +103,13 @@ extension PropsHeaders on Headers {
   /// myHeaders.delete('Content-Type');
   /// myHeaders.get('Content-Type'); // Returns null, as it has been deleted
   ///
-  Object delete(String name) => js_util.callMethod(this, 'delete', [name]);
+  Object delete(
+
+          ///  The name of the HTTP header you want to delete from the
+          /// [Headers] object.
+          ///
+          String name) =>
+      js_util.callMethod(this, 'delete', [name]);
 
   ///  Returns a [String] sequence of all the values of a header within
   /// a [Headers] object with a given name.
@@ -119,7 +134,18 @@ extension PropsHeaders on Headers {
   ///
   @JS('get')
   @staticInterop
-  String? mGet(String name) => js_util.callMethod(this, 'get', [name]);
+  String? mGet(
+
+          ///
+          ///     The name of the HTTP header whose values you want to retrieve
+          /// from the
+          ///     [Headers] object. If the given name is not the name of an
+          /// HTTP header, this
+          ///    method throws a [TypeError]. The name is case-insensitive.
+          ///
+          ///
+          String name) =>
+      js_util.callMethod(this, 'get', [name]);
 
   ///  Returns a boolean stating whether a [Headers] object contains a
   /// certain header.
@@ -135,7 +161,16 @@ extension PropsHeaders on Headers {
   /// myHeaders.has('Content-Type'); // Returns true
   /// myHeaders.has('Accept-Encoding'); // Returns false
   ///
-  bool has(String name) => js_util.callMethod(this, 'has', [name]);
+  bool has(
+
+          ///
+          ///     The name of the HTTP header you want to test for. If the
+          /// given name is not a valid
+          ///    HTTP header name, this method throws a [TypeError].
+          ///
+          ///
+          String name) =>
+      js_util.callMethod(this, 'has', [name]);
 
   ///  Sets a new value for an existing header inside a [Headers]
   /// object, or adds the header if it does not already exist.
@@ -162,7 +197,19 @@ extension PropsHeaders on Headers {
   ///
   @JS('set')
   @staticInterop
-  Object mSet(String name, String value) =>
+  Object mSet(
+
+          ///
+          ///     The name of the HTTP header you want to set to a new value.
+          /// If the given name is not
+          ///    the name of an HTTP header, this method throws a [TypeError].
+          ///
+          ///
+          String name,
+
+          /// The new value you want to set.
+          ///
+          String value) =>
       js_util.callMethod(this, 'set', [name, value]);
 }
 
@@ -427,7 +474,16 @@ extension PropsResponse on Response {
   ///
   /// Response.redirect('https://www.example.com', 302);
   ///
-  static Response redirect(String url, [int? status = 302]) =>
+  static Response redirect(
+
+          /// The URL that the new response is to originate from.
+          ///
+          String url,
+          [
+
+          /// An optional status code for the response (e.g., [302].)
+          ///
+          int? status = 302]) =>
       js_util.callMethod(Response, 'redirect', [url, status]);
 
   /// The type of the response (e.g., [basic], [cors]).

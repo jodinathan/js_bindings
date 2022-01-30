@@ -113,7 +113,7 @@ extension PropsUSB on USB {
     js_util.setProperty(this, 'ondisconnect', newValue);
   }
 
-  ///  Returns a [Promise] that resolves with an array of [USBDevice]
+  ///  Returns a [Future] that resolves with an array of [USBDevice]
   /// objects for paired attached devices.
   ///
   /// USB.getDevices()
@@ -131,12 +131,12 @@ extension PropsUSB on USB {
   ///  });
   /// });
   ///
-  Iterable<Promise<USBDevice>> getDevices() =>
-      js_util.callMethod(this, 'getDevices', []);
+  Future<Iterable<USBDevice>> getDevices() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getDevices', []));
 
-  ///  Returns a [Promise] that resolves with an instance of
-  /// [USBDevice] if the specified device is found. Calling this
-  /// function triggers the user agent's pairing flow.
+  ///  Returns a [Future] that resolves with an instance of [USBDevice]
+  /// if the specified device is found. Calling this function triggers
+  /// the user agent's pairing flow.
   ///
   /// USB.requestDevice([filters])
   ///
@@ -304,7 +304,7 @@ extension PropsUSBDevice on USBDevice {
   ///
   bool get opened => js_util.getProperty(this, 'opened');
 
-  ///  Returns a [Promise] that resolves when a device session has
+  ///  Returns a [Future] that resolves when a device session has
   /// started.
   ///
   /// var promise = USBDevice.open()
@@ -312,7 +312,7 @@ extension PropsUSBDevice on USBDevice {
   Future<Object> open() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'open', []));
 
-  ///  Returns a [Promise] that resolves when all open interfaces are
+  ///  Returns a [Future] that resolves when all open interfaces are
   /// released and the device session has ended.
   ///
   /// var promise = USBDevice.close()
@@ -320,7 +320,7 @@ extension PropsUSBDevice on USBDevice {
   Future<Object> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
-  ///  Returns a [Promise] that resolves when the specified
+  ///  Returns a [Future] that resolves when the specified
   /// configuration is selected.
   ///
   /// var promise = USBDevice.selectConfiguration(configurationValue)
@@ -329,8 +329,8 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(js_util
           .callMethod(this, 'selectConfiguration', [configurationValue]));
 
-  ///  Returns a [Promise] that resolves when the requested interface
-  /// is claimed for exclusive access.
+  ///  Returns a [Future] that resolves when the requested interface is
+  /// claimed for exclusive access.
   ///
   /// var promise = USBDevice.claimInterface(interfaceNumber)
   ///
@@ -348,7 +348,7 @@ extension PropsUSBDevice on USBDevice {
   Future<Object> claimInterface(int interfaceNumber) => js_util.promiseToFuture(
       js_util.callMethod(this, 'claimInterface', [interfaceNumber]));
 
-  ///  Returns a [Promise] that resolves when a claimed interface is
+  ///  Returns a [Future] that resolves when a claimed interface is
   /// released from exclusive access.
   ///
   /// var promise = USBDevice.releaseInterface(interfaceNumber)
@@ -357,7 +357,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'releaseInterface', [interfaceNumber]));
 
-  ///  Returns a [Promise] that resolves when the specified alternative
+  ///  Returns a [Future] that resolves when the specified alternative
   /// endpoint is selected.
   ///
   /// var promise = USBDevice.selectAlternateInterface(interfaceNumber, alternateSetting)
@@ -367,7 +367,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(js_util.callMethod(this,
           'selectAlternateInterface', [interfaceNumber, alternateSetting]));
 
-  ///  Returns a [Promise] that resolves with a [USBInTransferResult]
+  ///  Returns a [Future] that resolves with a [USBInTransferResult]
   /// when a command or status operation has been transmitted to the
   /// USB device.
   ///
@@ -378,7 +378,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'controlTransferIn', [setup, length]));
 
-  ///  Returns a [Promise] that resolves with a [USBOutTransferResult]
+  ///  Returns a [Future] that resolves with a [USBOutTransferResult]
   /// when a command or status operation has been transmitted from the
   /// USB device.
   ///
@@ -390,7 +390,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'controlTransferOut', [setup, data]));
 
-  ///  Returns a [Promise] that resolves when a halt condition is
+  ///  Returns a [Future] that resolves when a halt condition is
   /// cleared.
   ///
   /// var promise = USBDevice.clearHalt(direction, endpointNumber)
@@ -422,7 +422,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'clearHalt', [direction, endpointNumber]));
 
-  ///  Returns a [Promise] that resolves with a [USBInTransferResult]
+  ///  Returns a [Future] that resolves with a [USBInTransferResult]
   /// when bulk or interrupt data is received from the USB device.
   ///
   /// var promise = USBDevice.transferIn(endpointNumber, length)
@@ -431,7 +431,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'transferIn', [endpointNumber, length]));
 
-  ///  Returns a [Promise] that resolves with a [USBOutTransferResult]
+  ///  Returns a [Future] that resolves with a [USBOutTransferResult]
   /// when bulk or interrupt data is sent to the USB device.
   ///
   /// var promise = USBDevice.transferOut(endpointNumber, data)
@@ -440,7 +440,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'transferOut', [endpointNumber, data]));
 
-  ///  Returns a [Promise] that resolves with a
+  ///  Returns a [Future] that resolves with a
   /// [USBIsochronousInTransferResult] when time sensitive information
   /// has been transmitted to the USB device.
   ///
@@ -451,7 +451,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(js_util.callMethod(
           this, 'isochronousTransferIn', [endpointNumber, packetLengths]));
 
-  ///  Returns a [Promise] that resolves with a
+  ///  Returns a [Future] that resolves with a
   /// [USBIsochronousOutTransferResult] when time sensitive information
   /// has been transmitted from the USB device.
   ///
@@ -462,7 +462,7 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(js_util.callMethod(this, 'isochronousTransferOut',
           [endpointNumber, data, packetLengths]));
 
-  ///  Returns a [Promise] that resolves when the device is reset and
+  ///  Returns a [Future] that resolves when the device is reset and
   /// all app operations canceled and their promises rejected.
   ///
   /// var promise = USBDevice.reset()

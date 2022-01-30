@@ -25,7 +25,7 @@ class CSSAnimation implements Animation {
 }
 
 extension PropsCSSAnimation on CSSAnimation {
-  /// Returns the animation name as a [CSSOMString].
+  /// Returns the animation name as a [String].
   ///
   String get animationName => js_util.getProperty(this, 'animationName');
 }

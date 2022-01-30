@@ -33,7 +33,7 @@ class CSSCounterStyleRule implements CSSRule {
 }
 
 extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// [<custom-ident>] defined as the for the associated rule.
   ///
   String get name => js_util.getProperty(this, 'name');
@@ -41,7 +41,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
@@ -51,7 +51,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'system', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
@@ -61,7 +61,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'symbols', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// [additive-symbols] descriptor defined for the associated rule. If
   /// the descriptor was not specified in the associated rule, the
   /// attribute returns an empty string.
@@ -71,7 +71,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'additiveSymbols', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
@@ -81,7 +81,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'negative', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
@@ -91,7 +91,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'prefix', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
@@ -101,7 +101,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'suffix', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
@@ -111,7 +111,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'range', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.
@@ -121,7 +121,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'pad', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// [speak-as] descriptor defined for the associated rule. If the
   /// descriptor was not specified in the associated rule, the
   /// attribute returns an empty string.
@@ -131,7 +131,7 @@ extension PropsCSSCounterStyleRule on CSSCounterStyleRule {
     js_util.setProperty(this, 'speakAs', newValue);
   }
 
-  ///  Is a [CSSOMString] object that contains the serialization of the
+  ///  Is a [String] object that contains the serialization of the
   /// descriptor defined for the associated rule. If the descriptor was
   /// not specified in the associated rule, the attribute returns an
   /// empty string.

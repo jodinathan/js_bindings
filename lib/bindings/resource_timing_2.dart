@@ -61,70 +61,69 @@ extension PropsPerformanceResourceTiming on PerformanceResourceTiming {
   ///
   String get nextHopProtocol => js_util.getProperty(this, 'nextHopProtocol');
 
-  ///  Returns a [DOMHighResTimeStamp] immediately before dispatching
-  /// the [FetchEvent] if a Service Worker thread is already running,
-  /// or immediately before starting the Service Worker thread if it is
+  ///  Returns a [double] immediately before dispatching the
+  /// [FetchEvent] if a Service Worker thread is already running, or
+  /// immediately before starting the Service Worker thread if it is
   /// not already running. If the resource is not intercepted by a
   /// Service Worker the property will always return 0.
   ///
   double get workerStart => js_util.getProperty(this, 'workerStart');
 
-  ///  A [DOMHighResTimeStamp] that represents the start time of the
-  /// fetch which initiates the redirect.
+  ///  A [double] that represents the start time of the fetch which
+  /// initiates the redirect.
   ///
   double get redirectStart => js_util.getProperty(this, 'redirectStart');
 
-  ///  A [DOMHighResTimeStamp] immediately after receiving the last
-  /// byte of the response of the last redirect.
+  ///  A [double] immediately after receiving the last byte of the
+  /// response of the last redirect.
   ///
   double get redirectEnd => js_util.getProperty(this, 'redirectEnd');
 
-  ///  A [DOMHighResTimeStamp] immediately before the browser starts to
-  /// fetch the resource.
+  ///  A [double] immediately before the browser starts to fetch the
+  /// resource.
   ///
   double get fetchStart => js_util.getProperty(this, 'fetchStart');
 
-  ///  A [DOMHighResTimeStamp] immediately before the browser starts
-  /// the domain name lookup for the resource.
+  ///  A [double] immediately before the browser starts the domain name
+  /// lookup for the resource.
   ///
   double get domainLookupStart =>
       js_util.getProperty(this, 'domainLookupStart');
 
-  ///  A [DOMHighResTimeStamp] representing the time immediately after
-  /// the browser finishes the domain name lookup for the resource.
+  ///  A [double] representing the time immediately after the browser
+  /// finishes the domain name lookup for the resource.
   ///
   double get domainLookupEnd => js_util.getProperty(this, 'domainLookupEnd');
 
-  ///  A [DOMHighResTimeStamp] immediately before the browser starts to
-  /// establish the connection to the server to retrieve the resource.
+  ///  A [double] immediately before the browser starts to establish
+  /// the connection to the server to retrieve the resource.
   ///
   double get connectStart => js_util.getProperty(this, 'connectStart');
 
-  ///  A [DOMHighResTimeStamp] immediately after the browser finishes
-  /// establishing the connection to the server to retrieve the
-  /// resource.
+  ///  A [double] immediately after the browser finishes establishing
+  /// the connection to the server to retrieve the resource.
   ///
   double get connectEnd => js_util.getProperty(this, 'connectEnd');
 
-  ///  A [DOMHighResTimeStamp] immediately before the browser starts
-  /// the handshake process to secure the current connection.
+  ///  A [double] immediately before the browser starts the handshake
+  /// process to secure the current connection.
   ///
   double get secureConnectionStart =>
       js_util.getProperty(this, 'secureConnectionStart');
 
-  ///  A [DOMHighResTimeStamp] immediately before the browser starts
-  /// requesting the resource from the server.
+  ///  A [double] immediately before the browser starts requesting the
+  /// resource from the server.
   ///
   double get requestStart => js_util.getProperty(this, 'requestStart');
 
-  ///  A [DOMHighResTimeStamp] immediately after the browser receives
-  /// the first byte of the response from the server.
+  ///  A [double] immediately after the browser receives the first byte
+  /// of the response from the server.
   ///
   double get responseStart => js_util.getProperty(this, 'responseStart');
 
-  ///  A [DOMHighResTimeStamp] immediately after the browser receives
-  /// the last byte of the resource or immediately before the transport
-  /// connection is closed, whichever comes first.
+  ///  A [double] immediately after the browser receives the last byte
+  /// of the resource or immediately before the transport connection is
+  /// closed, whichever comes first.
   ///
   double get responseEnd => js_util.getProperty(this, 'responseEnd');
 
@@ -146,7 +145,7 @@ extension PropsPerformanceResourceTiming on PerformanceResourceTiming {
   ///
   int get decodedBodySize => js_util.getProperty(this, 'decodedBodySize');
 
-  ///  Returns a [DOMString] that is the JSON representation of the
+  ///  Returns a [String] that is the JSON representation of the
   /// [PerformanceResourceTiming] object.
   ///
   /// json = resourcePerfEntry.toJSON();

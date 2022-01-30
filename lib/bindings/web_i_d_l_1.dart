@@ -51,17 +51,17 @@ class DOMException {
 }
 
 extension PropsDOMException on DOMException {
-  ///  Returns a [DOMString] that contains one of the strings
-  /// associated with an error name.
+  ///  Returns a [String] that contains one of the strings associated
+  /// with an error name.
   ///
   String get name => js_util.getProperty(this, 'name');
 
-  ///  Returns a [DOMString] representing a message or description
+  ///  Returns a [String] representing a message or description
   /// associated with the given error name.
   ///
   String get message => js_util.getProperty(this, 'message');
 
-  ///  Returns a [short] that contains one of the error code constants,
+  ///  Returns a [int] that contains one of the error code constants,
   /// or [0] if none match. This field is used for historical reasons.
   /// New DOM exceptions don't use this anymore: they put this info in
   /// the [DOMException.name] attribute.

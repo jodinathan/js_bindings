@@ -46,53 +46,53 @@ class PerformanceNavigationTiming implements PerformanceResourceTiming {
 }
 
 extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
-  ///  A [DOMHighResTimeStamp] representing the time value equal to the
-  /// time immediately before the user agent starts the unload event of
-  /// the previous document.
+  ///  A [double] representing the time value equal to the time
+  /// immediately before the user agent starts the unload event of the
+  /// previous document.
   ///
   double get unloadEventStart => js_util.getProperty(this, 'unloadEventStart');
 
-  ///  A [DOMHighResTimeStamp] representing the time value equal to the
-  /// time immediately after the user agent finishes the unload event
-  /// of the previous document.
+  ///  A [double] representing the time value equal to the time
+  /// immediately after the user agent finishes the unload event of the
+  /// previous document.
   ///
   double get unloadEventEnd => js_util.getProperty(this, 'unloadEventEnd');
 
-  ///  A [DOMHighResTimeStamp] representing a [timestamp] representing
-  /// the time value equal to the time immediately before the user
-  /// agent sets the current document readiness of the current document
-  /// to interactive.
+  ///  A [double] representing a [timestamp] representing the time
+  /// value equal to the time immediately before the user agent sets
+  /// the current document readiness of the current document to
+  /// interactive.
   ///
   double get domInteractive => js_util.getProperty(this, 'domInteractive');
 
-  ///  A [DOMHighResTimeStamp] representing the time value equal to the
-  /// time immediately before the user agent fires the DOMContentLoaded
+  ///  A [double] representing the time value equal to the time
+  /// immediately before the user agent fires the DOMContentLoaded
   /// event at the current document.
   ///
   double get domContentLoadedEventStart =>
       js_util.getProperty(this, 'domContentLoadedEventStart');
 
-  ///  A [DOMHighResTimeStamp] representing the time value equal to the
-  /// time immediately after the current document's DOMContentLoaded
-  /// event completes.
+  ///  A [double] representing the time value equal to the time
+  /// immediately after the current document's DOMContentLoaded event
+  /// completes.
   ///
   double get domContentLoadedEventEnd =>
       js_util.getProperty(this, 'domContentLoadedEventEnd');
 
-  ///  A [DOMHighResTimeStamp] representing a time value equal to the
-  /// time immediately before the browser sets the current document
+  ///  A [double] representing a time value equal to the time
+  /// immediately before the browser sets the current document
   /// readiness of the current document to complete.
   ///
   double get domComplete => js_util.getProperty(this, 'domComplete');
 
-  ///  A [DOMHighResTimeStamp] representing the time value equal to the
-  /// time immediately before the load event of the current document is
+  ///  A [double] representing the time value equal to the time
+  /// immediately before the load event of the current document is
   /// fired.
   ///
   double get loadEventStart => js_util.getProperty(this, 'loadEventStart');
 
-  ///  A [DOMHighResTimeStamp] representing the time when the load
-  /// event of the current document is completed.
+  ///  A [double] representing the time when the load event of the
+  /// current document is completed.
   ///
   double get loadEventEnd => js_util.getProperty(this, 'loadEventEnd');
 
@@ -109,7 +109,7 @@ extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
   ///
   int get redirectCount => js_util.getProperty(this, 'redirectCount');
 
-  ///  Returns a [DOMString] that is the JSON representation of the
+  ///  Returns a [String] that is the JSON representation of the
   /// [PerformanceNavigationTiming] object.
   ///
   /// json = resourcePerfEntry.toJSON();
@@ -354,8 +354,8 @@ class PerformanceNavigation {
 }
 
 extension PropsPerformanceNavigation on PerformanceNavigation {
-  ///  An [unsigned short] which indicates how the navigation to this
-  /// page was done. Possible values are:
+  ///  An [int] which indicates how the navigation to this page was
+  /// done. Possible values are:
   ///
   ///    [TYPE_NAVIGATE] (0)
   ///
@@ -381,8 +381,8 @@ extension PropsPerformanceNavigation on PerformanceNavigation {
   @deprecated
   int get type => js_util.getProperty(this, 'type');
 
-  ///  An [unsigned short] representing the number of REDIRECTs done
-  /// before reaching the page.
+  ///  An [int] representing the number of REDIRECTs done before
+  /// reaching the page.
   ///
   @deprecated
   int get redirectCount => js_util.getProperty(this, 'redirectCount');

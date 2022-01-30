@@ -44,11 +44,11 @@ class IdleDeadline {
 }
 
 extension PropsIdleDeadline on IdleDeadline {
-  ///  Returns a [DOMHighResTimeStamp], which is a floating-point value
-  /// providing an estimate of the number of milliseconds remaining in
-  /// the current idle period. If the idle period is over, the value is
-  /// 0. Your callback can call this repeatedly to see if there's
-  /// enough time left to do more work before returning.
+  ///  Returns a [double], which is a floating-point value providing an
+  /// estimate of the number of milliseconds remaining in the current
+  /// idle period. If the idle period is over, the value is 0. Your
+  /// callback can call this repeatedly to see if there's enough time
+  /// left to do more work before returning.
   ///
   /// timeRemaining = IdleDeadline.timeRemaining();
   ///

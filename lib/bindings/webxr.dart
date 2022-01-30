@@ -52,8 +52,24 @@ extension PropsXRSystem on XRSystem {
   /// isSessionSupported(mode)
   ///
   @experimental
-  Future<bool> isSessionSupported(XRSessionMode mode) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'isSessionSupported', [mode]));
+  Future<bool> isSessionSupported(
+
+          ///
+          ///     A [String] specifying the WebXR session mode for which
+          /// support is to
+          ///    be checked. Possible modes to check for:
+          ///
+          ///
+          ///    [immersive-ar]
+          ///
+          ///
+          ///    [immersive-vr]
+          ///    [inline]
+          ///
+          ///
+          XRSessionMode mode) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'isSessionSupported', [mode]));
 
   ///  Returns a promise that resolves to a new [XRSession] with the
   /// specified session mode.
@@ -62,8 +78,69 @@ extension PropsXRSystem on XRSystem {
   /// requestSession(mode, options)
   ///
   @experimental
-  Future<XRSession> requestSession(XRSessionMode mode,
-          [XRSessionInit? options]) =>
+  Future<XRSession> requestSession(
+
+          ///  A [String] defining the XR session mode. The supported modes
+          /// are:
+          ///
+          ///
+          ///
+          ///
+          ///   [immersive-ar]: The session's output will be given exclusive
+          /// access to the immersive device,
+          ///      but the rendered content will be blended with the real-world
+          /// environment.
+          ///     The session's [environmentBlendMode] indicates the method
+          ///     to be used to blend the content together.
+          ///
+          ///
+          ///      [immersive-vr]: Indicates that the rendered session will be
+          /// displayed using an immersive XR device
+          ///      in VR mode; it is not intended to be overlaid or integrated
+          /// into the surrounding environment.
+          ///     The [environmentBlendMode] is expected to be
+          ///      [opaque] if possible, but might be [additive] if the
+          /// hardware requires it.
+          ///
+          ///
+          ///      [inline]: The output is presented inline within the context
+          /// of an element in a standard HTML document,
+          ///      rather than occupying the full visual space. Inline sessions
+          /// can be presented in either mono or stereo mode,
+          ///      and may or may not have viewer tracking available. Inline
+          /// sessions don't require special hardware and should be
+          ///     available on any user agent offering WebXR API support.
+          ///
+          ///
+          ///
+          XRSessionMode mode,
+          [
+
+          ///  An object to configure the [XRSession]. If none are included,
+          /// the device will use a default feature configuration for all
+          /// options.
+          ///
+          ///
+          ///      [requiredFeatures] Optional: An array of values which the
+          /// returned [XRSession]
+          ///     must support. See Session features below.
+          ///
+          ///
+          ///      [optionalFeatures] Optional: An array of values identifying
+          /// features which the returned
+          ///      [XRSession] may optionally support. See Session features
+          /// below.
+          ///
+          ///     [domOverlay] Optional: An object with a required [root]
+          /// property that specifies the overlay element that will be
+          /// displayed to the user as the content of the DOM overlay. See the
+          /// example below.
+          ///     [depthSensing] Optional: An object with two required
+          /// properties [usagePreference] and [dataFormatPreference] to
+          /// configure how to perform depth sensing. See the example below.
+          ///
+          ///
+          XRSessionInit? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestSession', [mode, options]));
 
@@ -147,18 +224,62 @@ extension PropsXRSession on XRSession {
   /// updateRenderState()
   /// updateRenderState(state)
   ///
-  Object updateRenderState([XRRenderStateInit? state]) =>
+  Object updateRenderState(
+          [
+
+          ///  An optional object to configure the [XRRenderState]. If none is
+          /// provided, a default configuration will be used.
+          ///
+          ///     [baseLayer] Optional: An [XRWebGLLayer] object from which the
+          /// WebXR compositor will obtain imagery. This is [null] by default.
+          /// To specify other (or multiple) layers, see the [layers] option.
+          ///     [depthFar] Optional: A floating-point value specifying the
+          /// distance in meters from the viewer to the far clip plane, which
+          /// is a plane parallel to the display surface beyond which no
+          /// further rendering will occur. All rendering will take place
+          /// between the distances specified by [depthNear] and [depthFar].
+          /// This is 1000 meters (1 kilometer) by default.
+          ///     [depthNear] Optional: A floating-point value indicating the
+          /// distance in meters from the viewer to a plane parallel to the
+          /// display surface to be the near clip plane. No part of the scene
+          /// on the viewer's side of this plane will be rendered. This is 0.1
+          /// meters (10 centimeters) by default.
+          ///     [inlineVerticalFieldOfView] Optional: A floating-point value
+          /// indicating the default field of view, in radians, to be used when
+          /// computing the projection matrix for an [inline] [XRSession]. The
+          /// projection matrix calculation also takes into account the output
+          /// canvas's aspect ratio. This property must not be specified for
+          /// immersive sessions, so the value is [null] by default for
+          /// immersive sessions. The default value is otherwise π * 0.5 (half
+          /// of the value of pi).
+          ///     [layers] Optional: An ordered array of [XRLayer] objects
+          /// specifying the layers that should be presented to the XR device.
+          /// Setting [layers] will override the [baseLayer] if one is present,
+          /// with [baseLayer] reporting [null]. The order of the layers given
+          /// is "back-to-front". For alpha blending of layers, see the
+          /// [XRCompositionLayer.blendTextureSourceAlpha] property.
+          ///
+          ///
+          XRRenderStateInit? state]) =>
       js_util.callMethod(this, 'updateRenderState', [state]);
 
   ///  Requests that a new [XRReferenceSpace] of the specified type be
   /// created. Returns a promise which resolves with the
   /// [XRReferenceSpace] or [XRBoundedReferenceSpace] which was
-  /// requested, or throws a [NotSupportedError] [DOMException] if the
+  /// requested, or throws a [NotSupportedError] [Exception] if the
   /// requested space type isn't supported by the device.
   ///
   /// requestReferenceSpace(referenceSpaceType)
   ///
-  Future<XRReferenceSpace> requestReferenceSpace(XRReferenceSpaceType type) =>
+  Future<XRReferenceSpace> requestReferenceSpace(
+
+          ///
+          ///     A string specifying the type of reference space for which an
+          /// instance is to be returned.
+          ///    The string must be one of the values below.
+          ///
+          ///
+          XRReferenceSpaceType type) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestReferenceSpace', [type]));
 
@@ -296,7 +417,15 @@ extension PropsXRSession on XRSession {
   ///  }
   /// }
   ///
-  Object cancelAnimationFrame(int handle) =>
+  Object cancelAnimationFrame(
+
+          ///
+          ///    The unique value returned by the call
+          ///    to [requestAnimationFrame()] that
+          ///    previously scheduled the animation callback.
+          ///
+          ///
+          int handle) =>
       js_util.callMethod(this, 'cancelAnimationFrame', [handle]);
 
   ///  Ends the WebXR session. Returns a [promise] which resolves when
@@ -506,7 +635,16 @@ extension PropsXRFrame on XRFrame {
   ///
   /// getViewerPose(referenceSpace)
   ///
-  XRViewerPose? getViewerPose(XRReferenceSpace referenceSpace) =>
+  XRViewerPose? getViewerPose(
+
+          ///
+          ///     An [XRReferenceSpace] object specifying the space to use as
+          /// the
+          ///     reference point or base for the computation of the viewer's
+          /// current pose.
+          ///
+          ///
+          XRReferenceSpace referenceSpace) =>
       js_util.callMethod(this, 'getViewerPose', [referenceSpace]);
 
   ///  Returns an [XRPose] object representing the spatial relationship
@@ -514,7 +652,22 @@ extension PropsXRFrame on XRFrame {
   ///
   /// getPose(space, baseSpace)
   ///
-  XRPose? getPose(XRSpace space, XRSpace baseSpace) =>
+  XRPose? getPose(
+
+          ///
+          ///    An [XRSpace] specifying the space for which to obtain an
+          ///    [XRPose] describing the item's position and orientation.
+          ///
+          ///
+          XRSpace space,
+
+          ///
+          ///     An [XRSpace] to use as the base or origin for the purposes of
+          /// computing
+          ///    the relative position and orientation.
+          ///
+          ///
+          XRSpace baseSpace) =>
       js_util.callMethod(this, 'getPose', [space, baseSpace]);
 
   Future<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space) => js_util
@@ -613,7 +766,19 @@ extension PropsXRReferenceSpace on XRReferenceSpace {
   ///
   /// getOffsetReferenceSpace(originOffset)
   ///
-  XRReferenceSpace getOffsetReferenceSpace(XRRigidTransform originOffset) =>
+  XRReferenceSpace getOffsetReferenceSpace(
+
+          ///
+          ///     An [XRRigidTransform] specifying the offset to the origin of
+          /// the new
+          ///     reference space. These values are added to the position and
+          /// orientation of the current
+          ///     reference space and then the result is used as the position
+          /// and orientation of the
+          ///    newly created [XRReferenceSpace].
+          ///
+          ///
+          XRRigidTransform originOffset) =>
       js_util.callMethod(this, 'getOffsetReferenceSpace', [originOffset]);
 
   EventHandlerNonNull? get onreset => js_util.getProperty(this, 'onreset');
@@ -713,7 +878,12 @@ extension PropsXRView on XRView {
   ///
   /// requestViewportScale(scale)
   ///
-  Object requestViewportScale(double? scale) =>
+  Object requestViewportScale(
+
+          ///  A number greater than 0.0 and less than or equal to 1.0
+          /// representing the scale factor.
+          ///
+          double? scale) =>
       js_util.callMethod(this, 'requestViewportScale', [scale]);
 
   bool get isFirstPersonObserver =>
@@ -918,14 +1088,14 @@ class XRInputSource {
 }
 
 extension PropsXRInputSource on XRInputSource {
-  ///  A [DOMString] that indicates which hand the device represented
-  /// by this [XRInputSource] is being used in, if any. The value will
-  /// be [left], [right], or [none].
+  ///  A [String] that indicates which hand the device represented by
+  /// this [XRInputSource] is being used in, if any. The value will be
+  /// [left], [right], or [none].
   ///
   XRHandedness get handedness => js_util.getProperty(this, 'handedness');
 
-  ///  A [DOMString] indicating the methodology used to produce the
-  /// target ray: [gaze], [tracked-pointer], or [screen].
+  ///  A [String] indicating the methodology used to produce the target
+  /// ray: [gaze], [tracked-pointer], or [screen].
   ///
   XRTargetRayMode get targetRayMode =>
       js_util.getProperty(this, 'targetRayMode');
@@ -945,7 +1115,7 @@ extension PropsXRInputSource on XRInputSource {
   ///
   XRSpace? get gripSpace => js_util.getProperty(this, 'gripSpace');
 
-  ///  An array of [DOMString] objects, each specifying the name of an
+  ///  An array of [String] objects, each specifying the name of an
   /// input profile describing the preferred visual representation and
   /// behavior of this input source.
   ///
@@ -1132,7 +1302,15 @@ extension PropsXRWebGLLayer on XRWebGLLayer {
   ///  }
   /// }
   ///
-  XRViewport? getViewport(XRView view) =>
+  XRViewport? getViewport(
+
+          ///
+          ///     An [XRView] object indicating the view for which the viewport
+          /// is to be
+          ///    returned.
+          ///
+          ///
+          XRView view) =>
       js_util.callMethod(this, 'getViewport', [view]);
 
   static double getNativeFramebufferScaleFactor(XRSession session) => js_util

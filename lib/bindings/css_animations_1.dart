@@ -42,12 +42,12 @@ class AnimationEvent implements Event {
 }
 
 extension PropsAnimationEvent on AnimationEvent {
-  ///  Is a [DOMString] containing the value of the [animation-name]
-  /// that generated the animation.
+  ///  Is a [String] containing the value of the [animation-name] that
+  /// generated the animation.
   ///
   String get animationName => js_util.getProperty(this, 'animationName');
 
-  ///  Is a [float] giving the amount of time the animation has been
+  ///  Is a [double] giving the amount of time the animation has been
   /// running, in seconds, when this event fired, excluding any time
   /// the animation was paused. For an [animationstart] event, is [0.0]
   /// unless there was a negative value for [animation-delay], in which
@@ -55,10 +55,10 @@ extension PropsAnimationEvent on AnimationEvent {
   ///
   double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
 
-  ///  Is a [DOMString], starting with ['::'], containing the name of
-  /// the pseudo-element the animation runs on. If the animation
-  /// doesn't run on a pseudo-element but on the element, an empty
-  /// string: [''].
+  ///  Is a [String], starting with ['::'], containing the name of the
+  /// pseudo-element the animation runs on. If the animation doesn't
+  /// run on a pseudo-element but on the element, an empty string:
+  /// [''].
   ///
   String get pseudoElement => js_util.getProperty(this, 'pseudoElement');
 }
@@ -162,9 +162,9 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
 
   ///  Inserts a new keyframe rule into the current CSSKeyframesRule.
-  /// The parameter is a [DOMString] containing a keyframe in the same
+  /// The parameter is a [String] containing a keyframe in the same
   /// format as an entry of a [@keyframes] at-rule. If it contains more
-  /// than one keyframe rule, a [DOMException] with a [SYNTAX_ERR] is
+  /// than one keyframe rule, a [Exception] with a [SYNTAX_ERR] is
   /// thrown.
   ///
   /// CSSKeyframesRule.appendRule(rule);
@@ -185,12 +185,16 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   /// keyframes.appendRule('to {transform: translateX(100%);}');
   /// console.log(keyframes.cssRules); // a CSSRuleList object with two rules
   ///
-  Object appendRule(String rule) =>
+  Object appendRule(
+
+          /// A [String] containing a keyframe rule.
+          ///
+          String rule) =>
       js_util.callMethod(this, 'appendRule', [rule]);
 
   ///  Deletes a keyframe rule from the current CSSKeyframesRule. The
   /// parameter is the index of the keyframe to be deleted, expressed
-  /// as a [DOMString] resolving as a number between [0%] and [100%].
+  /// as a [String] resolving as a number between [0%] and [100%].
   ///
   /// CSSKeyframesRule.deleteRule(select);
   ///
@@ -214,13 +218,26 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   /// keyframes.deleteRule('to');
   /// console.log(keyframes.cssRules); // a CSSRuleList object with one rule
   ///
-  Object deleteRule(String select) =>
+  Object deleteRule(
+
+          ///  A [String] which contains the keyframe selector of the rule to
+          /// be deleted, which must be:
+          ///
+          ///     a comma-separated list of percentage values between 0% and
+          /// 100%;
+          ///    or, the keywords [from] or [to]
+          ///
+          ///    Note that the number and order of the values in the specified
+          /// keyframe selector must match those of the targeted keyframe
+          /// rule(s). White-space is disregarded.
+          ///
+          String select) =>
       js_util.callMethod(this, 'deleteRule', [select]);
 
   ///  Returns a keyframe rule corresponding to the given key. The key
-  /// is a [DOMString] containing an index of the keyframe to be
-  /// returned, resolving to a percentage between [0%] and [100%]. If
-  /// no such keyframe exists, returns [null].
+  /// is a [String] containing an index of the keyframe to be returned,
+  /// resolving to a percentage between [0%] and [100%]. If no such
+  /// keyframe exists, returns [null].
   ///
   /// CSSKeyframesRule.findRule(select);
   ///
@@ -242,6 +259,19 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   /// let keyframes = myRules[0]; // a CSSKeyframesRule
   /// console.log(keyframes.findRule('to')); // a CSSKeyframeRule object
   ///
-  CSSKeyframeRule? findRule(String select) =>
+  CSSKeyframeRule? findRule(
+
+          ///  A [String] which contains the keyframe selector of the rule to
+          /// be found, which must be:
+          ///
+          ///     a comma-separated list of percentage values between 0% and
+          /// 100%;
+          ///    or, the keywords [from] or [to]
+          ///
+          ///    Note that the number and order of the values in the specified
+          /// keyframe selector must match those of the targeted keyframe
+          /// rule(s). White-space is disregarded.
+          ///
+          String select) =>
       js_util.callMethod(this, 'findRule', [select]);
 }
