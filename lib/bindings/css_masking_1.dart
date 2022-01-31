@@ -1,6 +1,9 @@
 /// CSS Masking Module Level 1
 ///
 /// https://drafts.fxtf.org/css-masking-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_masking_1;
@@ -8,10 +11,7 @@ library css_masking_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: svg11 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface provides access to the properties of [<clipPath>]
 /// elements, as well as methods to manipulate them.

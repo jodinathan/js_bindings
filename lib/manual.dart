@@ -23,3 +23,5 @@ external bool isNaN(n);
 @JS('Infinity')
 external dynamic get infinity;
 
+typedef EventHandlerNonNull<T extends Event> = Function(T event);
+

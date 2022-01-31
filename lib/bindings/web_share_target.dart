@@ -1,6 +1,9 @@
 /// Web Share Target API
 ///
 /// https://w3c.github.io/web-share-target/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library web_share_target;
@@ -8,10 +11,7 @@ library web_share_target;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps:  */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

@@ -1,6 +1,9 @@
 /// Device Posture API
 ///
 /// https://w3c.github.io/device-posture/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library device_posture;
@@ -8,11 +11,7 @@ library device_posture;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

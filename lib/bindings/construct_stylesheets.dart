@@ -1,6 +1,9 @@
 /// Constructable Stylesheet Objects
 ///
 /// https://wicg.github.io/construct-stylesheets/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library construct_stylesheets;
@@ -8,11 +11,7 @@ library construct_stylesheets;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_1
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

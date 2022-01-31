@@ -1,6 +1,9 @@
 /// CSS Font Loading Module Level 3
 ///
 /// https://drafts.csswg.org/css-font-loading/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_font_loading_3;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

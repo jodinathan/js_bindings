@@ -1,6 +1,9 @@
 /// User Timing Level 3
 ///
 /// https://w3c.github.io/user-timing/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library user_timing_3;
@@ -8,11 +11,7 @@ library user_timing_3;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: hr_time_3
-performance_timeline_2 */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

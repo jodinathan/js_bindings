@@ -1,6 +1,9 @@
 /// Geometry Interfaces Module Level 1
 ///
 /// https://drafts.fxtf.org/geometry/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library geometry_1;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps:  */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface specifies the coordinate and perspective fields
 /// used by [DOMPoint] to define a 2D or 3D point in a coordinate
@@ -112,36 +112,28 @@ extension PropsDOMPoint on DOMPoint {
 
   /// The coordinate of the [DOMPoint].
   ///
-  @override
   /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
-  @override
   set x(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'x', newValue);
   }
 
   /// The coordinate of the [DOMPoint].
   ///
-  @override
   /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
-  @override
   set y(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'y', newValue);
   }
 
   /// The coordinate of the [DOMPoint].
   ///
-  @override
   /* double | NaN */ dynamic get z => js_util.getProperty(this, 'z');
-  @override
   set z(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'z', newValue);
   }
 
   /// The perspective value of the [DOMPoint].
   ///
-  @override
   /* double | NaN */ dynamic get w => js_util.getProperty(this, 'w');
-  @override
   set w(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'w', newValue);
   }
@@ -270,9 +262,7 @@ extension PropsDOMRect on DOMRect {
   ///  The x coordinate of the [DOMRect]'s origin (typically the
   /// top-left corner of the rectangle).
   ///
-  @override
   /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
-  @override
   set x(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'x', newValue);
   }
@@ -280,27 +270,21 @@ extension PropsDOMRect on DOMRect {
   ///  The y coordinate of the [DOMRect]'s origin (typically the
   /// top-left corner of the rectangle).
   ///
-  @override
   /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
-  @override
   set y(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'y', newValue);
   }
 
   /// The width of the [DOMRect].
   ///
-  @override
   /* double | NaN */ dynamic get width => js_util.getProperty(this, 'width');
-  @override
   set width(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'width', newValue);
   }
 
   /// The height of the [DOMRect].
   ///
-  @override
   /* double | NaN */ dynamic get height => js_util.getProperty(this, 'height');
-  @override
   set height(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'height', newValue);
   }
@@ -612,7 +596,7 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
   /// scaling factor for X must be specified. The default origin is
   /// [(0, 0, 0)]. The original matrix is not changed.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   DOMMatrix scaleNonUniform(
           [/* double | NaN */ dynamic scaleX = 1,
           /* double | NaN */ dynamic scaleY = 1]) =>
@@ -808,44 +792,32 @@ extension PropsDOMMatrix on DOMMatrix {
   ///
   ///
   ///
-  @override
   /* double | NaN */ dynamic get a => js_util.getProperty(this, 'a');
-  @override
   set a(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'a', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get b => js_util.getProperty(this, 'b');
-  @override
   set b(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'b', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get c => js_util.getProperty(this, 'c');
-  @override
   set c(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'c', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get d => js_util.getProperty(this, 'd');
-  @override
   set d(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'd', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get e => js_util.getProperty(this, 'e');
-  @override
   set e(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'e', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get f => js_util.getProperty(this, 'f');
-  @override
   set f(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'f', newValue);
   }
@@ -854,114 +826,82 @@ extension PropsDOMMatrix on DOMMatrix {
   /// component of a 4×4 matrix, where through [m14] are the first
   /// column, [m21] through [m24] are the second column, and so forth.
   ///
-  @override
   /* double | NaN */ dynamic get m11 => js_util.getProperty(this, 'm11');
-  @override
   set m11(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm11', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m12 => js_util.getProperty(this, 'm12');
-  @override
   set m12(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm12', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m13 => js_util.getProperty(this, 'm13');
-  @override
   set m13(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm13', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m14 => js_util.getProperty(this, 'm14');
-  @override
   set m14(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm14', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m21 => js_util.getProperty(this, 'm21');
-  @override
   set m21(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm21', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m22 => js_util.getProperty(this, 'm22');
-  @override
   set m22(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm22', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m23 => js_util.getProperty(this, 'm23');
-  @override
   set m23(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm23', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m24 => js_util.getProperty(this, 'm24');
-  @override
   set m24(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm24', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m31 => js_util.getProperty(this, 'm31');
-  @override
   set m31(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm31', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m32 => js_util.getProperty(this, 'm32');
-  @override
   set m32(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm32', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m33 => js_util.getProperty(this, 'm33');
-  @override
   set m33(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm33', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m34 => js_util.getProperty(this, 'm34');
-  @override
   set m34(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm34', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m41 => js_util.getProperty(this, 'm41');
-  @override
   set m41(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm41', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m42 => js_util.getProperty(this, 'm42');
-  @override
   set m42(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm42', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m43 => js_util.getProperty(this, 'm43');
-  @override
   set m43(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm43', newValue);
   }
 
-  @override
   /* double | NaN */ dynamic get m44 => js_util.getProperty(this, 'm44');
-  @override
   set m44(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'm44', newValue);
   }

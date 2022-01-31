@@ -1,6 +1,9 @@
 /// Web NFC
 ///
 /// https://w3c.github.io/web-nfc/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library web_nfc;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting

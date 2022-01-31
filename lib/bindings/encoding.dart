@@ -1,6 +1,9 @@
 /// Encoding Standard
 ///
 /// https://encoding.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library encoding;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: encoding
-streams */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

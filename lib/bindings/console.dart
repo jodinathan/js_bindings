@@ -1,6 +1,9 @@
 /// Console Standard
 ///
 /// https://console.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library console;
@@ -8,10 +11,7 @@ library console;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps:  */
+import 'package:js_bindings/js_bindings.dart';
 
 ///
 ///  The object provides access to the browser's
@@ -34,13 +34,13 @@ import 'all_bindings.dart';
 ///
 ///  Note: This feature is available in Web Workers
 ///
-@JS()
+@JS('console')
 @staticInterop
-class console {
-  external console();
+class Console {
+  external Console();
 }
 
-extension Propsconsole on console {
+extension PropsConsole on Console {
   ///  Log a message and stack trace to console if the first argument
   /// is [false].
   ///

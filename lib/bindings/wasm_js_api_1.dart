@@ -1,6 +1,9 @@
 /// WebAssembly JavaScript Interface
 ///
 /// https://webassembly.github.io/spec/js-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library wasm_js_api_1;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: wasm_js_api_1
-fetch */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

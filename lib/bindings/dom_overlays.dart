@@ -1,6 +1,9 @@
 /// WebXR DOM Overlays Module
 ///
 /// https://immersive-web.github.io/dom-overlays/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library dom_overlays;
@@ -8,12 +11,7 @@ library dom_overlays;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-webxr
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

@@ -1,6 +1,9 @@
 /// Idle Detection API
 ///
 /// https://wicg.github.io/idle-detection/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library idle_detection;
@@ -8,12 +11,7 @@ library idle_detection;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-permissions */
+import 'package:js_bindings/js_bindings.dart';
 
 enum UserIdleState { active, idle }
 

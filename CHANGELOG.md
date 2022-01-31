@@ -1,5 +1,12 @@
+## 0.0.4-dev.5
+ - Added getter and setter operators for maps, sets and arrays, ie: `document.getElementById('foo')!.childNodes[0]`
+ - Updated the classes names to be camelCase
+ - Fixed the file names to be snake case correctly
+ - Adjusted the builders to generate code clean of lints. 
+
 ## 0.0.4-dev.4
- - Updated the documentation to use Dart types instead of JS types. Ie: `Some method returns a [Promise] of a [DomString]` to `Some method returns a [Future] of a [String]` 
+ - Updated the documentation to use Dart types instead of JS types. Ie: `Some method returns a [Promise] of a [DomString]` to `Some method returns a [Future] of a [String]`
+
 ## 0.0.4-dev.3
 
  - Changed the example to use dynamic generated elements

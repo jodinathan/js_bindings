@@ -1,6 +1,9 @@
 /// Largest Contentful Paint
 ///
 /// https://wicg.github.io/largest-contentful-paint/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library largest_contentful_paint;
@@ -8,12 +11,7 @@ library largest_contentful_paint;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: performance_timeline_2
-hr_time_3
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the [Largest Contentful Paint API] provides
 /// details about the largest image or text paint before user input
@@ -58,6 +56,5 @@ extension PropsLargestContentfulPaint on LargestContentfulPaint {
   ///
   /// LargestContentfulPaint.toJSON();
   ///
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

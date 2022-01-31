@@ -1,6 +1,9 @@
 /// Resize Observer
 ///
 /// https://drafts.csswg.org/resize-observer/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library resize_observer_1;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-geometry_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 enum ResizeObserverBoxOptions { borderBox, contentBox, devicePixelContentBox }
 

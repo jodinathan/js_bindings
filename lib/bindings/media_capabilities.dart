@@ -1,6 +1,9 @@
 /// Media Capabilities
 ///
 /// https://w3c.github.io/media-capabilities/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library media_capabilities;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: encrypted_media
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The [MediaCapabilities] dictionary of the Media Capabilities API
 /// describes how media and audio files must be configured, or

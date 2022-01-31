@@ -1,6 +1,9 @@
 /// Web Animations
 ///
 /// https://drafts.csswg.org/web-animations-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library web_animations_1;
@@ -9,14 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: hr_time_3
-dom
-html
-web_animations_1
-web_animations_2 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -496,7 +492,7 @@ class ComputedEffectTiming implements EffectTiming {
       /* double | NaN */ dynamic activeDuration,
       double? localTime,
       double? progress,
-      /* double | NaN */ dynamic? currentIteration});
+      /* double | NaN */ dynamic currentIteration});
 }
 
 extension PropsComputedEffectTiming on ComputedEffectTiming {
@@ -522,9 +518,9 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
     js_util.setProperty(this, 'progress', newValue);
   }
 
-  /* double | NaN */ dynamic? get currentIteration =>
+  /* double | NaN */ dynamic get currentIteration =>
       js_util.getProperty(this, 'currentIteration');
-  set currentIteration(/* double | NaN */ dynamic? newValue) {
+  set currentIteration(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'currentIteration', newValue);
   }
 }

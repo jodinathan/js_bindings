@@ -1,6 +1,9 @@
 /// File and Directory Entries API
 ///
 /// https://wicg.github.io/entries-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library entries_api;
@@ -8,11 +11,7 @@ library entries_api;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: file_a_p_i
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the File and Directory Entries API represents a
 /// single entry in a file system. The entry can be a file or a

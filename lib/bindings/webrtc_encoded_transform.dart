@@ -1,6 +1,9 @@
 /// WebRTC Encoded Transform
 ///
 /// https://w3c.github.io/webrtc-encoded-transform/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webrtc_encoded_transform;
@@ -9,14 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: streams
-webrtc
-web_crypto_a_p_i
-dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

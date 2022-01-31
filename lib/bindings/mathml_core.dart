@@ -1,6 +1,9 @@
 /// MathML Core
 ///
 /// https://mathml-refresh.github.io/mathml-core/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library mathml_core;
@@ -8,12 +11,7 @@ library mathml_core;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_1
-html
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 /// The interface represents any MathML element.
 @JS()

@@ -1,6 +1,9 @@
 /// Device Memory 1
 ///
 /// https://w3c.github.io/device-memory/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library device_memory_1;
@@ -8,10 +11,7 @@ library device_memory_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps:  */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

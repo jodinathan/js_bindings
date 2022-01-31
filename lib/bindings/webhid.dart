@@ -1,6 +1,9 @@
 /// WebHID API
 ///
 /// https://wicg.github.io/webhid/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webhid;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()
@@ -64,13 +63,13 @@ extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
 ///  The interface provides methods for connecting to HID devices,
 /// listing attached HID devices and event handlers for connected HID
 /// devices.
-@JS()
+@JS('HID')
 @staticInterop
-class HID implements EventTarget {
-  external HID();
+class Hid implements EventTarget {
+  external Hid();
 }
 
-extension PropsHID on HID {
+extension PropsHid on Hid {
   EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
   set onconnect(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onconnect', newValue);

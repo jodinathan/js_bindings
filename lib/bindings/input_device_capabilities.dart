@@ -1,6 +1,9 @@
 /// Input Device Capabilities
 ///
 /// https://wicg.github.io/input-device-capabilities/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library input_device_capabilities;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: uievents */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in

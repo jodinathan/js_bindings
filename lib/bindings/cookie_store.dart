@@ -1,6 +1,9 @@
 /// Cookie Store API
 ///
 /// https://wicg.github.io/cookie-store/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library cookie_store;
@@ -8,12 +11,7 @@ library cookie_store;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-service_workers_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.

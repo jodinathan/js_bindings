@@ -1,6 +1,9 @@
 /// Navigation Timing Level 2
 ///
 /// https://w3c.github.io/navigation-timing/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library navigation_timing_2;
@@ -8,11 +11,7 @@ library navigation_timing_2;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: resource_timing_2
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -123,7 +122,6 @@ extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
   /// var s = JSON.stringify(json);
   /// console.log("PerformanceNavigationTiming.toJSON() = " + s);
   ///
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
@@ -147,7 +145,7 @@ enum NavigationType { navigate, reload, backForward, prerender }
 /// timing information for various events which occur during the
 /// loading and use of the current page. You get a object describing
 /// your page using the [window.performance.timing] property.
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class PerformanceTiming {
@@ -159,7 +157,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// in the same browsing context. If there is no previous document,
   /// this value will be the same as [PerformanceTiming.fetchStart].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get navigationStart => js_util.getProperty(this, 'navigationStart');
 
   ///  When the [unload] event has been thrown, indicating the time at
@@ -168,7 +166,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// of the needed redirects is not of the same origin, the value
   /// returned is [0].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get unloadEventStart => js_util.getProperty(this, 'unloadEventStart');
 
   ///  When the [unload] event handler finishes. If there is no
@@ -176,14 +174,14 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// needed redirects, is not of the same origin, the value returned
   /// is [0].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get unloadEventEnd => js_util.getProperty(this, 'unloadEventEnd');
 
   ///  When the first HTTP redirect starts. If there is no redirect, or
   /// if one of the redirects is not of the same origin, the value
   /// returned is [0].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get redirectStart => js_util.getProperty(this, 'redirectStart');
 
   ///  When the last HTTP redirect is completed, that is when the last
@@ -191,14 +189,14 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// redirect, or if one of the redirects is not of the same origin,
   /// the value returned is [0].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get redirectEnd => js_util.getProperty(this, 'redirectEnd');
 
   ///  When the browser is ready to fetch the document using an HTTP
   /// request. This moment is before the check to any application
   /// cache.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get fetchStart => js_util.getProperty(this, 'fetchStart');
 
   ///  When the domain lookup starts. If a persistent connection is
@@ -206,7 +204,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// resource, the value will be the same as
   /// [PerformanceTiming.fetchStart].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get domainLookupStart => js_util.getProperty(this, 'domainLookupStart');
 
   ///  When the domain lookup is finished. If a persistent connection
@@ -214,7 +212,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// resource, the value will be the same as
   /// [PerformanceTiming.fetchStart].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get domainLookupEnd => js_util.getProperty(this, 'domainLookupEnd');
 
   ///  When the request to open a connection is sent to the network. If
@@ -223,7 +221,7 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// start time is given. If a persistent connection is used, the
   /// value will be the same as [PerformanceTiming.fetchStart].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get connectStart => js_util.getProperty(this, 'connectStart');
 
   ///  When the connection is opened network. If the transport layer
@@ -234,13 +232,13 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// opened when all secure connection handshake, or SOCKS
   /// authentication, is terminated.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get connectEnd => js_util.getProperty(this, 'connectEnd');
 
   ///  When the secure connection handshake starts. If no such
   /// connection is requested, it returns [0].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get secureConnectionStart =>
       js_util.getProperty(this, 'secureConnectionStart');
 
@@ -250,48 +248,48 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// this property will be set to the time corresponding to the new
   /// request.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get requestStart => js_util.getProperty(this, 'requestStart');
 
   ///  When the browser received the first byte of the response, from
   /// the server from a cache, or from a local resource.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get responseStart => js_util.getProperty(this, 'responseStart');
 
   ///  When the browser received the last byte of the response, or when
   /// the connection is closed if this happened first, from the server,
   /// the cache, or from a local resource.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get responseEnd => js_util.getProperty(this, 'responseEnd');
 
   ///  When the parser started its work, that is when its
   /// [Document.readyState] changes to ['loading'] and the
   /// corresponding [readystatechange] event is thrown.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get domLoading => js_util.getProperty(this, 'domLoading');
 
   ///  When the parser finished its work on the main document, that is
   /// when its [Document.readyState] changes to ['interactive'] and the
   /// corresponding [readystatechange] event is thrown.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get domInteractive => js_util.getProperty(this, 'domInteractive');
 
   ///  Right before the parser sent the [DOMContentLoaded] event, that
   /// is right after all the scripts that need to be executed right
   /// after parsing have been executed.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get domContentLoadedEventStart =>
       js_util.getProperty(this, 'domContentLoadedEventStart');
 
   ///  Right after all the scripts that need to be executed as soon as
   /// possible, in order or not, have been executed.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get domContentLoadedEventEnd =>
       js_util.getProperty(this, 'domContentLoadedEventEnd');
 
@@ -299,26 +297,26 @@ extension PropsPerformanceTiming on PerformanceTiming {
   /// when its [Document.readyState] changes to ['complete'] and the
   /// corresponding [readystatechange] event is thrown.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get domComplete => js_util.getProperty(this, 'domComplete');
 
   ///  When the [load] event was sent for the current document. If this
   /// event has not yet been sent, it returns [0.]
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get loadEventStart => js_util.getProperty(this, 'loadEventStart');
 
   ///  When the [load] event handler terminated, that is when the load
   /// event is completed. If this event has not yet been sent, or is
   /// not yet completed, it returns [0.]
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get loadEventEnd => js_util.getProperty(this, 'loadEventEnd');
 
   ///  Returns a JSON object representing this [PerformanceTiming]
   /// object.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
@@ -342,14 +340,22 @@ extension PropsPerformanceTiming on PerformanceTiming {
 ///
 ///  An object of this type can be obtained by calling the
 /// [Performance.navigation] read-only attribute.
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class PerformanceNavigation {
-  external static int get TYPE_NAVIGATE;
-  external static int get TYPE_RELOAD;
-  external static int get TYPE_BACK_FORWARD;
-  external static int get TYPE_RESERVED;
+  @JS('TYPE_NAVIGATE')
+  external static int get typeNavigate;
+
+  @JS('TYPE_RELOAD')
+  external static int get typeReload;
+
+  @JS('TYPE_BACK_FORWARD')
+  external static int get typeBackForward;
+
+  @JS('TYPE_RESERVED')
+  external static int get typeReserved;
+
   external PerformanceNavigation();
 }
 
@@ -378,18 +384,18 @@ extension PropsPerformanceNavigation on PerformanceNavigation {
   ///
   ///
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get type => js_util.getProperty(this, 'type');
 
   ///  An [int] representing the number of REDIRECTs done before
   /// reaching the page.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int get redirectCount => js_util.getProperty(this, 'redirectCount');
 
   ///  Is a jsonizer returning a json object representing the
   /// [PerformanceNavigation] object.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

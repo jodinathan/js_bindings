@@ -1,6 +1,9 @@
 /// Web Audio API
 ///
 /// https://webaudio.github.io/web-audio-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webaudio;
@@ -9,13 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-mediacapture_streams
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 enum AudioContextState { suspended, running, closed }
 
@@ -987,7 +984,7 @@ extension PropsBaseAudioContext on BaseAudioContext {
   ///  scriptNode.disconnect(audioCtx.destination);
   /// }
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   ScriptProcessorNode createScriptProcessor(
           [
 
@@ -2832,7 +2829,6 @@ extension PropsAudioBufferSourceNode on AudioBufferSourceNode {
   ///
   /// AudioBufferSourceNode.start([when][, offset][, duration]);
   ///
-  @override
   Object start(
           [
 
@@ -3065,7 +3061,7 @@ extension PropsAudioListener on AudioListener {
   /// myListener.setPosition(1,1,1);
   ///
   /// See BaseAudioContext.createPanner() for example code.
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object setPosition(double x, double y, double z) =>
       js_util.callMethod(this, 'setPosition', [x, y, z]);
 
@@ -3076,7 +3072,7 @@ extension PropsAudioListener on AudioListener {
   /// myListener.setOrientation(0,0,-1,0,1,0);
   ///
   /// See BaseAudioContext.createPanner() for example code.
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object setOrientation(
           double x, double y, double z, double xUp, double yUp, double zUp) =>
       js_util.callMethod(this, 'setOrientation', [x, y, z, xUp, yUp, zUp]);
@@ -3097,7 +3093,7 @@ extension PropsAudioListener on AudioListener {
 /// this feature has been marked as deprecated, and is soon to be
 /// replaced by AudioWorklet.
 ///
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class AudioProcessingEvent implements Event {
@@ -3361,7 +3357,7 @@ extension PropsBiquadFilterNode on BiquadFilterNode {
   ///  Is an a-rate [AudioParam], a double representing a Q factor, or
   /// quality factor.
   ///
-  AudioParam get Q => js_util.getProperty(this, 'Q');
+  AudioParam get q => js_util.getProperty(this, 'Q');
 
   ///  Is an a-rate [AudioParam], a double representing the gain used
   /// in the current filtering algorithm.
@@ -3447,8 +3443,8 @@ extension PropsBiquadFilterOptions on BiquadFilterOptions {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  double get Q => js_util.getProperty(this, 'Q');
-  set Q(double newValue) {
+  double get q => js_util.getProperty(this, 'Q');
+  set q(double newValue) {
     js_util.setProperty(this, 'Q', newValue);
   }
 
@@ -4595,7 +4591,7 @@ extension PropsPannerNode on PannerNode {
   /// panner.setPosition(0,0,0);
   ///
   /// See BaseAudioContext.createPanner() for example code.
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object setPosition(double x, double y, double z) =>
       js_util.callMethod(this, 'setPosition', [x, y, z]);
 
@@ -4606,7 +4602,7 @@ extension PropsPannerNode on PannerNode {
   /// panner.setOrientation(1,0,0);
   ///
   /// See BaseAudioContext.createPanner() for example code.
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object setOrientation(double x, double y, double z) =>
       js_util.callMethod(this, 'setOrientation', [x, y, z]);
 }
@@ -4812,7 +4808,7 @@ extension PropsPeriodicWaveOptions on PeriodicWaveOptions {
 ///
 ///
 ///
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class ScriptProcessorNode implements AudioNode {
@@ -5053,6 +5049,10 @@ extension PropsAudioWorkletGlobalScope on AudioWorkletGlobalScope {
 @staticInterop
 class AudioParamMap {
   external AudioParamMap();
+}
+
+extension PropsAudioParamMap on AudioParamMap {
+  AudioParam operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///

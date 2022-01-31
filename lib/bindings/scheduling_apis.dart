@@ -1,6 +1,9 @@
 /// Prioritized Task Scheduling
 ///
 /// https://wicg.github.io/scheduling-apis/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library scheduling_apis;
@@ -8,11 +11,7 @@ library scheduling_apis;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 enum TaskPriority { userBlocking, userVisible, background }
 

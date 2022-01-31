@@ -1,6 +1,9 @@
 /// Content Security Policy Level 3
 ///
 /// https://w3c.github.io/webappsec-csp/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library csp3;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: reporting_1
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

@@ -1,6 +1,9 @@
 /// JS Self-Profiling API
 ///
 /// https://wicg.github.io/js-self-profiling/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library js_self_profiling;
@@ -8,11 +11,7 @@ library js_self_profiling;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

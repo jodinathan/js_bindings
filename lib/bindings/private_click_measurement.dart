@@ -1,6 +1,9 @@
 /// Private Click Measurement
 ///
 /// https://privacycg.github.io/private-click-measurement/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library private_click_measurement;
@@ -8,7 +11,4 @@ library private_click_measurement;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html */
+import 'package:js_bindings/js_bindings.dart';

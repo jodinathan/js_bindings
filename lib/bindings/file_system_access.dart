@@ -1,6 +1,9 @@
 /// File System Access
 ///
 /// https://wicg.github.io/file-system-access/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library file_system_access;
@@ -8,14 +11,7 @@ library file_system_access;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: permissions
-file_a_p_i
-streams
-html
-storage */
+import 'package:js_bindings/js_bindings.dart';
 
 enum FileSystemPermissionMode { read, readwrite }
 
@@ -221,6 +217,12 @@ class FileSystemDirectoryHandle implements FileSystemHandle {
 }
 
 extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
+  FileSystemHandle operator [](String index) =>
+      js_util.getProperty(this, index);
+  operator []=(String index, FileSystemHandle value) {
+    js_util.setProperty(this, index, value);
+  }
+
   ///  Returns a [FileSystemFileHandle] for a file with the specified
   /// name, within the directory the method is called.
   ///

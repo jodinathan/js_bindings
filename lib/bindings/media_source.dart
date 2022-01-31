@@ -1,6 +1,9 @@
 /// Media Source Extensions™
 ///
 /// https://w3c.github.io/media-source/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library media_source;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 enum ReadyState { closed, open, ended }
 

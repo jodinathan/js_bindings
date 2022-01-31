@@ -1,6 +1,9 @@
 /// Identity for WebRTC 1.0
 ///
 /// https://w3c.github.io/webrtc-identity/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webrtc_identity;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-webrtc
-mediacapture_streams */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

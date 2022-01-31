@@ -1,6 +1,9 @@
 /// Custom State Pseudo Class
 ///
 /// https://wicg.github.io/custom-state-pseudo-class/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library custom_state_pseudo_class;
@@ -8,10 +11,7 @@ library custom_state_pseudo_class;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Document_Object_Model stores a list of
 /// possible states for a custom element to be in, and allows states
@@ -23,6 +23,11 @@ class CustomStateSet {
 }
 
 extension PropsCustomStateSet on CustomStateSet {
+  String operator [](int index) => js_util.getProperty(this, index);
+  operator []=(int index, String value) {
+    js_util.setProperty(this, index, value);
+  }
+
   ///  Adds a value to the set, first checking that the value is a
   /// [<dashed-ident>].
   ///

@@ -1,6 +1,9 @@
 /// Fullscreen API Standard
 ///
 /// https://fullscreen.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library fullscreen;
@@ -8,11 +11,7 @@ library fullscreen;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 enum FullscreenNavigationUI { auto, valueShow, valueHide }
 

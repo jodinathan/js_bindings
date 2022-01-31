@@ -1,6 +1,9 @@
 /// Compression Streams
 ///
 /// https://wicg.github.io/compression/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library compression;
@@ -8,10 +11,7 @@ library compression;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: streams */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Compression Streams API is an API for
 /// compressing a stream of data.

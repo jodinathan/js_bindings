@@ -1,6 +1,9 @@
 /// Clipboard API and events
 ///
 /// https://w3c.github.io/clipboard-apis/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library clipboard_apis;
@@ -9,13 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-file_a_p_i
-permissions */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

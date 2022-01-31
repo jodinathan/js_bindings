@@ -1,6 +1,9 @@
 /// CSS Custom Highlight API Module Level 1
 ///
 /// https://drafts.csswg.org/css-highlight-api-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_highlight_api_1;
@@ -8,11 +11,7 @@ library css_highlight_api_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-cssom_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
@@ -34,6 +33,11 @@ class HighlightsRegister {
 }
 
 extension PropsHighlightsRegister on HighlightsRegister {
+  Highlight operator [](int index) => js_util.getProperty(this, index);
+  operator []=(int index, Highlight value) {
+    js_util.setProperty(this, index, value);
+  }
+
   HighlightsRegister add(Highlight value) =>
       js_util.callMethod(this, 'add', [value]);
 }
@@ -42,4 +46,11 @@ extension PropsHighlightsRegister on HighlightsRegister {
 @staticInterop
 class HighlightRegistry {
   external HighlightRegistry();
+}
+
+extension PropsHighlightRegistry on HighlightRegistry {
+  Highlight operator [](String index) => js_util.getProperty(this, index);
+  operator []=(String index, Highlight value) {
+    js_util.setProperty(this, index, value);
+  }
 }

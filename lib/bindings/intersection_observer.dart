@@ -1,6 +1,9 @@
 /// Intersection Observer
 ///
 /// https://w3c.github.io/IntersectionObserver/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library intersection_observer;
@@ -8,12 +11,7 @@ library intersection_observer;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-hr_time_3
-geometry_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Intersection Observer API provides a way to
 /// asynchronously observe changes in the intersection of a target

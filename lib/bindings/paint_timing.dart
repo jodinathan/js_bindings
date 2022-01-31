@@ -1,6 +1,9 @@
 /// Paint Timing 1
 ///
 /// https://w3c.github.io/paint-timing/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library paint_timing;
@@ -8,10 +11,7 @@ library paint_timing;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: performance_timeline_2 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Paint Timing API provides timing
 /// information about "paint" (also called "render") operations

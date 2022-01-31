@@ -1,6 +1,9 @@
 /// Gamepad Extensions
 ///
 /// https://w3c.github.io/gamepad/extensions.html
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library gamepad_extensions;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: gamepad */
+import 'package:js_bindings/js_bindings.dart';
 
 enum GamepadHand { empty, left, right }
 

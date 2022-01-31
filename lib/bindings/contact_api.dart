@@ -1,6 +1,9 @@
 /// Contact Picker API
 ///
 /// https://wicg.github.io/contact-api/spec/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library contact_api;
@@ -8,12 +11,7 @@ library contact_api;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-payment_request
-file_a_p_i */
+import 'package:js_bindings/js_bindings.dart';
 
 enum ContactProperty { address, email, icon, name, tel }
 

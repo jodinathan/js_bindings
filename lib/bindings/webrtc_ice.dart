@@ -1,6 +1,9 @@
 /// IceTransport Extensions for WebRTC
 ///
 /// https://w3c.github.io/webrtc-ice/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webrtc_ice;
@@ -8,11 +11,7 @@ library webrtc_ice;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webrtc
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

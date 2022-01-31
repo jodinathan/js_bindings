@@ -1,6 +1,9 @@
 /// WebXR Hand Input Module - Level 1
 ///
 /// https://immersive-web.github.io/webxr-hand-input/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webxr_hand_input_1;
@@ -8,10 +11,7 @@ library webxr_hand_input_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webxr */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface is pair iterator (an ordered map) with the key
 /// being the hand joints and the value being an [XRJointSpace].
@@ -23,6 +23,12 @@ class XRHand {
 }
 
 extension PropsXRHand on XRHand {
+  XRJointSpace operator [](XRHandJoint index) =>
+      js_util.getProperty(this, index);
+  operator []=(XRHandJoint index, XRJointSpace value) {
+    js_util.setProperty(this, index, value);
+  }
+
   /// Returns [25], the size of the pair iterator.
   ///
   int get size => js_util.getProperty(this, 'size');

@@ -1,6 +1,9 @@
 /// Scalable Vector Graphics (SVG) 2
 ///
 /// https://svgwg.org/svg2-draft/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library svg11;
@@ -8,16 +11,7 @@ library svg11;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-svg11
-cssom_1
-dom
-geometry_1
-web_animations_1
-css_pseudo_4 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  All of the SVG DOM interfaces that correspond directly to
 /// elements in the SVG language derive from the interface.
@@ -65,8 +59,7 @@ extension PropsSVGElement on SVGElement {
   /// future version of this specification. Authors are advised to use
   /// [Element.classList] instead.
   ///
-  @override
-  @deprecated
+  @Deprecated('Not official in the specs')
   SVGAnimatedString get className => js_util.getProperty(this, 'className');
 
   ///  An [SVGSVGElement] referring to the nearest ancestor [<svg>]
@@ -298,17 +291,39 @@ extension PropsSVGNumber on SVGNumber {
 @JS()
 @staticInterop
 class SVGLength {
-  external static int get SVG_LENGTHTYPE_UNKNOWN;
-  external static int get SVG_LENGTHTYPE_NUMBER;
-  external static int get SVG_LENGTHTYPE_PERCENTAGE;
-  external static int get SVG_LENGTHTYPE_EMS;
-  external static int get SVG_LENGTHTYPE_EXS;
-  external static int get SVG_LENGTHTYPE_PX;
-  external static int get SVG_LENGTHTYPE_CM;
-  external static int get SVG_LENGTHTYPE_MM;
-  external static int get SVG_LENGTHTYPE_IN;
-  external static int get SVG_LENGTHTYPE_PT;
-  external static int get SVG_LENGTHTYPE_PC;
+  @JS('SVG_LENGTHTYPE_UNKNOWN')
+  external static int get svgLengthtypeUnknown;
+
+  @JS('SVG_LENGTHTYPE_NUMBER')
+  external static int get svgLengthtypeNumber;
+
+  @JS('SVG_LENGTHTYPE_PERCENTAGE')
+  external static int get svgLengthtypePercentage;
+
+  @JS('SVG_LENGTHTYPE_EMS')
+  external static int get svgLengthtypeEms;
+
+  @JS('SVG_LENGTHTYPE_EXS')
+  external static int get svgLengthtypeExs;
+
+  @JS('SVG_LENGTHTYPE_PX')
+  external static int get svgLengthtypePx;
+
+  @JS('SVG_LENGTHTYPE_CM')
+  external static int get svgLengthtypeCm;
+
+  @JS('SVG_LENGTHTYPE_MM')
+  external static int get svgLengthtypeMm;
+
+  @JS('SVG_LENGTHTYPE_IN')
+  external static int get svgLengthtypeIn;
+
+  @JS('SVG_LENGTHTYPE_PT')
+  external static int get svgLengthtypePt;
+
+  @JS('SVG_LENGTHTYPE_PC')
+  external static int get svgLengthtypePc;
+
   external SVGLength();
 }
 
@@ -360,11 +375,21 @@ extension PropsSVGLength on SVGLength {
 @JS()
 @staticInterop
 class SVGAngle {
-  external static int get SVG_ANGLETYPE_UNKNOWN;
-  external static int get SVG_ANGLETYPE_UNSPECIFIED;
-  external static int get SVG_ANGLETYPE_DEG;
-  external static int get SVG_ANGLETYPE_RAD;
-  external static int get SVG_ANGLETYPE_GRAD;
+  @JS('SVG_ANGLETYPE_UNKNOWN')
+  external static int get svgAngletypeUnknown;
+
+  @JS('SVG_ANGLETYPE_UNSPECIFIED')
+  external static int get svgAngletypeUnspecified;
+
+  @JS('SVG_ANGLETYPE_DEG')
+  external static int get svgAngletypeDeg;
+
+  @JS('SVG_ANGLETYPE_RAD')
+  external static int get svgAngletypeRad;
+
+  @JS('SVG_ANGLETYPE_GRAD')
+  external static int get svgAngletypeGrad;
+
   external SVGAngle();
 }
 
@@ -709,9 +734,15 @@ extension PropsSVGAnimatedLengthList on SVGAnimatedLengthList {
 @JS()
 @staticInterop
 class SVGUnitTypes {
-  external static int get SVG_UNIT_TYPE_UNKNOWN;
-  external static int get SVG_UNIT_TYPE_USERSPACEONUSE;
-  external static int get SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
+  @JS('SVG_UNIT_TYPE_UNKNOWN')
+  external static int get svgUnitTypeUnknown;
+
+  @JS('SVG_UNIT_TYPE_USERSPACEONUSE')
+  external static int get svgUnitTypeUserspaceonuse;
+
+  @JS('SVG_UNIT_TYPE_OBJECTBOUNDINGBOX')
+  external static int get svgUnitTypeObjectboundingbox;
+
   external SVGUnitTypes();
 }
 
@@ -967,7 +998,7 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// once, and that each such method call is treated independently of
   /// the other [suspendRedraw()] method calls.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   int suspendRedraw(int maxWaitMilliseconds) =>
       js_util.callMethod(this, 'suspendRedraw', [maxWaitMilliseconds]);
 
@@ -975,7 +1006,7 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// suspend handle ID that was returned by a previous
   /// [suspendRedraw()] call.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object unsuspendRedraw(int suspendHandleID) =>
       js_util.callMethod(this, 'unsuspendRedraw', [suspendHandleID]);
 
@@ -984,7 +1015,7 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// calls to ensure that all pending [suspendRedraw()] method calls
   /// have been cancelled.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object unsuspendRedrawAll() =>
       js_util.callMethod(this, 'unsuspendRedrawAll', []);
 
@@ -992,7 +1023,7 @@ extension PropsSVGSVGElement on SVGSVGElement {
   /// user agent to immediately redraw all regions of the viewport that
   /// require updating.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object forceRedraw() => js_util.callMethod(this, 'forceRedraw', []);
 
   Object pauseAnimations() => js_util.callMethod(this, 'pauseAnimations', []);
@@ -1405,13 +1436,27 @@ extension PropsSVGStyleElement on SVGStyleElement {
 @JS()
 @staticInterop
 class SVGTransform {
-  external static int get SVG_TRANSFORM_UNKNOWN;
-  external static int get SVG_TRANSFORM_MATRIX;
-  external static int get SVG_TRANSFORM_TRANSLATE;
-  external static int get SVG_TRANSFORM_SCALE;
-  external static int get SVG_TRANSFORM_ROTATE;
-  external static int get SVG_TRANSFORM_SKEWX;
-  external static int get SVG_TRANSFORM_SKEWY;
+  @JS('SVG_TRANSFORM_UNKNOWN')
+  external static int get svgTransformUnknown;
+
+  @JS('SVG_TRANSFORM_MATRIX')
+  external static int get svgTransformMatrix;
+
+  @JS('SVG_TRANSFORM_TRANSLATE')
+  external static int get svgTransformTranslate;
+
+  @JS('SVG_TRANSFORM_SCALE')
+  external static int get svgTransformScale;
+
+  @JS('SVG_TRANSFORM_ROTATE')
+  external static int get svgTransformRotate;
+
+  @JS('SVG_TRANSFORM_SKEWX')
+  external static int get svgTransformSkewx;
+
+  @JS('SVG_TRANSFORM_SKEWY')
+  external static int get svgTransformSkewy;
+
   external SVGTransform();
 }
 
@@ -1487,20 +1532,48 @@ extension PropsSVGAnimatedTransformList on SVGAnimatedTransformList {
 @JS()
 @staticInterop
 class SVGPreserveAspectRatio {
-  external static int get SVG_PRESERVEASPECTRATIO_UNKNOWN;
-  external static int get SVG_PRESERVEASPECTRATIO_NONE;
-  external static int get SVG_PRESERVEASPECTRATIO_XMINYMIN;
-  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMIN;
-  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMIN;
-  external static int get SVG_PRESERVEASPECTRATIO_XMINYMID;
-  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMID;
-  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMID;
-  external static int get SVG_PRESERVEASPECTRATIO_XMINYMAX;
-  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMAX;
-  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMAX;
-  external static int get SVG_MEETORSLICE_UNKNOWN;
-  external static int get SVG_MEETORSLICE_MEET;
-  external static int get SVG_MEETORSLICE_SLICE;
+  @JS('SVG_PRESERVEASPECTRATIO_UNKNOWN')
+  external static int get svgPreserveaspectratioUnknown;
+
+  @JS('SVG_PRESERVEASPECTRATIO_NONE')
+  external static int get svgPreserveaspectratioNone;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMINYMIN')
+  external static int get svgPreserveaspectratioXminymin;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMIDYMIN')
+  external static int get svgPreserveaspectratioXmidymin;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMAXYMIN')
+  external static int get svgPreserveaspectratioXmaxymin;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMINYMID')
+  external static int get svgPreserveaspectratioXminymid;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMIDYMID')
+  external static int get svgPreserveaspectratioXmidymid;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMAXYMID')
+  external static int get svgPreserveaspectratioXmaxymid;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMINYMAX')
+  external static int get svgPreserveaspectratioXminymax;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMIDYMAX')
+  external static int get svgPreserveaspectratioXmidymax;
+
+  @JS('SVG_PRESERVEASPECTRATIO_XMAXYMAX')
+  external static int get svgPreserveaspectratioXmaxymax;
+
+  @JS('SVG_MEETORSLICE_UNKNOWN')
+  external static int get svgMeetorsliceUnknown;
+
+  @JS('SVG_MEETORSLICE_MEET')
+  external static int get svgMeetorsliceMeet;
+
+  @JS('SVG_MEETORSLICE_SLICE')
+  external static int get svgMeetorsliceSlice;
+
   external SVGPreserveAspectRatio();
 }
 
@@ -2139,9 +2212,15 @@ class SVGPolygonElement implements SVGGeometryElement, SVGAnimatedPoints {
 @JS()
 @staticInterop
 class SVGTextContentElement implements SVGGraphicsElement {
-  external static int get LENGTHADJUST_UNKNOWN;
-  external static int get LENGTHADJUST_SPACING;
-  external static int get LENGTHADJUST_SPACINGANDGLYPHS;
+  @JS('LENGTHADJUST_UNKNOWN')
+  external static int get lengthadjustUnknown;
+
+  @JS('LENGTHADJUST_SPACING')
+  external static int get lengthadjustSpacing;
+
+  @JS('LENGTHADJUST_SPACINGANDGLYPHS')
+  external static int get lengthadjustSpacingandglyphs;
+
   external SVGTextContentElement();
 }
 
@@ -2222,7 +2301,7 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
 
   /// Selects text within the element.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object selectSubString(int charnum, int nchars) =>
       js_util.callMethod(this, 'selectSubString', [charnum, nchars]);
 }
@@ -2462,12 +2541,24 @@ class SVGTSpanElement implements SVGTextPositioningElement {
 @JS()
 @staticInterop
 class SVGTextPathElement implements SVGTextContentElement, SVGURIReference {
-  external static int get TEXTPATH_METHODTYPE_UNKNOWN;
-  external static int get TEXTPATH_METHODTYPE_ALIGN;
-  external static int get TEXTPATH_METHODTYPE_STRETCH;
-  external static int get TEXTPATH_SPACINGTYPE_UNKNOWN;
-  external static int get TEXTPATH_SPACINGTYPE_AUTO;
-  external static int get TEXTPATH_SPACINGTYPE_EXACT;
+  @JS('TEXTPATH_METHODTYPE_UNKNOWN')
+  external static int get textpathMethodtypeUnknown;
+
+  @JS('TEXTPATH_METHODTYPE_ALIGN')
+  external static int get textpathMethodtypeAlign;
+
+  @JS('TEXTPATH_METHODTYPE_STRETCH')
+  external static int get textpathMethodtypeStretch;
+
+  @JS('TEXTPATH_SPACINGTYPE_UNKNOWN')
+  external static int get textpathSpacingtypeUnknown;
+
+  @JS('TEXTPATH_SPACINGTYPE_AUTO')
+  external static int get textpathSpacingtypeAuto;
+
+  @JS('TEXTPATH_SPACINGTYPE_EXACT')
+  external static int get textpathSpacingtypeExact;
+
   external SVGTextPathElement();
 }
 
@@ -2674,12 +2765,24 @@ extension PropsSVGForeignObjectElement on SVGForeignObjectElement {
 @JS()
 @staticInterop
 class SVGMarkerElement implements SVGElement, SVGFitToViewBox {
-  external static int get SVG_MARKERUNITS_UNKNOWN;
-  external static int get SVG_MARKERUNITS_USERSPACEONUSE;
-  external static int get SVG_MARKERUNITS_STROKEWIDTH;
-  external static int get SVG_MARKER_ORIENT_UNKNOWN;
-  external static int get SVG_MARKER_ORIENT_AUTO;
-  external static int get SVG_MARKER_ORIENT_ANGLE;
+  @JS('SVG_MARKERUNITS_UNKNOWN')
+  external static int get svgMarkerunitsUnknown;
+
+  @JS('SVG_MARKERUNITS_USERSPACEONUSE')
+  external static int get svgMarkerunitsUserspaceonuse;
+
+  @JS('SVG_MARKERUNITS_STROKEWIDTH')
+  external static int get svgMarkerunitsStrokewidth;
+
+  @JS('SVG_MARKER_ORIENT_UNKNOWN')
+  external static int get svgMarkerOrientUnknown;
+
+  @JS('SVG_MARKER_ORIENT_AUTO')
+  external static int get svgMarkerOrientAuto;
+
+  @JS('SVG_MARKER_ORIENT_ANGLE')
+  external static int get svgMarkerOrientAngle;
+
   external SVGMarkerElement();
 }
 
@@ -2815,10 +2918,18 @@ extension PropsSVGMarkerElement on SVGMarkerElement {
 @JS()
 @staticInterop
 class SVGGradientElement implements SVGElement, SVGURIReference {
-  external static int get SVG_SPREADMETHOD_UNKNOWN;
-  external static int get SVG_SPREADMETHOD_PAD;
-  external static int get SVG_SPREADMETHOD_REFLECT;
-  external static int get SVG_SPREADMETHOD_REPEAT;
+  @JS('SVG_SPREADMETHOD_UNKNOWN')
+  external static int get svgSpreadmethodUnknown;
+
+  @JS('SVG_SPREADMETHOD_PAD')
+  external static int get svgSpreadmethodPad;
+
+  @JS('SVG_SPREADMETHOD_REFLECT')
+  external static int get svgSpreadmethodReflect;
+
+  @JS('SVG_SPREADMETHOD_REPEAT')
+  external static int get svgSpreadmethodRepeat;
+
   external SVGGradientElement();
 }
 

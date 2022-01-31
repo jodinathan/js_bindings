@@ -1,6 +1,9 @@
 /// Web MIDI API
 ///
 /// https://webaudio.github.io/web-midi-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webmidi;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()
@@ -48,6 +46,10 @@ class MIDIInputMap {
   external MIDIInputMap();
 }
 
+extension PropsMIDIInputMap on MIDIInputMap {
+  MIDIInput operator [](String index) => js_util.getProperty(this, index);
+}
+
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
 /// production.
@@ -59,6 +61,10 @@ class MIDIInputMap {
 @staticInterop
 class MIDIOutputMap {
   external MIDIOutputMap();
+}
+
+extension PropsMIDIOutputMap on MIDIOutputMap {
+  MIDIOutput operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///  Secure context: This feature is available only in secure

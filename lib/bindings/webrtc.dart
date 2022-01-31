@@ -1,6 +1,9 @@
 /// WebRTC 1.0: Real-Time Communication Between Browsers
 ///
 /// https://w3c.github.io/webrtc-pc/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webrtc;
@@ -9,23 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-web_crypto_a_p_i
-mediacapture_streams
-hr_time_3
-file_a_p_i
-webrtc_stats
-web_i_d_l_1
-webrtc_encoded_transform
-webrtc_priority
-mst_content_hint
-webrtc_ice
-webrtc
-webrtc_identity */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()
@@ -3124,6 +3111,10 @@ extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
 @staticInterop
 class RTCStatsReport {
   external RTCStatsReport();
+}
+
+extension PropsRTCStatsReport on RTCStatsReport {
+  dynamic operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///  The dictionary is the basic statistics object used by WebRTC's

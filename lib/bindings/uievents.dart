@@ -1,6 +1,9 @@
 /// UI Events
 ///
 /// https://w3c.github.io/uievents/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library uievents;
@@ -8,12 +11,7 @@ library uievents;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-input_device_capabilities */
+import 'package:js_bindings/js_bindings.dart';
 
 /// The interface represents simple user interface events.
 ///   derives from [Event]. Although the [UIEvent.initUIEvent()]
@@ -474,9 +472,14 @@ extension PropsEventModifierInit on EventModifierInit {
 @staticInterop
 class WheelEvent implements MouseEvent {
   external WheelEvent(String type, [WheelEventInit? eventInitDict]);
-  external static int get DOM_DELTA_PIXEL;
-  external static int get DOM_DELTA_LINE;
-  external static int get DOM_DELTA_PAGE;
+  @JS('DOM_DELTA_PIXEL')
+  external static int get domDeltaPixel;
+
+  @JS('DOM_DELTA_LINE')
+  external static int get domDeltaLine;
+
+  @JS('DOM_DELTA_PAGE')
+  external static int get domDeltaPage;
 }
 
 extension PropsWheelEvent on WheelEvent {
@@ -669,10 +672,17 @@ extension PropsInputEventInit on InputEventInit {
 @staticInterop
 class KeyboardEvent implements UIEvent {
   external KeyboardEvent(String type, [KeyboardEventInit? eventInitDict]);
-  external static int get DOM_KEY_LOCATION_STANDARD;
-  external static int get DOM_KEY_LOCATION_LEFT;
-  external static int get DOM_KEY_LOCATION_RIGHT;
-  external static int get DOM_KEY_LOCATION_NUMPAD;
+  @JS('DOM_KEY_LOCATION_STANDARD')
+  external static int get domKeyLocationStandard;
+
+  @JS('DOM_KEY_LOCATION_LEFT')
+  external static int get domKeyLocationLeft;
+
+  @JS('DOM_KEY_LOCATION_RIGHT')
+  external static int get domKeyLocationRight;
+
+  @JS('DOM_KEY_LOCATION_NUMPAD')
+  external static int get domKeyLocationNumpad;
 }
 
 extension PropsKeyboardEvent on KeyboardEvent {
@@ -960,13 +970,19 @@ extension PropsCompositionEventInit on CompositionEventInit {
 ///  The interface provides event properties that are specific to
 /// modifications to the Document Object Model (DOM) hierarchy and
 /// nodes.
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class MutationEvent implements Event {
-  external static int get MODIFICATION;
-  external static int get ADDITION;
-  external static int get REMOVAL;
+  @JS('MODIFICATION')
+  external static int get modification;
+
+  @JS('ADDITION')
+  external static int get addition;
+
+  @JS('REMOVAL')
+  external static int get removal;
+
   external MutationEvent();
 }
 

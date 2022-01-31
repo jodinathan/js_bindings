@@ -1,6 +1,9 @@
 /// Web Authentication: An API for accessing Public Key Credentials - Level 3
 ///
 /// https://w3c.github.io/webauthn/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webauthn_3;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: credential_management_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.

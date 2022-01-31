@@ -105,8 +105,6 @@ typedef EventListener = Function(
 typedef MutationCallback = Function(
     Iterable<MutationRecord> mutations, MutationObserver observer);
 
-typedef XPathNSResolver = Function(String? prefix);
-
 typedef ReportingObserverCallback = Function(
     Iterable<Report> reports, ReportingObserver observer);
 
@@ -143,8 +141,6 @@ typedef BlobCallback = Function(Blob? blob);
 typedef CustomElementConstructor = Function();
 
 typedef FunctionStringCallback = Function(String data);
-
-typedef EventHandlerNonNull = Function(Event event);
 
 typedef OnErrorEventHandlerNonNull = Function(dynamic event,
     [String? source, int? lineno, int? colno, dynamic error]);

@@ -1,6 +1,9 @@
 /// Proximity Sensor
 ///
 /// https://w3c.github.io/proximity/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library proximity;
@@ -8,10 +11,7 @@ library proximity;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: generic_sensor */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

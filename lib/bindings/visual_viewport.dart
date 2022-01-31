@@ -1,6 +1,9 @@
 /// Visual Viewport API
 ///
 /// https://wicg.github.io/visual-viewport/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library visual_viewport;
@@ -8,12 +11,7 @@ library visual_viewport;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom
-geometry_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Visual Viewport API represents the visual
 /// viewport for a given window. For a page containing iframes, each

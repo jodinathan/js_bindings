@@ -120,7 +120,9 @@ const forbidden = {
   'yield',
   'dynamic',
   'implements',
-  'set'
+  'set',
+  'int',
+  'double'
 };
 
 const bannedMembers = {
@@ -135,7 +137,7 @@ const bannedED = {
   'user-timing-2': true,
   'web-animations-1': {'FillMode'},
   'keyboard-lock': {'Keyboard'},
-  'orientation-event': {'PermissionState'}
+  'orientation-event': {'PermissionState'},
 };
 
 // related issue: https://github.com/w3c/webref/issues/467
@@ -171,6 +173,8 @@ final missing = {
   }
 };
 
+late final SpecGroup mainGroup;
+
 String docClear(String buf) => buf.replaceAll('  ', ' ')
     .replaceAll('\n\n\n', '\n');
 
@@ -179,9 +183,11 @@ class DartType {
     required this.name,
     required bool nullable,
     this.description,
-    this.isCallback = false
-  }) : fullName = '$name${nullable && name != 'dynamic' ? '?' : ''}',
-  nullable = nullable || name == 'dynamic',
+    this.isCallback = false,
+    this.specType,
+  }) : fullName = '$name${nullable && name != 'dynamic' &&
+      !name.endsWith(' dynamic') ? '?' : ''}',
+  nullable = nullable || name == 'dynamic' || name.endsWith(' dynamic'),
   isDynamic = name == 'dynamic',
   isPromise = name == 'Promise' || name.startsWith('Promise<');
 
@@ -192,10 +198,29 @@ class DartType {
   final bool isPromise;
   final bool isCallback;
   final String? description;
+  final Map<String, dynamic>? specType;
 
   String get dartName => isPromise ?
     (name == 'Promise' ? 'Future' : name.replaceAll('Promise<', 'Future<')) :
     fullName;
+
+  bool get extendsEvent {
+    var specType = this.specType;
+
+    if (specType != null) {
+      while (specType != null) {
+        final parentType = specType['inheritance'];
+
+        if (parentType == 'Event') {
+          return true;
+        }
+
+        specType = mainGroup.findType(parentType);
+      }
+    }
+
+    return false;
+  }
 
   @override
   String toString() => dartName;
@@ -384,6 +409,7 @@ class Spec {
       throw 'Unexpected block type ${returnTypeBlock['idlType']}';
     }
 
+    final spt = specType(returnType);
     String ret;
 
     var typedef = typedefs[returnType];
@@ -398,7 +424,7 @@ class Spec {
     } else {
       if (!types.containsKey(returnType) &&
           (group.objects.contains(returnType))) {
-        ret = returnType;
+        ret = returnType.pascalCase;
       } else {
         var typed = typedData[returnType];
 
@@ -431,7 +457,6 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
     }
 
     if (gen.isNotEmpty) {
-      print('BundleGen $gen\n$ret');
       final myt = ret;
       gen.add(myt);
       ret = '';
@@ -450,12 +475,12 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
     // for sanity check ret should never be a typedef like EventHandler
     assert(ret != 'EventHandler');
 
-    final spt = specType(ret);
     final type = spt?['type']?.toString().split(' ') ?? [];
 
     return DartType(name: ret, nullable: nullable,
         isCallback: type.contains('callback') && (ret == 'EventListener' ||
-        type.length == 1));
+        type.length == 1),
+    specType: spt);
   }
 
   Method makeMethod(Iterable args) {
@@ -478,13 +503,23 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
 
   Spec(this.group, this.path, this.basename, this.json)
       : name = basename.replaceAll('.json', ''),
-        libraryName = basename.replaceAll('.json', '').snakeCase,
+        libraryName = basename.replaceAll('.json', '').toLowerCase().snakeCase,
         objects = json['idlparsed']?['idlNames'] as Map<String, dynamic>;
 }
 
 class SpecGroup {
   final objects = <String>{};
   final specs = <Spec>[];
+
+  Map<String, dynamic>? findType(String name) {
+    for (final spec in specs) {
+      if (spec.objects.containsKey(name)) {
+        return spec.objects[name];
+      }
+    }
+
+    return null;
+  }
 }
 
 Future<SpecGroup> getSpecs() async {

@@ -1,6 +1,9 @@
 /// Streams Standard
 ///
 /// https://streams.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library streams;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: streams
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Streams API represents a readable stream of
 /// byte data. The Fetch API offers a concrete instance of a through
@@ -332,7 +331,7 @@ extension PropsReadableStreamDefaultController
   ///  Returns the desired size required to fill the stream's internal
   /// queue.
   ///
-  /* double | NaN */ dynamic? get desiredSize =>
+  /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
 
   /// Closes the associated stream.
@@ -378,7 +377,7 @@ extension PropsReadableByteStreamController on ReadableByteStreamController {
   ///  Returns the desired size required to fill the stream's internal
   /// queue.
   ///
-  /* double | NaN */ dynamic? get desiredSize =>
+  /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
 
   /// Closes the associated stream.
@@ -545,7 +544,7 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
   ///  Returns the desired size required to fill the stream's internal
   /// queue.
   ///
-  /* double | NaN */ dynamic? get desiredSize =>
+  /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
 
   ///  Returns a [Future] that resolves when the desired size of the
@@ -692,7 +691,7 @@ extension PropsTransformStreamDefaultController
   ///  Returns the desired size to fill the readable side of the
   /// stream's internal queue.
   ///
-  /* double | NaN */ dynamic? get desiredSize =>
+  /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
 
   ///  Enqueues a chunk (single piece of data) in the readable side of

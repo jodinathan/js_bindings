@@ -1,6 +1,9 @@
 /// MediaStream Image Capture
 ///
 /// https://w3c.github.io/mediacapture-image/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library image_capture;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: mediacapture_streams
-file_a_p_i
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the MediaStream Image Capture API provides
 /// methods to enable the capture of images or photos from a camera

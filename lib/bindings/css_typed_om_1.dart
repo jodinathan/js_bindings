@@ -1,6 +1,9 @@
 /// CSS Typed OM Level 1
 ///
 /// https://drafts.css-houdini.org/css-typed-om-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_typed_om_1;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-cssom_1
-geometry_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -75,6 +73,12 @@ class StylePropertyMapReadOnly {
 }
 
 extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
+  Iterable<CSSStyleValue> operator [](String index) =>
+      js_util.getProperty(this, index);
+  operator []=(String index, Iterable<CSSStyleValue> value) {
+    js_util.setProperty(this, index, value);
+  }
+
   /// Returns the value of the specified property.
   ///
   /// var declarationBlock = StylePropertyMapReadOnly.get(property)
@@ -595,6 +599,11 @@ class CSSNumericArray {
 }
 
 extension PropsCSSNumericArray on CSSNumericArray {
+  CSSNumericValue operator [](int index) => js_util.getProperty(this, index);
+  operator []=(int index, CSSNumericValue value) {
+    js_util.setProperty(this, index, value);
+  }
+
   ///  Returns how many [CSSNumericValue] objects are contained within
   /// the [CSSNumericArray].
   ///
@@ -926,7 +935,7 @@ extension PropsCSSMatrixComponentOptions on CSSMatrixComponentOptions {
 /// values for properties that take a position, for example
 /// [object-position].
 @experimental
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class CSSPositionValue implements CSSStyleValue {
@@ -991,13 +1000,13 @@ extension PropsCSSColorValue on CSSColorValue {
       js_util.callMethod(CSSColorValue, 'parse', [cssText]);
 }
 
-@JS()
+@JS('CSSRGB')
 @staticInterop
-class CSSRGB implements CSSColorValue {
-  external CSSRGB(dynamic r, dynamic g, dynamic b, [dynamic alpha = 1]);
+class Cssrgb implements CSSColorValue {
+  external Cssrgb(dynamic r, dynamic g, dynamic b, [dynamic alpha = 1]);
 }
 
-extension PropsCSSRGB on CSSRGB {
+extension PropsCssrgb on Cssrgb {
   dynamic get r => js_util.getProperty(this, 'r');
   set r(dynamic newValue) {
     js_util.setProperty(this, 'r', newValue);
@@ -1019,13 +1028,13 @@ extension PropsCSSRGB on CSSRGB {
   }
 }
 
-@JS()
+@JS('CSSHSL')
 @staticInterop
-class CSSHSL implements CSSColorValue {
-  external CSSHSL(CSSNumericValue h, dynamic s, dynamic l, [dynamic alpha = 1]);
+class Csshsl implements CSSColorValue {
+  external Csshsl(CSSNumericValue h, dynamic s, dynamic l, [dynamic alpha = 1]);
 }
 
-extension PropsCSSHSL on CSSHSL {
+extension PropsCsshsl on Csshsl {
   CSSNumericValue get h => js_util.getProperty(this, 'h');
   set h(CSSNumericValue newValue) {
     js_util.setProperty(this, 'h', newValue);
@@ -1047,13 +1056,13 @@ extension PropsCSSHSL on CSSHSL {
   }
 }
 
-@JS()
+@JS('CSSHWB')
 @staticInterop
-class CSSHWB implements CSSColorValue {
-  external CSSHWB(CSSNumericValue h, dynamic w, dynamic b, [dynamic alpha = 1]);
+class Csshwb implements CSSColorValue {
+  external Csshwb(CSSNumericValue h, dynamic w, dynamic b, [dynamic alpha = 1]);
 }
 
-extension PropsCSSHWB on CSSHWB {
+extension PropsCsshwb on Csshwb {
   CSSNumericValue get h => js_util.getProperty(this, 'h');
   set h(CSSNumericValue newValue) {
     js_util.setProperty(this, 'h', newValue);
@@ -1075,13 +1084,13 @@ extension PropsCSSHWB on CSSHWB {
   }
 }
 
-@JS()
+@JS('CSSLCH')
 @staticInterop
-class CSSLCH implements CSSColorValue {
-  external CSSLCH(dynamic l, dynamic c, CSSNumericValue h, [dynamic alpha = 1]);
+class Csslch implements CSSColorValue {
+  external Csslch(dynamic l, dynamic c, CSSNumericValue h, [dynamic alpha = 1]);
 }
 
-extension PropsCSSLCH on CSSLCH {
+extension PropsCsslch on Csslch {
   dynamic get l => js_util.getProperty(this, 'l');
   set l(dynamic newValue) {
     js_util.setProperty(this, 'l', newValue);
@@ -1139,9 +1148,7 @@ class CSSColor implements CSSColorValue {
 }
 
 extension PropsCSSColor on CSSColor {
-  @override
   dynamic get colorSpace => js_util.getProperty(this, 'colorSpace');
-  @override
   set colorSpace(dynamic newValue) {
     js_util.setProperty(this, 'colorSpace', newValue);
   }

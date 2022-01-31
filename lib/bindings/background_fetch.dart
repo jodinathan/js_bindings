@@ -1,6 +1,9 @@
 /// Background Fetch
 ///
 /// https://wicg.github.io/background-fetch/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library background_fetch;
@@ -9,14 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: service_workers_1
-html
-fetch
-image_resource
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Background Fetch API is a map where the
 /// keys are background fetch IDs and the values are

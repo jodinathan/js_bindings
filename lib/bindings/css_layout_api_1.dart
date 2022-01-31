@@ -1,6 +1,9 @@
 /// CSS Layout API Level 1
 ///
 /// https://drafts.css-houdini.org/css-layout-api-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_layout_api_1;
@@ -8,12 +11,7 @@ library css_layout_api_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_1
-html
-css_typed_om_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

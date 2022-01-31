@@ -1,6 +1,9 @@
 /// Trusted Types
 ///
 /// https://w3c.github.io/webappsec-trusted-types/dist/spec/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library trusted_types;
@@ -8,10 +11,7 @@ library trusted_types;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the [Trusted Types API] represents a string
 /// that a developer can insert into an injection sink that will

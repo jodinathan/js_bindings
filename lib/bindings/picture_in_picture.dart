@@ -1,6 +1,9 @@
 /// Picture-in-Picture
 ///
 /// https://w3c.github.io/picture-in-picture/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library picture_in_picture;
@@ -8,11 +11,7 @@ library picture_in_picture;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface represents an object able to programmatically
 /// obtain the [width] and [height] and [resize event] of the

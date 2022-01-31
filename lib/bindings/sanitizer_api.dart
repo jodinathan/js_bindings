@@ -1,6 +1,9 @@
 /// HTML Sanitizer API
 ///
 /// https://wicg.github.io/sanitizer-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library sanitizer_api;
@@ -8,10 +11,7 @@ library sanitizer_api;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in

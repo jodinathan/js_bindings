@@ -1,6 +1,9 @@
 /// Cooperative Scheduling of Background Tasks
 ///
 /// https://w3c.github.io/requestidlecallback/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library requestidlecallback;
@@ -8,11 +11,7 @@ library requestidlecallback;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

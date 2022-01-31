@@ -1,6 +1,9 @@
 /// WebXR Lighting Estimation API Level 1
 ///
 /// https://immersive-web.github.io/lighting-estimation/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library lighting_estimation;
@@ -9,15 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-webxr
-html
-geometry_1
-webxrlayers_1
-webgl1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.

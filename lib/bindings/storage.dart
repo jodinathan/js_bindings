@@ -1,6 +1,9 @@
 /// Storage Standard
 ///
 /// https://storage.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library storage;
@@ -8,10 +11,7 @@ library storage;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: file_system_access */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

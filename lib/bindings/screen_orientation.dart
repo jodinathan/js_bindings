@@ -1,6 +1,9 @@
 /// The Screen Orientation API
 ///
 /// https://w3c.github.io/screen-orientation/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library screen_orientation;
@@ -8,12 +11,7 @@ library screen_orientation;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_view_1
-dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Screen Orientation API provides information
 /// about the current orientation of the document.

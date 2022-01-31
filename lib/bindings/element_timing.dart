@@ -1,6 +1,9 @@
 /// Element Timing API
 ///
 /// https://wicg.github.io/element-timing/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library element_timing;
@@ -8,13 +11,7 @@ library element_timing;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: performance_timeline_2
-hr_time_3
-geometry_1
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Element Timing API reports timing
 /// information on a specific element identified by the page author.
@@ -76,6 +73,5 @@ extension PropsPerformanceElementTiming on PerformanceElementTiming {
   ///
   /// var json = PerformanceElementTiming.toJSON();
   ///
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

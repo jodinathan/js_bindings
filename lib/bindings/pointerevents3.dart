@@ -1,6 +1,9 @@
 /// Pointer Events
 ///
 /// https://w3c.github.io/pointerevents/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library pointerevents3;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: uievents
-dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

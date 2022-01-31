@@ -1,6 +1,9 @@
 /// Screen Wake Lock API
 ///
 /// https://w3c.github.io/screen-wake-lock/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library screen_wake_lock;
@@ -8,11 +11,7 @@ library screen_wake_lock;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.

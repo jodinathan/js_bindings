@@ -1,6 +1,9 @@
 /// Remote Playback API
 ///
 /// https://w3c.github.io/remote-playback/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library remote_playback;
@@ -8,11 +11,7 @@ library remote_playback;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Remote Playback API allows the page to
 /// detect availability of remote playback devices, then connect to

@@ -1,6 +1,9 @@
 /// Local Font Access API
 ///
 /// https://wicg.github.io/local-font-access/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library local_font_access;
@@ -8,10 +11,7 @@ library local_font_access;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: file_a_p_i */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

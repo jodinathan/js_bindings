@@ -1,6 +1,9 @@
 /// Web Locks API
 ///
 /// https://wicg.github.io/web-locks/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library web_locks;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

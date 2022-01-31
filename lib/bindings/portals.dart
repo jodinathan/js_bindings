@@ -1,6 +1,9 @@
 /// Portals
 ///
 /// https://wicg.github.io/portals/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library portals;
@@ -8,12 +11,7 @@ library portals;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom
-service_workers_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

@@ -1,6 +1,9 @@
 /// Web Background Synchronization
 ///
 /// https://wicg.github.io/background-sync/spec/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library background_sync;
@@ -8,11 +11,7 @@ library background_sync;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: service_workers_1
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the ServiceWorker API provides an interface for
 /// registering and listing sync registrations.

@@ -1,6 +1,9 @@
 /// CSS Nesting Module
 ///
 /// https://drafts.csswg.org/css-nesting-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_nesting_1;
@@ -8,10 +11,7 @@ library css_nesting_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

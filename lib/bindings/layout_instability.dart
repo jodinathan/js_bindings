@@ -1,6 +1,9 @@
 /// Layout Instability API
 ///
 /// https://wicg.github.io/layout-instability/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library layout_instability;
@@ -8,13 +11,7 @@ library layout_instability;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: performance_timeline_2
-hr_time_3
-dom
-geometry_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Layout Instability API provides insights
 /// into the stability of web pages based on movements of the
@@ -49,7 +46,6 @@ extension PropsLayoutShift on LayoutShift {
 
   /// Converts the properties to JSON.
   ///
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 

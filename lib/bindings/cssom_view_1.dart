@@ -1,6 +1,9 @@
 /// CSSOM View Module
 ///
 /// https://drafts.csswg.org/cssom-view/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library cssom_view_1;
@@ -9,15 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom
-geometry_1
-uievents
-css_pseudo_4
-screen_orientation */
+import 'package:js_bindings/js_bindings.dart';
 
 enum ScrollBehavior { auto, smooth }
 
@@ -109,7 +104,7 @@ extension PropsMediaQueryList on MediaQueryList {
   ///
   /// mediaQueryList.addListener(screenTest);
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object addListener(EventListener? callback) => js_util.callMethod(
       this, 'addListener', [callback == null ? null : allowInterop(callback)]);
 
@@ -144,7 +139,7 @@ extension PropsMediaQueryList on MediaQueryList {
   /// // Later on, when it is no longer needed
   /// mediaQueryList.removeListener(screenTest);
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object removeListener(EventListener? callback) => js_util.callMethod(this,
       'removeListener', [callback == null ? null : allowInterop(callback)]);
 

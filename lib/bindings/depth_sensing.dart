@@ -1,6 +1,9 @@
 /// WebXR Depth Sensing Module
 ///
 /// https://immersive-web.github.io/depth-sensing/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library depth_sensing;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webxr
-webgl1
-webxrlayers_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 enum XRDepthUsage { cpuOptimized, gpuOptimized }
 

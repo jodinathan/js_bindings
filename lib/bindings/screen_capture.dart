@@ -1,6 +1,9 @@
 /// Screen Capture
 ///
 /// https://w3c.github.io/mediacapture-screen-share/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library screen_capture;
@@ -8,10 +11,7 @@ library screen_capture;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: mediacapture_streams */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

@@ -1,6 +1,9 @@
 /// Get Installed Related Apps API
 ///
 /// https://wicg.github.io/get-installed-related-apps/spec/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library get_installed_related_apps;
@@ -8,10 +11,7 @@ library get_installed_related_apps;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

@@ -1,6 +1,9 @@
 /// CSS Fonts Module Level 4
 ///
 /// https://drafts.csswg.org/css-fonts-4/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_fonts_4;
@@ -8,10 +11,7 @@ library css_fonts_4;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 /// The interface represents an [@font-face] [at-rule].
 ///
@@ -69,6 +69,11 @@ class CSSFontFeatureValuesMap {
 }
 
 extension PropsCSSFontFeatureValuesMap on CSSFontFeatureValuesMap {
+  Iterable<int> operator [](String index) => js_util.getProperty(this, index);
+  operator []=(String index, Iterable<int> value) {
+    js_util.setProperty(this, index, value);
+  }
+
   @JS('set')
   @staticInterop
   Object mSet(String featureValueName, dynamic values) =>
@@ -82,6 +87,11 @@ class CSSFontPaletteValuesRule implements CSSRule {
 }
 
 extension PropsCSSFontPaletteValuesRule on CSSFontPaletteValuesRule {
+  String operator [](int index) => js_util.getProperty(this, index);
+  operator []=(int index, String value) {
+    js_util.setProperty(this, index, value);
+  }
+
   String get fontFamily => js_util.getProperty(this, 'fontFamily');
   set fontFamily(String newValue) {
     js_util.setProperty(this, 'fontFamily', newValue);

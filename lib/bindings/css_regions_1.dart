@@ -1,6 +1,9 @@
 /// CSS Regions Module Level 1
 ///
 /// https://drafts.csswg.org/css-regions/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_regions_1;
@@ -8,15 +11,19 @@ library css_regions_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
 class NamedFlowMap {
   external NamedFlowMap();
+}
+
+extension PropsNamedFlowMap on NamedFlowMap {
+  NamedFlow operator [](String index) => js_util.getProperty(this, index);
+  operator []=(String index, NamedFlow value) {
+    js_util.setProperty(this, index, value);
+  }
 }
 
 @JS()

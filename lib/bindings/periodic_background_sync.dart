@@ -1,6 +1,9 @@
 /// Web Periodic Background Synchronization
 ///
 /// https://wicg.github.io/periodic-background-sync/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library periodic_background_sync;
@@ -8,11 +11,7 @@ library periodic_background_sync;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: service_workers_1
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the [Web Periodic Background Synchronization
 /// API] provides a way to register tasks to be run in a service

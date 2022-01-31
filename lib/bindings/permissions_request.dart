@@ -1,6 +1,9 @@
 /// Requesting Permissions
 ///
 /// https://wicg.github.io/permissions-request/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library permissions_request;
@@ -8,7 +11,4 @@ library permissions_request;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: permissions */
+import 'package:js_bindings/js_bindings.dart';

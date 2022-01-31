@@ -1,6 +1,9 @@
 /// Permissions
 ///
 /// https://w3c.github.io/permissions/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library permissions;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-permissions */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

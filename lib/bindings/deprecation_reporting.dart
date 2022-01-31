@@ -1,6 +1,9 @@
 /// Deprecation Reporting
 ///
 /// https://wicg.github.io/deprecation-reporting/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library deprecation_reporting;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: reporting_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Reporting API represents the body of a
 /// deprecation report.
@@ -34,7 +34,6 @@ extension PropsDeprecationReportBody on DeprecationReportBody {
   ///
   /// DeprecationReportBody.toJSON();
   ///
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  A string representing the feature or API that is deprecated, for

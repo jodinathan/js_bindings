@@ -1,6 +1,9 @@
 /// HTMLVideoElement.requestVideoFrameCallback()
 ///
 /// https://wicg.github.io/video-rvfc/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library video_rvfc;
@@ -8,11 +11,7 @@ library video_rvfc;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: hr_time_3
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

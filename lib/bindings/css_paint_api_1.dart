@@ -1,6 +1,9 @@
 /// CSS Painting API Level 1
 ///
 /// https://drafts.css-houdini.org/css-paint-api-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_paint_api_1;
@@ -8,11 +11,7 @@ library css_paint_api_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-cssom_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

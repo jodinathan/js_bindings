@@ -1,6 +1,9 @@
 /// Credential Management Level 1
 ///
 /// https://w3c.github.io/webappsec-credential-management/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library credential_management_1;
@@ -9,14 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: credential_management_1
-html
-dom
-webauthn_3
-web_otp */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in

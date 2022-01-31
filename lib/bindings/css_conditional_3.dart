@@ -1,6 +1,9 @@
 /// CSS Conditional Rules Module Level 3
 ///
 /// https://drafts.csswg.org/css-conditional-3/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_conditional_3;
@@ -8,10 +11,7 @@ library css_conditional_3;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  An object implementing the interface represents a single
 /// condition CSS [at-rule], which consists of a condition and a

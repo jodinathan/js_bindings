@@ -1,6 +1,9 @@
 /// Payment Handler API
 ///
 /// https://w3c.github.io/payment-handler/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library payment_handler;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: service_workers_1
-html
-payment_request */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

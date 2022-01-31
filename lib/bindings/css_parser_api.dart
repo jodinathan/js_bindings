@@ -1,6 +1,9 @@
 /// CSS Parser API
 ///
 /// https://wicg.github.io/css-parser-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_parser_api;
@@ -8,12 +11,7 @@ library css_parser_api;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: streams
-css_typed_om_1
-cssom_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

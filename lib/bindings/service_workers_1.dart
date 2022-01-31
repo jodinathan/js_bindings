@@ -1,6 +1,9 @@
 /// Service Workers Nightly
 ///
 /// https://w3c.github.io/ServiceWorker/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library service_workers_1;
@@ -9,22 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom
-page_visibility_2
-fetch
-content_index
-periodic_background_sync
-payment_handler
-cookie_store
-page_lifecycle
-background_fetch
-notifications
-push_api
-background_sync */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.

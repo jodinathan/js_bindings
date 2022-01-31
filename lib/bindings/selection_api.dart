@@ -1,6 +1,9 @@
 /// Selection API
 ///
 /// https://w3c.github.io/selection-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library selection_api;
@@ -8,11 +11,7 @@ library selection_api;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  A object represents the range of text selected by the user or
 /// the current position of the caret. To obtain a object for

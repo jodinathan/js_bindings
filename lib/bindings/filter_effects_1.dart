@@ -1,6 +1,9 @@
 /// Filter Effects Module Level 1
 ///
 /// https://drafts.fxtf.org/filter-effects-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library filter_effects_1;
@@ -8,11 +11,7 @@ library filter_effects_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: svg11
-filter_effects_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface provides access to the properties of [<filter>]
 /// elements, as well as methods to manipulate them.
@@ -138,23 +137,57 @@ extension PropsSVGFilterPrimitiveStandardAttributes
 @staticInterop
 class SVGFEBlendElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external static int get SVG_FEBLEND_MODE_UNKNOWN;
-  external static int get SVG_FEBLEND_MODE_NORMAL;
-  external static int get SVG_FEBLEND_MODE_MULTIPLY;
-  external static int get SVG_FEBLEND_MODE_SCREEN;
-  external static int get SVG_FEBLEND_MODE_DARKEN;
-  external static int get SVG_FEBLEND_MODE_LIGHTEN;
-  external static int get SVG_FEBLEND_MODE_OVERLAY;
-  external static int get SVG_FEBLEND_MODE_COLOR_DODGE;
-  external static int get SVG_FEBLEND_MODE_COLOR_BURN;
-  external static int get SVG_FEBLEND_MODE_HARD_LIGHT;
-  external static int get SVG_FEBLEND_MODE_SOFT_LIGHT;
-  external static int get SVG_FEBLEND_MODE_DIFFERENCE;
-  external static int get SVG_FEBLEND_MODE_EXCLUSION;
-  external static int get SVG_FEBLEND_MODE_HUE;
-  external static int get SVG_FEBLEND_MODE_SATURATION;
-  external static int get SVG_FEBLEND_MODE_COLOR;
-  external static int get SVG_FEBLEND_MODE_LUMINOSITY;
+  @JS('SVG_FEBLEND_MODE_UNKNOWN')
+  external static int get svgFeblendModeUnknown;
+
+  @JS('SVG_FEBLEND_MODE_NORMAL')
+  external static int get svgFeblendModeNormal;
+
+  @JS('SVG_FEBLEND_MODE_MULTIPLY')
+  external static int get svgFeblendModeMultiply;
+
+  @JS('SVG_FEBLEND_MODE_SCREEN')
+  external static int get svgFeblendModeScreen;
+
+  @JS('SVG_FEBLEND_MODE_DARKEN')
+  external static int get svgFeblendModeDarken;
+
+  @JS('SVG_FEBLEND_MODE_LIGHTEN')
+  external static int get svgFeblendModeLighten;
+
+  @JS('SVG_FEBLEND_MODE_OVERLAY')
+  external static int get svgFeblendModeOverlay;
+
+  @JS('SVG_FEBLEND_MODE_COLOR_DODGE')
+  external static int get svgFeblendModeColorDodge;
+
+  @JS('SVG_FEBLEND_MODE_COLOR_BURN')
+  external static int get svgFeblendModeColorBurn;
+
+  @JS('SVG_FEBLEND_MODE_HARD_LIGHT')
+  external static int get svgFeblendModeHardLight;
+
+  @JS('SVG_FEBLEND_MODE_SOFT_LIGHT')
+  external static int get svgFeblendModeSoftLight;
+
+  @JS('SVG_FEBLEND_MODE_DIFFERENCE')
+  external static int get svgFeblendModeDifference;
+
+  @JS('SVG_FEBLEND_MODE_EXCLUSION')
+  external static int get svgFeblendModeExclusion;
+
+  @JS('SVG_FEBLEND_MODE_HUE')
+  external static int get svgFeblendModeHue;
+
+  @JS('SVG_FEBLEND_MODE_SATURATION')
+  external static int get svgFeblendModeSaturation;
+
+  @JS('SVG_FEBLEND_MODE_COLOR')
+  external static int get svgFeblendModeColor;
+
+  @JS('SVG_FEBLEND_MODE_LUMINOSITY')
+  external static int get svgFeblendModeLuminosity;
+
   external SVGFEBlendElement();
 }
 
@@ -211,11 +244,21 @@ extension PropsSVGFEBlendElement on SVGFEBlendElement {
 @staticInterop
 class SVGFEColorMatrixElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external static int get SVG_FECOLORMATRIX_TYPE_UNKNOWN;
-  external static int get SVG_FECOLORMATRIX_TYPE_MATRIX;
-  external static int get SVG_FECOLORMATRIX_TYPE_SATURATE;
-  external static int get SVG_FECOLORMATRIX_TYPE_HUEROTATE;
-  external static int get SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA;
+  @JS('SVG_FECOLORMATRIX_TYPE_UNKNOWN')
+  external static int get svgFecolormatrixTypeUnknown;
+
+  @JS('SVG_FECOLORMATRIX_TYPE_MATRIX')
+  external static int get svgFecolormatrixTypeMatrix;
+
+  @JS('SVG_FECOLORMATRIX_TYPE_SATURATE')
+  external static int get svgFecolormatrixTypeSaturate;
+
+  @JS('SVG_FECOLORMATRIX_TYPE_HUEROTATE')
+  external static int get svgFecolormatrixTypeHuerotate;
+
+  @JS('SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA')
+  external static int get svgFecolormatrixTypeLuminancetoalpha;
+
   external SVGFEColorMatrixElement();
 }
 
@@ -318,12 +361,24 @@ extension PropsSVGFEComponentTransferElement on SVGFEComponentTransferElement {
 @JS()
 @staticInterop
 class SVGComponentTransferFunctionElement implements SVGElement {
-  external static int get SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN;
-  external static int get SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY;
-  external static int get SVG_FECOMPONENTTRANSFER_TYPE_TABLE;
-  external static int get SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE;
-  external static int get SVG_FECOMPONENTTRANSFER_TYPE_LINEAR;
-  external static int get SVG_FECOMPONENTTRANSFER_TYPE_GAMMA;
+  @JS('SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN')
+  external static int get svgFecomponenttransferTypeUnknown;
+
+  @JS('SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY')
+  external static int get svgFecomponenttransferTypeIdentity;
+
+  @JS('SVG_FECOMPONENTTRANSFER_TYPE_TABLE')
+  external static int get svgFecomponenttransferTypeTable;
+
+  @JS('SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE')
+  external static int get svgFecomponenttransferTypeDiscrete;
+
+  @JS('SVG_FECOMPONENTTRANSFER_TYPE_LINEAR')
+  external static int get svgFecomponenttransferTypeLinear;
+
+  @JS('SVG_FECOMPONENTTRANSFER_TYPE_GAMMA')
+  external static int get svgFecomponenttransferTypeGamma;
+
   external SVGComponentTransferFunctionElement();
 }
 
@@ -575,13 +630,27 @@ class SVGFEFuncAElement implements SVGComponentTransferFunctionElement {
 @staticInterop
 class SVGFECompositeElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external static int get SVG_FECOMPOSITE_OPERATOR_UNKNOWN;
-  external static int get SVG_FECOMPOSITE_OPERATOR_OVER;
-  external static int get SVG_FECOMPOSITE_OPERATOR_IN;
-  external static int get SVG_FECOMPOSITE_OPERATOR_OUT;
-  external static int get SVG_FECOMPOSITE_OPERATOR_ATOP;
-  external static int get SVG_FECOMPOSITE_OPERATOR_XOR;
-  external static int get SVG_FECOMPOSITE_OPERATOR_ARITHMETIC;
+  @JS('SVG_FECOMPOSITE_OPERATOR_UNKNOWN')
+  external static int get svgFecompositeOperatorUnknown;
+
+  @JS('SVG_FECOMPOSITE_OPERATOR_OVER')
+  external static int get svgFecompositeOperatorOver;
+
+  @JS('SVG_FECOMPOSITE_OPERATOR_IN')
+  external static int get svgFecompositeOperatorIn;
+
+  @JS('SVG_FECOMPOSITE_OPERATOR_OUT')
+  external static int get svgFecompositeOperatorOut;
+
+  @JS('SVG_FECOMPOSITE_OPERATOR_ATOP')
+  external static int get svgFecompositeOperatorAtop;
+
+  @JS('SVG_FECOMPOSITE_OPERATOR_XOR')
+  external static int get svgFecompositeOperatorXor;
+
+  @JS('SVG_FECOMPOSITE_OPERATOR_ARITHMETIC')
+  external static int get svgFecompositeOperatorArithmetic;
+
   external SVGFECompositeElement();
 }
 
@@ -635,10 +704,18 @@ extension PropsSVGFECompositeElement on SVGFECompositeElement {
 @staticInterop
 class SVGFEConvolveMatrixElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external static int get SVG_EDGEMODE_UNKNOWN;
-  external static int get SVG_EDGEMODE_DUPLICATE;
-  external static int get SVG_EDGEMODE_WRAP;
-  external static int get SVG_EDGEMODE_NONE;
+  @JS('SVG_EDGEMODE_UNKNOWN')
+  external static int get svgEdgemodeUnknown;
+
+  @JS('SVG_EDGEMODE_DUPLICATE')
+  external static int get svgEdgemodeDuplicate;
+
+  @JS('SVG_EDGEMODE_WRAP')
+  external static int get svgEdgemodeWrap;
+
+  @JS('SVG_EDGEMODE_NONE')
+  external static int get svgEdgemodeNone;
+
   external SVGFEConvolveMatrixElement();
 }
 
@@ -985,11 +1062,21 @@ extension PropsSVGFESpotLightElement on SVGFESpotLightElement {
 @staticInterop
 class SVGFEDisplacementMapElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external static int get SVG_CHANNEL_UNKNOWN;
-  external static int get SVG_CHANNEL_R;
-  external static int get SVG_CHANNEL_G;
-  external static int get SVG_CHANNEL_B;
-  external static int get SVG_CHANNEL_A;
+  @JS('SVG_CHANNEL_UNKNOWN')
+  external static int get svgChannelUnknown;
+
+  @JS('SVG_CHANNEL_R')
+  external static int get svgChannelR;
+
+  @JS('SVG_CHANNEL_G')
+  external static int get svgChannelG;
+
+  @JS('SVG_CHANNEL_B')
+  external static int get svgChannelB;
+
+  @JS('SVG_CHANNEL_A')
+  external static int get svgChannelA;
+
   external SVGFEDisplacementMapElement();
 }
 
@@ -1171,10 +1258,18 @@ class SVGFEFloodElement
 @staticInterop
 class SVGFEGaussianBlurElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external static int get SVG_EDGEMODE_UNKNOWN;
-  external static int get SVG_EDGEMODE_DUPLICATE;
-  external static int get SVG_EDGEMODE_WRAP;
-  external static int get SVG_EDGEMODE_NONE;
+  @JS('SVG_EDGEMODE_UNKNOWN')
+  external static int get svgEdgemodeUnknown;
+
+  @JS('SVG_EDGEMODE_DUPLICATE')
+  external static int get svgEdgemodeDuplicate;
+
+  @JS('SVG_EDGEMODE_WRAP')
+  external static int get svgEdgemodeWrap;
+
+  @JS('SVG_EDGEMODE_NONE')
+  external static int get svgEdgemodeNone;
+
   external SVGFEGaussianBlurElement();
 }
 
@@ -1381,9 +1476,15 @@ extension PropsSVGFEMergeNodeElement on SVGFEMergeNodeElement {
 @staticInterop
 class SVGFEMorphologyElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external static int get SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
-  external static int get SVG_MORPHOLOGY_OPERATOR_ERODE;
-  external static int get SVG_MORPHOLOGY_OPERATOR_DILATE;
+  @JS('SVG_MORPHOLOGY_OPERATOR_UNKNOWN')
+  external static int get svgMorphologyOperatorUnknown;
+
+  @JS('SVG_MORPHOLOGY_OPERATOR_ERODE')
+  external static int get svgMorphologyOperatorErode;
+
+  @JS('SVG_MORPHOLOGY_OPERATOR_DILATE')
+  external static int get svgMorphologyOperatorDilate;
+
   external SVGFEMorphologyElement();
 }
 
@@ -1622,12 +1723,24 @@ extension PropsSVGFETileElement on SVGFETileElement {
 @staticInterop
 class SVGFETurbulenceElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {
-  external static int get SVG_TURBULENCE_TYPE_UNKNOWN;
-  external static int get SVG_TURBULENCE_TYPE_FRACTALNOISE;
-  external static int get SVG_TURBULENCE_TYPE_TURBULENCE;
-  external static int get SVG_STITCHTYPE_UNKNOWN;
-  external static int get SVG_STITCHTYPE_STITCH;
-  external static int get SVG_STITCHTYPE_NOSTITCH;
+  @JS('SVG_TURBULENCE_TYPE_UNKNOWN')
+  external static int get svgTurbulenceTypeUnknown;
+
+  @JS('SVG_TURBULENCE_TYPE_FRACTALNOISE')
+  external static int get svgTurbulenceTypeFractalnoise;
+
+  @JS('SVG_TURBULENCE_TYPE_TURBULENCE')
+  external static int get svgTurbulenceTypeTurbulence;
+
+  @JS('SVG_STITCHTYPE_UNKNOWN')
+  external static int get svgStitchtypeUnknown;
+
+  @JS('SVG_STITCHTYPE_STITCH')
+  external static int get svgStitchtypeStitch;
+
+  @JS('SVG_STITCHTYPE_NOSTITCH')
+  external static int get svgStitchtypeNostitch;
+
   external SVGFETurbulenceElement();
 }
 

@@ -1,6 +1,9 @@
 /// Gyroscope
 ///
 /// https://w3c.github.io/gyroscope/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library gyroscope;
@@ -8,10 +11,7 @@ library gyroscope;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: generic_sensor */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Sensor APIs provides on each reading the
 /// angular velocity of the device along all three axes.

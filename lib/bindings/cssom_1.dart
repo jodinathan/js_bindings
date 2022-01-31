@@ -1,6 +1,9 @@
 /// CSS Object Model (CSSOM)
 ///
 /// https://drafts.csswg.org/cssom/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library cssom_1;
@@ -8,17 +11,7 @@ library cssom_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-css_typed_om_1
-css_highlight_api_1
-cssom_1
-construct_stylesheets
-css_properties_values_api_1
-css_parser_api */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface represents the media queries of a stylesheet, e.g.
 /// those set using a [<link>] element's [media] attribute.
@@ -324,21 +317,51 @@ extension PropsCSSRuleList on CSSRuleList {
 @JS()
 @staticInterop
 class CSSRule {
-  external static int get STYLE_RULE;
-  external static int get CHARSET_RULE;
-  external static int get IMPORT_RULE;
-  external static int get MEDIA_RULE;
-  external static int get FONT_FACE_RULE;
-  external static int get PAGE_RULE;
-  external static int get MARGIN_RULE;
-  external static int get NAMESPACE_RULE;
-  external static int get VIEWPORT_RULE;
-  external static int get KEYFRAMES_RULE;
-  external static int get KEYFRAME_RULE;
-  external static int get SUPPORTS_RULE;
-  external static int get COUNTER_STYLE_RULE;
-  external static int get FONT_FEATURE_VALUES_RULE;
-  external static int get FONT_PALETTE_VALUES_RULE;
+  @JS('STYLE_RULE')
+  external static int get styleRule;
+
+  @JS('CHARSET_RULE')
+  external static int get charsetRule;
+
+  @JS('IMPORT_RULE')
+  external static int get importRule;
+
+  @JS('MEDIA_RULE')
+  external static int get mediaRule;
+
+  @JS('FONT_FACE_RULE')
+  external static int get fontFaceRule;
+
+  @JS('PAGE_RULE')
+  external static int get pageRule;
+
+  @JS('MARGIN_RULE')
+  external static int get marginRule;
+
+  @JS('NAMESPACE_RULE')
+  external static int get namespaceRule;
+
+  @JS('VIEWPORT_RULE')
+  external static int get viewportRule;
+
+  @JS('KEYFRAMES_RULE')
+  external static int get keyframesRule;
+
+  @JS('KEYFRAME_RULE')
+  external static int get keyframeRule;
+
+  @JS('SUPPORTS_RULE')
+  external static int get supportsRule;
+
+  @JS('COUNTER_STYLE_RULE')
+  external static int get counterStyleRule;
+
+  @JS('FONT_FEATURE_VALUES_RULE')
+  external static int get fontFeatureValuesRule;
+
+  @JS('FONT_PALETTE_VALUES_RULE')
+  external static int get fontPaletteValuesRule;
+
   external CSSRule();
 }
 
@@ -673,12 +696,12 @@ extension PropsElementCSSInlineStyle on ElementCSSInlineStyle {
 ///  The interface holds useful CSS-related methods. No objects with
 /// this interface are implemented: it contains only static methods
 /// and is therefore a utilitarian interface.
-@JS()
+@JS('CSS')
 @staticInterop
-class CSS {
-  external CSS();
+class Css {
+  external Css();
 }
 
-extension PropsCSS on CSS {
+extension PropsCss on Css {
   String escape(String ident) => js_util.callMethod(this, 'escape', [ident]);
 }

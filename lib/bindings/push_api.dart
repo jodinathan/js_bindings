@@ -1,6 +1,9 @@
 /// Push API
 ///
 /// https://w3c.github.io/push-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library push_api;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: service_workers_1
-file_a_p_i
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Push API provides a way to receive
 /// notifications from third-party servers as well as request URLs
@@ -32,8 +30,8 @@ extension PropsPushManager on PushManager {
   ///  Returns an array of supported content codings that can be used
   /// to encrypt the payload of a push message.
   ///
-  Iterable<String> get supportedContentEncodings =>
-      js_util.getProperty(PushManager, 'supportedContentEncodings');
+
+  external static Iterable<String> get supportedContentEncodings;
 
   ///  Subscribes to a push service. It returns a [Future] that
   /// resolves to a [PushSubscription] object containing details of a

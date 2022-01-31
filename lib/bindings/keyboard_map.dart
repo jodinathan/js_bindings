@@ -1,6 +1,9 @@
 /// Keyboard Map
 ///
 /// https://wicg.github.io/keyboard-map/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library keyboard_map;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -27,6 +27,10 @@ import 'all_bindings.dart';
 @staticInterop
 class KeyboardLayoutMap {
   external KeyboardLayoutMap();
+}
+
+extension PropsKeyboardLayoutMap on KeyboardLayoutMap {
+  String operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///  Experimental: This is an experimental technologyCheck the

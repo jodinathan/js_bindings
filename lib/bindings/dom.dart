@@ -1,6 +1,9 @@
 /// DOM Standard
 ///
 /// https://dom.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library dom;
@@ -9,31 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_view_1
-css_font_loading_3
-dom
-html
-d_o_m_parsing
-web_animations_1
-wai_aria_1_2
-css_regions_1
-cssom_1
-hr_time_3
-page_visibility_2
-css_typed_om_1
-selection_api
-geometry_1
-fullscreen
-css_pseudo_4
-svg11
-scroll_to_text_fragment
-floc
-permissions_policy_1
-css_nav_1
-font_metrics_api_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 /// The interface represents an event which takes place in the DOM.
 ///  An event can be triggered by the user action e.g. clicking the
@@ -72,10 +51,17 @@ font_metrics_api_1 */
 @staticInterop
 class Event {
   external Event(String type, [EventInit? eventInitDict]);
-  external static int get NONE;
-  external static int get CAPTURING_PHASE;
-  external static int get AT_TARGET;
-  external static int get BUBBLING_PHASE;
+  @JS('NONE')
+  external static int get none;
+
+  @JS('CAPTURING_PHASE')
+  external static int get capturingPhase;
+
+  @JS('AT_TARGET')
+  external static int get atTarget;
+
+  @JS('BUBBLING_PHASE')
+  external static int get bubblingPhase;
 }
 
 extension PropsEvent on Event {
@@ -223,7 +209,7 @@ extension PropsCustomEvent on CustomEvent {
   ///
   /// event.initCustomEvent(type, canBubble, cancelable, detail);
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object initCustomEvent(
 
           /// A string containing the name of the event.
@@ -652,6 +638,10 @@ extension PropsNodeList on NodeList {
   /// The number of nodes in the [NodeList].
   ///
   int get length => js_util.getProperty(this, 'length');
+  Node operator [](int index) => js_util.getProperty(this, index);
+  operator []=(int index, Node value) {
+    js_util.setProperty(this, index, value);
+  }
 }
 
 ///  The interface represents a generic collection (array-like object
@@ -1008,24 +998,60 @@ extension PropsMutationRecord on MutationRecord {
 @JS()
 @staticInterop
 class Node implements EventTarget {
-  external static int get ELEMENT_NODE;
-  external static int get ATTRIBUTE_NODE;
-  external static int get TEXT_NODE;
-  external static int get CDATA_SECTION_NODE;
-  external static int get ENTITY_REFERENCE_NODE;
-  external static int get ENTITY_NODE;
-  external static int get PROCESSING_INSTRUCTION_NODE;
-  external static int get COMMENT_NODE;
-  external static int get DOCUMENT_NODE;
-  external static int get DOCUMENT_TYPE_NODE;
-  external static int get DOCUMENT_FRAGMENT_NODE;
-  external static int get NOTATION_NODE;
-  external static int get DOCUMENT_POSITION_DISCONNECTED;
-  external static int get DOCUMENT_POSITION_PRECEDING;
-  external static int get DOCUMENT_POSITION_FOLLOWING;
-  external static int get DOCUMENT_POSITION_CONTAINS;
-  external static int get DOCUMENT_POSITION_CONTAINED_BY;
-  external static int get DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+  @JS('ELEMENT_NODE')
+  external static int get elementNode;
+
+  @JS('ATTRIBUTE_NODE')
+  external static int get attributeNode;
+
+  @JS('TEXT_NODE')
+  external static int get textNode;
+
+  @JS('CDATA_SECTION_NODE')
+  external static int get cdataSectionNode;
+
+  @JS('ENTITY_REFERENCE_NODE')
+  external static int get entityReferenceNode;
+
+  @JS('ENTITY_NODE')
+  external static int get entityNode;
+
+  @JS('PROCESSING_INSTRUCTION_NODE')
+  external static int get processingInstructionNode;
+
+  @JS('COMMENT_NODE')
+  external static int get commentNode;
+
+  @JS('DOCUMENT_NODE')
+  external static int get documentNode;
+
+  @JS('DOCUMENT_TYPE_NODE')
+  external static int get documentTypeNode;
+
+  @JS('DOCUMENT_FRAGMENT_NODE')
+  external static int get documentFragmentNode;
+
+  @JS('NOTATION_NODE')
+  external static int get notationNode;
+
+  @JS('DOCUMENT_POSITION_DISCONNECTED')
+  external static int get documentPositionDisconnected;
+
+  @JS('DOCUMENT_POSITION_PRECEDING')
+  external static int get documentPositionPreceding;
+
+  @JS('DOCUMENT_POSITION_FOLLOWING')
+  external static int get documentPositionFollowing;
+
+  @JS('DOCUMENT_POSITION_CONTAINS')
+  external static int get documentPositionContains;
+
+  @JS('DOCUMENT_POSITION_CONTAINED_BY')
+  external static int get documentPositionContainedBy;
+
+  @JS('DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC')
+  external static int get documentPositionImplementationSpecific;
+
   external Node();
 }
 
@@ -1733,7 +1759,7 @@ extension PropsDocument on Document {
   ///
   DOMImplementation get implementation =>
       js_util.getProperty(this, 'implementation');
-  String get URL => js_util.getProperty(this, 'URL');
+  String get url => js_util.getProperty(this, 'URL');
 
   /// Returns the document location as a string.
   ///
@@ -2913,7 +2939,7 @@ extension PropsShadowRoot on ShadowRoot {
   ///  Returns a boolean that indicates whether was set when the shadow
   /// was attached (see [Element.attachShadow()]).
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   bool get delegatesFocus => js_util.getProperty(this, 'delegatesFocus');
   SlotAssignmentMode get slotAssignment =>
       js_util.getProperty(this, 'slotAssignment');
@@ -3979,7 +4005,7 @@ extension PropsAttr on Attr {
 
   /// This property always returns [true].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   bool get specified => js_util.getProperty(this, 'specified');
 }
 
@@ -4507,10 +4533,18 @@ class StaticRange implements AbstractRange {
 @JS()
 @staticInterop
 class Range implements AbstractRange {
-  external static int get START_TO_START;
-  external static int get START_TO_END;
-  external static int get END_TO_END;
-  external static int get END_TO_START;
+  @JS('START_TO_START')
+  external static int get startToStart;
+
+  @JS('START_TO_END')
+  external static int get startToEnd;
+
+  @JS('END_TO_END')
+  external static int get endToEnd;
+
+  @JS('END_TO_START')
+  external static int get endToStart;
+
   external Range();
 }
 
@@ -5014,7 +5048,7 @@ extension PropsNodeIterator on NodeIterator {
   ///
   /// nodeIterator.nextNode(); // throws an INVALID_STATE_ERR exception
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object detach() => js_util.callMethod(this, 'detach', []);
 }
 
@@ -5171,22 +5205,54 @@ extension PropsTreeWalker on TreeWalker {
 @JS()
 @staticInterop
 class NodeFilter {
-  external static int get FILTER_ACCEPT;
-  external static int get FILTER_REJECT;
-  external static int get FILTER_SKIP;
-  external static int get SHOW_ALL;
-  external static int get SHOW_ELEMENT;
-  external static int get SHOW_ATTRIBUTE;
-  external static int get SHOW_TEXT;
-  external static int get SHOW_CDATA_SECTION;
-  external static int get SHOW_ENTITY_REFERENCE;
-  external static int get SHOW_ENTITY;
-  external static int get SHOW_PROCESSING_INSTRUCTION;
-  external static int get SHOW_COMMENT;
-  external static int get SHOW_DOCUMENT;
-  external static int get SHOW_DOCUMENT_TYPE;
-  external static int get SHOW_DOCUMENT_FRAGMENT;
-  external static int get SHOW_NOTATION;
+  @JS('FILTER_ACCEPT')
+  external static int get filterAccept;
+
+  @JS('FILTER_REJECT')
+  external static int get filterReject;
+
+  @JS('FILTER_SKIP')
+  external static int get filterSkip;
+
+  @JS('SHOW_ALL')
+  external static int get showAll;
+
+  @JS('SHOW_ELEMENT')
+  external static int get showElement;
+
+  @JS('SHOW_ATTRIBUTE')
+  external static int get showAttribute;
+
+  @JS('SHOW_TEXT')
+  external static int get showText;
+
+  @JS('SHOW_CDATA_SECTION')
+  external static int get showCdataSection;
+
+  @JS('SHOW_ENTITY_REFERENCE')
+  external static int get showEntityReference;
+
+  @JS('SHOW_ENTITY')
+  external static int get showEntity;
+
+  @JS('SHOW_PROCESSING_INSTRUCTION')
+  external static int get showProcessingInstruction;
+
+  @JS('SHOW_COMMENT')
+  external static int get showComment;
+
+  @JS('SHOW_DOCUMENT')
+  external static int get showDocument;
+
+  @JS('SHOW_DOCUMENT_TYPE')
+  external static int get showDocumentType;
+
+  @JS('SHOW_DOCUMENT_FRAGMENT')
+  external static int get showDocumentFragment;
+
+  @JS('SHOW_NOTATION')
+  external static int get showNotation;
+
   external NodeFilter();
 }
 
@@ -5414,6 +5480,11 @@ extension PropsDOMTokenList on DOMTokenList {
   set value(String newValue) {
     js_util.setProperty(this, 'value', newValue);
   }
+
+  String operator [](int index) => js_util.getProperty(this, index);
+  operator []=(int index, String value) {
+    js_util.setProperty(this, index, value);
+  }
 }
 
 ///  The interface represents the results generated by evaluating an
@@ -5424,16 +5495,36 @@ extension PropsDOMTokenList on DOMTokenList {
 @JS()
 @staticInterop
 class XPathResult {
-  external static int get ANY_TYPE;
-  external static int get NUMBER_TYPE;
-  external static int get STRING_TYPE;
-  external static int get BOOLEAN_TYPE;
-  external static int get UNORDERED_NODE_ITERATOR_TYPE;
-  external static int get ORDERED_NODE_ITERATOR_TYPE;
-  external static int get UNORDERED_NODE_SNAPSHOT_TYPE;
-  external static int get ORDERED_NODE_SNAPSHOT_TYPE;
-  external static int get ANY_UNORDERED_NODE_TYPE;
-  external static int get FIRST_ORDERED_NODE_TYPE;
+  @JS('ANY_TYPE')
+  external static int get anyType;
+
+  @JS('NUMBER_TYPE')
+  external static int get numberType;
+
+  @JS('STRING_TYPE')
+  external static int get stringType;
+
+  @JS('BOOLEAN_TYPE')
+  external static int get booleanType;
+
+  @JS('UNORDERED_NODE_ITERATOR_TYPE')
+  external static int get unorderedNodeIteratorType;
+
+  @JS('ORDERED_NODE_ITERATOR_TYPE')
+  external static int get orderedNodeIteratorType;
+
+  @JS('UNORDERED_NODE_SNAPSHOT_TYPE')
+  external static int get unorderedNodeSnapshotType;
+
+  @JS('ORDERED_NODE_SNAPSHOT_TYPE')
+  external static int get orderedNodeSnapshotType;
+
+  @JS('ANY_UNORDERED_NODE_TYPE')
+  external static int get anyUnorderedNodeType;
+
+  @JS('FIRST_ORDERED_NODE_TYPE')
+  external static int get firstOrderedNodeType;
+
   external XPathResult();
 }
 

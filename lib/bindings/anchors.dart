@@ -1,6 +1,9 @@
 /// WebXR Anchors Module
 ///
 /// https://immersive-web.github.io/anchors/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library anchors;
@@ -8,11 +11,7 @@ library anchors;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webxr
-hit_test */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
@@ -48,4 +47,8 @@ extension PropsXRAnchor on XRAnchor {
 @staticInterop
 class XRAnchorSet {
   external XRAnchorSet();
+}
+
+extension PropsXRAnchorSet on XRAnchorSet {
+  XRAnchor operator [](int index) => js_util.getProperty(this, index);
 }

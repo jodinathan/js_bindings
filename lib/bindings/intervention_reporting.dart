@@ -1,6 +1,9 @@
 /// Intervention Reporting
 ///
 /// https://wicg.github.io/intervention-reporting/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library intervention_reporting;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: reporting_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Reporting API represents the body of an
 /// intervention report.
@@ -40,7 +40,6 @@ extension PropsInterventionReportBody on InterventionReportBody {
   ///
   /// InterventionReportBody.toJSON();
   ///
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  A [string] representing the intervention that generated the

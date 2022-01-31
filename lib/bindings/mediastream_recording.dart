@@ -1,6 +1,9 @@
 /// MediaStream Recording
 ///
 /// https://w3c.github.io/mediacapture-record/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library mediastream_recording;
@@ -9,14 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-mediacapture_streams
-html
-file_a_p_i
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the MediaStream Recording API provides
 /// functionality to easily record media. It is created using the

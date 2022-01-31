@@ -1,6 +1,9 @@
 /// WebGL 2.0 Specification
 ///
 /// https://www.khronos.org/registry/webgl/specs/latest/2.0/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webgl2;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webgl1
-webgl2 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface is part of the WebGL 2 API and provides ways to
 /// asynchronously query for information. By default, occlusion
@@ -123,269 +122,795 @@ class WebGLVertexArrayObject implements WebGLObject {
 @JS()
 @staticInterop
 class WebGL2RenderingContextBase {
-  external static int get READ_BUFFER;
-  external static int get UNPACK_ROW_LENGTH;
-  external static int get UNPACK_SKIP_ROWS;
-  external static int get UNPACK_SKIP_PIXELS;
-  external static int get PACK_ROW_LENGTH;
-  external static int get PACK_SKIP_ROWS;
-  external static int get PACK_SKIP_PIXELS;
-  external static int get COLOR;
-  external static int get DEPTH;
-  external static int get STENCIL;
-  external static int get RED;
-  external static int get RGB8;
-  external static int get RGBA8;
-  external static int get RGB10_A2;
-  external static int get TEXTURE_BINDING_3D;
-  external static int get UNPACK_SKIP_IMAGES;
-  external static int get UNPACK_IMAGE_HEIGHT;
-  external static int get TEXTURE_3D;
-  external static int get TEXTURE_WRAP_R;
-  external static int get MAX_3D_TEXTURE_SIZE;
-  external static int get UNSIGNED_INT_2_10_10_10_REV;
-  external static int get MAX_ELEMENTS_VERTICES;
-  external static int get MAX_ELEMENTS_INDICES;
-  external static int get TEXTURE_MIN_LOD;
-  external static int get TEXTURE_MAX_LOD;
-  external static int get TEXTURE_BASE_LEVEL;
-  external static int get TEXTURE_MAX_LEVEL;
-  external static int get MIN;
-  external static int get MAX;
-  external static int get DEPTH_COMPONENT24;
-  external static int get MAX_TEXTURE_LOD_BIAS;
-  external static int get TEXTURE_COMPARE_MODE;
-  external static int get TEXTURE_COMPARE_FUNC;
-  external static int get CURRENT_QUERY;
-  external static int get QUERY_RESULT;
-  external static int get QUERY_RESULT_AVAILABLE;
-  external static int get STREAM_READ;
-  external static int get STREAM_COPY;
-  external static int get STATIC_READ;
-  external static int get STATIC_COPY;
-  external static int get DYNAMIC_READ;
-  external static int get DYNAMIC_COPY;
-  external static int get MAX_DRAW_BUFFERS;
-  external static int get DRAW_BUFFER0;
-  external static int get DRAW_BUFFER1;
-  external static int get DRAW_BUFFER2;
-  external static int get DRAW_BUFFER3;
-  external static int get DRAW_BUFFER4;
-  external static int get DRAW_BUFFER5;
-  external static int get DRAW_BUFFER6;
-  external static int get DRAW_BUFFER7;
-  external static int get DRAW_BUFFER8;
-  external static int get DRAW_BUFFER9;
-  external static int get DRAW_BUFFER10;
-  external static int get DRAW_BUFFER11;
-  external static int get DRAW_BUFFER12;
-  external static int get DRAW_BUFFER13;
-  external static int get DRAW_BUFFER14;
-  external static int get DRAW_BUFFER15;
-  external static int get MAX_FRAGMENT_UNIFORM_COMPONENTS;
-  external static int get MAX_VERTEX_UNIFORM_COMPONENTS;
-  external static int get SAMPLER_3D;
-  external static int get SAMPLER_2D_SHADOW;
-  external static int get FRAGMENT_SHADER_DERIVATIVE_HINT;
-  external static int get PIXEL_PACK_BUFFER;
-  external static int get PIXEL_UNPACK_BUFFER;
-  external static int get PIXEL_PACK_BUFFER_BINDING;
-  external static int get PIXEL_UNPACK_BUFFER_BINDING;
-  external static int get FLOAT_MAT2x3;
-  external static int get FLOAT_MAT2x4;
-  external static int get FLOAT_MAT3x2;
-  external static int get FLOAT_MAT3x4;
-  external static int get FLOAT_MAT4x2;
-  external static int get FLOAT_MAT4x3;
-  external static int get SRGB;
-  external static int get SRGB8;
-  external static int get SRGB8_ALPHA8;
-  external static int get COMPARE_REF_TO_TEXTURE;
-  external static int get RGBA32F;
-  external static int get RGB32F;
-  external static int get RGBA16F;
-  external static int get RGB16F;
-  external static int get VERTEX_ATTRIB_ARRAY_INTEGER;
-  external static int get MAX_ARRAY_TEXTURE_LAYERS;
-  external static int get MIN_PROGRAM_TEXEL_OFFSET;
-  external static int get MAX_PROGRAM_TEXEL_OFFSET;
-  external static int get MAX_VARYING_COMPONENTS;
-  external static int get TEXTURE_2D_ARRAY;
-  external static int get TEXTURE_BINDING_2D_ARRAY;
-  external static int get R11F_G11F_B10F;
-  external static int get UNSIGNED_INT_10F_11F_11F_REV;
-  external static int get RGB9_E5;
-  external static int get UNSIGNED_INT_5_9_9_9_REV;
-  external static int get TRANSFORM_FEEDBACK_BUFFER_MODE;
-  external static int get MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS;
-  external static int get TRANSFORM_FEEDBACK_VARYINGS;
-  external static int get TRANSFORM_FEEDBACK_BUFFER_START;
-  external static int get TRANSFORM_FEEDBACK_BUFFER_SIZE;
-  external static int get TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN;
-  external static int get RASTERIZER_DISCARD;
-  external static int get MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS;
-  external static int get MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS;
-  external static int get INTERLEAVED_ATTRIBS;
-  external static int get SEPARATE_ATTRIBS;
-  external static int get TRANSFORM_FEEDBACK_BUFFER;
-  external static int get TRANSFORM_FEEDBACK_BUFFER_BINDING;
-  external static int get RGBA32UI;
-  external static int get RGB32UI;
-  external static int get RGBA16UI;
-  external static int get RGB16UI;
-  external static int get RGBA8UI;
-  external static int get RGB8UI;
-  external static int get RGBA32I;
-  external static int get RGB32I;
-  external static int get RGBA16I;
-  external static int get RGB16I;
-  external static int get RGBA8I;
-  external static int get RGB8I;
-  external static int get RED_INTEGER;
-  external static int get RGB_INTEGER;
-  external static int get RGBA_INTEGER;
-  external static int get SAMPLER_2D_ARRAY;
-  external static int get SAMPLER_2D_ARRAY_SHADOW;
-  external static int get SAMPLER_CUBE_SHADOW;
-  external static int get UNSIGNED_INT_VEC2;
-  external static int get UNSIGNED_INT_VEC3;
-  external static int get UNSIGNED_INT_VEC4;
-  external static int get INT_SAMPLER_2D;
-  external static int get INT_SAMPLER_3D;
-  external static int get INT_SAMPLER_CUBE;
-  external static int get INT_SAMPLER_2D_ARRAY;
-  external static int get UNSIGNED_INT_SAMPLER_2D;
-  external static int get UNSIGNED_INT_SAMPLER_3D;
-  external static int get UNSIGNED_INT_SAMPLER_CUBE;
-  external static int get UNSIGNED_INT_SAMPLER_2D_ARRAY;
-  external static int get DEPTH_COMPONENT32F;
-  external static int get DEPTH32F_STENCIL8;
-  external static int get FLOAT_32_UNSIGNED_INT_24_8_REV;
-  external static int get FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING;
-  external static int get FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE;
-  external static int get FRAMEBUFFER_ATTACHMENT_RED_SIZE;
-  external static int get FRAMEBUFFER_ATTACHMENT_GREEN_SIZE;
-  external static int get FRAMEBUFFER_ATTACHMENT_BLUE_SIZE;
-  external static int get FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE;
-  external static int get FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE;
-  external static int get FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE;
-  external static int get FRAMEBUFFER_DEFAULT;
-  external static int get UNSIGNED_INT_24_8;
-  external static int get DEPTH24_STENCIL8;
-  external static int get UNSIGNED_NORMALIZED;
-  external static int get DRAW_FRAMEBUFFER_BINDING;
-  external static int get READ_FRAMEBUFFER;
-  external static int get DRAW_FRAMEBUFFER;
-  external static int get READ_FRAMEBUFFER_BINDING;
-  external static int get RENDERBUFFER_SAMPLES;
-  external static int get FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER;
-  external static int get MAX_COLOR_ATTACHMENTS;
-  external static int get COLOR_ATTACHMENT1;
-  external static int get COLOR_ATTACHMENT2;
-  external static int get COLOR_ATTACHMENT3;
-  external static int get COLOR_ATTACHMENT4;
-  external static int get COLOR_ATTACHMENT5;
-  external static int get COLOR_ATTACHMENT6;
-  external static int get COLOR_ATTACHMENT7;
-  external static int get COLOR_ATTACHMENT8;
-  external static int get COLOR_ATTACHMENT9;
-  external static int get COLOR_ATTACHMENT10;
-  external static int get COLOR_ATTACHMENT11;
-  external static int get COLOR_ATTACHMENT12;
-  external static int get COLOR_ATTACHMENT13;
-  external static int get COLOR_ATTACHMENT14;
-  external static int get COLOR_ATTACHMENT15;
-  external static int get FRAMEBUFFER_INCOMPLETE_MULTISAMPLE;
-  external static int get MAX_SAMPLES;
-  external static int get HALF_FLOAT;
-  external static int get RG;
-  external static int get RG_INTEGER;
-  external static int get R8;
-  external static int get RG8;
-  external static int get R16F;
-  external static int get R32F;
-  external static int get RG16F;
-  external static int get RG32F;
-  external static int get R8I;
-  external static int get R8UI;
-  external static int get R16I;
-  external static int get R16UI;
-  external static int get R32I;
-  external static int get R32UI;
-  external static int get RG8I;
-  external static int get RG8UI;
-  external static int get RG16I;
-  external static int get RG16UI;
-  external static int get RG32I;
-  external static int get RG32UI;
-  external static int get VERTEX_ARRAY_BINDING;
-  external static int get R8_SNORM;
-  external static int get RG8_SNORM;
-  external static int get RGB8_SNORM;
-  external static int get RGBA8_SNORM;
-  external static int get SIGNED_NORMALIZED;
-  external static int get COPY_READ_BUFFER;
-  external static int get COPY_WRITE_BUFFER;
-  external static int get COPY_READ_BUFFER_BINDING;
-  external static int get COPY_WRITE_BUFFER_BINDING;
-  external static int get UNIFORM_BUFFER;
-  external static int get UNIFORM_BUFFER_BINDING;
-  external static int get UNIFORM_BUFFER_START;
-  external static int get UNIFORM_BUFFER_SIZE;
-  external static int get MAX_VERTEX_UNIFORM_BLOCKS;
-  external static int get MAX_FRAGMENT_UNIFORM_BLOCKS;
-  external static int get MAX_COMBINED_UNIFORM_BLOCKS;
-  external static int get MAX_UNIFORM_BUFFER_BINDINGS;
-  external static int get MAX_UNIFORM_BLOCK_SIZE;
-  external static int get MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS;
-  external static int get MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS;
-  external static int get UNIFORM_BUFFER_OFFSET_ALIGNMENT;
-  external static int get ACTIVE_UNIFORM_BLOCKS;
-  external static int get UNIFORM_TYPE;
-  external static int get UNIFORM_SIZE;
-  external static int get UNIFORM_BLOCK_INDEX;
-  external static int get UNIFORM_OFFSET;
-  external static int get UNIFORM_ARRAY_STRIDE;
-  external static int get UNIFORM_MATRIX_STRIDE;
-  external static int get UNIFORM_IS_ROW_MAJOR;
-  external static int get UNIFORM_BLOCK_BINDING;
-  external static int get UNIFORM_BLOCK_DATA_SIZE;
-  external static int get UNIFORM_BLOCK_ACTIVE_UNIFORMS;
-  external static int get UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES;
-  external static int get UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER;
-  external static int get UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER;
-  external static int get INVALID_INDEX;
-  external static int get MAX_VERTEX_OUTPUT_COMPONENTS;
-  external static int get MAX_FRAGMENT_INPUT_COMPONENTS;
-  external static int get MAX_SERVER_WAIT_TIMEOUT;
-  external static int get OBJECT_TYPE;
-  external static int get SYNC_CONDITION;
-  external static int get SYNC_STATUS;
-  external static int get SYNC_FLAGS;
-  external static int get SYNC_FENCE;
-  external static int get SYNC_GPU_COMMANDS_COMPLETE;
-  external static int get UNSIGNALED;
-  external static int get SIGNALED;
-  external static int get ALREADY_SIGNALED;
-  external static int get TIMEOUT_EXPIRED;
-  external static int get CONDITION_SATISFIED;
-  external static int get WAIT_FAILED;
-  external static int get SYNC_FLUSH_COMMANDS_BIT;
-  external static int get VERTEX_ATTRIB_ARRAY_DIVISOR;
-  external static int get ANY_SAMPLES_PASSED;
-  external static int get ANY_SAMPLES_PASSED_CONSERVATIVE;
-  external static int get SAMPLER_BINDING;
-  external static int get RGB10_A2UI;
-  external static int get INT_2_10_10_10_REV;
-  external static int get TRANSFORM_FEEDBACK;
-  external static int get TRANSFORM_FEEDBACK_PAUSED;
-  external static int get TRANSFORM_FEEDBACK_ACTIVE;
-  external static int get TRANSFORM_FEEDBACK_BINDING;
-  external static int get TEXTURE_IMMUTABLE_FORMAT;
-  external static int get MAX_ELEMENT_INDEX;
-  external static int get TEXTURE_IMMUTABLE_LEVELS;
-  external static int get TIMEOUT_IGNORED;
-  external static int get MAX_CLIENT_WAIT_TIMEOUT_WEBGL;
+  @JS('READ_BUFFER')
+  external static int get readBuffer;
+
+  @JS('UNPACK_ROW_LENGTH')
+  external static int get unpackRowLength;
+
+  @JS('UNPACK_SKIP_ROWS')
+  external static int get unpackSkipRows;
+
+  @JS('UNPACK_SKIP_PIXELS')
+  external static int get unpackSkipPixels;
+
+  @JS('PACK_ROW_LENGTH')
+  external static int get packRowLength;
+
+  @JS('PACK_SKIP_ROWS')
+  external static int get packSkipRows;
+
+  @JS('PACK_SKIP_PIXELS')
+  external static int get packSkipPixels;
+
+  @JS('COLOR')
+  external static int get color;
+
+  @JS('DEPTH')
+  external static int get depth;
+
+  @JS('STENCIL')
+  external static int get stencil;
+
+  @JS('RED')
+  external static int get red;
+
+  @JS('RGB8')
+  external static int get rgb8;
+
+  @JS('RGBA8')
+  external static int get rgba8;
+
+  @JS('RGB10_A2')
+  external static int get rgb10A2;
+
+  @JS('TEXTURE_BINDING_3D')
+  external static int get textureBinding3d;
+
+  @JS('UNPACK_SKIP_IMAGES')
+  external static int get unpackSkipImages;
+
+  @JS('UNPACK_IMAGE_HEIGHT')
+  external static int get unpackImageHeight;
+
+  @JS('TEXTURE_3D')
+  external static int get texture3d;
+
+  @JS('TEXTURE_WRAP_R')
+  external static int get textureWrapR;
+
+  @JS('MAX_3D_TEXTURE_SIZE')
+  external static int get max3dTextureSize;
+
+  @JS('UNSIGNED_INT_2_10_10_10_REV')
+  external static int get unsignedInt2101010Rev;
+
+  @JS('MAX_ELEMENTS_VERTICES')
+  external static int get maxElementsVertices;
+
+  @JS('MAX_ELEMENTS_INDICES')
+  external static int get maxElementsIndices;
+
+  @JS('TEXTURE_MIN_LOD')
+  external static int get textureMinLod;
+
+  @JS('TEXTURE_MAX_LOD')
+  external static int get textureMaxLod;
+
+  @JS('TEXTURE_BASE_LEVEL')
+  external static int get textureBaseLevel;
+
+  @JS('TEXTURE_MAX_LEVEL')
+  external static int get textureMaxLevel;
+
+  @JS('MIN')
+  external static int get min;
+
+  @JS('MAX')
+  external static int get max;
+
+  @JS('DEPTH_COMPONENT24')
+  external static int get depthComponent24;
+
+  @JS('MAX_TEXTURE_LOD_BIAS')
+  external static int get maxTextureLodBias;
+
+  @JS('TEXTURE_COMPARE_MODE')
+  external static int get textureCompareMode;
+
+  @JS('TEXTURE_COMPARE_FUNC')
+  external static int get textureCompareFunc;
+
+  @JS('CURRENT_QUERY')
+  external static int get currentQuery;
+
+  @JS('QUERY_RESULT')
+  external static int get queryResult;
+
+  @JS('QUERY_RESULT_AVAILABLE')
+  external static int get queryResultAvailable;
+
+  @JS('STREAM_READ')
+  external static int get streamRead;
+
+  @JS('STREAM_COPY')
+  external static int get streamCopy;
+
+  @JS('STATIC_READ')
+  external static int get staticRead;
+
+  @JS('STATIC_COPY')
+  external static int get staticCopy;
+
+  @JS('DYNAMIC_READ')
+  external static int get dynamicRead;
+
+  @JS('DYNAMIC_COPY')
+  external static int get dynamicCopy;
+
+  @JS('MAX_DRAW_BUFFERS')
+  external static int get maxDrawBuffers;
+
+  @JS('DRAW_BUFFER0')
+  external static int get drawBuffer0;
+
+  @JS('DRAW_BUFFER1')
+  external static int get drawBuffer1;
+
+  @JS('DRAW_BUFFER2')
+  external static int get drawBuffer2;
+
+  @JS('DRAW_BUFFER3')
+  external static int get drawBuffer3;
+
+  @JS('DRAW_BUFFER4')
+  external static int get drawBuffer4;
+
+  @JS('DRAW_BUFFER5')
+  external static int get drawBuffer5;
+
+  @JS('DRAW_BUFFER6')
+  external static int get drawBuffer6;
+
+  @JS('DRAW_BUFFER7')
+  external static int get drawBuffer7;
+
+  @JS('DRAW_BUFFER8')
+  external static int get drawBuffer8;
+
+  @JS('DRAW_BUFFER9')
+  external static int get drawBuffer9;
+
+  @JS('DRAW_BUFFER10')
+  external static int get drawBuffer10;
+
+  @JS('DRAW_BUFFER11')
+  external static int get drawBuffer11;
+
+  @JS('DRAW_BUFFER12')
+  external static int get drawBuffer12;
+
+  @JS('DRAW_BUFFER13')
+  external static int get drawBuffer13;
+
+  @JS('DRAW_BUFFER14')
+  external static int get drawBuffer14;
+
+  @JS('DRAW_BUFFER15')
+  external static int get drawBuffer15;
+
+  @JS('MAX_FRAGMENT_UNIFORM_COMPONENTS')
+  external static int get maxFragmentUniformComponents;
+
+  @JS('MAX_VERTEX_UNIFORM_COMPONENTS')
+  external static int get maxVertexUniformComponents;
+
+  @JS('SAMPLER_3D')
+  external static int get sampler3d;
+
+  @JS('SAMPLER_2D_SHADOW')
+  external static int get sampler2dShadow;
+
+  @JS('FRAGMENT_SHADER_DERIVATIVE_HINT')
+  external static int get fragmentShaderDerivativeHint;
+
+  @JS('PIXEL_PACK_BUFFER')
+  external static int get pixelPackBuffer;
+
+  @JS('PIXEL_UNPACK_BUFFER')
+  external static int get pixelUnpackBuffer;
+
+  @JS('PIXEL_PACK_BUFFER_BINDING')
+  external static int get pixelPackBufferBinding;
+
+  @JS('PIXEL_UNPACK_BUFFER_BINDING')
+  external static int get pixelUnpackBufferBinding;
+
+  @JS('FLOAT_MAT2x3')
+  external static int get floatMat2x3;
+
+  @JS('FLOAT_MAT2x4')
+  external static int get floatMat2x4;
+
+  @JS('FLOAT_MAT3x2')
+  external static int get floatMat3x2;
+
+  @JS('FLOAT_MAT3x4')
+  external static int get floatMat3x4;
+
+  @JS('FLOAT_MAT4x2')
+  external static int get floatMat4x2;
+
+  @JS('FLOAT_MAT4x3')
+  external static int get floatMat4x3;
+
+  @JS('SRGB')
+  external static int get srgb;
+
+  @JS('SRGB8')
+  external static int get srgb8;
+
+  @JS('SRGB8_ALPHA8')
+  external static int get srgb8Alpha8;
+
+  @JS('COMPARE_REF_TO_TEXTURE')
+  external static int get compareRefToTexture;
+
+  @JS('RGBA32F')
+  external static int get rgba32f;
+
+  @JS('RGB32F')
+  external static int get rgb32f;
+
+  @JS('RGBA16F')
+  external static int get rgba16f;
+
+  @JS('RGB16F')
+  external static int get rgb16f;
+
+  @JS('VERTEX_ATTRIB_ARRAY_INTEGER')
+  external static int get vertexAttribArrayInteger;
+
+  @JS('MAX_ARRAY_TEXTURE_LAYERS')
+  external static int get maxArrayTextureLayers;
+
+  @JS('MIN_PROGRAM_TEXEL_OFFSET')
+  external static int get minProgramTexelOffset;
+
+  @JS('MAX_PROGRAM_TEXEL_OFFSET')
+  external static int get maxProgramTexelOffset;
+
+  @JS('MAX_VARYING_COMPONENTS')
+  external static int get maxVaryingComponents;
+
+  @JS('TEXTURE_2D_ARRAY')
+  external static int get texture2dArray;
+
+  @JS('TEXTURE_BINDING_2D_ARRAY')
+  external static int get textureBinding2dArray;
+
+  @JS('R11F_G11F_B10F')
+  external static int get r11fG11fB10f;
+
+  @JS('UNSIGNED_INT_10F_11F_11F_REV')
+  external static int get unsignedInt10f11f11fRev;
+
+  @JS('RGB9_E5')
+  external static int get rgb9E5;
+
+  @JS('UNSIGNED_INT_5_9_9_9_REV')
+  external static int get unsignedInt5999Rev;
+
+  @JS('TRANSFORM_FEEDBACK_BUFFER_MODE')
+  external static int get transformFeedbackBufferMode;
+
+  @JS('MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS')
+  external static int get maxTransformFeedbackSeparateComponents;
+
+  @JS('TRANSFORM_FEEDBACK_VARYINGS')
+  external static int get transformFeedbackVaryings;
+
+  @JS('TRANSFORM_FEEDBACK_BUFFER_START')
+  external static int get transformFeedbackBufferStart;
+
+  @JS('TRANSFORM_FEEDBACK_BUFFER_SIZE')
+  external static int get transformFeedbackBufferSize;
+
+  @JS('TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN')
+  external static int get transformFeedbackPrimitivesWritten;
+
+  @JS('RASTERIZER_DISCARD')
+  external static int get rasterizerDiscard;
+
+  @JS('MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS')
+  external static int get maxTransformFeedbackInterleavedComponents;
+
+  @JS('MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS')
+  external static int get maxTransformFeedbackSeparateAttribs;
+
+  @JS('INTERLEAVED_ATTRIBS')
+  external static int get interleavedAttribs;
+
+  @JS('SEPARATE_ATTRIBS')
+  external static int get separateAttribs;
+
+  @JS('TRANSFORM_FEEDBACK_BUFFER')
+  external static int get transformFeedbackBuffer;
+
+  @JS('TRANSFORM_FEEDBACK_BUFFER_BINDING')
+  external static int get transformFeedbackBufferBinding;
+
+  @JS('RGBA32UI')
+  external static int get rgba32ui;
+
+  @JS('RGB32UI')
+  external static int get rgb32ui;
+
+  @JS('RGBA16UI')
+  external static int get rgba16ui;
+
+  @JS('RGB16UI')
+  external static int get rgb16ui;
+
+  @JS('RGBA8UI')
+  external static int get rgba8ui;
+
+  @JS('RGB8UI')
+  external static int get rgb8ui;
+
+  @JS('RGBA32I')
+  external static int get rgba32i;
+
+  @JS('RGB32I')
+  external static int get rgb32i;
+
+  @JS('RGBA16I')
+  external static int get rgba16i;
+
+  @JS('RGB16I')
+  external static int get rgb16i;
+
+  @JS('RGBA8I')
+  external static int get rgba8i;
+
+  @JS('RGB8I')
+  external static int get rgb8i;
+
+  @JS('RED_INTEGER')
+  external static int get redInteger;
+
+  @JS('RGB_INTEGER')
+  external static int get rgbInteger;
+
+  @JS('RGBA_INTEGER')
+  external static int get rgbaInteger;
+
+  @JS('SAMPLER_2D_ARRAY')
+  external static int get sampler2dArray;
+
+  @JS('SAMPLER_2D_ARRAY_SHADOW')
+  external static int get sampler2dArrayShadow;
+
+  @JS('SAMPLER_CUBE_SHADOW')
+  external static int get samplerCubeShadow;
+
+  @JS('UNSIGNED_INT_VEC2')
+  external static int get unsignedIntVec2;
+
+  @JS('UNSIGNED_INT_VEC3')
+  external static int get unsignedIntVec3;
+
+  @JS('UNSIGNED_INT_VEC4')
+  external static int get unsignedIntVec4;
+
+  @JS('INT_SAMPLER_2D')
+  external static int get intSampler2d;
+
+  @JS('INT_SAMPLER_3D')
+  external static int get intSampler3d;
+
+  @JS('INT_SAMPLER_CUBE')
+  external static int get intSamplerCube;
+
+  @JS('INT_SAMPLER_2D_ARRAY')
+  external static int get intSampler2dArray;
+
+  @JS('UNSIGNED_INT_SAMPLER_2D')
+  external static int get unsignedIntSampler2d;
+
+  @JS('UNSIGNED_INT_SAMPLER_3D')
+  external static int get unsignedIntSampler3d;
+
+  @JS('UNSIGNED_INT_SAMPLER_CUBE')
+  external static int get unsignedIntSamplerCube;
+
+  @JS('UNSIGNED_INT_SAMPLER_2D_ARRAY')
+  external static int get unsignedIntSampler2dArray;
+
+  @JS('DEPTH_COMPONENT32F')
+  external static int get depthComponent32f;
+
+  @JS('DEPTH32F_STENCIL8')
+  external static int get depth32fStencil8;
+
+  @JS('FLOAT_32_UNSIGNED_INT_24_8_REV')
+  external static int get float32UnsignedInt248Rev;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING')
+  external static int get framebufferAttachmentColorEncoding;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE')
+  external static int get framebufferAttachmentComponentType;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_RED_SIZE')
+  external static int get framebufferAttachmentRedSize;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_GREEN_SIZE')
+  external static int get framebufferAttachmentGreenSize;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_BLUE_SIZE')
+  external static int get framebufferAttachmentBlueSize;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE')
+  external static int get framebufferAttachmentAlphaSize;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE')
+  external static int get framebufferAttachmentDepthSize;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE')
+  external static int get framebufferAttachmentStencilSize;
+
+  @JS('FRAMEBUFFER_DEFAULT')
+  external static int get framebufferDefault;
+
+  @JS('UNSIGNED_INT_24_8')
+  external static int get unsignedInt248;
+
+  @JS('DEPTH24_STENCIL8')
+  external static int get depth24Stencil8;
+
+  @JS('UNSIGNED_NORMALIZED')
+  external static int get unsignedNormalized;
+
+  @JS('DRAW_FRAMEBUFFER_BINDING')
+  external static int get drawFramebufferBinding;
+
+  @JS('READ_FRAMEBUFFER')
+  external static int get readFramebuffer;
+
+  @JS('DRAW_FRAMEBUFFER')
+  external static int get drawFramebuffer;
+
+  @JS('READ_FRAMEBUFFER_BINDING')
+  external static int get readFramebufferBinding;
+
+  @JS('RENDERBUFFER_SAMPLES')
+  external static int get renderbufferSamples;
+
+  @JS('FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER')
+  external static int get framebufferAttachmentTextureLayer;
+
+  @JS('MAX_COLOR_ATTACHMENTS')
+  external static int get maxColorAttachments;
+
+  @JS('COLOR_ATTACHMENT1')
+  external static int get colorAttachment1;
+
+  @JS('COLOR_ATTACHMENT2')
+  external static int get colorAttachment2;
+
+  @JS('COLOR_ATTACHMENT3')
+  external static int get colorAttachment3;
+
+  @JS('COLOR_ATTACHMENT4')
+  external static int get colorAttachment4;
+
+  @JS('COLOR_ATTACHMENT5')
+  external static int get colorAttachment5;
+
+  @JS('COLOR_ATTACHMENT6')
+  external static int get colorAttachment6;
+
+  @JS('COLOR_ATTACHMENT7')
+  external static int get colorAttachment7;
+
+  @JS('COLOR_ATTACHMENT8')
+  external static int get colorAttachment8;
+
+  @JS('COLOR_ATTACHMENT9')
+  external static int get colorAttachment9;
+
+  @JS('COLOR_ATTACHMENT10')
+  external static int get colorAttachment10;
+
+  @JS('COLOR_ATTACHMENT11')
+  external static int get colorAttachment11;
+
+  @JS('COLOR_ATTACHMENT12')
+  external static int get colorAttachment12;
+
+  @JS('COLOR_ATTACHMENT13')
+  external static int get colorAttachment13;
+
+  @JS('COLOR_ATTACHMENT14')
+  external static int get colorAttachment14;
+
+  @JS('COLOR_ATTACHMENT15')
+  external static int get colorAttachment15;
+
+  @JS('FRAMEBUFFER_INCOMPLETE_MULTISAMPLE')
+  external static int get framebufferIncompleteMultisample;
+
+  @JS('MAX_SAMPLES')
+  external static int get maxSamples;
+
+  @JS('HALF_FLOAT')
+  external static int get halfFloat;
+
+  @JS('RG')
+  external static int get rg;
+
+  @JS('RG_INTEGER')
+  external static int get rgInteger;
+
+  @JS('R8')
+  external static int get r8;
+
+  @JS('RG8')
+  external static int get rg8;
+
+  @JS('R16F')
+  external static int get r16f;
+
+  @JS('R32F')
+  external static int get r32f;
+
+  @JS('RG16F')
+  external static int get rg16f;
+
+  @JS('RG32F')
+  external static int get rg32f;
+
+  @JS('R8I')
+  external static int get r8i;
+
+  @JS('R8UI')
+  external static int get r8ui;
+
+  @JS('R16I')
+  external static int get r16i;
+
+  @JS('R16UI')
+  external static int get r16ui;
+
+  @JS('R32I')
+  external static int get r32i;
+
+  @JS('R32UI')
+  external static int get r32ui;
+
+  @JS('RG8I')
+  external static int get rg8i;
+
+  @JS('RG8UI')
+  external static int get rg8ui;
+
+  @JS('RG16I')
+  external static int get rg16i;
+
+  @JS('RG16UI')
+  external static int get rg16ui;
+
+  @JS('RG32I')
+  external static int get rg32i;
+
+  @JS('RG32UI')
+  external static int get rg32ui;
+
+  @JS('VERTEX_ARRAY_BINDING')
+  external static int get vertexArrayBinding;
+
+  @JS('R8_SNORM')
+  external static int get r8Snorm;
+
+  @JS('RG8_SNORM')
+  external static int get rg8Snorm;
+
+  @JS('RGB8_SNORM')
+  external static int get rgb8Snorm;
+
+  @JS('RGBA8_SNORM')
+  external static int get rgba8Snorm;
+
+  @JS('SIGNED_NORMALIZED')
+  external static int get signedNormalized;
+
+  @JS('COPY_READ_BUFFER')
+  external static int get copyReadBuffer;
+
+  @JS('COPY_WRITE_BUFFER')
+  external static int get copyWriteBuffer;
+
+  @JS('COPY_READ_BUFFER_BINDING')
+  external static int get copyReadBufferBinding;
+
+  @JS('COPY_WRITE_BUFFER_BINDING')
+  external static int get copyWriteBufferBinding;
+
+  @JS('UNIFORM_BUFFER')
+  external static int get uniformBuffer;
+
+  @JS('UNIFORM_BUFFER_BINDING')
+  external static int get uniformBufferBinding;
+
+  @JS('UNIFORM_BUFFER_START')
+  external static int get uniformBufferStart;
+
+  @JS('UNIFORM_BUFFER_SIZE')
+  external static int get uniformBufferSize;
+
+  @JS('MAX_VERTEX_UNIFORM_BLOCKS')
+  external static int get maxVertexUniformBlocks;
+
+  @JS('MAX_FRAGMENT_UNIFORM_BLOCKS')
+  external static int get maxFragmentUniformBlocks;
+
+  @JS('MAX_COMBINED_UNIFORM_BLOCKS')
+  external static int get maxCombinedUniformBlocks;
+
+  @JS('MAX_UNIFORM_BUFFER_BINDINGS')
+  external static int get maxUniformBufferBindings;
+
+  @JS('MAX_UNIFORM_BLOCK_SIZE')
+  external static int get maxUniformBlockSize;
+
+  @JS('MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS')
+  external static int get maxCombinedVertexUniformComponents;
+
+  @JS('MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS')
+  external static int get maxCombinedFragmentUniformComponents;
+
+  @JS('UNIFORM_BUFFER_OFFSET_ALIGNMENT')
+  external static int get uniformBufferOffsetAlignment;
+
+  @JS('ACTIVE_UNIFORM_BLOCKS')
+  external static int get activeUniformBlocks;
+
+  @JS('UNIFORM_TYPE')
+  external static int get uniformType;
+
+  @JS('UNIFORM_SIZE')
+  external static int get uniformSize;
+
+  @JS('UNIFORM_BLOCK_INDEX')
+  external static int get uniformBlockIndex;
+
+  @JS('UNIFORM_OFFSET')
+  external static int get uniformOffset;
+
+  @JS('UNIFORM_ARRAY_STRIDE')
+  external static int get uniformArrayStride;
+
+  @JS('UNIFORM_MATRIX_STRIDE')
+  external static int get uniformMatrixStride;
+
+  @JS('UNIFORM_IS_ROW_MAJOR')
+  external static int get uniformIsRowMajor;
+
+  @JS('UNIFORM_BLOCK_BINDING')
+  external static int get uniformBlockBinding;
+
+  @JS('UNIFORM_BLOCK_DATA_SIZE')
+  external static int get uniformBlockDataSize;
+
+  @JS('UNIFORM_BLOCK_ACTIVE_UNIFORMS')
+  external static int get uniformBlockActiveUniforms;
+
+  @JS('UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES')
+  external static int get uniformBlockActiveUniformIndices;
+
+  @JS('UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER')
+  external static int get uniformBlockReferencedByVertexShader;
+
+  @JS('UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER')
+  external static int get uniformBlockReferencedByFragmentShader;
+
+  @JS('INVALID_INDEX')
+  external static int get invalidIndex;
+
+  @JS('MAX_VERTEX_OUTPUT_COMPONENTS')
+  external static int get maxVertexOutputComponents;
+
+  @JS('MAX_FRAGMENT_INPUT_COMPONENTS')
+  external static int get maxFragmentInputComponents;
+
+  @JS('MAX_SERVER_WAIT_TIMEOUT')
+  external static int get maxServerWaitTimeout;
+
+  @JS('OBJECT_TYPE')
+  external static int get objectType;
+
+  @JS('SYNC_CONDITION')
+  external static int get syncCondition;
+
+  @JS('SYNC_STATUS')
+  external static int get syncStatus;
+
+  @JS('SYNC_FLAGS')
+  external static int get syncFlags;
+
+  @JS('SYNC_FENCE')
+  external static int get syncFence;
+
+  @JS('SYNC_GPU_COMMANDS_COMPLETE')
+  external static int get syncGpuCommandsComplete;
+
+  @JS('UNSIGNALED')
+  external static int get unsignaled;
+
+  @JS('SIGNALED')
+  external static int get signaled;
+
+  @JS('ALREADY_SIGNALED')
+  external static int get alreadySignaled;
+
+  @JS('TIMEOUT_EXPIRED')
+  external static int get timeoutExpired;
+
+  @JS('CONDITION_SATISFIED')
+  external static int get conditionSatisfied;
+
+  @JS('WAIT_FAILED')
+  external static int get waitFailed;
+
+  @JS('SYNC_FLUSH_COMMANDS_BIT')
+  external static int get syncFlushCommandsBit;
+
+  @JS('VERTEX_ATTRIB_ARRAY_DIVISOR')
+  external static int get vertexAttribArrayDivisor;
+
+  @JS('ANY_SAMPLES_PASSED')
+  external static int get anySamplesPassed;
+
+  @JS('ANY_SAMPLES_PASSED_CONSERVATIVE')
+  external static int get anySamplesPassedConservative;
+
+  @JS('SAMPLER_BINDING')
+  external static int get samplerBinding;
+
+  @JS('RGB10_A2UI')
+  external static int get rgb10A2ui;
+
+  @JS('INT_2_10_10_10_REV')
+  external static int get int2101010Rev;
+
+  @JS('TRANSFORM_FEEDBACK')
+  external static int get transformFeedback;
+
+  @JS('TRANSFORM_FEEDBACK_PAUSED')
+  external static int get transformFeedbackPaused;
+
+  @JS('TRANSFORM_FEEDBACK_ACTIVE')
+  external static int get transformFeedbackActive;
+
+  @JS('TRANSFORM_FEEDBACK_BINDING')
+  external static int get transformFeedbackBinding;
+
+  @JS('TEXTURE_IMMUTABLE_FORMAT')
+  external static int get textureImmutableFormat;
+
+  @JS('MAX_ELEMENT_INDEX')
+  external static int get maxElementIndex;
+
+  @JS('TEXTURE_IMMUTABLE_LEVELS')
+  external static int get textureImmutableLevels;
+
+  @JS('TIMEOUT_IGNORED')
+  external static int get timeoutIgnored;
+
+  @JS('MAX_CLIENT_WAIT_TIMEOUT_WEBGL')
+  external static int get maxClientWaitTimeoutWebgl;
+
   external WebGL2RenderingContextBase();
 }
 

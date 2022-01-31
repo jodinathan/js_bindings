@@ -1,6 +1,9 @@
 /// Magnetometer
 ///
 /// https://w3c.github.io/magnetometer/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library magnetometer;
@@ -8,10 +11,7 @@ library magnetometer;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: generic_sensor */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Sensor APIs provides information about the
 /// magnetic field as detected by the device's primary magnetometer

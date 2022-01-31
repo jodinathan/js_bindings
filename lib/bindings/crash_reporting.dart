@@ -1,6 +1,9 @@
 /// Crash Reporting
 ///
 /// https://wicg.github.io/crash-reporting/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library crash_reporting;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: reporting_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -31,7 +31,6 @@ class CrashReportBody implements ReportBody {
 }
 
 extension PropsCrashReportBody on CrashReportBody {
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  A string representing the reason for the crash. Current possible

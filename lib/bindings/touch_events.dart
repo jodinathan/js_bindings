@@ -1,6 +1,9 @@
 /// Touch Events - Level 2
 ///
 /// https://w3c.github.io/touch-events/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library touch_events;
@@ -8,12 +11,7 @@ library touch_events;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-uievents
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface represents a single contact point on a
 /// touch-sensitive device. The contact point is commonly a finger or

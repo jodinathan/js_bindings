@@ -1,6 +1,9 @@
 /// Long Tasks API 1
 ///
 /// https://w3c.github.io/longtasks/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library longtasks_1;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: performance_timeline_2 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -42,7 +42,6 @@ extension PropsPerformanceLongTaskTiming on PerformanceLongTaskTiming {
   ///
   Iterable<TaskAttributionTiming> get attribution =>
       js_util.getProperty(this, 'attribution');
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
@@ -90,6 +89,5 @@ extension PropsTaskAttributionTiming on TaskAttributionTiming {
   /// Returns the container's [name] attribute.
   ///
   String get containerName => js_util.getProperty(this, 'containerName');
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }

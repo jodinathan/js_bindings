@@ -1,6 +1,9 @@
 /// Event Timing API
 ///
 /// https://wicg.github.io/event-timing/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library event_timing;
@@ -8,12 +11,7 @@ library event_timing;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: performance_timeline_2
-hr_time_3
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Event Timing API provides timing
 /// information for the event types listed below.
@@ -81,7 +79,6 @@ extension PropsPerformanceEventTiming on PerformanceEventTiming {
 
   /// Converts the PerformanceEventTiming object to JSON.
   ///
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
@@ -89,4 +86,8 @@ extension PropsPerformanceEventTiming on PerformanceEventTiming {
 @staticInterop
 class EventCounts {
   external EventCounts();
+}
+
+extension PropsEventCounts on EventCounts {
+  int operator [](String index) => js_util.getProperty(this, index);
 }

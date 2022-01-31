@@ -1,6 +1,9 @@
 /// Fetch Standard
 ///
 /// https://fetch.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library fetch;
@@ -9,17 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: fetch
-file_a_p_i
-xhr
-url
-streams
-referrer_policy
-dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Fetch API allows you to perform various
 /// actions on HTTP request and response headers. These actions

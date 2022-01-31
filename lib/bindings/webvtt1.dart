@@ -1,6 +1,9 @@
 /// WebVTT: The Web Video Text Tracks Format
 ///
 /// https://w3c.github.io/webvtt/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webvtt1;
@@ -8,11 +11,7 @@ library webvtt1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 enum AutoKeyword { auto }
 

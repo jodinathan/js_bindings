@@ -1,6 +1,9 @@
 /// Scroll-linked Animations
 ///
 /// https://drafts.csswg.org/scroll-animations-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library scroll_animations_1;
@@ -8,13 +11,7 @@ library scroll_animations_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: css_typed_om_1
-dom
-web_animations_1
-cssom_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 enum ScrollDirection { block, inline, horizontal, vertical }
 

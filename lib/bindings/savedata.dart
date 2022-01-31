@@ -1,6 +1,9 @@
 /// Save Data API
 ///
 /// https://wicg.github.io/savedata/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library savedata;
@@ -8,10 +11,7 @@ library savedata;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps:  */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

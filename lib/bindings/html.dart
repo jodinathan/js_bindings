@@ -1,6 +1,9 @@
 /// HTML Standard
 ///
 /// https://html.spec.whatwg.org/multipage/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library html;
@@ -9,79 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-cssom_1
-wai_aria_1_2
-webgpu
-webdriver2
-ua_client_hints
-web_locks
-device_memory_1
-netinfo
-local_font_access
-badging
-storage
-css_font_loading_3
-dom
-svg11
-mediacapture_streams
-media_source
-file_a_p_i
-xhr
-webgl1
-webgl2
-geometry_1
-uievents
-hr_time_3
-service_workers_1
-fetch
-geolocation_a_p_i
-media_capabilities
-permissions
-mediasession
-web_share
-media_playback_quality
-cookie_store
-is_input_pending
-contact_api
-scheduling_apis
-trusted_types
-screen_wake_lock
-requestidlecallback
-selection_api
-entries_api
-webhid
-clipboard_apis
-cssom_view_1
-presentation_api
-credential_management_1
-web_bluetooth
-keyboard_map
-visual_viewport
-picture_in_picture
-portals
-custom_state_pseudo_class
-video_rvfc
-speech_api
-file_system_access
-webxr
-get_installed_related_apps
-serial
-web_crypto_a_p_i
-vibration
-gamepad
-device_posture
-webusb
-remote_playback
-permissions_policy_1
-css_nav_1
-battery_status
-webmidi
-indexed_d_b_3
-encrypted_media */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
@@ -135,7 +66,6 @@ extension PropsHTMLFormControlsCollection on HTMLFormControlsCollection {
   /// var item = collection.namedItem(str);
   /// var item = collection[str];
   ///
-  @override
   dynamic namedItem(String name) =>
       js_util.callMethod(this, 'namedItem', [name]);
 }
@@ -206,9 +136,7 @@ extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
   /// Mozilla allows this, while other implementations could
   /// potentially throw a DOMException.
   ///
-  @override
   int get length => js_util.getProperty(this, 'length');
-  @override
   set length(int newValue) {
     js_util.setProperty(this, 'length', newValue);
   }
@@ -3193,10 +3121,18 @@ class HTMLAudioElement implements HTMLMediaElement {
 @JS()
 @staticInterop
 class HTMLTrackElement implements HTMLElement {
-  external static int get NONE;
-  external static int get LOADING;
-  external static int get LOADED;
-  external static int get ERROR;
+  @JS('NONE')
+  external static int get none;
+
+  @JS('LOADING')
+  external static int get loading;
+
+  @JS('LOADED')
+  external static int get loaded;
+
+  @JS('ERROR')
+  external static int get error;
+
   external HTMLTrackElement();
 }
 
@@ -3332,15 +3268,33 @@ enum CanPlayTypeResult { empty, maybe, probably }
 @JS()
 @staticInterop
 class HTMLMediaElement implements HTMLElement {
-  external static int get NETWORK_EMPTY;
-  external static int get NETWORK_IDLE;
-  external static int get NETWORK_LOADING;
-  external static int get NETWORK_NO_SOURCE;
-  external static int get HAVE_NOTHING;
-  external static int get HAVE_METADATA;
-  external static int get HAVE_CURRENT_DATA;
-  external static int get HAVE_FUTURE_DATA;
-  external static int get HAVE_ENOUGH_DATA;
+  @JS('NETWORK_EMPTY')
+  external static int get networkEmpty;
+
+  @JS('NETWORK_IDLE')
+  external static int get networkIdle;
+
+  @JS('NETWORK_LOADING')
+  external static int get networkLoading;
+
+  @JS('NETWORK_NO_SOURCE')
+  external static int get networkNoSource;
+
+  @JS('HAVE_NOTHING')
+  external static int get haveNothing;
+
+  @JS('HAVE_METADATA')
+  external static int get haveMetadata;
+
+  @JS('HAVE_CURRENT_DATA')
+  external static int get haveCurrentData;
+
+  @JS('HAVE_FUTURE_DATA')
+  external static int get haveFutureData;
+
+  @JS('HAVE_ENOUGH_DATA')
+  external static int get haveEnoughData;
+
   external HTMLMediaElement();
 }
 
@@ -3695,10 +3649,18 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
 @JS()
 @staticInterop
 class MediaError {
-  external static int get MEDIA_ERR_ABORTED;
-  external static int get MEDIA_ERR_NETWORK;
-  external static int get MEDIA_ERR_DECODE;
-  external static int get MEDIA_ERR_SRC_NOT_SUPPORTED;
+  @JS('MEDIA_ERR_ABORTED')
+  external static int get mediaErrAborted;
+
+  @JS('MEDIA_ERR_NETWORK')
+  external static int get mediaErrNetwork;
+
+  @JS('MEDIA_ERR_DECODE')
+  external static int get mediaErrDecode;
+
+  @JS('MEDIA_ERR_SRC_NOT_SUPPORTED')
+  external static int get mediaErrSrcNotSupported;
+
   external MediaError();
 }
 
@@ -9927,7 +9889,7 @@ extension PropsWindow on Window {
   ///  Gets/sets the text in the statusbar at the bottom of the
   /// browser.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get status => js_util.getProperty(this, 'status');
   set status(String newValue) {
     js_util.setProperty(this, 'status', newValue);
@@ -10866,9 +10828,7 @@ class BeforeUnloadEvent implements Event {
 }
 
 extension PropsBeforeUnloadEvent on BeforeUnloadEvent {
-  @override
   String get returnValue => js_util.getProperty(this, 'returnValue');
-  @override
   set returnValue(String newValue) {
     js_util.setProperty(this, 'returnValue', newValue);
   }
@@ -11898,7 +11858,7 @@ extension PropsNavigator on Navigator {
   Scheduling get scheduling => js_util.getProperty(this, 'scheduling');
   ContactsManager get contacts => js_util.getProperty(this, 'contacts');
   WakeLock get wakeLock => js_util.getProperty(this, 'wakeLock');
-  HID get hid => js_util.getProperty(this, 'hid');
+  Hid get hid => js_util.getProperty(this, 'hid');
   Clipboard get clipboard => js_util.getProperty(this, 'clipboard');
   Presentation get presentation => js_util.getProperty(this, 'presentation');
   CredentialsContainer get credentials =>
@@ -11940,7 +11900,7 @@ extension PropsNavigator on Navigator {
   bool sendBeacon(String url, [dynamic data]) =>
       js_util.callMethod(this, 'sendBeacon', [url, data]);
 
-  USB get usb => js_util.getProperty(this, 'usb');
+  Usb get usb => js_util.getProperty(this, 'usb');
   Future<BatteryManager> getBattery() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getBattery', []));
 
@@ -12189,7 +12149,7 @@ extension PropsMessageEvent on MessageEvent {
   ///  Initializes a message event. Do not use this anymore — use the
   /// [MessageEvent()] constructor instead.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object initMessageEvent(String type,
           [bool? bubbles = false,
           bool? cancelable = false,
@@ -12283,9 +12243,14 @@ extension PropsMessageEventInit on MessageEventInit {
 @staticInterop
 class EventSource implements EventTarget {
   external EventSource(String url, [EventSourceInit? eventSourceInitDict]);
-  external static int get CONNECTING;
-  external static int get OPEN;
-  external static int get CLOSED;
+  @JS('CONNECTING')
+  external static int get connecting;
+
+  @JS('OPEN')
+  external static int get open;
+
+  @JS('CLOSED')
+  external static int get closed;
 }
 
 extension PropsEventSource on EventSource {
@@ -12353,10 +12318,17 @@ enum BinaryType { blob, arraybuffer }
 @staticInterop
 class WebSocket implements EventTarget {
   external WebSocket(String url, [dynamic protocols = const []]);
-  external static int get CONNECTING;
-  external static int get OPEN;
-  external static int get CLOSING;
-  external static int get CLOSED;
+  @JS('CONNECTING')
+  external static int get connecting;
+
+  @JS('OPEN')
+  external static int get open;
+
+  @JS('CLOSING')
+  external static int get closing;
+
+  @JS('CLOSED')
+  external static int get closed;
 }
 
 extension PropsWebSocket on WebSocket {
@@ -13124,7 +13096,7 @@ extension PropsWorkerNavigator on WorkerNavigator {
   ServiceWorkerContainer get serviceWorker =>
       js_util.getProperty(this, 'serviceWorker');
   Serial get serial => js_util.getProperty(this, 'serial');
-  USB get usb => js_util.getProperty(this, 'usb');
+  Usb get usb => js_util.getProperty(this, 'usb');
 }
 
 ///  The interface defines the absolute location of the script
@@ -13452,7 +13424,7 @@ extension PropsStorageEvent on StorageEvent {
   ///
   /// storageEvent.initStorageEvent(type[, canBubble[, cancelable[, key[, oldValue[, newValue[, url[, storageArea]]]]]]])
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Object initStorageEvent(String type,
           [bool? bubbles = false,
 
@@ -13576,7 +13548,7 @@ extension PropsStorageEventInit on StorageEventInit {
 ///    HTMLMarqueeElement
 ///
 ///
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class HTMLMarqueeElement implements HTMLElement {
@@ -13693,7 +13665,7 @@ extension PropsHTMLMarqueeElement on HTMLMarqueeElement {
 ///  The interface provides special properties (beyond those of the
 /// regular [HTMLElement] interface they also inherit) for
 /// manipulating [<frameset>] elements.
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class HTMLFrameSetElement implements HTMLElement, WindowEventHandlers {
@@ -13704,7 +13676,7 @@ extension PropsHTMLFrameSetElement on HTMLFrameSetElement {
   ///  Is a [String] structured as a comma-separated list specifying
   /// the width of each column inside a frameset.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get cols => js_util.getProperty(this, 'cols');
   set cols(String newValue) {
     js_util.setProperty(this, 'cols', newValue);
@@ -13713,7 +13685,7 @@ extension PropsHTMLFrameSetElement on HTMLFrameSetElement {
   ///  Is a [String] structured as a comma-separated list specifying
   /// the height of each column inside a frameset.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get rows => js_util.getProperty(this, 'rows');
   set rows(String newValue) {
     js_util.setProperty(this, 'rows', newValue);
@@ -13794,7 +13766,7 @@ extension PropsHTMLDirectoryElement on HTMLDirectoryElement {
 ///  Implements the document object model (DOM) representation of the
 /// font element. The HTML Font Element [<font>] defines the font
 /// size, font face and color of text.
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class HTMLFontElement implements HTMLElement {
@@ -13837,10 +13809,10 @@ class External {
 }
 
 extension PropsExternal on External {
-  Object AddSearchProvider() =>
+  Object addSearchProvider() =>
       js_util.callMethod(this, 'AddSearchProvider', []);
 
-  Object IsSearchProviderInstalled() =>
+  Object isSearchProviderInstalled() =>
       js_util.callMethod(this, 'IsSearchProviderInstalled', []);
 }
 

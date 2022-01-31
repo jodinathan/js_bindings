@@ -1,6 +1,9 @@
 /// Battery Status API
 ///
 /// https://w3c.github.io/battery/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library battery_status;
@@ -8,11 +11,7 @@ library battery_status;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Deprecated: This feature is no longer recommended. Though some
 /// browsers might still support it, it may have already been removed
@@ -26,7 +25,7 @@ dom */
 /// about the system's battery charge level. The
 /// [navigator.getBattery()] method returns a promise that resolves
 /// with a interface.
-@deprecated
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class BatteryManager implements EventTarget {

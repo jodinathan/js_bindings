@@ -1,6 +1,9 @@
 /// Identifiers for WebRTC's Statistics API
 ///
 /// https://w3c.github.io/webrtc-stats/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webrtc_stats;
@@ -8,11 +11,7 @@ library webrtc_stats;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webrtc
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 enum RTCStatsType {
   codec,

@@ -2,11 +2,11 @@ import 'dart:io';
 import 'package:dart_style/dart_style.dart';
 import 'package:recase/recase.dart';
 import 'package:collection/collection.dart';
-import 'package:recase/recase.dart';
 
 import '../base.dart';
 
-const instanceMemberTypes = {'attribute', 'field', 'operation'};
+const instanceMemberTypes = {'attribute', 'field', 'operation',
+  'setlike', 'iterable', 'maplike'};
 const objectMembers = {'hash', 'hashCode', 'toString'};
 
 /// TODO: Change how we struct the spec class to also translate the underlying
@@ -21,8 +21,8 @@ Future<void> main() async {
     await dir.delete(recursive: true);
   }
 
-  final group = await getSpecs();
-  final list = group.specs.toList();
+  mainGroup = await getSpecs();
+  final list = mainGroup.specs.toList();
   final formatter = DartFormatter();
   final cbacks = <String>[
     '@JS() library callbacks;',
@@ -38,8 +38,10 @@ Future<void> main() async {
 
   File(allPath)
     ..createSync(recursive: true)
-    ..writeAsStringSync(formatter.format(list.map(
-            (spec) => "export '${spec.libraryName}.dart';").join('\n')));
+    ..writeAsStringSync(formatter.format([
+      "export 'callbacks.dart';",
+      ...list.map((spec) => "export '${spec.libraryName}.dart';")
+    ].join('\n')));
 
   for (var spec in list) {
     final objs = spec.json['idlparsed']?['idlNames'] as Map<String, dynamic>;
@@ -57,10 +59,16 @@ Future<void> main() async {
       final args = obj['arguments'] ??
           obj['members']?[0]?['arguments'];
 
-      if (types.contains('callback') && args != null) {
+      if (types.contains('callback') && (types.length == 1 ||
+          name == 'EventListener')) {
         var fn = name;
         final method = spec.makeMethod(args);
         final params = method.build();
+
+        // we code it manually in manual.dart
+        if (fn == 'EventHandlerNonNull') {
+          continue;
+        }
 
         if (forbidden.contains(fn)) {
           cbacks.add('@JS(\'$fn\')\n@staticInterop');
@@ -112,7 +120,7 @@ Future<void> main() async {
 
         void deprecated(Map<String, dynamic> item) {
           if (item['deprecated'] == true) {
-            lines.add('@deprecated');
+            lines.add("@Deprecated('Not official in the specs')");
           }
         }
 
@@ -169,7 +177,7 @@ Future<void> main() async {
             Map<String, dynamic> findByType(String typeName) {
               final ret = spec.objects.values
                   .firstWhereOrNull((obj) => obj['name'] == typeName) ??
-                  group.specs
+                  mainGroup.specs
                       .firstWhereOrNull(
                           (spec) => spec.objects.keys.contains(typeName))
                       ?.objects[typeName];
@@ -244,10 +252,13 @@ Future<void> main() async {
               }
             }
 
+            final originalName = name;
+            final className = name.pascalCase;
+
             lines.add('''
-            @JS()
+            @JS(${className != originalName ?  "'$originalName'" : ''})
             @staticInterop
-            ${'class'} $name $inheritance {
+            class $className $inheritance {
             ''');
 
             var addedCtor = false;
@@ -259,11 +270,6 @@ Future<void> main() async {
 
               for (final member in members) {
                 final mType = member['type'];
-
-                if (['setlike', 'iterable', 'maplike'].contains(mType)) {
-                  continue;
-                }
-
                 final isInstanceMember = instanceMemberTypes.contains(mType);
 
                 lines = isInstanceMember ?
@@ -283,7 +289,7 @@ Future<void> main() async {
 
                 print('Processing member $name ($mName)');
 
-                final overrides = parent != null &&
+                final overrides = !isInstanceMember && parent != null &&
                     mName?.isNotEmpty == true &&
                     member['special'] != 'static' &&
                     (parent['members'] as Iterable?)
@@ -336,10 +342,34 @@ Future<void> main() async {
                     });
 
                 final static = member['special'] == 'static';
+                final constant = mType == 'const';
+
+                void addOperator(String returnType, String indexType) {
+                  lines.add('''
+                  $returnType operator []($indexType index) => 
+                  js_util.getProperty(this, index);''');
+
+                  if (member['readonly'] == false) {
+                    lines.add('''operator []=($indexType index, 
+                    $returnType value) { js_util.setProperty(this, index, value); }''');
+                  }
+                }
 
                 switch (mType) {
                   case 'attribute':
                   case 'field':
+                  case 'const':
+                    if (constant) {
+                      mName = mName!.toLowerCase().camelCase;
+                    } else {
+                      mName = mName!.camelCase;
+                    }
+
+                    if (forbidden.contains(mName) ||
+                        objectMembers.contains(mName)) {
+                      mName = 'm${mName.pascalCase}';
+                    }
+
                     var dartType = spec.getDartType(idlType);
                     final subs = item['subs'] as Iterable;
                     var cov = getCov(subs, dartType.fullName);
@@ -352,21 +382,28 @@ Future<void> main() async {
                       dartType = Spec.dynamicType;
                     }
 
-                    final jget = "js_util.getProperty(${static ?
-                    name : 'this'}, '$origMName')";
+                    if (static || constant) {
+                      lines.add('''
+                      ${mName == origMName ? '' : "@JS('$origMName')"}
+                      external static $dartType get $mName;
+                      ''');
+                    } else {
+                      final jget = "js_util.getProperty(${static || constant ?
+                      className : 'this'}, '$origMName')";
 
-                    lines.add(
-                        '''$dartType get $mName => ${dartType.isPromise ?
-                        'js_util.promiseToFuture($jget)' : jget}
+                      lines.add(
+                          '''$dartType get $mName => ${dartType.isPromise ?
+                          'js_util.promiseToFuture($jget)' : jget}
                       ;''');
+                    }
 
-                    if (member['readonly'] != true) {
+                    if (member['readonly'] != true && !constant) {
                       if (overrides) {
                         lines.add('@override');
                       }
 
-                      if (static) {
-                        lines.add('external static set $mName(${dartType.fullName} newValue);');
+                      if (static || constant) {
+                        lines.add('static set $mName(${dartType.fullName} newValue);');
                       } else {
                         lines.add(
                             '''set $mName($dartType newValue) {
@@ -375,30 +412,26 @@ Future<void> main() async {
                       }
                     }
                     break;
-                  case 'const':
-                    lines.add(
-                        '''external static ${spec.getDartType(idlType)} get $mName;''');
-                    break;
                   case 'setlike':
                   case 'iterable':
                     final type = member['idlType'];
 
                     if (type is Iterable) {
                       if (type.length == 2) {
-                        lines.add(
-                            'external ${spec.getDartType(member['idlType'][1])} operator [](${spec.getDartType(member['idlType'][0])} index);');
+                        addOperator(spec.getDartType(member['idlType'][1]).toString(),
+                            spec.getDartType(member['idlType'][0]).toString());
                       } else {
-                        lines.add(
-                            'external ${spec.getDartType(member['idlType'][0])} operator [](int index);');
+                        addOperator(spec.getDartType(member['idlType'][0]).toString(),
+                            'int');
                       }
                     } else {
-                      lines.add(
-                          'external ${spec.getDartType(idlType)} operator [](int index);');
+                      addOperator(spec.getDartType(idlType).toString(),
+                          'int');
                     }
                     break;
                   case 'maplike':
-                    lines.add(
-                        'external ${spec.getDartType(member['idlType'][1])} operator [](${spec.getDartType(member['idlType'][0])} index);');
+                    addOperator(spec.getDartType(member['idlType'][1]).toString(),
+                        spec.getDartType(member['idlType'][0]).toString());
                     break;
                   case 'operation':
                   case 'constructor':
@@ -414,7 +447,7 @@ Future<void> main() async {
                           print(
                               'Skipping $name constructor because it is a mixin.');
                         } else {
-                          fn = '\nexternal $factory$name';
+                          fn = '\nexternal $factory$className';
                           addedCtor = true;
 
                           lines.add(
@@ -467,10 +500,10 @@ Future<void> main() async {
                       assert(dartType.dartName.isNotEmpty == true);
 
                       fn = '${static ?
-                      'static ' : ''}$dartType $mName';
+                      'static ' : ''}$dartType ${mName.camelCase}';
 
                       final jsCall = '''
-                      js_util.callMethod(${static ? name : 'this'}, 
+                      js_util.callMethod(${static ? className : 'this'}, 
                       '$origMName',
                     [
                     ${method.params.map(
@@ -501,13 +534,13 @@ Future<void> main() async {
             lines = mainLines;
 
             if (!addedCtor) {
-              lines.add('external $factory$name();');
+              lines.add('external $factory$className();');
             }
 
             lines.add('}\n'); // /* ${prettyJson(spec.errors)} */
 
             if (properties.isNotEmpty) {
-              lines.add('''extension Props$name on $name {
+              lines.add('''extension Props$className on $className {
                 ${properties.join('\n')}
               }''');
             }
@@ -524,7 +557,7 @@ Future<void> main() async {
           map['idlparsed']['externalDependencies'] as Iterable? ?? [];
 
       deps.addAll(depList.fold<List<String>>([], (val, dep) {
-        final item = group.specs.firstWhereOrNull((item) =>
+        final item = mainGroup.specs.firstWhereOrNull((item) =>
             (item.json['idlparsed']?['idlNames'] as Map?)?[dep] != null);
 
         if (item != null && !val.contains(item.libraryName)) {
@@ -533,7 +566,7 @@ Future<void> main() async {
         return val;
       }).toSet());
 
-      for (final dspec in group.specs.toList()) {
+      for (final dspec in mainGroup.specs.toList()) {
         final idldeps =
             dspec.json['idlparsed']['dependencies'] as Map<String, dynamic>?;
 
@@ -549,7 +582,7 @@ Future<void> main() async {
           }
 
           for (final name in names.where((name) => !types.containsKey(name))) {
-            final fspec = group.specs
+            final fspec = mainGroup.specs
                 .firstWhereOrNull((spec) => spec.objects.containsKey(name));
 
             if (fspec == null) {
@@ -565,6 +598,9 @@ Future<void> main() async {
       /// $title
       ///
       /// $mdnURL
+      
+      // ignore_for_file: unused_import
+      
       @JS('window')
       @staticInterop
       library $libraryName;
@@ -573,10 +609,7 @@ Future<void> main() async {
       import 'package:js/js.dart';
       ${meta ? 'import \'package:meta/meta.dart\';' : ''}
       ${spec.usesTypedData ? 'import \'dart:typed_data\';' : ''}
-      import 'callbacks.dart';
-      import '../manual.dart';
-      import 'all_bindings.dart';
-      /* deps: ${deps.join('\n')} */
+      import 'package:js_bindings/js_bindings.dart';
       ''');
 
       final p = '../../lib/bindings/$libraryName.dart';

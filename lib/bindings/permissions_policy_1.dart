@@ -1,6 +1,9 @@
 /// Permissions Policy
 ///
 /// https://w3c.github.io/webappsec-permissions-policy/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library permissions_policy_1;
@@ -8,12 +11,7 @@ library permissions_policy_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-reporting_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

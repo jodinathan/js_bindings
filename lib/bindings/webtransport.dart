@@ -1,6 +1,9 @@
 /// WebTransport
 ///
 /// https://w3c.github.io/webtransport/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webtransport;
@@ -8,14 +11,7 @@ library webtransport;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webtransport
-streams
-html
-webrtc
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

@@ -1,6 +1,9 @@
 /// Early detection of input events
 ///
 /// https://wicg.github.io/is-input-pending/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library is_input_pending;
@@ -8,10 +11,7 @@ library is_input_pending;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

@@ -1,6 +1,9 @@
 /// Payment Method: Basic Card
 ///
 /// https://w3c.github.io/payment-method-basic-card/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library payment_method_basic_card;
@@ -8,10 +11,7 @@ library payment_method_basic_card;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: payment_request */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

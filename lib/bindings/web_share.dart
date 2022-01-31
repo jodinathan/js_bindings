@@ -1,6 +1,9 @@
 /// Web Share API
 ///
 /// https://w3c.github.io/web-share/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library web_share;
@@ -8,11 +11,7 @@ library web_share;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-file_a_p_i */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

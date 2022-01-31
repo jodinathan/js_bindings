@@ -6,7 +6,8 @@ void main() {
   // create the buttons to use in the example
   final div = (document.createElement('div') as HTMLDivElement)
     ..id = 'someDiv'
-    ..innerHTML = 'This div was created on the fly'
+    ..innerHTML = 'This div was created on the fly. '
+        'Node.elementNode: ${Node.elementNode}'
     ..style.setProperty('border', '1px solid black')
     ..style.setProperty('margin', '10px');
   final btnChanger = (document.createElement('button') as HTMLButtonElement)
@@ -34,7 +35,8 @@ void main() {
 
   document.getElementById('changeHtml')!.addEventListener('click', (e) {
       print('Changing the HTML');
-      document.getElementById('someDiv')!.innerHTML = 'Oh yeah!';
+      document.getElementById('someDiv')!.innerHTML =
+      'Oh yeah! ${div.childNodes[0]}';
     });
 
   // listen to the click of the media button

@@ -1,6 +1,9 @@
 /// Server Timing
 ///
 /// https://w3c.github.io/server-timing/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library server_timing;
@@ -8,11 +11,7 @@ library server_timing;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: hr_time_3
-resource_timing_2 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///
 ///  Note: This feature is available in Web Workers

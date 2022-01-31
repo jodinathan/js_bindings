@@ -1,6 +1,9 @@
 /// High Resolution Time
 ///
 /// https://w3c.github.io/hr-time/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library hr_time_3;
@@ -8,17 +11,7 @@ library hr_time_3;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-navigation_timing_2
-js_self_profiling
-event_timing
-performance_measure_memory
-user_timing_3
-performance_timeline_2 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface provides access to performance-related information
 /// for the current page. It's part of the High Resolution Time API,

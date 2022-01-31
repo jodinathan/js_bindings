@@ -1,6 +1,9 @@
 /// Payment Request API
 ///
 /// https://w3c.github.io/payment-request/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library payment_request;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
@@ -363,13 +362,13 @@ extension PropsPaymentAddress on PaymentAddress {
   ///
   /// var json = PaymentAddress.toJSON()
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   ///  A [String] which contains the city or town portion of the
   /// address.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get city => js_util.getProperty(this, 'city');
 
   ///  A [String] specifying the country in which the address is
@@ -377,53 +376,53 @@ extension PropsPaymentAddress on PaymentAddress {
   /// always given in its canonical upper-case form. Some examples of
   /// valid values: ["US"], ["GB"], ["CN"], or ["JP"].
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get country => js_util.getProperty(this, 'country');
 
   ///  A [String] giving the dependent locality or sublocality within a
   /// city, for example, a neighborhood, borough, district, or UK
   /// dependent locality.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get dependentLocality =>
       js_util.getProperty(this, 'dependentLocality');
 
   ///  A [String] specifying the name of the organization, firm,
   /// company, or institution at the payment address.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get organization => js_util.getProperty(this, 'organization');
 
   ///  A [String] specifying the telephone number of the recipient or
   /// contact person.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get phone => js_util.getProperty(this, 'phone');
 
   ///  A [String] specifying a code used by a jurisdiction for mail
   /// routing, for example, the ZIP code in the United States or the
   /// PIN code in India.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get postalCode => js_util.getProperty(this, 'postalCode');
 
   ///  A [String] giving the name of the recipient, purchaser, or
   /// contact person at the payment address.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get recipient => js_util.getProperty(this, 'recipient');
 
   ///  A [String] containing the top level administrative subdivision
   /// of the country, for example a state, province, oblast, or
   /// prefecture.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get region => js_util.getProperty(this, 'region');
 
   ///  A [String] providing a postal sorting code such as is used in
   /// France.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   String get sortingCode => js_util.getProperty(this, 'sortingCode');
 
   ///  An array of [String] objects providing each line of the address
@@ -433,7 +432,7 @@ extension PropsPaymentAddress on PaymentAddress {
   /// delivery route, descriptive instructions, or post office box
   /// number.
   ///
-  @deprecated
+  @Deprecated('Not official in the specs')
   Iterable<String> get addressLine => js_util.getProperty(this, 'addressLine');
 }
 

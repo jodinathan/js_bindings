@@ -1,6 +1,9 @@
 /// SVG Animations
 ///
 /// https://svgwg.org/specs/animations/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library svg_animations;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: svg11
-dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface, a part of SVG SMIL animation, provides specific
 /// contextual information associated with Time events.

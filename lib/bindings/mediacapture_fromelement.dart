@@ -1,6 +1,9 @@
 /// Media Capture from DOM Elements
 ///
 /// https://w3c.github.io/mediacapture-fromelement/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library mediacapture_fromelement;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-mediacapture_streams */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface represents the video track contained in a
 /// [MediaStream] being generated from a [<canvas>] following a call

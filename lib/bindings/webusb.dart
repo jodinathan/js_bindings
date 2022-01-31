@@ -1,6 +1,9 @@
 /// WebUSB API
 ///
 /// https://wicg.github.io/webusb/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webusb;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-permissions */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()
@@ -95,13 +93,13 @@ extension PropsUSBDeviceRequestOptions on USBDeviceRequestOptions {
 ///    USB
 ///
 ///
-@JS()
+@JS('USB')
 @staticInterop
-class USB implements EventTarget {
-  external USB();
+class Usb implements EventTarget {
+  external Usb();
 }
 
-extension PropsUSB on USB {
+extension PropsUsb on Usb {
   EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
   set onconnect(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onconnect', newValue);

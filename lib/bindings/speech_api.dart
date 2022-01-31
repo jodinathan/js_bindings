@@ -1,6 +1,9 @@
 /// Web Speech API
 ///
 /// https://wicg.github.io/speech-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library speech_api;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Web Speech API is the controller interface
 /// for the recognition service; this also handles the

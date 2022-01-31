@@ -1,6 +1,9 @@
 /// Media Capture and Streams
 ///
 /// https://w3c.github.io/mediacapture-main/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library mediacapture_streams;
@@ -8,16 +11,7 @@ library mediacapture_streams;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-web_i_d_l_1
-mediacapture_streams
-audio_output
-screen_capture
-image_capture */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface represents a stream of media content. A stream
 /// consists of several tracks, such as video or audio tracks. Each

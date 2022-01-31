@@ -1,6 +1,9 @@
 /// WebXR Hit Test Module
 ///
 /// https://immersive-web.github.io/hit-test/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library hit_test;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webxr
-geometry_1
-anchors */
+import 'package:js_bindings/js_bindings.dart';
 
 enum XRHitTestTrackableType { point, plane, mesh }
 

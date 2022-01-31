@@ -1,6 +1,9 @@
 /// URL Standard
 ///
 /// https://url.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library url;
@@ -8,11 +11,7 @@ library url;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: file_a_p_i
-media_source */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface is used to parse, construct, normalize, and encode
 /// URLs. It works by providing properties which allow you to easily
@@ -27,13 +26,13 @@ media_source */
 /// this to be prefixed.
 ///  Note: This feature is available in Web Workers
 ///
-@JS()
+@JS('URL')
 @staticInterop
-class URL {
-  external URL(String url, [String? base]);
+class Url {
+  external Url(String url, [String? base]);
 }
 
-extension PropsURL on URL {
+extension PropsUrl on Url {
   /// A stringifier that returns a [String] containing the whole URL.
   ///
   String get href => js_util.getProperty(this, 'href');
@@ -132,10 +131,10 @@ extension PropsURL on URL {
   String toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   static String createObjectURL(dynamic obj) =>
-      js_util.callMethod(URL, 'createObjectURL', [obj]);
+      js_util.callMethod(Url, 'createObjectURL', [obj]);
 
   static Object revokeObjectURL(String url) =>
-      js_util.callMethod(URL, 'revokeObjectURL', [url]);
+      js_util.callMethod(Url, 'revokeObjectURL', [url]);
 }
 
 ///  The interface defines utility methods to work with the query

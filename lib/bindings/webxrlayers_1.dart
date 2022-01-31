@@ -1,6 +1,9 @@
 /// WebXR Layers API Level 1
 ///
 /// https://immersive-web.github.io/layers/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webxrlayers_1;
@@ -8,16 +11,7 @@ library webxrlayers_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webxr
-html
-geometry_1
-webgl1
-dom
-depth_sensing
-lighting_estimation */
+import 'package:js_bindings/js_bindings.dart';
 
 enum XRLayerLayout {
   valueDefault,

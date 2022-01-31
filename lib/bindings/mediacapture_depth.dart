@@ -1,6 +1,9 @@
 /// Media Capture Depth Stream Extensions
 ///
 /// https://w3c.github.io/mediacapture-depth/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library mediacapture_depth;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: mediacapture_streams */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

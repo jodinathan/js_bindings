@@ -1,6 +1,9 @@
 /// Federated Learning of Cohorts
 ///
 /// https://wicg.github.io/floc/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library floc;
@@ -8,10 +11,7 @@ library floc;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

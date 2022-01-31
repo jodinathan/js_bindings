@@ -1,6 +1,9 @@
 /// CSS Spatial Navigation Level 1
 ///
 /// https://drafts.csswg.org/css-nav-1/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_nav_1;
@@ -8,12 +11,7 @@ library css_nav_1;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom
-uievents */
+import 'package:js_bindings/js_bindings.dart';
 
 enum SpatialNavigationDirection { up, down, left, right }
 

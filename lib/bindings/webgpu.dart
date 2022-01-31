@@ -1,6 +1,9 @@
 /// WebGPU
 ///
 /// https://gpuweb.github.io/gpuweb/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webgpu;
@@ -9,12 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: webgpu
-dom
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
@@ -90,6 +88,10 @@ class GPUSupportedFeatures {
   external GPUSupportedFeatures();
 }
 
+extension PropsGPUSupportedFeatures on GPUSupportedFeatures {
+  String operator [](int index) => js_util.getProperty(this, index);
+}
+
 enum GPUPredefinedColorSpace { srgb }
 
 @JS()
@@ -99,16 +101,16 @@ class NavigatorGPU {
 }
 
 extension PropsNavigatorGPU on NavigatorGPU {
-  GPU get gpu => js_util.getProperty(this, 'gpu');
+  Gpu get gpu => js_util.getProperty(this, 'gpu');
 }
 
-@JS()
+@JS('GPU')
 @staticInterop
-class GPU {
-  external GPU();
+class Gpu {
+  external Gpu();
 }
 
-extension PropsGPU on GPU {
+extension PropsGpu on Gpu {
   Future<GPUAdapter> requestAdapter([GPURequestAdapterOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestAdapter', [options]));
@@ -314,24 +316,48 @@ extension PropsGPUBufferDescriptor on GPUBufferDescriptor {
 @JS()
 @staticInterop
 class GPUBufferUsage {
-  external static int get MAP_READ;
-  external static int get MAP_WRITE;
-  external static int get COPY_SRC;
-  external static int get COPY_DST;
-  external static int get INDEX;
-  external static int get VERTEX;
-  external static int get UNIFORM;
-  external static int get STORAGE;
-  external static int get INDIRECT;
-  external static int get QUERY_RESOLVE;
+  @JS('MAP_READ')
+  external static int get mapRead;
+
+  @JS('MAP_WRITE')
+  external static int get mapWrite;
+
+  @JS('COPY_SRC')
+  external static int get copySrc;
+
+  @JS('COPY_DST')
+  external static int get copyDst;
+
+  @JS('INDEX')
+  external static int get index;
+
+  @JS('VERTEX')
+  external static int get vertex;
+
+  @JS('UNIFORM')
+  external static int get uniform;
+
+  @JS('STORAGE')
+  external static int get storage;
+
+  @JS('INDIRECT')
+  external static int get indirect;
+
+  @JS('QUERY_RESOLVE')
+  external static int get queryResolve;
+
   external GPUBufferUsage();
 }
 
 @JS()
 @staticInterop
 class GPUMapMode {
-  external static int get READ;
-  external static int get WRITE;
+  @JS('READ')
+  external static int get read;
+
+  @JS('WRITE')
+  external static int get write;
+
   external GPUMapMode();
 }
 
@@ -398,11 +424,21 @@ enum GPUTextureDimension { value1d, value2d, value3d }
 @JS()
 @staticInterop
 class GPUTextureUsage {
-  external static int get COPY_SRC;
-  external static int get COPY_DST;
-  external static int get SAMPLED;
-  external static int get STORAGE;
-  external static int get RENDER_ATTACHMENT;
+  @JS('COPY_SRC')
+  external static int get copySrc;
+
+  @JS('COPY_DST')
+  external static int get copyDst;
+
+  @JS('SAMPLED')
+  external static int get sampled;
+
+  @JS('STORAGE')
+  external static int get storage;
+
+  @JS('RENDER_ATTACHMENT')
+  external static int get renderAttachment;
+
   external GPUTextureUsage();
 }
 
@@ -678,9 +714,15 @@ extension PropsGPUBindGroupLayoutDescriptor on GPUBindGroupLayoutDescriptor {
 @JS()
 @staticInterop
 class GPUShaderStage {
-  external static int get VERTEX;
-  external static int get FRAGMENT;
-  external static int get COMPUTE;
+  @JS('VERTEX')
+  external static int get vertex;
+
+  @JS('FRAGMENT')
+  external static int get fragment;
+
+  @JS('COMPUTE')
+  external static int get compute;
+
   external GPUShaderStage();
 }
 
@@ -1263,11 +1305,21 @@ extension PropsGPUBlendState on GPUBlendState {
 @JS()
 @staticInterop
 class GPUColorWrite {
-  external static int get RED;
-  external static int get GREEN;
-  external static int get BLUE;
-  external static int get ALPHA;
-  external static int get ALL;
+  @JS('RED')
+  external static int get red;
+
+  @JS('GREEN')
+  external static int get green;
+
+  @JS('BLUE')
+  external static int get blue;
+
+  @JS('ALPHA')
+  external static int get alpha;
+
+  @JS('ALL')
+  external static int get all;
+
   external GPUColorWrite();
 }
 

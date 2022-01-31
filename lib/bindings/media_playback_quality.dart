@@ -1,6 +1,9 @@
 /// Media Playback Quality
 ///
 /// https://w3c.github.io/media-playback-quality/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library media_playback_quality;
@@ -9,11 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  A object is returned by the
 /// [HTMLVideoElement.getVideoPlaybackQuality()] method and contains

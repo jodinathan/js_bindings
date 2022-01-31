@@ -1,6 +1,9 @@
 /// CSS Counter Styles Level 3
 ///
 /// https://drafts.csswg.org/css-counter-styles/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library css_counter_styles_3;
@@ -8,10 +11,7 @@ library css_counter_styles_3;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: cssom_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 /// The interface represents an [@counter-style] at-rule.
 ///

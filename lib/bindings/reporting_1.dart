@@ -1,6 +1,9 @@
 /// Reporting API 1
 ///
 /// https://w3c.github.io/reporting/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library reporting_1;
@@ -9,10 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps:  */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Reporting API represents the body of a
 /// report. Individual report types inherit from this interface,

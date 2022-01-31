@@ -1,6 +1,9 @@
 /// Accelerated Shape Detection in Images
 ///
 /// https://wicg.github.io/shape-detection-api/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library shape_detection_api;
@@ -8,12 +11,7 @@ library shape_detection_api;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-geometry_1
-image_capture */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

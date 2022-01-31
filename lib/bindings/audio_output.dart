@@ -1,6 +1,9 @@
 /// Audio Output Devices API
 ///
 /// https://w3c.github.io/mediacapture-output/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library audio_output;
@@ -8,11 +11,7 @@ library audio_output;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-mediacapture_streams */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()

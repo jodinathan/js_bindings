@@ -1,6 +1,9 @@
 /// Resource Timing Level 2
 ///
 /// https://w3c.github.io/resource-timing/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library resource_timing_2;
@@ -8,13 +11,7 @@ library resource_timing_2;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: performance_timeline_2
-hr_time_3
-html
-server_timing */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface enables retrieval and analysis of detailed network
 /// timing data regarding the loading of an application's resources.
@@ -159,7 +156,6 @@ extension PropsPerformanceResourceTiming on PerformanceResourceTiming {
   /// var s = JSON.stringify(json);
   /// console.log("PerformanceEntry.toJSON = " + s);
   ///
-  @override
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   Iterable<PerformanceServerTiming> get serverTiming =>

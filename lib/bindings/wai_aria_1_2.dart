@@ -1,6 +1,9 @@
 /// Accessible Rich Internet Applications (WAI-ARIA) 1.3
 ///
 /// https://w3c.github.io/aria/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library wai_aria_1_2;
@@ -8,10 +11,7 @@ library wai_aria_1_2;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps:  */
+import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop

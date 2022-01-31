@@ -1,6 +1,9 @@
 /// XMLHttpRequest Standard
 ///
 /// https://xhr.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library xhr;
@@ -8,13 +11,7 @@ library xhr;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-fetch
-file_a_p_i */
+import 'package:js_bindings/js_bindings.dart';
 
 ///   is the interface that describes the event handlers you can
 /// implement in an object that will handle events for an
@@ -153,11 +150,21 @@ enum XMLHttpRequestResponseType {
 @JS()
 @staticInterop
 class XMLHttpRequest implements XMLHttpRequestEventTarget {
-  external static int get UNSENT;
-  external static int get OPENED;
-  external static int get HEADERS_RECEIVED;
-  external static int get LOADING;
-  external static int get DONE;
+  @JS('UNSENT')
+  external static int get unsent;
+
+  @JS('OPENED')
+  external static int get opened;
+
+  @JS('HEADERS_RECEIVED')
+  external static int get headersReceived;
+
+  @JS('LOADING')
+  external static int get loading;
+
+  @JS('DONE')
+  external static int get done;
+
   external XMLHttpRequest();
 }
 

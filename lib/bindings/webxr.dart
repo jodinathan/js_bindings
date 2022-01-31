@@ -1,6 +1,9 @@
 /// WebXR Device API
 ///
 /// https://immersive-web.github.io/webxr/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library webxr;
@@ -9,25 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: html
-dom
-hr_time_3
-geometry_1
-webgl1
-webgl2
-permissions
-webxr_ar_module_1
-anchors
-webxr
-hit_test
-depth_sensing
-lighting_estimation
-webxr_hand_input_1
-dom_overlays
-gamepad */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
@@ -1141,6 +1126,11 @@ class XRInputSourceArray {
 }
 
 extension PropsXRInputSourceArray on XRInputSourceArray {
+  XRInputSource operator [](int index) => js_util.getProperty(this, index);
+  operator []=(int index, XRInputSource value) {
+    js_util.setProperty(this, index, value);
+  }
+
   /// The number of [XRInputSource] objects in the list.
   ///
   int get length => js_util.getProperty(this, 'length');

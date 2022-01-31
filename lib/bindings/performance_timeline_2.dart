@@ -1,6 +1,9 @@
 /// Performance Timeline Level 2
 ///
 /// https://w3c.github.io/performance-timeline/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library performance_timeline_2;
@@ -8,10 +11,7 @@ library performance_timeline_2;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: hr_time_3 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The object encapsulates a single performance metric that is part
 /// of the performance timeline. A performance entry can be directly
@@ -215,8 +215,8 @@ extension PropsPerformanceObserver on PerformanceObserver {
   ///  Returns an array of the [entryType] values supported by the user
   /// agent.
   ///
-  Iterable<String> get supportedEntryTypes =>
-      js_util.getProperty(PerformanceObserver, 'supportedEntryTypes');
+
+  external static Iterable<String> get supportedEntryTypes;
 }
 
 @anonymous

@@ -1,6 +1,9 @@
 /// Orientation Sensor
 ///
 /// https://w3c.github.io/orientation-sensor/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library orientation_sensor;
@@ -8,11 +11,7 @@ library orientation_sensor;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: geometry_1
-generic_sensor */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Sensor APIs is the base class for
 /// orientation sensors. This interface cannot be used directly.

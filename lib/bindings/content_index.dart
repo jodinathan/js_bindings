@@ -1,6 +1,9 @@
 /// Content Index
 ///
 /// https://wicg.github.io/content-index/spec/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library content_index;
@@ -8,12 +11,7 @@ library content_index;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: service_workers_1
-html
-image_resource */
+import 'package:js_bindings/js_bindings.dart';
 
 enum ContentCategory { empty, homepage, article, video, audio }
 

@@ -1,6 +1,9 @@
 /// Notifications API Standard
 ///
 /// https://notifications.spec.whatwg.org/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library notifications;
@@ -9,13 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-html
-vibration
-service_workers_1 */
+import 'package:js_bindings/js_bindings.dart';
 
 ///
 ///  Note: This feature is available in Web Workers
@@ -33,8 +30,8 @@ class Notification implements EventTarget {
 }
 
 extension PropsNotification on Notification {
-  NotificationPermission get permission =>
-      js_util.getProperty(Notification, 'permission');
+  external static NotificationPermission get permission;
+
   static Future<NotificationPermission> requestPermission(
           [NotificationPermissionCallback? deprecatedCallback]) =>
       js_util.promiseToFuture(js_util.callMethod(
@@ -42,7 +39,8 @@ extension PropsNotification on Notification {
         deprecatedCallback == null ? null : allowInterop(deprecatedCallback)
       ]));
 
-  int get maxActions => js_util.getProperty(Notification, 'maxActions');
+  external static int get maxActions;
+
   EventHandlerNonNull? get onclick => js_util.getProperty(this, 'onclick');
   set onclick(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onclick', newValue);

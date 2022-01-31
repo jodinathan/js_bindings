@@ -1,6 +1,9 @@
 /// Accelerometer
 ///
 /// https://w3c.github.io/accelerometer/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library accelerometer;
@@ -8,10 +11,7 @@ library accelerometer;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: generic_sensor */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in

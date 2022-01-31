@@ -1,6 +1,9 @@
 /// Generic Sensor API
 ///
 /// https://w3c.github.io/sensors/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library generic_sensor;
@@ -8,12 +11,7 @@ library generic_sensor;
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: dom
-hr_time_3
-html */
+import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Sensor APIs is the base class for all the
 /// other sensor interfaces. This interface cannot be used directly.

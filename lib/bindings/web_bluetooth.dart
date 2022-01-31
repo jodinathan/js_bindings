@@ -1,6 +1,9 @@
 /// Web Bluetooth
 ///
 /// https://webbluetoothcg.github.io/web-bluetooth/
+
+// ignore_for_file: unused_import
+
 @JS('window')
 @staticInterop
 library web_bluetooth;
@@ -9,13 +12,7 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:meta/meta.dart';
 import 'dart:typed_data';
-import 'callbacks.dart';
-import '../manual.dart';
-import 'all_bindings.dart';
-/* deps: web_bluetooth
-dom
-html
-permissions */
+import 'package:js_bindings/js_bindings.dart';
 
 @anonymous
 @JS()
@@ -467,10 +464,18 @@ class BluetoothManufacturerDataMap {
   external BluetoothManufacturerDataMap();
 }
 
+extension PropsBluetoothManufacturerDataMap on BluetoothManufacturerDataMap {
+  ByteData operator [](int index) => js_util.getProperty(this, index);
+}
+
 @JS()
 @staticInterop
 class BluetoothServiceDataMap {
   external BluetoothServiceDataMap();
+}
+
+extension PropsBluetoothServiceDataMap on BluetoothServiceDataMap {
+  ByteData operator [](String index) => js_util.getProperty(this, index);
 }
 
 @JS()
