@@ -4,12 +4,6 @@ import 'package:js_bindings/js_bindings.dart';
 void main() {
   document.title = 'JS Bindings example';
 
-  final f = ShadowRootInit(mode: ShadowRootMode.open);
-
-  window.console.log('GooFOo', f, document.visibilityState);
-
-  //html.window.console.log(ShadowRootInit.dd(mode: ShadowRootMode.open));
-
   // create the buttons to use in the example
   final div = (document.createElement('div') as HTMLDivElement)
     ..id = 'someDiv'

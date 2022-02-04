@@ -41,11 +41,9 @@ Future<void> main() async {
 If you wish for a better JS interop in Dart, please, thumbs up the following issues:
 
 [Better JS interop in general](https://github.com/dart-lang/sdk/issues/35084)  
-[Make awaiting a Promise as easy as a Future](https://github.com/dart-lang/sdk/issues/27315)  
-[Be able to use rename instance members](https://github.com/dart-lang/sdk/issues/24779)
 
 ## Donation
 
-Buy me a coffee or a book if you wish =]
+What about a coffee? 
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=YNCG33GLM3494)
