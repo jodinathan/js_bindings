@@ -21,13 +21,17 @@ enum FocusableAreaSearchMode { visible, all }
 @JS()
 @staticInterop
 class FocusableAreasOption {
-  external factory FocusableAreasOption({FocusableAreaSearchMode mode});
+  external factory FocusableAreasOption._({required String mode});
+
+  factory FocusableAreasOption({required FocusableAreaSearchMode mode}) =>
+      FocusableAreasOption._(mode: mode.name);
 }
 
 extension PropsFocusableAreasOption on FocusableAreasOption {
-  FocusableAreaSearchMode get mode => js_util.getProperty(this, 'mode');
+  FocusableAreaSearchMode get mode =>
+      FocusableAreaSearchMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(FocusableAreaSearchMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 }
 
@@ -36,7 +40,7 @@ extension PropsFocusableAreasOption on FocusableAreasOption {
 @staticInterop
 class SpatialNavigationSearchOptions {
   external factory SpatialNavigationSearchOptions(
-      {Iterable<Node> candidates, Node? container});
+      {required Iterable<Node> candidates, Node? container});
 }
 
 extension PropsSpatialNavigationSearchOptions
@@ -59,7 +63,8 @@ class NavigationEvent implements UIEvent {
 }
 
 extension PropsNavigationEvent on NavigationEvent {
-  SpatialNavigationDirection get dir => js_util.getProperty(this, 'dir');
+  SpatialNavigationDirection get dir => SpatialNavigationDirection.values
+      .byName(js_util.getProperty(this, 'dir'));
   EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');
 }
 
@@ -67,14 +72,20 @@ extension PropsNavigationEvent on NavigationEvent {
 @JS()
 @staticInterop
 class NavigationEventInit implements UIEventInit {
-  external factory NavigationEventInit(
-      {SpatialNavigationDirection dir, EventTarget? relatedTarget});
+  external factory NavigationEventInit._(
+      {required String dir, EventTarget? relatedTarget});
+
+  factory NavigationEventInit(
+          {required SpatialNavigationDirection dir,
+          EventTarget? relatedTarget}) =>
+      NavigationEventInit._(dir: dir.name, relatedTarget: relatedTarget);
 }
 
 extension PropsNavigationEventInit on NavigationEventInit {
-  SpatialNavigationDirection get dir => js_util.getProperty(this, 'dir');
+  SpatialNavigationDirection get dir => SpatialNavigationDirection.values
+      .byName(js_util.getProperty(this, 'dir'));
   set dir(SpatialNavigationDirection newValue) {
-    js_util.setProperty(this, 'dir', newValue);
+    js_util.setProperty(this, 'dir', newValue.name);
   }
 
   EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');

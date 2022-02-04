@@ -44,9 +44,10 @@ extension PropsVTTCue on VTTCue {
 
   /// Returns an enum representing the cue writing direction.
   ///
-  DirectionSetting get vertical => js_util.getProperty(this, 'vertical');
+  DirectionSetting get vertical =>
+      DirectionSetting.values.byName(js_util.getProperty(this, 'vertical'));
   set vertical(DirectionSetting newValue) {
-    js_util.setProperty(this, 'vertical', newValue);
+    js_util.setProperty(this, 'vertical', newValue.name);
   }
 
   ///  Returns true if the [VTTCue.line] attribute is an integer number
@@ -68,9 +69,10 @@ extension PropsVTTCue on VTTCue {
 
   /// Returns an enum representing the alignment of the [VTTCue.line].
   ///
-  LineAlignSetting get lineAlign => js_util.getProperty(this, 'lineAlign');
+  LineAlignSetting get lineAlign =>
+      LineAlignSetting.values.byName(js_util.getProperty(this, 'lineAlign'));
   set lineAlign(LineAlignSetting newValue) {
-    js_util.setProperty(this, 'lineAlign', newValue);
+    js_util.setProperty(this, 'lineAlign', newValue.name);
   }
 
   ///  Returns the indentation of the cue within the line. This can be
@@ -86,10 +88,10 @@ extension PropsVTTCue on VTTCue {
   /// used to determine what the [VTTCue.position] is anchored to. The
   /// default is [auto].
   ///
-  PositionAlignSetting get positionAlign =>
-      js_util.getProperty(this, 'positionAlign');
+  PositionAlignSetting get positionAlign => PositionAlignSetting.values
+      .byName(js_util.getProperty(this, 'positionAlign'));
   set positionAlign(PositionAlignSetting newValue) {
-    js_util.setProperty(this, 'positionAlign', newValue);
+    js_util.setProperty(this, 'positionAlign', newValue.name);
   }
 
   ///  Returns a [double] representing the size of the cue, as a
@@ -103,9 +105,10 @@ extension PropsVTTCue on VTTCue {
   ///  Returns an enum representing the alignment of all the lines of
   /// text within the cue box.
   ///
-  AlignSetting get align => js_util.getProperty(this, 'align');
+  AlignSetting get align =>
+      AlignSetting.values.byName(js_util.getProperty(this, 'align'));
   set align(AlignSetting newValue) {
-    js_util.setProperty(this, 'align', newValue);
+    js_util.setProperty(this, 'align', newValue.name);
   }
 
   /// Returns a [String] with the contents of the cue.
@@ -193,8 +196,9 @@ extension PropsVTTRegion on VTTRegion {
   ///  An enum representing how adding new cues will move existing
   /// cues.
   ///
-  ScrollSetting get scroll => js_util.getProperty(this, 'scroll');
+  ScrollSetting get scroll =>
+      ScrollSetting.values.byName(js_util.getProperty(this, 'scroll'));
   set scroll(ScrollSetting newValue) {
-    js_util.setProperty(this, 'scroll', newValue);
+    js_util.setProperty(this, 'scroll', newValue.name);
   }
 }

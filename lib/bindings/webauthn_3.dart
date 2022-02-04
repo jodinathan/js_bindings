@@ -174,7 +174,8 @@ extension PropsAuthenticatorAssertionResponse
 @JS()
 @staticInterop
 class PublicKeyCredentialParameters {
-  external factory PublicKeyCredentialParameters({String type, int alg});
+  external factory PublicKeyCredentialParameters(
+      {required String type, required int alg});
 }
 
 extension PropsPublicKeyCredentialParameters on PublicKeyCredentialParameters {
@@ -194,12 +195,12 @@ extension PropsPublicKeyCredentialParameters on PublicKeyCredentialParameters {
 @staticInterop
 class PublicKeyCredentialCreationOptions {
   external factory PublicKeyCredentialCreationOptions(
-      {PublicKeyCredentialRpEntity rp,
-      PublicKeyCredentialUserEntity user,
+      {required PublicKeyCredentialRpEntity rp,
+      required PublicKeyCredentialUserEntity user,
       dynamic challenge,
-      Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
-      int timeout,
-      Iterable<PublicKeyCredentialDescriptor> excludeCredentials = const [],
+      required Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
+      required int timeout,
+      Iterable<PublicKeyCredentialDescriptor>? excludeCredentials = const [],
       AuthenticatorSelectionCriteria? authenticatorSelection,
       String? attestation = 'none',
       AuthenticationExtensionsClientInputs? extensions});
@@ -261,7 +262,7 @@ extension PropsPublicKeyCredentialCreationOptions
 @JS()
 @staticInterop
 class PublicKeyCredentialEntity {
-  external factory PublicKeyCredentialEntity({String name});
+  external factory PublicKeyCredentialEntity({required String name});
 }
 
 extension PropsPublicKeyCredentialEntity on PublicKeyCredentialEntity {
@@ -275,7 +276,7 @@ extension PropsPublicKeyCredentialEntity on PublicKeyCredentialEntity {
 @JS()
 @staticInterop
 class PublicKeyCredentialRpEntity implements PublicKeyCredentialEntity {
-  external factory PublicKeyCredentialRpEntity({String id});
+  external factory PublicKeyCredentialRpEntity({required String id});
 }
 
 extension PropsPublicKeyCredentialRpEntity on PublicKeyCredentialRpEntity {
@@ -290,7 +291,7 @@ extension PropsPublicKeyCredentialRpEntity on PublicKeyCredentialRpEntity {
 @staticInterop
 class PublicKeyCredentialUserEntity implements PublicKeyCredentialEntity {
   external factory PublicKeyCredentialUserEntity(
-      {dynamic id, String displayName});
+      {dynamic id, required String displayName});
 }
 
 extension PropsPublicKeyCredentialUserEntity on PublicKeyCredentialUserEntity {
@@ -310,9 +311,9 @@ extension PropsPublicKeyCredentialUserEntity on PublicKeyCredentialUserEntity {
 @staticInterop
 class AuthenticatorSelectionCriteria {
   external factory AuthenticatorSelectionCriteria(
-      {String authenticatorAttachment,
-      String residentKey,
-      bool requireResidentKey = false,
+      {required String authenticatorAttachment,
+      required String residentKey,
+      bool? requireResidentKey = false,
       String? userVerification = 'preferred'});
 }
 
@@ -358,9 +359,9 @@ enum AttestationConveyancePreference { none, indirect, direct, enterprise }
 class PublicKeyCredentialRequestOptions {
   external factory PublicKeyCredentialRequestOptions(
       {dynamic challenge,
-      int timeout,
-      String rpId,
-      Iterable<PublicKeyCredentialDescriptor> allowCredentials = const [],
+      required int timeout,
+      required String rpId,
+      Iterable<PublicKeyCredentialDescriptor>? allowCredentials = const [],
       String? userVerification = 'preferred',
       AuthenticationExtensionsClientInputs? extensions});
 }
@@ -443,11 +444,11 @@ class AuthenticationExtensionsClientOutputs {
 @staticInterop
 class CollectedClientData {
   external factory CollectedClientData(
-      {String type,
-      String challenge,
-      String origin,
-      bool crossOrigin,
-      TokenBinding tokenBinding});
+      {required String type,
+      required String challenge,
+      required String origin,
+      required bool crossOrigin,
+      required TokenBinding tokenBinding});
 }
 
 extension PropsCollectedClientData on CollectedClientData {
@@ -481,7 +482,7 @@ extension PropsCollectedClientData on CollectedClientData {
 @JS()
 @staticInterop
 class TokenBinding {
-  external factory TokenBinding({String status, String id});
+  external factory TokenBinding({required String status, required String id});
 }
 
 extension PropsTokenBinding on TokenBinding {
@@ -505,7 +506,7 @@ enum PublicKeyCredentialType { publicKey }
 @staticInterop
 class PublicKeyCredentialDescriptor {
   external factory PublicKeyCredentialDescriptor(
-      {String type, dynamic id, Iterable<String> transports});
+      {required String type, dynamic id, required Iterable<String> transports});
 }
 
 extension PropsPublicKeyCredentialDescriptor on PublicKeyCredentialDescriptor {
@@ -533,7 +534,7 @@ enum UserVerificationRequirement { valueRequired, preferred, discouraged }
 @JS()
 @staticInterop
 class CredentialPropertiesOutput {
-  external factory CredentialPropertiesOutput({bool rk});
+  external factory CredentialPropertiesOutput({required bool rk});
 }
 
 extension PropsCredentialPropertiesOutput on CredentialPropertiesOutput {
@@ -550,7 +551,7 @@ enum LargeBlobSupport { valueRequired, preferred }
 @staticInterop
 class AuthenticationExtensionsLargeBlobInputs {
   external factory AuthenticationExtensionsLargeBlobInputs(
-      {String support, bool read, dynamic write});
+      {required String support, required bool read, dynamic write});
 }
 
 extension PropsAuthenticationExtensionsLargeBlobInputs
@@ -576,7 +577,9 @@ extension PropsAuthenticationExtensionsLargeBlobInputs
 @staticInterop
 class AuthenticationExtensionsLargeBlobOutputs {
   external factory AuthenticationExtensionsLargeBlobOutputs(
-      {bool supported, ByteBuffer blob, bool written});
+      {required bool supported,
+      required ByteBuffer blob,
+      required bool written});
 }
 
 extension PropsAuthenticationExtensionsLargeBlobOutputs

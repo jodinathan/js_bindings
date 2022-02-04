@@ -39,7 +39,7 @@ extension PropsFontManager on FontManager {
 @staticInterop
 class QueryOptions {
   external factory QueryOptions(
-      {bool persistentAccess = false, Iterable<String>? select = const []});
+      {bool? persistentAccess = false, Iterable<String>? select = const []});
 }
 
 extension PropsQueryOptions on QueryOptions {

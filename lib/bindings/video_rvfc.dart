@@ -18,16 +18,16 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class VideoFrameMetadata {
   external factory VideoFrameMetadata(
-      {double presentationTime,
-      double expectedDisplayTime,
-      int width,
-      int height,
-      double mediaTime,
-      int presentedFrames,
-      double processingDuration,
-      double captureTime,
-      double receiveTime,
-      int rtpTimestamp});
+      {required double presentationTime,
+      required double expectedDisplayTime,
+      required int width,
+      required int height,
+      required double mediaTime,
+      required int presentedFrames,
+      required double processingDuration,
+      required double captureTime,
+      required double receiveTime,
+      required int rtpTimestamp});
 }
 
 extension PropsVideoFrameMetadata on VideoFrameMetadata {

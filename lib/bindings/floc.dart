@@ -17,7 +17,8 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class InterestCohort {
-  external factory InterestCohort({String id, String version});
+  external factory InterestCohort(
+      {required String id, required String version});
 }
 
 extension PropsInterestCohort on InterestCohort {

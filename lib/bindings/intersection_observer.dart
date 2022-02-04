@@ -169,13 +169,13 @@ extension PropsIntersectionObserverEntry on IntersectionObserverEntry {
 @staticInterop
 class IntersectionObserverEntryInit {
   external factory IntersectionObserverEntryInit(
-      {double time,
+      {required double time,
       DOMRectInit? rootBounds,
-      DOMRectInit boundingClientRect,
-      DOMRectInit intersectionRect,
-      bool isIntersecting,
-      double intersectionRatio,
-      Element target});
+      required DOMRectInit boundingClientRect,
+      required DOMRectInit intersectionRect,
+      required bool isIntersecting,
+      required double intersectionRatio,
+      required Element target});
 }
 
 extension PropsIntersectionObserverEntryInit on IntersectionObserverEntryInit {
@@ -223,7 +223,7 @@ extension PropsIntersectionObserverEntryInit on IntersectionObserverEntryInit {
 @staticInterop
 class IntersectionObserverInit {
   external factory IntersectionObserverInit(
-      {dynamic root, String rootMargin = '0px', dynamic threshold = 0});
+      {dynamic root, String? rootMargin = '0px', dynamic threshold = 0});
 }
 
 extension PropsIntersectionObserverInit on IntersectionObserverInit {

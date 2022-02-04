@@ -77,7 +77,7 @@ extension PropsSensor on Sensor {
 @JS()
 @staticInterop
 class SensorOptions {
-  external factory SensorOptions({double frequency});
+  external factory SensorOptions({required double frequency});
 }
 
 extension PropsSensorOptions on SensorOptions {
@@ -107,7 +107,7 @@ extension PropsSensorErrorEvent on SensorErrorEvent {
 @JS()
 @staticInterop
 class SensorErrorEventInit implements EventInit {
-  external factory SensorErrorEventInit({Exception error});
+  external factory SensorErrorEventInit({required Exception error});
 }
 
 extension PropsSensorErrorEventInit on SensorErrorEventInit {
@@ -121,18 +121,29 @@ extension PropsSensorErrorEventInit on SensorErrorEventInit {
 @JS()
 @staticInterop
 class MockSensorConfiguration {
-  external factory MockSensorConfiguration(
-      {MockSensorType mockSensorType,
-      bool connected = true,
+  external factory MockSensorConfiguration._(
+      {required String mockSensorType,
+      bool? connected = true,
       double? maxSamplingFrequency,
       double? minSamplingFrequency});
+
+  factory MockSensorConfiguration(
+          {required MockSensorType mockSensorType,
+          bool? connected = true,
+          double? maxSamplingFrequency,
+          double? minSamplingFrequency}) =>
+      MockSensorConfiguration._(
+          mockSensorType: mockSensorType.name,
+          connected: connected,
+          maxSamplingFrequency: maxSamplingFrequency,
+          minSamplingFrequency: minSamplingFrequency);
 }
 
 extension PropsMockSensorConfiguration on MockSensorConfiguration {
   MockSensorType get mockSensorType =>
-      js_util.getProperty(this, 'mockSensorType');
+      MockSensorType.values.byName(js_util.getProperty(this, 'mockSensorType'));
   set mockSensorType(MockSensorType newValue) {
-    js_util.setProperty(this, 'mockSensorType', newValue);
+    js_util.setProperty(this, 'mockSensorType', newValue.name);
   }
 
   bool get connected => js_util.getProperty(this, 'connected');
@@ -158,9 +169,9 @@ extension PropsMockSensorConfiguration on MockSensorConfiguration {
 @staticInterop
 class MockSensor {
   external factory MockSensor(
-      {double maxSamplingFrequency,
-      double minSamplingFrequency,
-      double requestedSamplingFrequency});
+      {required double maxSamplingFrequency,
+      required double minSamplingFrequency,
+      required double requestedSamplingFrequency});
 }
 
 extension PropsMockSensor on MockSensor {

@@ -18,13 +18,17 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PermissionDescriptor {
-  external factory PermissionDescriptor({PermissionName name});
+  external factory PermissionDescriptor._({required String name});
+
+  factory PermissionDescriptor({required PermissionName name}) =>
+      PermissionDescriptor._(name: name.name);
 }
 
 extension PropsPermissionDescriptor on PermissionDescriptor {
-  PermissionName get name => js_util.getProperty(this, 'name');
+  PermissionName get name =>
+      PermissionName.values.byName(js_util.getProperty(this, 'name'));
   set name(PermissionName newValue) {
-    js_util.setProperty(this, 'name', newValue);
+    js_util.setProperty(this, 'name', newValue.name);
   }
 }
 
@@ -46,7 +50,8 @@ extension PropsPermissionStatus on PermissionStatus {
   ///  Returns the state of a requested permission; one of ['granted'],
   /// ['denied'], or ['prompt'].
   ///
-  PermissionState get state => js_util.getProperty(this, 'state');
+  PermissionState get state =>
+      PermissionState.values.byName(js_util.getProperty(this, 'state'));
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onchange', newValue);
@@ -94,7 +99,7 @@ extension PropsPermissions on Permissions {
 @JS()
 @staticInterop
 class PushPermissionDescriptor implements PermissionDescriptor {
-  external factory PushPermissionDescriptor({bool userVisibleOnly = false});
+  external factory PushPermissionDescriptor({bool? userVisibleOnly = false});
 }
 
 extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
@@ -108,7 +113,7 @@ extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
 @JS()
 @staticInterop
 class MidiPermissionDescriptor implements PermissionDescriptor {
-  external factory MidiPermissionDescriptor({bool sysex = false});
+  external factory MidiPermissionDescriptor({bool? sysex = false});
 }
 
 extension PropsMidiPermissionDescriptor on MidiPermissionDescriptor {
@@ -122,7 +127,7 @@ extension PropsMidiPermissionDescriptor on MidiPermissionDescriptor {
 @JS()
 @staticInterop
 class DevicePermissionDescriptor implements PermissionDescriptor {
-  external factory DevicePermissionDescriptor({String deviceId});
+  external factory DevicePermissionDescriptor({required String deviceId});
 }
 
 extension PropsDevicePermissionDescriptor on DevicePermissionDescriptor {
@@ -136,7 +141,8 @@ extension PropsDevicePermissionDescriptor on DevicePermissionDescriptor {
 @JS()
 @staticInterop
 class CameraDevicePermissionDescriptor implements DevicePermissionDescriptor {
-  external factory CameraDevicePermissionDescriptor({bool panTiltZoom = false});
+  external factory CameraDevicePermissionDescriptor(
+      {bool? panTiltZoom = false});
 }
 
 extension PropsCameraDevicePermissionDescriptor
@@ -151,10 +157,17 @@ extension PropsCameraDevicePermissionDescriptor
 @JS()
 @staticInterop
 class PermissionSetParameters {
-  external factory PermissionSetParameters(
-      {PermissionDescriptor descriptor,
-      PermissionState state,
-      bool oneRealm = false});
+  external factory PermissionSetParameters._(
+      {required PermissionDescriptor descriptor,
+      required String state,
+      bool? oneRealm = false});
+
+  factory PermissionSetParameters(
+          {required PermissionDescriptor descriptor,
+          required PermissionState state,
+          bool? oneRealm = false}) =>
+      PermissionSetParameters._(
+          descriptor: descriptor, state: state.name, oneRealm: oneRealm);
 }
 
 extension PropsPermissionSetParameters on PermissionSetParameters {
@@ -164,9 +177,10 @@ extension PropsPermissionSetParameters on PermissionSetParameters {
     js_util.setProperty(this, 'descriptor', newValue);
   }
 
-  PermissionState get state => js_util.getProperty(this, 'state');
+  PermissionState get state =>
+      PermissionState.values.byName(js_util.getProperty(this, 'state'));
   set state(PermissionState newValue) {
-    js_util.setProperty(this, 'state', newValue);
+    js_util.setProperty(this, 'state', newValue.name);
   }
 
   bool get oneRealm => js_util.getProperty(this, 'oneRealm');

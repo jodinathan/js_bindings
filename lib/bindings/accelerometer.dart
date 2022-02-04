@@ -54,16 +54,20 @@ enum AccelerometerLocalCoordinateSystem { device, screen }
 @JS()
 @staticInterop
 class AccelerometerSensorOptions implements SensorOptions {
-  external factory AccelerometerSensorOptions(
-      {AccelerometerLocalCoordinateSystem referenceFrame =
-          AccelerometerLocalCoordinateSystem.device});
+  external factory AccelerometerSensorOptions._({String? referenceFrame});
+
+  factory AccelerometerSensorOptions(
+          {AccelerometerLocalCoordinateSystem? referenceFrame =
+              AccelerometerLocalCoordinateSystem.device}) =>
+      AccelerometerSensorOptions._(referenceFrame: referenceFrame?.name);
 }
 
 extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
   AccelerometerLocalCoordinateSystem get referenceFrame =>
-      js_util.getProperty(this, 'referenceFrame');
+      AccelerometerLocalCoordinateSystem.values
+          .byName(js_util.getProperty(this, 'referenceFrame'));
   set referenceFrame(AccelerometerLocalCoordinateSystem newValue) {
-    js_util.setProperty(this, 'referenceFrame', newValue);
+    js_util.setProperty(this, 'referenceFrame', newValue.name);
   }
 }
 

@@ -37,7 +37,8 @@ extension PropsBluetoothDataFilterInit on BluetoothDataFilterInit {
 @JS()
 @staticInterop
 class BluetoothManufacturerDataFilterInit implements BluetoothDataFilterInit {
-  external factory BluetoothManufacturerDataFilterInit({int companyIdentifier});
+  external factory BluetoothManufacturerDataFilterInit(
+      {required int companyIdentifier});
 }
 
 extension PropsBluetoothManufacturerDataFilterInit
@@ -68,11 +69,11 @@ extension PropsBluetoothServiceDataFilterInit
 @staticInterop
 class BluetoothLEScanFilterInit {
   external factory BluetoothLEScanFilterInit(
-      {Iterable<dynamic> services,
-      String name,
-      String namePrefix,
-      Iterable<BluetoothManufacturerDataFilterInit> manufacturerData,
-      Iterable<BluetoothServiceDataFilterInit> serviceData});
+      {required Iterable<dynamic> services,
+      required String name,
+      required String namePrefix,
+      required Iterable<BluetoothManufacturerDataFilterInit> manufacturerData,
+      required Iterable<BluetoothServiceDataFilterInit> serviceData});
 }
 
 extension PropsBluetoothLEScanFilterInit on BluetoothLEScanFilterInit {
@@ -109,8 +110,8 @@ extension PropsBluetoothLEScanFilterInit on BluetoothLEScanFilterInit {
 @staticInterop
 class RequestDeviceOptions {
   external factory RequestDeviceOptions(
-      {Iterable<BluetoothLEScanFilterInit> filters,
-      Iterable<dynamic> optionalServices = const [],
+      {required Iterable<BluetoothLEScanFilterInit> filters,
+      Iterable<dynamic>? optionalServices = const [],
       Iterable<int>? optionalManufacturerData = const [],
       bool? acceptAllDevices = false});
 }
@@ -257,9 +258,9 @@ extension PropsBluetooth on Bluetooth {
 @staticInterop
 class BluetoothPermissionDescriptor implements PermissionDescriptor {
   external factory BluetoothPermissionDescriptor(
-      {String deviceId,
-      Iterable<BluetoothLEScanFilterInit> filters,
-      Iterable<dynamic> optionalServices = const [],
+      {required String deviceId,
+      required Iterable<BluetoothLEScanFilterInit> filters,
+      Iterable<dynamic>? optionalServices = const [],
       Iterable<int>? optionalManufacturerData = const [],
       bool? acceptAllDevices = false});
 }
@@ -299,10 +300,10 @@ extension PropsBluetoothPermissionDescriptor on BluetoothPermissionDescriptor {
 @staticInterop
 class AllowedBluetoothDevice {
   external factory AllowedBluetoothDevice(
-      {String deviceId,
-      bool mayUseGATT,
+      {required String deviceId,
+      required bool mayUseGATT,
       dynamic allowedServices,
-      Iterable<int> allowedManufacturerData});
+      required Iterable<int> allowedManufacturerData});
 }
 
 extension PropsAllowedBluetoothDevice on AllowedBluetoothDevice {
@@ -333,7 +334,7 @@ extension PropsAllowedBluetoothDevice on AllowedBluetoothDevice {
 @staticInterop
 class BluetoothPermissionStorage {
   external factory BluetoothPermissionStorage(
-      {Iterable<AllowedBluetoothDevice> allowedDevices});
+      {required Iterable<AllowedBluetoothDevice> allowedDevices});
 }
 
 extension PropsBluetoothPermissionStorage on BluetoothPermissionStorage {
@@ -448,7 +449,7 @@ extension PropsBluetoothDevice on BluetoothDevice {
 @JS()
 @staticInterop
 class WatchAdvertisementsOptions {
-  external factory WatchAdvertisementsOptions({AbortSignal signal});
+  external factory WatchAdvertisementsOptions({required AbortSignal signal});
 }
 
 extension PropsWatchAdvertisementsOptions on WatchAdvertisementsOptions {
@@ -503,14 +504,14 @@ extension PropsBluetoothAdvertisingEvent on BluetoothAdvertisingEvent {
 @staticInterop
 class BluetoothAdvertisingEventInit implements EventInit {
   external factory BluetoothAdvertisingEventInit(
-      {BluetoothDevice device,
+      {required BluetoothDevice device,
       dynamic uuids,
-      String name,
-      int appearance,
-      int txPower,
-      int rssi,
-      BluetoothManufacturerDataMap manufacturerData,
-      BluetoothServiceDataMap serviceData});
+      required String name,
+      required int appearance,
+      required int txPower,
+      required int rssi,
+      required BluetoothManufacturerDataMap manufacturerData,
+      required BluetoothServiceDataMap serviceData});
 }
 
 extension PropsBluetoothAdvertisingEventInit on BluetoothAdvertisingEventInit {

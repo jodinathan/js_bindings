@@ -18,13 +18,28 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class RTCConfiguration {
-  external factory RTCConfiguration(
-      {Iterable<RTCIceServer> iceServers,
-      RTCIceTransportPolicy iceTransportPolicy,
-      RTCBundlePolicy bundlePolicy,
-      RTCRtcpMuxPolicy rtcpMuxPolicy,
-      Iterable<RTCCertificate> certificates,
-      int iceCandidatePoolSize = 0});
+  external factory RTCConfiguration._(
+      {required Iterable<RTCIceServer> iceServers,
+      required String iceTransportPolicy,
+      required String bundlePolicy,
+      required String rtcpMuxPolicy,
+      required Iterable<RTCCertificate> certificates,
+      int? iceCandidatePoolSize = 0});
+
+  factory RTCConfiguration(
+          {required Iterable<RTCIceServer> iceServers,
+          required RTCIceTransportPolicy iceTransportPolicy,
+          required RTCBundlePolicy bundlePolicy,
+          required RTCRtcpMuxPolicy rtcpMuxPolicy,
+          required Iterable<RTCCertificate> certificates,
+          int? iceCandidatePoolSize = 0}) =>
+      RTCConfiguration._(
+          iceServers: iceServers,
+          iceTransportPolicy: iceTransportPolicy.name,
+          bundlePolicy: bundlePolicy.name,
+          rtcpMuxPolicy: rtcpMuxPolicy.name,
+          certificates: certificates,
+          iceCandidatePoolSize: iceCandidatePoolSize);
 }
 
 extension PropsRTCConfiguration on RTCConfiguration {
@@ -34,21 +49,22 @@ extension PropsRTCConfiguration on RTCConfiguration {
     js_util.setProperty(this, 'iceServers', newValue);
   }
 
-  RTCIceTransportPolicy get iceTransportPolicy =>
-      js_util.getProperty(this, 'iceTransportPolicy');
+  RTCIceTransportPolicy get iceTransportPolicy => RTCIceTransportPolicy.values
+      .byName(js_util.getProperty(this, 'iceTransportPolicy'));
   set iceTransportPolicy(RTCIceTransportPolicy newValue) {
-    js_util.setProperty(this, 'iceTransportPolicy', newValue);
+    js_util.setProperty(this, 'iceTransportPolicy', newValue.name);
   }
 
-  RTCBundlePolicy get bundlePolicy => js_util.getProperty(this, 'bundlePolicy');
+  RTCBundlePolicy get bundlePolicy =>
+      RTCBundlePolicy.values.byName(js_util.getProperty(this, 'bundlePolicy'));
   set bundlePolicy(RTCBundlePolicy newValue) {
-    js_util.setProperty(this, 'bundlePolicy', newValue);
+    js_util.setProperty(this, 'bundlePolicy', newValue.name);
   }
 
-  RTCRtcpMuxPolicy get rtcpMuxPolicy =>
-      js_util.getProperty(this, 'rtcpMuxPolicy');
+  RTCRtcpMuxPolicy get rtcpMuxPolicy => RTCRtcpMuxPolicy.values
+      .byName(js_util.getProperty(this, 'rtcpMuxPolicy'));
   set rtcpMuxPolicy(RTCRtcpMuxPolicy newValue) {
-    js_util.setProperty(this, 'rtcpMuxPolicy', newValue);
+    js_util.setProperty(this, 'rtcpMuxPolicy', newValue.name);
   }
 
   Iterable<RTCCertificate> get certificates =>
@@ -75,11 +91,23 @@ enum RTCIceCredentialType { password }
 @JS()
 @staticInterop
 class RTCIceServer {
-  external factory RTCIceServer(
+  external factory RTCIceServer._(
       {dynamic urls,
-      String username,
-      String credential,
-      RTCIceCredentialType credentialType = RTCIceCredentialType.password});
+      required String username,
+      required String credential,
+      String? credentialType});
+
+  factory RTCIceServer(
+          {dynamic urls,
+          required String username,
+          required String credential,
+          RTCIceCredentialType? credentialType =
+              RTCIceCredentialType.password}) =>
+      RTCIceServer._(
+          urls: urls,
+          username: username,
+          credential: credential,
+          credentialType: credentialType?.name);
 }
 
 extension PropsRTCIceServer on RTCIceServer {
@@ -113,10 +141,10 @@ extension PropsRTCIceServer on RTCIceServer {
   /// connecting. This must be one of the values defined by the
   /// [RTCIceCredentialType] enum. The default is [password].
   ///
-  RTCIceCredentialType get credentialType =>
-      js_util.getProperty(this, 'credentialType');
+  RTCIceCredentialType get credentialType => RTCIceCredentialType.values
+      .byName(js_util.getProperty(this, 'credentialType'));
   set credentialType(RTCIceCredentialType newValue) {
-    js_util.setProperty(this, 'credentialType', newValue);
+    js_util.setProperty(this, 'credentialType', newValue.name);
   }
 }
 
@@ -137,7 +165,7 @@ class RTCOfferAnswerOptions {
 @JS()
 @staticInterop
 class RTCOfferOptions implements RTCOfferAnswerOptions {
-  external factory RTCOfferOptions({bool iceRestart = false});
+  external factory RTCOfferOptions({bool? iceRestart = false});
 }
 
 extension PropsRTCOfferOptions on RTCOfferOptions {
@@ -291,8 +319,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    [have-local-pranswer], [have-remote-pranswer], or [closed].
   ///
   ///
-  RTCSignalingState get signalingState =>
-      js_util.getProperty(this, 'signalingState');
+  RTCSignalingState get signalingState => RTCSignalingState.values
+      .byName(js_util.getProperty(this, 'signalingState'));
 
   ///
   ///    Returns a string
@@ -303,8 +331,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    [new], [gathering], or [complete].
   ///
   ///
-  RTCIceGatheringState get iceGatheringState =>
-      js_util.getProperty(this, 'iceGatheringState');
+  RTCIceGatheringState get iceGatheringState => RTCIceGatheringState.values
+      .byName(js_util.getProperty(this, 'iceGatheringState'));
 
   ///
   ///     Returns a string which state of the ICE agent associated with
@@ -314,8 +342,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    [failed], [disconnected], or [closed].
   ///
   ///
-  RTCIceConnectionState get iceConnectionState =>
-      js_util.getProperty(this, 'iceConnectionState');
+  RTCIceConnectionState get iceConnectionState => RTCIceConnectionState.values
+      .byName(js_util.getProperty(this, 'iceConnectionState'));
 
   ///
   ///    Indicates the current state of the peer connection
@@ -324,8 +352,8 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   ///    [failed], or [closed].
   ///
   ///
-  RTCPeerConnectionState get connectionState =>
-      js_util.getProperty(this, 'connectionState');
+  RTCPeerConnectionState get connectionState => RTCPeerConnectionState.values
+      .byName(js_util.getProperty(this, 'connectionState'));
 
   ///
   ///    Returns a boolean value which indicates whether or not
@@ -930,8 +958,12 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   Iterable<RTCRtpTransceiver> getTransceivers() =>
       js_util.callMethod(this, 'getTransceivers', []);
 
-  RTCRtpSender addTrack(MediaStreamTrack track, [MediaStream? streams]) =>
-      js_util.callMethod(this, 'addTrack', [track, streams]);
+  RTCRtpSender addTrack(MediaStreamTrack track,
+          [MediaStream? streams1,
+          MediaStream? streams2,
+          MediaStream? streams3]) =>
+      js_util
+          .callMethod(this, 'addTrack', [track, streams1, streams2, streams3]);
 
   Object removeTrack(RTCRtpSender sender) =>
       js_util.callMethod(this, 'removeTrack', [sender]);
@@ -999,7 +1031,8 @@ extension PropsRTCSessionDescription on RTCSessionDescription {
   ///  An enum of type [RTCSdpType] describing the session
   /// description's type.
   ///
-  RTCSdpType get type => js_util.getProperty(this, 'type');
+  RTCSdpType get type =>
+      RTCSdpType.values.byName(js_util.getProperty(this, 'type'));
 
   /// A [String] containing the SDP describing the session.
   ///
@@ -1011,14 +1044,19 @@ extension PropsRTCSessionDescription on RTCSessionDescription {
 @JS()
 @staticInterop
 class RTCSessionDescriptionInit {
-  external factory RTCSessionDescriptionInit(
-      {RTCSdpType type, String sdp = ''});
+  external factory RTCSessionDescriptionInit._(
+      {required String type, String? sdp = ''});
+
+  factory RTCSessionDescriptionInit(
+          {required RTCSdpType type, String? sdp = ''}) =>
+      RTCSessionDescriptionInit._(type: type.name, sdp: sdp);
 }
 
 extension PropsRTCSessionDescriptionInit on RTCSessionDescriptionInit {
-  RTCSdpType get type => js_util.getProperty(this, 'type');
+  RTCSdpType get type =>
+      RTCSdpType.values.byName(js_util.getProperty(this, 'type'));
   set type(RTCSdpType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   String get sdp => js_util.getProperty(this, 'sdp');
@@ -1031,15 +1069,20 @@ extension PropsRTCSessionDescriptionInit on RTCSessionDescriptionInit {
 @JS()
 @staticInterop
 class RTCLocalSessionDescriptionInit {
-  external factory RTCLocalSessionDescriptionInit(
-      {RTCSdpType type, String sdp = ''});
+  external factory RTCLocalSessionDescriptionInit._(
+      {required String type, String? sdp = ''});
+
+  factory RTCLocalSessionDescriptionInit(
+          {required RTCSdpType type, String? sdp = ''}) =>
+      RTCLocalSessionDescriptionInit._(type: type.name, sdp: sdp);
 }
 
 extension PropsRTCLocalSessionDescriptionInit
     on RTCLocalSessionDescriptionInit {
-  RTCSdpType get type => js_util.getProperty(this, 'type');
+  RTCSdpType get type =>
+      RTCSdpType.values.byName(js_util.getProperty(this, 'type'));
   set type(RTCSdpType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   String get sdp => js_util.getProperty(this, 'sdp');
@@ -1103,7 +1146,11 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   /// derived from the ["component-id"] field in the [candidate] a-line
   /// string.
   ///
-  RTCIceComponent? get component => js_util.getProperty(this, 'component');
+  RTCIceComponent? get component {
+    final ret = js_util.getProperty(this, 'component');
+
+    return ret == null ? null : RTCIceComponent.values.byName(ret);
+  }
 
   /// A long integer value indicating the candidate's priority.
   ///
@@ -1116,7 +1163,11 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   ///  A string indicating whether the candidate's protocol is ["tcp"]
   /// or ["udp"].
   ///
-  RTCIceProtocol? get protocol => js_util.getProperty(this, 'protocol');
+  RTCIceProtocol? get protocol {
+    final ret = js_util.getProperty(this, 'protocol');
+
+    return ret == null ? null : RTCIceProtocol.values.byName(ret);
+  }
 
   /// An integer value indicating the candidate's port number.
   ///
@@ -1125,12 +1176,20 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   ///  A [String] indicating the type of candidate as one of the
   /// strings listed on [RTCIceCandidate.type].
   ///
-  RTCIceCandidateType? get type => js_util.getProperty(this, 'type');
+  RTCIceCandidateType? get type {
+    final ret = js_util.getProperty(this, 'type');
+
+    return ret == null ? null : RTCIceCandidateType.values.byName(ret);
+  }
 
   ///  If [protocol] is ["tcp"], represents the type of TCP candidate.
   /// Otherwise, is [null].
   ///
-  RTCIceTcpCandidateType? get tcpType => js_util.getProperty(this, 'tcpType');
+  RTCIceTcpCandidateType? get tcpType {
+    final ret = js_util.getProperty(this, 'tcpType');
+
+    return ret == null ? null : RTCIceTcpCandidateType.values.byName(ret);
+  }
 
   ///  If the candidate is derived from another candidate, is a
   /// [String] containing that host candidate's IP address. For host
@@ -1174,7 +1233,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
 @staticInterop
 class RTCIceCandidateInit {
   external factory RTCIceCandidateInit(
-      {String candidate = '',
+      {String? candidate = '',
       String? sdpMid,
       int? sdpMLineIndex,
       String? usernameFragment});
@@ -1303,9 +1362,9 @@ class RTCPeerConnectionIceErrorEventInit implements EventInit {
   external factory RTCPeerConnectionIceErrorEventInit(
       {String? address,
       int? port,
-      String url,
-      int errorCode,
-      String errorText});
+      required String url,
+      required int errorCode,
+      required String errorText});
 }
 
 extension PropsRTCPeerConnectionIceErrorEventInit
@@ -1340,7 +1399,7 @@ extension PropsRTCPeerConnectionIceErrorEventInit
 @JS()
 @staticInterop
 class RTCCertificateExpiration {
-  external factory RTCCertificateExpiration({int expires});
+  external factory RTCCertificateExpiration({required int expires});
 }
 
 extension PropsRTCCertificateExpiration on RTCCertificateExpiration {
@@ -1370,18 +1429,27 @@ extension PropsRTCCertificate on RTCCertificate {
 @JS()
 @staticInterop
 class RTCRtpTransceiverInit {
-  external factory RTCRtpTransceiverInit(
-      {RTCRtpTransceiverDirection direction =
-          RTCRtpTransceiverDirection.sendrecv,
+  external factory RTCRtpTransceiverInit._(
+      {String? direction,
       Iterable<MediaStream>? streams = const [],
       Iterable<RTCRtpEncodingParameters>? sendEncodings = const []});
+
+  factory RTCRtpTransceiverInit(
+          {RTCRtpTransceiverDirection? direction =
+              RTCRtpTransceiverDirection.sendrecv,
+          Iterable<MediaStream>? streams = const [],
+          Iterable<RTCRtpEncodingParameters>? sendEncodings = const []}) =>
+      RTCRtpTransceiverInit._(
+          direction: direction?.name,
+          streams: streams,
+          sendEncodings: sendEncodings);
 }
 
 extension PropsRTCRtpTransceiverInit on RTCRtpTransceiverInit {
-  RTCRtpTransceiverDirection get direction =>
-      js_util.getProperty(this, 'direction');
+  RTCRtpTransceiverDirection get direction => RTCRtpTransceiverDirection.values
+      .byName(js_util.getProperty(this, 'direction'));
   set direction(RTCRtpTransceiverDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue);
+    js_util.setProperty(this, 'direction', newValue.name);
   }
 
   Iterable<MediaStream> get streams => js_util.getProperty(this, 'streams');
@@ -1534,8 +1602,11 @@ extension PropsRTCRtpSender on RTCRtpSender {
   ///  connected, we call setStreams() to add the track to the
   ///  stream specified.
   ///
-  Object setStreams([MediaStream? streams]) =>
-      js_util.callMethod(this, 'setStreams', [streams]);
+  Object setStreams(
+          [MediaStream? streams1,
+          MediaStream? streams2,
+          MediaStream? streams3]) =>
+      js_util.callMethod(this, 'setStreams', [streams1, streams2, streams3]);
 
   ///  Returns a [Future] which is fulfilled with a [RTCStatsReport]
   /// which provides statistics data for all outbound streams being
@@ -1579,9 +1650,9 @@ extension PropsRTCRtpSender on RTCRtpSender {
 @staticInterop
 class RTCRtpParameters {
   external factory RTCRtpParameters(
-      {Iterable<RTCRtpHeaderExtensionParameters> headerExtensions,
-      RTCRtcpParameters rtcp,
-      Iterable<RTCRtpCodecParameters> codecs});
+      {required Iterable<RTCRtpHeaderExtensionParameters> headerExtensions,
+      required RTCRtcpParameters rtcp,
+      required Iterable<RTCRtpCodecParameters> codecs});
 }
 
 extension PropsRTCRtpParameters on RTCRtpParameters {
@@ -1623,7 +1694,8 @@ extension PropsRTCRtpParameters on RTCRtpParameters {
 @staticInterop
 class RTCRtpSendParameters implements RTCRtpParameters {
   external factory RTCRtpSendParameters(
-      {String transactionId, Iterable<RTCRtpEncodingParameters> encodings});
+      {required String transactionId,
+      required Iterable<RTCRtpEncodingParameters> encodings});
 }
 
 extension PropsRTCRtpSendParameters on RTCRtpSendParameters {
@@ -1664,7 +1736,7 @@ class RTCRtpReceiveParameters implements RTCRtpParameters {
 @JS()
 @staticInterop
 class RTCRtpCodingParameters {
-  external factory RTCRtpCodingParameters({String rid});
+  external factory RTCRtpCodingParameters({required String rid});
 }
 
 extension PropsRTCRtpCodingParameters on RTCRtpCodingParameters {
@@ -1692,7 +1764,7 @@ class RTCRtpDecodingParameters implements RTCRtpCodingParameters {
 @staticInterop
 class RTCRtpEncodingParameters implements RTCRtpCodingParameters {
   external factory RTCRtpEncodingParameters(
-      {bool active = true, int? maxBitrate, double? scaleResolutionDownBy});
+      {bool? active = true, int? maxBitrate, double? scaleResolutionDownBy});
 }
 
 extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
@@ -1739,7 +1811,8 @@ extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
 @JS()
 @staticInterop
 class RTCRtcpParameters {
-  external factory RTCRtcpParameters({String cname, bool reducedSize});
+  external factory RTCRtcpParameters(
+      {required String cname, required bool reducedSize});
 }
 
 extension PropsRTCRtcpParameters on RTCRtcpParameters {
@@ -1769,7 +1842,7 @@ extension PropsRTCRtcpParameters on RTCRtcpParameters {
 @staticInterop
 class RTCRtpHeaderExtensionParameters {
   external factory RTCRtpHeaderExtensionParameters(
-      {String uri, int id, bool encrypted = false});
+      {required String uri, required int id, bool? encrypted = false});
 }
 
 extension PropsRTCRtpHeaderExtensionParameters
@@ -1806,11 +1879,11 @@ extension PropsRTCRtpHeaderExtensionParameters
 @staticInterop
 class RTCRtpCodecParameters {
   external factory RTCRtpCodecParameters(
-      {int payloadType,
-      String mimeType,
-      int clockRate,
-      int channels,
-      String sdpFmtpLine});
+      {required int payloadType,
+      required String mimeType,
+      required int clockRate,
+      required int channels,
+      required String sdpFmtpLine});
 }
 
 extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
@@ -1879,8 +1952,8 @@ extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
 @staticInterop
 class RTCRtpCapabilities {
   external factory RTCRtpCapabilities(
-      {Iterable<RTCRtpCodecCapability> codecs,
-      Iterable<RTCRtpHeaderExtensionCapability> headerExtensions});
+      {required Iterable<RTCRtpCodecCapability> codecs,
+      required Iterable<RTCRtpHeaderExtensionCapability> headerExtensions});
 }
 
 extension PropsRTCRtpCapabilities on RTCRtpCapabilities {
@@ -1914,7 +1987,10 @@ extension PropsRTCRtpCapabilities on RTCRtpCapabilities {
 @staticInterop
 class RTCRtpCodecCapability {
   external factory RTCRtpCodecCapability(
-      {String mimeType, int clockRate, int channels, String sdpFmtpLine});
+      {required String mimeType,
+      required int clockRate,
+      required int channels,
+      required String sdpFmtpLine});
 }
 
 extension PropsRTCRtpCodecCapability on RTCRtpCodecCapability {
@@ -1961,7 +2037,7 @@ extension PropsRTCRtpCodecCapability on RTCRtpCodecCapability {
 @JS()
 @staticInterop
 class RTCRtpHeaderExtensionCapability {
-  external factory RTCRtpHeaderExtensionCapability({String uri});
+  external factory RTCRtpHeaderExtensionCapability({required String uri});
 }
 
 extension PropsRTCRtpHeaderExtensionCapability
@@ -2056,7 +2132,10 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
 @staticInterop
 class RTCRtpContributingSource {
   external factory RTCRtpContributingSource(
-      {double timestamp, int source, double audioLevel, int rtpTimestamp});
+      {required double timestamp,
+      required int source,
+      required double audioLevel,
+      required int rtpTimestamp});
 }
 
 extension PropsRTCRtpContributingSource on RTCRtpContributingSource {
@@ -2146,10 +2225,10 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
   ///  A string which is used to set the transceiver's desired
   /// direction.
   ///
-  RTCRtpTransceiverDirection get direction =>
-      js_util.getProperty(this, 'direction');
+  RTCRtpTransceiverDirection get direction => RTCRtpTransceiverDirection.values
+      .byName(js_util.getProperty(this, 'direction'));
   set direction(RTCRtpTransceiverDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue);
+    js_util.setProperty(this, 'direction', newValue.name);
   }
 
   ///  A read-only string which indicates the transceiver's current
@@ -2158,8 +2237,11 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
   /// change the transceiver's directionality, set the value of the
   /// [direction] property.
   ///
-  RTCRtpTransceiverDirection? get currentDirection =>
-      js_util.getProperty(this, 'currentDirection');
+  RTCRtpTransceiverDirection? get currentDirection {
+    final ret = js_util.getProperty(this, 'currentDirection');
+
+    return ret == null ? null : RTCRtpTransceiverDirection.values.byName(ret);
+  }
 
   ///  Permanently stops the [RTCRtpTransceiver]. The associated sender
   /// stops sending data, and the associated receiver likewise stops
@@ -2241,7 +2323,8 @@ extension PropsRTCDtlsTransport on RTCDtlsTransport {
   ///    [new], [connecting], [connected], [closed], or [failed].
   ///
   ///
-  RTCDtlsTransportState get state => js_util.getProperty(this, 'state');
+  RTCDtlsTransportState get state =>
+      RTCDtlsTransportState.values.byName(js_util.getProperty(this, 'state'));
 
   ///  Returns an array of [ArrayBuffer] containing the certificates of
   /// the remote peer of the connection.
@@ -2267,7 +2350,8 @@ enum RTCDtlsTransportState { valueNew, connecting, connected, closed, failed }
 @JS()
 @staticInterop
 class RTCDtlsFingerprint {
-  external factory RTCDtlsFingerprint({String algorithm, String value});
+  external factory RTCDtlsFingerprint(
+      {required String algorithm, required String value});
 }
 
 extension PropsRTCDtlsFingerprint on RTCDtlsFingerprint {
@@ -2300,13 +2384,15 @@ extension PropsRTCIceTransport on RTCIceTransport {
   /// this indicates whether the ICE agent is the one that makes the
   /// final decision as to the candidate pair to use or not.
   ///
-  RTCIceRole get role => js_util.getProperty(this, 'role');
+  RTCIceRole get role =>
+      RTCIceRole.values.byName(js_util.getProperty(this, 'role'));
 
   ///  The ICE component being used by the transport. The value is one
   /// of the strings from the [RTCIceTransport] enumerated type:
   /// ["RTP"] or ["RTSP"].
   ///
-  RTCIceComponent get component => js_util.getProperty(this, 'component');
+  RTCIceComponent get component =>
+      RTCIceComponent.values.byName(js_util.getProperty(this, 'component'));
 
   ///  A [String] indicating what the current state of the ICE agent
   /// is. The value of can be used to determine whether the ICE agent
@@ -2316,13 +2402,14 @@ extension PropsRTCIceTransport on RTCIceTransport {
   /// states. See the [RTCIceTransportState] enumerated type for a
   /// complete list of states.
   ///
-  RTCIceTransportState get state => js_util.getProperty(this, 'state');
+  RTCIceTransportState get state =>
+      RTCIceTransportState.values.byName(js_util.getProperty(this, 'state'));
 
   ///  A [String] indicating which current gathering state of the ICE
   /// agent: ["new"], ["gathering"], or ["complete"].
   ///
-  RTCIceGathererState get gatheringState =>
-      js_util.getProperty(this, 'gatheringState');
+  RTCIceGathererState get gatheringState => RTCIceGathererState.values
+      .byName(js_util.getProperty(this, 'gatheringState'));
 
   ///  Returns an array of [RTCIceCandidate] objects, each describing
   /// one of the ICE candidates that have been gathered so far for the
@@ -2426,7 +2513,7 @@ extension PropsRTCIceTransport on RTCIceTransport {
   Object start(
           [RTCIceParameters? remoteParameters,
           RTCIceRole? role = RTCIceRole.controlled]) =>
-      js_util.callMethod(this, 'start', [remoteParameters, role]);
+      js_util.callMethod(this, 'start', [remoteParameters, role?.name]);
 
   Object stop() => js_util.callMethod(this, 'stop', []);
 
@@ -2456,7 +2543,8 @@ extension PropsRTCIceTransport on RTCIceTransport {
 @JS()
 @staticInterop
 class RTCIceParameters {
-  external factory RTCIceParameters({String usernameFragment, String password});
+  external factory RTCIceParameters(
+      {required String usernameFragment, required String password});
 }
 
 extension PropsRTCIceParameters on RTCIceParameters {
@@ -2486,7 +2574,7 @@ extension PropsRTCIceParameters on RTCIceParameters {
 @staticInterop
 class RTCIceCandidatePair {
   external factory RTCIceCandidatePair(
-      {RTCIceCandidate local, RTCIceCandidate remote});
+      {required RTCIceCandidate local, required RTCIceCandidate remote});
 }
 
 extension PropsRTCIceCandidatePair on RTCIceCandidatePair {
@@ -2563,9 +2651,9 @@ extension PropsRTCTrackEvent on RTCTrackEvent {
 @staticInterop
 class RTCTrackEventInit implements EventInit {
   external factory RTCTrackEventInit(
-      {RTCRtpReceiver receiver,
-      MediaStreamTrack track,
-      Iterable<MediaStream> streams = const [],
+      {required RTCRtpReceiver receiver,
+      required MediaStreamTrack track,
+      Iterable<MediaStream>? streams = const [],
       RTCRtpTransceiver? transceiver});
 }
 
@@ -2622,7 +2710,8 @@ extension PropsRTCSctpTransport on RTCSctpTransport {
   ///  A [String] enumerated value indicating the state of the SCTP
   /// transport.
   ///
-  RTCSctpTransportState get state => js_util.getProperty(this, 'state');
+  RTCSctpTransportState get state =>
+      RTCSctpTransportState.values.byName(js_util.getProperty(this, 'state'));
 
   ///  An integer value indicating the maximum size, in bytes, of a
   /// message which can be sent using the [RTCDataChannel.send()]
@@ -2749,7 +2838,8 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    [connecting], [open], [closing], or [closed].
   ///
   ///
-  RTCDataChannelState get readyState => js_util.getProperty(this, 'readyState');
+  RTCDataChannelState get readyState => RTCDataChannelState.values
+      .byName(js_util.getProperty(this, 'readyState'));
 
   ///
   ///    Returns the number of bytes of data
@@ -2840,9 +2930,10 @@ extension PropsRTCDataChannel on RTCDataChannel {
   ///    The default is [blob].
   ///
   ///
-  BinaryType get binaryType => js_util.getProperty(this, 'binaryType');
+  BinaryType get binaryType =>
+      BinaryType.values.byName(js_util.getProperty(this, 'binaryType'));
   set binaryType(BinaryType newValue) {
-    js_util.setProperty(this, 'binaryType', newValue);
+    js_util.setProperty(this, 'binaryType', newValue.name);
   }
 
   /// Sends data across the data channel to the remote peer.
@@ -2877,7 +2968,8 @@ extension PropsRTCDataChannel on RTCDataChannel {
           String data) =>
       js_util.callMethod(this, 'send', [data]);
 
-  RTCPriorityType get priority => js_util.getProperty(this, 'priority');
+  RTCPriorityType get priority =>
+      RTCPriorityType.values.byName(js_util.getProperty(this, 'priority'));
 }
 
 @anonymous
@@ -2885,7 +2977,7 @@ extension PropsRTCDataChannel on RTCDataChannel {
 @staticInterop
 class RTCDataChannelInit {
   external factory RTCDataChannelInit(
-      {bool ordered = true,
+      {bool? ordered = true,
       int? maxPacketLifeTime,
       int? maxRetransmits,
       String? protocol = '',
@@ -2960,7 +3052,7 @@ extension PropsRTCDataChannelEvent on RTCDataChannelEvent {
 @JS()
 @staticInterop
 class RTCDataChannelEventInit implements EventInit {
-  external factory RTCDataChannelEventInit({RTCDataChannel channel});
+  external factory RTCDataChannelEventInit({required RTCDataChannel channel});
 }
 
 extension PropsRTCDataChannelEventInit on RTCDataChannelEventInit {
@@ -3081,7 +3173,7 @@ extension PropsRTCDTMFToneChangeEvent on RTCDTMFToneChangeEvent {
 @JS()
 @staticInterop
 class RTCDTMFToneChangeEventInit implements EventInit {
-  external factory RTCDTMFToneChangeEventInit({String tone = ''});
+  external factory RTCDTMFToneChangeEventInit({String? tone = ''});
 }
 
 extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
@@ -3127,7 +3219,14 @@ extension PropsRTCStatsReport on RTCStatsReport {
 @JS()
 @staticInterop
 class RTCStats {
-  external factory RTCStats({double timestamp, RTCStatsType type, String id});
+  external factory RTCStats._(
+      {required double timestamp, required String type, required String id});
+
+  factory RTCStats(
+          {required double timestamp,
+          required RTCStatsType type,
+          required String id}) =>
+      RTCStats._(timestamp: timestamp, type: type.name, id: id);
 }
 
 extension PropsRTCStats on RTCStats {
@@ -3142,9 +3241,10 @@ extension PropsRTCStats on RTCStats {
   ///  A [String] indicating the type of statistics the object
   /// contains, taken from the enum type [RTCStatsType].
   ///
-  RTCStatsType get type => js_util.getProperty(this, 'type');
+  RTCStatsType get type =>
+      RTCStatsType.values.byName(js_util.getProperty(this, 'type'));
   set type(RTCStatsType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   ///  A [String] which uniquely identifies the object which was
@@ -3169,8 +3269,8 @@ extension PropsRTCError on RTCError {
   ///  A [String] specifying the WebRTC-specific error code identifying
   /// the type of error that occurred.
   ///
-  RTCErrorDetailType get errorDetail =>
-      js_util.getProperty(this, 'errorDetail');
+  RTCErrorDetailType get errorDetail => RTCErrorDetailType.values
+      .byName(js_util.getProperty(this, 'errorDetail'));
 
   ///  If [errorDetail] is [sdp-syntax-error], this property is a long
   /// integer identifying the line number of the SDP on which the
@@ -3206,19 +3306,32 @@ extension PropsRTCError on RTCError {
 @JS()
 @staticInterop
 class RTCErrorInit {
-  external factory RTCErrorInit(
-      {RTCErrorDetailType errorDetail,
-      int sdpLineNumber,
-      int sctpCauseCode,
-      int receivedAlert,
-      int sentAlert});
+  external factory RTCErrorInit._(
+      {required String errorDetail,
+      required int sdpLineNumber,
+      required int sctpCauseCode,
+      required int receivedAlert,
+      required int sentAlert});
+
+  factory RTCErrorInit(
+          {required RTCErrorDetailType errorDetail,
+          required int sdpLineNumber,
+          required int sctpCauseCode,
+          required int receivedAlert,
+          required int sentAlert}) =>
+      RTCErrorInit._(
+          errorDetail: errorDetail.name,
+          sdpLineNumber: sdpLineNumber,
+          sctpCauseCode: sctpCauseCode,
+          receivedAlert: receivedAlert,
+          sentAlert: sentAlert);
 }
 
 extension PropsRTCErrorInit on RTCErrorInit {
-  RTCErrorDetailType get errorDetail =>
-      js_util.getProperty(this, 'errorDetail');
+  RTCErrorDetailType get errorDetail => RTCErrorDetailType.values
+      .byName(js_util.getProperty(this, 'errorDetail'));
   set errorDetail(RTCErrorDetailType newValue) {
-    js_util.setProperty(this, 'errorDetail', newValue);
+    js_util.setProperty(this, 'errorDetail', newValue.name);
   }
 
   int get sdpLineNumber => js_util.getProperty(this, 'sdpLineNumber');
@@ -3274,7 +3387,7 @@ extension PropsRTCErrorEvent on RTCErrorEvent {
 @JS()
 @staticInterop
 class RTCErrorEventInit implements EventInit {
-  external factory RTCErrorEventInit({RTCError error});
+  external factory RTCErrorEventInit({required RTCError error});
 }
 
 extension PropsRTCErrorEventInit on RTCErrorEventInit {

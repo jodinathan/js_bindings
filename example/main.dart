@@ -1,7 +1,14 @@
 import 'package:js_bindings/js_bindings.dart';
 
+@pragma('dart2js:tryInline')
 void main() {
   document.title = 'JS Bindings example';
+
+  final f = ShadowRootInit(mode: ShadowRootMode.open);
+
+  window.console.log('GooFOo', f, document.visibilityState);
+
+  //html.window.console.log(ShadowRootInit.dd(mode: ShadowRootMode.open));
 
   // create the buttons to use in the example
   final div = (document.createElement('div') as HTMLDivElement)
@@ -34,9 +41,9 @@ void main() {
     ..appendChild(video);
 
   document.getElementById('changeHtml')!.addEventListener('click', (e) {
-      print('Changing the HTML');
+      window.console.log('Changing the HTML');
       document.getElementById('someDiv')!.innerHTML =
-      'Oh yeah! ${div.childNodes[0]}';
+      'New stuff oh yeah! ${div.childNodes[0]}';
     });
 
   // listen to the click of the media button
@@ -55,16 +62,16 @@ void main() {
 
       mstream = null;
       btnMedia.innerHTML = 'Ask for camera access';
-      print('Media stopped.');
+      window.console.log('Media stopped.');
       return;
     }
 
-    print('Asking for camera capture');
+    window.console.log('Asking for camera capture');
 
     final media = mstream = await window.navigator.mediaDevices
         .getUserMedia(MediaStreamConstraints(video: true));
 
-    print('asked: ${media.id}, ${media.active}');
+    window.console.log('asked: ${media.id}, ${media.active}');
 
     // here the media stream is on,
     // lets set it to the source of the video element

@@ -17,7 +17,8 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class ShareTargetParams {
-  external factory ShareTargetParams({String title, String text, String url});
+  external factory ShareTargetParams(
+      {required String title, required String text, required String url});
 }
 
 extension PropsShareTargetParams on ShareTargetParams {
@@ -42,8 +43,8 @@ extension PropsShareTargetParams on ShareTargetParams {
 @staticInterop
 class ShareTarget {
   external factory ShareTarget(
-      {String action,
-      String method = 'GET',
+      {required String action,
+      String? method = 'GET',
       String? enctype = 'application/x-www-form-urlencoded',
       ShareTargetParams? params});
 }

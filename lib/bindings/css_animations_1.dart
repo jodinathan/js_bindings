@@ -66,7 +66,7 @@ extension PropsAnimationEvent on AnimationEvent {
 @staticInterop
 class AnimationEventInit implements EventInit {
   external factory AnimationEventInit(
-      {String animationName = '',
+      {String? animationName = '',
       double? elapsedTime = 0.0,
       String? pseudoElement = ''});
 }

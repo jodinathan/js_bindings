@@ -41,7 +41,8 @@ extension PropsXRHand on XRHand {
   ///
   @JS('get')
   @staticInterop
-  XRJointSpace mGet(XRHandJoint key) => js_util.callMethod(this, 'get', [key]);
+  XRJointSpace mGet(XRHandJoint key) =>
+      js_util.callMethod(this, 'get', [key.name]);
 }
 
 ///  The interface is an [XRSpace] and represents the position and
@@ -56,7 +57,8 @@ extension PropsXRJointSpace on XRJointSpace {
   ///  The name of the joint that is tracked. See [XRHand] for possible
   /// hand joint names.
   ///
-  XRHandJoint get jointName => js_util.getProperty(this, 'jointName');
+  XRHandJoint get jointName =>
+      XRHandJoint.values.byName(js_util.getProperty(this, 'jointName'));
 }
 
 ///  The interface is an [XRPose] with additional information about

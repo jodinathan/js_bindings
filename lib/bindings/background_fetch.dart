@@ -74,7 +74,7 @@ extension PropsBackgroundFetchManager on BackgroundFetchManager {
 @staticInterop
 class BackgroundFetchUIOptions {
   external factory BackgroundFetchUIOptions(
-      {Iterable<ImageResource> icons, String title});
+      {required Iterable<ImageResource> icons, required String title});
 }
 
 extension PropsBackgroundFetchUIOptions on BackgroundFetchUIOptions {
@@ -93,7 +93,7 @@ extension PropsBackgroundFetchUIOptions on BackgroundFetchUIOptions {
 @JS()
 @staticInterop
 class BackgroundFetchOptions implements BackgroundFetchUIOptions {
-  external factory BackgroundFetchOptions({int downloadTotal = 0});
+  external factory BackgroundFetchOptions({int? downloadTotal = 0});
 }
 
 extension PropsBackgroundFetchOptions on BackgroundFetchOptions {
@@ -142,7 +142,8 @@ extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
   ///  Returns an empty string initially, on completion either the
   /// string ["success"] or ["failure"].
   ///
-  BackgroundFetchResult get result => js_util.getProperty(this, 'result');
+  BackgroundFetchResult get result =>
+      BackgroundFetchResult.values.byName(js_util.getProperty(this, 'result'));
 
   /// One of the following strings:
   ///
@@ -177,7 +178,8 @@ extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
   ///
   ///
   BackgroundFetchFailureReason get failureReason =>
-      js_util.getProperty(this, 'failureReason');
+      BackgroundFetchFailureReason.values
+          .byName(js_util.getProperty(this, 'failureReason'));
 
   /// A [bool] indicating whether the flag is set.
   ///
@@ -365,7 +367,7 @@ extension PropsBackgroundFetchEvent on BackgroundFetchEvent {
 @staticInterop
 class BackgroundFetchEventInit implements ExtendableEventInit {
   external factory BackgroundFetchEventInit(
-      {BackgroundFetchRegistration registration});
+      {required BackgroundFetchRegistration registration});
 }
 
 extension PropsBackgroundFetchEventInit on BackgroundFetchEventInit {

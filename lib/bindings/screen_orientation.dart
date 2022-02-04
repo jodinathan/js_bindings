@@ -161,7 +161,8 @@ extension PropsScreenOrientation on ScreenOrientation {
           ///
           ///
           OrientationLockType orientation) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'lock', [orientation]));
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'lock', [orientation.name]));
 
   ///  Unlocks the orientation of the containing document from its
   /// default orientation.
@@ -174,7 +175,8 @@ extension PropsScreenOrientation on ScreenOrientation {
   /// "portrait-primary", "portrait-secondary", "landscape-primary", or
   /// "landscape-secondary".
   ///
-  OrientationType get type => js_util.getProperty(this, 'type');
+  OrientationType get type =>
+      OrientationType.values.byName(js_util.getProperty(this, 'type'));
 
   /// Returns the document's current orientation angle.
   ///

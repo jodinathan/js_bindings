@@ -69,7 +69,8 @@ extension PropsRemotePlayback on RemotePlayback {
   ///
   ///
   ///
-  RemotePlaybackState get state => js_util.getProperty(this, 'state');
+  RemotePlaybackState get state =>
+      RemotePlaybackState.values.byName(js_util.getProperty(this, 'state'));
   EventHandlerNonNull? get onconnecting =>
       js_util.getProperty(this, 'onconnecting');
   set onconnecting(EventHandlerNonNull? newValue) {

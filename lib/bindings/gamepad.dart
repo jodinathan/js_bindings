@@ -52,7 +52,8 @@ extension PropsGamepad on Gamepad {
   ///  A string indicating whether the browser has remapped the
   /// controls on the device to a known layout.
   ///
-  GamepadMappingType get mapping => js_util.getProperty(this, 'mapping');
+  GamepadMappingType get mapping =>
+      GamepadMappingType.values.byName(js_util.getProperty(this, 'mapping'));
 
   ///  An array representing the controls with axes present on the
   /// device (e.g. analog thumb sticks).
@@ -63,7 +64,8 @@ extension PropsGamepad on Gamepad {
   /// present on the device.
   ///
   Iterable<GamepadButton> get buttons => js_util.getProperty(this, 'buttons');
-  GamepadHand get hand => js_util.getProperty(this, 'hand');
+  GamepadHand get hand =>
+      GamepadHand.values.byName(js_util.getProperty(this, 'hand'));
   Iterable<GamepadHapticActuator> get hapticActuators =>
       js_util.getProperty(this, 'hapticActuators');
   GamepadPose? get pose => js_util.getProperty(this, 'pose');
@@ -129,7 +131,7 @@ extension PropsGamepadEvent on GamepadEvent {
 @JS()
 @staticInterop
 class GamepadEventInit implements EventInit {
-  external factory GamepadEventInit({Gamepad gamepad});
+  external factory GamepadEventInit({required Gamepad gamepad});
 }
 
 extension PropsGamepadEventInit on GamepadEventInit {

@@ -4,7 +4,7 @@
 final mdnWeb = Uri(
   host: 'localhost',
   port: 5042,
-  path: 'en-US/docs/Web/API/',
+  path: 'en-US/docs/Web/',
   scheme: 'http'
 );
 

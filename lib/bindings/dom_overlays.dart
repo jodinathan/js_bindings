@@ -17,7 +17,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class XRDOMOverlayInit {
-  external factory XRDOMOverlayInit({Element root});
+  external factory XRDOMOverlayInit({required Element root});
 }
 
 extension PropsXRDOMOverlayInit on XRDOMOverlayInit {
@@ -33,12 +33,16 @@ enum XRDOMOverlayType { screen, floating, headLocked }
 @JS()
 @staticInterop
 class XRDOMOverlayState {
-  external factory XRDOMOverlayState({XRDOMOverlayType type});
+  external factory XRDOMOverlayState._({required String type});
+
+  factory XRDOMOverlayState({required XRDOMOverlayType type}) =>
+      XRDOMOverlayState._(type: type.name);
 }
 
 extension PropsXRDOMOverlayState on XRDOMOverlayState {
-  XRDOMOverlayType get type => js_util.getProperty(this, 'type');
+  XRDOMOverlayType get type =>
+      XRDOMOverlayType.values.byName(js_util.getProperty(this, 'type'));
   set type(XRDOMOverlayType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 }

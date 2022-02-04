@@ -67,12 +67,12 @@ extension PropsSanitizer on Sanitizer {
 @staticInterop
 class SanitizerConfig {
   external factory SanitizerConfig(
-      {Iterable<String> allowElements,
-      Iterable<String> blockElements,
-      Iterable<String> dropElements,
+      {required Iterable<String> allowElements,
+      required Iterable<String> blockElements,
+      required Iterable<String> dropElements,
       dynamic allowAttributes,
       dynamic dropAttributes,
-      bool allowCustomElements});
+      required bool allowCustomElements});
 }
 
 extension PropsSanitizerConfig on SanitizerConfig {

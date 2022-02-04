@@ -50,7 +50,7 @@ extension PropsInputDeviceCapabilities on InputDeviceCapabilities {
 @staticInterop
 class InputDeviceCapabilitiesInit {
   external factory InputDeviceCapabilitiesInit(
-      {bool firesTouchEvents = false, bool? pointerMovementScrolls = false});
+      {bool? firesTouchEvents = false, bool? pointerMovementScrolls = false});
 }
 
 extension PropsInputDeviceCapabilitiesInit on InputDeviceCapabilitiesInit {

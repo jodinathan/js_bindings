@@ -121,7 +121,7 @@ extension PropsCredentialsContainer on CredentialsContainer {
 @JS()
 @staticInterop
 class CredentialData {
-  external factory CredentialData({String id});
+  external factory CredentialData({required String id});
 }
 
 extension PropsCredentialData on CredentialData {
@@ -135,17 +135,22 @@ extension PropsCredentialData on CredentialData {
 @JS()
 @staticInterop
 class CredentialRequestOptions {
-  external factory CredentialRequestOptions(
-      {CredentialMediationRequirement mediation =
-          CredentialMediationRequirement.optional,
-      AbortSignal? signal});
+  external factory CredentialRequestOptions._(
+      {String? mediation, AbortSignal? signal});
+
+  factory CredentialRequestOptions(
+          {CredentialMediationRequirement? mediation =
+              CredentialMediationRequirement.optional,
+          AbortSignal? signal}) =>
+      CredentialRequestOptions._(mediation: mediation?.name, signal: signal);
 }
 
 extension PropsCredentialRequestOptions on CredentialRequestOptions {
   CredentialMediationRequirement get mediation =>
-      js_util.getProperty(this, 'mediation');
+      CredentialMediationRequirement.values
+          .byName(js_util.getProperty(this, 'mediation'));
   set mediation(CredentialMediationRequirement newValue) {
-    js_util.setProperty(this, 'mediation', newValue);
+    js_util.setProperty(this, 'mediation', newValue.name);
   }
 
   AbortSignal get signal => js_util.getProperty(this, 'signal');
@@ -160,7 +165,7 @@ enum CredentialMediationRequirement { silent, optional, valueRequired }
 @JS()
 @staticInterop
 class CredentialCreationOptions {
-  external factory CredentialCreationOptions({AbortSignal signal});
+  external factory CredentialCreationOptions({required AbortSignal signal});
 }
 
 extension PropsCredentialCreationOptions on CredentialCreationOptions {
@@ -199,7 +204,10 @@ extension PropsPasswordCredential on PasswordCredential {
 @staticInterop
 class PasswordCredentialData implements CredentialData {
   external factory PasswordCredentialData(
-      {String name, String iconURL, String origin, String password});
+      {required String name,
+      required String iconURL,
+      required String origin,
+      required String password});
 }
 
 extension PropsPasswordCredentialData on PasswordCredentialData {
@@ -259,7 +267,8 @@ extension PropsFederatedCredential on FederatedCredential {
 @staticInterop
 class FederatedCredentialRequestOptions {
   external factory FederatedCredentialRequestOptions(
-      {Iterable<String> providers, Iterable<String> protocols});
+      {required Iterable<String> providers,
+      required Iterable<String> protocols});
 }
 
 extension PropsFederatedCredentialRequestOptions
@@ -280,11 +289,11 @@ extension PropsFederatedCredentialRequestOptions
 @staticInterop
 class FederatedCredentialInit implements CredentialData {
   external factory FederatedCredentialInit(
-      {String name,
-      String iconURL,
-      String origin,
-      String provider,
-      String protocol});
+      {required String name,
+      required String iconURL,
+      required String origin,
+      required String provider,
+      required String protocol});
 }
 
 extension PropsFederatedCredentialInit on FederatedCredentialInit {

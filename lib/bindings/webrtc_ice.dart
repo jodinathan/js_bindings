@@ -17,16 +17,21 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class RTCIceGatherOptions {
-  external factory RTCIceGatherOptions(
-      {RTCIceTransportPolicy gatherPolicy = RTCIceTransportPolicy.all,
-      Iterable<RTCIceServer>? iceServers});
+  external factory RTCIceGatherOptions._(
+      {String? gatherPolicy, Iterable<RTCIceServer>? iceServers});
+
+  factory RTCIceGatherOptions(
+          {RTCIceTransportPolicy? gatherPolicy = RTCIceTransportPolicy.all,
+          Iterable<RTCIceServer>? iceServers}) =>
+      RTCIceGatherOptions._(
+          gatherPolicy: gatherPolicy?.name, iceServers: iceServers);
 }
 
 extension PropsRTCIceGatherOptions on RTCIceGatherOptions {
-  RTCIceTransportPolicy get gatherPolicy =>
-      js_util.getProperty(this, 'gatherPolicy');
+  RTCIceTransportPolicy get gatherPolicy => RTCIceTransportPolicy.values
+      .byName(js_util.getProperty(this, 'gatherPolicy'));
   set gatherPolicy(RTCIceTransportPolicy newValue) {
-    js_util.setProperty(this, 'gatherPolicy', newValue);
+    js_util.setProperty(this, 'gatherPolicy', newValue.name);
   }
 
   Iterable<RTCIceServer> get iceServers =>

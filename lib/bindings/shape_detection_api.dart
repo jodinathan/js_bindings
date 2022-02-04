@@ -28,7 +28,8 @@ extension PropsFaceDetector on FaceDetector {
 @JS()
 @staticInterop
 class FaceDetectorOptions {
-  external factory FaceDetectorOptions({int maxDetectedFaces, bool fastMode});
+  external factory FaceDetectorOptions(
+      {required int maxDetectedFaces, required bool fastMode});
 }
 
 extension PropsFaceDetectorOptions on FaceDetectorOptions {
@@ -48,7 +49,8 @@ extension PropsFaceDetectorOptions on FaceDetectorOptions {
 @staticInterop
 class DetectedFace {
   external factory DetectedFace(
-      {DOMRectReadOnly boundingBox, Iterable<Landmark> landmarks});
+      {required DOMRectReadOnly boundingBox,
+      required Iterable<Landmark> landmarks});
 }
 
 extension PropsDetectedFace on DetectedFace {
@@ -67,7 +69,12 @@ extension PropsDetectedFace on DetectedFace {
 @JS()
 @staticInterop
 class Landmark {
-  external factory Landmark({Iterable<Point2D> locations, LandmarkType type});
+  external factory Landmark._(
+      {required Iterable<Point2D> locations, required String type});
+
+  factory Landmark(
+          {required Iterable<Point2D> locations, required LandmarkType type}) =>
+      Landmark._(locations: locations, type: type.name);
 }
 
 extension PropsLandmark on Landmark {
@@ -76,9 +83,10 @@ extension PropsLandmark on Landmark {
     js_util.setProperty(this, 'locations', newValue);
   }
 
-  LandmarkType get type => js_util.getProperty(this, 'type');
+  LandmarkType get type =>
+      LandmarkType.values.byName(js_util.getProperty(this, 'type'));
   set type(LandmarkType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 }
 
@@ -129,13 +137,18 @@ extension PropsBarcodeDetector on BarcodeDetector {
 @JS()
 @staticInterop
 class BarcodeDetectorOptions {
-  external factory BarcodeDetectorOptions({Iterable<BarcodeFormat> formats});
+  external factory BarcodeDetectorOptions._(
+      {required Iterable<String> formats});
+
+  factory BarcodeDetectorOptions({required Iterable<BarcodeFormat> formats}) =>
+      BarcodeDetectorOptions._(formats: formats.names);
 }
 
 extension PropsBarcodeDetectorOptions on BarcodeDetectorOptions {
-  Iterable<BarcodeFormat> get formats => js_util.getProperty(this, 'formats');
+  Iterable<BarcodeFormat> get formats =>
+      BarcodeFormat.values.byNames(js_util.getProperty(this, 'formats'));
   set formats(Iterable<BarcodeFormat> newValue) {
-    js_util.setProperty(this, 'formats', newValue);
+    js_util.setProperty(this, 'formats', newValue.names);
   }
 }
 
@@ -143,11 +156,22 @@ extension PropsBarcodeDetectorOptions on BarcodeDetectorOptions {
 @JS()
 @staticInterop
 class DetectedBarcode {
-  external factory DetectedBarcode(
-      {DOMRectReadOnly boundingBox,
-      String rawValue,
-      BarcodeFormat format,
-      Iterable<Point2D> cornerPoints});
+  external factory DetectedBarcode._(
+      {required DOMRectReadOnly boundingBox,
+      required String rawValue,
+      required String format,
+      required Iterable<Point2D> cornerPoints});
+
+  factory DetectedBarcode(
+          {required DOMRectReadOnly boundingBox,
+          required String rawValue,
+          required BarcodeFormat format,
+          required Iterable<Point2D> cornerPoints}) =>
+      DetectedBarcode._(
+          boundingBox: boundingBox,
+          rawValue: rawValue,
+          format: format.name,
+          cornerPoints: cornerPoints);
 }
 
 extension PropsDetectedBarcode on DetectedBarcode {
@@ -161,9 +185,10 @@ extension PropsDetectedBarcode on DetectedBarcode {
     js_util.setProperty(this, 'rawValue', newValue);
   }
 
-  BarcodeFormat get format => js_util.getProperty(this, 'format');
+  BarcodeFormat get format =>
+      BarcodeFormat.values.byName(js_util.getProperty(this, 'format'));
   set format(BarcodeFormat newValue) {
-    js_util.setProperty(this, 'format', newValue);
+    js_util.setProperty(this, 'format', newValue.name);
   }
 
   Iterable<Point2D> get cornerPoints =>

@@ -45,7 +45,8 @@ class XRCompositionLayer implements XRLayer {
 extension PropsXRCompositionLayer on XRCompositionLayer {
   /// The layout type of the layer.
   ///
-  XRLayerLayout get layout => js_util.getProperty(this, 'layout');
+  XRLayerLayout get layout =>
+      XRLayerLayout.values.byName(js_util.getProperty(this, 'layout'));
 
   /// A boolean enabling the layer's texture alpha channel.
   ///
@@ -437,17 +438,29 @@ enum XRTextureType { texture, textureArray }
 @JS()
 @staticInterop
 class XRProjectionLayerInit {
-  external factory XRProjectionLayerInit(
-      {XRTextureType textureType = XRTextureType.texture,
+  external factory XRProjectionLayerInit._(
+      {String? textureType,
       int? colorFormat = 0x1908,
       int? depthFormat = 0x1902,
       double? scaleFactor = 1.0});
+
+  factory XRProjectionLayerInit(
+          {XRTextureType? textureType = XRTextureType.texture,
+          int? colorFormat = 0x1908,
+          int? depthFormat = 0x1902,
+          double? scaleFactor = 1.0}) =>
+      XRProjectionLayerInit._(
+          textureType: textureType?.name,
+          colorFormat: colorFormat,
+          depthFormat: depthFormat,
+          scaleFactor: scaleFactor);
 }
 
 extension PropsXRProjectionLayerInit on XRProjectionLayerInit {
-  XRTextureType get textureType => js_util.getProperty(this, 'textureType');
+  XRTextureType get textureType =>
+      XRTextureType.values.byName(js_util.getProperty(this, 'textureType'));
   set textureType(XRTextureType newValue) {
-    js_util.setProperty(this, 'textureType', newValue);
+    js_util.setProperty(this, 'textureType', newValue.name);
   }
 
   int get colorFormat => js_util.getProperty(this, 'colorFormat');
@@ -470,15 +483,34 @@ extension PropsXRProjectionLayerInit on XRProjectionLayerInit {
 @JS()
 @staticInterop
 class XRLayerInit {
-  external factory XRLayerInit(
-      {XRSpace space,
-      int colorFormat = 0x1908,
+  external factory XRLayerInit._(
+      {required XRSpace space,
+      int? colorFormat = 0x1908,
       int? depthFormat,
       int? mipLevels = 1,
       int? viewPixelWidth,
       int? viewPixelHeight,
-      XRLayerLayout? layout = XRLayerLayout.mono,
+      String? layout,
       bool? isStatic = false});
+
+  factory XRLayerInit(
+          {required XRSpace space,
+          int? colorFormat = 0x1908,
+          int? depthFormat,
+          int? mipLevels = 1,
+          int? viewPixelWidth,
+          int? viewPixelHeight,
+          XRLayerLayout? layout = XRLayerLayout.mono,
+          bool? isStatic = false}) =>
+      XRLayerInit._(
+          space: space,
+          colorFormat: colorFormat,
+          depthFormat: depthFormat,
+          mipLevels: mipLevels,
+          viewPixelWidth: viewPixelWidth,
+          viewPixelHeight: viewPixelHeight,
+          layout: layout?.name,
+          isStatic: isStatic);
 }
 
 extension PropsXRLayerInit on XRLayerInit {
@@ -512,9 +544,10 @@ extension PropsXRLayerInit on XRLayerInit {
     js_util.setProperty(this, 'viewPixelHeight', newValue);
   }
 
-  XRLayerLayout get layout => js_util.getProperty(this, 'layout');
+  XRLayerLayout get layout =>
+      XRLayerLayout.values.byName(js_util.getProperty(this, 'layout'));
   set layout(XRLayerLayout newValue) {
-    js_util.setProperty(this, 'layout', newValue);
+    js_util.setProperty(this, 'layout', newValue.name);
   }
 
   bool get isStatic => js_util.getProperty(this, 'isStatic');
@@ -527,17 +560,29 @@ extension PropsXRLayerInit on XRLayerInit {
 @JS()
 @staticInterop
 class XRQuadLayerInit implements XRLayerInit {
-  external factory XRQuadLayerInit(
-      {XRTextureType textureType = XRTextureType.texture,
+  external factory XRQuadLayerInit._(
+      {String? textureType,
       XRRigidTransform? transform,
       double? width = 1.0,
       double? height = 1.0});
+
+  factory XRQuadLayerInit(
+          {XRTextureType? textureType = XRTextureType.texture,
+          XRRigidTransform? transform,
+          double? width = 1.0,
+          double? height = 1.0}) =>
+      XRQuadLayerInit._(
+          textureType: textureType?.name,
+          transform: transform,
+          width: width,
+          height: height);
 }
 
 extension PropsXRQuadLayerInit on XRQuadLayerInit {
-  XRTextureType get textureType => js_util.getProperty(this, 'textureType');
+  XRTextureType get textureType =>
+      XRTextureType.values.byName(js_util.getProperty(this, 'textureType'));
   set textureType(XRTextureType newValue) {
-    js_util.setProperty(this, 'textureType', newValue);
+    js_util.setProperty(this, 'textureType', newValue.name);
   }
 
   XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
@@ -560,18 +605,32 @@ extension PropsXRQuadLayerInit on XRQuadLayerInit {
 @JS()
 @staticInterop
 class XRCylinderLayerInit implements XRLayerInit {
-  external factory XRCylinderLayerInit(
-      {XRTextureType textureType = XRTextureType.texture,
+  external factory XRCylinderLayerInit._(
+      {String? textureType,
       XRRigidTransform? transform,
       double? radius = 2.0,
       double? centralAngle = 0.78539,
       double? aspectRatio = 2.0});
+
+  factory XRCylinderLayerInit(
+          {XRTextureType? textureType = XRTextureType.texture,
+          XRRigidTransform? transform,
+          double? radius = 2.0,
+          double? centralAngle = 0.78539,
+          double? aspectRatio = 2.0}) =>
+      XRCylinderLayerInit._(
+          textureType: textureType?.name,
+          transform: transform,
+          radius: radius,
+          centralAngle: centralAngle,
+          aspectRatio: aspectRatio);
 }
 
 extension PropsXRCylinderLayerInit on XRCylinderLayerInit {
-  XRTextureType get textureType => js_util.getProperty(this, 'textureType');
+  XRTextureType get textureType =>
+      XRTextureType.values.byName(js_util.getProperty(this, 'textureType'));
   set textureType(XRTextureType newValue) {
-    js_util.setProperty(this, 'textureType', newValue);
+    js_util.setProperty(this, 'textureType', newValue.name);
   }
 
   XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
@@ -599,19 +658,35 @@ extension PropsXRCylinderLayerInit on XRCylinderLayerInit {
 @JS()
 @staticInterop
 class XREquirectLayerInit implements XRLayerInit {
-  external factory XREquirectLayerInit(
-      {XRTextureType textureType = XRTextureType.texture,
+  external factory XREquirectLayerInit._(
+      {String? textureType,
       XRRigidTransform? transform,
       double? radius = 0,
       double? centralHorizontalAngle = 6.28318,
       double? upperVerticalAngle = 1.570795,
       double? lowerVerticalAngle = -1.570795});
+
+  factory XREquirectLayerInit(
+          {XRTextureType? textureType = XRTextureType.texture,
+          XRRigidTransform? transform,
+          double? radius = 0,
+          double? centralHorizontalAngle = 6.28318,
+          double? upperVerticalAngle = 1.570795,
+          double? lowerVerticalAngle = -1.570795}) =>
+      XREquirectLayerInit._(
+          textureType: textureType?.name,
+          transform: transform,
+          radius: radius,
+          centralHorizontalAngle: centralHorizontalAngle,
+          upperVerticalAngle: upperVerticalAngle,
+          lowerVerticalAngle: lowerVerticalAngle);
 }
 
 extension PropsXREquirectLayerInit on XREquirectLayerInit {
-  XRTextureType get textureType => js_util.getProperty(this, 'textureType');
+  XRTextureType get textureType =>
+      XRTextureType.values.byName(js_util.getProperty(this, 'textureType'));
   set textureType(XRTextureType newValue) {
-    js_util.setProperty(this, 'textureType', newValue);
+    js_util.setProperty(this, 'textureType', newValue.name);
   }
 
   XRRigidTransform? get transform => js_util.getProperty(this, 'transform');
@@ -1142,7 +1217,7 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
           ///   Defaults to [none].
           ///
           XREye? eye = XREye.none]) =>
-      js_util.callMethod(this, 'getSubImage', [layer, frame, eye]);
+      js_util.callMethod(this, 'getSubImage', [layer, frame, eye?.name]);
 
   ///  Returns an [XRWebGLSubImage] object representing the WebGL
   /// texture to render for an [XRView].
@@ -1172,10 +1247,15 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
 @JS()
 @staticInterop
 class XRMediaLayerInit {
-  external factory XRMediaLayerInit(
-      {XRSpace space,
-      XRLayerLayout layout = XRLayerLayout.mono,
-      bool? invertStereo = false});
+  external factory XRMediaLayerInit._(
+      {required XRSpace space, String? layout, bool? invertStereo = false});
+
+  factory XRMediaLayerInit(
+          {required XRSpace space,
+          XRLayerLayout? layout = XRLayerLayout.mono,
+          bool? invertStereo = false}) =>
+      XRMediaLayerInit._(
+          space: space, layout: layout?.name, invertStereo: invertStereo);
 }
 
 extension PropsXRMediaLayerInit on XRMediaLayerInit {
@@ -1184,9 +1264,10 @@ extension PropsXRMediaLayerInit on XRMediaLayerInit {
     js_util.setProperty(this, 'space', newValue);
   }
 
-  XRLayerLayout get layout => js_util.getProperty(this, 'layout');
+  XRLayerLayout get layout =>
+      XRLayerLayout.values.byName(js_util.getProperty(this, 'layout'));
   set layout(XRLayerLayout newValue) {
-    js_util.setProperty(this, 'layout', newValue);
+    js_util.setProperty(this, 'layout', newValue.name);
   }
 
   bool get invertStereo => js_util.getProperty(this, 'invertStereo');
@@ -1226,7 +1307,7 @@ extension PropsXRMediaQuadLayerInit on XRMediaQuadLayerInit {
 class XRMediaCylinderLayerInit implements XRMediaLayerInit {
   external factory XRMediaCylinderLayerInit(
       {XRRigidTransform? transform,
-      double radius = 2.0,
+      double? radius = 2.0,
       double? centralAngle = 0.78539,
       double? aspectRatio});
 }
@@ -1259,7 +1340,7 @@ extension PropsXRMediaCylinderLayerInit on XRMediaCylinderLayerInit {
 class XRMediaEquirectLayerInit implements XRMediaLayerInit {
   external factory XRMediaEquirectLayerInit(
       {XRRigidTransform? transform,
-      double radius = 0.0,
+      double? radius = 0.0,
       double? centralHorizontalAngle = 6.28318,
       double? upperVerticalAngle = 1.570795,
       double? lowerVerticalAngle = -1.570795});
@@ -1374,7 +1455,7 @@ extension PropsXRLayerEvent on XRLayerEvent {
 @JS()
 @staticInterop
 class XRLayerEventInit implements EventInit {
-  external factory XRLayerEventInit({XRLayer layer});
+  external factory XRLayerEventInit({required XRLayer layer});
 }
 
 extension PropsXRLayerEventInit on XRLayerEventInit {

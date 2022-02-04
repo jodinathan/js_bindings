@@ -20,10 +20,17 @@ enum XRHitTestTrackableType { point, plane, mesh }
 @JS()
 @staticInterop
 class XRHitTestOptionsInit {
-  external factory XRHitTestOptionsInit(
-      {XRSpace space,
-      Iterable<XRHitTestTrackableType> entityTypes,
-      XRRay offsetRay});
+  external factory XRHitTestOptionsInit._(
+      {required XRSpace space,
+      required Iterable<String> entityTypes,
+      required XRRay offsetRay});
+
+  factory XRHitTestOptionsInit(
+          {required XRSpace space,
+          required Iterable<XRHitTestTrackableType> entityTypes,
+          required XRRay offsetRay}) =>
+      XRHitTestOptionsInit._(
+          space: space, entityTypes: entityTypes.names, offsetRay: offsetRay);
 }
 
 extension PropsXRHitTestOptionsInit on XRHitTestOptionsInit {
@@ -33,9 +40,10 @@ extension PropsXRHitTestOptionsInit on XRHitTestOptionsInit {
   }
 
   Iterable<XRHitTestTrackableType> get entityTypes =>
-      js_util.getProperty(this, 'entityTypes');
+      XRHitTestTrackableType.values
+          .byNames(js_util.getProperty(this, 'entityTypes'));
   set entityTypes(Iterable<XRHitTestTrackableType> newValue) {
-    js_util.setProperty(this, 'entityTypes', newValue);
+    js_util.setProperty(this, 'entityTypes', newValue.names);
   }
 
   XRRay get offsetRay => js_util.getProperty(this, 'offsetRay');
@@ -48,10 +56,19 @@ extension PropsXRHitTestOptionsInit on XRHitTestOptionsInit {
 @JS()
 @staticInterop
 class XRTransientInputHitTestOptionsInit {
-  external factory XRTransientInputHitTestOptionsInit(
-      {String profile,
-      Iterable<XRHitTestTrackableType> entityTypes,
-      XRRay offsetRay});
+  external factory XRTransientInputHitTestOptionsInit._(
+      {required String profile,
+      required Iterable<String> entityTypes,
+      required XRRay offsetRay});
+
+  factory XRTransientInputHitTestOptionsInit(
+          {required String profile,
+          required Iterable<XRHitTestTrackableType> entityTypes,
+          required XRRay offsetRay}) =>
+      XRTransientInputHitTestOptionsInit._(
+          profile: profile,
+          entityTypes: entityTypes.names,
+          offsetRay: offsetRay);
 }
 
 extension PropsXRTransientInputHitTestOptionsInit
@@ -62,9 +79,10 @@ extension PropsXRTransientInputHitTestOptionsInit
   }
 
   Iterable<XRHitTestTrackableType> get entityTypes =>
-      js_util.getProperty(this, 'entityTypes');
+      XRHitTestTrackableType.values
+          .byNames(js_util.getProperty(this, 'entityTypes'));
   set entityTypes(Iterable<XRHitTestTrackableType> newValue) {
-    js_util.setProperty(this, 'entityTypes', newValue);
+    js_util.setProperty(this, 'entityTypes', newValue.names);
   }
 
   XRRay get offsetRay => js_util.getProperty(this, 'offsetRay');
@@ -180,7 +198,7 @@ extension PropsXRTransientInputHitTestResult on XRTransientInputHitTestResult {
 @staticInterop
 class XRRayDirectionInit {
   external factory XRRayDirectionInit(
-      {double x = 0, double? y = 0, double? z = -1, double? w = 0});
+      {double? x = 0, double? y = 0, double? z = -1, double? w = 0});
 }
 
 extension PropsXRRayDirectionInit on XRRayDirectionInit {

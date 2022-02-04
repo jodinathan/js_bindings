@@ -85,7 +85,8 @@ extension PropsLayoutConstraints on LayoutConstraints {
   double? get blockFragmentationOffset =>
       js_util.getProperty(this, 'blockFragmentationOffset');
   BlockFragmentationType get blockFragmentationType =>
-      js_util.getProperty(this, 'blockFragmentationType');
+      BlockFragmentationType.values
+          .byName(js_util.getProperty(this, 'blockFragmentationType'));
   dynamic get data => js_util.getProperty(this, 'data');
 }
 
@@ -93,17 +94,38 @@ extension PropsLayoutConstraints on LayoutConstraints {
 @JS()
 @staticInterop
 class LayoutConstraintsOptions {
-  external factory LayoutConstraintsOptions(
-      {double availableInlineSize,
-      double availableBlockSize,
-      double fixedInlineSize,
-      double fixedBlockSize,
-      double percentageInlineSize,
-      double percentageBlockSize,
-      double blockFragmentationOffset,
-      BlockFragmentationType blockFragmentationType =
-          BlockFragmentationType.none,
+  external factory LayoutConstraintsOptions._(
+      {required double availableInlineSize,
+      required double availableBlockSize,
+      required double fixedInlineSize,
+      required double fixedBlockSize,
+      required double percentageInlineSize,
+      required double percentageBlockSize,
+      required double blockFragmentationOffset,
+      String? blockFragmentationType,
       dynamic data});
+
+  factory LayoutConstraintsOptions(
+          {required double availableInlineSize,
+          required double availableBlockSize,
+          required double fixedInlineSize,
+          required double fixedBlockSize,
+          required double percentageInlineSize,
+          required double percentageBlockSize,
+          required double blockFragmentationOffset,
+          BlockFragmentationType? blockFragmentationType =
+              BlockFragmentationType.none,
+          dynamic data}) =>
+      LayoutConstraintsOptions._(
+          availableInlineSize: availableInlineSize,
+          availableBlockSize: availableBlockSize,
+          fixedInlineSize: fixedInlineSize,
+          fixedBlockSize: fixedBlockSize,
+          percentageInlineSize: percentageInlineSize,
+          percentageBlockSize: percentageBlockSize,
+          blockFragmentationOffset: blockFragmentationOffset,
+          blockFragmentationType: blockFragmentationType?.name,
+          data: data);
 }
 
 extension PropsLayoutConstraintsOptions on LayoutConstraintsOptions {
@@ -148,9 +170,10 @@ extension PropsLayoutConstraintsOptions on LayoutConstraintsOptions {
   }
 
   BlockFragmentationType get blockFragmentationType =>
-      js_util.getProperty(this, 'blockFragmentationType');
+      BlockFragmentationType.values
+          .byName(js_util.getProperty(this, 'blockFragmentationType'));
   set blockFragmentationType(BlockFragmentationType newValue) {
-    js_util.setProperty(this, 'blockFragmentationType', newValue);
+    js_util.setProperty(this, 'blockFragmentationType', newValue.name);
   }
 
   dynamic get data => js_util.getProperty(this, 'data');
@@ -168,7 +191,8 @@ class ChildBreakToken {
 }
 
 extension PropsChildBreakToken on ChildBreakToken {
-  BreakType get breakType => js_util.getProperty(this, 'breakType');
+  BreakType get breakType =>
+      BreakType.values.byName(js_util.getProperty(this, 'breakType'));
   LayoutChild get child => js_util.getProperty(this, 'child');
 }
 
@@ -189,7 +213,7 @@ extension PropsBreakToken on BreakToken {
 @staticInterop
 class BreakTokenOptions {
   external factory BreakTokenOptions(
-      {Iterable<ChildBreakToken> childBreakTokens, dynamic data});
+      {required Iterable<ChildBreakToken> childBreakTokens, dynamic data});
 }
 
 extension PropsBreakTokenOptions on BreakTokenOptions {
@@ -252,21 +276,25 @@ extension PropsLayoutWorkletGlobalScope on LayoutWorkletGlobalScope {
 @JS()
 @staticInterop
 class LayoutOptions {
-  external factory LayoutOptions(
-      {ChildDisplayType childDisplay = ChildDisplayType.block,
-      LayoutSizingMode? sizing = LayoutSizingMode.blockLike});
+  external factory LayoutOptions._({String? childDisplay, String? sizing});
+
+  factory LayoutOptions(
+          {ChildDisplayType? childDisplay = ChildDisplayType.block,
+          LayoutSizingMode? sizing = LayoutSizingMode.blockLike}) =>
+      LayoutOptions._(childDisplay: childDisplay?.name, sizing: sizing?.name);
 }
 
 extension PropsLayoutOptions on LayoutOptions {
   ChildDisplayType get childDisplay =>
-      js_util.getProperty(this, 'childDisplay');
+      ChildDisplayType.values.byName(js_util.getProperty(this, 'childDisplay'));
   set childDisplay(ChildDisplayType newValue) {
-    js_util.setProperty(this, 'childDisplay', newValue);
+    js_util.setProperty(this, 'childDisplay', newValue.name);
   }
 
-  LayoutSizingMode get sizing => js_util.getProperty(this, 'sizing');
+  LayoutSizingMode get sizing =>
+      LayoutSizingMode.values.byName(js_util.getProperty(this, 'sizing'));
   set sizing(LayoutSizingMode newValue) {
-    js_util.setProperty(this, 'sizing', newValue);
+    js_util.setProperty(this, 'sizing', newValue.name);
   }
 }
 
@@ -291,7 +319,7 @@ class LayoutFragmentRequest {
 @staticInterop
 class FragmentResultOptions {
   external factory FragmentResultOptions(
-      {double inlineSize = 0,
+      {double? inlineSize = 0,
       double? blockSize = 0,
       double? autoBlockSize = 0,
       Iterable<LayoutFragment>? childFragments = const [],
@@ -337,7 +365,7 @@ extension PropsFragmentResultOptions on FragmentResultOptions {
 @staticInterop
 class IntrinsicSizesResultOptions {
   external factory IntrinsicSizesResultOptions(
-      {double maxContentSize, double minContentSize});
+      {required double maxContentSize, required double minContentSize});
 }
 
 extension PropsIntrinsicSizesResultOptions on IntrinsicSizesResultOptions {

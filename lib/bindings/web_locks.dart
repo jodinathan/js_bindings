@@ -72,17 +72,29 @@ enum LockMode { shared, exclusive }
 @JS()
 @staticInterop
 class LockOptions {
-  external factory LockOptions(
-      {LockMode mode = LockMode.exclusive,
+  external factory LockOptions._(
+      {String? mode,
       bool? ifAvailable = false,
       bool? steal = false,
       AbortSignal? signal});
+
+  factory LockOptions(
+          {LockMode? mode = LockMode.exclusive,
+          bool? ifAvailable = false,
+          bool? steal = false,
+          AbortSignal? signal}) =>
+      LockOptions._(
+          mode: mode?.name,
+          ifAvailable: ifAvailable,
+          steal: steal,
+          signal: signal);
 }
 
 extension PropsLockOptions on LockOptions {
-  LockMode get mode => js_util.getProperty(this, 'mode');
+  LockMode get mode =>
+      LockMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(LockMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 
   bool get ifAvailable => js_util.getProperty(this, 'ifAvailable');
@@ -106,7 +118,7 @@ extension PropsLockOptions on LockOptions {
 @staticInterop
 class LockManagerSnapshot {
   external factory LockManagerSnapshot(
-      {Iterable<LockInfo> held, Iterable<LockInfo> pending});
+      {required Iterable<LockInfo> held, required Iterable<LockInfo> pending});
 }
 
 extension PropsLockManagerSnapshot on LockManagerSnapshot {
@@ -125,7 +137,14 @@ extension PropsLockManagerSnapshot on LockManagerSnapshot {
 @JS()
 @staticInterop
 class LockInfo {
-  external factory LockInfo({String name, LockMode mode, String clientId});
+  external factory LockInfo._(
+      {required String name, required String mode, required String clientId});
+
+  factory LockInfo(
+          {required String name,
+          required LockMode mode,
+          required String clientId}) =>
+      LockInfo._(name: name, mode: mode.name, clientId: clientId);
 }
 
 extension PropsLockInfo on LockInfo {
@@ -134,9 +153,10 @@ extension PropsLockInfo on LockInfo {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  LockMode get mode => js_util.getProperty(this, 'mode');
+  LockMode get mode =>
+      LockMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(LockMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 
   String get clientId => js_util.getProperty(this, 'clientId');
@@ -174,5 +194,6 @@ extension PropsLock on Lock {
   ///    The mode is either ["exclusive"] (the default) or ["shared"].
   ///
   ///
-  LockMode get mode => js_util.getProperty(this, 'mode');
+  LockMode get mode =>
+      LockMode.values.byName(js_util.getProperty(this, 'mode'));
 }

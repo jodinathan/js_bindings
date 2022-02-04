@@ -52,7 +52,7 @@ extension PropsTransitionEvent on TransitionEvent {
 @staticInterop
 class TransitionEventInit implements EventInit {
   external factory TransitionEventInit(
-      {String propertyName = '',
+      {String? propertyName = '',
       double? elapsedTime = 0.0,
       String? pseudoElement = ''});
 }

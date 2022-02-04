@@ -102,7 +102,8 @@ extension PropsCookieStore on CookieStore {
 @JS()
 @staticInterop
 class CookieStoreGetOptions {
-  external factory CookieStoreGetOptions({String name, String url});
+  external factory CookieStoreGetOptions(
+      {required String name, required String url});
 }
 
 extension PropsCookieStoreGetOptions on CookieStoreGetOptions {
@@ -123,13 +124,28 @@ enum CookieSameSite { strict, lax, none }
 @JS()
 @staticInterop
 class CookieInit {
-  external factory CookieInit(
-      {String name,
-      String value,
+  external factory CookieInit._(
+      {required String name,
+      required String value,
       int? expires,
       String? domain,
-      String path = '/',
-      CookieSameSite? sameSite = CookieSameSite.strict});
+      String? path = '/',
+      String? sameSite});
+
+  factory CookieInit(
+          {required String name,
+          required String value,
+          int? expires,
+          String? domain,
+          String? path = '/',
+          CookieSameSite? sameSite = CookieSameSite.strict}) =>
+      CookieInit._(
+          name: name,
+          value: value,
+          expires: expires,
+          domain: domain,
+          path: path,
+          sameSite: sameSite?.name);
 }
 
 extension PropsCookieInit on CookieInit {
@@ -158,9 +174,10 @@ extension PropsCookieInit on CookieInit {
     js_util.setProperty(this, 'path', newValue);
   }
 
-  CookieSameSite get sameSite => js_util.getProperty(this, 'sameSite');
+  CookieSameSite get sameSite =>
+      CookieSameSite.values.byName(js_util.getProperty(this, 'sameSite'));
   set sameSite(CookieSameSite newValue) {
-    js_util.setProperty(this, 'sameSite', newValue);
+    js_util.setProperty(this, 'sameSite', newValue.name);
   }
 }
 
@@ -169,7 +186,7 @@ extension PropsCookieInit on CookieInit {
 @staticInterop
 class CookieStoreDeleteOptions {
   external factory CookieStoreDeleteOptions(
-      {String name, String? domain, String path = '/'});
+      {required String name, String? domain, String? path = '/'});
 }
 
 extension PropsCookieStoreDeleteOptions on CookieStoreDeleteOptions {
@@ -193,14 +210,31 @@ extension PropsCookieStoreDeleteOptions on CookieStoreDeleteOptions {
 @JS()
 @staticInterop
 class CookieListItem {
-  external factory CookieListItem(
-      {String name,
-      String value,
+  external factory CookieListItem._(
+      {required String name,
+      required String value,
       String? domain,
-      String path,
+      required String path,
       int? expires,
-      bool secure,
-      CookieSameSite sameSite});
+      required bool secure,
+      required String sameSite});
+
+  factory CookieListItem(
+          {required String name,
+          required String value,
+          String? domain,
+          required String path,
+          int? expires,
+          required bool secure,
+          required CookieSameSite sameSite}) =>
+      CookieListItem._(
+          name: name,
+          value: value,
+          domain: domain,
+          path: path,
+          expires: expires,
+          secure: secure,
+          sameSite: sameSite.name);
 }
 
 extension PropsCookieListItem on CookieListItem {
@@ -234,9 +268,10 @@ extension PropsCookieListItem on CookieListItem {
     js_util.setProperty(this, 'secure', newValue);
   }
 
-  CookieSameSite get sameSite => js_util.getProperty(this, 'sameSite');
+  CookieSameSite get sameSite =>
+      CookieSameSite.values.byName(js_util.getProperty(this, 'sameSite'));
   set sameSite(CookieSameSite newValue) {
-    js_util.setProperty(this, 'sameSite', newValue);
+    js_util.setProperty(this, 'sameSite', newValue.name);
   }
 }
 
@@ -327,7 +362,8 @@ extension PropsCookieChangeEvent on CookieChangeEvent {
 @staticInterop
 class CookieChangeEventInit implements EventInit {
   external factory CookieChangeEventInit(
-      {Iterable<CookieListItem> changed, Iterable<CookieListItem> deleted});
+      {required Iterable<CookieListItem> changed,
+      required Iterable<CookieListItem> deleted});
 }
 
 extension PropsCookieChangeEventInit on CookieChangeEventInit {
@@ -381,7 +417,8 @@ extension PropsExtendableCookieChangeEvent on ExtendableCookieChangeEvent {
 @staticInterop
 class ExtendableCookieChangeEventInit implements ExtendableEventInit {
   external factory ExtendableCookieChangeEventInit(
-      {Iterable<CookieListItem> changed, Iterable<CookieListItem> deleted});
+      {required Iterable<CookieListItem> changed,
+      required Iterable<CookieListItem> deleted});
 }
 
 extension PropsExtendableCookieChangeEventInit

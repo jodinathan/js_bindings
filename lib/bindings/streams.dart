@@ -87,15 +87,19 @@ enum ReadableStreamReaderMode { byob }
 @JS()
 @staticInterop
 class ReadableStreamGetReaderOptions {
-  external factory ReadableStreamGetReaderOptions(
-      {ReadableStreamReaderMode mode});
+  external factory ReadableStreamGetReaderOptions._({required String mode});
+
+  factory ReadableStreamGetReaderOptions(
+          {required ReadableStreamReaderMode mode}) =>
+      ReadableStreamGetReaderOptions._(mode: mode.name);
 }
 
 extension PropsReadableStreamGetReaderOptions
     on ReadableStreamGetReaderOptions {
-  ReadableStreamReaderMode get mode => js_util.getProperty(this, 'mode');
+  ReadableStreamReaderMode get mode =>
+      ReadableStreamReaderMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(ReadableStreamReaderMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 }
 
@@ -103,7 +107,7 @@ extension PropsReadableStreamGetReaderOptions
 @JS()
 @staticInterop
 class ReadableStreamIteratorOptions {
-  external factory ReadableStreamIteratorOptions({bool preventCancel = false});
+  external factory ReadableStreamIteratorOptions({bool? preventCancel = false});
 }
 
 extension PropsReadableStreamIteratorOptions on ReadableStreamIteratorOptions {
@@ -118,7 +122,7 @@ extension PropsReadableStreamIteratorOptions on ReadableStreamIteratorOptions {
 @staticInterop
 class ReadableWritablePair {
   external factory ReadableWritablePair(
-      {ReadableStream readable, WritableStream writable});
+      {required ReadableStream readable, required WritableStream writable});
 }
 
 extension PropsReadableWritablePair on ReadableWritablePair {
@@ -138,7 +142,7 @@ extension PropsReadableWritablePair on ReadableWritablePair {
 @staticInterop
 class StreamPipeOptions {
   external factory StreamPipeOptions(
-      {bool preventClose = false,
+      {bool? preventClose = false,
       bool? preventAbort = false,
       bool? preventCancel = false,
       AbortSignal? signal});
@@ -170,12 +174,25 @@ extension PropsStreamPipeOptions on StreamPipeOptions {
 @JS()
 @staticInterop
 class UnderlyingSource {
-  external factory UnderlyingSource(
-      {UnderlyingSourceStartCallback start,
-      UnderlyingSourcePullCallback pull,
-      UnderlyingSourceCancelCallback cancel,
-      ReadableStreamType type,
-      int autoAllocateChunkSize});
+  external factory UnderlyingSource._(
+      {required UnderlyingSourceStartCallback start,
+      required UnderlyingSourcePullCallback pull,
+      required UnderlyingSourceCancelCallback cancel,
+      required String type,
+      required int autoAllocateChunkSize});
+
+  factory UnderlyingSource(
+          {required UnderlyingSourceStartCallback start,
+          required UnderlyingSourcePullCallback pull,
+          required UnderlyingSourceCancelCallback cancel,
+          required ReadableStreamType type,
+          required int autoAllocateChunkSize}) =>
+      UnderlyingSource._(
+          start: start,
+          pull: pull,
+          cancel: cancel,
+          type: type.name,
+          autoAllocateChunkSize: autoAllocateChunkSize);
 }
 
 extension PropsUnderlyingSource on UnderlyingSource {
@@ -195,9 +212,10 @@ extension PropsUnderlyingSource on UnderlyingSource {
     js_util.setProperty(this, 'cancel', newValue);
   }
 
-  ReadableStreamType get type => js_util.getProperty(this, 'type');
+  ReadableStreamType get type =>
+      ReadableStreamType.values.byName(js_util.getProperty(this, 'type'));
   set type(ReadableStreamType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   int get autoAllocateChunkSize =>
@@ -251,7 +269,8 @@ extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
 @JS()
 @staticInterop
 class ReadableStreamDefaultReadResult {
-  external factory ReadableStreamDefaultReadResult({dynamic value, bool done});
+  external factory ReadableStreamDefaultReadResult(
+      {dynamic value, required bool done});
 }
 
 extension PropsReadableStreamDefaultReadResult
@@ -301,7 +320,8 @@ extension PropsReadableStreamBYOBReader on ReadableStreamBYOBReader {
 @JS()
 @staticInterop
 class ReadableStreamBYOBReadResult {
-  external factory ReadableStreamBYOBReadResult({dynamic value, bool done});
+  external factory ReadableStreamBYOBReadResult(
+      {dynamic value, required bool done});
 }
 
 extension PropsReadableStreamBYOBReadResult on ReadableStreamBYOBReadResult {
@@ -484,10 +504,10 @@ extension PropsWritableStream on WritableStream {
 @staticInterop
 class UnderlyingSink {
   external factory UnderlyingSink(
-      {UnderlyingSinkStartCallback start,
-      UnderlyingSinkWriteCallback write,
-      UnderlyingSinkCloseCallback close,
-      UnderlyingSinkAbortCallback abort,
+      {required UnderlyingSinkStartCallback start,
+      required UnderlyingSinkWriteCallback write,
+      required UnderlyingSinkCloseCallback close,
+      required UnderlyingSinkAbortCallback abort,
       dynamic type});
 }
 
@@ -640,9 +660,9 @@ extension PropsTransformStream on TransformStream {
 @staticInterop
 class Transformer {
   external factory Transformer(
-      {TransformerStartCallback start,
-      TransformerTransformCallback transform,
-      TransformerFlushCallback flush,
+      {required TransformerStartCallback start,
+      required TransformerTransformCallback transform,
+      required TransformerFlushCallback flush,
       dynamic readableType,
       dynamic writableType});
 }
@@ -736,7 +756,8 @@ extension PropsTransformStreamDefaultController
 @staticInterop
 class QueuingStrategy {
   external factory QueuingStrategy(
-      {/* double | NaN */ dynamic highWaterMark, QueuingStrategySize size});
+      {/* double | NaN */ dynamic highWaterMark,
+      required QueuingStrategySize size});
 }
 
 extension PropsQueuingStrategy on QueuingStrategy {

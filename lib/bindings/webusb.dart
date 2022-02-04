@@ -19,12 +19,12 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class USBDeviceFilter {
   external factory USBDeviceFilter(
-      {int vendorId,
-      int productId,
-      int classCode,
-      int subclassCode,
-      int protocolCode,
-      String serialNumber});
+      {required int vendorId,
+      required int productId,
+      required int classCode,
+      required int subclassCode,
+      required int protocolCode,
+      required String serialNumber});
 }
 
 extension PropsUSBDeviceFilter on USBDeviceFilter {
@@ -63,7 +63,8 @@ extension PropsUSBDeviceFilter on USBDeviceFilter {
 @JS()
 @staticInterop
 class USBDeviceRequestOptions {
-  external factory USBDeviceRequestOptions({Iterable<USBDeviceFilter> filters});
+  external factory USBDeviceRequestOptions(
+      {required Iterable<USBDeviceFilter> filters});
 }
 
 extension PropsUSBDeviceRequestOptions on USBDeviceRequestOptions {
@@ -169,7 +170,7 @@ extension PropsUsb on Usb {
 @JS()
 @staticInterop
 class USBConnectionEventInit implements EventInit {
-  external factory USBConnectionEventInit({USBDevice device});
+  external factory USBConnectionEventInit({required USBDevice device});
 }
 
 extension PropsUSBConnectionEventInit on USBConnectionEventInit {
@@ -417,8 +418,8 @@ extension PropsUSBDevice on USBDevice {
   /// }
   ///
   Future<Object> clearHalt(USBDirection direction, int endpointNumber) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'clearHalt', [direction, endpointNumber]));
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'clearHalt', [direction.name, endpointNumber]));
 
   ///  Returns a [Future] that resolves with a [USBInTransferResult]
   /// when bulk or interrupt data is received from the USB device.
@@ -479,23 +480,38 @@ enum USBTransferStatus { ok, stall, babble }
 @JS()
 @staticInterop
 class USBControlTransferParameters {
-  external factory USBControlTransferParameters(
-      {USBRequestType requestType,
-      USBRecipient recipient,
-      int request,
-      int value,
-      int index});
+  external factory USBControlTransferParameters._(
+      {required String requestType,
+      required String recipient,
+      required int request,
+      required int value,
+      required int index});
+
+  factory USBControlTransferParameters(
+          {required USBRequestType requestType,
+          required USBRecipient recipient,
+          required int request,
+          required int value,
+          required int index}) =>
+      USBControlTransferParameters._(
+          requestType: requestType.name,
+          recipient: recipient.name,
+          request: request,
+          value: value,
+          index: index);
 }
 
 extension PropsUSBControlTransferParameters on USBControlTransferParameters {
-  USBRequestType get requestType => js_util.getProperty(this, 'requestType');
+  USBRequestType get requestType =>
+      USBRequestType.values.byName(js_util.getProperty(this, 'requestType'));
   set requestType(USBRequestType newValue) {
-    js_util.setProperty(this, 'requestType', newValue);
+    js_util.setProperty(this, 'requestType', newValue.name);
   }
 
-  USBRecipient get recipient => js_util.getProperty(this, 'recipient');
+  USBRecipient get recipient =>
+      USBRecipient.values.byName(js_util.getProperty(this, 'recipient'));
   set recipient(USBRecipient newValue) {
-    js_util.setProperty(this, 'recipient', newValue);
+    js_util.setProperty(this, 'recipient', newValue.name);
   }
 
   int get request => js_util.getProperty(this, 'request');
@@ -524,7 +540,10 @@ extension PropsUSBControlTransferParameters on USBControlTransferParameters {
 @JS()
 @staticInterop
 class USBInTransferResult {
-  external USBInTransferResult(USBTransferStatus status, [ByteData? data]);
+  external USBInTransferResult._(String status, [ByteData? data]);
+
+  factory USBInTransferResult(USBTransferStatus status, [ByteData? data]) =>
+      USBInTransferResult._(status.name, data);
 }
 
 extension PropsUSBInTransferResult on USBInTransferResult {
@@ -545,7 +564,8 @@ extension PropsUSBInTransferResult on USBInTransferResult {
   /// expected.
   ///
   ///
-  USBTransferStatus get status => js_util.getProperty(this, 'status');
+  USBTransferStatus get status =>
+      USBTransferStatus.values.byName(js_util.getProperty(this, 'status'));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -558,8 +578,11 @@ extension PropsUSBInTransferResult on USBInTransferResult {
 @JS()
 @staticInterop
 class USBOutTransferResult {
-  external USBOutTransferResult(USBTransferStatus status,
-      [int? bytesWritten = 0]);
+  external USBOutTransferResult._(String status, [int? bytesWritten = 0]);
+
+  factory USBOutTransferResult(USBTransferStatus status,
+          [int? bytesWritten = 0]) =>
+      USBOutTransferResult._(status.name, bytesWritten);
 }
 
 extension PropsUSBOutTransferResult on USBOutTransferResult {
@@ -577,7 +600,8 @@ extension PropsUSBOutTransferResult on USBOutTransferResult {
   /// [transferOut()] can be called again.
   ///
   ///
-  USBTransferStatus get status => js_util.getProperty(this, 'status');
+  USBTransferStatus get status =>
+      USBTransferStatus.values.byName(js_util.getProperty(this, 'status'));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -591,8 +615,11 @@ extension PropsUSBOutTransferResult on USBOutTransferResult {
 @JS()
 @staticInterop
 class USBIsochronousInTransferPacket {
-  external USBIsochronousInTransferPacket(USBTransferStatus status,
-      [ByteData? data]);
+  external USBIsochronousInTransferPacket._(String status, [ByteData? data]);
+
+  factory USBIsochronousInTransferPacket(USBTransferStatus status,
+          [ByteData? data]) =>
+      USBIsochronousInTransferPacket._(status.name, data);
 }
 
 extension PropsUSBIsochronousInTransferPacket
@@ -612,7 +639,8 @@ extension PropsUSBIsochronousInTransferPacket
   /// expected.
   ///
   ///
-  USBTransferStatus get status => js_util.getProperty(this, 'status');
+  USBTransferStatus get status =>
+      USBTransferStatus.values.byName(js_util.getProperty(this, 'status'));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -658,8 +686,12 @@ extension PropsUSBIsochronousInTransferResult
 @JS()
 @staticInterop
 class USBIsochronousOutTransferPacket {
-  external USBIsochronousOutTransferPacket(USBTransferStatus status,
+  external USBIsochronousOutTransferPacket._(String status,
       [int? bytesWritten = 0]);
+
+  factory USBIsochronousOutTransferPacket(USBTransferStatus status,
+          [int? bytesWritten = 0]) =>
+      USBIsochronousOutTransferPacket._(status.name, bytesWritten);
 }
 
 extension PropsUSBIsochronousOutTransferPacket
@@ -677,7 +709,8 @@ extension PropsUSBIsochronousOutTransferPacket
   /// endpoint does not need to be cleared.
   ///
   ///
-  USBTransferStatus get status => js_util.getProperty(this, 'status');
+  USBTransferStatus get status =>
+      USBTransferStatus.values.byName(js_util.getProperty(this, 'status'));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -848,8 +881,12 @@ enum USBEndpointType { bulk, interrupt, isochronous }
 @JS()
 @staticInterop
 class USBEndpoint {
-  external USBEndpoint(USBAlternateInterface alternate, int endpointNumber,
-      USBDirection direction);
+  external USBEndpoint._(
+      USBAlternateInterface alternate, int endpointNumber, String direction);
+
+  factory USBEndpoint(USBAlternateInterface alternate, int endpointNumber,
+          USBDirection direction) =>
+      USBEndpoint._(alternate, endpointNumber, direction.name);
 }
 
 extension PropsUSBEndpoint on USBEndpoint {
@@ -869,7 +906,8 @@ extension PropsUSBEndpoint on USBEndpoint {
   ///    ["out"] - Data is transferred from host to device.
   ///
   ///
-  USBDirection get direction => js_util.getProperty(this, 'direction');
+  USBDirection get direction =>
+      USBDirection.values.byName(js_util.getProperty(this, 'direction'));
 
   /// Returns the type of this endpoint, one of:
   ///
@@ -891,7 +929,8 @@ extension PropsUSBEndpoint on USBEndpoint {
   /// dropped.
   ///
   ///
-  USBEndpointType get type => js_util.getProperty(this, 'type');
+  USBEndpointType get type =>
+      USBEndpointType.values.byName(js_util.getProperty(this, 'type'));
 
   ///  Returns the size of the packets that data sent through this
   /// endpoint will be divided into.
@@ -903,7 +942,8 @@ extension PropsUSBEndpoint on USBEndpoint {
 @JS()
 @staticInterop
 class USBPermissionDescriptor implements PermissionDescriptor {
-  external factory USBPermissionDescriptor({Iterable<USBDeviceFilter> filters});
+  external factory USBPermissionDescriptor(
+      {required Iterable<USBDeviceFilter> filters});
 }
 
 extension PropsUSBPermissionDescriptor on USBPermissionDescriptor {
@@ -918,7 +958,9 @@ extension PropsUSBPermissionDescriptor on USBPermissionDescriptor {
 @staticInterop
 class AllowedUSBDevice {
   external factory AllowedUSBDevice(
-      {int vendorId, int productId, String serialNumber});
+      {required int vendorId,
+      required int productId,
+      required String serialNumber});
 }
 
 extension PropsAllowedUSBDevice on AllowedUSBDevice {
@@ -943,7 +985,7 @@ extension PropsAllowedUSBDevice on AllowedUSBDevice {
 @staticInterop
 class USBPermissionStorage {
   external factory USBPermissionStorage(
-      {Iterable<AllowedUSBDevice> allowedDevices = const []});
+      {Iterable<AllowedUSBDevice>? allowedDevices = const []});
 }
 
 extension PropsUSBPermissionStorage on USBPermissionStorage {

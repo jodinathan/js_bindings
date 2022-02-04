@@ -69,15 +69,16 @@ extension PropsNetworkInformation on NetworkInformation {
   ///    [unknown]
   ///
   ///
-  ConnectionType get type => js_util.getProperty(this, 'type');
+  ConnectionType get type =>
+      ConnectionType.values.byName(js_util.getProperty(this, 'type'));
 
   ///  Returns the effective type of the connection meaning one of
   /// 'slow-2g', '2g', '3g', or '4g'. This value is determined using a
   /// combination of recently observed round-trip time and downlink
   /// values.
   ///
-  EffectiveConnectionType get effectiveType =>
-      js_util.getProperty(this, 'effectiveType');
+  EffectiveConnectionType get effectiveType => EffectiveConnectionType.values
+      .byName(js_util.getProperty(this, 'effectiveType'));
 
   ///  Returns the maximum downlink speed, in megabits per second
   /// (Mbps), for the underlying connection technology.

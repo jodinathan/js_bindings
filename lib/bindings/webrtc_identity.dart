@@ -42,8 +42,8 @@ extension PropsRTCIdentityProviderRegistrar on RTCIdentityProviderRegistrar {
 @staticInterop
 class RTCIdentityProvider {
   external factory RTCIdentityProvider(
-      {GenerateAssertionCallback generateAssertion,
-      ValidateAssertionCallback validateAssertion});
+      {required GenerateAssertionCallback generateAssertion,
+      required ValidateAssertionCallback validateAssertion});
 }
 
 extension PropsRTCIdentityProvider on RTCIdentityProvider {
@@ -65,7 +65,7 @@ extension PropsRTCIdentityProvider on RTCIdentityProvider {
 @staticInterop
 class RTCIdentityAssertionResult {
   external factory RTCIdentityAssertionResult(
-      {RTCIdentityProviderDetails idp, String assertion});
+      {required RTCIdentityProviderDetails idp, required String assertion});
 }
 
 extension PropsRTCIdentityAssertionResult on RTCIdentityAssertionResult {
@@ -85,7 +85,7 @@ extension PropsRTCIdentityAssertionResult on RTCIdentityAssertionResult {
 @staticInterop
 class RTCIdentityProviderDetails {
   external factory RTCIdentityProviderDetails(
-      {String domain, String protocol = 'default'});
+      {required String domain, String? protocol = 'default'});
 }
 
 extension PropsRTCIdentityProviderDetails on RTCIdentityProviderDetails {
@@ -105,7 +105,7 @@ extension PropsRTCIdentityProviderDetails on RTCIdentityProviderDetails {
 @staticInterop
 class RTCIdentityValidationResult {
   external factory RTCIdentityValidationResult(
-      {String identity, String contents});
+      {required String identity, required String contents});
 }
 
 extension PropsRTCIdentityValidationResult on RTCIdentityValidationResult {
@@ -125,7 +125,7 @@ extension PropsRTCIdentityValidationResult on RTCIdentityValidationResult {
 @staticInterop
 class RTCIdentityProviderOptions {
   external factory RTCIdentityProviderOptions(
-      {String protocol = 'default',
+      {String? protocol = 'default',
       String? usernameHint,
       String? peerIdentity});
 }

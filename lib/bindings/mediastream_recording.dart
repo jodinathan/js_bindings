@@ -37,7 +37,8 @@ extension PropsMediaRecorder on MediaRecorder {
   ///  Returns the current state of the [MediaRecorder] object
   /// ([inactive], [recording], or [paused].)
   ///
-  RecordingState get state => js_util.getProperty(this, 'state');
+  RecordingState get state =>
+      RecordingState.values.byName(js_util.getProperty(this, 'state'));
   EventHandlerNonNull? get onstart => js_util.getProperty(this, 'onstart');
   set onstart(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onstart', newValue);
@@ -81,7 +82,7 @@ extension PropsMediaRecorder on MediaRecorder {
   @experimental
   int get audioBitsPerSecond => js_util.getProperty(this, 'audioBitsPerSecond');
   BitrateMode get audioBitrateMode =>
-      js_util.getProperty(this, 'audioBitrateMode');
+      BitrateMode.values.byName(js_util.getProperty(this, 'audioBitrateMode'));
 
   ///  Begins recording media; this method can optionally be passed a
   /// [timeslice] argument with a value in milliseconds. If this is
@@ -196,12 +197,25 @@ extension PropsMediaRecorder on MediaRecorder {
 @JS()
 @staticInterop
 class MediaRecorderOptions {
-  external factory MediaRecorderOptions(
-      {String mimeType = '',
+  external factory MediaRecorderOptions._(
+      {String? mimeType = '',
       int? audioBitsPerSecond,
       int? videoBitsPerSecond,
       int? bitsPerSecond,
-      BitrateMode? audioBitrateMode = BitrateMode.variable});
+      String? audioBitrateMode});
+
+  factory MediaRecorderOptions(
+          {String? mimeType = '',
+          int? audioBitsPerSecond,
+          int? videoBitsPerSecond,
+          int? bitsPerSecond,
+          BitrateMode? audioBitrateMode = BitrateMode.variable}) =>
+      MediaRecorderOptions._(
+          mimeType: mimeType,
+          audioBitsPerSecond: audioBitsPerSecond,
+          videoBitsPerSecond: videoBitsPerSecond,
+          bitsPerSecond: bitsPerSecond,
+          audioBitrateMode: audioBitrateMode?.name);
 }
 
 extension PropsMediaRecorderOptions on MediaRecorderOptions {
@@ -226,9 +240,9 @@ extension PropsMediaRecorderOptions on MediaRecorderOptions {
   }
 
   BitrateMode get audioBitrateMode =>
-      js_util.getProperty(this, 'audioBitrateMode');
+      BitrateMode.values.byName(js_util.getProperty(this, 'audioBitrateMode'));
   set audioBitrateMode(BitrateMode newValue) {
-    js_util.setProperty(this, 'audioBitrateMode', newValue);
+    js_util.setProperty(this, 'audioBitrateMode', newValue.name);
   }
 }
 
@@ -265,7 +279,8 @@ extension PropsBlobEvent on BlobEvent {
 @JS()
 @staticInterop
 class BlobEventInit {
-  external factory BlobEventInit({Blob data, double timecode});
+  external factory BlobEventInit(
+      {required Blob data, required double timecode});
 }
 
 extension PropsBlobEventInit on BlobEventInit {
@@ -284,7 +299,7 @@ extension PropsBlobEventInit on BlobEventInit {
 @JS()
 @staticInterop
 class MediaRecorderErrorEventInit implements EventInit {
-  external factory MediaRecorderErrorEventInit({Exception error});
+  external factory MediaRecorderErrorEventInit({required Exception error});
 }
 
 extension PropsMediaRecorderErrorEventInit on MediaRecorderErrorEventInit {

@@ -21,7 +21,8 @@ enum ScreenIdleState { locked, unlocked }
 @JS()
 @staticInterop
 class IdleOptions {
-  external factory IdleOptions({int threshold, AbortSignal signal});
+  external factory IdleOptions(
+      {required int threshold, required AbortSignal signal});
 }
 
 extension PropsIdleOptions on IdleOptions {
@@ -49,7 +50,11 @@ class IdleDetector implements EventTarget {
 }
 
 extension PropsIdleDetector on IdleDetector {
-  UserIdleState? get userState => js_util.getProperty(this, 'userState');
+  UserIdleState? get userState {
+    final ret = js_util.getProperty(this, 'userState');
+
+    return ret == null ? null : UserIdleState.values.byName(ret);
+  }
 
   ///
   ///     Returns a string indicating whether the screen is locked, one
@@ -59,7 +64,12 @@ extension PropsIdleDetector on IdleDetector {
   ///    is called.
   ///
   ///
-  ScreenIdleState? get screenState => js_util.getProperty(this, 'screenState');
+  ScreenIdleState? get screenState {
+    final ret = js_util.getProperty(this, 'screenState');
+
+    return ret == null ? null : ScreenIdleState.values.byName(ret);
+  }
+
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onchange', newValue);

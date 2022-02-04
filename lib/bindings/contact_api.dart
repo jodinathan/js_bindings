@@ -35,11 +35,11 @@ class ContactAddress implements PaymentAddress {
 @staticInterop
 class ContactInfo {
   external factory ContactInfo(
-      {Iterable<ContactAddress> address,
-      Iterable<String> email,
-      Iterable<Blob> icon,
-      Iterable<String> name,
-      Iterable<String> tel});
+      {required Iterable<ContactAddress> address,
+      required Iterable<String> email,
+      required Iterable<Blob> icon,
+      required Iterable<String> name,
+      required Iterable<String> tel});
 }
 
 extension PropsContactInfo on ContactInfo {
@@ -73,7 +73,7 @@ extension PropsContactInfo on ContactInfo {
 @JS()
 @staticInterop
 class ContactsSelectOptions {
-  external factory ContactsSelectOptions({bool multiple = false});
+  external factory ContactsSelectOptions({bool? multiple = false});
 }
 
 extension PropsContactsSelectOptions on ContactsSelectOptions {
@@ -125,5 +125,5 @@ extension PropsContactsManager on ContactsManager {
           ///
           ContactsSelectOptions? options]) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'select', [properties, options]));
+          js_util.callMethod(this, 'select', [properties.names, options]));
 }

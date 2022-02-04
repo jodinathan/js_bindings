@@ -243,8 +243,8 @@ extension PropsMediaStreamTrack on MediaStreamTrack {
   /// more data and will never provide new data.
   ///
   ///
-  MediaStreamTrackState get readyState =>
-      js_util.getProperty(this, 'readyState');
+  MediaStreamTrackState get readyState => MediaStreamTrackState.values
+      .byName(js_util.getProperty(this, 'readyState'));
   EventHandlerNonNull? get onended => js_util.getProperty(this, 'onended');
   set onended(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onended', newValue);
@@ -369,7 +369,7 @@ enum MediaStreamTrackState { live, ended }
 @staticInterop
 class MediaTrackSupportedConstraints {
   external factory MediaTrackSupportedConstraints(
-      {bool width = true,
+      {bool? width = true,
       bool? height = true,
       bool? aspectRatio = true,
       bool? frameRate = true,
@@ -514,21 +514,21 @@ extension PropsMediaTrackSupportedConstraints
 @staticInterop
 class MediaTrackCapabilities {
   external factory MediaTrackCapabilities(
-      {ULongRange width,
-      ULongRange height,
-      DoubleRange aspectRatio,
-      DoubleRange frameRate,
-      Iterable<String> facingMode,
-      Iterable<String> resizeMode,
-      ULongRange sampleRate,
-      ULongRange sampleSize,
-      Iterable<bool> echoCancellation,
-      Iterable<bool> autoGainControl,
-      Iterable<bool> noiseSuppression,
-      DoubleRange latency,
-      ULongRange channelCount,
-      String deviceId,
-      String groupId});
+      {required ULongRange width,
+      required ULongRange height,
+      required DoubleRange aspectRatio,
+      required DoubleRange frameRate,
+      required Iterable<String> facingMode,
+      required Iterable<String> resizeMode,
+      required ULongRange sampleRate,
+      required ULongRange sampleSize,
+      required Iterable<bool> echoCancellation,
+      required Iterable<bool> autoGainControl,
+      required Iterable<bool> noiseSuppression,
+      required DoubleRange latency,
+      required ULongRange channelCount,
+      required String deviceId,
+      required String groupId});
 }
 
 extension PropsMediaTrackCapabilities on MediaTrackCapabilities {
@@ -623,7 +623,7 @@ extension PropsMediaTrackCapabilities on MediaTrackCapabilities {
 @staticInterop
 class MediaTrackConstraints implements MediaTrackConstraintSet {
   external factory MediaTrackConstraints(
-      {Iterable<MediaTrackConstraintSet> advanced});
+      {required Iterable<MediaTrackConstraintSet> advanced});
 }
 
 extension PropsMediaTrackConstraints on MediaTrackConstraints {
@@ -747,21 +747,21 @@ extension PropsMediaTrackConstraintSet on MediaTrackConstraintSet {
 @staticInterop
 class MediaTrackSettings {
   external factory MediaTrackSettings(
-      {int width,
-      int height,
-      double aspectRatio,
-      double frameRate,
-      String facingMode,
-      String resizeMode,
-      int sampleRate,
-      int sampleSize,
-      bool echoCancellation,
-      bool autoGainControl,
-      bool noiseSuppression,
-      double latency,
-      int channelCount,
-      String deviceId,
-      String groupId});
+      {required int width,
+      required int height,
+      required double aspectRatio,
+      required double frameRate,
+      required String facingMode,
+      required String resizeMode,
+      required int sampleRate,
+      required int sampleSize,
+      required bool echoCancellation,
+      required bool autoGainControl,
+      required bool noiseSuppression,
+      required double latency,
+      required int channelCount,
+      required String deviceId,
+      required String groupId});
 }
 
 extension PropsMediaTrackSettings on MediaTrackSettings {
@@ -881,7 +881,7 @@ extension PropsMediaStreamTrackEvent on MediaStreamTrackEvent {
 @JS()
 @staticInterop
 class MediaStreamTrackEventInit implements EventInit {
-  external factory MediaStreamTrackEventInit({MediaStreamTrack track});
+  external factory MediaStreamTrackEventInit({required MediaStreamTrack track});
 }
 
 extension PropsMediaStreamTrackEventInit on MediaStreamTrackEventInit {
@@ -1011,7 +1011,8 @@ extension PropsMediaDeviceInfo on MediaDeviceInfo {
   ///  Returns an enumerated value that is either ["videoinput"],
   /// ["audioinput"] or ["audiooutput"].
   ///
-  MediaDeviceKind get kind => js_util.getProperty(this, 'kind');
+  MediaDeviceKind get kind =>
+      MediaDeviceKind.values.byName(js_util.getProperty(this, 'kind'));
 
   ///  Returns a [String] that is a label describing this device (for
   /// example "External USB Webcam").
@@ -1073,7 +1074,7 @@ extension PropsMediaStreamConstraints on MediaStreamConstraints {
 @JS()
 @staticInterop
 class DoubleRange {
-  external factory DoubleRange({double max, double min});
+  external factory DoubleRange({required double max, required double min});
 }
 
 extension PropsDoubleRange on DoubleRange {
@@ -1092,7 +1093,8 @@ extension PropsDoubleRange on DoubleRange {
 @JS()
 @staticInterop
 class ConstrainDoubleRange implements DoubleRange {
-  external factory ConstrainDoubleRange({double exact, double ideal});
+  external factory ConstrainDoubleRange(
+      {required double exact, required double ideal});
 }
 
 extension PropsConstrainDoubleRange on ConstrainDoubleRange {
@@ -1111,7 +1113,7 @@ extension PropsConstrainDoubleRange on ConstrainDoubleRange {
 @JS()
 @staticInterop
 class ULongRange {
-  external factory ULongRange({int max, int min});
+  external factory ULongRange({required int max, required int min});
 }
 
 extension PropsULongRange on ULongRange {
@@ -1130,7 +1132,8 @@ extension PropsULongRange on ULongRange {
 @JS()
 @staticInterop
 class ConstrainULongRange implements ULongRange {
-  external factory ConstrainULongRange({int exact, int ideal});
+  external factory ConstrainULongRange(
+      {required int exact, required int ideal});
 }
 
 extension PropsConstrainULongRange on ConstrainULongRange {
@@ -1149,7 +1152,8 @@ extension PropsConstrainULongRange on ConstrainULongRange {
 @JS()
 @staticInterop
 class ConstrainBooleanParameters {
-  external factory ConstrainBooleanParameters({bool exact, bool ideal});
+  external factory ConstrainBooleanParameters(
+      {required bool exact, required bool ideal});
 }
 
 extension PropsConstrainBooleanParameters on ConstrainBooleanParameters {

@@ -50,7 +50,7 @@ extension PropsCrypto on Crypto {
 @JS()
 @staticInterop
 class Algorithm {
-  external factory Algorithm({String name});
+  external factory Algorithm({required String name});
 }
 
 extension PropsAlgorithm on Algorithm {
@@ -64,7 +64,7 @@ extension PropsAlgorithm on Algorithm {
 @JS()
 @staticInterop
 class KeyAlgorithm {
-  external factory KeyAlgorithm({String name});
+  external factory KeyAlgorithm({required String name});
 }
 
 extension PropsKeyAlgorithm on KeyAlgorithm {
@@ -111,7 +111,7 @@ extension PropsCryptoKey on CryptoKey {
   /// algorithm's [CryptoKeyPair].
   ///
   ///
-  KeyType get type => js_util.getProperty(this, 'type');
+  KeyType get type => KeyType.values.byName(js_util.getProperty(this, 'type'));
 
   ///  A boolean value indicating whether or not the key may be
   /// extracted using [SubtleCrypto.exportKey()] or
@@ -244,7 +244,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
   Future<dynamic> generateKey(
           dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
       js_util.promiseToFuture(js_util.callMethod(
-          this, 'generateKey', [algorithm, extractable, keyUsages]));
+          this, 'generateKey', [algorithm, extractable, keyUsages.names]));
 
   ///  Returns a [Future] that fulfills with a newly generated
   /// [CryptoKey] derived from the master key and specific algorithm
@@ -265,7 +265,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
           bool extractable,
           Iterable<KeyUsage> keyUsages) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'deriveKey',
-          [algorithm, baseKey, derivedKeyType, extractable, keyUsages]));
+          [algorithm, baseKey, derivedKeyType, extractable, keyUsages.names]));
 
   ///  Returns a [Future] that fulfills with a newly generated buffer
   /// of pseudo-random bits derived from the master key and specific
@@ -297,15 +297,16 @@ extension PropsSubtleCrypto on SubtleCrypto {
   Future<CryptoKey> importKey(KeyFormat format, dynamic keyData,
           dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'importKey',
-          [format, keyData, algorithm, extractable, keyUsages]));
+          [format.name, keyData, algorithm, extractable, keyUsages.names]));
 
   ///  Returns a [Future] that fulfills with a buffer containing the
   /// key in the requested format.
   ///
   /// const result = crypto.subtle.exportKey(format, key);
   ///
-  Future<dynamic> exportKey(KeyFormat format, CryptoKey key) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'exportKey', [format, key]));
+  Future<dynamic> exportKey(KeyFormat format, CryptoKey key) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'exportKey', [format.name, key]));
 
   ///  Returns a [Future] that fulfills with a wrapped symmetric key
   /// for usage (transfer and storage) in insecure environments. The
@@ -323,7 +324,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
   Future<dynamic> wrapKey(KeyFormat format, CryptoKey key,
           CryptoKey wrappingKey, dynamic wrapAlgorithm) =>
       js_util.promiseToFuture(js_util.callMethod(
-          this, 'wrapKey', [format, key, wrappingKey, wrapAlgorithm]));
+          this, 'wrapKey', [format.name, key, wrappingKey, wrapAlgorithm]));
 
   ///  Returns a [Future] that fulfills with a [CryptoKey]
   /// corresponding to the wrapped key given in the parameter.
@@ -347,13 +348,13 @@ extension PropsSubtleCrypto on SubtleCrypto {
           bool extractable,
           Iterable<KeyUsage> keyUsages) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'unwrapKey', [
-        format,
+        format.name,
         wrappedKey,
         unwrappingKey,
         unwrapAlgorithm,
         unwrappedKeyAlgorithm,
         extractable,
-        keyUsages
+        keyUsages.names
       ]));
 }
 
@@ -361,7 +362,8 @@ extension PropsSubtleCrypto on SubtleCrypto {
 @JS()
 @staticInterop
 class RsaOtherPrimesInfo {
-  external factory RsaOtherPrimesInfo({String r, String d, String t});
+  external factory RsaOtherPrimesInfo(
+      {required String r, required String d, required String t});
 }
 
 extension PropsRsaOtherPrimesInfo on RsaOtherPrimesInfo {
@@ -386,24 +388,24 @@ extension PropsRsaOtherPrimesInfo on RsaOtherPrimesInfo {
 @staticInterop
 class JsonWebKey {
   external factory JsonWebKey(
-      {String kty,
-      String use,
-      Iterable<String> key_ops,
-      String alg,
-      bool ext,
-      String crv,
-      String x,
-      String y,
-      String d,
-      String n,
-      String e,
-      String p,
-      String q,
-      String dp,
-      String dq,
-      String qi,
-      Iterable<RsaOtherPrimesInfo> oth,
-      String k});
+      {required String kty,
+      required String use,
+      required Iterable<String> key_ops,
+      required String alg,
+      required bool ext,
+      required String crv,
+      required String x,
+      required String y,
+      required String d,
+      required String n,
+      required String e,
+      required String p,
+      required String q,
+      required String dp,
+      required String dq,
+      required String qi,
+      required Iterable<RsaOtherPrimesInfo> oth,
+      required String k});
 }
 
 extension PropsJsonWebKey on JsonWebKey {
@@ -511,7 +513,8 @@ extension PropsJsonWebKey on JsonWebKey {
 @JS()
 @staticInterop
 class CryptoKeyPair {
-  external factory CryptoKeyPair({CryptoKey publicKey, CryptoKey privateKey});
+  external factory CryptoKeyPair(
+      {required CryptoKey publicKey, required CryptoKey privateKey});
 }
 
 extension PropsCryptoKeyPair on CryptoKeyPair {
@@ -541,7 +544,7 @@ extension PropsCryptoKeyPair on CryptoKeyPair {
 @staticInterop
 class RsaKeyGenParams implements Algorithm {
   external factory RsaKeyGenParams(
-      {int modulusLength, Uint8List publicExponent});
+      {required int modulusLength, required Uint8List publicExponent});
 }
 
 extension PropsRsaKeyGenParams on RsaKeyGenParams {
@@ -590,7 +593,7 @@ extension PropsRsaHashedKeyGenParams on RsaHashedKeyGenParams {
 @staticInterop
 class RsaKeyAlgorithm implements KeyAlgorithm {
   external factory RsaKeyAlgorithm(
-      {int modulusLength, Uint8List publicExponent});
+      {required int modulusLength, required Uint8List publicExponent});
 }
 
 extension PropsRsaKeyAlgorithm on RsaKeyAlgorithm {
@@ -609,7 +612,7 @@ extension PropsRsaKeyAlgorithm on RsaKeyAlgorithm {
 @JS()
 @staticInterop
 class RsaHashedKeyAlgorithm implements RsaKeyAlgorithm {
-  external factory RsaHashedKeyAlgorithm({KeyAlgorithm hash});
+  external factory RsaHashedKeyAlgorithm({required KeyAlgorithm hash});
 }
 
 extension PropsRsaHashedKeyAlgorithm on RsaHashedKeyAlgorithm {
@@ -657,7 +660,7 @@ extension PropsRsaHashedImportParams on RsaHashedImportParams {
 @JS()
 @staticInterop
 class RsaPssParams implements Algorithm {
-  external factory RsaPssParams({int saltLength});
+  external factory RsaPssParams({required int saltLength});
 }
 
 extension PropsRsaPssParams on RsaPssParams {
@@ -747,7 +750,7 @@ extension PropsEcdsaParams on EcdsaParams {
 @JS()
 @staticInterop
 class EcKeyGenParams implements Algorithm {
-  external factory EcKeyGenParams({String namedCurve});
+  external factory EcKeyGenParams({required String namedCurve});
 }
 
 extension PropsEcKeyGenParams on EcKeyGenParams {
@@ -769,7 +772,7 @@ extension PropsEcKeyGenParams on EcKeyGenParams {
 @JS()
 @staticInterop
 class EcKeyAlgorithm implements KeyAlgorithm {
-  external factory EcKeyAlgorithm({String namedCurve});
+  external factory EcKeyAlgorithm({required String namedCurve});
 }
 
 extension PropsEcKeyAlgorithm on EcKeyAlgorithm {
@@ -788,7 +791,7 @@ extension PropsEcKeyAlgorithm on EcKeyAlgorithm {
 @JS()
 @staticInterop
 class EcKeyImportParams implements Algorithm {
-  external factory EcKeyImportParams({String namedCurve});
+  external factory EcKeyImportParams({required String namedCurve});
 }
 
 extension PropsEcKeyImportParams on EcKeyImportParams {
@@ -821,7 +824,7 @@ extension PropsEcKeyImportParams on EcKeyImportParams {
 @JS()
 @staticInterop
 class EcdhKeyDeriveParams implements Algorithm {
-  external factory EcdhKeyDeriveParams({CryptoKey public});
+  external factory EcdhKeyDeriveParams({required CryptoKey public});
 }
 
 extension PropsEcdhKeyDeriveParams on EcdhKeyDeriveParams {
@@ -875,7 +878,7 @@ extension PropsEcdhKeyDeriveParams on EcdhKeyDeriveParams {
 @JS()
 @staticInterop
 class AesCtrParams implements Algorithm {
-  external factory AesCtrParams({dynamic counter, int length});
+  external factory AesCtrParams({dynamic counter, required int length});
 }
 
 extension PropsAesCtrParams on AesCtrParams {
@@ -909,7 +912,7 @@ extension PropsAesCtrParams on AesCtrParams {
 @JS()
 @staticInterop
 class AesKeyAlgorithm implements KeyAlgorithm {
-  external factory AesKeyAlgorithm({int length});
+  external factory AesKeyAlgorithm({required int length});
 }
 
 extension PropsAesKeyAlgorithm on AesKeyAlgorithm {
@@ -928,7 +931,7 @@ extension PropsAesKeyAlgorithm on AesKeyAlgorithm {
 @JS()
 @staticInterop
 class AesKeyGenParams implements Algorithm {
-  external factory AesKeyGenParams({int length});
+  external factory AesKeyGenParams({required int length});
 }
 
 extension PropsAesKeyGenParams on AesKeyGenParams {
@@ -945,7 +948,7 @@ extension PropsAesKeyGenParams on AesKeyGenParams {
 @JS()
 @staticInterop
 class AesDerivedKeyParams implements Algorithm {
-  external factory AesDerivedKeyParams({int length});
+  external factory AesDerivedKeyParams({required int length});
 }
 
 extension PropsAesDerivedKeyParams on AesDerivedKeyParams {
@@ -992,7 +995,7 @@ extension PropsAesCbcParams on AesCbcParams {
 @staticInterop
 class AesGcmParams implements Algorithm {
   external factory AesGcmParams(
-      {dynamic iv, dynamic additionalData, int tagLength});
+      {dynamic iv, dynamic additionalData, required int tagLength});
 }
 
 extension PropsAesGcmParams on AesGcmParams {
@@ -1052,7 +1055,7 @@ extension PropsAesGcmParams on AesGcmParams {
 @JS()
 @staticInterop
 class HmacImportParams implements Algorithm {
-  external factory HmacImportParams({dynamic hash, int length});
+  external factory HmacImportParams({dynamic hash, required int length});
 }
 
 extension PropsHmacImportParams on HmacImportParams {
@@ -1086,7 +1089,8 @@ extension PropsHmacImportParams on HmacImportParams {
 @JS()
 @staticInterop
 class HmacKeyAlgorithm implements KeyAlgorithm {
-  external factory HmacKeyAlgorithm({KeyAlgorithm hash, int length});
+  external factory HmacKeyAlgorithm(
+      {required KeyAlgorithm hash, required int length});
 }
 
 extension PropsHmacKeyAlgorithm on HmacKeyAlgorithm {
@@ -1111,7 +1115,7 @@ extension PropsHmacKeyAlgorithm on HmacKeyAlgorithm {
 @JS()
 @staticInterop
 class HmacKeyGenParams implements Algorithm {
-  external factory HmacKeyGenParams({dynamic hash, int length});
+  external factory HmacKeyGenParams({dynamic hash, required int length});
 }
 
 extension PropsHmacKeyGenParams on HmacKeyGenParams {
@@ -1196,7 +1200,8 @@ extension PropsHkdfParams on HkdfParams {
 @JS()
 @staticInterop
 class Pbkdf2Params implements Algorithm {
-  external factory Pbkdf2Params({dynamic salt, int iterations, dynamic hash});
+  external factory Pbkdf2Params(
+      {dynamic salt, required int iterations, dynamic hash});
 }
 
 extension PropsPbkdf2Params on Pbkdf2Params {

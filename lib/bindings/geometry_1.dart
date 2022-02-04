@@ -384,7 +384,10 @@ extension PropsDOMQuad on DOMQuad {
 @staticInterop
 class DOMQuadInit {
   external factory DOMQuadInit(
-      {DOMPointInit p1, DOMPointInit p2, DOMPointInit p3, DOMPointInit p4});
+      {required DOMPointInit p1,
+      required DOMPointInit p2,
+      required DOMPointInit p3,
+      required DOMPointInit p4});
 }
 
 extension PropsDOMQuadInit on DOMQuadInit {

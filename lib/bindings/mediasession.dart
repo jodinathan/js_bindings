@@ -62,9 +62,10 @@ extension PropsMediaSession on MediaSession {
   /// values are [none], [paused], or [playing].
   ///
   MediaSessionPlaybackState get playbackState =>
-      js_util.getProperty(this, 'playbackState');
+      MediaSessionPlaybackState.values
+          .byName(js_util.getProperty(this, 'playbackState'));
   set playbackState(MediaSessionPlaybackState newValue) {
-    js_util.setProperty(this, 'playbackState', newValue);
+    js_util.setProperty(this, 'playbackState', newValue.name);
   }
 
   ///  Sets an action handler for a media session action, such as play
@@ -75,7 +76,7 @@ extension PropsMediaSession on MediaSession {
   Object setActionHandler(
           MediaSessionAction action, MediaSessionActionHandler? handler) =>
       js_util.callMethod(this, 'setActionHandler',
-          [action, handler == null ? null : allowInterop(handler)]);
+          [action.name, handler == null ? null : allowInterop(handler)]);
 
   ///  Sets the current playback position and speed of the media
   /// currently being presented.
@@ -166,7 +167,7 @@ extension PropsMediaMetadata on MediaMetadata {
 @staticInterop
 class MediaMetadataInit {
   external factory MediaMetadataInit(
-      {String title = '',
+      {String? title = '',
       String? artist = '',
       String? album = '',
       Iterable<MediaImage>? artwork = const []});
@@ -204,7 +205,7 @@ extension PropsMediaMetadataInit on MediaMetadataInit {
 @staticInterop
 class MediaImage {
   external factory MediaImage(
-      {String src, String sizes = '', String? type = ''});
+      {required String src, String? sizes = '', String? type = ''});
 }
 
 extension PropsMediaImage on MediaImage {
@@ -239,7 +240,9 @@ extension PropsMediaImage on MediaImage {
 @staticInterop
 class MediaPositionState {
   external factory MediaPositionState(
-      {double duration, double playbackRate, double position});
+      {required double duration,
+      required double playbackRate,
+      required double position});
 }
 
 extension PropsMediaPositionState on MediaPositionState {
@@ -263,17 +266,29 @@ extension PropsMediaPositionState on MediaPositionState {
 @JS()
 @staticInterop
 class MediaSessionActionDetails {
-  external factory MediaSessionActionDetails(
-      {MediaSessionAction action,
+  external factory MediaSessionActionDetails._(
+      {required String action,
       double? seekOffset,
       double? seekTime,
       bool? fastSeek});
+
+  factory MediaSessionActionDetails(
+          {required MediaSessionAction action,
+          double? seekOffset,
+          double? seekTime,
+          bool? fastSeek}) =>
+      MediaSessionActionDetails._(
+          action: action.name,
+          seekOffset: seekOffset,
+          seekTime: seekTime,
+          fastSeek: fastSeek);
 }
 
 extension PropsMediaSessionActionDetails on MediaSessionActionDetails {
-  MediaSessionAction get action => js_util.getProperty(this, 'action');
+  MediaSessionAction get action =>
+      MediaSessionAction.values.byName(js_util.getProperty(this, 'action'));
   set action(MediaSessionAction newValue) {
-    js_util.setProperty(this, 'action', newValue);
+    js_util.setProperty(this, 'action', newValue.name);
   }
 
   double? get seekOffset => js_util.getProperty(this, 'seekOffset');

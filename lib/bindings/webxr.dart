@@ -54,7 +54,7 @@ extension PropsXRSystem on XRSystem {
           ///
           XRSessionMode mode) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'isSessionSupported', [mode]));
+          js_util.callMethod(this, 'isSessionSupported', [mode.name]));
 
   ///  Returns a promise that resolves to a new [XRSession] with the
   /// specified session mode.
@@ -127,7 +127,7 @@ extension PropsXRSystem on XRSystem {
           ///
           XRSessionInit? options]) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'requestSession', [mode, options]));
+          js_util.callMethod(this, 'requestSession', [mode.name, options]));
 
   EventHandlerNonNull? get ondevicechange =>
       js_util.getProperty(this, 'ondevicechange');
@@ -143,7 +143,8 @@ enum XRSessionMode { inline, immersiveVr, immersiveAr }
 @staticInterop
 class XRSessionInit {
   external factory XRSessionInit(
-      {Iterable<dynamic> requiredFeatures, Iterable<dynamic> optionalFeatures});
+      {required Iterable<dynamic> requiredFeatures,
+      required Iterable<dynamic> optionalFeatures});
 }
 
 extension PropsXRSessionInit on XRSessionInit {
@@ -184,8 +185,8 @@ extension PropsXRSession on XRSession {
   /// currently the target for user events.
   ///
   @experimental
-  XRVisibilityState get visibilityState =>
-      js_util.getProperty(this, 'visibilityState');
+  XRVisibilityState get visibilityState => XRVisibilityState.values
+      .byName(js_util.getProperty(this, 'visibilityState'));
 
   ///  An [XRRenderState] object which contains options affecting how
   /// the imagery is rendered. This includes things such as the near
@@ -266,7 +267,7 @@ extension PropsXRSession on XRSession {
           ///
           XRReferenceSpaceType type) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'requestReferenceSpace', [type]));
+          js_util.callMethod(this, 'requestReferenceSpace', [type.name]));
 
   ///  Schedules the specified method to be called the next time the
   /// user agent is working on rendering an animation frame for the
@@ -473,9 +474,10 @@ extension PropsXRSession on XRSession {
   }
 
   XREnvironmentBlendMode get environmentBlendMode =>
-      js_util.getProperty(this, 'environmentBlendMode');
-  XRInteractionMode get interactionMode =>
-      js_util.getProperty(this, 'interactionMode');
+      XREnvironmentBlendMode.values
+          .byName(js_util.getProperty(this, 'environmentBlendMode'));
+  XRInteractionMode get interactionMode => XRInteractionMode.values
+      .byName(js_util.getProperty(this, 'interactionMode'));
   Future<XRHitTestSource> requestHitTestSource(XRHitTestOptionsInit options) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestHitTestSource', [options]));
@@ -485,15 +487,16 @@ extension PropsXRSession on XRSession {
       js_util.promiseToFuture(js_util.callMethod(
           this, 'requestHitTestSourceForTransientInput', [options]));
 
-  XRDepthUsage get depthUsage => js_util.getProperty(this, 'depthUsage');
-  XRDepthDataFormat get depthDataFormat =>
-      js_util.getProperty(this, 'depthDataFormat');
+  XRDepthUsage get depthUsage =>
+      XRDepthUsage.values.byName(js_util.getProperty(this, 'depthUsage'));
+  XRDepthDataFormat get depthDataFormat => XRDepthDataFormat.values
+      .byName(js_util.getProperty(this, 'depthDataFormat'));
   Future<XRLightProbe> requestLightProbe([XRLightProbeInit? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestLightProbe', [options]));
 
-  XRReflectionFormat get preferredReflectionFormat =>
-      js_util.getProperty(this, 'preferredReflectionFormat');
+  XRReflectionFormat get preferredReflectionFormat => XRReflectionFormat.values
+      .byName(js_util.getProperty(this, 'preferredReflectionFormat'));
   XRDOMOverlayState? get domOverlayState =>
       js_util.getProperty(this, 'domOverlayState');
 }
@@ -503,11 +506,11 @@ extension PropsXRSession on XRSession {
 @staticInterop
 class XRRenderStateInit {
   external factory XRRenderStateInit(
-      {double depthNear,
-      double depthFar,
-      double inlineVerticalFieldOfView,
+      {required double depthNear,
+      required double depthFar,
+      required double inlineVerticalFieldOfView,
       XRWebGLLayer? baseLayer,
-      Iterable<XRLayer> layers});
+      required Iterable<XRLayer> layers});
 }
 
 extension PropsXRRenderStateInit on XRRenderStateInit {
@@ -834,7 +837,7 @@ extension PropsXRView on XRView {
   /// (such as a 2D image, a full-screen view of text. or a close-up
   /// view of something that doesn't need to appear in 3D).
   ///
-  XREye get eye => js_util.getProperty(this, 'eye');
+  XREye get eye => XREye.values.byName(js_util.getProperty(this, 'eye'));
 
   ///  The projection matrix that will transform the scene to appear
   /// correctly given the point-of-view indicated by [eye]. This matrix
@@ -1077,13 +1080,14 @@ extension PropsXRInputSource on XRInputSource {
   /// this [XRInputSource] is being used in, if any. The value will be
   /// [left], [right], or [none].
   ///
-  XRHandedness get handedness => js_util.getProperty(this, 'handedness');
+  XRHandedness get handedness =>
+      XRHandedness.values.byName(js_util.getProperty(this, 'handedness'));
 
   ///  A [String] indicating the methodology used to produce the target
   /// ray: [gaze], [tracked-pointer], or [screen].
   ///
   XRTargetRayMode get targetRayMode =>
-      js_util.getProperty(this, 'targetRayMode');
+      XRTargetRayMode.values.byName(js_util.getProperty(this, 'targetRayMode'));
 
   ///  An [XRSpace] object defining the origin of the target ray and
   /// the direction in which it extends. This space is established
@@ -1151,7 +1155,7 @@ class XRLayer implements EventTarget {
 @staticInterop
 class XRWebGLLayerInit {
   external factory XRWebGLLayerInit(
-      {bool antialias = true,
+      {bool? antialias = true,
       bool? depth = true,
       bool? stencil = false,
       bool? alpha = true,
@@ -1327,7 +1331,7 @@ extension PropsXRSessionEvent on XRSessionEvent {
 @JS()
 @staticInterop
 class XRSessionEventInit implements EventInit {
-  external factory XRSessionEventInit({XRSession session});
+  external factory XRSessionEventInit({required XRSession session});
 }
 
 extension PropsXRSessionEventInit on XRSessionEventInit {
@@ -1374,7 +1378,7 @@ extension PropsXRInputSourceEvent on XRInputSourceEvent {
 @staticInterop
 class XRInputSourceEventInit implements EventInit {
   external factory XRInputSourceEventInit(
-      {XRFrame frame, XRInputSource inputSource});
+      {required XRFrame frame, required XRInputSource inputSource});
 }
 
 extension PropsXRInputSourceEventInit on XRInputSourceEventInit {
@@ -1424,9 +1428,9 @@ extension PropsXRInputSourcesChangeEvent on XRInputSourcesChangeEvent {
 @staticInterop
 class XRInputSourcesChangeEventInit implements EventInit {
   external factory XRInputSourcesChangeEventInit(
-      {XRSession session,
-      Iterable<XRInputSource> added,
-      Iterable<XRInputSource> removed});
+      {required XRSession session,
+      required Iterable<XRInputSource> added,
+      required Iterable<XRInputSource> removed});
 }
 
 extension PropsXRInputSourcesChangeEventInit on XRInputSourcesChangeEventInit {
@@ -1478,7 +1482,7 @@ extension PropsXRReferenceSpaceEvent on XRReferenceSpaceEvent {
 @staticInterop
 class XRReferenceSpaceEventInit implements EventInit {
   external factory XRReferenceSpaceEventInit(
-      {XRReferenceSpace referenceSpace, XRRigidTransform? transform});
+      {required XRReferenceSpace referenceSpace, XRRigidTransform? transform});
 }
 
 extension PropsXRReferenceSpaceEventInit on XRReferenceSpaceEventInit {
@@ -1498,16 +1502,26 @@ extension PropsXRReferenceSpaceEventInit on XRReferenceSpaceEventInit {
 @JS()
 @staticInterop
 class XRPermissionDescriptor implements PermissionDescriptor {
-  external factory XRPermissionDescriptor(
-      {XRSessionMode mode,
-      Iterable<dynamic> requiredFeatures,
-      Iterable<dynamic> optionalFeatures});
+  external factory XRPermissionDescriptor._(
+      {required String mode,
+      required Iterable<dynamic> requiredFeatures,
+      required Iterable<dynamic> optionalFeatures});
+
+  factory XRPermissionDescriptor(
+          {required XRSessionMode mode,
+          required Iterable<dynamic> requiredFeatures,
+          required Iterable<dynamic> optionalFeatures}) =>
+      XRPermissionDescriptor._(
+          mode: mode.name,
+          requiredFeatures: requiredFeatures,
+          optionalFeatures: optionalFeatures);
 }
 
 extension PropsXRPermissionDescriptor on XRPermissionDescriptor {
-  XRSessionMode get mode => js_util.getProperty(this, 'mode');
+  XRSessionMode get mode =>
+      XRSessionMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(XRSessionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 
   Iterable<dynamic> get requiredFeatures =>
@@ -1554,13 +1568,19 @@ extension PropsXRPermissionStatus on XRPermissionStatus {
 @JS()
 @staticInterop
 class XRSessionSupportedPermissionDescriptor implements PermissionDescriptor {
-  external factory XRSessionSupportedPermissionDescriptor({XRSessionMode mode});
+  external factory XRSessionSupportedPermissionDescriptor._(
+      {required String mode});
+
+  factory XRSessionSupportedPermissionDescriptor(
+          {required XRSessionMode mode}) =>
+      XRSessionSupportedPermissionDescriptor._(mode: mode.name);
 }
 
 extension PropsXRSessionSupportedPermissionDescriptor
     on XRSessionSupportedPermissionDescriptor {
-  XRSessionMode get mode => js_util.getProperty(this, 'mode');
+  XRSessionMode get mode =>
+      XRSessionMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(XRSessionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 }

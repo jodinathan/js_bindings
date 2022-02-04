@@ -46,7 +46,8 @@ extension PropsServiceWorker on ServiceWorker {
   /// following values: [installing], [installed,] [activating],
   /// [activated], or [redundant].
   ///
-  ServiceWorkerState get state => js_util.getProperty(this, 'state');
+  ServiceWorkerState get state =>
+      ServiceWorkerState.values.byName(js_util.getProperty(this, 'state'));
   Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
@@ -113,7 +114,8 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   ///
   String get scope => js_util.getProperty(this, 'scope');
   ServiceWorkerUpdateViaCache get updateViaCache =>
-      js_util.getProperty(this, 'updateViaCache');
+      ServiceWorkerUpdateViaCache.values
+          .byName(js_util.getProperty(this, 'updateViaCache'));
 
   ///  Checks the server for an updated version of the service worker
   /// without consulting caches.
@@ -369,11 +371,16 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
 @JS()
 @staticInterop
 class RegistrationOptions {
-  external factory RegistrationOptions(
-      {String scope,
-      WorkerType type = WorkerType.classic,
-      ServiceWorkerUpdateViaCache? updateViaCache =
-          ServiceWorkerUpdateViaCache.imports});
+  external factory RegistrationOptions._(
+      {required String scope, String? type, String? updateViaCache});
+
+  factory RegistrationOptions(
+          {required String scope,
+          WorkerType? type = WorkerType.classic,
+          ServiceWorkerUpdateViaCache? updateViaCache =
+              ServiceWorkerUpdateViaCache.imports}) =>
+      RegistrationOptions._(
+          scope: scope, type: type?.name, updateViaCache: updateViaCache?.name);
 }
 
 extension PropsRegistrationOptions on RegistrationOptions {
@@ -382,15 +389,17 @@ extension PropsRegistrationOptions on RegistrationOptions {
     js_util.setProperty(this, 'scope', newValue);
   }
 
-  WorkerType get type => js_util.getProperty(this, 'type');
+  WorkerType get type =>
+      WorkerType.values.byName(js_util.getProperty(this, 'type'));
   set type(WorkerType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   ServiceWorkerUpdateViaCache get updateViaCache =>
-      js_util.getProperty(this, 'updateViaCache');
+      ServiceWorkerUpdateViaCache.values
+          .byName(js_util.getProperty(this, 'updateViaCache'));
   set updateViaCache(ServiceWorkerUpdateViaCache newValue) {
-    js_util.setProperty(this, 'updateViaCache', newValue);
+    js_util.setProperty(this, 'updateViaCache', newValue.name);
   }
 }
 
@@ -596,7 +605,8 @@ extension PropsClient on Client {
   /// The URL of the client as a string.
   ///
   String get url => js_util.getProperty(this, 'url');
-  FrameType get frameType => js_util.getProperty(this, 'frameType');
+  FrameType get frameType =>
+      FrameType.values.byName(js_util.getProperty(this, 'frameType'));
 
   /// The universally unique identifier of the client as a string.
   ///
@@ -605,7 +615,8 @@ extension PropsClient on Client {
   ///  The client's type as a string. It can be "[window"], "[worker"],
   /// or "[sharedworker"].
   ///
-  ClientType get type => js_util.getProperty(this, 'type');
+  ClientType get type =>
+      ClientType.values.byName(js_util.getProperty(this, 'type'));
 
   /// Sends a message to the client.
   ///
@@ -631,8 +642,8 @@ extension PropsClient on Client {
           Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
-  ClientLifecycleState get lifecycleState =>
-      js_util.getProperty(this, 'lifecycleState');
+  ClientLifecycleState get lifecycleState => ClientLifecycleState.values
+      .byName(js_util.getProperty(this, 'lifecycleState'));
 }
 
 ///  The interface of the ServiceWorker API represents the scope of a
@@ -651,8 +662,8 @@ extension PropsWindowClient on WindowClient {
   ///  Indicates the visibility of the current client. This value can
   /// be one of ["hidden"], ["visible"], or ["prerender"].
   ///
-  VisibilityState get visibilityState =>
-      js_util.getProperty(this, 'visibilityState');
+  VisibilityState get visibilityState => VisibilityState.values
+      .byName(js_util.getProperty(this, 'visibilityState'));
 
   /// A boolean that indicates whether the current client has focus.
   ///
@@ -804,8 +815,14 @@ extension PropsClients on Clients {
 @JS()
 @staticInterop
 class ClientQueryOptions {
-  external factory ClientQueryOptions(
-      {bool includeUncontrolled = false, ClientType? type = ClientType.window});
+  external factory ClientQueryOptions._(
+      {bool? includeUncontrolled = false, String? type});
+
+  factory ClientQueryOptions(
+          {bool? includeUncontrolled = false,
+          ClientType? type = ClientType.window}) =>
+      ClientQueryOptions._(
+          includeUncontrolled: includeUncontrolled, type: type?.name);
 }
 
 extension PropsClientQueryOptions on ClientQueryOptions {
@@ -815,9 +832,10 @@ extension PropsClientQueryOptions on ClientQueryOptions {
     js_util.setProperty(this, 'includeUncontrolled', newValue);
   }
 
-  ClientType get type => js_util.getProperty(this, 'type');
+  ClientType get type =>
+      ClientType.values.byName(js_util.getProperty(this, 'type'));
   set type(ClientType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 }
 
@@ -947,9 +965,9 @@ extension PropsFetchEvent on FetchEvent {
 @staticInterop
 class FetchEventInit implements ExtendableEventInit {
   external factory FetchEventInit(
-      {Request request,
-      Future<dynamic> preloadResponse,
-      String clientId = '',
+      {required Request request,
+      required Future<dynamic> preloadResponse,
+      String? clientId = '',
       String? resultingClientId = '',
       String? replacesClientId = '',
       Future<Object>? handled});
@@ -1034,7 +1052,7 @@ extension PropsExtendableMessageEvent on ExtendableMessageEvent {
 class ExtendableMessageEventInit implements ExtendableEventInit {
   external factory ExtendableMessageEventInit(
       {dynamic data,
-      String origin = '',
+      String? origin = '',
       String? lastEventId = '',
       dynamic source,
       Iterable<MessagePort>? ports = const []});
@@ -1140,7 +1158,7 @@ extension PropsCache on Cache {
 @staticInterop
 class CacheQueryOptions {
   external factory CacheQueryOptions(
-      {bool ignoreSearch = false,
+      {bool? ignoreSearch = false,
       bool? ignoreMethod = false,
       bool? ignoreVary = false});
 }
@@ -1280,7 +1298,7 @@ extension PropsCacheStorage on CacheStorage {
 @JS()
 @staticInterop
 class MultiCacheQueryOptions implements CacheQueryOptions {
-  external factory MultiCacheQueryOptions({String cacheName});
+  external factory MultiCacheQueryOptions({required String cacheName});
 }
 
 extension PropsMultiCacheQueryOptions on MultiCacheQueryOptions {
@@ -1330,7 +1348,7 @@ extension PropsNavigationPreloadManager on NavigationPreloadManager {
 @staticInterop
 class NavigationPreloadState {
   external factory NavigationPreloadState(
-      {bool enabled = false, String? headerValue});
+      {bool? enabled = false, String? headerValue});
 }
 
 extension PropsNavigationPreloadState on NavigationPreloadState {

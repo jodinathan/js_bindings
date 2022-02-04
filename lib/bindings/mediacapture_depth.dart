@@ -19,7 +19,11 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class DistortionCoefficients {
   external factory DistortionCoefficients(
-      {double k1, double k2, double p1, double p2, double k3});
+      {required double k1,
+      required double k2,
+      required double p1,
+      required double p2,
+      required double k3});
 }
 
 extension PropsDistortionCoefficients on DistortionCoefficients {
@@ -54,7 +58,8 @@ extension PropsDistortionCoefficients on DistortionCoefficients {
 @staticInterop
 class Transformation {
   external factory Transformation(
-      {Float32List transformationMatrix, String videoDeviceId});
+      {required Float32List transformationMatrix,
+      required String videoDeviceId});
 }
 
 extension PropsTransformation on Transformation {

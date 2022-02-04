@@ -178,8 +178,9 @@ extension PropsStylePropertyMap on StylePropertyMap {
   ///
   @JS('set')
   @staticInterop
-  Object mSet(String property, [dynamic values]) =>
-      js_util.callMethod(this, 'set', [property, values]);
+  Object mSet(String property,
+          [dynamic values1, dynamic values2, dynamic values3]) =>
+      js_util.callMethod(this, 'set', [property, values1, values2, values3]);
 
   ///  Adds a new CSS declaration to the [StylePropertyMap] with the
   /// given property and value.
@@ -197,8 +198,9 @@ extension PropsStylePropertyMap on StylePropertyMap {
   /// // append another value to the background-image property set on the attribute
   /// buttonEl.attributeStyleMap.append('background-image', 'linear-gradient(180deg, blue, black');
   ///
-  Object append(String property, [dynamic values]) =>
-      js_util.callMethod(this, 'append', [property, values]);
+  Object append(String property,
+          [dynamic values1, dynamic values2, dynamic values3]) =>
+      js_util.callMethod(this, 'append', [property, values1, values2, values3]);
 
   /// Removes the CSS declaration with the given property.
   ///
@@ -319,15 +321,34 @@ enum CSSNumericBaseType {
 @JS()
 @staticInterop
 class CSSNumericType {
-  external factory CSSNumericType(
-      {int length,
-      int angle,
-      int time,
-      int frequency,
-      int resolution,
-      int flex,
-      int percent,
-      CSSNumericBaseType percentHint});
+  external factory CSSNumericType._(
+      {required int length,
+      required int angle,
+      required int time,
+      required int frequency,
+      required int resolution,
+      required int flex,
+      required int percent,
+      required String percentHint});
+
+  factory CSSNumericType(
+          {required int length,
+          required int angle,
+          required int time,
+          required int frequency,
+          required int resolution,
+          required int flex,
+          required int percent,
+          required CSSNumericBaseType percentHint}) =>
+      CSSNumericType._(
+          length: length,
+          angle: angle,
+          time: time,
+          frequency: frequency,
+          resolution: resolution,
+          flex: flex,
+          percent: percent,
+          percentHint: percentHint.name);
 }
 
 extension PropsCSSNumericType on CSSNumericType {
@@ -366,10 +387,10 @@ extension PropsCSSNumericType on CSSNumericType {
     js_util.setProperty(this, 'percent', newValue);
   }
 
-  CSSNumericBaseType get percentHint =>
-      js_util.getProperty(this, 'percentHint');
+  CSSNumericBaseType get percentHint => CSSNumericBaseType.values
+      .byName(js_util.getProperty(this, 'percentHint'));
   set percentHint(CSSNumericBaseType newValue) {
-    js_util.setProperty(this, 'percentHint', newValue);
+    js_util.setProperty(this, 'percentHint', newValue.name);
   }
 }
 
@@ -386,30 +407,31 @@ class CSSNumericValue implements CSSStyleValue {
 }
 
 extension PropsCSSNumericValue on CSSNumericValue {
-  CSSNumericValue add([dynamic values]) =>
-      js_util.callMethod(this, 'add', [values]);
+  CSSNumericValue add([dynamic values1, dynamic values2, dynamic values3]) =>
+      js_util.callMethod(this, 'add', [values1, values2, values3]);
 
-  CSSNumericValue sub([dynamic values]) =>
-      js_util.callMethod(this, 'sub', [values]);
+  CSSNumericValue sub([dynamic values1, dynamic values2, dynamic values3]) =>
+      js_util.callMethod(this, 'sub', [values1, values2, values3]);
 
-  CSSNumericValue mul([dynamic values]) =>
-      js_util.callMethod(this, 'mul', [values]);
+  CSSNumericValue mul([dynamic values1, dynamic values2, dynamic values3]) =>
+      js_util.callMethod(this, 'mul', [values1, values2, values3]);
 
-  CSSNumericValue div([dynamic values]) =>
-      js_util.callMethod(this, 'div', [values]);
+  CSSNumericValue div([dynamic values1, dynamic values2, dynamic values3]) =>
+      js_util.callMethod(this, 'div', [values1, values2, values3]);
 
-  CSSNumericValue min([dynamic values]) =>
-      js_util.callMethod(this, 'min', [values]);
+  CSSNumericValue min([dynamic values1, dynamic values2, dynamic values3]) =>
+      js_util.callMethod(this, 'min', [values1, values2, values3]);
 
-  CSSNumericValue max([dynamic values]) =>
-      js_util.callMethod(this, 'max', [values]);
+  CSSNumericValue max([dynamic values1, dynamic values2, dynamic values3]) =>
+      js_util.callMethod(this, 'max', [values1, values2, values3]);
 
-  bool equals([dynamic value]) => js_util.callMethod(this, 'equals', [value]);
+  bool equals([dynamic value1, dynamic value2, dynamic value3]) =>
+      js_util.callMethod(this, 'equals', [value1, value2, value3]);
 
   CSSUnitValue to(String unit) => js_util.callMethod(this, 'to', [unit]);
 
-  CSSMathSum toSum([String? units]) =>
-      js_util.callMethod(this, 'toSum', [units]);
+  CSSMathSum toSum([String? units1, String? units2, String? units3]) =>
+      js_util.callMethod(this, 'toSum', [units1, units2, units3]);
 
   CSSNumericType type() => js_util.callMethod(this, 'type', []);
 
@@ -460,7 +482,8 @@ extension PropsCSSMathValue on CSSMathValue {
   ///
   @JS('operator')
   @staticInterop
-  CSSMathOperator get mOperator => js_util.getProperty(this, 'operator');
+  CSSMathOperator get mOperator =>
+      CSSMathOperator.values.byName(js_util.getProperty(this, 'operator'));
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -476,7 +499,7 @@ extension PropsCSSMathValue on CSSMathValue {
 @JS()
 @staticInterop
 class CSSMathSum implements CSSMathValue {
-  external CSSMathSum([dynamic args]);
+  external CSSMathSum([dynamic args1, dynamic args2, dynamic args3]);
 }
 
 extension PropsCSSMathSum on CSSMathSum {
@@ -497,7 +520,7 @@ extension PropsCSSMathSum on CSSMathSum {
 @JS()
 @staticInterop
 class CSSMathProduct implements CSSMathValue {
-  external CSSMathProduct([dynamic args]);
+  external CSSMathProduct([dynamic args1, dynamic args2, dynamic args3]);
 }
 
 extension PropsCSSMathProduct on CSSMathProduct {
@@ -556,7 +579,7 @@ extension PropsCSSMathInvert on CSSMathInvert {
 @JS()
 @staticInterop
 class CSSMathMin implements CSSMathValue {
-  external CSSMathMin([dynamic args]);
+  external CSSMathMin([dynamic args1, dynamic args2, dynamic args3]);
 }
 
 extension PropsCSSMathMin on CSSMathMin {
@@ -576,7 +599,7 @@ extension PropsCSSMathMin on CSSMathMin {
 @JS()
 @staticInterop
 class CSSMathMax implements CSSMathValue {
-  external CSSMathMax([dynamic args]);
+  external CSSMathMax([dynamic args1, dynamic args2, dynamic args3]);
 }
 
 extension PropsCSSMathMax on CSSMathMax {
@@ -913,7 +936,7 @@ extension PropsCSSMatrixComponent on CSSMatrixComponent {
 @JS()
 @staticInterop
 class CSSMatrixComponentOptions {
-  external factory CSSMatrixComponentOptions({bool is2D});
+  external factory CSSMatrixComponentOptions({required bool is2D});
 }
 
 extension PropsCSSMatrixComponentOptions on CSSMatrixComponentOptions {

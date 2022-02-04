@@ -31,7 +31,7 @@ extension PropsPaintWorkletGlobalScope on PaintWorkletGlobalScope {
 @JS()
 @staticInterop
 class PaintRenderingContext2DSettings {
-  external factory PaintRenderingContext2DSettings({bool alpha = true});
+  external factory PaintRenderingContext2DSettings({bool? alpha = true});
 }
 
 extension PropsPaintRenderingContext2DSettings

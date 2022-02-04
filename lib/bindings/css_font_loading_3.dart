@@ -19,7 +19,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class FontFaceDescriptors {
   external factory FontFaceDescriptors(
-      {String style = 'normal',
+      {String? style = 'normal',
       String? weight = 'normal',
       String? stretch = 'normal',
       String? unicodeRange = 'U+0-10FFFF',
@@ -207,7 +207,8 @@ extension PropsFontFace on FontFace {
   ///  Returns an enumerated value indicating the status of the font,
   /// one of ["unloaded"], ["loading"], ["loaded"], or ["error"].
   ///
-  FontFaceLoadStatus get status => js_util.getProperty(this, 'status');
+  FontFaceLoadStatus get status =>
+      FontFaceLoadStatus.values.byName(js_util.getProperty(this, 'status'));
   Future<FontFace> load() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'load', []));
 
@@ -224,7 +225,7 @@ extension PropsFontFace on FontFace {
 @staticInterop
 class FontFaceSetLoadEventInit implements EventInit {
   external factory FontFaceSetLoadEventInit(
-      {Iterable<FontFace> fontfaces = const []});
+      {Iterable<FontFace>? fontfaces = const []});
 }
 
 extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
@@ -364,7 +365,8 @@ extension PropsFontFaceSet on FontFaceSet {
   ///  Indicates the font-face's loading status. It will be one of
   /// ['loading'] or ['loaded'].
   ///
-  FontFaceSetLoadStatus get status => js_util.getProperty(this, 'status');
+  FontFaceSetLoadStatus get status =>
+      FontFaceSetLoadStatus.values.byName(js_util.getProperty(this, 'status'));
 }
 
 @JS()

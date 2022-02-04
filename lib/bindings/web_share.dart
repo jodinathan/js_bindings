@@ -18,7 +18,10 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class ShareData {
   external factory ShareData(
-      {Iterable<File> files, String title, String text, String url});
+      {required Iterable<File> files,
+      required String title,
+      required String text,
+      required String url});
 }
 
 extension PropsShareData on ShareData {

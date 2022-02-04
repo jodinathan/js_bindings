@@ -29,9 +29,9 @@ extension PropsTextDetector on TextDetector {
 @staticInterop
 class DetectedText {
   external factory DetectedText(
-      {DOMRectReadOnly boundingBox,
-      String rawValue,
-      Iterable<Point2D> cornerPoints});
+      {required DOMRectReadOnly boundingBox,
+      required String rawValue,
+      required Iterable<Point2D> cornerPoints});
 }
 
 extension PropsDetectedText on DetectedText {

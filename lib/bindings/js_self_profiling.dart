@@ -31,10 +31,10 @@ extension PropsProfiler on Profiler {
 @staticInterop
 class ProfilerTrace {
   external factory ProfilerTrace(
-      {Iterable<String> resources,
-      Iterable<ProfilerFrame> frames,
-      Iterable<ProfilerStack> stacks,
-      Iterable<ProfilerSample> samples});
+      {required Iterable<String> resources,
+      required Iterable<ProfilerFrame> frames,
+      required Iterable<ProfilerStack> stacks,
+      required Iterable<ProfilerSample> samples});
 }
 
 extension PropsProfilerTrace on ProfilerTrace {
@@ -63,7 +63,8 @@ extension PropsProfilerTrace on ProfilerTrace {
 @JS()
 @staticInterop
 class ProfilerSample {
-  external factory ProfilerSample({double timestamp, int stackId});
+  external factory ProfilerSample(
+      {required double timestamp, required int stackId});
 }
 
 extension PropsProfilerSample on ProfilerSample {
@@ -82,7 +83,7 @@ extension PropsProfilerSample on ProfilerSample {
 @JS()
 @staticInterop
 class ProfilerStack {
-  external factory ProfilerStack({int parentId, int frameId});
+  external factory ProfilerStack({required int parentId, required int frameId});
 }
 
 extension PropsProfilerStack on ProfilerStack {
@@ -102,7 +103,10 @@ extension PropsProfilerStack on ProfilerStack {
 @staticInterop
 class ProfilerFrame {
   external factory ProfilerFrame(
-      {String name, int resourceId, int line, int column});
+      {required String name,
+      required int resourceId,
+      required int line,
+      required int column});
 }
 
 extension PropsProfilerFrame on ProfilerFrame {
@@ -132,7 +136,7 @@ extension PropsProfilerFrame on ProfilerFrame {
 @staticInterop
 class ProfilerInitOptions {
   external factory ProfilerInitOptions(
-      {double sampleInterval, int maxBufferSize});
+      {required double sampleInterval, required int maxBufferSize});
 }
 
 extension PropsProfilerInitOptions on ProfilerInitOptions {

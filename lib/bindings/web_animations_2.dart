@@ -27,11 +27,17 @@ extension PropsGroupEffect on GroupEffect {
   AnimationEffect? get lastChild => js_util.getProperty(this, 'lastChild');
   dynamic clone() => js_util.callMethod(this, 'clone', []);
 
-  Object prepend([AnimationEffect? effects]) =>
-      js_util.callMethod(this, 'prepend', [effects]);
+  Object prepend(
+          [AnimationEffect? effects1,
+          AnimationEffect? effects2,
+          AnimationEffect? effects3]) =>
+      js_util.callMethod(this, 'prepend', [effects1, effects2, effects3]);
 
-  Object append([AnimationEffect? effects]) =>
-      js_util.callMethod(this, 'append', [effects]);
+  Object append(
+          [AnimationEffect? effects1,
+          AnimationEffect? effects2,
+          AnimationEffect? effects3]) =>
+      js_util.callMethod(this, 'append', [effects1, effects2, effects3]);
 }
 
 @JS()

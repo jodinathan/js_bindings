@@ -259,8 +259,11 @@ extension PropsTrustedTypePolicy on TrustedTypePolicy {
           /// A [String] containing the string to be sanitized by the policy.
           ///
           String input,
-          [dynamic arguments]) =>
-      js_util.callMethod(this, 'createHTML', [input, arguments]);
+          [dynamic arguments1,
+          dynamic arguments2,
+          dynamic arguments3]) =>
+      js_util.callMethod(
+          this, 'createHTML', [input, arguments1, arguments2, arguments3]);
 
   /// Creates a [TrustedScript] object.
   ///
@@ -271,8 +274,11 @@ extension PropsTrustedTypePolicy on TrustedTypePolicy {
           /// A [String] containing the string to be sanitized by the policy.
           ///
           String input,
-          [dynamic arguments]) =>
-      js_util.callMethod(this, 'createScript', [input, arguments]);
+          [dynamic arguments1,
+          dynamic arguments2,
+          dynamic arguments3]) =>
+      js_util.callMethod(
+          this, 'createScript', [input, arguments1, arguments2, arguments3]);
 
   /// Creates a [TrustedScriptURL] object.
   ///
@@ -283,8 +289,11 @@ extension PropsTrustedTypePolicy on TrustedTypePolicy {
           /// A [String] containing the string to be sanitized by the policy.
           ///
           String input,
-          [dynamic arguments]) =>
-      js_util.callMethod(this, 'createScriptURL', [input, arguments]);
+          [dynamic arguments1,
+          dynamic arguments2,
+          dynamic arguments3]) =>
+      js_util.callMethod(
+          this, 'createScriptURL', [input, arguments1, arguments2, arguments3]);
 }
 
 @anonymous

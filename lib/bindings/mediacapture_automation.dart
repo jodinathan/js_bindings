@@ -19,23 +19,29 @@ enum MockCapturePromptResult { granted, denied }
 @JS()
 @staticInterop
 class MockCapturePromptResultConfiguration {
-  external factory MockCapturePromptResultConfiguration(
-      {MockCapturePromptResult getUserMedia,
-      MockCapturePromptResult getDisplayMedia});
+  external factory MockCapturePromptResultConfiguration._(
+      {required String getUserMedia, required String getDisplayMedia});
+
+  factory MockCapturePromptResultConfiguration(
+          {required MockCapturePromptResult getUserMedia,
+          required MockCapturePromptResult getDisplayMedia}) =>
+      MockCapturePromptResultConfiguration._(
+          getUserMedia: getUserMedia.name,
+          getDisplayMedia: getDisplayMedia.name);
 }
 
 extension PropsMockCapturePromptResultConfiguration
     on MockCapturePromptResultConfiguration {
-  MockCapturePromptResult get getUserMedia =>
-      js_util.getProperty(this, 'getUserMedia');
+  MockCapturePromptResult get getUserMedia => MockCapturePromptResult.values
+      .byName(js_util.getProperty(this, 'getUserMedia'));
   set getUserMedia(MockCapturePromptResult newValue) {
-    js_util.setProperty(this, 'getUserMedia', newValue);
+    js_util.setProperty(this, 'getUserMedia', newValue.name);
   }
 
-  MockCapturePromptResult get getDisplayMedia =>
-      js_util.getProperty(this, 'getDisplayMedia');
+  MockCapturePromptResult get getDisplayMedia => MockCapturePromptResult.values
+      .byName(js_util.getProperty(this, 'getDisplayMedia'));
   set getDisplayMedia(MockCapturePromptResult newValue) {
-    js_util.setProperty(this, 'getDisplayMedia', newValue);
+    js_util.setProperty(this, 'getDisplayMedia', newValue.name);
   }
 }
 
@@ -44,7 +50,9 @@ extension PropsMockCapturePromptResultConfiguration
 @staticInterop
 class MockCaptureDeviceConfiguration {
   external factory MockCaptureDeviceConfiguration(
-      {String label, String deviceId, String groupId});
+      {required String label,
+      required String deviceId,
+      required String groupId});
 }
 
 extension PropsMockCaptureDeviceConfiguration
@@ -70,7 +78,7 @@ extension PropsMockCaptureDeviceConfiguration
 @staticInterop
 class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
   external factory MockCameraConfiguration(
-      {double defaultFrameRate = 30, String? facingMode = 'user'});
+      {double? defaultFrameRate = 30, String? facingMode = 'user'});
 }
 
 extension PropsMockCameraConfiguration on MockCameraConfiguration {
@@ -89,7 +97,8 @@ extension PropsMockCameraConfiguration on MockCameraConfiguration {
 @JS()
 @staticInterop
 class MockMicrophoneConfiguration implements MockCaptureDeviceConfiguration {
-  external factory MockMicrophoneConfiguration({int defaultSampleRate = 44100});
+  external factory MockMicrophoneConfiguration(
+      {int? defaultSampleRate = 44100});
 }
 
 extension PropsMockMicrophoneConfiguration on MockMicrophoneConfiguration {

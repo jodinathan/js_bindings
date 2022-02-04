@@ -65,9 +65,9 @@ extension PropsPaymentInstruments on PaymentInstruments {
 @staticInterop
 class PaymentInstrument {
   external factory PaymentInstrument(
-      {String name,
-      Iterable<ImageObject> icons,
-      String method,
+      {required String name,
+      required Iterable<ImageObject> icons,
+      required String method,
       dynamic capabilities});
 }
 
@@ -97,7 +97,8 @@ extension PropsPaymentInstrument on PaymentInstrument {
 @JS()
 @staticInterop
 class ImageObject {
-  external factory ImageObject({String src, String sizes, String type});
+  external factory ImageObject(
+      {required String src, required String sizes, required String type});
 }
 
 extension PropsImageObject on ImageObject {
@@ -139,9 +140,9 @@ extension PropsCanMakePaymentEvent on CanMakePaymentEvent {
 @staticInterop
 class CanMakePaymentEventInit implements ExtendableEventInit {
   external factory CanMakePaymentEventInit(
-      {String topOrigin,
-      String paymentRequestOrigin,
-      Iterable<PaymentMethodData> methodData});
+      {required String topOrigin,
+      required String paymentRequestOrigin,
+      required Iterable<PaymentMethodData> methodData});
 }
 
 extension PropsCanMakePaymentEventInit on CanMakePaymentEventInit {
@@ -168,9 +169,9 @@ extension PropsCanMakePaymentEventInit on CanMakePaymentEventInit {
 @staticInterop
 class PaymentRequestDetailsUpdate {
   external factory PaymentRequestDetailsUpdate(
-      {String error,
-      PaymentCurrencyAmount total,
-      Iterable<PaymentDetailsModifier> modifiers,
+      {required String error,
+      required PaymentCurrencyAmount total,
+      required Iterable<PaymentDetailsModifier> modifiers,
       dynamic paymentMethodErrors});
 }
 
@@ -289,13 +290,13 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
 @staticInterop
 class PaymentRequestEventInit implements ExtendableEventInit {
   external factory PaymentRequestEventInit(
-      {String topOrigin,
-      String paymentRequestOrigin,
-      String paymentRequestId,
-      Iterable<PaymentMethodData> methodData,
-      PaymentCurrencyAmount total,
-      Iterable<PaymentDetailsModifier> modifiers,
-      String instrumentKey});
+      {required String topOrigin,
+      required String paymentRequestOrigin,
+      required String paymentRequestId,
+      required Iterable<PaymentMethodData> methodData,
+      required PaymentCurrencyAmount total,
+      required Iterable<PaymentDetailsModifier> modifiers,
+      required String instrumentKey});
 }
 
 extension PropsPaymentRequestEventInit on PaymentRequestEventInit {
@@ -342,7 +343,8 @@ extension PropsPaymentRequestEventInit on PaymentRequestEventInit {
 @JS()
 @staticInterop
 class PaymentHandlerResponse {
-  external factory PaymentHandlerResponse({String methodName, dynamic details});
+  external factory PaymentHandlerResponse(
+      {required String methodName, dynamic details});
 }
 
 extension PropsPaymentHandlerResponse on PaymentHandlerResponse {

@@ -169,7 +169,9 @@ extension PropsEvent on Event {
 @staticInterop
 class EventInit {
   external factory EventInit(
-      {bool bubbles = false, bool? cancelable = false, bool? composed = false});
+      {bool? bubbles = false,
+      bool? cancelable = false,
+      bool? composed = false});
 }
 
 extension PropsEventInit on EventInit {
@@ -402,7 +404,7 @@ extension PropsEventTarget on EventTarget {
 @JS()
 @staticInterop
 class EventListenerOptions {
-  external factory EventListenerOptions({bool capture = false});
+  external factory EventListenerOptions({bool? capture = false});
 }
 
 extension PropsEventListenerOptions on EventListenerOptions {
@@ -417,7 +419,7 @@ extension PropsEventListenerOptions on EventListenerOptions {
 @staticInterop
 class AddEventListenerOptions implements EventListenerOptions {
   external factory AddEventListenerOptions(
-      {bool passive = false, bool? once = false, AbortSignal? signal});
+      {bool? passive = false, bool? once = false, AbortSignal? signal});
 }
 
 extension PropsAddEventListenerOptions on AddEventListenerOptions {
@@ -538,13 +540,14 @@ extension PropsParentNode on ParentNode {
   Element? get lastElementChild =>
       js_util.getProperty(this, 'lastElementChild');
   int get childElementCount => js_util.getProperty(this, 'childElementCount');
-  Object prepend([dynamic nodes]) =>
-      js_util.callMethod(this, 'prepend', [nodes]);
+  Object prepend([dynamic nodes1, dynamic nodes2, dynamic nodes3]) =>
+      js_util.callMethod(this, 'prepend', [nodes1, nodes2, nodes3]);
 
-  Object append([dynamic nodes]) => js_util.callMethod(this, 'append', [nodes]);
+  Object append([dynamic nodes1, dynamic nodes2, dynamic nodes3]) =>
+      js_util.callMethod(this, 'append', [nodes1, nodes2, nodes3]);
 
-  Object replaceChildren([dynamic nodes]) =>
-      js_util.callMethod(this, 'replaceChildren', [nodes]);
+  Object replaceChildren([dynamic nodes1, dynamic nodes2, dynamic nodes3]) =>
+      js_util.callMethod(this, 'replaceChildren', [nodes1, nodes2, nodes3]);
 
   Element? querySelector(String selectors) =>
       js_util.callMethod(this, 'querySelector', [selectors]);
@@ -573,12 +576,14 @@ class ChildNode {
 }
 
 extension PropsChildNode on ChildNode {
-  Object before([dynamic nodes]) => js_util.callMethod(this, 'before', [nodes]);
+  Object before([dynamic nodes1, dynamic nodes2, dynamic nodes3]) =>
+      js_util.callMethod(this, 'before', [nodes1, nodes2, nodes3]);
 
-  Object after([dynamic nodes]) => js_util.callMethod(this, 'after', [nodes]);
+  Object after([dynamic nodes1, dynamic nodes2, dynamic nodes3]) =>
+      js_util.callMethod(this, 'after', [nodes1, nodes2, nodes3]);
 
-  Object replaceWith([dynamic nodes]) =>
-      js_util.callMethod(this, 'replaceWith', [nodes]);
+  Object replaceWith([dynamic nodes1, dynamic nodes2, dynamic nodes3]) =>
+      js_util.callMethod(this, 'replaceWith', [nodes1, nodes2, nodes3]);
 
   Object remove() => js_util.callMethod(this, 'remove', []);
 }
@@ -889,7 +894,7 @@ extension PropsMutationObserver on MutationObserver {
 @staticInterop
 class MutationObserverInit {
   external factory MutationObserverInit(
-      {bool childList = false,
+      {bool? childList = false,
       bool? attributes,
       bool? characterData,
       bool? subtree = false,
@@ -1696,7 +1701,7 @@ extension PropsNode on Node {
 @JS()
 @staticInterop
 class GetRootNodeOptions {
-  external factory GetRootNodeOptions({bool composed = false});
+  external factory GetRootNodeOptions({bool? composed = false});
 }
 
 extension PropsGetRootNodeOptions on GetRootNodeOptions {
@@ -2465,8 +2470,8 @@ extension PropsDocument on Document {
       js_util.callMethod(this, 'createTreeWalker', [root, whatToShow, filter]);
 
   bool get hidden => js_util.getProperty(this, 'hidden');
-  VisibilityState get visibilityState =>
-      js_util.getProperty(this, 'visibilityState');
+  VisibilityState get visibilityState => VisibilityState.values
+      .byName(js_util.getProperty(this, 'visibilityState'));
   EventHandlerNonNull? get onvisibilitychange =>
       js_util.getProperty(this, 'onvisibilitychange');
   set onvisibilitychange(EventHandlerNonNull? newValue) {
@@ -2562,7 +2567,8 @@ extension PropsDocument on Document {
   }
 
   String get lastModified => js_util.getProperty(this, 'lastModified');
-  DocumentReadyState get readyState => js_util.getProperty(this, 'readyState');
+  DocumentReadyState get readyState =>
+      DocumentReadyState.values.byName(js_util.getProperty(this, 'readyState'));
   String get title => js_util.getProperty(this, 'title');
   set title(String newValue) {
     js_util.setProperty(this, 'title', newValue);
@@ -2594,9 +2600,11 @@ extension PropsDocument on Document {
 
   Object close() => js_util.callMethod(this, 'close', []);
 
-  Object write([String? text]) => js_util.callMethod(this, 'write', [text]);
+  Object write([String? text1, String? text2, String? text3]) =>
+      js_util.callMethod(this, 'write', [text1, text2, text3]);
 
-  Object writeln([String? text]) => js_util.callMethod(this, 'writeln', [text]);
+  Object writeln([String? text1, String? text2, String? text3]) =>
+      js_util.callMethod(this, 'writeln', [text1, text2, text3]);
 
   Window? get defaultView => js_util.getProperty(this, 'defaultView');
   bool hasFocus() => js_util.callMethod(this, 'hasFocus', []);
@@ -2710,7 +2718,7 @@ class XMLDocument implements Document {
 @JS()
 @staticInterop
 class ElementCreationOptions {
-  external factory ElementCreationOptions({String mIs});
+  external factory ElementCreationOptions({required String mIs});
 }
 
 extension PropsElementCreationOptions on ElementCreationOptions {
@@ -2934,15 +2942,16 @@ extension PropsShadowRoot on ShadowRoot {
   /// features are accessible from JavaScript.
   ///
   ///
-  ShadowRootMode get mode => js_util.getProperty(this, 'mode');
+  ShadowRootMode get mode =>
+      ShadowRootMode.values.byName(js_util.getProperty(this, 'mode'));
 
   ///  Returns a boolean that indicates whether was set when the shadow
   /// was attached (see [Element.attachShadow()]).
   ///
   @Deprecated('Not official in the specs')
   bool get delegatesFocus => js_util.getProperty(this, 'delegatesFocus');
-  SlotAssignmentMode get slotAssignment =>
-      js_util.getProperty(this, 'slotAssignment');
+  SlotAssignmentMode get slotAssignment => SlotAssignmentMode.values
+      .byName(js_util.getProperty(this, 'slotAssignment'));
 
   ///  Returns a reference to the DOM element the [ShadowRoot] is
   /// attached to.
@@ -3789,7 +3798,7 @@ extension PropsElement on Element {
 
   Node? spatialNavigationSearch(SpatialNavigationDirection dir,
           [SpatialNavigationSearchOptions? options]) =>
-      js_util.callMethod(this, 'spatialNavigationSearch', [dir, options]);
+      js_util.callMethod(this, 'spatialNavigationSearch', [dir.name, options]);
 
   @JS('part')
   @staticInterop
@@ -3800,16 +3809,26 @@ extension PropsElement on Element {
 @JS()
 @staticInterop
 class ShadowRootInit {
-  external factory ShadowRootInit(
-      {ShadowRootMode mode,
-      bool delegatesFocus = false,
-      SlotAssignmentMode? slotAssignment = SlotAssignmentMode.named});
+  external factory ShadowRootInit._(
+      {required String mode,
+      bool? delegatesFocus = false,
+      String? slotAssignment});
+
+  factory ShadowRootInit(
+          {required ShadowRootMode mode,
+          bool? delegatesFocus = false,
+          SlotAssignmentMode? slotAssignment = SlotAssignmentMode.named}) =>
+      ShadowRootInit._(
+          mode: mode.name,
+          delegatesFocus: delegatesFocus,
+          slotAssignment: slotAssignment?.name);
 }
 
 extension PropsShadowRootInit on ShadowRootInit {
-  ShadowRootMode get mode => js_util.getProperty(this, 'mode');
+  ShadowRootMode get mode =>
+      ShadowRootMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(ShadowRootMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 
   bool get delegatesFocus => js_util.getProperty(this, 'delegatesFocus');
@@ -3817,10 +3836,10 @@ extension PropsShadowRootInit on ShadowRootInit {
     js_util.setProperty(this, 'delegatesFocus', newValue);
   }
 
-  SlotAssignmentMode get slotAssignment =>
-      js_util.getProperty(this, 'slotAssignment');
+  SlotAssignmentMode get slotAssignment => SlotAssignmentMode.values
+      .byName(js_util.getProperty(this, 'slotAssignment'));
   set slotAssignment(SlotAssignmentMode newValue) {
-    js_util.setProperty(this, 'slotAssignment', newValue);
+    js_util.setProperty(this, 'slotAssignment', newValue.name);
   }
 }
 
@@ -4474,7 +4493,10 @@ extension PropsAbstractRange on AbstractRange {
 @staticInterop
 class StaticRangeInit {
   external factory StaticRangeInit(
-      {Node startContainer, int startOffset, Node endContainer, int endOffset});
+      {required Node startContainer,
+      required int startOffset,
+      required Node endContainer,
+      required int endOffset});
 }
 
 extension PropsStaticRangeInit on StaticRangeInit {
@@ -5396,7 +5418,8 @@ extension PropsDOMTokenList on DOMTokenList {
   /// add(token0, token1);
   /// add(token0, token1, /* ... ,*/ tokenN)
   ///
-  Object add([String? tokens]) => js_util.callMethod(this, 'add', [tokens]);
+  Object add([String? tokens1, String? tokens2, String? tokens3]) =>
+      js_util.callMethod(this, 'add', [tokens1, tokens2, tokens3]);
 
   /// Removes the specified tokens from the list.
   ///
@@ -5405,8 +5428,8 @@ extension PropsDOMTokenList on DOMTokenList {
   /// remove(token, token, token);
   /// ...
   ///
-  Object remove([String? tokens]) =>
-      js_util.callMethod(this, 'remove', [tokens]);
+  Object remove([String? tokens1, String? tokens2, String? tokens3]) =>
+      js_util.callMethod(this, 'remove', [tokens1, tokens2, tokens3]);
 
   ///  Removes the token from the list if it exists, or adds it to the
   /// list if it doesn't. Returns a boolean indicating whether the

@@ -24,10 +24,10 @@ Future<void> main() async {
   await mergeIDLs();
   // startes the MDN web server: localhost:5000
   await startMdn();
-  // parse the MDN htmls to generate a json
+  // parse the MDN htmls to generate a json with w3c stuff
   await parseMDN();
 
-  //return;
+  // return;
 
   try {
     // add MDN info to the merged webIDLs json and save at /info
@@ -96,7 +96,8 @@ Future<void> mergeIDLs() async {
         continue;
       }
 
-      print('Merging types ${item['basename']}, ${other['idlparsed']['idlNames'].keys.join(', ')}');
+      print(
+          'Merging types ${item['basename']}, ${other['idlparsed']['idlNames'].keys.join(', ')}');
       item['idlparsed']['idlNames'] = <String, dynamic>{
         ...other['idlparsed']['idlNames'],
         ...item['idlparsed']['idlNames']
@@ -187,8 +188,7 @@ void stopMdn() {
 }
 
 Future<void> cloneMDN() async {
-  final url =
-      Uri.parse(mdnWebZipUrl);
+  final url = Uri.parse(mdnWebZipUrl);
 
   print('Downloading $url...');
   final response = await http.get(url);
@@ -221,8 +221,12 @@ Future<void> cloneMDN() async {
   print('Done!');
 }
 
-Future<Map<String, dynamic>?> fetch(String path, {bool silent = false}) async {
-  final url = Uri.parse(path.startsWith('http') ? path : '$mdnWeb$path');
+Future<Map<String, dynamic>?> fetchJS(String path, {bool silent = false}) =>
+    fetch(path, silent: silent, base: 'JavaScript/Reference/Global_Objects');
+
+Future<Map<String, dynamic>?> fetch(String path,
+    {bool silent = false, String base = 'API'}) async {
+  final url = Uri.parse(path.startsWith('http') ? path : '$mdnWeb$base/$path');
 
   try {
     print('Fetching $url');
@@ -270,6 +274,242 @@ Future<void> parseMDN() async {
   print('Parsed MDN files! =]');
 }
 
+Future<void> parseMDNJS() async {
+  print('Parsing MDN JS files...');
+  final infs = await crawlJS();
+
+  // File('../webIDL/mdn_js.json')
+  //   ..createSync(recursive: true)
+  //   ..writeAsStringSync(prettyJson(infs));
+
+  print('Parsed MDN JS files! =]');
+}
+
+Future<Map<String, dynamic>> crawlJS() async {
+  final js = ((await fetchJS('index.json'))?['doc']?['body']);
+  final ret = <String, dynamic>{};
+
+  for (final jsi in js) {
+    final scanner = StringCrawler(jsi['value']['content']);
+
+    while (scanner.moveTo('<li>')) {
+      final block = scanner.getUntil('</li>');
+
+      if (block != null && !block.contains('page-not-created')) {
+        final name = StringCrawler(block)
+            .getBetween('<code>', '</code>')
+            ?.replaceAll(RegExp(r'\(\)|self\.'), '');
+
+        if (name != null && name != 'arguments') {
+          final object = <String, dynamic>{
+            'name': name,
+            'experimental': block.contains('icon-experimental'),
+            'deprecated': block.contains('icon-deprecated'),
+            'standard': !block.contains('icon-nonstandard'),
+            '_block': block
+          };
+
+          final rdet = await fetchJS('${name.replaceAll('.', '/')}/index.json',
+              silent: true);
+
+          if (rdet == null) {
+            throw 'Couldnt load $name';
+          }
+
+          final details = rdet['doc']?['body'] as Iterable?;
+          final mdnUrl = rdet['doc']['mdn_url'];
+          final members = <Map<String, dynamic>>[];
+
+          object['mdn'] = mdnUrl;
+
+          Future<void> parseProps(
+              {String? raw,
+              required String type,
+              Map<String, dynamic>? base}) async {
+            if (raw != null) {
+              final pscan = StringCrawler(raw);
+              String? dt;
+
+              base ??= {};
+
+              while ((dt = pscan.enclosed('<dt>', '</dt>')) != null) {
+                if (dt == null) {
+                  throw 'DartNeedsThis =/';
+                }
+                final dtcrawl = StringCrawler(dt);
+                final dd = pscan.enclosed('<dd>', '</dd>') ?? '';
+                final code = dtcrawl.getBetween('<code>', '</code>');
+                final canScrap = !dt.contains('page-not-created');
+
+                if (code == null) {
+                  print('Cant find the code in DT. So we are skipping.'
+                      'DT: \n$dt');
+                  continue;
+                }
+
+                final nspl = code.split('.');
+                var pname =
+                    nspl.last.trim().replaceAll('(', '').replaceAll(')', '');
+                final desc = makeDesc(pname, dd);
+
+                if (name == pname || name == 'constructor') {
+                  type = 'constructor';
+                } else if (type == 'event' && !pname.startsWith('on')) {
+                  type = 'attribute';
+                  pname = 'on$name';
+                }
+
+                final member = {
+                  ...base,
+                  'type': type,
+                  'name': pname,
+                  'oname': name,
+                  'deprecated': dt.contains('icon-deprecated'),
+                  'experimental': dt.contains('icon-experimental'),
+                  'standard': !dt.contains('icon-nonstandard'),
+                  'desc': desc,
+                  if (canScrap) 'mdn': '$mdnUrl/$pname',
+                };
+                final params = <String, Map<String, dynamic>>{};
+
+                if (type == 'operation') {
+                  final rdet =
+                      await fetchJS('$name/$pname/index.json', silent: true);
+                  final details = rdet?['doc']?['body'] as Iterable?;
+
+                  if (details != null) {
+                    final rparams = getMDNContent(details, 'Parameters');
+
+                    if (rparams != null) {
+                      final pscan = StringCrawler(rparams);
+                      String? dt;
+
+                      while ((dt = pscan.enclosed('<dt>', '</dt>')) != null) {
+                        if (dt == null) {
+                          throw 'DartNeedsThis =/';
+                        }
+                        final name =
+                            StringCrawler(dt).getBetween('<code>', '</code>');
+
+                        if (name?.isNotEmpty == true) {
+                          final dd = makeDesc(
+                              name!, pscan.enclosed('<dd>', '</dd>') ?? '');
+
+                          if (dd?.isNotEmpty == true) {
+                            params[name] = <String, dynamic>{
+                              'desc': dd
+                            };
+                          }
+                        }
+                      }
+                    }
+
+                    var example = stripHtml(getMDNContent(details, 'Example'));
+
+                    if (example != null && example.isNotEmpty == true) {
+                      final dl = details.toList();
+                      dynamic blg(String name) => details.firstWhere(
+                          (bl) =>
+                              bl['type'] == 'prose' &&
+                              bl['value']['id'] == name,
+                          orElse: () => null);
+                      final ex = dl.indexOf(blg('Example'));
+
+                      void addExtras(String name) {
+                        final bl = blg(name);
+
+                        print('ExtraAdd $pname $name ${dl.indexOf(bl)}, $ex');
+
+                        if (dl.indexOf(bl) > ex &&
+                            bl['value']['isH3'] == true) {
+                          final content = (bl['value']?['content'] as String)
+                              .replaceAll('<pre>', '\n\n```\n')
+                              .replaceAll('</pre>', '\n```\n');
+
+                          example = '$example\n${stripHtml(content)}';
+                        }
+                      }
+
+                      addExtras('HTML');
+                      addExtras('JavaScript');
+                      addExtras('Results');
+                      member['example'] = example;
+                    }
+
+                    final syntax = stripHtml(getMDNContent(details, 'Syntax'));
+
+                    if (syntax != null) {
+                      member['syntax'] = syntax;
+
+                      if (params.isNotEmpty) {
+                        final spl = [
+                          for (final line in syntax.split('\n'))
+                            if (line.length > 1)
+                              line,
+                        ];
+                        final lp = params.values.last;
+
+                        print('LP $lp, $syntax');
+                        lp['variadic'] =
+                            RegExp(r'\,\s*\.\.\.\w+\)').hasMatch(syntax);
+
+                        if (spl.length > 1) {
+                          final min = spl.fold<int>(params.length,
+                                  (previousValue, element) {
+                                final spl = element.split(',');
+
+                                return previousValue > spl.length
+                                    ? spl.length
+                                    : previousValue;
+                              });
+
+                          params.values.toList()
+                              .getRange(min, params.values.length)
+                              .forEach((param) => param['optional'] = true);
+                        }
+                      }
+                    }
+                  }
+                }
+
+                member['params'] = params;
+                members.add(member);
+              }
+            }
+          }
+
+          if (details != null) {
+            final rdesc = getMDNContent(details, null);
+
+            if (rdesc == null) {
+              print('Could not get the resume description of "$name"');
+            } else {
+              object['desc'] = makeDesc(name, rdesc);
+            }
+
+            await parseProps(
+                base: {'static': true},
+                raw: getMDNContent(details, 'Static_methods'),
+                type: 'operation');
+            await parseProps(
+                raw: getMDNContent(details, 'Instance_properties'), type: 'attribute');
+            await parseProps(
+                raw: getMDNContent(details, 'Instance_methods'), type: 'operation');
+          }
+
+          object['members'] = members;
+          if (name == 'Object')
+            print('ADDING Object $name\n${prettyJson(details)}');
+          ret[name] = object;
+        }
+      }
+    }
+  }
+
+  print('DONE ${prettyJson(ret)}');
+  return ret;
+}
+
 Future<Map<String, dynamic>> getInterfaces() async {
   final js = ((await fetch('index.json'))?['doc']?['body']);
   final content = js?.firstWhere(
@@ -283,7 +523,8 @@ Future<Map<String, dynamic>> getInterfaces() async {
     final block = scanner.getUntil('</li>');
 
     if (block != null) {
-      final name = StringCrawler(block).getBetween('<code>', '</code>')
+      final name = StringCrawler(block)
+          .getBetween('<code>', '</code>')
           ?.replaceAll(RegExp(r'\(\)|self\.'), '');
 
       if (name != null && name != 'Index') {

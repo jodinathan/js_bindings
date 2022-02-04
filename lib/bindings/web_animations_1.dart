@@ -34,7 +34,8 @@ extension PropsAnimationTimeline on AnimationTimeline {
   /// [null] if this timeline is inactive.
   ///
   double? get currentTime => js_util.getProperty(this, 'currentTime');
-  TimelinePhase get phase => js_util.getProperty(this, 'phase');
+  TimelinePhase get phase =>
+      TimelinePhase.values.byName(js_util.getProperty(this, 'phase'));
   Animation play([AnimationEffect? effect]) =>
       js_util.callMethod(this, 'play', [effect]);
 }
@@ -43,7 +44,7 @@ extension PropsAnimationTimeline on AnimationTimeline {
 @JS()
 @staticInterop
 class DocumentTimelineOptions {
-  external factory DocumentTimelineOptions({double originTime = 0});
+  external factory DocumentTimelineOptions({double? originTime = 0});
 }
 
 extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
@@ -124,14 +125,15 @@ extension PropsAnimation on Animation {
   ///  Returns an enumerated value describing the playback state of an
   /// animation.
   ///
-  AnimationPlayState get playState => js_util.getProperty(this, 'playState');
+  AnimationPlayState get playState =>
+      AnimationPlayState.values.byName(js_util.getProperty(this, 'playState'));
 
   ///  Returns the replace state of the animation. This will be
   /// [active] if the animation has been replaced, or [persisted] if
   /// [Animation.persist()] has been invoked on it.
   ///
-  AnimationReplaceState get replaceState =>
-      js_util.getProperty(this, 'replaceState');
+  AnimationReplaceState get replaceState => AnimationReplaceState.values
+      .byName(js_util.getProperty(this, 'replaceState'));
 
   ///  Indicates whether the animation is currently waiting for an
   /// asynchronous operation such as initiating playback or pausing a
@@ -353,14 +355,23 @@ extension PropsAnimationEffect on AnimationEffect {
   AnimationEffect? get previousSibling =>
       js_util.getProperty(this, 'previousSibling');
   AnimationEffect? get nextSibling => js_util.getProperty(this, 'nextSibling');
-  Object before([AnimationEffect? effects]) =>
-      js_util.callMethod(this, 'before', [effects]);
+  Object before(
+          [AnimationEffect? effects1,
+          AnimationEffect? effects2,
+          AnimationEffect? effects3]) =>
+      js_util.callMethod(this, 'before', [effects1, effects2, effects3]);
 
-  Object after([AnimationEffect? effects]) =>
-      js_util.callMethod(this, 'after', [effects]);
+  Object after(
+          [AnimationEffect? effects1,
+          AnimationEffect? effects2,
+          AnimationEffect? effects3]) =>
+      js_util.callMethod(this, 'after', [effects1, effects2, effects3]);
 
-  Object replace([AnimationEffect? effects]) =>
-      js_util.callMethod(this, 'replace', [effects]);
+  Object replace(
+          [AnimationEffect? effects1,
+          AnimationEffect? effects2,
+          AnimationEffect? effects3]) =>
+      js_util.callMethod(this, 'replace', [effects1, effects2, effects3]);
 
   Object remove() => js_util.callMethod(this, 'remove', []);
 }
@@ -369,15 +380,34 @@ extension PropsAnimationEffect on AnimationEffect {
 @JS()
 @staticInterop
 class EffectTiming {
-  external factory EffectTiming(
-      {double delay = 0,
+  external factory EffectTiming._(
+      {double? delay = 0,
       double? endDelay = 0,
-      FillMode? fill = FillMode.auto,
+      String? fill,
       double? iterationStart = 0.0,
       /* double | NaN */ dynamic iterations = 1.0,
       dynamic duration,
-      PlaybackDirection? direction = PlaybackDirection.normal,
+      String? direction,
       String? easing = 'linear'});
+
+  factory EffectTiming(
+          {double? delay = 0,
+          double? endDelay = 0,
+          FillMode? fill = FillMode.auto,
+          double? iterationStart = 0.0,
+          /* double | NaN */ dynamic iterations = 1.0,
+          dynamic duration,
+          PlaybackDirection? direction = PlaybackDirection.normal,
+          String? easing = 'linear'}) =>
+      EffectTiming._(
+          delay: delay,
+          endDelay: endDelay,
+          fill: fill?.name,
+          iterationStart: iterationStart,
+          iterations: iterations,
+          duration: duration,
+          direction: direction?.name,
+          easing: easing);
 }
 
 extension PropsEffectTiming on EffectTiming {
@@ -391,9 +421,10 @@ extension PropsEffectTiming on EffectTiming {
     js_util.setProperty(this, 'endDelay', newValue);
   }
 
-  FillMode get fill => js_util.getProperty(this, 'fill');
+  FillMode get fill =>
+      FillMode.values.byName(js_util.getProperty(this, 'fill'));
   set fill(FillMode newValue) {
-    js_util.setProperty(this, 'fill', newValue);
+    js_util.setProperty(this, 'fill', newValue.name);
   }
 
   double get iterationStart => js_util.getProperty(this, 'iterationStart');
@@ -412,9 +443,10 @@ extension PropsEffectTiming on EffectTiming {
     js_util.setProperty(this, 'duration', newValue);
   }
 
-  PlaybackDirection get direction => js_util.getProperty(this, 'direction');
+  PlaybackDirection get direction =>
+      PlaybackDirection.values.byName(js_util.getProperty(this, 'direction'));
   set direction(PlaybackDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue);
+    js_util.setProperty(this, 'direction', newValue.name);
   }
 
   String get easing => js_util.getProperty(this, 'easing');
@@ -427,15 +459,34 @@ extension PropsEffectTiming on EffectTiming {
 @JS()
 @staticInterop
 class OptionalEffectTiming {
-  external factory OptionalEffectTiming(
-      {double delay,
-      double endDelay,
-      FillMode fill,
-      double iterationStart,
+  external factory OptionalEffectTiming._(
+      {required double delay,
+      required double endDelay,
+      required String fill,
+      required double iterationStart,
       /* double | NaN */ dynamic iterations,
       dynamic duration,
-      PlaybackDirection direction,
-      String easing});
+      required String direction,
+      required String easing});
+
+  factory OptionalEffectTiming(
+          {required double delay,
+          required double endDelay,
+          required FillMode fill,
+          required double iterationStart,
+          /* double | NaN */ dynamic iterations,
+          dynamic duration,
+          required PlaybackDirection direction,
+          required String easing}) =>
+      OptionalEffectTiming._(
+          delay: delay,
+          endDelay: endDelay,
+          fill: fill.name,
+          iterationStart: iterationStart,
+          iterations: iterations,
+          duration: duration,
+          direction: direction.name,
+          easing: easing);
 }
 
 extension PropsOptionalEffectTiming on OptionalEffectTiming {
@@ -449,9 +500,10 @@ extension PropsOptionalEffectTiming on OptionalEffectTiming {
     js_util.setProperty(this, 'endDelay', newValue);
   }
 
-  FillMode get fill => js_util.getProperty(this, 'fill');
+  FillMode get fill =>
+      FillMode.values.byName(js_util.getProperty(this, 'fill'));
   set fill(FillMode newValue) {
-    js_util.setProperty(this, 'fill', newValue);
+    js_util.setProperty(this, 'fill', newValue.name);
   }
 
   double get iterationStart => js_util.getProperty(this, 'iterationStart');
@@ -470,9 +522,10 @@ extension PropsOptionalEffectTiming on OptionalEffectTiming {
     js_util.setProperty(this, 'duration', newValue);
   }
 
-  PlaybackDirection get direction => js_util.getProperty(this, 'direction');
+  PlaybackDirection get direction =>
+      PlaybackDirection.values.byName(js_util.getProperty(this, 'direction'));
   set direction(PlaybackDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue);
+    js_util.setProperty(this, 'direction', newValue.name);
   }
 
   String get easing => js_util.getProperty(this, 'easing');
@@ -563,9 +616,10 @@ extension PropsKeyframeEffect on KeyframeEffect {
   ///  Gets and sets the composite operation property for resolving the
   /// property value changes between this and other keyframe effects.
   ///
-  CompositeOperation get composite => js_util.getProperty(this, 'composite');
+  CompositeOperation get composite =>
+      CompositeOperation.values.byName(js_util.getProperty(this, 'composite'));
   set composite(CompositeOperation newValue) {
-    js_util.setProperty(this, 'composite', newValue);
+    js_util.setProperty(this, 'composite', newValue.name);
   }
 
   ///  Returns the computed keyframes that make up this effect along
@@ -584,9 +638,10 @@ extension PropsKeyframeEffect on KeyframeEffect {
       js_util.callMethod(this, 'setKeyframes', [keyframes]);
 
   IterationCompositeOperation get iterationComposite =>
-      js_util.getProperty(this, 'iterationComposite');
+      IterationCompositeOperation.values
+          .byName(js_util.getProperty(this, 'iterationComposite'));
   set iterationComposite(IterationCompositeOperation newValue) {
-    js_util.setProperty(this, 'iterationComposite', newValue);
+    js_util.setProperty(this, 'iterationComposite', newValue.name);
   }
 }
 
@@ -594,11 +649,23 @@ extension PropsKeyframeEffect on KeyframeEffect {
 @JS()
 @staticInterop
 class BaseComputedKeyframe {
-  external factory BaseComputedKeyframe(
+  external factory BaseComputedKeyframe._(
       {double? offset,
-      double computedOffset,
-      String easing = 'linear',
-      CompositeOperationOrAuto? composite = CompositeOperationOrAuto.auto});
+      required double computedOffset,
+      String? easing = 'linear',
+      String? composite});
+
+  factory BaseComputedKeyframe(
+          {double? offset,
+          required double computedOffset,
+          String? easing = 'linear',
+          CompositeOperationOrAuto? composite =
+              CompositeOperationOrAuto.auto}) =>
+      BaseComputedKeyframe._(
+          offset: offset,
+          computedOffset: computedOffset,
+          easing: easing,
+          composite: composite?.name);
 }
 
 extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
@@ -617,10 +684,10 @@ extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
     js_util.setProperty(this, 'easing', newValue);
   }
 
-  CompositeOperationOrAuto get composite =>
-      js_util.getProperty(this, 'composite');
+  CompositeOperationOrAuto get composite => CompositeOperationOrAuto.values
+      .byName(js_util.getProperty(this, 'composite'));
   set composite(CompositeOperationOrAuto newValue) {
-    js_util.setProperty(this, 'composite', newValue);
+    js_util.setProperty(this, 'composite', newValue.name);
   }
 }
 
@@ -655,10 +722,16 @@ extension PropsBasePropertyIndexedKeyframe on BasePropertyIndexedKeyframe {
 @JS()
 @staticInterop
 class BaseKeyframe {
-  external factory BaseKeyframe(
-      {double? offset,
-      String easing = 'linear',
-      CompositeOperationOrAuto? composite = CompositeOperationOrAuto.auto});
+  external factory BaseKeyframe._(
+      {double? offset, String? easing = 'linear', String? composite});
+
+  factory BaseKeyframe(
+          {double? offset,
+          String? easing = 'linear',
+          CompositeOperationOrAuto? composite =
+              CompositeOperationOrAuto.auto}) =>
+      BaseKeyframe._(
+          offset: offset, easing: easing, composite: composite?.name);
 }
 
 extension PropsBaseKeyframe on BaseKeyframe {
@@ -672,10 +745,10 @@ extension PropsBaseKeyframe on BaseKeyframe {
     js_util.setProperty(this, 'easing', newValue);
   }
 
-  CompositeOperationOrAuto get composite =>
-      js_util.getProperty(this, 'composite');
+  CompositeOperationOrAuto get composite => CompositeOperationOrAuto.values
+      .byName(js_util.getProperty(this, 'composite'));
   set composite(CompositeOperationOrAuto newValue) {
-    js_util.setProperty(this, 'composite', newValue);
+    js_util.setProperty(this, 'composite', newValue.name);
   }
 }
 
@@ -683,15 +756,21 @@ extension PropsBaseKeyframe on BaseKeyframe {
 @JS()
 @staticInterop
 class KeyframeEffectOptions implements EffectTiming {
-  external factory KeyframeEffectOptions(
-      {CompositeOperation composite = CompositeOperation.replace,
-      String? pseudoElement});
+  external factory KeyframeEffectOptions._(
+      {String? composite, String? pseudoElement});
+
+  factory KeyframeEffectOptions(
+          {CompositeOperation? composite = CompositeOperation.replace,
+          String? pseudoElement}) =>
+      KeyframeEffectOptions._(
+          composite: composite?.name, pseudoElement: pseudoElement);
 }
 
 extension PropsKeyframeEffectOptions on KeyframeEffectOptions {
-  CompositeOperation get composite => js_util.getProperty(this, 'composite');
+  CompositeOperation get composite =>
+      CompositeOperation.values.byName(js_util.getProperty(this, 'composite'));
   set composite(CompositeOperation newValue) {
-    js_util.setProperty(this, 'composite', newValue);
+    js_util.setProperty(this, 'composite', newValue.name);
   }
 
   String? get pseudoElement => js_util.getProperty(this, 'pseudoElement');
@@ -723,7 +802,7 @@ extension PropsAnimatable on Animatable {
 @staticInterop
 class KeyframeAnimationOptions implements KeyframeEffectOptions {
   external factory KeyframeAnimationOptions(
-      {String id = '', AnimationTimeline? timeline});
+      {String? id = '', AnimationTimeline? timeline});
 }
 
 extension PropsKeyframeAnimationOptions on KeyframeAnimationOptions {
@@ -742,7 +821,7 @@ extension PropsKeyframeAnimationOptions on KeyframeAnimationOptions {
 @JS()
 @staticInterop
 class GetAnimationsOptions {
-  external factory GetAnimationsOptions({bool subtree = false});
+  external factory GetAnimationsOptions({bool? subtree = false});
 }
 
 extension PropsGetAnimationsOptions on GetAnimationsOptions {

@@ -58,7 +58,7 @@ extension PropsPeriodicSyncManager on PeriodicSyncManager {
 @JS()
 @staticInterop
 class BackgroundSyncOptions {
-  external factory BackgroundSyncOptions({int minInterval = 0});
+  external factory BackgroundSyncOptions({int? minInterval = 0});
 }
 
 extension PropsBackgroundSyncOptions on BackgroundSyncOptions {
@@ -72,7 +72,7 @@ extension PropsBackgroundSyncOptions on BackgroundSyncOptions {
 @JS()
 @staticInterop
 class PeriodicSyncEventInit implements ExtendableEventInit {
-  external factory PeriodicSyncEventInit({String tag});
+  external factory PeriodicSyncEventInit({required String tag});
 }
 
 extension PropsPeriodicSyncEventInit on PeriodicSyncEventInit {

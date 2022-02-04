@@ -20,15 +20,32 @@ enum MediaKeysRequirement { valueRequired, optional, notAllowed }
 @JS()
 @staticInterop
 class MediaKeySystemConfiguration {
-  external factory MediaKeySystemConfiguration(
-      {String label = '',
+  external factory MediaKeySystemConfiguration._(
+      {String? label = '',
       Iterable<String>? initDataTypes = const [],
       Iterable<MediaKeySystemMediaCapability>? audioCapabilities = const [],
       Iterable<MediaKeySystemMediaCapability>? videoCapabilities = const [],
-      MediaKeysRequirement? distinctiveIdentifier =
-          MediaKeysRequirement.optional,
-      MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
+      String? distinctiveIdentifier,
+      String? persistentState,
       Iterable<String>? sessionTypes});
+
+  factory MediaKeySystemConfiguration(
+          {String? label = '',
+          Iterable<String>? initDataTypes = const [],
+          Iterable<MediaKeySystemMediaCapability>? audioCapabilities = const [],
+          Iterable<MediaKeySystemMediaCapability>? videoCapabilities = const [],
+          MediaKeysRequirement? distinctiveIdentifier =
+              MediaKeysRequirement.optional,
+          MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
+          Iterable<String>? sessionTypes}) =>
+      MediaKeySystemConfiguration._(
+          label: label,
+          initDataTypes: initDataTypes,
+          audioCapabilities: audioCapabilities,
+          videoCapabilities: videoCapabilities,
+          distinctiveIdentifier: distinctiveIdentifier?.name,
+          persistentState: persistentState?.name,
+          sessionTypes: sessionTypes);
 }
 
 extension PropsMediaKeySystemConfiguration on MediaKeySystemConfiguration {
@@ -55,16 +72,16 @@ extension PropsMediaKeySystemConfiguration on MediaKeySystemConfiguration {
     js_util.setProperty(this, 'videoCapabilities', newValue);
   }
 
-  MediaKeysRequirement get distinctiveIdentifier =>
-      js_util.getProperty(this, 'distinctiveIdentifier');
+  MediaKeysRequirement get distinctiveIdentifier => MediaKeysRequirement.values
+      .byName(js_util.getProperty(this, 'distinctiveIdentifier'));
   set distinctiveIdentifier(MediaKeysRequirement newValue) {
-    js_util.setProperty(this, 'distinctiveIdentifier', newValue);
+    js_util.setProperty(this, 'distinctiveIdentifier', newValue.name);
   }
 
-  MediaKeysRequirement get persistentState =>
-      js_util.getProperty(this, 'persistentState');
+  MediaKeysRequirement get persistentState => MediaKeysRequirement.values
+      .byName(js_util.getProperty(this, 'persistentState'));
   set persistentState(MediaKeysRequirement newValue) {
-    js_util.setProperty(this, 'persistentState', newValue);
+    js_util.setProperty(this, 'persistentState', newValue.name);
   }
 
   Iterable<String> get sessionTypes =>
@@ -79,7 +96,7 @@ extension PropsMediaKeySystemConfiguration on MediaKeySystemConfiguration {
 @staticInterop
 class MediaKeySystemMediaCapability {
   external factory MediaKeySystemMediaCapability(
-      {String contentType = '',
+      {String? contentType = '',
       String? encryptionScheme,
       String? robustness = ''});
 }
@@ -158,7 +175,7 @@ extension PropsMediaKeys on MediaKeys {
   ///
   MediaKeySession createSession(
           [MediaKeySessionType? sessionType = MediaKeySessionType.temporary]) =>
-      js_util.callMethod(this, 'createSession', [sessionType]);
+      js_util.callMethod(this, 'createSession', [sessionType?.name]);
 
   ///  Returns a [Future] to a server certificate to be used to encrypt
   /// messages to the license server.
@@ -345,8 +362,8 @@ extension PropsMediaKeyMessageEvent on MediaKeyMessageEvent {
   /// [license-renewal], [license-release], or
   /// [individualization-request].
   ///
-  MediaKeyMessageType get messageType =>
-      js_util.getProperty(this, 'messageType');
+  MediaKeyMessageType get messageType => MediaKeyMessageType.values
+      .byName(js_util.getProperty(this, 'messageType'));
 
   ///  Returns an [ArrayBuffer] with a message from the content
   /// decryption module. Messages vary by key system.
@@ -358,15 +375,21 @@ extension PropsMediaKeyMessageEvent on MediaKeyMessageEvent {
 @JS()
 @staticInterop
 class MediaKeyMessageEventInit implements EventInit {
-  external factory MediaKeyMessageEventInit(
-      {MediaKeyMessageType messageType, ByteBuffer message});
+  external factory MediaKeyMessageEventInit._(
+      {required String messageType, required ByteBuffer message});
+
+  factory MediaKeyMessageEventInit(
+          {required MediaKeyMessageType messageType,
+          required ByteBuffer message}) =>
+      MediaKeyMessageEventInit._(
+          messageType: messageType.name, message: message);
 }
 
 extension PropsMediaKeyMessageEventInit on MediaKeyMessageEventInit {
-  MediaKeyMessageType get messageType =>
-      js_util.getProperty(this, 'messageType');
+  MediaKeyMessageType get messageType => MediaKeyMessageType.values
+      .byName(js_util.getProperty(this, 'messageType'));
   set messageType(MediaKeyMessageType newValue) {
-    js_util.setProperty(this, 'messageType', newValue);
+    js_util.setProperty(this, 'messageType', newValue.name);
   }
 
   ByteBuffer get message => js_util.getProperty(this, 'message');
@@ -392,7 +415,7 @@ extension PropsMediaEncryptedEvent on MediaEncryptedEvent {
 @staticInterop
 class MediaEncryptedEventInit implements EventInit {
   external factory MediaEncryptedEventInit(
-      {String initDataType = '', ByteBuffer? initData});
+      {String? initDataType = '', ByteBuffer? initData});
 }
 
 extension PropsMediaEncryptedEventInit on MediaEncryptedEventInit {

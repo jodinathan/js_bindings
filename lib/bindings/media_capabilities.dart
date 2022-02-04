@@ -25,7 +25,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class MediaConfiguration {
   external factory MediaConfiguration(
-      {VideoConfiguration video, AudioConfiguration audio});
+      {required VideoConfiguration video, required AudioConfiguration audio});
 }
 
 extension PropsMediaConfiguration on MediaConfiguration {
@@ -49,15 +49,23 @@ extension PropsMediaConfiguration on MediaConfiguration {
 @JS()
 @staticInterop
 class MediaDecodingConfiguration implements MediaConfiguration {
-  external factory MediaDecodingConfiguration(
-      {MediaDecodingType type,
-      MediaCapabilitiesKeySystemConfiguration keySystemConfiguration});
+  external factory MediaDecodingConfiguration._(
+      {required String type,
+      required MediaCapabilitiesKeySystemConfiguration keySystemConfiguration});
+
+  factory MediaDecodingConfiguration(
+          {required MediaDecodingType type,
+          required MediaCapabilitiesKeySystemConfiguration
+              keySystemConfiguration}) =>
+      MediaDecodingConfiguration._(
+          type: type.name, keySystemConfiguration: keySystemConfiguration);
 }
 
 extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
-  MediaDecodingType get type => js_util.getProperty(this, 'type');
+  MediaDecodingType get type =>
+      MediaDecodingType.values.byName(js_util.getProperty(this, 'type'));
   set type(MediaDecodingType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration =>
@@ -76,13 +84,17 @@ extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
 @JS()
 @staticInterop
 class MediaEncodingConfiguration implements MediaConfiguration {
-  external factory MediaEncodingConfiguration({MediaEncodingType type});
+  external factory MediaEncodingConfiguration._({required String type});
+
+  factory MediaEncodingConfiguration({required MediaEncodingType type}) =>
+      MediaEncodingConfiguration._(type: type.name);
 }
 
 extension PropsMediaEncodingConfiguration on MediaEncodingConfiguration {
-  MediaEncodingType get type => js_util.getProperty(this, 'type');
+  MediaEncodingType get type =>
+      MediaEncodingType.values.byName(js_util.getProperty(this, 'type'));
   set type(MediaEncodingType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 }
 
@@ -101,17 +113,40 @@ enum MediaEncodingType { record, webrtc }
 @JS()
 @staticInterop
 class VideoConfiguration {
-  external factory VideoConfiguration(
-      {String contentType,
-      int width,
-      int height,
-      int bitrate,
-      double framerate,
-      bool hasAlphaChannel,
-      HdrMetadataType hdrMetadataType,
-      ColorGamut colorGamut,
-      TransferFunction transferFunction,
-      String scalabilityMode});
+  external factory VideoConfiguration._(
+      {required String contentType,
+      required int width,
+      required int height,
+      required int bitrate,
+      required double framerate,
+      required bool hasAlphaChannel,
+      required String hdrMetadataType,
+      required String colorGamut,
+      required String transferFunction,
+      required String scalabilityMode});
+
+  factory VideoConfiguration(
+          {required String contentType,
+          required int width,
+          required int height,
+          required int bitrate,
+          required double framerate,
+          required bool hasAlphaChannel,
+          required HdrMetadataType hdrMetadataType,
+          required ColorGamut colorGamut,
+          required TransferFunction transferFunction,
+          required String scalabilityMode}) =>
+      VideoConfiguration._(
+          contentType: contentType,
+          width: width,
+          height: height,
+          bitrate: bitrate,
+          framerate: framerate,
+          hasAlphaChannel: hasAlphaChannel,
+          hdrMetadataType: hdrMetadataType.name,
+          colorGamut: colorGamut.name,
+          transferFunction: transferFunction.name,
+          scalabilityMode: scalabilityMode);
 }
 
 extension PropsVideoConfiguration on VideoConfiguration {
@@ -145,21 +180,22 @@ extension PropsVideoConfiguration on VideoConfiguration {
     js_util.setProperty(this, 'hasAlphaChannel', newValue);
   }
 
-  HdrMetadataType get hdrMetadataType =>
-      js_util.getProperty(this, 'hdrMetadataType');
+  HdrMetadataType get hdrMetadataType => HdrMetadataType.values
+      .byName(js_util.getProperty(this, 'hdrMetadataType'));
   set hdrMetadataType(HdrMetadataType newValue) {
-    js_util.setProperty(this, 'hdrMetadataType', newValue);
+    js_util.setProperty(this, 'hdrMetadataType', newValue.name);
   }
 
-  ColorGamut get colorGamut => js_util.getProperty(this, 'colorGamut');
+  ColorGamut get colorGamut =>
+      ColorGamut.values.byName(js_util.getProperty(this, 'colorGamut'));
   set colorGamut(ColorGamut newValue) {
-    js_util.setProperty(this, 'colorGamut', newValue);
+    js_util.setProperty(this, 'colorGamut', newValue.name);
   }
 
-  TransferFunction get transferFunction =>
-      js_util.getProperty(this, 'transferFunction');
+  TransferFunction get transferFunction => TransferFunction.values
+      .byName(js_util.getProperty(this, 'transferFunction'));
   set transferFunction(TransferFunction newValue) {
-    js_util.setProperty(this, 'transferFunction', newValue);
+    js_util.setProperty(this, 'transferFunction', newValue.name);
   }
 
   String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
@@ -184,11 +220,11 @@ enum TransferFunction { srgb, pq, hlg }
 @staticInterop
 class AudioConfiguration {
   external factory AudioConfiguration(
-      {String contentType,
-      String channels,
-      int bitrate,
-      int samplerate,
-      bool spatialRendering});
+      {required String contentType,
+      required String channels,
+      required int bitrate,
+      required int samplerate,
+      required bool spatialRendering});
 }
 
 extension PropsAudioConfiguration on AudioConfiguration {
@@ -222,15 +258,32 @@ extension PropsAudioConfiguration on AudioConfiguration {
 @JS()
 @staticInterop
 class MediaCapabilitiesKeySystemConfiguration {
-  external factory MediaCapabilitiesKeySystemConfiguration(
-      {String keySystem,
-      String initDataType = '',
-      MediaKeysRequirement? distinctiveIdentifier =
-          MediaKeysRequirement.optional,
-      MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
+  external factory MediaCapabilitiesKeySystemConfiguration._(
+      {required String keySystem,
+      String? initDataType = '',
+      String? distinctiveIdentifier,
+      String? persistentState,
       Iterable<String>? sessionTypes,
       KeySystemTrackConfiguration? audio,
       KeySystemTrackConfiguration? video});
+
+  factory MediaCapabilitiesKeySystemConfiguration(
+          {required String keySystem,
+          String? initDataType = '',
+          MediaKeysRequirement? distinctiveIdentifier =
+              MediaKeysRequirement.optional,
+          MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
+          Iterable<String>? sessionTypes,
+          KeySystemTrackConfiguration? audio,
+          KeySystemTrackConfiguration? video}) =>
+      MediaCapabilitiesKeySystemConfiguration._(
+          keySystem: keySystem,
+          initDataType: initDataType,
+          distinctiveIdentifier: distinctiveIdentifier?.name,
+          persistentState: persistentState?.name,
+          sessionTypes: sessionTypes,
+          audio: audio,
+          video: video);
 }
 
 extension PropsMediaCapabilitiesKeySystemConfiguration
@@ -245,16 +298,16 @@ extension PropsMediaCapabilitiesKeySystemConfiguration
     js_util.setProperty(this, 'initDataType', newValue);
   }
 
-  MediaKeysRequirement get distinctiveIdentifier =>
-      js_util.getProperty(this, 'distinctiveIdentifier');
+  MediaKeysRequirement get distinctiveIdentifier => MediaKeysRequirement.values
+      .byName(js_util.getProperty(this, 'distinctiveIdentifier'));
   set distinctiveIdentifier(MediaKeysRequirement newValue) {
-    js_util.setProperty(this, 'distinctiveIdentifier', newValue);
+    js_util.setProperty(this, 'distinctiveIdentifier', newValue.name);
   }
 
-  MediaKeysRequirement get persistentState =>
-      js_util.getProperty(this, 'persistentState');
+  MediaKeysRequirement get persistentState => MediaKeysRequirement.values
+      .byName(js_util.getProperty(this, 'persistentState'));
   set persistentState(MediaKeysRequirement newValue) {
-    js_util.setProperty(this, 'persistentState', newValue);
+    js_util.setProperty(this, 'persistentState', newValue.name);
   }
 
   Iterable<String> get sessionTypes =>
@@ -279,7 +332,7 @@ extension PropsMediaCapabilitiesKeySystemConfiguration
 @staticInterop
 class KeySystemTrackConfiguration {
   external factory KeySystemTrackConfiguration(
-      {String robustness = '', String? encryptionScheme});
+      {String? robustness = '', String? encryptionScheme});
 }
 
 extension PropsKeySystemTrackConfiguration on KeySystemTrackConfiguration {
@@ -299,7 +352,9 @@ extension PropsKeySystemTrackConfiguration on KeySystemTrackConfiguration {
 @staticInterop
 class MediaCapabilitiesInfo {
   external factory MediaCapabilitiesInfo(
-      {bool supported, bool smooth, bool powerEfficient});
+      {required bool supported,
+      required bool smooth,
+      required bool powerEfficient});
 }
 
 extension PropsMediaCapabilitiesInfo on MediaCapabilitiesInfo {
@@ -324,8 +379,8 @@ extension PropsMediaCapabilitiesInfo on MediaCapabilitiesInfo {
 @staticInterop
 class MediaCapabilitiesDecodingInfo implements MediaCapabilitiesInfo {
   external factory MediaCapabilitiesDecodingInfo(
-      {MediaKeySystemAccess keySystemAccess,
-      MediaDecodingConfiguration configuration});
+      {required MediaKeySystemAccess keySystemAccess,
+      required MediaDecodingConfiguration configuration});
 }
 
 extension PropsMediaCapabilitiesDecodingInfo on MediaCapabilitiesDecodingInfo {
@@ -347,7 +402,7 @@ extension PropsMediaCapabilitiesDecodingInfo on MediaCapabilitiesDecodingInfo {
 @staticInterop
 class MediaCapabilitiesEncodingInfo implements MediaCapabilitiesInfo {
   external factory MediaCapabilitiesEncodingInfo(
-      {MediaEncodingConfiguration configuration});
+      {required MediaEncodingConfiguration configuration});
 }
 
 extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {

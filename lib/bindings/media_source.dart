@@ -66,7 +66,8 @@ extension PropsMediaSource on MediaSource {
   /// objects ([open]), or attached but the stream has been ended via
   /// [MediaSource.endOfStream()] ([ended].)
   ///
-  ReadyState get readyState => js_util.getProperty(this, 'readyState');
+  ReadyState get readyState =>
+      ReadyState.values.byName(js_util.getProperty(this, 'readyState'));
 
   /// Gets and sets the duration of the current media being presented.
   ///
@@ -177,7 +178,7 @@ extension PropsMediaSource on MediaSource {
   /// };
   ///
   Object endOfStream([EndOfStreamError? error]) =>
-      js_util.callMethod(this, 'endOfStream', [error]);
+      js_util.callMethod(this, 'endOfStream', [error?.name]);
 
   /// Sets the range that the user can seek to in the media element.
   ///
@@ -229,9 +230,10 @@ extension PropsSourceBuffer on SourceBuffer {
   /// is handled, in terms of whether they can be appended in any
   /// order, or they have to be kept in a strict sequence.
   ///
-  AppendMode get mode => js_util.getProperty(this, 'mode');
+  AppendMode get mode =>
+      AppendMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(AppendMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 
   ///  A boolean indicating whether the [SourceBuffer] is currently

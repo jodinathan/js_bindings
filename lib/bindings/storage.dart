@@ -88,7 +88,7 @@ extension PropsStorageManager on StorageManager {
 @JS()
 @staticInterop
 class StorageEstimate {
-  external factory StorageEstimate({int usage, int quota});
+  external factory StorageEstimate({required int usage, required int quota});
 }
 
 extension PropsStorageEstimate on StorageEstimate {

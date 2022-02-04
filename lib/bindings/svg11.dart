@@ -82,7 +82,7 @@ extension PropsSVGElement on SVGElement {
 @staticInterop
 class SVGBoundingBoxOptions {
   external factory SVGBoundingBoxOptions(
-      {bool fill = true,
+      {bool? fill = true,
       bool? stroke = false,
       bool? markers = false,
       bool? clipped = false});

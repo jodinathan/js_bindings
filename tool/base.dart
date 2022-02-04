@@ -184,12 +184,17 @@ class DartType {
     required bool nullable,
     this.description,
     this.isCallback = false,
+    this.isIterable = false,
+    this.isEnum = false,
     this.specType,
   }) : fullName = '$name${nullable && name != 'dynamic' &&
       !name.endsWith(' dynamic') ? '?' : ''}',
   nullable = nullable || name == 'dynamic' || name.endsWith(' dynamic'),
   isDynamic = name == 'dynamic',
-  isPromise = name == 'Promise' || name.startsWith('Promise<');
+  isPromise = name == 'Promise' || name.startsWith('Promise<'),
+  simpleName = RegExp(r'\<\w+\>').hasMatch(name) ?
+  RegExp(r'\<\w+\>').stringMatch(name)!.replaceAll(RegExp(r'\<|\>'), '')
+      : name;
 
   final String name;
   final String fullName;
@@ -197,6 +202,9 @@ class DartType {
   final bool isDynamic;
   final bool isPromise;
   final bool isCallback;
+  final bool isIterable;
+  final String simpleName;
+  final bool isEnum;
   final String? description;
   final Map<String, dynamic>? specType;
 
@@ -333,22 +341,53 @@ class Method {
     }
   }
 
-  String build({bool optionals = true, bool documentation = true}) {
+  String build({bool anonymous = false, bool documentation = true,
+  bool enumAsStrings = false}) {
     var ret = <String>[];
     var optional = false;
 
     for (final arg in params) {
-      var call = '${documentation &&
-          arg.description.isNotEmpty ?
-          '${makeDoc(arg.description)}\n'
-          : ''}${arg.typeName} ${arg.name}';
+      final swapEnum = enumAsStrings && arg.dartType.isEnum;
 
-      if (arg.isOptional && !optional && optionals) {
-        call = '[$call';
-        optional = true;
+      String typeName;
+
+      if (swapEnum) {
+        if (arg.typeName.contains('<')) {
+          final gt = RegExp(r'\<\w+\>').stringMatch(arg.typeName)!;
+
+          typeName = arg.typeName.replaceAll(gt, '<String>');
+        } else {
+          typeName = 'String';
+        }
+      } else {
+        typeName = arg.typeName;
       }
 
-      if (arg.defaultValue != null) {
+      if (arg.isNullable && !typeName.endsWith('?') &&
+          !arg.dartType.isDynamic &&
+          !typeName.endsWith(' dynamic')) {
+        typeName += '?';
+      }
+
+      var call = '$typeName ${arg.name}';
+
+      if (arg.isVariadic) {
+        call = '${call}1, ${call}2, ${call}3';
+      }
+
+      if (documentation &&
+          arg.description.isNotEmpty) {
+        call = '${makeDoc(arg.description)}\n$call';
+      }
+
+      if (arg.isOptional && !optional && !anonymous) {
+        call = '[$call';
+        optional = true;
+      } else if (!arg.isNullable && anonymous) {
+        call = 'required $call';
+      }
+
+      if (arg.defaultValue != null && !swapEnum) {
         call += ' = ${arg.defaultValue}';
       }
 
@@ -456,6 +495,8 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
       }
     }
 
+    var iterable = false;
+
     if (gen.isNotEmpty) {
       final myt = ret;
       gen.add(myt);
@@ -463,6 +504,8 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
 
       for (final g in gen.reversed) {
         final type = g == 'Promise' ? 'Promise' : (g == myt ? myt : 'Iterable');
+
+        iterable = type == 'Iterable';
 
         if (ret != '') {
           ret = '$type<$ret>';
@@ -478,6 +521,8 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
     final type = spt?['type']?.toString().split(' ') ?? [];
 
     return DartType(name: ret, nullable: nullable,
+        isIterable: iterable,
+        isEnum: type.contains('enum'),
         isCallback: type.contains('callback') && (ret == 'EventListener' ||
         type.length == 1),
     specType: spt);

@@ -45,15 +45,19 @@ extension PropsOTPCredential on OTPCredential {
 @JS()
 @staticInterop
 class OTPCredentialRequestOptions {
-  external factory OTPCredentialRequestOptions(
-      {Iterable<OTPCredentialTransportType> transport = const []});
+  external factory OTPCredentialRequestOptions._({Iterable<String>? transport});
+
+  factory OTPCredentialRequestOptions(
+          {Iterable<OTPCredentialTransportType>? transport = const []}) =>
+      OTPCredentialRequestOptions._(transport: transport?.names);
 }
 
 extension PropsOTPCredentialRequestOptions on OTPCredentialRequestOptions {
   Iterable<OTPCredentialTransportType> get transport =>
-      js_util.getProperty(this, 'transport');
+      OTPCredentialTransportType.values
+          .byNames(js_util.getProperty(this, 'transport'));
   set transport(Iterable<OTPCredentialTransportType> newValue) {
-    js_util.setProperty(this, 'transport', newValue);
+    js_util.setProperty(this, 'transport', newValue.names);
   }
 }
 

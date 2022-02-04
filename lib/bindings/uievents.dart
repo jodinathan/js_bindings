@@ -65,7 +65,7 @@ extension PropsUIEvent on UIEvent {
 @JS()
 @staticInterop
 class UIEventInit implements EventInit {
-  external factory UIEventInit({Window? view, int detail = 0});
+  external factory UIEventInit({Window? view, int? detail = 0});
 }
 
 extension PropsUIEventInit on UIEventInit {
@@ -285,7 +285,7 @@ extension PropsMouseEvent on MouseEvent {
 @staticInterop
 class MouseEventInit implements EventModifierInit {
   external factory MouseEventInit(
-      {int screenX = 0,
+      {int? screenX = 0,
       int? screenY = 0,
       int? clientX = 0,
       int? clientY = 0,
@@ -336,7 +336,7 @@ extension PropsMouseEventInit on MouseEventInit {
 @staticInterop
 class EventModifierInit implements UIEventInit {
   external factory EventModifierInit(
-      {bool ctrlKey = false,
+      {bool? ctrlKey = false,
       bool? shiftKey = false,
       bool? altKey = false,
       bool? metaKey = false,
@@ -536,7 +536,7 @@ extension PropsWheelEvent on WheelEvent {
 @staticInterop
 class WheelEventInit implements MouseEventInit {
   external factory WheelEventInit(
-      {double deltaX = 0.0,
+      {double? deltaX = 0.0,
       double? deltaY = 0.0,
       double? deltaZ = 0.0,
       int? deltaMode = 0});
@@ -617,7 +617,7 @@ extension PropsInputEvent on InputEvent {
 @staticInterop
 class InputEventInit implements UIEventInit {
   external factory InputEventInit(
-      {String? data, bool isComposing = false, String? inputType = ''});
+      {String? data, bool? isComposing = false, String? inputType = ''});
 }
 
 extension PropsInputEventInit on InputEventInit {
@@ -866,7 +866,7 @@ extension PropsKeyboardEvent on KeyboardEvent {
 @staticInterop
 class KeyboardEventInit implements EventModifierInit {
   external factory KeyboardEventInit(
-      {String key = '',
+      {String? key = '',
       String? code = '',
       int? location = 0,
       bool? repeat = false,
@@ -945,7 +945,7 @@ extension PropsCompositionEvent on CompositionEvent {
 @JS()
 @staticInterop
 class CompositionEventInit implements UIEventInit {
-  external factory CompositionEventInit({String data = ''});
+  external factory CompositionEventInit({String? data = ''});
 }
 
 extension PropsCompositionEventInit on CompositionEventInit {

@@ -17,7 +17,8 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorUABrandVersion {
-  external factory NavigatorUABrandVersion({String brand, String version});
+  external factory NavigatorUABrandVersion(
+      {required String brand, required String version});
 }
 
 extension PropsNavigatorUABrandVersion on NavigatorUABrandVersion {
@@ -37,14 +38,14 @@ extension PropsNavigatorUABrandVersion on NavigatorUABrandVersion {
 @staticInterop
 class UADataValues {
   external factory UADataValues(
-      {Iterable<NavigatorUABrandVersion> brands,
-      bool mobile,
-      String platform,
-      String architecture,
-      String bitness,
-      String model,
-      String platformVersion,
-      String uaFullVersion});
+      {required Iterable<NavigatorUABrandVersion> brands,
+      required bool mobile,
+      required String platform,
+      required String architecture,
+      required String bitness,
+      required String model,
+      required String platformVersion,
+      required String uaFullVersion});
 }
 
 extension PropsUADataValues on UADataValues {
@@ -95,7 +96,9 @@ extension PropsUADataValues on UADataValues {
 @staticInterop
 class UALowEntropyJSON {
   external factory UALowEntropyJSON(
-      {Iterable<NavigatorUABrandVersion> brands, bool mobile, String platform});
+      {required Iterable<NavigatorUABrandVersion> brands,
+      required bool mobile,
+      required String platform});
 }
 
 extension PropsUALowEntropyJSON on UALowEntropyJSON {

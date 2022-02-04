@@ -19,7 +19,7 @@ import 'package:js_bindings/js_bindings.dart';
 class CSSStyleSheetInit {
   external factory CSSStyleSheetInit(
       {dynamic media,
-      String title = '',
+      String? title = '',
       bool? alternate = false,
       bool? disabled = false});
 }

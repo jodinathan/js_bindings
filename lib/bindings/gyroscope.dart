@@ -51,16 +51,20 @@ enum GyroscopeLocalCoordinateSystem { device, screen }
 @JS()
 @staticInterop
 class GyroscopeSensorOptions implements SensorOptions {
-  external factory GyroscopeSensorOptions(
-      {GyroscopeLocalCoordinateSystem referenceFrame =
-          GyroscopeLocalCoordinateSystem.device});
+  external factory GyroscopeSensorOptions._({String? referenceFrame});
+
+  factory GyroscopeSensorOptions(
+          {GyroscopeLocalCoordinateSystem? referenceFrame =
+              GyroscopeLocalCoordinateSystem.device}) =>
+      GyroscopeSensorOptions._(referenceFrame: referenceFrame?.name);
 }
 
 extension PropsGyroscopeSensorOptions on GyroscopeSensorOptions {
   GyroscopeLocalCoordinateSystem get referenceFrame =>
-      js_util.getProperty(this, 'referenceFrame');
+      GyroscopeLocalCoordinateSystem.values
+          .byName(js_util.getProperty(this, 'referenceFrame'));
   set referenceFrame(GyroscopeLocalCoordinateSystem newValue) {
-    js_util.setProperty(this, 'referenceFrame', newValue);
+    js_util.setProperty(this, 'referenceFrame', newValue.name);
   }
 }
 

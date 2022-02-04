@@ -19,14 +19,18 @@ enum FullscreenNavigationUI { auto, valueShow, valueHide }
 @JS()
 @staticInterop
 class FullscreenOptions {
-  external factory FullscreenOptions(
-      {FullscreenNavigationUI navigationUI = FullscreenNavigationUI.auto});
+  external factory FullscreenOptions._({String? navigationUI});
+
+  factory FullscreenOptions(
+          {FullscreenNavigationUI? navigationUI =
+              FullscreenNavigationUI.auto}) =>
+      FullscreenOptions._(navigationUI: navigationUI?.name);
 }
 
 extension PropsFullscreenOptions on FullscreenOptions {
-  FullscreenNavigationUI get navigationUI =>
-      js_util.getProperty(this, 'navigationUI');
+  FullscreenNavigationUI get navigationUI => FullscreenNavigationUI.values
+      .byName(js_util.getProperty(this, 'navigationUI'));
   set navigationUI(FullscreenNavigationUI newValue) {
-    js_util.setProperty(this, 'navigationUI', newValue);
+    js_util.setProperty(this, 'navigationUI', newValue.name);
   }
 }

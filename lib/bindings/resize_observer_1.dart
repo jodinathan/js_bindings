@@ -20,14 +20,19 @@ enum ResizeObserverBoxOptions { borderBox, contentBox, devicePixelContentBox }
 @JS()
 @staticInterop
 class ResizeObserverOptions {
-  external factory ResizeObserverOptions(
-      {ResizeObserverBoxOptions box = ResizeObserverBoxOptions.contentBox});
+  external factory ResizeObserverOptions._({String? box});
+
+  factory ResizeObserverOptions(
+          {ResizeObserverBoxOptions? box =
+              ResizeObserverBoxOptions.contentBox}) =>
+      ResizeObserverOptions._(box: box?.name);
 }
 
 extension PropsResizeObserverOptions on ResizeObserverOptions {
-  ResizeObserverBoxOptions get box => js_util.getProperty(this, 'box');
+  ResizeObserverBoxOptions get box =>
+      ResizeObserverBoxOptions.values.byName(js_util.getProperty(this, 'box'));
   set box(ResizeObserverBoxOptions newValue) {
-    js_util.setProperty(this, 'box', newValue);
+    js_util.setProperty(this, 'box', newValue.name);
   }
 }
 
@@ -172,8 +177,8 @@ class ResizeObservation {
 
 extension PropsResizeObservation on ResizeObservation {
   Element get target => js_util.getProperty(this, 'target');
-  ResizeObserverBoxOptions get observedBox =>
-      js_util.getProperty(this, 'observedBox');
+  ResizeObserverBoxOptions get observedBox => ResizeObserverBoxOptions.values
+      .byName(js_util.getProperty(this, 'observedBox'));
   Iterable<ResizeObserverSize> get lastReportedSizes =>
       js_util.getProperty(this, 'lastReportedSizes');
 }

@@ -21,11 +21,22 @@ enum ScrollTimelineAutoKeyword { auto }
 @JS()
 @staticInterop
 class ScrollTimelineOptions {
-  external factory ScrollTimelineOptions(
+  external factory ScrollTimelineOptions._(
       {Element? source,
-      ScrollDirection orientation = ScrollDirection.block,
+      String? orientation,
       Iterable<dynamic>? scrollOffsets = const [],
       dynamic timeRange});
+
+  factory ScrollTimelineOptions(
+          {Element? source,
+          ScrollDirection? orientation = ScrollDirection.block,
+          Iterable<dynamic>? scrollOffsets = const [],
+          dynamic timeRange}) =>
+      ScrollTimelineOptions._(
+          source: source,
+          orientation: orientation?.name,
+          scrollOffsets: scrollOffsets,
+          timeRange: timeRange);
 }
 
 extension PropsScrollTimelineOptions on ScrollTimelineOptions {
@@ -34,9 +45,10 @@ extension PropsScrollTimelineOptions on ScrollTimelineOptions {
     js_util.setProperty(this, 'source', newValue);
   }
 
-  ScrollDirection get orientation => js_util.getProperty(this, 'orientation');
+  ScrollDirection get orientation =>
+      ScrollDirection.values.byName(js_util.getProperty(this, 'orientation'));
   set orientation(ScrollDirection newValue) {
-    js_util.setProperty(this, 'orientation', newValue);
+    js_util.setProperty(this, 'orientation', newValue.name);
   }
 
   Iterable<dynamic> get scrollOffsets =>
@@ -59,7 +71,8 @@ class ScrollTimeline implements AnimationTimeline {
 
 extension PropsScrollTimeline on ScrollTimeline {
   Element? get source => js_util.getProperty(this, 'source');
-  ScrollDirection get orientation => js_util.getProperty(this, 'orientation');
+  ScrollDirection get orientation =>
+      ScrollDirection.values.byName(js_util.getProperty(this, 'orientation'));
   Iterable<dynamic> get scrollOffsets =>
       js_util.getProperty(this, 'scrollOffsets');
   dynamic get timeRange => js_util.getProperty(this, 'timeRange');
@@ -71,8 +84,15 @@ enum Edge { start, end }
 @JS()
 @staticInterop
 class ElementBasedOffset {
-  external factory ElementBasedOffset(
-      {Element target, Edge edge = Edge.start, double? threshold = 0.0});
+  external factory ElementBasedOffset._(
+      {required Element target, String? edge, double? threshold = 0.0});
+
+  factory ElementBasedOffset(
+          {required Element target,
+          Edge? edge = Edge.start,
+          double? threshold = 0.0}) =>
+      ElementBasedOffset._(
+          target: target, edge: edge?.name, threshold: threshold);
 }
 
 extension PropsElementBasedOffset on ElementBasedOffset {
@@ -81,9 +101,9 @@ extension PropsElementBasedOffset on ElementBasedOffset {
     js_util.setProperty(this, 'target', newValue);
   }
 
-  Edge get edge => js_util.getProperty(this, 'edge');
+  Edge get edge => Edge.values.byName(js_util.getProperty(this, 'edge'));
   set edge(Edge newValue) {
-    js_util.setProperty(this, 'edge', newValue);
+    js_util.setProperty(this, 'edge', newValue.name);
   }
 
   double get threshold => js_util.getProperty(this, 'threshold');

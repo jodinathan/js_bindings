@@ -31,7 +31,7 @@ extension PropsTextDecoderCommon on TextDecoderCommon {
 @staticInterop
 class TextDecoderOptions {
   external factory TextDecoderOptions(
-      {bool fatal = false, bool? ignoreBOM = false});
+      {bool? fatal = false, bool? ignoreBOM = false});
 }
 
 extension PropsTextDecoderOptions on TextDecoderOptions {
@@ -50,7 +50,7 @@ extension PropsTextDecoderOptions on TextDecoderOptions {
 @JS()
 @staticInterop
 class TextDecodeOptions {
-  external factory TextDecodeOptions({bool stream = false});
+  external factory TextDecodeOptions({bool? stream = false});
 }
 
 extension PropsTextDecodeOptions on TextDecodeOptions {
@@ -133,7 +133,8 @@ extension PropsTextEncoderCommon on TextEncoderCommon {
 @JS()
 @staticInterop
 class TextEncoderEncodeIntoResult {
-  external factory TextEncoderEncodeIntoResult({int read, int written});
+  external factory TextEncoderEncodeIntoResult(
+      {required int read, required int written});
 }
 
 extension PropsTextEncoderEncodeIntoResult on TextEncoderEncodeIntoResult {

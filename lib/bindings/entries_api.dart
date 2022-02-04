@@ -338,7 +338,7 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
 @staticInterop
 class FileSystemFlags {
   external factory FileSystemFlags(
-      {bool create = false, bool? exclusive = false});
+      {bool? create = false, bool? exclusive = false});
 }
 
 extension PropsFileSystemFlags on FileSystemFlags {

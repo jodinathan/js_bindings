@@ -62,7 +62,8 @@ extension PropsNotification on Notification {
   }
 
   String get title => js_util.getProperty(this, 'title');
-  NotificationDirection get dir => js_util.getProperty(this, 'dir');
+  NotificationDirection get dir =>
+      NotificationDirection.values.byName(js_util.getProperty(this, 'dir'));
   String get lang => js_util.getProperty(this, 'lang');
   String get body => js_util.getProperty(this, 'body');
   String get tag => js_util.getProperty(this, 'tag');
@@ -85,8 +86,8 @@ extension PropsNotification on Notification {
 @JS()
 @staticInterop
 class NotificationOptions {
-  external factory NotificationOptions(
-      {NotificationDirection dir = NotificationDirection.auto,
+  external factory NotificationOptions._(
+      {String? dir,
       String? lang = '',
       String? body = '',
       String? tag = '',
@@ -100,12 +101,44 @@ class NotificationOptions {
       bool? requireInteraction = false,
       dynamic data,
       Iterable<NotificationAction>? actions = const []});
+
+  factory NotificationOptions(
+          {NotificationDirection? dir = NotificationDirection.auto,
+          String? lang = '',
+          String? body = '',
+          String? tag = '',
+          String? image,
+          String? icon,
+          String? badge,
+          dynamic vibrate,
+          int? timestamp,
+          bool? renotify = false,
+          bool? silent = false,
+          bool? requireInteraction = false,
+          dynamic data,
+          Iterable<NotificationAction>? actions = const []}) =>
+      NotificationOptions._(
+          dir: dir?.name,
+          lang: lang,
+          body: body,
+          tag: tag,
+          image: image,
+          icon: icon,
+          badge: badge,
+          vibrate: vibrate,
+          timestamp: timestamp,
+          renotify: renotify,
+          silent: silent,
+          requireInteraction: requireInteraction,
+          data: data,
+          actions: actions);
 }
 
 extension PropsNotificationOptions on NotificationOptions {
-  NotificationDirection get dir => js_util.getProperty(this, 'dir');
+  NotificationDirection get dir =>
+      NotificationDirection.values.byName(js_util.getProperty(this, 'dir'));
   set dir(NotificationDirection newValue) {
-    js_util.setProperty(this, 'dir', newValue);
+    js_util.setProperty(this, 'dir', newValue.name);
   }
 
   String get lang => js_util.getProperty(this, 'lang');
@@ -185,7 +218,7 @@ enum NotificationDirection { auto, ltr, rtl }
 @staticInterop
 class NotificationAction {
   external factory NotificationAction(
-      {String action, String title, String icon});
+      {required String action, required String title, required String icon});
 }
 
 extension PropsNotificationAction on NotificationAction {
@@ -209,7 +242,7 @@ extension PropsNotificationAction on NotificationAction {
 @JS()
 @staticInterop
 class GetNotificationOptions {
-  external factory GetNotificationOptions({String tag = ''});
+  external factory GetNotificationOptions({String? tag = ''});
 }
 
 extension PropsGetNotificationOptions on GetNotificationOptions {
@@ -250,7 +283,7 @@ extension PropsNotificationEvent on NotificationEvent {
 @staticInterop
 class NotificationEventInit implements ExtendableEventInit {
   external factory NotificationEventInit(
-      {Notification notification, String action = ''});
+      {required Notification notification, String? action = ''});
 }
 
 extension PropsNotificationEventInit on NotificationEventInit {

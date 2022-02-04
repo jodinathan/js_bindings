@@ -66,7 +66,8 @@ extension PropsBaseAudioContext on BaseAudioContext {
 
   /// Returns the current state of the [AudioContext].
   ///
-  AudioContextState get state => js_util.getProperty(this, 'state');
+  AudioContextState get state =>
+      AudioContextState.values.byName(js_util.getProperty(this, 'state'));
 
   ///  Returns the [AudioWorklet] object, which can be used to create
   /// and manage [AudioNode]s in which JavaScript code implementing the
@@ -1478,7 +1479,7 @@ extension PropsAudioContext on AudioContext {
 @staticInterop
 class AudioContextOptions {
   external factory AudioContextOptions(
-      {dynamic latencyHint, double sampleRate});
+      {dynamic latencyHint, required double sampleRate});
 }
 
 extension PropsAudioContextOptions on AudioContextOptions {
@@ -1497,7 +1498,8 @@ extension PropsAudioContextOptions on AudioContextOptions {
 @JS()
 @staticInterop
 class AudioTimestamp {
-  external factory AudioTimestamp({double contextTime, double performanceTime});
+  external factory AudioTimestamp(
+      {required double contextTime, required double performanceTime});
 }
 
 extension PropsAudioTimestamp on AudioTimestamp {
@@ -1658,7 +1660,7 @@ extension PropsOfflineAudioContext on OfflineAudioContext {
 @staticInterop
 class OfflineAudioContextOptions {
   external factory OfflineAudioContextOptions(
-      {int numberOfChannels = 1, int? length, double? sampleRate});
+      {int? numberOfChannels = 1, int? length, double? sampleRate});
 }
 
 extension PropsOfflineAudioContextOptions on OfflineAudioContextOptions {
@@ -1706,7 +1708,7 @@ extension PropsOfflineAudioCompletionEvent on OfflineAudioCompletionEvent {
 @staticInterop
 class OfflineAudioCompletionEventInit implements EventInit {
   external factory OfflineAudioCompletionEventInit(
-      {AudioBuffer renderedBuffer});
+      {required AudioBuffer renderedBuffer});
 }
 
 extension PropsOfflineAudioCompletionEventInit
@@ -1862,7 +1864,7 @@ extension PropsAudioBuffer on AudioBuffer {
 @staticInterop
 class AudioBufferOptions {
   external factory AudioBufferOptions(
-      {int numberOfChannels = 1, int? length, double? sampleRate});
+      {int? numberOfChannels = 1, int? length, double? sampleRate});
 }
 
 extension PropsAudioBufferOptions on AudioBufferOptions {
@@ -1998,10 +2000,10 @@ extension PropsAudioNode on AudioNode {
   ///  Represents an enumerated value describing the way channels must
   /// be matched between the node's inputs and outputs.
   ///
-  ChannelCountMode get channelCountMode =>
-      js_util.getProperty(this, 'channelCountMode');
+  ChannelCountMode get channelCountMode => ChannelCountMode.values
+      .byName(js_util.getProperty(this, 'channelCountMode'));
   set channelCountMode(ChannelCountMode newValue) {
-    js_util.setProperty(this, 'channelCountMode', newValue);
+    js_util.setProperty(this, 'channelCountMode', newValue.name);
   }
 
   ///
@@ -2012,9 +2014,10 @@ extension PropsAudioNode on AudioNode {
   ///
   ///
   ChannelInterpretation get channelInterpretation =>
-      js_util.getProperty(this, 'channelInterpretation');
+      ChannelInterpretation.values
+          .byName(js_util.getProperty(this, 'channelInterpretation'));
   set channelInterpretation(ChannelInterpretation newValue) {
-    js_util.setProperty(this, 'channelInterpretation', newValue);
+    js_util.setProperty(this, 'channelInterpretation', newValue.name);
   }
 }
 
@@ -2026,10 +2029,19 @@ enum ChannelInterpretation { speakers, discrete }
 @JS()
 @staticInterop
 class AudioNodeOptions {
-  external factory AudioNodeOptions(
-      {int channelCount,
-      ChannelCountMode channelCountMode,
-      ChannelInterpretation channelInterpretation});
+  external factory AudioNodeOptions._(
+      {required int channelCount,
+      required String channelCountMode,
+      required String channelInterpretation});
+
+  factory AudioNodeOptions(
+          {required int channelCount,
+          required ChannelCountMode channelCountMode,
+          required ChannelInterpretation channelInterpretation}) =>
+      AudioNodeOptions._(
+          channelCount: channelCount,
+          channelCountMode: channelCountMode.name,
+          channelInterpretation: channelInterpretation.name);
 }
 
 extension PropsAudioNodeOptions on AudioNodeOptions {
@@ -2038,16 +2050,17 @@ extension PropsAudioNodeOptions on AudioNodeOptions {
     js_util.setProperty(this, 'channelCount', newValue);
   }
 
-  ChannelCountMode get channelCountMode =>
-      js_util.getProperty(this, 'channelCountMode');
+  ChannelCountMode get channelCountMode => ChannelCountMode.values
+      .byName(js_util.getProperty(this, 'channelCountMode'));
   set channelCountMode(ChannelCountMode newValue) {
-    js_util.setProperty(this, 'channelCountMode', newValue);
+    js_util.setProperty(this, 'channelCountMode', newValue.name);
   }
 
   ChannelInterpretation get channelInterpretation =>
-      js_util.getProperty(this, 'channelInterpretation');
+      ChannelInterpretation.values
+          .byName(js_util.getProperty(this, 'channelInterpretation'));
   set channelInterpretation(ChannelInterpretation newValue) {
-    js_util.setProperty(this, 'channelInterpretation', newValue);
+    js_util.setProperty(this, 'channelInterpretation', newValue.name);
   }
 }
 
@@ -2081,9 +2094,9 @@ extension PropsAudioParam on AudioParam {
   }
 
   AutomationRate get automationRate =>
-      js_util.getProperty(this, 'automationRate');
+      AutomationRate.values.byName(js_util.getProperty(this, 'automationRate'));
   set automationRate(AutomationRate newValue) {
-    js_util.setProperty(this, 'automationRate', newValue);
+    js_util.setProperty(this, 'automationRate', newValue.name);
   }
 
   ///  Represents the initial value of the attribute as defined by the
@@ -2664,7 +2677,7 @@ extension PropsAnalyserNode on AnalyserNode {
 @staticInterop
 class AnalyserOptions implements AudioNodeOptions {
   external factory AnalyserOptions(
-      {int fftSize = 2048,
+      {int? fftSize = 2048,
       double? maxDecibels = -30,
       double? minDecibels = -100,
       double? smoothingTimeConstant = 0.8});
@@ -2888,7 +2901,7 @@ extension PropsAudioBufferSourceNode on AudioBufferSourceNode {
 class AudioBufferSourceOptions {
   external factory AudioBufferSourceOptions(
       {AudioBuffer? buffer,
-      double detune = 0,
+      double? detune = 0,
       bool? loop = false,
       double? loopEnd = 0,
       double? loopStart = 0,
@@ -3112,7 +3125,9 @@ extension PropsAudioProcessingEvent on AudioProcessingEvent {
 @staticInterop
 class AudioProcessingEventInit implements EventInit {
   external factory AudioProcessingEventInit(
-      {double playbackTime, AudioBuffer inputBuffer, AudioBuffer outputBuffer});
+      {required double playbackTime,
+      required AudioBuffer inputBuffer,
+      required AudioBuffer outputBuffer});
 }
 
 extension PropsAudioProcessingEventInit on AudioProcessingEventInit {
@@ -3339,9 +3354,10 @@ extension PropsBiquadFilterNode on BiquadFilterNode {
   ///
   ///
   ///
-  BiquadFilterType get type => js_util.getProperty(this, 'type');
+  BiquadFilterType get type =>
+      BiquadFilterType.values.byName(js_util.getProperty(this, 'type'));
   set type(BiquadFilterType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   ///  Is an a-rate [AudioParam], a double representing a frequency in
@@ -3429,18 +3445,32 @@ extension PropsBiquadFilterNode on BiquadFilterNode {
 @JS()
 @staticInterop
 class BiquadFilterOptions implements AudioNodeOptions {
-  external factory BiquadFilterOptions(
-      {BiquadFilterType type = BiquadFilterType.lowpass,
+  external factory BiquadFilterOptions._(
+      {String? type,
       double? Q = 1,
       double? detune = 0,
       double? frequency = 350,
       double? gain = 0});
+
+  factory BiquadFilterOptions(
+          {BiquadFilterType? type = BiquadFilterType.lowpass,
+          double? Q = 1,
+          double? detune = 0,
+          double? frequency = 350,
+          double? gain = 0}) =>
+      BiquadFilterOptions._(
+          type: type?.name,
+          Q: Q,
+          detune: detune,
+          frequency: frequency,
+          gain: gain);
 }
 
 extension PropsBiquadFilterOptions on BiquadFilterOptions {
-  BiquadFilterType get type => js_util.getProperty(this, 'type');
+  BiquadFilterType get type =>
+      BiquadFilterType.values.byName(js_util.getProperty(this, 'type'));
   set type(BiquadFilterType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   double get q => js_util.getProperty(this, 'Q');
@@ -3517,7 +3547,7 @@ class ChannelMergerNode implements AudioNode {
 @JS()
 @staticInterop
 class ChannelMergerOptions implements AudioNodeOptions {
-  external factory ChannelMergerOptions({int numberOfInputs = 6});
+  external factory ChannelMergerOptions({int? numberOfInputs = 6});
 }
 
 extension PropsChannelMergerOptions on ChannelMergerOptions {
@@ -3584,7 +3614,7 @@ class ChannelSplitterNode implements AudioNode {
 @JS()
 @staticInterop
 class ChannelSplitterOptions implements AudioNodeOptions {
-  external factory ChannelSplitterOptions({int numberOfOutputs = 6});
+  external factory ChannelSplitterOptions({int? numberOfOutputs = 6});
 }
 
 extension PropsChannelSplitterOptions on ChannelSplitterOptions {
@@ -3635,7 +3665,7 @@ extension PropsConstantSourceNode on ConstantSourceNode {
 @JS()
 @staticInterop
 class ConstantSourceOptions {
-  external factory ConstantSourceOptions({double offset = 1});
+  external factory ConstantSourceOptions({double? offset = 1});
 }
 
 extension PropsConstantSourceOptions on ConstantSourceOptions {
@@ -3705,7 +3735,7 @@ extension PropsConvolverNode on ConvolverNode {
 @staticInterop
 class ConvolverOptions implements AudioNodeOptions {
   external factory ConvolverOptions(
-      {AudioBuffer? buffer, bool disableNormalization = false});
+      {AudioBuffer? buffer, bool? disableNormalization = false});
 }
 
 extension PropsConvolverOptions on ConvolverOptions {
@@ -3774,7 +3804,7 @@ extension PropsDelayNode on DelayNode {
 @staticInterop
 class DelayOptions implements AudioNodeOptions {
   external factory DelayOptions(
-      {double maxDelayTime = 1, double? delayTime = 0});
+      {double? maxDelayTime = 1, double? delayTime = 0});
 }
 
 extension PropsDelayOptions on DelayOptions {
@@ -3864,7 +3894,7 @@ extension PropsDynamicsCompressorNode on DynamicsCompressorNode {
 @staticInterop
 class DynamicsCompressorOptions implements AudioNodeOptions {
   external factory DynamicsCompressorOptions(
-      {double attack = 0.003,
+      {double? attack = 0.003,
       double? knee = 30,
       double? ratio = 12,
       double? release = 0.25,
@@ -3952,7 +3982,7 @@ extension PropsGainNode on GainNode {
 @JS()
 @staticInterop
 class GainOptions implements AudioNodeOptions {
-  external factory GainOptions({double gain = 1.0});
+  external factory GainOptions({double? gain = 1.0});
 }
 
 extension PropsGainOptions on GainOptions {
@@ -4037,7 +4067,8 @@ extension PropsIIRFilterNode on IIRFilterNode {
 @staticInterop
 class IIRFilterOptions implements AudioNodeOptions {
   external factory IIRFilterOptions(
-      {Iterable<double> feedforward, Iterable<double> feedback});
+      {required Iterable<double> feedforward,
+      required Iterable<double> feedback});
 }
 
 extension PropsIIRFilterOptions on IIRFilterOptions {
@@ -4102,7 +4133,7 @@ extension PropsMediaElementAudioSourceNode on MediaElementAudioSourceNode {
 @staticInterop
 class MediaElementAudioSourceOptions {
   external factory MediaElementAudioSourceOptions(
-      {HTMLMediaElement mediaElement});
+      {required HTMLMediaElement mediaElement});
 }
 
 extension PropsMediaElementAudioSourceOptions
@@ -4214,7 +4245,8 @@ extension PropsMediaStreamAudioSourceNode on MediaStreamAudioSourceNode {
 @JS()
 @staticInterop
 class MediaStreamAudioSourceOptions {
-  external factory MediaStreamAudioSourceOptions({MediaStream mediaStream});
+  external factory MediaStreamAudioSourceOptions(
+      {required MediaStream mediaStream});
 }
 
 extension PropsMediaStreamAudioSourceOptions on MediaStreamAudioSourceOptions {
@@ -4268,7 +4300,7 @@ class MediaStreamTrackAudioSourceNode implements AudioNode {
 @staticInterop
 class MediaStreamTrackAudioSourceOptions {
   external factory MediaStreamTrackAudioSourceOptions(
-      {MediaStreamTrack mediaStreamTrack});
+      {required MediaStreamTrack mediaStreamTrack});
 }
 
 extension PropsMediaStreamTrackAudioSourceOptions
@@ -4325,9 +4357,10 @@ extension PropsOscillatorNode on OscillatorNode {
   /// ["square"], ["sawtooth"], ["triangle"] and ["custom"]. The
   /// default is ["sine"].
   ///
-  OscillatorType get type => js_util.getProperty(this, 'type');
+  OscillatorType get type =>
+      OscillatorType.values.byName(js_util.getProperty(this, 'type'));
   set type(OscillatorType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   ///  An a-rate [AudioParam] representing the frequency of oscillation
@@ -4391,17 +4424,29 @@ extension PropsOscillatorNode on OscillatorNode {
 @JS()
 @staticInterop
 class OscillatorOptions implements AudioNodeOptions {
-  external factory OscillatorOptions(
-      {OscillatorType type = OscillatorType.sine,
+  external factory OscillatorOptions._(
+      {String? type,
       double? frequency = 440,
       double? detune = 0,
       PeriodicWave? periodicWave});
+
+  factory OscillatorOptions(
+          {OscillatorType? type = OscillatorType.sine,
+          double? frequency = 440,
+          double? detune = 0,
+          PeriodicWave? periodicWave}) =>
+      OscillatorOptions._(
+          type: type?.name,
+          frequency: frequency,
+          detune: detune,
+          periodicWave: periodicWave);
 }
 
 extension PropsOscillatorOptions on OscillatorOptions {
-  OscillatorType get type => js_util.getProperty(this, 'type');
+  OscillatorType get type =>
+      OscillatorType.values.byName(js_util.getProperty(this, 'type'));
   set type(OscillatorType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   double get frequency => js_util.getProperty(this, 'frequency');
@@ -4468,9 +4513,9 @@ extension PropsPannerNode on PannerNode {
   /// to use to position the audio in 3D space.
   ///
   PanningModelType get panningModel =>
-      js_util.getProperty(this, 'panningModel');
+      PanningModelType.values.byName(js_util.getProperty(this, 'panningModel'));
   set panningModel(PanningModelType newValue) {
-    js_util.setProperty(this, 'panningModel', newValue);
+    js_util.setProperty(this, 'panningModel', newValue.name);
   }
 
   ///  Represents the horizontal position of the audio in a right-hand
@@ -4522,10 +4567,10 @@ extension PropsPannerNode on PannerNode {
   /// listener. Possible values are ["linear"], ["inverse"] and
   /// ["exponential"]. The default value is ["inverse"].
   ///
-  DistanceModelType get distanceModel =>
-      js_util.getProperty(this, 'distanceModel');
+  DistanceModelType get distanceModel => DistanceModelType.values
+      .byName(js_util.getProperty(this, 'distanceModel'));
   set distanceModel(DistanceModelType newValue) {
-    js_util.setProperty(this, 'distanceModel', newValue);
+    js_util.setProperty(this, 'distanceModel', newValue.name);
   }
 
   ///  A double value representing the reference distance for reducing
@@ -4611,9 +4656,9 @@ extension PropsPannerNode on PannerNode {
 @JS()
 @staticInterop
 class PannerOptions implements AudioNodeOptions {
-  external factory PannerOptions(
-      {PanningModelType panningModel = PanningModelType.equalpower,
-      DistanceModelType? distanceModel = DistanceModelType.inverse,
+  external factory PannerOptions._(
+      {String? panningModel,
+      String? distanceModel,
       double? positionX = 0,
       double? positionY = 0,
       double? positionZ = 0,
@@ -4626,19 +4671,50 @@ class PannerOptions implements AudioNodeOptions {
       double? coneInnerAngle = 360,
       double? coneOuterAngle = 360,
       double? coneOuterGain = 0});
+
+  factory PannerOptions(
+          {PanningModelType? panningModel = PanningModelType.equalpower,
+          DistanceModelType? distanceModel = DistanceModelType.inverse,
+          double? positionX = 0,
+          double? positionY = 0,
+          double? positionZ = 0,
+          double? orientationX = 1,
+          double? orientationY = 0,
+          double? orientationZ = 0,
+          double? refDistance = 1,
+          double? maxDistance = 10000,
+          double? rolloffFactor = 1,
+          double? coneInnerAngle = 360,
+          double? coneOuterAngle = 360,
+          double? coneOuterGain = 0}) =>
+      PannerOptions._(
+          panningModel: panningModel?.name,
+          distanceModel: distanceModel?.name,
+          positionX: positionX,
+          positionY: positionY,
+          positionZ: positionZ,
+          orientationX: orientationX,
+          orientationY: orientationY,
+          orientationZ: orientationZ,
+          refDistance: refDistance,
+          maxDistance: maxDistance,
+          rolloffFactor: rolloffFactor,
+          coneInnerAngle: coneInnerAngle,
+          coneOuterAngle: coneOuterAngle,
+          coneOuterGain: coneOuterGain);
 }
 
 extension PropsPannerOptions on PannerOptions {
   PanningModelType get panningModel =>
-      js_util.getProperty(this, 'panningModel');
+      PanningModelType.values.byName(js_util.getProperty(this, 'panningModel'));
   set panningModel(PanningModelType newValue) {
-    js_util.setProperty(this, 'panningModel', newValue);
+    js_util.setProperty(this, 'panningModel', newValue.name);
   }
 
-  DistanceModelType get distanceModel =>
-      js_util.getProperty(this, 'distanceModel');
+  DistanceModelType get distanceModel => DistanceModelType.values
+      .byName(js_util.getProperty(this, 'distanceModel'));
   set distanceModel(DistanceModelType newValue) {
-    js_util.setProperty(this, 'distanceModel', newValue);
+    js_util.setProperty(this, 'distanceModel', newValue.name);
   }
 
   double get positionX => js_util.getProperty(this, 'positionX');
@@ -4719,7 +4795,8 @@ class PeriodicWave {
 @JS()
 @staticInterop
 class PeriodicWaveConstraints {
-  external factory PeriodicWaveConstraints({bool disableNormalization = false});
+  external factory PeriodicWaveConstraints(
+      {bool? disableNormalization = false});
 }
 
 extension PropsPeriodicWaveConstraints on PeriodicWaveConstraints {
@@ -4735,7 +4812,7 @@ extension PropsPeriodicWaveConstraints on PeriodicWaveConstraints {
 @staticInterop
 class PeriodicWaveOptions implements PeriodicWaveConstraints {
   external factory PeriodicWaveOptions(
-      {Iterable<double> real, Iterable<double> imag});
+      {required Iterable<double> real, required Iterable<double> imag});
 }
 
 extension PropsPeriodicWaveOptions on PeriodicWaveOptions {
@@ -4881,7 +4958,7 @@ extension PropsStereoPannerNode on StereoPannerNode {
 @JS()
 @staticInterop
 class StereoPannerOptions implements AudioNodeOptions {
-  external factory StereoPannerOptions({double pan = 0});
+  external factory StereoPannerOptions({double? pan = 0});
 }
 
 extension PropsStereoPannerOptions on StereoPannerOptions {
@@ -4943,9 +5020,10 @@ extension PropsWaveShaperNode on WaveShaperNode {
   /// (up-sampling) before applying the distortion effect to the audio
   /// signal.
   ///
-  OverSampleType get oversample => js_util.getProperty(this, 'oversample');
+  OverSampleType get oversample =>
+      OverSampleType.values.byName(js_util.getProperty(this, 'oversample'));
   set oversample(OverSampleType newValue) {
-    js_util.setProperty(this, 'oversample', newValue);
+    js_util.setProperty(this, 'oversample', newValue.name);
   }
 }
 
@@ -4953,9 +5031,13 @@ extension PropsWaveShaperNode on WaveShaperNode {
 @JS()
 @staticInterop
 class WaveShaperOptions implements AudioNodeOptions {
-  external factory WaveShaperOptions(
-      {Iterable<double> curve,
-      OverSampleType oversample = OverSampleType.none});
+  external factory WaveShaperOptions._(
+      {required Iterable<double> curve, String? oversample});
+
+  factory WaveShaperOptions(
+          {required Iterable<double> curve,
+          OverSampleType? oversample = OverSampleType.none}) =>
+      WaveShaperOptions._(curve: curve, oversample: oversample?.name);
 }
 
 extension PropsWaveShaperOptions on WaveShaperOptions {
@@ -4964,9 +5046,10 @@ extension PropsWaveShaperOptions on WaveShaperOptions {
     js_util.setProperty(this, 'curve', newValue);
   }
 
-  OverSampleType get oversample => js_util.getProperty(this, 'oversample');
+  OverSampleType get oversample =>
+      OverSampleType.values.byName(js_util.getProperty(this, 'oversample'));
   set oversample(OverSampleType newValue) {
-    js_util.setProperty(this, 'oversample', newValue);
+    js_util.setProperty(this, 'oversample', newValue.name);
   }
 }
 
@@ -5104,7 +5187,7 @@ extension PropsAudioWorkletNode on AudioWorkletNode {
 @staticInterop
 class AudioWorkletNodeOptions implements AudioNodeOptions {
   external factory AudioWorkletNodeOptions(
-      {int numberOfInputs = 1,
+      {int? numberOfInputs = 1,
       int? numberOfOutputs = 1,
       Iterable<int>? outputChannelCount,
       dynamic parameterData,
@@ -5170,12 +5253,25 @@ extension PropsAudioWorkletProcessor on AudioWorkletProcessor {
 @JS()
 @staticInterop
 class AudioParamDescriptor {
-  external factory AudioParamDescriptor(
-      {String name,
-      double defaultValue = 0,
+  external factory AudioParamDescriptor._(
+      {required String name,
+      double? defaultValue = 0,
       double? minValue = -3.4028235e38,
       double? maxValue = 3.4028235e38,
-      AutomationRate? automationRate = AutomationRate.aRate});
+      String? automationRate});
+
+  factory AudioParamDescriptor(
+          {required String name,
+          double? defaultValue = 0,
+          double? minValue = -3.4028235e38,
+          double? maxValue = 3.4028235e38,
+          AutomationRate? automationRate = AutomationRate.aRate}) =>
+      AudioParamDescriptor._(
+          name: name,
+          defaultValue: defaultValue,
+          minValue: minValue,
+          maxValue: maxValue,
+          automationRate: automationRate?.name);
 }
 
 extension PropsAudioParamDescriptor on AudioParamDescriptor {
@@ -5218,8 +5314,8 @@ extension PropsAudioParamDescriptor on AudioParamDescriptor {
   /// automation rate of this [AudioParam]. Defaults to ["a-rate"].
   ///
   AutomationRate get automationRate =>
-      js_util.getProperty(this, 'automationRate');
+      AutomationRate.values.byName(js_util.getProperty(this, 'automationRate'));
   set automationRate(AutomationRate newValue) {
-    js_util.setProperty(this, 'automationRate', newValue);
+    js_util.setProperty(this, 'automationRate', newValue.name);
   }
 }

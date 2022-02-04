@@ -16,7 +16,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Highlight {
-  external Highlight([AbstractRange? initialRanges]);
+  external Highlight(
+      [AbstractRange? initialRanges1,
+      AbstractRange? initialRanges2,
+      AbstractRange? initialRanges3]);
 }
 
 extension PropsHighlight on Highlight {

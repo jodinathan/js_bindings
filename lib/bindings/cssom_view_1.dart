@@ -20,14 +20,17 @@ enum ScrollBehavior { auto, smooth }
 @JS()
 @staticInterop
 class ScrollOptions {
-  external factory ScrollOptions(
-      {ScrollBehavior behavior = ScrollBehavior.auto});
+  external factory ScrollOptions._({String? behavior});
+
+  factory ScrollOptions({ScrollBehavior? behavior = ScrollBehavior.auto}) =>
+      ScrollOptions._(behavior: behavior?.name);
 }
 
 extension PropsScrollOptions on ScrollOptions {
-  ScrollBehavior get behavior => js_util.getProperty(this, 'behavior');
+  ScrollBehavior get behavior =>
+      ScrollBehavior.values.byName(js_util.getProperty(this, 'behavior'));
   set behavior(ScrollBehavior newValue) {
-    js_util.setProperty(this, 'behavior', newValue);
+    js_util.setProperty(this, 'behavior', newValue.name);
   }
 }
 
@@ -177,7 +180,7 @@ extension PropsMediaQueryListEvent on MediaQueryListEvent {
 @staticInterop
 class MediaQueryListEventInit implements EventInit {
   external factory MediaQueryListEventInit(
-      {String media = '', bool? matches = false});
+      {String? media = '', bool? matches = false});
 }
 
 extension PropsMediaQueryListEventInit on MediaQueryListEventInit {
@@ -268,20 +271,25 @@ enum ScrollLogicalPosition { start, center, end, nearest }
 @JS()
 @staticInterop
 class ScrollIntoViewOptions implements ScrollOptions {
-  external factory ScrollIntoViewOptions(
-      {ScrollLogicalPosition block = ScrollLogicalPosition.start,
-      ScrollLogicalPosition? inline = ScrollLogicalPosition.nearest});
+  external factory ScrollIntoViewOptions._({String? block, String? inline});
+
+  factory ScrollIntoViewOptions(
+          {ScrollLogicalPosition? block = ScrollLogicalPosition.start,
+          ScrollLogicalPosition? inline = ScrollLogicalPosition.nearest}) =>
+      ScrollIntoViewOptions._(block: block?.name, inline: inline?.name);
 }
 
 extension PropsScrollIntoViewOptions on ScrollIntoViewOptions {
-  ScrollLogicalPosition get block => js_util.getProperty(this, 'block');
+  ScrollLogicalPosition get block =>
+      ScrollLogicalPosition.values.byName(js_util.getProperty(this, 'block'));
   set block(ScrollLogicalPosition newValue) {
-    js_util.setProperty(this, 'block', newValue);
+    js_util.setProperty(this, 'block', newValue.name);
   }
 
-  ScrollLogicalPosition get inline => js_util.getProperty(this, 'inline');
+  ScrollLogicalPosition get inline =>
+      ScrollLogicalPosition.values.byName(js_util.getProperty(this, 'inline'));
   set inline(ScrollLogicalPosition newValue) {
-    js_util.setProperty(this, 'inline', newValue);
+    js_util.setProperty(this, 'inline', newValue.name);
   }
 }
 
@@ -291,14 +299,18 @@ enum CSSBoxType { margin, border, padding, content }
 @JS()
 @staticInterop
 class BoxQuadOptions {
-  external factory BoxQuadOptions(
-      {CSSBoxType box = CSSBoxType.border, dynamic relativeTo});
+  external factory BoxQuadOptions._({String? box, dynamic relativeTo});
+
+  factory BoxQuadOptions(
+          {CSSBoxType? box = CSSBoxType.border, dynamic relativeTo}) =>
+      BoxQuadOptions._(box: box?.name, relativeTo: relativeTo);
 }
 
 extension PropsBoxQuadOptions on BoxQuadOptions {
-  CSSBoxType get box => js_util.getProperty(this, 'box');
+  CSSBoxType get box =>
+      CSSBoxType.values.byName(js_util.getProperty(this, 'box'));
   set box(CSSBoxType newValue) {
-    js_util.setProperty(this, 'box', newValue);
+    js_util.setProperty(this, 'box', newValue.name);
   }
 
   dynamic get relativeTo => js_util.getProperty(this, 'relativeTo');
@@ -311,20 +323,25 @@ extension PropsBoxQuadOptions on BoxQuadOptions {
 @JS()
 @staticInterop
 class ConvertCoordinateOptions {
-  external factory ConvertCoordinateOptions(
-      {CSSBoxType fromBox = CSSBoxType.border,
-      CSSBoxType? toBox = CSSBoxType.border});
+  external factory ConvertCoordinateOptions._({String? fromBox, String? toBox});
+
+  factory ConvertCoordinateOptions(
+          {CSSBoxType? fromBox = CSSBoxType.border,
+          CSSBoxType? toBox = CSSBoxType.border}) =>
+      ConvertCoordinateOptions._(fromBox: fromBox?.name, toBox: toBox?.name);
 }
 
 extension PropsConvertCoordinateOptions on ConvertCoordinateOptions {
-  CSSBoxType get fromBox => js_util.getProperty(this, 'fromBox');
+  CSSBoxType get fromBox =>
+      CSSBoxType.values.byName(js_util.getProperty(this, 'fromBox'));
   set fromBox(CSSBoxType newValue) {
-    js_util.setProperty(this, 'fromBox', newValue);
+    js_util.setProperty(this, 'fromBox', newValue.name);
   }
 
-  CSSBoxType get toBox => js_util.getProperty(this, 'toBox');
+  CSSBoxType get toBox =>
+      CSSBoxType.values.byName(js_util.getProperty(this, 'toBox'));
   set toBox(CSSBoxType newValue) {
-    js_util.setProperty(this, 'toBox', newValue);
+    js_util.setProperty(this, 'toBox', newValue.name);
   }
 }
 

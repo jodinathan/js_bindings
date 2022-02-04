@@ -29,7 +29,8 @@ class WakeLock {
 extension PropsWakeLock on WakeLock {
   Future<WakeLockSentinel> request(
           [WakeLockType? type = WakeLockType.screen]) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'request', [type]));
+      js_util
+          .promiseToFuture(js_util.callMethod(this, 'request', [type?.name]));
 }
 
 ///  Secure context: This feature is available only in secure
@@ -66,7 +67,8 @@ extension PropsWakeLockSentinel on WakeLockSentinel {
   /// or locking the screen.
   ///
   ///
-  WakeLockType get type => js_util.getProperty(this, 'type');
+  WakeLockType get type =>
+      WakeLockType.values.byName(js_util.getProperty(this, 'type'));
 
   ///  Releases the [WakeLockSentinel], returning a [Future] that is
   /// resolved once the sentinel has been successfully released.

@@ -98,7 +98,8 @@ extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
   ///  A [string] representing the navigation type. Must be:
   /// "[navigate]", "[reload]", "[back_forward]" or "[prerender]".
   ///
-  NavigationType get type => js_util.getProperty(this, 'type');
+  NavigationType get type =>
+      NavigationType.values.byName(js_util.getProperty(this, 'type'));
 
   ///  A number representing the number of redirects since the last
   /// non-redirect navigation under the current browsing context.

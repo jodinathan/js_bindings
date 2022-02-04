@@ -49,8 +49,12 @@ extension PropsConsole on Console {
   ///
   @JS('assert')
   @staticInterop
-  Object mAssert([bool? condition = false, dynamic data]) =>
-      js_util.callMethod(this, 'assert', [condition, data]);
+  Object mAssert(
+          [bool? condition = false,
+          dynamic data1,
+          dynamic data2,
+          dynamic data3]) =>
+      js_util.callMethod(this, 'assert', [condition, data1, data2, data3]);
 
   /// Clear the console.
   ///
@@ -63,7 +67,8 @@ extension PropsConsole on Console {
   /// console.debug(obj1 [, obj2, ..., objN]);
   /// console.debug(msg [, subst1, ..., substN]);
   ///
-  Object debug([dynamic data]) => js_util.callMethod(this, 'debug', [data]);
+  Object debug([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'debug', [data1, data2, data3]);
 
   ///  Outputs an error message. You may use string substitution and
   /// additional arguments with this method.
@@ -71,7 +76,8 @@ extension PropsConsole on Console {
   /// console.error(obj1 [, obj2, ..., objN]);
   /// console.error(msg [, subst1, ..., substN]);
   ///
-  Object error([dynamic data]) => js_util.callMethod(this, 'error', [data]);
+  Object error([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'error', [data1, data2, data3]);
 
   ///  Informative logging of information. You may use string
   /// substitution and additional arguments with this method.
@@ -79,7 +85,8 @@ extension PropsConsole on Console {
   /// console.info(obj1 [, obj2, ..., objN]);
   /// console.info(msg [, subst1, ..., substN]);
   ///
-  Object info([dynamic data]) => js_util.callMethod(this, 'info', [data]);
+  Object info([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'info', [data1, data2, data3]);
 
   ///  For general output of logging information. You may use string
   /// substitution and additional arguments with this method.
@@ -87,7 +94,8 @@ extension PropsConsole on Console {
   /// console.log(obj1 [, obj2, ..., objN]);
   /// console.log(msg [, subst1, ..., substN]);
   ///
-  Object log([dynamic data]) => js_util.callMethod(this, 'log', [data]);
+  Object log([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'log', [data1, data2, data3]);
 
   /// Displays tabular data as a table.
   ///
@@ -115,7 +123,8 @@ extension PropsConsole on Console {
   /// foo
   /// <anonymous>
   ///
-  Object trace([dynamic data]) => js_util.callMethod(this, 'trace', [data]);
+  Object trace([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'trace', [data1, data2, data3]);
 
   ///  Outputs a warning message. You may use string substitution and
   /// additional arguments with this method.
@@ -123,7 +132,8 @@ extension PropsConsole on Console {
   /// console.warn(obj1 [, obj2, ..., objN]);
   /// console.warn(msg [, subst1, ..., substN]);
   ///
-  Object warn([dynamic data]) => js_util.callMethod(this, 'warn', [data]);
+  Object warn([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'warn', [data1, data2, data3]);
 
   ///  Displays an interactive listing of the properties of a specified
   /// JavaScript object. This listing lets you use disclosure triangles
@@ -140,7 +150,8 @@ extension PropsConsole on Console {
   ///
   /// console.dirxml(object);
   ///
-  Object dirxml([dynamic data]) => js_util.callMethod(this, 'dirxml', [data]);
+  Object dirxml([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'dirxml', [data1, data2, data3]);
 
   ///  Log the number of times this line has been called with the given
   /// label.
@@ -182,7 +193,8 @@ extension PropsConsole on Console {
   ///
   /// console.group([label]);
   ///
-  Object group([dynamic data]) => js_util.callMethod(this, 'group', [data]);
+  Object group([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'group', [data1, data2, data3]);
 
   ///  Creates a new inline group, indenting all following output by
   /// another level. However, unlike [group()] this starts with the
@@ -191,8 +203,8 @@ extension PropsConsole on Console {
   ///
   /// console.groupCollapsed([label]);
   ///
-  Object groupCollapsed([dynamic data]) =>
-      js_util.callMethod(this, 'groupCollapsed', [data]);
+  Object groupCollapsed([dynamic data1, dynamic data2, dynamic data3]) =>
+      js_util.callMethod(this, 'groupCollapsed', [data1, data2, data3]);
 
   /// Exits the current inline group.
   ///
@@ -229,8 +241,10 @@ extension PropsConsole on Console {
           /// The name of the timer to log to the console.
           ///
           String? label = 'default',
-          dynamic data]) =>
-      js_util.callMethod(this, 'timeLog', [label, data]);
+          dynamic data1,
+          dynamic data2,
+          dynamic data3]) =>
+      js_util.callMethod(this, 'timeLog', [label, data1, data2, data3]);
 
   ///  Stops the specified timer and logs the elapsed time in
   /// milliseconds since it started.

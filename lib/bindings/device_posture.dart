@@ -20,7 +20,8 @@ class DevicePosture implements EventTarget {
 }
 
 extension PropsDevicePosture on DevicePosture {
-  DevicePostureType get type => js_util.getProperty(this, 'type');
+  DevicePostureType get type =>
+      DevicePostureType.values.byName(js_util.getProperty(this, 'type'));
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onchange', newValue);

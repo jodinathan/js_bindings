@@ -19,7 +19,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class WebAssemblyInstantiatedSource {
   external factory WebAssemblyInstantiatedSource(
-      {Module module, Instance instance});
+      {required Module module, required Instance instance});
 }
 
 extension PropsWebAssemblyInstantiatedSource on WebAssemblyInstantiatedSource {
@@ -58,7 +58,12 @@ enum ImportExportKind { function, table, memory, global }
 @JS()
 @staticInterop
 class ModuleExportDescriptor {
-  external factory ModuleExportDescriptor({String name, ImportExportKind kind});
+  external factory ModuleExportDescriptor._(
+      {required String name, required String kind});
+
+  factory ModuleExportDescriptor(
+          {required String name, required ImportExportKind kind}) =>
+      ModuleExportDescriptor._(name: name, kind: kind.name);
 }
 
 extension PropsModuleExportDescriptor on ModuleExportDescriptor {
@@ -67,9 +72,10 @@ extension PropsModuleExportDescriptor on ModuleExportDescriptor {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  ImportExportKind get kind => js_util.getProperty(this, 'kind');
+  ImportExportKind get kind =>
+      ImportExportKind.values.byName(js_util.getProperty(this, 'kind'));
   set kind(ImportExportKind newValue) {
-    js_util.setProperty(this, 'kind', newValue);
+    js_util.setProperty(this, 'kind', newValue.name);
   }
 }
 
@@ -77,8 +83,14 @@ extension PropsModuleExportDescriptor on ModuleExportDescriptor {
 @JS()
 @staticInterop
 class ModuleImportDescriptor {
-  external factory ModuleImportDescriptor(
-      {String module, String name, ImportExportKind kind});
+  external factory ModuleImportDescriptor._(
+      {required String module, required String name, required String kind});
+
+  factory ModuleImportDescriptor(
+          {required String module,
+          required String name,
+          required ImportExportKind kind}) =>
+      ModuleImportDescriptor._(module: module, name: name, kind: kind.name);
 }
 
 extension PropsModuleImportDescriptor on ModuleImportDescriptor {
@@ -92,9 +104,10 @@ extension PropsModuleImportDescriptor on ModuleImportDescriptor {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  ImportExportKind get kind => js_util.getProperty(this, 'kind');
+  ImportExportKind get kind =>
+      ImportExportKind.values.byName(js_util.getProperty(this, 'kind'));
   set kind(ImportExportKind newValue) {
-    js_util.setProperty(this, 'kind', newValue);
+    js_util.setProperty(this, 'kind', newValue.name);
   }
 }
 
@@ -130,7 +143,8 @@ extension PropsInstance on Instance {
 @JS()
 @staticInterop
 class MemoryDescriptor {
-  external factory MemoryDescriptor({int initial, int maximum});
+  external factory MemoryDescriptor(
+      {required int initial, required int maximum});
 }
 
 extension PropsMemoryDescriptor on MemoryDescriptor {
@@ -163,14 +177,22 @@ enum TableKind { externref, anyfunc }
 @JS()
 @staticInterop
 class TableDescriptor {
-  external factory TableDescriptor(
-      {TableKind element, int initial, int maximum});
+  external factory TableDescriptor._(
+      {required String element, required int initial, required int maximum});
+
+  factory TableDescriptor(
+          {required TableKind element,
+          required int initial,
+          required int maximum}) =>
+      TableDescriptor._(
+          element: element.name, initial: initial, maximum: maximum);
 }
 
 extension PropsTableDescriptor on TableDescriptor {
-  TableKind get element => js_util.getProperty(this, 'element');
+  TableKind get element =>
+      TableKind.values.byName(js_util.getProperty(this, 'element'));
   set element(TableKind newValue) {
-    js_util.setProperty(this, 'element', newValue);
+    js_util.setProperty(this, 'element', newValue.name);
   }
 
   int get initial => js_util.getProperty(this, 'initial');
@@ -212,13 +234,18 @@ enum ValueType { i32, i64, f32, f64, externref, anyfunc }
 @JS()
 @staticInterop
 class GlobalDescriptor {
-  external factory GlobalDescriptor({ValueType value, bool mutable = false});
+  external factory GlobalDescriptor._(
+      {required String value, bool? mutable = false});
+
+  factory GlobalDescriptor({required ValueType value, bool? mutable = false}) =>
+      GlobalDescriptor._(value: value.name, mutable: mutable);
 }
 
 extension PropsGlobalDescriptor on GlobalDescriptor {
-  ValueType get value => js_util.getProperty(this, 'value');
+  ValueType get value =>
+      ValueType.values.byName(js_util.getProperty(this, 'value'));
   set value(ValueType newValue) {
-    js_util.setProperty(this, 'value', newValue);
+    js_util.setProperty(this, 'value', newValue.name);
   }
 
   bool get mutable => js_util.getProperty(this, 'mutable');

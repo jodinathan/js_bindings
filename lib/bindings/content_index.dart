@@ -19,13 +19,28 @@ enum ContentCategory { empty, homepage, article, video, audio }
 @JS()
 @staticInterop
 class ContentDescription {
-  external factory ContentDescription(
-      {String id,
-      String title,
-      String description,
-      ContentCategory category,
-      Iterable<ImageResource> icons = const [],
+  external factory ContentDescription._(
+      {required String id,
+      required String title,
+      required String description,
+      required String category,
+      Iterable<ImageResource>? icons = const [],
       String? url});
+
+  factory ContentDescription(
+          {required String id,
+          required String title,
+          required String description,
+          required ContentCategory category,
+          Iterable<ImageResource>? icons = const [],
+          String? url}) =>
+      ContentDescription._(
+          id: id,
+          title: title,
+          description: description,
+          category: category.name,
+          icons: icons,
+          url: url);
 }
 
 extension PropsContentDescription on ContentDescription {
@@ -44,9 +59,10 @@ extension PropsContentDescription on ContentDescription {
     js_util.setProperty(this, 'description', newValue);
   }
 
-  ContentCategory get category => js_util.getProperty(this, 'category');
+  ContentCategory get category =>
+      ContentCategory.values.byName(js_util.getProperty(this, 'category'));
   set category(ContentCategory newValue) {
-    js_util.setProperty(this, 'category', newValue);
+    js_util.setProperty(this, 'category', newValue.name);
   }
 
   Iterable<ImageResource> get icons => js_util.getProperty(this, 'icons');
@@ -96,7 +112,7 @@ extension PropsContentIndex on ContentIndex {
 @JS()
 @staticInterop
 class ContentIndexEventInit implements ExtendableEventInit {
-  external factory ContentIndexEventInit({String id});
+  external factory ContentIndexEventInit({required String id});
 }
 
 extension PropsContentIndexEventInit on ContentIndexEventInit {

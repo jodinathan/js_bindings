@@ -82,14 +82,17 @@ extension PropsXRLightEstimate on XRLightEstimate {
 @JS()
 @staticInterop
 class XRLightProbeInit {
-  external factory XRLightProbeInit(
-      {XRReflectionFormat reflectionFormat = XRReflectionFormat.srgba8});
+  external factory XRLightProbeInit._({String? reflectionFormat});
+
+  factory XRLightProbeInit(
+          {XRReflectionFormat? reflectionFormat = XRReflectionFormat.srgba8}) =>
+      XRLightProbeInit._(reflectionFormat: reflectionFormat?.name);
 }
 
 extension PropsXRLightProbeInit on XRLightProbeInit {
-  XRReflectionFormat get reflectionFormat =>
-      js_util.getProperty(this, 'reflectionFormat');
+  XRReflectionFormat get reflectionFormat => XRReflectionFormat.values
+      .byName(js_util.getProperty(this, 'reflectionFormat'));
   set reflectionFormat(XRReflectionFormat newValue) {
-    js_util.setProperty(this, 'reflectionFormat', newValue);
+    js_util.setProperty(this, 'reflectionFormat', newValue.name);
   }
 }

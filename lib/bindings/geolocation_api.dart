@@ -151,7 +151,7 @@ extension PropsGeolocation on Geolocation {
 @staticInterop
 class PositionOptions {
   external factory PositionOptions(
-      {bool enableHighAccuracy = false,
+      {bool? enableHighAccuracy = false,
       int? timeout = 0xFFFFFFFF,
       int? maximumAge = 0});
 }

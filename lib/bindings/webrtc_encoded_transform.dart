@@ -19,7 +19,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class RTCInsertableStreams {
   external factory RTCInsertableStreams(
-      {ReadableStream readable, WritableStream writable});
+      {required ReadableStream readable, required WritableStream writable});
 }
 
 extension PropsRTCInsertableStreams on RTCInsertableStreams {
@@ -40,14 +40,18 @@ enum SFrameTransformRole { encrypt, decrypt }
 @JS()
 @staticInterop
 class SFrameTransformOptions {
-  external factory SFrameTransformOptions(
-      {SFrameTransformRole role = SFrameTransformRole.encrypt});
+  external factory SFrameTransformOptions._({String? role});
+
+  factory SFrameTransformOptions(
+          {SFrameTransformRole? role = SFrameTransformRole.encrypt}) =>
+      SFrameTransformOptions._(role: role?.name);
 }
 
 extension PropsSFrameTransformOptions on SFrameTransformOptions {
-  SFrameTransformRole get role => js_util.getProperty(this, 'role');
+  SFrameTransformRole get role =>
+      SFrameTransformRole.values.byName(js_util.getProperty(this, 'role'));
   set role(SFrameTransformRole newValue) {
-    js_util.setProperty(this, 'role', newValue);
+    js_util.setProperty(this, 'role', newValue.name);
   }
 }
 
@@ -70,14 +74,14 @@ enum RTCEncodedVideoFrameType { empty, key, delta }
 @staticInterop
 class RTCEncodedVideoFrameMetadata {
   external factory RTCEncodedVideoFrameMetadata(
-      {int frameId,
-      Iterable<int> dependencies,
-      int width,
-      int height,
-      int spatialIndex,
-      int temporalIndex,
-      int synchronizationSource,
-      Iterable<int> contributingSources});
+      {required int frameId,
+      required Iterable<int> dependencies,
+      required int width,
+      required int height,
+      required int spatialIndex,
+      required int temporalIndex,
+      required int synchronizationSource,
+      required Iterable<int> contributingSources});
 }
 
 extension PropsRTCEncodedVideoFrameMetadata on RTCEncodedVideoFrameMetadata {
@@ -131,7 +135,8 @@ class RTCEncodedVideoFrame {
 }
 
 extension PropsRTCEncodedVideoFrame on RTCEncodedVideoFrame {
-  RTCEncodedVideoFrameType get type => js_util.getProperty(this, 'type');
+  RTCEncodedVideoFrameType get type =>
+      RTCEncodedVideoFrameType.values.byName(js_util.getProperty(this, 'type'));
   int get timestamp => js_util.getProperty(this, 'timestamp');
   ByteBuffer get data => js_util.getProperty(this, 'data');
   set data(ByteBuffer newValue) {
@@ -147,7 +152,8 @@ extension PropsRTCEncodedVideoFrame on RTCEncodedVideoFrame {
 @staticInterop
 class RTCEncodedAudioFrameMetadata {
   external factory RTCEncodedAudioFrameMetadata(
-      {int synchronizationSource, Iterable<int> contributingSources});
+      {required int synchronizationSource,
+      required Iterable<int> contributingSources});
 }
 
 extension PropsRTCEncodedAudioFrameMetadata on RTCEncodedAudioFrameMetadata {

@@ -18,7 +18,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class MemoryMeasurement {
   external factory MemoryMeasurement(
-      {int bytes, Iterable<MemoryBreakdownEntry> breakdown});
+      {required int bytes, required Iterable<MemoryBreakdownEntry> breakdown});
 }
 
 extension PropsMemoryMeasurement on MemoryMeasurement {
@@ -39,9 +39,9 @@ extension PropsMemoryMeasurement on MemoryMeasurement {
 @staticInterop
 class MemoryBreakdownEntry {
   external factory MemoryBreakdownEntry(
-      {int bytes,
-      Iterable<MemoryAttribution> attribution,
-      Iterable<String> types});
+      {required int bytes,
+      required Iterable<MemoryAttribution> attribution,
+      required Iterable<String> types});
 }
 
 extension PropsMemoryBreakdownEntry on MemoryBreakdownEntry {
@@ -67,7 +67,9 @@ extension PropsMemoryBreakdownEntry on MemoryBreakdownEntry {
 @staticInterop
 class MemoryAttribution {
   external factory MemoryAttribution(
-      {String url, MemoryAttributionContainer container, String scope});
+      {required String url,
+      required MemoryAttributionContainer container,
+      required String scope});
 }
 
 extension PropsMemoryAttribution on MemoryAttribution {
@@ -92,7 +94,8 @@ extension PropsMemoryAttribution on MemoryAttribution {
 @JS()
 @staticInterop
 class MemoryAttributionContainer {
-  external factory MemoryAttributionContainer({String id, String src});
+  external factory MemoryAttributionContainer(
+      {required String id, required String src});
 }
 
 extension PropsMemoryAttributionContainer on MemoryAttributionContainer {

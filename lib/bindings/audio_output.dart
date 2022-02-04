@@ -17,7 +17,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class AudioOutputOptions {
-  external factory AudioOutputOptions({String deviceId = ''});
+  external factory AudioOutputOptions({String? deviceId = ''});
 }
 
 extension PropsAudioOutputOptions on AudioOutputOptions {

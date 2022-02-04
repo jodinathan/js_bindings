@@ -71,7 +71,7 @@ extension PropsPictureInPictureEvent on PictureInPictureEvent {
 @staticInterop
 class PictureInPictureEventInit implements EventInit {
   external factory PictureInPictureEventInit(
-      {PictureInPictureWindow pictureInPictureWindow});
+      {required PictureInPictureWindow pictureInPictureWindow});
 }
 
 extension PropsPictureInPictureEventInit on PictureInPictureEventInit {

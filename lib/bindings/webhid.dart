@@ -19,7 +19,10 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class HIDDeviceFilter {
   external factory HIDDeviceFilter(
-      {int vendorId, int productId, int usagePage, int usage});
+      {required int vendorId,
+      required int productId,
+      required int usagePage,
+      required int usage});
 }
 
 extension PropsHIDDeviceFilter on HIDDeviceFilter {
@@ -48,7 +51,8 @@ extension PropsHIDDeviceFilter on HIDDeviceFilter {
 @JS()
 @staticInterop
 class HIDDeviceRequestOptions {
-  external factory HIDDeviceRequestOptions({Iterable<HIDDeviceFilter> filters});
+  external factory HIDDeviceRequestOptions(
+      {required Iterable<HIDDeviceFilter> filters});
 }
 
 extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
@@ -136,7 +140,7 @@ extension PropsHid on Hid {
 @JS()
 @staticInterop
 class HIDConnectionEventInit implements EventInit {
-  external factory HIDConnectionEventInit({HIDDevice device});
+  external factory HIDConnectionEventInit({required HIDDevice device});
 }
 
 extension PropsHIDConnectionEventInit on HIDConnectionEventInit {
@@ -170,7 +174,9 @@ extension PropsHIDConnectionEvent on HIDConnectionEvent {
 @staticInterop
 class HIDInputReportEventInit implements EventInit {
   external factory HIDInputReportEventInit(
-      {HIDDevice device, int reportId, ByteData data});
+      {required HIDDevice device,
+      required int reportId,
+      required ByteData data});
 }
 
 extension PropsHIDInputReportEventInit on HIDInputReportEventInit {
@@ -233,35 +239,95 @@ enum HIDUnitSystem {
 @JS()
 @staticInterop
 class HIDReportItem {
-  external factory HIDReportItem(
-      {bool isAbsolute,
-      bool isArray,
-      bool isBufferedBytes,
-      bool isConstant,
-      bool isLinear,
-      bool isRange,
-      bool isVolatile,
-      bool hasNull,
-      bool hasPreferredState,
-      bool wrap,
-      Iterable<int> usages,
-      int usageMinimum,
-      int usageMaximum,
-      int reportSize,
-      int reportCount,
-      int unitExponent,
-      HIDUnitSystem unitSystem,
-      int unitFactorLengthExponent,
-      int unitFactorMassExponent,
-      int unitFactorTimeExponent,
-      int unitFactorTemperatureExponent,
-      int unitFactorCurrentExponent,
-      int unitFactorLuminousIntensityExponent,
-      int logicalMinimum,
-      int logicalMaximum,
-      int physicalMinimum,
-      int physicalMaximum,
-      Iterable<String> strings});
+  external factory HIDReportItem._(
+      {required bool isAbsolute,
+      required bool isArray,
+      required bool isBufferedBytes,
+      required bool isConstant,
+      required bool isLinear,
+      required bool isRange,
+      required bool isVolatile,
+      required bool hasNull,
+      required bool hasPreferredState,
+      required bool wrap,
+      required Iterable<int> usages,
+      required int usageMinimum,
+      required int usageMaximum,
+      required int reportSize,
+      required int reportCount,
+      required int unitExponent,
+      required String unitSystem,
+      required int unitFactorLengthExponent,
+      required int unitFactorMassExponent,
+      required int unitFactorTimeExponent,
+      required int unitFactorTemperatureExponent,
+      required int unitFactorCurrentExponent,
+      required int unitFactorLuminousIntensityExponent,
+      required int logicalMinimum,
+      required int logicalMaximum,
+      required int physicalMinimum,
+      required int physicalMaximum,
+      required Iterable<String> strings});
+
+  factory HIDReportItem(
+          {required bool isAbsolute,
+          required bool isArray,
+          required bool isBufferedBytes,
+          required bool isConstant,
+          required bool isLinear,
+          required bool isRange,
+          required bool isVolatile,
+          required bool hasNull,
+          required bool hasPreferredState,
+          required bool wrap,
+          required Iterable<int> usages,
+          required int usageMinimum,
+          required int usageMaximum,
+          required int reportSize,
+          required int reportCount,
+          required int unitExponent,
+          required HIDUnitSystem unitSystem,
+          required int unitFactorLengthExponent,
+          required int unitFactorMassExponent,
+          required int unitFactorTimeExponent,
+          required int unitFactorTemperatureExponent,
+          required int unitFactorCurrentExponent,
+          required int unitFactorLuminousIntensityExponent,
+          required int logicalMinimum,
+          required int logicalMaximum,
+          required int physicalMinimum,
+          required int physicalMaximum,
+          required Iterable<String> strings}) =>
+      HIDReportItem._(
+          isAbsolute: isAbsolute,
+          isArray: isArray,
+          isBufferedBytes: isBufferedBytes,
+          isConstant: isConstant,
+          isLinear: isLinear,
+          isRange: isRange,
+          isVolatile: isVolatile,
+          hasNull: hasNull,
+          hasPreferredState: hasPreferredState,
+          wrap: wrap,
+          usages: usages,
+          usageMinimum: usageMinimum,
+          usageMaximum: usageMaximum,
+          reportSize: reportSize,
+          reportCount: reportCount,
+          unitExponent: unitExponent,
+          unitSystem: unitSystem.name,
+          unitFactorLengthExponent: unitFactorLengthExponent,
+          unitFactorMassExponent: unitFactorMassExponent,
+          unitFactorTimeExponent: unitFactorTimeExponent,
+          unitFactorTemperatureExponent: unitFactorTemperatureExponent,
+          unitFactorCurrentExponent: unitFactorCurrentExponent,
+          unitFactorLuminousIntensityExponent:
+              unitFactorLuminousIntensityExponent,
+          logicalMinimum: logicalMinimum,
+          logicalMaximum: logicalMaximum,
+          physicalMinimum: physicalMinimum,
+          physicalMaximum: physicalMaximum,
+          strings: strings);
 }
 
 extension PropsHIDReportItem on HIDReportItem {
@@ -345,9 +411,10 @@ extension PropsHIDReportItem on HIDReportItem {
     js_util.setProperty(this, 'unitExponent', newValue);
   }
 
-  HIDUnitSystem get unitSystem => js_util.getProperty(this, 'unitSystem');
+  HIDUnitSystem get unitSystem =>
+      HIDUnitSystem.values.byName(js_util.getProperty(this, 'unitSystem'));
   set unitSystem(HIDUnitSystem newValue) {
-    js_util.setProperty(this, 'unitSystem', newValue);
+    js_util.setProperty(this, 'unitSystem', newValue.name);
   }
 
   int get unitFactorLengthExponent =>
@@ -416,7 +483,8 @@ extension PropsHIDReportItem on HIDReportItem {
 @JS()
 @staticInterop
 class HIDReportInfo {
-  external factory HIDReportInfo({int reportId, Iterable<HIDReportItem> items});
+  external factory HIDReportInfo(
+      {required int reportId, required Iterable<HIDReportItem> items});
 }
 
 extension PropsHIDReportInfo on HIDReportInfo {
@@ -436,13 +504,13 @@ extension PropsHIDReportInfo on HIDReportInfo {
 @staticInterop
 class HIDCollectionInfo {
   external factory HIDCollectionInfo(
-      {int usagePage,
-      int usage,
-      int type,
-      Iterable<HIDCollectionInfo> children,
-      Iterable<HIDReportInfo> inputReports,
-      Iterable<HIDReportInfo> outputReports,
-      Iterable<HIDReportInfo> featureReports});
+      {required int usagePage,
+      required int usage,
+      required int type,
+      required Iterable<HIDCollectionInfo> children,
+      required Iterable<HIDReportInfo> inputReports,
+      required Iterable<HIDReportInfo> outputReports,
+      required Iterable<HIDReportInfo> featureReports});
 }
 
 extension PropsHIDCollectionInfo on HIDCollectionInfo {

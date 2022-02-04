@@ -38,7 +38,7 @@ extension PropsNDEFMessage on NDEFMessage {
 @JS()
 @staticInterop
 class NDEFMessageInit {
-  external factory NDEFMessageInit({Iterable<NDEFRecordInit> records});
+  external factory NDEFMessageInit({required Iterable<NDEFRecordInit> records});
 }
 
 extension PropsNDEFMessageInit on NDEFMessageInit {
@@ -120,11 +120,11 @@ extension PropsNDEFRecord on NDEFRecord {
 @staticInterop
 class NDEFRecordInit {
   external factory NDEFRecordInit(
-      {String recordType,
-      String mediaType,
-      String id,
-      String encoding,
-      String lang,
+      {required String recordType,
+      required String mediaType,
+      required String id,
+      required String encoding,
+      required String lang,
       dynamic data});
 }
 
@@ -363,7 +363,7 @@ extension PropsNDEFReadingEventInit on NDEFReadingEventInit {
 @staticInterop
 class NDEFWriteOptions {
   external factory NDEFWriteOptions(
-      {bool overwrite = true, AbortSignal? signal});
+      {bool? overwrite = true, AbortSignal? signal});
 }
 
 extension PropsNDEFWriteOptions on NDEFWriteOptions {
@@ -382,7 +382,7 @@ extension PropsNDEFWriteOptions on NDEFWriteOptions {
 @JS()
 @staticInterop
 class NDEFScanOptions {
-  external factory NDEFScanOptions({AbortSignal signal});
+  external factory NDEFScanOptions({required AbortSignal signal});
 }
 
 extension PropsNDEFScanOptions on NDEFScanOptions {

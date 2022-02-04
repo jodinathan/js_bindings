@@ -18,7 +18,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class MIDIOptions {
-  external factory MIDIOptions({bool sysex, bool software});
+  external factory MIDIOptions({required bool sysex, required bool software});
 }
 
 extension PropsMIDIOptions on MIDIOptions {
@@ -143,7 +143,8 @@ extension PropsMIDIPort on MIDIPort {
   ///
   ///
   ///
-  MIDIPortType get type => js_util.getProperty(this, 'type');
+  MIDIPortType get type =>
+      MIDIPortType.values.byName(js_util.getProperty(this, 'type'));
 
   /// Returns a [string] containing the version of the port.
   ///
@@ -163,7 +164,8 @@ extension PropsMIDIPort on MIDIPort {
   ///
   ///
   ///
-  MIDIPortDeviceState get state => js_util.getProperty(this, 'state');
+  MIDIPortDeviceState get state =>
+      MIDIPortDeviceState.values.byName(js_util.getProperty(this, 'state'));
 
   ///  Returns a [string] containing the connection state of the port,
   /// one of:
@@ -185,8 +187,8 @@ extension PropsMIDIPort on MIDIPort {
   ///
   ///
   ///
-  MIDIPortConnectionState get connection =>
-      js_util.getProperty(this, 'connection');
+  MIDIPortConnectionState get connection => MIDIPortConnectionState.values
+      .byName(js_util.getProperty(this, 'connection'));
   EventHandlerNonNull? get onstatechange =>
       js_util.getProperty(this, 'onstatechange');
   set onstatechange(EventHandlerNonNull? newValue) {
@@ -294,7 +296,7 @@ extension PropsMIDIMessageEvent on MIDIMessageEvent {
 @JS()
 @staticInterop
 class MIDIMessageEventInit implements EventInit {
-  external factory MIDIMessageEventInit({Uint8List data});
+  external factory MIDIMessageEventInit({required Uint8List data});
 }
 
 extension PropsMIDIMessageEventInit on MIDIMessageEventInit {
@@ -331,7 +333,7 @@ extension PropsMIDIConnectionEvent on MIDIConnectionEvent {
 @JS()
 @staticInterop
 class MIDIConnectionEventInit implements EventInit {
-  external factory MIDIConnectionEventInit({MIDIPort port});
+  external factory MIDIConnectionEventInit({required MIDIPort port});
 }
 
 extension PropsMIDIConnectionEventInit on MIDIConnectionEventInit {

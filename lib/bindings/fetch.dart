@@ -258,8 +258,8 @@ extension PropsRequest on Request {
   ///  Returns a string describing the request's destination. This is a
   /// string indicating the type of content being requested.
   ///
-  RequestDestination get destination =>
-      js_util.getProperty(this, 'destination');
+  RequestDestination get destination => RequestDestination.values
+      .byName(js_util.getProperty(this, 'destination'));
 
   /// Contains the referrer of the request (e.g., [client]).
   ///
@@ -269,28 +269,31 @@ extension PropsRequest on Request {
   /// [no-referrer]).
   ///
   ReferrerPolicy get referrerPolicy =>
-      js_util.getProperty(this, 'referrerPolicy');
+      ReferrerPolicy.values.byName(js_util.getProperty(this, 'referrerPolicy'));
 
   ///  Contains the mode of the request (e.g., [cors], [no-cors],
   /// [same-origin], [navigate].)
   ///
-  RequestMode get mode => js_util.getProperty(this, 'mode');
+  RequestMode get mode =>
+      RequestMode.values.byName(js_util.getProperty(this, 'mode'));
 
   ///  Contains the credentials of the request (e.g., [omit],
   /// [same-origin], [include]). The default is [same-origin].
   ///
-  RequestCredentials get credentials =>
-      js_util.getProperty(this, 'credentials');
+  RequestCredentials get credentials => RequestCredentials.values
+      .byName(js_util.getProperty(this, 'credentials'));
 
   ///  Contains the cache mode of the request (e.g., [default],
   /// [reload], [no-cache]).
   ///
-  RequestCache get cache => js_util.getProperty(this, 'cache');
+  RequestCache get cache =>
+      RequestCache.values.byName(js_util.getProperty(this, 'cache'));
 
   ///  Contains the mode for how redirects are handled. It may be one
   /// of [follow], [error], or [manual].
   ///
-  RequestRedirect get redirect => js_util.getProperty(this, 'redirect');
+  RequestRedirect get redirect =>
+      RequestRedirect.values.byName(js_util.getProperty(this, 'redirect'));
 
   ///  Contains the subresource integrity value of the request (e.g.,
   /// [sha256-BpfBw7ivV8q2jLiT13fxDYAe2tJllusRSZ273h2nFSE=]).
@@ -318,20 +321,49 @@ extension PropsRequest on Request {
 @JS()
 @staticInterop
 class RequestInit {
-  external factory RequestInit(
-      {String method,
+  external factory RequestInit._(
+      {required String method,
       dynamic headers,
       dynamic body,
-      String referrer,
-      ReferrerPolicy referrerPolicy,
-      RequestMode mode,
-      RequestCredentials credentials,
-      RequestCache cache,
-      RequestRedirect redirect,
-      String integrity,
-      bool keepalive,
+      required String referrer,
+      required String referrerPolicy,
+      required String mode,
+      required String credentials,
+      required String cache,
+      required String redirect,
+      required String integrity,
+      required bool keepalive,
       AbortSignal? signal,
       dynamic window});
+
+  factory RequestInit(
+          {required String method,
+          dynamic headers,
+          dynamic body,
+          required String referrer,
+          required ReferrerPolicy referrerPolicy,
+          required RequestMode mode,
+          required RequestCredentials credentials,
+          required RequestCache cache,
+          required RequestRedirect redirect,
+          required String integrity,
+          required bool keepalive,
+          AbortSignal? signal,
+          dynamic window}) =>
+      RequestInit._(
+          method: method,
+          headers: headers,
+          body: body,
+          referrer: referrer,
+          referrerPolicy: referrerPolicy.name,
+          mode: mode.name,
+          credentials: credentials.name,
+          cache: cache.name,
+          redirect: redirect.name,
+          integrity: integrity,
+          keepalive: keepalive,
+          signal: signal,
+          window: window);
 }
 
 extension PropsRequestInit on RequestInit {
@@ -356,30 +388,33 @@ extension PropsRequestInit on RequestInit {
   }
 
   ReferrerPolicy get referrerPolicy =>
-      js_util.getProperty(this, 'referrerPolicy');
+      ReferrerPolicy.values.byName(js_util.getProperty(this, 'referrerPolicy'));
   set referrerPolicy(ReferrerPolicy newValue) {
-    js_util.setProperty(this, 'referrerPolicy', newValue);
+    js_util.setProperty(this, 'referrerPolicy', newValue.name);
   }
 
-  RequestMode get mode => js_util.getProperty(this, 'mode');
+  RequestMode get mode =>
+      RequestMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(RequestMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 
-  RequestCredentials get credentials =>
-      js_util.getProperty(this, 'credentials');
+  RequestCredentials get credentials => RequestCredentials.values
+      .byName(js_util.getProperty(this, 'credentials'));
   set credentials(RequestCredentials newValue) {
-    js_util.setProperty(this, 'credentials', newValue);
+    js_util.setProperty(this, 'credentials', newValue.name);
   }
 
-  RequestCache get cache => js_util.getProperty(this, 'cache');
+  RequestCache get cache =>
+      RequestCache.values.byName(js_util.getProperty(this, 'cache'));
   set cache(RequestCache newValue) {
-    js_util.setProperty(this, 'cache', newValue);
+    js_util.setProperty(this, 'cache', newValue.name);
   }
 
-  RequestRedirect get redirect => js_util.getProperty(this, 'redirect');
+  RequestRedirect get redirect =>
+      RequestRedirect.values.byName(js_util.getProperty(this, 'redirect'));
   set redirect(RequestRedirect newValue) {
-    js_util.setProperty(this, 'redirect', newValue);
+    js_util.setProperty(this, 'redirect', newValue.name);
   }
 
   String get integrity => js_util.getProperty(this, 'integrity');
@@ -481,7 +516,8 @@ extension PropsResponse on Response {
 
   /// The type of the response (e.g., [basic], [cors]).
   ///
-  ResponseType get type => js_util.getProperty(this, 'type');
+  ResponseType get type =>
+      ResponseType.values.byName(js_util.getProperty(this, 'type'));
 
   /// The URL of the response.
   ///
@@ -548,7 +584,7 @@ extension PropsResponse on Response {
 @staticInterop
 class ResponseInit {
   external factory ResponseInit(
-      {int status = 200, String? statusText = '', dynamic headers});
+      {int? status = 200, String? statusText = '', dynamic headers});
 }
 
 extension PropsResponseInit on ResponseInit {

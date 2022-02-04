@@ -199,7 +199,7 @@ extension PropsPushSubscriptionOptions on PushSubscriptionOptions {
 @staticInterop
 class PushSubscriptionOptionsInit {
   external factory PushSubscriptionOptionsInit(
-      {bool userVisibleOnly = false, dynamic applicationServerKey});
+      {bool? userVisibleOnly = false, dynamic applicationServerKey});
 }
 
 extension PropsPushSubscriptionOptionsInit on PushSubscriptionOptionsInit {
@@ -278,7 +278,7 @@ extension PropsPushSubscription on PushSubscription {
   ///   ...
   ///
   ByteBuffer? getKey(PushEncryptionKeyName name) =>
-      js_util.callMethod(this, 'getKey', [name]);
+      js_util.callMethod(this, 'getKey', [name.name]);
 
   ///  Starts the asynchronous process of unsubscribing from the push
   /// service, returning a [Future] that resolves to a boolean value
@@ -319,7 +319,7 @@ extension PropsPushSubscription on PushSubscription {
 @staticInterop
 class PushSubscriptionJSON {
   external factory PushSubscriptionJSON(
-      {String endpoint, int? expirationTime, dynamic keys});
+      {required String endpoint, int? expirationTime, dynamic keys});
 }
 
 extension PropsPushSubscriptionJSON on PushSubscriptionJSON {
@@ -438,7 +438,8 @@ extension PropsPushSubscriptionChangeEvent on PushSubscriptionChangeEvent {
 @staticInterop
 class PushSubscriptionChangeEventInit implements ExtendableEventInit {
   external factory PushSubscriptionChangeEventInit(
-      {PushSubscription newSubscription, PushSubscription oldSubscription});
+      {required PushSubscription newSubscription,
+      required PushSubscription oldSubscription});
 }
 
 extension PropsPushSubscriptionChangeEventInit

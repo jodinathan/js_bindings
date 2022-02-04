@@ -17,7 +17,8 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PerformanceMarkOptions {
-  external factory PerformanceMarkOptions({dynamic detail, double startTime});
+  external factory PerformanceMarkOptions(
+      {dynamic detail, required double startTime});
 }
 
 extension PropsPerformanceMarkOptions on PerformanceMarkOptions {
@@ -37,7 +38,7 @@ extension PropsPerformanceMarkOptions on PerformanceMarkOptions {
 @staticInterop
 class PerformanceMeasureOptions {
   external factory PerformanceMeasureOptions(
-      {dynamic detail, dynamic start, double duration, dynamic end});
+      {dynamic detail, dynamic start, required double duration, dynamic end});
 }
 
 extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {

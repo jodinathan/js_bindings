@@ -224,7 +224,9 @@ extension PropsPerformanceObserver on PerformanceObserver {
 @staticInterop
 class PerformanceObserverInit {
   external factory PerformanceObserverInit(
-      {Iterable<String> entryTypes, String type, bool buffered});
+      {required Iterable<String> entryTypes,
+      required String type,
+      required bool buffered});
 }
 
 extension PropsPerformanceObserverInit on PerformanceObserverInit {
@@ -433,7 +435,7 @@ extension PropsPerformanceObserverEntryList on PerformanceObserverEntryList {
 @staticInterop
 class PerformanceObserverCallbackOptions {
   external factory PerformanceObserverCallbackOptions(
-      {int droppedEntriesCount});
+      {required int droppedEntriesCount});
 }
 
 extension PropsPerformanceObserverCallbackOptions

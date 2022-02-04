@@ -54,16 +54,20 @@ enum OrientationSensorLocalCoordinateSystem { device, screen }
 @JS()
 @staticInterop
 class OrientationSensorOptions implements SensorOptions {
-  external factory OrientationSensorOptions(
-      {OrientationSensorLocalCoordinateSystem referenceFrame =
-          OrientationSensorLocalCoordinateSystem.device});
+  external factory OrientationSensorOptions._({String? referenceFrame});
+
+  factory OrientationSensorOptions(
+          {OrientationSensorLocalCoordinateSystem? referenceFrame =
+              OrientationSensorLocalCoordinateSystem.device}) =>
+      OrientationSensorOptions._(referenceFrame: referenceFrame?.name);
 }
 
 extension PropsOrientationSensorOptions on OrientationSensorOptions {
   OrientationSensorLocalCoordinateSystem get referenceFrame =>
-      js_util.getProperty(this, 'referenceFrame');
+      OrientationSensorLocalCoordinateSystem.values
+          .byName(js_util.getProperty(this, 'referenceFrame'));
   set referenceFrame(OrientationSensorLocalCoordinateSystem newValue) {
-    js_util.setProperty(this, 'referenceFrame', newValue);
+    js_util.setProperty(this, 'referenceFrame', newValue.name);
   }
 }
 
@@ -106,7 +110,7 @@ class RelativeOrientationSensor implements OrientationSensor {
 @staticInterop
 class AbsoluteOrientationReadingValues {
   external factory AbsoluteOrientationReadingValues(
-      {Iterable<double> quaternion});
+      {required Iterable<double> quaternion});
 }
 
 extension PropsAbsoluteOrientationReadingValues

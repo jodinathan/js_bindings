@@ -186,7 +186,8 @@ class SpeechRecognitionErrorEvent implements Event {
 extension PropsSpeechRecognitionErrorEvent on SpeechRecognitionErrorEvent {
   /// Returns the type of error raised.
   ///
-  SpeechRecognitionErrorCode get error => js_util.getProperty(this, 'error');
+  SpeechRecognitionErrorCode get error => SpeechRecognitionErrorCode.values
+      .byName(js_util.getProperty(this, 'error'));
 
   /// Returns a message describing the error in more detail.
   ///
@@ -197,15 +198,20 @@ extension PropsSpeechRecognitionErrorEvent on SpeechRecognitionErrorEvent {
 @JS()
 @staticInterop
 class SpeechRecognitionErrorEventInit implements EventInit {
-  external factory SpeechRecognitionErrorEventInit(
-      {SpeechRecognitionErrorCode error, String message = ''});
+  external factory SpeechRecognitionErrorEventInit._(
+      {required String error, String? message = ''});
+
+  factory SpeechRecognitionErrorEventInit(
+          {required SpeechRecognitionErrorCode error, String? message = ''}) =>
+      SpeechRecognitionErrorEventInit._(error: error.name, message: message);
 }
 
 extension PropsSpeechRecognitionErrorEventInit
     on SpeechRecognitionErrorEventInit {
-  SpeechRecognitionErrorCode get error => js_util.getProperty(this, 'error');
+  SpeechRecognitionErrorCode get error => SpeechRecognitionErrorCode.values
+      .byName(js_util.getProperty(this, 'error'));
   set error(SpeechRecognitionErrorCode newValue) {
-    js_util.setProperty(this, 'error', newValue);
+    js_util.setProperty(this, 'error', newValue.name);
   }
 
   String get message => js_util.getProperty(this, 'message');
@@ -331,7 +337,7 @@ extension PropsSpeechRecognitionEvent on SpeechRecognitionEvent {
 @staticInterop
 class SpeechRecognitionEventInit implements EventInit {
   external factory SpeechRecognitionEventInit(
-      {int resultIndex = 0, SpeechRecognitionResultList? results});
+      {int? resultIndex = 0, SpeechRecognitionResultList? results});
 }
 
 extension PropsSpeechRecognitionEventInit on SpeechRecognitionEventInit {
@@ -638,8 +644,8 @@ extension PropsSpeechSynthesisEvent on SpeechSynthesisEvent {
 @staticInterop
 class SpeechSynthesisEventInit implements EventInit {
   external factory SpeechSynthesisEventInit(
-      {SpeechSynthesisUtterance utterance,
-      int charIndex = 0,
+      {required SpeechSynthesisUtterance utterance,
+      int? charIndex = 0,
       int? charLength = 0,
       double? elapsedTime = 0,
       String? name = ''});
@@ -706,21 +712,26 @@ extension PropsSpeechSynthesisErrorEvent on SpeechSynthesisErrorEvent {
   ///  Returns an error code indicating what has gone wrong with a
   /// speech synthesis attempt.
   ///
-  SpeechSynthesisErrorCode get error => js_util.getProperty(this, 'error');
+  SpeechSynthesisErrorCode get error => SpeechSynthesisErrorCode.values
+      .byName(js_util.getProperty(this, 'error'));
 }
 
 @anonymous
 @JS()
 @staticInterop
 class SpeechSynthesisErrorEventInit implements SpeechSynthesisEventInit {
-  external factory SpeechSynthesisErrorEventInit(
-      {SpeechSynthesisErrorCode error});
+  external factory SpeechSynthesisErrorEventInit._({required String error});
+
+  factory SpeechSynthesisErrorEventInit(
+          {required SpeechSynthesisErrorCode error}) =>
+      SpeechSynthesisErrorEventInit._(error: error.name);
 }
 
 extension PropsSpeechSynthesisErrorEventInit on SpeechSynthesisErrorEventInit {
-  SpeechSynthesisErrorCode get error => js_util.getProperty(this, 'error');
+  SpeechSynthesisErrorCode get error => SpeechSynthesisErrorCode.values
+      .byName(js_util.getProperty(this, 'error'));
   set error(SpeechSynthesisErrorCode newValue) {
-    js_util.setProperty(this, 'error', newValue);
+    js_util.setProperty(this, 'error', newValue.name);
   }
 }
 

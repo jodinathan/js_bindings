@@ -120,7 +120,7 @@ extension PropsReportingObserver on ReportingObserver {
 @staticInterop
 class ReportingObserverOptions {
   external factory ReportingObserverOptions(
-      {Iterable<String> types, bool buffered = false});
+      {required Iterable<String> types, bool? buffered = false});
 }
 
 extension PropsReportingObserverOptions on ReportingObserverOptions {
@@ -148,7 +148,7 @@ extension PropsReportingObserverOptions on ReportingObserverOptions {
 @staticInterop
 class GenerateTestReportParameters {
   external factory GenerateTestReportParameters(
-      {String message, String group = 'default'});
+      {required String message, String? group = 'default'});
 }
 
 extension PropsGenerateTestReportParameters on GenerateTestReportParameters {

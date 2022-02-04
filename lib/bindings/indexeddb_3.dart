@@ -84,8 +84,8 @@ extension PropsIDBRequest on IDBRequest {
   /// state. The state changes to [done] when the request completes
   /// successfully or when an error occurs.
   ///
-  IDBRequestReadyState get readyState =>
-      js_util.getProperty(this, 'readyState');
+  IDBRequestReadyState get readyState => IDBRequestReadyState.values
+      .byName(js_util.getProperty(this, 'readyState'));
   EventHandlerNonNull? get onsuccess => js_util.getProperty(this, 'onsuccess');
   set onsuccess(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onsuccess', newValue);
@@ -168,7 +168,7 @@ extension PropsIDBVersionChangeEvent on IDBVersionChangeEvent {
 @staticInterop
 class IDBVersionChangeEventInit implements EventInit {
   external factory IDBVersionChangeEventInit(
-      {int oldVersion = 0, int? newVersion});
+      {int? oldVersion = 0, int? newVersion});
 }
 
 extension PropsIDBVersionChangeEventInit on IDBVersionChangeEventInit {
@@ -300,7 +300,8 @@ extension PropsIDBFactory on IDBFactory {
 @JS()
 @staticInterop
 class IDBDatabaseInfo {
-  external factory IDBDatabaseInfo({String name, int version});
+  external factory IDBDatabaseInfo(
+      {required String name, required int version});
 }
 
 extension PropsIDBDatabaseInfo on IDBDatabaseInfo {
@@ -518,7 +519,8 @@ extension PropsIDBDatabase on IDBDatabase {
           ///
           ///
           IDBTransactionOptions? options]) =>
-      js_util.callMethod(this, 'transaction', [storeNames, mode, options]);
+      js_util
+          .callMethod(this, 'transaction', [storeNames, mode?.name, options]);
 
   ///  Returns immediately and closes the connection to a database in a
   /// separate thread.
@@ -655,16 +657,19 @@ enum IDBTransactionDurability { valueDefault, strict, relaxed }
 @JS()
 @staticInterop
 class IDBTransactionOptions {
-  external factory IDBTransactionOptions(
-      {IDBTransactionDurability durability =
-          IDBTransactionDurability.valueDefault});
+  external factory IDBTransactionOptions._({String? durability});
+
+  factory IDBTransactionOptions(
+          {IDBTransactionDurability? durability =
+              IDBTransactionDurability.valueDefault}) =>
+      IDBTransactionOptions._(durability: durability?.name);
 }
 
 extension PropsIDBTransactionOptions on IDBTransactionOptions {
-  IDBTransactionDurability get durability =>
-      js_util.getProperty(this, 'durability');
+  IDBTransactionDurability get durability => IDBTransactionDurability.values
+      .byName(js_util.getProperty(this, 'durability'));
   set durability(IDBTransactionDurability newValue) {
-    js_util.setProperty(this, 'durability', newValue);
+    js_util.setProperty(this, 'durability', newValue.name);
   }
 }
 
@@ -673,7 +678,7 @@ extension PropsIDBTransactionOptions on IDBTransactionOptions {
 @staticInterop
 class IDBObjectStoreParameters {
   external factory IDBObjectStoreParameters(
-      {dynamic keyPath, bool autoIncrement = false});
+      {dynamic keyPath, bool? autoIncrement = false});
 }
 
 extension PropsIDBObjectStoreParameters on IDBObjectStoreParameters {
@@ -1059,7 +1064,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
   IDBRequest openCursor(
           [dynamic query,
           IDBCursorDirection? direction = IDBCursorDirection.next]) =>
-      js_util.callMethod(this, 'openCursor', [query, direction]);
+      js_util.callMethod(this, 'openCursor', [query, direction?.name]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// returns a new [IDBCursor]. Used for iterating through an object
@@ -1091,7 +1096,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
   IDBRequest openKeyCursor(
           [dynamic query,
           IDBCursorDirection? direction = IDBCursorDirection.next]) =>
-      js_util.callMethod(this, 'openKeyCursor', [query, direction]);
+      js_util.callMethod(this, 'openKeyCursor', [query, direction?.name]);
 
   ///  Opens an index from this object store after which it can, for
   /// example, be used to return a sequence of records sorted by that
@@ -1273,7 +1278,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
 @staticInterop
 class IDBIndexParameters {
   external factory IDBIndexParameters(
-      {bool unique = false, bool? multiEntry = false});
+      {bool? unique = false, bool? multiEntry = false});
 }
 
 extension PropsIDBIndexParameters on IDBIndexParameters {
@@ -1596,7 +1601,7 @@ extension PropsIDBIndex on IDBIndex {
   IDBRequest openCursor(
           [dynamic query,
           IDBCursorDirection? direction = IDBCursorDirection.next]) =>
-      js_util.callMethod(this, 'openCursor', [query, direction]);
+      js_util.callMethod(this, 'openCursor', [query, direction?.name]);
 
   ///  Returns an [IDBRequest] object, and, in a separate thread,
   /// creates a cursor over the specified key range, as arranged by
@@ -1641,7 +1646,7 @@ extension PropsIDBIndex on IDBIndex {
   IDBRequest openKeyCursor(
           [dynamic query,
           IDBCursorDirection? direction = IDBCursorDirection.next]) =>
-      js_util.callMethod(this, 'openKeyCursor', [query, direction]);
+      js_util.callMethod(this, 'openKeyCursor', [query, direction?.name]);
 }
 
 ///  The interface of the IndexedDB API represents a continuous
@@ -1796,7 +1801,8 @@ extension PropsIDBCursor on IDBCursor {
   ///  Returns the direction of traversal of the cursor. See Constants
   /// for possible values.
   ///
-  IDBCursorDirection get direction => js_util.getProperty(this, 'direction');
+  IDBCursorDirection get direction =>
+      IDBCursorDirection.values.byName(js_util.getProperty(this, 'direction'));
 
   ///  Returns the key for the record at the cursor's position. If the
   /// cursor is outside its range, this is set to [Object]. The
@@ -2124,12 +2130,13 @@ extension PropsIDBTransaction on IDBTransaction {
   /// are in the scope of the transaction. The default value is
   /// [readonly].
   ///
-  IDBTransactionMode get mode => js_util.getProperty(this, 'mode');
+  IDBTransactionMode get mode =>
+      IDBTransactionMode.values.byName(js_util.getProperty(this, 'mode'));
 
   /// Returns the durability hint the transaction was created with.
   ///
-  IDBTransactionDurability get durability =>
-      js_util.getProperty(this, 'durability');
+  IDBTransactionDurability get durability => IDBTransactionDurability.values
+      .byName(js_util.getProperty(this, 'durability'));
 
   ///  The database connection with which this transaction is
   /// associated.

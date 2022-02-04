@@ -84,7 +84,8 @@ extension PropsWebTransport on WebTransport {
   Future<WebTransportStats> getStats() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
 
-  WebTransportState get state => js_util.getProperty(this, 'state');
+  WebTransportState get state =>
+      WebTransportState.values.byName(js_util.getProperty(this, 'state'));
   Future<Object> get ready =>
       js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
   Future<WebTransportCloseInfo> get closed =>
@@ -113,8 +114,8 @@ extension PropsWebTransport on WebTransport {
 @staticInterop
 class WebTransportOptions {
   external factory WebTransportOptions(
-      {bool allowPooling,
-      Iterable<RTCDtlsFingerprint> serverCertificateFingerprints});
+      {required bool allowPooling,
+      required Iterable<RTCDtlsFingerprint> serverCertificateFingerprints});
 }
 
 extension PropsWebTransportOptions on WebTransportOptions {
@@ -137,7 +138,7 @@ enum WebTransportState { connecting, connected, closed, failed }
 @staticInterop
 class WebTransportCloseInfo {
   external factory WebTransportCloseInfo(
-      {int errorCode = 0, String? reason = ''});
+      {int? errorCode = 0, String? reason = ''});
 }
 
 extension PropsWebTransportCloseInfo on WebTransportCloseInfo {
@@ -157,15 +158,15 @@ extension PropsWebTransportCloseInfo on WebTransportCloseInfo {
 @staticInterop
 class WebTransportStats {
   external factory WebTransportStats(
-      {double timestamp,
-      int bytesSent,
-      int packetsSent,
-      int numOutgoingStreamsCreated,
-      int numIncomingStreamsCreated,
-      int bytesReceived,
-      int packetsReceived,
-      double minRtt,
-      int numReceivedDatagramsDropped});
+      {required double timestamp,
+      required int bytesSent,
+      required int packetsSent,
+      required int numOutgoingStreamsCreated,
+      required int numIncomingStreamsCreated,
+      required int bytesReceived,
+      required int packetsReceived,
+      required double minRtt,
+      required int numReceivedDatagramsDropped});
 }
 
 extension PropsWebTransportStats on WebTransportStats {
@@ -235,7 +236,7 @@ extension PropsSendStream on SendStream {
 @JS()
 @staticInterop
 class StreamAbortInfo {
-  external factory StreamAbortInfo({int errorCode = 0});
+  external factory StreamAbortInfo({int? errorCode = 0});
 }
 
 extension PropsStreamAbortInfo on StreamAbortInfo {

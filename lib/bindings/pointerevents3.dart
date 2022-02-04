@@ -19,7 +19,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class PointerEventInit implements MouseEventInit {
   external factory PointerEventInit(
-      {int pointerId = 0,
+      {int? pointerId = 0,
       double? width = 1,
       double? height = 1,
       double? pressure = 0,

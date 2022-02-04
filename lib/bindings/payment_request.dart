@@ -127,7 +127,8 @@ extension PropsPaymentRequest on PaymentRequest {
 @JS()
 @staticInterop
 class PaymentMethodData {
-  external factory PaymentMethodData({String supportedMethods, dynamic data});
+  external factory PaymentMethodData(
+      {required String supportedMethods, dynamic data});
 }
 
 extension PropsPaymentMethodData on PaymentMethodData {
@@ -146,7 +147,8 @@ extension PropsPaymentMethodData on PaymentMethodData {
 @JS()
 @staticInterop
 class PaymentCurrencyAmount {
-  external factory PaymentCurrencyAmount({String currency, String value});
+  external factory PaymentCurrencyAmount(
+      {required String currency, required String value});
 }
 
 extension PropsPaymentCurrencyAmount on PaymentCurrencyAmount {
@@ -166,8 +168,8 @@ extension PropsPaymentCurrencyAmount on PaymentCurrencyAmount {
 @staticInterop
 class PaymentDetailsBase {
   external factory PaymentDetailsBase(
-      {Iterable<PaymentItem> displayItems,
-      Iterable<PaymentDetailsModifier> modifiers});
+      {required Iterable<PaymentItem> displayItems,
+      required Iterable<PaymentDetailsModifier> modifiers});
 }
 
 extension PropsPaymentDetailsBase on PaymentDetailsBase {
@@ -188,7 +190,8 @@ extension PropsPaymentDetailsBase on PaymentDetailsBase {
 @JS()
 @staticInterop
 class PaymentDetailsInit implements PaymentDetailsBase {
-  external factory PaymentDetailsInit({String id, PaymentItem total});
+  external factory PaymentDetailsInit(
+      {required String id, required PaymentItem total});
 }
 
 extension PropsPaymentDetailsInit on PaymentDetailsInit {
@@ -208,7 +211,7 @@ extension PropsPaymentDetailsInit on PaymentDetailsInit {
 @staticInterop
 class PaymentDetailsUpdate implements PaymentDetailsBase {
   external factory PaymentDetailsUpdate(
-      {PaymentItem total, dynamic paymentMethodErrors});
+      {required PaymentItem total, dynamic paymentMethodErrors});
 }
 
 extension PropsPaymentDetailsUpdate on PaymentDetailsUpdate {
@@ -229,9 +232,9 @@ extension PropsPaymentDetailsUpdate on PaymentDetailsUpdate {
 @staticInterop
 class PaymentDetailsModifier {
   external factory PaymentDetailsModifier(
-      {String supportedMethods,
-      PaymentItem total,
-      Iterable<PaymentItem> additionalDisplayItems,
+      {required String supportedMethods,
+      required PaymentItem total,
+      required Iterable<PaymentItem> additionalDisplayItems,
       dynamic data});
 }
 
@@ -264,13 +267,28 @@ enum PaymentShippingType { shipping, delivery, pickup }
 @JS()
 @staticInterop
 class PaymentOptions {
-  external factory PaymentOptions(
-      {bool requestPayerName = false,
+  external factory PaymentOptions._(
+      {bool? requestPayerName = false,
       bool? requestBillingAddress = false,
       bool? requestPayerEmail = false,
       bool? requestPayerPhone = false,
       bool? requestShipping = false,
-      PaymentShippingType? shippingType = PaymentShippingType.shipping});
+      String? shippingType});
+
+  factory PaymentOptions(
+          {bool? requestPayerName = false,
+          bool? requestBillingAddress = false,
+          bool? requestPayerEmail = false,
+          bool? requestPayerPhone = false,
+          bool? requestShipping = false,
+          PaymentShippingType? shippingType = PaymentShippingType.shipping}) =>
+      PaymentOptions._(
+          requestPayerName: requestPayerName,
+          requestBillingAddress: requestBillingAddress,
+          requestPayerEmail: requestPayerEmail,
+          requestPayerPhone: requestPayerPhone,
+          requestShipping: requestShipping,
+          shippingType: shippingType?.name);
 }
 
 extension PropsPaymentOptions on PaymentOptions {
@@ -300,10 +318,10 @@ extension PropsPaymentOptions on PaymentOptions {
     js_util.setProperty(this, 'requestShipping', newValue);
   }
 
-  PaymentShippingType get shippingType =>
-      js_util.getProperty(this, 'shippingType');
+  PaymentShippingType get shippingType => PaymentShippingType.values
+      .byName(js_util.getProperty(this, 'shippingType'));
   set shippingType(PaymentShippingType newValue) {
-    js_util.setProperty(this, 'shippingType', newValue);
+    js_util.setProperty(this, 'shippingType', newValue.name);
   }
 }
 
@@ -312,7 +330,9 @@ extension PropsPaymentOptions on PaymentOptions {
 @staticInterop
 class PaymentItem {
   external factory PaymentItem(
-      {String label, PaymentCurrencyAmount amount, bool pending = false});
+      {required String label,
+      required PaymentCurrencyAmount amount,
+      bool? pending = false});
 }
 
 extension PropsPaymentItem on PaymentItem {
@@ -441,7 +461,7 @@ extension PropsPaymentAddress on PaymentAddress {
 @staticInterop
 class AddressInit {
   external factory AddressInit(
-      {String country = '',
+      {String? country = '',
       Iterable<String>? addressLine = const [],
       String? region = '',
       String? city = '',
@@ -522,16 +542,16 @@ extension PropsAddressInit on AddressInit {
 @staticInterop
 class AddressErrors {
   external factory AddressErrors(
-      {String addressLine,
-      String city,
-      String country,
-      String dependentLocality,
-      String organization,
-      String phone,
-      String postalCode,
-      String recipient,
-      String region,
-      String sortingCode});
+      {required String addressLine,
+      required String city,
+      required String country,
+      required String dependentLocality,
+      required String organization,
+      required String phone,
+      required String postalCode,
+      required String recipient,
+      required String region,
+      required String sortingCode});
 }
 
 extension PropsAddressErrors on AddressErrors {
@@ -642,10 +662,10 @@ extension PropsAddressErrors on AddressErrors {
 @staticInterop
 class PaymentShippingOption {
   external factory PaymentShippingOption(
-      {String id,
-      String label,
-      PaymentCurrencyAmount amount,
-      bool selected = false});
+      {required String id,
+      required String label,
+      required PaymentCurrencyAmount amount,
+      bool? selected = false});
 }
 
 extension PropsPaymentShippingOption on PaymentShippingOption {
@@ -762,7 +782,8 @@ extension PropsPaymentResponse on PaymentResponse {
           ///
           ///
           PaymentComplete? result = PaymentComplete.unknown]) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'complete', [result]));
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'complete', [result?.name]));
 
   ///  If something is wrong with the payment response's data (and
   /// there is a recoverable error), this method allows a merchant to
@@ -814,7 +835,7 @@ extension PropsPaymentResponse on PaymentResponse {
 @staticInterop
 class PaymentValidationErrors {
   external factory PaymentValidationErrors(
-      {String error, dynamic paymentMethod});
+      {required String error, dynamic paymentMethod});
 }
 
 extension PropsPaymentValidationErrors on PaymentValidationErrors {
@@ -844,7 +865,8 @@ extension PropsPaymentValidationErrors on PaymentValidationErrors {
 @JS()
 @staticInterop
 class PayerErrors {
-  external factory PayerErrors({String email, String name, String phone});
+  external factory PayerErrors(
+      {required String email, required String name, required String phone});
 }
 
 extension PropsPayerErrors on PayerErrors {
@@ -898,7 +920,7 @@ extension PropsPaymentMethodChangeEvent on PaymentMethodChangeEvent {
 @staticInterop
 class PaymentMethodChangeEventInit implements PaymentRequestUpdateEventInit {
   external factory PaymentMethodChangeEventInit(
-      {String methodName = '', dynamic methodDetails});
+      {String? methodName = '', dynamic methodDetails});
 }
 
 extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {

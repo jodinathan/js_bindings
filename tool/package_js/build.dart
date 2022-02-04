@@ -9,6 +9,12 @@ const instanceMemberTypes = {'attribute', 'field', 'operation',
   'setlike', 'iterable', 'maplike'};
 const objectMembers = {'hash', 'hashCode', 'toString'};
 
+extension UtilsBool on bool {
+  String truth(String buf) {
+    return this ? buf : '';
+  }
+}
+
 /// TODO: Change how we struct the spec class to also translate the underlying
 /// map to classes with everything ready.
 Future<void> main() async {
@@ -388,13 +394,34 @@ Future<void> main() async {
                       external static $dartType get $mName;
                       ''');
                     } else {
-                      final jget = "js_util.getProperty(${static || constant ?
+                      final prop = "js_util.getProperty(${static || constant ?
                       className : 'this'}, '$origMName')";
 
-                      lines.add(
-                          '''$dartType get $mName => ${dartType.isPromise ?
-                          'js_util.promiseToFuture($jget)' : jget}
-                      ;''');
+                      String mk(String prop) {
+                        var jget = dartType.isPromise ?
+                        'js_util.promiseToFuture($prop)' : prop;
+
+                        if (dartType.isEnum) {
+                          jget = '${dartType.simpleName}.values.byName${
+                              dartType.isIterable.truth('s')}($jget)';
+                        }
+
+                        return jget;
+                      }
+
+                      lines.add('$dartType get $mName');
+
+                      if (dartType.isEnum && dartType.nullable) {
+                        lines.add('''{
+                           final ret = $prop;
+                           
+                           return ret == null ? null : ${mk('ret')};
+                        }''');
+                      } else {
+                        final jget = mk(prop);
+
+                        lines.add('=> $jget;');
+                      }
                     }
 
                     if (member['readonly'] != true && !constant) {
@@ -407,7 +434,9 @@ Future<void> main() async {
                       } else {
                         lines.add(
                             '''set $mName($dartType newValue) {
-                          js_util.setProperty(this, '$origMName', newValue);
+                          js_util.setProperty(this, '$origMName', newValue${
+                                dartType.isEnum.truth('${
+                                    dartType.nullable.truth('?')}.name${dartType.isIterable.truth('s')}')});
                           }''');
                       }
                     }
@@ -439,21 +468,46 @@ Future<void> main() async {
                     String fn;
                     final method = spec.makeMethod(member['arguments'] == null
                         ? [] : member['arguments'] as Iterable);
-                    final params = method.build(optionals: type != 'dictionary');
+                    final cparams = method.build(anonymous: dictionary);
 
                     if (isc) {
-                      if (params.isNotEmpty) {
-                        if (mixin) {
-                          print(
-                              'Skipping $name constructor because it is a mixin.');
-                        } else {
-                          fn = '\nexternal $factory$className';
+                      if (mixin) {
+                        print(
+                            'Skipping $name constructor because it is a mixin.');
+                      } else {
+                        final params = method.build(anonymous: dictionary,
+                            enumAsStrings: true);
+
+                        if (params.isNotEmpty) {
+                          fn = '$factory$className';
                           addedCtor = true;
 
+                          final henum = method.params.any(
+                                  (param) => param.dartType.isEnum);
+
                           lines.add(
-                              '$fn(${params.isNotEmpty ? (type == 'dictionary'
-                                  ? '{$params}'
-                                  : params) : ''});');
+                              '\nexternal $fn${henum ? '._' : ''}(${
+                                  params.isNotEmpty ? (dictionary
+                                      ? '{$params}'
+                                      : params) : ''});');
+
+                          if (henum) {
+                            lines.add(
+                                '\nfactory $className(${
+                                    params.isNotEmpty ? (dictionary
+                                        ? '{$cparams}'
+                                        : cparams) : ''}) => $className._(${
+                                    method.params.map(
+                                            (param) =>
+                                            '${dictionary ?
+                                            '${param.name}: ' : ''}${param.name}${
+                                            param.dartType.isEnum ?
+                                            '${param.isNullable ? '?' : ''}.name${
+                                            param.dartType.isIterable ? 's' : ''
+                                            }' : ''
+                                        }').join(', ')
+                                });');
+                          }
                         }
                       }
                     } else {
@@ -508,19 +562,26 @@ Future<void> main() async {
                     [
                     ${method.params.map(
                               (param) {
-                                final name = param.name;
+                                var name = param.name;
 
                             if (param.dartType.isCallback) {
-                              return '${param.isNullable ?
-                              '$name == null ? null : ' : ''}allowInterop($name)';
+                              name = '${param.isNullable
+                                  .truth('$name == null ? null : ')}allowInterop($name)';
+                            } else if (param.dartType.isEnum) {
+                              name = '$name${param.isNullable.truth('?')}.name${param.dartType.isIterable.truth('s')}';
+                            }
+
+                            if (param.isVariadic) {
+                              name = '${name}1, ${name}2, ${name}3';
                             }
 
                             return name;
                           }).join(', ')}
                     ])
                       ''';
+
                       lines.add('''
-                    $fn($params) => ${dartType.isPromise ?
+                    $fn($cparams) => ${dartType.isPromise ?
                       'js_util.promiseToFuture($jsCall)' : jsCall}; 
                     ''');
                     }

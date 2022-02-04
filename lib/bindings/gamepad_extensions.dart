@@ -35,7 +35,8 @@ class GamepadHapticActuator {
 extension PropsGamepadHapticActuator on GamepadHapticActuator {
   /// Returns an enum representing the type of the haptic hardware.
   ///
-  GamepadHapticActuatorType get type => js_util.getProperty(this, 'type');
+  GamepadHapticActuatorType get type => GamepadHapticActuatorType.values
+      .byName(js_util.getProperty(this, 'type'));
 
   ///  Makes the hardware pulse at a certain intensity for a specified
   /// duration.

@@ -165,7 +165,7 @@ extension PropsPresentationConnectionAvailableEvent
 @staticInterop
 class PresentationConnectionAvailableEventInit implements EventInit {
   external factory PresentationConnectionAvailableEventInit(
-      {PresentationConnection connection});
+      {required PresentationConnection connection});
 }
 
 extension PropsPresentationConnectionAvailableEventInit
@@ -205,7 +205,8 @@ extension PropsPresentationConnection on PresentationConnection {
 
   /// Returns the presentation connection's current state.
   ///
-  PresentationConnectionState get state => js_util.getProperty(this, 'state');
+  PresentationConnectionState get state => PresentationConnectionState.values
+      .byName(js_util.getProperty(this, 'state'));
 
   ///  Closes the current connection and sends a
   /// [PresentationConnectionCloseEvent] to
@@ -238,9 +239,10 @@ extension PropsPresentationConnection on PresentationConnection {
   /// [PresentationConnection] object is created, its IDL attribute
   /// MUST be set to the string " [arraybuffer]".
   ///
-  BinaryType get binaryType => js_util.getProperty(this, 'binaryType');
+  BinaryType get binaryType =>
+      BinaryType.values.byName(js_util.getProperty(this, 'binaryType'));
   set binaryType(BinaryType newValue) {
-    js_util.setProperty(this, 'binaryType', newValue);
+    js_util.setProperty(this, 'binaryType', newValue.name);
   }
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
@@ -278,7 +280,8 @@ extension PropsPresentationConnectionCloseEvent
   /// of the following values: [error], [closed], or [wentaway].
   ///
   PresentationConnectionCloseReason get reason =>
-      js_util.getProperty(this, 'reason');
+      PresentationConnectionCloseReason.values
+          .byName(js_util.getProperty(this, 'reason'));
 
   ///  A human-readable message that provides more information about
   /// why the connection was closed.
@@ -290,16 +293,23 @@ extension PropsPresentationConnectionCloseEvent
 @JS()
 @staticInterop
 class PresentationConnectionCloseEventInit implements EventInit {
-  external factory PresentationConnectionCloseEventInit(
-      {PresentationConnectionCloseReason reason, String message = ''});
+  external factory PresentationConnectionCloseEventInit._(
+      {required String reason, String? message = ''});
+
+  factory PresentationConnectionCloseEventInit(
+          {required PresentationConnectionCloseReason reason,
+          String? message = ''}) =>
+      PresentationConnectionCloseEventInit._(
+          reason: reason.name, message: message);
 }
 
 extension PropsPresentationConnectionCloseEventInit
     on PresentationConnectionCloseEventInit {
   PresentationConnectionCloseReason get reason =>
-      js_util.getProperty(this, 'reason');
+      PresentationConnectionCloseReason.values
+          .byName(js_util.getProperty(this, 'reason'));
   set reason(PresentationConnectionCloseReason newValue) {
-    js_util.setProperty(this, 'reason', newValue);
+    js_util.setProperty(this, 'reason', newValue.name);
   }
 
   String get message => js_util.getProperty(this, 'message');

@@ -52,16 +52,20 @@ enum MagnetometerLocalCoordinateSystem { device, screen }
 @JS()
 @staticInterop
 class MagnetometerSensorOptions implements SensorOptions {
-  external factory MagnetometerSensorOptions(
-      {MagnetometerLocalCoordinateSystem referenceFrame =
-          MagnetometerLocalCoordinateSystem.device});
+  external factory MagnetometerSensorOptions._({String? referenceFrame});
+
+  factory MagnetometerSensorOptions(
+          {MagnetometerLocalCoordinateSystem? referenceFrame =
+              MagnetometerLocalCoordinateSystem.device}) =>
+      MagnetometerSensorOptions._(referenceFrame: referenceFrame?.name);
 }
 
 extension PropsMagnetometerSensorOptions on MagnetometerSensorOptions {
   MagnetometerLocalCoordinateSystem get referenceFrame =>
-      js_util.getProperty(this, 'referenceFrame');
+      MagnetometerLocalCoordinateSystem.values
+          .byName(js_util.getProperty(this, 'referenceFrame'));
   set referenceFrame(MagnetometerLocalCoordinateSystem newValue) {
-    js_util.setProperty(this, 'referenceFrame', newValue);
+    js_util.setProperty(this, 'referenceFrame', newValue.name);
   }
 }
 

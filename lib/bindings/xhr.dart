@@ -443,9 +443,10 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   /// Is an enumerated value that defines the response type.
   ///
   XMLHttpRequestResponseType get responseType =>
-      js_util.getProperty(this, 'responseType');
+      XMLHttpRequestResponseType.values
+          .byName(js_util.getProperty(this, 'responseType'));
   set responseType(XMLHttpRequestResponseType newValue) {
-    js_util.setProperty(this, 'responseType', newValue);
+    js_util.setProperty(this, 'responseType', newValue.name);
   }
 
   ///  Returns an [ArrayBuffer], [Blob], [Document], JavaScript object,
@@ -710,7 +711,7 @@ extension PropsProgressEvent on ProgressEvent {
 @staticInterop
 class ProgressEventInit implements EventInit {
   external factory ProgressEventInit(
-      {bool lengthComputable = false, int? loaded = 0, int? total = 0});
+      {bool? lengthComputable = false, int? loaded = 0, int? total = 0});
 }
 
 extension PropsProgressEventInit on ProgressEventInit {

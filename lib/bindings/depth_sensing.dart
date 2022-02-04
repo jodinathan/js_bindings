@@ -22,22 +22,30 @@ enum XRDepthDataFormat { luminanceAlpha, float32 }
 @JS()
 @staticInterop
 class XRDepthStateInit {
-  external factory XRDepthStateInit(
-      {Iterable<XRDepthUsage> usagePreference,
-      Iterable<XRDepthDataFormat> dataFormatPreference});
+  external factory XRDepthStateInit._(
+      {required Iterable<String> usagePreference,
+      required Iterable<String> dataFormatPreference});
+
+  factory XRDepthStateInit(
+          {required Iterable<XRDepthUsage> usagePreference,
+          required Iterable<XRDepthDataFormat> dataFormatPreference}) =>
+      XRDepthStateInit._(
+          usagePreference: usagePreference.names,
+          dataFormatPreference: dataFormatPreference.names);
 }
 
 extension PropsXRDepthStateInit on XRDepthStateInit {
   Iterable<XRDepthUsage> get usagePreference =>
-      js_util.getProperty(this, 'usagePreference');
+      XRDepthUsage.values.byNames(js_util.getProperty(this, 'usagePreference'));
   set usagePreference(Iterable<XRDepthUsage> newValue) {
-    js_util.setProperty(this, 'usagePreference', newValue);
+    js_util.setProperty(this, 'usagePreference', newValue.names);
   }
 
   Iterable<XRDepthDataFormat> get dataFormatPreference =>
-      js_util.getProperty(this, 'dataFormatPreference');
+      XRDepthDataFormat.values
+          .byNames(js_util.getProperty(this, 'dataFormatPreference'));
   set dataFormatPreference(Iterable<XRDepthDataFormat> newValue) {
-    js_util.setProperty(this, 'dataFormatPreference', newValue);
+    js_util.setProperty(this, 'dataFormatPreference', newValue.names);
   }
 }
 

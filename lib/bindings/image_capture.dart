@@ -220,18 +220,29 @@ extension PropsImageCapture on ImageCapture {
 @JS()
 @staticInterop
 class PhotoCapabilities {
-  external factory PhotoCapabilities(
-      {RedEyeReduction redEyeReduction,
-      MediaSettingsRange imageHeight,
-      MediaSettingsRange imageWidth,
-      Iterable<FillLightMode> fillLightMode});
+  external factory PhotoCapabilities._(
+      {required String redEyeReduction,
+      required MediaSettingsRange imageHeight,
+      required MediaSettingsRange imageWidth,
+      required Iterable<String> fillLightMode});
+
+  factory PhotoCapabilities(
+          {required RedEyeReduction redEyeReduction,
+          required MediaSettingsRange imageHeight,
+          required MediaSettingsRange imageWidth,
+          required Iterable<FillLightMode> fillLightMode}) =>
+      PhotoCapabilities._(
+          redEyeReduction: redEyeReduction.name,
+          imageHeight: imageHeight,
+          imageWidth: imageWidth,
+          fillLightMode: fillLightMode.names);
 }
 
 extension PropsPhotoCapabilities on PhotoCapabilities {
-  RedEyeReduction get redEyeReduction =>
-      js_util.getProperty(this, 'redEyeReduction');
+  RedEyeReduction get redEyeReduction => RedEyeReduction.values
+      .byName(js_util.getProperty(this, 'redEyeReduction'));
   set redEyeReduction(RedEyeReduction newValue) {
-    js_util.setProperty(this, 'redEyeReduction', newValue);
+    js_util.setProperty(this, 'redEyeReduction', newValue.name);
   }
 
   MediaSettingsRange get imageHeight =>
@@ -246,9 +257,9 @@ extension PropsPhotoCapabilities on PhotoCapabilities {
   }
 
   Iterable<FillLightMode> get fillLightMode =>
-      js_util.getProperty(this, 'fillLightMode');
+      FillLightMode.values.byNames(js_util.getProperty(this, 'fillLightMode'));
   set fillLightMode(Iterable<FillLightMode> newValue) {
-    js_util.setProperty(this, 'fillLightMode', newValue);
+    js_util.setProperty(this, 'fillLightMode', newValue.names);
   }
 }
 
@@ -256,17 +267,29 @@ extension PropsPhotoCapabilities on PhotoCapabilities {
 @JS()
 @staticInterop
 class PhotoSettings {
-  external factory PhotoSettings(
-      {FillLightMode fillLightMode,
-      double imageHeight,
-      double imageWidth,
-      bool redEyeReduction});
+  external factory PhotoSettings._(
+      {required String fillLightMode,
+      required double imageHeight,
+      required double imageWidth,
+      required bool redEyeReduction});
+
+  factory PhotoSettings(
+          {required FillLightMode fillLightMode,
+          required double imageHeight,
+          required double imageWidth,
+          required bool redEyeReduction}) =>
+      PhotoSettings._(
+          fillLightMode: fillLightMode.name,
+          imageHeight: imageHeight,
+          imageWidth: imageWidth,
+          redEyeReduction: redEyeReduction);
 }
 
 extension PropsPhotoSettings on PhotoSettings {
-  FillLightMode get fillLightMode => js_util.getProperty(this, 'fillLightMode');
+  FillLightMode get fillLightMode =>
+      FillLightMode.values.byName(js_util.getProperty(this, 'fillLightMode'));
   set fillLightMode(FillLightMode newValue) {
-    js_util.setProperty(this, 'fillLightMode', newValue);
+    js_util.setProperty(this, 'fillLightMode', newValue.name);
   }
 
   double get imageHeight => js_util.getProperty(this, 'imageHeight');
@@ -289,7 +312,8 @@ extension PropsPhotoSettings on PhotoSettings {
 @JS()
 @staticInterop
 class MediaSettingsRange {
-  external factory MediaSettingsRange({double max, double min, double step});
+  external factory MediaSettingsRange(
+      {required double max, required double min, required double step});
 }
 
 extension PropsMediaSettingsRange on MediaSettingsRange {
@@ -318,7 +342,7 @@ enum FillLightMode { auto, off, flash }
 @staticInterop
 class ConstrainPoint2DParameters {
   external factory ConstrainPoint2DParameters(
-      {Iterable<Point2D> exact, Iterable<Point2D> ideal});
+      {required Iterable<Point2D> exact, required Iterable<Point2D> ideal});
 }
 
 extension PropsConstrainPoint2DParameters on ConstrainPoint2DParameters {
@@ -339,7 +363,7 @@ enum MeteringMode { none, manual, singleShot, continuous }
 @JS()
 @staticInterop
 class Point2D {
-  external factory Point2D({double x = 0.0, double? y = 0.0});
+  external factory Point2D({double? x = 0.0, double? y = 0.0});
 }
 
 extension PropsPoint2D on Point2D {

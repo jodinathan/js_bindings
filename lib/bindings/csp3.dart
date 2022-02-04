@@ -30,7 +30,8 @@ extension PropsCSPViolationReportBody on CSPViolationReportBody {
   String? get sourceFile => js_util.getProperty(this, 'sourceFile');
   String? get sample => js_util.getProperty(this, 'sample');
   SecurityPolicyViolationEventDisposition get disposition =>
-      js_util.getProperty(this, 'disposition');
+      SecurityPolicyViolationEventDisposition.values
+          .byName(js_util.getProperty(this, 'disposition'));
   int get statusCode => js_util.getProperty(this, 'statusCode');
   int? get lineNumber => js_util.getProperty(this, 'lineNumber');
   int? get columnNumber => js_util.getProperty(this, 'columnNumber');
@@ -105,7 +106,8 @@ extension PropsSecurityPolicyViolationEvent on SecurityPolicyViolationEvent {
   /// the user agent. This will be ["enforce"] or ["report"].
   ///
   SecurityPolicyViolationEventDisposition get disposition =>
-      js_util.getProperty(this, 'disposition');
+      SecurityPolicyViolationEventDisposition.values
+          .byName(js_util.getProperty(this, 'disposition'));
 
   ///  A number representing the HTTP status code of the document or
   /// worker in which the violation occurred.
@@ -129,18 +131,43 @@ extension PropsSecurityPolicyViolationEvent on SecurityPolicyViolationEvent {
 @JS()
 @staticInterop
 class SecurityPolicyViolationEventInit implements EventInit {
-  external factory SecurityPolicyViolationEventInit(
-      {String documentURL,
-      String referrer = '',
+  external factory SecurityPolicyViolationEventInit._(
+      {required String documentURL,
+      String? referrer = '',
       String? blockedURL = '',
       String? effectiveDirective,
       String? originalPolicy,
       String? sourceFile = '',
       String? sample = '',
-      SecurityPolicyViolationEventDisposition? disposition,
+      String? disposition,
       int? statusCode,
       int? lineno = 0,
       int? colno = 0});
+
+  factory SecurityPolicyViolationEventInit(
+          {required String documentURL,
+          String? referrer = '',
+          String? blockedURL = '',
+          String? effectiveDirective,
+          String? originalPolicy,
+          String? sourceFile = '',
+          String? sample = '',
+          SecurityPolicyViolationEventDisposition? disposition,
+          int? statusCode,
+          int? lineno = 0,
+          int? colno = 0}) =>
+      SecurityPolicyViolationEventInit._(
+          documentURL: documentURL,
+          referrer: referrer,
+          blockedURL: blockedURL,
+          effectiveDirective: effectiveDirective,
+          originalPolicy: originalPolicy,
+          sourceFile: sourceFile,
+          sample: sample,
+          disposition: disposition?.name,
+          statusCode: statusCode,
+          lineno: lineno,
+          colno: colno);
 }
 
 extension PropsSecurityPolicyViolationEventInit
@@ -182,9 +209,10 @@ extension PropsSecurityPolicyViolationEventInit
   }
 
   SecurityPolicyViolationEventDisposition get disposition =>
-      js_util.getProperty(this, 'disposition');
+      SecurityPolicyViolationEventDisposition.values
+          .byName(js_util.getProperty(this, 'disposition'));
   set disposition(SecurityPolicyViolationEventDisposition newValue) {
-    js_util.setProperty(this, 'disposition', newValue);
+    js_util.setProperty(this, 'disposition', newValue.name);
   }
 
   int get statusCode => js_util.getProperty(this, 'statusCode');

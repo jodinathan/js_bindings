@@ -19,9 +19,13 @@ enum FileSystemPermissionMode { read, readwrite }
 @JS()
 @staticInterop
 class FileSystemPermissionDescriptor implements PermissionDescriptor {
-  external factory FileSystemPermissionDescriptor(
-      {FileSystemHandle handle,
-      FileSystemPermissionMode mode = FileSystemPermissionMode.read});
+  external factory FileSystemPermissionDescriptor._(
+      {required FileSystemHandle handle, String? mode});
+
+  factory FileSystemPermissionDescriptor(
+          {required FileSystemHandle handle,
+          FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
+      FileSystemPermissionDescriptor._(handle: handle, mode: mode?.name);
 }
 
 extension PropsFileSystemPermissionDescriptor
@@ -31,9 +35,10 @@ extension PropsFileSystemPermissionDescriptor
     js_util.setProperty(this, 'handle', newValue);
   }
 
-  FileSystemPermissionMode get mode => js_util.getProperty(this, 'mode');
+  FileSystemPermissionMode get mode =>
+      FileSystemPermissionMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(FileSystemPermissionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 }
 
@@ -41,15 +46,19 @@ extension PropsFileSystemPermissionDescriptor
 @JS()
 @staticInterop
 class FileSystemHandlePermissionDescriptor {
-  external factory FileSystemHandlePermissionDescriptor(
-      {FileSystemPermissionMode mode = FileSystemPermissionMode.read});
+  external factory FileSystemHandlePermissionDescriptor._({String? mode});
+
+  factory FileSystemHandlePermissionDescriptor(
+          {FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
+      FileSystemHandlePermissionDescriptor._(mode: mode?.name);
 }
 
 extension PropsFileSystemHandlePermissionDescriptor
     on FileSystemHandlePermissionDescriptor {
-  FileSystemPermissionMode get mode => js_util.getProperty(this, 'mode');
+  FileSystemPermissionMode get mode =>
+      FileSystemPermissionMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(FileSystemPermissionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 }
 
@@ -72,7 +81,8 @@ extension PropsFileSystemHandle on FileSystemHandle {
   ///  Returns the type of entry. This is ['file'] if the associated
   /// entry is a file or ['directory'].
   ///
-  FileSystemHandleKind get kind => js_util.getProperty(this, 'kind');
+  FileSystemHandleKind get kind =>
+      FileSystemHandleKind.values.byName(js_util.getProperty(this, 'kind'));
 
   /// Returns the name of the associated entry.
   ///
@@ -110,7 +120,7 @@ extension PropsFileSystemHandle on FileSystemHandle {
 @staticInterop
 class FileSystemCreateWritableOptions {
   external factory FileSystemCreateWritableOptions(
-      {bool keepExistingData = false});
+      {bool? keepExistingData = false});
 }
 
 extension PropsFileSystemCreateWritableOptions
@@ -167,7 +177,7 @@ extension PropsFileSystemFileHandle on FileSystemFileHandle {
 @JS()
 @staticInterop
 class FileSystemGetFileOptions {
-  external factory FileSystemGetFileOptions({bool create = false});
+  external factory FileSystemGetFileOptions({bool? create = false});
 }
 
 extension PropsFileSystemGetFileOptions on FileSystemGetFileOptions {
@@ -181,7 +191,7 @@ extension PropsFileSystemGetFileOptions on FileSystemGetFileOptions {
 @JS()
 @staticInterop
 class FileSystemGetDirectoryOptions {
-  external factory FileSystemGetDirectoryOptions({bool create = false});
+  external factory FileSystemGetDirectoryOptions({bool? create = false});
 }
 
 extension PropsFileSystemGetDirectoryOptions on FileSystemGetDirectoryOptions {
@@ -195,7 +205,7 @@ extension PropsFileSystemGetDirectoryOptions on FileSystemGetDirectoryOptions {
 @JS()
 @staticInterop
 class FileSystemRemoveOptions {
-  external factory FileSystemRemoveOptions({bool recursive = false});
+  external factory FileSystemRemoveOptions({bool? recursive = false});
 }
 
 extension PropsFileSystemRemoveOptions on FileSystemRemoveOptions {
@@ -270,14 +280,23 @@ enum WriteCommandType { write, seek, truncate }
 @JS()
 @staticInterop
 class WriteParams {
-  external factory WriteParams(
-      {WriteCommandType type, int? size, int? position, dynamic data});
+  external factory WriteParams._(
+      {required String type, int? size, int? position, dynamic data});
+
+  factory WriteParams(
+          {required WriteCommandType type,
+          int? size,
+          int? position,
+          dynamic data}) =>
+      WriteParams._(
+          type: type.name, size: size, position: position, data: data);
 }
 
 extension PropsWriteParams on WriteParams {
-  WriteCommandType get type => js_util.getProperty(this, 'type');
+  WriteCommandType get type =>
+      WriteCommandType.values.byName(js_util.getProperty(this, 'type'));
   set type(WriteCommandType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
   int? get size => js_util.getProperty(this, 'size');
@@ -387,7 +406,8 @@ enum WellKnownDirectory {
 @JS()
 @staticInterop
 class FilePickerAcceptType {
-  external factory FilePickerAcceptType({String description, dynamic accept});
+  external factory FilePickerAcceptType(
+      {required String description, dynamic accept});
 }
 
 extension PropsFilePickerAcceptType on FilePickerAcceptType {
@@ -407,8 +427,8 @@ extension PropsFilePickerAcceptType on FilePickerAcceptType {
 @staticInterop
 class FilePickerOptions {
   external factory FilePickerOptions(
-      {Iterable<FilePickerAcceptType> types,
-      bool excludeAcceptAllOption = false,
+      {required Iterable<FilePickerAcceptType> types,
+      bool? excludeAcceptAllOption = false,
       String? id,
       dynamic startIn});
 }
@@ -441,7 +461,7 @@ extension PropsFilePickerOptions on FilePickerOptions {
 @JS()
 @staticInterop
 class OpenFilePickerOptions implements FilePickerOptions {
-  external factory OpenFilePickerOptions({bool multiple = false});
+  external factory OpenFilePickerOptions({bool? multiple = false});
 }
 
 extension PropsOpenFilePickerOptions on OpenFilePickerOptions {
@@ -469,7 +489,8 @@ extension PropsSaveFilePickerOptions on SaveFilePickerOptions {
 @JS()
 @staticInterop
 class DirectoryPickerOptions {
-  external factory DirectoryPickerOptions({String id, dynamic startIn});
+  external factory DirectoryPickerOptions(
+      {required String id, dynamic startIn});
 }
 
 extension PropsDirectoryPickerOptions on DirectoryPickerOptions {

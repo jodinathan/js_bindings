@@ -19,16 +19,38 @@ enum WebGLPowerPreference { valueDefault, lowPower, highPerformance }
 @JS()
 @staticInterop
 class WebGLContextAttributes {
-  external factory WebGLContextAttributes(
-      {bool alpha = true,
+  external factory WebGLContextAttributes._(
+      {bool? alpha = true,
       bool? depth = true,
       bool? stencil = false,
       bool? antialias = true,
       bool? premultipliedAlpha = true,
       bool? preserveDrawingBuffer = false,
-      WebGLPowerPreference? powerPreference = WebGLPowerPreference.valueDefault,
+      String? powerPreference,
       bool? failIfMajorPerformanceCaveat = false,
       bool? desynchronized = false});
+
+  factory WebGLContextAttributes(
+          {bool? alpha = true,
+          bool? depth = true,
+          bool? stencil = false,
+          bool? antialias = true,
+          bool? premultipliedAlpha = true,
+          bool? preserveDrawingBuffer = false,
+          WebGLPowerPreference? powerPreference =
+              WebGLPowerPreference.valueDefault,
+          bool? failIfMajorPerformanceCaveat = false,
+          bool? desynchronized = false}) =>
+      WebGLContextAttributes._(
+          alpha: alpha,
+          depth: depth,
+          stencil: stencil,
+          antialias: antialias,
+          premultipliedAlpha: premultipliedAlpha,
+          preserveDrawingBuffer: preserveDrawingBuffer,
+          powerPreference: powerPreference?.name,
+          failIfMajorPerformanceCaveat: failIfMajorPerformanceCaveat,
+          desynchronized: desynchronized);
 }
 
 extension PropsWebGLContextAttributes on WebGLContextAttributes {
@@ -64,10 +86,10 @@ extension PropsWebGLContextAttributes on WebGLContextAttributes {
     js_util.setProperty(this, 'preserveDrawingBuffer', newValue);
   }
 
-  WebGLPowerPreference get powerPreference =>
-      js_util.getProperty(this, 'powerPreference');
+  WebGLPowerPreference get powerPreference => WebGLPowerPreference.values
+      .byName(js_util.getProperty(this, 'powerPreference'));
   set powerPreference(WebGLPowerPreference newValue) {
-    js_util.setProperty(this, 'powerPreference', newValue);
+    js_util.setProperty(this, 'powerPreference', newValue.name);
   }
 
   bool get failIfMajorPerformanceCaveat =>
@@ -1647,7 +1669,7 @@ extension PropsWebGLContextEvent on WebGLContextEvent {
 @JS()
 @staticInterop
 class WebGLContextEventInit implements EventInit {
-  external factory WebGLContextEventInit({String statusMessage = ''});
+  external factory WebGLContextEventInit({String? statusMessage = ''});
 }
 
 extension PropsWebGLContextEventInit on WebGLContextEventInit {

@@ -18,7 +18,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class BasicCardRequest {
   external factory BasicCardRequest(
-      {Iterable<String> supportedNetworks = const [],
+      {Iterable<String>? supportedNetworks = const [],
       bool? requestSecurityCode = true});
 }
 
@@ -56,8 +56,8 @@ extension PropsBasicCardChangeDetails on BasicCardChangeDetails {
 @staticInterop
 class BasicCardResponse {
   external factory BasicCardResponse(
-      {String cardNumber,
-      String cardholderName = '',
+      {required String cardNumber,
+      String? cardholderName = '',
       String? cardSecurityCode = '',
       String? expiryMonth = '',
       String? expiryYear = '',
@@ -102,12 +102,12 @@ extension PropsBasicCardResponse on BasicCardResponse {
 @staticInterop
 class BasicCardErrors {
   external factory BasicCardErrors(
-      {String cardNumber,
-      String cardholderName,
-      String cardSecurityCode,
-      String expiryMonth,
-      String expiryYear,
-      AddressErrors billingAddress});
+      {required String cardNumber,
+      required String cardholderName,
+      required String cardSecurityCode,
+      required String expiryMonth,
+      required String expiryYear,
+      required AddressErrors billingAddress});
 }
 
 extension PropsBasicCardErrors on BasicCardErrors {

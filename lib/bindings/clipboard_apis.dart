@@ -242,8 +242,8 @@ extension PropsClipboardItem on ClipboardItem {
   ///  Returns one of the following: ["unspecified"], ["inline"] or
   /// ["attachment"].
   ///
-  PresentationStyle get presentationStyle =>
-      js_util.getProperty(this, 'presentationStyle');
+  PresentationStyle get presentationStyle => PresentationStyle.values
+      .byName(js_util.getProperty(this, 'presentationStyle'));
   int get lastModified => js_util.getProperty(this, 'lastModified');
   bool get delayed => js_util.getProperty(this, 'delayed');
 
@@ -271,15 +271,19 @@ enum PresentationStyle { unspecified, inline, attachment }
 @JS()
 @staticInterop
 class ClipboardItemOptions {
-  external factory ClipboardItemOptions(
-      {PresentationStyle presentationStyle = PresentationStyle.unspecified});
+  external factory ClipboardItemOptions._({String? presentationStyle});
+
+  factory ClipboardItemOptions(
+          {PresentationStyle? presentationStyle =
+              PresentationStyle.unspecified}) =>
+      ClipboardItemOptions._(presentationStyle: presentationStyle?.name);
 }
 
 extension PropsClipboardItemOptions on ClipboardItemOptions {
-  PresentationStyle get presentationStyle =>
-      js_util.getProperty(this, 'presentationStyle');
+  PresentationStyle get presentationStyle => PresentationStyle.values
+      .byName(js_util.getProperty(this, 'presentationStyle'));
   set presentationStyle(PresentationStyle newValue) {
-    js_util.setProperty(this, 'presentationStyle', newValue);
+    js_util.setProperty(this, 'presentationStyle', newValue.name);
   }
 }
 
@@ -288,7 +292,7 @@ extension PropsClipboardItemOptions on ClipboardItemOptions {
 @staticInterop
 class ClipboardPermissionDescriptor implements PermissionDescriptor {
   external factory ClipboardPermissionDescriptor(
-      {bool allowWithoutGesture = false});
+      {bool? allowWithoutGesture = false});
 }
 
 extension PropsClipboardPermissionDescriptor on ClipboardPermissionDescriptor {

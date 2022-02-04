@@ -41,11 +41,14 @@ typedef QueuingStrategySize = Function([dynamic chunk]);
 
 typedef SchedulerPostTaskCallback = Function();
 
-typedef CreateHTMLCallback = Function(String input, [dynamic arguments]);
+typedef CreateHTMLCallback = Function(String input,
+    [dynamic arguments1, dynamic arguments2, dynamic arguments3]);
 
-typedef CreateScriptCallback = Function(String input, [dynamic arguments]);
+typedef CreateScriptCallback = Function(String input,
+    [dynamic arguments1, dynamic arguments2, dynamic arguments3]);
 
-typedef CreateScriptURLCallback = Function(String input, [dynamic arguments]);
+typedef CreateScriptURLCallback = Function(String input,
+    [dynamic arguments1, dynamic arguments2, dynamic arguments3]);
 
 typedef IdleRequestCallback = Function(IdleDeadline deadline);
 
@@ -157,6 +160,7 @@ typedef PerformanceObserverCallback = Function(
 
 @JS('Function')
 @staticInterop
-typedef FnFunction = Function([dynamic arguments]);
+typedef FnFunction = Function(
+    [dynamic arguments1, dynamic arguments2, dynamic arguments3]);
 
 typedef VoidFunction = Function();

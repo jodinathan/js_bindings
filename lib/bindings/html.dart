@@ -3608,7 +3608,7 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   ///
   TextTrack addTextTrack(TextTrackKind kind,
           [String? label = '', String? language = '']) =>
-      js_util.callMethod(this, 'addTextTrack', [kind, label, language]);
+      js_util.callMethod(this, 'addTextTrack', [kind.name, label, language]);
 
   MediaStream captureStream() => js_util.callMethod(this, 'captureStream', []);
 
@@ -4034,7 +4034,8 @@ extension PropsTextTrack on TextTrack {
   ///  Returns a [String] indicating what kind of text track the
   /// [TextTrack] describes. It must be one of the permitted values.
   ///
-  TextTrackKind get kind => js_util.getProperty(this, 'kind');
+  TextTrackKind get kind =>
+      TextTrackKind.values.byName(js_util.getProperty(this, 'kind'));
 
   ///  A human-readable [String] which contains the text track's label,
   /// if one is present; otherwise, this is an empty string ([""]), in
@@ -4073,9 +4074,10 @@ extension PropsTextTrack on TextTrack {
   /// attribute is specified, in which case the default mode is
   /// [started].
   ///
-  TextTrackMode get mode => js_util.getProperty(this, 'mode');
+  TextTrackMode get mode =>
+      TextTrackMode.values.byName(js_util.getProperty(this, 'mode'));
   set mode(TextTrackMode newValue) {
-    js_util.setProperty(this, 'mode', newValue);
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 
   /// A [TextTrackCueList] which contains all of the track's cues.
@@ -5948,7 +5950,7 @@ extension PropsHTMLInputElement on HTMLInputElement {
           int? end,
           SelectionMode? selectionMode = SelectionMode.preserve]) =>
       js_util.callMethod(
-          this, 'setRangeText', [replacement, start, end, selectionMode]);
+          this, 'setRangeText', [replacement, start, end, selectionMode?.name]);
 
   Object setSelectionRange(int start, int end, [String? direction]) =>
       js_util.callMethod(this, 'setSelectionRange', [start, end, direction]);
@@ -6754,7 +6756,7 @@ extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
           int? end,
           SelectionMode? selectionMode = SelectionMode.preserve]) =>
       js_util.callMethod(
-          this, 'setRangeText', [replacement, start, end, selectionMode]);
+          this, 'setRangeText', [replacement, start, end, selectionMode?.name]);
 
   Object setSelectionRange(int start, int end, [String? direction]) =>
       js_util.callMethod(this, 'setSelectionRange', [start, end, direction]);
@@ -7372,7 +7374,7 @@ extension PropsFormDataEvent on FormDataEvent {
 @JS()
 @staticInterop
 class FormDataEventInit implements EventInit {
-  external factory FormDataEventInit({FormData formData});
+  external factory FormDataEventInit({required FormData formData});
 }
 
 extension PropsFormDataEventInit on FormDataEventInit {
@@ -7809,15 +7811,17 @@ extension PropsHTMLSlotElement on HTMLSlotElement {
 
           /// A set of [Element] or [Text] nodes.
           ///
-          dynamic nodes]) =>
-      js_util.callMethod(this, 'assign', [nodes]);
+          dynamic nodes1,
+          dynamic nodes2,
+          dynamic nodes3]) =>
+      js_util.callMethod(this, 'assign', [nodes1, nodes2, nodes3]);
 }
 
 @anonymous
 @JS()
 @staticInterop
 class AssignedNodesOptions {
-  external factory AssignedNodesOptions({bool flatten = false});
+  external factory AssignedNodesOptions({bool? flatten = false});
 }
 
 extension PropsAssignedNodesOptions on AssignedNodesOptions {
@@ -7989,10 +7993,17 @@ enum CanvasFillRule { nonzero, evenodd }
 @JS()
 @staticInterop
 class CanvasRenderingContext2DSettings {
-  external factory CanvasRenderingContext2DSettings(
-      {bool alpha = true,
-      bool? desynchronized = false,
-      PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb});
+  external factory CanvasRenderingContext2DSettings._(
+      {bool? alpha = true, bool? desynchronized = false, String? colorSpace});
+
+  factory CanvasRenderingContext2DSettings(
+          {bool? alpha = true,
+          bool? desynchronized = false,
+          PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb}) =>
+      CanvasRenderingContext2DSettings._(
+          alpha: alpha,
+          desynchronized: desynchronized,
+          colorSpace: colorSpace?.name);
 }
 
 extension PropsCanvasRenderingContext2DSettings
@@ -8007,10 +8018,10 @@ extension PropsCanvasRenderingContext2DSettings
     js_util.setProperty(this, 'desynchronized', newValue);
   }
 
-  PredefinedColorSpace get colorSpace =>
-      js_util.getProperty(this, 'colorSpace');
+  PredefinedColorSpace get colorSpace => PredefinedColorSpace.values
+      .byName(js_util.getProperty(this, 'colorSpace'));
   set colorSpace(PredefinedColorSpace newValue) {
-    js_util.setProperty(this, 'colorSpace', newValue);
+    js_util.setProperty(this, 'colorSpace', newValue.name);
   }
 }
 
@@ -8139,9 +8150,10 @@ extension PropsCanvasImageSmoothing on CanvasImageSmoothing {
   }
 
   ImageSmoothingQuality get imageSmoothingQuality =>
-      js_util.getProperty(this, 'imageSmoothingQuality');
+      ImageSmoothingQuality.values
+          .byName(js_util.getProperty(this, 'imageSmoothingQuality'));
   set imageSmoothingQuality(ImageSmoothingQuality newValue) {
-    js_util.setProperty(this, 'imageSmoothingQuality', newValue);
+    js_util.setProperty(this, 'imageSmoothingQuality', newValue.name);
   }
 }
 
@@ -8253,18 +8265,18 @@ extension PropsCanvasDrawPath on CanvasDrawPath {
 
   Object fill(
           [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]) =>
-      js_util.callMethod(this, 'fill', [path, fillRule]);
+      js_util.callMethod(this, 'fill', [path, fillRule?.name]);
 
   Object stroke([Path2D? path]) => js_util.callMethod(this, 'stroke', [path]);
 
   Object clip(
           [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]) =>
-      js_util.callMethod(this, 'clip', [path, fillRule]);
+      js_util.callMethod(this, 'clip', [path, fillRule?.name]);
 
   bool isPointInPath(Path2D path, /* double | NaN */ dynamic x,
           [/* double | NaN */ dynamic y,
           CanvasFillRule? fillRule = CanvasFillRule.nonzero]) =>
-      js_util.callMethod(this, 'isPointInPath', [path, x, y, fillRule]);
+      js_util.callMethod(this, 'isPointInPath', [path, x, y, fillRule?.name]);
 
   bool isPointInStroke(Path2D path,
           [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
@@ -8410,14 +8422,16 @@ extension PropsCanvasPathDrawingStyles on CanvasPathDrawingStyles {
     js_util.setProperty(this, 'lineWidth', newValue);
   }
 
-  CanvasLineCap get lineCap => js_util.getProperty(this, 'lineCap');
+  CanvasLineCap get lineCap =>
+      CanvasLineCap.values.byName(js_util.getProperty(this, 'lineCap'));
   set lineCap(CanvasLineCap newValue) {
-    js_util.setProperty(this, 'lineCap', newValue);
+    js_util.setProperty(this, 'lineCap', newValue.name);
   }
 
-  CanvasLineJoin get lineJoin => js_util.getProperty(this, 'lineJoin');
+  CanvasLineJoin get lineJoin =>
+      CanvasLineJoin.values.byName(js_util.getProperty(this, 'lineJoin'));
   set lineJoin(CanvasLineJoin newValue) {
-    js_util.setProperty(this, 'lineJoin', newValue);
+    js_util.setProperty(this, 'lineJoin', newValue.name);
   }
 
   /* double | NaN */ dynamic get miterLimit =>
@@ -8451,20 +8465,22 @@ extension PropsCanvasTextDrawingStyles on CanvasTextDrawingStyles {
     js_util.setProperty(this, 'font', newValue);
   }
 
-  CanvasTextAlign get textAlign => js_util.getProperty(this, 'textAlign');
+  CanvasTextAlign get textAlign =>
+      CanvasTextAlign.values.byName(js_util.getProperty(this, 'textAlign'));
   set textAlign(CanvasTextAlign newValue) {
-    js_util.setProperty(this, 'textAlign', newValue);
+    js_util.setProperty(this, 'textAlign', newValue.name);
   }
 
-  CanvasTextBaseline get textBaseline =>
-      js_util.getProperty(this, 'textBaseline');
+  CanvasTextBaseline get textBaseline => CanvasTextBaseline.values
+      .byName(js_util.getProperty(this, 'textBaseline'));
   set textBaseline(CanvasTextBaseline newValue) {
-    js_util.setProperty(this, 'textBaseline', newValue);
+    js_util.setProperty(this, 'textBaseline', newValue.name);
   }
 
-  CanvasDirection get direction => js_util.getProperty(this, 'direction');
+  CanvasDirection get direction =>
+      CanvasDirection.values.byName(js_util.getProperty(this, 'direction'));
   set direction(CanvasDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue);
+    js_util.setProperty(this, 'direction', newValue.name);
   }
 
   double get textLetterSpacing =>
@@ -8478,26 +8494,28 @@ extension PropsCanvasTextDrawingStyles on CanvasTextDrawingStyles {
     js_util.setProperty(this, 'textWordSpacing', newValue);
   }
 
-  CanvasFontKerning get fontKerning => js_util.getProperty(this, 'fontKerning');
+  CanvasFontKerning get fontKerning =>
+      CanvasFontKerning.values.byName(js_util.getProperty(this, 'fontKerning'));
   set fontKerning(CanvasFontKerning newValue) {
-    js_util.setProperty(this, 'fontKerning', newValue);
+    js_util.setProperty(this, 'fontKerning', newValue.name);
   }
 
-  CanvasFontStretch get fontStretch => js_util.getProperty(this, 'fontStretch');
+  CanvasFontStretch get fontStretch =>
+      CanvasFontStretch.values.byName(js_util.getProperty(this, 'fontStretch'));
   set fontStretch(CanvasFontStretch newValue) {
-    js_util.setProperty(this, 'fontStretch', newValue);
+    js_util.setProperty(this, 'fontStretch', newValue.name);
   }
 
-  CanvasFontVariantCaps get fontVariantCaps =>
-      js_util.getProperty(this, 'fontVariantCaps');
+  CanvasFontVariantCaps get fontVariantCaps => CanvasFontVariantCaps.values
+      .byName(js_util.getProperty(this, 'fontVariantCaps'));
   set fontVariantCaps(CanvasFontVariantCaps newValue) {
-    js_util.setProperty(this, 'fontVariantCaps', newValue);
+    js_util.setProperty(this, 'fontVariantCaps', newValue.name);
   }
 
-  CanvasTextRendering get textRendering =>
-      js_util.getProperty(this, 'textRendering');
+  CanvasTextRendering get textRendering => CanvasTextRendering.values
+      .byName(js_util.getProperty(this, 'textRendering'));
   set textRendering(CanvasTextRendering newValue) {
-    js_util.setProperty(this, 'textRendering', newValue);
+    js_util.setProperty(this, 'textRendering', newValue.name);
   }
 }
 
@@ -8741,14 +8759,17 @@ extension PropsTextMetrics on TextMetrics {
 @JS()
 @staticInterop
 class ImageDataSettings {
-  external factory ImageDataSettings({PredefinedColorSpace colorSpace});
+  external factory ImageDataSettings._({required String colorSpace});
+
+  factory ImageDataSettings({required PredefinedColorSpace colorSpace}) =>
+      ImageDataSettings._(colorSpace: colorSpace.name);
 }
 
 extension PropsImageDataSettings on ImageDataSettings {
-  PredefinedColorSpace get colorSpace =>
-      js_util.getProperty(this, 'colorSpace');
+  PredefinedColorSpace get colorSpace => PredefinedColorSpace.values
+      .byName(js_util.getProperty(this, 'colorSpace'));
   set colorSpace(PredefinedColorSpace newValue) {
-    js_util.setProperty(this, 'colorSpace', newValue);
+    js_util.setProperty(this, 'colorSpace', newValue.name);
   }
 }
 
@@ -8783,8 +8804,8 @@ extension PropsImageData on ImageData {
   /// between [0] and [255] (inclusive).
   ///
   Uint8ClampedList get data => js_util.getProperty(this, 'data');
-  PredefinedColorSpace get colorSpace =>
-      js_util.getProperty(this, 'colorSpace');
+  PredefinedColorSpace get colorSpace => PredefinedColorSpace.values
+      .byName(js_util.getProperty(this, 'colorSpace'));
 }
 
 ///  The interface of the Canvas 2D API is used to declare a path
@@ -8860,7 +8881,7 @@ extension PropsImageBitmapRenderingContext on ImageBitmapRenderingContext {
 @JS()
 @staticInterop
 class ImageBitmapRenderingContextSettings {
-  external factory ImageBitmapRenderingContextSettings({bool alpha = true});
+  external factory ImageBitmapRenderingContextSettings({bool? alpha = true});
 }
 
 extension PropsImageBitmapRenderingContextSettings
@@ -8876,7 +8897,7 @@ extension PropsImageBitmapRenderingContextSettings
 @staticInterop
 class ImageEncodeOptions {
   external factory ImageEncodeOptions(
-      {String type = 'image/png', /* double | NaN */ dynamic quality});
+      {String? type = 'image/png', /* double | NaN */ dynamic quality});
 }
 
 extension PropsImageEncodeOptions on ImageEncodeOptions {
@@ -8929,7 +8950,7 @@ extension PropsOffscreenCanvas on OffscreenCanvas {
   ///
   dynamic getContext(OffscreenRenderingContextId contextId,
           [dynamic options]) =>
-      js_util.callMethod(this, 'getContext', [contextId, options]);
+      js_util.callMethod(this, 'getContext', [contextId.name, options]);
 
   ///  Creates an [ImageBitmap] object from the most recently rendered
   /// image of the [OffscreenCanvas].
@@ -9066,7 +9087,7 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
 @JS()
 @staticInterop
 class ElementDefinitionOptions {
-  external factory ElementDefinitionOptions({String mExtends});
+  external factory ElementDefinitionOptions({required String mExtends});
 }
 
 extension PropsElementDefinitionOptions on ElementDefinitionOptions {
@@ -9272,7 +9293,7 @@ extension PropsElementInternals on ElementInternals {
 @staticInterop
 class ValidityStateFlags {
   external factory ValidityStateFlags(
-      {bool valueMissing = false,
+      {bool? valueMissing = false,
       bool? typeMismatch = false,
       bool? patternMismatch = false,
       bool? tooLong = false,
@@ -9340,7 +9361,7 @@ extension PropsValidityStateFlags on ValidityStateFlags {
 @JS()
 @staticInterop
 class FocusOptions {
-  external factory FocusOptions({bool preventScroll = false});
+  external factory FocusOptions({bool? preventScroll = false});
 }
 
 extension PropsFocusOptions on FocusOptions {
@@ -10291,7 +10312,7 @@ extension PropsWindow on Window {
   }
 
   Object navigate(SpatialNavigationDirection dir) =>
-      js_util.callMethod(this, 'navigate', [dir]);
+      js_util.callMethod(this, 'navigate', [dir.name]);
 
   Object captureEvents() => js_util.callMethod(this, 'captureEvents', []);
 
@@ -10308,7 +10329,7 @@ extension PropsWindow on Window {
 @JS()
 @staticInterop
 class WindowPostMessageOptions implements PostMessageOptions {
-  external factory WindowPostMessageOptions({String targetOrigin = '/'});
+  external factory WindowPostMessageOptions({String? targetOrigin = '/'});
 }
 
 extension PropsWindowPostMessageOptions on WindowPostMessageOptions {
@@ -10386,10 +10407,10 @@ extension PropsHistory on History {
   /// restoration behavior on history navigation. This property can be
   /// either [auto] or [manual].
   ///
-  ScrollRestoration get scrollRestoration =>
-      js_util.getProperty(this, 'scrollRestoration');
+  ScrollRestoration get scrollRestoration => ScrollRestoration.values
+      .byName(js_util.getProperty(this, 'scrollRestoration'));
   set scrollRestoration(ScrollRestoration newValue) {
-    js_util.setProperty(this, 'scrollRestoration', newValue);
+    js_util.setProperty(this, 'scrollRestoration', newValue.name);
   }
 
   ///  Returns an [dynamic] value representing the state at the top of
@@ -10723,7 +10744,7 @@ extension PropsHashChangeEvent on HashChangeEvent {
 @staticInterop
 class HashChangeEventInit implements EventInit {
   external factory HashChangeEventInit(
-      {String oldURL = '', String? newURL = ''});
+      {String? oldURL = '', String? newURL = ''});
 }
 
 extension PropsHashChangeEventInit on HashChangeEventInit {
@@ -10770,7 +10791,7 @@ extension PropsPageTransitionEvent on PageTransitionEvent {
 @JS()
 @staticInterop
 class PageTransitionEventInit implements EventInit {
-  external factory PageTransitionEventInit({bool persisted = false});
+  external factory PageTransitionEventInit({bool? persisted = false});
 }
 
 extension PropsPageTransitionEventInit on PageTransitionEventInit {
@@ -10886,7 +10907,7 @@ extension PropsErrorEvent on ErrorEvent {
 @staticInterop
 class ErrorEventInit implements EventInit {
   external factory ErrorEventInit(
-      {String message = '',
+      {String? message = '',
       String? filename = '',
       int? lineno = 0,
       int? colno = 0,
@@ -10962,7 +10983,7 @@ extension PropsPromiseRejectionEvent on PromiseRejectionEvent {
 @staticInterop
 class PromiseRejectionEventInit implements EventInit {
   external factory PromiseRejectionEventInit(
-      {Future<dynamic> promise, dynamic reason});
+      {required Future<dynamic> promise, dynamic reason});
 }
 
 extension PropsPromiseRejectionEventInit on PromiseRejectionEventInit {
@@ -11727,14 +11748,24 @@ extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
 
   String atob(String data) => js_util.callMethod(this, 'atob', [data]);
 
-  int setTimeout(dynamic handler, [int? timeout = 0, dynamic arguments]) =>
-      js_util.callMethod(this, 'setTimeout', [handler, timeout, arguments]);
+  int setTimeout(dynamic handler,
+          [int? timeout = 0,
+          dynamic arguments1,
+          dynamic arguments2,
+          dynamic arguments3]) =>
+      js_util.callMethod(this, 'setTimeout',
+          [handler, timeout, arguments1, arguments2, arguments3]);
 
   Object clearTimeout([int? handle = 0]) =>
       js_util.callMethod(this, 'clearTimeout', [handle]);
 
-  int setInterval(dynamic handler, [int? timeout = 0, dynamic arguments]) =>
-      js_util.callMethod(this, 'setInterval', [handler, timeout, arguments]);
+  int setInterval(dynamic handler,
+          [int? timeout = 0,
+          dynamic arguments1,
+          dynamic arguments2,
+          dynamic arguments3]) =>
+      js_util.callMethod(this, 'setInterval',
+          [handler, timeout, arguments1, arguments2, arguments3]);
 
   Object clearInterval([int? handle = 0]) =>
       js_util.callMethod(this, 'clearInterval', [handle]);
@@ -11807,7 +11838,7 @@ extension PropsDOMParser on DOMParser {
           ///
           String string,
           DOMParserSupportedType type) =>
-      js_util.callMethod(this, 'parseFromString', [string, type]);
+      js_util.callMethod(this, 'parseFromString', [string, type.name]);
 }
 
 enum DOMParserSupportedType {
@@ -12022,33 +12053,48 @@ enum ResizeQuality { pixelated, low, medium, high }
 @JS()
 @staticInterop
 class ImageBitmapOptions {
-  external factory ImageBitmapOptions(
-      {ImageOrientation imageOrientation = ImageOrientation.none,
-      PremultiplyAlpha? premultiplyAlpha = PremultiplyAlpha.valueDefault,
-      ColorSpaceConversion? colorSpaceConversion =
-          ColorSpaceConversion.valueDefault,
+  external factory ImageBitmapOptions._(
+      {String? imageOrientation,
+      String? premultiplyAlpha,
+      String? colorSpaceConversion,
       int? resizeWidth,
       int? resizeHeight,
-      ResizeQuality? resizeQuality = ResizeQuality.low});
+      String? resizeQuality});
+
+  factory ImageBitmapOptions(
+          {ImageOrientation? imageOrientation = ImageOrientation.none,
+          PremultiplyAlpha? premultiplyAlpha = PremultiplyAlpha.valueDefault,
+          ColorSpaceConversion? colorSpaceConversion =
+              ColorSpaceConversion.valueDefault,
+          int? resizeWidth,
+          int? resizeHeight,
+          ResizeQuality? resizeQuality = ResizeQuality.low}) =>
+      ImageBitmapOptions._(
+          imageOrientation: imageOrientation?.name,
+          premultiplyAlpha: premultiplyAlpha?.name,
+          colorSpaceConversion: colorSpaceConversion?.name,
+          resizeWidth: resizeWidth,
+          resizeHeight: resizeHeight,
+          resizeQuality: resizeQuality?.name);
 }
 
 extension PropsImageBitmapOptions on ImageBitmapOptions {
-  ImageOrientation get imageOrientation =>
-      js_util.getProperty(this, 'imageOrientation');
+  ImageOrientation get imageOrientation => ImageOrientation.values
+      .byName(js_util.getProperty(this, 'imageOrientation'));
   set imageOrientation(ImageOrientation newValue) {
-    js_util.setProperty(this, 'imageOrientation', newValue);
+    js_util.setProperty(this, 'imageOrientation', newValue.name);
   }
 
-  PremultiplyAlpha get premultiplyAlpha =>
-      js_util.getProperty(this, 'premultiplyAlpha');
+  PremultiplyAlpha get premultiplyAlpha => PremultiplyAlpha.values
+      .byName(js_util.getProperty(this, 'premultiplyAlpha'));
   set premultiplyAlpha(PremultiplyAlpha newValue) {
-    js_util.setProperty(this, 'premultiplyAlpha', newValue);
+    js_util.setProperty(this, 'premultiplyAlpha', newValue.name);
   }
 
-  ColorSpaceConversion get colorSpaceConversion =>
-      js_util.getProperty(this, 'colorSpaceConversion');
+  ColorSpaceConversion get colorSpaceConversion => ColorSpaceConversion.values
+      .byName(js_util.getProperty(this, 'colorSpaceConversion'));
   set colorSpaceConversion(ColorSpaceConversion newValue) {
-    js_util.setProperty(this, 'colorSpaceConversion', newValue);
+    js_util.setProperty(this, 'colorSpaceConversion', newValue.name);
   }
 
   int get resizeWidth => js_util.getProperty(this, 'resizeWidth');
@@ -12061,9 +12107,10 @@ extension PropsImageBitmapOptions on ImageBitmapOptions {
     js_util.setProperty(this, 'resizeHeight', newValue);
   }
 
-  ResizeQuality get resizeQuality => js_util.getProperty(this, 'resizeQuality');
+  ResizeQuality get resizeQuality =>
+      ResizeQuality.values.byName(js_util.getProperty(this, 'resizeQuality'));
   set resizeQuality(ResizeQuality newValue) {
-    js_util.setProperty(this, 'resizeQuality', newValue);
+    js_util.setProperty(this, 'resizeQuality', newValue.name);
   }
 }
 
@@ -12176,7 +12223,7 @@ extension PropsMessageEvent on MessageEvent {
 class MessageEventInit implements EventInit {
   external factory MessageEventInit(
       {dynamic data,
-      String origin = '',
+      String? origin = '',
       String? lastEventId = '',
       dynamic source,
       Iterable<MessagePort>? ports = const []});
@@ -12296,7 +12343,7 @@ extension PropsEventSource on EventSource {
 @JS()
 @staticInterop
 class EventSourceInit {
-  external factory EventSourceInit({bool withCredentials = false});
+  external factory EventSourceInit({bool? withCredentials = false});
 }
 
 extension PropsEventSourceInit on EventSourceInit {
@@ -12404,9 +12451,10 @@ extension PropsWebSocket on WebSocket {
 
   /// The binary data type used by the connection.
   ///
-  BinaryType get binaryType => js_util.getProperty(this, 'binaryType');
+  BinaryType get binaryType =>
+      BinaryType.values.byName(js_util.getProperty(this, 'binaryType'));
   set binaryType(BinaryType newValue) {
-    js_util.setProperty(this, 'binaryType', newValue);
+    js_util.setProperty(this, 'binaryType', newValue.name);
   }
 
   /// Enqueues data to be transmitted.
@@ -12496,7 +12544,7 @@ extension PropsCloseEvent on CloseEvent {
 @staticInterop
 class CloseEventInit implements EventInit {
   external factory CloseEventInit(
-      {bool wasClean = false, int? code = 0, String? reason = ''});
+      {bool? wasClean = false, int? code = 0, String? reason = ''});
 }
 
 extension PropsCloseEventInit on CloseEventInit {
@@ -12660,7 +12708,7 @@ extension PropsMessagePort on MessagePort {
 @JS()
 @staticInterop
 class PostMessageOptions {
-  external factory PostMessageOptions({Iterable<dynamic> transfer = const []});
+  external factory PostMessageOptions({Iterable<dynamic>? transfer = const []});
 }
 
 extension PropsPostMessageOptions on PostMessageOptions {
@@ -12768,8 +12816,8 @@ extension PropsWorkerGlobalScope on WorkerGlobalScope {
   WorkerGlobalScope get self => js_util.getProperty(this, 'self');
   WorkerLocation get location => js_util.getProperty(this, 'location');
   WorkerNavigator get navigator => js_util.getProperty(this, 'navigator');
-  Object importScripts([String? urls]) =>
-      js_util.callMethod(this, 'importScripts', [urls]);
+  Object importScripts([String? urls1, String? urls2, String? urls3]) =>
+      js_util.callMethod(this, 'importScripts', [urls1, urls2, urls3]);
 
   OnErrorEventHandlerNonNull? get onerror =>
       js_util.getProperty(this, 'onerror');
@@ -13006,22 +13054,28 @@ extension PropsWorker on Worker {
 @JS()
 @staticInterop
 class WorkerOptions {
-  external factory WorkerOptions(
-      {WorkerType type = WorkerType.classic,
-      RequestCredentials? credentials = RequestCredentials.sameOrigin,
-      String? name = ''});
+  external factory WorkerOptions._(
+      {String? type, String? credentials, String? name = ''});
+
+  factory WorkerOptions(
+          {WorkerType? type = WorkerType.classic,
+          RequestCredentials? credentials = RequestCredentials.sameOrigin,
+          String? name = ''}) =>
+      WorkerOptions._(
+          type: type?.name, credentials: credentials?.name, name: name);
 }
 
 extension PropsWorkerOptions on WorkerOptions {
-  WorkerType get type => js_util.getProperty(this, 'type');
+  WorkerType get type =>
+      WorkerType.values.byName(js_util.getProperty(this, 'type'));
   set type(WorkerType newValue) {
-    js_util.setProperty(this, 'type', newValue);
+    js_util.setProperty(this, 'type', newValue.name);
   }
 
-  RequestCredentials get credentials =>
-      js_util.getProperty(this, 'credentials');
+  RequestCredentials get credentials => RequestCredentials.values
+      .byName(js_util.getProperty(this, 'credentials'));
   set credentials(RequestCredentials newValue) {
-    js_util.setProperty(this, 'credentials', newValue);
+    js_util.setProperty(this, 'credentials', newValue.name);
   }
 
   String get name => js_util.getProperty(this, 'name');
@@ -13212,15 +13266,18 @@ extension PropsWorklet on Worklet {
 @JS()
 @staticInterop
 class WorkletOptions {
-  external factory WorkletOptions(
-      {RequestCredentials credentials = RequestCredentials.sameOrigin});
+  external factory WorkletOptions._({String? credentials});
+
+  factory WorkletOptions(
+          {RequestCredentials? credentials = RequestCredentials.sameOrigin}) =>
+      WorkletOptions._(credentials: credentials?.name);
 }
 
 extension PropsWorkletOptions on WorkletOptions {
-  RequestCredentials get credentials =>
-      js_util.getProperty(this, 'credentials');
+  RequestCredentials get credentials => RequestCredentials.values
+      .byName(js_util.getProperty(this, 'credentials'));
   set credentials(RequestCredentials newValue) {
-    js_util.setProperty(this, 'credentials', newValue);
+    js_util.setProperty(this, 'credentials', newValue.name);
   }
 }
 
@@ -13475,7 +13532,7 @@ class StorageEventInit implements EventInit {
       {String? key,
       String? oldValue,
       String? newValue,
-      String url = '',
+      String? url = '',
       Storage? storageArea});
 }
 

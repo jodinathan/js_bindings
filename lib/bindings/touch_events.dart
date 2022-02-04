@@ -51,7 +51,8 @@ extension PropsTouch on Touch {
   double get force => js_util.getProperty(this, 'force');
   double get altitudeAngle => js_util.getProperty(this, 'altitudeAngle');
   double get azimuthAngle => js_util.getProperty(this, 'azimuthAngle');
-  TouchType get touchType => js_util.getProperty(this, 'touchType');
+  TouchType get touchType =>
+      TouchType.values.byName(js_util.getProperty(this, 'touchType'));
 }
 
 ///  The interface represents a list of contact points on a touch
@@ -187,10 +188,10 @@ enum TouchType { direct, stylus }
 @JS()
 @staticInterop
 class TouchInit {
-  external factory TouchInit(
-      {int identifier,
-      EventTarget target,
-      double clientX = 0,
+  external factory TouchInit._(
+      {required int identifier,
+      required EventTarget target,
+      double? clientX = 0,
       double? clientY = 0,
       double? screenX = 0,
       double? screenY = 0,
@@ -202,7 +203,40 @@ class TouchInit {
       double? force = 0,
       double? altitudeAngle = 0,
       double? azimuthAngle = 0,
-      TouchType? touchType = TouchType.direct});
+      String? touchType});
+
+  factory TouchInit(
+          {required int identifier,
+          required EventTarget target,
+          double? clientX = 0,
+          double? clientY = 0,
+          double? screenX = 0,
+          double? screenY = 0,
+          double? pageX = 0,
+          double? pageY = 0,
+          double? radiusX = 0,
+          double? radiusY = 0,
+          double? rotationAngle = 0,
+          double? force = 0,
+          double? altitudeAngle = 0,
+          double? azimuthAngle = 0,
+          TouchType? touchType = TouchType.direct}) =>
+      TouchInit._(
+          identifier: identifier,
+          target: target,
+          clientX: clientX,
+          clientY: clientY,
+          screenX: screenX,
+          screenY: screenY,
+          pageX: pageX,
+          pageY: pageY,
+          radiusX: radiusX,
+          radiusY: radiusY,
+          rotationAngle: rotationAngle,
+          force: force,
+          altitudeAngle: altitudeAngle,
+          azimuthAngle: azimuthAngle,
+          touchType: touchType?.name);
 }
 
 extension PropsTouchInit on TouchInit {
@@ -276,9 +310,10 @@ extension PropsTouchInit on TouchInit {
     js_util.setProperty(this, 'azimuthAngle', newValue);
   }
 
-  TouchType get touchType => js_util.getProperty(this, 'touchType');
+  TouchType get touchType =>
+      TouchType.values.byName(js_util.getProperty(this, 'touchType'));
   set touchType(TouchType newValue) {
-    js_util.setProperty(this, 'touchType', newValue);
+    js_util.setProperty(this, 'touchType', newValue.name);
   }
 }
 
@@ -287,7 +322,7 @@ extension PropsTouchInit on TouchInit {
 @staticInterop
 class TouchEventInit implements EventModifierInit {
   external factory TouchEventInit(
-      {Iterable<Touch> touches = const [],
+      {Iterable<Touch>? touches = const [],
       Iterable<Touch>? targetTouches = const [],
       Iterable<Touch>? changedTouches = const []});
 }

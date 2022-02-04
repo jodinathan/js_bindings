@@ -60,7 +60,7 @@ extension PropsSerial on Serial {
 @staticInterop
 class SerialPortRequestOptions {
   external factory SerialPortRequestOptions(
-      {Iterable<SerialPortFilter> filters});
+      {required Iterable<SerialPortFilter> filters});
 }
 
 extension PropsSerialPortRequestOptions on SerialPortRequestOptions {
@@ -75,7 +75,8 @@ extension PropsSerialPortRequestOptions on SerialPortRequestOptions {
 @JS()
 @staticInterop
 class SerialPortFilter {
-  external factory SerialPortFilter({int usbVendorId, int usbProductId});
+  external factory SerialPortFilter(
+      {required int usbVendorId, required int usbProductId});
 }
 
 extension PropsSerialPortFilter on SerialPortFilter {
@@ -201,7 +202,8 @@ extension PropsSerialPort on SerialPort {
 @JS()
 @staticInterop
 class SerialPortInfo {
-  external factory SerialPortInfo({int usbVendorId, int usbProductId});
+  external factory SerialPortInfo(
+      {required int usbVendorId, required int usbProductId});
 }
 
 extension PropsSerialPortInfo on SerialPortInfo {
@@ -220,13 +222,28 @@ extension PropsSerialPortInfo on SerialPortInfo {
 @JS()
 @staticInterop
 class SerialOptions {
-  external factory SerialOptions(
-      {int baudRate,
-      int dataBits = 8,
+  external factory SerialOptions._(
+      {required int baudRate,
+      int? dataBits = 8,
       int? stopBits = 1,
-      ParityType? parity = ParityType.none,
+      String? parity,
       int? bufferSize = 255,
-      FlowControlType? flowControl = FlowControlType.none});
+      String? flowControl});
+
+  factory SerialOptions(
+          {required int baudRate,
+          int? dataBits = 8,
+          int? stopBits = 1,
+          ParityType? parity = ParityType.none,
+          int? bufferSize = 255,
+          FlowControlType? flowControl = FlowControlType.none}) =>
+      SerialOptions._(
+          baudRate: baudRate,
+          dataBits: dataBits,
+          stopBits: stopBits,
+          parity: parity?.name,
+          bufferSize: bufferSize,
+          flowControl: flowControl?.name);
 }
 
 extension PropsSerialOptions on SerialOptions {
@@ -245,9 +262,10 @@ extension PropsSerialOptions on SerialOptions {
     js_util.setProperty(this, 'stopBits', newValue);
   }
 
-  ParityType get parity => js_util.getProperty(this, 'parity');
+  ParityType get parity =>
+      ParityType.values.byName(js_util.getProperty(this, 'parity'));
   set parity(ParityType newValue) {
-    js_util.setProperty(this, 'parity', newValue);
+    js_util.setProperty(this, 'parity', newValue.name);
   }
 
   int get bufferSize => js_util.getProperty(this, 'bufferSize');
@@ -255,9 +273,10 @@ extension PropsSerialOptions on SerialOptions {
     js_util.setProperty(this, 'bufferSize', newValue);
   }
 
-  FlowControlType get flowControl => js_util.getProperty(this, 'flowControl');
+  FlowControlType get flowControl =>
+      FlowControlType.values.byName(js_util.getProperty(this, 'flowControl'));
   set flowControl(FlowControlType newValue) {
-    js_util.setProperty(this, 'flowControl', newValue);
+    js_util.setProperty(this, 'flowControl', newValue.name);
   }
 }
 
@@ -270,7 +289,9 @@ enum FlowControlType { none, hardware }
 @staticInterop
 class SerialOutputSignals {
   external factory SerialOutputSignals(
-      {bool dataTerminalReady, bool requestToSend, bool mBreak});
+      {required bool dataTerminalReady,
+      required bool requestToSend,
+      required bool mBreak});
 }
 
 extension PropsSerialOutputSignals on SerialOutputSignals {
@@ -297,10 +318,10 @@ extension PropsSerialOutputSignals on SerialOutputSignals {
 @staticInterop
 class SerialInputSignals {
   external factory SerialInputSignals(
-      {bool dataCarrierDetect,
-      bool clearToSend,
-      bool ringIndicator,
-      bool dataSetReady});
+      {required bool dataCarrierDetect,
+      required bool clearToSend,
+      required bool ringIndicator,
+      required bool dataSetReady});
 }
 
 extension PropsSerialInputSignals on SerialInputSignals {

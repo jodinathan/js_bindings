@@ -49,8 +49,11 @@ enum EndingType { transparent, native }
 @JS()
 @staticInterop
 class BlobPropertyBag {
-  external factory BlobPropertyBag(
-      {String type = '', EndingType? endings = EndingType.transparent});
+  external factory BlobPropertyBag._({String? type = '', String? endings});
+
+  factory BlobPropertyBag(
+          {String? type = '', EndingType? endings = EndingType.transparent}) =>
+      BlobPropertyBag._(type: type, endings: endings?.name);
 }
 
 extension PropsBlobPropertyBag on BlobPropertyBag {
@@ -59,9 +62,10 @@ extension PropsBlobPropertyBag on BlobPropertyBag {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  EndingType get endings => js_util.getProperty(this, 'endings');
+  EndingType get endings =>
+      EndingType.values.byName(js_util.getProperty(this, 'endings'));
   set endings(EndingType newValue) {
-    js_util.setProperty(this, 'endings', newValue);
+    js_util.setProperty(this, 'endings', newValue.name);
   }
 }
 
@@ -108,7 +112,7 @@ extension PropsFile on File {
 @JS()
 @staticInterop
 class FilePropertyBag implements BlobPropertyBag {
-  external factory FilePropertyBag({int lastModified});
+  external factory FilePropertyBag({required int lastModified});
 }
 
 extension PropsFilePropertyBag on FilePropertyBag {
