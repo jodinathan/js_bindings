@@ -1,3 +1,6 @@
+## 0.0.4+4
+ - Typos readme
+
 ## 0.0.4+3
  - Added more info to the readme and todo list
 

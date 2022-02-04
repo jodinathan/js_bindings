@@ -35,7 +35,7 @@ Future<void> main() async {
 }
 ```
 
-## Enums are enums and not Strings
+## Enums
 
 Enums like `document.visibilityState` are `Strings` in JS world,
 but here we work with enums instead. 
