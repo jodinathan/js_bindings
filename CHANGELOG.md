@@ -1,3 +1,7 @@
+## 0.0.4+1
+
+ - Updated README
+
 ## 0.0.4
 
  - Changed Strings to Enums where possible. Ie:  `document.visibilityState` is of type `enum VisibilityState`
