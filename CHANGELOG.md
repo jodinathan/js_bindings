@@ -1,3 +1,6 @@
+## 0.0.4+3
+ - Added more info to the readme and todo list
+
 ## 0.0.4+2
  - Fixed some typos in example
 

@@ -21,7 +21,7 @@ Check the example tab for a more complete example.
 
 ## Promise and Future
 
-JS Promises and Dart Futures are not the same thing.  
+JS Promises and Dart Futures are different things.  
 But this package make them the same! :D
 
 ```dart
@@ -35,6 +35,24 @@ Future<void> main() async {
 }
 ```
 
+## Enums are enums and not Strings
+
+Enums like `document.visibilityState` are `Strings` in JS world,
+but here we work with enums instead. 
+For example `document.visibilityState` is of type `VisibilityState`, which is a `Enum`.  
+So all of what is specificied in the W3C IDL files as enums are in fact enums in this package.
+
+## Variadic args
+
+Dart doesn't have the concept of variadic args as JS, so 
+we can't make a one to one there. However, we made it that 
+variadic arguments are multiplied to 3 optional args of same type.  
+Example: `window.console.log(1, 2, 3)` - In this case all arguments are dynamic.
+
+## Todo:
+
+ - [Generate stream for events](https://github.com/jodinathan/js_bindings/issues/6)
+ - [Create a builder for JS builtin stuff](https://github.com/jodinathan/js_bindings/issues/7)
 
 ## For a better JS interop
 
