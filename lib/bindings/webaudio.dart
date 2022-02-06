@@ -5130,12 +5130,8 @@ extension PropsAudioWorkletGlobalScope on AudioWorkletGlobalScope {
 @experimental
 @JS()
 @staticInterop
-class AudioParamMap {
+class AudioParamMap extends JsMap<AudioParam, String> {
   external AudioParamMap();
-}
-
-extension PropsAudioParamMap on AudioParamMap {
-  AudioParam operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///

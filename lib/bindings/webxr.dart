@@ -1125,16 +1125,11 @@ extension PropsXRInputSource on XRInputSource {
 /// of iterators and the [forEach()] method is also available.
 @JS()
 @staticInterop
-class XRInputSourceArray {
+class XRInputSourceArray extends JsArray<XRInputSource> {
   external XRInputSourceArray();
 }
 
 extension PropsXRInputSourceArray on XRInputSourceArray {
-  XRInputSource operator [](int index) => js_util.getProperty(this, index);
-  operator []=(int index, XRInputSource value) {
-    js_util.setProperty(this, index, value);
-  }
-
   /// The number of [XRInputSource] objects in the list.
   ///
   int get length => js_util.getProperty(this, 'length');

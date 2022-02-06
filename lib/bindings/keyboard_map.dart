@@ -25,12 +25,8 @@ import 'package:js_bindings/js_bindings.dart';
 @experimental
 @JS()
 @staticInterop
-class KeyboardLayoutMap {
+class KeyboardLayoutMap extends JsMap<String, String> {
   external KeyboardLayoutMap();
-}
-
-extension PropsKeyboardLayoutMap on KeyboardLayoutMap {
-  String operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///  Experimental: This is an experimental technologyCheck the

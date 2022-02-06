@@ -45,10 +45,6 @@ extension PropsXRAnchor on XRAnchor {
 /// [XRFrame.trackedAnchors] and is a [Set]-like object.
 @JS()
 @staticInterop
-class XRAnchorSet {
+class XRAnchorSet extends JsArray<XRAnchor> {
   external XRAnchorSet();
-}
-
-extension PropsXRAnchorSet on XRAnchorSet {
-  XRAnchor operator [](int index) => js_util.getProperty(this, index);
 }

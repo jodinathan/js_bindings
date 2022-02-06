@@ -613,7 +613,7 @@ extension PropsSlottable on Slottable {
 ///
 @JS()
 @staticInterop
-class NodeList {
+class NodeList extends JsArray<Node> {
   external NodeList();
 }
 
@@ -643,10 +643,6 @@ extension PropsNodeList on NodeList {
   /// The number of nodes in the [NodeList].
   ///
   int get length => js_util.getProperty(this, 'length');
-  Node operator [](int index) => js_util.getProperty(this, index);
-  operator []=(int index, Node value) {
-    js_util.setProperty(this, index, value);
-  }
 }
 
 ///  The interface represents a generic collection (array-like object
@@ -5374,7 +5370,7 @@ extension PropsNodeFilter on NodeFilter {
 /// objects. is always case-sensitive.
 @JS()
 @staticInterop
-class DOMTokenList {
+class DOMTokenList extends JsArray<String> {
   external DOMTokenList();
 }
 
@@ -5502,11 +5498,6 @@ extension PropsDOMTokenList on DOMTokenList {
   String get value => js_util.getProperty(this, 'value');
   set value(String newValue) {
     js_util.setProperty(this, 'value', newValue);
-  }
-
-  String operator [](int index) => js_util.getProperty(this, index);
-  operator []=(int index, String value) {
-    js_util.setProperty(this, index, value);
   }
 }
 

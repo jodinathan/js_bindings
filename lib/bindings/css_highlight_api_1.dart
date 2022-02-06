@@ -31,29 +31,17 @@ extension PropsHighlight on Highlight {
 
 @JS()
 @staticInterop
-class HighlightsRegister {
+class HighlightsRegister extends JsArray<Highlight> {
   external HighlightsRegister();
 }
 
 extension PropsHighlightsRegister on HighlightsRegister {
-  Highlight operator [](int index) => js_util.getProperty(this, index);
-  operator []=(int index, Highlight value) {
-    js_util.setProperty(this, index, value);
-  }
-
   HighlightsRegister add(Highlight value) =>
       js_util.callMethod(this, 'add', [value]);
 }
 
 @JS()
 @staticInterop
-class HighlightRegistry {
+class HighlightRegistry extends JsMap<Highlight, String> {
   external HighlightRegistry();
-}
-
-extension PropsHighlightRegistry on HighlightRegistry {
-  Highlight operator [](String index) => js_util.getProperty(this, index);
-  operator []=(String index, Highlight value) {
-    js_util.setProperty(this, index, value);
-  }
 }

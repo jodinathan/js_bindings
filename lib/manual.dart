@@ -13,6 +13,7 @@ part 'manual/number.dart';
 part 'manual/map.dart';
 part 'manual/reflect.dart';
 part 'manual/top.dart';
+part 'manual/array.dart';
 
 typedef EventHandlerNonNull<T extends Event> = Function(T event);
 

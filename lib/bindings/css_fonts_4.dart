@@ -64,16 +64,11 @@ extension PropsCSSFontFeatureValuesRule on CSSFontFeatureValuesRule {
 
 @JS()
 @staticInterop
-class CSSFontFeatureValuesMap {
+class CSSFontFeatureValuesMap extends JsMap<Iterable<int>, String> {
   external CSSFontFeatureValuesMap();
 }
 
 extension PropsCSSFontFeatureValuesMap on CSSFontFeatureValuesMap {
-  Iterable<int> operator [](String index) => js_util.getProperty(this, index);
-  operator []=(String index, Iterable<int> value) {
-    js_util.setProperty(this, index, value);
-  }
-
   @JS('set')
   @staticInterop
   Object mSet(String featureValueName, dynamic values) =>
@@ -87,11 +82,6 @@ class CSSFontPaletteValuesRule implements CSSRule {
 }
 
 extension PropsCSSFontPaletteValuesRule on CSSFontPaletteValuesRule {
-  String operator [](int index) => js_util.getProperty(this, index);
-  operator []=(int index, String value) {
-    js_util.setProperty(this, index, value);
-  }
-
   String get fontFamily => js_util.getProperty(this, 'fontFamily');
   set fontFamily(String newValue) {
     js_util.setProperty(this, 'fontFamily', newValue);

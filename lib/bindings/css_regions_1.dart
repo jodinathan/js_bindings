@@ -15,15 +15,8 @@ import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
-class NamedFlowMap {
+class NamedFlowMap extends JsMap<NamedFlow, String> {
   external NamedFlowMap();
-}
-
-extension PropsNamedFlowMap on NamedFlowMap {
-  NamedFlow operator [](String index) => js_util.getProperty(this, index);
-  operator []=(String index, NamedFlow value) {
-    js_util.setProperty(this, index, value);
-  }
 }
 
 @JS()

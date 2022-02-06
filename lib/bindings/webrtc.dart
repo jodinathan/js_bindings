@@ -3201,12 +3201,8 @@ extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
 /// you call them.
 @JS()
 @staticInterop
-class RTCStatsReport {
+class RTCStatsReport extends JsMap<Object, String> {
   external RTCStatsReport();
-}
-
-extension PropsRTCStatsReport on RTCStatsReport {
-  dynamic operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///  The dictionary is the basic statistics object used by WebRTC's

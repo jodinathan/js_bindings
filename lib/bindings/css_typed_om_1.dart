@@ -68,17 +68,11 @@ extension PropsCSSStyleValue on CSSStyleValue {
 @experimental
 @JS()
 @staticInterop
-class StylePropertyMapReadOnly {
+class StylePropertyMapReadOnly extends JsArray<Iterable<CSSStyleValue>> {
   external StylePropertyMapReadOnly();
 }
 
 extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
-  Iterable<CSSStyleValue> operator [](String index) =>
-      js_util.getProperty(this, index);
-  operator []=(String index, Iterable<CSSStyleValue> value) {
-    js_util.setProperty(this, index, value);
-  }
-
   /// Returns the value of the specified property.
   ///
   /// var declarationBlock = StylePropertyMapReadOnly.get(property)
@@ -617,16 +611,11 @@ extension PropsCSSMathMax on CSSMathMax {
 @experimental
 @JS()
 @staticInterop
-class CSSNumericArray {
+class CSSNumericArray extends JsArray<CSSNumericValue> {
   external CSSNumericArray();
 }
 
 extension PropsCSSNumericArray on CSSNumericArray {
-  CSSNumericValue operator [](int index) => js_util.getProperty(this, index);
-  operator []=(int index, CSSNumericValue value) {
-    js_util.setProperty(this, index, value);
-  }
-
   ///  Returns how many [CSSNumericValue] objects are contained within
   /// the [CSSNumericArray].
   ///

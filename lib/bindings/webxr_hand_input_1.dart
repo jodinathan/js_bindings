@@ -18,17 +18,11 @@ import 'package:js_bindings/js_bindings.dart';
 ///  is returned by [XRInputSource.hand].
 @JS()
 @staticInterop
-class XRHand {
+class XRHand extends JsArray<XRJointSpace> {
   external XRHand();
 }
 
 extension PropsXRHand on XRHand {
-  XRJointSpace operator [](XRHandJoint index) =>
-      js_util.getProperty(this, index);
-  operator []=(XRHandJoint index, XRJointSpace value) {
-    js_util.setProperty(this, index, value);
-  }
-
   /// Returns [25], the size of the pair iterator.
   ///
   int get size => js_util.getProperty(this, 'size');

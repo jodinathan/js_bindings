@@ -84,12 +84,8 @@ extension PropsGPUSupportedLimits on GPUSupportedLimits {
 
 @JS()
 @staticInterop
-class GPUSupportedFeatures {
+class GPUSupportedFeatures extends JsArray<String> {
   external GPUSupportedFeatures();
-}
-
-extension PropsGPUSupportedFeatures on GPUSupportedFeatures {
-  String operator [](int index) => js_util.getProperty(this, index);
 }
 
 enum GPUPredefinedColorSpace { srgb }

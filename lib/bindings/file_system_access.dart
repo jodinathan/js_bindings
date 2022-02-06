@@ -227,12 +227,6 @@ class FileSystemDirectoryHandle implements FileSystemHandle {
 }
 
 extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
-  FileSystemHandle operator [](String index) =>
-      js_util.getProperty(this, index);
-  operator []=(String index, FileSystemHandle value) {
-    js_util.setProperty(this, index, value);
-  }
-
   ///  Returns a [FileSystemFileHandle] for a file with the specified
   /// name, within the directory the method is called.
   ///

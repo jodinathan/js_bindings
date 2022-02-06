@@ -23,6 +23,7 @@ void main() {
     ..style.setProperty('height', '300px')
     ..style.setProperty('width', '500px')
     ..style.setProperty('background', 'black');
+
   MediaStream? mstream;
   final body = document.body!;
 

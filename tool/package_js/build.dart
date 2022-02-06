@@ -179,6 +179,34 @@ Future<void> main() async {
             var parentHasCtorWithParams = false;
             final dictionary = type == 'dictionary';
             final factory = dictionary ? 'factory ' : '';
+            final maplike = members?.firstWhereOrNull(
+                    (member) => member['type'] == 'maplike');
+            final iterablelike = members?.firstWhereOrNull(
+                    (member) => ['iterable', 'setlike'].contains(member['type']));
+
+            if (maplike != null) {
+              final key = spec.getDartType(maplike['idlType'][1]).toString();
+
+              inheritance = 'extends JsMap<${key == 'dynamic' ?
+              'Object' : key}, ${
+                  spec.getDartType(maplike['idlType'][0]).toString()
+              }>';
+            } else if (iterablelike != null) {
+              final type = iterablelike['idlType'];
+              String key;
+
+              if (type is Iterable) {
+                if (type.length == 2) {
+                  key = spec.getDartType(iterablelike['idlType'][1]).toString();
+                } else {
+                  key = spec.getDartType(iterablelike['idlType'][0]).toString();
+                }
+              } else {
+                key = spec.getDartType(type).toString();
+              }
+
+              inheritance = 'extends JsArray<$key>';
+            }
 
             Map<String, dynamic> findByType(String typeName) {
               final ret = spec.objects.values
@@ -278,6 +306,10 @@ Future<void> main() async {
                 final mType = member['type'];
                 final isInstanceMember = instanceMemberTypes.contains(mType);
 
+                if (['maplike', 'iterable', 'setlike'].contains(mType)) {
+                  continue;
+                }
+
                 lines = isInstanceMember ?
                 properties : mainLines;
 
@@ -349,17 +381,6 @@ Future<void> main() async {
 
                 final static = member['special'] == 'static';
                 final constant = mType == 'const';
-
-                void addOperator(String returnType, String indexType) {
-                  lines.add('''
-                  $returnType operator []($indexType index) => 
-                  js_util.getProperty(this, index);''');
-
-                  if (member['readonly'] == false) {
-                    lines.add('''operator []=($indexType index, 
-                    $returnType value) { js_util.setProperty(this, index, value); }''');
-                  }
-                }
 
                 switch (mType) {
                   case 'attribute':
@@ -440,27 +461,6 @@ Future<void> main() async {
                           }''');
                       }
                     }
-                    break;
-                  case 'setlike':
-                  case 'iterable':
-                    final type = member['idlType'];
-
-                    if (type is Iterable) {
-                      if (type.length == 2) {
-                        addOperator(spec.getDartType(member['idlType'][1]).toString(),
-                            spec.getDartType(member['idlType'][0]).toString());
-                      } else {
-                        addOperator(spec.getDartType(member['idlType'][0]).toString(),
-                            'int');
-                      }
-                    } else {
-                      addOperator(spec.getDartType(idlType).toString(),
-                          'int');
-                    }
-                    break;
-                  case 'maplike':
-                    addOperator(spec.getDartType(member['idlType'][1]).toString(),
-                        spec.getDartType(member['idlType'][0]).toString());
                     break;
                   case 'operation':
                   case 'constructor':

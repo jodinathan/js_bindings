@@ -84,10 +84,6 @@ extension PropsPerformanceEventTiming on PerformanceEventTiming {
 
 @JS()
 @staticInterop
-class EventCounts {
+class EventCounts extends JsMap<int, String> {
   external EventCounts();
-}
-
-extension PropsEventCounts on EventCounts {
-  int operator [](String index) => js_util.getProperty(this, index);
 }

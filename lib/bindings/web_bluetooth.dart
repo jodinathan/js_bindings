@@ -461,22 +461,14 @@ extension PropsWatchAdvertisementsOptions on WatchAdvertisementsOptions {
 
 @JS()
 @staticInterop
-class BluetoothManufacturerDataMap {
+class BluetoothManufacturerDataMap extends JsMap<ByteData, int> {
   external BluetoothManufacturerDataMap();
-}
-
-extension PropsBluetoothManufacturerDataMap on BluetoothManufacturerDataMap {
-  ByteData operator [](int index) => js_util.getProperty(this, index);
 }
 
 @JS()
 @staticInterop
-class BluetoothServiceDataMap {
+class BluetoothServiceDataMap extends JsMap<ByteData, String> {
   external BluetoothServiceDataMap();
-}
-
-extension PropsBluetoothServiceDataMap on BluetoothServiceDataMap {
-  ByteData operator [](String index) => js_util.getProperty(this, index);
 }
 
 @JS()

@@ -42,12 +42,8 @@ extension PropsMIDIOptions on MIDIOptions {
 /// does not contain [clear()], [delete()], or [set()] functions.
 @JS()
 @staticInterop
-class MIDIInputMap {
+class MIDIInputMap extends JsMap<MIDIInput, String> {
   external MIDIInputMap();
-}
-
-extension PropsMIDIInputMap on MIDIInputMap {
-  MIDIInput operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -59,12 +55,8 @@ extension PropsMIDIInputMap on MIDIInputMap {
 /// does not contain [clear()], [delete()], or [set()] functions.
 @JS()
 @staticInterop
-class MIDIOutputMap {
+class MIDIOutputMap extends JsMap<MIDIOutput, String> {
   external MIDIOutputMap();
-}
-
-extension PropsMIDIOutputMap on MIDIOutputMap {
-  MIDIOutput operator [](String index) => js_util.getProperty(this, index);
 }
 
 ///  Secure context: This feature is available only in secure

@@ -283,16 +283,11 @@ extension PropsMediaKeySession on MediaKeySession {
 /// map of media key statuses by key IDs.
 @JS()
 @staticInterop
-class MediaKeyStatusMap {
+class MediaKeyStatusMap extends JsArray<MediaKeyStatus> {
   external MediaKeyStatusMap();
 }
 
 extension PropsMediaKeyStatusMap on MediaKeyStatusMap {
-  MediaKeyStatus operator [](dynamic index) => js_util.getProperty(this, index);
-  operator []=(dynamic index, MediaKeyStatus value) {
-    js_util.setProperty(this, index, value);
-  }
-
   /// Returns the number of key/value pars in the status map.
   ///
   int get size => js_util.getProperty(this, 'size');

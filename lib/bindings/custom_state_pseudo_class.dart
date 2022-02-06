@@ -18,16 +18,11 @@ import 'package:js_bindings/js_bindings.dart';
 /// to be added and removed from the set.
 @JS()
 @staticInterop
-class CustomStateSet {
+class CustomStateSet extends JsArray<String> {
   external CustomStateSet();
 }
 
 extension PropsCustomStateSet on CustomStateSet {
-  String operator [](int index) => js_util.getProperty(this, index);
-  operator []=(int index, String value) {
-    js_util.setProperty(this, index, value);
-  }
-
   ///  Adds a value to the set, first checking that the value is a
   /// [<dashed-ident>].
   ///

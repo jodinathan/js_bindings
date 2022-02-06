@@ -8,12 +8,13 @@ abstract class JSObject {
 
 @JS()
 @anonymous
+@staticInterop
 class JsMap<K extends Object, V> {}
 
 extension DartMap<K extends Object, V> on JsMap<K, V> {
   V? operator[](K key) => jsu.getProperty(this, key);
 
-  void operator[]=(String key, V? value) =>
+  void operator[]=(K key, V? value) =>
       jsu.setProperty<V>(this, key, value);
 
   V? remove(K key) {
