@@ -1,3 +1,7 @@
+## 0.0.5
+ - Added `Map` and `Iterable` functionality to maplike, iterable and 
+setlike JS types.
+
 ## 0.0.4+4
  - Typos readme
 

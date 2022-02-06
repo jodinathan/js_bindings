@@ -1,6 +1,5 @@
 import 'package:js_bindings/js_bindings.dart';
 
-@pragma('dart2js:tryInline')
 void main() {
   document.title = 'JS Bindings example';
 
