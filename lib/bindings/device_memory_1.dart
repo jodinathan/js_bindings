@@ -15,16 +15,6 @@ import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
-class NavigatorDeviceClass {
-  external NavigatorDeviceClass();
-}
-
-extension PropsNavigatorDeviceClass on NavigatorDeviceClass {
-  double get deviceMemory => js_util.getProperty(this, 'deviceMemory');
-}
-
-@JS()
-@staticInterop
 class NavigatorDeviceMemory {
   external NavigatorDeviceMemory();
 }

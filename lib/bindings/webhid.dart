@@ -14,6 +14,47 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+@JS('HID')
+@staticInterop
+class Hid implements EventTarget {
+  external Hid();
+}
+
+extension PropsHid on Hid {
+  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
+  set onconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onconnect', newValue);
+  }
+
+  EventHandlerNonNull? get ondisconnect =>
+      js_util.getProperty(this, 'ondisconnect');
+  set ondisconnect(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondisconnect', newValue);
+  }
+
+  Future<Iterable<HIDDevice>> getDevices() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getDevices', []));
+
+  Future<Iterable<HIDDevice>> requestDevice(HIDDeviceRequestOptions options) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestDevice', [options]));
+}
+
+@anonymous
+@JS()
+@staticInterop
+class HIDDeviceRequestOptions {
+  external factory HIDDeviceRequestOptions(
+      {required Iterable<HIDDeviceFilter> filters});
+}
+
+extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
+  Iterable<HIDDeviceFilter> get filters => js_util.getProperty(this, 'filters');
+  set filters(Iterable<HIDDeviceFilter> newValue) {
+    js_util.setProperty(this, 'filters', newValue);
+  }
+}
+
 @anonymous
 @JS()
 @staticInterop
@@ -47,93 +88,56 @@ extension PropsHIDDeviceFilter on HIDDeviceFilter {
   }
 }
 
-@anonymous
 @JS()
 @staticInterop
-class HIDDeviceRequestOptions {
-  external factory HIDDeviceRequestOptions(
-      {required Iterable<HIDDeviceFilter> filters});
+class HIDDevice implements EventTarget {
+  external HIDDevice();
 }
 
-extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
-  Iterable<HIDDeviceFilter> get filters => js_util.getProperty(this, 'filters');
-  set filters(Iterable<HIDDeviceFilter> newValue) {
-    js_util.setProperty(this, 'filters', newValue);
-  }
-}
-
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface provides methods for connecting to HID devices,
-/// listing attached HID devices and event handlers for connected HID
-/// devices.
-@JS('HID')
-@staticInterop
-class Hid implements EventTarget {
-  external Hid();
-}
-
-extension PropsHid on Hid {
-  EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
-  set onconnect(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onconnect', newValue);
+extension PropsHIDDevice on HIDDevice {
+  EventHandlerNonNull? get oninputreport =>
+      js_util.getProperty(this, 'oninputreport');
+  set oninputreport(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oninputreport', newValue);
   }
 
-  EventHandlerNonNull? get ondisconnect =>
-      js_util.getProperty(this, 'ondisconnect');
-  set ondisconnect(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ondisconnect', newValue);
-  }
+  bool get opened => js_util.getProperty(this, 'opened');
+  int get vendorId => js_util.getProperty(this, 'vendorId');
+  int get productId => js_util.getProperty(this, 'productId');
+  String get productName => js_util.getProperty(this, 'productName');
+  Iterable<HIDCollectionInfo> get collections =>
+      js_util.getProperty(this, 'collections');
+  Future<Object> open() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'open', []));
 
-  ///  Returns a [Future] that resolves with an array of connected
-  /// [HIDDevice] objects.
-  ///
-  /// HID.getDevices();
-  ///
-  Future<Iterable<HIDDevice>> getDevices() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'getDevices', []));
+  Future<Object> close() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
-  ///  Returns a [Future] that resolves with an array of connected
-  /// [HIDDevice] objects. Calling this function will trigger the user
-  /// agent's permission flow in order to gain permission to access one
-  /// selected device from the returned list of devices.
-  ///
-  /// HID.requestDevice(options);
-  ///
-  Future<Iterable<HIDDevice>> requestDevice(
+  Future<Object> forget() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'forget', []));
 
-          ///  An object containing an array of filter objects for possible
-          /// devices to pair with. Each filter object can have the following
-          /// properties:
-          ///
-          ///    [vendorId]Optional
-          ///
-          ///      An integer representing the vendorId of the requested HID
-          /// device
-          ///
-          ///    [productId]Optional
-          ///
-          ///      An integer representing the productId of the requested HID
-          /// device.
-          ///
-          ///    [usagePage]Optional
-          ///
-          ///      An integer representing the usage page component of the HID
-          /// usage of the requested device. The usage for a top level
-          /// collection is used to identify the device type.
-          ///      Standard HID usage values can be found in the HID Usage
-          /// Tables document
-          ///
-          ///    [usage]Optional
-          ///
-          ///      An integer representing the usage ID component of the HID
-          /// usage of the requested device.
-          ///
-          ///
-          ///
-          HIDDeviceRequestOptions options) =>
+  Future<Object> sendReport(int reportId, dynamic data) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'requestDevice', [options]));
+          js_util.callMethod(this, 'sendReport', [reportId, data]));
+
+  Future<Object> sendFeatureReport(int reportId, dynamic data) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'sendFeatureReport', [reportId, data]));
+
+  Future<ByteData> receiveFeatureReport(int reportId) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'receiveFeatureReport', [reportId]));
+}
+
+@JS()
+@staticInterop
+class HIDConnectionEvent implements Event {
+  external HIDConnectionEvent(
+      String type, HIDConnectionEventInit eventInitDict);
+}
+
+extension PropsHIDConnectionEvent on HIDConnectionEvent {
+  HIDDevice get device => js_util.getProperty(this, 'device');
 }
 
 @anonymous
@@ -150,23 +154,17 @@ extension PropsHIDConnectionEventInit on HIDConnectionEventInit {
   }
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [WebHID API] represents HID connection
-/// events, and is the event type passed to [HID.onconnect] and
-/// [HID.ondisconnect] when an input report is received.
 @JS()
 @staticInterop
-class HIDConnectionEvent implements Event {
-  external HIDConnectionEvent(
-      String type, HIDConnectionEventInit eventInitDict);
+class HIDInputReportEvent implements Event {
+  external HIDInputReportEvent(
+      String type, HIDInputReportEventInit eventInitDict);
 }
 
-extension PropsHIDConnectionEvent on HIDConnectionEvent {
-  ///  Returns the [HIDDevice] instance representing the device
-  /// associated with the connection event.
-  ///
+extension PropsHIDInputReportEvent on HIDInputReportEvent {
   HIDDevice get device => js_util.getProperty(this, 'device');
+  int get reportId => js_util.getProperty(this, 'reportId');
+  ByteData get data => js_util.getProperty(this, 'data');
 }
 
 @anonymous
@@ -196,43 +194,79 @@ extension PropsHIDInputReportEventInit on HIDInputReportEventInit {
   }
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [WebHID API] is passed to
-/// [HIDDevice.oninputreport] when an input report is received from
-/// any associated HID device.
+@anonymous
 @JS()
 @staticInterop
-class HIDInputReportEvent implements Event {
-  external HIDInputReportEvent(
-      String type, HIDInputReportEventInit eventInitDict);
+class HIDCollectionInfo {
+  external factory HIDCollectionInfo(
+      {required int usagePage,
+      required int usage,
+      required int type,
+      required Iterable<HIDCollectionInfo> children,
+      required Iterable<HIDReportInfo> inputReports,
+      required Iterable<HIDReportInfo> outputReports,
+      required Iterable<HIDReportInfo> featureReports});
 }
 
-extension PropsHIDInputReportEvent on HIDInputReportEvent {
-  ///  The [HIDDevice] instance that represents the HID interface that
-  /// sent the input report.
-  ///
-  HIDDevice get device => js_util.getProperty(this, 'device');
+extension PropsHIDCollectionInfo on HIDCollectionInfo {
+  int get usagePage => js_util.getProperty(this, 'usagePage');
+  set usagePage(int newValue) {
+    js_util.setProperty(this, 'usagePage', newValue);
+  }
 
-  ///  The one-byte identification prefix for this report, or 0 if the
-  /// HID interface does not use report IDs.
-  ///
+  int get usage => js_util.getProperty(this, 'usage');
+  set usage(int newValue) {
+    js_util.setProperty(this, 'usage', newValue);
+  }
+
+  int get type => js_util.getProperty(this, 'type');
+  set type(int newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  Iterable<HIDCollectionInfo> get children =>
+      js_util.getProperty(this, 'children');
+  set children(Iterable<HIDCollectionInfo> newValue) {
+    js_util.setProperty(this, 'children', newValue);
+  }
+
+  Iterable<HIDReportInfo> get inputReports =>
+      js_util.getProperty(this, 'inputReports');
+  set inputReports(Iterable<HIDReportInfo> newValue) {
+    js_util.setProperty(this, 'inputReports', newValue);
+  }
+
+  Iterable<HIDReportInfo> get outputReports =>
+      js_util.getProperty(this, 'outputReports');
+  set outputReports(Iterable<HIDReportInfo> newValue) {
+    js_util.setProperty(this, 'outputReports', newValue);
+  }
+
+  Iterable<HIDReportInfo> get featureReports =>
+      js_util.getProperty(this, 'featureReports');
+  set featureReports(Iterable<HIDReportInfo> newValue) {
+    js_util.setProperty(this, 'featureReports', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class HIDReportInfo {
+  external factory HIDReportInfo(
+      {required int reportId, required Iterable<HIDReportItem> items});
+}
+
+extension PropsHIDReportInfo on HIDReportInfo {
   int get reportId => js_util.getProperty(this, 'reportId');
+  set reportId(int newValue) {
+    js_util.setProperty(this, 'reportId', newValue);
+  }
 
-  ///  A [DataView] containing the data from the input report,
-  /// excluding the [reportId] if the HID interface uses report IDs.
-  ///
-  ByteData get data => js_util.getProperty(this, 'data');
-}
-
-enum HIDUnitSystem {
-  none,
-  siLinear,
-  siRotation,
-  englishLinear,
-  englishRotation,
-  vendorDefined,
-  reserved
+  Iterable<HIDReportItem> get items => js_util.getProperty(this, 'items');
+  set items(Iterable<HIDReportItem> newValue) {
+    js_util.setProperty(this, 'items', newValue);
+  }
 }
 
 @anonymous
@@ -479,198 +513,12 @@ extension PropsHIDReportItem on HIDReportItem {
   }
 }
 
-@anonymous
-@JS()
-@staticInterop
-class HIDReportInfo {
-  external factory HIDReportInfo(
-      {required int reportId, required Iterable<HIDReportItem> items});
-}
-
-extension PropsHIDReportInfo on HIDReportInfo {
-  int get reportId => js_util.getProperty(this, 'reportId');
-  set reportId(int newValue) {
-    js_util.setProperty(this, 'reportId', newValue);
-  }
-
-  Iterable<HIDReportItem> get items => js_util.getProperty(this, 'items');
-  set items(Iterable<HIDReportItem> newValue) {
-    js_util.setProperty(this, 'items', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class HIDCollectionInfo {
-  external factory HIDCollectionInfo(
-      {required int usagePage,
-      required int usage,
-      required int type,
-      required Iterable<HIDCollectionInfo> children,
-      required Iterable<HIDReportInfo> inputReports,
-      required Iterable<HIDReportInfo> outputReports,
-      required Iterable<HIDReportInfo> featureReports});
-}
-
-extension PropsHIDCollectionInfo on HIDCollectionInfo {
-  int get usagePage => js_util.getProperty(this, 'usagePage');
-  set usagePage(int newValue) {
-    js_util.setProperty(this, 'usagePage', newValue);
-  }
-
-  int get usage => js_util.getProperty(this, 'usage');
-  set usage(int newValue) {
-    js_util.setProperty(this, 'usage', newValue);
-  }
-
-  int get type => js_util.getProperty(this, 'type');
-  set type(int newValue) {
-    js_util.setProperty(this, 'type', newValue);
-  }
-
-  Iterable<HIDCollectionInfo> get children =>
-      js_util.getProperty(this, 'children');
-  set children(Iterable<HIDCollectionInfo> newValue) {
-    js_util.setProperty(this, 'children', newValue);
-  }
-
-  Iterable<HIDReportInfo> get inputReports =>
-      js_util.getProperty(this, 'inputReports');
-  set inputReports(Iterable<HIDReportInfo> newValue) {
-    js_util.setProperty(this, 'inputReports', newValue);
-  }
-
-  Iterable<HIDReportInfo> get outputReports =>
-      js_util.getProperty(this, 'outputReports');
-  set outputReports(Iterable<HIDReportInfo> newValue) {
-    js_util.setProperty(this, 'outputReports', newValue);
-  }
-
-  Iterable<HIDReportInfo> get featureReports =>
-      js_util.getProperty(this, 'featureReports');
-  set featureReports(Iterable<HIDReportInfo> newValue) {
-    js_util.setProperty(this, 'featureReports', newValue);
-  }
-}
-
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [WebHID API] represents a HID Device. It
-/// provides properties for accessing information about the device,
-/// methods for opening and closing the connection, and the sending
-/// and receiving of reports.
-///
-///
-///
-///    EventTarget
-///
-///
-///
-///
-///
-///    HIDDevice
-///
-///
-@JS()
-@staticInterop
-class HIDDevice implements EventTarget {
-  external HIDDevice();
-}
-
-extension PropsHIDDevice on HIDDevice {
-  EventHandlerNonNull? get oninputreport =>
-      js_util.getProperty(this, 'oninputreport');
-  set oninputreport(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'oninputreport', newValue);
-  }
-
-  /// Returns a [bool], true if the device has an open connection.
-  ///
-  bool get opened => js_util.getProperty(this, 'opened');
-
-  /// Returns the vendorId of the HID device.
-  ///
-  int get vendorId => js_util.getProperty(this, 'vendorId');
-
-  /// Returns the productID of the HID device.
-  ///
-  int get productId => js_util.getProperty(this, 'productId');
-
-  ///  Returns a [string] containing the product name of the HID
-  /// device.
-  ///
-  String get productName => js_util.getProperty(this, 'productName');
-
-  /// Returns an array of report formats for the HID device.
-  ///
-  Iterable<HIDCollectionInfo> get collections =>
-      js_util.getProperty(this, 'collections');
-
-  ///  Opens a connection to this HID device, and returns a [Future]
-  /// which resolves once the connection has been successful.
-  ///
-  /// HIDDevice.open();
-  ///
-  Future<Object> open() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'open', []));
-
-  ///  Closes the connection to this HID device, and returns a [Future]
-  /// which resolves once the connection has been closed.
-  ///
-  /// HIDDevice.close();
-  ///
-  Future<Object> close() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
-
-  ///  Sends an output report to this HID Device, and returns a
-  /// [Future] which resolves once the report has been sent.
-  ///
-  /// HIDDevice.sendReport(reportId, data);
-  ///
-  Future<Object> sendReport(
-
-          ///  An 8-bit report ID. If the HID device does not use report IDs,
-          /// send [0].
-          ///
-          int reportId,
-
-          /// Bytes as a [BufferSource].
-          ///
-          dynamic data) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'sendReport', [reportId, data]));
-
-  ///  Sends a feature report to this HID device, and returns a
-  /// [Future] which resolves once the report has been sent.
-  ///
-  /// HIDDevice.sendFeatureReport(reportId, data);
-  ///
-  Future<Object> sendFeatureReport(
-
-          ///  An 8-bit report ID. If the HID device does not use report IDs,
-          /// send [0].
-          ///
-          int reportId,
-
-          /// Bytes as a [BufferSource].
-          ///
-          dynamic data) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'sendFeatureReport', [reportId, data]));
-
-  ///  Receives a feature report from this HID device in the form of a
-  /// [Future] which resolves with a [DataView]. This allows typed
-  /// access to the contents of this message.
-  ///
-  /// HIDDevice.receiveFeatureReport(reportId);
-  ///
-  Future<ByteData> receiveFeatureReport(
-
-          ///  An 8-bit report ID. If the HID device does not use report IDs,
-          /// send [0].
-          ///
-          int reportId) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'receiveFeatureReport', [reportId]));
+enum HIDUnitSystem {
+  none,
+  siLinear,
+  siRotation,
+  englishLinear,
+  englishRotation,
+  vendorDefined,
+  reserved
 }

@@ -13,28 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  An object implementing the interface represents a single
-/// condition CSS [at-rule], which consists of a condition and a
-/// statement block.
-/// Two objects derive from : [CSSMediaRule] and [CSSSupportsRule].
-///
-///
-///
-///    CSSRule
-///
-///
-///
-///
-///
-///    CSSGroupingRule
-///
-///
-///
-///
-///
-///    CSSConditionRule
-///
-///
 @JS()
 @staticInterop
 class CSSConditionRule implements CSSGroupingRule {
@@ -42,39 +20,12 @@ class CSSConditionRule implements CSSGroupingRule {
 }
 
 extension PropsCSSConditionRule on CSSConditionRule {
-  /// Represents the text of the condition of the rule.
-  ///
   String get conditionText => js_util.getProperty(this, 'conditionText');
   set conditionText(String newValue) {
     js_util.setProperty(this, 'conditionText', newValue);
   }
 }
 
-/// The interface represents a single CSS [@media] rule.
-///
-///
-///
-///    CSSRule
-///
-///
-///
-///
-///
-///    CSSGroupingRule
-///
-///
-///
-///
-///
-///    CSSConditionRule
-///
-///
-///
-///
-///
-///    CSSMediaRule
-///
-///
 @JS()
 @staticInterop
 class CSSMediaRule implements CSSConditionRule {
@@ -82,37 +33,9 @@ class CSSMediaRule implements CSSConditionRule {
 }
 
 extension PropsCSSMediaRule on CSSMediaRule {
-  ///  Returns a [MediaList] representing the intended destination
-  /// medium for style information.
-  ///
   MediaList get media => js_util.getProperty(this, 'media');
 }
 
-/// The interface represents a single CSS [@supports] [at-rule].
-///
-///
-///
-///    CSSRule
-///
-///
-///
-///
-///
-///    CSSGroupingRule
-///
-///
-///
-///
-///
-///    CSSConditionRule
-///
-///
-///
-///
-///
-///    CSSSupportsRule
-///
-///
 @JS()
 @staticInterop
 class CSSSupportsRule implements CSSConditionRule {

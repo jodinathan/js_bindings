@@ -13,6 +13,8 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+enum HighlightType { highlight, spellingError, grammarError }
+
 @JS()
 @staticInterop
 class Highlight {
@@ -27,17 +29,12 @@ extension PropsHighlight on Highlight {
   set priority(int newValue) {
     js_util.setProperty(this, 'priority', newValue);
   }
-}
 
-@JS()
-@staticInterop
-class HighlightsRegister extends JsArray<Highlight> {
-  external HighlightsRegister();
-}
-
-extension PropsHighlightsRegister on HighlightsRegister {
-  HighlightsRegister add(Highlight value) =>
-      js_util.callMethod(this, 'add', [value]);
+  HighlightType get type =>
+      HighlightType.values.byName(js_util.getProperty(this, 'type'));
+  set type(HighlightType newValue) {
+    js_util.setProperty(this, 'type', newValue.name);
+  }
 }
 
 @JS()

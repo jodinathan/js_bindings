@@ -17,7 +17,7 @@ final urls = [];
 
 Future<void> main() async {
   // clones the MDN repo locally
-  await cloneMDN();
+  //await cloneMDN();
   // copy the list of webIDLs, parsed in JSON, from github.com/w3c/webref/
   await cloneIDLs();
   // merge ed and tr IDLs into /merged
@@ -114,7 +114,13 @@ Future<void> mergeIDLs() async {
 }
 
 Future<void> cloneIDLs() async {
-  print('Will clone IDLs now. Fetching $w3cTreeUrl');
+  print('Will clone IDLs now. Exclduing dirs $dirs');
+
+  for (final dir in dirs) {
+    await Directory('../webIDL/$dir').delete(recursive: true);
+  }
+
+  print('Fetching $w3cTreeUrl');
 
   final js = decodeMap('W3C repo', await http.read(Uri.parse(w3cTreeUrl)));
 
@@ -130,7 +136,7 @@ Future<void> cloneIDLs() async {
         final type = match.group(1);
         final name = match.group(2);
         final url =
-            'https://raw.githubusercontent.com/w3c/webref/master/$type/idlparsed/$name.json';
+            'https://raw.githubusercontent.com/w3c/webref/curated/$type/idlparsed/$name.json';
 
         print('Fetching $name json IDL $url');
         File('../webIDL/$type/$name.json')

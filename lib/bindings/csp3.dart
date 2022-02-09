@@ -10,7 +10,6 @@ library csp3;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -39,13 +38,6 @@ extension PropsCSPViolationReportBody on CSPViolationReportBody {
 
 enum SecurityPolicyViolationEventDisposition { enforce, report }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface inherits from [Event], and represents the event
-/// object of an event sent on a document or worker when its content
-/// security policy is violated.
-@experimental
 @JS()
 @staticInterop
 class SecurityPolicyViolationEvent implements Event {
@@ -54,76 +46,21 @@ class SecurityPolicyViolationEvent implements Event {
 }
 
 extension PropsSecurityPolicyViolationEvent on SecurityPolicyViolationEvent {
-  String get documentURL => js_util.getProperty(this, 'documentURL');
-
-  ///  A [String] representing the URI of the document or worker in
-  /// which the violation was found.
-  ///
   String get documentURI => js_util.getProperty(this, 'documentURI');
-
-  ///  A [String] representing the referrer of the resources whose
-  /// policy was violated. This will be a URL or [null].
-  ///
   String get referrer => js_util.getProperty(this, 'referrer');
-  String get blockedURL => js_util.getProperty(this, 'blockedURL');
-
-  ///  A [String] representing the URI of the resource that was blocked
-  /// because it violates a policy.
-  ///
   String get blockedURI => js_util.getProperty(this, 'blockedURI');
-
-  ///  A [String] representing the directive whose enforcement
-  /// uncovered the violation.
-  ///
   String get effectiveDirective =>
       js_util.getProperty(this, 'effectiveDirective');
-
-  ///  A [String] representing the directive whose enforcement
-  /// uncovered the violation.
-  ///
   String get violatedDirective =>
       js_util.getProperty(this, 'violatedDirective');
-
-  ///  A [String] containing the policy whose enforcement uncovered the
-  /// violation.
-  ///
   String get originalPolicy => js_util.getProperty(this, 'originalPolicy');
-
-  ///  A [String] representing the URI of the document or worker in
-  /// which the violation was found.
-  ///
   String get sourceFile => js_util.getProperty(this, 'sourceFile');
-
-  ///  A [String] representing a sample of the resource that caused the
-  /// violation, usually the first 40 characters. This will only be
-  /// populated if the resource is an inline script, event handler, or
-  /// style — external resources causing a violation will not generate
-  /// a sample.
-  ///
   String get sample => js_util.getProperty(this, 'sample');
-
-  ///  Indicates how the violated policy is configured to be treated by
-  /// the user agent. This will be ["enforce"] or ["report"].
-  ///
   SecurityPolicyViolationEventDisposition get disposition =>
       SecurityPolicyViolationEventDisposition.values
           .byName(js_util.getProperty(this, 'disposition'));
-
-  ///  A number representing the HTTP status code of the document or
-  /// worker in which the violation occurred.
-  ///
   int get statusCode => js_util.getProperty(this, 'statusCode');
-  int get lineno => js_util.getProperty(this, 'lineno');
-
-  ///  The line number in the document or worker at which the violation
-  /// occurred.
-  ///
   int get lineNumber => js_util.getProperty(this, 'lineNumber');
-  int get colno => js_util.getProperty(this, 'colno');
-
-  ///  The column number in the document or worker at which the
-  /// violation occurred.
-  ///
   int get columnNumber => js_util.getProperty(this, 'columnNumber');
 }
 
@@ -132,49 +69,52 @@ extension PropsSecurityPolicyViolationEvent on SecurityPolicyViolationEvent {
 @staticInterop
 class SecurityPolicyViolationEventInit implements EventInit {
   external factory SecurityPolicyViolationEventInit._(
-      {required String documentURL,
+      {required String documentURI,
       String? referrer = '',
-      String? blockedURL = '',
+      String? blockedURI = '',
+      String? violatedDirective,
       String? effectiveDirective,
       String? originalPolicy,
       String? sourceFile = '',
       String? sample = '',
       String? disposition,
       int? statusCode,
-      int? lineno = 0,
-      int? colno = 0});
+      int? lineNumber = 0,
+      int? columnNumber = 0});
 
   factory SecurityPolicyViolationEventInit(
-          {required String documentURL,
+          {required String documentURI,
           String? referrer = '',
-          String? blockedURL = '',
+          String? blockedURI = '',
+          String? violatedDirective,
           String? effectiveDirective,
           String? originalPolicy,
           String? sourceFile = '',
           String? sample = '',
           SecurityPolicyViolationEventDisposition? disposition,
           int? statusCode,
-          int? lineno = 0,
-          int? colno = 0}) =>
+          int? lineNumber = 0,
+          int? columnNumber = 0}) =>
       SecurityPolicyViolationEventInit._(
-          documentURL: documentURL,
+          documentURI: documentURI,
           referrer: referrer,
-          blockedURL: blockedURL,
+          blockedURI: blockedURI,
+          violatedDirective: violatedDirective,
           effectiveDirective: effectiveDirective,
           originalPolicy: originalPolicy,
           sourceFile: sourceFile,
           sample: sample,
           disposition: disposition?.name,
           statusCode: statusCode,
-          lineno: lineno,
-          colno: colno);
+          lineNumber: lineNumber,
+          columnNumber: columnNumber);
 }
 
 extension PropsSecurityPolicyViolationEventInit
     on SecurityPolicyViolationEventInit {
-  String get documentURL => js_util.getProperty(this, 'documentURL');
-  set documentURL(String newValue) {
-    js_util.setProperty(this, 'documentURL', newValue);
+  String get documentURI => js_util.getProperty(this, 'documentURI');
+  set documentURI(String newValue) {
+    js_util.setProperty(this, 'documentURI', newValue);
   }
 
   String get referrer => js_util.getProperty(this, 'referrer');
@@ -182,9 +122,15 @@ extension PropsSecurityPolicyViolationEventInit
     js_util.setProperty(this, 'referrer', newValue);
   }
 
-  String get blockedURL => js_util.getProperty(this, 'blockedURL');
-  set blockedURL(String newValue) {
-    js_util.setProperty(this, 'blockedURL', newValue);
+  String get blockedURI => js_util.getProperty(this, 'blockedURI');
+  set blockedURI(String newValue) {
+    js_util.setProperty(this, 'blockedURI', newValue);
+  }
+
+  String get violatedDirective =>
+      js_util.getProperty(this, 'violatedDirective');
+  set violatedDirective(String newValue) {
+    js_util.setProperty(this, 'violatedDirective', newValue);
   }
 
   String get effectiveDirective =>
@@ -220,13 +166,13 @@ extension PropsSecurityPolicyViolationEventInit
     js_util.setProperty(this, 'statusCode', newValue);
   }
 
-  int get lineno => js_util.getProperty(this, 'lineno');
-  set lineno(int newValue) {
-    js_util.setProperty(this, 'lineno', newValue);
+  int get lineNumber => js_util.getProperty(this, 'lineNumber');
+  set lineNumber(int newValue) {
+    js_util.setProperty(this, 'lineNumber', newValue);
   }
 
-  int get colno => js_util.getProperty(this, 'colno');
-  set colno(int newValue) {
-    js_util.setProperty(this, 'colno', newValue);
+  int get columnNumber => js_util.getProperty(this, 'columnNumber');
+  set columnNumber(int newValue) {
+    js_util.setProperty(this, 'columnNumber', newValue);
   }
 }

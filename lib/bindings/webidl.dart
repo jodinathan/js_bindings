@@ -1,24 +1,18 @@
-/// Web IDL
+/// Web IDL Standard
 ///
-/// https://heycam.github.io/webidl/
+/// https://webidl.spec.whatwg.org/
 
 // ignore_for_file: unused_import
 
 @JS('window')
 @staticInterop
-library webidl_1;
+library webidl;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The interface represents an abnormal event (called an exception)
-/// that occurs as a result of calling a method or accessing a
-/// property of a web API. This is how error conditions are described
-/// in web APIs.
-///  Each exception has a name, which is a short "PascalCase"-style
-/// string identifying the error or abnormal condition.
 @JS()
 @staticInterop
 class DOMException {
@@ -100,21 +94,7 @@ class DOMException {
 }
 
 extension PropsDOMException on DOMException {
-  ///  Returns a [String] that contains one of the strings associated
-  /// with an error name.
-  ///
   String get name => js_util.getProperty(this, 'name');
-
-  ///  Returns a [String] representing a message or description
-  /// associated with the given error name.
-  ///
   String get message => js_util.getProperty(this, 'message');
-
-  ///  Returns a [int] that contains one of the error code constants,
-  /// or [0] if none match. This field is used for historical reasons.
-  /// New DOM exceptions don't use this anymore: they put this info in
-  /// the [DOMException.name] attribute.
-  ///
-  @Deprecated('Not official in the specs')
   int get code => js_util.getProperty(this, 'code');
 }

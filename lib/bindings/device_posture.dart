@@ -28,4 +28,4 @@ extension PropsDevicePosture on DevicePosture {
   }
 }
 
-enum DevicePostureType { noFold, laptop, flat, tent, tablet, book }
+enum DevicePostureType { continuous, folded, foldedOver }

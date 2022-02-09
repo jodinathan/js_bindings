@@ -1,3 +1,7 @@
+## 0.0.6-dev
+ - Changed `Map` features to use builtin functions
+ - Started using the curated data from W3C to generate the source
+
 ## 0.0.5
  - Added `Map` and `Iterable` functionality to maplike, iterable and 
 setlike JS types.

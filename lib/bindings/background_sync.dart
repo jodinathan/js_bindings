@@ -13,8 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The interface of the ServiceWorker API provides an interface for
-/// registering and listing sync registrations.
 @JS()
 @staticInterop
 class SyncManager {
@@ -22,48 +20,13 @@ class SyncManager {
 }
 
 extension PropsSyncManager on SyncManager {
-  /// Create a new sync registration and return a [Future].
-  ///
-  /// SyncManager.register([options]).then(function(syncRegistration) { /* ... */ })
-  ///
   Future<Object> register(String tag) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'register', [tag]));
 
-  ///  Return a list of developer-defined identifiers for SyncManager
-  /// registration.
-  ///
-  /// SyncManager.getTags().then(function(tags[]) { /* ... */ })
-  ///
   Future<Iterable<String>> getTags() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getTags', []));
 }
 
-///  Non-standard: This feature is non-standard and is not on a
-/// standards track. Do not use it on production sites facing the
-/// Web: it will not work for every user. There may also be large
-/// incompatibilities between implementations and the behavior may
-/// change in the future.
-///  The interface represents a sync action that is dispatched on the
-/// [ServiceWorkerGlobalScope] of a ServiceWorker.
-/// This interface inherits from the [ExtendableEvent] interface.
-///
-///
-///
-///    Event
-///
-///
-///
-///
-///
-///    ExtendableEvent
-///
-///
-///
-///
-///
-///    SyncEvent
-///
-///
 @JS()
 @staticInterop
 class SyncEvent implements ExtendableEvent {
@@ -71,13 +34,7 @@ class SyncEvent implements ExtendableEvent {
 }
 
 extension PropsSyncEvent on SyncEvent {
-  /// Returns the developer-defined identifier for this [SyncEvent].
-  ///
   String get tag => js_util.getProperty(this, 'tag');
-
-  ///  Returns [true] if the user agent will not make further
-  /// synchronization attempts after the current attempt.
-  ///
   bool get lastChance => js_util.getProperty(this, 'lastChance');
 }
 

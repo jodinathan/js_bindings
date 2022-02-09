@@ -13,16 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The interface of the Sensor APIs provides information about the
-/// magnetic field as detected by the device's primary magnetometer
-/// sensor.
-///  To use this sensor, the user must grant permission to the
-/// ['magnetometer'] device sensor through the Permissions API.
-///  If a feature policy blocks use of a feature, it's because your
-/// code is inconsistent with the policies set on your server. This
-/// is not something that would ever be shown to a user. The
-/// [Feature-Policy] HTTP header article contains implementation
-/// instructions.
 @JS()
 @staticInterop
 class Magnetometer implements Sensor {
@@ -30,19 +20,8 @@ class Magnetometer implements Sensor {
 }
 
 extension PropsMagnetometer on Magnetometer {
-  ///  Returns a double containing the magnetic field around the
-  /// device's x axis.
-  ///
   double? get x => js_util.getProperty(this, 'x');
-
-  ///  Returns a double containing the magnetic field around the
-  /// device's y axis.
-  ///
   double? get y => js_util.getProperty(this, 'y');
-
-  ///  Returns a double containing the magnetic field around the
-  /// device's z axis.
-  ///
   double? get z => js_util.getProperty(this, 'z');
 }
 

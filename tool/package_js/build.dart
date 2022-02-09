@@ -63,7 +63,8 @@ Future<void> main() async {
       final obj = objs[name];
       final types = obj['type'].toString().split(' ');
       final args = obj['arguments'] ??
-          obj['members']?[0]?['arguments'];
+          (obj['members']?.isNotEmpty == true ?
+          obj['members'][0]['arguments'] : null);
 
       if (types.contains('callback') && (types.length == 1 ||
           name == 'EventListener')) {
@@ -411,12 +412,13 @@ Future<void> main() async {
 
                     if (static || constant) {
                       lines.add('''
-                      ${mName == origMName ? '' : "@JS('$origMName')"}
+                      ${(mName != origMName).truth("@JS('$origMName')")}
                       external static $dartType get $mName;
                       ''');
                     } else {
                       final prop = "js_util.getProperty(${static || constant ?
                       className : 'this'}, '$origMName')";
+                      final async = dartType.isPromise && dartType.isEnum;
 
                       String mk(String prop) {
                         var jget = dartType.isPromise ?
@@ -424,13 +426,14 @@ Future<void> main() async {
 
                         if (dartType.isEnum) {
                           jget = '${dartType.simpleName}.values.byName${
-                              dartType.isIterable.truth('s')}($jget)';
+                              dartType.isIterable.truth('s')}(${
+                              async.truth('await ')}$jget)';
                         }
 
                         return jget;
                       }
 
-                      lines.add('$dartType get $mName');
+                      lines.add('$dartType get $mName${async.truth(' async')}');
 
                       if (dartType.isEnum && dartType.nullable) {
                         lines.add('''{

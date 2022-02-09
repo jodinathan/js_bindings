@@ -10,16 +10,9 @@ library media_capabilities;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The [MediaCapabilities] dictionary of the Media Capabilities API
-/// describes how media and audio files must be configured, or
-/// defined, to be passed as a parameter of the
-/// [MediaCapabilities.encodingInfo()] and
-/// [MediaCapabilities.encodingInfo()] methods.
-@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -40,11 +33,6 @@ extension PropsMediaConfiguration on MediaConfiguration {
   }
 }
 
-///  The dictionary of the Media Capabilities API is used to define
-/// the type of media being tested when calling
-/// [MediaCapabilities.decodingInfo()] to query whether a specific
-/// media configuration is supported, smooth, and/or power efficient.
-@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -75,11 +63,6 @@ extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
   }
 }
 
-///  The dictionary of the Media Capabilities API is used to define
-/// the type of media being tested when calling
-/// [MediaCapabilities.encodingInfo()] to query whether a specific
-/// media configuration is supported, smooth, and/or power efficient.
-@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -102,13 +85,6 @@ enum MediaDecodingType { file, mediaSource, webrtc }
 
 enum MediaEncodingType { record, webrtc }
 
-///  The dictionary of the Media Capabilities API is used to define
-/// the video file being tested when calling the [MediaCapabilities]
-/// methods [encodingInfo()] and [decodingInfo()] to determine
-/// whether or not the described video configuration is supported,
-/// and how smoothly and how smooth and power-efficient it can be
-/// handled.
-@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -210,11 +186,6 @@ enum ColorGamut { srgb, p3, rec2020 }
 
 enum TransferFunction { srgb, pq, hlg }
 
-///  The dictionary of the Media Capabilities API defines the audio
-/// file being tested when calling [MediaCapabilities.encodingInfo()]
-/// or [MediaCapabilities.decodingInfo()] to query whether a specific
-/// audio configuration is supported, smooth, and/or power efficient.
-@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -413,16 +384,6 @@ extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
   }
 }
 
-///  The interface of the Media Capabilities API provides information
-/// about the decoding abilities of the device, system and browser.
-/// The API can be used to query the browser about the decoding
-/// abilities of the device based on codecs, profile, resolution, and
-/// bitrates. The information can be used to serve optimal media
-/// streams to the user and determine if playback should be smooth
-/// and power efficient.
-///  The information is accessed through the [mediaCapabilities]
-/// property of the [Navigator] interface.
-@experimental
 @JS()
 @staticInterop
 class MediaCapabilities {
@@ -430,62 +391,11 @@ class MediaCapabilities {
 }
 
 extension PropsMediaCapabilities on MediaCapabilities {
-  ///  When passed a valid media configuration, it returns a promise
-  /// with information as to whether the media type is supported, and
-  /// whether decoding such media would be smooth and power efficient.
-  ///
-  /// mediaCapabilities.decodingInfo(MediaDecodingConfiguration)
-  ///
-  /// //Create media configuration to be tested
-  /// const mediaConfig = {
-  ///   type : 'file', // or 'media-source'
-  ///   audio : {
-  ///     contentType : "audio/ogg; codecs=vorbis", // valid content type
-  ///     channels : 2,   // audio channels used by the track
-  ///     bitrate : 132700, // number of bits used to encode 1s of audio
-  ///     samplerate : 5200 // number of audio samples making up that 1s.
-  ///    },
-  /// };
-  ///
-  /// // check support and performance
-  /// navigator.mediaCapabilities.decodingInfo(mediaConfig).then(result => {
-  ///   console.log('This configuration is ' +
-  ///     (result.supported ? '' : 'not ') + 'supported, ' +
-  ///     (result.smooth ? '' : 'not ') + 'smooth, and ' +
-  ///     (result.powerEfficient ? '' : 'not ') + 'power efficient.')
-  /// });
-  ///
   Future<MediaCapabilitiesDecodingInfo> decodingInfo(
           MediaDecodingConfiguration configuration) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'decodingInfo', [configuration]));
 
-  ///  When passed a valid media configuration, it returns a promise
-  /// with information as to whether the media type is supported, and
-  /// whether encoding such media would be smooth and power efficient.
-  ///
-  /// mediaCapabilities.encodingInfo(mediaEncodingConfiguration)
-  ///
-  /// //Create media configuration to be tested
-  /// const mediaConfig = {
-  ///   type : 'record', // or 'transmission'
-  ///   video : {
-  ///     contentType : "video/webm;codecs=vp8.0", // valid content type
-  ///     width : 1920,   // width of the video
-  ///     height : 1080,  // height of the video
-  ///     bitrate : 120000, // number of bits used to encode 1s of video
-  ///     framerate : 48  // number of frames making up that 1s.
-  ///    }
-  /// };
-  ///
-  /// // check support and performance
-  /// navigator.mediaCapabilities.encodingInfo(mediaConfig).then(result => {
-  ///   console.log('This configuration is ' +
-  ///     (result.supported ? '' : 'not ') + 'supported, ' +
-  ///     (result.smooth ? '' : 'not ') + 'smooth, and ' +
-  ///     (result.powerEfficient ? '' : 'not ') + 'power efficient.')
-  /// });
-  ///
   Future<MediaCapabilitiesEncodingInfo> encodingInfo(
           MediaEncodingConfiguration configuration) =>
       js_util.promiseToFuture(

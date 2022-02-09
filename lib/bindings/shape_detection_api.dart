@@ -92,10 +92,6 @@ extension PropsLandmark on Landmark {
 
 enum LandmarkType { mouth, eye, nose }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [Barcode Detection API] allows detection of
-/// linear and two dimensional barcodes in images.
 @JS()
 @staticInterop
 class BarcodeDetector {
@@ -103,32 +99,10 @@ class BarcodeDetector {
 }
 
 extension PropsBarcodeDetector on BarcodeDetector {
-  ///  Returns a [Future] which fulfills with an [Array] of supported
-  /// barcode format types.
-  ///
-  /// var supportedFormats = BarcodeDetector.getSupportedFormats();
-  ///
   static Future<Iterable<BarcodeFormat>> getSupportedFormats() =>
       js_util.promiseToFuture(
           js_util.callMethod(BarcodeDetector, 'getSupportedFormats', []));
 
-  ///  Returns a [Future] which fulfills with an array of
-  /// [detectedBarcode] objects with the following properties:
-  ///
-  ///     [boundingBox]: A [DOMRectReadOnly], which returns the
-  /// dimensions of a rectangle representing the extent of a detected
-  /// barcode, aligned with the image.
-  ///     [cornerPoints]: The x and y co-ordinates of the four corner
-  /// points of the detected barcode relative to the image, starting
-  /// with the top left and working clockwise. This may not be square
-  /// due to perspective distortions within the image.
-  ///     [format]: The detected barcode format. (For a full list of
-  /// formats see the [landing page])
-  ///    [rawValue]: A [String] decoded from the barcode data.
-  ///
-  ///
-  /// var detectedBarcode = BarcodeDetector.detect(ImageBitmapSource);
-  ///
   Future<Iterable<DetectedBarcode>> detect(dynamic image) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'detect', [image]));
 }

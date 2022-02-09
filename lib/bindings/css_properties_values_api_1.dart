@@ -10,7 +10,6 @@ library css_properties_values_api_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -47,21 +46,6 @@ extension PropsPropertyDefinition on PropertyDefinition {
   }
 }
 
-///  The interface of the CSS_Properties_and_Values_API represents a
-/// single CSS [@property] rule.
-///
-///
-///
-///    CSSRule
-///
-///
-///
-///
-///
-///    CSSPropertyRule
-///
-///
-@experimental
 @JS()
 @staticInterop
 class CSSPropertyRule implements CSSRule {
@@ -69,16 +53,8 @@ class CSSPropertyRule implements CSSRule {
 }
 
 extension PropsCSSPropertyRule on CSSPropertyRule {
-  /// Returns the name of the custom property.
-  ///
   String get name => js_util.getProperty(this, 'name');
-
-  /// Returns the literal syntax of the custom property.
-  ///
   String get syntax => js_util.getProperty(this, 'syntax');
-
-  /// Returns the inherit flag of the custom property.
-  ///
   bool get inherits => js_util.getProperty(this, 'inherits');
   String? get initialValue => js_util.getProperty(this, 'initialValue');
 }

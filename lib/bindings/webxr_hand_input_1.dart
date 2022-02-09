@@ -13,62 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The interface is pair iterator (an ordered map) with the key
-/// being the hand joints and the value being an [XRJointSpace].
-///  is returned by [XRInputSource.hand].
-@JS()
-@staticInterop
-class XRHand extends JsArray<XRJointSpace> {
-  external XRHand();
-}
-
-extension PropsXRHand on XRHand {
-  /// Returns [25], the size of the pair iterator.
-  ///
-  int get size => js_util.getProperty(this, 'size');
-
-  ///
-  ///     Returns a [XRJointSpace] for a given hand joint or [Object]
-  /// if no such hand joint key is in the map.
-  ///    See [Map.prototype.get()] for more details.
-  ///
-  ///
-  @JS('get')
-  @staticInterop
-  XRJointSpace mGet(XRHandJoint key) =>
-      js_util.callMethod(this, 'get', [key.name]);
-}
-
-///  The interface is an [XRSpace] and represents the position and
-/// orientation of an [XRHand] joint.
-@JS()
-@staticInterop
-class XRJointSpace implements XRSpace {
-  external XRJointSpace();
-}
-
-extension PropsXRJointSpace on XRJointSpace {
-  ///  The name of the joint that is tracked. See [XRHand] for possible
-  /// hand joint names.
-  ///
-  XRHandJoint get jointName =>
-      XRHandJoint.values.byName(js_util.getProperty(this, 'jointName'));
-}
-
-///  The interface is an [XRPose] with additional information about
-/// the size of the skeleton joint it represents.
-@JS()
-@staticInterop
-class XRJointPose implements XRPose {
-  external XRJointPose();
-}
-
-extension PropsXRJointPose on XRJointPose {
-  /// The radius (distance from skin) for a joint.
-  ///
-  double get radius => js_util.getProperty(this, 'radius');
-}
-
 enum XRHandJoint {
   wrist,
   thumbMetacarpal,
@@ -95,4 +39,39 @@ enum XRHandJoint {
   pinkyFingerPhalanxIntermediate,
   pinkyFingerPhalanxDistal,
   pinkyFingerTip
+}
+
+@JS()
+@staticInterop
+class XRHand extends JsArray<XRJointSpace> {
+  external XRHand();
+}
+
+extension PropsXRHand on XRHand {
+  int get size => js_util.getProperty(this, 'size');
+  @JS('get')
+  @staticInterop
+  XRJointSpace mGet(XRHandJoint key) =>
+      js_util.callMethod(this, 'get', [key.name]);
+}
+
+@JS()
+@staticInterop
+class XRJointSpace implements XRSpace {
+  external XRJointSpace();
+}
+
+extension PropsXRJointSpace on XRJointSpace {
+  XRHandJoint get jointName =>
+      XRHandJoint.values.byName(js_util.getProperty(this, 'jointName'));
+}
+
+@JS()
+@staticInterop
+class XRJointPose implements XRPose {
+  external XRJointPose();
+}
+
+extension PropsXRJointPose on XRJointPose {
+  double get radius => js_util.getProperty(this, 'radius');
 }

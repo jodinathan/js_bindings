@@ -13,16 +13,12 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The interface of the Compression Streams API is an API for
-/// compressing a stream of data.
 @JS()
 @staticInterop
 class CompressionStream implements GenericTransformStream {
   external CompressionStream(String format);
 }
 
-///  The interface of the Compression Streams API is an API for
-/// decompressing a stream of data.
 @JS()
 @staticInterop
 class DecompressionStream implements GenericTransformStream {

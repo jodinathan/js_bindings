@@ -10,16 +10,9 @@ library payment_request;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The Payment Request API's interface is the primary access point
-/// into the API, and lets web content and apps accept payments from
-/// the end user on behalf of the operator of the site or the
-/// publisher of the app.
 @JS()
 @staticInterop
 class PaymentRequest implements EventTarget {
@@ -28,93 +21,19 @@ class PaymentRequest implements EventTarget {
 }
 
 extension PropsPaymentRequest on PaymentRequest {
-  ///  Causes the user agent to begin the user interaction for the
-  /// payment request.
-  ///
-  /// paymentPromise = paymentRequest.show(detailsPromise);
-  ///
   @JS('show')
   @staticInterop
   Future<PaymentResponse> mShow(
-          [
-
-          ///
-          ///     An optional [Future] that you can provide if your
-          /// architecture requires
-          ///     that the payment request's details need to be updated between
-          /// instantiating the
-          ///     payment interface and the user beginning to interact with it.
-          /// The promise should
-          ///    resolve with an object containing the updated information:
-          ///
-          ///
-          ///    [displayItems] Optional
-          ///
-          ///      An array of objects, each describing one line item for the
-          /// payment request. These represent the line items on a receipt or
-          /// invoice, each with the following properties:
-          ///
-          ///      [amount]
-          ///
-          ///        An object describing the monetary value of the item. This
-          /// object includes the following fields:
-          ///
-          ///         [currency]: A string containing a valid 3-letter ISO 4217
-          /// currency identifier (ISO 4217) indicating the currency used for
-          /// the payment [value].
-          ///         [value]: A string containing a valid decimal value
-          /// representing the mount of currency constituting the payment
-          /// amount. This string must only contain an optional leading "-" to
-          /// indicate a negative value, then one or more digits from 0 to 9,
-          /// and an optional decimal point (".", regardless of locale)
-          /// followed by at least one more digit. No whitespace is permitted.
-          ///
-          ///
-          ///      [label]
-          ///
-          ///        A string specifying a human-readable name or description
-          /// of the item or service being charged for. This may be displayed
-          /// to the user by the user agent, depending on the design of the
-          /// interface.
-          ///
-          ///      [pending]
-          ///
-          ///        A Boolean value which is [true] if the specified [amount]
-          /// has not yet been finalized. This can be used to show items such
-          /// as shipping or tax amounts that depend upon the selection of
-          /// shipping address, shipping option, or so forth. The user agent
-          /// may show this information but is not required to do so.
-          ///
-          ///
-          ///
-          Future<PaymentDetailsUpdate>? detailsPromise]) =>
+          [Future<PaymentDetailsUpdate>? detailsPromise]) =>
       js_util
           .promiseToFuture(js_util.callMethod(this, 'show', [detailsPromise]));
 
-  ///  Causes the user agent to end the payment request and to remove
-  /// any user interface that might be shown.
-  ///
-  /// PaymentRequest.abort();
-  ///
   Future<Object> abort() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'abort', []));
 
-  ///  Indicates whether the [PaymentRequest] object can make a payment
-  /// before calling [show()].
-  ///
-  /// paymentRequest.canMakePayment()
-  ///   .then( canPay => { /* ... */ })
-  ///   .catch( error => { /* ... */ })
-  ///
-  /// canPay = await paymentRequest.canMakePayment();
-  ///
   Future<bool> canMakePayment() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'canMakePayment', []));
 
-  ///  An unique identifier for a particular [PaymentRequest], which
-  /// can be set via [details.id]. When none is set, it defaults to a
-  /// UUID.
-  ///
   String get id => js_util.getProperty(this, 'id');
   EventHandlerNonNull? get onpaymentmethodchange =>
       js_util.getProperty(this, 'onpaymentmethodchange');
@@ -261,70 +180,6 @@ extension PropsPaymentDetailsModifier on PaymentDetailsModifier {
   }
 }
 
-enum PaymentShippingType { shipping, delivery, pickup }
-
-@anonymous
-@JS()
-@staticInterop
-class PaymentOptions {
-  external factory PaymentOptions._(
-      {bool? requestPayerName = false,
-      bool? requestBillingAddress = false,
-      bool? requestPayerEmail = false,
-      bool? requestPayerPhone = false,
-      bool? requestShipping = false,
-      String? shippingType});
-
-  factory PaymentOptions(
-          {bool? requestPayerName = false,
-          bool? requestBillingAddress = false,
-          bool? requestPayerEmail = false,
-          bool? requestPayerPhone = false,
-          bool? requestShipping = false,
-          PaymentShippingType? shippingType = PaymentShippingType.shipping}) =>
-      PaymentOptions._(
-          requestPayerName: requestPayerName,
-          requestBillingAddress: requestBillingAddress,
-          requestPayerEmail: requestPayerEmail,
-          requestPayerPhone: requestPayerPhone,
-          requestShipping: requestShipping,
-          shippingType: shippingType?.name);
-}
-
-extension PropsPaymentOptions on PaymentOptions {
-  bool get requestPayerName => js_util.getProperty(this, 'requestPayerName');
-  set requestPayerName(bool newValue) {
-    js_util.setProperty(this, 'requestPayerName', newValue);
-  }
-
-  bool get requestBillingAddress =>
-      js_util.getProperty(this, 'requestBillingAddress');
-  set requestBillingAddress(bool newValue) {
-    js_util.setProperty(this, 'requestBillingAddress', newValue);
-  }
-
-  bool get requestPayerEmail => js_util.getProperty(this, 'requestPayerEmail');
-  set requestPayerEmail(bool newValue) {
-    js_util.setProperty(this, 'requestPayerEmail', newValue);
-  }
-
-  bool get requestPayerPhone => js_util.getProperty(this, 'requestPayerPhone');
-  set requestPayerPhone(bool newValue) {
-    js_util.setProperty(this, 'requestPayerPhone', newValue);
-  }
-
-  bool get requestShipping => js_util.getProperty(this, 'requestShipping');
-  set requestShipping(bool newValue) {
-    js_util.setProperty(this, 'requestShipping', newValue);
-  }
-
-  PaymentShippingType get shippingType => PaymentShippingType.values
-      .byName(js_util.getProperty(this, 'shippingType'));
-  set shippingType(PaymentShippingType newValue) {
-    js_util.setProperty(this, 'shippingType', newValue.name);
-  }
-}
-
 @anonymous
 @JS()
 @staticInterop
@@ -352,351 +207,8 @@ extension PropsPaymentItem on PaymentItem {
   }
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers. Deprecated:
-/// This feature is no longer recommended. Though some browsers might
-/// still support it, it may have already been removed from the
-/// relevant web standards, may be in the process of being dropped,
-/// or may only be kept for compatibility purposes. Avoid using it,
-/// and update existing code if possible; see the compatibility table
-/// at the bottom of this page to guide your decision. Be aware that
-/// this feature may cease to work at any time.Non-standard: This
-/// feature is non-standard and is not on a standards track. Do not
-/// use it on production sites facing the Web: it will not work for
-/// every user. There may also be large incompatibilities between
-/// implementations and the behavior may change in the future.
-///  The interface of the Payment Request API is used to store
-/// shipping or payment address information.
-///  It may be useful to refer to the Universal Postal Union web
-/// site's Addressing S42 standard materials, which provide
-/// information about international standards for postal addresses.
-@JS()
-@staticInterop
-class PaymentAddress {
-  external PaymentAddress();
-}
-
-extension PropsPaymentAddress on PaymentAddress {
-  ///  A standard serializer that returns a JSON representation of the
-  /// [PaymentAddress] object's properties.
-  ///
-  /// var json = PaymentAddress.toJSON()
-  ///
-  @Deprecated('Not official in the specs')
-  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
-
-  ///  A [String] which contains the city or town portion of the
-  /// address.
-  ///
-  @Deprecated('Not official in the specs')
-  String get city => js_util.getProperty(this, 'city');
-
-  ///  A [String] specifying the country in which the address is
-  /// located, using the ISO-3166-1 alpha-2 standard. The string is
-  /// always given in its canonical upper-case form. Some examples of
-  /// valid values: ["US"], ["GB"], ["CN"], or ["JP"].
-  ///
-  @Deprecated('Not official in the specs')
-  String get country => js_util.getProperty(this, 'country');
-
-  ///  A [String] giving the dependent locality or sublocality within a
-  /// city, for example, a neighborhood, borough, district, or UK
-  /// dependent locality.
-  ///
-  @Deprecated('Not official in the specs')
-  String get dependentLocality =>
-      js_util.getProperty(this, 'dependentLocality');
-
-  ///  A [String] specifying the name of the organization, firm,
-  /// company, or institution at the payment address.
-  ///
-  @Deprecated('Not official in the specs')
-  String get organization => js_util.getProperty(this, 'organization');
-
-  ///  A [String] specifying the telephone number of the recipient or
-  /// contact person.
-  ///
-  @Deprecated('Not official in the specs')
-  String get phone => js_util.getProperty(this, 'phone');
-
-  ///  A [String] specifying a code used by a jurisdiction for mail
-  /// routing, for example, the ZIP code in the United States or the
-  /// PIN code in India.
-  ///
-  @Deprecated('Not official in the specs')
-  String get postalCode => js_util.getProperty(this, 'postalCode');
-
-  ///  A [String] giving the name of the recipient, purchaser, or
-  /// contact person at the payment address.
-  ///
-  @Deprecated('Not official in the specs')
-  String get recipient => js_util.getProperty(this, 'recipient');
-
-  ///  A [String] containing the top level administrative subdivision
-  /// of the country, for example a state, province, oblast, or
-  /// prefecture.
-  ///
-  @Deprecated('Not official in the specs')
-  String get region => js_util.getProperty(this, 'region');
-
-  ///  A [String] providing a postal sorting code such as is used in
-  /// France.
-  ///
-  @Deprecated('Not official in the specs')
-  String get sortingCode => js_util.getProperty(this, 'sortingCode');
-
-  ///  An array of [String] objects providing each line of the address
-  /// not included among the other properties. The exact size and
-  /// content varies by country or location and can include, for
-  /// example, a street name, house number, apartment number, rural
-  /// delivery route, descriptive instructions, or post office box
-  /// number.
-  ///
-  @Deprecated('Not official in the specs')
-  Iterable<String> get addressLine => js_util.getProperty(this, 'addressLine');
-}
-
-@anonymous
-@JS()
-@staticInterop
-class AddressInit {
-  external factory AddressInit(
-      {String? country = '',
-      Iterable<String>? addressLine = const [],
-      String? region = '',
-      String? city = '',
-      String? dependentLocality = '',
-      String? postalCode = '',
-      String? sortingCode = '',
-      String? organization = '',
-      String? recipient = '',
-      String? phone = ''});
-}
-
-extension PropsAddressInit on AddressInit {
-  String get country => js_util.getProperty(this, 'country');
-  set country(String newValue) {
-    js_util.setProperty(this, 'country', newValue);
-  }
-
-  Iterable<String> get addressLine => js_util.getProperty(this, 'addressLine');
-  set addressLine(Iterable<String> newValue) {
-    js_util.setProperty(this, 'addressLine', newValue);
-  }
-
-  String get region => js_util.getProperty(this, 'region');
-  set region(String newValue) {
-    js_util.setProperty(this, 'region', newValue);
-  }
-
-  String get city => js_util.getProperty(this, 'city');
-  set city(String newValue) {
-    js_util.setProperty(this, 'city', newValue);
-  }
-
-  String get dependentLocality =>
-      js_util.getProperty(this, 'dependentLocality');
-  set dependentLocality(String newValue) {
-    js_util.setProperty(this, 'dependentLocality', newValue);
-  }
-
-  String get postalCode => js_util.getProperty(this, 'postalCode');
-  set postalCode(String newValue) {
-    js_util.setProperty(this, 'postalCode', newValue);
-  }
-
-  String get sortingCode => js_util.getProperty(this, 'sortingCode');
-  set sortingCode(String newValue) {
-    js_util.setProperty(this, 'sortingCode', newValue);
-  }
-
-  String get organization => js_util.getProperty(this, 'organization');
-  set organization(String newValue) {
-    js_util.setProperty(this, 'organization', newValue);
-  }
-
-  String get recipient => js_util.getProperty(this, 'recipient');
-  set recipient(String newValue) {
-    js_util.setProperty(this, 'recipient', newValue);
-  }
-
-  String get phone => js_util.getProperty(this, 'phone');
-  set phone(String newValue) {
-    js_util.setProperty(this, 'phone', newValue);
-  }
-}
-
-///  The dictionary is used by the Payment Request API to report
-/// validation errors in a physical address (typically a billing
-/// address or a shipping address). Any members which are present
-/// indicate that a validation error occurred for the member of the
-/// same name in an address described using [PaymentAddress].
-///   is the type of the object returned by [shippingAddressErrors]
-/// in the object passed into
-/// [PaymentRequestUpdateEvent.updateWith()] by the
-/// [shippingaddresschange] event handler if a change to the address
-/// resulted in a validation error occurring.
-/// See the examples below to see how this works.
-@anonymous
-@JS()
-@staticInterop
-class AddressErrors {
-  external factory AddressErrors(
-      {required String addressLine,
-      required String city,
-      required String country,
-      required String dependentLocality,
-      required String organization,
-      required String phone,
-      required String postalCode,
-      required String recipient,
-      required String region,
-      required String sortingCode});
-}
-
-extension PropsAddressErrors on AddressErrors {
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get addressLine => js_util.getProperty(this, 'addressLine');
-  set addressLine(String newValue) {
-    js_util.setProperty(this, 'addressLine', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get city => js_util.getProperty(this, 'city');
-  set city(String newValue) {
-    js_util.setProperty(this, 'city', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get country => js_util.getProperty(this, 'country');
-  set country(String newValue) {
-    js_util.setProperty(this, 'country', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get dependentLocality =>
-      js_util.getProperty(this, 'dependentLocality');
-  set dependentLocality(String newValue) {
-    js_util.setProperty(this, 'dependentLocality', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get organization => js_util.getProperty(this, 'organization');
-  set organization(String newValue) {
-    js_util.setProperty(this, 'organization', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get phone => js_util.getProperty(this, 'phone');
-  set phone(String newValue) {
-    js_util.setProperty(this, 'phone', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get postalCode => js_util.getProperty(this, 'postalCode');
-  set postalCode(String newValue) {
-    js_util.setProperty(this, 'postalCode', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get recipient => js_util.getProperty(this, 'recipient');
-  set recipient(String newValue) {
-    js_util.setProperty(this, 'recipient', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get region => js_util.getProperty(this, 'region');
-  set region(String newValue) {
-    js_util.setProperty(this, 'region', newValue);
-  }
-
-  ///  A [String] which, if present, indicates that the property of the
-  /// [PaymentAddress] could not be validated. The contents of the
-  /// string provide a human-readable explanation of the validation
-  /// failure, and ideally suggestions to correct the problem.
-  ///
-  String get sortingCode => js_util.getProperty(this, 'sortingCode');
-  set sortingCode(String newValue) {
-    js_util.setProperty(this, 'sortingCode', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class PaymentShippingOption {
-  external factory PaymentShippingOption(
-      {required String id,
-      required String label,
-      required PaymentCurrencyAmount amount,
-      bool? selected = false});
-}
-
-extension PropsPaymentShippingOption on PaymentShippingOption {
-  String get id => js_util.getProperty(this, 'id');
-  set id(String newValue) {
-    js_util.setProperty(this, 'id', newValue);
-  }
-
-  String get label => js_util.getProperty(this, 'label');
-  set label(String newValue) {
-    js_util.setProperty(this, 'label', newValue);
-  }
-
-  PaymentCurrencyAmount get amount => js_util.getProperty(this, 'amount');
-  set amount(PaymentCurrencyAmount newValue) {
-    js_util.setProperty(this, 'amount', newValue);
-  }
-
-  bool get selected => js_util.getProperty(this, 'selected');
-  set selected(bool newValue) {
-    js_util.setProperty(this, 'selected', newValue);
-  }
-}
-
 enum PaymentComplete { fail, success, unknown }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Payment Request API is returned after a
-/// user selects a payment method and approves a payment request.
-@experimental
 @JS()
 @staticInterop
 class PaymentResponse implements EventTarget {
@@ -706,130 +218,18 @@ class PaymentResponse implements EventTarget {
 extension PropsPaymentResponse on PaymentResponse {
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
-  ///  Returns the identifier of the [PaymentRequest] that produced the
-  /// current response. This is the same value supplied in the
-  /// [PaymentRequest()] constructor by [details.id].
-  ///
   String get requestId => js_util.getProperty(this, 'requestId');
-
-  ///  Returns the payment method identifier for the payment method
-  /// that the user selected, for example, Visa, Mastercard, Paypal,
-  /// etc..
-  ///
   String get methodName => js_util.getProperty(this, 'methodName');
-
-  ///  Returns a JSON-serializable object that provides a payment
-  /// method specific message used by the merchant to process the
-  /// transaction and determine successful fund transfer. The contents
-  /// of the object depend on the payment method being used. Developers
-  /// need to consult whomever controls the URL for the expected shape
-  /// of the details object.
-  ///
   dynamic get details => js_util.getProperty(this, 'details');
-
-  ///  Notifies the user agent that the user interaction is over. This
-  /// causes any remaining user interface to be closed. This method
-  /// should only be called after the Promise returned by the
-  /// [PaymentRequest.show()] method.
-  ///
-  /// completePromise = paymentRequest.complete(result);
-  ///
   Future<Object> complete(
-          [
-
-          ///
-          ///    A [String] indicating the state of the payment operation upon
-          ///    completion. It must be one of the following:
-          ///
-          ///
-          ///    [success]
-          ///
-          ///
-          ///       The payment was successfully processed. The user agent may
-          /// or may not present
-          ///      some form of "payment successful" indication to the user.
-          ///
-          ///
-          ///    [fail]
-          ///
-          ///
-          ///       The payment was not successfully processed. The failure may
-          /// or may not be
-          ///       announced to the user by the user agent, depending on its
-          /// design.
-          ///
-          ///
-          ///    [unknown]
-          ///
-          ///
-          ///       The success or failure status of the transaction is unknown
-          /// or irrelevant, and
-          ///       the user agent should not present any notification, even if
-          /// it normally would.
-          ///      This is the default value.
-          ///
-          ///
-          ///
-          ///
-          ///
-          ///      Note: In older versions of the specification, an empty
-          /// string,
-          ///     [""], was used instead of [unknown] to indicate a completion
-          ///      without a known result state. See the Browser compatibility
-          /// section
-          ///     below for details.
-          ///
-          ///
-          ///
-          PaymentComplete? result = PaymentComplete.unknown]) =>
+          [PaymentComplete? result = PaymentComplete.unknown]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'complete', [result?.name]));
 
-  ///  If something is wrong with the payment response's data (and
-  /// there is a recoverable error), this method allows a merchant to
-  /// request that the user retry the payment. The method takes an
-  /// object as argument, which is used to signal to the user exactly
-  /// what is wrong with the payment response so they can try to
-  /// correct any issues.
-  ///
-  /// retryPromise = paymentRequest.retry(errorFields);
-  ///
-  Future<Object> retry(
-          [
-
-          ///  A [PaymentValidationErrors] object, with the following
-          /// properties:
-          ///  [error] Optional
-          ///
-          ///    A general description of a payment error from which the user
-          /// may attempt to recover by retrying the payment, possibly after
-          /// correcting mistakes in the payment information. [error] can be
-          /// provided all by itself to provide only a generic error message,
-          /// or in concert with the other properties to serve as an overview
-          /// while other properties' values gude the user to errors in
-          /// specific fields in the payment form.
-          ///
-          ///  [paymentMethod] Optional
-          ///
-          ///    Any payment method specific errors which may have occurred.
-          /// This object's contents will vary depending on the payment method
-          /// used.
-          ///
-          ///
-          ///
-          PaymentValidationErrors? errorFields]) =>
+  Future<Object> retry([PaymentValidationErrors? errorFields]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'retry', [errorFields]));
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The dictionary represents objects providing information about
-/// any and all errors that occurred while processing a payment
-/// request. When validation of the [PaymentResponse] returned by the
-/// [PaymentRequest.show()] or [PaymentResponse.retry()] methods
-/// fails, your code creates a object to pass into [retry()] so that
-/// the user agent knows what needs to be fixed and what if any error
-/// messages to display to the user.
 @anonymous
 @JS()
 @staticInterop
@@ -839,59 +239,17 @@ class PaymentValidationErrors {
 }
 
 extension PropsPaymentValidationErrors on PaymentValidationErrors {
-  ///  A general description of a payment error from which the user may
-  /// attempt to recover by retrying the payment, possibly after
-  /// correcting mistakes in the payment information. can be provided
-  /// all by itself to provide only a generic error message, or in
-  /// concert with the other properties to serve as an overview while
-  /// other properties' values gude the user to errors in specific
-  /// fields in the payment form.
-  ///
   String get error => js_util.getProperty(this, 'error');
   set error(String newValue) {
     js_util.setProperty(this, 'error', newValue);
   }
 
-  ///  Any payment method specific errors which may have occurred. This
-  /// object's contents will vary depending on the payment method used.
-  ///
   dynamic get paymentMethod => js_util.getProperty(this, 'paymentMethod');
   set paymentMethod(dynamic newValue) {
     js_util.setProperty(this, 'paymentMethod', newValue);
   }
 }
 
-@anonymous
-@JS()
-@staticInterop
-class PayerErrors {
-  external factory PayerErrors(
-      {required String email, required String name, required String phone});
-}
-
-extension PropsPayerErrors on PayerErrors {
-  String get email => js_util.getProperty(this, 'email');
-  set email(String newValue) {
-    js_util.setProperty(this, 'email', newValue);
-  }
-
-  String get name => js_util.getProperty(this, 'name');
-  set name(String newValue) {
-    js_util.setProperty(this, 'name', newValue);
-  }
-
-  String get phone => js_util.getProperty(this, 'phone');
-  set phone(String newValue) {
-    js_util.setProperty(this, 'phone', newValue);
-  }
-}
-
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Payment Request API describes the
-/// [paymentmethodchange] event which is fired by some payment
-/// handlers when the user switches payment instruments (e.g., a user
-/// selects a "store" card to make a purchase while using Apple Pay).
 @JS()
 @staticInterop
 class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
@@ -900,18 +258,7 @@ class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
 }
 
 extension PropsPaymentMethodChangeEvent on PaymentMethodChangeEvent {
-  ///  A [String] containing the payment method identifier, a string
-  /// which uniquely identifies a particular payment method. This
-  /// identifier is usually a URL used during the payment process, but
-  /// may be a standardized non-URL string as well, such as
-  /// [basic-card]. The default value is the empty string, [""].
-  ///
   String get methodName => js_util.getProperty(this, 'methodName');
-
-  ///  An object containing payment method-specific data useful when
-  /// handling a payment method change. If no such information is
-  /// available, this value is [null].
-  ///
   dynamic get methodDetails => js_util.getProperty(this, 'methodDetails');
 }
 
@@ -935,30 +282,6 @@ extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
   }
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface is used for events sent to a [PaymentRequest]
-/// instance when changes are made to shipping-related information
-/// for a pending [PaymentRequest]. Those events are:
-///
-///  [shippingaddresschange] Secure context
-///
-///
-///    Dispatched whenever the user changes their shipping address.
-///     Also available using the [onshippingaddresschange] event
-/// handler property.
-///
-///
-///  [shippingoptionchange] Secure context
-///
-///
-///    Dispatched whenever the user changes a shipping option.
-///     Also available using the [onshippingoptionchange] event
-/// handler property.
-///
-///
-///
-@experimental
 @JS()
 @staticInterop
 class PaymentRequestUpdateEvent implements Event {
@@ -967,13 +290,6 @@ class PaymentRequestUpdateEvent implements Event {
 }
 
 extension PropsPaymentRequestUpdateEvent on PaymentRequestUpdateEvent {
-  ///  If the event handler determines that information included in the
-  /// payment request needs to be changed, or that new information
-  /// needs to be added, it calls [updateWith()] with the information
-  /// that needs to be replaced or added.
-  ///
-  /// paymentRequestUpdateEvent.updateWith(details);
-  ///
   Object updateWith(Future<PaymentDetailsUpdate> detailsPromise) =>
       js_util.callMethod(this, 'updateWith', [detailsPromise]);
 }

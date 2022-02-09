@@ -13,18 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The extension is part of the WebGL API and exposes 4 BPTC
-/// compressed texture formats. These compression formats are called
-/// BC7 and BC6H in Microsoft's DirectX API.
-///  WebGL extensions are available using the
-/// [WebGLRenderingContext.getExtension()] method. For more
-/// information, see also Using Extensions in the WebGL tutorial.
-///
-///   Note: Support depends on the system's graphics driver. There is
-/// no support on Windows.
-///   This extension is available to both, WebGL1 and WebGL2
-/// contexts.
-///
 @JS('EXT_texture_compression_bptc')
 @staticInterop
 class EXTTextureCompressionBptc {

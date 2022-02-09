@@ -10,7 +10,6 @@ library payment_handler;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -67,8 +66,7 @@ class PaymentInstrument {
   external factory PaymentInstrument(
       {required String name,
       required Iterable<ImageObject> icons,
-      required String method,
-      dynamic capabilities});
+      required String method});
 }
 
 extension PropsPaymentInstrument on PaymentInstrument {
@@ -85,11 +83,6 @@ extension PropsPaymentInstrument on PaymentInstrument {
   String get method => js_util.getProperty(this, 'method');
   set method(String newValue) {
     js_util.setProperty(this, 'method', newValue);
-  }
-
-  dynamic get capabilities => js_util.getProperty(this, 'capabilities');
-  set capabilities(dynamic newValue) {
-    js_util.setProperty(this, 'capabilities', newValue);
   }
 }
 
@@ -199,12 +192,6 @@ extension PropsPaymentRequestDetailsUpdate on PaymentRequestDetailsUpdate {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Payment Request API is the object passed to
-/// a payment handler when a [PaymentRequest] is made.
-@experimental
 @JS()
 @staticInterop
 class PaymentRequestEvent implements ExtendableEvent {
@@ -213,58 +200,15 @@ class PaymentRequestEvent implements ExtendableEvent {
 }
 
 extension PropsPaymentRequestEvent on PaymentRequestEvent {
-  ///  Returns the top-level origin where the [PaymentRequest] object
-  /// was initialized.
-  ///
-  @experimental
   String get topOrigin => js_util.getProperty(this, 'topOrigin');
-
-  ///  Returns the origin where the [PaymentRequest] object was
-  /// initialized.
-  ///
-  @experimental
   String get paymentRequestOrigin =>
       js_util.getProperty(this, 'paymentRequestOrigin');
-
-  /// Returns the ID of the [PaymentRequest] object.
-  ///
-  @experimental
   String get paymentRequestId => js_util.getProperty(this, 'paymentRequestId');
-
-  ///  Returns an array of [PaymentMethodData] objects containing
-  /// payment method identifiers for the payment methods that the web
-  /// site accepts and any associated payment method specific data.
-  ///
-  @experimental
   Iterable<PaymentMethodData> get methodData =>
       js_util.getProperty(this, 'methodData');
-
-  /// Returns the total amount being requested for payment.
-  ///
-  @experimental
   dynamic get total => js_util.getProperty(this, 'total');
-
-  ///  Returns an array of objects containing changes to payment
-  /// details.
-  ///
-  @experimental
   Iterable<PaymentDetailsModifier> get modifiers =>
       js_util.getProperty(this, 'modifiers');
-
-  ///  Returns a [PaymentInstrument] object reflecting the payment
-  /// instrument selected by the user or an empty string if the user
-  /// has not registered or chosen a payment instrument.
-  ///
-  @experimental
-  String get instrumentKey => js_util.getProperty(this, 'instrumentKey');
-
-  ///  Opens the specified URL in a new window, if and only if the
-  /// given URL is on the same origin as the calling page. It returns a
-  /// [Future] that resolves with a reference to a [WindowClient].
-  ///
-  /// var aPromise = paymentRequestEvent.openWindow(url)
-  ///
-  @experimental
   Future<WindowClient> openWindow(String url) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'openWindow', [url]));
 
@@ -273,14 +217,6 @@ extension PropsPaymentRequestEvent on PaymentRequestEvent {
       js_util.promiseToFuture(js_util.callMethod(
           this, 'changePaymentMethod', [methodName, methodDetails]));
 
-  ///  Prevents the default event handling and allows you to provide a
-  /// [Future] for a [PaymentResponse] object yourself.
-  ///
-  /// paymentRequestEvent.respondWith(
-  ///  // Promise that resolves with a PaymentResponse.
-  /// )
-  ///
-  @experimental
   Object respondWith(Future<PaymentHandlerResponse> handlerResponsePromise) =>
       js_util.callMethod(this, 'respondWith', [handlerResponsePromise]);
 }
@@ -295,8 +231,7 @@ class PaymentRequestEventInit implements ExtendableEventInit {
       required String paymentRequestId,
       required Iterable<PaymentMethodData> methodData,
       required PaymentCurrencyAmount total,
-      required Iterable<PaymentDetailsModifier> modifiers,
-      required String instrumentKey});
+      required Iterable<PaymentDetailsModifier> modifiers});
 }
 
 extension PropsPaymentRequestEventInit on PaymentRequestEventInit {
@@ -331,11 +266,6 @@ extension PropsPaymentRequestEventInit on PaymentRequestEventInit {
       js_util.getProperty(this, 'modifiers');
   set modifiers(Iterable<PaymentDetailsModifier> newValue) {
     js_util.setProperty(this, 'modifiers', newValue);
-  }
-
-  String get instrumentKey => js_util.getProperty(this, 'instrumentKey');
-  set instrumentKey(String newValue) {
-    js_util.setProperty(this, 'instrumentKey', newValue);
   }
 }
 

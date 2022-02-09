@@ -1,16 +1,14 @@
-/// Page Visibility Level 2
+/// preferCurrentTab
 ///
-/// https://w3c.github.io/page-visibility/
+/// https://wicg.github.io/prefer-current-tab/
 
 // ignore_for_file: unused_import
 
 @JS('window')
 @staticInterop
-library page_visibility_2;
+library prefer_current_tab;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
-
-enum VisibilityState { hidden, visible }

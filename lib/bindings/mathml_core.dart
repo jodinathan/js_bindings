@@ -1,6 +1,6 @@
 /// MathML Core
 ///
-/// https://mathml-refresh.github.io/mathml-core/
+/// https://w3c.github.io/mathml-core/
 
 // ignore_for_file: unused_import
 
@@ -13,7 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-/// The interface represents any MathML element.
 @JS()
 @staticInterop
 class MathMLElement
@@ -21,6 +20,7 @@ class MathMLElement
         Element,
         ElementCSSInlineStyle,
         GlobalEventHandlers,
-        DocumentAndElementEventHandlers {
+        DocumentAndElementEventHandlers,
+        HTMLOrSVGElement {
   external MathMLElement();
 }

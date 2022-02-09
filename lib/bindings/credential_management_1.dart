@@ -10,24 +10,9 @@ library credential_management_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Credential Management API provides
-/// information about an entity (usually a user) as a prerequisite to
-/// a trust decision.
-///  objects may be of 3 different types:
-///
-///  [PasswordCredential]
-///  [PublicKeyCredential]
-///  [FederatedCredential]
-///
-@experimental
 @JS()
 @staticInterop
 class Credential {
@@ -35,17 +20,10 @@ class Credential {
 }
 
 extension PropsCredential on Credential {
-  ///  Returns a [String] containing the credential's identifier. This
-  /// might be any one of a GUID, username, or email address.
-  ///
   String get id => js_util.getProperty(this, 'id');
-
-  ///  Returns a [String] containing the credential's type. Valid
-  /// values are [password], [federated] and [public-key]. (For
-  /// [PasswordCredential], [FederatedCredential] and
-  /// [PublicKeyCredential])
-  ///
   String get type => js_util.getProperty(this, 'type');
+  static bool isConditionalMediationAvailable() =>
+      js_util.callMethod(Credential, 'isConditionalMediationAvailable', []);
 }
 
 @JS()
@@ -59,15 +37,6 @@ extension PropsCredentialUserData on CredentialUserData {
   String get iconURL => js_util.getProperty(this, 'iconURL');
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Credential Management API exposes methods
-/// to request credentials and notify the user agent when events such
-/// as successful sign in or sign out happen. This interface is
-/// accessible from [Navigator.credentials].
-@experimental
 @JS()
 @staticInterop
 class CredentialsContainer {
@@ -75,44 +44,17 @@ class CredentialsContainer {
 }
 
 extension PropsCredentialsContainer on CredentialsContainer {
-  ///  Returns a [Future] that resolves with the [Credential] instance
-  /// that matches the provided parameters.
-  ///
-  /// var promise = CredentialsContainer.get([options])
-  ///
   @JS('get')
   @staticInterop
   Future<Credential> mGet([CredentialRequestOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'get', [options]));
 
-  ///  Stores a set of credentials for a user, inside a provided
-  /// [Credential] instance and returns that instance in a [Future].
-  ///
-  /// CredentialsContainer.store(Credential).then(function(Credential) { /* ... */ } )
-  ///
   Future<Credential> store(Credential credential) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'store', [credential]));
 
-  ///  Returns a [Future] that resolves with a new [Credential]
-  /// instance based on the provided options, or [null] if no
-  /// [Credential] object can be created. In exceptional circumstances,
-  /// the [Future] may reject.
-  ///
-  /// var promise = CredentialsContainer.create([options])
-  ///
   Future<Credential> create([CredentialCreationOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'create', [options]));
 
-  ///  Sets a flag that specifies whether automatic log in is allowed
-  /// for future visits to the current origin, then returns an empty
-  /// [Future]. For example, you might call this, after a user signs
-  /// out of a website to ensure that they aren't automatically signed
-  /// in on the next site visit. Earlier versions of the spec called
-  /// this method [requireUserMediation()]. See Browser compatibility
-  /// for support details.
-  ///
-  /// var Promise = CredentialsContainer.preventSilentAccess()
-  ///
   Future<Object> preventSilentAccess() => js_util
       .promiseToFuture(js_util.callMethod(this, 'preventSilentAccess', []));
 }
@@ -159,7 +101,12 @@ extension PropsCredentialRequestOptions on CredentialRequestOptions {
   }
 }
 
-enum CredentialMediationRequirement { silent, optional, valueRequired }
+enum CredentialMediationRequirement {
+  silent,
+  optional,
+  conditional,
+  valueRequired
+}
 
 @anonymous
 @JS()
@@ -175,18 +122,6 @@ extension PropsCredentialCreationOptions on CredentialCreationOptions {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Credential Management API provides
-/// information about a username/password pair. In supporting
-/// browsers an instance of this class may be passed in the
-/// [credential] member of the [init] object for global [fetch()].
-///
-///   Note: This interface is restricted to top-level contexts and
-/// cannot be used from an [<iframe>].
-///
 @JS()
 @staticInterop
 class PasswordCredential implements Credential, CredentialUserData {
@@ -194,8 +129,6 @@ class PasswordCredential implements Credential, CredentialUserData {
 }
 
 extension PropsPasswordCredential on PasswordCredential {
-  /// A [String] containing the password of the credential.
-  ///
   String get password => js_util.getProperty(this, 'password');
 }
 
@@ -232,18 +165,6 @@ extension PropsPasswordCredentialData on PasswordCredentialData {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Credential Management API provides
-/// information about credentials from a federated identity provider.
-/// A federated identity provider is an entity that a website trusts
-/// to correctly authenticate a user, and that provides an API for
-/// that purpose. OpenID Connect is an example of a federated
-/// identity provider framework.
-///  In browsers that support it, an instance of this interface may
-/// be passed in the [credential] member of the [init] object for
-/// global [fetch()].
 @JS()
 @staticInterop
 class FederatedCredential implements Credential, CredentialUserData {
@@ -251,14 +172,7 @@ class FederatedCredential implements Credential, CredentialUserData {
 }
 
 extension PropsFederatedCredential on FederatedCredential {
-  ///  Returns a [String] containing a credential's federated identity
-  /// provider.
-  ///
   String get provider => js_util.getProperty(this, 'provider');
-
-  ///  Returns a [String] containing a credential's federated identity
-  /// protocol.
-  ///
   String? get protocol => js_util.getProperty(this, 'protocol');
 }
 

@@ -110,91 +110,48 @@ class WebGLObject {
   external WebGLObject();
 }
 
-///  The WebGLBuffer interface is part of the WebGL API and
-/// represents an opaque buffer object storing data such as vertices
-/// or colors.
 @JS()
 @staticInterop
 class WebGLBuffer implements WebGLObject {
   external WebGLBuffer();
 }
 
-///  The WebGLFramebuffer interface is part of the WebGL API and
-/// represents a collection of buffers that serve as a rendering
-/// destination.
 @JS()
 @staticInterop
 class WebGLFramebuffer implements WebGLObject {
   external WebGLFramebuffer();
 }
 
-///  The is part of the WebGL API and is a combination of two
-/// compiled [WebGLShader]s consisting of a vertex shader and a
-/// fragment shader (both written in GLSL).
-///  To create a , call the GL context's [createProgram()] function.
-/// After attaching the shader programs using [attachShader()], you
-/// link them into a usable program. This is shown in the code below.
-/// [var program = gl.createProgram();
-///
-/// // Attach pre-existing shaders
-/// gl.attachShader(program, vertexShader);
-/// gl.attachShader(program, fragmentShader);
-///
-/// gl.linkProgram(program);
-///
-/// if ( !gl.getProgramParameter( program, gl.LINK_STATUS) ) {
-///  var info = gl.getProgramInfoLog(program);
-///  throw 'Could not compile WebGL program. \n\n' + info;
-/// }
-/// ]
-///  See [WebGLShader] for information on creating the [vertexShader]
-/// and [fragmentShader] in the above example.
 @JS()
 @staticInterop
 class WebGLProgram implements WebGLObject {
   external WebGLProgram();
 }
 
-///  The WebGLRenderbuffer interface is part of the WebGL API and
-/// represents a buffer that can contain an image, or that can be a
-/// source or target of a rendering operation.
 @JS()
 @staticInterop
 class WebGLRenderbuffer implements WebGLObject {
   external WebGLRenderbuffer();
 }
 
-///  The WebGLShader is part of the WebGL API and can either be a
-/// vertex or a fragment shader. A [WebGLProgram] requires both types
-/// of shaders.
 @JS()
 @staticInterop
 class WebGLShader implements WebGLObject {
   external WebGLShader();
 }
 
-///  The WebGLTexture interface is part of the WebGL API and
-/// represents an opaque texture object providing storage and state
-/// for texturing operations.
 @JS()
 @staticInterop
 class WebGLTexture implements WebGLObject {
   external WebGLTexture();
 }
 
-///  The WebGLUniformLocation interface is part of the WebGL API and
-/// represents the location of a uniform variable in a shader
-/// program.
 @JS()
 @staticInterop
 class WebGLUniformLocation {
   external WebGLUniformLocation();
 }
 
-///  The WebGLActiveInfo interface is part of the WebGL API and
-/// represents the information returned by calling the
-/// [WebGLRenderingContext.getActiveAttrib()] and
-/// [WebGLRenderingContext.getActiveUniform()] methods.
 @JS()
 @staticInterop
 class WebGLActiveInfo {
@@ -202,22 +159,11 @@ class WebGLActiveInfo {
 }
 
 extension PropsWebGLActiveInfo on WebGLActiveInfo {
-  /// The read-only size of the requested variable.
-  ///
   int get size => js_util.getProperty(this, 'size');
-
-  /// The read-only type of the requested variable.
-  ///
   int get type => js_util.getProperty(this, 'type');
-
-  /// The read-only name of the requested variable.
-  ///
   String get name => js_util.getProperty(this, 'name');
 }
 
-///  The WebGLShaderPrecisionFormat interface is part of the WebGL
-/// API and represents the information returned by calling the
-/// [WebGLRenderingContext.getShaderPrecisionFormat()] method.
 @JS()
 @staticInterop
 class WebGLShaderPrecisionFormat {
@@ -225,19 +171,8 @@ class WebGLShaderPrecisionFormat {
 }
 
 extension PropsWebGLShaderPrecisionFormat on WebGLShaderPrecisionFormat {
-  ///  The base 2 log of the absolute value of the minimum value that
-  /// can be represented.
-  ///
   int get rangeMin => js_util.getProperty(this, 'rangeMin');
-
-  ///  The base 2 log of the absolute value of the maximum value that
-  /// can be represented.
-  ///
   int get rangeMax => js_util.getProperty(this, 'rangeMax');
-
-  ///  The number of bits of precision that can be represented. For
-  /// integer formats this value is always 0.
-  ///
   int get precision => js_util.getProperty(this, 'precision');
 }
 
@@ -1627,21 +1562,6 @@ extension PropsWebGLRenderingContextOverloads
           .callMethod(this, 'uniformMatrix4fv', [location, transpose, value]);
 }
 
-///  The interface provides an interface to the OpenGL ES 2.0
-/// graphics rendering context for the drawing surface of an HTML
-/// [<canvas>] element.
-///  To get an access to a WebGL context for 2D and/or 3D graphics
-/// rendering, call [getContext()] on a [<canvas>] element, supplying
-/// "webgl" as the argument:
-/// [var canvas = document.getElementById('myCanvas');
-/// var gl = canvas.getContext('webgl');
-/// ]
-///  Once you have the WebGL rendering context for a canvas, you can
-/// render within it. The WebGL tutorial has more information,
-/// examples, and resources on how to get started with WebGL.
-///  If you require a WebGL 2.0 context, see
-/// [WebGL2RenderingContext]; this supplies access to an
-/// implementation of OpenGL ES 3.0 graphics.
 @JS()
 @staticInterop
 class WebGLRenderingContext
@@ -1649,9 +1569,6 @@ class WebGLRenderingContext
   external WebGLRenderingContext();
 }
 
-///  The WebContextEvent interface is part of the WebGL API and is an
-/// interface for an event that is generated in response to a status
-/// change to the WebGL rendering context.
 @JS()
 @staticInterop
 class WebGLContextEvent implements Event {
@@ -1659,9 +1576,6 @@ class WebGLContextEvent implements Event {
 }
 
 extension PropsWebGLContextEvent on WebGLContextEvent {
-  ///  A read-only property containing additional information about the
-  /// event.
-  ///
   String get statusMessage => js_util.getProperty(this, 'statusMessage');
 }
 

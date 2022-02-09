@@ -10,4 +10,4 @@ final mdnWeb = Uri(
 
 const mdnWebZipUrl = 'https://github.com/mdn/content/archive/refs/heads/main.zip';
 
-const w3cTreeUrl = 'https://api.github.com/repos/w3c/webref/git/trees/main?recursive=1';
+const w3cTreeUrl = 'https://api.github.com/repos/w3c/webref/git/trees/curated?recursive=1';

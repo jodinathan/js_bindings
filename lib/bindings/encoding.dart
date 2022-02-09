@@ -10,7 +10,7 @@ library encoding;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -60,13 +60,6 @@ extension PropsTextDecodeOptions on TextDecodeOptions {
   }
 }
 
-///  The interface represents a decoder for a specific text encoding,
-/// such as [UTF-8], [ISO-8859-2], [KOI8-R], [GBK], etc. A decoder
-/// takes a stream of bytes as input and emits a stream of code
-/// points.
-///  Note: This feature is available in Web Workers
-///
-@experimental
 @JS()
 @staticInterop
 class TextDecoder implements TextDecoderCommon {
@@ -74,48 +67,7 @@ class TextDecoder implements TextDecoderCommon {
 }
 
 extension PropsTextDecoder on TextDecoder {
-  ///  Returns a [String] containing the text decoded with the method
-  /// of the specific [TextDecoder] object.
-  ///
-  /// b1 = decoder.decode(buffer, options);
-  /// b2 = decoder.decode(buffer);
-  /// b3 = decoder.decode();
-  ///
-  /// This example encodes and decodes the euro symbol, €.
-  /// <p>Encoded value: <span id="encoded-value"></span></p>
-  /// <p>Decoded value: <span id="decoded-value"></span></p>
-  ///
-  /// ```
-  ///
-  /// const encoder = new TextEncoder();
-  /// const array = encoder.encode('€'); // Uint8Array(3) [226, 130, 172]
-  /// document.getElementById('encoded-value').textContent = array;
-  ///
-  /// const decoder = new TextDecoder();
-  /// const str = decoder.decode(array); // String "€"
-  /// document.getElementById('decoded-value').textContent = str;
-  ///
-  /// ```
-  ///
-  String decode(
-          [dynamic input,
-
-          /// Is a [TextDecodeOptions] dictionary with the property:
-          ///
-          ///    [stream]
-          ///
-          ///
-          ///       A boolean flag indicating that additional data will follow
-          /// in
-          ///       subsequent calls to decode(). Set to true if processing the
-          /// data in chunks, and
-          ///       false for the final chunk or if the data is not chunked. It
-          /// defaults to false.
-          ///
-          ///
-          ///
-          ///
-          TextDecodeOptions? options]) =>
+  String decode([dynamic input, TextDecodeOptions? options]) =>
       js_util.callMethod(this, 'decode', [input, options]);
 }
 
@@ -149,11 +101,6 @@ extension PropsTextEncoderEncodeIntoResult on TextEncoderEncodeIntoResult {
   }
 }
 
-///  The interface takes a stream of code points as input and emits a
-/// stream of UTF-8 bytes.
-///  Note: This feature is available in Web Workers
-///
-@experimental
 @JS()
 @staticInterop
 class TextEncoder implements TextEncoderCommon {
@@ -161,29 +108,14 @@ class TextEncoder implements TextEncoderCommon {
 }
 
 extension PropsTextEncoder on TextEncoder {
-  ///  Takes a [String] as input, and returns a [Uint8Array] containing
-  /// UTF-8 encoded text.
-  ///
-  /// b1 = encoder.encode(string);
-  ///
   Uint8List encode([String? input = '']) =>
       js_util.callMethod(this, 'encode', [input]);
 
-  ///  Takes a [String] to encode and a destination [Uint8Array] to put
-  /// resulting UTF-8 encoded text into, and returns a dictionary
-  /// object indicating the progress of the encoding. This is
-  /// potentially more performant than the older [encode()] method.
-  ///
-  /// b1 = encoder.encodeInto(string, uint8Array);
-  ///
   TextEncoderEncodeIntoResult encodeInto(
           String source, Uint8List destination) =>
       js_util.callMethod(this, 'encodeInto', [source, destination]);
 }
 
-///  The interface of the Encoding API converts a stream of strings
-/// into bytes in the UTF-8 encoding. It is the streaming equivalent
-/// of [TextDecoder].
 @JS()
 @staticInterop
 class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
@@ -191,9 +123,6 @@ class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
       [String? label = 'utf-8', TextDecoderOptions? options]);
 }
 
-///  The interface of the Encoding API converts a stream of strings
-/// into bytes in the UTF-8 encoding. It is the streaming equivalent
-/// of [TextEncoder].
 @JS()
 @staticInterop
 class TextEncoderStream implements TextEncoderCommon, GenericTransformStream {

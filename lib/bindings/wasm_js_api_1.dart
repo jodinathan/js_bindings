@@ -228,7 +228,7 @@ extension PropsTable on Table {
   int get length => js_util.getProperty(this, 'length');
 }
 
-enum ValueType { i32, i64, f32, f64, externref, anyfunc }
+enum ValueType { i32, i64, f32, f64, v128, externref, anyfunc }
 
 @anonymous
 @JS()
@@ -267,22 +267,4 @@ extension PropsGlobal on Global {
   set value(dynamic newValue) {
     js_util.setProperty(this, 'value', newValue);
   }
-}
-
-@JS()
-@staticInterop
-class CompileError {
-  external CompileError();
-}
-
-@JS()
-@staticInterop
-class LinkError {
-  external LinkError();
-}
-
-@JS()
-@staticInterop
-class RuntimeError {
-  external RuntimeError();
 }

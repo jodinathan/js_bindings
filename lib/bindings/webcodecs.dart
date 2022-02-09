@@ -13,9 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-/// The interface of the WebCodecs API decodes chunks of audio.
 @JS()
 @staticInterop
 class AudioDecoder {
@@ -23,83 +20,20 @@ class AudioDecoder {
 }
 
 extension PropsAudioDecoder on AudioDecoder {
-  ///  Represents the state of the underlying codec and whether it is
-  /// configured for decoding.
-  ///
   CodecState get state =>
       CodecState.values.byName(js_util.getProperty(this, 'state'));
-
-  /// An integer representing the number of decode queue requests.
-  ///
   int get decodeQueueSize => js_util.getProperty(this, 'decodeQueueSize');
-
-  ///  Enqueues a control message to configure the audio decoder for
-  /// decoding chunks.
-  ///
-  /// AudioDecoder.configure(config)
-  ///
-  Object configure(
-
-          /// A dictionary object containing the following members:
-          ///
-          ///    [codec]
-          ///
-          ///      : A [string] containing a valid codec string.
-          ///
-          ///
-          ///    [sampleRate]
-          ///
-          ///       : An integer representing the number of frame samples per
-          /// second.
-          ///
-          ///
-          ///    [numberOfChannels]
-          ///
-          ///      : An integer representing the number of audio channels.
-          ///
-          ///
-          ///    [description]Optional
-          ///
-          ///       A [BufferSource] containing a sequence of codec specific
-          /// bytes, commonly known as extradata.
-          ///
-          ///
-          ///
-          ///
-          AudioDecoderConfig config) =>
+  Object configure(AudioDecoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
-  /// Enqueues a control message to decode a given chunk of audio.
-  ///
-  /// AudioDecoder.decode(chunk)
-  ///
-  Object decode(
-
-          ///  An [EncodedAudioChunk] object representing a chunk of encoded
-          /// audio.
-          ///
-          EncodedAudioChunk chunk) =>
+  Object decode(EncodedAudioChunk chunk) =>
       js_util.callMethod(this, 'decode', [chunk]);
 
-  ///  Returns a promise that resolves once all pending messages in the
-  /// queue have been completed.
-  ///
-  /// AudioDecoder.flush()
-  ///
   Future<Object> flush() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'flush', []));
 
-  ///  Resets all states including configuration, control messages in
-  /// the control message queue, and all pending callbacks.
-  ///
-  /// AudioDecoder.reset()
-  ///
   Object reset() => js_util.callMethod(this, 'reset', []);
 
-  /// Ends all pending work and releases system resources.
-  ///
-  /// AudioDecoder.close()
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 
   static Future<AudioDecoderSupport> isConfigSupported(
@@ -129,9 +63,6 @@ extension PropsAudioDecoderInit on AudioDecoderInit {
   }
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-/// The interface of the WebCodecs API decodes chunks of video.
 @JS()
 @staticInterop
 class VideoDecoder {
@@ -139,126 +70,20 @@ class VideoDecoder {
 }
 
 extension PropsVideoDecoder on VideoDecoder {
-  ///  Indicates whether the underlying codec is configured for
-  /// decoding.
-  ///
   CodecState get state =>
       CodecState.values.byName(js_util.getProperty(this, 'state'));
-
-  /// An integer representing the number of decode queue requests.
-  ///
   int get decodeQueueSize => js_util.getProperty(this, 'decodeQueueSize');
-
-  ///  Enqueues a control message to configure the video decoder for
-  /// decoding chunks.
-  ///
-  /// VideoDecoder.configure(config)
-  ///
-  Object configure(
-
-          /// An object containing the following members:
-          ///
-          ///    [codec]
-          ///
-          ///     A [string] containing a valid codec string.
-          ///
-          ///    [description]Optional
-          ///
-          ///      A [BufferSource] containing a sequence of codec specific
-          /// bytes, commonly known as extradata.
-          ///
-          ///    [codedWidth]Optional
-          ///
-          ///      An integer representing the width of the [VideoFrame] in
-          /// pixels, including any non-visible padding, before any ratio
-          /// adjustments.
-          ///
-          ///    [codedHeight]Optional
-          ///
-          ///      An integer representing the height of the [VideoFrame] in
-          /// pixels, including any non-visible padding, before any ratio
-          /// adjustments.
-          ///
-          ///    [displayAspectWidth]Optional
-          ///
-          ///      An integer representing the horizontal dimension of the
-          /// [VideoFrame] in pixels when displayed.
-          ///
-          ///    [displayAspectHeight]Optional
-          ///
-          ///      An integer representing the vertical dimension of the
-          /// [VideoFrame] in pixels when displayed.
-          ///
-          ///    [colorSpace]
-          ///
-          ///      An object. representing a [VideoColorSpace], containing the
-          /// following members:
-          ///
-          ///      [primaries]
-          ///
-          ///        A string representing the color gamut of the video sample.
-          /// One of:
-          ///
-          ///        ["bt709"]
-          ///        ["bt470bg"]
-          ///        ["smpte170m"]
-          ///
-          ///
-          ///      [transfer]
-          ///
-          ///       A string representing transfer characteristics. One of:
-          ///
-          ///        ["bt709"]
-          ///        ["smpte170m"]
-          ///        ["iec61966-2-1"]
-          ///
-          ///
-          ///      [matrix]
-          ///
-          ///       A string representing a matrix coefficient. One of:
-          ///
-          ///        ["rgb"]
-          ///        ["bt709"]
-          ///        ["bt470bg"]
-          ///        ["smpte170m"]
-          ///
-          ///
-          ///
-          ///
-          VideoDecoderConfig config) =>
+  Object configure(VideoDecoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
-  /// Enqueues a control message to decode a given chunk of video.
-  ///
-  /// VideoDecoder.decode(chunk)
-  ///
-  Object decode(
-
-          ///  An [EncodedVideoChunk] object representing a chunk of encoded
-          /// video.
-          ///
-          EncodedVideoChunk chunk) =>
+  Object decode(EncodedVideoChunk chunk) =>
       js_util.callMethod(this, 'decode', [chunk]);
 
-  ///  Returns a promise that resolves once all pending messages in the
-  /// queue have been completed.
-  ///
-  /// VideoDecoder.flush()
-  ///
   Future<Object> flush() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'flush', []));
 
-  ///  Resets all states including configuration, control messages in
-  /// the control message queue, and all pending callbacks.
-  ///
-  /// VideoDecoder.reset()
-  ///
   Object reset() => js_util.callMethod(this, 'reset', []);
 
-  /// Ends all pending work and releases system resources.
-  ///
-  /// VideoDecoder.close()
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 
   static Future<VideoDecoderSupport> isConfigSupported(
@@ -288,7 +113,6 @@ extension PropsVideoDecoderInit on VideoDecoderInit {
   }
 }
 
-/// The interface of the WebCodecs API encodes [AudioData] objects.
 @JS()
 @staticInterop
 class AudioEncoder {
@@ -296,78 +120,19 @@ class AudioEncoder {
 }
 
 extension PropsAudioEncoder on AudioEncoder {
-  ///  Represents the state of the underlying codec and whether it is
-  /// configured for encoding.
-  ///
   CodecState get state =>
       CodecState.values.byName(js_util.getProperty(this, 'state'));
-
-  /// An integer representing the number of encode queue requests.
-  ///
   int get encodeQueueSize => js_util.getProperty(this, 'encodeQueueSize');
-
-  ///  Enqueues a control message to configure the audio encoder for
-  /// encoding chunks.
-  ///
-  /// AudioEncoder.configure(config)
-  ///
-  Object configure(
-
-          /// A dictionary object containing the following members:
-          ///
-          ///    [codec]
-          ///
-          ///     A [string] containing a valid codec string.
-          ///
-          ///    [sampleRate]Optional
-          ///
-          ///      An integer representing the number of frame samples per
-          /// second.
-          ///
-          ///    [numberOfChannels]Optional
-          ///
-          ///     An integer representing the number of audio channels.
-          ///
-          ///    [bitrate]Optional
-          ///
-          ///     An integer representing the bitrate.
-          ///
-          ///
-          ///
-          AudioEncoderConfig config) =>
+  Object configure(AudioEncoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
-  ///  Enqueues a control message to encode a given [AudioData]
-  /// objects.
-  ///
-  /// AudioEncoder.encode(data);
-  ///
-  Object encode(
+  Object encode(AudioData data) => js_util.callMethod(this, 'encode', [data]);
 
-          /// An [AudioData] object.
-          ///
-          AudioData data) =>
-      js_util.callMethod(this, 'encode', [data]);
-
-  ///  Returns a promise that resolves once all pending messages in the
-  /// queue have been completed.
-  ///
-  /// AudioEncoder.flush()
-  ///
   Future<Object> flush() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'flush', []));
 
-  ///  Resets all states including configuration, control messages in
-  /// the control message queue, and all pending callbacks.
-  ///
-  /// AudioEncoder.reset()
-  ///
   Object reset() => js_util.callMethod(this, 'reset', []);
 
-  /// Ends all pending work and releases system resources.
-  ///
-  /// AudioEncoder.close()
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 
   static Future<AudioEncoderSupport> isConfigSupported(
@@ -414,7 +179,6 @@ extension PropsEncodedAudioChunkMetadata on EncodedAudioChunkMetadata {
   }
 }
 
-/// The interface of the WebCodecs API encodes [VideoFrame] objects.
 @JS()
 @staticInterop
 class VideoEncoder {
@@ -422,154 +186,24 @@ class VideoEncoder {
 }
 
 extension PropsVideoEncoder on VideoEncoder {
-  ///  Represents the state of the underlying codec and whether it is
-  /// configured for encoding.
-  ///
   CodecState get state =>
       CodecState.values.byName(js_util.getProperty(this, 'state'));
-
-  /// An integer representing the number of encode queue requests.
-  ///
   int get encodeQueueSize => js_util.getProperty(this, 'encodeQueueSize');
-
-  ///  Enqueues a control message to configure the video encoder for
-  /// encoding chunks.
-  ///
-  /// VideoEncoder.configure(config)
-  ///
-  Object configure(
-
-          /// A dictionary object containing the following members:
-          ///
-          ///    [codec]
-          ///
-          ///     A [string] containing a valid codec string.
-          ///
-          ///    [width]Optional
-          ///
-          ///      An integer representing the width of each output
-          /// [EncodedVideoChunk] in pixels, before any ratio adjustments.
-          ///
-          ///    [height]Optional
-          ///
-          ///      An integer representing the height of each output
-          /// [EncodedVideoChunk] in pixels, before any ratio adjustments.
-          ///
-          ///    [displayWidth]Optional
-          ///
-          ///      An integer representing the intended display width of each
-          /// output [EncodedVideoChunk] in pixels when displayed.
-          ///
-          ///    [displayHeight]Optional
-          ///
-          ///      An integer representing the vertical dimension of each
-          /// output [EncodedVideoChunk] in pixels when displayed.
-          ///
-          ///    [hardwareAcceleration]
-          ///
-          ///      A hint that configures the hardware acceleration method of
-          /// this codec. One of:
-          ///
-          ///      ["no-preference"]
-          ///      ["prefer-hardware"]
-          ///      ["prefer-software"]
-          ///
-          ///
-          ///    [bitrate]
-          ///
-          ///      An integer containing the average bitrate of the encoded
-          /// video in units of bits per second.
-          ///
-          ///    [framerate]
-          ///
-          ///      An integer containing the expected frame rate in frames per
-          /// second.
-          ///
-          ///    [alpha]
-          ///
-          ///      A string indicating whether the alpha component of the
-          /// [VideoFrame] inputs should be kept or discarded prior to
-          /// encoding. One of:
-          ///
-          ///      ["discard"] (default)
-          ///      ["keep"]
-          ///
-          ///
-          ///    [scalabilityMode]
-          ///
-          ///      A [string] containing an encoding scalability mode
-          /// identifier as defined in WebRTC.
-          ///
-          ///    [bitrateMode]
-          ///
-          ///     A string containing a bitrate mode. One of:
-          ///
-          ///      ["constant"]
-          ///      ["variable"] (default)
-          ///
-          ///
-          ///    [latencyMode]
-          ///
-          ///      A string containing a value that configures the latency
-          /// behavior of this codec. One of:
-          ///
-          ///      ["quality"] (default)
-          ///      ["realtime"]
-          ///
-          ///
-          ///
-          ///
-          VideoEncoderConfig config) =>
+  Object configure(VideoEncoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
-  /// Enqueues a control message to encode a given [VideoFrame].
-  ///
-  /// VideoEncoder.encode(frame);
-  /// VideoEncoder.encode(frame, options);
-  ///
-  Object encode(
-
-          /// A [VideoFrame] object.
-          ///
-          VideoFrame frame,
-          [
-
-          /// An object containing the following member:
-          ///
-          ///    [keyFrame]
-          ///
-          ///      A [bool], defaulting to [false] giving the user agent
-          /// flexibility to decide if this frame should be encoded as a key
-          /// frame. If [true] this indicates that the given frame must be
-          /// encoded as a key frame.
-          ///
-          ///
-          ///
-          VideoEncoderEncodeOptions? options]) =>
+  Object encode(VideoFrame frame, [VideoEncoderEncodeOptions? options]) =>
       js_util.callMethod(this, 'encode', [frame, options]);
 
-  ///  Returns a promise that resolves once all pending messages in the
-  /// queue have been completed.
-  ///
-  /// VideoEncoder.flush()
-  ///
   Future<Object> flush() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'flush', []));
 
-  ///  Resets all states including configuration, control messages in
-  /// the control message queue, and all pending callbacks.
-  ///
-  /// VideoEncoder.reset()
-  ///
   Object reset() => js_util.callMethod(this, 'reset', []);
 
-  /// Ends all pending work and releases system resources.
-  ///
-  /// VideoEncoder.close()
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 
-  static Future<bool> isConfigSupported(VideoEncoderConfig config) =>
+  static Future<VideoEncoderSupport> isConfigSupported(
+          VideoEncoderConfig config) =>
       js_util.promiseToFuture(
           js_util.callMethod(VideoEncoder, 'isConfigSupported', [config]));
 }
@@ -602,7 +236,8 @@ extension PropsVideoEncoderInit on VideoEncoderInit {
 class EncodedVideoChunkMetadata {
   external factory EncodedVideoChunkMetadata(
       {required VideoDecoderConfig decoderConfig,
-      required int temporalLayerId});
+      required SvcOutputMetadata svc,
+      dynamic alphaSideData});
 }
 
 extension PropsEncodedVideoChunkMetadata on EncodedVideoChunkMetadata {
@@ -612,6 +247,25 @@ extension PropsEncodedVideoChunkMetadata on EncodedVideoChunkMetadata {
     js_util.setProperty(this, 'decoderConfig', newValue);
   }
 
+  SvcOutputMetadata get svc => js_util.getProperty(this, 'svc');
+  set svc(SvcOutputMetadata newValue) {
+    js_util.setProperty(this, 'svc', newValue);
+  }
+
+  dynamic get alphaSideData => js_util.getProperty(this, 'alphaSideData');
+  set alphaSideData(dynamic newValue) {
+    js_util.setProperty(this, 'alphaSideData', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class SvcOutputMetadata {
+  external factory SvcOutputMetadata({required int temporalLayerId});
+}
+
+extension PropsSvcOutputMetadata on SvcOutputMetadata {
   int get temporalLayerId => js_util.getProperty(this, 'temporalLayerId');
   set temporalLayerId(int newValue) {
     js_util.setProperty(this, 'temporalLayerId', newValue);
@@ -742,7 +396,9 @@ class VideoDecoderConfig {
       required int codedHeight,
       required int displayAspectWidth,
       required int displayAspectHeight,
-      String? hardwareAcceleration});
+      required VideoColorSpaceInit colorSpace,
+      String? hardwareAcceleration,
+      bool? optimizeForLatency});
 
   factory VideoDecoderConfig(
           {required String codec,
@@ -751,8 +407,10 @@ class VideoDecoderConfig {
           required int codedHeight,
           required int displayAspectWidth,
           required int displayAspectHeight,
+          required VideoColorSpaceInit colorSpace,
           HardwareAcceleration? hardwareAcceleration =
-              HardwareAcceleration.allow}) =>
+              HardwareAcceleration.noPreference,
+          bool? optimizeForLatency}) =>
       VideoDecoderConfig._(
           codec: codec,
           description: description,
@@ -760,7 +418,9 @@ class VideoDecoderConfig {
           codedHeight: codedHeight,
           displayAspectWidth: displayAspectWidth,
           displayAspectHeight: displayAspectHeight,
-          hardwareAcceleration: hardwareAcceleration?.name);
+          colorSpace: colorSpace,
+          hardwareAcceleration: hardwareAcceleration?.name,
+          optimizeForLatency: optimizeForLatency);
 }
 
 extension PropsVideoDecoderConfig on VideoDecoderConfig {
@@ -795,10 +455,21 @@ extension PropsVideoDecoderConfig on VideoDecoderConfig {
     js_util.setProperty(this, 'displayAspectHeight', newValue);
   }
 
+  VideoColorSpaceInit get colorSpace => js_util.getProperty(this, 'colorSpace');
+  set colorSpace(VideoColorSpaceInit newValue) {
+    js_util.setProperty(this, 'colorSpace', newValue);
+  }
+
   HardwareAcceleration get hardwareAcceleration => HardwareAcceleration.values
       .byName(js_util.getProperty(this, 'hardwareAcceleration'));
   set hardwareAcceleration(HardwareAcceleration newValue) {
     js_util.setProperty(this, 'hardwareAcceleration', newValue.name);
+  }
+
+  bool get optimizeForLatency =>
+      js_util.getProperty(this, 'optimizeForLatency');
+  set optimizeForLatency(bool newValue) {
+    js_util.setProperty(this, 'optimizeForLatency', newValue);
   }
 }
 
@@ -841,47 +512,51 @@ extension PropsAudioEncoderConfig on AudioEncoderConfig {
 class VideoEncoderConfig {
   external factory VideoEncoderConfig._(
       {required String codec,
-      required int bitrate,
       required int width,
       required int height,
       required int displayWidth,
       required int displayHeight,
+      required int bitrate,
+      required double framerate,
       String? hardwareAcceleration,
+      String? alpha,
       String? scalabilityMode,
-      String? bitrateMode});
+      String? bitrateMode,
+      String? latencyMode});
 
   factory VideoEncoderConfig(
           {required String codec,
-          required int bitrate,
           required int width,
           required int height,
           required int displayWidth,
           required int displayHeight,
+          required int bitrate,
+          required double framerate,
           HardwareAcceleration? hardwareAcceleration =
-              HardwareAcceleration.allow,
+              HardwareAcceleration.noPreference,
+          AlphaOption? alpha = AlphaOption.discard,
           String? scalabilityMode,
-          BitrateMode? bitrateMode = BitrateMode.variable}) =>
+          BitrateMode? bitrateMode = BitrateMode.variable,
+          LatencyMode? latencyMode = LatencyMode.quality}) =>
       VideoEncoderConfig._(
           codec: codec,
-          bitrate: bitrate,
           width: width,
           height: height,
           displayWidth: displayWidth,
           displayHeight: displayHeight,
+          bitrate: bitrate,
+          framerate: framerate,
           hardwareAcceleration: hardwareAcceleration?.name,
+          alpha: alpha?.name,
           scalabilityMode: scalabilityMode,
-          bitrateMode: bitrateMode?.name);
+          bitrateMode: bitrateMode?.name,
+          latencyMode: latencyMode?.name);
 }
 
 extension PropsVideoEncoderConfig on VideoEncoderConfig {
   String get codec => js_util.getProperty(this, 'codec');
   set codec(String newValue) {
     js_util.setProperty(this, 'codec', newValue);
-  }
-
-  int get bitrate => js_util.getProperty(this, 'bitrate');
-  set bitrate(int newValue) {
-    js_util.setProperty(this, 'bitrate', newValue);
   }
 
   int get width => js_util.getProperty(this, 'width');
@@ -904,10 +579,26 @@ extension PropsVideoEncoderConfig on VideoEncoderConfig {
     js_util.setProperty(this, 'displayHeight', newValue);
   }
 
+  int get bitrate => js_util.getProperty(this, 'bitrate');
+  set bitrate(int newValue) {
+    js_util.setProperty(this, 'bitrate', newValue);
+  }
+
+  double get framerate => js_util.getProperty(this, 'framerate');
+  set framerate(double newValue) {
+    js_util.setProperty(this, 'framerate', newValue);
+  }
+
   HardwareAcceleration get hardwareAcceleration => HardwareAcceleration.values
       .byName(js_util.getProperty(this, 'hardwareAcceleration'));
   set hardwareAcceleration(HardwareAcceleration newValue) {
     js_util.setProperty(this, 'hardwareAcceleration', newValue.name);
+  }
+
+  AlphaOption get alpha =>
+      AlphaOption.values.byName(js_util.getProperty(this, 'alpha'));
+  set alpha(AlphaOption newValue) {
+    js_util.setProperty(this, 'alpha', newValue.name);
   }
 
   String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
@@ -920,9 +611,19 @@ extension PropsVideoEncoderConfig on VideoEncoderConfig {
   set bitrateMode(BitrateMode newValue) {
     js_util.setProperty(this, 'bitrateMode', newValue.name);
   }
+
+  LatencyMode get latencyMode =>
+      LatencyMode.values.byName(js_util.getProperty(this, 'latencyMode'));
+  set latencyMode(LatencyMode newValue) {
+    js_util.setProperty(this, 'latencyMode', newValue.name);
+  }
 }
 
-enum HardwareAcceleration { allow, deny, require }
+enum HardwareAcceleration { noPreference, preferHardware, preferSoftware }
+
+enum AlphaOption { keep, discard }
+
+enum LatencyMode { quality, realtime }
 
 @anonymous
 @JS()
@@ -940,8 +641,6 @@ extension PropsVideoEncoderEncodeOptions on VideoEncoderEncodeOptions {
 
 enum CodecState { unconfigured, configured, closed }
 
-///  The interface of the WebCodecs API represents a chunk of encoded
-/// audio data.
 @JS()
 @staticInterop
 class EncodedAudioChunk {
@@ -949,36 +648,12 @@ class EncodedAudioChunk {
 }
 
 extension PropsEncodedAudioChunk on EncodedAudioChunk {
-  ///  Returns a string indicating whether this chunk of data is a key
-  /// chunk.
-  ///
   EncodedAudioChunkType get type =>
       EncodedAudioChunkType.values.byName(js_util.getProperty(this, 'type'));
-
-  ///  Returns an integer representing the timestamp of the audio in
-  /// microseconds.
-  ///
   int get timestamp => js_util.getProperty(this, 'timestamp');
-
-  ///  Returns an integer representing the duration of the audio in
-  /// microseconds.
-  ///
-  int get duration => js_util.getProperty(this, 'duration');
-
-  ///  Returns an integer representing the length of the audio in
-  /// bytes.
-  ///
+  int? get duration => js_util.getProperty(this, 'duration');
   int get byteLength => js_util.getProperty(this, 'byteLength');
-
-  /// Copies the encoded audio data.
-  ///
-  /// EncodedAudioChunk.copyTo(destination)
-  ///
-  Object copyTo(
-
-          /// A [BufferSource] that the data can be copied to.
-          ///
-          dynamic destination) =>
+  Object copyTo(dynamic destination) =>
       js_util.callMethod(this, 'copyTo', [destination]);
 }
 
@@ -987,14 +662,21 @@ extension PropsEncodedAudioChunk on EncodedAudioChunk {
 @staticInterop
 class EncodedAudioChunkInit {
   external factory EncodedAudioChunkInit._(
-      {required String type, required int timestamp, dynamic data});
+      {required String type,
+      required int timestamp,
+      required int duration,
+      dynamic data});
 
   factory EncodedAudioChunkInit(
           {required EncodedAudioChunkType type,
           required int timestamp,
+          required int duration,
           dynamic data}) =>
       EncodedAudioChunkInit._(
-          type: type.name, timestamp: timestamp, data: data);
+          type: type.name,
+          timestamp: timestamp,
+          duration: duration,
+          data: data);
 }
 
 extension PropsEncodedAudioChunkInit on EncodedAudioChunkInit {
@@ -1009,6 +691,11 @@ extension PropsEncodedAudioChunkInit on EncodedAudioChunkInit {
     js_util.setProperty(this, 'timestamp', newValue);
   }
 
+  int get duration => js_util.getProperty(this, 'duration');
+  set duration(int newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
   dynamic get data => js_util.getProperty(this, 'data');
   set data(dynamic newValue) {
     js_util.setProperty(this, 'data', newValue);
@@ -1017,8 +704,6 @@ extension PropsEncodedAudioChunkInit on EncodedAudioChunkInit {
 
 enum EncodedAudioChunkType { key, delta }
 
-///  The interface of the WebCodecs API represents a chunk of encoded
-/// video data.
 @JS()
 @staticInterop
 class EncodedVideoChunk {
@@ -1026,36 +711,12 @@ class EncodedVideoChunk {
 }
 
 extension PropsEncodedVideoChunk on EncodedVideoChunk {
-  ///  Returns a string indicating whether this chunk of data is a key
-  /// chunk.
-  ///
   EncodedVideoChunkType get type =>
       EncodedVideoChunkType.values.byName(js_util.getProperty(this, 'type'));
-
-  ///  Returns an integer representing the timestamp of the video in
-  /// microseconds.
-  ///
   int get timestamp => js_util.getProperty(this, 'timestamp');
-
-  ///  Returns an integer representing the duration of the video in
-  /// microseconds.
-  ///
   int? get duration => js_util.getProperty(this, 'duration');
-
-  ///  Returns an integer representing the length of the video in
-  /// bytes.
-  ///
   int get byteLength => js_util.getProperty(this, 'byteLength');
-
-  /// Copies the encoded video data.
-  ///
-  /// EncodedVideoChunk.copyTo(destination)
-  ///
-  Object copyTo(
-
-          /// A [BufferSource] that the data can be copied to.
-          ///
-          dynamic destination) =>
+  Object copyTo(dynamic destination) =>
       js_util.callMethod(this, 'copyTo', [destination]);
 }
 
@@ -1106,7 +767,6 @@ extension PropsEncodedVideoChunkInit on EncodedVideoChunkInit {
 
 enum EncodedVideoChunkType { key, delta }
 
-/// The interface of the [WebCodecs API] represents an audio sample.
 @JS()
 @staticInterop
 class AudioData {
@@ -1114,99 +774,25 @@ class AudioData {
 }
 
 extension PropsAudioData on AudioData {
-  /// Returns the sample format of the audio.
-  ///
-  AudioSampleFormat get format =>
-      AudioSampleFormat.values.byName(js_util.getProperty(this, 'format'));
+  AudioSampleFormat? get format {
+    final ret = js_util.getProperty(this, 'format');
 
-  /// Returns the sample rate of the audio in Hz.
-  ///
+    return ret == null ? null : AudioSampleFormat.values.byName(ret);
+  }
+
   double get sampleRate => js_util.getProperty(this, 'sampleRate');
   int get numberOfFrames => js_util.getProperty(this, 'numberOfFrames');
   int get numberOfChannels => js_util.getProperty(this, 'numberOfChannels');
-
-  /// Returns the duration of the audio in microseconds.
-  ///
   int get duration => js_util.getProperty(this, 'duration');
-
-  /// Returns the timestamp of the audio in microseconds.
-  ///
   int get timestamp => js_util.getProperty(this, 'timestamp');
-
-  ///  Returns the number of bytes required to hold the sample as
-  /// filtered by options passed into the method.
-  ///
-  /// AudioData.allocationSize(options)
-  ///
-  int allocationSize(
-
-          /// An object containing the following:
-          ///
-          ///    [planeIndex]
-          ///
-          ///     The index of the plane to return the size of.
-          ///
-          ///    [frameOffset]Optional
-          ///
-          ///      An integer giving an offset into the plane data indicating
-          /// which plane to begin from. Defaults to [0].
-          ///
-          ///    [frameCount]Optional
-          ///
-          ///      An integer giving the number of frames to return the size
-          /// of. If omitted then all frames in the plane will be used,
-          /// beginning with the frame specified in [frameOffset].
-          ///
-          ///
-          ///
-          AudioDataCopyToOptions options) =>
+  int allocationSize(AudioDataCopyToOptions options) =>
       js_util.callMethod(this, 'allocationSize', [options]);
 
-  ///  Copies the samples from the specified plane of the [AudioData]
-  /// object to the destination.
-  ///
-  /// AudioData.copyTo(destination, options)
-  ///
-  Object copyTo(
-
-          /// The [buffer] to copy the plane to.
-          ///
-          dynamic destination,
-
-          /// An object containing the following:
-          ///
-          ///    [planeIndex]
-          ///
-          ///     The index of the plane to copy from.
-          ///
-          ///    [frameOffset]Optional
-          ///
-          ///      An integer giving an offset into the plane data indicating
-          /// which plane to begin copying from. Defaults to [0].
-          ///
-          ///    [frameCount]Optional
-          ///
-          ///      An integer giving the number of frames to copy. If omitted
-          /// then all frames in the plane will be copied, beginning with the
-          /// frame specified in [frameOffset].
-          ///
-          ///
-          ///
-          AudioDataCopyToOptions options) =>
+  Object copyTo(dynamic destination, AudioDataCopyToOptions options) =>
       js_util.callMethod(this, 'copyTo', [destination, options]);
 
-  ///  Creates a new [AudioData] object with reference to the same
-  /// media resource as the original.
-  ///
-  /// AudioData.clone()
-  ///
   AudioData clone() => js_util.callMethod(this, 'clone', []);
 
-  ///  Clears all states and releases the reference to the media
-  /// resource.
-  ///
-  /// AudioData.close()
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 }
 
@@ -1275,8 +861,22 @@ extension PropsAudioDataInit on AudioDataInit {
 @JS()
 @staticInterop
 class AudioDataCopyToOptions {
-  external factory AudioDataCopyToOptions(
-      {required int planeIndex, int? frameOffset = 0, int? frameCount});
+  external factory AudioDataCopyToOptions._(
+      {required int planeIndex,
+      int? frameOffset = 0,
+      int? frameCount,
+      String? format});
+
+  factory AudioDataCopyToOptions(
+          {required int planeIndex,
+          int? frameOffset = 0,
+          int? frameCount,
+          AudioSampleFormat? format}) =>
+      AudioDataCopyToOptions._(
+          planeIndex: planeIndex,
+          frameOffset: frameOffset,
+          frameCount: frameCount,
+          format: format?.name);
 }
 
 extension PropsAudioDataCopyToOptions on AudioDataCopyToOptions {
@@ -1294,12 +894,25 @@ extension PropsAudioDataCopyToOptions on AudioDataCopyToOptions {
   set frameCount(int newValue) {
     js_util.setProperty(this, 'frameCount', newValue);
   }
+
+  AudioSampleFormat get format =>
+      AudioSampleFormat.values.byName(js_util.getProperty(this, 'format'));
+  set format(AudioSampleFormat newValue) {
+    js_util.setProperty(this, 'format', newValue.name);
+  }
 }
 
-enum AudioSampleFormat { u8, s16, s24, s32, flt, u8p, s16p, s24p, s32p, fltp }
+enum AudioSampleFormat {
+  u8,
+  s16,
+  s32,
+  f32,
+  u8Planar,
+  s16Planar,
+  s32Planar,
+  f32Planar
+}
 
-///  The interface of the Web Codecs API represents a frame of a
-/// video.
 @JS()
 @staticInterop
 class VideoFrame {
@@ -1307,91 +920,22 @@ class VideoFrame {
 }
 
 extension PropsVideoFrame on VideoFrame {
-  /// Returns the pixel format of the [VideoFrame].
-  ///
-  PixelFormat get format =>
-      PixelFormat.values.byName(js_util.getProperty(this, 'format'));
+  VideoPixelFormat? get format {
+    final ret = js_util.getProperty(this, 'format');
 
-  ///  Returns the width of the [VideoFrame] in pixels, potentially
-  /// including non-visible padding, and prior to considering potential
-  /// ratio adjustments.
-  ///
+    return ret == null ? null : VideoPixelFormat.values.byName(ret);
+  }
+
   int get codedWidth => js_util.getProperty(this, 'codedWidth');
-
-  ///  Returns the height of the [VideoFrame] in pixels, potentially
-  /// including non-visible padding, and prior to considering potential
-  /// ratio adjustments.
-  ///
   int get codedHeight => js_util.getProperty(this, 'codedHeight');
-
-  ///  Returns a [DOMRectReadOnly] with the width and height matching
-  /// [codedWidth] and [codedHeight].
-  ///
-  VideoFrameRect get codedRect => js_util.getProperty(this, 'codedRect');
-
-  ///  Returns a [DOMRectReadOnly] describing the visible rectangle of
-  /// pixels for this [VideoFrame].
-  ///
-  VideoFrameRect get visibleRect => js_util.getProperty(this, 'visibleRect');
-
-  ///  Returns the width of the [VideoFrame] when displayed after
-  /// applying aspect ratio adjustments.
-  ///
+  DOMRectReadOnly? get codedRect => js_util.getProperty(this, 'codedRect');
+  DOMRectReadOnly? get visibleRect => js_util.getProperty(this, 'visibleRect');
   int get displayWidth => js_util.getProperty(this, 'displayWidth');
-
-  ///  Returns the height of the [VideoFrame] when displayed after
-  /// applying aspect ratio adjustments.
-  ///
   int get displayHeight => js_util.getProperty(this, 'displayHeight');
-
-  ///  Returns an integer indicating the duration of the video in
-  /// microseconds.
-  ///
   int? get duration => js_util.getProperty(this, 'duration');
-
-  ///  Returns an integer indicating the timestamp of the video in
-  /// microseconds.
-  ///
   int? get timestamp => js_util.getProperty(this, 'timestamp');
-
-  ///  Returns the number of bytes required to hold the [VideoFrame] as
-  /// filtered by options passed into the method.
-  ///
-  /// VideoFrame.allocationSize();
-  /// VideoFrame.allocationSize(options);
-  ///
-  int allocationSize(
-          [
-
-          /// An object containing the following:
-          ///
-          ///    [rect]Optional
-          ///
-          ///      The rectangle of pixels to copy from the [VideoFrame]. If
-          /// unspecified the [visibleRect] will be used. This is in the format
-          /// of a dictionary object containing:
-          ///
-          ///      [x]: The x-coordinate.
-          ///      [y]: The y-coordinate.
-          ///      [width]: The width of the frame.
-          ///      [height]: The height of the frame.
-          ///
-          ///
-          ///    [layout]Optional
-          ///
-          ///      A list containing the following values for each plane in the
-          /// [VideoFrame]. Planes may not overlap. If unspecified the planes
-          /// will be tightly packed:
-          ///
-          ///       [offset]: An integer representing the offset in bytes where
-          /// the given plane begins.
-          ///       [stride]: An integer representing the number of bytes,
-          /// including padding, used by each row of the plane.
-          ///
-          ///
-          ///
-          ///
-          VideoFrameCopyToOptions? options]) =>
+  VideoColorSpace get colorSpace => js_util.getProperty(this, 'colorSpace');
+  int allocationSize([VideoFrameCopyToOptions? options]) =>
       js_util.callMethod(this, 'allocationSize', [options]);
 
   Future<Iterable<PlaneLayout>> copyTo(dynamic destination,
@@ -1399,18 +943,8 @@ extension PropsVideoFrame on VideoFrame {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'copyTo', [destination, options]));
 
-  ///  Creates a new [VideoFrame] object with reference to the same
-  /// media resource as the original.
-  ///
-  /// VideoFrame.clone()
-  ///
   VideoFrame clone() => js_util.callMethod(this, 'clone', []);
 
-  ///  Clears all states and releases the reference to the media
-  /// resource.
-  ///
-  /// VideoFrame.close()
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 }
 
@@ -1418,8 +952,28 @@ extension PropsVideoFrame on VideoFrame {
 @JS()
 @staticInterop
 class VideoFrameInit {
-  external factory VideoFrameInit(
-      {required int duration, required int timestamp});
+  external factory VideoFrameInit._(
+      {required int duration,
+      required int timestamp,
+      String? alpha,
+      DOMRectInit? visibleRect,
+      int? displayWidth,
+      int? displayHeight});
+
+  factory VideoFrameInit(
+          {required int duration,
+          required int timestamp,
+          AlphaOption? alpha = AlphaOption.keep,
+          DOMRectInit? visibleRect,
+          int? displayWidth,
+          int? displayHeight}) =>
+      VideoFrameInit._(
+          duration: duration,
+          timestamp: timestamp,
+          alpha: alpha?.name,
+          visibleRect: visibleRect,
+          displayWidth: displayWidth,
+          displayHeight: displayHeight);
 }
 
 extension PropsVideoFrameInit on VideoFrameInit {
@@ -1432,46 +986,73 @@ extension PropsVideoFrameInit on VideoFrameInit {
   set timestamp(int newValue) {
     js_util.setProperty(this, 'timestamp', newValue);
   }
+
+  AlphaOption get alpha =>
+      AlphaOption.values.byName(js_util.getProperty(this, 'alpha'));
+  set alpha(AlphaOption newValue) {
+    js_util.setProperty(this, 'alpha', newValue.name);
+  }
+
+  DOMRectInit get visibleRect => js_util.getProperty(this, 'visibleRect');
+  set visibleRect(DOMRectInit newValue) {
+    js_util.setProperty(this, 'visibleRect', newValue);
+  }
+
+  int get displayWidth => js_util.getProperty(this, 'displayWidth');
+  set displayWidth(int newValue) {
+    js_util.setProperty(this, 'displayWidth', newValue);
+  }
+
+  int get displayHeight => js_util.getProperty(this, 'displayHeight');
+  set displayHeight(int newValue) {
+    js_util.setProperty(this, 'displayHeight', newValue);
+  }
 }
 
 @anonymous
 @JS()
 @staticInterop
-class VideoFramePlaneInit {
-  external factory VideoFramePlaneInit._(
+class VideoFrameBufferInit {
+  external factory VideoFrameBufferInit._(
       {required String format,
       required int codedWidth,
       required int codedHeight,
-      required VideoFrameRect visibleRect,
+      required int timestamp,
+      required int duration,
+      required Iterable<PlaneLayout> layout,
+      required DOMRectInit visibleRect,
       required int displayWidth,
       required int displayHeight,
-      required int duration,
-      required int timestamp});
+      required VideoColorSpaceInit colorSpace});
 
-  factory VideoFramePlaneInit(
-          {required PixelFormat format,
+  factory VideoFrameBufferInit(
+          {required VideoPixelFormat format,
           required int codedWidth,
           required int codedHeight,
-          required VideoFrameRect visibleRect,
+          required int timestamp,
+          required int duration,
+          required Iterable<PlaneLayout> layout,
+          required DOMRectInit visibleRect,
           required int displayWidth,
           required int displayHeight,
-          required int duration,
-          required int timestamp}) =>
-      VideoFramePlaneInit._(
+          required VideoColorSpaceInit colorSpace}) =>
+      VideoFrameBufferInit._(
           format: format.name,
           codedWidth: codedWidth,
           codedHeight: codedHeight,
+          timestamp: timestamp,
+          duration: duration,
+          layout: layout,
           visibleRect: visibleRect,
           displayWidth: displayWidth,
           displayHeight: displayHeight,
-          duration: duration,
-          timestamp: timestamp);
+          colorSpace: colorSpace);
 }
 
-extension PropsVideoFramePlaneInit on VideoFramePlaneInit {
-  PixelFormat get format =>
-      PixelFormat.values.byName(js_util.getProperty(this, 'format'));
-  set format(PixelFormat newValue) {
+extension PropsVideoFrameBufferInit on VideoFrameBufferInit {
+  VideoPixelFormat get format =>
+      VideoPixelFormat.values.byName(js_util.getProperty(this, 'format'));
+  set format(VideoPixelFormat newValue) {
     js_util.setProperty(this, 'format', newValue.name);
   }
 
@@ -1485,8 +1066,23 @@ extension PropsVideoFramePlaneInit on VideoFramePlaneInit {
     js_util.setProperty(this, 'codedHeight', newValue);
   }
 
-  VideoFrameRect get visibleRect => js_util.getProperty(this, 'visibleRect');
-  set visibleRect(VideoFrameRect newValue) {
+  int get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(int newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  int get duration => js_util.getProperty(this, 'duration');
+  set duration(int newValue) {
+    js_util.setProperty(this, 'duration', newValue);
+  }
+
+  Iterable<PlaneLayout> get layout => js_util.getProperty(this, 'layout');
+  set layout(Iterable<PlaneLayout> newValue) {
+    js_util.setProperty(this, 'layout', newValue);
+  }
+
+  DOMRectInit get visibleRect => js_util.getProperty(this, 'visibleRect');
+  set visibleRect(DOMRectInit newValue) {
     js_util.setProperty(this, 'visibleRect', newValue);
   }
 
@@ -1500,61 +1096,136 @@ extension PropsVideoFramePlaneInit on VideoFramePlaneInit {
     js_util.setProperty(this, 'displayHeight', newValue);
   }
 
-  int get duration => js_util.getProperty(this, 'duration');
-  set duration(int newValue) {
-    js_util.setProperty(this, 'duration', newValue);
+  VideoColorSpaceInit get colorSpace => js_util.getProperty(this, 'colorSpace');
+  set colorSpace(VideoColorSpaceInit newValue) {
+    js_util.setProperty(this, 'colorSpace', newValue);
   }
-
-  int get timestamp => js_util.getProperty(this, 'timestamp');
-  set timestamp(int newValue) {
-    js_util.setProperty(this, 'timestamp', newValue);
-  }
-}
-
-@JS()
-@staticInterop
-class Plane {
-  external Plane();
-}
-
-extension PropsPlane on Plane {
-  int get stride => js_util.getProperty(this, 'stride');
-  int get rows => js_util.getProperty(this, 'rows');
-  int get length => js_util.getProperty(this, 'length');
-  Object readInto(dynamic dst) => js_util.callMethod(this, 'readInto', [dst]);
 }
 
 @anonymous
 @JS()
 @staticInterop
-class PlaneInit {
-  external factory PlaneInit(
-      {dynamic data, required int stride, int? offset = 0});
+class VideoFrameCopyToOptions {
+  external factory VideoFrameCopyToOptions(
+      {required DOMRectInit rect, required Iterable<PlaneLayout> layout});
 }
 
-extension PropsPlaneInit on PlaneInit {
-  dynamic get data => js_util.getProperty(this, 'data');
-  set data(dynamic newValue) {
-    js_util.setProperty(this, 'data', newValue);
+extension PropsVideoFrameCopyToOptions on VideoFrameCopyToOptions {
+  DOMRectInit get rect => js_util.getProperty(this, 'rect');
+  set rect(DOMRectInit newValue) {
+    js_util.setProperty(this, 'rect', newValue);
+  }
+
+  Iterable<PlaneLayout> get layout => js_util.getProperty(this, 'layout');
+  set layout(Iterable<PlaneLayout> newValue) {
+    js_util.setProperty(this, 'layout', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class PlaneLayout {
+  external factory PlaneLayout({required int offset, required int stride});
+}
+
+extension PropsPlaneLayout on PlaneLayout {
+  int get offset => js_util.getProperty(this, 'offset');
+  set offset(int newValue) {
+    js_util.setProperty(this, 'offset', newValue);
   }
 
   int get stride => js_util.getProperty(this, 'stride');
   set stride(int newValue) {
     js_util.setProperty(this, 'stride', newValue);
   }
+}
 
-  int get offset => js_util.getProperty(this, 'offset');
-  set offset(int newValue) {
-    js_util.setProperty(this, 'offset', newValue);
+enum VideoPixelFormat { i420, i420a, i422, i444, nv12, rgba, rgbx, bgra, bgrx }
+
+@JS()
+@staticInterop
+class VideoColorSpace {
+  external VideoColorSpace([VideoColorSpaceInit? init]);
+}
+
+extension PropsVideoColorSpace on VideoColorSpace {
+  VideoColorPrimaries? get primaries {
+    final ret = js_util.getProperty(this, 'primaries');
+
+    return ret == null ? null : VideoColorPrimaries.values.byName(ret);
+  }
+
+  VideoTransferCharacteristics? get transfer {
+    final ret = js_util.getProperty(this, 'transfer');
+
+    return ret == null ? null : VideoTransferCharacteristics.values.byName(ret);
+  }
+
+  VideoMatrixCoefficients? get matrix {
+    final ret = js_util.getProperty(this, 'matrix');
+
+    return ret == null ? null : VideoMatrixCoefficients.values.byName(ret);
+  }
+
+  bool? get fullRange => js_util.getProperty(this, 'fullRange');
+  VideoColorSpaceInit toJSON() => js_util.callMethod(this, 'toJSON', []);
+}
+
+@anonymous
+@JS()
+@staticInterop
+class VideoColorSpaceInit {
+  external factory VideoColorSpaceInit._(
+      {required String primaries,
+      required String transfer,
+      required String matrix,
+      required bool fullRange});
+
+  factory VideoColorSpaceInit(
+          {required VideoColorPrimaries primaries,
+          required VideoTransferCharacteristics transfer,
+          required VideoMatrixCoefficients matrix,
+          required bool fullRange}) =>
+      VideoColorSpaceInit._(
+          primaries: primaries.name,
+          transfer: transfer.name,
+          matrix: matrix.name,
+          fullRange: fullRange);
+}
+
+extension PropsVideoColorSpaceInit on VideoColorSpaceInit {
+  VideoColorPrimaries get primaries =>
+      VideoColorPrimaries.values.byName(js_util.getProperty(this, 'primaries'));
+  set primaries(VideoColorPrimaries newValue) {
+    js_util.setProperty(this, 'primaries', newValue.name);
+  }
+
+  VideoTransferCharacteristics get transfer =>
+      VideoTransferCharacteristics.values
+          .byName(js_util.getProperty(this, 'transfer'));
+  set transfer(VideoTransferCharacteristics newValue) {
+    js_util.setProperty(this, 'transfer', newValue.name);
+  }
+
+  VideoMatrixCoefficients get matrix => VideoMatrixCoefficients.values
+      .byName(js_util.getProperty(this, 'matrix'));
+  set matrix(VideoMatrixCoefficients newValue) {
+    js_util.setProperty(this, 'matrix', newValue.name);
+  }
+
+  bool get fullRange => js_util.getProperty(this, 'fullRange');
+  set fullRange(bool newValue) {
+    js_util.setProperty(this, 'fullRange', newValue);
   }
 }
 
-enum PixelFormat { i420 }
+enum VideoColorPrimaries { bt709, bt470bg, smpte170m }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the WebCodecs API provides a way to unpack and
-/// decode encoded image data.
+enum VideoTransferCharacteristics { bt709, smpte170m, iec6196621 }
+
+enum VideoMatrixCoefficients { rgb, bt709, bt470bg, smpte170m }
+
 @JS()
 @staticInterop
 class ImageDecoder {
@@ -1562,57 +1233,15 @@ class ImageDecoder {
 }
 
 extension PropsImageDecoder on ImageDecoder {
-  ///  Returns a [bool] indicating whether the data is completely
-  /// buffered.
-  ///
   bool get complete => js_util.getProperty(this, 'complete');
-
-  /// Returns a [Future] that resolves once [complete] is true.
-  ///
   Future<Object> get completed =>
       js_util.promiseToFuture(js_util.getProperty(this, 'completed'));
-
-  ///  Returns an [ImageTrackList] object listing the available tracks
-  /// and providing a method for selecting a track to decode.
-  ///
   ImageTrackList get tracks => js_util.getProperty(this, 'tracks');
-
-  /// Enqueues a control message to decode the frame of an image.
-  ///
-  /// ImageDecoder.decode(options)
-  ///
-  Future<ImageDecodeResult> decode(
-          [
-
-          /// An object containing the following members:
-          ///
-          ///    [frameIndex]Optional
-          ///
-          ///      An integer representing the index of the frame to decode.
-          /// Defaults to [0] (the first frame).
-          ///
-          ///    [completeFramesOnly]Optional
-          ///
-          ///      A [bool] defaulting to [true]. When [false] indicates that
-          /// for progressive images the decoder may output an image with
-          /// reduced detail.
-          ///
-          ///
-          ///
-          ImageDecodeOptions? options]) =>
+  Future<ImageDecodeResult> decode([ImageDecodeOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'decode', [options]));
 
-  ///  Resets all states including configuration, control messages in
-  /// the control message queue, and all pending callbacks.
-  ///
-  /// ImageDecoder.reset()
-  ///
   Object reset() => js_util.callMethod(this, 'reset', []);
 
-  /// Ends all pending work and releases system resources.
-  ///
-  /// ImageDecoder.close()
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 
   static Future<bool> isTypeSupported(String type) => js_util.promiseToFuture(
@@ -1731,8 +1360,6 @@ extension PropsImageDecodeResult on ImageDecodeResult {
   }
 }
 
-///  The interface of the WebCodecs API represents a list of image
-/// tracks.
 @JS()
 @staticInterop
 class ImageTrackList {
@@ -1740,25 +1367,13 @@ class ImageTrackList {
 }
 
 extension PropsImageTrackList on ImageTrackList {
-  ///  Returns a [promise] that resolves once the [ImageTrackList] has
-  /// been populated with [tracks].
-  ///
   Future<Object> get ready =>
       js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
-
-  ///  Returns an integer indicating the length of the
-  /// [ImageTrackList].
-  ///
   int get length => js_util.getProperty(this, 'length');
-
-  /// Returns an integer indicating the index of the [selectedTrack].
-  ///
   int get selectedIndex => js_util.getProperty(this, 'selectedIndex');
   ImageTrack? get selectedTrack => js_util.getProperty(this, 'selectedTrack');
 }
 
-///  The interface of the WebCodecs API represents an individual
-/// image track.
 @JS()
 @staticInterop
 class ImageTrack implements EventTarget {
@@ -1766,18 +1381,8 @@ class ImageTrack implements EventTarget {
 }
 
 extension PropsImageTrack on ImageTrack {
-  ///  Returns a [bool] indicating whether the track is animated and
-  /// therefore has multiple frames.
-  ///
   bool get animated => js_util.getProperty(this, 'animated');
-
-  /// Returns an integer indicating the number of frames in the track.
-  ///
   int get frameCount => js_util.getProperty(this, 'frameCount');
-
-  ///  Returns an integer indicating the number of times that the
-  /// animation repeats.
-  ///
   /* double | NaN */ dynamic get repetitionCount =>
       js_util.getProperty(this, 'repetitionCount');
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
@@ -1785,83 +1390,8 @@ extension PropsImageTrack on ImageTrack {
     js_util.setProperty(this, 'onchange', newValue);
   }
 
-  ///  Returns a [bool] indicating whether the track is selected for
-  /// decoding.
-  ///
   bool get selected => js_util.getProperty(this, 'selected');
   set selected(bool newValue) {
     js_util.setProperty(this, 'selected', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class VideoFrameCopyToOptions {
-  external factory VideoFrameCopyToOptions(
-      {required VideoFrameRect rect, required Iterable<PlaneLayout> layout});
-}
-
-extension PropsVideoFrameCopyToOptions on VideoFrameCopyToOptions {
-  VideoFrameRect get rect => js_util.getProperty(this, 'rect');
-  set rect(VideoFrameRect newValue) {
-    js_util.setProperty(this, 'rect', newValue);
-  }
-
-  Iterable<PlaneLayout> get layout => js_util.getProperty(this, 'layout');
-  set layout(Iterable<PlaneLayout> newValue) {
-    js_util.setProperty(this, 'layout', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class VideoFrameRect {
-  external factory VideoFrameRect(
-      {required int left,
-      required int top,
-      required int width,
-      required int height});
-}
-
-extension PropsVideoFrameRect on VideoFrameRect {
-  int get left => js_util.getProperty(this, 'left');
-  set left(int newValue) {
-    js_util.setProperty(this, 'left', newValue);
-  }
-
-  int get top => js_util.getProperty(this, 'top');
-  set top(int newValue) {
-    js_util.setProperty(this, 'top', newValue);
-  }
-
-  int get width => js_util.getProperty(this, 'width');
-  set width(int newValue) {
-    js_util.setProperty(this, 'width', newValue);
-  }
-
-  int get height => js_util.getProperty(this, 'height');
-  set height(int newValue) {
-    js_util.setProperty(this, 'height', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class PlaneLayout {
-  external factory PlaneLayout({required int offset, required int stride});
-}
-
-extension PropsPlaneLayout on PlaneLayout {
-  int get offset => js_util.getProperty(this, 'offset');
-  set offset(int newValue) {
-    js_util.setProperty(this, 'offset', newValue);
-  }
-
-  int get stride => js_util.getProperty(this, 'stride');
-  set stride(int newValue) {
-    js_util.setProperty(this, 'stride', newValue);
   }
 }

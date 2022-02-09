@@ -24,19 +24,16 @@ class ScrollTimelineOptions {
   external factory ScrollTimelineOptions._(
       {Element? source,
       String? orientation,
-      Iterable<dynamic>? scrollOffsets = const [],
-      dynamic timeRange});
+      Iterable<dynamic>? scrollOffsets = const []});
 
   factory ScrollTimelineOptions(
           {Element? source,
           ScrollDirection? orientation = ScrollDirection.block,
-          Iterable<dynamic>? scrollOffsets = const [],
-          dynamic timeRange}) =>
+          Iterable<dynamic>? scrollOffsets = const []}) =>
       ScrollTimelineOptions._(
           source: source,
           orientation: orientation?.name,
-          scrollOffsets: scrollOffsets,
-          timeRange: timeRange);
+          scrollOffsets: scrollOffsets);
 }
 
 extension PropsScrollTimelineOptions on ScrollTimelineOptions {
@@ -56,11 +53,6 @@ extension PropsScrollTimelineOptions on ScrollTimelineOptions {
   set scrollOffsets(Iterable<dynamic> newValue) {
     js_util.setProperty(this, 'scrollOffsets', newValue);
   }
-
-  dynamic get timeRange => js_util.getProperty(this, 'timeRange');
-  set timeRange(dynamic newValue) {
-    js_util.setProperty(this, 'timeRange', newValue);
-  }
 }
 
 @JS()
@@ -75,7 +67,6 @@ extension PropsScrollTimeline on ScrollTimeline {
       ScrollDirection.values.byName(js_util.getProperty(this, 'orientation'));
   Iterable<dynamic> get scrollOffsets =>
       js_util.getProperty(this, 'scrollOffsets');
-  dynamic get timeRange => js_util.getProperty(this, 'timeRange');
 }
 
 enum Edge { start, end }
@@ -123,5 +114,4 @@ extension PropsCSSScrollTimelineRule on CSSScrollTimelineRule {
   String get source => js_util.getProperty(this, 'source');
   String get orientation => js_util.getProperty(this, 'orientation');
   String get scrollOffsets => js_util.getProperty(this, 'scrollOffsets');
-  String get timeRange => js_util.getProperty(this, 'timeRange');
 }

@@ -10,13 +10,9 @@ library streams;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The interface of the Streams API represents a readable stream of
-/// byte data. The Fetch API offers a concrete instance of a through
-/// the [body] property of a [Response] object.
 @JS()
 @staticInterop
 class ReadableStream {
@@ -25,59 +21,22 @@ class ReadableStream {
 }
 
 extension PropsReadableStream on ReadableStream {
-  ///  The getter returns whether or not the readable stream is locked
-  /// to a reader.
-  ///
   bool get locked => js_util.getProperty(this, 'locked');
-
-  ///  Returns a [Future] that resolves when the stream is canceled.
-  /// Calling this method signals a loss of interest in the stream by a
-  /// consumer. The supplied [reason] argument will be given to the
-  /// underlying source, which may or may not use it.
-  ///
-  /// var promise = readableStream.cancel(reason);
-  ///
   Future<Object> cancel([dynamic reason]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'cancel', [reason]));
 
-  ///  Creates a reader and locks the stream to it. While the stream is
-  /// locked, no other reader can be acquired until this one is
-  /// released.
-  ///
-  /// var reader = readableStream.getReader({mode});
-  ///
   dynamic getReader([ReadableStreamGetReaderOptions? options]) =>
       js_util.callMethod(this, 'getReader', [options]);
 
-  ///  Provides a chainable way of piping the current stream through a
-  /// transform stream or any other writable/readable pair.
-  ///
-  /// pipeThrough(transformStream);
-  /// pipeThrough(transformStream, options);
-  ///
   ReadableStream pipeThrough(ReadableWritablePair transform,
           [StreamPipeOptions? options]) =>
       js_util.callMethod(this, 'pipeThrough', [transform, options]);
 
-  ///  Pipes the current ReadableStream to a given [WritableStream] and
-  /// returns a [Future] that fulfills when the piping process
-  /// completes successfully, or rejects if any errors were
-  /// encountered.
-  ///
-  /// var promise = readableStream.pipeTo(destination[, options]);
-  ///
   Future<Object> pipeTo(WritableStream destination,
           [StreamPipeOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'pipeTo', [destination, options]));
 
-  ///  The method tees this readable stream, returning a two-element
-  /// array containing the two resulting branches as new
-  /// [ReadableStream] instances. Each of those streams receives the
-  /// same incoming data.
-  ///
-  /// var teedStreams = readableStream.tee();
-  ///
   Iterable<ReadableStream> tee() => js_util.callMethod(this, 'tee', []);
 }
 
@@ -240,9 +199,6 @@ extension PropsReadableStreamGenericReader on ReadableStreamGenericReader {
       js_util.promiseToFuture(js_util.callMethod(this, 'cancel', [reason]));
 }
 
-///  The interface of the Streams API represents a default reader
-/// that can be used to read stream data supplied from a network
-/// (e.g. a fetch request).
 @JS()
 @staticInterop
 class ReadableStreamDefaultReader implements ReadableStreamGenericReader {
@@ -250,18 +206,9 @@ class ReadableStreamDefaultReader implements ReadableStreamGenericReader {
 }
 
 extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
-  ///  Returns a promise providing access to the next chunk in the
-  /// stream's internal queue.
-  ///
-  /// var promise = readableStreamDefaultReader.read();
-  ///
   Future<ReadableStreamDefaultReadResult> read() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'read', []));
 
-  /// Releases the reader's lock on the stream.
-  ///
-  /// readableStreamDefaultReader.releaseLock();
-  ///
   Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 }
 
@@ -286,13 +233,6 @@ extension PropsReadableStreamDefaultReadResult
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Streams API represents a BYOB ("bring your
-/// own buffer") reader that can be used to read stream data supplied
-/// by the developer (e.g. a custom [ReadableStream()] constructor).
-@experimental
 @JS()
 @staticInterop
 class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
@@ -300,19 +240,9 @@ class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
 }
 
 extension PropsReadableStreamBYOBReader on ReadableStreamBYOBReader {
-  ///  Returns a [Future] that resolves with an object indicating the
-  /// state of the stream: either the next chunk in the stream or an
-  /// indication that the stream is closed.
-  ///
-  /// var promise = readableStreamBYOBReader.read(view);
-  ///
   Future<ReadableStreamBYOBReadResult> read(dynamic view) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'read', [view]));
 
-  /// Releases the reader's lock on the stream.
-  ///
-  /// readableStreamBYOBReader.releaseLock();
-  ///
   Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 }
 
@@ -336,10 +266,6 @@ extension PropsReadableStreamBYOBReadResult on ReadableStreamBYOBReadResult {
   }
 }
 
-///  The interface of the Streams API represents a controller
-/// allowing control of a [ReadableStream]'s state and internal
-/// queue. Default controllers are for streams that are not byte
-/// streams.
 @JS()
 @staticInterop
 class ReadableStreamDefaultController {
@@ -348,40 +274,16 @@ class ReadableStreamDefaultController {
 
 extension PropsReadableStreamDefaultController
     on ReadableStreamDefaultController {
-  ///  Returns the desired size required to fill the stream's internal
-  /// queue.
-  ///
   /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
-
-  /// Closes the associated stream.
-  ///
-  /// readableStreamDefaultController.close();
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 
-  /// Enqueues a given chunk in the associated stream.
-  ///
-  /// readableStreamDefaultController.enqueue(chunk);
-  ///
   Object enqueue([dynamic chunk]) =>
       js_util.callMethod(this, 'enqueue', [chunk]);
 
-  ///  Causes any future interactions with the associated stream to
-  /// error.
-  ///
-  /// readableStreamDefaultController.error(e);
-  ///
   Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Streams API represents a controller
-/// allowing control of a [ReadableStream]'s state and internal
-/// queue. Byte stream controllers are for byte streams.
-@experimental
 @JS()
 @staticInterop
 class ReadableByteStreamController {
@@ -389,47 +291,17 @@ class ReadableByteStreamController {
 }
 
 extension PropsReadableByteStreamController on ReadableByteStreamController {
-  /// Returns the current BYOB pull request.
-  ///
   ReadableStreamBYOBRequest? get byobRequest =>
       js_util.getProperty(this, 'byobRequest');
-
-  ///  Returns the desired size required to fill the stream's internal
-  /// queue.
-  ///
   /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
-
-  /// Closes the associated stream.
-  ///
-  /// readableByteStreamController.close();
-  ///
   Object close() => js_util.callMethod(this, 'close', []);
 
-  /// Enqueues a given chunk in the associated stream.
-  ///
-  /// readableByteStreamController.enqueue(chunk);
-  ///
   Object enqueue(dynamic chunk) => js_util.callMethod(this, 'enqueue', [chunk]);
 
-  ///  Causes any future interactions with the associated stream to
-  /// error.
-  ///
-  /// readableByteStreamController.error(e);
-  ///
   Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Streams API represents a pull request into
-/// a [ReadableByteStreamController] view.
-///  A view, as mentioned below, refers to a typed array representing
-/// the destination region to which the associated
-/// [ReadableByteStreamController] controller can write generated
-/// data.
-@experimental
 @JS()
 @staticInterop
 class ReadableStreamBYOBRequest {
@@ -437,32 +309,14 @@ class ReadableStreamBYOBRequest {
 }
 
 extension PropsReadableStreamBYOBRequest on ReadableStreamBYOBRequest {
-  /// Returns the current view.
-  ///
   dynamic get view => js_util.getProperty(this, 'view');
-
-  /// xxx
-  ///
-  /// readableStreamBYOBRequestInstance.respond(bytesWritten);
-  ///
   Object respond(int bytesWritten) =>
       js_util.callMethod(this, 'respond', [bytesWritten]);
 
-  /// xxx
-  ///
-  /// readableStreamBYOBRequestInstance.respondWithNewView(view);
-  ///
   Object respondWithNewView(dynamic view) =>
       js_util.callMethod(this, 'respondWithNewView', [view]);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Streams API provides a standard abstraction
-/// for writing streaming data to a destination, known as a sink.
-/// This object comes with built-in backpressure and queuing.
-@experimental
 @JS()
 @staticInterop
 class WritableStream {
@@ -470,31 +324,13 @@ class WritableStream {
 }
 
 extension PropsWritableStream on WritableStream {
-  ///  A boolean indicating whether the [WritableStream] is locked to a
-  /// writer.
-  ///
   bool get locked => js_util.getProperty(this, 'locked');
-
-  ///  Aborts the stream, signaling that the producer can no longer
-  /// successfully write to the stream and it is to be immediately
-  /// moved to an error state, with any queued writes discarded.
-  ///
-  /// var promise = writableStream.abort(reason);
-  ///
   Future<Object> abort([dynamic reason]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'abort', [reason]));
 
-  /// Closes the stream.
-  ///
   Future<Object> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
-  ///  Returns a new instance of [WritableStreamDefaultWriter] and
-  /// locks the stream to that instance. While the stream is locked, no
-  /// other writer can be acquired until this one is released.
-  ///
-  /// var writer = writableStream.getWriter();
-  ///
   WritableStreamDefaultWriter getWriter() =>
       js_util.callMethod(this, 'getWriter', []);
 }
@@ -538,14 +374,6 @@ extension PropsUnderlyingSink on UnderlyingSink {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Streams API is the object returned by
-/// [WritableStream.getWriter()] and once created locks the writer to
-/// the [WritableStream] ensuring that no other streams can write to
-/// the underlying sink.
-@experimental
 @JS()
 @staticInterop
 class WritableStreamDefaultWriter {
@@ -553,71 +381,24 @@ class WritableStreamDefaultWriter {
 }
 
 extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
-  ///  Allows you to write code that responds to an end to the
-  /// streaming process. Returns a promise that fulfills if the stream
-  /// becomes closed or the writer's lock is released, or rejects if
-  /// the stream errors.
-  ///
   Future<Object> get closed =>
       js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
-
-  ///  Returns the desired size required to fill the stream's internal
-  /// queue.
-  ///
   /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
-
-  ///  Returns a [Future] that resolves when the desired size of the
-  /// stream's internal queue transitions from non-positive to
-  /// positive, signaling that it is no longer applying backpressure.
-  ///
   Future<Object> get ready =>
       js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
-
-  ///  Aborts the stream, signaling that the producer can no longer
-  /// successfully write to the stream and it is to be immediately
-  /// moved to an error state, with any queued writes discarded.
-  ///
-  /// var promise = writableStreamDefaultWriter.abort(reason);
-  ///
   Future<Object> abort([dynamic reason]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'abort', [reason]));
 
-  /// Closes the associated writable stream.
-  ///
-  /// var promise = writableStreamDefaultWriter.close();
-  ///
   Future<Object> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
-  ///  Releases the writer's lock on the corresponding stream. After
-  /// the lock is released, the writer is no longer active. If the
-  /// associated stream is errored when the lock is released, the
-  /// writer will appear errored in the same way from now on;
-  /// otherwise, the writer will appear closed.
-  ///
-  /// writableStreamDefaultWritere.releaseLock()
-  ///
   Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 
-  ///  Writes a passed chunk of data to a [WritableStream] and its
-  /// underlying sink, then returns a [Future] that resolves to
-  /// indicate the success or failure of the write operation.
-  ///
-  /// var promise = writableStreamDefaultWriter.write(chunk);
-  ///
   Future<Object> write([dynamic chunk]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'write', [chunk]));
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Streams API represents a controller
-/// allowing control of a [WritableStream]'s state. When constructing
-/// a [WritableStream], the underlying sink is given a corresponding
-/// instance to manipulate.
-@experimental
 @JS()
 @staticInterop
 class WritableStreamDefaultController {
@@ -626,16 +407,10 @@ class WritableStreamDefaultController {
 
 extension PropsWritableStreamDefaultController
     on WritableStreamDefaultController {
-  ///  Causes any future interactions with the associated stream to
-  /// error.
-  ///
-  /// writableStreamDefaultController.error(e);
-  ///
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
   Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
-///  The interface of the Streams API represents a set of
-/// transformable data.
 @JS()
 @staticInterop
 class TransformStream {
@@ -646,12 +421,7 @@ class TransformStream {
 }
 
 extension PropsTransformStream on TransformStream {
-  /// The end of a TransformStream.
-  ///
   ReadableStream get readable => js_util.getProperty(this, 'readable');
-
-  /// The end of a TransformStream.
-  ///
   WritableStream get writable => js_util.getProperty(this, 'writable');
 }
 
@@ -695,11 +465,6 @@ extension PropsTransformer on Transformer {
   }
 }
 
-///  The interface of the Streams API provides methods to manipulate
-/// the associated [ReadableStream] and [WritableStream].
-///  When constructing a [TransformStream], the is created. It
-/// therefore has no constructor. The way to get an instance of is
-/// via the callback methods of [TransformStream.TransformStream()].
 @JS()
 @staticInterop
 class TransformStreamDefaultController {
@@ -708,46 +473,13 @@ class TransformStreamDefaultController {
 
 extension PropsTransformStreamDefaultController
     on TransformStreamDefaultController {
-  ///  Returns the desired size to fill the readable side of the
-  /// stream's internal queue.
-  ///
   /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
-
-  ///  Enqueues a chunk (single piece of data) in the readable side of
-  /// the stream.
-  ///
-  /// TransformStreamDefaultController.enqueue(chunk);
-  ///
-  Object enqueue(
-          [
-
-          ///  The chunk being queued. A chunk is a single piece of data. It
-          /// can be any type of data, and a stream can contain chunks of
-          /// different types.
-          ///
-          dynamic chunk]) =>
+  Object enqueue([dynamic chunk]) =>
       js_util.callMethod(this, 'enqueue', [chunk]);
 
-  ///  Errors both the readable and writable side of the transform
-  /// stream.
-  ///
-  /// TransformStreamDefaultController.error(reason);
-  ///
-  Object error(
-          [
+  Object error([dynamic reason]) => js_util.callMethod(this, 'error', [reason]);
 
-          ///  A string containing the error message to be returned on any
-          /// further interaction with the stream.
-          ///
-          dynamic reason]) =>
-      js_util.callMethod(this, 'error', [reason]);
-
-  ///  Closes the readable side and errors the writable side of the
-  /// stream.
-  ///
-  /// TransformStreamDefaultController.terminate();
-  ///
   Object terminate() => js_util.callMethod(this, 'terminate', []);
 }
 
@@ -789,12 +521,6 @@ extension PropsQueuingStrategyInit on QueuingStrategyInit {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Streams API provides a built-in byte length
-/// queuing strategy that can be used when constructing streams.
-@experimental
 @JS()
 @staticInterop
 class ByteLengthQueuingStrategy {
@@ -807,13 +533,6 @@ extension PropsByteLengthQueuingStrategy on ByteLengthQueuingStrategy {
   Function get size => js_util.getProperty(this, 'size');
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Streams API provides a built-in chunk
-/// counting queuing strategy that can be used when constructing
-/// streams.
-@experimental
 @JS()
 @staticInterop
 class CountQueuingStrategy {

@@ -15,6 +15,47 @@ import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
+class LayoutWorkletGlobalScope implements WorkletGlobalScope {
+  external LayoutWorkletGlobalScope();
+}
+
+extension PropsLayoutWorkletGlobalScope on LayoutWorkletGlobalScope {
+  Object registerLayout(String name, VoidFunction layoutCtor) => js_util
+      .callMethod(this, 'registerLayout', [name, allowInterop(layoutCtor)]);
+}
+
+@anonymous
+@JS()
+@staticInterop
+class LayoutOptions {
+  external factory LayoutOptions._({String? childDisplay, String? sizing});
+
+  factory LayoutOptions(
+          {ChildDisplayType? childDisplay = ChildDisplayType.block,
+          LayoutSizingMode? sizing = LayoutSizingMode.blockLike}) =>
+      LayoutOptions._(childDisplay: childDisplay?.name, sizing: sizing?.name);
+}
+
+extension PropsLayoutOptions on LayoutOptions {
+  ChildDisplayType get childDisplay =>
+      ChildDisplayType.values.byName(js_util.getProperty(this, 'childDisplay'));
+  set childDisplay(ChildDisplayType newValue) {
+    js_util.setProperty(this, 'childDisplay', newValue.name);
+  }
+
+  LayoutSizingMode get sizing =>
+      LayoutSizingMode.values.byName(js_util.getProperty(this, 'sizing'));
+  set sizing(LayoutSizingMode newValue) {
+    js_util.setProperty(this, 'sizing', newValue.name);
+  }
+}
+
+enum ChildDisplayType { block, normal }
+
+enum LayoutSizingMode { blockLike, manual }
+
+@JS()
+@staticInterop
 class LayoutChild {
   external LayoutChild();
 }
@@ -89,6 +130,8 @@ extension PropsLayoutConstraints on LayoutConstraints {
           .byName(js_util.getProperty(this, 'blockFragmentationType'));
   dynamic get data => js_util.getProperty(this, 'data');
 }
+
+enum BlockFragmentationType { none, page, column, region }
 
 @anonymous
 @JS()
@@ -182,8 +225,6 @@ extension PropsLayoutConstraintsOptions on LayoutConstraintsOptions {
   }
 }
 
-enum BlockFragmentationType { none, page, column, region }
-
 @JS()
 @staticInterop
 class ChildBreakToken {
@@ -233,21 +274,6 @@ enum BreakType { none, line, column, page, region }
 
 @JS()
 @staticInterop
-class LayoutEdgeSizes {
-  external LayoutEdgeSizes();
-}
-
-extension PropsLayoutEdgeSizes on LayoutEdgeSizes {
-  double get inlineStart => js_util.getProperty(this, 'inlineStart');
-  double get inlineEnd => js_util.getProperty(this, 'inlineEnd');
-  double get blockStart => js_util.getProperty(this, 'blockStart');
-  double get blockEnd => js_util.getProperty(this, 'blockEnd');
-  double get inline => js_util.getProperty(this, 'inline');
-  double get block => js_util.getProperty(this, 'block');
-}
-
-@JS()
-@staticInterop
 class LayoutEdges {
   external LayoutEdges();
 }
@@ -259,59 +285,6 @@ extension PropsLayoutEdges on LayoutEdges {
   double get blockEnd => js_util.getProperty(this, 'blockEnd');
   double get inline => js_util.getProperty(this, 'inline');
   double get block => js_util.getProperty(this, 'block');
-}
-
-@JS()
-@staticInterop
-class LayoutWorkletGlobalScope implements WorkletGlobalScope {
-  external LayoutWorkletGlobalScope();
-}
-
-extension PropsLayoutWorkletGlobalScope on LayoutWorkletGlobalScope {
-  Object registerLayout(String name, VoidFunction layoutCtor) => js_util
-      .callMethod(this, 'registerLayout', [name, allowInterop(layoutCtor)]);
-}
-
-@anonymous
-@JS()
-@staticInterop
-class LayoutOptions {
-  external factory LayoutOptions._({String? childDisplay, String? sizing});
-
-  factory LayoutOptions(
-          {ChildDisplayType? childDisplay = ChildDisplayType.block,
-          LayoutSizingMode? sizing = LayoutSizingMode.blockLike}) =>
-      LayoutOptions._(childDisplay: childDisplay?.name, sizing: sizing?.name);
-}
-
-extension PropsLayoutOptions on LayoutOptions {
-  ChildDisplayType get childDisplay =>
-      ChildDisplayType.values.byName(js_util.getProperty(this, 'childDisplay'));
-  set childDisplay(ChildDisplayType newValue) {
-    js_util.setProperty(this, 'childDisplay', newValue.name);
-  }
-
-  LayoutSizingMode get sizing =>
-      LayoutSizingMode.values.byName(js_util.getProperty(this, 'sizing'));
-  set sizing(LayoutSizingMode newValue) {
-    js_util.setProperty(this, 'sizing', newValue.name);
-  }
-}
-
-enum ChildDisplayType { block, normal }
-
-enum LayoutSizingMode { blockLike, manual }
-
-@JS()
-@staticInterop
-class IntrinsicSizesRequest {
-  external IntrinsicSizesRequest();
-}
-
-@JS()
-@staticInterop
-class LayoutFragmentRequest {
-  external LayoutFragmentRequest();
 }
 
 @anonymous
@@ -360,6 +333,17 @@ extension PropsFragmentResultOptions on FragmentResultOptions {
   }
 }
 
+@JS()
+@staticInterop
+class FragmentResult {
+  external FragmentResult([FragmentResultOptions? options]);
+}
+
+extension PropsFragmentResult on FragmentResult {
+  double get inlineSize => js_util.getProperty(this, 'inlineSize');
+  double get blockSize => js_util.getProperty(this, 'blockSize');
+}
+
 @anonymous
 @JS()
 @staticInterop
@@ -378,15 +362,4 @@ extension PropsIntrinsicSizesResultOptions on IntrinsicSizesResultOptions {
   set minContentSize(double newValue) {
     js_util.setProperty(this, 'minContentSize', newValue);
   }
-}
-
-@JS()
-@staticInterop
-class FragmentResult {
-  external FragmentResult([FragmentResultOptions? options]);
-}
-
-extension PropsFragmentResult on FragmentResult {
-  double get inlineSize => js_util.getProperty(this, 'inlineSize');
-  double get blockSize => js_util.getProperty(this, 'blockSize');
 }

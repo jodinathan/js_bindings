@@ -93,13 +93,29 @@ extension PropsTaskPriorityChangeEventInit on TaskPriorityChangeEventInit {
   }
 }
 
+@anonymous
+@JS()
+@staticInterop
+class TaskControllerInit {
+  external factory TaskControllerInit._({String? priority});
+
+  factory TaskControllerInit(
+          {TaskPriority? priority = TaskPriority.userVisible}) =>
+      TaskControllerInit._(priority: priority?.name);
+}
+
+extension PropsTaskControllerInit on TaskControllerInit {
+  TaskPriority get priority =>
+      TaskPriority.values.byName(js_util.getProperty(this, 'priority'));
+  set priority(TaskPriority newValue) {
+    js_util.setProperty(this, 'priority', newValue.name);
+  }
+}
+
 @JS()
 @staticInterop
 class TaskController implements AbortController {
-  external TaskController._([String? priority]);
-
-  factory TaskController([TaskPriority? priority = TaskPriority.userVisible]) =>
-      TaskController._(priority?.name);
+  external TaskController([TaskControllerInit? init]);
 }
 
 extension PropsTaskController on TaskController {

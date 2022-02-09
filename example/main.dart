@@ -3,11 +3,18 @@ import 'package:js_bindings/js_bindings.dart';
 void main() {
   document.title = 'JS Bindings example';
 
+  final map = JsMap([
+    [1, 'one'],
+    [2, 'two'],
+    [3, 'three'],
+  ]);
+
   // create the buttons to use in the example
   final div = (document.createElement('div') as HTMLDivElement)
     ..id = 'someDiv'
     ..innerHTML = 'This div was created on the fly. '
-        'Node.elementNode: ${Node.elementNode}'
+        'Node.elementNode: ${Node.elementNode}. '
+        'Map: ${map.keys.map((k) => '$k: ${map[k]}').join(', ')}'
     ..style.setProperty('border', '1px solid black')
     ..style.setProperty('margin', '10px');
   final btnChanger = (document.createElement('button') as HTMLButtonElement)

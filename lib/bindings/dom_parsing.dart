@@ -13,8 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The interface provides the [serializeToString()] method to
-/// construct an XML string representing a DOM tree.
 @JS()
 @staticInterop
 class XMLSerializer {
@@ -22,10 +20,6 @@ class XMLSerializer {
 }
 
 extension PropsXMLSerializer on XMLSerializer {
-  /// Returns the serialized subtree of a string.
-  ///
-  /// xmlString = anXMLSerializer.serializeToString(rootNode);
-  ///
   String serializeToString(Node root) =>
       js_util.callMethod(this, 'serializeToString', [root]);
 }

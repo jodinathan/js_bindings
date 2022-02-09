@@ -13,19 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-/// The interface represents an [@font-face] [at-rule].
-///
-///
-///
-///    CSSRule
-///
-///
-///
-///
-///
-///    CSSFontFaceRule
-///
-///
 @JS()
 @staticInterop
 class CSSFontFaceRule implements CSSRule {
@@ -33,8 +20,6 @@ class CSSFontFaceRule implements CSSRule {
 }
 
 extension PropsCSSFontFaceRule on CSSFontFaceRule {
-  /// Returns a [CSSStyleDeclaration].
-  ///
   CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
 }
 
@@ -82,13 +67,8 @@ class CSSFontPaletteValuesRule implements CSSRule {
 }
 
 extension PropsCSSFontPaletteValuesRule on CSSFontPaletteValuesRule {
+  String get name => js_util.getProperty(this, 'name');
   String get fontFamily => js_util.getProperty(this, 'fontFamily');
-  set fontFamily(String newValue) {
-    js_util.setProperty(this, 'fontFamily', newValue);
-  }
-
   String get basePalette => js_util.getProperty(this, 'basePalette');
-  set basePalette(String newValue) {
-    js_util.setProperty(this, 'basePalette', newValue);
-  }
+  String get overrideColors => js_util.getProperty(this, 'overrideColors');
 }

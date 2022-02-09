@@ -13,22 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the WebOTP API contains the attributes that are
-/// returned when a new one-time password is retrieved.
-///
-///
-///
-///    Credential
-///
-///
-///
-///
-///
-///    OTPCredential
-///
-///
 @JS()
 @staticInterop
 class OTPCredential implements Credential {
@@ -36,8 +20,6 @@ class OTPCredential implements Credential {
 }
 
 extension PropsOTPCredential on OTPCredential {
-  /// The one-time password.
-  ///
   String get code => js_util.getProperty(this, 'code');
 }
 

@@ -33,7 +33,7 @@ extension PropsHTMLPortalElement on HTMLPortalElement {
   Future<Object> activate([PortalActivateOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'activate', [options]));
 
-  Object postMessage(dynamic message, [PostMessageOptions? options]) =>
+  Object postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
       js_util.callMethod(this, 'postMessage', [message, options]);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
@@ -51,7 +51,7 @@ extension PropsHTMLPortalElement on HTMLPortalElement {
 @anonymous
 @JS()
 @staticInterop
-class PortalActivateOptions implements PostMessageOptions {
+class PortalActivateOptions implements StructuredSerializeOptions {
   external factory PortalActivateOptions({dynamic data});
 }
 
@@ -69,7 +69,7 @@ class PortalHost implements EventTarget {
 }
 
 extension PropsPortalHost on PortalHost {
-  Object postMessage(dynamic message, [PostMessageOptions? options]) =>
+  Object postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
       js_util.callMethod(this, 'postMessage', [message, options]);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');

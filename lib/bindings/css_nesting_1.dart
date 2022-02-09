@@ -1,6 +1,6 @@
 /// CSS Nesting Module
 ///
-/// https://drafts.csswg.org/css-nesting-1/
+/// https://drafts.csswg.org/css-nesting/
 
 // ignore_for_file: unused_import
 

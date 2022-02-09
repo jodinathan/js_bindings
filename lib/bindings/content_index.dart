@@ -76,8 +76,6 @@ extension PropsContentDescription on ContentDescription {
   }
 }
 
-///  The interface of the [Content Index API] allows developers to
-/// register their offline enabled content with the browser.
 @JS()
 @staticInterop
 class ContentIndex {
@@ -85,25 +83,12 @@ class ContentIndex {
 }
 
 extension PropsContentIndex on ContentIndex {
-  /// Registers an item with the [content index].
-  ///
-  /// ContentIndex.add(ContentDescription).then(...);
-  ///
   Future<Object> add(ContentDescription description) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'add', [description]));
 
-  /// Unregisters an item from the currently indexed content.
-  ///
-  /// ContentIndex.delete(id).then(...);
-  ///
   Future<Object> delete(String id) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'delete', [id]));
 
-  ///  Returns a [Future] that resolves with an iterable list of
-  /// content index entries.
-  ///
-  /// var indexedContent = ContentIndex.getAll();
-  ///
   Future<Iterable<ContentDescription>> getAll() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getAll', []));
 }
@@ -122,14 +107,6 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
   }
 }
 
-///  The interface of the [Content Index API] defines the object used
-/// to represent the [contentdelete] event.
-///  This event is sent to the [global scope] of a [ServiceWorker].
-/// It contains the id of the indexed content to be removed.
-///  The [contentdelete] event is only fired when the deletion
-/// happens due to interaction with the browser's built-in user
-/// interface. It is not fired when the [ContentIndex.delete] method
-/// is called.
 @JS()
 @staticInterop
 class ContentIndexEvent implements ExtendableEvent {
@@ -137,7 +114,5 @@ class ContentIndexEvent implements ExtendableEvent {
 }
 
 extension PropsContentIndexEvent on ContentIndexEvent {
-  /// A [String] which identifies the deleted content index via it's .
-  ///
   String get id => js_util.getProperty(this, 'id');
 }

@@ -7,7 +7,7 @@ import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:recase/recase.dart';
 
-const dirs = ['ed', 'tr'];
+const dirs = ['ed'];
 const baseDir = 'ed';
 const types = {
   'DOMString': 'String',
@@ -133,11 +133,12 @@ const bannedMembers = {
 const bannedED = {
   // 'SVG2': {'SVGElement', 'SVGBoundingBoxOptions', 'SVGGraphicsElement',
   // 'SVGGeometryElement', 'SVGNumber', 'SVGLength', 'SVGAngle'},
-  'SVG2': true,
-  'user-timing-2': true,
-  'web-animations-1': {'FillMode'},
-  'keyboard-lock': {'Keyboard'},
-  'orientation-event': {'PermissionState'},
+  // test ed
+  // 'SVG2': true,
+  // 'user-timing-2': true,
+  // 'web-animations-1': {'FillMode'},
+  // 'keyboard-lock': {'Keyboard'},
+  // 'orientation-event': {'PermissionState'},
 };
 
 // related issue: https://github.com/w3c/webref/issues/467

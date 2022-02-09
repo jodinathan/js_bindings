@@ -6,23 +6,20 @@ abstract class JSObject {
   external static Iterable<V> values<K extends Object, V>(JsMap<K, V> obj);
 }
 
-@JS()
-@anonymous
+@JS('Map')
 @staticInterop
-class JsMap<K extends Object, V> {}
+class JsMap<K extends Object, V> {
+  external JsMap([Iterable<Iterable> initial]);
+}
 
 extension DartMap<K extends Object, V> on JsMap<K, V> {
-  V? operator[](K key) => jsu.getProperty(this, key);
+  V? operator[](K key) => jsu.callMethod(this, 'get', [key]);
 
-  void operator[]=(K key, V? value) =>
-      jsu.setProperty<V>(this, key, value);
-
-  V? remove(K key) {
-    final value = this[key];
-
-    Reflect.deleteProperty(this, key);
-    return value;
+  operator[]=(K key, V? value) {
+    jsu.callMethod(this, 'set', [key, value]);
   }
+
+  bool remove(K key) => jsu.callMethod(this, 'delete', [key]);
 
   void removeAll(Iterable<K> keys) {
     for (final key in keys) {
@@ -30,33 +27,69 @@ extension DartMap<K extends Object, V> on JsMap<K, V> {
     }
   }
 
-  Iterable<K> get keys => JSObject.keys(this);
+  JsIterable<V> get keys => JsIterable(
+      jsu.callMethod(this, 'keys', const [])
+  );
 
-  Iterable<V> get values => JSObject.values(this);
+  JsIterable<V> get values => JsIterable(
+      jsu.callMethod(this, 'values', const [])
+  );
 
-  bool containsKey(K key) => jsu.hasProperty(this, key);
+  bool containsKey(K key) => jsu.callMethod(this, 'has', [key]);
 
   String asString() => conv.json.encode(this);
 
-  bool containsValue(V value) => JSObject.values(this).contains(value);
+  bool containsValue(V value) => values.contains(value);
 
   void clear() {
-    for (final key in keys) {
-      Reflect.deleteProperty(this, key);
-    }
+    jsu.callMethod(this, 'clear', const []);
   }
 
-  void forEach(void Function(K, V) fn) {
-    final keys = this.keys;
-    final values = this.values;
-    final len = keys.length;
-
-    for (var x = 0; x < len; x++) {
-      fn(keys.elementAt(x), values.elementAt(x));
-    }
+  void forEach(void Function(K, V?, JsMap<K, V>) fn) {
+    jsu.callMethod(this, 'forEach', [allowInterop(fn)]);
   }
 
-  bool get isEmpty => keys.isEmpty;
+  // bool get isEmpty => keys.isEmpty;
+  //
+  // bool get isNotEmpty => keys.isNotEmpty;
+}
 
-  bool get isNotEmpty => keys.isNotEmpty;
+@JS()
+@anonymous
+class IteratorItem<E> {
+  external E? get value;
+  external bool get done;
+}
+
+@JS()
+@anonymous
+class JsIterator<E> {
+  external JsIterator();
+}
+
+extension AdvJsIterator<E> on JsIterator<E> {
+  IteratorItem next() => jsu.callMethod<IteratorItem<E>>(this, 'next',
+      const []);
+}
+
+class JsIterable<E> extends Iterable<E> implements Iterator<E> {
+  JsIterable(this.jsIterator);
+
+  final JsIterator<E> jsIterator;
+
+  @override
+  Iterator<E> get iterator => this;
+
+  @override
+  bool moveNext() {
+    final n = jsIterator.next();
+
+    _value = n.value;
+    return !n.done;
+  }
+
+  late E _value;
+
+  @override
+  E get current => _value;
 }

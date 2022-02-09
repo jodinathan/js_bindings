@@ -65,6 +65,62 @@ extension PropsSFrameTransform on SFrameTransform {
   Future<Object> setEncryptionKey(CryptoKey key, [dynamic keyID]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'setEncryptionKey', [key, keyID]));
+
+  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
+  set onerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onerror', newValue);
+  }
+}
+
+enum SFrameTransformErrorEventType { authentication, keyID, syntax }
+
+@JS()
+@staticInterop
+class SFrameTransformErrorEvent implements Event {
+  external SFrameTransformErrorEvent(
+      String type, SFrameTransformErrorEventInit eventInitDict);
+}
+
+extension PropsSFrameTransformErrorEvent on SFrameTransformErrorEvent {
+  SFrameTransformErrorEventType get errorType =>
+      SFrameTransformErrorEventType.values
+          .byName(js_util.getProperty(this, 'errorType'));
+  dynamic get keyID => js_util.getProperty(this, 'keyID');
+  dynamic get frame => js_util.getProperty(this, 'frame');
+}
+
+@anonymous
+@JS()
+@staticInterop
+class SFrameTransformErrorEventInit implements EventInit {
+  external factory SFrameTransformErrorEventInit._(
+      {required String errorType, dynamic frame, dynamic keyID});
+
+  factory SFrameTransformErrorEventInit(
+          {required SFrameTransformErrorEventType errorType,
+          dynamic frame,
+          dynamic keyID}) =>
+      SFrameTransformErrorEventInit._(
+          errorType: errorType.name, frame: frame, keyID: keyID);
+}
+
+extension PropsSFrameTransformErrorEventInit on SFrameTransformErrorEventInit {
+  SFrameTransformErrorEventType get errorType =>
+      SFrameTransformErrorEventType.values
+          .byName(js_util.getProperty(this, 'errorType'));
+  set errorType(SFrameTransformErrorEventType newValue) {
+    js_util.setProperty(this, 'errorType', newValue.name);
+  }
+
+  dynamic get frame => js_util.getProperty(this, 'frame');
+  set frame(dynamic newValue) {
+    js_util.setProperty(this, 'frame', newValue);
+  }
+
+  dynamic get keyID => js_util.getProperty(this, 'keyID');
+  set keyID(dynamic newValue) {
+    js_util.setProperty(this, 'keyID', newValue);
+  }
 }
 
 enum RTCEncodedVideoFrameType { empty, key, delta }
@@ -81,6 +137,7 @@ class RTCEncodedVideoFrameMetadata {
       required int spatialIndex,
       required int temporalIndex,
       required int synchronizationSource,
+      required int payloadType,
       required Iterable<int> contributingSources});
 }
 
@@ -121,6 +178,11 @@ extension PropsRTCEncodedVideoFrameMetadata on RTCEncodedVideoFrameMetadata {
     js_util.setProperty(this, 'synchronizationSource', newValue);
   }
 
+  int get payloadType => js_util.getProperty(this, 'payloadType');
+  set payloadType(int newValue) {
+    js_util.setProperty(this, 'payloadType', newValue);
+  }
+
   Iterable<int> get contributingSources =>
       js_util.getProperty(this, 'contributingSources');
   set contributingSources(Iterable<int> newValue) {
@@ -153,6 +215,7 @@ extension PropsRTCEncodedVideoFrame on RTCEncodedVideoFrame {
 class RTCEncodedAudioFrameMetadata {
   external factory RTCEncodedAudioFrameMetadata(
       {required int synchronizationSource,
+      required int payloadType,
       required Iterable<int> contributingSources});
 }
 
@@ -161,6 +224,11 @@ extension PropsRTCEncodedAudioFrameMetadata on RTCEncodedAudioFrameMetadata {
       js_util.getProperty(this, 'synchronizationSource');
   set synchronizationSource(int newValue) {
     js_util.setProperty(this, 'synchronizationSource', newValue);
+  }
+
+  int get payloadType => js_util.getProperty(this, 'payloadType');
+  set payloadType(int newValue) {
+    js_util.setProperty(this, 'payloadType', newValue);
   }
 
   Iterable<int> get contributingSources =>
@@ -208,6 +276,11 @@ extension PropsRTCRtpScriptTransformer on RTCRtpScriptTransformer {
   ReadableStream get readable => js_util.getProperty(this, 'readable');
   WritableStream get writable => js_util.getProperty(this, 'writable');
   dynamic get options => js_util.getProperty(this, 'options');
+  Future<Object> generateKeyFrame([Iterable<String>? rids]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rids]));
+
+  Future<Object> sendKeyFrameRequest() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'sendKeyFrameRequest', []));
 }
 
 @JS()

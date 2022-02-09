@@ -1,4 +1,4 @@
-/// Web Authentication: An API for accessing Public Key Credentials - Level 3
+/// Web Authentication: An API for accessing Public Key Credentials - Level
 ///
 /// https://w3c.github.io/webauthn/
 
@@ -14,19 +14,6 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface provides information about a public key / private
-/// key pair, which is a credential for logging in to a service using
-/// an un-phishable and data-breach resistant asymmetric key pair
-/// instead of a password. It inherits from [Credential], and was
-/// created by the Web Authentication API extension to the Credential
-/// Management API. Other interfaces that inherit from [Credential]
-/// are [PasswordCredential] and [FederatedCredential].
-///
-///   Note: This API is restricted to top-level contexts. Use from
-/// within an [<iframe>] element will not have any effect.
-///
 @JS()
 @staticInterop
 class PublicKeyCredential implements Credential {
@@ -34,26 +21,10 @@ class PublicKeyCredential implements Credential {
 }
 
 extension PropsPublicKeyCredential on PublicKeyCredential {
-  ///  An [ArrayBuffer] that holds the globally unique identifier for
-  /// this [PublicKeyCredential]. This identifier can be used to look
-  /// up credentials for future calls to [CredentialsContainer.get].
-  ///
   ByteBuffer get rawId => js_util.getProperty(this, 'rawId');
-
-  ///  An instance of an [AuthenticatorResponse] object. It is either
-  /// of type [AuthenticatorAttestationResponse] if the
-  /// [PublicKeyCredential] was the results of a
-  /// [navigator.credentials.create()] call, or of type
-  /// [AuthenticatorAssertionResponse] if the [PublicKeyCredential] was
-  /// the result of a [navigator.credentials.get()] call.
-  ///
   AuthenticatorResponse get response => js_util.getProperty(this, 'response');
-
-  ///  If any extensions were requested, this method will return the
-  /// results of processing those extensions.
-  ///
-  /// mapArrayBuffer = publicKeyCredential.getClientExtensionResults()
-  ///
+  String? get authenticatorAttachment =>
+      js_util.getProperty(this, 'authenticatorAttachment');
   AuthenticationExtensionsClientOutputs getClientExtensionResults() =>
       js_util.callMethod(this, 'getClientExtensionResults', []);
 
@@ -62,13 +33,6 @@ extension PropsPublicKeyCredential on PublicKeyCredential {
           'isUserVerifyingPlatformAuthenticatorAvailable', []));
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Web Authentication API is the base
-/// interface for interfaces that provide a cryptographic root of
-/// trust for a key pair. The child interfaces include information
-/// from the browser such as the challenge origin and either may be
-/// returned from [PublicKeyCredential.response].
 @JS()
 @staticInterop
 class AuthenticatorResponse {
@@ -76,26 +40,9 @@ class AuthenticatorResponse {
 }
 
 extension PropsAuthenticatorResponse on AuthenticatorResponse {
-  ///  A JSON string in an [ArrayBuffer], representing the client data
-  /// that was passed to [CredentialsContainer.create()] or
-  /// [CredentialsContainer.get()].
-  ///
   ByteBuffer get clientDataJSON => js_util.getProperty(this, 'clientDataJSON');
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Web Authentication API is returned by
-/// [CredentialsContainer.create()] when a [PublicKeyCredential] is
-/// passed, and provides a cryptographic root of trust for the new
-/// key pair that has been generated. This response should be sent to
-/// the relying party's server to complete the creation of the
-/// credential.
-/// This interface inherits from [AuthenticatorResponse].
-///
-///   Note: This interface is restricted to top-level contexts. Use
-/// from within an [<iframe>] element will not have any effect.
-///
 @JS()
 @staticInterop
 class AuthenticatorAttestationResponse implements AuthenticatorResponse {
@@ -104,19 +51,8 @@ class AuthenticatorAttestationResponse implements AuthenticatorResponse {
 
 extension PropsAuthenticatorAttestationResponse
     on AuthenticatorAttestationResponse {
-  ///  An [ArrayBuffer] containing authenticator data and an
-  /// attestation statement for a newly-created key pair.
-  ///
   ByteBuffer get attestationObject =>
       js_util.getProperty(this, 'attestationObject');
-
-  ///  Returns an [Array] of strings describing which transport methods
-  /// (e.g. [usb], [nfc]) are believed to be supported with the
-  /// authenticator. The array may be empty if the information is not
-  /// available.
-  ///
-  /// arrTransports = authenticatorAttestationResponse.getTransports()
-  ///
   Iterable<String> getTransports() =>
       js_util.callMethod(this, 'getTransports', []);
 
@@ -129,17 +65,6 @@ extension PropsAuthenticatorAttestationResponse
       js_util.callMethod(this, 'getPublicKeyAlgorithm', []);
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Web Authentication API is returned by
-/// [CredentialsContainer.get()] when a [PublicKeyCredential] is
-/// passed, and provides proof to a service that it has a key pair
-/// and that the authentication request is valid and approved.
-/// This interface inherits from [AuthenticatorResponse].
-///
-///   Note: This interface is restricted to top-level contexts. Use
-/// from within an [<iframe>] element will not have any effect.
-///
 @JS()
 @staticInterop
 class AuthenticatorAssertionResponse implements AuthenticatorResponse {
@@ -148,25 +73,9 @@ class AuthenticatorAssertionResponse implements AuthenticatorResponse {
 
 extension PropsAuthenticatorAssertionResponse
     on AuthenticatorAssertionResponse {
-  ///  An [ArrayBuffer] containing information from the authenticator
-  /// such as the Relying Party ID Hash (rpIdHash), a signature
-  /// counter, test of user presence and user verification flags, and
-  /// any extensions processed by the authenticator.
-  ///
   ByteBuffer get authenticatorData =>
       js_util.getProperty(this, 'authenticatorData');
-
-  ///  An assertion signature over
-  /// [AuthenticatorAssertionResponse.authenticatorData] and
-  /// [AuthenticatorResponse.clientDataJSON]. The assertion signature
-  /// is created with the private key of keypair that was created
-  /// during the [navigator.credentials.create()] call and verified
-  /// using the public key of that same keypair.
-  ///
   ByteBuffer get signature => js_util.getProperty(this, 'signature');
-
-  /// An [ArrayBuffer] containing an opaque user identifier.
-  ///
   ByteBuffer? get userHandle => js_util.getProperty(this, 'userHandle');
 }
 
@@ -348,11 +257,6 @@ enum ResidentKeyRequirement { discouraged, preferred, valueRequired }
 
 enum AttestationConveyancePreference { none, indirect, direct, enterprise }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The dictionary of the Web Authentication API holds the options
-/// passed to [navigator.credentials.get()] in order to fetch a given
-/// [PublicKeyCredential].
 @anonymous
 @JS()
 @staticInterop
@@ -368,56 +272,32 @@ class PublicKeyCredentialRequestOptions {
 
 extension PropsPublicKeyCredentialRequestOptions
     on PublicKeyCredentialRequestOptions {
-  ///  A [BufferSource], emitted by the relying party's server and used
-  /// as a cryptographic challenge. This value will be signed by the
-  /// authenticator and the signature will be sent back as part of
-  /// [AuthenticatorAssertionResponse.signature].
-  ///
   dynamic get challenge => js_util.getProperty(this, 'challenge');
   set challenge(dynamic newValue) {
     js_util.setProperty(this, 'challenge', newValue);
   }
 
-  ///  A numerical hint, in milliseconds, which indicates the time the
-  /// caller is willing to wait for the retrieval operation to
-  /// complete. This hint may be overridden by the browser.
-  ///
   int get timeout => js_util.getProperty(this, 'timeout');
   set timeout(int newValue) {
     js_util.setProperty(this, 'timeout', newValue);
   }
 
-  ///  A [String] which indicates the relying party's identifier (ex.
-  /// ["login.example.org"]). If this option is not provided, the
-  /// client will use the current origin's domain.
-  ///
   String get rpId => js_util.getProperty(this, 'rpId');
   set rpId(String newValue) {
     js_util.setProperty(this, 'rpId', newValue);
   }
 
-  ///  An [Array] of credentials descriptor which restricts the
-  /// acceptable existing credentials for retrieval.
-  ///
   Iterable<PublicKeyCredentialDescriptor> get allowCredentials =>
       js_util.getProperty(this, 'allowCredentials');
   set allowCredentials(Iterable<PublicKeyCredentialDescriptor> newValue) {
     js_util.setProperty(this, 'allowCredentials', newValue);
   }
 
-  ///  A string qualifying how the user verification should be part of
-  /// the authentication process.
-  ///
   String get userVerification => js_util.getProperty(this, 'userVerification');
   set userVerification(String newValue) {
     js_util.setProperty(this, 'userVerification', newValue);
   }
 
-  ///  An object with several client extensions' inputs. Those
-  /// extensions are used to request additional processing (e.g.
-  /// dealing with legacy FIDO APIs credentials, prompting a specific
-  /// text on the authenticator, etc.).
-  ///
   AuthenticationExtensionsClientInputs get extensions =>
       js_util.getProperty(this, 'extensions');
   set extensions(AuthenticationExtensionsClientInputs newValue) {
@@ -447,8 +327,7 @@ class CollectedClientData {
       {required String type,
       required String challenge,
       required String origin,
-      required bool crossOrigin,
-      required TokenBinding tokenBinding});
+      required bool crossOrigin});
 }
 
 extension PropsCollectedClientData on CollectedClientData {
@@ -470,11 +349,6 @@ extension PropsCollectedClientData on CollectedClientData {
   bool get crossOrigin => js_util.getProperty(this, 'crossOrigin');
   set crossOrigin(bool newValue) {
     js_util.setProperty(this, 'crossOrigin', newValue);
-  }
-
-  TokenBinding get tokenBinding => js_util.getProperty(this, 'tokenBinding');
-  set tokenBinding(TokenBinding newValue) {
-    js_util.setProperty(this, 'tokenBinding', newValue);
   }
 }
 

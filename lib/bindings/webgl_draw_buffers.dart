@@ -13,19 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The extension is part of the WebGL API and enables a fragment
-/// shader to write to several textures, which is useful for deferred
-/// shading, for example.
-///  WebGL extensions are available using the
-/// [WebGLRenderingContext.getExtension()] method. For more
-/// information, see also Using Extensions in the WebGL tutorial.
-///
-///   Note: This extension is only available to WebGL1 contexts. In
-/// WebGL2, the functionality of this extension is available on the
-/// WebGL2 context by default. In WebGL 2, the constants are
-/// available without the "WEBGL" suffix and the new GLSL built-ins
-/// require GLSL [#version 300 es].
-///
 @JS('WEBGL_draw_buffers')
 @staticInterop
 class WEBGLDrawBuffers {
@@ -135,12 +122,6 @@ class WEBGLDrawBuffers {
 }
 
 extension PropsWEBGLDrawBuffers on WEBGLDrawBuffers {
-  ///  Defines the draw buffers to which all fragment colors are
-  /// written. (When using [WebGL2], this method is available as
-  /// [gl.drawBuffers()] by default).
-  ///
-  /// void gl.getExtension('WEBGL_draw_buffers').drawBuffersWEBGL(buffers);
-  ///
   Object drawBuffersWEBGL(Iterable<int> buffers) =>
       js_util.callMethod(this, 'drawBuffersWEBGL', [buffers]);
 }

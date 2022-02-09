@@ -13,15 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The extension is part of the WebGL API and allows linear
-/// filtering with half floating-point pixel types for textures.
-///  WebGL extensions are available using the
-/// [WebGLRenderingContext.getExtension()] method. For more
-/// information, see also Using Extensions in the WebGL tutorial.
-///
-///   Note: This extension is available to both, WebGL1 and WebGL2
-/// contexts.
-///
 @JS('OES_texture_half_float_linear')
 @staticInterop
 class OESTextureHalfFloatLinear {

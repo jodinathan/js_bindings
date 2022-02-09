@@ -10,16 +10,9 @@ library css_transitions_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface represents events providing information related to
-/// transitions.
-@experimental
 @JS()
 @staticInterop
 class TransitionEvent implements Event {
@@ -28,22 +21,8 @@ class TransitionEvent implements Event {
 }
 
 extension PropsTransitionEvent on TransitionEvent {
-  ///  Is a [String] containing the name CSS property associated with
-  /// the transition.
-  ///
   String get propertyName => js_util.getProperty(this, 'propertyName');
-
-  ///  Is a [double] giving the amount of time the transition has been
-  /// running, in seconds, when this event fired. This value is not
-  /// affected by the [transition-delay] property.
-  ///
   double get elapsedTime => js_util.getProperty(this, 'elapsedTime');
-
-  ///  Is a [String], starting with [::], containing the name of the
-  /// pseudo-element the animation runs on. If the transition doesn't
-  /// run on a pseudo-element but on the element, an empty string:
-  /// [''].
-  ///
   String get pseudoElement => js_util.getProperty(this, 'pseudoElement');
 }
 

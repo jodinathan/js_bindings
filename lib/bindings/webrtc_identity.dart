@@ -10,7 +10,6 @@ library webrtc_identity;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -147,14 +146,6 @@ extension PropsRTCIdentityProviderOptions on RTCIdentityProviderOptions {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the WebRTC API represents the identity of a
-/// remote peer of the current connection. If no peer has yet been
-/// set and verified, then this interface returns [null]. Once set it
-/// can't be changed.
-@experimental
 @JS()
 @staticInterop
 class RTCIdentityAssertion {
@@ -162,15 +153,11 @@ class RTCIdentityAssertion {
 }
 
 extension PropsRTCIdentityAssertion on RTCIdentityAssertion {
-  /// Indicates the provider of the identity assertion.
-  ///
   String get idp => js_util.getProperty(this, 'idp');
   set idp(String newValue) {
     js_util.setProperty(this, 'idp', newValue);
   }
 
-  /// Indicates the name of the identity assertion provider.
-  ///
   String get name => js_util.getProperty(this, 'name');
   set name(String newValue) {
     js_util.setProperty(this, 'name', newValue);

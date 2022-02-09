@@ -1,4 +1,4 @@
-/// WebGL OES_draw_buffers_indexed Extension Draft Specification
+/// WebGL OES_draw_buffers_indexed Extension Specification
 ///
 /// https://www.khronos.org/registry/webgl/extensions/OES_draw_buffers_indexed/
 

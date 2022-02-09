@@ -23,15 +23,6 @@ extension PropsNavigatorStorage on NavigatorStorage {
   StorageManager get storage => js_util.getProperty(this, 'storage');
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Storage API provides an interface for
-/// managing persistance permissions and estimating available
-/// storage. You can get a reference to this interface using either
-/// [navigator.storage] or [WorkerNavigator.storage].
 @JS()
 @staticInterop
 class StorageManager {
@@ -39,44 +30,12 @@ class StorageManager {
 }
 
 extension PropsStorageManager on StorageManager {
-  ///  Returns a [Future] that resolves to [true] if persistence has
-  /// already been granted for your site's storage.
-  ///
-  /// navigator.storage.persisted().then(function(persistent) { /* ... */ })
-  ///
-  /// if (navigator.storage && navigator.storage.persist)
-  ///  navigator.storage.persisted().then(function(persistent) {
-  ///   if (persistent)
-  ///    console.log("Storage will not be cleared except by explicit user action");
-  ///   else
-  ///    console.log("Storage may be cleared by the UA under storage pressure.");
-  ///  });
-  ///
   Future<bool> persisted() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'persisted', []));
 
-  ///  Returns a [Future] that resolves to [true] if the user agent is
-  /// able to persist your site's storage.
-  ///
-  /// navigator.storage.persist().then(function(persistent) { /* ... */ })
-  ///
-  /// if (navigator.storage && navigator.storage.persist)
-  ///  navigator.storage.persist().then(function(persistent) {
-  ///   if (persistent)
-  ///    console.log("Storage will not be cleared except by explicit user action");
-  ///   else
-  ///    console.log("Storage may be cleared by the UA under storage pressure.");
-  ///  });
-  ///
   Future<bool> persist() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'persist', []));
 
-  ///  Returns a [Future] that resolves to an object containing usage
-  /// and quota numbers for your origin.
-  ///
-  /// const estimatePromise = StorageManager.estimate();
-  ///
-  /// In this example, we obtain the usage estimates and present the percentage of storage capacity currently used to the user.
   Future<StorageEstimate> estimate() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'estimate', []));
 

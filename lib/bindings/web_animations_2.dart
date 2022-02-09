@@ -13,8 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum FillMode { none, forwards, backwards, both, auto }
-
 @JS()
 @staticInterop
 class GroupEffect {
@@ -62,3 +60,35 @@ extension PropsSequenceEffect on SequenceEffect {
 }
 
 enum IterationCompositeOperation { replace, accumulate }
+
+@JS()
+@staticInterop
+class AnimationPlaybackEvent implements Event {
+  external AnimationPlaybackEvent(String type,
+      [AnimationPlaybackEventInit? eventInitDict]);
+}
+
+extension PropsAnimationPlaybackEvent on AnimationPlaybackEvent {
+  dynamic get currentTime => js_util.getProperty(this, 'currentTime');
+  dynamic get timelineTime => js_util.getProperty(this, 'timelineTime');
+}
+
+@anonymous
+@JS()
+@staticInterop
+class AnimationPlaybackEventInit implements EventInit {
+  external factory AnimationPlaybackEventInit(
+      {dynamic currentTime, dynamic timelineTime});
+}
+
+extension PropsAnimationPlaybackEventInit on AnimationPlaybackEventInit {
+  dynamic get currentTime => js_util.getProperty(this, 'currentTime');
+  set currentTime(dynamic newValue) {
+    js_util.setProperty(this, 'currentTime', newValue);
+  }
+
+  dynamic get timelineTime => js_util.getProperty(this, 'timelineTime');
+  set timelineTime(dynamic newValue) {
+    js_util.setProperty(this, 'timelineTime', newValue);
+  }
+}

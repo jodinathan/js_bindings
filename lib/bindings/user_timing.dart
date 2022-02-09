@@ -6,7 +6,7 @@
 
 @JS('window')
 @staticInterop
-library user_timing_3;
+library user_timing;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
@@ -63,25 +63,6 @@ extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {
   }
 }
 
-///   is an abstract interface for [PerformanceEntry] objects with an
-/// [entryType] of "[mark]". Entries of this type are created by
-/// calling [performance.mark()] to add a named [double] (the mark)
-/// to the browser's performance timeline.
-///
-///
-///
-///    PerformanceEntry
-///
-///
-///
-///
-///
-///    PerformanceMark
-///
-///
-///
-///  Note: This feature is available in Web Workers
-///
 @JS()
 @staticInterop
 class PerformanceMark implements PerformanceEntry {
@@ -93,25 +74,6 @@ extension PropsPerformanceMark on PerformanceMark {
   dynamic get detail => js_util.getProperty(this, 'detail');
 }
 
-///   is an abstract interface for [PerformanceEntry] objects with an
-/// [entryType] of "[measure]". Entries of this type are created by
-/// calling [performance.measure()] to add a named [double] (the
-/// measure) between two marks to the browser's performance timeline.
-///
-///
-///
-///    PerformanceEntry
-///
-///
-///
-///
-///
-///    PerformanceMeasure
-///
-///
-///
-///  Note: This feature is available in Web Workers
-///
 @JS()
 @staticInterop
 class PerformanceMeasure implements PerformanceEntry {
@@ -119,11 +81,5 @@ class PerformanceMeasure implements PerformanceEntry {
 }
 
 extension PropsPerformanceMeasure on PerformanceMeasure {
-  ///
-  ///    Contains arbitrary metadata about the measure.
-  ///     This may be passed in as a property of the
-  /// [performance.measure()] argument [MeasureOptions].
-  ///
-  ///
   dynamic get detail => js_util.getProperty(this, 'detail');
 }

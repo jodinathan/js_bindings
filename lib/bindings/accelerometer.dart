@@ -13,18 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Sensor APIs provides on each reading the
-/// acceleration applied to the device along all three axes.
-///  To use this sensor, the user must grant permission to the
-/// ['accelerometer'], device sensor through the Permissions API.
-///  If a feature policy blocks the use of a feature, it is because
-/// your code is inconsistent with the policies set on your server.
-/// This is not something that would ever be shown to a user. The
-/// [Feature-Policy] HTTP header article contains implementation
-/// instructions.
 @JS()
 @staticInterop
 class Accelerometer implements Sensor {
@@ -32,19 +20,8 @@ class Accelerometer implements Sensor {
 }
 
 extension PropsAccelerometer on Accelerometer {
-  ///  Returns a double containing the acceleration of the device along
-  /// the device's x axis.
-  ///
   double? get x => js_util.getProperty(this, 'x');
-
-  ///  Returns a double containing the acceleration of the device along
-  /// the device's y axis.
-  ///
   double? get y => js_util.getProperty(this, 'y');
-
-  ///  Returns a double containing the acceleration of the device along
-  /// the device's z axis.
-  ///
   double? get z => js_util.getProperty(this, 'z');
 }
 
@@ -71,26 +48,12 @@ extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
   }
 }
 
-///  The interface of the Sensor APIs provides on each reading the
-/// acceleration applied to the device along all three axes, but
-/// without the contribution of gravity.
-///  To use this sensor, the user must grant permission to the
-/// ['accelerometer'] device sensor through the Permissions API.
-///  If a feature policy blocks use of a feature it is because your
-/// code is inconsistent with the policies set on your server. This
-/// is not something that would ever be shown to a user. The
-/// [Feature-Policy] HTTP header article contains implementation
-/// instructions.
 @JS()
 @staticInterop
 class LinearAccelerationSensor implements Accelerometer {
   external LinearAccelerationSensor([AccelerometerSensorOptions? options]);
 }
 
-///  The interface of the Sensor APIs provides on each reading the
-/// gravity applied to the device along all three axes.
-///  To use this sensor, the user must grant permission to the
-/// ['accelerometer'] device sensor through the Permissions API.
 @JS()
 @staticInterop
 class GravitySensor implements Accelerometer {

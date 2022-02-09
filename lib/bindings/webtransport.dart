@@ -15,16 +15,66 @@ import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
-class UnidirectionalStreamsTransport {
-  external UnidirectionalStreamsTransport();
+class WebTransportDatagramDuplexStream {
+  external WebTransportDatagramDuplexStream();
 }
 
-extension PropsUnidirectionalStreamsTransport
-    on UnidirectionalStreamsTransport {
-  Future<SendStream> createUnidirectionalStream(
-          [SendStreamParameters? parameters]) =>
+extension PropsWebTransportDatagramDuplexStream
+    on WebTransportDatagramDuplexStream {
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
+  WritableStream get writable => js_util.getProperty(this, 'writable');
+  int get maxDatagramSize => js_util.getProperty(this, 'maxDatagramSize');
+  double? get incomingMaxAge => js_util.getProperty(this, 'incomingMaxAge');
+  set incomingMaxAge(double? newValue) {
+    js_util.setProperty(this, 'incomingMaxAge', newValue);
+  }
+
+  double? get outgoingMaxAge => js_util.getProperty(this, 'outgoingMaxAge');
+  set outgoingMaxAge(double? newValue) {
+    js_util.setProperty(this, 'outgoingMaxAge', newValue);
+  }
+
+  int get incomingHighWaterMark =>
+      js_util.getProperty(this, 'incomingHighWaterMark');
+  set incomingHighWaterMark(int newValue) {
+    js_util.setProperty(this, 'incomingHighWaterMark', newValue);
+  }
+
+  int get outgoingHighWaterMark =>
+      js_util.getProperty(this, 'outgoingHighWaterMark');
+  set outgoingHighWaterMark(int newValue) {
+    js_util.setProperty(this, 'outgoingHighWaterMark', newValue);
+  }
+}
+
+@JS()
+@staticInterop
+class WebTransport {
+  external WebTransport(String url, [WebTransportOptions? options]);
+}
+
+extension PropsWebTransport on WebTransport {
+  Future<WebTransportStats> getStats() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
+
+  Future<Object> get ready =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
+  Future<WebTransportCloseInfo> get closed =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
+  Object close([WebTransportCloseInfo? closeInfo]) =>
+      js_util.callMethod(this, 'close', [closeInfo]);
+
+  WebTransportDatagramDuplexStream get datagrams =>
+      js_util.getProperty(this, 'datagrams');
+  Future<WebTransportBidirectionalStream> createBidirectionalStream() =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'createUnidirectionalStream', [parameters]));
+          js_util.callMethod(this, 'createBidirectionalStream', []));
+
+  ReadableStream get incomingBidirectionalStreams =>
+      js_util.getProperty(this, 'incomingBidirectionalStreams');
+  Future<WritableStream> createUnidirectionalStream() =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'createUnidirectionalStream', []));
 
   ReadableStream get incomingUnidirectionalStreams =>
       js_util.getProperty(this, 'incomingUnidirectionalStreams');
@@ -33,80 +83,20 @@ extension PropsUnidirectionalStreamsTransport
 @anonymous
 @JS()
 @staticInterop
-class SendStreamParameters {
-  external factory SendStreamParameters();
+class WebTransportHash {
+  external factory WebTransportHash({required String algorithm, dynamic value});
 }
 
-@JS()
-@staticInterop
-class BidirectionalStreamsTransport {
-  external BidirectionalStreamsTransport();
-}
-
-extension PropsBidirectionalStreamsTransport on BidirectionalStreamsTransport {
-  Future<BidirectionalStream> createBidirectionalStream() =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'createBidirectionalStream', []));
-
-  ReadableStream get incomingBidirectionalStreams =>
-      js_util.getProperty(this, 'incomingBidirectionalStreams');
-}
-
-@JS()
-@staticInterop
-class DatagramTransport {
-  external DatagramTransport();
-}
-
-extension PropsDatagramTransport on DatagramTransport {
-  int get maxDatagramSize => js_util.getProperty(this, 'maxDatagramSize');
-  DatagramDuplexStream get datagrams => js_util.getProperty(this, 'datagrams');
-}
-
-@JS()
-@staticInterop
-class DatagramDuplexStream {
-  external DatagramDuplexStream();
-}
-
-extension PropsDatagramDuplexStream on DatagramDuplexStream {
-  ReadableStream get readable => js_util.getProperty(this, 'readable');
-  WritableStream get writable => js_util.getProperty(this, 'writable');
-}
-
-@JS()
-@staticInterop
-class WebTransport implements UnidirectionalStreamsTransport {
-  external WebTransport(String url, [WebTransportOptions? options]);
-}
-
-extension PropsWebTransport on WebTransport {
-  Future<WebTransportStats> getStats() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
-
-  WebTransportState get state =>
-      WebTransportState.values.byName(js_util.getProperty(this, 'state'));
-  Future<Object> get ready =>
-      js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
-  Future<WebTransportCloseInfo> get closed =>
-      js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
-  Object close([WebTransportCloseInfo? closeInfo]) =>
-      js_util.callMethod(this, 'close', [closeInfo]);
-
-  EventHandlerNonNull? get onstatechange =>
-      js_util.getProperty(this, 'onstatechange');
-  set onstatechange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onstatechange', newValue);
+extension PropsWebTransportHash on WebTransportHash {
+  String get algorithm => js_util.getProperty(this, 'algorithm');
+  set algorithm(String newValue) {
+    js_util.setProperty(this, 'algorithm', newValue);
   }
 
-  int get maxDatagramSize => js_util.getProperty(this, 'maxDatagramSize');
-  DatagramDuplexStream get datagrams => js_util.getProperty(this, 'datagrams');
-  Future<BidirectionalStream> createBidirectionalStream() =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'createBidirectionalStream', []));
-
-  ReadableStream get incomingBidirectionalStreams =>
-      js_util.getProperty(this, 'incomingBidirectionalStreams');
+  dynamic get value => js_util.getProperty(this, 'value');
+  set value(dynamic newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
 }
 
 @anonymous
@@ -115,7 +105,7 @@ extension PropsWebTransport on WebTransport {
 class WebTransportOptions {
   external factory WebTransportOptions(
       {required bool allowPooling,
-      required Iterable<RTCDtlsFingerprint> serverCertificateFingerprints});
+      required Iterable<WebTransportHash> serverCertificateHashes});
 }
 
 extension PropsWebTransportOptions on WebTransportOptions {
@@ -124,27 +114,25 @@ extension PropsWebTransportOptions on WebTransportOptions {
     js_util.setProperty(this, 'allowPooling', newValue);
   }
 
-  Iterable<RTCDtlsFingerprint> get serverCertificateFingerprints =>
-      js_util.getProperty(this, 'serverCertificateFingerprints');
-  set serverCertificateFingerprints(Iterable<RTCDtlsFingerprint> newValue) {
-    js_util.setProperty(this, 'serverCertificateFingerprints', newValue);
+  Iterable<WebTransportHash> get serverCertificateHashes =>
+      js_util.getProperty(this, 'serverCertificateHashes');
+  set serverCertificateHashes(Iterable<WebTransportHash> newValue) {
+    js_util.setProperty(this, 'serverCertificateHashes', newValue);
   }
 }
-
-enum WebTransportState { connecting, connected, closed, failed }
 
 @anonymous
 @JS()
 @staticInterop
 class WebTransportCloseInfo {
   external factory WebTransportCloseInfo(
-      {int? errorCode = 0, String? reason = ''});
+      {int? closeCode = 0, String? reason = ''});
 }
 
 extension PropsWebTransportCloseInfo on WebTransportCloseInfo {
-  int get errorCode => js_util.getProperty(this, 'errorCode');
-  set errorCode(int newValue) {
-    js_util.setProperty(this, 'errorCode', newValue);
+  int get closeCode => js_util.getProperty(this, 'closeCode');
+  set closeCode(int newValue) {
+    js_util.setProperty(this, 'closeCode', newValue);
   }
 
   String get reason => js_util.getProperty(this, 'reason');
@@ -165,6 +153,8 @@ class WebTransportStats {
       required int numIncomingStreamsCreated,
       required int bytesReceived,
       required int packetsReceived,
+      required double smoothedRtt,
+      required double rttVariation,
       required double minRtt,
       required int numReceivedDatagramsDropped});
 }
@@ -207,6 +197,16 @@ extension PropsWebTransportStats on WebTransportStats {
     js_util.setProperty(this, 'packetsReceived', newValue);
   }
 
+  double get smoothedRtt => js_util.getProperty(this, 'smoothedRtt');
+  set smoothedRtt(double newValue) {
+    js_util.setProperty(this, 'smoothedRtt', newValue);
+  }
+
+  double get rttVariation => js_util.getProperty(this, 'rttVariation');
+  set rttVariation(double newValue) {
+    js_util.setProperty(this, 'rttVariation', newValue);
+  }
+
   double get minRtt => js_util.getProperty(this, 'minRtt');
   set minRtt(double newValue) {
     js_util.setProperty(this, 'minRtt', newValue);
@@ -221,49 +221,46 @@ extension PropsWebTransportStats on WebTransportStats {
 
 @JS()
 @staticInterop
-class SendStream implements WritableStream {
-  external SendStream();
+class WebTransportBidirectionalStream {
+  external WebTransportBidirectionalStream();
 }
 
-extension PropsSendStream on SendStream {
-  Future<StreamAbortInfo> get remoteCanceled =>
-      js_util.promiseToFuture(js_util.getProperty(this, 'remoteCanceled'));
-  Object reset([StreamAbortInfo? abortInfo]) =>
-      js_util.callMethod(this, 'reset', [abortInfo]);
+extension PropsWebTransportBidirectionalStream
+    on WebTransportBidirectionalStream {
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
+  WritableStream get writable => js_util.getProperty(this, 'writable');
+}
+
+@JS()
+@staticInterop
+class WebTransportError implements DOMException {
+  external WebTransportError([WebTransportErrorInit? init]);
+}
+
+extension PropsWebTransportError on WebTransportError {
+  WebTransportErrorSource get source => WebTransportErrorSource.values
+      .byName(js_util.getProperty(this, 'source'));
+  int? get streamErrorCode => js_util.getProperty(this, 'streamErrorCode');
 }
 
 @anonymous
 @JS()
 @staticInterop
-class StreamAbortInfo {
-  external factory StreamAbortInfo({int? errorCode = 0});
+class WebTransportErrorInit {
+  external factory WebTransportErrorInit(
+      {required int streamErrorCode, required String message});
 }
 
-extension PropsStreamAbortInfo on StreamAbortInfo {
-  int get errorCode => js_util.getProperty(this, 'errorCode');
-  set errorCode(int newValue) {
-    js_util.setProperty(this, 'errorCode', newValue);
+extension PropsWebTransportErrorInit on WebTransportErrorInit {
+  int get streamErrorCode => js_util.getProperty(this, 'streamErrorCode');
+  set streamErrorCode(int newValue) {
+    js_util.setProperty(this, 'streamErrorCode', newValue);
+  }
+
+  String get message => js_util.getProperty(this, 'message');
+  set message(String newValue) {
+    js_util.setProperty(this, 'message', newValue);
   }
 }
 
-@JS()
-@staticInterop
-class ReceiveStream implements ReadableStream {
-  external ReceiveStream();
-}
-
-extension PropsReceiveStream on ReceiveStream {
-  Future<StreamAbortInfo> get remoteReset =>
-      js_util.promiseToFuture(js_util.getProperty(this, 'remoteReset'));
-}
-
-@JS()
-@staticInterop
-class BidirectionalStream {
-  external BidirectionalStream();
-}
-
-extension PropsBidirectionalStream on BidirectionalStream {
-  ReceiveStream get readable => js_util.getProperty(this, 'readable');
-  SendStream get writable => js_util.getProperty(this, 'writable');
-}
+enum WebTransportErrorSource { stream, session }

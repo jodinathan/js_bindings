@@ -5,11 +5,6 @@ import 'dart:typed_data';
 import 'package:js/js.dart';
 import 'all_bindings.dart';
 
-typedef PositionCallback = Function(GeolocationPosition position);
-
-typedef PositionErrorCallback = Function(
-    GeolocationPositionError positionError);
-
 typedef MediaSessionActionHandler = Function(MediaSessionActionDetails details);
 
 typedef UnderlyingSourceStartCallback = Function(dynamic controller);
@@ -37,7 +32,12 @@ typedef TransformerFlushCallback = Function(
 typedef TransformerTransformCallback = Function(
     dynamic chunk, TransformStreamDefaultController controller);
 
-typedef QueuingStrategySize = Function([dynamic chunk]);
+typedef QueuingStrategySize = Function(dynamic chunk);
+
+typedef PositionCallback = Function(GeolocationPosition position);
+
+typedef PositionErrorCallback = Function(
+    GeolocationPositionError positionError);
 
 typedef SchedulerPostTaskCallback = Function();
 
@@ -95,21 +95,27 @@ typedef IntersectionObserverCallback = Function(
 
 typedef LockGrantedCallback = Function(Lock? lock);
 
-typedef EventListener = Function(
-
-    ///
-    ///     An [Event] object describing the event that has been fired
-    /// and needs
-    ///    to be processed.
-    ///
-    ///
-    Event event);
+typedef EventListener = Function(Event event);
 
 typedef MutationCallback = Function(
     Iterable<MutationRecord> mutations, MutationObserver observer);
 
 typedef ReportingObserverCallback = Function(
     Iterable<Report> reports, ReportingObserver observer);
+
+@JS('Function')
+@staticInterop
+typedef FnFunction = Function(
+    [dynamic arguments1, dynamic arguments2, dynamic arguments3]);
+
+typedef VoidFunction = Function();
+
+typedef ComputePressureUpdateCallback = Function(
+    ComputePressureEntry update, ComputePressureObserver observer);
+
+typedef PerformanceObserverCallback = Function(
+    PerformanceObserverEntryList entries, PerformanceObserver observer,
+    [PerformanceObserverCallbackOptions? options]);
 
 typedef NavigatorUserMediaSuccessCallback = Function(MediaStream stream);
 
@@ -151,16 +157,3 @@ typedef OnErrorEventHandlerNonNull = Function(dynamic event,
 typedef OnBeforeUnloadEventHandlerNonNull = Function(Event event);
 
 typedef FrameRequestCallback = Function(double time);
-
-typedef MIDISuccessCallback = Function(MIDIAccess access, MIDIOptions options);
-
-typedef PerformanceObserverCallback = Function(
-    PerformanceObserverEntryList entries, PerformanceObserver observer,
-    [PerformanceObserverCallbackOptions? options]);
-
-@JS('Function')
-@staticInterop
-typedef FnFunction = Function(
-    [dynamic arguments1, dynamic arguments2, dynamic arguments3]);
-
-typedef VoidFunction = Function();

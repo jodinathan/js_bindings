@@ -13,27 +13,6 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
-///
-///   The interface of the [HTML Sanitizer API] provides methods to
-/// sanitize untrusted strings of HTML, [Document] and
-/// [DocumentFragment] objects.
-///   After sanitization, unwanted elements or attributes are
-/// removed, and the returned objects can safely be inserted into a
-/// document’s DOM.
-///
-///  A object is also used by the [Element.setHTML()] method to parse
-/// and sanitize a string of HTML, and immediately insert it into an
-/// element.
-///
-///   The default configuration strips out XSS-relevant input by
-/// default, including [<script>] tags, custom elements, and
-/// comments.
-///  This configuration may be customized using constructor options.
-///
 @JS()
 @staticInterop
 class Sanitizer {
@@ -41,25 +20,31 @@ class Sanitizer {
 }
 
 extension PropsSanitizer on Sanitizer {
-  ///  Returns a sanitized [DocumentFragment] from an input [Document]
-  /// or [DocumentFragment]
-  ///
-  /// sanitize(input)
-  ///
-  DocumentFragment sanitize(
-
-          /// A [DocumentFragment] or [Document] to be sanitized.
-          ///
-          dynamic input) =>
+  DocumentFragment sanitize(dynamic input) =>
       js_util.callMethod(this, 'sanitize', [input]);
 
-  String sanitizeToString(dynamic input) =>
-      js_util.callMethod(this, 'sanitizeToString', [input]);
+  Element? sanitizeFor(String element, String input) =>
+      js_util.callMethod(this, 'sanitizeFor', [element, input]);
 
-  SanitizerConfig config() => js_util.callMethod(this, 'config', []);
+  SanitizerConfig getConfiguration() =>
+      js_util.callMethod(this, 'getConfiguration', []);
 
-  static SanitizerConfig defaultConfig() =>
-      js_util.callMethod(Sanitizer, 'defaultConfig', []);
+  static SanitizerConfig getDefaultConfiguration() =>
+      js_util.callMethod(Sanitizer, 'getDefaultConfiguration', []);
+}
+
+@anonymous
+@JS()
+@staticInterop
+class SetHTMLOptions {
+  external factory SetHTMLOptions({required Sanitizer sanitizer});
+}
+
+extension PropsSetHTMLOptions on SetHTMLOptions {
+  Sanitizer get sanitizer => js_util.getProperty(this, 'sanitizer');
+  set sanitizer(Sanitizer newValue) {
+    js_util.setProperty(this, 'sanitizer', newValue);
+  }
 }
 
 @anonymous
@@ -72,7 +57,8 @@ class SanitizerConfig {
       required Iterable<String> dropElements,
       dynamic allowAttributes,
       dynamic dropAttributes,
-      required bool allowCustomElements});
+      required bool allowCustomElements,
+      required bool allowComments});
 }
 
 extension PropsSanitizerConfig on SanitizerConfig {
@@ -108,5 +94,10 @@ extension PropsSanitizerConfig on SanitizerConfig {
       js_util.getProperty(this, 'allowCustomElements');
   set allowCustomElements(bool newValue) {
     js_util.setProperty(this, 'allowCustomElements', newValue);
+  }
+
+  bool get allowComments => js_util.getProperty(this, 'allowComments');
+  set allowComments(bool newValue) {
+    js_util.setProperty(this, 'allowComments', newValue);
   }
 }

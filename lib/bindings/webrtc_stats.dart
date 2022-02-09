@@ -37,22 +37,6 @@ enum RTCStatsType {
   iceServer
 }
 
-///  The dictionary is returned by the
-/// [RTCPeerConnection.getStats()], [RTCRtpSender.getStats()], and
-/// [RTCRtpReceiver.getStats()] methods to provide detailed
-/// statistics about WebRTC connectivity.
-///  While the dictionary has a base set of properties that are
-/// present in each of these cases, there are also additional
-/// properties added depending on which interface the method is
-/// called on.
-///   is the base class for all RTP-related statistics reports. It's
-/// based on RTCStats and adds the following additional fields.
-///
-///   Note: This interface was called [RTCRTPStreamStats] until a
-/// specification update in the spring of 2017. Check the Browser
-/// compatibility table to know if and when the name change was
-/// implemented in specific browsers.
-///
 @anonymous
 @JS()
 @staticInterop
@@ -263,10 +247,6 @@ extension PropsRTCReceivedRtpStreamStats on RTCReceivedRtpStreamStats {
   }
 }
 
-///  The WebRTC API's dictionary, based upon
-/// [RTCReceivedRtpStreamStats] and [RTCStats], contains statistics
-/// related to the receiving end of an RTP stream on the local end of
-/// the [RTCPeerConnection].
 @anonymous
 @JS()
 @staticInterop
@@ -319,30 +299,16 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
 }
 
 extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
-  ///  A string indicating which identifies the [RTCAudioReceiverStats]
-  /// or [RTCVideoReceiverStats] object associated with the stream's
-  /// receiver. This ID is stable across multiple calls to
-  /// [getStats()].
-  ///
   String get receiverId => js_util.getProperty(this, 'receiverId');
   set receiverId(String newValue) {
     js_util.setProperty(this, 'receiverId', newValue);
   }
 
-  ///  A string which identifies the [RTCRemoteOutboundRtpStreamStats]
-  /// object that provides statistics for the remote peer for this same
-  /// SSRC. This ID is stable across multiple calls to [getStats()].
-  ///
   String get remoteId => js_util.getProperty(this, 'remoteId');
   set remoteId(String newValue) {
     js_util.setProperty(this, 'remoteId', newValue);
   }
 
-  ///  A long integer value indicating the total number of frames of
-  /// video which have been correctly decoded so far for this media
-  /// source. This is the number of frames that would have been
-  /// rendered if none were dropped. Only valid for video streams.
-  ///
   int get framesDecoded => js_util.getProperty(this, 'framesDecoded');
   set framesDecoded(int newValue) {
     js_util.setProperty(this, 'framesDecoded', newValue);
@@ -373,11 +339,6 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
     js_util.setProperty(this, 'framesPerSecond', newValue);
   }
 
-  ///  A 64-bit value containing the sum of the QP values for every
-  /// frame decoded by this RTP receiver. You can determine the average
-  /// QP per frame by dividing this value by [framesDecoded]. Valid
-  /// only for video streams.
-  ///
   int get qpSum => js_util.getProperty(this, 'qpSum');
   set qpSum(int newValue) {
     js_util.setProperty(this, 'qpSum', newValue);
@@ -405,20 +366,12 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
     js_util.setProperty(this, 'voiceActivityFlag', newValue);
   }
 
-  ///  A [double] indicating the time at which the last packet was
-  /// received for this source. The [timestamp] property, on the other
-  /// hand, indicates the time at which the statistics object was
-  /// generated.
-  ///
   double get lastPacketReceivedTimestamp =>
       js_util.getProperty(this, 'lastPacketReceivedTimestamp');
   set lastPacketReceivedTimestamp(double newValue) {
     js_util.setProperty(this, 'lastPacketReceivedTimestamp', newValue);
   }
 
-  ///  A floating-point value indicating the average RTCP interval
-  /// between two consecutive compound RTCP packets.
-  ///
   double get averageRtcpInterval =>
       js_util.getProperty(this, 'averageRtcpInterval');
   set averageRtcpInterval(double newValue) {
@@ -431,98 +384,54 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
     js_util.setProperty(this, 'headerBytesReceived', newValue);
   }
 
-  ///  An integer value indicating the total number of RTP FEC packets
-  /// received for this source. This counter may also be incremented
-  /// when FEC packets arrive in-band along with media content; this
-  /// can happen with Opus, for example.
-  ///
   int get fecPacketsReceived => js_util.getProperty(this, 'fecPacketsReceived');
   set fecPacketsReceived(int newValue) {
     js_util.setProperty(this, 'fecPacketsReceived', newValue);
   }
 
-  ///  An integer value indicating the number of RTP Forward Error
-  /// Correction (FEC) packets which have been received for this
-  /// source, for which the error correction payload was discarded.
-  ///
   int get fecPacketsDiscarded =>
       js_util.getProperty(this, 'fecPacketsDiscarded');
   set fecPacketsDiscarded(int newValue) {
     js_util.setProperty(this, 'fecPacketsDiscarded', newValue);
   }
 
-  ///  A 64-bit integer which indicates the total number of bytes that
-  /// have been received so far for this media source.
-  ///
   int get bytesReceived => js_util.getProperty(this, 'bytesReceived');
   set bytesReceived(int newValue) {
     js_util.setProperty(this, 'bytesReceived', newValue);
   }
 
-  ///  An integer totaling the number of RTP packets that could not be
-  /// decrypted. These packets are not counted by [packetsDiscarded].
-  ///
   int get packetsFailedDecryption =>
       js_util.getProperty(this, 'packetsFailedDecryption');
   set packetsFailedDecryption(int newValue) {
     js_util.setProperty(this, 'packetsFailedDecryption', newValue);
   }
 
-  ///  An integer value indicating the total number of packets that
-  /// have been discarded because they were duplicates. These packets
-  /// are not counted by [packetsDiscarded].
-  ///
   int get packetsDuplicated => js_util.getProperty(this, 'packetsDuplicated');
   set packetsDuplicated(int newValue) {
     js_util.setProperty(this, 'packetsDuplicated', newValue);
   }
 
-  ///  A record of key-value pairs with strings as the keys mapped to
-  /// 32-bit integer values, each indicating the total number of
-  /// packets this receiver has received on this RTP stream from this
-  /// source for each Differentiated Services Code Point (DSCP).
-  ///
   dynamic get perDscpPacketsReceived =>
       js_util.getProperty(this, 'perDscpPacketsReceived');
   set perDscpPacketsReceived(dynamic newValue) {
     js_util.setProperty(this, 'perDscpPacketsReceived', newValue);
   }
 
-  ///  An integer value indicating the total number of Negative
-  /// ACKnolwedgement (NACK) packets this receiver has sent.
-  ///
   int get nackCount => js_util.getProperty(this, 'nackCount');
   set nackCount(int newValue) {
     js_util.setProperty(this, 'nackCount', newValue);
   }
 
-  ///  An integer value which indicates the total number of Full Intra
-  /// Request (FIR) packets which this receiver has sent to the sender.
-  /// This is an indicator of how often the stream has lagged,
-  /// requiring frames to be skipped in order to catch up. This value
-  /// is only available for video streams.
-  ///
   int get firCount => js_util.getProperty(this, 'firCount');
   set firCount(int newValue) {
     js_util.setProperty(this, 'firCount', newValue);
   }
 
-  ///  An integer specifying the number of times the receiver has
-  /// notified the sender that some amount of encoded video data for
-  /// one or more frames has been lost, using Picture Loss Indication
-  /// (PLI) packets. This is only available for video streams.
-  ///
   int get pliCount => js_util.getProperty(this, 'pliCount');
   set pliCount(int newValue) {
     js_util.setProperty(this, 'pliCount', newValue);
   }
 
-  ///  An integer indicating the number of times the receiver sent a
-  /// Slice Loss Indication (SLI) frame to the sender to tell it that
-  /// one or more consecutive (in terms of scan order) video
-  /// macroblocks have been lost or corrupted. Available only for video
-  /// streams.
-  ///
   int get sliCount => js_util.getProperty(this, 'sliCount');
   set sliCount(int newValue) {
     js_util.setProperty(this, 'sliCount', newValue);
@@ -700,9 +609,6 @@ extension PropsRTCSentRtpStreamStats on RTCSentRtpStreamStats {
   }
 }
 
-///  The dictionary is the [RTCStats]-based object which provides
-/// metrics and statistics related to an outbound RTP stream being
-/// sent by an [RTCRtpSender].
 @anonymous
 @JS()
 @staticInterop
@@ -845,18 +751,11 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'mediaSourceId', newValue);
   }
 
-  ///  The [id] of the [RTCAudioSenderStats] or [RTCVideoSenderStats]
-  /// object containing statistics about this stream's [RTCRtpSender].
-  ///
   String get senderId => js_util.getProperty(this, 'senderId');
   set senderId(String newValue) {
     js_util.setProperty(this, 'senderId', newValue);
   }
 
-  ///  A string which identifies the [RTCRemoteInboundRtpStreamStats]
-  /// object that provides statistics for the remote peer for this same
-  /// SSRC. This ID is stable across multiple calls to [getStats()].
-  ///
   String get remoteId => js_util.getProperty(this, 'remoteId');
   set remoteId(String newValue) {
     js_util.setProperty(this, 'remoteId', newValue);
@@ -867,11 +766,6 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'rid', newValue);
   }
 
-  ///  A [double] indicating the time at which the last packet was sent
-  /// for this SSRC. The [timestamp] property, on the other hand,
-  /// indicates the time at which the [RTCOutboundRtpStreamStats]
-  /// object was generated.
-  ///
   double get lastPacketSentTimestamp =>
       js_util.getProperty(this, 'lastPacketSentTimestamp');
   set lastPacketSentTimestamp(double newValue) {
@@ -900,41 +794,23 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'fecPacketsSent', newValue);
   }
 
-  ///  The total number of packets that have needed to be retransmitted
-  /// for this source as of the time the statistics were sampled. These
-  /// retransmitted packets are included in the value returned by
-  /// [packetsSent].
-  ///
   int get retransmittedPacketsSent =>
       js_util.getProperty(this, 'retransmittedPacketsSent');
   set retransmittedPacketsSent(int newValue) {
     js_util.setProperty(this, 'retransmittedPacketsSent', newValue);
   }
 
-  ///  The total number of bytes that have been retransmitted for this
-  /// source as of the time the statistics were sampled. These
-  /// retransmitted bytes comprise the packets included in the value
-  /// returned by [retransmittedPacketsSent].
-  ///
   int get retransmittedBytesSent =>
       js_util.getProperty(this, 'retransmittedBytesSent');
   set retransmittedBytesSent(int newValue) {
     js_util.setProperty(this, 'retransmittedBytesSent', newValue);
   }
 
-  ///  A value indicating the bit rate the [RTCRtpSender]'s codec is
-  /// configured to attempt to achieve in its output media.
-  ///
   double get targetBitrate => js_util.getProperty(this, 'targetBitrate');
   set targetBitrate(double newValue) {
     js_util.setProperty(this, 'targetBitrate', newValue);
   }
 
-  ///  A cumulative sum of the target frame sizes (the targeted maximum
-  /// size of the frame in bytes when the codec is asked to compress
-  /// it) for all of the frames encoded so far. This will likely differ
-  /// from the total of the actual frame sizes.
-  ///
   int get totalEncodedBytesTarget =>
       js_util.getProperty(this, 'totalEncodedBytesTarget');
   set totalEncodedBytesTarget(int newValue) {
@@ -971,9 +847,6 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'hugeFramesSent', newValue);
   }
 
-  ///  The number of frames that have been successfully encoded so far
-  /// for sending on this RTP stream. Only valid for video streams.
-  ///
   int get framesEncoded => js_util.getProperty(this, 'framesEncoded');
   set framesEncoded(int newValue) {
     js_util.setProperty(this, 'framesEncoded', newValue);
@@ -990,10 +863,6 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'framesDiscardedOnSend', newValue);
   }
 
-  ///  A 64-bit value containing the sum of the QP values for every
-  /// frame encoded by this [RTCRtpSender]. Valid only for video
-  /// streams.
-  ///
   int get qpSum => js_util.getProperty(this, 'qpSum');
   set qpSum(int newValue) {
     js_util.setProperty(this, 'qpSum', newValue);
@@ -1021,10 +890,6 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'voiceActivityFlag', newValue);
   }
 
-  ///  A floating-point value indicating the total number of seconds
-  /// that have been spent encoding the frames encoded so far by this
-  /// [RTCRtpSender].
-  ///
   double get totalEncodeTime => js_util.getProperty(this, 'totalEncodeTime');
   set totalEncodeTime(double newValue) {
     js_util.setProperty(this, 'totalEncodeTime', newValue);
@@ -1036,19 +901,12 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'totalPacketSendDelay', newValue);
   }
 
-  ///  A floating-point value indicating the average RTCP interval
-  /// between two consecutive compound RTCP packets.
-  ///
   double get averageRtcpInterval =>
       js_util.getProperty(this, 'averageRtcpInterval');
   set averageRtcpInterval(double newValue) {
     js_util.setProperty(this, 'averageRtcpInterval', newValue);
   }
 
-  ///  A value from the [RTCQualityLimitationReason] enumerated type
-  /// explaining why the resolution and/or frame rate is being limited
-  /// for this RTP stream. Valid only for video streams.
-  ///
   RTCQualityLimitationReason get qualityLimitationReason =>
       RTCQualityLimitationReason.values
           .byName(js_util.getProperty(this, 'qualityLimitationReason'));
@@ -1056,11 +914,6 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'qualityLimitationReason', newValue.name);
   }
 
-  ///  A record mapping each of the quality limitation reasons in the
-  /// [RTCRemoteInboundRtpStreamStats] enumeration to a floating-point
-  /// value indicating the number of seconds the stream has spent with
-  /// its quality limited for that reason.
-  ///
   dynamic get qualityLimitationDurations =>
       js_util.getProperty(this, 'qualityLimitationDurations');
   set qualityLimitationDurations(dynamic newValue) {
@@ -1073,52 +926,27 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'qualityLimitationResolutionChanges', newValue);
   }
 
-  ///  A record of key-value pairs with strings as the keys mapped to
-  /// 32-bit integer values, each indicating the total number of
-  /// packets this [RTCRtpSender] has transmitted for this source for
-  /// each Differentiated Services Code Point (DSCP).
-  ///
   dynamic get perDscpPacketsSent =>
       js_util.getProperty(this, 'perDscpPacketsSent');
   set perDscpPacketsSent(dynamic newValue) {
     js_util.setProperty(this, 'perDscpPacketsSent', newValue);
   }
 
-  ///  An integer value indicating the total number of Negative
-  /// ACKnolwedgement (NACK) packets this [RTCRtpSender] has received
-  /// from the remote [RTCRtpReceiver].
-  ///
   int get nackCount => js_util.getProperty(this, 'nackCount');
   set nackCount(int newValue) {
     js_util.setProperty(this, 'nackCount', newValue);
   }
 
-  ///  An integer value which indicates the total number of Full Intra
-  /// Request (FIR) packets which this [RTCRtpSender] has sent to the
-  /// remote [RTCRtpReceiver]. This is an indicator of how often the
-  /// stream has lagged, requiring frames to be skipped in order to
-  /// catch up. Valid only for video streams.
-  ///
   int get firCount => js_util.getProperty(this, 'firCount');
   set firCount(int newValue) {
     js_util.setProperty(this, 'firCount', newValue);
   }
 
-  ///  An integer specifying the number of times the remote receiver
-  /// has notified this [RTCRtpSender] that some amount of encoded
-  /// video data for one or more frames has been lost, using Picture
-  /// Loss Indication (PLI) packets. Only available for video streams.
-  ///
   int get pliCount => js_util.getProperty(this, 'pliCount');
   set pliCount(int newValue) {
     js_util.setProperty(this, 'pliCount', newValue);
   }
 
-  ///  An integer indicating the number of times this sender received a
-  /// Slice Loss Indication (SLI) frame from the remote peer,
-  /// indicating that one or more consecutive video macroblocks have
-  /// been lost or corrupted. Available only for video streams.
-  ///
   int get sliCount => js_util.getProperty(this, 'sliCount');
   set sliCount(int newValue) {
     js_util.setProperty(this, 'sliCount', newValue);
@@ -1133,9 +961,6 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
 
 enum RTCQualityLimitationReason { none, cpu, bandwidth, other }
 
-///  The WebRTC statistics model's dictionary extends the underlying
-/// [RTCSentRtpStreamStats] dictionary with properties measuring
-/// metrics specific to outgoing RTP streams.
 @anonymous
 @JS()
 @staticInterop
@@ -1151,22 +976,11 @@ class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
 
 extension PropsRTCRemoteOutboundRtpStreamStats
     on RTCRemoteOutboundRtpStreamStats {
-  ///  A [String] which is used to find the local
-  /// [RTCInboundRtpStreamStats] object which shares the same
-  /// Synchronization Source (SSRC).
-  ///
   String get localId => js_util.getProperty(this, 'localId');
   set localId(String newValue) {
     js_util.setProperty(this, 'localId', newValue);
   }
 
-  ///  A [double] specifying the timestamp (on the remote device) at
-  /// which the statistics in the [RTCRemoteOutboundRtpStreamStats]
-  /// object were sent by the remote endpoint. This is different from
-  /// the [timestamp] found in the base [RTCStats] dictionary; it
-  /// represents the time at which the object's statistics were
-  /// received or generated by the local endpoint.
-  ///
   double get remoteTimestamp => js_util.getProperty(this, 'remoteTimestamp');
   set remoteTimestamp(double newValue) {
     js_util.setProperty(this, 'remoteTimestamp', newValue);
@@ -1763,8 +1577,6 @@ extension PropsRTCSctpTransportStats on RTCSctpTransportStats {
   }
 }
 
-///  The WebRTC API's dictionary provides statistics related to an
-/// [RTCIceCandidate].
 @anonymous
 @JS()
 @staticInterop
@@ -1800,85 +1612,48 @@ class RTCIceCandidateStats implements RTCStats {
 }
 
 extension PropsRTCIceCandidateStats on RTCIceCandidateStats {
-  ///  A string uniquely identifying the transport object that was
-  /// inspected in order to obtain the [RTCTransportStats] associated
-  /// with the candidate corresponding to these statistics.
-  ///
   String get transportId => js_util.getProperty(this, 'transportId');
   set transportId(String newValue) {
     js_util.setProperty(this, 'transportId', newValue);
   }
 
-  ///  A string containing the address of the candidate. This value may
-  /// be an IPv4 address, an IPv6 address, or a fully-qualified domain
-  /// name. This property was previously named [ip] and only accepted
-  /// IP addresses.
-  ///
   String? get address => js_util.getProperty(this, 'address');
   set address(String? newValue) {
     js_util.setProperty(this, 'address', newValue);
   }
 
-  /// The network port number used by the candidate.
-  ///
   int get port => js_util.getProperty(this, 'port');
   set port(int newValue) {
     js_util.setProperty(this, 'port', newValue);
   }
 
-  ///  A string specifying the protocol ([tcp] or [udp]) used to
-  /// transmit data on the [port].
-  ///
   String get protocol => js_util.getProperty(this, 'protocol');
   set protocol(String newValue) {
     js_util.setProperty(this, 'protocol', newValue);
   }
 
-  ///  A string matching one of the values in [RTCIceCandidate.type],
-  /// indicating what kind of candidate the object provides statistics
-  /// for.
-  ///
   RTCIceCandidateType get candidateType => RTCIceCandidateType.values
       .byName(js_util.getProperty(this, 'candidateType'));
   set candidateType(RTCIceCandidateType newValue) {
     js_util.setProperty(this, 'candidateType', newValue.name);
   }
 
-  ///  The candidate's priority, corresponding to
-  /// [RTCIceCandidate.priority].
-  ///
   int get priority => js_util.getProperty(this, 'priority');
   set priority(int newValue) {
     js_util.setProperty(this, 'priority', newValue);
   }
 
-  ///  For local candidates, the property is the URL of the ICE server
-  /// from which the candidate was received. This URL matches the one
-  /// included in the [RTCPeerConnectionIceEvent] object representing
-  /// the [icecandidate] event that delivered the candidate to the
-  /// local peer.
-  ///
   String get url => js_util.getProperty(this, 'url');
   set url(String newValue) {
     js_util.setProperty(this, 'url', newValue);
   }
 
-  ///  A string identifying the protocol used by the endpoint for
-  /// communicating with the TURN server; valid values are [tcp],
-  /// [udp], and [tls]. Only present for local candidates.
-  ///
   String get relayProtocol => js_util.getProperty(this, 'relayProtocol');
   set relayProtocol(String newValue) {
     js_util.setProperty(this, 'relayProtocol', newValue);
   }
 }
 
-///  The WebRTC dictionary reports statistics which provide insight
-/// into the quality and performance of an [RTCPeerConnection] while
-/// connected and configured as described by the specified pair of
-/// ICE candidates.
-///  If a [RTCStats]-based object's [type] is [candidate-pair], it's
-/// an object.
 @anonymous
 @JS()
 @staticInterop
@@ -1986,37 +1761,22 @@ class RTCIceCandidatePairStats implements RTCStats {
 }
 
 extension PropsRTCIceCandidatePairStats on RTCIceCandidatePairStats {
-  ///  A [String] that uniquely identifies the [RTCIceTransport] that
-  /// was inspected to obtain the transport-related statistics (as
-  /// found in [RTCTransportStats]) used in generating this object.
-  ///
   String get transportId => js_util.getProperty(this, 'transportId');
   set transportId(String newValue) {
     js_util.setProperty(this, 'transportId', newValue);
   }
 
-  ///  The unique ID string corresponding to the [RTCIceCandidate] from
-  /// the data included in the [RTCIceCandidateStats] object providing
-  /// statistics for the candidate pair's local candidate.
-  ///
   String get localCandidateId => js_util.getProperty(this, 'localCandidateId');
   set localCandidateId(String newValue) {
     js_util.setProperty(this, 'localCandidateId', newValue);
   }
 
-  ///  The unique ID string corresponding to the remote candidate from
-  /// which data was taken to construct the [RTCIceCandidateStats]
-  /// object describing the remote end of the connection.
-  ///
   String get remoteCandidateId =>
       js_util.getProperty(this, 'remoteCandidateId');
   set remoteCandidateId(String newValue) {
     js_util.setProperty(this, 'remoteCandidateId', newValue);
   }
 
-  ///  A [RTCStatsIceCandidatePairState] object which indicates the
-  /// state of the connection between the two candidates.
-  ///
   RTCStatsIceCandidatePairState get state =>
       RTCStatsIceCandidatePairState.values
           .byName(js_util.getProperty(this, 'state'));
@@ -2024,230 +1784,129 @@ extension PropsRTCIceCandidatePairStats on RTCIceCandidatePairStats {
     js_util.setProperty(this, 'state', newValue.name);
   }
 
-  ///  A Boolean value which, if [true], indicates that the candidate
-  /// pair described by this object is one which has been proposed for
-  /// use, and will be (or was) used if its priority is the highest
-  /// among the nominated candidate pairs. See RFC 5245, section
-  /// 7.1.3.2.4 for details.
-  ///
   bool get nominated => js_util.getProperty(this, 'nominated');
   set nominated(bool newValue) {
     js_util.setProperty(this, 'nominated', newValue);
   }
 
-  /// The total number of packets sent on this candidate pair.
-  ///
   int get packetsSent => js_util.getProperty(this, 'packetsSent');
   set packetsSent(int newValue) {
     js_util.setProperty(this, 'packetsSent', newValue);
   }
 
-  /// The total number of packets received on this candidate pair.
-  ///
   int get packetsReceived => js_util.getProperty(this, 'packetsReceived');
   set packetsReceived(int newValue) {
     js_util.setProperty(this, 'packetsReceived', newValue);
   }
 
-  ///  The total number of payload bytes sent (that is, the total
-  /// number of bytes sent minus any headers, padding, or other
-  /// administrative overhead) so far on this candidate pair.
-  ///
   int get bytesSent => js_util.getProperty(this, 'bytesSent');
   set bytesSent(int newValue) {
     js_util.setProperty(this, 'bytesSent', newValue);
   }
 
-  ///  The total number of payload bytes received (that is, the total
-  /// number of bytes received minus any headers, padding, or other
-  /// administrative overhead) on this candidate pair so far.
-  ///
   int get bytesReceived => js_util.getProperty(this, 'bytesReceived');
   set bytesReceived(int newValue) {
     js_util.setProperty(this, 'bytesReceived', newValue);
   }
 
-  ///  A [double] value indicating the time at which the last packet
-  /// was sent from the local peer to the remote peer for this
-  /// candidate pair. Timestamps are not recorded for STUN packets.
-  ///
   double get lastPacketSentTimestamp =>
       js_util.getProperty(this, 'lastPacketSentTimestamp');
   set lastPacketSentTimestamp(double newValue) {
     js_util.setProperty(this, 'lastPacketSentTimestamp', newValue);
   }
 
-  ///  A [double] value indicating the time at which the last packet
-  /// was received by the local peer from the remote peer for this
-  /// candidate pair. Timestamps are not recorded for STUN packets.
-  ///
   double get lastPacketReceivedTimestamp =>
       js_util.getProperty(this, 'lastPacketReceivedTimestamp');
   set lastPacketReceivedTimestamp(double newValue) {
     js_util.setProperty(this, 'lastPacketReceivedTimestamp', newValue);
   }
 
-  ///  A [double] value which specifies the time at which the first
-  /// STUN request was sent from the local peer to the remote peer for
-  /// this candidate pair.
-  ///
   double get firstRequestTimestamp =>
       js_util.getProperty(this, 'firstRequestTimestamp');
   set firstRequestTimestamp(double newValue) {
     js_util.setProperty(this, 'firstRequestTimestamp', newValue);
   }
 
-  ///  A [double] value which specifies the time at which the last
-  /// (most recent) STUN request was sent from the local peer to the
-  /// remote peer for this candidate pair.
-  ///
   double get lastRequestTimestamp =>
       js_util.getProperty(this, 'lastRequestTimestamp');
   set lastRequestTimestamp(double newValue) {
     js_util.setProperty(this, 'lastRequestTimestamp', newValue);
   }
 
-  ///  A [double] value that specifies the time at which the last (most
-  /// recent) STUN response was received by the local candidate from
-  /// the remote candidate in this pair.
-  ///
   double get lastResponseTimestamp =>
       js_util.getProperty(this, 'lastResponseTimestamp');
   set lastResponseTimestamp(double newValue) {
     js_util.setProperty(this, 'lastResponseTimestamp', newValue);
   }
 
-  ///  A floating-point value indicating the total time, in seconds,
-  /// that has elapsed between sending STUN requests and receiving
-  /// responses to them, for all such requests made to date on this
-  /// candidate pair. This includes both connectivity check and consent
-  /// check requests. You can compute the average round trip time (RTT)
-  /// by dividing this value by [responsesReceived].
-  ///
   double get totalRoundTripTime =>
       js_util.getProperty(this, 'totalRoundTripTime');
   set totalRoundTripTime(double newValue) {
     js_util.setProperty(this, 'totalRoundTripTime', newValue);
   }
 
-  ///  A floating-point value indicating the total time, in seconds,
-  /// that elapsed between the most recently-sent STUN request and the
-  /// response being received. This may be based upon requests that
-  /// were involved in confirming permission to open the connection.
-  ///
   double get currentRoundTripTime =>
       js_util.getProperty(this, 'currentRoundTripTime');
   set currentRoundTripTime(double newValue) {
     js_util.setProperty(this, 'currentRoundTripTime', newValue);
   }
 
-  ///  Provides an informative value representing the available
-  /// outbound capacity of the network by reporting the total number of
-  /// bits per second available for all of the candidate pair's
-  /// outgoing RTP streams. This does not take into account the size of
-  /// the IP overhead, nor any other transport layers such as TCP or
-  /// UDP.
-  ///
   double get availableOutgoingBitrate =>
       js_util.getProperty(this, 'availableOutgoingBitrate');
   set availableOutgoingBitrate(double newValue) {
     js_util.setProperty(this, 'availableOutgoingBitrate', newValue);
   }
 
-  ///  Provides an informative value representing the available inbound
-  /// capacity of the network by reporting the total number of bits per
-  /// second available for all of the candidate pair's incoming RTP
-  /// streams. This does not take into account the size of the IP
-  /// overhead, nor any other transport layers such as TCP or UDP.
-  ///
   double get availableIncomingBitrate =>
       js_util.getProperty(this, 'availableIncomingBitrate');
   set availableIncomingBitrate(double newValue) {
     js_util.setProperty(this, 'availableIncomingBitrate', newValue);
   }
 
-  ///  An integer value indicating the number of times the
-  /// circuit-breaker has been triggered for this particular 5-tuple
-  /// (the set of five values comprising a TCP connection: source IP
-  /// address, source port number, destination IP address, destination
-  /// port number, and protocol). The circuit breaker is triggered
-  /// whenever a connection times out or otherwise needs to be
-  /// automatically aborted.
-  ///
   int get circuitBreakerTriggerCount =>
       js_util.getProperty(this, 'circuitBreakerTriggerCount');
   set circuitBreakerTriggerCount(int newValue) {
     js_util.setProperty(this, 'circuitBreakerTriggerCount', newValue);
   }
 
-  ///  The total number of connectivity check requests that have been
-  /// received, including retransmissions. This value includes both
-  /// connectivity checks and STUN consent checks.
-  ///
   int get requestsReceived => js_util.getProperty(this, 'requestsReceived');
   set requestsReceived(int newValue) {
     js_util.setProperty(this, 'requestsReceived', newValue);
   }
 
-  ///  The total number of connectivity check requests that have been
-  /// sent, not including retransmissions.
-  ///
   int get requestsSent => js_util.getProperty(this, 'requestsSent');
   set requestsSent(int newValue) {
     js_util.setProperty(this, 'requestsSent', newValue);
   }
 
-  ///  The total number of connectivity check responses that have been
-  /// received.
-  ///
   int get responsesReceived => js_util.getProperty(this, 'responsesReceived');
   set responsesReceived(int newValue) {
     js_util.setProperty(this, 'responsesReceived', newValue);
   }
 
-  ///  The total number of connectivity check responses that have been
-  /// sent. This includes both connectivity check requests and STUN
-  /// consent requests.
-  ///
   int get responsesSent => js_util.getProperty(this, 'responsesSent');
   set responsesSent(int newValue) {
     js_util.setProperty(this, 'responsesSent', newValue);
   }
 
-  ///  The total number of times connectivity check request
-  /// retransmissions were received. A retransmission is a connectivity
-  /// check request whose [TRANSACTION_TRANSMIT_COUNTER] attribute's
-  /// [req] field is greater than 1.
-  ///
   int get retransmissionsReceived =>
       js_util.getProperty(this, 'retransmissionsReceived');
   set retransmissionsReceived(int newValue) {
     js_util.setProperty(this, 'retransmissionsReceived', newValue);
   }
 
-  ///  The total number of times connectivity check request
-  /// retransmissions were sent.
-  ///
   int get retransmissionsSent =>
       js_util.getProperty(this, 'retransmissionsSent');
   set retransmissionsSent(int newValue) {
     js_util.setProperty(this, 'retransmissionsSent', newValue);
   }
 
-  ///  The total number of consent requests that have been sent on this
-  /// candidate pair.
-  ///
   int get consentRequestsSent =>
       js_util.getProperty(this, 'consentRequestsSent');
   set consentRequestsSent(int newValue) {
     js_util.setProperty(this, 'consentRequestsSent', newValue);
   }
 
-  ///  A [double] value indicating the time at which the most recent
-  /// STUN binding response expired. This value is [Object] if no valid
-  /// STUN binding responses have been sent on the candidate pair; this
-  /// can only happen if [responsesReceived] is 0.
-  ///
   double get consentExpiredTimestamp =>
       js_util.getProperty(this, 'consentExpiredTimestamp');
   set consentExpiredTimestamp(double newValue) {

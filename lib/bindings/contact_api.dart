@@ -1,6 +1,6 @@
 /// Contact Picker API
 ///
-/// https://wicg.github.io/contact-api/spec/
+/// https://w3c.github.io/contact-api/spec/
 
 // ignore_for_file: unused_import
 
@@ -15,19 +15,26 @@ import 'package:js_bindings/js_bindings.dart';
 
 enum ContactProperty { address, email, icon, name, tel }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the Contact Picker API represents a physical
-/// address. Instances of this interface are retrieved from the
-/// [address] property of the objects returned by
-/// [ContactManager.getProperties()].
-///  It may be useful to refer to the Universal Postal Union web
-/// site's Addressing S42 standard materials, which provide
-/// information about international standards for postal addresses.
 @JS()
 @staticInterop
-class ContactAddress implements PaymentAddress {
+class ContactAddress {
   external ContactAddress();
+}
+
+extension PropsContactAddress on ContactAddress {
+  dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
+
+  String get city => js_util.getProperty(this, 'city');
+  String get country => js_util.getProperty(this, 'country');
+  String get dependentLocality =>
+      js_util.getProperty(this, 'dependentLocality');
+  String get organization => js_util.getProperty(this, 'organization');
+  String get phone => js_util.getProperty(this, 'phone');
+  String get postalCode => js_util.getProperty(this, 'postalCode');
+  String get recipient => js_util.getProperty(this, 'recipient');
+  String get region => js_util.getProperty(this, 'region');
+  String get sortingCode => js_util.getProperty(this, 'sortingCode');
+  Iterable<String> get addressLine => js_util.getProperty(this, 'addressLine');
 }
 
 @anonymous
@@ -83,13 +90,6 @@ extension PropsContactsSelectOptions on ContactsSelectOptions {
   }
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [Contact Picker API] allows users to select
-/// entries from their contact list and share limited details of the
-/// selected entries with a website or application.
-///  The is available through the global [navigator.contacts]
-/// property.
 @JS()
 @staticInterop
 class ContactsManager {
@@ -97,33 +97,11 @@ class ContactsManager {
 }
 
 extension PropsContactsManager on ContactsManager {
-  ///  Returns a [Future] which resolves with an [Array] of [strings]
-  /// indicating which contact properties are available.
-  ///
-  /// var ContactProperties = ContactsManager.getProperties();
-  ///
   Future<Iterable<ContactProperty>> getProperties() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getProperties', []));
 
-  ///  Returns a [Future] which, when resolved, presents the user with
-  /// a contact picker which allows them to select contact(s) they wish
-  /// to share.
-  ///
-  /// var ContactInfo = ContactsManager.select(properties, options);
-  ///
   Future<Iterable<ContactInfo>> select(Iterable<ContactProperty> properties,
-          [
-
-          /// Options are as follows:
-          ///
-          ///
-          ///      [multiple]: A Boolean that allows multiple contacts to be
-          /// selected.
-          ///     The default is [false].
-          ///
-          ///
-          ///
-          ContactsSelectOptions? options]) =>
+          [ContactsSelectOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'select', [properties.names, options]));
 }

@@ -38,16 +38,10 @@ extension PropsFontManager on FontManager {
 @JS()
 @staticInterop
 class QueryOptions {
-  external factory QueryOptions(
-      {bool? persistentAccess = false, Iterable<String>? select = const []});
+  external factory QueryOptions({Iterable<String>? select = const []});
 }
 
 extension PropsQueryOptions on QueryOptions {
-  bool get persistentAccess => js_util.getProperty(this, 'persistentAccess');
-  set persistentAccess(bool newValue) {
-    js_util.setProperty(this, 'persistentAccess', newValue);
-  }
-
   Iterable<String> get select => js_util.getProperty(this, 'select');
   set select(Iterable<String> newValue) {
     js_util.setProperty(this, 'select', newValue);
