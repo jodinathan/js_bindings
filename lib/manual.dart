@@ -3,6 +3,7 @@ library window;
 
 import 'dart:convert' as conv;
 import 'dart:js_util' as jsu;
+import 'dart:collection';
 
 import 'package:js/js.dart';
 import 'package:js_bindings/bindings/dom.dart';

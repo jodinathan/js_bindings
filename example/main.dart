@@ -14,7 +14,7 @@ void main() {
     ..id = 'someDiv'
     ..innerHTML = 'This div was created on the fly. '
         'Node.elementNode: ${Node.elementNode}. '
-        'Map: ${map.keys.map((k) => '$k: ${map[k]}').join(', ')}'
+        'Map: ${map.keys.map((k) => '$k: ${map[k]}').join(', ')}. '
     ..style.setProperty('border', '1px solid black')
     ..style.setProperty('margin', '10px');
   final btnChanger = (document.createElement('button') as HTMLButtonElement)
@@ -85,4 +85,8 @@ void main() {
       btnMedia.textContent = 'Stop camera capture';
     }
   });
+
+  for (final child in document.body!.childNodes.toList()) {
+    print('Child ${child.nodeName}');
+  }
 }

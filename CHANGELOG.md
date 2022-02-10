@@ -1,5 +1,8 @@
-## 0.0.6-dev
- - Changed `Map` features to use builtin functions
+## 0.0.6
+ - Changed `Map` features to use builtin JS functions
+ - Added `join` to `JsArray`
+ - Added `toList()` to `JsArray` so you can use regular `for-in` loops.   
+  (See https://github.com/dart-lang/sdk/issues/48327)
  - Started using the curated data from W3C to generate the source
 
 ## 0.0.5

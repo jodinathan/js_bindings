@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:js_bindings/js_bindings.dart';
-import 'package:collection/collection.dart';
+// import 'package:collection/collection.dart';
 
 // extension FileDialogDocument on Document {
 //   Future<File?> selectFile({String? contentType}) async =>
