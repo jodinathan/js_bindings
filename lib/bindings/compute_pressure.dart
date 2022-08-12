@@ -1,4 +1,4 @@
-/// Compute Pressure API
+/// Compute Pressure Level 1
 ///
 /// https://wicg.github.io/compute-pressure/
 
@@ -13,78 +13,94 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum ComputePressureTarget { cpu }
+enum PressureState { nominal, fair, serious, critical }
+
+enum PressureFactor { thermal, powerSupply }
+
+enum PressureSource { cpu }
 
 @JS()
 @staticInterop
-class ComputePressureObserver {
-  external ComputePressureObserver(ComputePressureUpdateCallback callback);
+class PressureObserver {
+  external factory PressureObserver(PressureUpdateCallback callback,
+      [PressureObserverOptions? options]);
 }
 
-extension PropsComputePressureObserver on ComputePressureObserver {
-  Object observe(ComputePressureTarget target,
-          [ComputePressureObserverOptions? options]) =>
-      js_util.callMethod(this, 'observe', [target.name, options]);
+extension PropsPressureObserver on PressureObserver {
+  Object observe(PressureSource source) =>
+      js_util.callMethod(this, 'observe', [source.name]);
 
-  Object unobserve(ComputePressureTarget target) =>
-      js_util.callMethod(this, 'unobserve', [target.name]);
+  Object unobserve(PressureSource source) =>
+      js_util.callMethod(this, 'unobserve', [source.name]);
 
   Object disconnect() => js_util.callMethod(this, 'disconnect', []);
 
-  Iterable<ComputePressureEntry> takeRecords() =>
+  Iterable<PressureRecord> takeRecords() =>
       js_util.callMethod(this, 'takeRecords', []);
 
-  external static Iterable<String> get supportedTargetTypes;
+  external static Iterable<PressureSource> get supportedSources;
+
+  static Future<PermissionState> requestPermission() => js_util.promiseToFuture(
+      js_util.callMethod(PressureObserver, 'requestPermission', []));
 }
 
 @anonymous
 @JS()
 @staticInterop
-class ComputePressureEntry {
-  external factory ComputePressureEntry(
-      {required double cpuSpeed,
-      required double cpuUtilization,
-      required ComputePressureObserverOptions options});
+class PressureRecord {
+  external factory PressureRecord._(
+      {required String source,
+      required String state,
+      required Iterable<String> factors,
+      required double time});
+
+  factory PressureRecord(
+          {required PressureSource source,
+          required PressureState state,
+          required Iterable<PressureFactor> factors,
+          required double time}) =>
+      PressureRecord._(
+          source: source.name,
+          state: state.name,
+          factors: factors.names,
+          time: time);
 }
 
-extension PropsComputePressureEntry on ComputePressureEntry {
-  double get cpuSpeed => js_util.getProperty(this, 'cpuSpeed');
-  set cpuSpeed(double newValue) {
-    js_util.setProperty(this, 'cpuSpeed', newValue);
+extension PropsPressureRecord on PressureRecord {
+  PressureSource get source =>
+      PressureSource.values.byName(js_util.getProperty(this, 'source'));
+  set source(PressureSource newValue) {
+    js_util.setProperty(this, 'source', newValue.name);
   }
 
-  double get cpuUtilization => js_util.getProperty(this, 'cpuUtilization');
-  set cpuUtilization(double newValue) {
-    js_util.setProperty(this, 'cpuUtilization', newValue);
+  PressureState get state =>
+      PressureState.values.byName(js_util.getProperty(this, 'state'));
+  set state(PressureState newValue) {
+    js_util.setProperty(this, 'state', newValue.name);
   }
 
-  ComputePressureObserverOptions get options =>
-      js_util.getProperty(this, 'options');
-  set options(ComputePressureObserverOptions newValue) {
-    js_util.setProperty(this, 'options', newValue);
+  Iterable<PressureFactor> get factors =>
+      PressureFactor.values.byNames(js_util.getProperty(this, 'factors'));
+  set factors(Iterable<PressureFactor> newValue) {
+    js_util.setProperty(this, 'factors', newValue.names);
+  }
+
+  double get time => js_util.getProperty(this, 'time');
+  set time(double newValue) {
+    js_util.setProperty(this, 'time', newValue);
   }
 }
 
 @anonymous
 @JS()
 @staticInterop
-class ComputePressureObserverOptions {
-  external factory ComputePressureObserverOptions(
-      {Iterable<double>? cpuUtilizationThresholds = const [],
-      Iterable<double>? cpuSpeedThresholds = const []});
+class PressureObserverOptions {
+  external factory PressureObserverOptions({required double samplerate});
 }
 
-extension PropsComputePressureObserverOptions
-    on ComputePressureObserverOptions {
-  Iterable<double> get cpuUtilizationThresholds =>
-      js_util.getProperty(this, 'cpuUtilizationThresholds');
-  set cpuUtilizationThresholds(Iterable<double> newValue) {
-    js_util.setProperty(this, 'cpuUtilizationThresholds', newValue);
-  }
-
-  Iterable<double> get cpuSpeedThresholds =>
-      js_util.getProperty(this, 'cpuSpeedThresholds');
-  set cpuSpeedThresholds(Iterable<double> newValue) {
-    js_util.setProperty(this, 'cpuSpeedThresholds', newValue);
+extension PropsPressureObserverOptions on PressureObserverOptions {
+  double get samplerate => js_util.getProperty(this, 'samplerate');
+  set samplerate(double newValue) {
+    js_util.setProperty(this, 'samplerate', newValue);
   }
 }

@@ -10,13 +10,14 @@ library webrtc_identity;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
 class RTCIdentityProviderGlobalScope implements WorkerGlobalScope {
-  external RTCIdentityProviderGlobalScope();
+  external factory RTCIdentityProviderGlobalScope();
 }
 
 extension PropsRTCIdentityProviderGlobalScope
@@ -28,7 +29,7 @@ extension PropsRTCIdentityProviderGlobalScope
 @JS()
 @staticInterop
 class RTCIdentityProviderRegistrar {
-  external RTCIdentityProviderRegistrar();
+  external factory RTCIdentityProviderRegistrar();
 }
 
 extension PropsRTCIdentityProviderRegistrar on RTCIdentityProviderRegistrar {
@@ -146,10 +147,18 @@ extension PropsRTCIdentityProviderOptions on RTCIdentityProviderOptions {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the WebRTC API represents the identity of a
+/// remote peer of the current connection. If no peer has yet been
+/// set and verified, then this interface returns [null]. Once set it
+/// can't be changed.
+@experimental
 @JS()
 @staticInterop
 class RTCIdentityAssertion {
-  external RTCIdentityAssertion(String idp, String name);
+  external factory RTCIdentityAssertion(String idp, String name);
 }
 
 extension PropsRTCIdentityAssertion on RTCIdentityAssertion {

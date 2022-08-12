@@ -10,13 +10,14 @@ library payment_handler;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
 class PaymentManager {
-  external PaymentManager();
+  external factory PaymentManager();
 }
 
 extension PropsPaymentManager on PaymentManager {
@@ -31,7 +32,7 @@ extension PropsPaymentManager on PaymentManager {
 @JS()
 @staticInterop
 class PaymentInstruments {
-  external PaymentInstruments();
+  external factory PaymentInstruments();
 }
 
 extension PropsPaymentInstruments on PaymentInstruments {
@@ -114,7 +115,7 @@ extension PropsImageObject on ImageObject {
 @JS()
 @staticInterop
 class CanMakePaymentEvent implements ExtendableEvent {
-  external CanMakePaymentEvent(String type,
+  external factory CanMakePaymentEvent(String type,
       [CanMakePaymentEventInit? eventInitDict]);
 }
 
@@ -192,10 +193,38 @@ extension PropsPaymentRequestDetailsUpdate on PaymentRequestDetailsUpdate {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Payment Request API is the object passed to
+/// a payment handler when a [PaymentRequest] is made.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    PaymentRequestEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class PaymentRequestEvent implements ExtendableEvent {
-  external PaymentRequestEvent(String type,
+  external factory PaymentRequestEvent(String type,
       [PaymentRequestEventInit? eventInitDict]);
 }
 

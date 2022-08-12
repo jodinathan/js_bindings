@@ -13,10 +13,29 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///
+///
+///   The object provides web developers with information from the
+/// physical orientation of the device running the web page.
+///
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    DeviceOrientationEvent
+///
+///
 @JS()
 @staticInterop
 class DeviceOrientationEvent implements Event {
-  external DeviceOrientationEvent(String type,
+  external factory DeviceOrientationEvent(String type,
       [DeviceOrientationEventInit? eventInitDict]);
 }
 
@@ -59,10 +78,14 @@ extension PropsDeviceOrientationEventInit on DeviceOrientationEventInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The object provides information about the amount of acceleration
+/// the device is experiencing along all three axes.
 @JS()
 @staticInterop
 class DeviceMotionEventAcceleration {
-  external DeviceMotionEventAcceleration();
+  external factory DeviceMotionEventAcceleration();
 }
 
 extension PropsDeviceMotionEventAcceleration on DeviceMotionEventAcceleration {
@@ -71,10 +94,14 @@ extension PropsDeviceMotionEventAcceleration on DeviceMotionEventAcceleration {
   double? get z => js_util.getProperty(this, 'z');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  A object provides information about the rate at which the device
+/// is rotating around all three axes.
 @JS()
 @staticInterop
 class DeviceMotionEventRotationRate {
-  external DeviceMotionEventRotationRate();
+  external factory DeviceMotionEventRotationRate();
 }
 
 extension PropsDeviceMotionEventRotationRate on DeviceMotionEventRotationRate {
@@ -83,10 +110,30 @@ extension PropsDeviceMotionEventRotationRate on DeviceMotionEventRotationRate {
   double? get gamma => js_util.getProperty(this, 'gamma');
 }
 
+///  The interface provides web developers with information about the
+/// speed of changes for the device's position and orientation.
+///
+///   Warning: Currently, Firefox and Chrome do not handle the
+/// coordinates the same way. Take care about this while using them.
+///
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    DeviceMotionEvent
+///
+///
 @JS()
 @staticInterop
 class DeviceMotionEvent implements Event {
-  external DeviceMotionEvent(String type,
+  external factory DeviceMotionEvent(String type,
       [DeviceMotionEventInit? eventInitDict]);
 }
 

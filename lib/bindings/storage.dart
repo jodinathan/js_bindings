@@ -16,17 +16,26 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorStorage {
-  external NavigatorStorage();
+  external factory NavigatorStorage();
 }
 
 extension PropsNavigatorStorage on NavigatorStorage {
   StorageManager get storage => js_util.getProperty(this, 'storage');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Storage API provides an interface for
+/// managing persistence permissions and estimating available
+/// storage. You can get a reference to this interface using either
+/// [navigator.storage] or [WorkerNavigator.storage].
 @JS()
 @staticInterop
 class StorageManager {
-  external StorageManager();
+  external factory StorageManager();
 }
 
 extension PropsStorageManager on StorageManager {

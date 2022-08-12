@@ -10,13 +10,37 @@ library notifications;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///
+///  Note: This feature is available in Web Workers
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Notifications API is used to configure and
+/// display desktop notifications to the user.
+///  These notifications' appearance and specific functionality vary
+/// across platforms but generally they provide a way to
+/// asynchronously provide information to the user.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Notification
+///
+///
 @JS()
 @staticInterop
 class Notification implements EventTarget {
-  external Notification(String title, [NotificationOptions? options]);
+  external factory Notification(String title, [NotificationOptions? options]);
 }
 
 extension PropsNotification on Notification {
@@ -242,10 +266,39 @@ extension PropsGetNotificationOptions on GetNotificationOptions {
   }
 }
 
+///  The parameter passed into the [onnotificationclick] handler, the
+/// interface represents a notification click event that is
+/// dispatched on the [ServiceWorkerGlobalScope] of a
+/// [ServiceWorker].
+/// This interface inherits from the [ExtendableEvent] interface.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    NotificationEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class NotificationEvent implements ExtendableEvent {
-  external NotificationEvent(String type, NotificationEventInit eventInitDict);
+  external factory NotificationEvent(
+      String type, NotificationEventInit eventInitDict);
 }
 
 extension PropsNotificationEvent on NotificationEvent {

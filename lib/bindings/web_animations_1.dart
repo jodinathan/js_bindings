@@ -13,16 +13,23 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Animations API represents the timeline
+/// of an animation. This interface exists to define timeline
+/// features (inherited by [DocumentTimeline] and future timeline
+/// types) and is not itself directly used by developers. Anywhere
+/// you see , you should use [DocumentTimeline] or any other timeline
+/// type instead.
 @JS()
 @staticInterop
 class AnimationTimeline {
-  external AnimationTimeline();
+  external factory AnimationTimeline();
 }
 
 extension PropsAnimationTimeline on AnimationTimeline {
   double? get currentTime => js_util.getProperty(this, 'currentTime');
-  TimelinePhase get phase =>
-      TimelinePhase.values.byName(js_util.getProperty(this, 'phase'));
   dynamic get duration => js_util.getProperty(this, 'duration');
   Animation play([AnimationEffect? effect]) =>
       js_util.callMethod(this, 'play', [effect]);
@@ -42,16 +49,54 @@ extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Animations API represents animation
+/// timelines, including the default document timeline (accessed via
+/// [Document.timeline]).
+///
+///
+///
+///    AnimationTimeline
+///
+///
+///
+///
+///
+///
+///
+///    DocumentTimeline
+///
+///
 @JS()
 @staticInterop
 class DocumentTimeline implements AnimationTimeline {
-  external DocumentTimeline([DocumentTimelineOptions? options]);
+  external factory DocumentTimeline([DocumentTimelineOptions? options]);
 }
 
+///  The interface of the Web Animations API represents a single
+/// animation player and provides playback controls and a timeline
+/// for an animation node or source.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Animation
+///
+///
 @JS()
 @staticInterop
 class Animation implements EventTarget {
-  external Animation([AnimationEffect? effect, AnimationTimeline? timeline]);
+  external factory Animation(
+      [AnimationEffect? effect, AnimationTimeline? timeline]);
 }
 
 extension PropsAnimation on Animation {
@@ -131,12 +176,17 @@ enum AnimationPlayState { idle, running, paused, finished }
 
 enum AnimationReplaceState { active, removed, persisted }
 
-enum TimelinePhase { inactive, before, active, after }
-
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Animations API defines current and
+/// future animation effects like [KeyframeEffect], which can be
+/// passed to [Animation] objects for playing, and [KeyframeEffect]
+/// (which is used by CSS Animations and Transitions).
 @JS()
 @staticInterop
 class AnimationEffect {
-  external AnimationEffect();
+  external factory AnimationEffect();
 }
 
 extension PropsAnimationEffect on AnimationEffect {
@@ -178,25 +228,19 @@ extension PropsAnimationEffect on AnimationEffect {
 @staticInterop
 class EffectTiming {
   external factory EffectTiming._(
-      {double? delay = 0,
-      double? endDelay = 0,
-      String? fill,
+      {String? fill,
       double? iterationStart = 0.0,
       /* double | NaN */ dynamic iterations = 1.0,
       String? direction,
       String? easing = 'linear'});
 
   factory EffectTiming(
-          {double? delay = 0,
-          double? endDelay = 0,
-          FillMode? fill = FillMode.auto,
+          {FillMode? fill = FillMode.auto,
           double? iterationStart = 0.0,
           /* double | NaN */ dynamic iterations = 1.0,
           PlaybackDirection? direction = PlaybackDirection.normal,
           String? easing = 'linear'}) =>
       EffectTiming._(
-          delay: delay,
-          endDelay: endDelay,
           fill: fill?.name,
           iterationStart: iterationStart,
           iterations: iterations,
@@ -205,16 +249,6 @@ class EffectTiming {
 }
 
 extension PropsEffectTiming on EffectTiming {
-  double get delay => js_util.getProperty(this, 'delay');
-  set delay(double newValue) {
-    js_util.setProperty(this, 'delay', newValue);
-  }
-
-  double get endDelay => js_util.getProperty(this, 'endDelay');
-  set endDelay(double newValue) {
-    js_util.setProperty(this, 'endDelay', newValue);
-  }
-
   FillMode get fill =>
       FillMode.values.byName(js_util.getProperty(this, 'fill'));
   set fill(FillMode newValue) {
@@ -348,10 +382,27 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
   }
 }
 
+///  The interface of the Web Animations API lets us create sets of
+/// animatable properties and values, called keyframes. These can
+/// then be played using the [Animation()] constructor.
+///
+///
+///
+///    AnimationEffect
+///
+///
+///
+///
+///
+///
+///
+///    KeyframeEffect
+///
+///
 @JS()
 @staticInterop
 class KeyframeEffect implements AnimationEffect {
-  external KeyframeEffect(
+  external factory KeyframeEffect(
       [Element? target, dynamic keyframes, dynamic options]);
 }
 
@@ -527,7 +578,7 @@ enum CompositeOperationOrAuto { replace, add, accumulate, auto }
 @JS()
 @staticInterop
 class Animatable {
-  external Animatable();
+  external factory Animatable();
 }
 
 extension PropsAnimatable on Animatable {

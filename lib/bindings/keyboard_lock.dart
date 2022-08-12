@@ -10,13 +10,38 @@ library keyboard_lock;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Keyboard API provides functions that
+/// retrieve keyboard layout maps and toggle capturing of key presses
+/// from the physical keyboard.
+///  A list of valid code values is found in the UI Events
+/// KeyboardEvent code Values spec.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Keyboard
+///
+///
+@experimental
 @JS()
 @staticInterop
 class Keyboard implements EventTarget {
-  external Keyboard();
+  external factory Keyboard();
 }
 
 extension PropsKeyboard on Keyboard {

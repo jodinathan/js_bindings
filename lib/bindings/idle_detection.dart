@@ -37,10 +37,30 @@ extension PropsIdleOptions on IdleOptions {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+/// The interface of the Idle
+///  Detection API provides methods and events for detecting user
+/// activity on a device or screen.
+/// This interface requires a secure context.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    IdleDetector
+///
+///
 @JS()
 @staticInterop
 class IdleDetector implements EventTarget {
-  external IdleDetector();
+  external factory IdleDetector();
 }
 
 extension PropsIdleDetector on IdleDetector {

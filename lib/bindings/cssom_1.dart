@@ -13,10 +13,17 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface represents the media queries of a stylesheet, e.g.
+/// those set using a [<link>] element's [media] attribute.
+///
+///   Note: is a live list; updating the list using properties or
+/// methods listed below will immediately update the behavior of the
+/// document.
+///
 @JS()
 @staticInterop
 class MediaList {
-  external MediaList();
+  external factory MediaList();
 }
 
 extension PropsMediaList on MediaList {
@@ -35,10 +42,13 @@ extension PropsMediaList on MediaList {
       js_util.callMethod(this, 'deleteMedium', [medium]);
 }
 
+///  An object implementing the interface represents a single style
+/// sheet. CSS style sheets will further implement the more
+/// specialized [CSSStyleSheet] interface.
 @JS()
 @staticInterop
 class StyleSheet {
-  external StyleSheet();
+  external factory StyleSheet();
 }
 
 extension PropsStyleSheet on StyleSheet {
@@ -55,10 +65,44 @@ extension PropsStyleSheet on StyleSheet {
   }
 }
 
+///  The interface represents a single CSS stylesheet, and lets you
+/// inspect and modify the list of rules contained in the stylesheet.
+/// It inherits properties and methods from its parent, [StyleSheet].
+///
+///
+///
+///    StyleSheet
+///
+///
+///
+///
+///
+///
+///
+///    CSSStyleSheet
+///
+///
+///  A stylesheet consists of a collection of [CSSRule] objects
+/// representing each of the rules in the stylesheet. The rules are
+/// contained in a [CSSRuleList], which can be obtained from the
+/// stylesheet's [cssRules] property.
+///  For example, one rule might be a [CSSStyleRule] object
+/// containing a style such as:
+/// [h1, h2 {
+///  font-size: 16pt;
+/// }
+/// ]
+///  Another rule might be an at-rule such as [@import] or [@media],
+/// and so forth.
+///  See the Obtaining a StyleSheet section for the various ways a
+/// object can be obtained. A object can also be directly
+/// constructed. The constructor, and the [CSSStyleSheet.replace()],
+/// and [CSSStyleSheet.replaceSync()] methods are newer additions to
+/// the specification, enabling Constructable Stylesheets.
 @JS()
 @staticInterop
 class CSSStyleSheet implements StyleSheet {
-  external CSSStyleSheet([CSSStyleSheetInit? options]);
+  external factory CSSStyleSheet([CSSStyleSheetInit? options]);
 }
 
 extension PropsCSSStyleSheet on CSSStyleSheet {
@@ -112,10 +156,16 @@ extension PropsCSSStyleSheetInit on CSSStyleSheetInit {
   }
 }
 
+///  The interface represents a list of [CSSStyleSheet] objects. An
+/// instance of this object can be returned by
+/// [Document.styleSheets].
+///  It is an array-like object but can't be iterated over using
+/// [Array] methods. However it can be iterated over in a standard
+/// [for] loop over its indices, or converted to an [Array].
 @JS()
 @staticInterop
 class StyleSheetList {
-  external StyleSheetList();
+  external factory StyleSheetList();
 }
 
 extension PropsStyleSheetList on StyleSheetList {
@@ -127,17 +177,27 @@ extension PropsStyleSheetList on StyleSheetList {
 @JS()
 @staticInterop
 class LinkStyle {
-  external LinkStyle();
+  external factory LinkStyle();
 }
 
 extension PropsLinkStyle on LinkStyle {
   CSSStyleSheet? get sheet => js_util.getProperty(this, 'sheet');
 }
 
+///  A represents an ordered collection of read-only [CSSRule]
+/// objects.
+///  While the object is read-only, and cannot be directly modified,
+/// it is considered a [live] object, as the content can change over
+/// time.
+///  To edit the underlying rules returned by [CSSRule] objects, use
+/// [CSSStyleSheet.insertRule()] and [CSSStyleSheet.deleteRule()],
+/// which are methods of [CSSStyleSheet].
+///  The interface has no constructor. An instance of is returned by
+/// [CSSStyleSheet.cssRules] and [CSSKeyframesRule.cssRules].
 @JS()
 @staticInterop
 class CSSRuleList {
-  external CSSRuleList();
+  external factory CSSRuleList();
 }
 
 extension PropsCSSRuleList on CSSRuleList {
@@ -146,6 +206,23 @@ extension PropsCSSRuleList on CSSRuleList {
   int get length => js_util.getProperty(this, 'length');
 }
 
+///  The interface represents a single CSS rule. There are several
+/// types of rules which inherit properties from .
+///
+///  [CSSStyleRule]
+///  [CSSImportRule]
+///  [CSSMediaRule]
+///  [CSSFontFaceRule]
+///  [CSSPageRule]
+///  [CSSNamespaceRule]
+///  [CSSKeyframesRule]
+///  [CSSKeyframeRule]
+///  [CSSCounterStyleRule]
+///  [CSSDocumentRule]
+///  [CSSSupportsRule]
+///  [CSSFontFeatureValuesRule]
+///  [CSSViewportRule]
+///
 @JS()
 @staticInterop
 class CSSRule {
@@ -191,7 +268,7 @@ class CSSRule {
   @JS('FONT_FEATURE_VALUES_RULE')
   external static int get fontFeatureValuesRule;
 
-  external CSSRule();
+  external factory CSSRule();
 }
 
 extension PropsCSSRule on CSSRule {
@@ -206,10 +283,25 @@ extension PropsCSSRule on CSSRule {
   int get type => js_util.getProperty(this, 'type');
 }
 
+/// The interface represents a single CSS style rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSStyleRule
+///
+///
 @JS()
 @staticInterop
 class CSSStyleRule implements CSSRule {
-  external CSSStyleRule();
+  external factory CSSStyleRule();
 }
 
 extension PropsCSSStyleRule on CSSStyleRule {
@@ -228,10 +320,25 @@ extension PropsCSSStyleRule on CSSStyleRule {
       js_util.callMethod(this, 'deleteRule', [index]);
 }
 
+/// The interface represents an [@import] at-rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSImportRule
+///
+///
 @JS()
 @staticInterop
 class CSSImportRule implements CSSRule {
-  external CSSImportRule();
+  external factory CSSImportRule();
 }
 
 extension PropsCSSImportRule on CSSImportRule {
@@ -241,10 +348,26 @@ extension PropsCSSImportRule on CSSImportRule {
   String? get layerName => js_util.getProperty(this, 'layerName');
 }
 
+///  The interface of the CSS Object Model represents any CSS at-rule
+/// that contains other rules nested within it.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSGroupingRule
+///
+///
 @JS()
 @staticInterop
 class CSSGroupingRule implements CSSRule {
-  external CSSGroupingRule();
+  external factory CSSGroupingRule();
 }
 
 extension PropsCSSGroupingRule on CSSGroupingRule {
@@ -256,10 +379,33 @@ extension PropsCSSGroupingRule on CSSGroupingRule {
       js_util.callMethod(this, 'deleteRule', [index]);
 }
 
+///  represents a single CSS [@page] rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSGroupingRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSPageRule
+///
+///
 @JS()
 @staticInterop
 class CSSPageRule implements CSSGroupingRule {
-  external CSSPageRule();
+  external factory CSSPageRule();
 }
 
 extension PropsCSSPageRule on CSSPageRule {
@@ -274,7 +420,7 @@ extension PropsCSSPageRule on CSSPageRule {
 @JS()
 @staticInterop
 class CSSMarginRule implements CSSRule {
-  external CSSMarginRule();
+  external factory CSSMarginRule();
 }
 
 extension PropsCSSMarginRule on CSSMarginRule {
@@ -282,10 +428,26 @@ extension PropsCSSMarginRule on CSSMarginRule {
   CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
 }
 
+///  The interface describes an object representing a single CSS
+/// [@namespace] at-rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSNamespaceRule
+///
+///
 @JS()
 @staticInterop
 class CSSNamespaceRule implements CSSRule {
-  external CSSNamespaceRule();
+  external factory CSSNamespaceRule();
 }
 
 extension PropsCSSNamespaceRule on CSSNamespaceRule {
@@ -293,10 +455,23 @@ extension PropsCSSNamespaceRule on CSSNamespaceRule {
   String get prefix => js_util.getProperty(this, 'prefix');
 }
 
+///  The interface represents an object that is a CSS declaration
+/// block, and exposes style information and various style-related
+/// methods and properties.
+/// A object can be exposed using three different APIs:
+///
+///   Via [HTMLElement.style], which deals with the inline styles of
+/// a single element (e.g., [<div style="…">]).
+///   Via the [CSSStyleSheet] API. For example,
+/// [document.styleSheets[0].cssRules[0].style] returns a object on
+/// the first CSS rule in the document's first stylesheet.
+///   Via [Window.getComputedStyle()], which exposes the object as a
+/// read-only interface.
+///
 @JS()
 @staticInterop
 class CSSStyleDeclaration {
-  external CSSStyleDeclaration();
+  external factory CSSStyleDeclaration();
 }
 
 extension PropsCSSStyleDeclaration on CSSStyleDeclaration {
@@ -330,7 +505,7 @@ extension PropsCSSStyleDeclaration on CSSStyleDeclaration {
 @JS()
 @staticInterop
 class ElementCSSInlineStyle {
-  external ElementCSSInlineStyle();
+  external factory ElementCSSInlineStyle();
 }
 
 extension PropsElementCSSInlineStyle on ElementCSSInlineStyle {
@@ -339,10 +514,13 @@ extension PropsElementCSSInlineStyle on ElementCSSInlineStyle {
       js_util.getProperty(this, 'attributeStyleMap');
 }
 
+///  The interface holds useful CSS-related methods. No objects with
+/// this interface are implemented: it contains only static methods
+/// and is therefore a utilitarian interface.
 @JS('CSS')
 @staticInterop
 class Css {
-  external Css();
+  external factory Css();
 }
 
 extension PropsCss on Css {

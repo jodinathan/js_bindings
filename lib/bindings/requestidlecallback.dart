@@ -1,4 +1,4 @@
-/// Cooperative Scheduling of Background Tasks
+/// requestIdleCallback()
 ///
 /// https://w3c.github.io/requestidlecallback/
 
@@ -27,10 +27,19 @@ extension PropsIdleRequestOptions on IdleRequestOptions {
   }
 }
 
+///  The interface is used as the data type of the input parameter to
+/// idle callbacks established by calling
+/// [Window.requestIdleCallback()]. It offers a method,
+/// [timeRemaining()], which lets you determine how much longer the
+/// user agent estimates it will remain idle and a property,
+/// [didTimeout], which lets you determine if your callback is
+/// executing because its timeout duration expired.
+///  To learn more about how request callbacks work, see
+/// Collaborative Scheduling of Background Tasks.
 @JS()
 @staticInterop
 class IdleDeadline {
-  external IdleDeadline();
+  external factory IdleDeadline();
 }
 
 extension PropsIdleDeadline on IdleDeadline {

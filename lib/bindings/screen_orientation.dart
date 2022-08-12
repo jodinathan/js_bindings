@@ -13,10 +13,28 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Screen Orientation API provides information
+/// about the current orientation of the document.
+///  A instance object can be retrieved using the
+/// [screen.orientation] property.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    ScreenOrientation
+///
+///
 @JS()
 @staticInterop
 class ScreenOrientation implements EventTarget {
-  external ScreenOrientation();
+  external factory ScreenOrientation();
 }
 
 extension PropsScreenOrientation on ScreenOrientation {

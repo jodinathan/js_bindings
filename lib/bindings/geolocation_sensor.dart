@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class GeolocationSensor implements Sensor {
-  external GeolocationSensor([GeolocationSensorOptions? options]);
+  external factory GeolocationSensor([GeolocationSensorOptions? options]);
 }
 
 extension PropsGeolocationSensor on GeolocationSensor {

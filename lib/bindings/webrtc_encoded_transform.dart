@@ -58,7 +58,7 @@ extension PropsSFrameTransformOptions on SFrameTransformOptions {
 @JS()
 @staticInterop
 class SFrameTransform implements GenericTransformStream {
-  external SFrameTransform([SFrameTransformOptions? options]);
+  external factory SFrameTransform([SFrameTransformOptions? options]);
 }
 
 extension PropsSFrameTransform on SFrameTransform {
@@ -77,7 +77,7 @@ enum SFrameTransformErrorEventType { authentication, keyID, syntax }
 @JS()
 @staticInterop
 class SFrameTransformErrorEvent implements Event {
-  external SFrameTransformErrorEvent(
+  external factory SFrameTransformErrorEvent(
       String type, SFrameTransformErrorEventInit eventInitDict);
 }
 
@@ -193,7 +193,7 @@ extension PropsRTCEncodedVideoFrameMetadata on RTCEncodedVideoFrameMetadata {
 @JS()
 @staticInterop
 class RTCEncodedVideoFrame {
-  external RTCEncodedVideoFrame();
+  external factory RTCEncodedVideoFrame();
 }
 
 extension PropsRTCEncodedVideoFrame on RTCEncodedVideoFrame {
@@ -241,7 +241,7 @@ extension PropsRTCEncodedAudioFrameMetadata on RTCEncodedAudioFrameMetadata {
 @JS()
 @staticInterop
 class RTCEncodedAudioFrame {
-  external RTCEncodedAudioFrame();
+  external factory RTCEncodedAudioFrame();
 }
 
 extension PropsRTCEncodedAudioFrame on RTCEncodedAudioFrame {
@@ -258,7 +258,7 @@ extension PropsRTCEncodedAudioFrame on RTCEncodedAudioFrame {
 @JS()
 @staticInterop
 class RTCTransformEvent implements Event {
-  external RTCTransformEvent();
+  external factory RTCTransformEvent();
 }
 
 extension PropsRTCTransformEvent on RTCTransformEvent {
@@ -269,15 +269,15 @@ extension PropsRTCTransformEvent on RTCTransformEvent {
 @JS()
 @staticInterop
 class RTCRtpScriptTransformer {
-  external RTCRtpScriptTransformer();
+  external factory RTCRtpScriptTransformer();
 }
 
 extension PropsRTCRtpScriptTransformer on RTCRtpScriptTransformer {
   ReadableStream get readable => js_util.getProperty(this, 'readable');
   WritableStream get writable => js_util.getProperty(this, 'writable');
   dynamic get options => js_util.getProperty(this, 'options');
-  Future<Object> generateKeyFrame([Iterable<String>? rids]) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rids]));
+  Future<int> generateKeyFrame([String? rid]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rid]));
 
   Future<Object> sendKeyFrameRequest() => js_util
       .promiseToFuture(js_util.callMethod(this, 'sendKeyFrameRequest', []));
@@ -286,6 +286,6 @@ extension PropsRTCRtpScriptTransformer on RTCRtpScriptTransformer {
 @JS()
 @staticInterop
 class RTCRtpScriptTransform {
-  external RTCRtpScriptTransform(Worker worker,
+  external factory RTCRtpScriptTransform(Worker worker,
       [dynamic options, Iterable<dynamic>? transfer]);
 }

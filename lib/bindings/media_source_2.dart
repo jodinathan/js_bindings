@@ -10,6 +10,7 @@ library media_source_2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -17,13 +18,36 @@ enum ReadyState { closed, open, ended }
 
 enum EndOfStreamError { network, decode }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Media Source Extensions API represents a
+/// source of media data for an [HTMLMediaElement] object. A object
+/// can be attached to a [HTMLMediaElement] to be played in the user
+/// agent.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MediaSource
+///
+///
+@experimental
 @JS()
 @staticInterop
 class MediaSource implements EventTarget {
-  external MediaSource();
+  external factory MediaSource();
 }
 
 extension PropsMediaSource on MediaSource {
+  MediaSourceHandle get handle => js_util.getProperty(this, 'handle');
   SourceBufferList get sourceBuffers =>
       js_util.getProperty(this, 'sourceBuffers');
   SourceBufferList get activeSourceBuffers =>
@@ -75,12 +99,36 @@ extension PropsMediaSource on MediaSource {
       js_util.callMethod(MediaSource, 'isTypeSupported', [type]);
 }
 
+@JS()
+@staticInterop
+class MediaSourceHandle {
+  external factory MediaSourceHandle();
+}
+
 enum AppendMode { segments, sequence }
 
+///  The interface represents a chunk of media to be passed into an
+/// [HTMLMediaElement] and played, via a [MediaSource] object. This
+/// can be made up of one or several media segments.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    SourceBuffer
+///
+///
+@experimental
 @JS()
 @staticInterop
 class SourceBuffer implements EventTarget {
-  external SourceBuffer();
+  external factory SourceBuffer();
 }
 
 extension PropsSourceBuffer on SourceBuffer {
@@ -151,10 +199,35 @@ extension PropsSourceBuffer on SourceBuffer {
       js_util.callMethod(this, 'remove', [start, end]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface represents a simple container list for multiple
+/// [SourceBuffer] objects.
+///  The source buffer list containing the [SourceBuffer]s appended
+/// to a particular [MediaSource] can be retrieved using the
+/// [MediaSource.sourceBuffers] property.
+///  The individual source buffers can be accessed using the array
+/// operator [[]].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    SourceBufferList
+///
+///
+@experimental
 @JS()
 @staticInterop
 class SourceBufferList implements EventTarget {
-  external SourceBufferList();
+  external factory SourceBufferList();
 }
 
 extension PropsSourceBufferList on SourceBufferList {

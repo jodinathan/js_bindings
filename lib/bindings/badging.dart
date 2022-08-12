@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorBadge {
-  external NavigatorBadge();
+  external factory NavigatorBadge();
 }
 
 extension PropsNavigatorBadge on NavigatorBadge {

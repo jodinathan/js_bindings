@@ -132,10 +132,25 @@ extension PropsUALowEntropyJSON on UALowEntropyJSON {
   }
 }
 
+///  The interface of the [User-Agent Client Hints API] returns
+/// information about the browser and operating system of a user.
+///  An instance of this object is returned by calling
+/// [Navigator.userAgentData]. Therefore, this interface has no
+/// constructor.
+///
+///   Note: The terms high entropy and low entropy refer to the
+/// amount of information these values reveal about the browser. The
+/// values returned as properties are deemed low entropy, and
+/// unlikely to identify a user. The values returned by
+/// [NavigatorUAData.getHighEntropyValues()] could potentially reveal
+/// more information. These values are therefore retrieved via a
+/// [Future], allowing time for the browser to request user
+/// permission, or make other checks.
+///
 @JS()
 @staticInterop
 class NavigatorUAData {
-  external NavigatorUAData();
+  external factory NavigatorUAData();
 }
 
 extension PropsNavigatorUAData on NavigatorUAData {
@@ -153,7 +168,7 @@ extension PropsNavigatorUAData on NavigatorUAData {
 @JS()
 @staticInterop
 class NavigatorUA {
-  external NavigatorUA();
+  external factory NavigatorUA();
 }
 
 extension PropsNavigatorUA on NavigatorUA {

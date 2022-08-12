@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class AnimationWorkletGlobalScope implements WorkletGlobalScope {
-  external AnimationWorkletGlobalScope();
+  external factory AnimationWorkletGlobalScope();
 }
 
 extension PropsAnimationWorkletGlobalScope on AnimationWorkletGlobalScope {
@@ -29,7 +29,7 @@ extension PropsAnimationWorkletGlobalScope on AnimationWorkletGlobalScope {
 @JS()
 @staticInterop
 class WorkletAnimationEffect {
-  external WorkletAnimationEffect();
+  external factory WorkletAnimationEffect();
 }
 
 extension PropsWorkletAnimationEffect on WorkletAnimationEffect {
@@ -47,7 +47,7 @@ extension PropsWorkletAnimationEffect on WorkletAnimationEffect {
 @JS()
 @staticInterop
 class WorkletAnimation implements Animation {
-  external WorkletAnimation(String animatorName,
+  external factory WorkletAnimation(String animatorName,
       [dynamic effects, AnimationTimeline? timeline, dynamic options]);
 }
 
@@ -58,7 +58,7 @@ extension PropsWorkletAnimation on WorkletAnimation {
 @JS()
 @staticInterop
 class WorkletGroupEffect {
-  external WorkletGroupEffect();
+  external factory WorkletGroupEffect();
 }
 
 extension PropsWorkletGroupEffect on WorkletGroupEffect {

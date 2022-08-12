@@ -99,7 +99,8 @@ class VideoConfiguration {
       required String hdrMetadataType,
       required String colorGamut,
       required String transferFunction,
-      required String scalabilityMode});
+      required String scalabilityMode,
+      required bool spatialScalability});
 
   factory VideoConfiguration(
           {required String contentType,
@@ -111,7 +112,8 @@ class VideoConfiguration {
           required HdrMetadataType hdrMetadataType,
           required ColorGamut colorGamut,
           required TransferFunction transferFunction,
-          required String scalabilityMode}) =>
+          required String scalabilityMode,
+          required bool spatialScalability}) =>
       VideoConfiguration._(
           contentType: contentType,
           width: width,
@@ -122,7 +124,8 @@ class VideoConfiguration {
           hdrMetadataType: hdrMetadataType.name,
           colorGamut: colorGamut.name,
           transferFunction: transferFunction.name,
-          scalabilityMode: scalabilityMode);
+          scalabilityMode: scalabilityMode,
+          spatialScalability: spatialScalability);
 }
 
 extension PropsVideoConfiguration on VideoConfiguration {
@@ -177,6 +180,12 @@ extension PropsVideoConfiguration on VideoConfiguration {
   String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
   set scalabilityMode(String newValue) {
     js_util.setProperty(this, 'scalabilityMode', newValue);
+  }
+
+  bool get spatialScalability =>
+      js_util.getProperty(this, 'spatialScalability');
+  set spatialScalability(bool newValue) {
+    js_util.setProperty(this, 'spatialScalability', newValue);
   }
 }
 
@@ -384,10 +393,19 @@ extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
   }
 }
 
+///  The interface of the Media Capabilities API provides information
+/// about the decoding abilities of the device, system and browser.
+/// The API can be used to query the browser about the decoding
+/// abilities of the device based on codecs, profile, resolution, and
+/// bitrates. The information can be used to serve optimal media
+/// streams to the user and determine if playback should be smooth
+/// and power efficient.
+///  The information is accessed through the [mediaCapabilities]
+/// property of the [Navigator] interface.
 @JS()
 @staticInterop
 class MediaCapabilities {
-  external MediaCapabilities();
+  external factory MediaCapabilities();
 }
 
 extension PropsMediaCapabilities on MediaCapabilities {

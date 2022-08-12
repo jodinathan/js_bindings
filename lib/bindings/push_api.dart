@@ -10,7 +10,7 @@ library push_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -28,10 +28,16 @@ extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
   }
 }
 
+///  The interface of the Push API provides a way to receive
+/// notifications from third-party servers as well as request URLs
+/// for push notifications.
+///  This interface is accessed via the
+/// [ServiceWorkerRegistration.pushManager] property.
+@experimental
 @JS()
 @staticInterop
 class PushManager {
-  external PushManager();
+  external factory PushManager();
 }
 
 extension PropsPushManager on PushManager {
@@ -49,10 +55,15 @@ extension PropsPushManager on PushManager {
           js_util.callMethod(this, 'permissionState', [options]));
 }
 
+///  The interface of the Push API represents the options associated
+/// with a push subscription.
+///  The read-only object is returned by calling
+/// [PushSubscription.options] on a [PushSubscription]. This
+/// interface has no constructor of its own.
 @JS()
 @staticInterop
 class PushSubscriptionOptions {
-  external PushSubscriptionOptions();
+  external factory PushSubscriptionOptions();
 }
 
 extension PropsPushSubscriptionOptions on PushSubscriptionOptions {
@@ -82,10 +93,17 @@ extension PropsPushSubscriptionOptionsInit on PushSubscriptionOptionsInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Push API provides a subscription's URL
+/// endpoint and allows unsubscribing from a push service.
+/// An instance of this interface can be serialized.
+@experimental
 @JS()
 @staticInterop
 class PushSubscription {
-  external PushSubscription();
+  external factory PushSubscription();
 }
 
 extension PropsPushSubscription on PushSubscription {
@@ -128,10 +146,22 @@ extension PropsPushSubscriptionJSON on PushSubscriptionJSON {
 
 enum PushEncryptionKeyName { p256dh, auth }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Push API provides methods which let you
+/// retrieve the push data sent by a server in various formats.
+///  Unlike the similar methods in the Fetch API, which only allow
+/// the method to be invoked once, these methods can be called
+/// multiple times.
+///  Messages received through the Push API are sent encrypted by
+/// push services and then automatically decrypted by browsers before
+/// they are made accessible through the methods of the interface.
+@experimental
 @JS()
 @staticInterop
 class PushMessageData {
-  external PushMessageData();
+  external factory PushMessageData();
 }
 
 extension PropsPushMessageData on PushMessageData {
@@ -144,10 +174,39 @@ extension PropsPushMessageData on PushMessageData {
   String text() => js_util.callMethod(this, 'text', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Push API represents a push message that has
+/// been received. This event is sent to the global scope of a
+/// [ServiceWorker]. It contains the information sent from an
+/// application server to a [PushSubscription].
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    PushEvent
+///
+///
 @JS()
 @staticInterop
 class PushEvent implements ExtendableEvent {
-  external PushEvent(String type, [PushEventInit? eventInitDict]);
+  external factory PushEvent(String type, [PushEventInit? eventInitDict]);
 }
 
 extension PropsPushEvent on PushEvent {
@@ -171,7 +230,7 @@ extension PropsPushEventInit on PushEventInit {
 @JS()
 @staticInterop
 class PushSubscriptionChangeEvent implements ExtendableEvent {
-  external PushSubscriptionChangeEvent(String type,
+  external factory PushSubscriptionChangeEvent(String type,
       [PushSubscriptionChangeEventInit? eventInitDict]);
 }
 

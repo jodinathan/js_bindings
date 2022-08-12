@@ -13,6 +13,20 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The extension is part of the WebGL API and exposes Adaptive
+/// Scalable Texture Compression (ASTC) compressed texture formats to
+/// WebGL.
+///  For more information, see the article Using ASTC Texture
+/// Compression for Game Assets by NVIDIA.
+///  WebGL extensions are available using the
+/// [WebGLRenderingContext.getExtension()] method. For more
+/// information, see also Using Extensions in the WebGL tutorial.
+///
+///   Note: ASTC compression is typically available on Mali ARM GPUs,
+/// Intel GPUs, and NVIDIA Tegra chips.
+///   This extension is available to both, WebGL1 and WebGL2
+/// contexts.
+///
 @JS('WEBGL_compressed_texture_astc')
 @staticInterop
 class WEBGLCompressedTextureAstc {
@@ -100,7 +114,7 @@ class WEBGLCompressedTextureAstc {
   @JS('COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR')
   external static int get compressedSrgb8Alpha8Astc12x12Khr;
 
-  external WEBGLCompressedTextureAstc();
+  external factory WEBGLCompressedTextureAstc();
 }
 
 extension PropsWEBGLCompressedTextureAstc on WEBGLCompressedTextureAstc {

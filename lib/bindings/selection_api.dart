@@ -13,10 +13,25 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  A object represents the range of text selected by the user or
+/// the current position of the caret. To obtain a object for
+/// examination or manipulation, call [window.getSelection()].
+///  A user may make a selection from left to right (in document
+/// order) or right to left (reverse of document order). The anchor
+/// is where the user began the selection and the focus is where the
+/// user ends the selection. If you make a selection with a desktop
+/// mouse, the anchor is placed where you pressed the mouse button,
+/// and the focus is placed where you released the mouse button.
+///
+///   Note: Anchor and focus should not be confused with the start
+/// and end positions of a selection. The anchor can be placed before
+/// the focus or vice-versa, depending on the direction you made your
+/// selection.
+///
 @JS()
 @staticInterop
 class Selection {
-  external Selection();
+  external factory Selection();
 }
 
 extension PropsSelection on Selection {
@@ -59,6 +74,9 @@ extension PropsSelection on Selection {
 
   Object selectAllChildren(Node node) =>
       js_util.callMethod(this, 'selectAllChildren', [node]);
+
+  Object modify([String? alter, String? direction, String? granularity]) =>
+      js_util.callMethod(this, 'modify', [alter, direction, granularity]);
 
   Object deleteFromDocument() =>
       js_util.callMethod(this, 'deleteFromDocument', []);

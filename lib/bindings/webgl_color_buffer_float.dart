@@ -13,6 +13,17 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The extension is part of the WebGL API and adds the ability to
+/// render to 32-bit floating-point color buffers.
+///  WebGL extensions are available using the
+/// [WebGLRenderingContext.getExtension()] method. For more
+/// information, see also Using Extensions in the WebGL tutorial.
+///
+///   Note: This extension is available to WebGL 1 contexts only. For
+/// WebGL 2, use the [EXT_color_buffer_float] extension.
+///   The [OES_texture_float] extension implicitly enables this
+/// extension.
+///
 @JS('WEBGL_color_buffer_float')
 @staticInterop
 class WEBGLColorBufferFloat {
@@ -25,5 +36,5 @@ class WEBGLColorBufferFloat {
   @JS('UNSIGNED_NORMALIZED_EXT')
   external static int get unsignedNormalizedExt;
 
-  external WEBGLColorBufferFloat();
+  external factory WEBGLColorBufferFloat();
 }

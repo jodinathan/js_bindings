@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS('WEBGL_multi_draw_instanced_base_vertex_base_instance')
 @staticInterop
 class WEBGLMultiDrawInstancedBaseVertexBaseInstance {
-  external WEBGLMultiDrawInstancedBaseVertexBaseInstance();
+  external factory WEBGLMultiDrawInstancedBaseVertexBaseInstance();
 }
 
 extension PropsWEBGLMultiDrawInstancedBaseVertexBaseInstance
@@ -31,7 +31,7 @@ extension PropsWEBGLMultiDrawInstancedBaseVertexBaseInstance
           int instanceCountsOffset,
           dynamic baseInstancesList,
           int baseInstancesOffset,
-          int drawCount) =>
+          int drawcount) =>
       js_util.callMethod(this, 'multiDrawArraysInstancedBaseInstanceWEBGL', [
         mode,
         firstsList,
@@ -42,7 +42,7 @@ extension PropsWEBGLMultiDrawInstancedBaseVertexBaseInstance
         instanceCountsOffset,
         baseInstancesList,
         baseInstancesOffset,
-        drawCount
+        drawcount
       ]);
 
   Object multiDrawElementsInstancedBaseVertexBaseInstanceWEBGL(
@@ -58,7 +58,7 @@ extension PropsWEBGLMultiDrawInstancedBaseVertexBaseInstance
           int baseVerticesOffset,
           dynamic baseInstancesList,
           int baseInstancesOffset,
-          int drawCount) =>
+          int drawcount) =>
       js_util.callMethod(
           this, 'multiDrawElementsInstancedBaseVertexBaseInstanceWEBGL', [
         mode,
@@ -73,6 +73,6 @@ extension PropsWEBGLMultiDrawInstancedBaseVertexBaseInstance
         baseVerticesOffset,
         baseInstancesList,
         baseInstancesOffset,
-        drawCount
+        drawcount
       ]);
 }

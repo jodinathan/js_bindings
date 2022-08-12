@@ -118,10 +118,17 @@ extension PropsMediaKeySystemMediaCapability on MediaKeySystemMediaCapability {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the EncryptedMediaExtensions API provides
+/// access to a Key System for decryption and/or a content protection
+/// provider. You can request an instance of this object using the
+/// [Navigator.requestMediaKeySystemAccess()] method.
 @JS()
 @staticInterop
 class MediaKeySystemAccess {
-  external MediaKeySystemAccess();
+  external factory MediaKeySystemAccess();
 }
 
 extension PropsMediaKeySystemAccess on MediaKeySystemAccess {
@@ -135,10 +142,16 @@ extension PropsMediaKeySystemAccess on MediaKeySystemAccess {
 
 enum MediaKeySessionType { temporary, persistentLicense }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of EncryptedMediaExtensions API represents a set
+/// of keys that an associated [HTMLMediaElement] can use for
+/// decryption of media data during playback.
 @JS()
 @staticInterop
 class MediaKeys {
-  external MediaKeys();
+  external factory MediaKeys();
 }
 
 extension PropsMediaKeys on MediaKeys {
@@ -159,10 +172,27 @@ enum MediaKeySessionClosedReason {
   resourceEvicted
 }
 
+///  The interface of the EncryptedMediaExtensions API represents a
+/// context for message exchange with a content decryption module
+/// (CDM).
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MediaKeySession
+///
+///
 @JS()
 @staticInterop
 class MediaKeySession implements EventTarget {
-  external MediaKeySession();
+  external factory MediaKeySession();
 }
 
 extension PropsMediaKeySession on MediaKeySession {
@@ -201,10 +231,15 @@ extension PropsMediaKeySession on MediaKeySession {
       js_util.promiseToFuture(js_util.callMethod(this, 'remove', []));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the EncryptedMediaExtensions API is a read-only
+/// map of media key statuses by key IDs.
 @JS()
 @staticInterop
 class MediaKeyStatusMap extends JsArray<MediaKeyStatus> {
-  external MediaKeyStatusMap();
+  external factory MediaKeyStatusMap();
 }
 
 extension PropsMediaKeyStatusMap on MediaKeyStatusMap {
@@ -234,10 +269,30 @@ enum MediaKeyMessageType {
   individualizationRequest
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the EncryptedMediaExtensions API contains the
+/// content and related data when the content decryption module
+/// generates a message for the session.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    MediaKeyMessageEvent
+///
+///
 @JS()
 @staticInterop
 class MediaKeyMessageEvent implements Event {
-  external MediaKeyMessageEvent(
+  external factory MediaKeyMessageEvent(
       String type, MediaKeyMessageEventInit eventInitDict);
 }
 
@@ -277,7 +332,7 @@ extension PropsMediaKeyMessageEventInit on MediaKeyMessageEventInit {
 @JS()
 @staticInterop
 class MediaEncryptedEvent implements Event {
-  external MediaEncryptedEvent(String type,
+  external factory MediaEncryptedEvent(String type,
       [MediaEncryptedEventInit? eventInitDict]);
 }
 

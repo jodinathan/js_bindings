@@ -14,10 +14,20 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+///
+///   The interface represents basic cryptography features available
+/// in the current context.
+///   It allows access to a cryptographically strong random number
+/// generator and to cryptographic primitives.
+///
+///  Note: This feature is available in Web Workers
+///
+///  The Web Crypto API is accessed through the global [crypto]
+/// property, which is a object.
 @JS()
 @staticInterop
 class Crypto {
-  external Crypto();
+  external factory Crypto();
 }
 
 extension PropsCrypto on Crypto {
@@ -69,10 +79,17 @@ enum KeyUsage {
   unwrapKey
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Web Crypto API represents a cryptographic
+/// key obtained from one of the [SubtleCrypto] methods
+/// [generateKey()], [deriveKey()], [importKey()], or [unwrapKey()].
+///  For security reasons, the interface can only be used in a secure
+/// context.
 @JS()
 @staticInterop
 class CryptoKey {
-  external CryptoKey();
+  external factory CryptoKey();
 }
 
 extension PropsCryptoKey on CryptoKey {
@@ -84,10 +101,32 @@ extension PropsCryptoKey on CryptoKey {
 
 enum KeyFormat { raw, spki, pkcs8, jwk }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Web Crypto API provides a number of
+/// low-level cryptographic functions. Access to the features of is
+/// obtained through the [subtle] property of the [Crypto] object you
+/// get from the [crypto] property.
+///
+///   Warning: This API provides a number of low-level cryptographic
+/// primitives. It's very easy to misuse them, and the pitfalls
+/// involved can be very subtle.
+///   Even assuming you use the basic cryptographic functions
+/// correctly, secure key management and overall security system
+/// design are extremely hard to get right, and are generally the
+/// domain of specialist security experts.
+///   Errors in security system design and implementation can make
+/// the security of the system completely ineffective.
+///   Please learn and experiment, but don't guarantee or imply the
+/// security of your work before an individual knowledgeable in this
+/// subject matter thoroughly reviews it. The Crypto 101 Course can
+/// be a great place to start learning about the design and
+/// implementation of secure systems.
+///
 @JS()
 @staticInterop
 class SubtleCrypto {
-  external SubtleCrypto();
+  external factory SubtleCrypto();
 }
 
 extension PropsSubtleCrypto on SubtleCrypto {
@@ -305,6 +344,15 @@ extension PropsJsonWebKey on JsonWebKey {
   }
 }
 
+///  The dictionary of the Web Crypto API represents a key pair for
+/// an asymmetric cryptography algorithm, also known as a public-key
+/// algorithm.
+///  A object can be obtained using [SubtleCrypto.generateKey()],
+/// when the selected algorithm is one of the asymmetric algorithms:
+/// RSASSA-PKCS1-v1_5, RSA-PSS, RSA-OAEP, ECDSA, or ECDH.
+///  It contains two properties, which are both [CryptoKey] objects:
+/// a [privateKey] property containing the private key and a
+/// [publicKey] property containing the public key.
 @anonymous
 @JS()
 @staticInterop
@@ -345,6 +393,11 @@ extension PropsRsaKeyGenParams on RsaKeyGenParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.generateKey()], when generating any RSA-based key
+/// pair: that is, when the algorithm is identified as any of
+/// RSASSA-PKCS1-v1_5, RSA-PSS, or RSA-OAEP.
 @anonymous
 @JS()
 @staticInterop
@@ -397,6 +450,11 @@ extension PropsRsaHashedKeyAlgorithm on RsaHashedKeyAlgorithm {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.importKey()] or [SubtleCrypto.unwrapKey()], when
+/// importing any RSA-based key pair: that is, when the algorithm is
+/// identified as any of RSASSA-PKCS1-v1_5, RSA-PSS, or RSA-OAEP.
 @anonymous
 @JS()
 @staticInterop
@@ -413,6 +471,10 @@ extension PropsRsaHashedImportParams on RsaHashedImportParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.sign()] or [SubtleCrypto.verify()], when using the
+/// RSA-PSS algorithm.
 @anonymous
 @JS()
 @staticInterop
@@ -427,6 +489,11 @@ extension PropsRsaPssParams on RsaPssParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.encrypt()], [SubtleCrypto.decrypt()],
+/// [SubtleCrypto.wrapKey()], or [SubtleCrypto.unwrapKey()], when
+/// using the RSA_OAEP algorithm.
 @anonymous
 @JS()
 @staticInterop
@@ -441,6 +508,10 @@ extension PropsRsaOaepParams on RsaOaepParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.sign()] or [SubtleCrypto.verify()] when using the
+/// ECDSA algorithm.
 @anonymous
 @JS()
 @staticInterop
@@ -457,6 +528,11 @@ extension PropsEcdsaParams on EcdsaParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.generateKey()], when generating any
+/// elliptic-curve-based key pair: that is, when the algorithm is
+/// identified as either of ECDSA or ECDH.
 @anonymous
 @JS()
 @staticInterop
@@ -485,6 +561,11 @@ extension PropsEcKeyAlgorithm on EcKeyAlgorithm {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.importKey()] or [SubtleCrypto.unwrapKey()], when
+/// generating any elliptic-curve-based key pair: that is, when the
+/// algorithm is identified as either of ECDSA or ECDH.
 @anonymous
 @JS()
 @staticInterop
@@ -499,6 +580,17 @@ extension PropsEcKeyImportParams on EcKeyImportParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.deriveKey()], when using the ECDH algorithm.
+///  ECDH enables two people who each have a key pair consisting of a
+/// public and a private key to derive a shared secret. They exchange
+/// public keys and use the combination of their private key and the
+/// other entity's public key to derive a secret key that they — and
+/// no one else — share.
+///  The parameters for ECDH [deriveKey()] therefore include the
+/// other entity's public key, which is combined with this entity's
+/// private key to derive the shared secret.
 @anonymous
 @JS()
 @staticInterop
@@ -513,6 +605,43 @@ extension PropsEcdhKeyDeriveParams on EcdhKeyDeriveParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.encrypt()], [SubtleCrypto.decrypt()],
+/// [SubtleCrypto.wrapKey()], or [SubtleCrypto.unwrapKey()], when
+/// using the AES-CTR algorithm.
+///  AES is a block cipher, meaning that it splits the message into
+/// blocks and encrypts it a block at a time. In CTR mode, every time
+/// a block of the message is encrypted, an extra block of data is
+/// mixed in. This extra block is called the "counter block".
+///  A given counter block value must never be used more than once
+/// with the same key:
+///
+///   Given a message n blocks long, a different counter block must
+/// be used for every block.
+///   If the same key is used to encrypt more than one message, a
+/// different counter block must be used for all blocks across all
+/// messages.
+///
+///  Typically this is achieved by splitting the initial counter
+/// block value into two concatenated parts:
+///
+///   A nonce (that is, a number that may only be used once). The
+/// nonce part of the block stays the same for every block in the
+/// message. Each time a new message is to be encrypted, a new nonce
+/// is chosen. Nonces don't have to be secret, but they must not be
+/// reused with the same key.
+///   A counter. This part of the block gets incremented each time a
+/// block is encrypted.
+///
+///  Essentially: the nonce should ensure that counter blocks are not
+/// reused from one message to the next, while the counter should
+/// ensure that counter blocks are not reused within a single
+/// message.
+///
+///   Note: See Appendix B of the NIST SP800-38A standard for more
+/// information.
+///
 @anonymous
 @JS()
 @staticInterop
@@ -546,6 +675,11 @@ extension PropsAesKeyAlgorithm on AesKeyAlgorithm {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.generateKey()], when generating an AES key: that
+/// is, when the algorithm is identified as any of AES-CBC, AES-CTR,
+/// AES-GCM, or AES-KW.
 @anonymous
 @JS()
 @staticInterop
@@ -574,6 +708,11 @@ extension PropsAesDerivedKeyParams on AesDerivedKeyParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.encrypt()], [SubtleCrypto.decrypt()],
+/// [SubtleCrypto.wrapKey()], or [SubtleCrypto.unwrapKey()], when
+/// using the AES-CBC algorithm.
 @anonymous
 @JS()
 @staticInterop
@@ -588,6 +727,14 @@ extension PropsAesCbcParams on AesCbcParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.encrypt()], [SubtleCrypto.decrypt()],
+/// [SubtleCrypto.wrapKey()], or [SubtleCrypto.unwrapKey()], when
+/// using the AES-GCM algorithm.
+///  For details of how to supply appropriate values for this
+/// parameter, see the specification for AES-GCM: NIST SP800-38D, in
+/// particular section 5.2.1.1 on Input Data.
 @anonymous
 @JS()
 @staticInterop
@@ -613,6 +760,10 @@ extension PropsAesGcmParams on AesGcmParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.importKey()] or [SubtleCrypto.unwrapKey()], when
+/// generating a key for the HMAC algorithm.
 @anonymous
 @JS()
 @staticInterop
@@ -656,6 +807,10 @@ extension PropsHmacKeyAlgorithm on HmacKeyAlgorithm {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.generateKey()], when generating a key for the HMAC
+/// algorithm.
 @anonymous
 @JS()
 @staticInterop
@@ -677,6 +832,9 @@ extension PropsHmacKeyGenParams on HmacKeyGenParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.deriveKey()], when using the HKDF algorithm.
 @anonymous
 @JS()
 @staticInterop
@@ -703,6 +861,9 @@ extension PropsHkdfParams on HkdfParams {
   }
 }
 
+///  The dictionary of the Web Crypto API represents the object that
+/// should be passed as the [algorithm] parameter into
+/// [SubtleCrypto.deriveKey()], when using the PBKDF2 algorithm.
 @anonymous
 @JS()
 @staticInterop

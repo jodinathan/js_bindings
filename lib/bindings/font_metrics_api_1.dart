@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class FontMetrics {
-  external FontMetrics();
+  external factory FontMetrics();
 }
 
 extension PropsFontMetrics on FontMetrics {
@@ -44,7 +44,7 @@ extension PropsFontMetrics on FontMetrics {
 @JS()
 @staticInterop
 class Baseline {
-  external Baseline();
+  external factory Baseline();
 }
 
 extension PropsBaseline on Baseline {
@@ -55,7 +55,7 @@ extension PropsBaseline on Baseline {
 @JS()
 @staticInterop
 class Font {
-  external Font();
+  external factory Font();
 }
 
 extension PropsFont on Font {

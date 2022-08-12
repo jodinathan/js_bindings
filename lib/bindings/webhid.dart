@@ -10,14 +10,37 @@ library webhid;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface provides methods for connecting to HID devices,
+/// listing attached HID devices and event handlers for connected HID
+/// devices.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    HID
+///
+///
+@experimental
 @JS('HID')
 @staticInterop
 class Hid implements EventTarget {
-  external Hid();
+  external factory Hid();
 }
 
 extension PropsHid on Hid {
@@ -45,13 +68,20 @@ extension PropsHid on Hid {
 @staticInterop
 class HIDDeviceRequestOptions {
   external factory HIDDeviceRequestOptions(
-      {required Iterable<HIDDeviceFilter> filters});
+      {required Iterable<HIDDeviceFilter> filters,
+      required Iterable<HIDDeviceFilter> exclusionFilters});
 }
 
 extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
   Iterable<HIDDeviceFilter> get filters => js_util.getProperty(this, 'filters');
   set filters(Iterable<HIDDeviceFilter> newValue) {
     js_util.setProperty(this, 'filters', newValue);
+  }
+
+  Iterable<HIDDeviceFilter> get exclusionFilters =>
+      js_util.getProperty(this, 'exclusionFilters');
+  set exclusionFilters(Iterable<HIDDeviceFilter> newValue) {
+    js_util.setProperty(this, 'exclusionFilters', newValue);
   }
 }
 
@@ -88,10 +118,34 @@ extension PropsHIDDeviceFilter on HIDDeviceFilter {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the [WebHID API] represents a HID Device. It
+/// provides properties for accessing information about the device,
+/// methods for opening and closing the connection, and the sending
+/// and receiving of reports.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    HIDDevice
+///
+///
+@experimental
 @JS()
 @staticInterop
 class HIDDevice implements EventTarget {
-  external HIDDevice();
+  external factory HIDDevice();
 }
 
 extension PropsHIDDevice on HIDDevice {
@@ -129,10 +183,33 @@ extension PropsHIDDevice on HIDDevice {
           js_util.callMethod(this, 'receiveFeatureReport', [reportId]));
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the [WebHID API] represents HID connection
+/// events, and is the event type passed to [HID.onconnect] and
+/// [HID.ondisconnect] when an input report is received.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    HIDConnectionEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class HIDConnectionEvent implements Event {
-  external HIDConnectionEvent(
+  external factory HIDConnectionEvent(
       String type, HIDConnectionEventInit eventInitDict);
 }
 
@@ -154,10 +231,33 @@ extension PropsHIDConnectionEventInit on HIDConnectionEventInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the [WebHID API] is passed to
+/// [HIDDevice.inputreport_event] when an input report is received
+/// from any associated HID device.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    HIDInputReportEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class HIDInputReportEvent implements Event {
-  external HIDInputReportEvent(
+  external factory HIDInputReportEvent(
       String type, HIDInputReportEventInit eventInitDict);
 }
 

@@ -10,16 +10,23 @@ library gamepad_extensions;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
 enum GamepadHand { empty, left, right }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Gamepad API represents hardware in the
+/// controller designed to provide haptic feedback to the user (if
+/// available), most commonly vibration hardware.
+///  This interface is accessible through the
+/// [Gamepad.hapticActuators] property.
 @JS()
 @staticInterop
 class GamepadHapticActuator {
-  external GamepadHapticActuator();
+  external factory GamepadHapticActuator();
 }
 
 extension PropsGamepadHapticActuator on GamepadHapticActuator {
@@ -31,10 +38,21 @@ extension PropsGamepadHapticActuator on GamepadHapticActuator {
 
 enum GamepadHapticActuatorType { vibration }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Gamepad API represents the pose of a WebVR
+/// controller at a given timestamp (which includes orientation,
+/// position, velocity, and acceleration information).
+///  This interface is accessible through the [Gamepad.pose]
+/// property.
+@experimental
 @JS()
 @staticInterop
 class GamepadPose {
-  external GamepadPose();
+  external factory GamepadPose();
 }
 
 extension PropsGamepadPose on GamepadPose {
@@ -55,7 +73,7 @@ extension PropsGamepadPose on GamepadPose {
 @JS()
 @staticInterop
 class GamepadTouch {
-  external GamepadTouch();
+  external factory GamepadTouch();
 }
 
 extension PropsGamepadTouch on GamepadTouch {

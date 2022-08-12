@@ -10,13 +10,20 @@ library image_capture;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the MediaStream Image Capture API provides
+/// methods to enable the capture of images or photos from a camera
+/// or other photographic device. It provides an interface for
+/// capturing images from a photographic device referenced through a
+/// valid [MediaStreamTrack].
+@experimental
 @JS()
 @staticInterop
 class ImageCapture {
-  external ImageCapture(MediaStreamTrack videoTrack);
+  external factory ImageCapture(MediaStreamTrack videoTrack);
 }
 
 extension PropsImageCapture on ImageCapture {

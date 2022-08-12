@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Profiler implements EventTarget {
-  external Profiler(ProfilerInitOptions options);
+  external factory Profiler(ProfilerInitOptions options);
 }
 
 extension PropsProfiler on Profiler {

@@ -10,13 +10,37 @@ library speech_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Web Speech API is the controller interface
+/// for the recognition service; this also handles the
+/// [SpeechRecognitionEvent] sent from the recognition service.
+///
+///   Note: On some browsers, like Chrome, using Speech Recognition
+/// on a web page involves a server-based recognition engine. Your
+/// audio is sent to a web service for recognition processing, so it
+/// won't work offline.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    SpeechRecognition
+///
+///
 @JS()
 @staticInterop
 class SpeechRecognition implements EventTarget {
-  external SpeechRecognition();
+  external factory SpeechRecognition();
 }
 
 extension PropsSpeechRecognition on SpeechRecognition {
@@ -124,10 +148,29 @@ enum SpeechRecognitionErrorCode {
   languageNotSupported
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Speech API represents error messages
+/// from the recognition service.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    SpeechRecognitionErrorEvent
+///
+///
 @JS()
 @staticInterop
 class SpeechRecognitionErrorEvent implements Event {
-  external SpeechRecognitionErrorEvent(
+  external factory SpeechRecognitionErrorEvent(
       String type, SpeechRecognitionErrorEventInit eventInitDict);
 }
 
@@ -163,10 +206,16 @@ extension PropsSpeechRecognitionErrorEventInit
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Speech API represents a single word
+/// that has been recognized by the speech recognition service.
+@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionAlternative {
-  external SpeechRecognitionAlternative();
+  external factory SpeechRecognitionAlternative();
 }
 
 extension PropsSpeechRecognitionAlternative on SpeechRecognitionAlternative {
@@ -174,10 +223,17 @@ extension PropsSpeechRecognitionAlternative on SpeechRecognitionAlternative {
   double get confidence => js_util.getProperty(this, 'confidence');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Speech API represents a single
+/// recognition match, which may contain multiple
+/// [SpeechRecognitionAlternative] objects.
+@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionResult {
-  external SpeechRecognitionResult();
+  external factory SpeechRecognitionResult();
 }
 
 extension PropsSpeechRecognitionResult on SpeechRecognitionResult {
@@ -188,10 +244,17 @@ extension PropsSpeechRecognitionResult on SpeechRecognitionResult {
   bool get isFinal => js_util.getProperty(this, 'isFinal');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Speech API represents a list of
+/// [SpeechRecognitionResult] objects, or a single one if results are
+/// being captured in [continuous] mode.
+@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionResultList {
-  external SpeechRecognitionResultList();
+  external factory SpeechRecognitionResultList();
 }
 
 extension PropsSpeechRecognitionResultList on SpeechRecognitionResultList {
@@ -200,10 +263,28 @@ extension PropsSpeechRecognitionResultList on SpeechRecognitionResultList {
       js_util.callMethod(this, 'item', [index]);
 }
 
+///  The interface of the Web Speech API represents the event object
+/// for the [result] and [nomatch] events, and contains all the data
+/// associated with an interim or final speech recognition result.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    SpeechRecognitionEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionEvent implements Event {
-  external SpeechRecognitionEvent(
+  external factory SpeechRecognitionEvent(
       String type, SpeechRecognitionEventInit eventInitDict);
 }
 
@@ -234,10 +315,19 @@ extension PropsSpeechRecognitionEventInit on SpeechRecognitionEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Speech API represents a set of words or
+/// patterns of words that we want the recognition service to
+/// recognize.
+///  Grammar is defined using JSpeech Grammar Format (JSGF.) Other
+/// formats may also be supported in the future.
+@experimental
 @JS()
 @staticInterop
 class SpeechGrammar {
-  external SpeechGrammar();
+  external factory SpeechGrammar();
 }
 
 extension PropsSpeechGrammar on SpeechGrammar {
@@ -252,10 +342,19 @@ extension PropsSpeechGrammar on SpeechGrammar {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Speech API represents a list of
+/// [SpeechGrammar] objects containing words or patterns of words
+/// that we want the recognition service to recognize.
+///  Grammar is defined using JSpeech Grammar Format (JSGF.) Other
+/// formats may also be supported in the future.
+@experimental
 @JS()
 @staticInterop
 class SpeechGrammarList {
-  external SpeechGrammarList();
+  external factory SpeechGrammarList();
 }
 
 extension PropsSpeechGrammarList on SpeechGrammarList {
@@ -269,10 +368,28 @@ extension PropsSpeechGrammarList on SpeechGrammarList {
       js_util.callMethod(this, 'addFromString', [string, weight]);
 }
 
+///  The interface of the Web Speech API is the controller interface
+/// for the speech service; this can be used to retrieve information
+/// about the synthesis voices available on the device, start and
+/// pause speech, and other commands besides.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    SpeechSynthesis
+///
+///
 @JS()
 @staticInterop
 class SpeechSynthesis implements EventTarget {
-  external SpeechSynthesis();
+  external factory SpeechSynthesis();
 }
 
 extension PropsSpeechSynthesis on SpeechSynthesis {
@@ -298,10 +415,31 @@ extension PropsSpeechSynthesis on SpeechSynthesis {
       js_util.callMethod(this, 'getVoices', []);
 }
 
+///
+///   The interface of the Web Speech API represents a speech
+/// request.
+///   It contains the content the speech service should read and
+/// information about how to read it (e.g. language, pitch and
+/// volume.)
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    SpeechSynthesisUtterance
+///
+///
 @JS()
 @staticInterop
 class SpeechSynthesisUtterance implements EventTarget {
-  external SpeechSynthesisUtterance([String? text]);
+  external factory SpeechSynthesisUtterance([String? text]);
 }
 
 extension PropsSpeechSynthesisUtterance on SpeechSynthesisUtterance {
@@ -372,10 +510,27 @@ extension PropsSpeechSynthesisUtterance on SpeechSynthesisUtterance {
   }
 }
 
+///  The interface of the Web Speech API contains information about
+/// the current state of [SpeechSynthesisUtterance] objects that have
+/// been processed in the speech service.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    SpeechSynthesisEvent
+///
+///
 @JS()
 @staticInterop
 class SpeechSynthesisEvent implements Event {
-  external SpeechSynthesisEvent(
+  external factory SpeechSynthesisEvent(
       String type, SpeechSynthesisEventInit eventInitDict);
 }
 
@@ -443,10 +598,39 @@ enum SpeechSynthesisErrorCode {
   notAllowed
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Speech API contains information about
+/// any errors that occur while processing [SpeechSynthesisUtterance]
+/// objects in the speech service.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    SpeechSynthesisEvent
+///
+///
+///
+///
+///
+///
+///
+///    SpeechSynthesisErrorEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class SpeechSynthesisErrorEvent implements SpeechSynthesisEvent {
-  external SpeechSynthesisErrorEvent(
+  external factory SpeechSynthesisErrorEvent(
       String type, SpeechSynthesisErrorEventInit eventInitDict);
 }
 
@@ -474,10 +658,16 @@ extension PropsSpeechSynthesisErrorEventInit on SpeechSynthesisErrorEventInit {
   }
 }
 
+///
+///   The interface of the Web Speech API represents a voice that the
+/// system supports.
+///   Every has its own relative speech service including information
+/// about language, name and URI.
+///
 @JS()
 @staticInterop
 class SpeechSynthesisVoice {
-  external SpeechSynthesisVoice();
+  external factory SpeechSynthesisVoice();
 }
 
 extension PropsSpeechSynthesisVoice on SpeechSynthesisVoice {

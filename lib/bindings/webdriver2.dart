@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorAutomationInformation {
-  external NavigatorAutomationInformation();
+  external factory NavigatorAutomationInformation();
 }
 
 extension PropsNavigatorAutomationInformation

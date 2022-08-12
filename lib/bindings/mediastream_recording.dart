@@ -13,10 +13,28 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the MediaStream Recording API provides
+/// functionality to easily record media. It is created using the
+/// [MediaRecorder()] constructor.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MediaRecorder
+///
+///
 @JS()
 @staticInterop
 class MediaRecorder implements EventTarget {
-  external MediaRecorder(MediaStream stream, [MediaRecorderOptions? options]);
+  external factory MediaRecorder(MediaStream stream,
+      [MediaRecorderOptions? options]);
 }
 
 extension PropsMediaRecorder on MediaRecorder {
@@ -131,10 +149,27 @@ enum BitrateMode { constant, variable }
 
 enum RecordingState { inactive, recording, paused }
 
+///  The interface represents events associated with a [Blob]. These
+/// blobs are typically, but not necessarily, associated with media
+/// content.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    BlobEvent
+///
+///
 @JS()
 @staticInterop
 class BlobEvent implements Event {
-  external BlobEvent(String type, BlobEventInit eventInitDict);
+  external factory BlobEvent(String type, BlobEventInit eventInitDict);
 }
 
 extension PropsBlobEvent on BlobEvent {
@@ -160,29 +195,4 @@ extension PropsBlobEventInit on BlobEventInit {
   set timecode(double newValue) {
     js_util.setProperty(this, 'timecode', newValue);
   }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class MediaRecorderErrorEventInit implements EventInit {
-  external factory MediaRecorderErrorEventInit({required Exception error});
-}
-
-extension PropsMediaRecorderErrorEventInit on MediaRecorderErrorEventInit {
-  Exception get error => js_util.getProperty(this, 'error');
-  set error(Exception newValue) {
-    js_util.setProperty(this, 'error', newValue);
-  }
-}
-
-@JS()
-@staticInterop
-class MediaRecorderErrorEvent implements Event {
-  external MediaRecorderErrorEvent(
-      String type, MediaRecorderErrorEventInit eventInitDict);
-}
-
-extension PropsMediaRecorderErrorEvent on MediaRecorderErrorEvent {
-  Exception get error => js_util.getProperty(this, 'error');
 }

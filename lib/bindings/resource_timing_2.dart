@@ -13,10 +13,39 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface enables retrieval and analysis of detailed network
+/// timing data regarding the loading of an application's resources.
+/// An application can use the timing metrics to determine, for
+/// example, the length of time it takes to fetch a specific
+/// resource, such as an [XMLHttpRequest], [<SVG>], image, or script.
+///  The interface's properties create a resource loading timeline
+/// with [high-resolution timestamps] for network events such as
+/// redirect start and end times, fetch start, DNS lookup start and
+/// end times, response start and end times, etc.. Additionally, the
+/// interface extends [PerformanceEntry] with other properties which
+/// provide data about the size of the fetched resource as well as
+/// the type of resource that initiated the fetch.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///
+///
+///    PerformanceResourceTiming
+///
+///
+///
+///  Note: This feature is available in Web Workers
+///
 @JS()
 @staticInterop
 class PerformanceResourceTiming implements PerformanceEntry {
-  external PerformanceResourceTiming();
+  external factory PerformanceResourceTiming();
 }
 
 extension PropsPerformanceResourceTiming on PerformanceResourceTiming {

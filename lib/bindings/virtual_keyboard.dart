@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class VirtualKeyboard implements EventTarget {
-  external VirtualKeyboard();
+  external factory VirtualKeyboard();
 }
 
 extension PropsVirtualKeyboard on VirtualKeyboard {

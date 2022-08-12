@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class WebTransportDatagramDuplexStream {
-  external WebTransportDatagramDuplexStream();
+  external factory WebTransportDatagramDuplexStream();
 }
 
 extension PropsWebTransportDatagramDuplexStream
@@ -50,7 +50,7 @@ extension PropsWebTransportDatagramDuplexStream
 @JS()
 @staticInterop
 class WebTransport {
-  external WebTransport(String url, [WebTransportOptions? options]);
+  external factory WebTransport(String url, [WebTransportOptions? options]);
 }
 
 extension PropsWebTransport on WebTransport {
@@ -59,6 +59,9 @@ extension PropsWebTransport on WebTransport {
 
   Future<Object> get ready =>
       js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
+  WebTransportReliabilityMode get reliability =>
+      WebTransportReliabilityMode.values
+          .byName(js_util.getProperty(this, 'reliability'));
   Future<WebTransportCloseInfo> get closed =>
       js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
   Object close([WebTransportCloseInfo? closeInfo]) =>
@@ -72,13 +75,15 @@ extension PropsWebTransport on WebTransport {
 
   ReadableStream get incomingBidirectionalStreams =>
       js_util.getProperty(this, 'incomingBidirectionalStreams');
-  Future<WritableStream> createUnidirectionalStream() =>
+  Future<WebTransportSendStream> createUnidirectionalStream() =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'createUnidirectionalStream', []));
 
   ReadableStream get incomingUnidirectionalStreams =>
       js_util.getProperty(this, 'incomingUnidirectionalStreams');
 }
+
+enum WebTransportReliabilityMode { pending, reliableOnly, supportsUnreliable }
 
 @anonymous
 @JS()
@@ -104,14 +109,20 @@ extension PropsWebTransportHash on WebTransportHash {
 @staticInterop
 class WebTransportOptions {
   external factory WebTransportOptions(
-      {required bool allowPooling,
-      required Iterable<WebTransportHash> serverCertificateHashes});
+      {bool? allowPooling = false,
+      bool? requireUnreliable = false,
+      Iterable<WebTransportHash>? serverCertificateHashes});
 }
 
 extension PropsWebTransportOptions on WebTransportOptions {
   bool get allowPooling => js_util.getProperty(this, 'allowPooling');
   set allowPooling(bool newValue) {
     js_util.setProperty(this, 'allowPooling', newValue);
+  }
+
+  bool get requireUnreliable => js_util.getProperty(this, 'requireUnreliable');
+  set requireUnreliable(bool newValue) {
+    js_util.setProperty(this, 'requireUnreliable', newValue);
   }
 
   Iterable<WebTransportHash> get serverCertificateHashes =>
@@ -149,6 +160,7 @@ class WebTransportStats {
       {required double timestamp,
       required int bytesSent,
       required int packetsSent,
+      required int packetsLost,
       required int numOutgoingStreamsCreated,
       required int numIncomingStreamsCreated,
       required int bytesReceived,
@@ -156,7 +168,7 @@ class WebTransportStats {
       required double smoothedRtt,
       required double rttVariation,
       required double minRtt,
-      required int numReceivedDatagramsDropped});
+      required WebTransportDatagramStats datagrams});
 }
 
 extension PropsWebTransportStats on WebTransportStats {
@@ -173,6 +185,11 @@ extension PropsWebTransportStats on WebTransportStats {
   int get packetsSent => js_util.getProperty(this, 'packetsSent');
   set packetsSent(int newValue) {
     js_util.setProperty(this, 'packetsSent', newValue);
+  }
+
+  int get packetsLost => js_util.getProperty(this, 'packetsLost');
+  set packetsLost(int newValue) {
+    js_util.setProperty(this, 'packetsLost', newValue);
   }
 
   int get numOutgoingStreamsCreated =>
@@ -212,17 +229,133 @@ extension PropsWebTransportStats on WebTransportStats {
     js_util.setProperty(this, 'minRtt', newValue);
   }
 
-  int get numReceivedDatagramsDropped =>
-      js_util.getProperty(this, 'numReceivedDatagramsDropped');
-  set numReceivedDatagramsDropped(int newValue) {
-    js_util.setProperty(this, 'numReceivedDatagramsDropped', newValue);
+  WebTransportDatagramStats get datagrams =>
+      js_util.getProperty(this, 'datagrams');
+  set datagrams(WebTransportDatagramStats newValue) {
+    js_util.setProperty(this, 'datagrams', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class WebTransportDatagramStats {
+  external factory WebTransportDatagramStats(
+      {required double timestamp,
+      required int expiredOutgoing,
+      required int droppedIncoming,
+      required int lostOutgoing});
+}
+
+extension PropsWebTransportDatagramStats on WebTransportDatagramStats {
+  double get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(double newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  int get expiredOutgoing => js_util.getProperty(this, 'expiredOutgoing');
+  set expiredOutgoing(int newValue) {
+    js_util.setProperty(this, 'expiredOutgoing', newValue);
+  }
+
+  int get droppedIncoming => js_util.getProperty(this, 'droppedIncoming');
+  set droppedIncoming(int newValue) {
+    js_util.setProperty(this, 'droppedIncoming', newValue);
+  }
+
+  int get lostOutgoing => js_util.getProperty(this, 'lostOutgoing');
+  set lostOutgoing(int newValue) {
+    js_util.setProperty(this, 'lostOutgoing', newValue);
+  }
+}
+
+@JS()
+@staticInterop
+class WebTransportSendStream implements WritableStream {
+  external factory WebTransportSendStream();
+}
+
+extension PropsWebTransportSendStream on WebTransportSendStream {
+  Future<WebTransportSendStreamStats> getStats() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
+}
+
+@anonymous
+@JS()
+@staticInterop
+class WebTransportSendStreamStats {
+  external factory WebTransportSendStreamStats(
+      {required double timestamp,
+      required int bytesWritten,
+      required int bytesSent,
+      required int bytesAcknowledged});
+}
+
+extension PropsWebTransportSendStreamStats on WebTransportSendStreamStats {
+  double get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(double newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  int get bytesWritten => js_util.getProperty(this, 'bytesWritten');
+  set bytesWritten(int newValue) {
+    js_util.setProperty(this, 'bytesWritten', newValue);
+  }
+
+  int get bytesSent => js_util.getProperty(this, 'bytesSent');
+  set bytesSent(int newValue) {
+    js_util.setProperty(this, 'bytesSent', newValue);
+  }
+
+  int get bytesAcknowledged => js_util.getProperty(this, 'bytesAcknowledged');
+  set bytesAcknowledged(int newValue) {
+    js_util.setProperty(this, 'bytesAcknowledged', newValue);
+  }
+}
+
+@JS()
+@staticInterop
+class WebTransportReceiveStream implements ReadableStream {
+  external factory WebTransportReceiveStream();
+}
+
+extension PropsWebTransportReceiveStream on WebTransportReceiveStream {
+  Future<WebTransportReceiveStreamStats> getStats() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
+}
+
+@anonymous
+@JS()
+@staticInterop
+class WebTransportReceiveStreamStats {
+  external factory WebTransportReceiveStreamStats(
+      {required double timestamp,
+      required int bytesReceived,
+      required int bytesRead});
+}
+
+extension PropsWebTransportReceiveStreamStats
+    on WebTransportReceiveStreamStats {
+  double get timestamp => js_util.getProperty(this, 'timestamp');
+  set timestamp(double newValue) {
+    js_util.setProperty(this, 'timestamp', newValue);
+  }
+
+  int get bytesReceived => js_util.getProperty(this, 'bytesReceived');
+  set bytesReceived(int newValue) {
+    js_util.setProperty(this, 'bytesReceived', newValue);
+  }
+
+  int get bytesRead => js_util.getProperty(this, 'bytesRead');
+  set bytesRead(int newValue) {
+    js_util.setProperty(this, 'bytesRead', newValue);
   }
 }
 
 @JS()
 @staticInterop
 class WebTransportBidirectionalStream {
-  external WebTransportBidirectionalStream();
+  external factory WebTransportBidirectionalStream();
 }
 
 extension PropsWebTransportBidirectionalStream
@@ -234,7 +367,7 @@ extension PropsWebTransportBidirectionalStream
 @JS()
 @staticInterop
 class WebTransportError implements DOMException {
-  external WebTransportError([WebTransportErrorInit? init]);
+  external factory WebTransportError([WebTransportErrorInit? init]);
 }
 
 extension PropsWebTransportError on WebTransportError {

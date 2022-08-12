@@ -179,7 +179,6 @@ Future<void> main() async {
             var parentHasCtor = false;
             var parentHasCtorWithParams = false;
             final dictionary = type == 'dictionary';
-            final factory = dictionary ? 'factory ' : '';
             final maplike = members?.firstWhereOrNull(
                     (member) => member['type'] == 'maplike');
             final iterablelike = members?.firstWhereOrNull(
@@ -482,7 +481,7 @@ Future<void> main() async {
                             enumAsStrings: true);
 
                         if (params.isNotEmpty) {
-                          fn = '$factory$className';
+                          fn = 'factory $className';
                           addedCtor = true;
 
                           final henum = method.params.any(
@@ -598,7 +597,7 @@ Future<void> main() async {
             lines = mainLines;
 
             if (!addedCtor) {
-              lines.add('external $factory$className();');
+              lines.add('external factory $className();');
             }
 
             lines.add('}\n'); // /* ${prettyJson(spec.errors)} */

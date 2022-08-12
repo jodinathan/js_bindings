@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class DevicePosture implements EventTarget {
-  external DevicePosture();
+  external factory DevicePosture();
 }
 
 extension PropsDevicePosture on DevicePosture {

@@ -13,10 +13,26 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface, a part of SVG SMIL animation, provides specific
+/// contextual information associated with Time events.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    TimeEvent
+///
+///
 @JS()
 @staticInterop
 class TimeEvent implements Event {
-  external TimeEvent();
+  external factory TimeEvent();
 }
 
 extension PropsTimeEvent on TimeEvent {
@@ -26,10 +42,52 @@ extension PropsTimeEvent on TimeEvent {
       js_util.callMethod(this, 'initTimeEvent', [typeArg, viewArg, detailArg]);
 }
 
+///  The interface is the base interface for all of the animation
+/// element interfaces: [SVGAnimateElement], [SVGSetElement],
+/// [SVGAnimateColorElement], [SVGAnimateMotionElement] and
+/// [SVGAnimateTransformElement].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGAnimationElement
+///
+///
 @JS()
 @staticInterop
 class SVGAnimationElement implements SVGElement, SVGTests {
-  external SVGAnimationElement();
+  external factory SVGAnimationElement();
 }
 
 extension PropsSVGAnimationElement on SVGAnimationElement {
@@ -67,38 +125,265 @@ extension PropsSVGAnimationElement on SVGAnimationElement {
       js_util.callMethod(this, 'endElementAt', [offset]);
 }
 
+/// The interface corresponds to the [<animate>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGAnimationElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGAnimateElement
+///
+///
 @JS()
 @staticInterop
 class SVGAnimateElement implements SVGAnimationElement {
-  external SVGAnimateElement();
+  external factory SVGAnimateElement();
 }
 
+/// The interface corresponds to the [<set>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGAnimationElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGSetElement
+///
+///
 @JS()
 @staticInterop
 class SVGSetElement implements SVGAnimationElement {
-  external SVGSetElement();
+  external factory SVGSetElement();
 }
 
+/// The interface corresponds to the [<animateMotion>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGAnimationElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGAnimateMotionElement
+///
+///
 @JS()
 @staticInterop
 class SVGAnimateMotionElement implements SVGAnimationElement {
-  external SVGAnimateMotionElement();
+  external factory SVGAnimateMotionElement();
 }
 
+/// The interface corresponds to the [<mpath>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGMPathElement
+///
+///
 @JS()
 @staticInterop
 class SVGMPathElement implements SVGElement, SVGURIReference {
-  external SVGMPathElement();
+  external factory SVGMPathElement();
 }
 
+/// The interface corresponds to the [<animateTransform>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGAnimationElement
+///
+///
+///
+///
+///
+///
+///
+///    SVGAnimateTransformElement
+///
+///
 @JS()
 @staticInterop
 class SVGAnimateTransformElement implements SVGAnimationElement {
-  external SVGAnimateTransformElement();
+  external factory SVGAnimateTransformElement();
 }
 
 @JS()
 @staticInterop
 class SVGDiscardElement implements SVGAnimationElement {
-  external SVGDiscardElement();
+  external factory SVGDiscardElement();
 }

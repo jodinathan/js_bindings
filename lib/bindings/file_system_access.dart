@@ -62,190 +62,6 @@ extension PropsFileSystemHandlePermissionDescriptor
   }
 }
 
-enum FileSystemHandleKind { file, directory }
-
-@JS()
-@staticInterop
-class FileSystemHandle {
-  external FileSystemHandle();
-}
-
-extension PropsFileSystemHandle on FileSystemHandle {
-  FileSystemHandleKind get kind =>
-      FileSystemHandleKind.values.byName(js_util.getProperty(this, 'kind'));
-  String get name => js_util.getProperty(this, 'name');
-  Future<bool> isSameEntry(FileSystemHandle other) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'isSameEntry', [other]));
-
-  Future<PermissionState> queryPermission(
-          [FileSystemHandlePermissionDescriptor? descriptor]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'queryPermission', [descriptor]));
-
-  Future<PermissionState> requestPermission(
-          [FileSystemHandlePermissionDescriptor? descriptor]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'requestPermission', [descriptor]));
-}
-
-@anonymous
-@JS()
-@staticInterop
-class FileSystemCreateWritableOptions {
-  external factory FileSystemCreateWritableOptions(
-      {bool? keepExistingData = false});
-}
-
-extension PropsFileSystemCreateWritableOptions
-    on FileSystemCreateWritableOptions {
-  bool get keepExistingData => js_util.getProperty(this, 'keepExistingData');
-  set keepExistingData(bool newValue) {
-    js_util.setProperty(this, 'keepExistingData', newValue);
-  }
-}
-
-@JS()
-@staticInterop
-class FileSystemFileHandle implements FileSystemHandle {
-  external FileSystemFileHandle();
-}
-
-extension PropsFileSystemFileHandle on FileSystemFileHandle {
-  Future<File> getFile() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'getFile', []));
-
-  Future<FileSystemWritableFileStream> createWritable(
-          [FileSystemCreateWritableOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'createWritable', [options]));
-}
-
-@anonymous
-@JS()
-@staticInterop
-class FileSystemGetFileOptions {
-  external factory FileSystemGetFileOptions({bool? create = false});
-}
-
-extension PropsFileSystemGetFileOptions on FileSystemGetFileOptions {
-  bool get create => js_util.getProperty(this, 'create');
-  set create(bool newValue) {
-    js_util.setProperty(this, 'create', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class FileSystemGetDirectoryOptions {
-  external factory FileSystemGetDirectoryOptions({bool? create = false});
-}
-
-extension PropsFileSystemGetDirectoryOptions on FileSystemGetDirectoryOptions {
-  bool get create => js_util.getProperty(this, 'create');
-  set create(bool newValue) {
-    js_util.setProperty(this, 'create', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class FileSystemRemoveOptions {
-  external factory FileSystemRemoveOptions({bool? recursive = false});
-}
-
-extension PropsFileSystemRemoveOptions on FileSystemRemoveOptions {
-  bool get recursive => js_util.getProperty(this, 'recursive');
-  set recursive(bool newValue) {
-    js_util.setProperty(this, 'recursive', newValue);
-  }
-}
-
-@JS()
-@staticInterop
-class FileSystemDirectoryHandle implements FileSystemHandle {
-  external FileSystemDirectoryHandle();
-}
-
-extension PropsFileSystemDirectoryHandle on FileSystemDirectoryHandle {
-  Future<FileSystemFileHandle> getFileHandle(String name,
-          [FileSystemGetFileOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'getFileHandle', [name, options]));
-
-  Future<FileSystemDirectoryHandle> getDirectoryHandle(String name,
-          [FileSystemGetDirectoryOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'getDirectoryHandle', [name, options]));
-
-  Future<Object> removeEntry(String name, [FileSystemRemoveOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'removeEntry', [name, options]));
-
-  Future<Iterable<String>> resolve(FileSystemHandle possibleDescendant) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'resolve', [possibleDescendant]));
-}
-
-enum WriteCommandType { write, seek, truncate }
-
-@anonymous
-@JS()
-@staticInterop
-class WriteParams {
-  external factory WriteParams._(
-      {required String type, int? size, int? position, dynamic data});
-
-  factory WriteParams(
-          {required WriteCommandType type,
-          int? size,
-          int? position,
-          dynamic data}) =>
-      WriteParams._(
-          type: type.name, size: size, position: position, data: data);
-}
-
-extension PropsWriteParams on WriteParams {
-  WriteCommandType get type =>
-      WriteCommandType.values.byName(js_util.getProperty(this, 'type'));
-  set type(WriteCommandType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
-  }
-
-  int? get size => js_util.getProperty(this, 'size');
-  set size(int? newValue) {
-    js_util.setProperty(this, 'size', newValue);
-  }
-
-  int? get position => js_util.getProperty(this, 'position');
-  set position(int? newValue) {
-    js_util.setProperty(this, 'position', newValue);
-  }
-
-  dynamic get data => js_util.getProperty(this, 'data');
-  set data(dynamic newValue) {
-    js_util.setProperty(this, 'data', newValue);
-  }
-}
-
-@JS()
-@staticInterop
-class FileSystemWritableFileStream implements WritableStream {
-  external FileSystemWritableFileStream();
-}
-
-extension PropsFileSystemWritableFileStream on FileSystemWritableFileStream {
-  Future<Object> write(dynamic data) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'write', [data]));
-
-  Future<Object> seek(int position) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'seek', [position]));
-
-  Future<Object> truncate(int size) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'truncate', [size]));
-}
-
 enum WellKnownDirectory {
   desktop,
   documents,
@@ -342,8 +158,14 @@ extension PropsSaveFilePickerOptions on SaveFilePickerOptions {
 @JS()
 @staticInterop
 class DirectoryPickerOptions {
-  external factory DirectoryPickerOptions(
-      {required String id, dynamic startIn});
+  external factory DirectoryPickerOptions._(
+      {required String id, dynamic startIn, String? mode});
+
+  factory DirectoryPickerOptions(
+          {required String id,
+          dynamic startIn,
+          FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
+      DirectoryPickerOptions._(id: id, startIn: startIn, mode: mode?.name);
 }
 
 extension PropsDirectoryPickerOptions on DirectoryPickerOptions {
@@ -355,5 +177,11 @@ extension PropsDirectoryPickerOptions on DirectoryPickerOptions {
   dynamic get startIn => js_util.getProperty(this, 'startIn');
   set startIn(dynamic newValue) {
     js_util.setProperty(this, 'startIn', newValue);
+  }
+
+  FileSystemPermissionMode get mode =>
+      FileSystemPermissionMode.values.byName(js_util.getProperty(this, 'mode'));
+  set mode(FileSystemPermissionMode newValue) {
+    js_util.setProperty(this, 'mode', newValue.name);
   }
 }

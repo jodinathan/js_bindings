@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class HTMLPortalElement implements HTMLElement {
-  external HTMLPortalElement();
+  external factory HTMLPortalElement();
 }
 
 extension PropsHTMLPortalElement on HTMLPortalElement {
@@ -65,7 +65,7 @@ extension PropsPortalActivateOptions on PortalActivateOptions {
 @JS()
 @staticInterop
 class PortalHost implements EventTarget {
-  external PortalHost();
+  external factory PortalHost();
 }
 
 extension PropsPortalHost on PortalHost {
@@ -87,7 +87,7 @@ extension PropsPortalHost on PortalHost {
 @JS()
 @staticInterop
 class PortalActivateEvent implements Event {
-  external PortalActivateEvent(String type,
+  external factory PortalActivateEvent(String type,
       [PortalActivateEventInit? eventInitDict]);
 }
 

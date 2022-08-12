@@ -16,9 +16,26 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class WebGLTimerQueryEXT implements WebGLObject {
-  external WebGLTimerQueryEXT();
+  external factory WebGLTimerQueryEXT();
 }
 
+///  The EXT_disjoint_timer_query extension is part of the WebGL API
+/// and provides a way to measure the duration of a set of GL
+/// commands, without stalling the rendering pipeline.
+///  WebGL extensions are available using the
+/// [WebGLRenderingContext.getExtension()] method. For more
+/// information, see also Using Extensions in the WebGL tutorial.
+///
+///   Note: This extension should be available in WebGL1 contexts
+/// only. [EXT_disjoint_timer_query_webgl2] is available in WebGL 2
+/// contexts .
+///
+///    In WebGL 2, the [getQueryObject] was renamed to
+/// [getQueryParameter].
+///    In WebGL 2, other queries (such as occlusion queries and
+/// primitive queries) are possible using [WebGLQuery] objects.
+///
+///
 @JS('EXT_disjoint_timer_query')
 @staticInterop
 class EXTDisjointTimerQuery {
@@ -43,7 +60,7 @@ class EXTDisjointTimerQuery {
   @JS('GPU_DISJOINT_EXT')
   external static int get gpuDisjointExt;
 
-  external EXTDisjointTimerQuery();
+  external factory EXTDisjointTimerQuery();
 }
 
 extension PropsEXTDisjointTimerQuery on EXTDisjointTimerQuery {

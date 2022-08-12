@@ -13,10 +13,29 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the [Web Serial API] provides attributes and
+/// methods for finding and connecting to serial ports from a web
+/// page.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Serial
+///
+///
 @JS()
 @staticInterop
 class Serial implements EventTarget {
-  external Serial();
+  external factory Serial();
 }
 
 extension PropsSerial on Serial {
@@ -74,10 +93,28 @@ extension PropsSerialPortFilter on SerialPortFilter {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the [Web Serial API] provides access to a
+/// serial port on the host device.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    SerialPort
+///
+///
 @JS()
 @staticInterop
 class SerialPort implements EventTarget {
-  external SerialPort();
+  external factory SerialPort();
 }
 
 extension PropsSerialPort on SerialPort {
@@ -107,6 +144,9 @@ extension PropsSerialPort on SerialPort {
 
   Future<Object> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
+
+  Future<Object> forget() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'forget', []));
 }
 
 @anonymous

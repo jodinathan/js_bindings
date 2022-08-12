@@ -10,19 +10,32 @@ library webcodecs;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+/// The interface of the WebCodecs API decodes chunks of audio.
+@experimental
 @JS()
 @staticInterop
 class AudioDecoder {
-  external AudioDecoder(AudioDecoderInit init);
+  external factory AudioDecoder(AudioDecoderInit init);
 }
 
 extension PropsAudioDecoder on AudioDecoder {
   CodecState get state =>
       CodecState.values.byName(js_util.getProperty(this, 'state'));
   int get decodeQueueSize => js_util.getProperty(this, 'decodeQueueSize');
+  EventHandlerNonNull? get ondequeue => js_util.getProperty(this, 'ondequeue');
+  set ondequeue(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondequeue', newValue);
+  }
+
   Object configure(AudioDecoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
@@ -63,16 +76,24 @@ extension PropsAudioDecoderInit on AudioDecoderInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+/// The interface of the WebCodecs API decodes chunks of video.
 @JS()
 @staticInterop
 class VideoDecoder {
-  external VideoDecoder(VideoDecoderInit init);
+  external factory VideoDecoder(VideoDecoderInit init);
 }
 
 extension PropsVideoDecoder on VideoDecoder {
   CodecState get state =>
       CodecState.values.byName(js_util.getProperty(this, 'state'));
   int get decodeQueueSize => js_util.getProperty(this, 'decodeQueueSize');
+  EventHandlerNonNull? get ondequeue => js_util.getProperty(this, 'ondequeue');
+  set ondequeue(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondequeue', newValue);
+  }
+
   Object configure(VideoDecoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
@@ -113,16 +134,28 @@ extension PropsVideoDecoderInit on VideoDecoderInit {
   }
 }
 
+///
+///   Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the WebCodecs API encodes [AudioData] objects.
+///
+@experimental
 @JS()
 @staticInterop
 class AudioEncoder {
-  external AudioEncoder(AudioEncoderInit init);
+  external factory AudioEncoder(AudioEncoderInit init);
 }
 
 extension PropsAudioEncoder on AudioEncoder {
   CodecState get state =>
       CodecState.values.byName(js_util.getProperty(this, 'state'));
   int get encodeQueueSize => js_util.getProperty(this, 'encodeQueueSize');
+  EventHandlerNonNull? get ondequeue => js_util.getProperty(this, 'ondequeue');
+  set ondequeue(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondequeue', newValue);
+  }
+
   Object configure(AudioEncoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
@@ -179,16 +212,26 @@ extension PropsEncodedAudioChunkMetadata on EncodedAudioChunkMetadata {
   }
 }
 
+///
+///
+///   The interface of the WebCodecs API encodes [VideoFrame]
+/// objects.
+///
 @JS()
 @staticInterop
 class VideoEncoder {
-  external VideoEncoder(VideoEncoderInit init);
+  external factory VideoEncoder(VideoEncoderInit init);
 }
 
 extension PropsVideoEncoder on VideoEncoder {
   CodecState get state =>
       CodecState.values.byName(js_util.getProperty(this, 'state'));
   int get encodeQueueSize => js_util.getProperty(this, 'encodeQueueSize');
+  EventHandlerNonNull? get ondequeue => js_util.getProperty(this, 'ondequeue');
+  set ondequeue(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ondequeue', newValue);
+  }
+
   Object configure(VideoEncoderConfig config) =>
       js_util.callMethod(this, 'configure', [config]);
 
@@ -641,10 +684,12 @@ extension PropsVideoEncoderEncodeOptions on VideoEncoderEncodeOptions {
 
 enum CodecState { unconfigured, configured, closed }
 
+///  The interface of the WebCodecs API represents a chunk of encoded
+/// audio data.
 @JS()
 @staticInterop
 class EncodedAudioChunk {
-  external EncodedAudioChunk(EncodedAudioChunkInit init);
+  external factory EncodedAudioChunk(EncodedAudioChunkInit init);
 }
 
 extension PropsEncodedAudioChunk on EncodedAudioChunk {
@@ -704,10 +749,12 @@ extension PropsEncodedAudioChunkInit on EncodedAudioChunkInit {
 
 enum EncodedAudioChunkType { key, delta }
 
+///  The interface of the WebCodecs API represents a chunk of encoded
+/// video data.
 @JS()
 @staticInterop
 class EncodedVideoChunk {
-  external EncodedVideoChunk(EncodedVideoChunkInit init);
+  external factory EncodedVideoChunk(EncodedVideoChunkInit init);
 }
 
 extension PropsEncodedVideoChunk on EncodedVideoChunk {
@@ -767,10 +814,16 @@ extension PropsEncodedVideoChunkInit on EncodedVideoChunkInit {
 
 enum EncodedVideoChunkType { key, delta }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+/// The interface of the WebCodecs API represents an audio sample.
+///  is a transferable object.
+@experimental
 @JS()
 @staticInterop
 class AudioData {
-  external AudioData(AudioDataInit init);
+  external factory AudioData(AudioDataInit init);
 }
 
 extension PropsAudioData on AudioData {
@@ -913,10 +966,13 @@ enum AudioSampleFormat {
   f32Planar
 }
 
+///  The interface of the Web Codecs API represents a frame of a
+/// video.
+///  is a transferable object.
 @JS()
 @staticInterop
 class VideoFrame {
-  external VideoFrame(dynamic image, [VideoFrameInit? init]);
+  external factory VideoFrame(dynamic image, [VideoFrameInit? init]);
 }
 
 extension PropsVideoFrame on VideoFrame {
@@ -1143,10 +1199,12 @@ extension PropsPlaneLayout on PlaneLayout {
 
 enum VideoPixelFormat { i420, i420a, i422, i444, nv12, rgba, rgbx, bgra, bgrx }
 
+///  The interface of the WebCodecs API represents the color space of
+/// a video.
 @JS()
 @staticInterop
 class VideoColorSpace {
-  external VideoColorSpace([VideoColorSpaceInit? init]);
+  external factory VideoColorSpace([VideoColorSpaceInit? init]);
 }
 
 extension PropsVideoColorSpace on VideoColorSpace {
@@ -1226,13 +1284,18 @@ enum VideoTransferCharacteristics { bt709, smpte170m, iec6196621 }
 
 enum VideoMatrixCoefficients { rgb, bt709, bt470bg, smpte170m }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebCodecs API provides a way to unpack and
+/// decode encoded image data.
 @JS()
 @staticInterop
 class ImageDecoder {
-  external ImageDecoder(ImageDecoderInit init);
+  external factory ImageDecoder(ImageDecoderInit init);
 }
 
 extension PropsImageDecoder on ImageDecoder {
+  String get type => js_util.getProperty(this, 'type');
   bool get complete => js_util.getProperty(this, 'complete');
   Future<Object> get completed =>
       js_util.promiseToFuture(js_util.getProperty(this, 'completed'));
@@ -1360,10 +1423,12 @@ extension PropsImageDecodeResult on ImageDecodeResult {
   }
 }
 
+///  The interface of the WebCodecs API represents a list of image
+/// tracks.
 @JS()
 @staticInterop
 class ImageTrackList {
-  external ImageTrackList();
+  external factory ImageTrackList();
 }
 
 extension PropsImageTrackList on ImageTrackList {
@@ -1374,10 +1439,26 @@ extension PropsImageTrackList on ImageTrackList {
   ImageTrack? get selectedTrack => js_util.getProperty(this, 'selectedTrack');
 }
 
+///  The interface of the WebCodecs API represents an individual
+/// image track.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    ImageTrack
+///
+///
 @JS()
 @staticInterop
 class ImageTrack implements EventTarget {
-  external ImageTrack();
+  external factory ImageTrack();
 }
 
 extension PropsImageTrack on ImageTrack {

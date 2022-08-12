@@ -6,7 +6,7 @@
 
 @JS('window')
 @staticInterop
-library autoplay;
+library autoplay_detection;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';

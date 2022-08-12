@@ -10,6 +10,7 @@ library scheduling_apis;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -48,10 +49,19 @@ extension PropsSchedulerPostTaskOptions on SchedulerPostTaskOptions {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Prioritized Task Scheduling API provides
+/// the [Scheduler.postTask()] method that can be used for adding
+/// prioritized tasks to be scheduled.
+///  A can be accessed from the global object [Window] or
+/// [WorkerGlobalScope] ([this.scheduler]).
+@experimental
 @JS()
 @staticInterop
 class Scheduler {
-  external Scheduler();
+  external factory Scheduler();
 }
 
 extension PropsScheduler on Scheduler {
@@ -61,10 +71,29 @@ extension PropsScheduler on Scheduler {
           .callMethod(this, 'postTask', [allowInterop(callback), options]));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+/// The is the interface for the [prioritychange] event.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    TaskPriorityChangeEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class TaskPriorityChangeEvent implements Event {
-  external TaskPriorityChangeEvent(
+  external factory TaskPriorityChangeEvent(
       String type, TaskPriorityChangeEventInit priorityChangeEventInitDict);
 }
 
@@ -112,10 +141,48 @@ extension PropsTaskControllerInit on TaskControllerInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///
+///   The interface of the Prioritized Task Scheduling API represents
+/// a controller object that can be used to both abort and change the
+/// priority of one or more prioritized tasks.
+///   If there is no need to change task priorities, then
+/// [AbortController] can be used instead.
+///   A new instance is created using the [TaskController()]
+/// constructor, optionally specifying a priority for its associated
+/// signal (a [TaskSignal]).
+///   If not specified, the signal will have a priority of
+/// ["user-visible"] by default.
+///   The controller's signal can be passed as an argument to the
+/// [Scheduler.postTask()] method for one or more tasks.
+///   For mutable tasks (only) the task is initialized with the
+/// signal priority, and can later be changed by calling
+/// [TaskController.setPriority()].
+///   For immutable tasks, any priority initialized or set by the
+/// controller is ignored.
+///
+/// Tasks can be aborted by calling [abort()] on the controller.
+///
+///
+///
+///    AbortController
+///
+///
+///
+///
+///
+///
+///
+///    TaskController
+///
+///
+@experimental
 @JS()
 @staticInterop
 class TaskController implements AbortController {
-  external TaskController([TaskControllerInit? init]);
+  external factory TaskController([TaskControllerInit? init]);
 }
 
 extension PropsTaskController on TaskController {
@@ -123,10 +190,57 @@ extension PropsTaskController on TaskController {
       js_util.callMethod(this, 'setPriority', [priority.name]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Prioritized Task Scheduling API represents
+/// a signal object that allows you to communicate with a prioritized
+/// task, and abort it or change the priority (if required) via a
+/// [TaskController] object.
+///
+///   An object of this type is created, and associated with, a
+/// [TaskController].
+///   The initial priority of the signal may be set by specifying it
+/// as an argument to the [TaskController] constructor (by default it
+/// is ["user-visible"]).
+///   The priority can be changed by calling
+/// [TaskController.setPriority()] on the controller.
+///   The signal may be passed as the [options.signal] argument in
+/// [Scheduler.postTask()], after which it's associated controller
+/// can be used to abort the task.
+///   If the task priority is mutable, the controller can also be
+/// used to change the task's priority.
+///   Abortable tasks that do not need the priority to change may
+/// instead specify an [AbortSignal] as the [options.signal]
+/// argument.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    AbortSignal
+///
+///
+///
+///
+///
+///
+///
+///    TaskSignal
+///
+///
+@experimental
 @JS()
 @staticInterop
 class TaskSignal implements AbortSignal {
-  external TaskSignal();
+  external factory TaskSignal();
 }
 
 extension PropsTaskSignal on TaskSignal {

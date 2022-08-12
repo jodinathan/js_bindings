@@ -14,10 +14,19 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+///  The object represents a blob, which is a file-like object of
+/// immutable, raw data; they can be read as text or binary data, or
+/// converted into a [ReadableStream] so its methods can be used for
+/// processing the data.
+///  Blobs can represent data that isn't necessarily in a
+/// JavaScript-native format. The [File] interface is based on ,
+/// inheriting blob functionality and expanding it to support files
+/// on the user's system.
 @JS()
 @staticInterop
 class Blob {
-  external Blob([Iterable<dynamic>? blobParts, BlobPropertyBag? options]);
+  external factory Blob(
+      [Iterable<dynamic>? blobParts, BlobPropertyBag? options]);
 }
 
 extension PropsBlob on Blob {
@@ -61,10 +70,36 @@ extension PropsBlobPropertyBag on BlobPropertyBag {
   }
 }
 
+///  The interface provides information about files and allows
+/// JavaScript in a web page to access their content.
+///   objects are generally retrieved from a [FileList] object
+/// returned as a result of a user selecting files using the
+/// [<input>] element, or from a drag and drop operation's
+/// [DataTransfer] object.
+///  A object is a specific kind of [Blob], and can be used in any
+/// context that a Blob can. In particular, [FileReader],
+/// [URL.createObjectURL()], [createImageBitmap()], and
+/// [XMLHttpRequest.send()] accept both [Blob]s and s.
+///  See Using files from web applications for more information and
+/// examples.
+///
+///
+///
+///    Blob
+///
+///
+///
+///
+///
+///
+///
+///    File
+///
+///
 @JS()
 @staticInterop
 class File implements Blob {
-  external File(Iterable<dynamic> fileBits, String fileName,
+  external factory File(Iterable<dynamic> fileBits, String fileName,
       [FilePropertyBag? options]);
 }
 
@@ -89,10 +124,25 @@ extension PropsFilePropertyBag on FilePropertyBag {
   }
 }
 
+///  An object of this type is returned by the [files] property of
+/// the HTML [<input>] element; this lets you access the list of
+/// files selected with the [<input type="file">] element. It's also
+/// used for a list of files dropped into web content when using the
+/// drag and drop API; see the [DataTransfer] object for details on
+/// this usage.
+///  All [<input>] element nodes have a [files] attribute of type on
+/// them which allows access to the items in this list. For example,
+/// if the HTML includes the following file input:
+/// [<input id="fileItem" type="file">
+/// ]
+///  The following line of code fetches the first file in the node's
+/// file list as a [File] object:
+/// [const file = document.getElementById('fileItem').files[0];
+/// ]
 @JS()
 @staticInterop
 class FileList {
-  external FileList();
+  external factory FileList();
 }
 
 extension PropsFileList on FileList {
@@ -101,6 +151,36 @@ extension PropsFileList on FileList {
   int get length => js_util.getProperty(this, 'length');
 }
 
+///  The object lets web applications asynchronously read the
+/// contents of files (or raw data buffers) stored on the user's
+/// computer, using [File] or [Blob] objects to specify the file or
+/// data to read.
+///  File objects may be obtained from a [FileList] object returned
+/// as a result of a user selecting files using the [<input>]
+/// element, or from a drag and drop operation's [DataTransfer]
+/// object.
+///   can only access the contents of files that the user has
+/// explicitly selected, either using an HTML [<input type="file">]
+/// element or by drag and drop. It cannot be used to read a file by
+/// pathname from the user's file system. To read files on the
+/// client's file system by pathname, use the File System Access API.
+/// To read server-side files, use standard Ajax solutions, with CORS
+/// permission if reading cross-domain.
+///  Note: This feature is available in Web Workers
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    FileReader
+///
+///
 @JS()
 @staticInterop
 class FileReader implements EventTarget {
@@ -113,7 +193,7 @@ class FileReader implements EventTarget {
   @JS('DONE')
   external static int get done;
 
-  external FileReader();
+  external factory FileReader();
 }
 
 extension PropsFileReader on FileReader {
@@ -167,10 +247,16 @@ extension PropsFileReader on FileReader {
   }
 }
 
+///  The interface allows to read [File] or [Blob] objects
+/// synchronously.
+///  Note: This feature is available in Web Workers
+///   Warning: This interface is only available in workers as it
+/// enables synchronous I/O that could potentially block.
+///
 @JS()
 @staticInterop
 class FileReaderSync {
-  external FileReaderSync();
+  external factory FileReaderSync();
 }
 
 extension PropsFileReaderSync on FileReaderSync {

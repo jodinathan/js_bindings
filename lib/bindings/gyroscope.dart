@@ -13,10 +13,41 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Sensor APIs provides on each reading the
+/// angular velocity of the device along all three axes.
+///  To use this sensor, the user must grant permission to the
+/// ['gyroscope'] device sensor through the Permissions API.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Sensor
+///
+///
+///
+///
+///
+///
+///
+///    Gyroscope
+///
+///
 @JS()
 @staticInterop
 class Gyroscope implements Sensor {
-  external Gyroscope([GyroscopeSensorOptions? sensorOptions]);
+  external factory Gyroscope([GyroscopeSensorOptions? sensorOptions]);
 }
 
 extension PropsGyroscope on Gyroscope {

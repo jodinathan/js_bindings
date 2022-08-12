@@ -13,6 +13,37 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+/// The interface represents any MathML element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///
+///
+///    MathMLElement
+///
+///
 @JS()
 @staticInterop
 class MathMLElement
@@ -22,5 +53,5 @@ class MathMLElement
         GlobalEventHandlers,
         DocumentAndElementEventHandlers,
         HTMLOrSVGElement {
-  external MathMLElement();
+  external factory MathMLElement();
 }

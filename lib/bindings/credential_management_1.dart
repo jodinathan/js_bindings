@@ -13,23 +13,35 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Credential Management API provides
+/// information about an entity (usually a user) as a prerequisite to
+/// a trust decision.
+///  objects may be of 3 different types:
+///
+///  [PasswordCredential]
+///  [PublicKeyCredential]
+///  [FederatedCredential]
+///
 @JS()
 @staticInterop
 class Credential {
-  external Credential();
+  external factory Credential();
 }
 
 extension PropsCredential on Credential {
   String get id => js_util.getProperty(this, 'id');
   String get type => js_util.getProperty(this, 'type');
-  static bool isConditionalMediationAvailable() =>
-      js_util.callMethod(Credential, 'isConditionalMediationAvailable', []);
+  static Future<bool> isConditionalMediationAvailable() =>
+      js_util.promiseToFuture(js_util
+          .callMethod(Credential, 'isConditionalMediationAvailable', []));
 }
 
 @JS()
 @staticInterop
 class CredentialUserData {
-  external CredentialUserData();
+  external factory CredentialUserData();
 }
 
 extension PropsCredentialUserData on CredentialUserData {
@@ -37,10 +49,16 @@ extension PropsCredentialUserData on CredentialUserData {
   String get iconURL => js_util.getProperty(this, 'iconURL');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Credential Management API exposes methods
+/// to request credentials and notify the user agent when events such
+/// as successful sign in or sign out happen. This interface is
+/// accessible from [Navigator.credentials].
 @JS()
 @staticInterop
 class CredentialsContainer {
-  external CredentialsContainer();
+  external factory CredentialsContainer();
 }
 
 extension PropsCredentialsContainer on CredentialsContainer {
@@ -122,10 +140,36 @@ extension PropsCredentialCreationOptions on CredentialCreationOptions {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Credential Management API provides
+/// information about a username/password pair. In supporting
+/// browsers an instance of this class may be passed in the
+/// [credential] member of the [init] object for global [fetch()].
+///
+///   Note: This interface is restricted to top-level contexts and
+/// cannot be used from an [<iframe>].
+///
+///
+///
+///
+///    Credential
+///
+///
+///
+///
+///
+///
+///
+///    PasswordCredential
+///
+///
 @JS()
 @staticInterop
 class PasswordCredential implements Credential, CredentialUserData {
-  external PasswordCredential(HTMLFormElement form);
+  external factory PasswordCredential(HTMLFormElement form);
 }
 
 extension PropsPasswordCredential on PasswordCredential {
@@ -165,10 +209,36 @@ extension PropsPasswordCredentialData on PasswordCredentialData {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Credential Management API provides
+/// information about credentials from a federated identity provider.
+/// A federated identity provider is an entity that a website trusts
+/// to correctly authenticate a user, and that provides an API for
+/// that purpose. OpenID Connect is an example of a federated
+/// identity provider framework.
+///  In browsers that support it, an instance of this interface may
+/// be passed in the [credential] member of the [init] object for
+/// global [fetch()].
+///
+///
+///
+///    Credential
+///
+///
+///
+///
+///
+///
+///
+///    FederatedCredential
+///
+///
 @JS()
 @staticInterop
 class FederatedCredential implements Credential, CredentialUserData {
-  external FederatedCredential(FederatedCredentialInit data);
+  external factory FederatedCredential(FederatedCredentialInit data);
 }
 
 extension PropsFederatedCredential on FederatedCredential {

@@ -13,10 +13,25 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+/// The interface represents an [@font-face] at-rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///
+///
+///    CSSFontFaceRule
+///
+///
 @JS()
 @staticInterop
 class CSSFontFaceRule implements CSSRule {
-  external CSSFontFaceRule();
+  external factory CSSFontFaceRule();
 }
 
 extension PropsCSSFontFaceRule on CSSFontFaceRule {
@@ -26,7 +41,7 @@ extension PropsCSSFontFaceRule on CSSFontFaceRule {
 @JS()
 @staticInterop
 class CSSFontFeatureValuesRule implements CSSRule {
-  external CSSFontFeatureValuesRule();
+  external factory CSSFontFeatureValuesRule();
 }
 
 extension PropsCSSFontFeatureValuesRule on CSSFontFeatureValuesRule {
@@ -50,7 +65,7 @@ extension PropsCSSFontFeatureValuesRule on CSSFontFeatureValuesRule {
 @JS()
 @staticInterop
 class CSSFontFeatureValuesMap extends JsMap<Iterable<int>, String> {
-  external CSSFontFeatureValuesMap();
+  external factory CSSFontFeatureValuesMap();
 }
 
 extension PropsCSSFontFeatureValuesMap on CSSFontFeatureValuesMap {
@@ -63,7 +78,7 @@ extension PropsCSSFontFeatureValuesMap on CSSFontFeatureValuesMap {
 @JS()
 @staticInterop
 class CSSFontPaletteValuesRule implements CSSRule {
-  external CSSFontPaletteValuesRule();
+  external factory CSSFontPaletteValuesRule();
 }
 
 extension PropsCSSFontPaletteValuesRule on CSSFontPaletteValuesRule {

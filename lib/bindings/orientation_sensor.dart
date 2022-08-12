@@ -13,10 +13,41 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Sensor APIs is the base class for
+/// orientation sensors. This interface cannot be used directly.
+/// Instead it provides properties and methods accessed by interfaces
+/// that inherit from it.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Sensor
+///
+///
+///
+///
+///
+///
+///
+///    OrientationSensor
+///
+///
 @JS()
 @staticInterop
 class OrientationSensor implements Sensor {
-  external OrientationSensor();
+  external factory OrientationSensor();
 }
 
 extension PropsOrientationSensor on OrientationSensor {
@@ -48,16 +79,100 @@ extension PropsOrientationSensorOptions on OrientationSensorOptions {
   }
 }
 
+///  The interface of the Sensor APIs describes the device's physical
+/// orientation in relation to the Earth's reference coordinate
+/// system.
+///  To use this sensor, the user must grant permission to the
+/// ['accelerometer'], ['gyroscope'], and ['magnetometer'] device
+/// sensors through the Permissions API.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Sensor
+///
+///
+///
+///
+///
+///
+///
+///    OrientationSensor
+///
+///
+///
+///
+///
+///
+///
+///    AbsoluteOrientationSensor
+///
+///
 @JS()
 @staticInterop
 class AbsoluteOrientationSensor implements OrientationSensor {
-  external AbsoluteOrientationSensor([OrientationSensorOptions? sensorOptions]);
+  external factory AbsoluteOrientationSensor(
+      [OrientationSensorOptions? sensorOptions]);
 }
 
+///  The interface of the Sensor APIs describes the device's physical
+/// orientation without regard to the Earth's reference coordinate
+/// system.
+///  To use this sensor, the user must grant permission to the
+/// ['accelerometer'], and ['gyroscope'] device sensors through the
+/// Permissions API.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Sensor
+///
+///
+///
+///
+///
+///
+///
+///    OrientationSensor
+///
+///
+///
+///
+///
+///
+///
+///    RelativeOrientationSensor
+///
+///
 @JS()
 @staticInterop
 class RelativeOrientationSensor implements OrientationSensor {
-  external RelativeOrientationSensor([OrientationSensorOptions? sensorOptions]);
+  external factory RelativeOrientationSensor(
+      [OrientationSensorOptions? sensorOptions]);
 }
 
 @anonymous

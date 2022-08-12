@@ -91,10 +91,14 @@ extension PropsFontFaceDescriptors on FontFaceDescriptors {
 
 enum FontFaceLoadStatus { unloaded, loading, loaded, error }
 
+///  The interface represents a single usable font face. It allows
+/// control of the source of the font face, being a URL to an
+/// external resource, or a buffer; it also allows control of when
+/// the font face is loaded and its current status.
 @JS()
 @staticInterop
 class FontFace {
-  external FontFace(String family, dynamic source,
+  external factory FontFace(String family, dynamic source,
       [FontFaceDescriptors? descriptors]);
 }
 
@@ -175,13 +179,13 @@ extension PropsFontFace on FontFace {
 @JS()
 @staticInterop
 class FontFaceFeatures {
-  external FontFaceFeatures();
+  external factory FontFaceFeatures();
 }
 
 @JS()
 @staticInterop
 class FontFaceVariationAxis {
-  external FontFaceVariationAxis();
+  external factory FontFaceVariationAxis();
 }
 
 extension PropsFontFaceVariationAxis on FontFaceVariationAxis {
@@ -195,13 +199,13 @@ extension PropsFontFaceVariationAxis on FontFaceVariationAxis {
 @JS()
 @staticInterop
 class FontFaceVariations extends JsArray<FontFaceVariationAxis> {
-  external FontFaceVariations();
+  external factory FontFaceVariations();
 }
 
 @JS()
 @staticInterop
 class FontFacePalette extends JsArray<String> {
-  external FontFacePalette();
+  external factory FontFacePalette();
 }
 
 extension PropsFontFacePalette on FontFacePalette {
@@ -215,7 +219,7 @@ extension PropsFontFacePalette on FontFacePalette {
 @JS()
 @staticInterop
 class FontFacePalettes extends JsArray<FontFacePalette> {
-  external FontFacePalettes();
+  external factory FontFacePalettes();
 }
 
 extension PropsFontFacePalettes on FontFacePalettes {
@@ -237,10 +241,26 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
   }
 }
 
+///  The interface of the CSS Font Loading API is fired whenever a
+/// [FontFaceSet] loads.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    FontFaceSetLoadEvent
+///
+///
 @JS()
 @staticInterop
 class FontFaceSetLoadEvent implements Event {
-  external FontFaceSetLoadEvent(String type,
+  external factory FontFaceSetLoadEvent(String type,
       [FontFaceSetLoadEventInit? eventInitDict]);
 }
 
@@ -250,10 +270,27 @@ extension PropsFontFaceSetLoadEvent on FontFaceSetLoadEvent {
 
 enum FontFaceSetLoadStatus { loading, loaded }
 
+///  The interface of the CSS Font Loading API manages the loading of
+/// font-faces and querying of their download status. It is available
+/// as [Document.fonts].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    FontFaceSet
+///
+///
 @JS()
 @staticInterop
 class FontFaceSet implements EventTarget {
-  external FontFaceSet([Iterable<FontFace>? initialFaces]);
+  external factory FontFaceSet([Iterable<FontFace>? initialFaces]);
 }
 
 extension PropsFontFaceSet on FontFaceSet {
@@ -295,7 +332,7 @@ extension PropsFontFaceSet on FontFaceSet {
 @JS()
 @staticInterop
 class FontFaceSource {
-  external FontFaceSource();
+  external factory FontFaceSource();
 }
 
 extension PropsFontFaceSource on FontFaceSource {

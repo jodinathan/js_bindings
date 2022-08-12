@@ -13,10 +13,38 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface provides access to performance-related information
+/// for the current page. It's part of the High Resolution Time API,
+/// but is enhanced by the Performance Timeline API, the Navigation
+/// Timing API, the User Timing API, and the Resource Timing API.
+///  An object of this type can be obtained by calling the
+/// [window.performance] read-only attribute.
+///
+///   Note: This interface and its members are available in Web
+/// Workers via [WorkerGlobalScope.performance] , except where
+/// indicated below. Also, note that performance markers and measures
+/// are per context. If you create a mark on the main thread (or
+/// other worker), you cannot see it in a worker thread, and vice
+/// versa.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Performance
+///
+///
 @JS()
 @staticInterop
 class Performance implements EventTarget {
-  external Performance();
+  external factory Performance();
 }
 
 extension PropsPerformance on Performance {

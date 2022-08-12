@@ -13,10 +13,15 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the [Web Periodic Background Synchronization
+/// API] provides a way to register tasks to be run in a service
+/// worker at periodic intervals with network connectivity. These
+/// tasks are referred to as periodic background sync requests.
+/// Access through the [ServiceWorkerRegistration.periodicSync].
 @JS()
 @staticInterop
 class PeriodicSyncManager {
-  external PeriodicSyncManager();
+  external factory PeriodicSyncManager();
 }
 
 extension PropsPeriodicSyncManager on PeriodicSyncManager {
@@ -59,10 +64,40 @@ extension PropsPeriodicSyncEventInit on PeriodicSyncEventInit {
   }
 }
 
+///  The interface of the [Web Periodic Background Synchronization
+/// API] provides a way to run tasks in the service worker with
+/// network connectivity.
+///  An instance of this event is passed to the [periodicsync]
+/// handler. This happens periodically, at an interval greater than
+/// or equal to that set in the [PeriodicSyncManager.register()]
+/// method. Other implementation-specific factors such as the user's
+/// engagement with the site decide the actual interval.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///
+///
+///    PeriodicSyncEvent
+///
+///
 @JS()
 @staticInterop
 class PeriodicSyncEvent implements ExtendableEvent {
-  external PeriodicSyncEvent(String type, PeriodicSyncEventInit init);
+  external factory PeriodicSyncEvent(String type, PeriodicSyncEventInit init);
 }
 
 extension PropsPeriodicSyncEvent on PeriodicSyncEvent {

@@ -21,10 +21,47 @@ enum XRLayerLayout {
   stereoTopBottom
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is a base class that
+/// defines a set of common properties and behaviors for WebXR layer
+/// types. It is not constructable on its own.
+/// Several layer types inherit from :
+///
+///  [XREquirectLayer]
+///  [XRCubeLayer]
+///  [XRCylinderLayer]
+///  [XRProjectionLayer]
+///  [XRQuadLayer]
+///
+///   itself inherits from the general [XRLayer] class (which
+/// inherits from [EventTarget]).
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRCompositionLayer
+///
+///
 @JS()
 @staticInterop
 class XRCompositionLayer implements XRLayer {
-  external XRCompositionLayer();
+  external factory XRCompositionLayer();
 }
 
 extension PropsXRCompositionLayer on XRCompositionLayer {
@@ -42,15 +79,65 @@ extension PropsXRCompositionLayer on XRCompositionLayer {
     js_util.setProperty(this, 'chromaticAberrationCorrection', newValue);
   }
 
+  double get opacity => js_util.getProperty(this, 'opacity');
+  set opacity(double newValue) {
+    js_util.setProperty(this, 'opacity', newValue);
+  }
+
   int get mipLevels => js_util.getProperty(this, 'mipLevels');
   bool get needsRedraw => js_util.getProperty(this, 'needsRedraw');
   Object destroy() => js_util.callMethod(this, 'destroy', []);
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is a layer that fills the
+/// entire view of the observer and is refreshed close to the
+/// device's native frame rate.
+///   is supported by all [XRSession] objects (no [layers] feature
+/// descriptor is needed).
+///
+///   To create a new , call
+/// [XRWebGLBinding.createProjectionLayer()].
+///   To present layers to the XR device, add them to the [layers]
+/// render state using [XRSession.updateRenderState()].
+///
+///   objects don't have an associated [XRSpace], because they render
+/// to the full frame.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRCompositionLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRProjectionLayer
+///
+///
 @JS()
 @staticInterop
 class XRProjectionLayer implements XRCompositionLayer {
-  external XRProjectionLayer();
+  external factory XRProjectionLayer();
 }
 
 extension PropsXRProjectionLayer on XRProjectionLayer {
@@ -64,10 +151,58 @@ extension PropsXRProjectionLayer on XRProjectionLayer {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is a layer that takes up a
+/// flat rectangular space in the virtual environment. An has no
+/// thickness. It is a two-dimensional object positioned and oriented
+/// in 3D space. The position of a quad refers to the center of the
+/// quad. Only the front of the layer is visible.
+///   requires the [layers] feature to be enabled for the
+/// [XRSession]. You can request it in [XRSystem.requestSession()].
+/// To create a new , call either:
+///
+///   [XRWebGLBinding.createQuadLayer()] for a WebGL opaque texture
+/// quad layer, or
+///   [XRMediaBinding.createQuadLayer()] for an HTML [<video>]
+/// playback quad layer.
+///
+///  To present layers to the XR device, add them to the [layers]
+/// render state using [XRSession.updateRenderState()].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRCompositionLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRQuadLayer
+///
+///
 @JS()
 @staticInterop
 class XRQuadLayer implements XRCompositionLayer {
-  external XRQuadLayer();
+  external factory XRQuadLayer();
 }
 
 extension PropsXRQuadLayer on XRQuadLayer {
@@ -97,10 +232,56 @@ extension PropsXRQuadLayer on XRQuadLayer {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is a layer that takes up a
+/// curved rectangular space in the virtual environment. Only the
+/// front of the layer is visible.
+///   requires the [layers] feature to be enabled for the
+/// [XRSession]. You can request it in [XRSystem.requestSession()].
+/// To create a new , call either:
+///
+///   [XRWebGLBinding.createCylinderLayer()] for a WebGL opaque
+/// texture layer, or
+///   [XRMediaBinding.createCylinderLayer()] for an HTML [<video>]
+/// playback layer.
+///
+///  To present layers to the XR device, add them to the [layers]
+/// render state using [XRSession.updateRenderState()].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRCompositionLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRCylinderLayer
+///
+///
 @JS()
 @staticInterop
 class XRCylinderLayer implements XRCompositionLayer {
-  external XRCylinderLayer();
+  external factory XRCylinderLayer();
 }
 
 extension PropsXRCylinderLayer on XRCylinderLayer {
@@ -135,10 +316,55 @@ extension PropsXRCylinderLayer on XRCylinderLayer {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is a layer that maps
+/// equirectangular coded data onto the inside of a sphere.
+///   requires the [layers] feature to be enabled for the
+/// [XRSession]. You can request it in [XRSystem.requestSession()].
+/// To create a new , call either:
+///
+///   [XRWebGLBinding.createEquirectLayer()] for a WebGL opaque
+/// texture layer, or
+///   [XRMediaBinding.createEquirectLayer()] for an HTML [<video>]
+/// playback layer.
+///
+///  To present layers to the XR device, add them to the [layers]
+/// render state using [XRSession.updateRenderState()].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRCompositionLayer
+///
+///
+///
+///
+///
+///
+///
+///    XREquirectLayer
+///
+///
 @JS()
 @staticInterop
 class XREquirectLayer implements XRCompositionLayer {
-  external XREquirectLayer();
+  external factory XREquirectLayer();
 }
 
 extension PropsXREquirectLayer on XREquirectLayer {
@@ -181,10 +407,50 @@ extension PropsXREquirectLayer on XREquirectLayer {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is a layer that renders
+/// directly from a cubemap and projects it onto the inside faces of
+/// a cube.
+///   requires the [layers] feature to be enabled for the
+/// [XRSession]. You can request it in [XRSystem.requestSession()].
+/// To create a new , call [XRWebGLBinding.createCubeLayer()].
+///  To present layers to the XR device, add them to the [layers]
+/// render state using [XRSession.updateRenderState()].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    XRLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRCompositionLayer
+///
+///
+///
+///
+///
+///
+///
+///    XRCubeLayer
+///
+///
 @JS()
 @staticInterop
 class XRCubeLayer implements XRCompositionLayer {
-  external XRCubeLayer();
+  external factory XRCubeLayer();
 }
 
 extension PropsXRCubeLayer on XRCubeLayer {
@@ -204,20 +470,41 @@ extension PropsXRCubeLayer on XRCubeLayer {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API represents what viewport
+/// of the GPU texture to use for rendering.
 @JS()
 @staticInterop
 class XRSubImage {
-  external XRSubImage();
+  external factory XRSubImage();
 }
 
 extension PropsXRSubImage on XRSubImage {
   XRViewport get viewport => js_util.getProperty(this, 'viewport');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+/// The interface is used during rendering of WebGL layers.
+///
+///
+///
+///    XRSubImage
+///
+///
+///
+///
+///
+///
+///
+///    XRWebGLSubImage
+///
+///
 @JS()
 @staticInterop
 class XRWebGLSubImage implements XRSubImage {
-  external XRWebGLSubImage();
+  external factory XRWebGLSubImage();
 }
 
 extension PropsXRWebGLSubImage on XRWebGLSubImage {
@@ -529,10 +816,13 @@ extension PropsXRCubeLayerInit on XRCubeLayerInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+/// The interface is used to create layers that have a GPU backend.
 @JS()
 @staticInterop
 class XRWebGLBinding {
-  external XRWebGLBinding(XRSession session, dynamic context);
+  external factory XRWebGLBinding(XRSession session, dynamic context);
 }
 
 extension PropsXRWebGLBinding on XRWebGLBinding {
@@ -701,10 +991,22 @@ extension PropsXRMediaEquirectLayerInit on XRMediaEquirectLayerInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface is used to create layers that display the content
+/// of an [HTMLVideoElement].
+///
+///
+///   Note:
+///    Only the video frames will be displayed in the layer. Video
+/// controls need to be implemented separately and must be drawn in
+/// another layer.
+///
+///
 @JS()
 @staticInterop
 class XRMediaBinding {
-  external XRMediaBinding(XRSession session);
+  external factory XRMediaBinding(XRSession session);
 }
 
 extension PropsXRMediaBinding on XRMediaBinding {
@@ -721,10 +1023,29 @@ extension PropsXRMediaBinding on XRMediaBinding {
       js_util.callMethod(this, 'createEquirectLayer', [video, init]);
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is the event type for
+/// events related to a change of state of an [XRLayer] object. These
+/// events occur, for example, when the layer needs to be redrawn.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    XRLayerEvent
+///
+///
 @JS()
 @staticInterop
 class XRLayerEvent implements Event {
-  external XRLayerEvent(String type, XRLayerEventInit eventInitDict);
+  external factory XRLayerEvent(String type, XRLayerEventInit eventInitDict);
 }
 
 extension PropsXRLayerEvent on XRLayerEvent {

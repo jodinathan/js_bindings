@@ -47,22 +47,49 @@ extension PropsMIDIOptions on MIDIOptions {
   }
 }
 
+///  The read-only interface of the Web MIDI API provides a
+/// [Map]-like interface to the currently available MIDI input ports.
+/// Though it works generally like a map, because it is read-only it
+/// does not contain [clear()], [delete()], or [set()] functions.
 @JS()
 @staticInterop
 class MIDIInputMap extends JsMap<MIDIInput, String> {
-  external MIDIInputMap();
+  external factory MIDIInputMap();
 }
 
+///  The read-only interface of the Web MIDI API provides a
+/// [Map]-like interface to the currently available MIDI output
+/// ports. Although it works like a map, because it is read-only, it
+/// does not contain [clear()], [delete()], or [set()] functions.
 @JS()
 @staticInterop
 class MIDIOutputMap extends JsMap<MIDIOutput, String> {
-  external MIDIOutputMap();
+  external factory MIDIOutputMap();
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Web MIDI API provides methods for listing
+/// MIDI input and output devices, and obtaining access to those
+/// devices.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MIDIAccess
+///
+///
 @JS()
 @staticInterop
 class MIDIAccess implements EventTarget {
-  external MIDIAccess();
+  external factory MIDIAccess();
 }
 
 extension PropsMIDIAccess on MIDIAccess {
@@ -77,10 +104,30 @@ extension PropsMIDIAccess on MIDIAccess {
   bool get sysexEnabled => js_util.getProperty(this, 'sysexEnabled');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Web MIDI API represents a MIDI input or
+/// output port.
+///  A instance is created when a new MIDI device is connected.
+/// Therefore it has no constructor.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MIDIPort
+///
+///
 @JS()
 @staticInterop
 class MIDIPort implements EventTarget {
-  external MIDIPort();
+  external factory MIDIPort();
 }
 
 extension PropsMIDIPort on MIDIPort {
@@ -107,10 +154,36 @@ extension PropsMIDIPort on MIDIPort {
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Web MIDI API receives messages from a MIDI
+/// input port.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MIDIPort
+///
+///
+///
+///
+///
+///
+///
+///    MIDIInput
+///
+///
 @JS()
 @staticInterop
 class MIDIInput implements MIDIPort {
-  external MIDIInput();
+  external factory MIDIInput();
 }
 
 extension PropsMIDIInput on MIDIInput {
@@ -121,10 +194,37 @@ extension PropsMIDIInput on MIDIInput {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Web MIDI API provides methods to add
+/// messages to the queue of an output device, and to clear the queue
+/// of messages.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MIDIPort
+///
+///
+///
+///
+///
+///
+///
+///    MIDIOutput
+///
+///
 @JS()
 @staticInterop
 class MIDIOutput implements MIDIPort {
-  external MIDIOutput();
+  external factory MIDIOutput();
 }
 
 extension PropsMIDIOutput on MIDIOutput {
@@ -140,10 +240,33 @@ enum MIDIPortDeviceState { disconnected, connected }
 
 enum MIDIPortConnectionState { open, closed, pending }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Web MIDI API represents the event passed to
+/// the [midimessage] event of the [MIDIInput] interface. A
+/// [midimessage] event is fired every time a MIDI message is sent
+/// from a device represented by a [MIDIInput], for example when a
+/// MIDI keyboard key is pressed, a knob is tweaked, or a slider is
+/// moved.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    MIDIMessageEvent
+///
+///
 @JS()
 @staticInterop
 class MIDIMessageEvent implements Event {
-  external MIDIMessageEvent(String type, [MIDIMessageEventInit? eventInitDict]);
+  external factory MIDIMessageEvent(String type,
+      [MIDIMessageEventInit? eventInitDict]);
 }
 
 extension PropsMIDIMessageEvent on MIDIMessageEvent {
@@ -164,10 +287,33 @@ extension PropsMIDIMessageEventInit on MIDIMessageEventInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Web MIDI API is the event passed to the
+/// [statechange] event of the [MIDIAccess] interface and the
+/// [statechange] event of the [MIDIPort] interface. This occurs any
+/// time a new port becomes available, or when a previously available
+/// port becomes unavailable. For example, this event is fired
+/// whenever a MIDI device is either plugged in to or unplugged from
+/// a computer.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    MIDIConnectionEvent
+///
+///
 @JS()
 @staticInterop
 class MIDIConnectionEvent implements Event {
-  external MIDIConnectionEvent(String type,
+  external factory MIDIConnectionEvent(String type,
       [MIDIConnectionEventInit? eventInitDict]);
 }
 

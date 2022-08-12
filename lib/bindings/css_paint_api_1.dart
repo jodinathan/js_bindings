@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PaintWorkletGlobalScope implements WorkletGlobalScope {
-  external PaintWorkletGlobalScope();
+  external factory PaintWorkletGlobalScope();
 }
 
 extension PropsPaintWorkletGlobalScope on PaintWorkletGlobalScope {
@@ -57,13 +57,13 @@ class PaintRenderingContext2D
         CanvasDrawImage,
         CanvasPathDrawingStyles,
         CanvasPath {
-  external PaintRenderingContext2D();
+  external factory PaintRenderingContext2D();
 }
 
 @JS()
 @staticInterop
 class PaintSize {
-  external PaintSize();
+  external factory PaintSize();
 }
 
 extension PropsPaintSize on PaintSize {

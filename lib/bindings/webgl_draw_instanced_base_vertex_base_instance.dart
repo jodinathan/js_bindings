@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS('WEBGL_draw_instanced_base_vertex_base_instance')
 @staticInterop
 class WEBGLDrawInstancedBaseVertexBaseInstance {
-  external WEBGLDrawInstancedBaseVertexBaseInstance();
+  external factory WEBGLDrawInstancedBaseVertexBaseInstance();
 }
 
 extension PropsWEBGLDrawInstancedBaseVertexBaseInstance

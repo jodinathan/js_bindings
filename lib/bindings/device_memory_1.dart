@@ -1,6 +1,6 @@
-/// Device Memory 1
+/// Device Memory
 ///
-/// https://w3c.github.io/device-memory/
+/// https://www.w3.org/TR/device-memory/
 
 // ignore_for_file: unused_import
 
@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorDeviceMemory {
-  external NavigatorDeviceMemory();
+  external factory NavigatorDeviceMemory();
 }
 
 extension PropsNavigatorDeviceMemory on NavigatorDeviceMemory {

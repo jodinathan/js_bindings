@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Ink {
-  external Ink();
+  external factory Ink();
 }
 
 extension PropsInk on Ink {
@@ -42,7 +42,7 @@ extension PropsInkPresenterParam on InkPresenterParam {
 @JS()
 @staticInterop
 class InkPresenter {
-  external InkPresenter();
+  external factory InkPresenter();
 }
 
 extension PropsInkPresenter on InkPresenter {

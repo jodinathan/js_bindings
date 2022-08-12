@@ -13,10 +13,18 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the [Trusted Types API] represents a string
+/// that a developer can insert into an injection sink that will
+/// render it as HTML. These objects are created via
+/// [TrustedTypePolicy.createHTML()] and therefore have no
+/// constructor.
+///  The value of a TrustedHTML object is set when the object is
+/// created and cannot be changed by JavaScript as there is no setter
+/// exposed.
 @JS()
 @staticInterop
 class TrustedHTML {
-  external TrustedHTML();
+  external factory TrustedHTML();
 }
 
 extension PropsTrustedHTML on TrustedHTML {
@@ -28,10 +36,18 @@ extension PropsTrustedHTML on TrustedHTML {
       js_util.callMethod(TrustedHTML, 'fromLiteral', [templateStringsArray]);
 }
 
+///  The interface of the [Trusted Types API] represents a string
+/// with an uncompiled script body that a developer can insert into
+/// an injection sink that might execute the script. These objects
+/// are created via [TrustedTypePolicy.createScript()] and therefore
+/// have no constructor.
+///  The value of a TrustedScript object is set when the object is
+/// created and cannot be changed by JavaScript as there is no setter
+/// exposed.
 @JS()
 @staticInterop
 class TrustedScript {
-  external TrustedScript();
+  external factory TrustedScript();
 }
 
 extension PropsTrustedScript on TrustedScript {
@@ -43,10 +59,18 @@ extension PropsTrustedScript on TrustedScript {
       js_util.callMethod(TrustedScript, 'fromLiteral', [templateStringsArray]);
 }
 
+///  The interface of the [Trusted Types API] represents a string
+/// that a developer can insert into an injection sink that will
+/// parse it as a URL of an external script. These objects are
+/// created via [TrustedTypePolicy.createScriptURL()] and therefore
+/// have no constructor.
+///  The value of a TrustedScriptURL object is set when the object is
+/// created and cannot be changed by JavaScript as there is no setter
+/// exposed.
 @JS()
 @staticInterop
 class TrustedScriptURL {
-  external TrustedScriptURL();
+  external factory TrustedScriptURL();
 }
 
 extension PropsTrustedScriptURL on TrustedScriptURL {
@@ -58,10 +82,13 @@ extension PropsTrustedScriptURL on TrustedScriptURL {
       .callMethod(TrustedScriptURL, 'fromLiteral', [templateStringsArray]);
 }
 
+///  The interface of the [Trusted Types API] creates policies and
+/// allows the verification of Trusted Type objects against created
+/// policies.
 @JS()
 @staticInterop
 class TrustedTypePolicyFactory {
-  external TrustedTypePolicyFactory();
+  external factory TrustedTypePolicyFactory();
 }
 
 extension PropsTrustedTypePolicyFactory on TrustedTypePolicyFactory {
@@ -92,10 +119,15 @@ extension PropsTrustedTypePolicyFactory on TrustedTypePolicyFactory {
       js_util.getProperty(this, 'defaultPolicy');
 }
 
+///  The interface of the [Trusted Types API] defines a group of
+/// functions which create [TrustedType] objects.
+///  A object is created by [TrustedTypePolicyFactory.createPolicy()]
+/// to define a policy for enforcing security rules on input.
+/// Therefore, has no constructor.
 @JS()
 @staticInterop
 class TrustedTypePolicy {
-  external TrustedTypePolicy();
+  external factory TrustedTypePolicy();
 }
 
 extension PropsTrustedTypePolicy on TrustedTypePolicy {

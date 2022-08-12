@@ -13,10 +13,28 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Battery Status API provides information
+/// about the system's battery charge level. The
+/// [navigator.getBattery()] method returns a promise that resolves
+/// with a interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    BatteryManager
+///
+///
 @JS()
 @staticInterop
 class BatteryManager implements EventTarget {
-  external BatteryManager();
+  external factory BatteryManager();
 }
 
 extension PropsBatteryManager on BatteryManager {

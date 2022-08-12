@@ -10,13 +10,25 @@ library urlpattern;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///
+///  The interface matches URLs or parts of URLs against a pattern.
+///   The pattern can contain capturing groups that extract parts of
+/// the matched URL.
+///   More information about the syntax of patterns can be found on
+/// the API overview
+///  page: URL Pattern API
+///
+///  Note: This feature is available in Web Workers
+///
+@experimental
 @JS()
 @staticInterop
 class URLPattern {
-  external URLPattern([dynamic input, String? baseURL]);
+  external factory URLPattern([dynamic input, String? baseURL]);
 }
 
 extension PropsURLPattern on URLPattern {

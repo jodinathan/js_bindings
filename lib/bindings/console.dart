@@ -13,10 +13,31 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///
+///  The object provides access to the browser's
+///  debugging console (e.g. the Web console in Firefox).
+///   The specifics of how it works varies from browser to browser,
+/// but there is a de facto
+///  set of features that are typically provided.
+///  The object can be accessed from any global object. [Window] on
+///   browsing scopes and [WorkerGlobalScope] as specific variants in
+/// workers via the
+///   property console. It's exposed as [Window.console], and can be
+/// referenced as
+///  . For example:
+///
+/// [console.log("Failed to open the specified link")
+/// ]
+///
+///  This page documents the Methods available on the object and
+///  gives a few Usage examples.
+///
+///  Note: This feature is available in Web Workers
+///
 @JS('console')
 @staticInterop
 class Console {
-  external Console();
+  external factory Console();
 }
 
 extension PropsConsole on Console {

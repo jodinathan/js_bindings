@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class LayoutWorkletGlobalScope implements WorkletGlobalScope {
-  external LayoutWorkletGlobalScope();
+  external factory LayoutWorkletGlobalScope();
 }
 
 extension PropsLayoutWorkletGlobalScope on LayoutWorkletGlobalScope {
@@ -57,7 +57,7 @@ enum LayoutSizingMode { blockLike, manual }
 @JS()
 @staticInterop
 class LayoutChild {
-  external LayoutChild();
+  external factory LayoutChild();
 }
 
 extension PropsLayoutChild on LayoutChild {
@@ -75,7 +75,7 @@ extension PropsLayoutChild on LayoutChild {
 @JS()
 @staticInterop
 class LayoutFragment {
-  external LayoutFragment();
+  external factory LayoutFragment();
 }
 
 extension PropsLayoutFragment on LayoutFragment {
@@ -98,7 +98,7 @@ extension PropsLayoutFragment on LayoutFragment {
 @JS()
 @staticInterop
 class IntrinsicSizes {
-  external IntrinsicSizes();
+  external factory IntrinsicSizes();
 }
 
 extension PropsIntrinsicSizes on IntrinsicSizes {
@@ -109,7 +109,7 @@ extension PropsIntrinsicSizes on IntrinsicSizes {
 @JS()
 @staticInterop
 class LayoutConstraints {
-  external LayoutConstraints();
+  external factory LayoutConstraints();
 }
 
 extension PropsLayoutConstraints on LayoutConstraints {
@@ -228,7 +228,7 @@ extension PropsLayoutConstraintsOptions on LayoutConstraintsOptions {
 @JS()
 @staticInterop
 class ChildBreakToken {
-  external ChildBreakToken();
+  external factory ChildBreakToken();
 }
 
 extension PropsChildBreakToken on ChildBreakToken {
@@ -240,7 +240,7 @@ extension PropsChildBreakToken on ChildBreakToken {
 @JS()
 @staticInterop
 class BreakToken {
-  external BreakToken();
+  external factory BreakToken();
 }
 
 extension PropsBreakToken on BreakToken {
@@ -275,7 +275,7 @@ enum BreakType { none, line, column, page, region }
 @JS()
 @staticInterop
 class LayoutEdges {
-  external LayoutEdges();
+  external factory LayoutEdges();
 }
 
 extension PropsLayoutEdges on LayoutEdges {
@@ -336,7 +336,7 @@ extension PropsFragmentResultOptions on FragmentResultOptions {
 @JS()
 @staticInterop
 class FragmentResult {
-  external FragmentResult([FragmentResultOptions? options]);
+  external factory FragmentResult([FragmentResultOptions? options]);
 }
 
 extension PropsFragmentResult on FragmentResult {

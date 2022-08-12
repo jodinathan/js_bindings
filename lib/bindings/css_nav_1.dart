@@ -59,7 +59,8 @@ extension PropsSpatialNavigationSearchOptions
 @JS()
 @staticInterop
 class NavigationEvent implements UIEvent {
-  external NavigationEvent(String type, [NavigationEventInit? eventInitDict]);
+  external factory NavigationEvent(String type,
+      [NavigationEventInit? eventInitDict]);
 }
 
 extension PropsNavigationEvent on NavigationEvent {

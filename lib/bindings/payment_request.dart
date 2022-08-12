@@ -1,4 +1,4 @@
-/// Payment Request API
+/// Payment Request API 1.1
 ///
 /// https://w3c.github.io/payment-request/
 
@@ -10,13 +10,34 @@ library payment_request;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The Payment Request API's interface is the primary access point
+/// into the API, and lets web content and apps accept payments from
+/// the end user on behalf of the operator of the site or the
+/// publisher of the app.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    PaymentRequest
+///
+///
 @JS()
 @staticInterop
 class PaymentRequest implements EventTarget {
-  external PaymentRequest(
+  external factory PaymentRequest(
       Iterable<PaymentMethodData> methodData, PaymentDetailsInit details);
 }
 
@@ -207,12 +228,45 @@ extension PropsPaymentItem on PaymentItem {
   }
 }
 
+@anonymous
+@JS()
+@staticInterop
+class PaymentCompleteDetails {
+  external factory PaymentCompleteDetails({dynamic data});
+}
+
+extension PropsPaymentCompleteDetails on PaymentCompleteDetails {
+  dynamic get data => js_util.getProperty(this, 'data');
+  set data(dynamic newValue) {
+    js_util.setProperty(this, 'data', newValue);
+  }
+}
+
 enum PaymentComplete { fail, success, unknown }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Payment Request API is returned after a
+/// user selects a payment method and approves a payment request.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    PaymentResponse
+///
+///
+@experimental
 @JS()
 @staticInterop
 class PaymentResponse implements EventTarget {
-  external PaymentResponse();
+  external factory PaymentResponse();
 }
 
 extension PropsPaymentResponse on PaymentResponse {
@@ -222,9 +276,10 @@ extension PropsPaymentResponse on PaymentResponse {
   String get methodName => js_util.getProperty(this, 'methodName');
   dynamic get details => js_util.getProperty(this, 'details');
   Future<Object> complete(
-          [PaymentComplete? result = PaymentComplete.unknown]) =>
+          [PaymentComplete? result = PaymentComplete.unknown,
+          PaymentCompleteDetails? details]) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'complete', [result?.name]));
+          js_util.callMethod(this, 'complete', [result?.name, details]));
 
   Future<Object> retry([PaymentValidationErrors? errorFields]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'retry', [errorFields]));
@@ -250,10 +305,38 @@ extension PropsPaymentValidationErrors on PaymentValidationErrors {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Payment Request API describes the
+/// [paymentmethodchange] event which is fired by some payment
+/// handlers when the user switches payment instruments (e.g., a user
+/// selects a "store" card to make a purchase while using Apple Pay).
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    PaymentRequestUpdateEvent
+///
+///
+///
+///
+///
+///
+///
+///    PaymentMethodChangeEvent
+///
+///
 @JS()
 @staticInterop
 class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
-  external PaymentMethodChangeEvent(String type,
+  external factory PaymentMethodChangeEvent(String type,
       [PaymentMethodChangeEventInit? eventInitDict]);
 }
 
@@ -282,10 +365,40 @@ extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface is used for events sent to a [PaymentRequest]
+/// instance when changes are made to shipping-related information
+/// for a pending [PaymentRequest]. Those events are:
+///
+///  [shippingaddresschange] Secure context
+///
+///   Dispatched whenever the user changes their shipping address.
+///
+///  [shippingoptionchange] Secure context
+///
+///   Dispatched whenever the user changes a shipping option.
+///
+///
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    PaymentRequestUpdateEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class PaymentRequestUpdateEvent implements Event {
-  external PaymentRequestUpdateEvent(String type,
+  external factory PaymentRequestUpdateEvent(String type,
       [PaymentRequestUpdateEventInit? eventInitDict]);
 }
 

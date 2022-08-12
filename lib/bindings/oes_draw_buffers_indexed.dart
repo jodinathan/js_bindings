@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS('OES_draw_buffers_indexed')
 @staticInterop
 class OESDrawBuffersIndexed {
-  external OESDrawBuffersIndexed();
+  external factory OESDrawBuffersIndexed();
 }
 
 extension PropsOESDrawBuffersIndexed on OESDrawBuffersIndexed {

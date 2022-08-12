@@ -13,10 +13,35 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
+///
+///   The interface of the Window Controls Overlay API exposes
+/// information about the geometry
+///   of the title bar area in desktop Progressive Web Apps, and an
+/// event to know whenever it changes. This interface is accessible
+/// from [Navigator.windowControlsOverlay].
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    WindowControlsOverlay
+///
+///
 @JS()
 @staticInterop
 class WindowControlsOverlay implements EventTarget {
-  external WindowControlsOverlay();
+  external factory WindowControlsOverlay();
 }
 
 extension PropsWindowControlsOverlay on WindowControlsOverlay {
@@ -31,10 +56,27 @@ extension PropsWindowControlsOverlay on WindowControlsOverlay {
   }
 }
 
+///  The interface of the Window Controls Overlay API is passed to
+/// [geometrychange] when the size or visibility of a desktop
+/// Progress Web App's title bar region changes.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    WindowControlsOverlayGeometryChangeEvent
+///
+///
 @JS()
 @staticInterop
 class WindowControlsOverlayGeometryChangeEvent implements Event {
-  external WindowControlsOverlayGeometryChangeEvent(
+  external factory WindowControlsOverlayGeometryChangeEvent(
       String type, WindowControlsOverlayGeometryChangeEventInit eventInitDict);
 }
 

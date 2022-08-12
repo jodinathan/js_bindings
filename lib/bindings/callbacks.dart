@@ -60,8 +60,6 @@ typedef FileSystemEntriesCallback = Function(Iterable<FileSystemEntry> entries);
 
 typedef FileCallback = Function(File file);
 
-typedef ClipboardItemDelayedCallback = Function();
-
 typedef RTCPeerConnectionErrorCallback = Function(Exception error);
 
 typedef RTCSessionDescriptionCallback = Function(
@@ -110,8 +108,8 @@ typedef FnFunction = Function(
 
 typedef VoidFunction = Function();
 
-typedef ComputePressureUpdateCallback = Function(
-    ComputePressureEntry update, ComputePressureObserver observer);
+typedef PressureUpdateCallback = Function(
+    Iterable<PressureRecord> changes, PressureObserver observer);
 
 typedef PerformanceObserverCallback = Function(
     PerformanceObserverEntryList entries, PerformanceObserver observer,
@@ -140,6 +138,8 @@ typedef AnimatorInstanceConstructor = Function(dynamic options,
 typedef ResizeObserverCallback = Function(
     Iterable<ResizeObserverEntry> entries, ResizeObserver observer);
 
+typedef LaunchConsumer = Function(LaunchParams params);
+
 typedef RemotePlaybackAvailabilityCallback = Function(bool available);
 
 typedef EffectCallback = Function(
@@ -157,3 +157,5 @@ typedef OnErrorEventHandlerNonNull = Function(dynamic event,
 typedef OnBeforeUnloadEventHandlerNonNull = Function(Event event);
 
 typedef FrameRequestCallback = Function(double time);
+
+typedef NavigationInterceptHandler = Function();

@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PermissionsPolicy {
-  external PermissionsPolicy();
+  external factory PermissionsPolicy();
 }
 
 extension PropsPermissionsPolicy on PermissionsPolicy {
@@ -35,7 +35,7 @@ extension PropsPermissionsPolicy on PermissionsPolicy {
 @JS()
 @staticInterop
 class PermissionsPolicyViolationReportBody implements ReportBody {
-  external PermissionsPolicyViolationReportBody();
+  external factory PermissionsPolicyViolationReportBody();
 }
 
 extension PropsPermissionsPolicyViolationReportBody

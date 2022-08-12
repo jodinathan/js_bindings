@@ -30,7 +30,7 @@ extension PropsIsInputPendingOptions on IsInputPendingOptions {
 @JS()
 @staticInterop
 class Scheduling {
-  external Scheduling();
+  external factory Scheduling();
 }
 
 extension PropsScheduling on Scheduling {

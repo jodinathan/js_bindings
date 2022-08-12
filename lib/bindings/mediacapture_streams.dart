@@ -13,10 +13,34 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface represents a stream of media content. A stream
+/// consists of several tracks, such as video or audio tracks. Each
+/// track is specified as an instance of [MediaStreamTrack].
+///  You can obtain a object either by using the constructor or by
+/// calling functions such as [MediaDevices.getUserMedia()],
+/// [MediaDevices.getDisplayMedia()], or
+/// [HTMLCanvasElement.captureStream()].
+///  Some user agents subclass this interface to provide more precise
+/// information or functionality, like in
+/// [CanvasCaptureMediaStreamTrack].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MediaStream
+///
+///
 @JS()
 @staticInterop
 class MediaStream implements EventTarget {
-  external MediaStream([Iterable<MediaStreamTrack>? tracks]);
+  external factory MediaStream([Iterable<MediaStreamTrack>? tracks]);
 }
 
 extension PropsMediaStream on MediaStream {
@@ -55,10 +79,27 @@ extension PropsMediaStream on MediaStream {
   }
 }
 
+///  The interface represents a single media track within a stream;
+/// typically, these are audio or video tracks, but other track types
+/// may exist as well.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MediaStreamTrack
+///
+///
 @JS()
 @staticInterop
 class MediaStreamTrack implements EventTarget {
-  external MediaStreamTrack();
+  external factory MediaStreamTrack();
 }
 
 extension PropsMediaStreamTrack on MediaStreamTrack {
@@ -110,16 +151,49 @@ extension PropsMediaStreamTrack on MediaStreamTrack {
     js_util.setProperty(this, 'contentHint', newValue);
   }
 
+  CaptureHandle? getCaptureHandle() =>
+      js_util.callMethod(this, 'getCaptureHandle', []);
+
+  EventHandlerNonNull? get oncapturehandlechange =>
+      js_util.getProperty(this, 'oncapturehandlechange');
+  set oncapturehandlechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncapturehandlechange', newValue);
+  }
+
   bool get isolated => js_util.getProperty(this, 'isolated');
   EventHandlerNonNull? get onisolationchange =>
       js_util.getProperty(this, 'onisolationchange');
   set onisolationchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onisolationchange', newValue);
   }
+
+  Iterable<String> getSupportedCaptureActions() =>
+      js_util.callMethod(this, 'getSupportedCaptureActions', []);
+
+  Future<Object> sendCaptureAction(CaptureAction action) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'sendCaptureAction', [action.name]));
 }
 
 enum MediaStreamTrackState { live, ended }
 
+///  The dictionary establishes the list of constrainable properties
+/// recognized by the user agent or browser in its implementation of
+/// the [MediaStreamTrack] object. An object conforming to is
+/// returned by [MediaDevices.getSupportedConstraints()].
+///  Because of the way interface definitions in WebIDL work, if a
+/// constraint is requested but not supported, no error will occur.
+/// Instead, the specified constraints will be applied, with any
+/// unrecognized constraints stripped from the request. That can lead
+/// to confusing and hard to debug errors, so be sure to use
+/// [getSupportedConstraints()] to retrieve this information before
+/// attempting to establish constraints if you need to know the
+/// difference between silently ignoring a constraint and a
+/// constraint being accepted.
+///  An actual constraint set is described using an object based on
+/// the [MediaTrackConstraints] dictionary.
+///  To learn more about how constraints work, see Capabilities,
+/// constraints, and settings.
 @anonymous
 @JS()
 @staticInterop
@@ -322,6 +396,13 @@ extension PropsMediaTrackCapabilities on MediaTrackCapabilities {
   }
 }
 
+///  The dictionary is used to describe a set of capabilities and the
+/// value or values each can take on. A constraints dictionary is
+/// passed into [applyConstraints()] to allow a script to establish a
+/// set of exact (required) values or ranges and/or preferred values
+/// or ranges of values for the track, and the most
+/// recently-requested set of custom constraints can be retrieved by
+/// calling [getConstraints()].
 @anonymous
 @JS()
 @staticInterop
@@ -437,6 +518,15 @@ extension PropsMediaTrackConstraintSet on MediaTrackConstraintSet {
   }
 }
 
+///  The dictionary is used to return the current values configured
+/// for each of a [MediaStreamTrack]'s settings. These values will
+/// adhere as closely as possible to any constraints previously
+/// described using a [MediaTrackConstraints] object and set using
+/// [applyConstraints()], and will adhere to the default constraints
+/// for any properties whose constraints haven't been changed, or
+/// whose customized constraints couldn't be matched.
+///  To learn more about how constraints and settings work, see
+/// Capabilities, constraints, and settings.
 @anonymous
 @JS()
 @staticInterop
@@ -540,10 +630,30 @@ enum VideoFacingModeEnum { user, environment, left, right }
 
 enum VideoResizeModeEnum { none, cropAndScale }
 
+///  The interface represents events which indicate that a
+/// [MediaStream] has had tracks added to or removed from the stream
+/// through calls to Media Stream API methods. These events are sent
+/// to the stream when these changes occur.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    MediaStreamTrackEvent
+///
+///
+///  The events based on this interface are [addtrack] and
+/// [removetrack].
 @JS()
 @staticInterop
 class MediaStreamTrackEvent implements Event {
-  external MediaStreamTrackEvent(
+  external factory MediaStreamTrackEvent(
       String type, MediaStreamTrackEventInit eventInitDict);
 }
 
@@ -565,20 +675,64 @@ extension PropsMediaStreamTrackEventInit on MediaStreamTrackEventInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Media Capture and Streams API indicates
+/// that the set of desired capabilities for the current
+/// [MediaStreamTrack] cannot currently be met. When this event is
+/// thrown on a MediaStreamTrack, it is muted until either the
+/// current constraints can be established or until satisfiable
+/// constraints are applied.
+///
+///
+///
+///    DOMException
+///
+///
+///
+///
+///
+///
+///
+///    OverconstrainedError
+///
+///
 @JS()
 @staticInterop
 class OverconstrainedError implements DOMException {
-  external OverconstrainedError(String constraint, [String? message = '']);
+  external factory OverconstrainedError(String constraint,
+      [String? message = '']);
 }
 
 extension PropsOverconstrainedError on OverconstrainedError {
   String get constraint => js_util.getProperty(this, 'constraint');
 }
 
+///  The interface provides access to connected media input devices
+/// like cameras and microphones, as well as screen sharing. In
+/// essence, it lets you obtain access to any hardware source of
+/// media data.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    MediaDevices
+///
+///
 @JS()
 @staticInterop
 class MediaDevices implements EventTarget {
-  external MediaDevices();
+  external factory MediaDevices();
 }
 
 extension PropsMediaDevices on MediaDevices {
@@ -591,13 +745,17 @@ extension PropsMediaDevices on MediaDevices {
   Future<Iterable<MediaDeviceInfo>> enumerateDevices() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'enumerateDevices', []));
 
-  Future<CropTarget> produceCropTarget(HTMLElement element) =>
+  Future<MediaStream> getViewportMedia(
+          [DisplayMediaStreamConstraints? constraints]) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'produceCropTarget', [element]));
+          js_util.callMethod(this, 'getViewportMedia', [constraints]));
 
   Future<MediaDeviceInfo> selectAudioOutput([AudioOutputOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'selectAudioOutput', [options]));
+
+  Object setCaptureHandleConfig([CaptureHandleConfig? config]) =>
+      js_util.callMethod(this, 'setCaptureHandleConfig', [config]);
 
   MediaTrackSupportedConstraints getSupportedConstraints() =>
       js_util.callMethod(this, 'getSupportedConstraints', []);
@@ -610,12 +768,26 @@ extension PropsMediaDevices on MediaDevices {
           [DisplayMediaStreamConstraints? constraints]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'getDisplayMedia', [constraints]));
+
+  Object setSupportedCaptureActions(Iterable<String> actions) =>
+      js_util.callMethod(this, 'setSupportedCaptureActions', [actions]);
+
+  EventHandlerNonNull? get oncaptureaction =>
+      js_util.getProperty(this, 'oncaptureaction');
+  set oncaptureaction(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncaptureaction', newValue);
+  }
 }
 
+///  The interface contains information that describes a single media
+/// input or output device.
+///  The list of devices obtained by calling
+/// [navigator.mediaDevices.enumerateDevices()] is an array of
+/// objects, one per media device.
 @JS()
 @staticInterop
 class MediaDeviceInfo {
-  external MediaDeviceInfo();
+  external factory MediaDeviceInfo();
 }
 
 extension PropsMediaDeviceInfo on MediaDeviceInfo {
@@ -629,10 +801,28 @@ extension PropsMediaDeviceInfo on MediaDeviceInfo {
 
 enum MediaDeviceKind { audioinput, audiooutput, videoinput }
 
+///  The interface of the Media Streams API gives access to the
+/// capabilities of the input device that it represents.
+///   objects are returned by [MediaDevices.enumerateDevices()] if
+/// the returned device is an audio or video input device.
+///
+///
+///
+///    MediaDeviceInfo
+///
+///
+///
+///
+///
+///
+///
+///    InputDeviceInfo
+///
+///
 @JS()
 @staticInterop
 class InputDeviceInfo implements MediaDeviceInfo {
-  external InputDeviceInfo();
+  external factory InputDeviceInfo();
 }
 
 extension PropsInputDeviceInfo on InputDeviceInfo {

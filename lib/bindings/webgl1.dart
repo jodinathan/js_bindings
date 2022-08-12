@@ -107,55 +107,182 @@ extension PropsWebGLContextAttributes on WebGLContextAttributes {
 @JS()
 @staticInterop
 class WebGLObject {
-  external WebGLObject();
+  external factory WebGLObject();
 }
 
+///  The WebGLBuffer interface is part of the WebGL API and
+/// represents an opaque buffer object storing data such as vertices
+/// or colors.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///
+///
+///    WebGLBuffer
+///
+///
 @JS()
 @staticInterop
 class WebGLBuffer implements WebGLObject {
-  external WebGLBuffer();
+  external factory WebGLBuffer();
 }
 
+///  The WebGLFramebuffer interface is part of the WebGL API and
+/// represents a collection of buffers that serve as a rendering
+/// destination.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///
+///
+///    WebGLFramebuffer
+///
+///
 @JS()
 @staticInterop
 class WebGLFramebuffer implements WebGLObject {
-  external WebGLFramebuffer();
+  external factory WebGLFramebuffer();
 }
 
+///  The is part of the WebGL API and is a combination of two
+/// compiled [WebGLShader]s consisting of a vertex shader and a
+/// fragment shader (both written in GLSL).
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///
+///
+///    WebGLProgram
+///
+///
+///  To create a , call the GL context's [createProgram()] function.
+/// After attaching the shader programs using [attachShader()], you
+/// link them into a usable program. This is shown in the code below.
+/// [const program = gl.createProgram();
+///
+/// // Attach pre-existing shaders
+/// gl.attachShader(program, vertexShader);
+/// gl.attachShader(program, fragmentShader);
+///
+/// gl.linkProgram(program);
+///
+/// if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+///  const info = gl.getProgramInfoLog(program);
+///  throw `Could not compile WebGL program. \n\n${info}`;
+/// }
+/// ]
+///  See [WebGLShader] for information on creating the [vertexShader]
+/// and [fragmentShader] in the above example.
 @JS()
 @staticInterop
 class WebGLProgram implements WebGLObject {
-  external WebGLProgram();
+  external factory WebGLProgram();
 }
 
+///  The WebGLRenderbuffer interface is part of the WebGL API and
+/// represents a buffer that can contain an image, or that can be a
+/// source or target of a rendering operation.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///
+///
+///    WebGLRenderbuffer
+///
+///
 @JS()
 @staticInterop
 class WebGLRenderbuffer implements WebGLObject {
-  external WebGLRenderbuffer();
+  external factory WebGLRenderbuffer();
 }
 
+///  The WebGLShader is part of the WebGL API and can either be a
+/// vertex or a fragment shader. A [WebGLProgram] requires both types
+/// of shaders.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///
+///
+///    WebGLShader
+///
+///
 @JS()
 @staticInterop
 class WebGLShader implements WebGLObject {
-  external WebGLShader();
+  external factory WebGLShader();
 }
 
+///  The WebGLTexture interface is part of the WebGL API and
+/// represents an opaque texture object providing storage and state
+/// for texturing operations.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///
+///
+///    WebGLTexture
+///
+///
 @JS()
 @staticInterop
 class WebGLTexture implements WebGLObject {
-  external WebGLTexture();
+  external factory WebGLTexture();
 }
 
+///  The WebGLUniformLocation interface is part of the WebGL API and
+/// represents the location of a uniform variable in a shader
+/// program.
 @JS()
 @staticInterop
 class WebGLUniformLocation {
-  external WebGLUniformLocation();
+  external factory WebGLUniformLocation();
 }
 
+///  The WebGLActiveInfo interface is part of the WebGL API and
+/// represents the information returned by calling the
+/// [WebGLRenderingContext.getActiveAttrib()] and
+/// [WebGLRenderingContext.getActiveUniform()] methods.
 @JS()
 @staticInterop
 class WebGLActiveInfo {
-  external WebGLActiveInfo();
+  external factory WebGLActiveInfo();
 }
 
 extension PropsWebGLActiveInfo on WebGLActiveInfo {
@@ -164,10 +291,13 @@ extension PropsWebGLActiveInfo on WebGLActiveInfo {
   String get name => js_util.getProperty(this, 'name');
 }
 
+///  The WebGLShaderPrecisionFormat interface is part of the WebGL
+/// API and represents the information returned by calling the
+/// [WebGLRenderingContext.getShaderPrecisionFormat()] method.
 @JS()
 @staticInterop
 class WebGLShaderPrecisionFormat {
-  external WebGLShaderPrecisionFormat();
+  external factory WebGLShaderPrecisionFormat();
 }
 
 extension PropsWebGLShaderPrecisionFormat on WebGLShaderPrecisionFormat {
@@ -1067,7 +1197,7 @@ class WebGLRenderingContextBase {
   @JS('BROWSER_DEFAULT_WEBGL')
   external static int get browserDefaultWebgl;
 
-  external WebGLRenderingContextBase();
+  external factory WebGLRenderingContextBase();
 }
 
 extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
@@ -1075,6 +1205,19 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   int get drawingBufferWidth => js_util.getProperty(this, 'drawingBufferWidth');
   int get drawingBufferHeight =>
       js_util.getProperty(this, 'drawingBufferHeight');
+  PredefinedColorSpace get drawingBufferColorSpace =>
+      PredefinedColorSpace.values
+          .byName(js_util.getProperty(this, 'drawingBufferColorSpace'));
+  set drawingBufferColorSpace(PredefinedColorSpace newValue) {
+    js_util.setProperty(this, 'drawingBufferColorSpace', newValue.name);
+  }
+
+  PredefinedColorSpace get unpackColorSpace => PredefinedColorSpace.values
+      .byName(js_util.getProperty(this, 'unpackColorSpace'));
+  set unpackColorSpace(PredefinedColorSpace newValue) {
+    js_util.setProperty(this, 'unpackColorSpace', newValue.name);
+  }
+
   WebGLContextAttributes? getContextAttributes() =>
       js_util.callMethod(this, 'getContextAttributes', []);
 
@@ -1467,7 +1610,7 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
 @JS()
 @staticInterop
 class WebGLRenderingContextOverloads {
-  external WebGLRenderingContextOverloads();
+  external factory WebGLRenderingContextOverloads();
 }
 
 extension PropsWebGLRenderingContextOverloads
@@ -1562,17 +1705,50 @@ extension PropsWebGLRenderingContextOverloads
           .callMethod(this, 'uniformMatrix4fv', [location, transpose, value]);
 }
 
+///  The interface provides an interface to the OpenGL ES 2.0
+/// graphics rendering context for the drawing surface of an HTML
+/// [<canvas>] element.
+///  To get an access to a WebGL context for 2D and/or 3D graphics
+/// rendering, call [getContext()] on a [<canvas>] element, supplying
+/// "webgl" as the argument:
+/// [const canvas = document.getElementById('myCanvas');
+/// const gl = canvas.getContext('webgl');
+/// ]
+///  Once you have the WebGL rendering context for a canvas, you can
+/// render within it. The WebGL tutorial has more information,
+/// examples, and resources on how to get started with WebGL.
+///  If you require a WebGL 2.0 context, see
+/// [WebGL2RenderingContext]; this supplies access to an
+/// implementation of OpenGL ES 3.0 graphics.
 @JS()
 @staticInterop
 class WebGLRenderingContext
     implements WebGLRenderingContextBase, WebGLRenderingContextOverloads {
-  external WebGLRenderingContext();
+  external factory WebGLRenderingContext();
 }
 
+///  The WebContextEvent interface is part of the WebGL API and is an
+/// interface for an event that is generated in response to a status
+/// change to the WebGL rendering context.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    WebGLContextEvent
+///
+///
 @JS()
 @staticInterop
 class WebGLContextEvent implements Event {
-  external WebGLContextEvent(String type, [WebGLContextEventInit? eventInit]);
+  external factory WebGLContextEvent(String type,
+      [WebGLContextEventInit? eventInit]);
 }
 
 extension PropsWebGLContextEvent on WebGLContextEvent {

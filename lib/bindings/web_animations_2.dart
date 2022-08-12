@@ -16,7 +16,8 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class GroupEffect {
-  external GroupEffect(Iterable<AnimationEffect> children, [dynamic timing]);
+  external factory GroupEffect(Iterable<AnimationEffect> children,
+      [dynamic timing]);
 }
 
 extension PropsGroupEffect on GroupEffect {
@@ -41,7 +42,7 @@ extension PropsGroupEffect on GroupEffect {
 @JS()
 @staticInterop
 class AnimationNodeList {
-  external AnimationNodeList();
+  external factory AnimationNodeList();
 }
 
 extension PropsAnimationNodeList on AnimationNodeList {
@@ -52,7 +53,8 @@ extension PropsAnimationNodeList on AnimationNodeList {
 @JS()
 @staticInterop
 class SequenceEffect implements GroupEffect {
-  external SequenceEffect(Iterable<AnimationEffect> children, [dynamic timing]);
+  external factory SequenceEffect(Iterable<AnimationEffect> children,
+      [dynamic timing]);
 }
 
 extension PropsSequenceEffect on SequenceEffect {
@@ -61,10 +63,28 @@ extension PropsSequenceEffect on SequenceEffect {
 
 enum IterationCompositeOperation { replace, accumulate }
 
+///  The AnimationPlaybackEvent interface of the Web Animations API
+/// represents animation events.
+///  As animations play, they report changes to their [playState]
+/// through animation events.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    AnimationPlaybackEvent
+///
+///
 @JS()
 @staticInterop
 class AnimationPlaybackEvent implements Event {
-  external AnimationPlaybackEvent(String type,
+  external factory AnimationPlaybackEvent(String type,
       [AnimationPlaybackEventInit? eventInitDict]);
 }
 
