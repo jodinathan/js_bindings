@@ -16,13 +16,19 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class ARIAMixin {
-  external ARIAMixin();
+  external factory ARIAMixin();
 }
 
 extension PropsARIAMixin on ARIAMixin {
   String? get role => js_util.getProperty(this, 'role');
   set role(String? newValue) {
     js_util.setProperty(this, 'role', newValue);
+  }
+
+  Element? get ariaActiveDescendantElement =>
+      js_util.getProperty(this, 'ariaActiveDescendantElement');
+  set ariaActiveDescendantElement(Element? newValue) {
+    js_util.setProperty(this, 'ariaActiveDescendantElement', newValue);
   }
 
   String? get ariaAtomic => js_util.getProperty(this, 'ariaAtomic');
@@ -65,9 +71,21 @@ extension PropsARIAMixin on ARIAMixin {
     js_util.setProperty(this, 'ariaColSpan', newValue);
   }
 
+  Iterable<Element> get ariaControlsElements =>
+      js_util.getProperty(this, 'ariaControlsElements');
+  set ariaControlsElements(Iterable<Element> newValue) {
+    js_util.setProperty(this, 'ariaControlsElements', newValue);
+  }
+
   String? get ariaCurrent => js_util.getProperty(this, 'ariaCurrent');
   set ariaCurrent(String? newValue) {
     js_util.setProperty(this, 'ariaCurrent', newValue);
+  }
+
+  Iterable<Element> get ariaDescribedByElements =>
+      js_util.getProperty(this, 'ariaDescribedByElements');
+  set ariaDescribedByElements(Iterable<Element> newValue) {
+    js_util.setProperty(this, 'ariaDescribedByElements', newValue);
   }
 
   String? get ariaDescription => js_util.getProperty(this, 'ariaDescription');
@@ -75,14 +93,32 @@ extension PropsARIAMixin on ARIAMixin {
     js_util.setProperty(this, 'ariaDescription', newValue);
   }
 
+  Iterable<Element> get ariaDetailsElements =>
+      js_util.getProperty(this, 'ariaDetailsElements');
+  set ariaDetailsElements(Iterable<Element> newValue) {
+    js_util.setProperty(this, 'ariaDetailsElements', newValue);
+  }
+
   String? get ariaDisabled => js_util.getProperty(this, 'ariaDisabled');
   set ariaDisabled(String? newValue) {
     js_util.setProperty(this, 'ariaDisabled', newValue);
   }
 
+  Element? get ariaErrorMessageElement =>
+      js_util.getProperty(this, 'ariaErrorMessageElement');
+  set ariaErrorMessageElement(Element? newValue) {
+    js_util.setProperty(this, 'ariaErrorMessageElement', newValue);
+  }
+
   String? get ariaExpanded => js_util.getProperty(this, 'ariaExpanded');
   set ariaExpanded(String? newValue) {
     js_util.setProperty(this, 'ariaExpanded', newValue);
+  }
+
+  Iterable<Element> get ariaFlowToElements =>
+      js_util.getProperty(this, 'ariaFlowToElements');
+  set ariaFlowToElements(Iterable<Element> newValue) {
+    js_util.setProperty(this, 'ariaFlowToElements', newValue);
   }
 
   String? get ariaHasPopup => js_util.getProperty(this, 'ariaHasPopup');
@@ -108,6 +144,12 @@ extension PropsARIAMixin on ARIAMixin {
   String? get ariaLabel => js_util.getProperty(this, 'ariaLabel');
   set ariaLabel(String? newValue) {
     js_util.setProperty(this, 'ariaLabel', newValue);
+  }
+
+  Iterable<Element> get ariaLabelledByElements =>
+      js_util.getProperty(this, 'ariaLabelledByElements');
+  set ariaLabelledByElements(Iterable<Element> newValue) {
+    js_util.setProperty(this, 'ariaLabelledByElements', newValue);
   }
 
   String? get ariaLevel => js_util.getProperty(this, 'ariaLevel');
@@ -139,6 +181,12 @@ extension PropsARIAMixin on ARIAMixin {
   String? get ariaOrientation => js_util.getProperty(this, 'ariaOrientation');
   set ariaOrientation(String? newValue) {
     js_util.setProperty(this, 'ariaOrientation', newValue);
+  }
+
+  Iterable<Element> get ariaOwnsElements =>
+      js_util.getProperty(this, 'ariaOwnsElements');
+  set ariaOwnsElements(Iterable<Element> newValue) {
+    js_util.setProperty(this, 'ariaOwnsElements', newValue);
   }
 
   String? get ariaPlaceholder => js_util.getProperty(this, 'ariaPlaceholder');

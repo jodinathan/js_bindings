@@ -13,10 +13,16 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface represents an abnormal event (called an exception)
+/// that occurs as a result of calling a method or accessing a
+/// property of a web API. This is how error conditions are described
+/// in web APIs.
+///  Each exception has a name, which is a short "PascalCase"-style
+/// string identifying the error or abnormal condition.
 @JS()
 @staticInterop
 class DOMException {
-  external DOMException([String? message = '', String? name = 'Error']);
+  external factory DOMException([String? message = '', String? name = 'Error']);
   @JS('INDEX_SIZE_ERR')
   external static int get indexSizeErr;
 

@@ -10,19 +10,23 @@ library streams;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Streams API represents a readable stream of
+/// byte data. The Fetch API offers a concrete instance of a through
+/// the [body] property of a [Response] object.
 @JS()
 @staticInterop
 class ReadableStream {
-  external ReadableStream(
+  external factory ReadableStream(
       [dynamic underlyingSource, QueuingStrategy? strategy]);
 }
 
 extension PropsReadableStream on ReadableStream {
   bool get locked => js_util.getProperty(this, 'locked');
-  Future<Object> cancel([dynamic reason]) =>
+  Future<void> cancel([dynamic reason]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'cancel', [reason]));
 
   dynamic getReader([ReadableStreamGetReaderOptions? options]) =>
@@ -32,7 +36,7 @@ extension PropsReadableStream on ReadableStream {
           [StreamPipeOptions? options]) =>
       js_util.callMethod(this, 'pipeThrough', [transform, options]);
 
-  Future<Object> pipeTo(WritableStream destination,
+  Future<void> pipeTo(WritableStream destination,
           [StreamPipeOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'pipeTo', [destination, options]));
@@ -189,39 +193,41 @@ enum ReadableStreamType { bytes }
 @JS()
 @staticInterop
 class ReadableStreamGenericReader {
-  external ReadableStreamGenericReader();
+  external factory ReadableStreamGenericReader();
 }
 
 extension PropsReadableStreamGenericReader on ReadableStreamGenericReader {
-  Future<Object> get closed =>
+  Future<void> get closed =>
       js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
-  Future<Object> cancel([dynamic reason]) =>
+  Future<void> cancel([dynamic reason]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'cancel', [reason]));
 }
 
+///  The interface of the Streams API represents a default reader
+/// that can be used to read stream data supplied from a network
+/// (e.g. a fetch request).
 @JS()
 @staticInterop
 class ReadableStreamDefaultReader implements ReadableStreamGenericReader {
-  external ReadableStreamDefaultReader(ReadableStream stream);
+  external factory ReadableStreamDefaultReader(ReadableStream stream);
 }
 
 extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
-  Future<ReadableStreamDefaultReadResult> read() =>
+  Future<ReadableStreamReadResult> read() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'read', []));
 
-  Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
+  void releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 }
 
 @anonymous
 @JS()
 @staticInterop
-class ReadableStreamDefaultReadResult {
-  external factory ReadableStreamDefaultReadResult(
+class ReadableStreamReadResult {
+  external factory ReadableStreamReadResult(
       {dynamic value, required bool done});
 }
 
-extension PropsReadableStreamDefaultReadResult
-    on ReadableStreamDefaultReadResult {
+extension PropsReadableStreamReadResult on ReadableStreamReadResult {
   dynamic get value => js_util.getProperty(this, 'value');
   set value(dynamic newValue) {
     js_util.setProperty(this, 'value', newValue);
@@ -233,102 +239,117 @@ extension PropsReadableStreamDefaultReadResult
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API represents a BYOB ("bring your
+/// own buffer") reader that can be used to read stream data supplied
+/// by the developer (e.g. a custom [ReadableStream()] constructor).
+@experimental
 @JS()
 @staticInterop
 class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
-  external ReadableStreamBYOBReader(ReadableStream stream);
+  external factory ReadableStreamBYOBReader(ReadableStream stream);
 }
 
 extension PropsReadableStreamBYOBReader on ReadableStreamBYOBReader {
-  Future<ReadableStreamBYOBReadResult> read(dynamic view) =>
+  Future<ReadableStreamReadResult> read(dynamic view) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'read', [view]));
 
-  Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
+  void releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 }
 
-@anonymous
-@JS()
-@staticInterop
-class ReadableStreamBYOBReadResult {
-  external factory ReadableStreamBYOBReadResult(
-      {dynamic value, required bool done});
-}
-
-extension PropsReadableStreamBYOBReadResult on ReadableStreamBYOBReadResult {
-  dynamic get value => js_util.getProperty(this, 'value');
-  set value(dynamic newValue) {
-    js_util.setProperty(this, 'value', newValue);
-  }
-
-  bool get done => js_util.getProperty(this, 'done');
-  set done(bool newValue) {
-    js_util.setProperty(this, 'done', newValue);
-  }
-}
-
+///  The interface of the Streams API represents a controller
+/// allowing control of a [ReadableStream]'s state and internal
+/// queue. Default controllers are for streams that are not byte
+/// streams.
 @JS()
 @staticInterop
 class ReadableStreamDefaultController {
-  external ReadableStreamDefaultController();
+  external factory ReadableStreamDefaultController();
 }
 
 extension PropsReadableStreamDefaultController
     on ReadableStreamDefaultController {
   /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
-  Object enqueue([dynamic chunk]) =>
-      js_util.callMethod(this, 'enqueue', [chunk]);
+  void enqueue([dynamic chunk]) => js_util.callMethod(this, 'enqueue', [chunk]);
 
-  Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
+  void error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API represents a controller
+/// allowing control of a [ReadableStream]'s state and internal
+/// queue. Byte stream controllers are for byte streams.
+@experimental
 @JS()
 @staticInterop
 class ReadableByteStreamController {
-  external ReadableByteStreamController();
+  external factory ReadableByteStreamController();
 }
 
 extension PropsReadableByteStreamController on ReadableByteStreamController {
   ReadableStreamBYOBRequest? get byobRequest =>
       js_util.getProperty(this, 'byobRequest');
-  /* double | NaN */ dynamic get desiredSize =>
+/* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
-  Object enqueue(dynamic chunk) => js_util.callMethod(this, 'enqueue', [chunk]);
+  void enqueue(dynamic chunk) => js_util.callMethod(this, 'enqueue', [chunk]);
 
-  Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
+  void error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API represents a pull request into
+/// a [ReadableByteStreamController] view.
+///  A view, as mentioned below, refers to a typed array representing
+/// the destination region to which the associated
+/// [ReadableByteStreamController] controller can write generated
+/// data.
+@experimental
 @JS()
 @staticInterop
 class ReadableStreamBYOBRequest {
-  external ReadableStreamBYOBRequest();
+  external factory ReadableStreamBYOBRequest();
 }
 
 extension PropsReadableStreamBYOBRequest on ReadableStreamBYOBRequest {
   dynamic get view => js_util.getProperty(this, 'view');
-  Object respond(int bytesWritten) =>
+  void respond(int bytesWritten) =>
       js_util.callMethod(this, 'respond', [bytesWritten]);
 
-  Object respondWithNewView(dynamic view) =>
+  void respondWithNewView(dynamic view) =>
       js_util.callMethod(this, 'respondWithNewView', [view]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API provides a standard abstraction
+/// for writing streaming data to a destination, known as a sink.
+/// This object comes with built-in backpressure and queuing.
+@experimental
 @JS()
 @staticInterop
 class WritableStream {
-  external WritableStream([dynamic underlyingSink, QueuingStrategy? strategy]);
+  external factory WritableStream(
+      [dynamic underlyingSink, QueuingStrategy? strategy]);
 }
 
 extension PropsWritableStream on WritableStream {
   bool get locked => js_util.getProperty(this, 'locked');
-  Future<Object> abort([dynamic reason]) =>
+  Future<void> abort([dynamic reason]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'abort', [reason]));
 
-  Future<Object> close() =>
+  Future<void> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
   WritableStreamDefaultWriter getWriter() =>
@@ -374,47 +395,65 @@ extension PropsUnderlyingSink on UnderlyingSink {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API is the object returned by
+/// [WritableStream.getWriter()] and once created locks the writer to
+/// the [WritableStream] ensuring that no other streams can write to
+/// the underlying sink.
+@experimental
 @JS()
 @staticInterop
 class WritableStreamDefaultWriter {
-  external WritableStreamDefaultWriter(WritableStream stream);
+  external factory WritableStreamDefaultWriter(WritableStream stream);
 }
 
 extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
-  Future<Object> get closed =>
+  Future<void> get closed =>
       js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
-  /* double | NaN */ dynamic get desiredSize =>
+/* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
-  Future<Object> get ready =>
+  Future<void> get ready =>
       js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
-  Future<Object> abort([dynamic reason]) =>
+  Future<void> abort([dynamic reason]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'abort', [reason]));
 
-  Future<Object> close() =>
+  Future<void> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
 
-  Object releaseLock() => js_util.callMethod(this, 'releaseLock', []);
+  void releaseLock() => js_util.callMethod(this, 'releaseLock', []);
 
-  Future<Object> write([dynamic chunk]) =>
+  Future<void> write([dynamic chunk]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'write', [chunk]));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API represents a controller
+/// allowing control of a [WritableStream]'s state. When constructing
+/// a [WritableStream], the underlying sink is given a corresponding
+/// instance to manipulate.
+@experimental
 @JS()
 @staticInterop
 class WritableStreamDefaultController {
-  external WritableStreamDefaultController();
+  external factory WritableStreamDefaultController();
 }
 
 extension PropsWritableStreamDefaultController
     on WritableStreamDefaultController {
   AbortSignal get signal => js_util.getProperty(this, 'signal');
-  Object error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
+  void error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
+///  The interface of the Streams API represents a set of
+/// transformable data.
 @JS()
 @staticInterop
 class TransformStream {
-  external TransformStream(
+  external factory TransformStream(
       [dynamic transformer,
       QueuingStrategy? writableStrategy,
       QueuingStrategy? readableStrategy]);
@@ -465,22 +504,26 @@ extension PropsTransformer on Transformer {
   }
 }
 
+///  The interface of the Streams API provides methods to manipulate
+/// the associated [ReadableStream] and [WritableStream].
+///  When constructing a [TransformStream], the is created. It
+/// therefore has no constructor. The way to get an instance of is
+/// via the callback methods of [TransformStream.TransformStream()].
 @JS()
 @staticInterop
 class TransformStreamDefaultController {
-  external TransformStreamDefaultController();
+  external factory TransformStreamDefaultController();
 }
 
 extension PropsTransformStreamDefaultController
     on TransformStreamDefaultController {
   /* double | NaN */ dynamic get desiredSize =>
       js_util.getProperty(this, 'desiredSize');
-  Object enqueue([dynamic chunk]) =>
-      js_util.callMethod(this, 'enqueue', [chunk]);
+  void enqueue([dynamic chunk]) => js_util.callMethod(this, 'enqueue', [chunk]);
 
-  Object error([dynamic reason]) => js_util.callMethod(this, 'error', [reason]);
+  void error([dynamic reason]) => js_util.callMethod(this, 'error', [reason]);
 
-  Object terminate() => js_util.callMethod(this, 'terminate', []);
+  void terminate() => js_util.callMethod(this, 'terminate', []);
 }
 
 @anonymous
@@ -521,10 +564,16 @@ extension PropsQueuingStrategyInit on QueuingStrategyInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API provides a built-in byte length
+/// queuing strategy that can be used when constructing streams.
+@experimental
 @JS()
 @staticInterop
 class ByteLengthQueuingStrategy {
-  external ByteLengthQueuingStrategy(QueuingStrategyInit init);
+  external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
 }
 
 extension PropsByteLengthQueuingStrategy on ByteLengthQueuingStrategy {
@@ -533,10 +582,17 @@ extension PropsByteLengthQueuingStrategy on ByteLengthQueuingStrategy {
   Function get size => js_util.getProperty(this, 'size');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API provides a built-in chunk
+/// counting queuing strategy that can be used when constructing
+/// streams.
+@experimental
 @JS()
 @staticInterop
 class CountQueuingStrategy {
-  external CountQueuingStrategy(QueuingStrategyInit init);
+  external factory CountQueuingStrategy(QueuingStrategyInit init);
 }
 
 extension PropsCountQueuingStrategy on CountQueuingStrategy {
@@ -548,7 +604,7 @@ extension PropsCountQueuingStrategy on CountQueuingStrategy {
 @JS()
 @staticInterop
 class GenericTransformStream {
-  external GenericTransformStream();
+  external factory GenericTransformStream();
 }
 
 extension PropsGenericTransformStream on GenericTransformStream {

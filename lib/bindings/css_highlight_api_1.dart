@@ -18,7 +18,7 @@ enum HighlightType { highlight, spellingError, grammarError }
 @JS()
 @staticInterop
 class Highlight {
-  external Highlight(
+  external factory Highlight(
       [AbstractRange? initialRanges1,
       AbstractRange? initialRanges2,
       AbstractRange? initialRanges3]);
@@ -40,5 +40,5 @@ extension PropsHighlight on Highlight {
 @JS()
 @staticInterop
 class HighlightRegistry extends JsMap<Highlight, String> {
-  external HighlightRegistry();
+  external factory HighlightRegistry();
 }

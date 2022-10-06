@@ -13,10 +13,42 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface provides access to the properties of [<clipPath>]
+/// elements, as well as methods to manipulate them.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///    SVGClipPathElement
+///
+///
 @JS()
 @staticInterop
 class SVGClipPathElement implements SVGElement {
-  external SVGClipPathElement();
+  external factory SVGClipPathElement();
 }
 
 extension PropsSVGClipPathElement on SVGClipPathElement {
@@ -26,10 +58,42 @@ extension PropsSVGClipPathElement on SVGClipPathElement {
       js_util.getProperty(this, 'transform');
 }
 
+///  The interface provides access to the properties of [<mask>]
+/// elements, as well as methods to manipulate them.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    SVGElement
+///
+///
+///
+///
+///
+///    SVGMaskElement
+///
+///
 @JS()
 @staticInterop
 class SVGMaskElement implements SVGElement {
-  external SVGMaskElement();
+  external factory SVGMaskElement();
 }
 
 extension PropsSVGMaskElement on SVGMaskElement {

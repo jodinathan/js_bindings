@@ -16,13 +16,13 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CloseWatcher implements EventTarget {
-  external CloseWatcher();
+  external factory CloseWatcher([CloseWatcherOptions? options]);
 }
 
 extension PropsCloseWatcher on CloseWatcher {
-  Object destroy() => js_util.callMethod(this, 'destroy', []);
+  void destroy() => js_util.callMethod(this, 'destroy', []);
 
-  Object signalClose() => js_util.callMethod(this, 'signalClose', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
   EventHandlerNonNull? get oncancel => js_util.getProperty(this, 'oncancel');
   set oncancel(EventHandlerNonNull? newValue) {
@@ -32,5 +32,19 @@ extension PropsCloseWatcher on CloseWatcher {
   EventHandlerNonNull? get onclose => js_util.getProperty(this, 'onclose');
   set onclose(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onclose', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class CloseWatcherOptions {
+  external factory CloseWatcherOptions({required AbortSignal signal});
+}
+
+extension PropsCloseWatcherOptions on CloseWatcherOptions {
+  AbortSignal get signal => js_util.getProperty(this, 'signal');
+  set signal(AbortSignal newValue) {
+    js_util.setProperty(this, 'signal', newValue);
   }
 }

@@ -43,23 +43,23 @@ extension PropsEditContextInit on EditContextInit {
 @JS()
 @staticInterop
 class EditContext implements EventTarget {
-  external EditContext([EditContextInit? options]);
+  external factory EditContext([EditContextInit? options]);
 }
 
 extension PropsEditContext on EditContext {
-  Object updateText(int rangeStart, int rangeEnd, String text) =>
+  void updateText(int rangeStart, int rangeEnd, String text) =>
       js_util.callMethod(this, 'updateText', [rangeStart, rangeEnd, text]);
 
-  Object updateSelection(int start, int end) =>
+  void updateSelection(int start, int end) =>
       js_util.callMethod(this, 'updateSelection', [start, end]);
 
-  Object updateControlBound(DOMRect controlBound) =>
+  void updateControlBound(DOMRect controlBound) =>
       js_util.callMethod(this, 'updateControlBound', [controlBound]);
 
-  Object updateSelectionBound(DOMRect selectionBound) =>
+  void updateSelectionBound(DOMRect selectionBound) =>
       js_util.callMethod(this, 'updateSelectionBound', [selectionBound]);
 
-  Object updateCharacterBounds(
+  void updateCharacterBounds(
           int rangeStart, Iterable<DOMRect> characterBounds) =>
       js_util.callMethod(
           this, 'updateCharacterBounds', [rangeStart, characterBounds]);
@@ -167,7 +167,7 @@ extension PropsTextUpdateEventInit on TextUpdateEventInit {
 @JS()
 @staticInterop
 class TextUpdateEvent implements Event {
-  external TextUpdateEvent([TextUpdateEventInit? options]);
+  external factory TextUpdateEvent([TextUpdateEventInit? options]);
 }
 
 extension PropsTextUpdateEvent on TextUpdateEvent {
@@ -235,7 +235,7 @@ extension PropsTextFormatInit on TextFormatInit {
 @JS()
 @staticInterop
 class TextFormat {
-  external TextFormat([TextFormatInit? options]);
+  external factory TextFormat([TextFormatInit? options]);
 }
 
 extension PropsTextFormat on TextFormat {
@@ -295,7 +295,7 @@ extension PropsTextFormatUpdateEventInit on TextFormatUpdateEventInit {
 @JS()
 @staticInterop
 class TextFormatUpdateEvent implements Event {
-  external TextFormatUpdateEvent([TextFormatUpdateEventInit? options]);
+  external factory TextFormatUpdateEvent([TextFormatUpdateEventInit? options]);
 }
 
 extension PropsTextFormatUpdateEvent on TextFormatUpdateEvent {
@@ -327,7 +327,7 @@ extension PropsCharacterBoundsUpdateEventInit
 @JS()
 @staticInterop
 class CharacterBoundsUpdateEvent implements Event {
-  external CharacterBoundsUpdateEvent(
+  external factory CharacterBoundsUpdateEvent(
       [CharacterBoundsUpdateEventInit? options]);
 }
 

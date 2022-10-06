@@ -13,10 +13,33 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Animations API represents an
+/// [Animation] object used for a CSS Transition.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Animation
+///
+///
+///
+///
+///
+///    CSSTransition
+///
+///
 @JS()
 @staticInterop
 class CSSTransition implements Animation {
-  external CSSTransition();
+  external factory CSSTransition();
 }
 
 extension PropsCSSTransition on CSSTransition {

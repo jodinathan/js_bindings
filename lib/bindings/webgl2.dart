@@ -10,37 +10,173 @@ library webgl2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface is part of the WebGL 2 API and provides ways to
+/// asynchronously query for information. By default, occlusion
+/// queries and primitive queries are available.
+///  Another kind of queries are disjoint timer queries, which allow
+/// you to measure performance and profiling of your GPU. Disjoint
+/// timer queries are available with the [EXT_disjoint_timer_query]
+/// extension only.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLQuery
+///
+///
+///  When working with objects, the following methods of the
+/// [WebGL2RenderingContext] are useful:
+///
+///  [WebGL2RenderingContext.createQuery()]
+///  [WebGL2RenderingContext.deleteQuery()]
+///  [WebGL2RenderingContext.isQuery()]
+///  [WebGL2RenderingContext.beginQuery()]
+///  [WebGL2RenderingContext.endQuery()]
+///  [WebGL2RenderingContext.getQuery()]
+///  [WebGL2RenderingContext.getQueryParameter()]
+///
+@experimental
 @JS()
 @staticInterop
 class WebGLQuery implements WebGLObject {
-  external WebGLQuery();
+  external factory WebGLQuery();
 }
 
+///  The interface is part of the WebGL 2 API and stores sampling
+/// parameters for [WebGLTexture] access inside of a shader.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLSampler
+///
+///
+///  When working with objects, the following methods of the
+/// [WebGL2RenderingContext] are useful:
+///
+///  [WebGL2RenderingContext.createSampler()]
+///  [WebGL2RenderingContext.deleteSampler()]
+///  [WebGL2RenderingContext.isSampler()]
+///  [WebGL2RenderingContext.bindSampler()]
+///  [WebGL2RenderingContext.getSamplerParameter()]
+///
+@experimental
 @JS()
 @staticInterop
 class WebGLSampler implements WebGLObject {
-  external WebGLSampler();
+  external factory WebGLSampler();
 }
 
+///  The interface is part of the WebGL 2 API and is used to
+/// synchronize activities between the GPU and the application.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLSync
+///
+///
+///  When working with objects, the following methods of the
+/// [WebGL2RenderingContext] are useful:
+///
+///  [WebGL2RenderingContext.fenceSync()]
+///  [WebGL2RenderingContext.deleteSync()]
+///  [WebGL2RenderingContext.isSync()]
+///  [WebGL2RenderingContext.clientWaitSync()]
+///  [WebGL2RenderingContext.waitSync()]
+///  [WebGL2RenderingContext.getSyncParameter()]
+///
+@experimental
 @JS()
 @staticInterop
 class WebGLSync implements WebGLObject {
-  external WebGLSync();
+  external factory WebGLSync();
 }
 
+///  The interface is part of the WebGL 2 API and enables transform
+/// feedback, which is the process of capturing primitives generated
+/// by vertex processing. It allows to preserve the post-transform
+/// rendering state of an object and resubmit this data multiple
+/// times.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLTransformFeedback
+///
+///
+///  When working with objects, the following methods of the
+/// [WebGL2RenderingContext] are useful:
+///
+///  [WebGL2RenderingContext.createTransformFeedback()]
+///  [WebGL2RenderingContext.deleteTransformFeedback()]
+///  [WebGL2RenderingContext.isTransformFeedback()]
+///  [WebGL2RenderingContext.bindTransformFeedback()]
+///  [WebGL2RenderingContext.beginTransformFeedback()]
+///  [WebGL2RenderingContext.endTransformFeedback()]
+///  [WebGL2RenderingContext.pauseTransformFeedback()]
+///  [WebGL2RenderingContext.resumeTransformFeedback()]
+///  [WebGL2RenderingContext.transformFeedbackVaryings()]
+///  [WebGL2RenderingContext.getTransformFeedbackVarying()]
+///
 @JS()
 @staticInterop
 class WebGLTransformFeedback implements WebGLObject {
-  external WebGLTransformFeedback();
+  external factory WebGLTransformFeedback();
 }
 
+///  The interface is part of the WebGL 2 API, represents vertex
+/// array objects (VAOs) pointing to vertex array data, and provides
+/// names for different sets of vertex data.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLVertexArrayObject
+///
+///
+/// When working with objects, the following methods are useful:
+///
+///  [WebGL2RenderingContext.createVertexArray()]
+///  [WebGL2RenderingContext.deleteVertexArray()]
+///  [WebGL2RenderingContext.isVertexArray()]
+///  [WebGL2RenderingContext.bindVertexArray()]
+///   Note: The [OES_vertex_array_object] extension allows you to use
+/// vertex array objects in a WebGL 1 context.
+///
 @JS()
 @staticInterop
 class WebGLVertexArrayObject implements WebGLObject {
-  external WebGLVertexArrayObject();
+  external factory WebGLVertexArrayObject();
 }
 
 @JS()
@@ -835,21 +971,21 @@ class WebGL2RenderingContextBase {
   @JS('MAX_CLIENT_WAIT_TIMEOUT_WEBGL')
   external static int get maxClientWaitTimeoutWebgl;
 
-  external WebGL2RenderingContextBase();
+  external factory WebGL2RenderingContextBase();
 }
 
 extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
-  Object copyBufferSubData(int readTarget, int writeTarget, int readOffset,
+  void copyBufferSubData(int readTarget, int writeTarget, int readOffset,
           int writeOffset, int size) =>
       js_util.callMethod(this, 'copyBufferSubData',
           [readTarget, writeTarget, readOffset, writeOffset, size]);
 
-  Object getBufferSubData(int target, int srcByteOffset, dynamic dstBuffer,
+  void getBufferSubData(int target, int srcByteOffset, dynamic dstBuffer,
           [int? dstOffset = 0, int? length = 0]) =>
       js_util.callMethod(this, 'getBufferSubData',
           [target, srcByteOffset, dstBuffer, dstOffset, length]);
 
-  Object blitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0,
+  void blitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0,
           int dstY0, int dstX1, int dstY1, int mask, int filter) =>
       js_util.callMethod(this, 'blitFramebuffer', [
         srcX0,
@@ -864,42 +1000,42 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
         filter
       ]);
 
-  Object framebufferTextureLayer(int target, int attachment,
+  void framebufferTextureLayer(int target, int attachment,
           WebGLTexture? texture, int level, int layer) =>
       js_util.callMethod(this, 'framebufferTextureLayer',
           [target, attachment, texture, level, layer]);
 
-  Object invalidateFramebuffer(int target, Iterable<int> attachments) =>
+  void invalidateFramebuffer(int target, Iterable<int> attachments) =>
       js_util.callMethod(this, 'invalidateFramebuffer', [target, attachments]);
 
-  Object invalidateSubFramebuffer(int target, Iterable<int> attachments, int x,
+  void invalidateSubFramebuffer(int target, Iterable<int> attachments, int x,
           int y, int width, int height) =>
       js_util.callMethod(this, 'invalidateSubFramebuffer',
           [target, attachments, x, y, width, height]);
 
-  Object readBuffer(int src) => js_util.callMethod(this, 'readBuffer', [src]);
+  void readBuffer(int src) => js_util.callMethod(this, 'readBuffer', [src]);
 
   dynamic getInternalformatParameter(
           int target, int internalformat, int pname) =>
       js_util.callMethod(
           this, 'getInternalformatParameter', [target, internalformat, pname]);
 
-  Object renderbufferStorageMultisample(
+  void renderbufferStorageMultisample(
           int target, int samples, int internalformat, int width, int height) =>
       js_util.callMethod(this, 'renderbufferStorageMultisample',
           [target, samples, internalformat, width, height]);
 
-  Object texStorage2D(
+  void texStorage2D(
           int target, int levels, int internalformat, int width, int height) =>
       js_util.callMethod(this, 'texStorage2D',
           [target, levels, internalformat, width, height]);
 
-  Object texStorage3D(int target, int levels, int internalformat, int width,
+  void texStorage3D(int target, int levels, int internalformat, int width,
           int height, int depth) =>
       js_util.callMethod(this, 'texStorage3D',
           [target, levels, internalformat, width, height, depth]);
 
-  Object texImage3D(int target, int level, int internalformat, int width,
+  void texImage3D(int target, int level, int internalformat, int width,
           int height, int depth, int border, int format, int type,
           [dynamic srcData, int? srcOffset]) =>
       js_util.callMethod(this, 'texImage3D', [
@@ -916,7 +1052,7 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
         srcOffset
       ]);
 
-  Object texSubImage3D(int target, int level, int xoffset, int yoffset,
+  void texSubImage3D(int target, int level, int xoffset, int yoffset,
           int zoffset, int width, int height, int depth, int format, int type,
           [dynamic srcData, int? srcOffset = 0]) =>
       js_util.callMethod(this, 'texSubImage3D', [
@@ -934,12 +1070,12 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
         srcOffset
       ]);
 
-  Object copyTexSubImage3D(int target, int level, int xoffset, int yoffset,
+  void copyTexSubImage3D(int target, int level, int xoffset, int yoffset,
           int zoffset, int x, int y, int width, int height) =>
       js_util.callMethod(this, 'copyTexSubImage3D',
           [target, level, xoffset, yoffset, zoffset, x, y, width, height]);
 
-  Object compressedTexImage3D(int target, int level, int internalformat,
+  void compressedTexImage3D(int target, int level, int internalformat,
           int width, int height, int depth, int border, dynamic srcData,
           [int? srcOffset = 0, int? srcLengthOverride = 0]) =>
       js_util.callMethod(this, 'compressedTexImage3D', [
@@ -955,7 +1091,7 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
         srcLengthOverride
       ]);
 
-  Object compressedTexSubImage3D(
+  void compressedTexSubImage3D(
           int target,
           int level,
           int xoffset,
@@ -986,145 +1122,144 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
   int getFragDataLocation(WebGLProgram program, String name) =>
       js_util.callMethod(this, 'getFragDataLocation', [program, name]);
 
-  Object uniform1ui(WebGLUniformLocation? location, int v0) =>
+  void uniform1ui(WebGLUniformLocation? location, int v0) =>
       js_util.callMethod(this, 'uniform1ui', [location, v0]);
 
-  Object uniform2ui(WebGLUniformLocation? location, int v0, int v1) =>
+  void uniform2ui(WebGLUniformLocation? location, int v0, int v1) =>
       js_util.callMethod(this, 'uniform2ui', [location, v0, v1]);
 
-  Object uniform3ui(WebGLUniformLocation? location, int v0, int v1, int v2) =>
+  void uniform3ui(WebGLUniformLocation? location, int v0, int v1, int v2) =>
       js_util.callMethod(this, 'uniform3ui', [location, v0, v1, v2]);
 
-  Object uniform4ui(
+  void uniform4ui(
           WebGLUniformLocation? location, int v0, int v1, int v2, int v3) =>
       js_util.callMethod(this, 'uniform4ui', [location, v0, v1, v2, v3]);
 
-  Object uniform1uiv(WebGLUniformLocation? location, dynamic data,
+  void uniform1uiv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform1uiv', [location, data, srcOffset, srcLength]);
 
-  Object uniform2uiv(WebGLUniformLocation? location, dynamic data,
+  void uniform2uiv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform2uiv', [location, data, srcOffset, srcLength]);
 
-  Object uniform3uiv(WebGLUniformLocation? location, dynamic data,
+  void uniform3uiv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform3uiv', [location, data, srcOffset, srcLength]);
 
-  Object uniform4uiv(WebGLUniformLocation? location, dynamic data,
+  void uniform4uiv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform4uiv', [location, data, srcOffset, srcLength]);
 
-  Object uniformMatrix3x2fv(
+  void uniformMatrix3x2fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix3x2fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object uniformMatrix4x2fv(
+  void uniformMatrix4x2fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix4x2fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object uniformMatrix2x3fv(
+  void uniformMatrix2x3fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix2x3fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object uniformMatrix4x3fv(
+  void uniformMatrix4x3fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix4x3fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object uniformMatrix2x4fv(
+  void uniformMatrix2x4fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix2x4fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object uniformMatrix3x4fv(
+  void uniformMatrix3x4fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix3x4fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object vertexAttribI4i(int index, int x, int y, int z, int w) =>
+  void vertexAttribI4i(int index, int x, int y, int z, int w) =>
       js_util.callMethod(this, 'vertexAttribI4i', [index, x, y, z, w]);
 
-  Object vertexAttribI4iv(int index, dynamic values) =>
+  void vertexAttribI4iv(int index, dynamic values) =>
       js_util.callMethod(this, 'vertexAttribI4iv', [index, values]);
 
-  Object vertexAttribI4ui(int index, int x, int y, int z, int w) =>
+  void vertexAttribI4ui(int index, int x, int y, int z, int w) =>
       js_util.callMethod(this, 'vertexAttribI4ui', [index, x, y, z, w]);
 
-  Object vertexAttribI4uiv(int index, dynamic values) =>
+  void vertexAttribI4uiv(int index, dynamic values) =>
       js_util.callMethod(this, 'vertexAttribI4uiv', [index, values]);
 
-  Object vertexAttribIPointer(
+  void vertexAttribIPointer(
           int index, int size, int type, int stride, int offset) =>
       js_util.callMethod(
           this, 'vertexAttribIPointer', [index, size, type, stride, offset]);
 
-  Object vertexAttribDivisor(int index, int divisor) =>
+  void vertexAttribDivisor(int index, int divisor) =>
       js_util.callMethod(this, 'vertexAttribDivisor', [index, divisor]);
 
-  Object drawArraysInstanced(
-          int mode, int first, int count, int instanceCount) =>
+  void drawArraysInstanced(int mode, int first, int count, int instanceCount) =>
       js_util.callMethod(
           this, 'drawArraysInstanced', [mode, first, count, instanceCount]);
 
-  Object drawElementsInstanced(
+  void drawElementsInstanced(
           int mode, int count, int type, int offset, int instanceCount) =>
       js_util.callMethod(this, 'drawElementsInstanced',
           [mode, count, type, offset, instanceCount]);
 
-  Object drawRangeElements(
+  void drawRangeElements(
           int mode, int start, int end, int count, int type, int offset) =>
       js_util.callMethod(
           this, 'drawRangeElements', [mode, start, end, count, type, offset]);
 
-  Object drawBuffers(Iterable<int> buffers) =>
+  void drawBuffers(Iterable<int> buffers) =>
       js_util.callMethod(this, 'drawBuffers', [buffers]);
 
-  Object clearBufferfv(int buffer, int drawbuffer, dynamic values,
+  void clearBufferfv(int buffer, int drawbuffer, dynamic values,
           [int? srcOffset = 0]) =>
       js_util.callMethod(
           this, 'clearBufferfv', [buffer, drawbuffer, values, srcOffset]);
 
-  Object clearBufferiv(int buffer, int drawbuffer, dynamic values,
+  void clearBufferiv(int buffer, int drawbuffer, dynamic values,
           [int? srcOffset = 0]) =>
       js_util.callMethod(
           this, 'clearBufferiv', [buffer, drawbuffer, values, srcOffset]);
 
-  Object clearBufferuiv(int buffer, int drawbuffer, dynamic values,
+  void clearBufferuiv(int buffer, int drawbuffer, dynamic values,
           [int? srcOffset = 0]) =>
       js_util.callMethod(
           this, 'clearBufferuiv', [buffer, drawbuffer, values, srcOffset]);
 
-  Object clearBufferfi(int buffer, int drawbuffer,
+  void clearBufferfi(int buffer, int drawbuffer,
           /* double | NaN */ dynamic depth, int stencil) =>
       js_util.callMethod(
           this, 'clearBufferfi', [buffer, drawbuffer, depth, stencil]);
 
   WebGLQuery? createQuery() => js_util.callMethod(this, 'createQuery', []);
 
-  Object deleteQuery(WebGLQuery? query) =>
+  void deleteQuery(WebGLQuery? query) =>
       js_util.callMethod(this, 'deleteQuery', [query]);
 
   bool isQuery(WebGLQuery? query) =>
       js_util.callMethod(this, 'isQuery', [query]);
 
-  Object beginQuery(int target, WebGLQuery query) =>
+  void beginQuery(int target, WebGLQuery query) =>
       js_util.callMethod(this, 'beginQuery', [target, query]);
 
-  Object endQuery(int target) => js_util.callMethod(this, 'endQuery', [target]);
+  void endQuery(int target) => js_util.callMethod(this, 'endQuery', [target]);
 
   WebGLQuery? getQuery(int target, int pname) =>
       js_util.callMethod(this, 'getQuery', [target, pname]);
@@ -1135,19 +1270,19 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
   WebGLSampler? createSampler() =>
       js_util.callMethod(this, 'createSampler', []);
 
-  Object deleteSampler(WebGLSampler? sampler) =>
+  void deleteSampler(WebGLSampler? sampler) =>
       js_util.callMethod(this, 'deleteSampler', [sampler]);
 
   bool isSampler(WebGLSampler? sampler) =>
       js_util.callMethod(this, 'isSampler', [sampler]);
 
-  Object bindSampler(int unit, WebGLSampler? sampler) =>
+  void bindSampler(int unit, WebGLSampler? sampler) =>
       js_util.callMethod(this, 'bindSampler', [unit, sampler]);
 
-  Object samplerParameteri(WebGLSampler sampler, int pname, int param) =>
+  void samplerParameteri(WebGLSampler sampler, int pname, int param) =>
       js_util.callMethod(this, 'samplerParameteri', [sampler, pname, param]);
 
-  Object samplerParameterf(
+  void samplerParameterf(
           WebGLSampler sampler, int pname, /* double | NaN */ dynamic param) =>
       js_util.callMethod(this, 'samplerParameterf', [sampler, pname, param]);
 
@@ -1159,13 +1294,13 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
 
   bool isSync(WebGLSync? mSync) => js_util.callMethod(this, 'isSync', [mSync]);
 
-  Object deleteSync(WebGLSync? mSync) =>
+  void deleteSync(WebGLSync? mSync) =>
       js_util.callMethod(this, 'deleteSync', [mSync]);
 
   int clientWaitSync(WebGLSync mSync, int flags, int timeout) =>
       js_util.callMethod(this, 'clientWaitSync', [mSync, flags, timeout]);
 
-  Object waitSync(WebGLSync mSync, int flags, int timeout) =>
+  void waitSync(WebGLSync mSync, int flags, int timeout) =>
       js_util.callMethod(this, 'waitSync', [mSync, flags, timeout]);
 
   dynamic getSyncParameter(WebGLSync mSync, int pname) =>
@@ -1174,22 +1309,22 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
   WebGLTransformFeedback? createTransformFeedback() =>
       js_util.callMethod(this, 'createTransformFeedback', []);
 
-  Object deleteTransformFeedback(WebGLTransformFeedback? tf) =>
+  void deleteTransformFeedback(WebGLTransformFeedback? tf) =>
       js_util.callMethod(this, 'deleteTransformFeedback', [tf]);
 
   bool isTransformFeedback(WebGLTransformFeedback? tf) =>
       js_util.callMethod(this, 'isTransformFeedback', [tf]);
 
-  Object bindTransformFeedback(int target, WebGLTransformFeedback? tf) =>
+  void bindTransformFeedback(int target, WebGLTransformFeedback? tf) =>
       js_util.callMethod(this, 'bindTransformFeedback', [target, tf]);
 
-  Object beginTransformFeedback(int primitiveMode) =>
+  void beginTransformFeedback(int primitiveMode) =>
       js_util.callMethod(this, 'beginTransformFeedback', [primitiveMode]);
 
-  Object endTransformFeedback() =>
+  void endTransformFeedback() =>
       js_util.callMethod(this, 'endTransformFeedback', []);
 
-  Object transformFeedbackVaryings(
+  void transformFeedbackVaryings(
           WebGLProgram program, Iterable<String> varyings, int bufferMode) =>
       js_util.callMethod(
           this, 'transformFeedbackVaryings', [program, varyings, bufferMode]);
@@ -1198,16 +1333,16 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
           WebGLProgram program, int index) =>
       js_util.callMethod(this, 'getTransformFeedbackVarying', [program, index]);
 
-  Object pauseTransformFeedback() =>
+  void pauseTransformFeedback() =>
       js_util.callMethod(this, 'pauseTransformFeedback', []);
 
-  Object resumeTransformFeedback() =>
+  void resumeTransformFeedback() =>
       js_util.callMethod(this, 'resumeTransformFeedback', []);
 
-  Object bindBufferBase(int target, int index, WebGLBuffer? buffer) =>
+  void bindBufferBase(int target, int index, WebGLBuffer? buffer) =>
       js_util.callMethod(this, 'bindBufferBase', [target, index, buffer]);
 
-  Object bindBufferRange(
+  void bindBufferRange(
           int target, int index, WebGLBuffer? buffer, int offset, int size) =>
       js_util.callMethod(
           this, 'bindBufferRange', [target, index, buffer, offset, size]);
@@ -1238,7 +1373,7 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
       js_util.callMethod(
           this, 'getActiveUniformBlockName', [program, uniformBlockIndex]);
 
-  Object uniformBlockBinding(WebGLProgram program, int uniformBlockIndex,
+  void uniformBlockBinding(WebGLProgram program, int uniformBlockIndex,
           int uniformBlockBinding) =>
       js_util.callMethod(this, 'uniformBlockBinding',
           [program, uniformBlockIndex, uniformBlockBinding]);
@@ -1246,35 +1381,35 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
   WebGLVertexArrayObject? createVertexArray() =>
       js_util.callMethod(this, 'createVertexArray', []);
 
-  Object deleteVertexArray(WebGLVertexArrayObject? vertexArray) =>
+  void deleteVertexArray(WebGLVertexArrayObject? vertexArray) =>
       js_util.callMethod(this, 'deleteVertexArray', [vertexArray]);
 
   bool isVertexArray(WebGLVertexArrayObject? vertexArray) =>
       js_util.callMethod(this, 'isVertexArray', [vertexArray]);
 
-  Object bindVertexArray(WebGLVertexArrayObject? array) =>
+  void bindVertexArray(WebGLVertexArrayObject? array) =>
       js_util.callMethod(this, 'bindVertexArray', [array]);
 }
 
 @JS()
 @staticInterop
 class WebGL2RenderingContextOverloads {
-  external WebGL2RenderingContextOverloads();
+  external factory WebGL2RenderingContextOverloads();
 }
 
 extension PropsWebGL2RenderingContextOverloads
     on WebGL2RenderingContextOverloads {
-  Object bufferData(int target, dynamic srcData,
+  void bufferData(int target, dynamic srcData,
           [int? usage, int? srcOffset, int? length = 0]) =>
       js_util.callMethod(
           this, 'bufferData', [target, srcData, usage, srcOffset, length]);
 
-  Object bufferSubData(int target, int dstByteOffset,
+  void bufferSubData(int target, int dstByteOffset,
           [dynamic srcData, int? srcOffset, int? length = 0]) =>
       js_util.callMethod(this, 'bufferSubData',
           [target, dstByteOffset, srcData, srcOffset, length]);
 
-  Object texImage2D(
+  void texImage2D(
           int target, int level, int internalformat, int width, int height,
           [int? border,
           int? format,
@@ -1294,8 +1429,8 @@ extension PropsWebGL2RenderingContextOverloads
         srcOffset
       ]);
 
-  Object texSubImage2D(int target, int level, int xoffset, int yoffset,
-          int width, int height,
+  void texSubImage2D(int target, int level, int xoffset, int yoffset, int width,
+          int height,
           [int? format, int? type, dynamic srcData, int? srcOffset]) =>
       js_util.callMethod(this, 'texSubImage2D', [
         target,
@@ -1310,7 +1445,7 @@ extension PropsWebGL2RenderingContextOverloads
         srcOffset
       ]);
 
-  Object compressedTexImage2D(int target, int level, int internalformat,
+  void compressedTexImage2D(int target, int level, int internalformat,
           int width, int height, int border, dynamic srcData,
           [int? srcOffset = 0, int? srcLengthOverride = 0]) =>
       js_util.callMethod(this, 'compressedTexImage2D', [
@@ -1325,8 +1460,8 @@ extension PropsWebGL2RenderingContextOverloads
         srcLengthOverride
       ]);
 
-  Object compressedTexSubImage2D(int target, int level, int xoffset,
-          int yoffset, int width, int height, int format, dynamic srcData,
+  void compressedTexSubImage2D(int target, int level, int xoffset, int yoffset,
+          int width, int height, int format, dynamic srcData,
           [int? srcOffset = 0, int? srcLengthOverride = 0]) =>
       js_util.callMethod(this, 'compressedTexSubImage2D', [
         target,
@@ -1341,70 +1476,87 @@ extension PropsWebGL2RenderingContextOverloads
         srcLengthOverride
       ]);
 
-  Object uniform1fv(WebGLUniformLocation? location, dynamic data,
+  void uniform1fv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform1fv', [location, data, srcOffset, srcLength]);
 
-  Object uniform2fv(WebGLUniformLocation? location, dynamic data,
+  void uniform2fv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform2fv', [location, data, srcOffset, srcLength]);
 
-  Object uniform3fv(WebGLUniformLocation? location, dynamic data,
+  void uniform3fv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform3fv', [location, data, srcOffset, srcLength]);
 
-  Object uniform4fv(WebGLUniformLocation? location, dynamic data,
+  void uniform4fv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform4fv', [location, data, srcOffset, srcLength]);
 
-  Object uniform1iv(WebGLUniformLocation? location, dynamic data,
+  void uniform1iv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform1iv', [location, data, srcOffset, srcLength]);
 
-  Object uniform2iv(WebGLUniformLocation? location, dynamic data,
+  void uniform2iv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform2iv', [location, data, srcOffset, srcLength]);
 
-  Object uniform3iv(WebGLUniformLocation? location, dynamic data,
+  void uniform3iv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform3iv', [location, data, srcOffset, srcLength]);
 
-  Object uniform4iv(WebGLUniformLocation? location, dynamic data,
+  void uniform4iv(WebGLUniformLocation? location, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(
           this, 'uniform4iv', [location, data, srcOffset, srcLength]);
 
-  Object uniformMatrix2fv(
+  void uniformMatrix2fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix2fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object uniformMatrix3fv(
+  void uniformMatrix3fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix3fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object uniformMatrix4fv(
+  void uniformMatrix4fv(
           WebGLUniformLocation? location, bool transpose, dynamic data,
           [int? srcOffset = 0, int? srcLength = 0]) =>
       js_util.callMethod(this, 'uniformMatrix4fv',
           [location, transpose, data, srcOffset, srcLength]);
 
-  Object readPixels(int x, int y, int width, int height, int format, int type,
+  void readPixels(int x, int y, int width, int height, int format, int type,
           [dynamic dstData, int? dstOffset]) =>
       js_util.callMethod(this, 'readPixels',
           [x, y, width, height, format, type, dstData, dstOffset]);
 }
 
+///  The WebGL2RenderingContext interface provides the OpenGL ES 3.0
+/// rendering context for the drawing surface of an HTML [<canvas>]
+/// element.
+///  To get an object of this interface, call [getContext()] on a
+/// [<canvas>] element, supplying "webgl2" as the argument:
+/// [var canvas = document.getElementById('myCanvas');
+/// var gl = canvas.getContext('webgl2');
+/// ]
+///
+///   Note: WebGL 2 is an extension to WebGL 1. The interface
+/// implements all members of the [WebGLRenderingContext] interface.
+/// Some methods of the WebGL 1 context can accept additional values
+/// when used in a WebGL 2 context. You will find this info noted on
+/// the WebGL 1 reference pages.
+///
+///  The WebGL tutorial has more information, examples, and resources
+/// on how to get started with WebGL.
 @JS()
 @staticInterop
 class WebGL2RenderingContext
@@ -1412,5 +1564,5 @@ class WebGL2RenderingContext
         WebGLRenderingContextBase,
         WebGL2RenderingContextBase,
         WebGL2RenderingContextOverloads {
-  external WebGL2RenderingContext();
+  external factory WebGL2RenderingContext();
 }

@@ -148,10 +148,27 @@ extension PropsTouchInit on TouchInit {
   }
 }
 
+///  The interface represents a single contact point on a
+/// touch-sensitive device. The contact point is commonly a finger or
+/// stylus and the device may be a touchscreen or trackpad.
+///  The [Touch.radiusX], [Touch.radiusY], and [Touch.rotationAngle]
+/// describe the area of contact between the user and the screen, the
+/// touch area. This can be helpful when dealing with imprecise
+/// pointing devices such as fingers. These values are set to
+/// describe an ellipse that as closely as possible matches the
+/// entire area of contact (such as the user's fingertip).
+///
+///   Note: Many of the properties' values are hardware-dependent;
+/// for example, if the device doesn't have a way to detect the
+/// amount of pressure placed on the surface, the [force] value will
+/// always be 0. This may also be the case for [radiusX] and
+/// [radiusY]; if the hardware reports only a single point, these
+/// values will be 1.
+///
 @JS()
 @staticInterop
 class Touch {
-  external Touch(TouchInit touchInitDict);
+  external factory Touch(TouchInit touchInitDict);
 }
 
 extension PropsTouch on Touch {
@@ -173,10 +190,15 @@ extension PropsTouch on Touch {
       TouchType.values.byName(js_util.getProperty(this, 'touchType'));
 }
 
+///  The interface represents a list of contact points on a touch
+/// surface. For example, if the user has three fingers on the touch
+/// surface (such as a screen or trackpad), the corresponding object
+/// would have one [Touch] object for each finger, for a total of
+/// three entries.
 @JS()
 @staticInterop
 class TouchList {
-  external TouchList();
+  external factory TouchList();
 }
 
 extension PropsTouchList on TouchList {
@@ -213,10 +235,38 @@ extension PropsTouchEventInit on TouchEventInit {
   }
 }
 
+///  The interface represents an [UIEvent] which is sent when the
+/// state of contacts with a touch-sensitive surface changes. This
+/// surface can be a touch screen or trackpad, for example. The event
+/// can describe one or more points of contact with the screen and
+/// includes support for detecting movement, addition and removal of
+/// contact points, and so forth.
+///  Touches are represented by the [Touch] object; each touch is
+/// described by a position, size and shape, amount of pressure, and
+/// target element. Lists of touches are represented by [TouchList]
+/// objects.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    UIEvent
+///
+///
+///
+///
+///
+///    TouchEvent
+///
+///
 @JS()
 @staticInterop
 class TouchEvent implements UIEvent {
-  external TouchEvent(String type, [TouchEventInit? eventInitDict]);
+  external factory TouchEvent(String type, [TouchEventInit? eventInitDict]);
 }
 
 extension PropsTouchEvent on TouchEvent {
@@ -227,4 +277,6 @@ extension PropsTouchEvent on TouchEvent {
   bool get metaKey => js_util.getProperty(this, 'metaKey');
   bool get ctrlKey => js_util.getProperty(this, 'ctrlKey');
   bool get shiftKey => js_util.getProperty(this, 'shiftKey');
+  bool getModifierState(String keyArg) =>
+      js_util.callMethod(this, 'getModifierState', [keyArg]);
 }

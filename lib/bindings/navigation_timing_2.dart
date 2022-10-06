@@ -13,10 +13,35 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface provides methods and properties to store and
+/// retrieve metrics regarding the browser's document navigation
+/// events. For example, this interface can be used to determine how
+/// much time it takes to load or unload a document.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    PerformanceResourceTiming
+///
+///
+///
+///
+///
+///    PerformanceNavigationTiming
+///
+///
 @JS()
 @staticInterop
 class PerformanceNavigationTiming implements PerformanceResourceTiming {
-  external PerformanceNavigationTiming();
+  external factory PerformanceNavigationTiming();
 }
 
 extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
@@ -30,18 +55,39 @@ extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
   double get domComplete => js_util.getProperty(this, 'domComplete');
   double get loadEventStart => js_util.getProperty(this, 'loadEventStart');
   double get loadEventEnd => js_util.getProperty(this, 'loadEventEnd');
-  NavigationType get type =>
-      NavigationType.values.byName(js_util.getProperty(this, 'type'));
+  NavigationTimingType get type =>
+      NavigationTimingType.values.byName(js_util.getProperty(this, 'type'));
   int get redirectCount => js_util.getProperty(this, 'redirectCount');
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
+
+  double get activationStart => js_util.getProperty(this, 'activationStart');
 }
 
-enum NavigationType { navigate, reload, backForward, prerender }
+enum NavigationTimingType { navigate, reload, backForward, prerender }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+///
+///   Warning: This interface is deprecated in the Navigation Timing
+/// Level 2 specification. Please use the
+/// [PerformanceNavigationTiming] interface instead.
+///
+///  The interface is a legacy interface kept for backwards
+/// compatibility and contains properties that offer performance
+/// timing information for various events which occur during the
+/// loading and use of the current page. You get a object describing
+/// your page using the [window.performance.timing] property.
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class PerformanceTiming {
-  external PerformanceTiming();
+  external factory PerformanceTiming();
 }
 
 extension PropsPerformanceTiming on PerformanceTiming {
@@ -72,6 +118,27 @@ extension PropsPerformanceTiming on PerformanceTiming {
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+///  The legacy interface represents information about how the
+/// navigation to the current document was done.
+///
+///
+///    Warning: This interface is deprecated in the Navigation Timing
+/// Level 2 specification.
+///    Please use the [PerformanceNavigationTiming] interface
+/// instead.
+///
+///
+///  An object of this type can be obtained by calling the
+/// [Performance.navigation] read-only attribute.
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class PerformanceNavigation {
@@ -87,7 +154,7 @@ class PerformanceNavigation {
   @JS('TYPE_RESERVED')
   external static int get typeReserved;
 
-  external PerformanceNavigation();
+  external factory PerformanceNavigation();
 }
 
 extension PropsPerformanceNavigation on PerformanceNavigation {

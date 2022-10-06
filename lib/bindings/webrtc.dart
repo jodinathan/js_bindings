@@ -10,7 +10,7 @@ library webrtc;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -82,6 +82,11 @@ extension PropsRTCConfiguration on RTCConfiguration {
 
 enum RTCIceCredentialType { password }
 
+///  The dictionary defines how to connect to a single ICE server
+/// (such as a STUN or TURN server). Objects of this type are
+/// provided in the configuration of an [RTCPeerConnection], in the
+/// [iceServers] array.
+@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -192,10 +197,26 @@ enum RTCIceConnectionState {
   connected
 }
 
+///  The interface represents a WebRTC connection between the local
+/// computer and a remote peer. It provides methods to connect to a
+/// remote peer, maintain and monitor the connection, and close the
+/// connection once it's no longer needed.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    RTCPeerConnection
+///
+///
 @JS()
 @staticInterop
 class RTCPeerConnection implements EventTarget {
-  external RTCPeerConnection([RTCConfiguration? configuration]);
+  external factory RTCPeerConnection([RTCConfiguration? configuration]);
 }
 
 extension PropsRTCPeerConnection on RTCPeerConnection {
@@ -221,15 +242,15 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
       .byName(js_util.getProperty(this, 'connectionState'));
   bool? get canTrickleIceCandidates =>
       js_util.getProperty(this, 'canTrickleIceCandidates');
-  Object restartIce() => js_util.callMethod(this, 'restartIce', []);
+  void restartIce() => js_util.callMethod(this, 'restartIce', []);
 
   RTCConfiguration getConfiguration() =>
       js_util.callMethod(this, 'getConfiguration', []);
 
-  Object setConfiguration([RTCConfiguration? configuration]) =>
+  void setConfiguration([RTCConfiguration? configuration]) =>
       js_util.callMethod(this, 'setConfiguration', [configuration]);
 
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
   EventHandlerNonNull? get onnegotiationneeded =>
       js_util.getProperty(this, 'onnegotiationneeded');
@@ -273,7 +294,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
     js_util.setProperty(this, 'onconnectionstatechange', newValue);
   }
 
-  Future<Object> createOffer(
+  Future<void> createOffer(
           [RTCSessionDescriptionCallback? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback,
           RTCOfferOptions? options]) =>
@@ -283,7 +304,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
         options
       ]));
 
-  Future<Object> setLocalDescription(
+  Future<void> setLocalDescription(
           [RTCLocalSessionDescriptionInit? description,
           VoidFunction? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
@@ -293,7 +314,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
         failureCallback == null ? null : allowInterop(failureCallback)
       ]));
 
-  Future<Object> createAnswer(
+  Future<void> createAnswer(
           [RTCSessionDescriptionCallback? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'createAnswer', [
@@ -301,7 +322,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
         failureCallback == null ? null : allowInterop(failureCallback)
       ]));
 
-  Future<Object> setRemoteDescription(
+  Future<void> setRemoteDescription(
           [RTCSessionDescriptionInit? description,
           VoidFunction? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
@@ -311,7 +332,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
         failureCallback == null ? null : allowInterop(failureCallback)
       ]));
 
-  Future<Object> addIceCandidate(
+  Future<void> addIceCandidate(
           [RTCIceCandidateInit? candidate,
           VoidFunction? successCallback,
           RTCPeerConnectionErrorCallback? failureCallback]) =>
@@ -341,7 +362,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
       js_util
           .callMethod(this, 'addTrack', [track, streams1, streams2, streams3]);
 
-  Object removeTrack(RTCRtpSender sender) =>
+  void removeTrack(RTCRtpSender sender) =>
       js_util.callMethod(this, 'removeTrack', [sender]);
 
   RTCRtpTransceiver addTransceiver(dynamic trackOrKind,
@@ -367,7 +388,7 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   Future<RTCStatsReport> getStats([MediaStreamTrack? selector]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getStats', [selector]));
 
-  Object setIdentityProvider(String provider,
+  void setIdentityProvider(String provider,
           [RTCIdentityProviderOptions? options]) =>
       js_util.callMethod(this, 'setIdentityProvider', [provider, options]);
 
@@ -382,10 +403,26 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
 
 enum RTCSdpType { offer, pranswer, answer, rollback }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface describes one end of a connection—or potential
+/// connection—and how it's configured. Each consists of a
+/// description [type] indicating which part of the offer/answer
+/// negotiation process it describes and of the SDP descriptor of the
+/// session.
+///  The process of negotiating a connection between two peers
+/// involves exchanging objects back and forth, with each description
+/// suggesting one combination of connection configuration options
+/// that the sender of the description supports. Once the two peers
+/// agree upon a configuration for the connection, negotiation is
+/// complete.
+@experimental
 @JS()
 @staticInterop
 class RTCSessionDescription {
-  external RTCSessionDescription(RTCSessionDescriptionInit descriptionInitDict);
+  external factory RTCSessionDescription(
+      RTCSessionDescriptionInit descriptionInitDict);
 }
 
 extension PropsRTCSessionDescription on RTCSessionDescription {
@@ -446,10 +483,23 @@ extension PropsRTCLocalSessionDescriptionInit
   }
 }
 
+///  The interface—part of the WebRTC API—represents a candidate
+/// Interactive Connectivity Establishment (ICE) configuration which
+/// may be used to establish an [RTCPeerConnection].
+///  An ICE candidate describes the protocols and routing needed for
+/// WebRTC to be able to communicate with a remote device. When
+/// starting a WebRTC peer connection, typically a number of
+/// candidates are proposed by each end of the connection, until they
+/// mutually agree upon one which describes the connection they
+/// decide will be best. WebRTC then uses that candidate's details to
+/// initiate the connection.
+///  For details on how the ICE process works, see Lifetime of a
+/// WebRTC session. The article WebRTC connectivity provides
+/// additional useful details.
 @JS()
 @staticInterop
 class RTCIceCandidate {
-  external RTCIceCandidate([RTCIceCandidateInit? candidateInitDict]);
+  external factory RTCIceCandidate([RTCIceCandidateInit? candidateInitDict]);
 }
 
 extension PropsRTCIceCandidate on RTCIceCandidate {
@@ -529,10 +579,26 @@ enum RTCIceTcpCandidateType { active, passive, so }
 
 enum RTCIceCandidateType { host, srflx, prflx, relay }
 
+///  The interface represents events that occur in relation to ICE
+/// candidates with the target, usually an [RTCPeerConnection].
+/// Only one event is of this type: [icecandidate].
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    RTCPeerConnectionIceEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class RTCPeerConnectionIceEvent implements Event {
-  external RTCPeerConnectionIceEvent(String type,
+  external factory RTCPeerConnectionIceEvent(String type,
       [RTCPeerConnectionIceEventInit? eventInitDict]);
 }
 
@@ -561,10 +627,25 @@ extension PropsRTCPeerConnectionIceEventInit on RTCPeerConnectionIceEventInit {
   }
 }
 
+///  The interface—based upon the [Event] interface—provides details
+/// pertaining to an ICE error announced by sending an
+/// [icecandidateerror] event to the [RTCPeerConnection] object.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    RTCPeerConnectionIceErrorEvent
+///
+///
 @JS()
 @staticInterop
 class RTCPeerConnectionIceErrorEvent implements Event {
-  external RTCPeerConnectionIceErrorEvent(
+  external factory RTCPeerConnectionIceErrorEvent(
       String type, RTCPeerConnectionIceErrorEventInit eventInitDict);
 }
 
@@ -631,10 +712,12 @@ extension PropsRTCCertificateExpiration on RTCCertificateExpiration {
   }
 }
 
+///  The interface of the WebRTC API provides an object represents a
+/// certificate that an [RTCPeerConnection] uses to authenticate.
 @JS()
 @staticInterop
 class RTCCertificate {
-  external RTCCertificate();
+  external factory RTCCertificate();
 }
 
 extension PropsRTCCertificate on RTCCertificate {
@@ -690,10 +773,19 @@ enum RTCRtpTransceiverDirection {
   stopped
 }
 
+///  The interface provides the ability to control and obtain details
+/// about how a particular [MediaStreamTrack] is encoded and sent to
+/// a remote peer.
+///  With it, you can configure the encoding used for the
+/// corresponding track, get information about the device's media
+/// capabilities, and so forth. You can also obtain access to an
+/// [RTCDTMFSender] which can be used to send DTMF codes (to simulate
+/// the user pressing buttons on a telephone's dial pad) to the
+/// remote peer.
 @JS()
 @staticInterop
 class RTCRtpSender {
-  external RTCRtpSender();
+  external factory RTCRtpSender();
 }
 
 extension PropsRTCRtpSender on RTCRtpSender {
@@ -702,16 +794,16 @@ extension PropsRTCRtpSender on RTCRtpSender {
   static RTCRtpCapabilities? getCapabilities(String kind) =>
       js_util.callMethod(RTCRtpSender, 'getCapabilities', [kind]);
 
-  Future<Object> setParameters(RTCRtpSendParameters parameters) => js_util
+  Future<void> setParameters(RTCRtpSendParameters parameters) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setParameters', [parameters]));
 
   RTCRtpSendParameters getParameters() =>
       js_util.callMethod(this, 'getParameters', []);
 
-  Future<Object> replaceTrack(MediaStreamTrack? withTrack) => js_util
+  Future<void> replaceTrack(MediaStreamTrack? withTrack) => js_util
       .promiseToFuture(js_util.callMethod(this, 'replaceTrack', [withTrack]));
 
-  Object setStreams(
+  void setStreams(
           [MediaStream? streams1,
           MediaStream? streams2,
           MediaStream? streams3]) =>
@@ -725,12 +817,22 @@ extension PropsRTCRtpSender on RTCRtpSender {
     js_util.setProperty(this, 'transform', newValue);
   }
 
-  Future<Object> generateKeyFrame([Iterable<String>? rids]) => js_util
+  Future<void> generateKeyFrame([Iterable<String>? rids]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rids]));
 
   RTCDTMFSender? get dtmf => js_util.getProperty(this, 'dtmf');
 }
 
+///  The dictionary is the basic object describing the parameters of
+/// an RTP transport. It is extended separately for senders and
+/// receivers in the form of the [RTCRtpSendParameters] and
+/// [RTCRtpReceiveParameters] dictionaries.
+///  To obtain the parameters of a sender or receiver, call its
+/// [getParameters()] method:
+///
+///  [getParameters()]
+///  [getParameters()]
+///
 @anonymous
 @JS()
 @staticInterop
@@ -760,6 +862,8 @@ extension PropsRTCRtpParameters on RTCRtpParameters {
   }
 }
 
+///  The WebRTC API's dictionary is used to specify the parameters
+/// for an [RTCRtpSender] when calling its [setParameters()] method.
 @anonymous
 @JS()
 @staticInterop
@@ -782,6 +886,10 @@ extension PropsRTCRtpSendParameters on RTCRtpSendParameters {
   }
 }
 
+///  The dictionary, based upon the [RTCRtpParameters] dictionary, is
+/// returned by the [RTCRtpReceiver] method [getParameters()]. It
+/// describes the parameters being used by the receiver's RTP
+/// connection to the remote peer.
 @anonymous
 @JS()
 @staticInterop
@@ -803,13 +911,12 @@ extension PropsRTCRtpCodingParameters on RTCRtpCodingParameters {
   }
 }
 
-@anonymous
-@JS()
-@staticInterop
-class RTCRtpDecodingParameters implements RTCRtpCodingParameters {
-  external factory RTCRtpDecodingParameters();
-}
-
+///  An instance of the WebRTC API's dictionary describes a single
+/// configuration of a codec for an [RTCRtpSender].
+///  This dictionary is used in the [RTCRtpSendParameters] describing
+/// the configuration of an RTP sender's [encodings];
+/// [RTCRtpDecodingParameters] is used to describe the configuration
+/// of an RTP receiver's [encodings].
 @anonymous
 @JS()
 @staticInterop
@@ -836,6 +943,9 @@ extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
   }
 }
 
+///  The dictionary provides parameters of an RTCP connection. It's
+/// used as the value of the [rtcp] property of the parameters of an
+/// [RTCRtpSender] or [RTCRtpReceiver].
 @anonymous
 @JS()
 @staticInterop
@@ -882,6 +992,17 @@ extension PropsRTCRtpHeaderExtensionParameters
   }
 }
 
+///  The dictionary, part of the WebRTC API, is used to describe the
+/// configuration parameters for a single media codec.
+///  In addition to being the type of the [RTCRtpParameters.codecs]
+/// property, it's used when calling
+/// [RTCRtpTransceiver.setCodecPreferences()] to configure a
+/// transceiver's codecs before beginning the offer/answer process to
+/// establish a WebRTC peer connection.
+///  Most of the fields in this property take values which are
+/// defined and maintained by the Internet Assigned Numbers Authority
+/// (IANA). References to relevant IANA documents are provided in the
+/// see also section at the end of this article.
 @anonymous
 @JS()
 @staticInterop
@@ -921,6 +1042,15 @@ extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
   }
 }
 
+///  The dictionary is a data type used to describe the capabilities
+/// of an [RTCRtpSender] or [RTCRtpReceiver] in response to a call to
+/// the [RTCRtpSender.getCapabilities()] or
+/// [RTCRtpReceiver.getCapabilities()] static functions, both of
+/// which return an array of objects.
+///  An object contains an array of objects conforming to
+/// [RTCRtpCodecCapability] (each describing the capabilities of one
+/// codec) and an array of the supported RTP header extensions for
+/// that codec.
 @anonymous
 @JS()
 @staticInterop
@@ -944,6 +1074,8 @@ extension PropsRTCRtpCapabilities on RTCRtpCapabilities {
   }
 }
 
+///  The WebRTC API's dictionary provides information describing the
+/// capabilities of a single media codec.
 @anonymous
 @JS()
 @staticInterop
@@ -992,10 +1124,13 @@ extension PropsRTCRtpHeaderExtensionCapability
   }
 }
 
+///  The interface of the WebRTC API manages the reception and
+/// decoding of data for a [MediaStreamTrack] on an
+/// [RTCPeerConnection].
 @JS()
 @staticInterop
 class RTCRtpReceiver {
-  external RTCRtpReceiver();
+  external factory RTCRtpReceiver();
 }
 
 extension PropsRTCRtpReceiver on RTCRtpReceiver {
@@ -1022,6 +1157,12 @@ extension PropsRTCRtpReceiver on RTCRtpReceiver {
   }
 }
 
+///  The dictionary of the WebRTC API is used by
+/// [getContributingSources()] to provide information about a given
+/// contributing source (CSRC), including the most recent time a
+/// packet that the source contributed was played out.
+///  The information provided is based on the last ten seconds of
+/// media received.
 @anonymous
 @JS()
 @staticInterop
@@ -1062,10 +1203,24 @@ class RTCRtpSynchronizationSource implements RTCRtpContributingSource {
   external factory RTCRtpSynchronizationSource();
 }
 
+///  The WebRTC interface describes a permanent pairing of an
+/// [RTCRtpSender] and an [RTCRtpReceiver], along with some shared
+/// state.
+///  Each SDP media section describes one bidirectional SRTP ("Secure
+/// Real Time Protocol") stream (excepting the media section for
+/// [RTCDataChannel], if present). This pairing of send and receive
+/// SRTP streams is significant for some applications, so is used to
+/// represent this pairing, along with other important state from the
+/// media section. Each non-disabled SRTP media section is always
+/// represented by exactly one transceiver.
+///  A transceiver is uniquely identified using its [mid] property,
+/// which is the same as the media ID ([mid]) of its corresponding
+/// m-line. An is associated with an m-line if its [mid] is non-null;
+/// otherwise it's considered disassociated.
 @JS()
 @staticInterop
 class RTCRtpTransceiver {
-  external RTCRtpTransceiver();
+  external factory RTCRtpTransceiver();
 }
 
 extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
@@ -1084,16 +1239,39 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
     return ret == null ? null : RTCRtpTransceiverDirection.values.byName(ret);
   }
 
-  Object stop() => js_util.callMethod(this, 'stop', []);
+  void stop() => js_util.callMethod(this, 'stop', []);
 
-  Object setCodecPreferences(Iterable<RTCRtpCodecCapability> codecs) =>
+  void setCodecPreferences(Iterable<RTCRtpCodecCapability> codecs) =>
       js_util.callMethod(this, 'setCodecPreferences', [codecs]);
 }
 
+///  The interface provides access to information about the Datagram
+/// Transport Layer Security (DTLS) transport over which a
+/// [RTCPeerConnection]'s RTP and RTCP packets are sent and received
+/// by its [RTCRtpSender] and [RTCRtpReceiver] objects.
+///  A object is also used to provide information about SCTP packets
+/// transmitted and received by an connection's data channels.
+///  Features of the DTLS transport include the addition of security
+/// to the underlying transport; the interface can be used to obtain
+/// information about the underlying transport and the security added
+/// to it by the DTLS layer.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    RTCDtlsTransport
+///
+///
+@experimental
 @JS()
 @staticInterop
 class RTCDtlsTransport implements EventTarget {
-  external RTCDtlsTransport();
+  external factory RTCDtlsTransport();
 }
 
 extension PropsRTCDtlsTransport on RTCDtlsTransport {
@@ -1137,10 +1315,28 @@ extension PropsRTCDtlsFingerprint on RTCDtlsFingerprint {
   }
 }
 
+///
+///   The interface provides access to information about the ICE
+/// transport layer over which the data is being sent and received.
+///   This is particularly useful if you need to access state
+/// information about the connection.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    RTCIceTransport
+///
+///
 @JS()
 @staticInterop
 class RTCIceTransport implements EventTarget {
-  external RTCIceTransport();
+  external factory RTCIceTransport();
 }
 
 extension PropsRTCIceTransport on RTCIceTransport {
@@ -1185,17 +1381,17 @@ extension PropsRTCIceTransport on RTCIceTransport {
     js_util.setProperty(this, 'onselectedcandidatepairchange', newValue);
   }
 
-  Object gather([RTCIceGatherOptions? options]) =>
+  void gather([RTCIceGatherOptions? options]) =>
       js_util.callMethod(this, 'gather', [options]);
 
-  Object start(
+  void start(
           [RTCIceParameters? remoteParameters,
           RTCIceRole? role = RTCIceRole.controlled]) =>
       js_util.callMethod(this, 'start', [remoteParameters, role?.name]);
 
-  Object stop() => js_util.callMethod(this, 'stop', []);
+  void stop() => js_util.callMethod(this, 'stop', []);
 
-  Object addRemoteCandidate([RTCIceCandidateInit? remoteCandidate]) =>
+  void addRemoteCandidate([RTCIceCandidateInit? remoteCandidate]) =>
       js_util.callMethod(this, 'addRemoteCandidate', [remoteCandidate]);
 
   EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
@@ -1210,6 +1406,13 @@ extension PropsRTCIceTransport on RTCIceTransport {
   }
 }
 
+///  The dictionary specifies the username fragment and password
+/// assigned to an ICE session.
+///  During ICE negotiation, each peer's username fragment and
+/// password are recorded in an object, which can be obtained from
+/// the [RTCIceTransport] by calling its [getLocalParameters()] or
+/// [getRemoteParameters()] method, depending on which end interests
+/// you.
 @anonymous
 @JS()
 @staticInterop
@@ -1230,6 +1433,11 @@ extension PropsRTCIceParameters on RTCIceParameters {
   }
 }
 
+///  The dictionary describes a pair of ICE candidates which together
+/// comprise a description of a viable connection between two WebRTC
+/// endpoints. It is used as the return value from
+/// [RTCIceTransport.getSelectedCandidatePair()] to identify the
+/// currently-selected candidate pair identified by the ICE agent.
 @anonymous
 @JS()
 @staticInterop
@@ -1266,10 +1474,30 @@ enum RTCIceRole { unknown, controlling, controlled }
 
 enum RTCIceComponent { rtp, rtcp }
 
+///  The WebRTC API interface represents the [track] event, which is
+/// sent when a new [MediaStreamTrack] is added to an
+/// [RTCRtpReceiver] which is part of the [RTCPeerConnection].
+///  The target is the [RTCPeerConnection] object to which the track
+/// is being added.
+///  This event is sent by the WebRTC layer to the web site or
+/// application, so you will not typically need to instantiate an
+/// yourself.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    RTCTrackEvent
+///
+///
 @JS()
 @staticInterop
 class RTCTrackEvent implements Event {
-  external RTCTrackEvent(String type, RTCTrackEventInit eventInitDict);
+  external factory RTCTrackEvent(String type, RTCTrackEventInit eventInitDict);
 }
 
 extension PropsRTCTrackEvent on RTCTrackEvent {
@@ -1312,17 +1540,45 @@ extension PropsRTCTrackEventInit on RTCTrackEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface provides information which describes a Stream
+/// Control Transmission Protocol (SCTP) transport. This provides
+/// information about limitations of the transport, but also provides
+/// a way to access the underlying Datagram Transport Layer Security
+/// (DTLS) transport over which SCTP packets for all of an
+/// [RTCPeerConnection]'s data channels are sent and received.
+///  You don't create objects yourself; instead, you get access to
+/// the for a given [RTCPeerConnection] through its [sctp] property.
+///  Possibly the most useful property on this interface is its
+/// [maxMessageSize] property, which you can use to determine the
+/// upper limit on the size of messages you can send over a data
+/// channel on the peer connection.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    RTCSctpTransport
+///
+///
+@experimental
 @JS()
 @staticInterop
 class RTCSctpTransport implements EventTarget {
-  external RTCSctpTransport();
+  external factory RTCSctpTransport();
 }
 
 extension PropsRTCSctpTransport on RTCSctpTransport {
   RTCDtlsTransport get transport => js_util.getProperty(this, 'transport');
   RTCSctpTransportState get state =>
       RTCSctpTransportState.values.byName(js_util.getProperty(this, 'state'));
-  /* double | NaN */ dynamic get maxMessageSize =>
+/* double | NaN */ dynamic get maxMessageSize =>
       js_util.getProperty(this, 'maxMessageSize');
   int? get maxChannels => js_util.getProperty(this, 'maxChannels');
   EventHandlerNonNull? get onstatechange =>
@@ -1334,10 +1590,34 @@ extension PropsRTCSctpTransport on RTCSctpTransport {
 
 enum RTCSctpTransportState { connecting, connected, closed }
 
+///  The interface represents a network channel which can be used for
+/// bidirectional peer-to-peer transfers of arbitrary data. Every
+/// data channel is associated with an [RTCPeerConnection], and each
+/// peer connection can have up to a theoretical maximum of 65,534
+/// data channels (the actual limit may vary from browser to
+/// browser).
+///  To create a data channel and ask a remote peer to join you, call
+/// the [RTCPeerConnection]'s [createDataChannel()] method. The peer
+/// being invited to exchange data receives a [datachannel] event
+/// (which has type [RTCDataChannelEvent]) to let it know the data
+/// channel has been added to the connection.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    RTCDataChannel
+///
+///
+@experimental
 @JS()
 @staticInterop
 class RTCDataChannel implements EventTarget {
-  external RTCDataChannel();
+  external factory RTCDataChannel();
 }
 
 extension PropsRTCDataChannel on RTCDataChannel {
@@ -1383,7 +1663,7 @@ extension PropsRTCDataChannel on RTCDataChannel {
     js_util.setProperty(this, 'onclose', newValue);
   }
 
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
   set onmessage(EventHandlerNonNull? newValue) {
@@ -1396,7 +1676,7 @@ extension PropsRTCDataChannel on RTCDataChannel {
     js_util.setProperty(this, 'binaryType', newValue.name);
   }
 
-  Object send(String data) => js_util.callMethod(this, 'send', [data]);
+  void send(String data) => js_util.callMethod(this, 'send', [data]);
 
   RTCPriorityType get priority =>
       RTCPriorityType.values.byName(js_util.getProperty(this, 'priority'));
@@ -1449,10 +1729,26 @@ extension PropsRTCDataChannelInit on RTCDataChannelInit {
 
 enum RTCDataChannelState { connecting, open, closing, closed }
 
+///
+///  The interface
+///  represents an event related to a specific [RTCDataChannel].
+///
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    RTCDataChannelEvent
+///
+///
 @JS()
 @staticInterop
 class RTCDataChannelEvent implements Event {
-  external RTCDataChannelEvent(
+  external factory RTCDataChannelEvent(
       String type, RTCDataChannelEventInit eventInitDict);
 }
 
@@ -1474,14 +1770,37 @@ extension PropsRTCDataChannelEventInit on RTCDataChannelEventInit {
   }
 }
 
+///  The interface provides a mechanism for transmitting DTMF codes
+/// on a WebRTC [RTCPeerConnection]. You gain access to the
+/// connection's through the [RTCRtpSender.dtmf] property on the
+/// audio track you wish to send DTMF with.
+///  The primary purpose for WebRTC's DTMF support is to allow
+/// WebRTC-based communication clients to be connected to a
+/// public-switched telephone network (PSTN) or other legacy
+/// telephone service, including extant voice over IP (VoIP)
+/// services. For that reason, DTMF can't be used between two
+/// WebRTC-based devices, because there is no mechanism provided by
+/// WebRTC for receiving DTMF codes.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    RTCDTMFSender
+///
+///
 @JS()
 @staticInterop
 class RTCDTMFSender implements EventTarget {
-  external RTCDTMFSender();
+  external factory RTCDTMFSender();
 }
 
 extension PropsRTCDTMFSender on RTCDTMFSender {
-  Object insertDTMF(String tones,
+  void insertDTMF(String tones,
           [int? duration = 100, int? interToneGap = 70]) =>
       js_util.callMethod(this, 'insertDTMF', [tones, duration, interToneGap]);
 
@@ -1495,10 +1814,25 @@ extension PropsRTCDTMFSender on RTCDTMFSender {
   String get toneBuffer => js_util.getProperty(this, 'toneBuffer');
 }
 
+///  The interface represents events sent to indicate that DTMF tones
+/// have started or finished playing. This interface is used by the
+/// [tonechange] event.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    RTCDTMFToneChangeEvent
+///
+///
 @JS()
 @staticInterop
 class RTCDTMFToneChangeEvent implements Event {
-  external RTCDTMFToneChangeEvent(String type,
+  external factory RTCDTMFToneChangeEvent(String type,
       [RTCDTMFToneChangeEventInit? eventInitDict]);
 }
 
@@ -1520,12 +1854,34 @@ extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
   }
 }
 
+///  Draft: This page is not complete.This page is currently
+/// incomplete and under active construction. Please be aware that
+/// it's not going to answer all of your questions just yet.
+///  The interface provides a statistics report obtained by calling
+/// one of the [RTCPeerConnection.getStats()],
+/// [RTCRtpReceiver.getStats()], and [RTCRtpSender.getStats()]
+/// methods.
+///  This statistics report contains a mapping of statistic category
+/// string names to objects containing the corresponding statistics
+/// data.
+///  Calling [getStats()] on an [RTCPeerConnection] lets you specify
+/// whether you wish to obtain statistics for outbound, inbound, or
+/// all streams on the connection. The [RTCRtpReceiver] and
+/// [RTCRtpSender] versions of [getStats()] specifically only return
+/// statistics available to the incoming or outgoing stream on which
+/// you call them.
 @JS()
 @staticInterop
 class RTCStatsReport extends JsMap<Object, String> {
-  external RTCStatsReport();
+  external factory RTCStatsReport();
 }
 
+///  The dictionary is the basic statistics object used by WebRTC's
+/// statistics monitoring model, providing the properties required of
+/// all statistics data objects.
+///  Specific classes of statistic are defined as dictionaries based
+/// on . For example, statistics about a received RTP stream are
+/// represented by [RTCReceivedRtpStreamStats].
 @anonymous
 @JS()
 @staticInterop
@@ -1558,10 +1914,25 @@ extension PropsRTCStats on RTCStats {
   }
 }
 
+///  The interface describes an error which has occurred while
+/// handling WebRTC operations. It's based upon the standard
+/// [Exception] interface that describes general DOM errors.
+///
+///
+///
+///    DOMException
+///
+///
+///
+///
+///
+///    RTCError
+///
+///
 @JS()
 @staticInterop
 class RTCError implements DOMException {
-  external RTCError(RTCErrorInit init, [String? message = '']);
+  external factory RTCError(RTCErrorInit init, [String? message = '']);
 }
 
 extension PropsRTCError on RTCError {
@@ -1638,10 +2009,25 @@ enum RTCErrorDetailType {
   hardwareEncoderError
 }
 
+///  The WebRTC API's interface represents an error sent to a WebRTC
+/// object. It's based on the standard [Event] interface, but adds
+/// RTC-specific information describing the error, as shown below.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    RTCErrorEvent
+///
+///
 @JS()
 @staticInterop
 class RTCErrorEvent implements Event {
-  external RTCErrorEvent(String type, RTCErrorEventInit eventInitDict);
+  external factory RTCErrorEvent(String type, RTCErrorEventInit eventInitDict);
 }
 
 extension PropsRTCErrorEvent on RTCErrorEvent {

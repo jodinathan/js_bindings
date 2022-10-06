@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CSSNestingRule implements CSSRule {
-  external CSSNestingRule();
+  external factory CSSNestingRule();
 }
 
 extension PropsCSSNestingRule on CSSNestingRule {
@@ -30,6 +30,5 @@ extension PropsCSSNestingRule on CSSNestingRule {
   int insertRule(String rule, [int? index = 0]) =>
       js_util.callMethod(this, 'insertRule', [rule, index]);
 
-  Object deleteRule(int index) =>
-      js_util.callMethod(this, 'deleteRule', [index]);
+  void deleteRule(int index) => js_util.callMethod(this, 'deleteRule', [index]);
 }

@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Ink {
-  external Ink();
+  external factory Ink();
 }
 
 extension PropsInk on Ink {
@@ -42,7 +42,7 @@ extension PropsInkPresenterParam on InkPresenterParam {
 @JS()
 @staticInterop
 class InkPresenter {
-  external InkPresenter();
+  external factory InkPresenter();
 }
 
 extension PropsInkPresenter on InkPresenter {
@@ -50,7 +50,7 @@ extension PropsInkPresenter on InkPresenter {
       js_util.getProperty(this, 'presentationArea');
   int get expectedImprovement =>
       js_util.getProperty(this, 'expectedImprovement');
-  Object updateInkTrailStartPoint(PointerEvent event, InkTrailStyle style) =>
+  void updateInkTrailStartPoint(PointerEvent event, InkTrailStyle style) =>
       js_util.callMethod(this, 'updateInkTrailStartPoint', [event, style]);
 }
 
@@ -68,7 +68,7 @@ extension PropsInkTrailStyle on InkTrailStyle {
     js_util.setProperty(this, 'color', newValue);
   }
 
-  /* double | NaN */ dynamic get diameter =>
+/* double | NaN */ dynamic get diameter =>
       js_util.getProperty(this, 'diameter');
   set diameter(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'diameter', newValue);

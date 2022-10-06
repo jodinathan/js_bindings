@@ -41,10 +41,18 @@ extension PropsColorSelectionOptions on ColorSelectionOptions {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface represents an instance of an eyedropper tool that
+/// can be opened and used by the user to select colors from the
+/// screen.
 @JS()
 @staticInterop
 class EyeDropper {
-  external EyeDropper();
+  external factory EyeDropper();
 }
 
 extension PropsEyeDropper on EyeDropper {

@@ -61,5 +61,5 @@ class WEBGLBlendEquationAdvancedCoherent {
   @JS('HSL_LUMINOSITY')
   external static int get hslLuminosity;
 
-  external WEBGLBlendEquationAdvancedCoherent();
+  external factory WEBGLBlendEquationAdvancedCoherent();
 }

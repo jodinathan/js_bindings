@@ -16,13 +16,13 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorBadge {
-  external NavigatorBadge();
+  external factory NavigatorBadge();
 }
 
 extension PropsNavigatorBadge on NavigatorBadge {
-  Future<Object> setAppBadge([int? contents]) => js_util
+  Future<void> setAppBadge([int? contents]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setAppBadge', [contents]));
 
-  Future<Object> clearAppBadge() =>
+  Future<void> clearAppBadge() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'clearAppBadge', []));
 }

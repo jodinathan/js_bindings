@@ -13,10 +13,21 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Intersection Observer API provides a way to
+/// asynchronously observe changes in the intersection of a target
+/// element with an ancestor element or with a top-level document's
+/// viewport. The ancestor element or viewport is referred to as the
+/// root.
+///  When an is created, it's configured to watch for given ratios of
+/// visibility within the root. The configuration cannot be changed
+/// once the is created, so a given observer object is only useful
+/// for watching for specific changes in degree of visibility;
+/// however, you can watch multiple target elements with the same
+/// observer.
 @JS()
 @staticInterop
 class IntersectionObserver {
-  external IntersectionObserver(IntersectionObserverCallback callback,
+  external factory IntersectionObserver(IntersectionObserverCallback callback,
       [IntersectionObserverInit? options]);
 }
 
@@ -24,22 +35,27 @@ extension PropsIntersectionObserver on IntersectionObserver {
   dynamic get root => js_util.getProperty(this, 'root');
   String get rootMargin => js_util.getProperty(this, 'rootMargin');
   Iterable<double> get thresholds => js_util.getProperty(this, 'thresholds');
-  Object observe(Element target) =>
-      js_util.callMethod(this, 'observe', [target]);
+  void observe(Element target) => js_util.callMethod(this, 'observe', [target]);
 
-  Object unobserve(Element target) =>
+  void unobserve(Element target) =>
       js_util.callMethod(this, 'unobserve', [target]);
 
-  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
+  void disconnect() => js_util.callMethod(this, 'disconnect', []);
 
   Iterable<IntersectionObserverEntry> takeRecords() =>
       js_util.callMethod(this, 'takeRecords', []);
 }
 
+///  The interface of the Intersection Observer API describes the
+/// intersection between the target element and its root container at
+/// a specific moment of transition.
+///  Instances of are delivered to an [IntersectionObserver] callback
+/// in its [entries] parameter; otherwise, these objects can only be
+/// obtained by calling [IntersectionObserver.takeRecords()].
 @JS()
 @staticInterop
 class IntersectionObserverEntry {
-  external IntersectionObserverEntry(
+  external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);
 }
 

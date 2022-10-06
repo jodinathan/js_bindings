@@ -13,48 +13,28 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-@JS()
-@staticInterop
-class NavigatorFonts {
-  external NavigatorFonts();
-}
-
-extension PropsNavigatorFonts on NavigatorFonts {
-  FontManager get fonts => js_util.getProperty(this, 'fonts');
-}
-
-@JS()
-@staticInterop
-class FontManager {
-  external FontManager();
-}
-
-extension PropsFontManager on FontManager {
-  Future<Iterable<FontMetadata>> query([QueryOptions? options]) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'query', [options]));
-}
-
 @anonymous
 @JS()
 @staticInterop
 class QueryOptions {
-  external factory QueryOptions({Iterable<String>? select = const []});
+  external factory QueryOptions({required Iterable<String> postscriptNames});
 }
 
 extension PropsQueryOptions on QueryOptions {
-  Iterable<String> get select => js_util.getProperty(this, 'select');
-  set select(Iterable<String> newValue) {
-    js_util.setProperty(this, 'select', newValue);
+  Iterable<String> get postscriptNames =>
+      js_util.getProperty(this, 'postscriptNames');
+  set postscriptNames(Iterable<String> newValue) {
+    js_util.setProperty(this, 'postscriptNames', newValue);
   }
 }
 
 @JS()
 @staticInterop
-class FontMetadata {
-  external FontMetadata();
+class FontData {
+  external factory FontData();
 }
 
-extension PropsFontMetadata on FontMetadata {
+extension PropsFontData on FontData {
   Future<Blob> blob() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'blob', []));
 

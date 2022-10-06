@@ -13,10 +13,40 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Sensor APIs provides on each reading the
+/// acceleration applied to the device along all three axes.
+///  To use this sensor, the user must grant permission to the
+/// ['accelerometer'], device sensor through the Permissions API.
+///  If a feature policy blocks the use of a feature, it is because
+/// your code is inconsistent with the policies set on your server.
+/// This is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Sensor
+///
+///
+///
+///
+///
+///    Accelerometer
+///
+///
 @JS()
 @staticInterop
 class Accelerometer implements Sensor {
-  external Accelerometer([AccelerometerSensorOptions? options]);
+  external factory Accelerometer([AccelerometerSensorOptions? options]);
 }
 
 extension PropsAccelerometer on Accelerometer {
@@ -48,16 +78,79 @@ extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
   }
 }
 
+///  The interface of the Sensor APIs provides on each reading the
+/// acceleration applied to the device along all three axes, but
+/// without the contribution of gravity.
+///  To use this sensor, the user must grant permission to the
+/// ['accelerometer'] device sensor through the Permissions API.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Sensor
+///
+///
+///
+///
+///
+///    Accelerometer
+///
+///
+///
+///
+///
+///    LinearAccelerationSensor
+///
+///
 @JS()
 @staticInterop
 class LinearAccelerationSensor implements Accelerometer {
-  external LinearAccelerationSensor([AccelerometerSensorOptions? options]);
+  external factory LinearAccelerationSensor(
+      [AccelerometerSensorOptions? options]);
 }
 
+///  The interface of the Sensor APIs provides on each reading the
+/// gravity applied to the device along all three axes.
+///  To use this sensor, the user must grant permission to the
+/// ['accelerometer'] device sensor through the Permissions API.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Sensor
+///
+///
+///
+///
+///
+///    Accelerometer
+///
+///
+///
+///
+///
+///    GravitySensor
+///
+///
 @JS()
 @staticInterop
 class GravitySensor implements Accelerometer {
-  external GravitySensor([AccelerometerSensorOptions? options]);
+  external factory GravitySensor([AccelerometerSensorOptions? options]);
 }
 
 @anonymous

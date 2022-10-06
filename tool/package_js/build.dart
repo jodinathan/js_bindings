@@ -156,7 +156,7 @@ Future<void> main() async {
               }
 
               final ret = '''
-                ${val == label || true ? '' : '@JS(\'$val\')\n'}$label
+                ${val == label || true ? '' : '@JS(\'$val\')\n'}${label.replaceAll('@', '')}
                 ''';
 
               return ret;
@@ -179,7 +179,7 @@ Future<void> main() async {
             var parentHasCtor = false;
             var parentHasCtorWithParams = false;
             final dictionary = type == 'dictionary';
-            final factory = dictionary ? 'factory ' : '';
+            final factory = 'factory ';
             final maplike = members?.firstWhereOrNull(
                     (member) => member['type'] == 'maplike');
             final iterablelike = members?.firstWhereOrNull(

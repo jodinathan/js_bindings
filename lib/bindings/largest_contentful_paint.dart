@@ -13,10 +13,26 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the [Largest Contentful Paint API] provides
+/// details about the largest image or text paint before user input
+/// on a web page. The timing of this paint is a good heuristic for
+/// when the main page content is available during load.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    LargestContentfulPaint
+///
+///
 @JS()
 @staticInterop
 class LargestContentfulPaint implements PerformanceEntry {
-  external LargestContentfulPaint();
+  external factory LargestContentfulPaint();
 }
 
 extension PropsLargestContentfulPaint on LargestContentfulPaint {

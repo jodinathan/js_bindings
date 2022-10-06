@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class GeolocationSensor implements Sensor {
-  external GeolocationSensor([GeolocationSensorOptions? options]);
+  external factory GeolocationSensor([GeolocationSensorOptions? options]);
 }
 
 extension PropsGeolocationSensor on GeolocationSensor {
@@ -24,19 +24,18 @@ extension PropsGeolocationSensor on GeolocationSensor {
       js_util.promiseToFuture(
           js_util.callMethod(GeolocationSensor, 'read', [readOptions]));
 
-  /* double | NaN */ dynamic get latitude =>
+/* double | NaN */ dynamic get latitude =>
       js_util.getProperty(this, 'latitude');
-  /* double | NaN */ dynamic get longitude =>
+/* double | NaN */ dynamic get longitude =>
       js_util.getProperty(this, 'longitude');
-  /* double | NaN */ dynamic get altitude =>
+/* double | NaN */ dynamic get altitude =>
       js_util.getProperty(this, 'altitude');
-  /* double | NaN */ dynamic get accuracy =>
+/* double | NaN */ dynamic get accuracy =>
       js_util.getProperty(this, 'accuracy');
-  /* double | NaN */ dynamic get altitudeAccuracy =>
+/* double | NaN */ dynamic get altitudeAccuracy =>
       js_util.getProperty(this, 'altitudeAccuracy');
-  /* double | NaN */ dynamic get heading =>
-      js_util.getProperty(this, 'heading');
-  /* double | NaN */ dynamic get speed => js_util.getProperty(this, 'speed');
+/* double | NaN */ dynamic get heading => js_util.getProperty(this, 'heading');
+/* double | NaN */ dynamic get speed => js_util.getProperty(this, 'speed');
 }
 
 @anonymous

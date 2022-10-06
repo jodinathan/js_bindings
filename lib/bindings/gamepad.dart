@@ -13,10 +13,19 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Gamepad API defines an individual gamepad
+/// or other controller, allowing access to information such as
+/// button presses, axis positions, and id.
+///  A Gamepad object can be returned in one of two ways: via the
+/// [gamepad] property of the [gamepadconnected] and
+/// [gamepaddisconnected] events, or by grabbing any position in the
+/// array returned by the [Navigator.getGamepads()] method.
 @JS()
 @staticInterop
 class Gamepad {
-  external Gamepad();
+  external factory Gamepad();
 }
 
 extension PropsGamepad on Gamepad {
@@ -37,10 +46,17 @@ extension PropsGamepad on Gamepad {
       js_util.getProperty(this, 'touchEvents');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface defines an individual button of a gamepad or other
+/// controller, allowing access to the current state of different
+/// types of buttons available on the control device.
+///  A object is returned by querying any value of the array returned
+/// by the [buttons] property of the [Gamepad] interface.
 @JS()
 @staticInterop
 class GamepadButton {
-  external GamepadButton();
+  external factory GamepadButton();
 }
 
 extension PropsGamepadButton on GamepadButton {
@@ -51,10 +67,28 @@ extension PropsGamepadButton on GamepadButton {
 
 enum GamepadMappingType { empty, standard, xrStandard }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The GamepadEvent interface of the Gamepad API contains
+/// references to gamepads connected to the system, which is what the
+/// gamepad events [Window.gamepadconnected] and
+/// [Window.gamepaddisconnected] are fired in response to.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    GamepadEvent
+///
+///
 @JS()
 @staticInterop
 class GamepadEvent implements Event {
-  external GamepadEvent(String type, GamepadEventInit eventInitDict);
+  external factory GamepadEvent(String type, GamepadEventInit eventInitDict);
 }
 
 extension PropsGamepadEvent on GamepadEvent {

@@ -49,5 +49,5 @@ class EXTClipCullDistance {
   @JS('CLIP_DISTANCE7_EXT')
   external static int get clipDistance7Ext;
 
-  external EXTClipCullDistance();
+  external factory EXTClipCullDistance();
 }

@@ -91,30 +91,53 @@ extension PropsXRTransientInputHitTestOptionsInit
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API handles hit test
+/// subscriptions. You can get an object by using the
+/// [XRSession.requestHitTestSource()] method.
+///  This object doesn't itself contain hit test results, but it is
+/// used to compute hit tests for each [XRFrame] by calling
+/// [XRFrame.getHitTestResults()], which returns [XRHitTestResult]
+/// objects.
 @JS()
 @staticInterop
 class XRHitTestSource {
-  external XRHitTestSource();
+  external factory XRHitTestSource();
 }
 
 extension PropsXRHitTestSource on XRHitTestSource {
-  Object cancel() => js_util.callMethod(this, 'cancel', []);
+  void cancel() => js_util.callMethod(this, 'cancel', []);
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API handles transient input
+/// hit test subscriptions. You can get an object by calling the
+/// [XRSession.requestHitTestSourceForTransientInput()].
+///  This object doesn't itself contain transient input hit test
+/// results, but it is used to compute hit tests for each [XRFrame]
+/// by calling [XRFrame.getHitTestResultsForTransientInput()], which
+/// returns [XRTransientInputHitTestResult] objects.
 @JS()
 @staticInterop
 class XRTransientInputHitTestSource {
-  external XRTransientInputHitTestSource();
+  external factory XRTransientInputHitTestSource();
 }
 
 extension PropsXRTransientInputHitTestSource on XRTransientInputHitTestSource {
-  Object cancel() => js_util.callMethod(this, 'cancel', []);
+  void cancel() => js_util.callMethod(this, 'cancel', []);
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API contains a single result
+/// of a hit test. You can get an array of objects for a frame by
+/// calling [XRFrame.getHitTestResults()].
 @JS()
 @staticInterop
 class XRHitTestResult {
-  external XRHitTestResult();
+  external factory XRHitTestResult();
 }
 
 extension PropsXRHitTestResult on XRHitTestResult {
@@ -125,10 +148,17 @@ extension PropsXRHitTestResult on XRHitTestResult {
       js_util.promiseToFuture(js_util.callMethod(this, 'createAnchor', []));
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API contains an array of
+/// results of a hit test for transient input, grouped by input
+/// source.
+///  You can get an array of [XRHitTestResult] objects for a frame by
+/// calling [XRFrame.getHitTestResultsForTransientInput()].
 @JS()
 @staticInterop
 class XRTransientInputHitTestResult {
-  external XRTransientInputHitTestResult();
+  external factory XRTransientInputHitTestResult();
 }
 
 extension PropsXRTransientInputHitTestResult on XRTransientInputHitTestResult {
@@ -166,10 +196,17 @@ extension PropsXRRayDirectionInit on XRRayDirectionInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API is a geometric ray
+/// described by an origin point and a direction vector.
+///   objects can be passed to [XRSession.requestHitTestSource()] or
+/// [XRSession.requestHitTestSourceForTransientInput()] to perform
+/// hit testing.
 @JS()
 @staticInterop
 class XRRay {
-  external XRRay([DOMPointInit? origin, XRRayDirectionInit? direction]);
+  external factory XRRay([DOMPointInit? origin, XRRayDirectionInit? direction]);
 }
 
 extension PropsXRRay on XRRay {

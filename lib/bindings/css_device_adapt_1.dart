@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CSSViewportRule implements CSSRule {
-  external CSSViewportRule();
+  external factory CSSViewportRule();
 }
 
 extension PropsCSSViewportRule on CSSViewportRule {

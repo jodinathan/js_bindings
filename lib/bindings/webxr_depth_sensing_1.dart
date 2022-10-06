@@ -49,10 +49,30 @@ extension PropsXRDepthStateInit on XRDepthStateInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface contains information about the distance from the
+/// user’s device to the real-world geometry in the user’s
+/// environment.
+/// This interface is the parent of:
+///
+///  [XRCPUDepthInformation]
+///
+///    Depth information from the CPU (returned by
+/// [XRFrame.getDepthInformation()]).
+///
+///  [XRWebGLDepthInformation]
+///
+///    Depth information from WebGL (returned by
+/// [XRWebGLBinding.getDepthInformation()]).
+///
+///
+///  You will usually interact with these child interfaces. However,
+/// provides some useful properties that are inherited:
 @JS()
 @staticInterop
 class XRDepthInformation {
-  external XRDepthInformation();
+  external factory XRDepthInformation();
 }
 
 extension PropsXRDepthInformation on XRDepthInformation {
@@ -63,10 +83,28 @@ extension PropsXRDepthInformation on XRDepthInformation {
   double get rawValueToMeters => js_util.getProperty(this, 'rawValueToMeters');
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface contains depth information from the CPU (returned
+/// by [XRFrame.getDepthInformation()]).
+///
+///
+///
+///    XRDepthInformation
+///
+///
+///
+///
+///
+///    XRCPUDepthInformation
+///
+///
+///  This interface inherits properties from its parent,
+/// [XRDepthInformation].
 @JS()
 @staticInterop
 class XRCPUDepthInformation implements XRDepthInformation {
-  external XRCPUDepthInformation();
+  external factory XRCPUDepthInformation();
 }
 
 extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
@@ -75,10 +113,28 @@ extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
       js_util.callMethod(this, 'getDepthInMeters', [x, y]);
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface contains depth information from the GPU/WebGL
+/// (returned by [XRWebGLBinding.getDepthInformation()]).
+///
+///
+///
+///    XRDepthInformation
+///
+///
+///
+///
+///
+///    XRWebGLDepthInformation
+///
+///
+///  This interface inherits properties from its parent,
+/// [XRDepthInformation].
 @JS()
 @staticInterop
 class XRWebGLDepthInformation implements XRDepthInformation {
-  external XRWebGLDepthInformation();
+  external factory XRWebGLDepthInformation();
 }
 
 extension PropsXRWebGLDepthInformation on XRWebGLDepthInformation {

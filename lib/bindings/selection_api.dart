@@ -13,10 +13,25 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  A object represents the range of text selected by the user or
+/// the current position of the caret. To obtain a object for
+/// examination or manipulation, call [window.getSelection()].
+///  A user may make a selection from left to right (in document
+/// order) or right to left (reverse of document order). The anchor
+/// is where the user began the selection and the focus is where the
+/// user ends the selection. If you make a selection with a desktop
+/// mouse, the anchor is placed where you pressed the mouse button,
+/// and the focus is placed where you released the mouse button.
+///
+///   Note: Anchor and focus should not be confused with the start
+/// and end positions of a selection. The anchor can be placed before
+/// the focus or vice-versa, depending on the direction you made your
+/// selection.
+///
 @JS()
 @staticInterop
 class Selection {
-  external Selection();
+  external factory Selection();
 }
 
 extension PropsSelection on Selection {
@@ -30,37 +45,40 @@ extension PropsSelection on Selection {
   Range getRangeAt(int index) =>
       js_util.callMethod(this, 'getRangeAt', [index]);
 
-  Object addRange(Range range) => js_util.callMethod(this, 'addRange', [range]);
+  void addRange(Range range) => js_util.callMethod(this, 'addRange', [range]);
 
-  Object removeRange(Range range) =>
+  void removeRange(Range range) =>
       js_util.callMethod(this, 'removeRange', [range]);
 
-  Object removeAllRanges() => js_util.callMethod(this, 'removeAllRanges', []);
+  void removeAllRanges() => js_util.callMethod(this, 'removeAllRanges', []);
 
-  Object empty() => js_util.callMethod(this, 'empty', []);
+  void empty() => js_util.callMethod(this, 'empty', []);
 
-  Object collapse(Node? node, [int? offset = 0]) =>
+  void collapse(Node? node, [int? offset = 0]) =>
       js_util.callMethod(this, 'collapse', [node, offset]);
 
-  Object setPosition(Node? node, [int? offset = 0]) =>
+  void setPosition(Node? node, [int? offset = 0]) =>
       js_util.callMethod(this, 'setPosition', [node, offset]);
 
-  Object collapseToStart() => js_util.callMethod(this, 'collapseToStart', []);
+  void collapseToStart() => js_util.callMethod(this, 'collapseToStart', []);
 
-  Object collapseToEnd() => js_util.callMethod(this, 'collapseToEnd', []);
+  void collapseToEnd() => js_util.callMethod(this, 'collapseToEnd', []);
 
-  Object extend(Node node, [int? offset = 0]) =>
+  void extend(Node node, [int? offset = 0]) =>
       js_util.callMethod(this, 'extend', [node, offset]);
 
-  Object setBaseAndExtent(
+  void setBaseAndExtent(
           Node anchorNode, int anchorOffset, Node focusNode, int focusOffset) =>
       js_util.callMethod(this, 'setBaseAndExtent',
           [anchorNode, anchorOffset, focusNode, focusOffset]);
 
-  Object selectAllChildren(Node node) =>
+  void selectAllChildren(Node node) =>
       js_util.callMethod(this, 'selectAllChildren', [node]);
 
-  Object deleteFromDocument() =>
+  void modify([String? alter, String? direction, String? granularity]) =>
+      js_util.callMethod(this, 'modify', [alter, direction, granularity]);
+
+  void deleteFromDocument() =>
       js_util.callMethod(this, 'deleteFromDocument', []);
 
   bool containsNode(Node node, [bool? allowPartialContainment = false]) =>

@@ -13,27 +13,17 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum ScrollDirection { block, inline, horizontal, vertical }
-
-enum ScrollTimelineAutoKeyword { auto }
+enum ScrollAxis { block, inline, horizontal, vertical }
 
 @anonymous
 @JS()
 @staticInterop
 class ScrollTimelineOptions {
-  external factory ScrollTimelineOptions._(
-      {Element? source,
-      String? orientation,
-      Iterable<dynamic>? scrollOffsets = const []});
+  external factory ScrollTimelineOptions._({Element? source, String? axis});
 
   factory ScrollTimelineOptions(
-          {Element? source,
-          ScrollDirection? orientation = ScrollDirection.block,
-          Iterable<dynamic>? scrollOffsets = const []}) =>
-      ScrollTimelineOptions._(
-          source: source,
-          orientation: orientation?.name,
-          scrollOffsets: scrollOffsets);
+          {Element? source, ScrollAxis? axis = ScrollAxis.block}) =>
+      ScrollTimelineOptions._(source: source, axis: axis?.name);
 }
 
 extension PropsScrollTimelineOptions on ScrollTimelineOptions {
@@ -42,76 +32,58 @@ extension PropsScrollTimelineOptions on ScrollTimelineOptions {
     js_util.setProperty(this, 'source', newValue);
   }
 
-  ScrollDirection get orientation =>
-      ScrollDirection.values.byName(js_util.getProperty(this, 'orientation'));
-  set orientation(ScrollDirection newValue) {
-    js_util.setProperty(this, 'orientation', newValue.name);
-  }
-
-  Iterable<dynamic> get scrollOffsets =>
-      js_util.getProperty(this, 'scrollOffsets');
-  set scrollOffsets(Iterable<dynamic> newValue) {
-    js_util.setProperty(this, 'scrollOffsets', newValue);
+  ScrollAxis get axis =>
+      ScrollAxis.values.byName(js_util.getProperty(this, 'axis'));
+  set axis(ScrollAxis newValue) {
+    js_util.setProperty(this, 'axis', newValue.name);
   }
 }
 
 @JS()
 @staticInterop
 class ScrollTimeline implements AnimationTimeline {
-  external ScrollTimeline([ScrollTimelineOptions? options]);
+  external factory ScrollTimeline([ScrollTimelineOptions? options]);
 }
 
 extension PropsScrollTimeline on ScrollTimeline {
   Element? get source => js_util.getProperty(this, 'source');
-  ScrollDirection get orientation =>
-      ScrollDirection.values.byName(js_util.getProperty(this, 'orientation'));
-  Iterable<dynamic> get scrollOffsets =>
-      js_util.getProperty(this, 'scrollOffsets');
+  ScrollAxis get axis =>
+      ScrollAxis.values.byName(js_util.getProperty(this, 'axis'));
 }
-
-enum Edge { start, end }
 
 @anonymous
 @JS()
 @staticInterop
-class ElementBasedOffset {
-  external factory ElementBasedOffset._(
-      {required Element target, String? edge, double? threshold = 0.0});
+class ViewTimelineOptions {
+  external factory ViewTimelineOptions._(
+      {required Element subject, String? axis});
 
-  factory ElementBasedOffset(
-          {required Element target,
-          Edge? edge = Edge.start,
-          double? threshold = 0.0}) =>
-      ElementBasedOffset._(
-          target: target, edge: edge?.name, threshold: threshold);
+  factory ViewTimelineOptions(
+          {required Element subject, ScrollAxis? axis = ScrollAxis.block}) =>
+      ViewTimelineOptions._(subject: subject, axis: axis?.name);
 }
 
-extension PropsElementBasedOffset on ElementBasedOffset {
-  Element get target => js_util.getProperty(this, 'target');
-  set target(Element newValue) {
-    js_util.setProperty(this, 'target', newValue);
+extension PropsViewTimelineOptions on ViewTimelineOptions {
+  Element get subject => js_util.getProperty(this, 'subject');
+  set subject(Element newValue) {
+    js_util.setProperty(this, 'subject', newValue);
   }
 
-  Edge get edge => Edge.values.byName(js_util.getProperty(this, 'edge'));
-  set edge(Edge newValue) {
-    js_util.setProperty(this, 'edge', newValue.name);
-  }
-
-  double get threshold => js_util.getProperty(this, 'threshold');
-  set threshold(double newValue) {
-    js_util.setProperty(this, 'threshold', newValue);
+  ScrollAxis get axis =>
+      ScrollAxis.values.byName(js_util.getProperty(this, 'axis'));
+  set axis(ScrollAxis newValue) {
+    js_util.setProperty(this, 'axis', newValue.name);
   }
 }
 
 @JS()
 @staticInterop
-class CSSScrollTimelineRule implements CSSRule {
-  external CSSScrollTimelineRule();
+class ViewTimeline implements ScrollTimeline {
+  external factory ViewTimeline([ViewTimelineOptions? options]);
 }
 
-extension PropsCSSScrollTimelineRule on CSSScrollTimelineRule {
-  String get name => js_util.getProperty(this, 'name');
-  String get source => js_util.getProperty(this, 'source');
-  String get orientation => js_util.getProperty(this, 'orientation');
-  String get scrollOffsets => js_util.getProperty(this, 'scrollOffsets');
+extension PropsViewTimeline on ViewTimeline {
+  Element get subject => js_util.getProperty(this, 'subject');
+  CSSNumericValue get startOffset => js_util.getProperty(this, 'startOffset');
+  CSSNumericValue get endOffset => js_util.getProperty(this, 'endOffset');
 }

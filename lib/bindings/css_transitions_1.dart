@@ -10,13 +10,32 @@ library css_transitions_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface represents events providing information related to
+/// transitions.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    TransitionEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class TransitionEvent implements Event {
-  external TransitionEvent(String type,
+  external factory TransitionEvent(String type,
       [TransitionEventInit? transitionEventInitDict]);
 }
 

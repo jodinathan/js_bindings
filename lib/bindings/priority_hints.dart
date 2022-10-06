@@ -13,4 +13,4 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum Importance { high, low, auto }
+enum FetchPriority { high, low, auto }

@@ -10,9 +10,16 @@ library media_capabilities;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The [MediaCapabilities] dictionary of the Media Capabilities API
+/// describes how media and audio files must be configured, or
+/// defined, to be passed as a parameter of the
+/// [MediaCapabilities.encodingInfo()] and
+/// [MediaCapabilities.encodingInfo()] methods.
+@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -33,6 +40,11 @@ extension PropsMediaConfiguration on MediaConfiguration {
   }
 }
 
+///  The dictionary of the Media Capabilities API is used to define
+/// the type of media being tested when calling
+/// [MediaCapabilities.decodingInfo()] to query whether a specific
+/// media configuration is supported, smooth, and/or power efficient.
+@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -63,6 +75,11 @@ extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
   }
 }
 
+///  The dictionary of the Media Capabilities API is used to define
+/// the type of media being tested when calling
+/// [MediaCapabilities.encodingInfo()] to query whether a specific
+/// media configuration is supported, smooth, and/or power efficient.
+@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -85,6 +102,13 @@ enum MediaDecodingType { file, mediaSource, webrtc }
 
 enum MediaEncodingType { record, webrtc }
 
+///  The dictionary of the Media Capabilities API is used to define
+/// the video file being tested when calling the [MediaCapabilities]
+/// methods [encodingInfo()] and [decodingInfo()] to determine
+/// whether or not the described video configuration is supported,
+/// and how smoothly and how smooth and power-efficient it can be
+/// handled.
+@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -99,7 +123,8 @@ class VideoConfiguration {
       required String hdrMetadataType,
       required String colorGamut,
       required String transferFunction,
-      required String scalabilityMode});
+      required String scalabilityMode,
+      required bool spatialScalability});
 
   factory VideoConfiguration(
           {required String contentType,
@@ -111,7 +136,8 @@ class VideoConfiguration {
           required HdrMetadataType hdrMetadataType,
           required ColorGamut colorGamut,
           required TransferFunction transferFunction,
-          required String scalabilityMode}) =>
+          required String scalabilityMode,
+          required bool spatialScalability}) =>
       VideoConfiguration._(
           contentType: contentType,
           width: width,
@@ -122,7 +148,8 @@ class VideoConfiguration {
           hdrMetadataType: hdrMetadataType.name,
           colorGamut: colorGamut.name,
           transferFunction: transferFunction.name,
-          scalabilityMode: scalabilityMode);
+          scalabilityMode: scalabilityMode,
+          spatialScalability: spatialScalability);
 }
 
 extension PropsVideoConfiguration on VideoConfiguration {
@@ -178,6 +205,12 @@ extension PropsVideoConfiguration on VideoConfiguration {
   set scalabilityMode(String newValue) {
     js_util.setProperty(this, 'scalabilityMode', newValue);
   }
+
+  bool get spatialScalability =>
+      js_util.getProperty(this, 'spatialScalability');
+  set spatialScalability(bool newValue) {
+    js_util.setProperty(this, 'spatialScalability', newValue);
+  }
 }
 
 enum HdrMetadataType { smpteSt2086, smpteSt209410, smpteSt209440 }
@@ -186,6 +219,11 @@ enum ColorGamut { srgb, p3, rec2020 }
 
 enum TransferFunction { srgb, pq, hlg }
 
+///  The dictionary of the Media Capabilities API defines the audio
+/// file being tested when calling [MediaCapabilities.encodingInfo()]
+/// or [MediaCapabilities.decodingInfo()] to query whether a specific
+/// audio configuration is supported, smooth, and/or power efficient.
+@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -384,10 +422,20 @@ extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
   }
 }
 
+///  The interface of the Media Capabilities API provides information
+/// about the decoding abilities of the device, system and browser.
+/// The API can be used to query the browser about the decoding
+/// abilities of the device based on codecs, profile, resolution, and
+/// bitrates. The information can be used to serve optimal media
+/// streams to the user and determine if playback should be smooth
+/// and power efficient.
+///  The information is accessed through the [mediaCapabilities]
+/// property of the [Navigator] interface.
+@experimental
 @JS()
 @staticInterop
 class MediaCapabilities {
-  external MediaCapabilities();
+  external factory MediaCapabilities();
 }
 
 extension PropsMediaCapabilities on MediaCapabilities {

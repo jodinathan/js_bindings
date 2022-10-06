@@ -10,6 +10,7 @@ library css_font_loading_3;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -91,10 +92,14 @@ extension PropsFontFaceDescriptors on FontFaceDescriptors {
 
 enum FontFaceLoadStatus { unloaded, loading, loaded, error }
 
+///  The interface represents a single usable font face. It allows
+/// control of the source of the font face, being a URL to an
+/// external resource, or a buffer; it also allows control of when
+/// the font face is loaded and its current status.
 @JS()
 @staticInterop
 class FontFace {
-  external FontFace(String family, dynamic source,
+  external factory FontFace(String family, dynamic source,
       [FontFaceDescriptors? descriptors]);
 }
 
@@ -175,13 +180,13 @@ extension PropsFontFace on FontFace {
 @JS()
 @staticInterop
 class FontFaceFeatures {
-  external FontFaceFeatures();
+  external factory FontFaceFeatures();
 }
 
 @JS()
 @staticInterop
 class FontFaceVariationAxis {
-  external FontFaceVariationAxis();
+  external factory FontFaceVariationAxis();
 }
 
 extension PropsFontFaceVariationAxis on FontFaceVariationAxis {
@@ -195,13 +200,13 @@ extension PropsFontFaceVariationAxis on FontFaceVariationAxis {
 @JS()
 @staticInterop
 class FontFaceVariations extends JsArray<FontFaceVariationAxis> {
-  external FontFaceVariations();
+  external factory FontFaceVariations();
 }
 
 @JS()
 @staticInterop
 class FontFacePalette extends JsArray<String> {
-  external FontFacePalette();
+  external factory FontFacePalette();
 }
 
 extension PropsFontFacePalette on FontFacePalette {
@@ -215,7 +220,7 @@ extension PropsFontFacePalette on FontFacePalette {
 @JS()
 @staticInterop
 class FontFacePalettes extends JsArray<FontFacePalette> {
-  external FontFacePalettes();
+  external factory FontFacePalettes();
 }
 
 extension PropsFontFacePalettes on FontFacePalettes {
@@ -237,10 +242,28 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS Font Loading API is fired whenever a
+/// [FontFaceSet] loads.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    FontFaceSetLoadEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class FontFaceSetLoadEvent implements Event {
-  external FontFaceSetLoadEvent(String type,
+  external factory FontFaceSetLoadEvent(String type,
       [FontFaceSetLoadEventInit? eventInitDict]);
 }
 
@@ -250,10 +273,25 @@ extension PropsFontFaceSetLoadEvent on FontFaceSetLoadEvent {
 
 enum FontFaceSetLoadStatus { loading, loaded }
 
+///  The interface of the CSS Font Loading API manages the loading of
+/// font-faces and querying of their download status. It is available
+/// as [Document.fonts].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    FontFaceSet
+///
+///
 @JS()
 @staticInterop
 class FontFaceSet implements EventTarget {
-  external FontFaceSet([Iterable<FontFace>? initialFaces]);
+  external factory FontFaceSet([Iterable<FontFace>? initialFaces]);
 }
 
 extension PropsFontFaceSet on FontFaceSet {
@@ -261,7 +299,7 @@ extension PropsFontFaceSet on FontFaceSet {
 
   bool delete(FontFace font) => js_util.callMethod(this, 'delete', [font]);
 
-  Object clear() => js_util.callMethod(this, 'clear', []);
+  void clear() => js_util.callMethod(this, 'clear', []);
 
   EventHandlerNonNull? get onloading => js_util.getProperty(this, 'onloading');
   set onloading(EventHandlerNonNull? newValue) {
@@ -295,7 +333,7 @@ extension PropsFontFaceSet on FontFaceSet {
 @JS()
 @staticInterop
 class FontFaceSource {
-  external FontFaceSource();
+  external factory FontFaceSource();
 }
 
 extension PropsFontFaceSource on FontFaceSource {

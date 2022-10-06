@@ -1,7 +1,21 @@
 import 'package:js_bindings/js_bindings.dart';
 
 void main() {
-  document.title = 'JS Bindings example';
+  window.document.title = 'JS Bindings example';
+
+  var init = RequestInit(
+      method: 'GET',
+      referrer: '',
+      duplex: RequestDuplex.half,
+      referrerPolicy: ReferrerPolicy.origin,
+      mode: RequestMode.cors,
+      credentials: RequestCredentials.omit,
+      cache: RequestCache.noCache,
+      redirect: RequestRedirect.follow,
+      integrity: '',
+      keepalive: true);
+
+  print('init $init');
 
   final map = JsMap([
     [1, 'one'],
@@ -42,10 +56,10 @@ void main() {
     ..appendChild(video);
 
   document.getElementById('changeHtml')!.addEventListener('click', (e) {
-      window.console.log('Changing the HTML');
-      document.getElementById('someDiv')!.innerHTML =
-      'New stuff oh yeah! ${div.childNodes[0]}';
-    });
+    window.console.log('Changing the HTML');
+    document.getElementById('someDiv')!.innerHTML =
+        'New stuff oh yeah! ${div.childNodes[0]}';
+  });
 
   // listen to the click of the media button
   btnMedia.addEventListener('click', (e) async {

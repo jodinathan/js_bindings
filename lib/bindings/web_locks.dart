@@ -10,23 +10,31 @@ library web_locks;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
 class NavigatorLocks {
-  external NavigatorLocks();
+  external factory NavigatorLocks();
 }
 
 extension PropsNavigatorLocks on NavigatorLocks {
   LockManager get locks => js_util.getProperty(this, 'locks');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Locks API provides methods for
+/// requesting a new [Lock] object and querying for an existing
+/// [Lock] object. To get an instance of , call [navigator.locks].
+@experimental
 @JS()
 @staticInterop
 class LockManager {
-  external LockManager();
+  external factory LockManager();
 }
 
 extension PropsLockManager on LockManager {
@@ -138,10 +146,21 @@ extension PropsLockInfo on LockInfo {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///
+///   The interface of the Web Locks API provides the name and mode
+/// of a lock.
+///   This may be a newly requested lock that is received in the
+/// callback to [LockManager.request()], or a record of an active or
+/// queued lock returned by [LockManager.query()].
+///
+@experimental
 @JS()
 @staticInterop
 class Lock {
-  external Lock();
+  external factory Lock();
 }
 
 extension PropsLock on Lock {

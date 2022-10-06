@@ -13,10 +13,25 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///   is the interface that describes the event handlers you can
+/// implement in an object that will handle events for an
+/// [XMLHttpRequest].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    XMLHttpRequestEventTarget
+///
+///
 @JS()
 @staticInterop
 class XMLHttpRequestEventTarget implements EventTarget {
-  external XMLHttpRequestEventTarget();
+  external factory XMLHttpRequestEventTarget();
 }
 
 extension PropsXMLHttpRequestEventTarget on XMLHttpRequestEventTarget {
@@ -61,7 +76,7 @@ extension PropsXMLHttpRequestEventTarget on XMLHttpRequestEventTarget {
 @JS()
 @staticInterop
 class XMLHttpRequestUpload implements XMLHttpRequestEventTarget {
-  external XMLHttpRequestUpload();
+  external factory XMLHttpRequestUpload();
 }
 
 enum XMLHttpRequestResponseType {
@@ -73,6 +88,38 @@ enum XMLHttpRequestResponseType {
   text
 }
 
+///   (XHR) objects are used to interact with servers. You can
+/// retrieve data from a URL without having to do a full page
+/// refresh. This enables a Web page to update just part of a page
+/// without disrupting what the user is doing.
+///  is used heavily in AJAX programming.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    XMLHttpRequestEventTarget
+///
+///
+///
+///
+///
+///    XMLHttpRequest
+///
+///
+///  Despite its name, can be used to retrieve any type of data, not
+/// just XML.
+///  If your communication needs to involve receiving event data or
+/// message data from a server, consider using server-sent events
+/// through the [EventSource] interface. For full-duplex
+/// communication, WebSockets may be a better choice.
+///   Note: This feature is available in Web Workers, except for
+/// Service Workers
+///
 @JS()
 @staticInterop
 class XMLHttpRequest implements XMLHttpRequestEventTarget {
@@ -91,7 +138,7 @@ class XMLHttpRequest implements XMLHttpRequestEventTarget {
   @JS('DONE')
   external static int get done;
 
-  external XMLHttpRequest();
+  external factory XMLHttpRequest();
 }
 
 extension PropsXMLHttpRequest on XMLHttpRequest {
@@ -102,12 +149,12 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   }
 
   int get readyState => js_util.getProperty(this, 'readyState');
-  Object open(String method,
+  void open(String method,
           [String? url, bool? mAsync, String? username, String? password]) =>
       js_util
           .callMethod(this, 'open', [method, url, mAsync, username, password]);
 
-  Object setRequestHeader(String name, String value) =>
+  void setRequestHeader(String name, String value) =>
       js_util.callMethod(this, 'setRequestHeader', [name, value]);
 
   int get timeout => js_util.getProperty(this, 'timeout');
@@ -121,9 +168,9 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   }
 
   XMLHttpRequestUpload get upload => js_util.getProperty(this, 'upload');
-  Object send([dynamic body]) => js_util.callMethod(this, 'send', [body]);
+  void send([dynamic body]) => js_util.callMethod(this, 'send', [body]);
 
-  Object abort() => js_util.callMethod(this, 'abort', []);
+  void abort() => js_util.callMethod(this, 'abort', []);
 
   String get responseURL => js_util.getProperty(this, 'responseURL');
   int get status => js_util.getProperty(this, 'status');
@@ -134,7 +181,7 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   String getAllResponseHeaders() =>
       js_util.callMethod(this, 'getAllResponseHeaders', []);
 
-  Object overrideMimeType(String mime) =>
+  void overrideMimeType(String mime) =>
       js_util.callMethod(this, 'overrideMimeType', [mime]);
 
   XMLHttpRequestResponseType get responseType =>
@@ -149,17 +196,31 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   Document? get responseXML => js_util.getProperty(this, 'responseXML');
 }
 
+///  The interface provides a way to easily construct a set of
+/// key/value pairs representing form fields and their values, which
+/// can then be easily sent using the [XMLHttpRequest.send()] method.
+/// It uses the same format a form would use if the encoding type
+/// were set to ["multipart/form-data"].
+///  You can also pass it directly to the [URLSearchParams]
+/// constructor if you want to generate query parameters in the way a
+/// [<form>] would do if it were using simple [GET] submission.
+///  An object implementing can directly be used in a [for...of]
+/// structure, instead of [entries()]: [for (var p of myFormData)] is
+/// equivalent to [for (var p of myFormData.entries())].
+///
+///  Note: This feature is available in Web Workers.
+///
 @JS()
 @staticInterop
 class FormData {
-  external FormData([HTMLFormElement? form]);
+  external factory FormData([HTMLFormElement? form]);
 }
 
 extension PropsFormData on FormData {
-  Object append(String name, [Blob? blobValue, String? filename]) =>
+  void append(String name, [Blob? blobValue, String? filename]) =>
       js_util.callMethod(this, 'append', [name, blobValue, filename]);
 
-  Object delete(String name) => js_util.callMethod(this, 'delete', [name]);
+  void delete(String name) => js_util.callMethod(this, 'delete', [name]);
 
   @JS('get')
   @staticInterop
@@ -172,14 +233,31 @@ extension PropsFormData on FormData {
 
   @JS('set')
   @staticInterop
-  Object mSet(String name, [Blob? blobValue, String? filename]) =>
+  void mSet(String name, [Blob? blobValue, String? filename]) =>
       js_util.callMethod(this, 'set', [name, blobValue, filename]);
 }
 
+///  The interface represents events measuring progress of an
+/// underlying process, like an HTTP request (for an
+/// [XMLHttpRequest], or the loading of the underlying resource of an
+/// [<img>], [<audio>], [<video>], [<style>] or [<link>]).
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    ProgressEvent
+///
+///
 @JS()
 @staticInterop
 class ProgressEvent implements Event {
-  external ProgressEvent(String type, [ProgressEventInit? eventInitDict]);
+  external factory ProgressEvent(String type,
+      [ProgressEventInit? eventInitDict]);
 }
 
 extension PropsProgressEvent on ProgressEvent {

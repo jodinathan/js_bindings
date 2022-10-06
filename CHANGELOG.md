@@ -1,3 +1,6 @@
+## 0.0.7
+ - Adjusted to use the factory generator of ` staticInterop`  
+
 ## 0.0.6
  - Changed `Map` features to use builtin JS functions
  - Added `join` to `JsArray`

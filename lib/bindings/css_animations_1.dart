@@ -13,10 +13,24 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface represents events providing information related to
+/// animations.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    AnimationEvent
+///
+///
 @JS()
 @staticInterop
 class AnimationEvent implements Event {
-  external AnimationEvent(String type,
+  external factory AnimationEvent(String type,
       [AnimationEventInit? animationEventInitDict]);
 }
 
@@ -53,10 +67,25 @@ extension PropsAnimationEventInit on AnimationEventInit {
   }
 }
 
+///  The interface describes an object representing a set of styles
+/// for a given keyframe. It corresponds to the contents of a single
+/// keyframe of a [@keyframes] [at-rule].
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///    CSSKeyframeRule
+///
+///
 @JS()
 @staticInterop
 class CSSKeyframeRule implements CSSRule {
-  external CSSKeyframeRule();
+  external factory CSSKeyframeRule();
 }
 
 extension PropsCSSKeyframeRule on CSSKeyframeRule {
@@ -68,10 +97,25 @@ extension PropsCSSKeyframeRule on CSSKeyframeRule {
   CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
 }
 
+///  The interface describes an object representing a complete set of
+/// keyframes for a CSS animation. It corresponds to the contents of
+/// a whole [@keyframes] [at-rule].
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///    CSSKeyframesRule
+///
+///
 @JS()
 @staticInterop
 class CSSKeyframesRule implements CSSRule {
-  external CSSKeyframesRule();
+  external factory CSSKeyframesRule();
 }
 
 extension PropsCSSKeyframesRule on CSSKeyframesRule {
@@ -81,10 +125,10 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   }
 
   CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
-  Object appendRule(String rule) =>
+  void appendRule(String rule) =>
       js_util.callMethod(this, 'appendRule', [rule]);
 
-  Object deleteRule(String select) =>
+  void deleteRule(String select) =>
       js_util.callMethod(this, 'deleteRule', [select]);
 
   CSSKeyframeRule? findRule(String select) =>

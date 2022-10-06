@@ -13,10 +13,25 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Layout Instability API provides insights
+/// into the stability of web pages based on movements of the
+/// elements on the page.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    LayoutShift
+///
+///
 @JS()
 @staticInterop
 class LayoutShift implements PerformanceEntry {
-  external LayoutShift();
+  external factory LayoutShift();
 }
 
 extension PropsLayoutShift on LayoutShift {
@@ -28,10 +43,14 @@ extension PropsLayoutShift on LayoutShift {
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
+///  The interface of the Layout Instability API provides debugging
+/// information about elements which have shifted.
+///  Instances of are returned in an array by calling
+/// [LayoutShift.sources].
 @JS()
 @staticInterop
 class LayoutShiftAttribution {
-  external LayoutShiftAttribution();
+  external factory LayoutShiftAttribution();
 }
 
 extension PropsLayoutShiftAttribution on LayoutShiftAttribution {

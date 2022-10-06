@@ -30,10 +30,23 @@ enum MediaSessionAction {
   hangup
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Media Session API allows a web page to
+/// provide custom behaviors for standard media playback
+/// interactions, and to report metadata that can be sent by the user
+/// agent to the device or operating system for presentation in
+/// standardized user interface elements.
+///  For example, a smartphone might have a standard panel in its
+/// lock screen that provides controls for media playback and
+/// information display. A browser on the device can use to make
+/// browser playback controllable from that standard/global user
+/// interface.
 @JS()
 @staticInterop
 class MediaSession {
-  external MediaSession();
+  external factory MediaSession();
 }
 
 extension PropsMediaSession on MediaSession {
@@ -49,25 +62,30 @@ extension PropsMediaSession on MediaSession {
     js_util.setProperty(this, 'playbackState', newValue.name);
   }
 
-  Object setActionHandler(
+  void setActionHandler(
           MediaSessionAction action, MediaSessionActionHandler? handler) =>
       js_util.callMethod(this, 'setActionHandler',
           [action.name, handler == null ? null : allowInterop(handler)]);
 
-  Object setPositionState([MediaPositionState? state]) =>
+  void setPositionState([MediaPositionState? state]) =>
       js_util.callMethod(this, 'setPositionState', [state]);
 
-  Object setMicrophoneActive(bool active) =>
+  void setMicrophoneActive(bool active) =>
       js_util.callMethod(this, 'setMicrophoneActive', [active]);
 
-  Object setCameraActive(bool active) =>
+  void setCameraActive(bool active) =>
       js_util.callMethod(this, 'setCameraActive', [active]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Media Session API allows a web page to
+/// provide rich media metadata for display in a platform UI.
 @JS()
 @staticInterop
 class MediaMetadata {
-  external MediaMetadata([MediaMetadataInit? init]);
+  external factory MediaMetadata([MediaMetadataInit? init]);
 }
 
 extension PropsMediaMetadata on MediaMetadata {
@@ -125,6 +143,11 @@ extension PropsMediaMetadataInit on MediaMetadataInit {
   }
 }
 
+///  The Media Session API's dictionary describes the images
+/// associated with a media resource's [MediaMetadata].
+///  Its contents can be displayed by the user agent in appropriate
+/// contexts like in a player interface to show the current playing
+/// video or audio track.
 @anonymous
 @JS()
 @staticInterop

@@ -13,10 +13,25 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Remote Playback API allows the page to
+/// detect availability of remote playback devices, then connect to
+/// and control playing on these devices.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    RemotePlayback
+///
+///
 @JS()
 @staticInterop
 class RemotePlayback implements EventTarget {
-  external RemotePlayback();
+  external factory RemotePlayback();
 }
 
 extension PropsRemotePlayback on RemotePlayback {
@@ -24,7 +39,7 @@ extension PropsRemotePlayback on RemotePlayback {
       js_util.promiseToFuture(js_util
           .callMethod(this, 'watchAvailability', [allowInterop(callback)]));
 
-  Future<Object> cancelWatchAvailability([int? id]) => js_util.promiseToFuture(
+  Future<void> cancelWatchAvailability([int? id]) => js_util.promiseToFuture(
       js_util.callMethod(this, 'cancelWatchAvailability', [id]));
 
   RemotePlaybackState get state =>
@@ -46,7 +61,7 @@ extension PropsRemotePlayback on RemotePlayback {
     js_util.setProperty(this, 'ondisconnect', newValue);
   }
 
-  Future<Object> prompt() =>
+  Future<void> prompt() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'prompt', []));
 }
 

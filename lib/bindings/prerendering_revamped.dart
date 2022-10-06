@@ -1,12 +1,12 @@
-/// WebAssembly Web API
+/// Prerendering Revamped
 ///
-/// https://webassembly.github.io/spec/web-api/
+/// https://wicg.github.io/nav-speculation/prerendering.html
 
 // ignore_for_file: unused_import
 
 @JS('window')
 @staticInterop
-library wasm_web_api_1;
+library prerendering_revamped;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';

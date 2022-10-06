@@ -36,7 +36,7 @@ const types = {
   'short': 'int',
   'octet': 'int',
   'Date': 'DateTime',
-  'undefined': 'Object',
+  'undefined': 'void',
   'NaN': 'Object',
   'DOMException': 'Exception',
   'Promise': 'Future',

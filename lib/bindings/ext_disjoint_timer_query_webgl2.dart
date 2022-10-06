@@ -28,10 +28,10 @@ class EXTDisjointTimerQueryWebgl2 {
   @JS('GPU_DISJOINT_EXT')
   external static int get gpuDisjointExt;
 
-  external EXTDisjointTimerQueryWebgl2();
+  external factory EXTDisjointTimerQueryWebgl2();
 }
 
 extension PropsEXTDisjointTimerQueryWebgl2 on EXTDisjointTimerQueryWebgl2 {
-  Object queryCounterEXT(WebGLQuery query, int target) =>
+  void queryCounterEXT(WebGLQuery query, int target) =>
       js_util.callMethod(this, 'queryCounterEXT', [query, target]);
 }

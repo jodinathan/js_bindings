@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CSSLayerBlockRule implements CSSGroupingRule {
-  external CSSLayerBlockRule();
+  external factory CSSLayerBlockRule();
 }
 
 extension PropsCSSLayerBlockRule on CSSLayerBlockRule {
@@ -26,7 +26,7 @@ extension PropsCSSLayerBlockRule on CSSLayerBlockRule {
 @JS()
 @staticInterop
 class CSSLayerStatementRule implements CSSRule {
-  external CSSLayerStatementRule();
+  external factory CSSLayerStatementRule();
 }
 
 extension PropsCSSLayerStatementRule on CSSLayerStatementRule {

@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class HTMLPortalElement implements HTMLElement {
-  external HTMLPortalElement();
+  external factory HTMLPortalElement();
 }
 
 extension PropsHTMLPortalElement on HTMLPortalElement {
@@ -30,10 +30,10 @@ extension PropsHTMLPortalElement on HTMLPortalElement {
     js_util.setProperty(this, 'referrerPolicy', newValue);
   }
 
-  Future<Object> activate([PortalActivateOptions? options]) =>
+  Future<void> activate([PortalActivateOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'activate', [options]));
 
-  Object postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
+  void postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
       js_util.callMethod(this, 'postMessage', [message, options]);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
@@ -65,11 +65,11 @@ extension PropsPortalActivateOptions on PortalActivateOptions {
 @JS()
 @staticInterop
 class PortalHost implements EventTarget {
-  external PortalHost();
+  external factory PortalHost();
 }
 
 extension PropsPortalHost on PortalHost {
-  Object postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
+  void postMessage(dynamic message, [StructuredSerializeOptions? options]) =>
       js_util.callMethod(this, 'postMessage', [message, options]);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
@@ -87,7 +87,7 @@ extension PropsPortalHost on PortalHost {
 @JS()
 @staticInterop
 class PortalActivateEvent implements Event {
-  external PortalActivateEvent(String type,
+  external factory PortalActivateEvent(String type,
       [PortalActivateEventInit? eventInitDict]);
 }
 

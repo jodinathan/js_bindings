@@ -13,10 +13,23 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+/// The interface represents an [@counter-style] at-rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///    CSSCounterStyleRule
+///
+///
 @JS()
 @staticInterop
 class CSSCounterStyleRule implements CSSRule {
-  external CSSCounterStyleRule();
+  external factory CSSCounterStyleRule();
 }
 
 extension PropsCSSCounterStyleRule on CSSCounterStyleRule {

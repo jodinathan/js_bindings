@@ -13,10 +13,26 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Element Timing API reports timing
+/// information on a specific element identified by the page author.
+/// For example it could report timing information about the main
+/// image in an article.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    PerformanceElementTiming
+///
+///
 @JS()
 @staticInterop
 class PerformanceElementTiming implements PerformanceEntry {
-  external PerformanceElementTiming();
+  external factory PerformanceElementTiming();
 }
 
 extension PropsPerformanceElementTiming on PerformanceElementTiming {

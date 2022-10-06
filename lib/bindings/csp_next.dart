@@ -23,7 +23,7 @@ enum ScriptingPolicyViolationType {
 @JS()
 @staticInterop
 class ScriptingPolicyReportBody implements ReportBody {
-  external ScriptingPolicyReportBody();
+  external factory ScriptingPolicyReportBody();
 }
 
 extension PropsScriptingPolicyReportBody on ScriptingPolicyReportBody {

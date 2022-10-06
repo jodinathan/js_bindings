@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class FaceDetector {
-  external FaceDetector([FaceDetectorOptions? faceDetectorOptions]);
+  external factory FaceDetector([FaceDetectorOptions? faceDetectorOptions]);
 }
 
 extension PropsFaceDetector on FaceDetector {
@@ -92,10 +92,15 @@ extension PropsLandmark on Landmark {
 
 enum LandmarkType { mouth, eye, nose }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the [Barcode Detection API] allows detection of
+/// linear and two dimensional barcodes in images.
 @JS()
 @staticInterop
 class BarcodeDetector {
-  external BarcodeDetector([BarcodeDetectorOptions? barcodeDetectorOptions]);
+  external factory BarcodeDetector(
+      [BarcodeDetectorOptions? barcodeDetectorOptions]);
 }
 
 extension PropsBarcodeDetector on BarcodeDetector {

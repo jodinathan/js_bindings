@@ -14,10 +14,31 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API contains lighting
+/// information at a given point in the user's environment. You can
+/// get an [XRLighting] object using the
+/// [XRSession.requestLightProbe()] method.
+///  This object doesn't itself contain lighting values, but it is
+/// used to collect lighting states for each [XRFrame]. See
+/// [XRLightEstimate] for the estimated lighting values for an .
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    XRLightProbe
+///
+///
 @JS()
 @staticInterop
 class XRLightProbe implements EventTarget {
-  external XRLightProbe();
+  external factory XRLightProbe();
 }
 
 extension PropsXRLightProbe on XRLightProbe {
@@ -31,10 +52,16 @@ extension PropsXRLightProbe on XRLightProbe {
 
 enum XRReflectionFormat { srgba8, rgba16f }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebXR Device API provides the estimated
+/// lighting values for an [XRLightProbe] at the time represented by
+/// an [XRFrame].
+/// To get an object, call the [XRFrame.getLightEstimate()] method.
 @JS()
 @staticInterop
 class XRLightEstimate {
-  external XRLightEstimate();
+  external factory XRLightEstimate();
 }
 
 extension PropsXRLightEstimate on XRLightEstimate {

@@ -13,19 +13,48 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Sensor APIs is the base class for all the
+/// other sensor interfaces. This interface cannot be used directly.
+/// Instead it provides properties, event handlers, and methods
+/// accessed by interfaces that inherit from it.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Sensor
+///
+///
+///  When initially created, the object is idle, meaning it does not
+/// take measures. Once the [start()]} method is called, it prepares
+/// itself to read data and, once ready, the [activate] event is sent
+/// and the sensor becomes activated. It then sends a [reading] event
+/// each time new data is available.
+///  In case of an error, the [error] event is sent, reading stops,
+/// and the object becomes idle again. The [start()]} method needs to
+/// be called again before it can read further data.
 @JS()
 @staticInterop
 class Sensor implements EventTarget {
-  external Sensor();
+  external factory Sensor();
 }
 
 extension PropsSensor on Sensor {
   bool get activated => js_util.getProperty(this, 'activated');
   bool get hasReading => js_util.getProperty(this, 'hasReading');
   double? get timestamp => js_util.getProperty(this, 'timestamp');
-  Object start() => js_util.callMethod(this, 'start', []);
+  void start() => js_util.callMethod(this, 'start', []);
 
-  Object stop() => js_util.callMethod(this, 'stop', []);
+  void stop() => js_util.callMethod(this, 'stop', []);
 
   EventHandlerNonNull? get onreading => js_util.getProperty(this, 'onreading');
   set onreading(EventHandlerNonNull? newValue) {
@@ -58,10 +87,24 @@ extension PropsSensorOptions on SensorOptions {
   }
 }
 
+///  The interface of the Sensor APIs provides information about
+/// errors thrown by a [Sensor] or derived interface.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    SensorErrorEvent
+///
+///
 @JS()
 @staticInterop
 class SensorErrorEvent implements Event {
-  external SensorErrorEvent(
+  external factory SensorErrorEvent(
       String type, SensorErrorEventInit errorEventInitDict);
 }
 

@@ -76,17 +76,19 @@ extension PropsContentDescription on ContentDescription {
   }
 }
 
+///  The interface of the [Content Index API] allows developers to
+/// register their offline enabled content with the browser.
 @JS()
 @staticInterop
 class ContentIndex {
-  external ContentIndex();
+  external factory ContentIndex();
 }
 
 extension PropsContentIndex on ContentIndex {
-  Future<Object> add(ContentDescription description) =>
+  Future<void> add(ContentDescription description) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'add', [description]));
 
-  Future<Object> delete(String id) =>
+  Future<void> delete(String id) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'delete', [id]));
 
   Future<Iterable<ContentDescription>> getAll() =>
@@ -107,10 +109,36 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
   }
 }
 
+///  The interface of the [Content Index API] defines the object used
+/// to represent the [contentdelete] event.
+///  This event is sent to the [global scope] of a [ServiceWorker].
+/// It contains the id of the indexed content to be removed.
+///  The [contentdelete] event is only fired when the deletion
+/// happens due to interaction with the browser's built-in user
+/// interface. It is not fired when the [ContentIndex.delete] method
+/// is called.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///    ContentIndexEvent
+///
+///
 @JS()
 @staticInterop
 class ContentIndexEvent implements ExtendableEvent {
-  external ContentIndexEvent(String type, ContentIndexEventInit init);
+  external factory ContentIndexEvent(String type, ContentIndexEventInit init);
 }
 
 extension PropsContentIndexEvent on ContentIndexEvent {

@@ -16,10 +16,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class TestUtils {
-  external TestUtils();
+  external factory TestUtils();
 }
 
 extension PropsTestUtils on TestUtils {
-  Future<Object> gc() =>
+  Future<void> gc() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'gc', []));
 }

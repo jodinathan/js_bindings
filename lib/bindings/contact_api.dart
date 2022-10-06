@@ -15,10 +15,19 @@ import 'package:js_bindings/js_bindings.dart';
 
 enum ContactProperty { address, email, icon, name, tel }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the Contact Picker API represents a physical
+/// address. Instances of this interface are retrieved from the
+/// [address] property of the objects returned by
+/// [ContactManager.getProperties()].
+///  It may be useful to refer to the Universal Postal Union web
+/// site's Addressing S42 standard materials, which provide
+/// information about international standards for postal addresses.
 @JS()
 @staticInterop
 class ContactAddress {
-  external ContactAddress();
+  external factory ContactAddress();
 }
 
 extension PropsContactAddress on ContactAddress {
@@ -90,10 +99,17 @@ extension PropsContactsSelectOptions on ContactsSelectOptions {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the [Contact Picker API] allows users to select
+/// entries from their contact list and share limited details of the
+/// selected entries with a website or application.
+///  The is available through the global [navigator.contacts]
+/// property.
 @JS()
 @staticInterop
 class ContactsManager {
-  external ContactsManager();
+  external factory ContactsManager();
 }
 
 extension PropsContactsManager on ContactsManager {

@@ -10,20 +10,42 @@ library keyboard_lock;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Keyboard API provides functions that
+/// retrieve keyboard layout maps and toggle capturing of key presses
+/// from the physical keyboard.
+///  A list of valid code values is found in the UI Events
+/// KeyboardEvent code Values spec.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Keyboard
+///
+///
+@experimental
 @JS()
 @staticInterop
 class Keyboard implements EventTarget {
-  external Keyboard();
+  external factory Keyboard();
 }
 
 extension PropsKeyboard on Keyboard {
-  Future<Object> lock([Iterable<String>? keyCodes = const []]) =>
+  Future<void> lock([Iterable<String>? keyCodes = const []]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'lock', [keyCodes]));
 
-  Object unlock() => js_util.callMethod(this, 'unlock', []);
+  void unlock() => js_util.callMethod(this, 'unlock', []);
 
   Future<KeyboardLayoutMap> getLayoutMap() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getLayoutMap', []));

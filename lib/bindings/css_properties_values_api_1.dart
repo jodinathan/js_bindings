@@ -10,6 +10,7 @@ library css_properties_values_api_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -46,10 +47,25 @@ extension PropsPropertyDefinition on PropertyDefinition {
   }
 }
 
+///  The interface of the CSS_Properties_and_Values_API represents a
+/// single CSS [@property] rule.
+///
+///
+///
+///    CSSRule
+///
+///
+///
+///
+///
+///    CSSPropertyRule
+///
+///
+@experimental
 @JS()
 @staticInterop
 class CSSPropertyRule implements CSSRule {
-  external CSSPropertyRule();
+  external factory CSSPropertyRule();
 }
 
 extension PropsCSSPropertyRule on CSSPropertyRule {

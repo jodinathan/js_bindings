@@ -13,14 +13,42 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///
+///  The extension is part of the
+///  WebGL API and allows to render more
+///   than one primitive with a single function call. This can
+/// improve a WebGL application's performance
+///   as it reduces binding costs in the renderer and speeds up GPU
+/// thread time with uniform data.
+///
+/// When this extension is enabled:
+///
+///
+///    New methods that handle multiple lists of arguments in one
+/// call are added
+///   (see method list below).
+///
+///  The [gl_DrawID] built-in is added to the shading language.
+///
+///   Note: This extension is available to both,
+///   WebGL 1 and
+///   WebGL 2 contexts.
+///
+///
+///   In shader code, the directive [#extension GL_ANGLE_multi_draw]
+///   needs to be called to enable the extension.
+///
+///   This extension enables the [ANGLE_instanced_arrays] extension
+/// implicitly.
+///
 @JS('WEBGL_multi_draw')
 @staticInterop
 class WEBGLMultiDraw {
-  external WEBGLMultiDraw();
+  external factory WEBGLMultiDraw();
 }
 
 extension PropsWEBGLMultiDraw on WEBGLMultiDraw {
-  Object multiDrawArraysWEBGL(int mode, dynamic firstsList, int firstsOffset,
+  void multiDrawArraysWEBGL(int mode, dynamic firstsList, int firstsOffset,
           dynamic countsList, int countsOffset, int drawcount) =>
       js_util.callMethod(this, 'multiDrawArraysWEBGL', [
         mode,
@@ -31,7 +59,7 @@ extension PropsWEBGLMultiDraw on WEBGLMultiDraw {
         drawcount
       ]);
 
-  Object multiDrawElementsWEBGL(int mode, dynamic countsList, int countsOffset,
+  void multiDrawElementsWEBGL(int mode, dynamic countsList, int countsOffset,
           int type, dynamic offsetsList, int offsetsOffset, int drawcount) =>
       js_util.callMethod(this, 'multiDrawElementsWEBGL', [
         mode,
@@ -43,7 +71,7 @@ extension PropsWEBGLMultiDraw on WEBGLMultiDraw {
         drawcount
       ]);
 
-  Object multiDrawArraysInstancedWEBGL(
+  void multiDrawArraysInstancedWEBGL(
           int mode,
           dynamic firstsList,
           int firstsOffset,
@@ -63,7 +91,7 @@ extension PropsWEBGLMultiDraw on WEBGLMultiDraw {
         drawcount
       ]);
 
-  Object multiDrawElementsInstancedWEBGL(
+  void multiDrawElementsInstancedWEBGL(
           int mode,
           dynamic countsList,
           int countsOffset,

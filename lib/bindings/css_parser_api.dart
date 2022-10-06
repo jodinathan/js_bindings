@@ -30,13 +30,13 @@ extension PropsCSSParserOptions on CSSParserOptions {
 @JS()
 @staticInterop
 class CSSParserRule {
-  external CSSParserRule();
+  external factory CSSParserRule();
 }
 
 @JS()
 @staticInterop
 class CSSParserAtRule implements CSSParserRule {
-  external CSSParserAtRule(String name, Iterable<dynamic> prelude,
+  external factory CSSParserAtRule(String name, Iterable<dynamic> prelude,
       [Iterable<CSSParserRule>? body]);
 }
 
@@ -50,7 +50,7 @@ extension PropsCSSParserAtRule on CSSParserAtRule {
 @JS()
 @staticInterop
 class CSSParserQualifiedRule implements CSSParserRule {
-  external CSSParserQualifiedRule(Iterable<dynamic> prelude,
+  external factory CSSParserQualifiedRule(Iterable<dynamic> prelude,
       [Iterable<CSSParserRule>? body]);
 }
 
@@ -63,7 +63,8 @@ extension PropsCSSParserQualifiedRule on CSSParserQualifiedRule {
 @JS()
 @staticInterop
 class CSSParserDeclaration implements CSSParserRule {
-  external CSSParserDeclaration(String name, [Iterable<CSSParserRule>? body]);
+  external factory CSSParserDeclaration(String name,
+      [Iterable<CSSParserRule>? body]);
 }
 
 extension PropsCSSParserDeclaration on CSSParserDeclaration {
@@ -75,13 +76,13 @@ extension PropsCSSParserDeclaration on CSSParserDeclaration {
 @JS()
 @staticInterop
 class CSSParserValue {
-  external CSSParserValue();
+  external factory CSSParserValue();
 }
 
 @JS()
 @staticInterop
 class CSSParserBlock implements CSSParserValue {
-  external CSSParserBlock(String name, Iterable<CSSParserValue> body);
+  external factory CSSParserBlock(String name, Iterable<CSSParserValue> body);
 }
 
 extension PropsCSSParserBlock on CSSParserBlock {
@@ -93,7 +94,7 @@ extension PropsCSSParserBlock on CSSParserBlock {
 @JS()
 @staticInterop
 class CSSParserFunction implements CSSParserValue {
-  external CSSParserFunction(
+  external factory CSSParserFunction(
       String name, Iterable<Iterable<CSSParserValue>> args);
 }
 

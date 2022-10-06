@@ -109,10 +109,46 @@ extension PropsPointerEventInit on PointerEventInit {
   }
 }
 
+///  The interface represents the state of a DOM event produced by a
+/// pointer such as the geometry of the contact point, the device
+/// type that generated the event, the amount of pressure that was
+/// applied on the contact surface, etc.
+///  A pointer is a hardware agnostic representation of input devices
+/// (such as a mouse, pen or contact point on a touch-enable
+/// surface). The pointer can target a specific coordinate (or set of
+/// coordinates) on the contact surface such as a screen.
+///  A pointer's hit test is the process a browser uses to determine
+/// the target element for a pointer event. Typically, this is
+/// determined by considering the pointer's location and also the
+/// visual layout of elements in a document on screen media.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    UIEvent
+///
+///
+///
+///
+///
+///    MouseEvent
+///
+///
+///
+///
+///
+///    PointerEvent
+///
+///
 @JS()
 @staticInterop
 class PointerEvent implements MouseEvent {
-  external PointerEvent(String type, [PointerEventInit? eventInitDict]);
+  external factory PointerEvent(String type, [PointerEventInit? eventInitDict]);
 }
 
 extension PropsPointerEvent on PointerEvent {

@@ -51,7 +51,7 @@ extension PropsSchedulerPostTaskOptions on SchedulerPostTaskOptions {
 @JS()
 @staticInterop
 class Scheduler {
-  external Scheduler();
+  external factory Scheduler();
 }
 
 extension PropsScheduler on Scheduler {
@@ -64,7 +64,7 @@ extension PropsScheduler on Scheduler {
 @JS()
 @staticInterop
 class TaskPriorityChangeEvent implements Event {
-  external TaskPriorityChangeEvent(
+  external factory TaskPriorityChangeEvent(
       String type, TaskPriorityChangeEventInit priorityChangeEventInitDict);
 }
 
@@ -115,18 +115,18 @@ extension PropsTaskControllerInit on TaskControllerInit {
 @JS()
 @staticInterop
 class TaskController implements AbortController {
-  external TaskController([TaskControllerInit? init]);
+  external factory TaskController([TaskControllerInit? init]);
 }
 
 extension PropsTaskController on TaskController {
-  Object setPriority(TaskPriority priority) =>
+  void setPriority(TaskPriority priority) =>
       js_util.callMethod(this, 'setPriority', [priority.name]);
 }
 
 @JS()
 @staticInterop
 class TaskSignal implements AbortSignal {
-  external TaskSignal();
+  external factory TaskSignal();
 }
 
 extension PropsTaskSignal on TaskSignal {

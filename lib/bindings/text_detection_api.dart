@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class TextDetector {
-  external TextDetector();
+  external factory TextDetector();
 }
 
 extension PropsTextDetector on TextDetector {

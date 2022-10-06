@@ -10,13 +10,21 @@ library permissions;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The Permissions interface of the Permissions API provides the
+/// core Permission API functionality, such as methods for querying
+/// and revoking permissions
+@experimental
 @JS()
 @staticInterop
 class Permissions {
-  external Permissions();
+  external factory Permissions();
 }
 
 extension PropsPermissions on Permissions {
@@ -34,31 +42,44 @@ extension PropsPermissions on Permissions {
 @JS()
 @staticInterop
 class PermissionDescriptor {
-  external factory PermissionDescriptor._({required String name});
-
-  factory PermissionDescriptor({required PermissionName name}) =>
-      PermissionDescriptor._(name: name.name);
+  external factory PermissionDescriptor({required String name});
 }
 
 extension PropsPermissionDescriptor on PermissionDescriptor {
-  PermissionName get name =>
-      PermissionName.values.byName(js_util.getProperty(this, 'name'));
-  set name(PermissionName newValue) {
-    js_util.setProperty(this, 'name', newValue.name);
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Permissions API provides the state of an
+/// object and an event handler for monitoring changes to said state.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    PermissionStatus
+///
+///
+@experimental
 @JS()
 @staticInterop
 class PermissionStatus implements EventTarget {
-  external PermissionStatus();
+  external factory PermissionStatus();
 }
 
 extension PropsPermissionStatus on PermissionStatus {
   PermissionState get state =>
       PermissionState.values.byName(js_util.getProperty(this, 'state'));
-  PermissionName get name =>
-      PermissionName.values.byName(js_util.getProperty(this, 'name'));
+  String get name => js_util.getProperty(this, 'name');
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onchange', newValue);
@@ -67,24 +88,38 @@ extension PropsPermissionStatus on PermissionStatus {
 
 enum PermissionState { granted, denied, prompt }
 
-enum PermissionName {
-  accelerometer,
-  ambientLightSensor,
-  backgroundFetch,
-  backgroundSync,
-  bluetooth,
-  camera,
-  displayCapture,
-  geolocation,
-  gyroscope,
-  magnetometer,
-  microphone,
-  midi,
-  nfc,
-  notifications,
-  persistentStorage,
-  push,
-  screenWakeLock,
-  speakerSelection,
-  xrSpatialTracking
+@anonymous
+@JS()
+@staticInterop
+class PermissionSetParameters {
+  external factory PermissionSetParameters._(
+      {required PermissionDescriptor descriptor,
+      required String state,
+      bool? oneRealm = false});
+
+  factory PermissionSetParameters(
+          {required PermissionDescriptor descriptor,
+          required PermissionState state,
+          bool? oneRealm = false}) =>
+      PermissionSetParameters._(
+          descriptor: descriptor, state: state.name, oneRealm: oneRealm);
+}
+
+extension PropsPermissionSetParameters on PermissionSetParameters {
+  PermissionDescriptor get descriptor =>
+      js_util.getProperty(this, 'descriptor');
+  set descriptor(PermissionDescriptor newValue) {
+    js_util.setProperty(this, 'descriptor', newValue);
+  }
+
+  PermissionState get state =>
+      PermissionState.values.byName(js_util.getProperty(this, 'state'));
+  set state(PermissionState newValue) {
+    js_util.setProperty(this, 'state', newValue.name);
+  }
+
+  bool get oneRealm => js_util.getProperty(this, 'oneRealm');
+  set oneRealm(bool newValue) {
+    js_util.setProperty(this, 'oneRealm', newValue);
+  }
 }

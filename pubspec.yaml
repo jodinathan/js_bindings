@@ -1,10 +1,10 @@
 name: js_bindings
 description: Complete JS bindings interop with autocomplete and documentation.
-version: 0.0.6
+version: 0.0.7
 repository: https://github.com/jodinathan/js_bindings
 
 environment:
-  sdk: '>=2.16.0 <3.0.0'
+  sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
   meta: ^1.4.0
@@ -17,9 +17,9 @@ dev_dependencies:
   glob: ^2.0.1
   html: ^0.15.0
   http: ^0.13.3
-  lints: ^1.0.0
+  lints: ^2.0.0
   recase: ^4.0.0
-  tcp_scanner: ^1.1.2
+  tcp_scanner: ^2.0.5
   test: ^1.16.0
-  build_runner: ^2.1.7
-  build_web_compilers: ^3.2.2
+  build_runner: ^2.2.0
+  build_web_compilers: ^3.2.5

@@ -19,9 +19,11 @@ import 'package:js_bindings/js_bindings.dart';
 class SecurePaymentConfirmationRequest {
   external factory SecurePaymentConfirmationRequest(
       {dynamic challenge,
+      required String rpId,
       required Iterable<dynamic> credentialIds,
       required PaymentCredentialInstrument instrument,
       required int timeout,
+      required String payeeName,
       required String payeeOrigin,
       required AuthenticationExtensionsClientInputs extensions});
 }
@@ -31,6 +33,11 @@ extension PropsSecurePaymentConfirmationRequest
   dynamic get challenge => js_util.getProperty(this, 'challenge');
   set challenge(dynamic newValue) {
     js_util.setProperty(this, 'challenge', newValue);
+  }
+
+  String get rpId => js_util.getProperty(this, 'rpId');
+  set rpId(String newValue) {
+    js_util.setProperty(this, 'rpId', newValue);
   }
 
   Iterable<dynamic> get credentialIds =>
@@ -48,6 +55,11 @@ extension PropsSecurePaymentConfirmationRequest
   int get timeout => js_util.getProperty(this, 'timeout');
   set timeout(int newValue) {
     js_util.setProperty(this, 'timeout', newValue);
+  }
+
+  String get payeeName => js_util.getProperty(this, 'payeeName');
+  set payeeName(String newValue) {
+    js_util.setProperty(this, 'payeeName', newValue);
   }
 
   String get payeeOrigin => js_util.getProperty(this, 'payeeOrigin');
@@ -68,8 +80,9 @@ extension PropsSecurePaymentConfirmationRequest
 class AuthenticationExtensionsPaymentInputs {
   external factory AuthenticationExtensionsPaymentInputs(
       {required bool isPayment,
-      required String rp,
+      required String rpId,
       required String topOrigin,
+      required String payeeName,
       required String payeeOrigin,
       required PaymentCurrencyAmount total,
       required PaymentCredentialInstrument instrument});
@@ -82,14 +95,19 @@ extension PropsAuthenticationExtensionsPaymentInputs
     js_util.setProperty(this, 'isPayment', newValue);
   }
 
-  String get rp => js_util.getProperty(this, 'rp');
-  set rp(String newValue) {
-    js_util.setProperty(this, 'rp', newValue);
+  String get rpId => js_util.getProperty(this, 'rpId');
+  set rpId(String newValue) {
+    js_util.setProperty(this, 'rpId', newValue);
   }
 
   String get topOrigin => js_util.getProperty(this, 'topOrigin');
   set topOrigin(String newValue) {
     js_util.setProperty(this, 'topOrigin', newValue);
+  }
+
+  String get payeeName => js_util.getProperty(this, 'payeeName');
+  set payeeName(String newValue) {
+    js_util.setProperty(this, 'payeeName', newValue);
   }
 
   String get payeeOrigin => js_util.getProperty(this, 'payeeOrigin');
@@ -130,8 +148,9 @@ extension PropsCollectedClientPaymentData on CollectedClientPaymentData {
 @staticInterop
 class CollectedClientAdditionalPaymentData {
   external factory CollectedClientAdditionalPaymentData(
-      {required String rp,
+      {required String rpId,
       required String topOrigin,
+      required String payeeName,
       required String payeeOrigin,
       required PaymentCurrencyAmount total,
       required PaymentCredentialInstrument instrument});
@@ -139,14 +158,19 @@ class CollectedClientAdditionalPaymentData {
 
 extension PropsCollectedClientAdditionalPaymentData
     on CollectedClientAdditionalPaymentData {
-  String get rp => js_util.getProperty(this, 'rp');
-  set rp(String newValue) {
-    js_util.setProperty(this, 'rp', newValue);
+  String get rpId => js_util.getProperty(this, 'rpId');
+  set rpId(String newValue) {
+    js_util.setProperty(this, 'rpId', newValue);
   }
 
   String get topOrigin => js_util.getProperty(this, 'topOrigin');
   set topOrigin(String newValue) {
     js_util.setProperty(this, 'topOrigin', newValue);
+  }
+
+  String get payeeName => js_util.getProperty(this, 'payeeName');
+  set payeeName(String newValue) {
+    js_util.setProperty(this, 'payeeName', newValue);
   }
 
   String get payeeOrigin => js_util.getProperty(this, 'payeeOrigin');
@@ -171,7 +195,9 @@ extension PropsCollectedClientAdditionalPaymentData
 @staticInterop
 class PaymentCredentialInstrument {
   external factory PaymentCredentialInstrument(
-      {required String displayName, required String icon});
+      {required String displayName,
+      required String icon,
+      bool? iconMustBeShown = true});
 }
 
 extension PropsPaymentCredentialInstrument on PaymentCredentialInstrument {
@@ -183,6 +209,11 @@ extension PropsPaymentCredentialInstrument on PaymentCredentialInstrument {
   String get icon => js_util.getProperty(this, 'icon');
   set icon(String newValue) {
     js_util.setProperty(this, 'icon', newValue);
+  }
+
+  bool get iconMustBeShown => js_util.getProperty(this, 'iconMustBeShown');
+  set iconMustBeShown(bool newValue) {
+    js_util.setProperty(this, 'iconMustBeShown', newValue);
   }
 }
 

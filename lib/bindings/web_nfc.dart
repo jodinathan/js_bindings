@@ -14,10 +14,20 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web NFC API represents the content of an
+/// NDEF message that has been read from or could be written to an
+/// NFC tag. An instance is acquired by calling the [NDEFMessage()]
+/// constructor or from the [NDEFReadingEvent.message] property,
+/// which is passed to [NDEFReader.onreading].
 @JS()
 @staticInterop
 class NDEFMessage {
-  external NDEFMessage(NDEFMessageInit messageInit);
+  external factory NDEFMessage(NDEFMessageInit messageInit);
 }
 
 extension PropsNDEFMessage on NDEFMessage {
@@ -38,10 +48,18 @@ extension PropsNDEFMessageInit on NDEFMessageInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web NFC API provides data that can be read
+/// from, or written to, compatible NFC devices, e.g. NFC tags
+/// supporting NDEF.
 @JS()
 @staticInterop
 class NDEFRecord {
-  external NDEFRecord(NDEFRecordInit recordInit);
+  external factory NDEFRecord(NDEFRecordInit recordInit);
 }
 
 extension PropsNDEFRecord on NDEFRecord {
@@ -99,10 +117,31 @@ extension PropsNDEFRecordInit on NDEFRecordInit {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web NFC API is used to read from and write
+/// data to compatible NFC devices, e.g. NFC tags supporting NDEF,
+/// when these devices are within the reader's magnetic induction
+/// field.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    NDEFReader
+///
+///
 @JS()
 @staticInterop
 class NDEFReader implements EventTarget {
-  external NDEFReader();
+  external factory NDEFReader();
 }
 
 extension PropsNDEFReader on NDEFReader {
@@ -117,20 +156,39 @@ extension PropsNDEFReader on NDEFReader {
     js_util.setProperty(this, 'onreadingerror', newValue);
   }
 
-  Future<Object> scan([NDEFScanOptions? options]) =>
+  Future<void> scan([NDEFScanOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'scan', [options]));
 
-  Future<Object> write(dynamic message, [NDEFWriteOptions? options]) => js_util
+  Future<void> write(dynamic message, [NDEFWriteOptions? options]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'write', [message, options]));
 
-  Future<Object> makeReadOnly([NDEFMakeReadOnlyOptions? options]) => js_util
+  Future<void> makeReadOnly([NDEFMakeReadOnlyOptions? options]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'makeReadOnly', [options]));
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web NFC API represents events dispatched on
+/// new NFC readings obtained by [NDEFReader].
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    NDEFReadingEvent
+///
+///
 @JS()
 @staticInterop
 class NDEFReadingEvent implements Event {
-  external NDEFReadingEvent(
+  external factory NDEFReadingEvent(
       String type, NDEFReadingEventInit readingEventInitDict);
 }
 

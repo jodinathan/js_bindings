@@ -13,10 +13,28 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface represents an object able to programmatically
+/// obtain the [width] and [height] and [resize event] of the
+/// floating video window.
+///  An object with this interface is obtained using the
+/// [HTMLVideoElement.requestPictureInPicture()] promise return
+/// value.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    PictureInPictureWindow
+///
+///
 @JS()
 @staticInterop
 class PictureInPictureWindow implements EventTarget {
-  external PictureInPictureWindow();
+  external factory PictureInPictureWindow();
 }
 
 extension PropsPictureInPictureWindow on PictureInPictureWindow {
@@ -28,10 +46,25 @@ extension PropsPictureInPictureWindow on PictureInPictureWindow {
   }
 }
 
+///  The interface represents picture-in-picture-related events,
+/// including [enterpictureinpicture], [leavepictureinpicture] and
+/// [resize]
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    PictureInPictureEvent
+///
+///
 @JS()
 @staticInterop
 class PictureInPictureEvent implements Event {
-  external PictureInPictureEvent(
+  external factory PictureInPictureEvent(
       String type, PictureInPictureEventInit eventInitDict);
 }
 

@@ -16,18 +16,24 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CropTarget {
-  external CropTarget();
+  external factory CropTarget();
+}
+
+extension PropsCropTarget on CropTarget {
+  static Future<CropTarget> fromElement(Element element) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(CropTarget, 'fromElement', [element]));
 }
 
 @JS()
 @staticInterop
 class BrowserCaptureMediaStreamTrack implements MediaStreamTrack {
-  external BrowserCaptureMediaStreamTrack();
+  external factory BrowserCaptureMediaStreamTrack();
 }
 
 extension PropsBrowserCaptureMediaStreamTrack
     on BrowserCaptureMediaStreamTrack {
-  Future<Object> cropTo(CropTarget? cropTarget) =>
+  Future<void> cropTo(CropTarget? cropTarget) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'cropTo', [cropTarget]));
 
   BrowserCaptureMediaStreamTrack clone() =>

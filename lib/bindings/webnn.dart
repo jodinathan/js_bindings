@@ -16,14 +16,14 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorML {
-  external NavigatorML();
+  external factory NavigatorML();
 }
 
 extension PropsNavigatorML on NavigatorML {
   Ml get ml => js_util.getProperty(this, 'ml');
 }
 
-enum MLDevicePreference { valueDefault, gpu, cpu }
+enum MLDeviceType { cpu, gpu }
 
 enum MLPowerPreference { valueDefault, highPerformance, lowPower }
 
@@ -32,23 +32,21 @@ enum MLPowerPreference { valueDefault, highPerformance, lowPower }
 @staticInterop
 class MLContextOptions {
   external factory MLContextOptions._(
-      {String? devicePreference, String? powerPreference});
+      {String? deviceType, String? powerPreference});
 
   factory MLContextOptions(
-          {MLDevicePreference? devicePreference =
-              MLDevicePreference.valueDefault,
+          {MLDeviceType? deviceType = MLDeviceType.cpu,
           MLPowerPreference? powerPreference =
               MLPowerPreference.valueDefault}) =>
       MLContextOptions._(
-          devicePreference: devicePreference?.name,
-          powerPreference: powerPreference?.name);
+          deviceType: deviceType?.name, powerPreference: powerPreference?.name);
 }
 
 extension PropsMLContextOptions on MLContextOptions {
-  MLDevicePreference get devicePreference => MLDevicePreference.values
-      .byName(js_util.getProperty(this, 'devicePreference'));
-  set devicePreference(MLDevicePreference newValue) {
-    js_util.setProperty(this, 'devicePreference', newValue.name);
+  MLDeviceType get deviceType =>
+      MLDeviceType.values.byName(js_util.getProperty(this, 'deviceType'));
+  set deviceType(MLDeviceType newValue) {
+    js_util.setProperty(this, 'deviceType', newValue.name);
   }
 
   MLPowerPreference get powerPreference => MLPowerPreference.values
@@ -61,7 +59,7 @@ extension PropsMLContextOptions on MLContextOptions {
 @JS('ML')
 @staticInterop
 class Ml {
-  external Ml();
+  external factory Ml();
 }
 
 extension PropsMl on Ml {
@@ -72,7 +70,19 @@ extension PropsMl on Ml {
 @JS()
 @staticInterop
 class MLContext {
-  external MLContext();
+  external factory MLContext();
+}
+
+extension PropsMLContext on MLContext {
+  void compute(MLGraph graph, dynamic inputs, dynamic outputs) =>
+      js_util.callMethod(this, 'compute', [graph, inputs, outputs]);
+
+  Future<void> computeAsync(MLGraph graph, dynamic inputs, dynamic outputs) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'computeAsync', [graph, inputs, outputs]));
+
+  MLCommandEncoder createCommandEncoder() =>
+      js_util.callMethod(this, 'createCommandEncoder', []);
 }
 
 enum MLInputOperandLayout { nchw, nhwc }
@@ -107,13 +117,13 @@ extension PropsMLOperandDescriptor on MLOperandDescriptor {
 @JS()
 @staticInterop
 class MLOperand {
-  external MLOperand();
+  external factory MLOperand();
 }
 
 @JS()
 @staticInterop
 class MLOperator {
-  external MLOperator();
+  external factory MLOperator();
 }
 
 @anonymous
@@ -121,12 +131,12 @@ class MLOperator {
 @staticInterop
 class MLBufferResourceView {
   external factory MLBufferResourceView(
-      {dynamic resource, int? offset = 0, int? size});
+      {required GPUBuffer resource, int? offset = 0, int? size});
 }
 
 extension PropsMLBufferResourceView on MLBufferResourceView {
-  dynamic get resource => js_util.getProperty(this, 'resource');
-  set resource(dynamic newValue) {
+  GPUBuffer get resource => js_util.getProperty(this, 'resource');
+  set resource(GPUBuffer newValue) {
     js_util.setProperty(this, 'resource', newValue);
   }
 
@@ -144,7 +154,7 @@ extension PropsMLBufferResourceView on MLBufferResourceView {
 @JS()
 @staticInterop
 class MLGraphBuilder {
-  external MLGraphBuilder(MLContext context);
+  external factory MLGraphBuilder(MLContext context);
 }
 
 extension PropsMLGraphBuilder on MLGraphBuilder {
@@ -156,6 +166,9 @@ extension PropsMLGraphBuilder on MLGraphBuilder {
 
   MLGraph build(dynamic outputs) =>
       js_util.callMethod(this, 'build', [outputs]);
+
+  Future<MLGraph> buildAsync(dynamic outputs) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'buildAsync', [outputs]));
 
   MLOperand batchNormalization(
           MLOperand input, MLOperand mean, MLOperand variance,
@@ -1124,33 +1137,25 @@ extension PropsMLTransposeOptions on MLTransposeOptions {
   }
 }
 
-@anonymous
-@JS()
-@staticInterop
-class MLInput {
-  external factory MLInput(
-      {dynamic resource, required Iterable<int> dimensions});
-}
-
-extension PropsMLInput on MLInput {
-  dynamic get resource => js_util.getProperty(this, 'resource');
-  set resource(dynamic newValue) {
-    js_util.setProperty(this, 'resource', newValue);
-  }
-
-  Iterable<int> get dimensions => js_util.getProperty(this, 'dimensions');
-  set dimensions(Iterable<int> newValue) {
-    js_util.setProperty(this, 'dimensions', newValue);
-  }
-}
-
 @JS()
 @staticInterop
 class MLGraph {
-  external MLGraph();
+  external factory MLGraph();
 }
 
-extension PropsMLGraph on MLGraph {
-  Object compute(dynamic inputs, dynamic outputs) =>
-      js_util.callMethod(this, 'compute', [inputs, outputs]);
+@JS()
+@staticInterop
+class MLCommandEncoder {
+  external factory MLCommandEncoder();
+}
+
+extension PropsMLCommandEncoder on MLCommandEncoder {
+  void initializeGraph(MLGraph graph) =>
+      js_util.callMethod(this, 'initializeGraph', [graph]);
+
+  void dispatch(MLGraph graph, dynamic inputs, dynamic outputs) =>
+      js_util.callMethod(this, 'dispatch', [graph, inputs, outputs]);
+
+  GPUCommandBuffer finish([GPUCommandBufferDescriptor? descriptor]) =>
+      js_util.callMethod(this, 'finish', [descriptor]);
 }

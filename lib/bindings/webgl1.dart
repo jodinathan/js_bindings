@@ -107,55 +107,170 @@ extension PropsWebGLContextAttributes on WebGLContextAttributes {
 @JS()
 @staticInterop
 class WebGLObject {
-  external WebGLObject();
+  external factory WebGLObject();
 }
 
+///  The WebGLBuffer interface is part of the WebGL API and
+/// represents an opaque buffer object storing data such as vertices
+/// or colors.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLBuffer
+///
+///
 @JS()
 @staticInterop
 class WebGLBuffer implements WebGLObject {
-  external WebGLBuffer();
+  external factory WebGLBuffer();
 }
 
+///  The WebGLFramebuffer interface is part of the WebGL API and
+/// represents a collection of buffers that serve as a rendering
+/// destination.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLFramebuffer
+///
+///
 @JS()
 @staticInterop
 class WebGLFramebuffer implements WebGLObject {
-  external WebGLFramebuffer();
+  external factory WebGLFramebuffer();
 }
 
+///  The is part of the WebGL API and is a combination of two
+/// compiled [WebGLShader]s consisting of a vertex shader and a
+/// fragment shader (both written in GLSL).
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLProgram
+///
+///
+///  To create a , call the GL context's [createProgram()] function.
+/// After attaching the shader programs using [attachShader()], you
+/// link them into a usable program. This is shown in the code below.
+/// [var program = gl.createProgram();
+///
+/// // Attach pre-existing shaders
+/// gl.attachShader(program, vertexShader);
+/// gl.attachShader(program, fragmentShader);
+///
+/// gl.linkProgram(program);
+///
+/// if ( !gl.getProgramParameter( program, gl.LINK_STATUS) ) {
+///  var info = gl.getProgramInfoLog(program);
+///  throw 'Could not compile WebGL program. \n\n' + info;
+/// }
+/// ]
+///  See [WebGLShader] for information on creating the [vertexShader]
+/// and [fragmentShader] in the above example.
 @JS()
 @staticInterop
 class WebGLProgram implements WebGLObject {
-  external WebGLProgram();
+  external factory WebGLProgram();
 }
 
+///  The WebGLRenderbuffer interface is part of the WebGL API and
+/// represents a buffer that can contain an image, or that can be a
+/// source or target of a rendering operation.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLRenderbuffer
+///
+///
 @JS()
 @staticInterop
 class WebGLRenderbuffer implements WebGLObject {
-  external WebGLRenderbuffer();
+  external factory WebGLRenderbuffer();
 }
 
+///  The WebGLShader is part of the WebGL API and can either be a
+/// vertex or a fragment shader. A [WebGLProgram] requires both types
+/// of shaders.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLShader
+///
+///
 @JS()
 @staticInterop
 class WebGLShader implements WebGLObject {
-  external WebGLShader();
+  external factory WebGLShader();
 }
 
+///  The WebGLTexture interface is part of the WebGL API and
+/// represents an opaque texture object providing storage and state
+/// for texturing operations.
+///
+///
+///
+///    WebGLObject
+///
+///
+///
+///
+///
+///    WebGLTexture
+///
+///
 @JS()
 @staticInterop
 class WebGLTexture implements WebGLObject {
-  external WebGLTexture();
+  external factory WebGLTexture();
 }
 
+///  The WebGLUniformLocation interface is part of the WebGL API and
+/// represents the location of a uniform variable in a shader
+/// program.
 @JS()
 @staticInterop
 class WebGLUniformLocation {
-  external WebGLUniformLocation();
+  external factory WebGLUniformLocation();
 }
 
+///  The WebGLActiveInfo interface is part of the WebGL API and
+/// represents the information returned by calling the
+/// [WebGLRenderingContext.getActiveAttrib()] and
+/// [WebGLRenderingContext.getActiveUniform()] methods.
 @JS()
 @staticInterop
 class WebGLActiveInfo {
-  external WebGLActiveInfo();
+  external factory WebGLActiveInfo();
 }
 
 extension PropsWebGLActiveInfo on WebGLActiveInfo {
@@ -164,10 +279,13 @@ extension PropsWebGLActiveInfo on WebGLActiveInfo {
   String get name => js_util.getProperty(this, 'name');
 }
 
+///  The WebGLShaderPrecisionFormat interface is part of the WebGL
+/// API and represents the information returned by calling the
+/// [WebGLRenderingContext.getShaderPrecisionFormat()] method.
 @JS()
 @staticInterop
 class WebGLShaderPrecisionFormat {
-  external WebGLShaderPrecisionFormat();
+  external factory WebGLShaderPrecisionFormat();
 }
 
 extension PropsWebGLShaderPrecisionFormat on WebGLShaderPrecisionFormat {
@@ -1067,7 +1185,7 @@ class WebGLRenderingContextBase {
   @JS('BROWSER_DEFAULT_WEBGL')
   external static int get browserDefaultWebgl;
 
-  external WebGLRenderingContextBase();
+  external factory WebGLRenderingContextBase();
 }
 
 extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
@@ -1075,6 +1193,19 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   int get drawingBufferWidth => js_util.getProperty(this, 'drawingBufferWidth');
   int get drawingBufferHeight =>
       js_util.getProperty(this, 'drawingBufferHeight');
+  PredefinedColorSpace get drawingBufferColorSpace =>
+      PredefinedColorSpace.values
+          .byName(js_util.getProperty(this, 'drawingBufferColorSpace'));
+  set drawingBufferColorSpace(PredefinedColorSpace newValue) {
+    js_util.setProperty(this, 'drawingBufferColorSpace', newValue.name);
+  }
+
+  PredefinedColorSpace get unpackColorSpace => PredefinedColorSpace.values
+      .byName(js_util.getProperty(this, 'unpackColorSpace'));
+  set unpackColorSpace(PredefinedColorSpace newValue) {
+    js_util.setProperty(this, 'unpackColorSpace', newValue.name);
+  }
+
   WebGLContextAttributes? getContextAttributes() =>
       js_util.callMethod(this, 'getContextAttributes', []);
 
@@ -1086,78 +1217,77 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   dynamic getExtension(String name) =>
       js_util.callMethod(this, 'getExtension', [name]);
 
-  Object activeTexture(int texture) =>
+  void activeTexture(int texture) =>
       js_util.callMethod(this, 'activeTexture', [texture]);
 
-  Object attachShader(WebGLProgram program, WebGLShader shader) =>
+  void attachShader(WebGLProgram program, WebGLShader shader) =>
       js_util.callMethod(this, 'attachShader', [program, shader]);
 
-  Object bindAttribLocation(WebGLProgram program, int index, String name) =>
+  void bindAttribLocation(WebGLProgram program, int index, String name) =>
       js_util.callMethod(this, 'bindAttribLocation', [program, index, name]);
 
-  Object bindBuffer(int target, WebGLBuffer? buffer) =>
+  void bindBuffer(int target, WebGLBuffer? buffer) =>
       js_util.callMethod(this, 'bindBuffer', [target, buffer]);
 
-  Object bindFramebuffer(int target, WebGLFramebuffer? framebuffer) =>
+  void bindFramebuffer(int target, WebGLFramebuffer? framebuffer) =>
       js_util.callMethod(this, 'bindFramebuffer', [target, framebuffer]);
 
-  Object bindRenderbuffer(int target, WebGLRenderbuffer? renderbuffer) =>
+  void bindRenderbuffer(int target, WebGLRenderbuffer? renderbuffer) =>
       js_util.callMethod(this, 'bindRenderbuffer', [target, renderbuffer]);
 
-  Object bindTexture(int target, WebGLTexture? texture) =>
+  void bindTexture(int target, WebGLTexture? texture) =>
       js_util.callMethod(this, 'bindTexture', [target, texture]);
 
-  Object blendColor(
+  void blendColor(
           /* double | NaN */ dynamic red,
           /* double | NaN */ dynamic green,
           /* double | NaN */ dynamic blue,
           /* double | NaN */ dynamic alpha) =>
       js_util.callMethod(this, 'blendColor', [red, green, blue, alpha]);
 
-  Object blendEquation(int mode) =>
+  void blendEquation(int mode) =>
       js_util.callMethod(this, 'blendEquation', [mode]);
 
-  Object blendEquationSeparate(int modeRGB, int modeAlpha) =>
+  void blendEquationSeparate(int modeRGB, int modeAlpha) =>
       js_util.callMethod(this, 'blendEquationSeparate', [modeRGB, modeAlpha]);
 
-  Object blendFunc(int sfactor, int dfactor) =>
+  void blendFunc(int sfactor, int dfactor) =>
       js_util.callMethod(this, 'blendFunc', [sfactor, dfactor]);
 
-  Object blendFuncSeparate(
-          int srcRGB, int dstRGB, int srcAlpha, int dstAlpha) =>
+  void blendFuncSeparate(int srcRGB, int dstRGB, int srcAlpha, int dstAlpha) =>
       js_util.callMethod(
           this, 'blendFuncSeparate', [srcRGB, dstRGB, srcAlpha, dstAlpha]);
 
   int checkFramebufferStatus(int target) =>
       js_util.callMethod(this, 'checkFramebufferStatus', [target]);
 
-  Object clear(int mask) => js_util.callMethod(this, 'clear', [mask]);
+  void clear(int mask) => js_util.callMethod(this, 'clear', [mask]);
 
-  Object clearColor(
+  void clearColor(
           /* double | NaN */ dynamic red,
           /* double | NaN */ dynamic green,
           /* double | NaN */ dynamic blue,
           /* double | NaN */ dynamic alpha) =>
       js_util.callMethod(this, 'clearColor', [red, green, blue, alpha]);
 
-  Object clearDepth(/* double | NaN */ dynamic depth) =>
+  void clearDepth(/* double | NaN */ dynamic depth) =>
       js_util.callMethod(this, 'clearDepth', [depth]);
 
-  Object clearStencil(int s) => js_util.callMethod(this, 'clearStencil', [s]);
+  void clearStencil(int s) => js_util.callMethod(this, 'clearStencil', [s]);
 
-  Object colorMask(bool red, bool green, bool blue, bool alpha) =>
+  void colorMask(bool red, bool green, bool blue, bool alpha) =>
       js_util.callMethod(this, 'colorMask', [red, green, blue, alpha]);
 
-  Object compileShader(WebGLShader shader) =>
+  void compileShader(WebGLShader shader) =>
       js_util.callMethod(this, 'compileShader', [shader]);
 
-  Object copyTexImage2D(int target, int level, int internalformat, int x, int y,
+  void copyTexImage2D(int target, int level, int internalformat, int x, int y,
           int width, int height, int border) =>
       js_util.callMethod(this, 'copyTexImage2D',
           [target, level, internalformat, x, y, width, height, border]);
 
-  Object copyTexSubImage2D(int target, int level, int xoffset, int yoffset,
-          int x, int y, int width, int height) =>
+  void copyTexSubImage2D(int target, int level, int xoffset, int yoffset, int x,
+          int y, int width, int height) =>
       js_util.callMethod(this, 'copyTexSubImage2D',
           [target, level, xoffset, yoffset, x, y, width, height]);
 
@@ -1178,70 +1308,70 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   WebGLTexture? createTexture() =>
       js_util.callMethod(this, 'createTexture', []);
 
-  Object cullFace(int mode) => js_util.callMethod(this, 'cullFace', [mode]);
+  void cullFace(int mode) => js_util.callMethod(this, 'cullFace', [mode]);
 
-  Object deleteBuffer(WebGLBuffer? buffer) =>
+  void deleteBuffer(WebGLBuffer? buffer) =>
       js_util.callMethod(this, 'deleteBuffer', [buffer]);
 
-  Object deleteFramebuffer(WebGLFramebuffer? framebuffer) =>
+  void deleteFramebuffer(WebGLFramebuffer? framebuffer) =>
       js_util.callMethod(this, 'deleteFramebuffer', [framebuffer]);
 
-  Object deleteProgram(WebGLProgram? program) =>
+  void deleteProgram(WebGLProgram? program) =>
       js_util.callMethod(this, 'deleteProgram', [program]);
 
-  Object deleteRenderbuffer(WebGLRenderbuffer? renderbuffer) =>
+  void deleteRenderbuffer(WebGLRenderbuffer? renderbuffer) =>
       js_util.callMethod(this, 'deleteRenderbuffer', [renderbuffer]);
 
-  Object deleteShader(WebGLShader? shader) =>
+  void deleteShader(WebGLShader? shader) =>
       js_util.callMethod(this, 'deleteShader', [shader]);
 
-  Object deleteTexture(WebGLTexture? texture) =>
+  void deleteTexture(WebGLTexture? texture) =>
       js_util.callMethod(this, 'deleteTexture', [texture]);
 
-  Object depthFunc(int func) => js_util.callMethod(this, 'depthFunc', [func]);
+  void depthFunc(int func) => js_util.callMethod(this, 'depthFunc', [func]);
 
-  Object depthMask(bool flag) => js_util.callMethod(this, 'depthMask', [flag]);
+  void depthMask(bool flag) => js_util.callMethod(this, 'depthMask', [flag]);
 
-  Object depthRange(
+  void depthRange(
           /* double | NaN */ dynamic zNear, /* double | NaN */ dynamic zFar) =>
       js_util.callMethod(this, 'depthRange', [zNear, zFar]);
 
-  Object detachShader(WebGLProgram program, WebGLShader shader) =>
+  void detachShader(WebGLProgram program, WebGLShader shader) =>
       js_util.callMethod(this, 'detachShader', [program, shader]);
 
-  Object disable(int cap) => js_util.callMethod(this, 'disable', [cap]);
+  void disable(int cap) => js_util.callMethod(this, 'disable', [cap]);
 
-  Object disableVertexAttribArray(int index) =>
+  void disableVertexAttribArray(int index) =>
       js_util.callMethod(this, 'disableVertexAttribArray', [index]);
 
-  Object drawArrays(int mode, int first, int count) =>
+  void drawArrays(int mode, int first, int count) =>
       js_util.callMethod(this, 'drawArrays', [mode, first, count]);
 
-  Object drawElements(int mode, int count, int type, int offset) =>
+  void drawElements(int mode, int count, int type, int offset) =>
       js_util.callMethod(this, 'drawElements', [mode, count, type, offset]);
 
-  Object enable(int cap) => js_util.callMethod(this, 'enable', [cap]);
+  void enable(int cap) => js_util.callMethod(this, 'enable', [cap]);
 
-  Object enableVertexAttribArray(int index) =>
+  void enableVertexAttribArray(int index) =>
       js_util.callMethod(this, 'enableVertexAttribArray', [index]);
 
-  Object finish() => js_util.callMethod(this, 'finish', []);
+  void finish() => js_util.callMethod(this, 'finish', []);
 
-  Object flush() => js_util.callMethod(this, 'flush', []);
+  void flush() => js_util.callMethod(this, 'flush', []);
 
-  Object framebufferRenderbuffer(int target, int attachment,
+  void framebufferRenderbuffer(int target, int attachment,
           int renderbuffertarget, WebGLRenderbuffer? renderbuffer) =>
       js_util.callMethod(this, 'framebufferRenderbuffer',
           [target, attachment, renderbuffertarget, renderbuffer]);
 
-  Object framebufferTexture2D(int target, int attachment, int textarget,
+  void framebufferTexture2D(int target, int attachment, int textarget,
           WebGLTexture? texture, int level) =>
       js_util.callMethod(this, 'framebufferTexture2D',
           [target, attachment, textarget, texture, level]);
 
-  Object frontFace(int mode) => js_util.callMethod(this, 'frontFace', [mode]);
+  void frontFace(int mode) => js_util.callMethod(this, 'frontFace', [mode]);
 
-  Object generateMipmap(int target) =>
+  void generateMipmap(int target) =>
       js_util.callMethod(this, 'generateMipmap', [target]);
 
   WebGLActiveInfo? getActiveAttrib(WebGLProgram program, int index) =>
@@ -1307,7 +1437,7 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   int getVertexAttribOffset(int index, int pname) =>
       js_util.callMethod(this, 'getVertexAttribOffset', [index, pname]);
 
-  Object hint(int target, int mode) =>
+  void hint(int target, int mode) =>
       js_util.callMethod(this, 'hint', [target, mode]);
 
   bool isBuffer(WebGLBuffer? buffer) =>
@@ -1330,71 +1460,69 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   bool isTexture(WebGLTexture? texture) =>
       js_util.callMethod(this, 'isTexture', [texture]);
 
-  Object lineWidth(/* double | NaN */ dynamic width) =>
+  void lineWidth(/* double | NaN */ dynamic width) =>
       js_util.callMethod(this, 'lineWidth', [width]);
 
-  Object linkProgram(WebGLProgram program) =>
+  void linkProgram(WebGLProgram program) =>
       js_util.callMethod(this, 'linkProgram', [program]);
 
-  Object pixelStorei(int pname, int param) =>
+  void pixelStorei(int pname, int param) =>
       js_util.callMethod(this, 'pixelStorei', [pname, param]);
 
-  Object polygonOffset(/* double | NaN */ dynamic factor,
+  void polygonOffset(/* double | NaN */ dynamic factor,
           /* double | NaN */ dynamic units) =>
       js_util.callMethod(this, 'polygonOffset', [factor, units]);
 
-  Object renderbufferStorage(
+  void renderbufferStorage(
           int target, int internalformat, int width, int height) =>
       js_util.callMethod(
           this, 'renderbufferStorage', [target, internalformat, width, height]);
 
-  Object sampleCoverage(/* double | NaN */ dynamic value, bool invert) =>
+  void sampleCoverage(/* double | NaN */ dynamic value, bool invert) =>
       js_util.callMethod(this, 'sampleCoverage', [value, invert]);
 
-  Object scissor(int x, int y, int width, int height) =>
+  void scissor(int x, int y, int width, int height) =>
       js_util.callMethod(this, 'scissor', [x, y, width, height]);
 
-  Object shaderSource(WebGLShader shader, String source) =>
+  void shaderSource(WebGLShader shader, String source) =>
       js_util.callMethod(this, 'shaderSource', [shader, source]);
 
-  Object stencilFunc(int func, int ref, int mask) =>
+  void stencilFunc(int func, int ref, int mask) =>
       js_util.callMethod(this, 'stencilFunc', [func, ref, mask]);
 
-  Object stencilFuncSeparate(int face, int func, int ref, int mask) =>
+  void stencilFuncSeparate(int face, int func, int ref, int mask) =>
       js_util.callMethod(this, 'stencilFuncSeparate', [face, func, ref, mask]);
 
-  Object stencilMask(int mask) =>
-      js_util.callMethod(this, 'stencilMask', [mask]);
+  void stencilMask(int mask) => js_util.callMethod(this, 'stencilMask', [mask]);
 
-  Object stencilMaskSeparate(int face, int mask) =>
+  void stencilMaskSeparate(int face, int mask) =>
       js_util.callMethod(this, 'stencilMaskSeparate', [face, mask]);
 
-  Object stencilOp(int fail, int zfail, int zpass) =>
+  void stencilOp(int fail, int zfail, int zpass) =>
       js_util.callMethod(this, 'stencilOp', [fail, zfail, zpass]);
 
-  Object stencilOpSeparate(int face, int fail, int zfail, int zpass) =>
+  void stencilOpSeparate(int face, int fail, int zfail, int zpass) =>
       js_util.callMethod(this, 'stencilOpSeparate', [face, fail, zfail, zpass]);
 
-  Object texParameterf(
-          int target, int pname, /* double | NaN */ dynamic param) =>
+  void texParameterf(int target, int pname, /* double | NaN */ dynamic param) =>
       js_util.callMethod(this, 'texParameterf', [target, pname, param]);
 
-  Object texParameteri(int target, int pname, int param) =>
+  void texParameteri(int target, int pname, int param) =>
       js_util.callMethod(this, 'texParameteri', [target, pname, param]);
 
-  Object uniform1f(
+  void uniform1f(
           WebGLUniformLocation? location, /* double | NaN */ dynamic x) =>
       js_util.callMethod(this, 'uniform1f', [location, x]);
 
-  Object uniform2f(WebGLUniformLocation? location, /* double | NaN */ dynamic x,
+  void uniform2f(WebGLUniformLocation? location, /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y) =>
       js_util.callMethod(this, 'uniform2f', [location, x, y]);
 
-  Object uniform3f(WebGLUniformLocation? location, /* double | NaN */ dynamic x,
+  void uniform3f(WebGLUniformLocation? location, /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y, /* double | NaN */ dynamic z) =>
       js_util.callMethod(this, 'uniform3f', [location, x, y, z]);
 
-  Object uniform4f(
+  void uniform4f(
           WebGLUniformLocation? location,
           /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y,
@@ -1402,37 +1530,36 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
           /* double | NaN */ dynamic w) =>
       js_util.callMethod(this, 'uniform4f', [location, x, y, z, w]);
 
-  Object uniform1i(WebGLUniformLocation? location, int x) =>
+  void uniform1i(WebGLUniformLocation? location, int x) =>
       js_util.callMethod(this, 'uniform1i', [location, x]);
 
-  Object uniform2i(WebGLUniformLocation? location, int x, int y) =>
+  void uniform2i(WebGLUniformLocation? location, int x, int y) =>
       js_util.callMethod(this, 'uniform2i', [location, x, y]);
 
-  Object uniform3i(WebGLUniformLocation? location, int x, int y, int z) =>
+  void uniform3i(WebGLUniformLocation? location, int x, int y, int z) =>
       js_util.callMethod(this, 'uniform3i', [location, x, y, z]);
 
-  Object uniform4i(
-          WebGLUniformLocation? location, int x, int y, int z, int w) =>
+  void uniform4i(WebGLUniformLocation? location, int x, int y, int z, int w) =>
       js_util.callMethod(this, 'uniform4i', [location, x, y, z, w]);
 
-  Object useProgram(WebGLProgram? program) =>
+  void useProgram(WebGLProgram? program) =>
       js_util.callMethod(this, 'useProgram', [program]);
 
-  Object validateProgram(WebGLProgram program) =>
+  void validateProgram(WebGLProgram program) =>
       js_util.callMethod(this, 'validateProgram', [program]);
 
-  Object vertexAttrib1f(int index, /* double | NaN */ dynamic x) =>
+  void vertexAttrib1f(int index, /* double | NaN */ dynamic x) =>
       js_util.callMethod(this, 'vertexAttrib1f', [index, x]);
 
-  Object vertexAttrib2f(int index, /* double | NaN */ dynamic x,
+  void vertexAttrib2f(int index, /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y) =>
       js_util.callMethod(this, 'vertexAttrib2f', [index, x, y]);
 
-  Object vertexAttrib3f(int index, /* double | NaN */ dynamic x,
+  void vertexAttrib3f(int index, /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y, /* double | NaN */ dynamic z) =>
       js_util.callMethod(this, 'vertexAttrib3f', [index, x, y, z]);
 
-  Object vertexAttrib4f(
+  void vertexAttrib4f(
           int index,
           /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y,
@@ -1440,60 +1567,60 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
           /* double | NaN */ dynamic w) =>
       js_util.callMethod(this, 'vertexAttrib4f', [index, x, y, z, w]);
 
-  Object vertexAttrib1fv(int index, dynamic values) =>
+  void vertexAttrib1fv(int index, dynamic values) =>
       js_util.callMethod(this, 'vertexAttrib1fv', [index, values]);
 
-  Object vertexAttrib2fv(int index, dynamic values) =>
+  void vertexAttrib2fv(int index, dynamic values) =>
       js_util.callMethod(this, 'vertexAttrib2fv', [index, values]);
 
-  Object vertexAttrib3fv(int index, dynamic values) =>
+  void vertexAttrib3fv(int index, dynamic values) =>
       js_util.callMethod(this, 'vertexAttrib3fv', [index, values]);
 
-  Object vertexAttrib4fv(int index, dynamic values) =>
+  void vertexAttrib4fv(int index, dynamic values) =>
       js_util.callMethod(this, 'vertexAttrib4fv', [index, values]);
 
-  Object vertexAttribPointer(int index, int size, int type, bool normalized,
+  void vertexAttribPointer(int index, int size, int type, bool normalized,
           int stride, int offset) =>
       js_util.callMethod(this, 'vertexAttribPointer',
           [index, size, type, normalized, stride, offset]);
 
-  Object viewport(int x, int y, int width, int height) =>
+  void viewport(int x, int y, int width, int height) =>
       js_util.callMethod(this, 'viewport', [x, y, width, height]);
 
-  Future<Object> makeXRCompatible() =>
+  Future<void> makeXRCompatible() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'makeXRCompatible', []));
 }
 
 @JS()
 @staticInterop
 class WebGLRenderingContextOverloads {
-  external WebGLRenderingContextOverloads();
+  external factory WebGLRenderingContextOverloads();
 }
 
 extension PropsWebGLRenderingContextOverloads
     on WebGLRenderingContextOverloads {
-  Object bufferData(int target, int size, int usage) =>
+  void bufferData(int target, int size, int usage) =>
       js_util.callMethod(this, 'bufferData', [target, size, usage]);
 
-  Object bufferSubData(int target, int offset, dynamic data) =>
+  void bufferSubData(int target, int offset, dynamic data) =>
       js_util.callMethod(this, 'bufferSubData', [target, offset, data]);
 
-  Object compressedTexImage2D(int target, int level, int internalformat,
+  void compressedTexImage2D(int target, int level, int internalformat,
           int width, int height, int border, dynamic data) =>
       js_util.callMethod(this, 'compressedTexImage2D',
           [target, level, internalformat, width, height, border, data]);
 
-  Object compressedTexSubImage2D(int target, int level, int xoffset,
-          int yoffset, int width, int height, int format, dynamic data) =>
+  void compressedTexSubImage2D(int target, int level, int xoffset, int yoffset,
+          int width, int height, int format, dynamic data) =>
       js_util.callMethod(this, 'compressedTexSubImage2D',
           [target, level, xoffset, yoffset, width, height, format, data]);
 
-  Object readPixels(int x, int y, int width, int height, int format, int type,
+  void readPixels(int x, int y, int width, int height, int format, int type,
           dynamic pixels) =>
       js_util.callMethod(
           this, 'readPixels', [x, y, width, height, format, type, pixels]);
 
-  Object texImage2D(
+  void texImage2D(
           int target, int level, int internalformat, int width, int height,
           [int? border, int? format, int? type, dynamic pixels]) =>
       js_util.callMethod(this, 'texImage2D', [
@@ -1508,8 +1635,8 @@ extension PropsWebGLRenderingContextOverloads
         pixels
       ]);
 
-  Object texSubImage2D(int target, int level, int xoffset, int yoffset,
-          int width, int height, [int? format, int? type, dynamic pixels]) =>
+  void texSubImage2D(int target, int level, int xoffset, int yoffset, int width,
+          int height, [int? format, int? type, dynamic pixels]) =>
       js_util.callMethod(this, 'texSubImage2D', [
         target,
         level,
@@ -1522,57 +1649,88 @@ extension PropsWebGLRenderingContextOverloads
         pixels
       ]);
 
-  Object uniform1fv(WebGLUniformLocation? location, dynamic v) =>
+  void uniform1fv(WebGLUniformLocation? location, dynamic v) =>
       js_util.callMethod(this, 'uniform1fv', [location, v]);
 
-  Object uniform2fv(WebGLUniformLocation? location, dynamic v) =>
+  void uniform2fv(WebGLUniformLocation? location, dynamic v) =>
       js_util.callMethod(this, 'uniform2fv', [location, v]);
 
-  Object uniform3fv(WebGLUniformLocation? location, dynamic v) =>
+  void uniform3fv(WebGLUniformLocation? location, dynamic v) =>
       js_util.callMethod(this, 'uniform3fv', [location, v]);
 
-  Object uniform4fv(WebGLUniformLocation? location, dynamic v) =>
+  void uniform4fv(WebGLUniformLocation? location, dynamic v) =>
       js_util.callMethod(this, 'uniform4fv', [location, v]);
 
-  Object uniform1iv(WebGLUniformLocation? location, dynamic v) =>
+  void uniform1iv(WebGLUniformLocation? location, dynamic v) =>
       js_util.callMethod(this, 'uniform1iv', [location, v]);
 
-  Object uniform2iv(WebGLUniformLocation? location, dynamic v) =>
+  void uniform2iv(WebGLUniformLocation? location, dynamic v) =>
       js_util.callMethod(this, 'uniform2iv', [location, v]);
 
-  Object uniform3iv(WebGLUniformLocation? location, dynamic v) =>
+  void uniform3iv(WebGLUniformLocation? location, dynamic v) =>
       js_util.callMethod(this, 'uniform3iv', [location, v]);
 
-  Object uniform4iv(WebGLUniformLocation? location, dynamic v) =>
+  void uniform4iv(WebGLUniformLocation? location, dynamic v) =>
       js_util.callMethod(this, 'uniform4iv', [location, v]);
 
-  Object uniformMatrix2fv(
+  void uniformMatrix2fv(
           WebGLUniformLocation? location, bool transpose, dynamic value) =>
       js_util
           .callMethod(this, 'uniformMatrix2fv', [location, transpose, value]);
 
-  Object uniformMatrix3fv(
+  void uniformMatrix3fv(
           WebGLUniformLocation? location, bool transpose, dynamic value) =>
       js_util
           .callMethod(this, 'uniformMatrix3fv', [location, transpose, value]);
 
-  Object uniformMatrix4fv(
+  void uniformMatrix4fv(
           WebGLUniformLocation? location, bool transpose, dynamic value) =>
       js_util
           .callMethod(this, 'uniformMatrix4fv', [location, transpose, value]);
 }
 
+///  The interface provides an interface to the OpenGL ES 2.0
+/// graphics rendering context for the drawing surface of an HTML
+/// [<canvas>] element.
+///  To get an access to a WebGL context for 2D and/or 3D graphics
+/// rendering, call [getContext()] on a [<canvas>] element, supplying
+/// "webgl" as the argument:
+/// [var canvas = document.getElementById('myCanvas');
+/// var gl = canvas.getContext('webgl');
+/// ]
+///  Once you have the WebGL rendering context for a canvas, you can
+/// render within it. The WebGL tutorial has more information,
+/// examples, and resources on how to get started with WebGL.
+///  If you require a WebGL 2.0 context, see
+/// [WebGL2RenderingContext]; this supplies access to an
+/// implementation of OpenGL ES 3.0 graphics.
 @JS()
 @staticInterop
 class WebGLRenderingContext
     implements WebGLRenderingContextBase, WebGLRenderingContextOverloads {
-  external WebGLRenderingContext();
+  external factory WebGLRenderingContext();
 }
 
+///  The WebContextEvent interface is part of the WebGL API and is an
+/// interface for an event that is generated in response to a status
+/// change to the WebGL rendering context.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    WebGLContextEvent
+///
+///
 @JS()
 @staticInterop
 class WebGLContextEvent implements Event {
-  external WebGLContextEvent(String type, [WebGLContextEventInit? eventInit]);
+  external factory WebGLContextEvent(String type,
+      [WebGLContextEventInit? eventInit]);
 }
 
 extension PropsWebGLContextEvent on WebGLContextEvent {

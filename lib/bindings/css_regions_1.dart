@@ -16,13 +16,13 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NamedFlowMap extends JsMap<NamedFlow, String> {
-  external NamedFlowMap();
+  external factory NamedFlowMap();
 }
 
 @JS()
 @staticInterop
 class NamedFlow implements EventTarget {
-  external NamedFlow();
+  external factory NamedFlow();
 }
 
 extension PropsNamedFlow on NamedFlow {
@@ -41,7 +41,7 @@ extension PropsNamedFlow on NamedFlow {
 @JS()
 @staticInterop
 class Region {
-  external Region();
+  external factory Region();
 }
 
 extension PropsRegion on Region {

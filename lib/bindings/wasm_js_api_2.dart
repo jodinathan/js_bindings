@@ -6,7 +6,7 @@
 
 @JS('window')
 @staticInterop
-library wasm_js_api_1;
+library wasm_js_api_2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
@@ -37,7 +37,7 @@ extension PropsWebAssemblyInstantiatedSource on WebAssemblyInstantiatedSource {
 @JS()
 @staticInterop
 class WebAssembly {
-  external WebAssembly();
+  external factory WebAssembly();
 }
 
 extension PropsWebAssembly on WebAssembly {
@@ -114,7 +114,7 @@ extension PropsModuleImportDescriptor on ModuleImportDescriptor {
 @JS()
 @staticInterop
 class Module {
-  external Module(dynamic bytes);
+  external factory Module(dynamic bytes);
 }
 
 extension PropsModule on Module {
@@ -132,7 +132,7 @@ extension PropsModule on Module {
 @JS()
 @staticInterop
 class Instance {
-  external Instance(Module module, [dynamic importObject]);
+  external factory Instance(Module module, [dynamic importObject]);
 }
 
 extension PropsInstance on Instance {
@@ -162,7 +162,7 @@ extension PropsMemoryDescriptor on MemoryDescriptor {
 @JS()
 @staticInterop
 class Memory {
-  external Memory(MemoryDescriptor descriptor);
+  external factory Memory(MemoryDescriptor descriptor);
 }
 
 extension PropsMemory on Memory {
@@ -209,7 +209,7 @@ extension PropsTableDescriptor on TableDescriptor {
 @JS()
 @staticInterop
 class Table {
-  external Table(TableDescriptor descriptor, [dynamic value]);
+  external factory Table(TableDescriptor descriptor, [dynamic value]);
 }
 
 extension PropsTable on Table {
@@ -222,7 +222,7 @@ extension PropsTable on Table {
 
   @JS('set')
   @staticInterop
-  Object mSet(int index, [dynamic value]) =>
+  void mSet(int index, [dynamic value]) =>
       js_util.callMethod(this, 'set', [index, value]);
 
   int get length => js_util.getProperty(this, 'length');
@@ -257,7 +257,7 @@ extension PropsGlobalDescriptor on GlobalDescriptor {
 @JS()
 @staticInterop
 class Global {
-  external Global(GlobalDescriptor descriptor, [dynamic v]);
+  external factory Global(GlobalDescriptor descriptor, [dynamic v]);
 }
 
 extension PropsGlobal on Global {

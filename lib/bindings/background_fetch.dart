@@ -10,13 +10,18 @@ library background_fetch;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the Background Fetch API is a map where the
+/// keys are background fetch IDs and the values are
+/// [BackgroundFetchRegistration] objects.
+@experimental
 @JS()
 @staticInterop
 class BackgroundFetchManager {
-  external BackgroundFetchManager();
+  external factory BackgroundFetchManager();
 }
 
 extension PropsBackgroundFetchManager on BackgroundFetchManager {
@@ -68,10 +73,27 @@ extension PropsBackgroundFetchOptions on BackgroundFetchOptions {
   }
 }
 
+///  The interface of the Background Fetch API represents an
+/// individual background fetch.
+///  A instance is returned by the [BackgroundFetchManager.fetch()]
+/// or [BackgroundFetchManager.get()] methods, and therefore there
+/// has no constructor.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    BackgroundFetchRegistration
+///
+///
 @JS()
 @staticInterop
 class BackgroundFetchRegistration implements EventTarget {
-  external BackgroundFetchRegistration();
+  external factory BackgroundFetchRegistration();
 }
 
 extension PropsBackgroundFetchRegistration on BackgroundFetchRegistration {
@@ -117,10 +139,15 @@ enum BackgroundFetchFailureReason {
   downloadTotalExceeded
 }
 
+///  The interface of the Background Fetch API represents an
+/// individual request and response.
+///  A is created by the [BackgroundFetchManager.fetch()] method,
+/// therefore there is no constructor for this interface.
+/// There will be one for each resource requested by [fetch()].
 @JS()
 @staticInterop
 class BackgroundFetchRecord {
-  external BackgroundFetchRecord();
+  external factory BackgroundFetchRecord();
 }
 
 extension PropsBackgroundFetchRecord on BackgroundFetchRecord {
@@ -129,10 +156,34 @@ extension PropsBackgroundFetchRecord on BackgroundFetchRecord {
       js_util.promiseToFuture(js_util.getProperty(this, 'responseReady'));
 }
 
+///  The interface of the Background Fetch API is the event type for
+/// background fetch events dispatched on the [service worker global
+/// scope].
+///  It is the event type passed to [onbackgroundfetchabort] and
+/// [onbackgroundfetchclick].
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///    BackgroundFetchEvent
+///
+///
 @JS()
 @staticInterop
 class BackgroundFetchEvent implements ExtendableEvent {
-  external BackgroundFetchEvent(String type, BackgroundFetchEventInit init);
+  external factory BackgroundFetchEvent(
+      String type, BackgroundFetchEventInit init);
 }
 
 extension PropsBackgroundFetchEvent on BackgroundFetchEvent {
@@ -156,14 +207,43 @@ extension PropsBackgroundFetchEventInit on BackgroundFetchEventInit {
   }
 }
 
+///  The interface of the Background Fetch API is an event type
+/// passed to [ServiceWorkerGlobalScope.onbackgroundfetchsuccess] and
+/// [ServiceWorkerGlobalScope.onbackgroundfetchfail], and provides a
+/// method for updating the title and icon of the app to inform a
+/// user of the success or failure of a background fetch.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    ExtendableEvent
+///
+///
+///
+///
+///
+///    BackgroundFetchEvent
+///
+///
+///
+///
+///
+///    BackgroundFetchUpdateUIEvent
+///
+///
 @JS()
 @staticInterop
 class BackgroundFetchUpdateUIEvent implements BackgroundFetchEvent {
-  external BackgroundFetchUpdateUIEvent(
+  external factory BackgroundFetchUpdateUIEvent(
       String type, BackgroundFetchEventInit init);
 }
 
 extension PropsBackgroundFetchUpdateUIEvent on BackgroundFetchUpdateUIEvent {
-  Future<Object> updateUI([BackgroundFetchUIOptions? options]) =>
+  Future<void> updateUI([BackgroundFetchUIOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'updateUI', [options]));
 }

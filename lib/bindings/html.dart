@@ -10,14 +10,14 @@ library html;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
 @JS()
 @staticInterop
 class HTMLAllCollection {
-  external HTMLAllCollection();
+  external factory HTMLAllCollection();
 }
 
 extension PropsHTMLAllCollection on HTMLAllCollection {
@@ -29,10 +29,29 @@ extension PropsHTMLAllCollection on HTMLAllCollection {
       js_util.callMethod(this, 'item', [nameOrIndex]);
 }
 
+///  The interface represents a collection of HTML form control
+/// elements.
+///  It represents the lists returned by the [HTMLFormElement]
+/// interface's [elements] property and the [HTMLFieldSetElement]
+/// interface's [elements] property.
+///  This interface replaces one method from [HTMLCollection], on
+/// which it is based.
+///
+///
+///
+///    HTMLCollection
+///
+///
+///
+///
+///
+///    HTMLFormControlsCollection
+///
+///
 @JS()
 @staticInterop
 class HTMLFormControlsCollection implements HTMLCollection {
-  external HTMLFormControlsCollection();
+  external factory HTMLFormControlsCollection();
 }
 
 extension PropsHTMLFormControlsCollection on HTMLFormControlsCollection {
@@ -40,10 +59,24 @@ extension PropsHTMLFormControlsCollection on HTMLFormControlsCollection {
       js_util.callMethod(this, 'namedItem', [name]);
 }
 
+///  The interface represents a collection of radio elements in a
+/// [<form>] or a [<fieldset>] element.
+///
+///
+///
+///    NodeList
+///
+///
+///
+///
+///
+///    RadioNodeList
+///
+///
 @JS()
 @staticInterop
 class RadioNodeList implements NodeList {
-  external RadioNodeList();
+  external factory RadioNodeList();
 }
 
 extension PropsRadioNodeList on RadioNodeList {
@@ -53,10 +86,27 @@ extension PropsRadioNodeList on RadioNodeList {
   }
 }
 
+///  The interface represents a collection of [<option>] HTML
+/// elements (in document order) and offers methods and properties
+/// for selecting from the list as well as optionally altering its
+/// items. This object is returned only by the [options] property of
+/// select.
+///
+///
+///
+///    HTMLCollection
+///
+///
+///
+///
+///
+///    HTMLOptionsCollection
+///
+///
 @JS()
 @staticInterop
 class HTMLOptionsCollection implements HTMLCollection {
-  external HTMLOptionsCollection();
+  external factory HTMLOptionsCollection();
 }
 
 extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
@@ -65,10 +115,10 @@ extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
     js_util.setProperty(this, 'length', newValue);
   }
 
-  Object add(dynamic element, [dynamic before]) =>
+  void add(dynamic element, [dynamic before]) =>
       js_util.callMethod(this, 'add', [element, before]);
 
-  Object remove(int index) => js_util.callMethod(this, 'remove', [index]);
+  void remove(int index) => js_util.callMethod(this, 'remove', [index]);
 
   int get selectedIndex => js_util.getProperty(this, 'selectedIndex');
   set selectedIndex(int newValue) {
@@ -76,10 +126,12 @@ extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
   }
 }
 
+///  A type returned by some APIs which contains a list of DOMString
+/// (strings).
 @JS()
 @staticInterop
 class DOMStringList {
-  external DOMStringList();
+  external factory DOMStringList();
 }
 
 extension PropsDOMStringList on DOMStringList {
@@ -94,6 +146,33 @@ enum DocumentReadyState { loading, interactive, complete }
 
 enum DocumentVisibilityState { visible, hidden }
 
+///  The interface represents any HTML element. Some elements
+/// directly implement this interface, while others implement it via
+/// an interface that inherits it.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
 @JS()
 @staticInterop
 class HTMLElement
@@ -104,7 +183,7 @@ class HTMLElement
         ElementContentEditable,
         HTMLOrSVGElement,
         ElementCSSInlineStyle {
-  external HTMLElement();
+  external factory HTMLElement();
 }
 
 extension PropsHTMLElement on HTMLElement {
@@ -128,12 +207,17 @@ extension PropsHTMLElement on HTMLElement {
     js_util.setProperty(this, 'dir', newValue);
   }
 
-  bool get hidden => js_util.getProperty(this, 'hidden');
-  set hidden(bool newValue) {
+  dynamic get hidden => js_util.getProperty(this, 'hidden');
+  set hidden(dynamic newValue) {
     js_util.setProperty(this, 'hidden', newValue);
   }
 
-  Object click() => js_util.callMethod(this, 'click', []);
+  bool get inert => js_util.getProperty(this, 'inert');
+  set inert(bool newValue) {
+    js_util.setProperty(this, 'inert', newValue);
+  }
+
+  void click() => js_util.callMethod(this, 'click', []);
 
   String get accessKey => js_util.getProperty(this, 'accessKey');
   set accessKey(String newValue) {
@@ -176,16 +260,49 @@ extension PropsHTMLElement on HTMLElement {
   int get offsetHeight => js_util.getProperty(this, 'offsetHeight');
 }
 
+///  The interface represents an invalid HTML element and derives
+/// from the [HTMLElement] interface, but without implementing any
+/// additional properties or methods.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLUnknownElement
+///
+///
 @JS()
 @staticInterop
 class HTMLUnknownElement implements HTMLElement {
-  external HTMLUnknownElement();
+  external factory HTMLUnknownElement();
 }
 
 @JS()
 @staticInterop
 class HTMLOrSVGElement {
-  external HTMLOrSVGElement();
+  external factory HTMLOrSVGElement();
 }
 
 extension PropsHTMLOrSVGElement on HTMLOrSVGElement {
@@ -205,22 +322,60 @@ extension PropsHTMLOrSVGElement on HTMLOrSVGElement {
     js_util.setProperty(this, 'tabIndex', newValue);
   }
 
-  Object focus([FocusOptions? options]) =>
+  void focus([FocusOptions? options]) =>
       js_util.callMethod(this, 'focus', [options]);
 
-  Object blur() => js_util.callMethod(this, 'blur', []);
+  void blur() => js_util.callMethod(this, 'blur', []);
 }
 
+///  The interface is used for the
+/// [HTMLElement.dataset]/[SVGElement.dataset] attribute, to
+/// represent data for custom attributes added to elements.
 @JS()
 @staticInterop
 class DOMStringMap {
-  external DOMStringMap();
+  external factory DOMStringMap();
 }
 
+///  The interface serves as the root node for a given HTML document.
+/// This object inherits the properties and methods described in the
+/// [HTMLElement] interface.
+///  You can retrieve the object for a given document by reading the
+/// value of the [document.documentElement] property.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLHtmlElement
+///
+///
 @JS()
 @staticInterop
 class HTMLHtmlElement implements HTMLElement {
-  external HTMLHtmlElement();
+  external factory HTMLHtmlElement();
 }
 
 extension PropsHTMLHtmlElement on HTMLHtmlElement {
@@ -230,16 +385,82 @@ extension PropsHTMLHtmlElement on HTMLHtmlElement {
   }
 }
 
+///  The interface contains the descriptive information, or metadata,
+/// for a document. This object inherits all of the properties and
+/// methods described in the [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLHeadElement
+///
+///
 @JS()
 @staticInterop
 class HTMLHeadElement implements HTMLElement {
-  external HTMLHeadElement();
+  external factory HTMLHeadElement();
 }
 
+///  The interface contains the title for a document. This element
+/// inherits all of the properties and methods of the [HTMLElement]
+/// interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTitleElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTitleElement implements HTMLElement {
-  external HTMLTitleElement();
+  external factory HTMLTitleElement();
 }
 
 extension PropsHTMLTitleElement on HTMLTitleElement {
@@ -249,10 +470,43 @@ extension PropsHTMLTitleElement on HTMLTitleElement {
   }
 }
 
+///  The interface contains the base URI for a document. This object
+/// inherits all of the properties and methods as described in the
+/// [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLBaseElement
+///
+///
 @JS()
 @staticInterop
 class HTMLBaseElement implements HTMLElement {
-  external HTMLBaseElement();
+  external factory HTMLBaseElement();
 }
 
 extension PropsHTMLBaseElement on HTMLBaseElement {
@@ -267,10 +521,46 @@ extension PropsHTMLBaseElement on HTMLBaseElement {
   }
 }
 
+///  The interface represents reference information for external
+/// resources and the relationship of those resources to a document
+/// and vice-versa (corresponds to [<link>] element; not to be
+/// confused with [<a>], which is represented by
+/// [HTMLAnchorElement]). This object inherits all of the properties
+/// and methods of the [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLLinkElement
+///
+///
 @JS()
 @staticInterop
 class HTMLLinkElement implements HTMLElement, LinkStyle {
-  external HTMLLinkElement();
+  external factory HTMLLinkElement();
 }
 
 extension PropsHTMLLinkElement on HTMLLinkElement {
@@ -333,14 +623,15 @@ extension PropsHTMLLinkElement on HTMLLinkElement {
     js_util.setProperty(this, 'referrerPolicy', newValue);
   }
 
+  DOMTokenList get blocking => js_util.getProperty(this, 'blocking');
   bool get disabled => js_util.getProperty(this, 'disabled');
   set disabled(bool newValue) {
     js_util.setProperty(this, 'disabled', newValue);
   }
 
-  String get importance => js_util.getProperty(this, 'importance');
-  set importance(String newValue) {
-    js_util.setProperty(this, 'importance', newValue);
+  String get fetchPriority => js_util.getProperty(this, 'fetchPriority');
+  set fetchPriority(String newValue) {
+    js_util.setProperty(this, 'fetchPriority', newValue);
   }
 
   String get charset => js_util.getProperty(this, 'charset');
@@ -359,10 +650,43 @@ extension PropsHTMLLinkElement on HTMLLinkElement {
   }
 }
 
+///  The interface contains descriptive metadata about a document. It
+/// inherits all of the properties and methods described in the
+/// [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLMetaElement
+///
+///
 @JS()
 @staticInterop
 class HTMLMetaElement implements HTMLElement {
-  external HTMLMetaElement();
+  external factory HTMLMetaElement();
 }
 
 extension PropsHTMLMetaElement on HTMLMetaElement {
@@ -392,28 +716,103 @@ extension PropsHTMLMetaElement on HTMLMetaElement {
   }
 }
 
+///  The interface represents a [<style>] element. It inherits
+/// properties and methods from its parent, [HTMLElement].
+///  This interface doesn't allow to manipulate the CSS it contains
+/// (in most case). To manipulate CSS, see Using dynamic styling
+/// information for an overview of the objects used to manipulate
+/// specified CSS properties using the DOM.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLStyleElement
+///
+///
 @JS()
 @staticInterop
 class HTMLStyleElement implements HTMLElement, LinkStyle {
-  external HTMLStyleElement();
+  external factory HTMLStyleElement();
 }
 
 extension PropsHTMLStyleElement on HTMLStyleElement {
+  bool get disabled => js_util.getProperty(this, 'disabled');
+  set disabled(bool newValue) {
+    js_util.setProperty(this, 'disabled', newValue);
+  }
+
   String get media => js_util.getProperty(this, 'media');
   set media(String newValue) {
     js_util.setProperty(this, 'media', newValue);
   }
 
+  DOMTokenList get blocking => js_util.getProperty(this, 'blocking');
   String get type => js_util.getProperty(this, 'type');
   set type(String newValue) {
     js_util.setProperty(this, 'type', newValue);
   }
 }
 
+///  The interface provides special properties (beyond those
+/// inherited from the regular [HTMLElement] interface) for
+/// manipulating [<body>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLBodyElement
+///
+///
 @JS()
 @staticInterop
 class HTMLBodyElement implements HTMLElement, WindowEventHandlers {
-  external HTMLBodyElement();
+  external factory HTMLBodyElement();
 }
 
 extension PropsHTMLBodyElement on HTMLBodyElement {
@@ -454,10 +853,43 @@ extension PropsHTMLBodyElement on HTMLBodyElement {
   }
 }
 
+///  The interface represents the different heading elements, [<h1>]
+/// through [<h6>]. It inherits methods and properties from the
+/// [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLHeadingElement
+///
+///
 @JS()
 @staticInterop
 class HTMLHeadingElement implements HTMLElement {
-  external HTMLHeadingElement();
+  external factory HTMLHeadingElement();
 }
 
 extension PropsHTMLHeadingElement on HTMLHeadingElement {
@@ -467,10 +899,43 @@ extension PropsHTMLHeadingElement on HTMLHeadingElement {
   }
 }
 
+///  The interface provides special properties (beyond those of the
+/// regular [HTMLElement] object interface it inherits) for
+/// manipulating [<p>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLParagraphElement
+///
+///
 @JS()
 @staticInterop
 class HTMLParagraphElement implements HTMLElement {
-  external HTMLParagraphElement();
+  external factory HTMLParagraphElement();
 }
 
 extension PropsHTMLParagraphElement on HTMLParagraphElement {
@@ -480,10 +945,43 @@ extension PropsHTMLParagraphElement on HTMLParagraphElement {
   }
 }
 
+///  The interface provides special properties (beyond those of the
+/// [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating [<hr>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLHRElement
+///
+///
 @JS()
 @staticInterop
 class HTMLHRElement implements HTMLElement {
-  external HTMLHRElement();
+  external factory HTMLHRElement();
 }
 
 extension PropsHTMLHRElement on HTMLHRElement {
@@ -513,10 +1011,44 @@ extension PropsHTMLHRElement on HTMLHRElement {
   }
 }
 
+///  The interface exposes specific properties and methods (beyond
+/// those of the [HTMLElement] interface it also has available to it
+/// by inheritance) for manipulating a block of preformatted text
+/// ([<pre>]).
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLPreElement
+///
+///
 @JS()
 @staticInterop
 class HTMLPreElement implements HTMLElement {
-  external HTMLPreElement();
+  external factory HTMLPreElement();
 }
 
 extension PropsHTMLPreElement on HTMLPreElement {
@@ -526,10 +1058,44 @@ extension PropsHTMLPreElement on HTMLPreElement {
   }
 }
 
+///  The interface provides special properties and methods (beyond
+/// the regular [HTMLElement] interface it also has available to it
+/// by inheritance) for manipulating quoting elements, like
+/// [<blockquote>] and [<q>], but not the [<cite>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLQuoteElement
+///
+///
 @JS()
 @staticInterop
 class HTMLQuoteElement implements HTMLElement {
-  external HTMLQuoteElement();
+  external factory HTMLQuoteElement();
 }
 
 extension PropsHTMLQuoteElement on HTMLQuoteElement {
@@ -539,10 +1105,43 @@ extension PropsHTMLQuoteElement on HTMLQuoteElement {
   }
 }
 
+///  The interface provides special properties (beyond those defined
+/// on the regular [HTMLElement] interface it also has available to
+/// it by inheritance) for manipulating ordered list elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLOListElement
+///
+///
 @JS()
 @staticInterop
 class HTMLOListElement implements HTMLElement {
-  external HTMLOListElement();
+  external factory HTMLOListElement();
 }
 
 extension PropsHTMLOListElement on HTMLOListElement {
@@ -567,10 +1166,43 @@ extension PropsHTMLOListElement on HTMLOListElement {
   }
 }
 
+///  The interface provides special properties (beyond those defined
+/// on the regular [HTMLElement] interface it also has available to
+/// it by inheritance) for manipulating unordered list elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLUListElement
+///
+///
 @JS()
 @staticInterop
 class HTMLUListElement implements HTMLElement {
-  external HTMLUListElement();
+  external factory HTMLUListElement();
 }
 
 extension PropsHTMLUListElement on HTMLUListElement {
@@ -585,10 +1217,47 @@ extension PropsHTMLUListElement on HTMLUListElement {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface provides special properties (beyond those defined
+/// on the regular [HTMLElement] interface it also has available to
+/// it by inheritance) for manipulating [<menu>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLMenuElement
+///
+///
+@experimental
 @JS()
 @staticInterop
 class HTMLMenuElement implements HTMLElement {
-  external HTMLMenuElement();
+  external factory HTMLMenuElement();
 }
 
 extension PropsHTMLMenuElement on HTMLMenuElement {
@@ -598,10 +1267,43 @@ extension PropsHTMLMenuElement on HTMLMenuElement {
   }
 }
 
+///  The interface exposes specific properties and methods (beyond
+/// those defined by regular [HTMLElement] interface it also has
+/// available to it by inheritance) for manipulating list elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLLIElement
+///
+///
 @JS()
 @staticInterop
 class HTMLLIElement implements HTMLElement {
-  external HTMLLIElement();
+  external factory HTMLLIElement();
 }
 
 extension PropsHTMLLIElement on HTMLLIElement {
@@ -616,10 +1318,43 @@ extension PropsHTMLLIElement on HTMLLIElement {
   }
 }
 
+///  The interface provides special properties (beyond those of the
+/// regular [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating definition list ([<dl>]) elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLDListElement
+///
+///
 @JS()
 @staticInterop
 class HTMLDListElement implements HTMLElement {
-  external HTMLDListElement();
+  external factory HTMLDListElement();
 }
 
 extension PropsHTMLDListElement on HTMLDListElement {
@@ -629,10 +1364,43 @@ extension PropsHTMLDListElement on HTMLDListElement {
   }
 }
 
+///  The interface provides special properties (beyond the regular
+/// [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating [<div>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLDivElement
+///
+///
 @JS()
 @staticInterop
 class HTMLDivElement implements HTMLElement {
-  external HTMLDivElement();
+  external factory HTMLDivElement();
 }
 
 extension PropsHTMLDivElement on HTMLDivElement {
@@ -642,10 +1410,50 @@ extension PropsHTMLDivElement on HTMLDivElement {
   }
 }
 
+///  The interface represents hyperlink elements and provides special
+/// properties and methods (beyond those of the regular [HTMLElement]
+/// object interface that they inherit from) for manipulating the
+/// layout and presentation of such elements. This interface
+/// corresponds to [<a>] element; not to be confused with [<link>],
+/// which is represented by [HTMLLinkElement])
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLAnchorElement
+///
+///
 @JS()
 @staticInterop
-class HTMLAnchorElement implements HTMLElement, HTMLHyperlinkElementUtils {
-  external HTMLAnchorElement();
+class HTMLAnchorElement
+    implements
+        HTMLElement,
+        HTMLAttributionSrcElementUtils,
+        HTMLHyperlinkElementUtils {
+  external factory HTMLAnchorElement();
 }
 
 extension PropsHTMLAnchorElement on HTMLAnchorElement {
@@ -690,41 +1498,6 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
     js_util.setProperty(this, 'referrerPolicy', newValue);
   }
 
-  String get attributionDestination =>
-      js_util.getProperty(this, 'attributionDestination');
-  set attributionDestination(String newValue) {
-    js_util.setProperty(this, 'attributionDestination', newValue);
-  }
-
-  String get attributionSourceEventId =>
-      js_util.getProperty(this, 'attributionSourceEventId');
-  set attributionSourceEventId(String newValue) {
-    js_util.setProperty(this, 'attributionSourceEventId', newValue);
-  }
-
-  String get attributionReportTo =>
-      js_util.getProperty(this, 'attributionReportTo');
-  set attributionReportTo(String newValue) {
-    js_util.setProperty(this, 'attributionReportTo', newValue);
-  }
-
-  int get attributionExpiry => js_util.getProperty(this, 'attributionExpiry');
-  set attributionExpiry(int newValue) {
-    js_util.setProperty(this, 'attributionExpiry', newValue);
-  }
-
-  int get attributionSourcePriority =>
-      js_util.getProperty(this, 'attributionSourcePriority');
-  set attributionSourcePriority(int newValue) {
-    js_util.setProperty(this, 'attributionSourcePriority', newValue);
-  }
-
-  bool get registerAttributionSource =>
-      js_util.getProperty(this, 'registerAttributionSource');
-  set registerAttributionSource(bool newValue) {
-    js_util.setProperty(this, 'registerAttributionSource', newValue);
-  }
-
   int get attributionSourceId =>
       js_util.getProperty(this, 'attributionSourceId');
   set attributionSourceId(int newValue) {
@@ -757,10 +1530,43 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
   }
 }
 
+///  The interface provides special properties (beyond the regular
+/// [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating [<data>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLDataElement
+///
+///
 @JS()
 @staticInterop
 class HTMLDataElement implements HTMLElement {
-  external HTMLDataElement();
+  external factory HTMLDataElement();
 }
 
 extension PropsHTMLDataElement on HTMLDataElement {
@@ -770,10 +1576,43 @@ extension PropsHTMLDataElement on HTMLDataElement {
   }
 }
 
+///  The interface provides special properties (beyond the regular
+/// [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating [<time>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTimeElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTimeElement implements HTMLElement {
-  external HTMLTimeElement();
+  external factory HTMLTimeElement();
 }
 
 extension PropsHTMLTimeElement on HTMLTimeElement {
@@ -783,16 +1622,81 @@ extension PropsHTMLTimeElement on HTMLTimeElement {
   }
 }
 
+///  The interface represents a [<span>] element and derives from the
+/// [HTMLElement] interface, but without implementing any additional
+/// properties or methods.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLSpanElement
+///
+///
 @JS()
 @staticInterop
 class HTMLSpanElement implements HTMLElement {
-  external HTMLSpanElement();
+  external factory HTMLSpanElement();
 }
 
+///  The interface represents an HTML line break element ([<br>]). It
+/// inherits from [HTMLElement].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLBRElement
+///
+///
 @JS()
 @staticInterop
 class HTMLBRElement implements HTMLElement {
-  external HTMLBRElement();
+  external factory HTMLBRElement();
 }
 
 extension PropsHTMLBRElement on HTMLBRElement {
@@ -805,7 +1709,7 @@ extension PropsHTMLBRElement on HTMLBRElement {
 @JS()
 @staticInterop
 class HTMLHyperlinkElementUtils {
-  external HTMLHyperlinkElementUtils();
+  external factory HTMLHyperlinkElementUtils();
 }
 
 extension PropsHTMLHyperlinkElementUtils on HTMLHyperlinkElementUtils {
@@ -863,10 +1767,44 @@ extension PropsHTMLHyperlinkElementUtils on HTMLHyperlinkElementUtils {
   }
 }
 
+///  The interface provides special properties (beyond the regular
+/// methods and properties available through the [HTMLElement]
+/// interface they also have available to them by inheritance) for
+/// manipulating modification elements, that is [<del>] and [<ins>].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLModElement
+///
+///
 @JS()
 @staticInterop
 class HTMLModElement implements HTMLElement {
-  external HTMLModElement();
+  external factory HTMLModElement();
 }
 
 extension PropsHTMLModElement on HTMLModElement {
@@ -881,16 +1819,85 @@ extension PropsHTMLModElement on HTMLModElement {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface represents a [<picture>] HTML element. It doesn't
+/// implement specific properties or methods.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLPictureElement
+///
+///
+@experimental
 @JS()
 @staticInterop
 class HTMLPictureElement implements HTMLElement {
-  external HTMLPictureElement();
+  external factory HTMLPictureElement();
 }
 
+///  The interface provides special properties (beyond the regular
+/// [HTMLElement] object interface it also has available to it by
+/// inheritance) for manipulating [<source>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLSourceElement
+///
+///
 @JS()
 @staticInterop
 class HTMLSourceElement implements HTMLElement {
-  external HTMLSourceElement();
+  external factory HTMLSourceElement();
 }
 
 extension PropsHTMLSourceElement on HTMLSourceElement {
@@ -930,10 +1937,42 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
   }
 }
 
+///  The interface represents an HTML [<img>] element, providing the
+/// properties and methods used to manipulate image elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLImageElement
+///
+///
 @JS()
 @staticInterop
-class HTMLImageElement implements HTMLElement {
-  external HTMLImageElement();
+class HTMLImageElement implements HTMLElement, HTMLAttributionSrcElementUtils {
+  external factory HTMLImageElement();
 }
 
 extension PropsHTMLImageElement on HTMLImageElement {
@@ -1001,14 +2040,14 @@ extension PropsHTMLImageElement on HTMLImageElement {
     js_util.setProperty(this, 'loading', newValue);
   }
 
-  Future<Object> decode() =>
+  Future<void> decode() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'decode', []));
 
   int get x => js_util.getProperty(this, 'x');
   int get y => js_util.getProperty(this, 'y');
-  String get importance => js_util.getProperty(this, 'importance');
-  set importance(String newValue) {
-    js_util.setProperty(this, 'importance', newValue);
+  String get fetchPriority => js_util.getProperty(this, 'fetchPriority');
+  set fetchPriority(String newValue) {
+    js_util.setProperty(this, 'fetchPriority', newValue);
   }
 
   String get name => js_util.getProperty(this, 'name');
@@ -1047,10 +2086,44 @@ extension PropsHTMLImageElement on HTMLImageElement {
   }
 }
 
+///  The interface provides special properties and methods (beyond
+/// those of the [HTMLElement] interface it also has available to it
+/// by inheritance) for manipulating the layout and presentation of
+/// inline frame elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLIFrameElement
+///
+///
 @JS()
 @staticInterop
 class HTMLIFrameElement implements HTMLElement {
-  external HTMLIFrameElement();
+  external factory HTMLIFrameElement();
 }
 
 extension PropsHTMLIFrameElement on HTMLIFrameElement {
@@ -1109,9 +2182,9 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
     js_util.setProperty(this, 'csp', newValue);
   }
 
-  String get importance => js_util.getProperty(this, 'importance');
-  set importance(String newValue) {
-    js_util.setProperty(this, 'importance', newValue);
+  String get fetchPriority => js_util.getProperty(this, 'fetchPriority');
+  set fetchPriority(String newValue) {
+    js_util.setProperty(this, 'fetchPriority', newValue);
   }
 
   PermissionsPolicy get permissionsPolicy =>
@@ -1147,10 +2220,48 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
   }
 }
 
+///  The interface provides special properties (beyond the regular
+/// [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating [<embed>] elements.
+///
+///   Note: This topic describes the interface as defined in the
+/// standard. It does not address earlier, non-standardized version
+/// of the interface.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLEmbedElement
+///
+///
 @JS()
 @staticInterop
 class HTMLEmbedElement implements HTMLElement {
-  external HTMLEmbedElement();
+  external factory HTMLEmbedElement();
 }
 
 extension PropsHTMLEmbedElement on HTMLEmbedElement {
@@ -1187,10 +2298,44 @@ extension PropsHTMLEmbedElement on HTMLEmbedElement {
   }
 }
 
+///  The interface provides special properties and methods (beyond
+/// those on the [HTMLElement] interface it also has available to it
+/// by inheritance) for manipulating the layout and presentation of
+/// [<object>] element, representing external resources.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLObjectElement
+///
+///
 @JS()
 @staticInterop
 class HTMLObjectElement implements HTMLElement {
-  external HTMLObjectElement();
+  external factory HTMLObjectElement();
 }
 
 extension PropsHTMLObjectElement on HTMLObjectElement {
@@ -1232,7 +2377,7 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
 
   bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
-  Object setCustomValidity(String error) =>
+  void setCustomValidity(String error) =>
       js_util.callMethod(this, 'setCustomValidity', [error]);
 
   String get align => js_util.getProperty(this, 'align');
@@ -1291,38 +2436,54 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
   }
 }
 
-@JS()
-@staticInterop
-class HTMLParamElement implements HTMLElement {
-  external HTMLParamElement();
-}
-
-extension PropsHTMLParamElement on HTMLParamElement {
-  String get name => js_util.getProperty(this, 'name');
-  set name(String newValue) {
-    js_util.setProperty(this, 'name', newValue);
-  }
-
-  String get value => js_util.getProperty(this, 'value');
-  set value(String newValue) {
-    js_util.setProperty(this, 'value', newValue);
-  }
-
-  String get type => js_util.getProperty(this, 'type');
-  set type(String newValue) {
-    js_util.setProperty(this, 'type', newValue);
-  }
-
-  String get valueType => js_util.getProperty(this, 'valueType');
-  set valueType(String newValue) {
-    js_util.setProperty(this, 'valueType', newValue);
-  }
-}
-
+///  The interface provides special properties and methods for
+/// manipulating video objects. It also inherits properties and
+/// methods of [HTMLMediaElement] and [HTMLElement].
+///  The list of supported media formats varies from one browser to
+/// the other. You should either provide your video in a single
+/// format that all the relevant browsers supports, or provide
+/// multiple video sources in enough different formats that all the
+/// browsers you need to support are covered.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLMediaElement
+///
+///
+///
+///
+///
+///    HTMLVideoElement
+///
+///
 @JS()
 @staticInterop
 class HTMLVideoElement implements HTMLMediaElement {
-  external HTMLVideoElement();
+  external factory HTMLVideoElement();
 }
 
 extension PropsHTMLVideoElement on HTMLVideoElement {
@@ -1381,16 +2542,90 @@ extension PropsHTMLVideoElement on HTMLVideoElement {
   int requestVideoFrameCallback(VideoFrameRequestCallback callback) => js_util
       .callMethod(this, 'requestVideoFrameCallback', [allowInterop(callback)]);
 
-  Object cancelVideoFrameCallback(int handle) =>
+  void cancelVideoFrameCallback(int handle) =>
       js_util.callMethod(this, 'cancelVideoFrameCallback', [handle]);
 }
 
+///  The interface provides access to the properties of [<audio>]
+/// elements, as well as methods to manipulate them.
+///  This element is based on, and inherits properties and methods
+/// from, the [HTMLMediaElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLMediaElement
+///
+///
+///
+///
+///
+///    HTMLAudioElement
+///
+///
 @JS()
 @staticInterop
 class HTMLAudioElement implements HTMLMediaElement {
-  external HTMLAudioElement();
+  external factory HTMLAudioElement();
 }
 
+///  The interface represents an HTML [<track>] element within the
+/// DOM. This element can be used as a child of either [<audio>] or
+/// [<video>] to specify a text track containing information such as
+/// closed captions or subtitles.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTrackElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTrackElement implements HTMLElement {
@@ -1406,7 +2641,7 @@ class HTMLTrackElement implements HTMLElement {
   @JS('ERROR')
   external static int get error;
 
-  external HTMLTrackElement();
+  external factory HTMLTrackElement();
 }
 
 extension PropsHTMLTrackElement on HTMLTrackElement {
@@ -1443,6 +2678,41 @@ extension PropsHTMLTrackElement on HTMLTrackElement {
 
 enum CanPlayTypeResult { empty, maybe, probably }
 
+///  The interface adds to [HTMLElement] the properties and methods
+/// needed to support basic media-related capabilities that are
+/// common to audio and video.
+///  The [HTMLVideoElement] and [HTMLAudioElement] elements both
+/// inherit this interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLMediaElement
+///
+///
 @JS()
 @staticInterop
 class HTMLMediaElement implements HTMLElement {
@@ -1473,7 +2743,7 @@ class HTMLMediaElement implements HTMLElement {
   @JS('HAVE_ENOUGH_DATA')
   external static int get haveEnoughData;
 
-  external HTMLMediaElement();
+  external factory HTMLMediaElement();
 }
 
 extension PropsHTMLMediaElement on HTMLMediaElement {
@@ -1501,7 +2771,7 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   }
 
   TimeRanges get buffered => js_util.getProperty(this, 'buffered');
-  Object load() => js_util.callMethod(this, 'load', []);
+  void load() => js_util.callMethod(this, 'load', []);
 
   CanPlayTypeResult canPlayType(String type) =>
       js_util.callMethod(this, 'canPlayType', [type]);
@@ -1513,9 +2783,9 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
     js_util.setProperty(this, 'currentTime', newValue);
   }
 
-  Object fastSeek(double time) => js_util.callMethod(this, 'fastSeek', [time]);
+  void fastSeek(double time) => js_util.callMethod(this, 'fastSeek', [time]);
 
-  /* double | NaN */ dynamic get duration =>
+/* double | NaN */ dynamic get duration =>
       js_util.getProperty(this, 'duration');
   dynamic getStartDate() => js_util.callMethod(this, 'getStartDate', []);
 
@@ -1549,10 +2819,10 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
     js_util.setProperty(this, 'loop', newValue);
   }
 
-  Future<Object> play() =>
+  Future<void> play() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'play', []));
 
-  Object pause() => js_util.callMethod(this, 'pause', []);
+  void pause() => js_util.callMethod(this, 'pause', []);
 
   bool get controls => js_util.getProperty(this, 'controls');
   set controls(bool newValue) {
@@ -1584,7 +2854,7 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
   MediaStream captureStream() => js_util.callMethod(this, 'captureStream', []);
 
   String get sinkId => js_util.getProperty(this, 'sinkId');
-  Future<Object> setSinkId(String sinkId) =>
+  Future<void> setSinkId(String sinkId) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'setSinkId', [sinkId]));
 
   RemotePlayback get remote => js_util.getProperty(this, 'remote');
@@ -1607,10 +2877,16 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
     js_util.setProperty(this, 'onwaitingforkey', newValue);
   }
 
-  Future<Object> setMediaKeys(MediaKeys? mediaKeys) => js_util
+  Future<void> setMediaKeys(MediaKeys? mediaKeys) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setMediaKeys', [mediaKeys]));
 }
 
+///  The interface represents an error which occurred while handling
+/// media in an HTML media element based on [HTMLMediaElement], such
+/// as [<audio>] or [<video>].
+///  A object describes the error in general terms using a numeric
+/// [code] categorizing the kind of error, and a [message], which
+/// provides specific diagnostics about what went wrong.
 @JS()
 @staticInterop
 class MediaError {
@@ -1626,7 +2902,7 @@ class MediaError {
   @JS('MEDIA_ERR_SRC_NOT_SUPPORTED')
   external static int get mediaErrSrcNotSupported;
 
-  external MediaError();
+  external factory MediaError();
 }
 
 extension PropsMediaError on MediaError {
@@ -1634,10 +2910,28 @@ extension PropsMediaError on MediaError {
   String get message => js_util.getProperty(this, 'message');
 }
 
+///  The interface is used to represent a list of the audio tracks
+/// contained within a given HTML media element, with each track
+/// represented by a separate [AudioTrack] object in the list.
+///  Retrieve an instance of this object with
+/// [HTMLMediaElement.audioTracks]. The individual tracks can be
+/// accessed using array syntax.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    AudioTrackList
+///
+///
 @JS()
 @staticInterop
 class AudioTrackList implements EventTarget {
-  external AudioTrackList();
+  external factory AudioTrackList();
 }
 
 extension PropsAudioTrackList on AudioTrackList {
@@ -1663,10 +2957,14 @@ extension PropsAudioTrackList on AudioTrackList {
   }
 }
 
+///  The interface represents a single audio track from one of the
+/// HTML media elements, [<audio>] or [<video>].
+///  The most common use for accessing an object is to toggle its
+/// [enabled] property in order to mute and unmute the track.
 @JS()
 @staticInterop
 class AudioTrack {
-  external AudioTrack();
+  external factory AudioTrack();
 }
 
 extension PropsAudioTrack on AudioTrack {
@@ -1682,10 +2980,29 @@ extension PropsAudioTrack on AudioTrack {
   SourceBuffer? get sourceBuffer => js_util.getProperty(this, 'sourceBuffer');
 }
 
+///  The interface is used to represent a list of the video tracks
+/// contained within a [<video>] element, with each track represented
+/// by a separate [VideoTrack] object in the list.
+///  Retrieve an instance of this object with
+/// [HTMLMediaElement.videoTracks]. The individual tracks can be
+/// accessed using array syntax or functions such as [forEach()] for
+/// example.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    VideoTrackList
+///
+///
 @JS()
 @staticInterop
 class VideoTrackList implements EventTarget {
-  external VideoTrackList();
+  external factory VideoTrackList();
 }
 
 extension PropsVideoTrackList on VideoTrackList {
@@ -1712,10 +3029,15 @@ extension PropsVideoTrackList on VideoTrackList {
   }
 }
 
+///  The interface represents a single video track from a [<video>]
+/// element.
+///  The most common use for accessing a object is to toggle its
+/// [selected] property in order to make it the active video track
+/// for its [<video>] element.
 @JS()
 @staticInterop
 class VideoTrack {
-  external VideoTrack();
+  external factory VideoTrack();
 }
 
 extension PropsVideoTrack on VideoTrack {
@@ -1731,10 +3053,34 @@ extension PropsVideoTrack on VideoTrack {
   SourceBuffer? get sourceBuffer => js_util.getProperty(this, 'sourceBuffer');
 }
 
+///  The interface is used to represent a list of the text tracks
+/// defined by the [<track>] element, with each track represented by
+/// a separate [textTrack] object in the list.
+///  Retrieve an instance of this object with the [textTracks]
+/// property of an [HTMLMediaElement] object.
+///  For a given [HTMLMediaElement] object media, the individual
+/// tracks can be accessed using:
+///
+///   [media.TextTracks[n]], to get the nth text track from the
+/// object’s list of text tracks
+///  the [media.textTracks].[getTrackById()] method
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    TextTrackList
+///
+///
 @JS()
 @staticInterop
 class TextTrackList implements EventTarget {
-  external TextTrackList();
+  external factory TextTrackList();
 }
 
 extension PropsTextTrackList on TextTrackList {
@@ -1764,10 +3110,25 @@ enum TextTrackMode { disabled, hidden, showing }
 
 enum TextTrackKind { subtitles, captions, descriptions, chapters, metadata }
 
+///  The interface—part of the API for handling WebVTT (text tracks
+/// on media presentations)—describes and controls the text track
+/// associated with a particular [<track>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    TextTrack
+///
+///
 @JS()
 @staticInterop
 class TextTrack implements EventTarget {
-  external TextTrack();
+  external factory TextTrack();
 }
 
 extension PropsTextTrack on TextTrack {
@@ -1786,9 +3147,9 @@ extension PropsTextTrack on TextTrack {
 
   TextTrackCueList? get cues => js_util.getProperty(this, 'cues');
   TextTrackCueList? get activeCues => js_util.getProperty(this, 'activeCues');
-  Object addCue(TextTrackCue cue) => js_util.callMethod(this, 'addCue', [cue]);
+  void addCue(TextTrackCue cue) => js_util.callMethod(this, 'addCue', [cue]);
 
-  Object removeCue(TextTrackCue cue) =>
+  void removeCue(TextTrackCue cue) =>
       js_util.callMethod(this, 'removeCue', [cue]);
 
   EventHandlerNonNull? get oncuechange =>
@@ -1800,10 +3161,15 @@ extension PropsTextTrack on TextTrack {
   SourceBuffer? get sourceBuffer => js_util.getProperty(this, 'sourceBuffer');
 }
 
+///  The array-like object represents a dynamically updating list of
+/// [TextTrackCue] objects.
+///  This interface has no constructor. Retrieve an instance of this
+/// object with [TextTrack.cues] which returns all of the cues in a
+/// [TextTrack] object.
 @JS()
 @staticInterop
 class TextTrackCueList {
-  external TextTrackCueList();
+  external factory TextTrackCueList();
 }
 
 extension PropsTextTrackCueList on TextTrackCueList {
@@ -1812,10 +3178,30 @@ extension PropsTextTrackCueList on TextTrackCueList {
       js_util.callMethod(this, 'getCueById', [id]);
 }
 
+///   is an abstract class which is used as the basis for the various
+/// derived cue types, such as [VTTCue]; you will instead work with
+/// those derived types. These cues represent strings of text
+/// presented for some duration of time during the performance of a
+/// [TextTrack]. The cue includes the start time (the time at which
+/// the text will be displayed) and the end time (the time at which
+/// it will be removed from the display), as well as other
+/// information.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    TextTrackCue
+///
+///
 @JS()
 @staticInterop
 class TextTrackCue implements EventTarget {
-  external TextTrackCue();
+  external factory TextTrackCue();
 }
 
 extension PropsTextTrackCue on TextTrackCue {
@@ -1830,8 +3216,7 @@ extension PropsTextTrackCue on TextTrackCue {
     js_util.setProperty(this, 'startTime', newValue);
   }
 
-  /* double | NaN */ dynamic get endTime =>
-      js_util.getProperty(this, 'endTime');
+/* double | NaN */ dynamic get endTime => js_util.getProperty(this, 'endTime');
   set endTime(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'endTime', newValue);
   }
@@ -1852,10 +3237,19 @@ extension PropsTextTrackCue on TextTrackCue {
   }
 }
 
+///  When loading a media resource for use by an [<audio>] or
+/// [<video>] element, the interface is used for representing the
+/// time ranges of the media resource that have been buffered, the
+/// time ranges that have been played, and the time ranges that are
+/// seekable.
+///  A object includes one or more ranges of time, each specified by
+/// a starting time offset and an ending time offset. You reference
+/// each time range by using the [start()] and [end()] methods,
+/// passing the index number of the time range you want to retrieve.
 @JS()
 @staticInterop
 class TimeRanges {
-  external TimeRanges();
+  external factory TimeRanges();
 }
 
 extension PropsTimeRanges on TimeRanges {
@@ -1865,10 +3259,39 @@ extension PropsTimeRanges on TimeRanges {
   double end(int index) => js_util.callMethod(this, 'end', [index]);
 }
 
+///  The interface, which is part of the HTML DOM specification, is
+/// used for events which represent changes to a set of available
+/// tracks on an HTML media element; these events are [addtrack] and
+/// [removetrack].
+///  It's important not to confuse with the [RTCTrackEvent]
+/// interface, which is used for tracks which are part of an
+/// [RTCPeerConnection].
+///  Events based on are always sent to one of the media track list
+/// types:
+///
+///   Events involving video tracks are always sent to the
+/// [VideoTrackList] found in [HTMLMediaElement.videoTracks]
+///   Events involving audio tracks are always sent to the
+/// [AudioTrackList] specified in [HTMLMediaElement.audioTracks]
+///   Events affecting text tracks are sent to the [TextTrackList]
+/// object indicated by [HTMLMediaElement.textTracks].
+///
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    TrackEvent
+///
+///
 @JS()
 @staticInterop
 class TrackEvent implements Event {
-  external TrackEvent(String type, [TrackEventInit? eventInitDict]);
+  external factory TrackEvent(String type, [TrackEventInit? eventInitDict]);
 }
 
 extension PropsTrackEvent on TrackEvent {
@@ -1889,10 +3312,44 @@ extension PropsTrackEventInit on TrackEventInit {
   }
 }
 
+///  The interface provides special properties and methods (beyond
+/// those of the regular object [HTMLElement] interface it also has
+/// available to it by inheritance) for manipulating the layout and
+/// presentation of map elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLMapElement
+///
+///
 @JS()
 @staticInterop
 class HTMLMapElement implements HTMLElement {
-  external HTMLMapElement();
+  external factory HTMLMapElement();
 }
 
 extension PropsHTMLMapElement on HTMLMapElement {
@@ -1904,10 +3361,44 @@ extension PropsHTMLMapElement on HTMLMapElement {
   HTMLCollection get areas => js_util.getProperty(this, 'areas');
 }
 
+///  The interface provides special properties and methods (beyond
+/// those of the regular object [HTMLElement] interface it also has
+/// available to it by inheritance) for manipulating the layout and
+/// presentation of [<area>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLAreaElement
+///
+///
 @JS()
 @staticInterop
 class HTMLAreaElement implements HTMLElement, HTMLHyperlinkElementUtils {
-  external HTMLAreaElement();
+  external factory HTMLAreaElement();
 }
 
 extension PropsHTMLAreaElement on HTMLAreaElement {
@@ -1958,10 +3449,44 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
   }
 }
 
+///  The interface provides special properties and methods (beyond
+/// the regular [HTMLElement] object interface it also has available
+/// to it by inheritance) for manipulating the layout and
+/// presentation of tables in an HTML document.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTableElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTableElement implements HTMLElement {
-  external HTMLTableElement();
+  external factory HTMLTableElement();
 }
 
 extension PropsHTMLTableElement on HTMLTableElement {
@@ -1973,7 +3498,7 @@ extension PropsHTMLTableElement on HTMLTableElement {
   HTMLTableCaptionElement createCaption() =>
       js_util.callMethod(this, 'createCaption', []);
 
-  Object deleteCaption() => js_util.callMethod(this, 'deleteCaption', []);
+  void deleteCaption() => js_util.callMethod(this, 'deleteCaption', []);
 
   HTMLTableSectionElement? get tHead => js_util.getProperty(this, 'tHead');
   set tHead(HTMLTableSectionElement? newValue) {
@@ -1983,7 +3508,7 @@ extension PropsHTMLTableElement on HTMLTableElement {
   HTMLTableSectionElement createTHead() =>
       js_util.callMethod(this, 'createTHead', []);
 
-  Object deleteTHead() => js_util.callMethod(this, 'deleteTHead', []);
+  void deleteTHead() => js_util.callMethod(this, 'deleteTHead', []);
 
   HTMLTableSectionElement? get tFoot => js_util.getProperty(this, 'tFoot');
   set tFoot(HTMLTableSectionElement? newValue) {
@@ -1993,7 +3518,7 @@ extension PropsHTMLTableElement on HTMLTableElement {
   HTMLTableSectionElement createTFoot() =>
       js_util.callMethod(this, 'createTFoot', []);
 
-  Object deleteTFoot() => js_util.callMethod(this, 'deleteTFoot', []);
+  void deleteTFoot() => js_util.callMethod(this, 'deleteTFoot', []);
 
   HTMLCollection get tBodies => js_util.getProperty(this, 'tBodies');
   HTMLTableSectionElement createTBody() =>
@@ -2003,7 +3528,7 @@ extension PropsHTMLTableElement on HTMLTableElement {
   HTMLTableRowElement insertRow([int? index = -1]) =>
       js_util.callMethod(this, 'insertRow', [index]);
 
-  Object deleteRow(int index) => js_util.callMethod(this, 'deleteRow', [index]);
+  void deleteRow(int index) => js_util.callMethod(this, 'deleteRow', [index]);
 
   String get align => js_util.getProperty(this, 'align');
   set align(String newValue) {
@@ -2051,10 +3576,43 @@ extension PropsHTMLTableElement on HTMLTableElement {
   }
 }
 
+///  The interface special properties (beyond the regular
+/// [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating table caption elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTableCaptionElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTableCaptionElement implements HTMLElement {
-  external HTMLTableCaptionElement();
+  external factory HTMLTableCaptionElement();
 }
 
 extension PropsHTMLTableCaptionElement on HTMLTableCaptionElement {
@@ -2064,10 +3622,42 @@ extension PropsHTMLTableCaptionElement on HTMLTableCaptionElement {
   }
 }
 
+///  The interface provides properties for manipulating single or
+/// grouped table column elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTableColElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTableColElement implements HTMLElement {
-  external HTMLTableColElement();
+  external factory HTMLTableColElement();
 }
 
 extension PropsHTMLTableColElement on HTMLTableColElement {
@@ -2102,10 +3692,44 @@ extension PropsHTMLTableColElement on HTMLTableColElement {
   }
 }
 
+///  The interface provides special properties and methods (beyond
+/// the [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating the layout and presentation of
+/// sections, that is headers, footers and bodies, in an HTML table.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTableSectionElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTableSectionElement implements HTMLElement {
-  external HTMLTableSectionElement();
+  external factory HTMLTableSectionElement();
 }
 
 extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
@@ -2113,7 +3737,7 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
   HTMLTableRowElement insertRow([int? index = -1]) =>
       js_util.callMethod(this, 'insertRow', [index]);
 
-  Object deleteRow(int index) => js_util.callMethod(this, 'deleteRow', [index]);
+  void deleteRow(int index) => js_util.callMethod(this, 'deleteRow', [index]);
 
   String get align => js_util.getProperty(this, 'align');
   set align(String newValue) {
@@ -2136,10 +3760,44 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
   }
 }
 
+///  The interface provides special properties and methods (beyond
+/// the [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating the layout and presentation of rows
+/// in an HTML table.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTableRowElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTableRowElement implements HTMLElement {
-  external HTMLTableRowElement();
+  external factory HTMLTableRowElement();
 }
 
 extension PropsHTMLTableRowElement on HTMLTableRowElement {
@@ -2149,8 +3807,7 @@ extension PropsHTMLTableRowElement on HTMLTableRowElement {
   HTMLTableCellElement insertCell([int? index = -1]) =>
       js_util.callMethod(this, 'insertCell', [index]);
 
-  Object deleteCell(int index) =>
-      js_util.callMethod(this, 'deleteCell', [index]);
+  void deleteCell(int index) => js_util.callMethod(this, 'deleteCell', [index]);
 
   String get align => js_util.getProperty(this, 'align');
   set align(String newValue) {
@@ -2178,10 +3835,44 @@ extension PropsHTMLTableRowElement on HTMLTableRowElement {
   }
 }
 
+///  The interface provides special properties and methods (beyond
+/// the regular [HTMLElement] interface it also has available to it
+/// by inheritance) for manipulating the layout and presentation of
+/// table cells, either header or data cells, in an HTML document.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTableCellElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTableCellElement implements HTMLElement {
-  external HTMLTableCellElement();
+  external factory HTMLTableCellElement();
 }
 
 extension PropsHTMLTableCellElement on HTMLTableCellElement {
@@ -2257,10 +3948,43 @@ extension PropsHTMLTableCellElement on HTMLTableCellElement {
   }
 }
 
+///  The interface represents a [<form>] element in the DOM. It
+/// allows access to—and, in some cases, modification of—aspects of
+/// the form, as well as access to its component elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLFormElement
+///
+///
 @JS()
 @staticInterop
 class HTMLFormElement implements HTMLElement {
-  external HTMLFormElement();
+  external factory HTMLFormElement();
 }
 
 extension PropsHTMLFormElement on HTMLFormElement {
@@ -2318,22 +4042,55 @@ extension PropsHTMLFormElement on HTMLFormElement {
   HTMLFormControlsCollection get elements =>
       js_util.getProperty(this, 'elements');
   int get length => js_util.getProperty(this, 'length');
-  Object submit() => js_util.callMethod(this, 'submit', []);
+  void submit() => js_util.callMethod(this, 'submit', []);
 
-  Object requestSubmit([HTMLElement? submitter]) =>
+  void requestSubmit([HTMLElement? submitter]) =>
       js_util.callMethod(this, 'requestSubmit', [submitter]);
 
-  Object reset() => js_util.callMethod(this, 'reset', []);
+  void reset() => js_util.callMethod(this, 'reset', []);
 
   bool checkValidity() => js_util.callMethod(this, 'checkValidity', []);
 
   bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 }
 
+///  The interface gives access to properties specific to [<label>]
+/// elements. It inherits methods and properties from the base
+/// [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLLabelElement
+///
+///
 @JS()
 @staticInterop
 class HTMLLabelElement implements HTMLElement {
-  external HTMLLabelElement();
+  external factory HTMLLabelElement();
 }
 
 extension PropsHTMLLabelElement on HTMLLabelElement {
@@ -2346,10 +4103,43 @@ extension PropsHTMLLabelElement on HTMLLabelElement {
   HTMLElement? get control => js_util.getProperty(this, 'control');
 }
 
+///  The interface provides special properties and methods for
+/// manipulating the options, layout, and presentation of [<input>]
+/// elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLInputElement
+///
+///
 @JS()
 @staticInterop
 class HTMLInputElement implements HTMLElement {
-  external HTMLInputElement();
+  external factory HTMLInputElement();
 }
 
 extension PropsHTMLInputElement on HTMLInputElement {
@@ -2517,7 +4307,7 @@ extension PropsHTMLInputElement on HTMLInputElement {
     js_util.setProperty(this, 'valueAsDate', newValue);
   }
 
-  /* double | NaN */ dynamic get valueAsNumber =>
+/* double | NaN */ dynamic get valueAsNumber =>
       js_util.getProperty(this, 'valueAsNumber');
   set valueAsNumber(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'valueAsNumber', newValue);
@@ -2528,9 +4318,9 @@ extension PropsHTMLInputElement on HTMLInputElement {
     js_util.setProperty(this, 'width', newValue);
   }
 
-  Object stepUp([int? n = 1]) => js_util.callMethod(this, 'stepUp', [n]);
+  void stepUp([int? n = 1]) => js_util.callMethod(this, 'stepUp', [n]);
 
-  Object stepDown([int? n = 1]) => js_util.callMethod(this, 'stepDown', [n]);
+  void stepDown([int? n = 1]) => js_util.callMethod(this, 'stepDown', [n]);
 
   bool get willValidate => js_util.getProperty(this, 'willValidate');
   ValidityState get validity => js_util.getProperty(this, 'validity');
@@ -2540,11 +4330,11 @@ extension PropsHTMLInputElement on HTMLInputElement {
 
   bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
-  Object setCustomValidity(String error) =>
+  void setCustomValidity(String error) =>
       js_util.callMethod(this, 'setCustomValidity', [error]);
 
   NodeList? get labels => js_util.getProperty(this, 'labels');
-  Object select() => js_util.callMethod(this, 'select', []);
+  void select() => js_util.callMethod(this, 'select', []);
 
   int? get selectionStart => js_util.getProperty(this, 'selectionStart');
   set selectionStart(int? newValue) {
@@ -2562,7 +4352,7 @@ extension PropsHTMLInputElement on HTMLInputElement {
     js_util.setProperty(this, 'selectionDirection', newValue);
   }
 
-  Object setRangeText(
+  void setRangeText(
           [String? replacement,
           int? start,
           int? end,
@@ -2570,10 +4360,10 @@ extension PropsHTMLInputElement on HTMLInputElement {
       js_util.callMethod(
           this, 'setRangeText', [replacement, start, end, selectionMode?.name]);
 
-  Object setSelectionRange(int start, int end, [String? direction]) =>
+  void setSelectionRange(int start, int end, [String? direction]) =>
       js_util.callMethod(this, 'setSelectionRange', [start, end, direction]);
 
-  Object showPicker() => js_util.callMethod(this, 'showPicker', []);
+  void showPicker() => js_util.callMethod(this, 'showPicker', []);
 
   bool get webkitdirectory => js_util.getProperty(this, 'webkitdirectory');
   set webkitdirectory(bool newValue) {
@@ -2598,10 +4388,43 @@ extension PropsHTMLInputElement on HTMLInputElement {
   }
 }
 
+///  The interface provides properties and methods (beyond the
+/// regular [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating [<button>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLButtonElement
+///
+///
 @JS()
 @staticInterop
 class HTMLButtonElement implements HTMLElement {
-  external HTMLButtonElement();
+  external factory HTMLButtonElement();
 }
 
 extension PropsHTMLButtonElement on HTMLButtonElement {
@@ -2659,16 +4482,49 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
 
   bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
-  Object setCustomValidity(String error) =>
+  void setCustomValidity(String error) =>
       js_util.callMethod(this, 'setCustomValidity', [error]);
 
   NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
+///  The interface represents a [<select>] HTML Element. These
+/// elements also share all of the properties and methods of other
+/// HTML elements via the [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLSelectElement
+///
+///
 @JS()
 @staticInterop
 class HTMLSelectElement implements HTMLElement {
-  external HTMLSelectElement();
+  external factory HTMLSelectElement();
 }
 
 extension PropsHTMLSelectElement on HTMLSelectElement {
@@ -2718,10 +4574,10 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
   HTMLOptionElement? namedItem(String name) =>
       js_util.callMethod(this, 'namedItem', [name]);
 
-  Object add(dynamic element, [dynamic before]) =>
+  void add(dynamic element, [dynamic before]) =>
       js_util.callMethod(this, 'add', [element, before]);
 
-  Object remove([int? index]) => js_util.callMethod(this, 'remove', [index]);
+  void remove([int? index]) => js_util.callMethod(this, 'remove', [index]);
 
   HTMLCollection get selectedOptions =>
       js_util.getProperty(this, 'selectedOptions');
@@ -2743,26 +4599,94 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
 
   bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
-  Object setCustomValidity(String error) =>
+  void setCustomValidity(String error) =>
       js_util.callMethod(this, 'setCustomValidity', [error]);
 
   NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
+///  The interface provides special properties (beyond the
+/// [HTMLElement] object interface it also has available to it by
+/// inheritance) to manipulate [<datalist>] elements and their
+/// content.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLDataListElement
+///
+///
 @JS()
 @staticInterop
 class HTMLDataListElement implements HTMLElement {
-  external HTMLDataListElement();
+  external factory HTMLDataListElement();
 }
 
 extension PropsHTMLDataListElement on HTMLDataListElement {
   HTMLCollection get options => js_util.getProperty(this, 'options');
 }
 
+///  The interface provides special properties and methods (beyond
+/// the regular [HTMLElement] object interface they also have
+/// available to them by inheritance) for manipulating the layout and
+/// presentation of [<optgroup>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLOptGroupElement
+///
+///
 @JS()
 @staticInterop
 class HTMLOptGroupElement implements HTMLElement {
-  external HTMLOptGroupElement();
+  external factory HTMLOptGroupElement();
 }
 
 extension PropsHTMLOptGroupElement on HTMLOptGroupElement {
@@ -2777,10 +4701,42 @@ extension PropsHTMLOptGroupElement on HTMLOptGroupElement {
   }
 }
 
+///  The interface represents [<option>] elements and inherits all
+/// properties and methods of the [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLOptionElement
+///
+///
 @JS()
 @staticInterop
 class HTMLOptionElement implements HTMLElement {
-  external HTMLOptionElement();
+  external factory HTMLOptionElement();
 }
 
 extension PropsHTMLOptionElement on HTMLOptionElement {
@@ -2818,10 +4774,43 @@ extension PropsHTMLOptionElement on HTMLOptionElement {
   int get index => js_util.getProperty(this, 'index');
 }
 
+///  The interface provides special properties and methods for
+/// manipulating the layout and presentation of [<textarea>]
+/// elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTextAreaElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTextAreaElement implements HTMLElement {
-  external HTMLTextAreaElement();
+  external factory HTMLTextAreaElement();
 }
 
 extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
@@ -2908,11 +4897,11 @@ extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
 
   bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
-  Object setCustomValidity(String error) =>
+  void setCustomValidity(String error) =>
       js_util.callMethod(this, 'setCustomValidity', [error]);
 
   NodeList get labels => js_util.getProperty(this, 'labels');
-  Object select() => js_util.callMethod(this, 'select', []);
+  void select() => js_util.callMethod(this, 'select', []);
 
   int get selectionStart => js_util.getProperty(this, 'selectionStart');
   set selectionStart(int newValue) {
@@ -2930,7 +4919,7 @@ extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
     js_util.setProperty(this, 'selectionDirection', newValue);
   }
 
-  Object setRangeText(
+  void setRangeText(
           [String? replacement,
           int? start,
           int? end,
@@ -2938,14 +4927,47 @@ extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
       js_util.callMethod(
           this, 'setRangeText', [replacement, start, end, selectionMode?.name]);
 
-  Object setSelectionRange(int start, int end, [String? direction]) =>
+  void setSelectionRange(int start, int end, [String? direction]) =>
       js_util.callMethod(this, 'setSelectionRange', [start, end, direction]);
 }
 
+///  The interface provides properties and methods (beyond those
+/// inherited from [HTMLElement]) for manipulating the layout and
+/// presentation of [<output>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLOutputElement
+///
+///
 @JS()
 @staticInterop
 class HTMLOutputElement implements HTMLElement {
-  external HTMLOutputElement();
+  external factory HTMLOutputElement();
 }
 
 extension PropsHTMLOutputElement on HTMLOutputElement {
@@ -2975,16 +4997,50 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
 
   bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
-  Object setCustomValidity(String error) =>
+  void setCustomValidity(String error) =>
       js_util.callMethod(this, 'setCustomValidity', [error]);
 
   NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
+///  The interface provides special properties and methods (beyond
+/// the regular [HTMLElement] interface it also has available to it
+/// by inheritance) for manipulating the layout and presentation of
+/// [<progress>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLProgressElement
+///
+///
 @JS()
 @staticInterop
 class HTMLProgressElement implements HTMLElement {
-  external HTMLProgressElement();
+  external factory HTMLProgressElement();
 }
 
 extension PropsHTMLProgressElement on HTMLProgressElement {
@@ -3002,10 +5058,44 @@ extension PropsHTMLProgressElement on HTMLProgressElement {
   NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
+///  The HTML [<meter>] elements expose the interface, which provides
+/// special properties and methods (beyond the [HTMLElement] object
+/// interface they also have available to them by inheritance) for
+/// manipulating the layout and presentation of [<meter>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLMeterElement
+///
+///
 @JS()
 @staticInterop
 class HTMLMeterElement implements HTMLElement {
-  external HTMLMeterElement();
+  external factory HTMLMeterElement();
 }
 
 extension PropsHTMLMeterElement on HTMLMeterElement {
@@ -3042,10 +5132,44 @@ extension PropsHTMLMeterElement on HTMLMeterElement {
   NodeList get labels => js_util.getProperty(this, 'labels');
 }
 
+///  The interface provides special properties and methods (beyond
+/// the regular [HTMLElement] interface it also has available to it
+/// by inheritance) for manipulating the layout and presentation of
+/// [<fieldset>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLFieldSetElement
+///
+///
 @JS()
 @staticInterop
 class HTMLFieldSetElement implements HTMLElement {
-  external HTMLFieldSetElement();
+  external factory HTMLFieldSetElement();
 }
 
 extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
@@ -3070,14 +5194,47 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
 
   bool reportValidity() => js_util.callMethod(this, 'reportValidity', []);
 
-  Object setCustomValidity(String error) =>
+  void setCustomValidity(String error) =>
       js_util.callMethod(this, 'setCustomValidity', [error]);
 }
 
+///  The is an interface allowing to access properties of the
+/// [<legend>] elements. It inherits properties and methods from the
+/// [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLLegendElement
+///
+///
 @JS()
 @staticInterop
 class HTMLLegendElement implements HTMLElement {
-  external HTMLLegendElement();
+  external factory HTMLLegendElement();
 }
 
 extension PropsHTMLLegendElement on HTMLLegendElement {
@@ -3090,10 +5247,14 @@ extension PropsHTMLLegendElement on HTMLLegendElement {
 
 enum SelectionMode { select, start, end, preserve }
 
+///  The interface represents the validity states that an element can
+/// be in, with respect to constraint validation. Together, they help
+/// explain why an element's value fails to validate, if it's not
+/// valid.
 @JS()
 @staticInterop
 class ValidityState {
-  external ValidityState();
+  external factory ValidityState();
 }
 
 extension PropsValidityState on ValidityState {
@@ -3110,10 +5271,25 @@ extension PropsValidityState on ValidityState {
   bool get valid => js_util.getProperty(this, 'valid');
 }
 
+///  The interface defines the object used to represent an HTML
+/// form's [submit] event. This event is fired at the [<form>] when
+/// the form's submit action is invoked.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    SubmitEvent
+///
+///
 @JS()
 @staticInterop
 class SubmitEvent implements Event {
-  external SubmitEvent(String type, [SubmitEventInit? eventInitDict]);
+  external factory SubmitEvent(String type, [SubmitEventInit? eventInitDict]);
 }
 
 extension PropsSubmitEvent on SubmitEvent {
@@ -3134,10 +5310,32 @@ extension PropsSubmitEventInit on SubmitEventInit {
   }
 }
 
+///  The interface represents a [formdata] event — such an event is
+/// fired on an [HTMLFormElement] object after the entry list
+/// representing the form's data is constructed. This happens when
+/// the form is submitted, but can also be triggered by the
+/// invocation of a [FormData()] constructor.
+///  This allows a [FormData] object to be quickly obtained in
+/// response to a [formdata] event firing, rather than needing to put
+/// it together yourself when you wish to submit form data via a
+/// method like [XMLHttpRequest] (see Using FormData objects).
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    FormDataEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class FormDataEvent implements Event {
-  external FormDataEvent(String type, FormDataEventInit eventInitDict);
+  external factory FormDataEvent(String type, FormDataEventInit eventInitDict);
 }
 
 extension PropsFormDataEvent on FormDataEvent {
@@ -3158,10 +5356,43 @@ extension PropsFormDataEventInit on FormDataEventInit {
   }
 }
 
+///  The interface provides special properties (beyond the regular
+/// [HTMLElement] interface it also has available to it by
+/// inheritance) for manipulating [<details>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLDetailsElement
+///
+///
 @JS()
 @staticInterop
 class HTMLDetailsElement implements HTMLElement {
-  external HTMLDetailsElement();
+  external factory HTMLDetailsElement();
 }
 
 extension PropsHTMLDetailsElement on HTMLDetailsElement {
@@ -3171,10 +5402,47 @@ extension PropsHTMLDetailsElement on HTMLDetailsElement {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface provides methods to manipulate [<dialog>]
+/// elements. It inherits properties and methods from the
+/// [HTMLElement] interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLDialogElement
+///
+///
+@experimental
 @JS()
 @staticInterop
 class HTMLDialogElement implements HTMLElement {
-  external HTMLDialogElement();
+  external factory HTMLDialogElement();
 }
 
 extension PropsHTMLDialogElement on HTMLDialogElement {
@@ -3190,18 +5458,58 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
 
   @JS('show')
   @staticInterop
-  Object mShow() => js_util.callMethod(this, 'show', []);
+  void mShow() => js_util.callMethod(this, 'show', []);
 
-  Object showModal() => js_util.callMethod(this, 'showModal', []);
+  void showModal() => js_util.callMethod(this, 'showModal', []);
 
-  Object close([String? returnValue]) =>
+  void close([String? returnValue]) =>
       js_util.callMethod(this, 'close', [returnValue]);
 }
 
+///  HTML [<script>] elements expose the interface, which provides
+/// special properties and methods for manipulating the behavior and
+/// execution of [<script>] elements (beyond the inherited
+/// [HTMLElement] interface).
+///  JavaScript files should be served with the
+/// [application/javascript] MIME type, but browsers are lenient and
+/// block them only if the script is served with an image type
+/// ([image/*]), video type ([video/*]), audio type ([audio/*]), or
+/// [text/csv]. If the script is blocked, its element receives an
+/// [error] event; otherwise, it receives a [load] event.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLScriptElement
+///
+///
 @JS()
 @staticInterop
-class HTMLScriptElement implements HTMLElement {
-  external HTMLScriptElement();
+class HTMLScriptElement implements HTMLElement, HTMLAttributionSrcElementUtils {
+  external factory HTMLScriptElement();
 }
 
 extension PropsHTMLScriptElement on HTMLScriptElement {
@@ -3252,12 +5560,13 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
     js_util.setProperty(this, 'referrerPolicy', newValue);
   }
 
+  DOMTokenList get blocking => js_util.getProperty(this, 'blocking');
   static bool supports(String type) =>
       js_util.callMethod(HTMLScriptElement, 'supports', [type]);
 
-  String get importance => js_util.getProperty(this, 'importance');
-  set importance(String newValue) {
-    js_util.setProperty(this, 'importance', newValue);
+  String get fetchPriority => js_util.getProperty(this, 'fetchPriority');
+  set fetchPriority(String newValue) {
+    js_util.setProperty(this, 'fetchPriority', newValue);
   }
 
   String get charset => js_util.getProperty(this, 'charset');
@@ -3276,20 +5585,84 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
   }
 }
 
+///  The interface enables access to the contents of an HTML
+/// [<template>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLTemplateElement
+///
+///
 @JS()
 @staticInterop
 class HTMLTemplateElement implements HTMLElement {
-  external HTMLTemplateElement();
+  external factory HTMLTemplateElement();
 }
 
 extension PropsHTMLTemplateElement on HTMLTemplateElement {
   DocumentFragment get content => js_util.getProperty(this, 'content');
 }
 
+///  The interface of the Shadow DOM API enables access to the name
+/// and assigned nodes of an HTML [<slot>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLSlotElement
+///
+///
 @JS()
 @staticInterop
 class HTMLSlotElement implements HTMLElement {
-  external HTMLSlotElement();
+  external factory HTMLSlotElement();
 }
 
 extension PropsHTMLSlotElement on HTMLSlotElement {
@@ -3304,7 +5677,7 @@ extension PropsHTMLSlotElement on HTMLSlotElement {
   Iterable<Element> assignedElements([AssignedNodesOptions? options]) =>
       js_util.callMethod(this, 'assignedElements', [options]);
 
-  Object assign([dynamic nodes1, dynamic nodes2, dynamic nodes3]) =>
+  void assign([dynamic nodes1, dynamic nodes2, dynamic nodes3]) =>
       js_util.callMethod(this, 'assign', [nodes1, nodes2, nodes3]);
 }
 
@@ -3322,10 +5695,44 @@ extension PropsAssignedNodesOptions on AssignedNodesOptions {
   }
 }
 
+///  The interface provides properties and methods for manipulating
+/// the layout and presentation of [<canvas>] elements. The interface
+/// also inherits the properties and methods of the [HTMLElement]
+/// interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLCanvasElement
+///
+///
 @JS()
 @staticInterop
 class HTMLCanvasElement implements HTMLElement {
-  external HTMLCanvasElement();
+  external factory HTMLCanvasElement();
 }
 
 extension PropsHTMLCanvasElement on HTMLCanvasElement {
@@ -3345,7 +5752,7 @@ extension PropsHTMLCanvasElement on HTMLCanvasElement {
   String toDataURL([String? type = 'image/png', dynamic quality]) =>
       js_util.callMethod(this, 'toDataURL', [type, quality]);
 
-  Object toBlob(BlobCallback callback,
+  void toBlob(BlobCallback callback,
           [String? type = 'image/png', dynamic quality]) =>
       js_util
           .callMethod(this, 'toBlob', [allowInterop(callback), type, quality]);
@@ -3410,6 +5817,12 @@ extension PropsCanvasRenderingContext2DSettings
 
 enum ImageSmoothingQuality { low, medium, high }
 
+///  The interface, part of the Canvas API, provides the 2D rendering
+/// context for the drawing surface of a [<canvas>] element. It is
+/// used for drawing shapes, text, images, and other objects.
+///  See the interface's properties and methods in the sidebar and
+/// below. The Canvas tutorial has more explanation, examples, and
+/// resources, as well.
 @JS()
 @staticInterop
 class CanvasRenderingContext2D
@@ -3430,7 +5843,7 @@ class CanvasRenderingContext2D
         CanvasPathDrawingStyles,
         CanvasTextDrawingStyles,
         CanvasPath {
-  external CanvasRenderingContext2D();
+  external factory CanvasRenderingContext2D();
 }
 
 extension PropsCanvasRenderingContext2D on CanvasRenderingContext2D {
@@ -3442,15 +5855,15 @@ extension PropsCanvasRenderingContext2D on CanvasRenderingContext2D {
 @JS()
 @staticInterop
 class CanvasState {
-  external CanvasState();
+  external factory CanvasState();
 }
 
 extension PropsCanvasState on CanvasState {
-  Object save() => js_util.callMethod(this, 'save', []);
+  void save() => js_util.callMethod(this, 'save', []);
 
-  Object restore() => js_util.callMethod(this, 'restore', []);
+  void restore() => js_util.callMethod(this, 'restore', []);
 
-  Object reset() => js_util.callMethod(this, 'reset', []);
+  void reset() => js_util.callMethod(this, 'reset', []);
 
   bool isContextLost() => js_util.callMethod(this, 'isContextLost', []);
 }
@@ -3458,21 +5871,20 @@ extension PropsCanvasState on CanvasState {
 @JS()
 @staticInterop
 class CanvasTransform {
-  external CanvasTransform();
+  external factory CanvasTransform();
 }
 
 extension PropsCanvasTransform on CanvasTransform {
-  Object scale(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
+  void scale(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
       js_util.callMethod(this, 'scale', [x, y]);
 
-  Object rotate(/* double | NaN */ dynamic angle) =>
+  void rotate(/* double | NaN */ dynamic angle) =>
       js_util.callMethod(this, 'rotate', [angle]);
 
-  Object translate(
-          /* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
+  void translate(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
       js_util.callMethod(this, 'translate', [x, y]);
 
-  Object transform(
+  void transform(
           /* double | NaN */ dynamic a,
           /* double | NaN */ dynamic b,
           /* double | NaN */ dynamic c,
@@ -3483,7 +5895,7 @@ extension PropsCanvasTransform on CanvasTransform {
 
   DOMMatrix getTransform() => js_util.callMethod(this, 'getTransform', []);
 
-  Object setTransform(
+  void setTransform(
           [/* double | NaN */ dynamic a,
           /* double | NaN */ dynamic b,
           /* double | NaN */ dynamic c,
@@ -3492,13 +5904,13 @@ extension PropsCanvasTransform on CanvasTransform {
           /* double | NaN */ dynamic f]) =>
       js_util.callMethod(this, 'setTransform', [a, b, c, d, e, f]);
 
-  Object resetTransform() => js_util.callMethod(this, 'resetTransform', []);
+  void resetTransform() => js_util.callMethod(this, 'resetTransform', []);
 }
 
 @JS()
 @staticInterop
 class CanvasCompositing {
-  external CanvasCompositing();
+  external factory CanvasCompositing();
 }
 
 extension PropsCanvasCompositing on CanvasCompositing {
@@ -3518,7 +5930,7 @@ extension PropsCanvasCompositing on CanvasCompositing {
 @JS()
 @staticInterop
 class CanvasImageSmoothing {
-  external CanvasImageSmoothing();
+  external factory CanvasImageSmoothing();
 }
 
 extension PropsCanvasImageSmoothing on CanvasImageSmoothing {
@@ -3539,7 +5951,7 @@ extension PropsCanvasImageSmoothing on CanvasImageSmoothing {
 @JS()
 @staticInterop
 class CanvasFillStrokeStyles {
-  external CanvasFillStrokeStyles();
+  external factory CanvasFillStrokeStyles();
 }
 
 extension PropsCanvasFillStrokeStyles on CanvasFillStrokeStyles {
@@ -3572,7 +5984,7 @@ extension PropsCanvasFillStrokeStyles on CanvasFillStrokeStyles {
 @JS()
 @staticInterop
 class CanvasShadowStyles {
-  external CanvasShadowStyles();
+  external factory CanvasShadowStyles();
 }
 
 extension PropsCanvasShadowStyles on CanvasShadowStyles {
@@ -3582,13 +5994,13 @@ extension PropsCanvasShadowStyles on CanvasShadowStyles {
     js_util.setProperty(this, 'shadowOffsetX', newValue);
   }
 
-  /* double | NaN */ dynamic get shadowOffsetY =>
+/* double | NaN */ dynamic get shadowOffsetY =>
       js_util.getProperty(this, 'shadowOffsetY');
   set shadowOffsetY(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'shadowOffsetY', newValue);
   }
 
-  /* double | NaN */ dynamic get shadowBlur =>
+/* double | NaN */ dynamic get shadowBlur =>
       js_util.getProperty(this, 'shadowBlur');
   set shadowBlur(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'shadowBlur', newValue);
@@ -3603,38 +6015,32 @@ extension PropsCanvasShadowStyles on CanvasShadowStyles {
 @JS()
 @staticInterop
 class CanvasFilters {
-  external CanvasFilters();
+  external factory CanvasFilters();
 }
 
 extension PropsCanvasFilters on CanvasFilters {
-  dynamic get filter => js_util.getProperty(this, 'filter');
-  set filter(dynamic newValue) {
+  String get filter => js_util.getProperty(this, 'filter');
+  set filter(String newValue) {
     js_util.setProperty(this, 'filter', newValue);
   }
 }
 
 @JS()
 @staticInterop
-class CanvasFilter {
-  external CanvasFilter([dynamic filters]);
-}
-
-@JS()
-@staticInterop
 class CanvasRect {
-  external CanvasRect();
+  external factory CanvasRect();
 }
 
 extension PropsCanvasRect on CanvasRect {
-  Object clearRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+  void clearRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
           /* double | NaN */ dynamic w, /* double | NaN */ dynamic h) =>
       js_util.callMethod(this, 'clearRect', [x, y, w, h]);
 
-  Object fillRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+  void fillRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
           /* double | NaN */ dynamic w, /* double | NaN */ dynamic h) =>
       js_util.callMethod(this, 'fillRect', [x, y, w, h]);
 
-  Object strokeRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+  void strokeRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
           /* double | NaN */ dynamic w, /* double | NaN */ dynamic h) =>
       js_util.callMethod(this, 'strokeRect', [x, y, w, h]);
 }
@@ -3642,19 +6048,19 @@ extension PropsCanvasRect on CanvasRect {
 @JS()
 @staticInterop
 class CanvasDrawPath {
-  external CanvasDrawPath();
+  external factory CanvasDrawPath();
 }
 
 extension PropsCanvasDrawPath on CanvasDrawPath {
-  Object beginPath() => js_util.callMethod(this, 'beginPath', []);
+  void beginPath() => js_util.callMethod(this, 'beginPath', []);
 
-  Object fill(
+  void fill(
           [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]) =>
       js_util.callMethod(this, 'fill', [path, fillRule?.name]);
 
-  Object stroke([Path2D? path]) => js_util.callMethod(this, 'stroke', [path]);
+  void stroke([Path2D? path]) => js_util.callMethod(this, 'stroke', [path]);
 
-  Object clip(
+  void clip(
           [Path2D? path, CanvasFillRule? fillRule = CanvasFillRule.nonzero]) =>
       js_util.callMethod(this, 'clip', [path, fillRule?.name]);
 
@@ -3671,30 +6077,30 @@ extension PropsCanvasDrawPath on CanvasDrawPath {
 @JS()
 @staticInterop
 class CanvasUserInterface {
-  external CanvasUserInterface();
+  external factory CanvasUserInterface();
 }
 
 extension PropsCanvasUserInterface on CanvasUserInterface {
-  Object drawFocusIfNeeded([Path2D? path, Element? element]) =>
+  void drawFocusIfNeeded([Path2D? path, Element? element]) =>
       js_util.callMethod(this, 'drawFocusIfNeeded', [path, element]);
 
-  Object scrollPathIntoView([Path2D? path]) =>
+  void scrollPathIntoView([Path2D? path]) =>
       js_util.callMethod(this, 'scrollPathIntoView', [path]);
 }
 
 @JS()
 @staticInterop
 class CanvasText {
-  external CanvasText();
+  external factory CanvasText();
 }
 
 extension PropsCanvasText on CanvasText {
-  Object fillText(String text, /* double | NaN */ dynamic x,
+  void fillText(String text, /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y,
           [/* double | NaN */ dynamic maxWidth]) =>
       js_util.callMethod(this, 'fillText', [text, x, y, maxWidth]);
 
-  Object strokeText(String text, /* double | NaN */ dynamic x,
+  void strokeText(String text, /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y,
           [/* double | NaN */ dynamic maxWidth]) =>
       js_util.callMethod(this, 'strokeText', [text, x, y, maxWidth]);
@@ -3706,11 +6112,11 @@ extension PropsCanvasText on CanvasText {
 @JS()
 @staticInterop
 class CanvasDrawImage {
-  external CanvasDrawImage();
+  external factory CanvasDrawImage();
 }
 
 extension PropsCanvasDrawImage on CanvasDrawImage {
-  Object drawImage(dynamic image, /* double | NaN */ dynamic sx,
+  void drawImage(dynamic image, /* double | NaN */ dynamic sx,
           [/* double | NaN */ dynamic sy,
           /* double | NaN */ dynamic sw,
           /* double | NaN */ dynamic sh,
@@ -3725,7 +6131,7 @@ extension PropsCanvasDrawImage on CanvasDrawImage {
 @JS()
 @staticInterop
 class CanvasImageData {
-  external CanvasImageData();
+  external factory CanvasImageData();
 }
 
 extension PropsCanvasImageData on CanvasImageData {
@@ -3736,7 +6142,7 @@ extension PropsCanvasImageData on CanvasImageData {
           [ImageDataSettings? settings]) =>
       js_util.callMethod(this, 'getImageData', [sx, sy, sw, sh, settings]);
 
-  Object putImageData(ImageData imagedata, int dx,
+  void putImageData(ImageData imagedata, int dx,
           [int? dy,
           int? dirtyX,
           int? dirtyY,
@@ -3797,7 +6203,7 @@ enum CanvasTextRendering {
 @JS()
 @staticInterop
 class CanvasPathDrawingStyles {
-  external CanvasPathDrawingStyles();
+  external factory CanvasPathDrawingStyles();
 }
 
 extension PropsCanvasPathDrawingStyles on CanvasPathDrawingStyles {
@@ -3819,19 +6225,19 @@ extension PropsCanvasPathDrawingStyles on CanvasPathDrawingStyles {
     js_util.setProperty(this, 'lineJoin', newValue.name);
   }
 
-  /* double | NaN */ dynamic get miterLimit =>
+/* double | NaN */ dynamic get miterLimit =>
       js_util.getProperty(this, 'miterLimit');
   set miterLimit(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'miterLimit', newValue);
   }
 
-  Object setLineDash(Iterable< /* double | NaN */ dynamic> segments) =>
+  void setLineDash(Iterable< /* double | NaN */ dynamic> segments) =>
       js_util.callMethod(this, 'setLineDash', [segments]);
 
   Iterable< /* double | NaN */ dynamic> getLineDash() =>
       js_util.callMethod(this, 'getLineDash', []);
 
-  /* double | NaN */ dynamic get lineDashOffset =>
+/* double | NaN */ dynamic get lineDashOffset =>
       js_util.getProperty(this, 'lineDashOffset');
   set lineDashOffset(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'lineDashOffset', newValue);
@@ -3841,7 +6247,7 @@ extension PropsCanvasPathDrawingStyles on CanvasPathDrawingStyles {
 @JS()
 @staticInterop
 class CanvasTextDrawingStyles {
-  external CanvasTextDrawingStyles();
+  external factory CanvasTextDrawingStyles();
 }
 
 extension PropsCanvasTextDrawingStyles on CanvasTextDrawingStyles {
@@ -3906,26 +6312,26 @@ extension PropsCanvasTextDrawingStyles on CanvasTextDrawingStyles {
 @JS()
 @staticInterop
 class CanvasPath {
-  external CanvasPath();
+  external factory CanvasPath();
 }
 
 extension PropsCanvasPath on CanvasPath {
-  Object closePath() => js_util.callMethod(this, 'closePath', []);
+  void closePath() => js_util.callMethod(this, 'closePath', []);
 
-  Object moveTo(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
+  void moveTo(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
       js_util.callMethod(this, 'moveTo', [x, y]);
 
-  Object lineTo(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
+  void lineTo(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y) =>
       js_util.callMethod(this, 'lineTo', [x, y]);
 
-  Object quadraticCurveTo(
+  void quadraticCurveTo(
           /* double | NaN */ dynamic cpx,
           /* double | NaN */ dynamic cpy,
           /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y) =>
       js_util.callMethod(this, 'quadraticCurveTo', [cpx, cpy, x, y]);
 
-  Object bezierCurveTo(
+  void bezierCurveTo(
           /* double | NaN */ dynamic cp1x,
           /* double | NaN */ dynamic cp1y,
           /* double | NaN */ dynamic cp2x,
@@ -3934,7 +6340,7 @@ extension PropsCanvasPath on CanvasPath {
           /* double | NaN */ dynamic y) =>
       js_util.callMethod(this, 'bezierCurveTo', [cp1x, cp1y, cp2x, cp2y, x, y]);
 
-  Object arcTo(
+  void arcTo(
           /* double | NaN */ dynamic x1,
           /* double | NaN */ dynamic y1,
           /* double | NaN */ dynamic x2,
@@ -3942,19 +6348,16 @@ extension PropsCanvasPath on CanvasPath {
           /* double | NaN */ dynamic radius) =>
       js_util.callMethod(this, 'arcTo', [x1, y1, x2, y2, radius]);
 
-  Object rect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+  void rect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
           /* double | NaN */ dynamic w, /* double | NaN */ dynamic h) =>
       js_util.callMethod(this, 'rect', [x, y, w, h]);
 
-  Object roundRect(
-          /* double | NaN */ dynamic x,
-          /* double | NaN */ dynamic y,
-          /* double | NaN */ dynamic w,
-          /* double | NaN */ dynamic h,
-          dynamic radii) =>
+  void roundRect(/* double | NaN */ dynamic x, /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic w, /* double | NaN */ dynamic h,
+          [dynamic radii = 0]) =>
       js_util.callMethod(this, 'roundRect', [x, y, w, h, radii]);
 
-  Object arc(
+  void arc(
           /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y,
           /* double | NaN */ dynamic radius,
@@ -3964,7 +6367,7 @@ extension PropsCanvasPath on CanvasPath {
       js_util.callMethod(
           this, 'arc', [x, y, radius, startAngle, endAngle, counterclockwise]);
 
-  Object ellipse(
+  void ellipse(
           /* double | NaN */ dynamic x,
           /* double | NaN */ dynamic y,
           /* double | NaN */ dynamic radiusX,
@@ -3985,32 +6388,45 @@ extension PropsCanvasPath on CanvasPath {
       ]);
 }
 
+///  The interface represents an opaque object describing a gradient.
+/// It is returned by the methods
+/// [CanvasRenderingContext2D.createLinearGradient()],
+/// [CanvasRenderingContext2D.createConicGradient()] or
+/// [CanvasRenderingContext2D.createRadialGradient()].
+/// It can be used as a [fillStyle] or [strokeStyle].
 @JS()
 @staticInterop
 class CanvasGradient {
-  external CanvasGradient();
+  external factory CanvasGradient();
 }
 
 extension PropsCanvasGradient on CanvasGradient {
-  Object addColorStop(double offset, String color) =>
+  void addColorStop(double offset, String color) =>
       js_util.callMethod(this, 'addColorStop', [offset, color]);
 }
 
+///  The interface represents an opaque object describing a pattern,
+/// based on an image, a canvas, or a video, created by the
+/// [CanvasRenderingContext2D.createPattern()] method.
+/// It can be used as a [fillStyle] or [strokeStyle].
 @JS()
 @staticInterop
 class CanvasPattern {
-  external CanvasPattern();
+  external factory CanvasPattern();
 }
 
 extension PropsCanvasPattern on CanvasPattern {
-  Object setTransform([DOMMatrix2DInit? transform]) =>
+  void setTransform([DOMMatrix2DInit? transform]) =>
       js_util.callMethod(this, 'setTransform', [transform]);
 }
 
+///  The interface represents the dimensions of a piece of text in
+/// the canvas; a instance can be retrieved using the
+/// [CanvasRenderingContext2D.measureText()] method.
 @JS()
 @staticInterop
 class TextMetrics {
-  external TextMetrics();
+  external factory TextMetrics();
 }
 
 extension PropsTextMetrics on TextMetrics {
@@ -4054,10 +6470,18 @@ extension PropsImageDataSettings on ImageDataSettings {
   }
 }
 
+///  The interface represents the underlying pixel data of an area of
+/// a [<canvas>] element.
+///  It is created using the [ImageData()] constructor or creator
+/// methods on the [CanvasRenderingContext2D] object associated with
+/// a canvas: [createImageData()] and [getImageData()]. It can also
+/// be used to set a part of the canvas by using [putImageData()].
+///  Note: This feature is available in Web Workers
+///
 @JS()
 @staticInterop
 class ImageData {
-  external ImageData(Uint8ClampedList data, int sw,
+  external factory ImageData(Uint8ClampedList data, int sw,
       [int? sh, ImageDataSettings? settings]);
 }
 
@@ -4069,26 +6493,42 @@ extension PropsImageData on ImageData {
       .byName(js_util.getProperty(this, 'colorSpace'));
 }
 
+///  The interface of the Canvas 2D API is used to declare a path
+/// that can then be used on a [CanvasRenderingContext2D] object. The
+/// path methods of the [CanvasRenderingContext2D] interface are also
+/// present on this interface, which gives you the convenience of
+/// being able to retain and replay your path whenever desired.
 @JS()
 @staticInterop
 class Path2D implements CanvasPath {
-  external Path2D([dynamic path]);
+  external factory Path2D([dynamic path]);
 }
 
 extension PropsPath2D on Path2D {
-  Object addPath(Path2D path, [DOMMatrix2DInit? transform]) =>
+  void addPath(Path2D path, [DOMMatrix2DInit? transform]) =>
       js_util.callMethod(this, 'addPath', [path, transform]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface is a canvas rendering context that provides the
+/// functionality to replace the canvas's contents with the given
+/// [ImageBitmap]. Its context id (the first argument to
+/// [HTMLCanvasElement.getContext()] or
+/// [OffscreenCanvas.getContext()]) is ["bitmaprenderer"].
+///  This interface is available in both the window and the worker
+/// context.
+@experimental
 @JS()
 @staticInterop
 class ImageBitmapRenderingContext {
-  external ImageBitmapRenderingContext();
+  external factory ImageBitmapRenderingContext();
 }
 
 extension PropsImageBitmapRenderingContext on ImageBitmapRenderingContext {
   dynamic get canvas => js_util.getProperty(this, 'canvas');
-  Object transferFromImageBitmap(ImageBitmap? bitmap) =>
+  void transferFromImageBitmap(ImageBitmap? bitmap) =>
       js_util.callMethod(this, 'transferFromImageBitmap', [bitmap]);
 }
 
@@ -4121,8 +6561,7 @@ extension PropsImageEncodeOptions on ImageEncodeOptions {
     js_util.setProperty(this, 'type', newValue);
   }
 
-  /* double | NaN */ dynamic get quality =>
-      js_util.getProperty(this, 'quality');
+/* double | NaN */ dynamic get quality => js_util.getProperty(this, 'quality');
   set quality(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'quality', newValue);
   }
@@ -4136,10 +6575,29 @@ enum OffscreenRenderingContextId {
   webgpu
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface provides a canvas that can be rendered off screen.
+/// It is available in both the window and worker contexts.
+///  Note: This feature is available in Web Workers
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    OffscreenCanvas
+///
+///
+@experimental
 @JS()
 @staticInterop
 class OffscreenCanvas implements EventTarget {
-  external OffscreenCanvas(int width, int height);
+  external factory OffscreenCanvas(int width, int height);
 }
 
 extension PropsOffscreenCanvas on OffscreenCanvas {
@@ -4195,24 +6653,28 @@ class OffscreenCanvasRenderingContext2D
         CanvasPathDrawingStyles,
         CanvasTextDrawingStyles,
         CanvasPath {
-  external OffscreenCanvasRenderingContext2D();
+  external factory OffscreenCanvasRenderingContext2D();
 }
 
 extension PropsOffscreenCanvasRenderingContext2D
     on OffscreenCanvasRenderingContext2D {
-  Object commit() => js_util.callMethod(this, 'commit', []);
+  void commit() => js_util.callMethod(this, 'commit', []);
 
   OffscreenCanvas get canvas => js_util.getProperty(this, 'canvas');
 }
 
+///  The interface provides methods for registering custom elements
+/// and querying registered elements. To get an instance of it, use
+/// the [window.customElements] property.
+@experimental
 @JS()
 @staticInterop
 class CustomElementRegistry {
-  external CustomElementRegistry();
+  external factory CustomElementRegistry();
 }
 
 extension PropsCustomElementRegistry on CustomElementRegistry {
-  Object define(String name, CustomElementConstructor constructor,
+  void define(String name, CustomElementConstructor constructor,
           [ElementDefinitionOptions? options]) =>
       js_util.callMethod(
           this, 'define', [name, allowInterop(constructor), options]);
@@ -4224,7 +6686,7 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
   Future<CustomElementConstructor> whenDefined(String name) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'whenDefined', [name]));
 
-  Object upgrade(Node root) => js_util.callMethod(this, 'upgrade', [root]);
+  void upgrade(Node root) => js_util.callMethod(this, 'upgrade', [root]);
 }
 
 @anonymous
@@ -4243,19 +6705,24 @@ extension PropsElementDefinitionOptions on ElementDefinitionOptions {
   }
 }
 
+///  The interface of the Document_Object_Model gives web developers
+/// a way to allow custom elements to fully participate in HTML
+/// forms. It provides utilities for working with these elements in
+/// the same way you would work with any standard HTML form element,
+/// and also exposes the Accessibility Object Model to the element.
 @JS()
 @staticInterop
 class ElementInternals implements ARIAMixin {
-  external ElementInternals();
+  external factory ElementInternals();
 }
 
 extension PropsElementInternals on ElementInternals {
   ShadowRoot? get shadowRoot => js_util.getProperty(this, 'shadowRoot');
-  Object setFormValue(dynamic value, [dynamic state]) =>
+  void setFormValue(dynamic value, [dynamic state]) =>
       js_util.callMethod(this, 'setFormValue', [value, state]);
 
   HTMLFormElement? get form => js_util.getProperty(this, 'form');
-  Object setValidity(
+  void setValidity(
           [ValidityStateFlags? flags, String? message, HTMLElement? anchor]) =>
       js_util.callMethod(this, 'setValidity', [flags, message, anchor]);
 
@@ -4344,7 +6811,8 @@ extension PropsValidityStateFlags on ValidityStateFlags {
 @JS()
 @staticInterop
 class FocusOptions {
-  external factory FocusOptions({bool? preventScroll = false});
+  external factory FocusOptions(
+      {bool? preventScroll = false, bool? focusVisible});
 }
 
 extension PropsFocusOptions on FocusOptions {
@@ -4352,12 +6820,17 @@ extension PropsFocusOptions on FocusOptions {
   set preventScroll(bool newValue) {
     js_util.setProperty(this, 'preventScroll', newValue);
   }
+
+  bool get focusVisible => js_util.getProperty(this, 'focusVisible');
+  set focusVisible(bool newValue) {
+    js_util.setProperty(this, 'focusVisible', newValue);
+  }
 }
 
 @JS()
 @staticInterop
 class ElementContentEditable {
-  external ElementContentEditable();
+  external factory ElementContentEditable();
 }
 
 extension PropsElementContentEditable on ElementContentEditable {
@@ -4384,10 +6857,16 @@ extension PropsElementContentEditable on ElementContentEditable {
   }
 }
 
+///  The object is used to hold the data that is being dragged during
+/// a drag and drop operation. It may hold one or more data items,
+/// each of one or more data types. For more information about drag
+/// and drop, see HTML Drag and Drop API.
+///  This object is available from the [dataTransfer] property of all
+/// [drag events].
 @JS()
 @staticInterop
 class DataTransfer {
-  external DataTransfer();
+  external factory DataTransfer();
 }
 
 extension PropsDataTransfer on DataTransfer {
@@ -4402,26 +6881,32 @@ extension PropsDataTransfer on DataTransfer {
   }
 
   DataTransferItemList get items => js_util.getProperty(this, 'items');
-  Object setDragImage(Element image, int x, int y) =>
+  void setDragImage(Element image, int x, int y) =>
       js_util.callMethod(this, 'setDragImage', [image, x, y]);
 
   Iterable<String> get types => js_util.getProperty(this, 'types');
   String getData(String format) =>
       js_util.callMethod(this, 'getData', [format]);
 
-  Object setData(String format, String data) =>
+  void setData(String format, String data) =>
       js_util.callMethod(this, 'setData', [format, data]);
 
-  Object clearData([String? format]) =>
+  void clearData([String? format]) =>
       js_util.callMethod(this, 'clearData', [format]);
 
   FileList get files => js_util.getProperty(this, 'files');
 }
 
+///  The object is a list of [DataTransferItem] objects representing
+/// items being dragged. During a drag operation, each [DragEvent]
+/// has a [dataTransfer] property and that property is a .
+///  The individual items can be accessed using the array operator
+/// [[]].
+/// This interface has no constructor.
 @JS()
 @staticInterop
 class DataTransferItemList {
-  external DataTransferItemList();
+  external factory DataTransferItemList();
 }
 
 extension PropsDataTransferItemList on DataTransferItemList {
@@ -4429,21 +6914,26 @@ extension PropsDataTransferItemList on DataTransferItemList {
   DataTransferItem? add([String? data, String? type]) =>
       js_util.callMethod(this, 'add', [data, type]);
 
-  Object remove(int index) => js_util.callMethod(this, 'remove', [index]);
+  void remove(int index) => js_util.callMethod(this, 'remove', [index]);
 
-  Object clear() => js_util.callMethod(this, 'clear', []);
+  void clear() => js_util.callMethod(this, 'clear', []);
 }
 
+///  The object represents one drag data item. During a drag
+/// operation, each [drag event] has a [dataTransfer] property which
+/// contains a [list] of drag data items. Each item in the list is a
+/// object.
+/// This interface has no constructor.
 @JS()
 @staticInterop
 class DataTransferItem {
-  external DataTransferItem();
+  external factory DataTransferItem();
 }
 
 extension PropsDataTransferItem on DataTransferItem {
   String get kind => js_util.getProperty(this, 'kind');
   String get type => js_util.getProperty(this, 'type');
-  Object getAsString(FunctionStringCallback? callback) => js_util.callMethod(
+  void getAsString(FunctionStringCallback? callback) => js_util.callMethod(
       this, 'getAsString', [callback == null ? null : allowInterop(callback)]);
 
   File? getAsFile() => js_util.callMethod(this, 'getAsFile', []);
@@ -4455,10 +6945,42 @@ extension PropsDataTransferItem on DataTransferItem {
       .promiseToFuture(js_util.callMethod(this, 'getAsFileSystemHandle', []));
 }
 
+///  The interface is a [DOM event] that represents a drag and drop
+/// interaction. The user initiates a drag by placing a pointer
+/// device (such as a mouse) on the touch surface and then dragging
+/// the pointer to a new location (such as another DOM element).
+/// Applications are free to interpret a drag and drop interaction in
+/// an application-specific way.
+///  This interface inherits properties from [MouseEvent] and
+/// [Event].
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    UIEvent
+///
+///
+///
+///
+///
+///    MouseEvent
+///
+///
+///
+///
+///
+///    DragEvent
+///
+///
 @JS()
 @staticInterop
 class DragEvent implements MouseEvent {
-  external DragEvent(String type, [DragEventInit? eventInitDict]);
+  external factory DragEvent(String type, [DragEventInit? eventInitDict]);
 }
 
 extension PropsDragEvent on DragEvent {
@@ -4479,6 +7001,38 @@ extension PropsDragEventInit on DragEventInit {
   }
 }
 
+///  The interface represents a window containing a DOM document; the
+/// [document] property points to the DOM document loaded in that
+/// window.
+///  A window for a given document can be obtained using the
+/// [document.defaultView] property.
+///  A global variable, [window], representing the window in which
+/// the script is running, is exposed to JavaScript code.
+///  The interface is home to a variety of functions, namespaces,
+/// objects, and constructors which are not necessarily directly
+/// associated with the concept of a user interface window. However,
+/// the interface is a suitable place to include these items that
+/// need to be globally available. Many of these are documented in
+/// the JavaScript Reference and the DOM Reference.
+///  In a tabbed browser, each tab is represented by its own object;
+/// the global [window] seen by JavaScript code running within a
+/// given tab always represents the tab in which the code is running.
+/// That said, even in a tabbed browser, some properties and methods
+/// still apply to the overall window that contains the tab, such as
+/// [resizeTo()] and [innerHeight]. Generally, anything that can't
+/// reasonably pertain to a tab pertains to the window instead.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Window
+///
+///
 @JS()
 @staticInterop
 class Window
@@ -4490,7 +7044,7 @@ class Window
         AnimationFrameProvider,
         WindowSessionStorage,
         WindowLocalStorage {
-  external Window();
+  external factory Window();
 }
 
 extension PropsWindow on Window {
@@ -4517,14 +7071,14 @@ extension PropsWindow on Window {
     js_util.setProperty(this, 'status', newValue);
   }
 
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
   bool get closed => js_util.getProperty(this, 'closed');
-  Object stop() => js_util.callMethod(this, 'stop', []);
+  void stop() => js_util.callMethod(this, 'stop', []);
 
-  Object focus() => js_util.callMethod(this, 'focus', []);
+  void focus() => js_util.callMethod(this, 'focus', []);
 
-  Object blur() => js_util.callMethod(this, 'blur', []);
+  void blur() => js_util.callMethod(this, 'blur', []);
 
   Window get frames => js_util.getProperty(this, 'frames');
   int get length => js_util.getProperty(this, 'length');
@@ -4547,8 +7101,7 @@ extension PropsWindow on Window {
       js_util.getProperty(this, 'clientInformation');
   bool get originAgentCluster =>
       js_util.getProperty(this, 'originAgentCluster');
-  Object alert([String? message]) =>
-      js_util.callMethod(this, 'alert', [message]);
+  void alert([String? message]) => js_util.callMethod(this, 'alert', [message]);
 
   bool confirm([String? message = '']) =>
       js_util.callMethod(this, 'confirm', [message]);
@@ -4556,38 +7109,45 @@ extension PropsWindow on Window {
   String? prompt([String? message = '', String? mDefault = '']) =>
       js_util.callMethod(this, 'prompt', [message, mDefault]);
 
-  Object print() => js_util.callMethod(this, 'print', []);
+  void print() => js_util.callMethod(this, 'print', []);
 
-  Object postMessage(dynamic message,
+  void postMessage(dynamic message,
           [String? targetOrigin, Iterable<dynamic>? transfer = const []]) =>
       js_util
           .callMethod(this, 'postMessage', [message, targetOrigin, transfer]);
 
+  Future<DigitalGoodsService> getDigitalGoodsService(String serviceProvider) =>
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'getDigitalGoodsService', [serviceProvider]));
+
   CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
+  Future<ScreenDetails> getScreenDetails() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getScreenDetails', []));
+
   int requestIdleCallback(IdleRequestCallback callback,
           [IdleRequestOptions? options]) =>
       js_util.callMethod(
           this, 'requestIdleCallback', [allowInterop(callback), options]);
 
-  Object cancelIdleCallback(int handle) =>
+  void cancelIdleCallback(int handle) =>
       js_util.callMethod(this, 'cancelIdleCallback', [handle]);
 
   Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
 
-  AttributionReporting get attributionReporting =>
-      js_util.getProperty(this, 'attributionReporting');
   MediaQueryList matchMedia(String query) =>
       js_util.callMethod(this, 'matchMedia', [query]);
 
   Screen get screen => js_util.getProperty(this, 'screen');
-  Object moveTo(int x, int y) => js_util.callMethod(this, 'moveTo', [x, y]);
+  VisualViewport? get visualViewport =>
+      js_util.getProperty(this, 'visualViewport');
+  void moveTo(int x, int y) => js_util.callMethod(this, 'moveTo', [x, y]);
 
-  Object moveBy(int x, int y) => js_util.callMethod(this, 'moveBy', [x, y]);
+  void moveBy(int x, int y) => js_util.callMethod(this, 'moveBy', [x, y]);
 
-  Object resizeTo(int width, int height) =>
+  void resizeTo(int width, int height) =>
       js_util.callMethod(this, 'resizeTo', [width, height]);
 
-  Object resizeBy(int x, int y) => js_util.callMethod(this, 'resizeBy', [x, y]);
+  void resizeBy(int x, int y) => js_util.callMethod(this, 'resizeBy', [x, y]);
 
   int get innerWidth => js_util.getProperty(this, 'innerWidth');
   int get innerHeight => js_util.getProperty(this, 'innerHeight');
@@ -4595,15 +7155,13 @@ extension PropsWindow on Window {
   double get pageXOffset => js_util.getProperty(this, 'pageXOffset');
   double get scrollY => js_util.getProperty(this, 'scrollY');
   double get pageYOffset => js_util.getProperty(this, 'pageYOffset');
-  Object scroll([/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+  void scroll([/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
       js_util.callMethod(this, 'scroll', [x, y]);
 
-  Object scrollTo(
-          [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+  void scrollTo([/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
       js_util.callMethod(this, 'scrollTo', [x, y]);
 
-  Object scrollBy(
-          [/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
+  void scrollBy([/* double | NaN */ dynamic x, /* double | NaN */ dynamic y]) =>
       js_util.callMethod(this, 'scrollBy', [x, y]);
 
   int get screenX => js_util.getProperty(this, 'screenX');
@@ -4637,9 +7195,10 @@ extension PropsWindow on Window {
     js_util.setProperty(this, 'ondevicemotion', newValue);
   }
 
-  VisualViewport get visualViewport =>
-      js_util.getProperty(this, 'visualViewport');
   dynamic get event => js_util.getProperty(this, 'event');
+  Future<Iterable<FontData>> queryLocalFonts([QueryOptions? options]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'queryLocalFonts', [options]));
+
   PortalHost? get portalHost => js_util.getProperty(this, 'portalHost');
   SpeechSynthesis get speechSynthesis =>
       js_util.getProperty(this, 'speechSynthesis');
@@ -4658,7 +7217,6 @@ extension PropsWindow on Window {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'showDirectoryPicker', [options]));
 
-  AppHistory get appHistory => js_util.getProperty(this, 'appHistory');
   int get orientation => js_util.getProperty(this, 'orientation');
   EventHandlerNonNull? get onorientationchange =>
       js_util.getProperty(this, 'onorientationchange');
@@ -4678,18 +7236,21 @@ extension PropsWindow on Window {
     js_util.setProperty(this, 'onbeforeinstallprompt', newValue);
   }
 
-  Object navigate(SpatialNavigationDirection dir) =>
+  LaunchQueue get launchQueue => js_util.getProperty(this, 'launchQueue');
+  void navigate(SpatialNavigationDirection dir) =>
       js_util.callMethod(this, 'navigate', [dir.name]);
 
-  Object captureEvents() => js_util.callMethod(this, 'captureEvents', []);
+  void captureEvents() => js_util.callMethod(this, 'captureEvents', []);
 
-  Object releaseEvents() => js_util.callMethod(this, 'releaseEvents', []);
+  void releaseEvents() => js_util.callMethod(this, 'releaseEvents', []);
 
   @JS('external')
   @staticInterop
   External get mExternal => js_util.getProperty(this, 'external');
   CSSStyleDeclaration getComputedStyle(Element elt, [String? pseudoElt]) =>
       js_util.callMethod(this, 'getComputedStyle', [elt, pseudoElt]);
+
+  Navigation get navigation => js_util.getProperty(this, 'navigation');
 }
 
 @anonymous
@@ -4706,10 +7267,42 @@ extension PropsWindowPostMessageOptions on WindowPostMessageOptions {
   }
 }
 
+///  The interface of the [Document Object Model] represents the web
+/// browser user interface elements that are exposed to scripts in
+/// web pages. Each of the following interface elements are
+/// represented by a object.
+///
+///  [Window.locationbar]
+///
+///   The browser location bar.
+///
+///  [Window.menubar]
+///
+///   The browser menu bar.
+///
+///  [Window.personalbar]
+///
+///   The browser personal bar.
+///
+///  [Window.scrollbars]
+///
+///   The browser scrollbars.
+///
+///  [Window.statusbar]
+///
+///   The browser status bar.
+///
+///  [Window.toolbar]
+///
+///   The browser toolbar.
+///
+///
+///  The interface is not accessed directly, but via one of these
+/// elements.
 @JS()
 @staticInterop
 class BarProp {
-  external BarProp();
+  external factory BarProp();
 }
 
 extension PropsBarProp on BarProp {
@@ -4718,10 +7311,13 @@ extension PropsBarProp on BarProp {
 
 enum ScrollRestoration { auto, manual }
 
+///  The interface allows manipulation of the browser session
+/// history, that is the pages visited in the tab or frame that the
+/// current page is loaded in.
 @JS()
 @staticInterop
 class History {
-  external History();
+  external factory History();
 }
 
 extension PropsHistory on History {
@@ -4733,23 +7329,28 @@ extension PropsHistory on History {
   }
 
   dynamic get state => js_util.getProperty(this, 'state');
-  Object go([int? delta = 0]) => js_util.callMethod(this, 'go', [delta]);
+  void go([int? delta = 0]) => js_util.callMethod(this, 'go', [delta]);
 
-  Object back() => js_util.callMethod(this, 'back', []);
+  void back() => js_util.callMethod(this, 'back', []);
 
-  Object forward() => js_util.callMethod(this, 'forward', []);
+  void forward() => js_util.callMethod(this, 'forward', []);
 
-  Object pushState(dynamic data, String unused, [String? url]) =>
+  void pushState(dynamic data, String unused, [String? url]) =>
       js_util.callMethod(this, 'pushState', [data, unused, url]);
 
-  Object replaceState(dynamic data, String unused, [String? url]) =>
+  void replaceState(dynamic data, String unused, [String? url]) =>
       js_util.callMethod(this, 'replaceState', [data, unused, url]);
 }
 
+///  The interface represents the location (URL) of the object it is
+/// linked to. Changes done on it are reflected on the object it
+/// relates to. Both the [Document] and [Window] interface have such
+/// a linked , accessible via [Document.location] and
+/// [Window.location] respectively.
 @JS()
 @staticInterop
 class Location {
-  external Location();
+  external factory Location();
 }
 
 extension PropsLocation on Location {
@@ -4796,20 +7397,65 @@ extension PropsLocation on Location {
     js_util.setProperty(this, 'hash', newValue);
   }
 
-  Object assign(String url) => js_util.callMethod(this, 'assign', [url]);
+  void assign(String url) => js_util.callMethod(this, 'assign', [url]);
 
-  Object replace(String url) => js_util.callMethod(this, 'replace', [url]);
+  void replace(String url) => js_util.callMethod(this, 'replace', [url]);
 
-  Object reload() => js_util.callMethod(this, 'reload', []);
+  void reload() => js_util.callMethod(this, 'reload', []);
 
   DOMStringList get ancestorOrigins =>
       js_util.getProperty(this, 'ancestorOrigins');
 }
 
+///
+///   is an event handler for the
+///  [popstate] event on the window.
+///   A [popstate] event is dispatched to the window every time the
+/// active history
+///   entry changes between two history entries for the same
+/// document. If the history entry
+///   being activated was created by a call to [history.pushState()]
+/// or was
+///  affected by a call to [history.replaceState()], the [popstate]
+///   event's [state] property contains a copy of the history entry's
+/// state object.
+///
+///   Note: Just calling [history.pushState()] or
+///   [history.replaceState()] won't trigger a [popstate] event. The
+///    [popstate] event is only triggered by doing a browser action
+/// such as a
+///    clicking on the back button (or calling [history.back()] in
+/// JavaScript).
+///    And the event is only triggered when the user navigates
+/// between two history entries
+///   for the same document.
+///
+///
+///   Note: Browsers used to handle the [popstate] event
+///    differently on page load, but now they behave the same.
+/// Firefox never emitted a
+///    popstate event on page load. Chrome did until version 34,
+/// while Safari did until
+///   version 10.0.
+///
+///
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    PopStateEvent
+///
+///
 @JS()
 @staticInterop
 class PopStateEvent implements Event {
-  external PopStateEvent(String type, [PopStateEventInit? eventInitDict]);
+  external factory PopStateEvent(String type,
+      [PopStateEventInit? eventInitDict]);
 }
 
 extension PropsPopStateEvent on PopStateEvent {
@@ -4830,10 +7476,27 @@ extension PropsPopStateEventInit on PopStateEventInit {
   }
 }
 
+///  The interface represents events that fire when the fragment
+/// identifier of the URL has changed.
+///  The fragment identifier is the part of the URL that follows (and
+/// includes) the [#] symbol.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    HashChangeEvent
+///
+///
 @JS()
 @staticInterop
 class HashChangeEvent implements Event {
-  external HashChangeEvent(String type, [HashChangeEventInit? eventInitDict]);
+  external factory HashChangeEvent(String type,
+      [HashChangeEventInit? eventInitDict]);
 }
 
 extension PropsHashChangeEvent on HashChangeEvent {
@@ -4861,10 +7524,25 @@ extension PropsHashChangeEventInit on HashChangeEventInit {
   }
 }
 
+///  The event object is available inside handler functions for the
+/// [pageshow] and [pagehide] events, fired when a document is being
+/// loaded or unloaded.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    PageTransitionEvent
+///
+///
 @JS()
 @staticInterop
 class PageTransitionEvent implements Event {
-  external PageTransitionEvent(String type,
+  external factory PageTransitionEvent(String type,
       [PageTransitionEventInit? eventInitDict]);
 }
 
@@ -4886,10 +7564,51 @@ extension PropsPageTransitionEventInit on PageTransitionEventInit {
   }
 }
 
+///  The [beforeunload] event is fired when the window, the document
+/// and its resources are about to be unloaded.
+///  When a non-empty string is assigned to the [returnValue] Event
+/// property, a dialog box appears, asking the users for confirmation
+/// to leave the page (see example below). When no value is provided,
+/// the event is processed silently. Some implementations only show
+/// the dialog box if the frame or any embedded frame receives a user
+/// gesture or user interaction. See Browser compatibility for more
+/// information.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    BeforeUnloadEvent
+///
+///
+///
+///
+///
+///    Bubbles
+///    No
+///
+///
+///    Cancelable
+///    Yes
+///
+///
+///    Target objects
+///    defaultView
+///
+///
+///    Interface
+///    [Event]
+///
+///
+///
 @JS()
 @staticInterop
 class BeforeUnloadEvent implements Event {
-  external BeforeUnloadEvent();
+  external factory BeforeUnloadEvent();
 }
 
 extension PropsBeforeUnloadEvent on BeforeUnloadEvent {
@@ -4899,10 +7618,24 @@ extension PropsBeforeUnloadEvent on BeforeUnloadEvent {
   }
 }
 
+///  The interface represents events providing information related to
+/// errors in scripts or in files.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    ErrorEvent
+///
+///
 @JS()
 @staticInterop
 class ErrorEvent implements Event {
-  external ErrorEvent(String type, [ErrorEventInit? eventInitDict]);
+  external factory ErrorEvent(String type, [ErrorEventInit? eventInitDict]);
 }
 
 extension PropsErrorEvent on ErrorEvent {
@@ -4952,10 +7685,28 @@ extension PropsErrorEventInit on ErrorEventInit {
   }
 }
 
+///  The interface represents events which are sent to the global
+/// script context when JavaScript [Future]s are rejected. These
+/// events are particularly useful for telemetry and debugging
+/// purposes.
+///  For details on promise rejection events, see Promise rejection
+/// events in Using Promises.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    PromiseRejectionEvent
+///
+///
 @JS()
 @staticInterop
 class PromiseRejectionEvent implements Event {
-  external PromiseRejectionEvent(
+  external factory PromiseRejectionEvent(
       String type, PromiseRejectionEventInit eventInitDict);
 }
 
@@ -4986,10 +7737,18 @@ extension PropsPromiseRejectionEventInit on PromiseRejectionEventInit {
   }
 }
 
+///  The mixin describes the event handlers common to several
+/// interfaces like [HTMLElement], [Document], or [Window]. Each of
+/// these interfaces can, of course, add more event handlers in
+/// addition to the ones listed below.
+///
+///   Note: is a mixin and not an interface; you can't actually
+/// create an object of type .
+///
 @JS()
 @staticInterop
 class GlobalEventHandlers {
-  external GlobalEventHandlers();
+  external factory GlobalEventHandlers();
 }
 
 extension PropsGlobalEventHandlers on GlobalEventHandlers {
@@ -5002,6 +7761,18 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
       js_util.getProperty(this, 'onauxclick');
   set onauxclick(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onauxclick', newValue);
+  }
+
+  EventHandlerNonNull? get onbeforeinput =>
+      js_util.getProperty(this, 'onbeforeinput');
+  set onbeforeinput(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbeforeinput', newValue);
+  }
+
+  EventHandlerNonNull? get onbeforematch =>
+      js_util.getProperty(this, 'onbeforematch');
+  set onbeforematch(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbeforematch', newValue);
   }
 
   EventHandlerNonNull? get onblur => js_util.getProperty(this, 'onblur');
@@ -5451,16 +8222,16 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
     js_util.setProperty(this, 'onanimationcancel', newValue);
   }
 
-  EventHandlerNonNull? get ongotpointercapture =>
-      js_util.getProperty(this, 'ongotpointercapture');
-  set ongotpointercapture(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ongotpointercapture', newValue);
+  EventHandlerNonNull? get onpointerover =>
+      js_util.getProperty(this, 'onpointerover');
+  set onpointerover(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerover', newValue);
   }
 
-  EventHandlerNonNull? get onlostpointercapture =>
-      js_util.getProperty(this, 'onlostpointercapture');
-  set onlostpointercapture(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onlostpointercapture', newValue);
+  EventHandlerNonNull? get onpointerenter =>
+      js_util.getProperty(this, 'onpointerenter');
+  set onpointerenter(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerenter', newValue);
   }
 
   EventHandlerNonNull? get onpointerdown =>
@@ -5493,28 +8264,28 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
     js_util.setProperty(this, 'onpointercancel', newValue);
   }
 
-  EventHandlerNonNull? get onpointerover =>
-      js_util.getProperty(this, 'onpointerover');
-  set onpointerover(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpointerover', newValue);
-  }
-
   EventHandlerNonNull? get onpointerout =>
       js_util.getProperty(this, 'onpointerout');
   set onpointerout(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onpointerout', newValue);
   }
 
-  EventHandlerNonNull? get onpointerenter =>
-      js_util.getProperty(this, 'onpointerenter');
-  set onpointerenter(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpointerenter', newValue);
-  }
-
   EventHandlerNonNull? get onpointerleave =>
       js_util.getProperty(this, 'onpointerleave');
   set onpointerleave(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onpointerleave', newValue);
+  }
+
+  EventHandlerNonNull? get ongotpointercapture =>
+      js_util.getProperty(this, 'ongotpointercapture');
+  set ongotpointercapture(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ongotpointercapture', newValue);
+  }
+
+  EventHandlerNonNull? get onlostpointercapture =>
+      js_util.getProperty(this, 'onlostpointercapture');
+  set onlostpointercapture(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onlostpointercapture', newValue);
   }
 
   EventHandlerNonNull? get onbeforexrselect =>
@@ -5524,10 +8295,18 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
   }
 }
 
+///  The mixin describes the event handlers common to several
+/// interfaces like [Window], or [HTMLBodyElement] and
+/// [HTMLFrameSetElement]. Each of these interfaces can implement
+/// additional specific event handlers.
+///
+///   Note: is a mixin and not an interface; you can't actually
+/// create an object of type .
+///
 @JS()
 @staticInterop
 class WindowEventHandlers {
-  external WindowEventHandlers();
+  external factory WindowEventHandlers();
 }
 
 extension PropsWindowEventHandlers on WindowEventHandlers {
@@ -5644,7 +8423,7 @@ extension PropsWindowEventHandlers on WindowEventHandlers {
 @JS()
 @staticInterop
 class DocumentAndElementEventHandlers {
-  external DocumentAndElementEventHandlers();
+  external factory DocumentAndElementEventHandlers();
 }
 
 extension PropsDocumentAndElementEventHandlers
@@ -5668,7 +8447,7 @@ extension PropsDocumentAndElementEventHandlers
 @JS()
 @staticInterop
 class WindowOrWorkerGlobalScope {
-  external WindowOrWorkerGlobalScope();
+  external factory WindowOrWorkerGlobalScope();
 }
 
 extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
@@ -5676,7 +8455,7 @@ extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
   bool get isSecureContext => js_util.getProperty(this, 'isSecureContext');
   bool get crossOriginIsolated =>
       js_util.getProperty(this, 'crossOriginIsolated');
-  Object reportError(dynamic e) => js_util.callMethod(this, 'reportError', [e]);
+  void reportError(dynamic e) => js_util.callMethod(this, 'reportError', [e]);
 
   String btoa(String data) => js_util.callMethod(this, 'btoa', [data]);
 
@@ -5690,7 +8469,7 @@ extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
       js_util.callMethod(this, 'setTimeout',
           [handler, timeout, arguments1, arguments2, arguments3]);
 
-  Object clearTimeout([int? id = 0]) =>
+  void clearTimeout([int? id = 0]) =>
       js_util.callMethod(this, 'clearTimeout', [id]);
 
   int setInterval(dynamic handler,
@@ -5701,10 +8480,10 @@ extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
       js_util.callMethod(this, 'setInterval',
           [handler, timeout, arguments1, arguments2, arguments3]);
 
-  Object clearInterval([int? id = 0]) =>
+  void clearInterval([int? id = 0]) =>
       js_util.callMethod(this, 'clearInterval', [id]);
 
-  Object queueMicrotask(VoidFunction callback) =>
+  void queueMicrotask(VoidFunction callback) =>
       js_util.callMethod(this, 'queueMicrotask', [allowInterop(callback)]);
 
   Future<ImageBitmap> createImageBitmap(dynamic image,
@@ -5720,20 +8499,42 @@ extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
   TrustedTypePolicyFactory get trustedTypes =>
       js_util.getProperty(this, 'trustedTypes');
   Performance get performance => js_util.getProperty(this, 'performance');
-  CacheStorage get caches => js_util.getProperty(this, 'caches');
   Future<Response> fetch(dynamic input, [RequestInit? init]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'fetch', [input, init]));
 
+  CacheStorage get caches => js_util.getProperty(this, 'caches');
   Crypto get crypto => js_util.getProperty(this, 'crypto');
   IDBFactory get indexedDB => js_util.getProperty(this, 'indexedDB');
-  Iterable<String> get originPolicyIds =>
-      js_util.getProperty(this, 'originPolicyIds');
 }
 
+///
+///  The interface provides
+///  the ability to parse XML or HTML source code from a
+///  string into a DOM [Document].
+///   You can perform the opposite operation—converting a DOM tree
+/// into XML or HTML
+///  source—using the [XMLSerializer] interface.
+///   In the case of an HTML document, you can also replace portions
+/// of the DOM with new DOM
+///   trees built from HTML by setting the value of the
+/// [Element.innerHTML] and
+///  [outerHTML] properties. These properties can also be
+///   read to fetch HTML fragments corresponding to the corresponding
+/// DOM subtree.
+///  Note that [XMLHttpRequest] can parse XML and HTML directly
+///  from a URL-addressable resource, returning a [Document] in its
+///  [response] property.
+///
+///   Note: Be aware that block-level elements
+///   like [<p>] will be automatically closed if another
+///    block-level element is nested inside and therefore parsed
+/// before the closing [</p>] tag.
+///
+///
 @JS()
 @staticInterop
 class DOMParser {
-  external DOMParser();
+  external factory DOMParser();
 }
 
 extension PropsDOMParser on DOMParser {
@@ -5749,6 +8550,11 @@ enum DOMParserSupportedType {
   imageSvgxml
 }
 
+///  The interface represents the state and the identity of the user
+/// agent. It allows scripts to query it and to register themselves
+/// to carry on some activities.
+///  A object can be retrieved using the read-only [window.navigator]
+/// property.
 @JS()
 @staticInterop
 class Navigator
@@ -5759,7 +8565,6 @@ class Navigator
         NavigatorLocks,
         NavigatorDeviceMemory,
         NavigatorNetworkInformation,
-        NavigatorFonts,
         NavigatorBadge,
         NavigatorML,
         NavigatorID,
@@ -5770,7 +8575,7 @@ class Navigator
         NavigatorPlugins,
         NavigatorConcurrentHardware,
         NavigatorStorage {
-  external Navigator();
+  external factory Navigator();
 }
 
 extension PropsNavigator on Navigator {
@@ -5778,14 +8583,11 @@ extension PropsNavigator on Navigator {
       js_util.getProperty(this, 'mediaCapabilities');
   Permissions get permissions => js_util.getProperty(this, 'permissions');
   MediaSession get mediaSession => js_util.getProperty(this, 'mediaSession');
-  Future<Object> share([ShareData? data]) =>
+  Future<void> share([ShareData? data]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'share', [data]));
 
   bool canShare([ShareData? data]) =>
       js_util.callMethod(this, 'canShare', [data]);
-
-  AutoplayPolicy getAutoplayPolicy(AutoplayPolicyMediaType type) =>
-      js_util.callMethod(this, 'getAutoplayPolicy', [type.name]);
 
   Scheduling get scheduling => js_util.getProperty(this, 'scheduling');
   VirtualKeyboard get virtualKeyboard =>
@@ -5803,17 +8605,18 @@ extension PropsNavigator on Navigator {
   Keyboard get keyboard => js_util.getProperty(this, 'keyboard');
   WindowControlsOverlay get windowControlsOverlay =>
       js_util.getProperty(this, 'windowControlsOverlay');
-  ServiceWorkerContainer get serviceWorker =>
-      js_util.getProperty(this, 'serviceWorker');
+  AutoplayPolicy getAutoplayPolicy(AutoplayPolicyMediaType type) =>
+      js_util.callMethod(this, 'getAutoplayPolicy', [type.name]);
+
   int get maxTouchPoints => js_util.getProperty(this, 'maxTouchPoints');
-  Future<Object> setClientBadge([int? contents]) => js_util
+  Future<void> setClientBadge([int? contents]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setClientBadge', [contents]));
 
-  Future<Object> clearClientBadge() =>
+  Future<void> clearClientBadge() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'clearClientBadge', []));
 
   MediaDevices get mediaDevices => js_util.getProperty(this, 'mediaDevices');
-  Object getUserMedia(
+  void getUserMedia(
           MediaStreamConstraints constraints,
           NavigatorUserMediaSuccessCallback successCallback,
           NavigatorUserMediaErrorCallback errorCallback) =>
@@ -5823,11 +8626,15 @@ extension PropsNavigator on Navigator {
         allowInterop(errorCallback)
       ]);
 
+  EpubReadingSystem get epubReadingSystem =>
+      js_util.getProperty(this, 'epubReadingSystem');
   XRSystem get xr => js_util.getProperty(this, 'xr');
   Future<Iterable<RelatedApplication>> getInstalledRelatedApps() => js_util
       .promiseToFuture(js_util.callMethod(this, 'getInstalledRelatedApps', []));
 
   Serial get serial => js_util.getProperty(this, 'serial');
+  ServiceWorkerContainer get serviceWorker =>
+      js_util.getProperty(this, 'serviceWorker');
   bool vibrate(dynamic pattern) =>
       js_util.callMethod(this, 'vibrate', [pattern]);
 
@@ -5855,7 +8662,7 @@ extension PropsNavigator on Navigator {
 @JS()
 @staticInterop
 class NavigatorID {
-  external NavigatorID();
+  external factory NavigatorID();
 }
 
 extension PropsNavigatorID on NavigatorID {
@@ -5876,7 +8683,7 @@ extension PropsNavigatorID on NavigatorID {
 @JS()
 @staticInterop
 class NavigatorLanguage {
-  external NavigatorLanguage();
+  external factory NavigatorLanguage();
 }
 
 extension PropsNavigatorLanguage on NavigatorLanguage {
@@ -5887,7 +8694,7 @@ extension PropsNavigatorLanguage on NavigatorLanguage {
 @JS()
 @staticInterop
 class NavigatorOnLine {
-  external NavigatorOnLine();
+  external factory NavigatorOnLine();
 }
 
 extension PropsNavigatorOnLine on NavigatorOnLine {
@@ -5897,21 +8704,21 @@ extension PropsNavigatorOnLine on NavigatorOnLine {
 @JS()
 @staticInterop
 class NavigatorContentUtils {
-  external NavigatorContentUtils();
+  external factory NavigatorContentUtils();
 }
 
 extension PropsNavigatorContentUtils on NavigatorContentUtils {
-  Object registerProtocolHandler(String scheme, String url) =>
+  void registerProtocolHandler(String scheme, String url) =>
       js_util.callMethod(this, 'registerProtocolHandler', [scheme, url]);
 
-  Object unregisterProtocolHandler(String scheme, String url) =>
+  void unregisterProtocolHandler(String scheme, String url) =>
       js_util.callMethod(this, 'unregisterProtocolHandler', [scheme, url]);
 }
 
 @JS()
 @staticInterop
 class NavigatorCookies {
-  external NavigatorCookies();
+  external factory NavigatorCookies();
 }
 
 extension PropsNavigatorCookies on NavigatorCookies {
@@ -5921,7 +8728,7 @@ extension PropsNavigatorCookies on NavigatorCookies {
 @JS()
 @staticInterop
 class NavigatorPlugins {
-  external NavigatorPlugins();
+  external factory NavigatorPlugins();
 }
 
 extension PropsNavigatorPlugins on NavigatorPlugins {
@@ -5932,14 +8739,33 @@ extension PropsNavigatorPlugins on NavigatorPlugins {
   bool get pdfViewerEnabled => js_util.getProperty(this, 'pdfViewerEnabled');
 }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+///  The interface is used to store a list of [Plugin] objects
+/// describing the available plugins; it's returned by the
+/// [navigator.plugins] property. The is not a JavaScript array, but
+/// has the [length] property and supports accessing individual items
+/// using bracket notation ([plugins[2]]), as well as via
+/// [item(index)] and [namedItem("name")] methods.
+///
+///   Note: Own properties of objects are no longer enumerable in the
+/// latest browser versions.
+///
+@experimental
 @JS()
 @staticInterop
 class PluginArray {
-  external PluginArray();
+  external factory PluginArray();
 }
 
 extension PropsPluginArray on PluginArray {
-  Object refresh() => js_util.callMethod(this, 'refresh', []);
+  void refresh() => js_util.callMethod(this, 'refresh', []);
 
   int get length => js_util.getProperty(this, 'length');
   Plugin? item(int index) => js_util.callMethod(this, 'item', [index]);
@@ -5948,10 +8774,21 @@ extension PropsPluginArray on PluginArray {
       js_util.callMethod(this, 'namedItem', [name]);
 }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+///  The interface returns an array of [MimeType] instances, each of
+/// which contains information about a supported browser plugins.
+/// This object is returned by [Navigator.mimeTypes].
 @JS()
 @staticInterop
 class MimeTypeArray {
-  external MimeTypeArray();
+  external factory MimeTypeArray();
 }
 
 extension PropsMimeTypeArray on MimeTypeArray {
@@ -5962,10 +8799,23 @@ extension PropsMimeTypeArray on MimeTypeArray {
       js_util.callMethod(this, 'namedItem', [name]);
 }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+/// The interface provides information about a browser plugin.
+///
+///   Note: Own properties of objects are no longer enumerable in the
+/// latest browser versions.
+///
 @JS()
 @staticInterop
 class Plugin {
-  external Plugin();
+  external factory Plugin();
 }
 
 extension PropsPlugin on Plugin {
@@ -5979,10 +8829,21 @@ extension PropsPlugin on Plugin {
       js_util.callMethod(this, 'namedItem', [name]);
 }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+///  The interface provides contains information about a MIME type
+/// associated with a particular plugin. [Navigator.mimeTypes]
+/// returns an array of this object.
 @JS()
 @staticInterop
 class MimeType {
-  external MimeType();
+  external factory MimeType();
 }
 
 extension PropsMimeType on MimeType {
@@ -5992,16 +8853,21 @@ extension PropsMimeType on MimeType {
   Plugin get enabledPlugin => js_util.getProperty(this, 'enabledPlugin');
 }
 
+///  The interface represents a bitmap image which can be drawn to a
+/// [<canvas>] without undue latency. It can be created from a
+/// variety of source objects using the [createImageBitmap()] factory
+/// method. provides an asynchronous and resource efficient pathway
+/// to prepare textures for rendering in WebGL.
 @JS()
 @staticInterop
 class ImageBitmap {
-  external ImageBitmap();
+  external factory ImageBitmap();
 }
 
 extension PropsImageBitmap on ImageBitmap {
   int get width => js_util.getProperty(this, 'width');
   int get height => js_util.getProperty(this, 'height');
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 }
 
 enum ImageOrientation { none, flipY }
@@ -6080,21 +8946,54 @@ extension PropsImageBitmapOptions on ImageBitmapOptions {
 @JS()
 @staticInterop
 class AnimationFrameProvider {
-  external AnimationFrameProvider();
+  external factory AnimationFrameProvider();
 }
 
 extension PropsAnimationFrameProvider on AnimationFrameProvider {
   int requestAnimationFrame(FrameRequestCallback callback) => js_util
       .callMethod(this, 'requestAnimationFrame', [allowInterop(callback)]);
 
-  Object cancelAnimationFrame(int handle) =>
+  void cancelAnimationFrame(int handle) =>
       js_util.callMethod(this, 'cancelAnimationFrame', [handle]);
 }
 
+/// The interface represents a message received by a target object.
+/// This is used to represent messages in:
+///
+///  Server-sent events (see [EventSource.onmessage]).
+///   Web sockets (see the [onmessage] property of the WebSocket
+/// interface).
+///   Cross-document messaging (see [Window.postMessage()] and
+/// [Window.onmessage]).
+///   Channel messaging (see [MessagePort.postMessage()] and
+/// [MessagePort.onmessage]).
+///   Cross-worker/document messaging (see the above two entries, but
+/// also [Worker.postMessage()], [Worker.onmessage],
+/// [ServiceWorkerGlobalScope.onmessage], etc.)
+///   Broadcast channels (see [Broadcastchannel.postMessage()]) and
+/// [BroadcastChannel.onmessage]).
+///  WebRTC data channels (see [RTCDataChannel.onmessage]).
+///
+///  The action triggered by this event is defined in a function set
+/// as the event handler for the relevant [message] event (e.g. using
+/// an [onmessage] handler as listed above).
+///  Note: This feature is available in Web Workers
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    MessageEvent
+///
+///
 @JS()
 @staticInterop
 class MessageEvent implements Event {
-  external MessageEvent(String type, [MessageEventInit? eventInitDict]);
+  external factory MessageEvent(String type, [MessageEventInit? eventInitDict]);
 }
 
 extension PropsMessageEvent on MessageEvent {
@@ -6103,7 +9002,7 @@ extension PropsMessageEvent on MessageEvent {
   String get lastEventId => js_util.getProperty(this, 'lastEventId');
   dynamic get source => js_util.getProperty(this, 'source');
   Iterable<MessagePort> get ports => js_util.getProperty(this, 'ports');
-  Object initMessageEvent(String type,
+  void initMessageEvent(String type,
           [bool? bubbles = false,
           bool? cancelable = false,
           dynamic data,
@@ -6162,10 +9061,53 @@ extension PropsMessageEventInit on MessageEventInit {
   }
 }
 
+/// The interface is web content's interface to server-sent events.
+///  An instance opens a persistent connection to an HTTP server,
+/// which sends events in [text/event-stream] format. The connection
+/// remains open until closed by calling [EventSource.close()].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    EventSource
+///
+///
+///  Once the connection is opened, incoming messages from the server
+/// are delivered to your code in the form of events. If there is an
+/// event field in the incoming message, the triggered event is the
+/// same as the event field value. If no event field is present, then
+/// a generic [message] event is fired.
+///  Unlike WebSockets, server-sent events are unidirectional; that
+/// is, data messages are delivered in one direction, from the server
+/// to the client (such as a user's web browser). That makes them an
+/// excellent choice when there's no need to send data from the
+/// client to the server in message form. For example, is a useful
+/// approach for handling things like social media status updates,
+/// news feeds, or delivering data into a client-side storage
+/// mechanism like IndexedDB or web storage.
+///
+///   Warning: When not used over HTTP/2, SSE suffers from a
+/// limitation to the maximum number of open connections, which can
+/// be specially painful when opening various tabs as the limit is
+/// per browser and set to a very low number (6). The issue has been
+/// marked as "Won't fix" in Chrome and Firefox. This limit is per
+/// browser + domain, so that means that you can open 6 SSE
+/// connections across all of the tabs to [www.example1.com] and
+/// another 6 SSE connections to [www.example2.com.] (from
+/// Stackoverflow). When using HTTP/2, the maximum number of
+/// simultaneous HTTP streams is negotiated between the server and
+/// the client (defaults to 100).
+///
 @JS()
 @staticInterop
 class EventSource implements EventTarget {
-  external EventSource(String url, [EventSourceInit? eventSourceInitDict]);
+  external factory EventSource(String url,
+      [EventSourceInit? eventSourceInitDict]);
   @JS('CONNECTING')
   external static int get connecting;
 
@@ -6195,7 +9137,7 @@ extension PropsEventSource on EventSource {
     js_util.setProperty(this, 'onerror', newValue);
   }
 
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 }
 
 @anonymous
@@ -6212,104 +9154,15 @@ extension PropsEventSourceInit on EventSourceInit {
   }
 }
 
-enum BinaryType { blob, arraybuffer }
-
-@JS()
-@staticInterop
-class WebSocket implements EventTarget {
-  external WebSocket(String url, [dynamic protocols = const []]);
-  @JS('CONNECTING')
-  external static int get connecting;
-
-  @JS('OPEN')
-  external static int get open;
-
-  @JS('CLOSING')
-  external static int get closing;
-
-  @JS('CLOSED')
-  external static int get closed;
-}
-
-extension PropsWebSocket on WebSocket {
-  String get url => js_util.getProperty(this, 'url');
-  int get readyState => js_util.getProperty(this, 'readyState');
-  int get bufferedAmount => js_util.getProperty(this, 'bufferedAmount');
-  EventHandlerNonNull? get onopen => js_util.getProperty(this, 'onopen');
-  set onopen(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onopen', newValue);
-  }
-
-  EventHandlerNonNull? get onerror => js_util.getProperty(this, 'onerror');
-  set onerror(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onerror', newValue);
-  }
-
-  EventHandlerNonNull? get onclose => js_util.getProperty(this, 'onclose');
-  set onclose(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onclose', newValue);
-  }
-
-  String get extensions => js_util.getProperty(this, 'extensions');
-  String get protocol => js_util.getProperty(this, 'protocol');
-  Object close([int? code, String? reason]) =>
-      js_util.callMethod(this, 'close', [code, reason]);
-
-  EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
-  set onmessage(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onmessage', newValue);
-  }
-
-  BinaryType get binaryType =>
-      BinaryType.values.byName(js_util.getProperty(this, 'binaryType'));
-  set binaryType(BinaryType newValue) {
-    js_util.setProperty(this, 'binaryType', newValue.name);
-  }
-
-  Object send(String data) => js_util.callMethod(this, 'send', [data]);
-}
-
-@JS()
-@staticInterop
-class CloseEvent implements Event {
-  external CloseEvent(String type, [CloseEventInit? eventInitDict]);
-}
-
-extension PropsCloseEvent on CloseEvent {
-  bool get wasClean => js_util.getProperty(this, 'wasClean');
-  int get code => js_util.getProperty(this, 'code');
-  String get reason => js_util.getProperty(this, 'reason');
-}
-
-@anonymous
-@JS()
-@staticInterop
-class CloseEventInit implements EventInit {
-  external factory CloseEventInit(
-      {bool? wasClean = false, int? code = 0, String? reason = ''});
-}
-
-extension PropsCloseEventInit on CloseEventInit {
-  bool get wasClean => js_util.getProperty(this, 'wasClean');
-  set wasClean(bool newValue) {
-    js_util.setProperty(this, 'wasClean', newValue);
-  }
-
-  int get code => js_util.getProperty(this, 'code');
-  set code(int newValue) {
-    js_util.setProperty(this, 'code', newValue);
-  }
-
-  String get reason => js_util.getProperty(this, 'reason');
-  set reason(String newValue) {
-    js_util.setProperty(this, 'reason', newValue);
-  }
-}
-
+///  The interface of the Channel Messaging API allows us to create a
+/// new message channel and send data through it via its two
+/// [MessagePort] properties.
+///  Note: This feature is available in Web Workers
+///
 @JS()
 @staticInterop
 class MessageChannel {
-  external MessageChannel();
+  external factory MessageChannel();
 }
 
 extension PropsMessageChannel on MessageChannel {
@@ -6317,19 +9170,35 @@ extension PropsMessageChannel on MessageChannel {
   MessagePort get port2 => js_util.getProperty(this, 'port2');
 }
 
+///  The interface of the Channel Messaging API represents one of the
+/// two ports of a [MessageChannel], allowing messages to be sent
+/// from one port and listening out for them arriving at the other.
+///  Note: This feature is available in Web Workers
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    MessagePort
+///
+///
 @JS()
 @staticInterop
 class MessagePort implements EventTarget {
-  external MessagePort();
+  external factory MessagePort();
 }
 
 extension PropsMessagePort on MessagePort {
-  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+  void postMessage(dynamic message, Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
-  Object start() => js_util.callMethod(this, 'start', []);
+  void start() => js_util.callMethod(this, 'start', []);
 
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
   set onmessage(EventHandlerNonNull? newValue) {
@@ -6358,18 +9227,38 @@ extension PropsStructuredSerializeOptions on StructuredSerializeOptions {
   }
 }
 
+///  The interface represents a named channel that any browsing
+/// context of a given origin can subscribe to. It allows
+/// communication between different documents (in different windows,
+/// tabs, frames or iframes) of the same origin. Messages are
+/// broadcasted via a [message] event fired at all objects listening
+/// to the channel.
+///  Note: This feature is available in Web Workers
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    BroadcastChannel
+///
+///
+@experimental
 @JS()
 @staticInterop
 class BroadcastChannel implements EventTarget {
-  external BroadcastChannel(String name);
+  external factory BroadcastChannel(String name);
 }
 
 extension PropsBroadcastChannel on BroadcastChannel {
   String get name => js_util.getProperty(this, 'name');
-  Object postMessage(dynamic message) =>
+  void postMessage(dynamic message) =>
       js_util.callMethod(this, 'postMessage', [message]);
 
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
   set onmessage(EventHandlerNonNull? newValue) {
@@ -6383,18 +9272,41 @@ extension PropsBroadcastChannel on BroadcastChannel {
   }
 }
 
+///  The interface of the Web Workers API is an interface
+/// representing the scope of any worker. Workers have no browsing
+/// context; this scope contains the information usually conveyed by
+/// [Window] objects — in this case event handlers, the console or
+/// the associated [WorkerNavigator] object. Each has its own event
+/// loop.
+///  This interface is usually specialized by each worker type:
+/// [DedicatedWorkerGlobalScope] for dedicated workers,
+/// [SharedWorkerGlobalScope] for shared workers, and
+/// [ServiceWorkerGlobalScope] for ServiceWorker. The [self] property
+/// returns the specialized scope for each context.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    WorkerGlobalScope
+///
+///
 @JS()
 @staticInterop
 class WorkerGlobalScope
     implements EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {
-  external WorkerGlobalScope();
+  external factory WorkerGlobalScope();
 }
 
 extension PropsWorkerGlobalScope on WorkerGlobalScope {
   WorkerGlobalScope get self => js_util.getProperty(this, 'self');
   WorkerLocation get location => js_util.getProperty(this, 'location');
   WorkerNavigator get navigator => js_util.getProperty(this, 'navigator');
-  Object importScripts([String? urls1, String? urls2, String? urls3]) =>
+  void importScripts([String? urls1, String? urls2, String? urls3]) =>
       js_util.callMethod(this, 'importScripts', [urls1, urls2, urls3]);
 
   OnErrorEventHandlerNonNull? get onerror =>
@@ -6432,19 +9344,42 @@ extension PropsWorkerGlobalScope on WorkerGlobalScope {
   }
 }
 
+///  The object (the [Worker] global scope) is accessible through the
+/// [self] keyword. Some additional global functions, namespaces
+/// objects, and constructors, not typically associated with the
+/// worker global scope, but available on it, are listed in the
+/// JavaScript Reference. See also: Functions available to workers.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    WorkerGlobalScope
+///
+///
+///
+///
+///
+///    DedicatedWorkerGlobalScope
+///
+///
 @JS()
 @staticInterop
 class DedicatedWorkerGlobalScope
     implements WorkerGlobalScope, AnimationFrameProvider {
-  external DedicatedWorkerGlobalScope();
+  external factory DedicatedWorkerGlobalScope();
 }
 
 extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
   String get name => js_util.getProperty(this, 'name');
-  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+  void postMessage(dynamic message, Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
   set onmessage(EventHandlerNonNull? newValue) {
@@ -6464,15 +9399,39 @@ extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
   }
 }
 
+///  The object (the [SharedWorker] global scope) is accessible
+/// through the [self] keyword. Some additional global functions,
+/// namespaces objects, and constructors, not typically associated
+/// with the worker global scope, but available on it, are listed in
+/// the JavaScript Reference. See the complete list of functions
+/// available to workers.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    WorkerGlobalScope
+///
+///
+///
+///
+///
+///    SharedWorkerGlobalScope
+///
+///
 @JS()
 @staticInterop
 class SharedWorkerGlobalScope implements WorkerGlobalScope {
-  external SharedWorkerGlobalScope();
+  external factory SharedWorkerGlobalScope();
 }
 
 extension PropsSharedWorkerGlobalScope on SharedWorkerGlobalScope {
   String get name => js_util.getProperty(this, 'name');
-  Object close() => js_util.callMethod(this, 'close', []);
+  void close() => js_util.callMethod(this, 'close', []);
 
   EventHandlerNonNull? get onconnect => js_util.getProperty(this, 'onconnect');
   set onconnect(EventHandlerNonNull? newValue) {
@@ -6483,7 +9442,7 @@ extension PropsSharedWorkerGlobalScope on SharedWorkerGlobalScope {
 @JS()
 @staticInterop
 class AbstractWorker {
-  external AbstractWorker();
+  external factory AbstractWorker();
 }
 
 extension PropsAbstractWorker on AbstractWorker {
@@ -6493,16 +9452,40 @@ extension PropsAbstractWorker on AbstractWorker {
   }
 }
 
+///  The interface of the Web Workers API represents a background
+/// task that can be created via script, which can send messages back
+/// to its creator.
+///  Creating a worker is done by calling the
+/// [Worker("path/to/worker/script")] constructor.
+///  Workers may themselves spawn new workers, as long as those
+/// workers are hosted at the same origin as the parent page. (Note:
+/// nested workers are not yet implemented in WebKit).
+///  Not all interfaces and functions are available to scripts inside
+/// a . Workers may use [XMLHttpRequest] for network communication,
+/// but its [responseXML] and [channel] attributes are always [null].
+/// ([fetch] is also available, with no such restrictions.)
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Worker
+///
+///
 @JS()
 @staticInterop
 class Worker implements EventTarget, AbstractWorker {
-  external Worker(String scriptURL, [WorkerOptions? options]);
+  external factory Worker(String scriptURL, [WorkerOptions? options]);
 }
 
 extension PropsWorker on Worker {
-  Object terminate() => js_util.callMethod(this, 'terminate', []);
+  void terminate() => js_util.callMethod(this, 'terminate', []);
 
-  Object postMessage(dynamic message, Iterable<dynamic> transfer) =>
+  void postMessage(dynamic message, Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
@@ -6553,10 +9536,32 @@ extension PropsWorkerOptions on WorkerOptions {
 
 enum WorkerType { classic, module }
 
+///  The interface represents a specific kind of worker that can be
+/// accessed from several browsing contexts, such as several windows,
+/// iframes or even workers. They implement an interface different
+/// than dedicated workers and have a different global scope,
+/// [SharedWorkerGlobalScope].
+///
+///   Note: If SharedWorker can be accessed from several browsing
+/// contexts, all those browsing contexts must share the exact same
+/// origin (same protocol, host and port).
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    SharedWorker
+///
+///
 @JS()
 @staticInterop
 class SharedWorker implements EventTarget, AbstractWorker {
-  external SharedWorker(String scriptURL, [dynamic options]);
+  external factory SharedWorker(String scriptURL, [dynamic options]);
 }
 
 extension PropsSharedWorker on SharedWorker {
@@ -6566,7 +9571,7 @@ extension PropsSharedWorker on SharedWorker {
 @JS()
 @staticInterop
 class NavigatorConcurrentHardware {
-  external NavigatorConcurrentHardware();
+  external factory NavigatorConcurrentHardware();
 }
 
 extension PropsNavigatorConcurrentHardware on NavigatorConcurrentHardware {
@@ -6574,6 +9579,10 @@ extension PropsNavigatorConcurrentHardware on NavigatorConcurrentHardware {
       js_util.getProperty(this, 'hardwareConcurrency');
 }
 
+///  The interface represents a subset of the [Navigator] interface
+/// allowed to be accessed from a [Worker]. Such an object is
+/// initialized for each worker and is available via the
+/// [self.navigator] property.
 @JS()
 @staticInterop
 class WorkerNavigator
@@ -6590,23 +9599,30 @@ class WorkerNavigator
         NavigatorOnLine,
         NavigatorConcurrentHardware,
         NavigatorStorage {
-  external WorkerNavigator();
+  external factory WorkerNavigator();
 }
 
 extension PropsWorkerNavigator on WorkerNavigator {
   MediaCapabilities get mediaCapabilities =>
       js_util.getProperty(this, 'mediaCapabilities');
   Permissions get permissions => js_util.getProperty(this, 'permissions');
+  Hid get hid => js_util.getProperty(this, 'hid');
+  Serial get serial => js_util.getProperty(this, 'serial');
   ServiceWorkerContainer get serviceWorker =>
       js_util.getProperty(this, 'serviceWorker');
-  Serial get serial => js_util.getProperty(this, 'serial');
   Usb get usb => js_util.getProperty(this, 'usb');
 }
 
+///  The interface defines the absolute location of the script
+/// executed by the [Worker]. Such an object is initialized for each
+/// worker and is available via the [WorkerGlobalScope.location]
+/// property obtained by calling [self.location].
+///  This interface is only visible from inside a JavaScript script
+/// executed in the context of a Web worker.
 @JS()
 @staticInterop
 class WorkerLocation {
-  external WorkerLocation();
+  external factory WorkerLocation();
 }
 
 extension PropsWorkerLocation on WorkerLocation {
@@ -6626,17 +9642,26 @@ extension PropsWorkerLocation on WorkerLocation {
 @JS()
 @staticInterop
 class WorkletGlobalScope {
-  external WorkletGlobalScope();
+  external factory WorkletGlobalScope();
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface is a lightweight version of [Web Workers] and
+/// gives developers access to low-level parts of the rendering
+/// pipeline.
+///  With Worklets, you can run JavaScript and WebAssembly code to do
+/// graphics rendering or audio processing where high performance is
+/// required.
 @JS()
 @staticInterop
 class Worklet {
-  external Worklet();
+  external factory Worklet();
 }
 
 extension PropsWorklet on Worklet {
-  Future<Object> addModule(String moduleURL, [WorkletOptions? options]) =>
+  Future<void> addModule(String moduleURL, [WorkletOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'addModule', [moduleURL, options]));
 }
@@ -6660,10 +9685,17 @@ extension PropsWorkletOptions on WorkletOptions {
   }
 }
 
+///  The interface of the Web Storage API provides access to a
+/// particular domain's session or local storage. It allows, for
+/// example, the addition, modification, or deletion of stored data
+/// items.
+///  To manipulate, for instance, the session storage for a domain, a
+/// call to [Window.sessionStorage] is made; whereas for local
+/// storage the call is made to [Window.localStorage].
 @JS()
 @staticInterop
 class Storage {
-  external Storage();
+  external factory Storage();
 }
 
 extension PropsStorage on Storage {
@@ -6672,19 +9704,18 @@ extension PropsStorage on Storage {
 
   String? getItem(String key) => js_util.callMethod(this, 'getItem', [key]);
 
-  Object setItem(String key, String value) =>
+  void setItem(String key, String value) =>
       js_util.callMethod(this, 'setItem', [key, value]);
 
-  Object removeItem(String key) =>
-      js_util.callMethod(this, 'removeItem', [key]);
+  void removeItem(String key) => js_util.callMethod(this, 'removeItem', [key]);
 
-  Object clear() => js_util.callMethod(this, 'clear', []);
+  void clear() => js_util.callMethod(this, 'clear', []);
 }
 
 @JS()
 @staticInterop
 class WindowSessionStorage {
-  external WindowSessionStorage();
+  external factory WindowSessionStorage();
 }
 
 extension PropsWindowSessionStorage on WindowSessionStorage {
@@ -6694,17 +9725,35 @@ extension PropsWindowSessionStorage on WindowSessionStorage {
 @JS()
 @staticInterop
 class WindowLocalStorage {
-  external WindowLocalStorage();
+  external factory WindowLocalStorage();
 }
 
 extension PropsWindowLocalStorage on WindowLocalStorage {
   Storage get localStorage => js_util.getProperty(this, 'localStorage');
 }
 
+///
+///  The interface is implemented by the [storage] event, which is
+///  sent to a window
+///   when a storage area the window has access to is changed within
+/// the context of another document.
+///
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    StorageEvent
+///
+///
 @JS()
 @staticInterop
 class StorageEvent implements Event {
-  external StorageEvent(String type, [StorageEventInit? eventInitDict]);
+  external factory StorageEvent(String type, [StorageEventInit? eventInitDict]);
 }
 
 extension PropsStorageEvent on StorageEvent {
@@ -6713,7 +9762,7 @@ extension PropsStorageEvent on StorageEvent {
   String? get newValue => js_util.getProperty(this, 'newValue');
   String get url => js_util.getProperty(this, 'url');
   Storage? get storageArea => js_util.getProperty(this, 'storageArea');
-  Object initStorageEvent(String type,
+  void initStorageEvent(String type,
           [bool? bubbles = false,
           bool? cancelable = false,
           String? key,
@@ -6772,10 +9821,53 @@ extension PropsStorageEventInit on StorageEventInit {
   }
 }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+///  The interface provides methods to manipulate [<marquee>]
+/// elements.
+///  It inherits properties and methods from the [HTMLElement]
+/// interface.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLMarqueeElement
+///
+///
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class HTMLMarqueeElement implements HTMLElement {
-  external HTMLMarqueeElement();
+  external factory HTMLMarqueeElement();
 }
 
 extension PropsHTMLMarqueeElement on HTMLMarqueeElement {
@@ -6834,15 +9926,57 @@ extension PropsHTMLMarqueeElement on HTMLMarqueeElement {
     js_util.setProperty(this, 'width', newValue);
   }
 
-  Object start() => js_util.callMethod(this, 'start', []);
+  void start() => js_util.callMethod(this, 'start', []);
 
-  Object stop() => js_util.callMethod(this, 'stop', []);
+  void stop() => js_util.callMethod(this, 'stop', []);
 }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+///  The interface provides special properties (beyond those of the
+/// regular [HTMLElement] interface they also inherit) for
+/// manipulating [<frameset>] elements.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLFrameSetElement
+///
+///
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class HTMLFrameSetElement implements HTMLElement, WindowEventHandlers {
-  external HTMLFrameSetElement();
+  external factory HTMLFrameSetElement();
 }
 
 extension PropsHTMLFrameSetElement on HTMLFrameSetElement {
@@ -6860,7 +9994,7 @@ extension PropsHTMLFrameSetElement on HTMLFrameSetElement {
 @JS()
 @staticInterop
 class HTMLFrameElement implements HTMLElement {
-  external HTMLFrameElement();
+  external factory HTMLFrameElement();
 }
 
 extension PropsHTMLFrameElement on HTMLFrameElement {
@@ -6910,7 +10044,7 @@ extension PropsHTMLFrameElement on HTMLFrameElement {
 @JS()
 @staticInterop
 class HTMLDirectoryElement implements HTMLElement {
-  external HTMLDirectoryElement();
+  external factory HTMLDirectoryElement();
 }
 
 extension PropsHTMLDirectoryElement on HTMLDirectoryElement {
@@ -6920,10 +10054,52 @@ extension PropsHTMLDirectoryElement on HTMLDirectoryElement {
   }
 }
 
+///  Deprecated: This feature is no longer recommended. Though some
+/// browsers might still support it, it may have already been removed
+/// from the relevant web standards, may be in the process of being
+/// dropped, or may only be kept for compatibility purposes. Avoid
+/// using it, and update existing code if possible; see the
+/// compatibility table at the bottom of this page to guide your
+/// decision. Be aware that this feature may cease to work at any
+/// time.
+///  Implements the document object model (DOM) representation of the
+/// font element. The HTML Font Element [<font>] defines the font
+/// size, font face and color of text.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLFontElement
+///
+///
+@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class HTMLFontElement implements HTMLElement {
-  external HTMLFontElement();
+  external factory HTMLFontElement();
 }
 
 extension PropsHTMLFontElement on HTMLFontElement {
@@ -6943,16 +10119,77 @@ extension PropsHTMLFontElement on HTMLFontElement {
   }
 }
 
+///  The interface provides special properties (beyond those of the
+/// regular [HTMLElement] object interface it inherits) for
+/// manipulating [<param>] elements, representing a pair of a key and
+/// a value that acts as a parameter for an [<object>] element.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Element
+///
+///
+///
+///
+///
+///    HTMLElement
+///
+///
+///
+///
+///
+///    HTMLParamElement
+///
+///
+@JS()
+@staticInterop
+class HTMLParamElement implements HTMLElement {
+  external factory HTMLParamElement();
+}
+
+extension PropsHTMLParamElement on HTMLParamElement {
+  String get name => js_util.getProperty(this, 'name');
+  set name(String newValue) {
+    js_util.setProperty(this, 'name', newValue);
+  }
+
+  String get value => js_util.getProperty(this, 'value');
+  set value(String newValue) {
+    js_util.setProperty(this, 'value', newValue);
+  }
+
+  String get type => js_util.getProperty(this, 'type');
+  set type(String newValue) {
+    js_util.setProperty(this, 'type', newValue);
+  }
+
+  String get valueType => js_util.getProperty(this, 'valueType');
+  set valueType(String newValue) {
+    js_util.setProperty(this, 'valueType', newValue);
+  }
+}
+
 @JS()
 @staticInterop
 class External {
-  external External();
+  external factory External();
 }
 
 extension PropsExternal on External {
-  Object addSearchProvider() =>
-      js_util.callMethod(this, 'AddSearchProvider', []);
+  void addSearchProvider() => js_util.callMethod(this, 'AddSearchProvider', []);
 
-  Object isSearchProviderInstalled() =>
+  void isSearchProviderInstalled() =>
       js_util.callMethod(this, 'IsSearchProviderInstalled', []);
 }

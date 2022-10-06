@@ -13,10 +13,14 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The interface of the [Insertable Streams for MediaStreamTrack
+/// API] consumes a [MediaStreamTrack] object's source and generates
+/// a stream of media frames.
 @JS()
 @staticInterop
 class MediaStreamTrackProcessor {
-  external MediaStreamTrackProcessor(MediaStreamTrackProcessorInit init);
+  external factory MediaStreamTrackProcessor(
+      MediaStreamTrackProcessorInit init);
 }
 
 extension PropsMediaStreamTrackProcessor on MediaStreamTrackProcessor {
@@ -49,7 +53,7 @@ extension PropsMediaStreamTrackProcessorInit on MediaStreamTrackProcessorInit {
 @JS()
 @staticInterop
 class VideoTrackGenerator {
-  external VideoTrackGenerator();
+  external factory VideoTrackGenerator();
 }
 
 extension PropsVideoTrackGenerator on VideoTrackGenerator {

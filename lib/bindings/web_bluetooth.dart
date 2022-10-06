@@ -10,7 +10,7 @@ library web_bluetooth;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -141,6 +141,29 @@ extension PropsRequestDeviceOptions on RequestDeviceOptions {
   }
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///
+///  The interface of the Web Bluetooth API returns a
+///  [Future] to a [BluetoothDevice] object with the specified
+///  options.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Bluetooth
+///
+///
+@experimental
 @JS()
 @staticInterop
 class Bluetooth
@@ -149,7 +172,7 @@ class Bluetooth
         BluetoothDeviceEventHandlers,
         CharacteristicEventHandlers,
         ServiceEventHandlers {
-  external Bluetooth();
+  external factory Bluetooth();
 }
 
 extension PropsBluetooth on Bluetooth {
@@ -267,7 +290,7 @@ extension PropsBluetoothPermissionStorage on BluetoothPermissionStorage {
 @JS()
 @staticInterop
 class BluetoothPermissionResult implements PermissionStatus {
-  external BluetoothPermissionResult();
+  external factory BluetoothPermissionResult();
 }
 
 extension PropsBluetoothPermissionResult on BluetoothPermissionResult {
@@ -280,7 +303,7 @@ extension PropsBluetoothPermissionResult on BluetoothPermissionResult {
 @JS()
 @staticInterop
 class ValueEvent implements Event {
-  external ValueEvent(String type, [ValueEventInit? initDict]);
+  external factory ValueEvent(String type, [ValueEventInit? initDict]);
 }
 
 extension PropsValueEvent on ValueEvent {
@@ -301,6 +324,28 @@ extension PropsValueEventInit on ValueEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///
+///  The BluetoothDevice interface of the Web Bluetooth
+///  API represents a Bluetooth device inside a particular script
+/// execution
+///  environment.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    BluetoothDevice
+///
+///
+@experimental
 @JS()
 @staticInterop
 class BluetoothDevice
@@ -309,14 +354,17 @@ class BluetoothDevice
         BluetoothDeviceEventHandlers,
         CharacteristicEventHandlers,
         ServiceEventHandlers {
-  external BluetoothDevice();
+  external factory BluetoothDevice();
 }
 
 extension PropsBluetoothDevice on BluetoothDevice {
   String get id => js_util.getProperty(this, 'id');
   String? get name => js_util.getProperty(this, 'name');
   BluetoothRemoteGATTServer? get gatt => js_util.getProperty(this, 'gatt');
-  Future<Object> watchAdvertisements([WatchAdvertisementsOptions? options]) =>
+  Future<void> forget() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'forget', []));
+
+  Future<void> watchAdvertisements([WatchAdvertisementsOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'watchAdvertisements', [options]));
 
@@ -341,19 +389,19 @@ extension PropsWatchAdvertisementsOptions on WatchAdvertisementsOptions {
 @JS()
 @staticInterop
 class BluetoothManufacturerDataMap extends JsMap<ByteData, int> {
-  external BluetoothManufacturerDataMap();
+  external factory BluetoothManufacturerDataMap();
 }
 
 @JS()
 @staticInterop
 class BluetoothServiceDataMap extends JsMap<ByteData, String> {
-  external BluetoothServiceDataMap();
+  external factory BluetoothServiceDataMap();
 }
 
 @JS()
 @staticInterop
 class BluetoothAdvertisingEvent implements Event {
-  external BluetoothAdvertisingEvent(
+  external factory BluetoothAdvertisingEvent(
       String type, BluetoothAdvertisingEventInit init);
 }
 
@@ -429,10 +477,24 @@ extension PropsBluetoothAdvertisingEventInit on BluetoothAdvertisingEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///
+///  The interface of the Web Bluetooth API represents a GATT
+///  Server on a remote device.
+///
+///    Note: This page describes the W3C Community Group Web
+/// Bluetooth API. For the Firefox OS
+///   Bluetooth API, see [BluetoothGattServer]
+/// (Firefox OS).
+///
+///
+@experimental
 @JS()
 @staticInterop
 class BluetoothRemoteGATTServer {
-  external BluetoothRemoteGATTServer();
+  external factory BluetoothRemoteGATTServer();
 }
 
 extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
@@ -441,7 +503,7 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
   Future<BluetoothRemoteGATTServer> connect() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'connect', []));
 
-  Object disconnect() => js_util.callMethod(this, 'disconnect', []);
+  void disconnect() => js_util.callMethod(this, 'disconnect', []);
 
   Future<BluetoothRemoteGATTService> getPrimaryService(dynamic service) =>
       js_util.promiseToFuture(
@@ -453,11 +515,40 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
           js_util.callMethod(this, 'getPrimaryServices', [service]));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///
+///
+///    Note: This page describes the W3C Community Group
+/// BluetoothRemoteGATTService, formerly
+///    called BluetoothGATTService. For the Firefox OS interface of
+/// the same name,
+///   see [BluetoothGattService].
+///
+///  The interface of the Web Bluetooth API represents a
+///   service provided by a GATT server, including a device, a list
+/// of referenced services,
+///  and a list of the characteristics of this service.
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    BluetoothRemoteGATTService
+///
+///
+@experimental
 @JS()
 @staticInterop
 class BluetoothRemoteGATTService
     implements EventTarget, CharacteristicEventHandlers, ServiceEventHandlers {
-  external BluetoothRemoteGATTService();
+  external factory BluetoothRemoteGATTService();
 }
 
 extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
@@ -484,11 +575,31 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
           js_util.callMethod(this, 'getIncludedServices', [service]));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The [BluetoothRemoteGattCharacteristic] interface of the Web
+/// Bluetooth API represents a GATT Characteristic, which is a basic
+/// data element that provides further information about a
+/// peripheral’s service.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    BluetoothRemoteGATTCharacteristic
+///
+///
+@experimental
 @JS()
 @staticInterop
 class BluetoothRemoteGATTCharacteristic
     implements EventTarget, CharacteristicEventHandlers {
-  external BluetoothRemoteGATTCharacteristic();
+  external factory BluetoothRemoteGATTCharacteristic();
 }
 
 extension PropsBluetoothRemoteGATTCharacteristic
@@ -511,14 +622,13 @@ extension PropsBluetoothRemoteGATTCharacteristic
   Future<ByteData> readValue() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'readValue', []));
 
-  Future<Object> writeValue(dynamic value) =>
+  Future<void> writeValue(dynamic value) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'writeValue', [value]));
 
-  Future<Object> writeValueWithResponse(dynamic value) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'writeValueWithResponse', [value]));
+  Future<void> writeValueWithResponse(dynamic value) => js_util.promiseToFuture(
+      js_util.callMethod(this, 'writeValueWithResponse', [value]));
 
-  Future<Object> writeValueWithoutResponse(dynamic value) =>
+  Future<void> writeValueWithoutResponse(dynamic value) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'writeValueWithoutResponse', [value]));
 
@@ -529,10 +639,20 @@ extension PropsBluetoothRemoteGATTCharacteristic
       .promiseToFuture(js_util.callMethod(this, 'stopNotifications', []));
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Web Bluetooth API provides the operations
+/// that are valid on the given [BluetoothRemoteGATTCharacteristic].
+///  This interface is returned by calling
+/// [BluetoothRemoteGATTCharacteristic.properties].
+@experimental
 @JS()
 @staticInterop
 class BluetoothCharacteristicProperties {
-  external BluetoothCharacteristicProperties();
+  external factory BluetoothCharacteristicProperties();
 }
 
 extension PropsBluetoothCharacteristicProperties
@@ -551,10 +671,26 @@ extension PropsBluetoothCharacteristicProperties
       js_util.getProperty(this, 'writableAuxiliaries');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///
+///   The interface of the Web Bluetooth API provides a GATT
+/// Descriptor,
+///   which provides further information about a characteristic’s
+/// value.
+///
+///    Note: This page describes the W3C Community Group Web
+/// Bluetooth API. For the Firefox OS
+///   Bluetooth API, see [BluetoothGattDescriptor]
+/// (Firefox OS).
+///
+///
+@experimental
 @JS()
 @staticInterop
 class BluetoothRemoteGATTDescriptor {
-  external BluetoothRemoteGATTDescriptor();
+  external factory BluetoothRemoteGATTDescriptor();
 }
 
 extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
@@ -565,14 +701,14 @@ extension PropsBluetoothRemoteGATTDescriptor on BluetoothRemoteGATTDescriptor {
   Future<ByteData> readValue() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'readValue', []));
 
-  Future<Object> writeValue(dynamic value) =>
+  Future<void> writeValue(dynamic value) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'writeValue', [value]));
 }
 
 @JS()
 @staticInterop
 class CharacteristicEventHandlers {
-  external CharacteristicEventHandlers();
+  external factory CharacteristicEventHandlers();
 }
 
 extension PropsCharacteristicEventHandlers on CharacteristicEventHandlers {
@@ -586,7 +722,7 @@ extension PropsCharacteristicEventHandlers on CharacteristicEventHandlers {
 @JS()
 @staticInterop
 class BluetoothDeviceEventHandlers {
-  external BluetoothDeviceEventHandlers();
+  external factory BluetoothDeviceEventHandlers();
 }
 
 extension PropsBluetoothDeviceEventHandlers on BluetoothDeviceEventHandlers {
@@ -606,7 +742,7 @@ extension PropsBluetoothDeviceEventHandlers on BluetoothDeviceEventHandlers {
 @JS()
 @staticInterop
 class ServiceEventHandlers {
-  external ServiceEventHandlers();
+  external factory ServiceEventHandlers();
 }
 
 extension PropsServiceEventHandlers on ServiceEventHandlers {
@@ -629,10 +765,15 @@ extension PropsServiceEventHandlers on ServiceEventHandlers {
   }
 }
 
+///
+///   The interface of the [Web Bluetooth API] provides a way to look
+/// up Universally Unique Identifier (UUID) values by name in the
+///  registry maintained by the Bluetooth SIG.
+///
 @JS()
 @staticInterop
 class BluetoothUUID {
-  external BluetoothUUID();
+  external factory BluetoothUUID();
 }
 
 extension PropsBluetoothUUID on BluetoothUUID {

@@ -10,6 +10,7 @@ library cssom_view_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -47,25 +48,49 @@ extension PropsScrollToOptions on ScrollToOptions {
     js_util.setProperty(this, 'left', newValue);
   }
 
-  /* double | NaN */ dynamic get top => js_util.getProperty(this, 'top');
+/* double | NaN */ dynamic get top => js_util.getProperty(this, 'top');
   set top(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'top', newValue);
   }
 }
 
+///  A object stores information on a media query applied to a
+/// document, with support for both immediate and event-driven
+/// matching against the state of the document.
+///  You can create a by calling [matchMedia()] on the [window]
+/// object. The resulting object handles sending notifications to
+/// listeners when the media query state changes (i.e. when the media
+/// query test starts or stops evaluating to [true]).
+///  This is very useful for adaptive design, since this makes it
+/// possible to observe a document to detect when its media queries
+/// change, instead of polling the values periodically, and allows
+/// you to programmatically make changes to a document based on media
+/// query status.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    MediaQueryList
+///
+///
 @JS()
 @staticInterop
 class MediaQueryList implements EventTarget {
-  external MediaQueryList();
+  external factory MediaQueryList();
 }
 
 extension PropsMediaQueryList on MediaQueryList {
   String get media => js_util.getProperty(this, 'media');
   bool get matches => js_util.getProperty(this, 'matches');
-  Object addListener(EventListener? callback) => js_util.callMethod(
+  void addListener(EventListener? callback) => js_util.callMethod(
       this, 'addListener', [callback == null ? null : allowInterop(callback)]);
 
-  Object removeListener(EventListener? callback) => js_util.callMethod(this,
+  void removeListener(EventListener? callback) => js_util.callMethod(this,
       'removeListener', [callback == null ? null : allowInterop(callback)]);
 
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
@@ -74,10 +99,27 @@ extension PropsMediaQueryList on MediaQueryList {
   }
 }
 
+///  The object stores information on the changes that have happened
+/// to a [MediaQueryList] object — instances are available as the
+/// event object on a function referenced by a
+/// [MediaQueryList.onchange] property or
+/// [MediaQueryList.addListener()] call.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///    MediaQueryListEvent
+///
+///
 @JS()
 @staticInterop
 class MediaQueryListEvent implements Event {
-  external MediaQueryListEvent(String type,
+  external factory MediaQueryListEvent(String type,
       [MediaQueryListEventInit? eventInitDict]);
 }
 
@@ -106,10 +148,15 @@ extension PropsMediaQueryListEventInit on MediaQueryListEventInit {
   }
 }
 
+///  The interface represents a screen, usually the one on which the
+/// current window is being rendered, and is obtained using
+/// [window.screen].
+///  Note that browsers determine which screen to report as current
+/// by detecting which screen has the center of the browser window.
 @JS()
 @staticInterop
 class Screen {
-  external Screen();
+  external factory Screen();
 }
 
 extension PropsScreen on Screen {
@@ -119,13 +166,26 @@ extension PropsScreen on Screen {
   int get height => js_util.getProperty(this, 'height');
   int get colorDepth => js_util.getProperty(this, 'colorDepth');
   int get pixelDepth => js_util.getProperty(this, 'pixelDepth');
+  bool get isExtended => js_util.getProperty(this, 'isExtended');
+  EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
+  set onchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onchange', newValue);
+  }
+
   ScreenOrientation get orientation => js_util.getProperty(this, 'orientation');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface represents the caret position, an indicator for
+/// the text insertion point. You can get a using the
+/// [Document.caretPositionFromPoint()] method.
+@experimental
 @JS()
 @staticInterop
 class CaretPosition {
-  external CaretPosition();
+  external factory CaretPosition();
 }
 
 extension PropsCaretPosition on CaretPosition {
@@ -159,6 +219,27 @@ extension PropsScrollIntoViewOptions on ScrollIntoViewOptions {
       ScrollLogicalPosition.values.byName(js_util.getProperty(this, 'inline'));
   set inline(ScrollLogicalPosition newValue) {
     js_util.setProperty(this, 'inline', newValue.name);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class CheckVisibilityOptions {
+  external factory CheckVisibilityOptions(
+      {bool? checkOpacity = false, bool? checkVisibilityCSS = false});
+}
+
+extension PropsCheckVisibilityOptions on CheckVisibilityOptions {
+  bool get checkOpacity => js_util.getProperty(this, 'checkOpacity');
+  set checkOpacity(bool newValue) {
+    js_util.setProperty(this, 'checkOpacity', newValue);
+  }
+
+  bool get checkVisibilityCSS =>
+      js_util.getProperty(this, 'checkVisibilityCSS');
+  set checkVisibilityCSS(bool newValue) {
+    js_util.setProperty(this, 'checkVisibilityCSS', newValue);
   }
 }
 
@@ -217,7 +298,7 @@ extension PropsConvertCoordinateOptions on ConvertCoordinateOptions {
 @JS()
 @staticInterop
 class GeometryUtils {
-  external GeometryUtils();
+  external factory GeometryUtils();
 }
 
 extension PropsGeometryUtils on GeometryUtils {
@@ -235,4 +316,56 @@ extension PropsGeometryUtils on GeometryUtils {
   DOMPoint convertPointFromNode(DOMPointInit point, dynamic from,
           [ConvertCoordinateOptions? options]) =>
       js_util.callMethod(this, 'convertPointFromNode', [point, from, options]);
+}
+
+///  The interface of the Visual Viewport API represents the visual
+/// viewport for a given window. For a page containing iframes, each
+/// iframe, as well as the containing page, will have a unique window
+/// object. Each window on a page will have a unique representing the
+/// properties associated with that window.
+///  You can get a window's visual viewport using
+/// [Window.visualViewport].
+///
+///   Note: Only the top-level window has a visual viewport that's
+/// distinct from the layout viewport. Therefore, it's generally only
+/// the object of the top-level window that's useful. For an
+/// [<iframe>], visual viewport metrics like [VisualViewport.width]
+/// always correspond to layout viewport metrics like
+/// [document.documentElement.clientWidth].
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    VisualViewport
+///
+///
+@JS()
+@staticInterop
+class VisualViewport implements EventTarget {
+  external factory VisualViewport();
+}
+
+extension PropsVisualViewport on VisualViewport {
+  double get offsetLeft => js_util.getProperty(this, 'offsetLeft');
+  double get offsetTop => js_util.getProperty(this, 'offsetTop');
+  double get pageLeft => js_util.getProperty(this, 'pageLeft');
+  double get pageTop => js_util.getProperty(this, 'pageTop');
+  double get width => js_util.getProperty(this, 'width');
+  double get height => js_util.getProperty(this, 'height');
+  double get scale => js_util.getProperty(this, 'scale');
+  EventHandlerNonNull? get onresize => js_util.getProperty(this, 'onresize');
+  set onresize(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresize', newValue);
+  }
+
+  EventHandlerNonNull? get onscroll => js_util.getProperty(this, 'onscroll');
+  set onscroll(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onscroll', newValue);
+  }
 }

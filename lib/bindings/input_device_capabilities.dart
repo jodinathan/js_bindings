@@ -10,13 +10,29 @@ library input_device_capabilities;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Input Device Capabilities API provides
+/// information about the physical device or a group of related
+/// devices responsible for generating input events. Events caused by
+/// the same physical input device get the same instance of this
+/// object, but the converse isn't true. For example, two mice with
+/// the same capabilities in a system may appear as a single
+/// instance.
+///  In some instances, represents the capabilities of logical
+/// devices rather than physical devices. This allows, for example,
+/// touchscreen keyboards and physical keyboards to be represented
+/// the same way when they produce the same input.
+@experimental
 @JS()
 @staticInterop
 class InputDeviceCapabilities {
-  external InputDeviceCapabilities(
+  external factory InputDeviceCapabilities(
       [InputDeviceCapabilitiesInit? deviceInitDict]);
 }
 

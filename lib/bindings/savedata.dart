@@ -16,7 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NetworkInformationSaveData {
-  external NetworkInformationSaveData();
+  external factory NetworkInformationSaveData();
 }
 
 extension PropsNetworkInformationSaveData on NetworkInformationSaveData {
