@@ -32,6 +32,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    PublicKeyCredential
 ///
 ///
@@ -457,6 +459,8 @@ extension PropsAuthenticatorResponse on AuthenticatorResponse {
 ///
 ///
 ///
+///
+///
 ///    AuthenticatorAttestationResponse
 ///
 ///
@@ -502,6 +506,8 @@ extension PropsAuthenticatorAttestationResponse
 ///
 ///
 ///
+///
+///
 ///    AuthenticatorAssertionResponse
 ///
 ///
@@ -521,6 +527,8 @@ extension PropsAuthenticatorAssertionResponse
       js_util.getProperty(this, 'authenticatorData');
   ByteBuffer get signature => js_util.getProperty(this, 'signature');
   ByteBuffer? get userHandle => js_util.getProperty(this, 'userHandle');
+  ByteBuffer? get attestationObject =>
+      js_util.getProperty(this, 'attestationObject');
 }
 
 @anonymous
@@ -556,6 +564,7 @@ class PublicKeyCredentialCreationOptions {
       Iterable<PublicKeyCredentialDescriptor>? excludeCredentials = const [],
       AuthenticatorSelectionCriteria? authenticatorSelection,
       String? attestation = 'none',
+      Iterable<String>? attestationFormats = const [],
       AuthenticationExtensionsClientInputs? extensions});
 }
 
@@ -602,6 +611,12 @@ extension PropsPublicKeyCredentialCreationOptions
   String get attestation => js_util.getProperty(this, 'attestation');
   set attestation(String newValue) {
     js_util.setProperty(this, 'attestation', newValue);
+  }
+
+  Iterable<String> get attestationFormats =>
+      js_util.getProperty(this, 'attestationFormats');
+  set attestationFormats(Iterable<String> newValue) {
+    js_util.setProperty(this, 'attestationFormats', newValue);
   }
 
   AuthenticationExtensionsClientInputs get extensions =>
@@ -695,11 +710,38 @@ extension PropsAuthenticatorSelectionCriteria
   }
 }
 
-enum AuthenticatorAttachment { platform, crossPlatform }
+enum AuthenticatorAttachment {
+  platform('platform'),
+  crossPlatform('cross-platform');
 
-enum ResidentKeyRequirement { discouraged, preferred, valueRequired }
+  final String value;
+  static AuthenticatorAttachment fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const AuthenticatorAttachment(this.value);
+}
 
-enum AttestationConveyancePreference { none, indirect, direct, enterprise }
+enum ResidentKeyRequirement {
+  discouraged('discouraged'),
+  preferred('preferred'),
+  valueRequired('required');
+
+  final String value;
+  static ResidentKeyRequirement fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ResidentKeyRequirement(this.value);
+}
+
+enum AttestationConveyancePreference {
+  none('none'),
+  indirect('indirect'),
+  direct('direct'),
+  enterprise('enterprise');
+
+  final String value;
+  static AttestationConveyancePreference fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const AttestationConveyancePreference(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
@@ -716,6 +758,8 @@ class PublicKeyCredentialRequestOptions {
       required String rpId,
       Iterable<PublicKeyCredentialDescriptor>? allowCredentials = const [],
       String? userVerification = 'preferred',
+      String? attestation = 'none',
+      Iterable<String>? attestationFormats = const [],
       AuthenticationExtensionsClientInputs? extensions});
 }
 
@@ -745,6 +789,17 @@ extension PropsPublicKeyCredentialRequestOptions
   String get userVerification => js_util.getProperty(this, 'userVerification');
   set userVerification(String newValue) {
     js_util.setProperty(this, 'userVerification', newValue);
+  }
+
+  String get attestation => js_util.getProperty(this, 'attestation');
+  set attestation(String newValue) {
+    js_util.setProperty(this, 'attestation', newValue);
+  }
+
+  Iterable<String> get attestationFormats =>
+      js_util.getProperty(this, 'attestationFormats');
+  set attestationFormats(Iterable<String> newValue) {
+    js_util.setProperty(this, 'attestationFormats', newValue);
   }
 
   AuthenticationExtensionsClientInputs get extensions =>
@@ -820,9 +875,24 @@ extension PropsTokenBinding on TokenBinding {
   }
 }
 
-enum TokenBindingStatus { present, supported }
+enum TokenBindingStatus {
+  present('present'),
+  supported('supported');
 
-enum PublicKeyCredentialType { publicKey }
+  final String value;
+  static TokenBindingStatus fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const TokenBindingStatus(this.value);
+}
+
+enum PublicKeyCredentialType {
+  publicKey('public-key');
+
+  final String value;
+  static PublicKeyCredentialType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const PublicKeyCredentialType(this.value);
+}
 
 @anonymous
 @JS()
@@ -849,9 +919,29 @@ extension PropsPublicKeyCredentialDescriptor on PublicKeyCredentialDescriptor {
   }
 }
 
-enum AuthenticatorTransport { usb, nfc, ble, hybrid, internal }
+enum AuthenticatorTransport {
+  usb('usb'),
+  nfc('nfc'),
+  ble('ble'),
+  hybrid('hybrid'),
+  internal('internal');
 
-enum UserVerificationRequirement { valueRequired, preferred, discouraged }
+  final String value;
+  static AuthenticatorTransport fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const AuthenticatorTransport(this.value);
+}
+
+enum UserVerificationRequirement {
+  valueRequired('required'),
+  preferred('preferred'),
+  discouraged('discouraged');
+
+  final String value;
+  static UserVerificationRequirement fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const UserVerificationRequirement(this.value);
+}
 
 @anonymous
 @JS()
@@ -934,7 +1024,15 @@ extension PropsAuthenticationExtensionsPRFOutputs
   }
 }
 
-enum LargeBlobSupport { valueRequired, preferred }
+enum LargeBlobSupport {
+  valueRequired('required'),
+  preferred('preferred');
+
+  final String value;
+  static LargeBlobSupport fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const LargeBlobSupport(this.value);
+}
 
 @anonymous
 @JS()
@@ -987,5 +1085,50 @@ extension PropsAuthenticationExtensionsLargeBlobOutputs
   bool get written => js_util.getProperty(this, 'written');
   set written(bool newValue) {
     js_util.setProperty(this, 'written', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class AuthenticationExtensionsDevicePublicKeyInputs {
+  external factory AuthenticationExtensionsDevicePublicKeyInputs(
+      {String? attestation = 'none',
+      Iterable<String>? attestationFormats = const []});
+}
+
+extension PropsAuthenticationExtensionsDevicePublicKeyInputs
+    on AuthenticationExtensionsDevicePublicKeyInputs {
+  String get attestation => js_util.getProperty(this, 'attestation');
+  set attestation(String newValue) {
+    js_util.setProperty(this, 'attestation', newValue);
+  }
+
+  Iterable<String> get attestationFormats =>
+      js_util.getProperty(this, 'attestationFormats');
+  set attestationFormats(Iterable<String> newValue) {
+    js_util.setProperty(this, 'attestationFormats', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class AuthenticationExtensionsDevicePublicKeyOutputs {
+  external factory AuthenticationExtensionsDevicePublicKeyOutputs(
+      {required ByteBuffer authenticatorOutput, required ByteBuffer signature});
+}
+
+extension PropsAuthenticationExtensionsDevicePublicKeyOutputs
+    on AuthenticationExtensionsDevicePublicKeyOutputs {
+  ByteBuffer get authenticatorOutput =>
+      js_util.getProperty(this, 'authenticatorOutput');
+  set authenticatorOutput(ByteBuffer newValue) {
+    js_util.setProperty(this, 'authenticatorOutput', newValue);
+  }
+
+  ByteBuffer get signature => js_util.getProperty(this, 'signature');
+  set signature(ByteBuffer newValue) {
+    js_util.setProperty(this, 'signature', newValue);
   }
 }

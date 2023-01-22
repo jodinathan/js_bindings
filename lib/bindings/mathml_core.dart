@@ -23,13 +23,19 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    Node
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    Element
+///
+///
 ///
 ///
 ///
@@ -45,7 +51,6 @@ class MathMLElement
         Element,
         ElementCSSInlineStyle,
         GlobalEventHandlers,
-        DocumentAndElementEventHandlers,
         HTMLOrSVGElement {
   external factory MathMLElement();
 }

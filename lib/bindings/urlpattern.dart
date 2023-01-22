@@ -14,6 +14,9 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///
 ///  The interface matches URLs or parts of URLs against a pattern.
 ///   The pattern can contain capturing groups that extract parts of
@@ -28,7 +31,8 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class URLPattern {
-  external factory URLPattern([dynamic input, String? baseURL]);
+  external factory URLPattern(dynamic input,
+      [String? baseURL, URLPatternOptions? options]);
 }
 
 extension PropsURLPattern on URLPattern {
@@ -112,6 +116,20 @@ extension PropsURLPatternInit on URLPatternInit {
   String get baseURL => js_util.getProperty(this, 'baseURL');
   set baseURL(String newValue) {
     js_util.setProperty(this, 'baseURL', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class URLPatternOptions {
+  external factory URLPatternOptions({bool? ignoreCase = false});
+}
+
+extension PropsURLPatternOptions on URLPatternOptions {
+  bool get ignoreCase => js_util.getProperty(this, 'ignoreCase');
+  set ignoreCase(bool newValue) {
+    js_util.setProperty(this, 'ignoreCase', newValue);
   }
 }
 

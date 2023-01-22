@@ -10,9 +10,16 @@ library ink_enhancement;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Ink API provides access to [InkPresenter]
+/// objects for the application to use to render ink strokes.
+@experimental
 @JS()
 @staticInterop
 class Ink {
@@ -39,6 +46,13 @@ extension PropsInkPresenterParam on InkPresenterParam {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Ink API provides the ability to instruct
+/// the OS-level compositor to render ink strokes between pointer
+/// event dispatches.
+@experimental
 @JS()
 @staticInterop
 class InkPresenter {

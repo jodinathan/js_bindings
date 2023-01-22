@@ -1,6 +1,6 @@
 /// WebGL WEBGL_compressed_texture_s3tc_srgb Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc_srgb/
+/// https://registry.khronos.org/webgl/extensions/WEBGL_compressed_texture_s3tc_srgb/
 
 // ignore_for_file: unused_import
 

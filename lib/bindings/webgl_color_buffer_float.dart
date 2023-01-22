@@ -1,6 +1,6 @@
 /// WebGL WEBGL_color_buffer_float Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/WEBGL_color_buffer_float/
+/// https://registry.khronos.org/webgl/extensions/WEBGL_color_buffer_float/
 
 // ignore_for_file: unused_import
 

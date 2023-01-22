@@ -32,6 +32,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    SpeechRecognition
 ///
 ///
@@ -136,14 +138,19 @@ extension PropsSpeechRecognition on SpeechRecognition {
 }
 
 enum SpeechRecognitionErrorCode {
-  noSpeech,
-  aborted,
-  audioCapture,
-  network,
-  notAllowed,
-  serviceNotAllowed,
-  badGrammar,
-  languageNotSupported
+  noSpeech('no-speech'),
+  aborted('aborted'),
+  audioCapture('audio-capture'),
+  network('network'),
+  notAllowed('not-allowed'),
+  serviceNotAllowed('service-not-allowed'),
+  badGrammar('bad-grammar'),
+  languageNotSupported('language-not-supported');
+
+  final String value;
+  static SpeechRecognitionErrorCode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const SpeechRecognitionErrorCode(this.value);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -160,6 +167,8 @@ enum SpeechRecognitionErrorCode {
 ///
 ///
 ///
+///
+///
 ///    SpeechRecognitionErrorEvent
 ///
 ///
@@ -171,8 +180,8 @@ class SpeechRecognitionErrorEvent implements Event {
 }
 
 extension PropsSpeechRecognitionErrorEvent on SpeechRecognitionErrorEvent {
-  SpeechRecognitionErrorCode get error => SpeechRecognitionErrorCode.values
-      .byName(js_util.getProperty(this, 'error'));
+  SpeechRecognitionErrorCode get error =>
+      SpeechRecognitionErrorCode.fromValue(js_util.getProperty(this, 'error'));
   String get message => js_util.getProperty(this, 'message');
 }
 
@@ -185,15 +194,15 @@ class SpeechRecognitionErrorEventInit implements EventInit {
 
   factory SpeechRecognitionErrorEventInit(
           {required SpeechRecognitionErrorCode error, String? message = ''}) =>
-      SpeechRecognitionErrorEventInit._(error: error.name, message: message);
+      SpeechRecognitionErrorEventInit._(error: error.value, message: message);
 }
 
 extension PropsSpeechRecognitionErrorEventInit
     on SpeechRecognitionErrorEventInit {
-  SpeechRecognitionErrorCode get error => SpeechRecognitionErrorCode.values
-      .byName(js_util.getProperty(this, 'error'));
+  SpeechRecognitionErrorCode get error =>
+      SpeechRecognitionErrorCode.fromValue(js_util.getProperty(this, 'error'));
   set error(SpeechRecognitionErrorCode newValue) {
-    js_util.setProperty(this, 'error', newValue.name);
+    js_util.setProperty(this, 'error', newValue.value);
   }
 
   String get message => js_util.getProperty(this, 'message');
@@ -202,12 +211,8 @@ extension PropsSpeechRecognitionErrorEventInit
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Web Speech API represents a single word
 /// that has been recognized by the speech recognition service.
-@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionAlternative {
@@ -219,13 +224,9 @@ extension PropsSpeechRecognitionAlternative on SpeechRecognitionAlternative {
   double get confidence => js_util.getProperty(this, 'confidence');
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Web Speech API represents a single
 /// recognition match, which may contain multiple
 /// [SpeechRecognitionAlternative] objects.
-@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionResult {
@@ -240,13 +241,9 @@ extension PropsSpeechRecognitionResult on SpeechRecognitionResult {
   bool get isFinal => js_util.getProperty(this, 'isFinal');
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Web Speech API represents a list of
 /// [SpeechRecognitionResult] objects, or a single one if results are
-/// being captured in [continuous] mode.
-@experimental
+/// being captured in [non-continuous] mode.
 @JS()
 @staticInterop
 class SpeechRecognitionResultList {
@@ -271,10 +268,11 @@ extension PropsSpeechRecognitionResultList on SpeechRecognitionResultList {
 ///
 ///
 ///
+///
+///
 ///    SpeechRecognitionEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionEvent implements Event {
@@ -375,6 +373,8 @@ extension PropsSpeechGrammarList on SpeechGrammarList {
 ///
 ///
 ///
+///
+///
 ///    SpeechSynthesis
 ///
 ///
@@ -418,6 +418,8 @@ extension PropsSpeechSynthesis on SpeechSynthesis {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -512,6 +514,8 @@ extension PropsSpeechSynthesisUtterance on SpeechSynthesisUtterance {
 ///
 ///
 ///
+///
+///
 ///    SpeechSynthesisEvent
 ///
 ///
@@ -572,23 +576,25 @@ extension PropsSpeechSynthesisEventInit on SpeechSynthesisEventInit {
 }
 
 enum SpeechSynthesisErrorCode {
-  canceled,
-  interrupted,
-  audioBusy,
-  audioHardware,
-  network,
-  synthesisUnavailable,
-  synthesisFailed,
-  languageUnavailable,
-  voiceUnavailable,
-  textTooLong,
-  invalidArgument,
-  notAllowed
+  canceled('canceled'),
+  interrupted('interrupted'),
+  audioBusy('audio-busy'),
+  audioHardware('audio-hardware'),
+  network('network'),
+  synthesisUnavailable('synthesis-unavailable'),
+  synthesisFailed('synthesis-failed'),
+  languageUnavailable('language-unavailable'),
+  voiceUnavailable('voice-unavailable'),
+  textTooLong('text-too-long'),
+  invalidArgument('invalid-argument'),
+  notAllowed('not-allowed');
+
+  final String value;
+  static SpeechSynthesisErrorCode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const SpeechSynthesisErrorCode(this.value);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Web Speech API contains information about
 /// any errors that occur while processing [SpeechSynthesisUtterance]
 /// objects in the speech service.
@@ -601,7 +607,11 @@ enum SpeechSynthesisErrorCode {
 ///
 ///
 ///
+///
+///
 ///    SpeechSynthesisEvent
+///
+///
 ///
 ///
 ///
@@ -610,7 +620,6 @@ enum SpeechSynthesisErrorCode {
 ///    SpeechSynthesisErrorEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class SpeechSynthesisErrorEvent implements SpeechSynthesisEvent {
@@ -619,8 +628,8 @@ class SpeechSynthesisErrorEvent implements SpeechSynthesisEvent {
 }
 
 extension PropsSpeechSynthesisErrorEvent on SpeechSynthesisErrorEvent {
-  SpeechSynthesisErrorCode get error => SpeechSynthesisErrorCode.values
-      .byName(js_util.getProperty(this, 'error'));
+  SpeechSynthesisErrorCode get error =>
+      SpeechSynthesisErrorCode.fromValue(js_util.getProperty(this, 'error'));
 }
 
 @anonymous
@@ -631,14 +640,14 @@ class SpeechSynthesisErrorEventInit implements SpeechSynthesisEventInit {
 
   factory SpeechSynthesisErrorEventInit(
           {required SpeechSynthesisErrorCode error}) =>
-      SpeechSynthesisErrorEventInit._(error: error.name);
+      SpeechSynthesisErrorEventInit._(error: error.value);
 }
 
 extension PropsSpeechSynthesisErrorEventInit on SpeechSynthesisErrorEventInit {
-  SpeechSynthesisErrorCode get error => SpeechSynthesisErrorCode.values
-      .byName(js_util.getProperty(this, 'error'));
+  SpeechSynthesisErrorCode get error =>
+      SpeechSynthesisErrorCode.fromValue(js_util.getProperty(this, 'error'));
   set error(SpeechSynthesisErrorCode newValue) {
-    js_util.setProperty(this, 'error', newValue.name);
+    js_util.setProperty(this, 'error', newValue.value);
   }
 }
 

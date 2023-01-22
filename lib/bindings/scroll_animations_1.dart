@@ -1,4 +1,4 @@
-/// Scroll-linked Animations
+/// Scroll-driven Animations
 ///
 /// https://drafts.csswg.org/scroll-animations-1/
 
@@ -13,7 +13,17 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum ScrollAxis { block, inline, horizontal, vertical }
+enum ScrollAxis {
+  block('block'),
+  inline('inline'),
+  horizontal('horizontal'),
+  vertical('vertical');
+
+  final String value;
+  static ScrollAxis fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ScrollAxis(this.value);
+}
 
 @anonymous
 @JS()
@@ -23,7 +33,7 @@ class ScrollTimelineOptions {
 
   factory ScrollTimelineOptions(
           {Element? source, ScrollAxis? axis = ScrollAxis.block}) =>
-      ScrollTimelineOptions._(source: source, axis: axis?.name);
+      ScrollTimelineOptions._(source: source, axis: axis?.value);
 }
 
 extension PropsScrollTimelineOptions on ScrollTimelineOptions {
@@ -33,9 +43,9 @@ extension PropsScrollTimelineOptions on ScrollTimelineOptions {
   }
 
   ScrollAxis get axis =>
-      ScrollAxis.values.byName(js_util.getProperty(this, 'axis'));
+      ScrollAxis.fromValue(js_util.getProperty(this, 'axis'));
   set axis(ScrollAxis newValue) {
-    js_util.setProperty(this, 'axis', newValue.name);
+    js_util.setProperty(this, 'axis', newValue.value);
   }
 }
 
@@ -48,7 +58,7 @@ class ScrollTimeline implements AnimationTimeline {
 extension PropsScrollTimeline on ScrollTimeline {
   Element? get source => js_util.getProperty(this, 'source');
   ScrollAxis get axis =>
-      ScrollAxis.values.byName(js_util.getProperty(this, 'axis'));
+      ScrollAxis.fromValue(js_util.getProperty(this, 'axis'));
 }
 
 @anonymous
@@ -60,7 +70,7 @@ class ViewTimelineOptions {
 
   factory ViewTimelineOptions(
           {required Element subject, ScrollAxis? axis = ScrollAxis.block}) =>
-      ViewTimelineOptions._(subject: subject, axis: axis?.name);
+      ViewTimelineOptions._(subject: subject, axis: axis?.value);
 }
 
 extension PropsViewTimelineOptions on ViewTimelineOptions {
@@ -70,9 +80,9 @@ extension PropsViewTimelineOptions on ViewTimelineOptions {
   }
 
   ScrollAxis get axis =>
-      ScrollAxis.values.byName(js_util.getProperty(this, 'axis'));
+      ScrollAxis.fromValue(js_util.getProperty(this, 'axis'));
   set axis(ScrollAxis newValue) {
-    js_util.setProperty(this, 'axis', newValue.name);
+    js_util.setProperty(this, 'axis', newValue.value);
   }
 }
 

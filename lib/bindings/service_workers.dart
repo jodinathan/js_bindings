@@ -10,7 +10,6 @@ library service_workers;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -38,6 +37,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    ServiceWorker
 ///
 ///
@@ -50,7 +51,7 @@ class ServiceWorker implements EventTarget, AbstractWorker {
 extension PropsServiceWorker on ServiceWorker {
   String get scriptURL => js_util.getProperty(this, 'scriptURL');
   ServiceWorkerState get state =>
-      ServiceWorkerState.values.byName(js_util.getProperty(this, 'state'));
+      ServiceWorkerState.fromValue(js_util.getProperty(this, 'state'));
   void postMessage(dynamic message, Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
@@ -62,12 +63,17 @@ extension PropsServiceWorker on ServiceWorker {
 }
 
 enum ServiceWorkerState {
-  parsed,
-  installing,
-  installed,
-  activating,
-  activated,
-  redundant
+  parsed('parsed'),
+  installing('installing'),
+  installed('installed'),
+  activating('activating'),
+  activated('activated'),
+  redundant('redundant');
+
+  final String value;
+  static ServiceWorkerState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ServiceWorkerState(this.value);
 }
 
 ///  The interface of the Service Worker API represents the service
@@ -84,6 +90,8 @@ enum ServiceWorkerState {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -106,8 +114,8 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
       js_util.getProperty(this, 'navigationPreload');
   String get scope => js_util.getProperty(this, 'scope');
   ServiceWorkerUpdateViaCache get updateViaCache =>
-      ServiceWorkerUpdateViaCache.values
-          .byName(js_util.getProperty(this, 'updateViaCache'));
+      ServiceWorkerUpdateViaCache.fromValue(
+          js_util.getProperty(this, 'updateViaCache'));
   Future<void> update() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'update', []));
 
@@ -143,7 +151,16 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   SyncManager get mSync => js_util.getProperty(this, 'sync');
 }
 
-enum ServiceWorkerUpdateViaCache { imports, all, none }
+enum ServiceWorkerUpdateViaCache {
+  imports('imports'),
+  all('all'),
+  none('none');
+
+  final String value;
+  static ServiceWorkerUpdateViaCache fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ServiceWorkerUpdateViaCache(this.value);
+}
 
 ///  The interface of the Service Worker API provides an object
 /// representing the service worker as an overall unit in the network
@@ -159,6 +176,8 @@ enum ServiceWorkerUpdateViaCache { imports, all, none }
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -221,7 +240,9 @@ class RegistrationOptions {
           ServiceWorkerUpdateViaCache? updateViaCache =
               ServiceWorkerUpdateViaCache.imports}) =>
       RegistrationOptions._(
-          scope: scope, type: type?.name, updateViaCache: updateViaCache?.name);
+          scope: scope,
+          type: type?.value,
+          updateViaCache: updateViaCache?.value);
 }
 
 extension PropsRegistrationOptions on RegistrationOptions {
@@ -231,21 +252,28 @@ extension PropsRegistrationOptions on RegistrationOptions {
   }
 
   WorkerType get type =>
-      WorkerType.values.byName(js_util.getProperty(this, 'type'));
+      WorkerType.fromValue(js_util.getProperty(this, 'type'));
   set type(WorkerType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   ServiceWorkerUpdateViaCache get updateViaCache =>
-      ServiceWorkerUpdateViaCache.values
-          .byName(js_util.getProperty(this, 'updateViaCache'));
+      ServiceWorkerUpdateViaCache.fromValue(
+          js_util.getProperty(this, 'updateViaCache'));
   set updateViaCache(ServiceWorkerUpdateViaCache newValue) {
-    js_util.setProperty(this, 'updateViaCache', newValue.name);
+    js_util.setProperty(this, 'updateViaCache', newValue.value);
   }
 }
 
 ///  The interface of the Service Worker API provides methods for
-/// managing the preloading of resources with a service worker.
+/// managing the preloading of resources in parallel with service
+/// worker bootup.
+///
+///   If supported, an object of this type is returned by
+/// [ServiceWorkerRegistration.navigationPreload].
+///   The result of a preload fetch request is waited on using the
+/// promise returned by [FetchEvent.preloadResponse].
+///
 @JS()
 @staticInterop
 class NavigationPreloadManager {
@@ -295,8 +323,7 @@ extension PropsNavigationPreloadState on NavigationPreloadState {
 ///  Once successfully registered, a service worker can and will be
 /// terminated when idle to conserve memory and processor power. An
 /// active service worker is automatically restarted to respond to
-/// events, such as [ServiceWorkerGlobalScope.onfetch] or
-/// [ServiceWorkerGlobalScope.onmessage].
+/// events, such as [fetch] or [message].
 ///  Additionally, synchronous requests are not allowed from within a
 /// service worker — only asynchronous requests, like those initiated
 /// via the [fetch()] method, can be used.
@@ -311,7 +338,11 @@ extension PropsNavigationPreloadState on NavigationPreloadState {
 ///
 ///
 ///
+///
+///
 ///    WorkerGlobalScope
+///
+///
 ///
 ///
 ///
@@ -450,7 +481,6 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
 /// by the more-specific [WindowClient]. You can get /[WindowClient]
 /// objects from methods such as [Clients.matchAll()] and
 /// [Clients.get()].
-@experimental
 @JS()
 @staticInterop
 class Client {
@@ -460,15 +490,15 @@ class Client {
 extension PropsClient on Client {
   String get url => js_util.getProperty(this, 'url');
   FrameType get frameType =>
-      FrameType.values.byName(js_util.getProperty(this, 'frameType'));
+      FrameType.fromValue(js_util.getProperty(this, 'frameType'));
   String get id => js_util.getProperty(this, 'id');
   ClientType get type =>
-      ClientType.values.byName(js_util.getProperty(this, 'type'));
+      ClientType.fromValue(js_util.getProperty(this, 'type'));
   void postMessage(dynamic message, Iterable<dynamic> transfer) =>
       js_util.callMethod(this, 'postMessage', [message, transfer]);
 
-  ClientLifecycleState get lifecycleState => ClientLifecycleState.values
-      .byName(js_util.getProperty(this, 'lifecycleState'));
+  ClientLifecycleState get lifecycleState => ClientLifecycleState.fromValue(
+      js_util.getProperty(this, 'lifecycleState'));
 }
 
 ///  The interface of the ServiceWorker API represents the scope of a
@@ -485,10 +515,11 @@ extension PropsClient on Client {
 ///
 ///
 ///
+///
+///
 ///    WindowClient
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class WindowClient implements Client {
@@ -496,8 +527,9 @@ class WindowClient implements Client {
 }
 
 extension PropsWindowClient on WindowClient {
-  DocumentVisibilityState get visibilityState => DocumentVisibilityState.values
-      .byName(js_util.getProperty(this, 'visibilityState'));
+  DocumentVisibilityState get visibilityState =>
+      DocumentVisibilityState.fromValue(
+          js_util.getProperty(this, 'visibilityState'));
   bool get focused => js_util.getProperty(this, 'focused');
   Iterable<String> get ancestorOrigins =>
       js_util.getProperty(this, 'ancestorOrigins');
@@ -508,11 +540,20 @@ extension PropsWindowClient on WindowClient {
       js_util.promiseToFuture(js_util.callMethod(this, 'navigate', [url]));
 }
 
-enum FrameType { auxiliary, topLevel, nested, none }
+enum FrameType {
+  auxiliary('auxiliary'),
+  topLevel('top-level'),
+  nested('nested'),
+  none('none');
+
+  final String value;
+  static FrameType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const FrameType(this.value);
+}
 
 ///  The interface provides access to [Client] objects. Access it via
 /// [[self].clients] within a service worker.
-@experimental
 @JS()
 @staticInterop
 class Clients {
@@ -545,7 +586,7 @@ class ClientQueryOptions {
           {bool? includeUncontrolled = false,
           ClientType? type = ClientType.window}) =>
       ClientQueryOptions._(
-          includeUncontrolled: includeUncontrolled, type: type?.name);
+          includeUncontrolled: includeUncontrolled, type: type?.value);
 }
 
 extension PropsClientQueryOptions on ClientQueryOptions {
@@ -556,13 +597,23 @@ extension PropsClientQueryOptions on ClientQueryOptions {
   }
 
   ClientType get type =>
-      ClientType.values.byName(js_util.getProperty(this, 'type'));
+      ClientType.fromValue(js_util.getProperty(this, 'type'));
   set type(ClientType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 }
 
-enum ClientType { window, worker, sharedworker, all }
+enum ClientType {
+  window('window'),
+  worker('worker'),
+  sharedworker('sharedworker'),
+  all('all');
+
+  final String value;
+  static ClientType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ClientType(this.value);
+}
 
 ///  The interface extends the lifetime of the [install] and
 /// [activate] events dispatched on the global scope as part of the
@@ -587,6 +638,8 @@ enum ClientType { window, worker, sharedworker, all }
 ///
 ///
 ///
+///
+///
 ///    ExtendableEvent
 ///
 ///
@@ -595,7 +648,6 @@ enum ClientType { window, worker, sharedworker, all }
 /// a [ServiceWorkerGlobalScope]. It is not available when it is a
 /// [Window], or the scope of another kind of worker.
 ///
-@experimental
 @JS()
 @staticInterop
 class ExtendableEvent implements Event {
@@ -629,7 +681,11 @@ class ExtendableEventInit implements EventInit {
 ///
 ///
 ///
+///
+///
 ///    ExtendableEvent
+///
+///
 ///
 ///
 ///
@@ -720,7 +776,11 @@ extension PropsFetchEventInit on FetchEventInit {
 ///
 ///
 ///
+///
+///
 ///    ExtendableEvent
+///
+///
 ///
 ///
 ///
@@ -729,7 +789,6 @@ extension PropsFetchEventInit on FetchEventInit {
 ///    ExtendableMessageEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class ExtendableMessageEvent implements ExtendableEvent {
@@ -785,40 +844,39 @@ extension PropsExtendableMessageEventInit on ExtendableMessageEventInit {
 }
 
 ///  The interface provides a persistent storage mechanism for
-/// [[Request]] / [[Response]] object pairs that are cached in long
-/// lived memory. How long a Cache lives is browser dependent, but a
+/// [Request] / [Response] object pairs that are cached in long lived
+/// memory. How long a object lives is browser dependent, but a
 /// single origin's scripts can typically rely on the presence of a
-/// previously populated Cache. Note that the interface is exposed to
-/// windowed scopes as well as workers. You don't have to use it in
-/// conjunction with service workers, even though it is defined in
+/// previously populated object. Note that the interface is exposed
+/// to windowed scopes as well as workers. You don't have to use it
+/// in conjunction with service workers, even though it is defined in
 /// the service worker spec.
 ///  An origin can have multiple, named objects. You are responsible
 /// for implementing how your script (e.g. in a [ServiceWorker])
 /// handles updates. Items in a do not get updated unless explicitly
-/// requested; they don’t expire unless deleted. Use
+/// requested; they don't expire unless deleted. Use
 /// [CacheStorage.open()] to open a specific named object and then
 /// call any of the methods to maintain the .
 ///  You are also responsible for periodically purging cache entries.
 /// Each browser has a hard limit on the amount of cache storage that
-/// a given origin can use. Cache quota usage estimates are available
-/// via the [StorageManager.estimate()] method. The browser does its
-/// best to manage disk space, but it may delete the Cache storage
-/// for an origin. The browser will generally delete all of the data
-/// for an origin or none of the data for an origin. Make sure to
-/// version caches by name and use the caches only from the version
-/// of the script that they can safely operate on. See Deleting old
-/// caches for more information.
+/// a given origin can use. quota usage estimates are available via
+/// the [StorageManager.estimate()] method. The browser does its best
+/// to manage disk space, but it may delete the storage for an
+/// origin. The browser will generally delete all of the data for an
+/// origin or none of the data for an origin. Make sure to version
+/// caches by name and use the caches only from the version of the
+/// script that they can safely operate on. See Deleting old caches
+/// for more information.
 ///
 ///   Note: The key matching algorithm depends on the VARY header in
 /// the value. So matching a new key requires looking at both key and
-/// value for entries in the Cache.
+/// value for entries in the object.
 ///  Note: The caching API doesn't honor HTTP caching headers.
 ///
 ///  Note: This feature is available in Web Workers
 ///
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
-@experimental
 @JS()
 @staticInterop
 class Cache {
@@ -884,13 +942,7 @@ extension PropsCacheQueryOptions on CacheQueryOptions {
 ///
 ///   Provides a master directory of all the named caches that can be
 /// accessed by a [ServiceWorker] or other type of worker or [window]
-/// scope (you’re not limited to only using it with service workers).
-///
-///     Note: Chrome and Safari only expose `CacheStorage` to the
-/// windowed context over HTTPS. [caches] will be undefined unless an
-/// SSL certificate is configured.
-///
-///
+/// scope (you're not limited to only using it with service workers).
 ///   Maintains a mapping of string names to corresponding [Cache]
 /// objects.
 ///
@@ -918,7 +970,6 @@ extension PropsCacheQueryOptions on CacheQueryOptions {
 ///
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
-@experimental
 @JS()
 @staticInterop
 class CacheStorage {

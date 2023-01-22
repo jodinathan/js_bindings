@@ -1,6 +1,6 @@
 /// WebGL WEBGL_blend_equation_advanced_coherent Extension Draft Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/WEBGL_blend_equation_advanced_coherent/
+/// https://registry.khronos.org/webgl/extensions/WEBGL_blend_equation_advanced_coherent/
 
 // ignore_for_file: unused_import
 

@@ -1,6 +1,6 @@
 /// Compute Pressure Level 1
 ///
-/// https://wicg.github.io/compute-pressure/
+/// https://w3c.github.io/compute-pressure/
 
 // ignore_for_file: unused_import
 
@@ -13,11 +13,36 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum PressureState { nominal, fair, serious, critical }
+enum PressureState {
+  nominal('nominal'),
+  fair('fair'),
+  serious('serious'),
+  critical('critical');
 
-enum PressureFactor { thermal, powerSupply }
+  final String value;
+  static PressureState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const PressureState(this.value);
+}
 
-enum PressureSource { cpu }
+enum PressureFactor {
+  thermal('thermal'),
+  powerSupply('power-supply');
+
+  final String value;
+  static PressureFactor fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const PressureFactor(this.value);
+}
+
+enum PressureSource {
+  cpu('cpu');
+
+  final String value;
+  static PressureSource fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const PressureSource(this.value);
+}
 
 @JS()
 @staticInterop
@@ -27,11 +52,11 @@ class PressureObserver {
 }
 
 extension PropsPressureObserver on PressureObserver {
-  void observe(PressureSource source) =>
-      js_util.callMethod(this, 'observe', [source.name]);
+  Future<void> observe(PressureSource source) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'observe', [source.value]));
 
   void unobserve(PressureSource source) =>
-      js_util.callMethod(this, 'unobserve', [source.name]);
+      js_util.callMethod(this, 'unobserve', [source.value]);
 
   void disconnect() => js_util.callMethod(this, 'disconnect', []);
 
@@ -39,68 +64,34 @@ extension PropsPressureObserver on PressureObserver {
       js_util.callMethod(this, 'takeRecords', []);
 
   external static Iterable<PressureSource> get supportedSources;
-
-  static Future<PermissionState> requestPermission() => js_util.promiseToFuture(
-      js_util.callMethod(PressureObserver, 'requestPermission', []));
 }
 
-@anonymous
 @JS()
 @staticInterop
 class PressureRecord {
-  external factory PressureRecord._(
-      {required String source,
-      required String state,
-      required Iterable<String> factors,
-      required double time});
-
-  factory PressureRecord(
-          {required PressureSource source,
-          required PressureState state,
-          required Iterable<PressureFactor> factors,
-          required double time}) =>
-      PressureRecord._(
-          source: source.name,
-          state: state.name,
-          factors: factors.names,
-          time: time);
+  external factory PressureRecord();
 }
 
 extension PropsPressureRecord on PressureRecord {
   PressureSource get source =>
-      PressureSource.values.byName(js_util.getProperty(this, 'source'));
-  set source(PressureSource newValue) {
-    js_util.setProperty(this, 'source', newValue.name);
-  }
-
+      PressureSource.fromValue(js_util.getProperty(this, 'source'));
   PressureState get state =>
-      PressureState.values.byName(js_util.getProperty(this, 'state'));
-  set state(PressureState newValue) {
-    js_util.setProperty(this, 'state', newValue.name);
-  }
-
+      PressureState.fromValue(js_util.getProperty(this, 'state'));
   Iterable<PressureFactor> get factors =>
-      PressureFactor.values.byNames(js_util.getProperty(this, 'factors'));
-  set factors(Iterable<PressureFactor> newValue) {
-    js_util.setProperty(this, 'factors', newValue.names);
-  }
-
+      PressureFactor.fromValues(js_util.getProperty(this, 'factors'));
   double get time => js_util.getProperty(this, 'time');
-  set time(double newValue) {
-    js_util.setProperty(this, 'time', newValue);
-  }
 }
 
 @anonymous
 @JS()
 @staticInterop
 class PressureObserverOptions {
-  external factory PressureObserverOptions({required double samplerate});
+  external factory PressureObserverOptions({double? sampleRate = 1.0});
 }
 
 extension PropsPressureObserverOptions on PressureObserverOptions {
-  double get samplerate => js_util.getProperty(this, 'samplerate');
-  set samplerate(double newValue) {
-    js_util.setProperty(this, 'samplerate', newValue);
+  double get sampleRate => js_util.getProperty(this, 'sampleRate');
+  set sampleRate(double newValue) {
+    js_util.setProperty(this, 'sampleRate', newValue);
   }
 }

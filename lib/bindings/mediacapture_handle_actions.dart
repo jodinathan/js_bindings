@@ -13,7 +13,17 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum CaptureAction { next, previous, first, last }
+enum CaptureAction {
+  next('next'),
+  previous('previous'),
+  first('first'),
+  last('last');
+
+  final String value;
+  static CaptureAction fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const CaptureAction(this.value);
+}
 
 @JS()
 @staticInterop
@@ -23,7 +33,7 @@ class CaptureActionEvent implements Event {
 
 extension PropsCaptureActionEvent on CaptureActionEvent {
   CaptureAction get action =>
-      CaptureAction.values.byName(js_util.getProperty(this, 'action'));
+      CaptureAction.fromValue(js_util.getProperty(this, 'action'));
 }
 
 @anonymous

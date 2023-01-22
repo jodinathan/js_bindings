@@ -1,6 +1,6 @@
 /// Geometry Interfaces Module Level 1
 ///
-/// https://drafts.fxtf.org/geometry/
+/// https://drafts.fxtf.org/geometry-1/
 
 // ignore_for_file: unused_import
 
@@ -23,18 +23,19 @@ import 'package:js_bindings/js_bindings.dart';
 /// its constructor, passing in the values of the parameters for each
 /// dimension and, optionally, the perspective:
 /// [/* 2D */
-/// const point = new DOMPointReadOnly(50, 50);
+/// const point2D = new DOMPointReadOnly(50, 50);
 ///
 /// /* 3D */
-/// const point = new DOMPointReadOnly(50, 50, 25);
+/// const point3D = new DOMPointReadOnly(50, 50, 25);
 ///
 /// /* 3D with perspective */
-/// const point = new DOMPointReadOnly(100, 100, 100, 1.0);
+///  const point3DPerspective = new DOMPointReadOnly(100, 100, 100,
+/// 1.0);
 /// ]
 ///  The other option is to use the static
 /// [DOMPointReadOnly.fromPoint()] method:
 ///  [const point = DOMPointReadOnly.fromPoint({x: 100, y: 100, z:
-/// 50; w: 1.0});
+/// 50, w: 1.0});
 /// ]
 @JS()
 @staticInterop
@@ -73,6 +74,8 @@ extension PropsDOMPointReadOnly on DOMPointReadOnly {
 ///
 ///
 ///    DOMPointReadOnly
+///
+///
 ///
 ///
 ///
@@ -192,6 +195,8 @@ extension PropsDOMRectReadOnly on DOMRectReadOnly {
 ///
 ///
 ///
+///
+///
 ///    DOMRect
 ///
 ///
@@ -274,16 +279,12 @@ extension PropsDOMRectList on DOMRectList {
   DOMRect? item(int index) => js_util.callMethod(this, 'item', [index]);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  A is a collection of four [DOMPoint]s defining the corners of an
 /// arbitrary quadrilateral. Returning s lets [getBoxQuads()] return
 /// accurate information even when arbitrary 2D or 3D transforms are
 /// present. It has a handy [bounds] attribute returning a
 /// [DOMRectReadOnly] for those cases where you just want an
 /// axis-aligned bounding rectangle.
-@experimental
 @JS()
 @staticInterop
 class DOMQuad {
@@ -471,6 +472,8 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
 ///
 ///
 ///    DOMMatrixReadOnly
+///
+///
 ///
 ///
 ///

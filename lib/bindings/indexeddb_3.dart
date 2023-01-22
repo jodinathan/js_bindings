@@ -31,16 +31,18 @@ import 'package:js_bindings/js_bindings.dart';
 ///  In plain words, all asynchronous methods return a request
 /// object. If the request has been completed successfully, the
 /// result is made available through the [result] property and an
-/// event indicating success is fired at the request
-/// ([IDBRequest.onsuccess]). If an error occurs while performing the
-/// operation, the exception is made available through the [result]
-/// property and an error event is fired ([IDBRequest.onerror]).
+/// event indicating success is fired at the request ([success]). If
+/// an error occurs while performing the operation, the exception is
+/// made available through the [error] property and an error event is
+/// fired ([error]).
 /// The interface [IDBOpenDBRequest] is derived from .
 ///  Note: This feature is available in Web Workers
 ///
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -60,8 +62,8 @@ extension PropsIDBRequest on IDBRequest {
   Exception? get error => js_util.getProperty(this, 'error');
   dynamic get source => js_util.getProperty(this, 'source');
   IDBTransaction? get transaction => js_util.getProperty(this, 'transaction');
-  IDBRequestReadyState get readyState => IDBRequestReadyState.values
-      .byName(js_util.getProperty(this, 'readyState'));
+  IDBRequestReadyState get readyState =>
+      IDBRequestReadyState.fromValue(js_util.getProperty(this, 'readyState'));
   EventHandlerNonNull? get onsuccess => js_util.getProperty(this, 'onsuccess');
   set onsuccess(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onsuccess', newValue);
@@ -73,7 +75,15 @@ extension PropsIDBRequest on IDBRequest {
   }
 }
 
-enum IDBRequestReadyState { pending, done }
+enum IDBRequestReadyState {
+  pending('pending'),
+  done('done');
+
+  final String value;
+  static IDBRequestReadyState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const IDBRequestReadyState(this.value);
+}
 
 ///  The interface of the IndexedDB API provides access to the
 /// results of requests to open or delete databases (performed using
@@ -89,7 +99,11 @@ enum IDBRequestReadyState { pending, done }
 ///
 ///
 ///
+///
+///
 ///    IDBRequest
+///
+///
 ///
 ///
 ///
@@ -118,13 +132,15 @@ extension PropsIDBOpenDBRequest on IDBOpenDBRequest {
 }
 
 ///  The interface of the IndexedDB API indicates that the version of
-/// the database has changed, as the result of an
-/// [IDBOpenDBRequest.onupgradeneeded] event handler function.
+/// the database has changed, as the result of an [onupgradeneeded]
+/// event handler function.
 ///  Note: This feature is available in Web Workers
 ///
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -234,6 +250,8 @@ extension PropsIDBDatabaseInfo on IDBDatabaseInfo {
 ///
 ///
 ///
+///
+///
 ///    IDBDatabase
 ///
 ///
@@ -252,7 +270,7 @@ extension PropsIDBDatabase on IDBDatabase {
           [IDBTransactionMode? mode = IDBTransactionMode.readonly,
           IDBTransactionOptions? options]) =>
       js_util
-          .callMethod(this, 'transaction', [storeNames, mode?.name, options]);
+          .callMethod(this, 'transaction', [storeNames, mode?.value, options]);
 
   void close() => js_util.callMethod(this, 'close', []);
 
@@ -285,7 +303,16 @@ extension PropsIDBDatabase on IDBDatabase {
   }
 }
 
-enum IDBTransactionDurability { valueDefault, strict, relaxed }
+enum IDBTransactionDurability {
+  valueDefault('default'),
+  strict('strict'),
+  relaxed('relaxed');
+
+  final String value;
+  static IDBTransactionDurability fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const IDBTransactionDurability(this.value);
+}
 
 @anonymous
 @JS()
@@ -296,14 +323,14 @@ class IDBTransactionOptions {
   factory IDBTransactionOptions(
           {IDBTransactionDurability? durability =
               IDBTransactionDurability.valueDefault}) =>
-      IDBTransactionOptions._(durability: durability?.name);
+      IDBTransactionOptions._(durability: durability?.value);
 }
 
 extension PropsIDBTransactionOptions on IDBTransactionOptions {
-  IDBTransactionDurability get durability => IDBTransactionDurability.values
-      .byName(js_util.getProperty(this, 'durability'));
+  IDBTransactionDurability get durability => IDBTransactionDurability.fromValue(
+      js_util.getProperty(this, 'durability'));
   set durability(IDBTransactionDurability newValue) {
-    js_util.setProperty(this, 'durability', newValue.name);
+    js_util.setProperty(this, 'durability', newValue.value);
   }
 }
 
@@ -379,12 +406,12 @@ extension PropsIDBObjectStore on IDBObjectStore {
   IDBRequest openCursor(
           [dynamic query,
           IDBCursorDirection? direction = IDBCursorDirection.next]) =>
-      js_util.callMethod(this, 'openCursor', [query, direction?.name]);
+      js_util.callMethod(this, 'openCursor', [query, direction?.value]);
 
   IDBRequest openKeyCursor(
           [dynamic query,
           IDBCursorDirection? direction = IDBCursorDirection.next]) =>
-      js_util.callMethod(this, 'openKeyCursor', [query, direction?.name]);
+      js_util.callMethod(this, 'openKeyCursor', [query, direction?.value]);
 
   IDBIndex index(String name) => js_util.callMethod(this, 'index', [name]);
 
@@ -472,12 +499,12 @@ extension PropsIDBIndex on IDBIndex {
   IDBRequest openCursor(
           [dynamic query,
           IDBCursorDirection? direction = IDBCursorDirection.next]) =>
-      js_util.callMethod(this, 'openCursor', [query, direction?.name]);
+      js_util.callMethod(this, 'openCursor', [query, direction?.value]);
 
   IDBRequest openKeyCursor(
           [dynamic query,
           IDBCursorDirection? direction = IDBCursorDirection.next]) =>
-      js_util.callMethod(this, 'openKeyCursor', [query, direction?.name]);
+      js_util.callMethod(this, 'openKeyCursor', [query, direction?.value]);
 }
 
 ///  The interface of the IndexedDB API represents a continuous
@@ -503,39 +530,39 @@ extension PropsIDBIndex on IDBIndex {
 ///
 ///
 ///    All keys ≥ x
-///    [IDBKeyRange.lowerBound][(x)]
+///    [IDBKeyRange.lowerBound] [(x)]
 ///
 ///
 ///    All keys > x
-///    [IDBKeyRange.lowerBound][(x, true)]
+///    [IDBKeyRange.lowerBound] [(x, true)]
 ///
 ///
 ///    All keys ≤ y
-///    [IDBKeyRange.upperBound][(y)]
+///    [IDBKeyRange.upperBound] [(y)]
 ///
 ///
 ///    All keys < y
-///    [IDBKeyRange.upperBound][(y, true)]
+///    [IDBKeyRange.upperBound] [(y, true)]
 ///
 ///
 ///    All keys ≥ x && ≤ y
-///    [IDBKeyRange.bound][(x, y)]
+///    [IDBKeyRange.bound] [(x, y)]
 ///
 ///
 ///    All keys > x &&< y
-///    [IDBKeyRange.bound][(x, y, true, true)]
+///    [IDBKeyRange.bound] [(x, y, true, true)]
 ///
 ///
 ///    All keys > x && ≤ y
-///    [IDBKeyRange.bound][(x, y, true, false)]
+///    [IDBKeyRange.bound] [(x, y, true, false)]
 ///
 ///
 ///    All keys ≥ x &&< y
-///    [IDBKeyRange.bound][(x, y, false, true)]
+///    [IDBKeyRange.bound] [(x, y, false, true)]
 ///
 ///
 ///    The key = z
-///    [IDBKeyRange.only][(z)]
+///    [IDBKeyRange.only] [(z)]
 ///
 ///
 ///
@@ -611,7 +638,7 @@ class IDBCursor {
 extension PropsIDBCursor on IDBCursor {
   dynamic get source => js_util.getProperty(this, 'source');
   IDBCursorDirection get direction =>
-      IDBCursorDirection.values.byName(js_util.getProperty(this, 'direction'));
+      IDBCursorDirection.fromValue(js_util.getProperty(this, 'direction'));
   dynamic get key => js_util.getProperty(this, 'key');
   dynamic get primaryKey => js_util.getProperty(this, 'primaryKey');
   IDBRequest get request => js_util.getProperty(this, 'request');
@@ -630,7 +657,17 @@ extension PropsIDBCursor on IDBCursor {
   IDBRequest delete() => js_util.callMethod(this, 'delete', []);
 }
 
-enum IDBCursorDirection { next, nextunique, prev, prevunique }
+enum IDBCursorDirection {
+  next('next'),
+  nextunique('nextunique'),
+  prev('prev'),
+  prevunique('prevunique');
+
+  final String value;
+  static IDBCursorDirection fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const IDBCursorDirection(this.value);
+}
 
 ///  The interface of the IndexedDB API represents a cursor for
 /// traversing or iterating over multiple records in a database. It
@@ -649,6 +686,8 @@ enum IDBCursorDirection { next, nextunique, prev, prevunique }
 ///
 ///
 ///    IDBCursor
+///
+///
 ///
 ///
 ///
@@ -684,15 +723,17 @@ extension PropsIDBCursorWithValue on IDBCursorWithValue {
 ///
 ///
 ///
+///
+///
 ///    IDBTransaction
 ///
 ///
 ///  Transactions are started when the transaction is created, not
 /// when the first request is placed; for example consider this:
-/// [var trans1 = db.transaction("foo", "readwrite");
-/// var trans2 = db.transaction("foo", "readwrite");
-/// var objectStore2 = trans2.objectStore("foo")
-/// var objectStore1 = trans1.objectStore("foo")
+/// [const trans1 = db.transaction("foo", "readwrite");
+/// const trans2 = db.transaction("foo", "readwrite");
+/// const objectStore2 = trans2.objectStore("foo")
+/// const objectStore1 = trans1.objectStore("foo")
 /// objectStore2.put("2", "key");
 /// objectStore1.put("1", "key");
 /// ]
@@ -708,9 +749,9 @@ extension PropsIDBTransaction on IDBTransaction {
   DOMStringList get objectStoreNames =>
       js_util.getProperty(this, 'objectStoreNames');
   IDBTransactionMode get mode =>
-      IDBTransactionMode.values.byName(js_util.getProperty(this, 'mode'));
-  IDBTransactionDurability get durability => IDBTransactionDurability.values
-      .byName(js_util.getProperty(this, 'durability'));
+      IDBTransactionMode.fromValue(js_util.getProperty(this, 'mode'));
+  IDBTransactionDurability get durability => IDBTransactionDurability.fromValue(
+      js_util.getProperty(this, 'durability'));
   IDBDatabase get db => js_util.getProperty(this, 'db');
   Exception? get error => js_util.getProperty(this, 'error');
   IDBObjectStore objectStore(String name) =>
@@ -737,4 +778,13 @@ extension PropsIDBTransaction on IDBTransaction {
   }
 }
 
-enum IDBTransactionMode { readonly, readwrite, versionchange }
+enum IDBTransactionMode {
+  readonly('readonly'),
+  readwrite('readwrite'),
+  versionchange('versionchange');
+
+  final String value;
+  static IDBTransactionMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const IDBTransactionMode(this.value);
+}

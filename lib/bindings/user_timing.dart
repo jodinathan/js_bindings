@@ -63,14 +63,19 @@ extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {
   }
 }
 
-///   is an abstract interface for [PerformanceEntry] objects with an
-/// [entryType] of "[mark]". Entries of this type are created by
-/// calling [performance.mark()] to add a named [double] (the mark)
-/// to the browser's performance timeline.
+///   is an interface for [PerformanceEntry] objects with an
+/// [entryType] of "[mark]".
+///  Entries of this type are typically created by calling
+/// [performance.mark()] to add a named [double] (the mark) to the
+/// browser's performance timeline. To create a performance mark that
+/// isn't added to the browser's performance timeline, use the
+/// constructor.
 ///
 ///
 ///
 ///    PerformanceEntry
+///
+///
 ///
 ///
 ///
@@ -101,6 +106,8 @@ extension PropsPerformanceMark on PerformanceMark {
 ///
 ///
 ///    PerformanceEntry
+///
+///
 ///
 ///
 ///

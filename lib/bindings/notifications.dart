@@ -10,7 +10,6 @@ library notifications;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -27,6 +26,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -75,7 +76,7 @@ extension PropsNotification on Notification {
 
   String get title => js_util.getProperty(this, 'title');
   NotificationDirection get dir =>
-      NotificationDirection.values.byName(js_util.getProperty(this, 'dir'));
+      NotificationDirection.fromValue(js_util.getProperty(this, 'dir'));
   String get lang => js_util.getProperty(this, 'lang');
   String get body => js_util.getProperty(this, 'body');
   String get tag => js_util.getProperty(this, 'tag');
@@ -130,7 +131,7 @@ class NotificationOptions {
           dynamic data,
           Iterable<NotificationAction>? actions = const []}) =>
       NotificationOptions._(
-          dir: dir?.name,
+          dir: dir?.value,
           lang: lang,
           body: body,
           tag: tag,
@@ -148,9 +149,9 @@ class NotificationOptions {
 
 extension PropsNotificationOptions on NotificationOptions {
   NotificationDirection get dir =>
-      NotificationDirection.values.byName(js_util.getProperty(this, 'dir'));
+      NotificationDirection.fromValue(js_util.getProperty(this, 'dir'));
   set dir(NotificationDirection newValue) {
-    js_util.setProperty(this, 'dir', newValue.name);
+    js_util.setProperty(this, 'dir', newValue.value);
   }
 
   String get lang => js_util.getProperty(this, 'lang');
@@ -221,9 +222,27 @@ extension PropsNotificationOptions on NotificationOptions {
   }
 }
 
-enum NotificationPermission { valueDefault, denied, granted }
+enum NotificationPermission {
+  valueDefault('default'),
+  denied('denied'),
+  granted('granted');
 
-enum NotificationDirection { auto, ltr, rtl }
+  final String value;
+  static NotificationPermission fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const NotificationPermission(this.value);
+}
+
+enum NotificationDirection {
+  auto('auto'),
+  ltr('ltr'),
+  rtl('rtl');
+
+  final String value;
+  static NotificationDirection fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const NotificationDirection(this.value);
+}
 
 @anonymous
 @JS()
@@ -278,7 +297,11 @@ extension PropsGetNotificationOptions on GetNotificationOptions {
 ///
 ///
 ///
+///
+///
 ///    ExtendableEvent
+///
+///
 ///
 ///
 ///
@@ -287,7 +310,6 @@ extension PropsGetNotificationOptions on GetNotificationOptions {
 ///    NotificationEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class NotificationEvent implements ExtendableEvent {

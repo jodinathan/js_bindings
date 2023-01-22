@@ -14,13 +14,27 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum ReadyState { closed, open, ended }
+enum ReadyState {
+  closed('closed'),
+  open('open'),
+  ended('ended');
 
-enum EndOfStreamError { network, decode }
+  final String value;
+  static ReadyState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ReadyState(this.value);
+}
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+enum EndOfStreamError {
+  network('network'),
+  decode('decode');
+
+  final String value;
+  static EndOfStreamError fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const EndOfStreamError(this.value);
+}
+
 ///  The interface of the Media Source Extensions API represents a
 /// source of media data for an [HTMLMediaElement] object. A object
 /// can be attached to a [HTMLMediaElement] to be played in the user
@@ -34,10 +48,11 @@ enum EndOfStreamError { network, decode }
 ///
 ///
 ///
+///
+///
 ///    MediaSource
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class MediaSource implements EventTarget {
@@ -51,7 +66,7 @@ extension PropsMediaSource on MediaSource {
   SourceBufferList get activeSourceBuffers =>
       js_util.getProperty(this, 'activeSourceBuffers');
   ReadyState get readyState =>
-      ReadyState.values.byName(js_util.getProperty(this, 'readyState'));
+      ReadyState.fromValue(js_util.getProperty(this, 'readyState'));
 /* double | NaN */ dynamic get duration =>
       js_util.getProperty(this, 'duration');
   set duration(/* double | NaN */ dynamic newValue) {
@@ -85,7 +100,7 @@ extension PropsMediaSource on MediaSource {
       js_util.callMethod(this, 'removeSourceBuffer', [sourceBuffer]);
 
   void endOfStream([EndOfStreamError? error]) =>
-      js_util.callMethod(this, 'endOfStream', [error?.name]);
+      js_util.callMethod(this, 'endOfStream', [error?.value]);
 
   void setLiveSeekableRange(double start, double end) =>
       js_util.callMethod(this, 'setLiveSeekableRange', [start, end]);
@@ -97,13 +112,41 @@ extension PropsMediaSource on MediaSource {
       js_util.callMethod(MediaSource, 'isTypeSupported', [type]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Media Source Extensions API is a proxy for
+/// a [MediaSource] that can be transferred from a dedicated worker
+/// back to the main thread and attached to a media element via its
+/// [HTMLMediaElement.srcObject] property. [MediaSource] objects are
+/// not transferable because they are event targets, hence the need
+/// for s.
+/// It can be accessed via the [MediaSource.handle] property.
+///  Each [MediaSource] object created inside a dedicated worker has
+/// its own distinct . The [MediaSource.handle] getter will always
+/// return the instance specific to the associated dedicated worker
+/// [MediaSource] instance. If the handle has already been
+/// transferred to the main thread using [postMessage()], the handle
+/// instance in the worker is technically detached and can't be
+/// transferred again.
+///  Note: This feature is available in Web Workers
+///
+@experimental
 @JS()
 @staticInterop
 class MediaSourceHandle {
   external factory MediaSourceHandle();
 }
 
-enum AppendMode { segments, sequence }
+enum AppendMode {
+  segments('segments'),
+  sequence('sequence');
+
+  final String value;
+  static AppendMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const AppendMode(this.value);
+}
 
 ///  The interface represents a chunk of media to be passed into an
 /// [HTMLMediaElement] and played, via a [MediaSource] object. This
@@ -117,10 +160,11 @@ enum AppendMode { segments, sequence }
 ///
 ///
 ///
+///
+///
 ///    SourceBuffer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class SourceBuffer implements EventTarget {
@@ -129,9 +173,9 @@ class SourceBuffer implements EventTarget {
 
 extension PropsSourceBuffer on SourceBuffer {
   AppendMode get mode =>
-      AppendMode.values.byName(js_util.getProperty(this, 'mode'));
+      AppendMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(AppendMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 
   bool get updating => js_util.getProperty(this, 'updating');
@@ -195,9 +239,6 @@ extension PropsSourceBuffer on SourceBuffer {
       js_util.callMethod(this, 'remove', [start, end]);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface represents a simple container list for multiple
 /// [SourceBuffer] objects.
 ///  The source buffer list containing the [SourceBuffer]s appended
@@ -214,10 +255,11 @@ extension PropsSourceBuffer on SourceBuffer {
 ///
 ///
 ///
+///
+///
 ///    SourceBufferList
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class SourceBufferList implements EventTarget {

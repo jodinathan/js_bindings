@@ -10,6 +10,7 @@ library accelerometer;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -20,15 +21,14 @@ import 'package:js_bindings/js_bindings.dart';
 /// acceleration applied to the device along all three axes.
 ///  To use this sensor, the user must grant permission to the
 /// ['accelerometer'], device sensor through the Permissions API.
-///  If a feature policy blocks the use of a feature, it is because
-/// your code is inconsistent with the policies set on your server.
-/// This is not something that would ever be shown to a user. The
-/// [Feature-Policy] HTTP header article contains implementation
-/// instructions.
+///  This feature may be blocked by a Permissions Policy set on your
+/// server.
 ///
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -40,9 +40,12 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    Accelerometer
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class Accelerometer implements Sensor {
@@ -55,7 +58,15 @@ extension PropsAccelerometer on Accelerometer {
   double? get z => js_util.getProperty(this, 'z');
 }
 
-enum AccelerometerLocalCoordinateSystem { device, screen }
+enum AccelerometerLocalCoordinateSystem {
+  device('device'),
+  screen('screen');
+
+  final String value;
+  static AccelerometerLocalCoordinateSystem fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const AccelerometerLocalCoordinateSystem(this.value);
+}
 
 @anonymous
 @JS()
@@ -66,15 +77,15 @@ class AccelerometerSensorOptions implements SensorOptions {
   factory AccelerometerSensorOptions(
           {AccelerometerLocalCoordinateSystem? referenceFrame =
               AccelerometerLocalCoordinateSystem.device}) =>
-      AccelerometerSensorOptions._(referenceFrame: referenceFrame?.name);
+      AccelerometerSensorOptions._(referenceFrame: referenceFrame?.value);
 }
 
 extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
   AccelerometerLocalCoordinateSystem get referenceFrame =>
-      AccelerometerLocalCoordinateSystem.values
-          .byName(js_util.getProperty(this, 'referenceFrame'));
+      AccelerometerLocalCoordinateSystem.fromValue(
+          js_util.getProperty(this, 'referenceFrame'));
   set referenceFrame(AccelerometerLocalCoordinateSystem newValue) {
-    js_util.setProperty(this, 'referenceFrame', newValue.name);
+    js_util.setProperty(this, 'referenceFrame', newValue.value);
   }
 }
 
@@ -82,16 +93,15 @@ extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
 /// acceleration applied to the device along all three axes, but
 /// without the contribution of gravity.
 ///  To use this sensor, the user must grant permission to the
-/// ['accelerometer'] device sensor through the Permissions API.
-///  If a feature policy blocks use of a feature it is because your
-/// code is inconsistent with the policies set on your server. This
-/// is not something that would ever be shown to a user. The
-/// [Feature-Policy] HTTP header article contains implementation
-/// instructions.
+/// ['accelerometer'] device sensor through the Permissions API. In
+/// addition, this feature may be blocked by a Permissions Policy set
+/// on your server.
 ///
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -103,7 +113,11 @@ extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
 ///
 ///
 ///
+///
+///
 ///    Accelerometer
+///
+///
 ///
 ///
 ///
@@ -122,11 +136,15 @@ class LinearAccelerationSensor implements Accelerometer {
 ///  The interface of the Sensor APIs provides on each reading the
 /// gravity applied to the device along all three axes.
 ///  To use this sensor, the user must grant permission to the
-/// ['accelerometer'] device sensor through the Permissions API.
+/// ['accelerometer'] device sensor through the Permissions API. In
+/// addition, this feature may be blocked by a Permissions Policy set
+/// on your server.
 ///
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -138,7 +156,11 @@ class LinearAccelerationSensor implements Accelerometer {
 ///
 ///
 ///
+///
+///
 ///    Accelerometer
+///
+///
 ///
 ///
 ///

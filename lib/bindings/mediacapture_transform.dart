@@ -10,12 +10,17 @@ library mediacapture_transform;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the [Insertable Streams for MediaStreamTrack
 /// API] consumes a [MediaStreamTrack] object's source and generates
 /// a stream of media frames.
+@experimental
 @JS()
 @staticInterop
 class MediaStreamTrackProcessor {

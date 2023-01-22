@@ -14,6 +14,9 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Reporting API represents the body of a
 /// deprecation report.
 ///  A deprecation report is generated when a deprecated feature (for
@@ -25,6 +28,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    ReportBody
+///
+///
 ///
 ///
 ///

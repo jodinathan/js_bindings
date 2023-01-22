@@ -24,14 +24,14 @@ class RTCIceGatherOptions {
           {RTCIceTransportPolicy? gatherPolicy = RTCIceTransportPolicy.all,
           Iterable<RTCIceServer>? iceServers}) =>
       RTCIceGatherOptions._(
-          gatherPolicy: gatherPolicy?.name, iceServers: iceServers);
+          gatherPolicy: gatherPolicy?.value, iceServers: iceServers);
 }
 
 extension PropsRTCIceGatherOptions on RTCIceGatherOptions {
-  RTCIceTransportPolicy get gatherPolicy => RTCIceTransportPolicy.values
-      .byName(js_util.getProperty(this, 'gatherPolicy'));
+  RTCIceTransportPolicy get gatherPolicy => RTCIceTransportPolicy.fromValue(
+      js_util.getProperty(this, 'gatherPolicy'));
   set gatherPolicy(RTCIceTransportPolicy newValue) {
-    js_util.setProperty(this, 'gatherPolicy', newValue.name);
+    js_util.setProperty(this, 'gatherPolicy', newValue.value);
   }
 
   Iterable<RTCIceServer> get iceServers =>

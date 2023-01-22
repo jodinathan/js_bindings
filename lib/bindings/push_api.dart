@@ -10,7 +10,7 @@ library push_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -33,7 +33,6 @@ extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
 /// for push notifications.
 ///  This interface is accessed via the
 /// [ServiceWorkerRegistration.pushManager] property.
-@experimental
 @JS()
 @staticInterop
 class PushManager {
@@ -93,13 +92,9 @@ extension PropsPushSubscriptionOptionsInit on PushSubscriptionOptionsInit {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Push API provides a subcription's URL
-/// endpoint and allows unsubscription from a push service.
+///  The interface of the Push API provides a subscription's URL
+/// endpoint and allows unsubscribing from a push service.
 /// An instance of this interface can be serialized.
-@experimental
 @JS()
 @staticInterop
 class PushSubscription {
@@ -111,7 +106,7 @@ extension PropsPushSubscription on PushSubscription {
   int? get expirationTime => js_util.getProperty(this, 'expirationTime');
   PushSubscriptionOptions get options => js_util.getProperty(this, 'options');
   ByteBuffer? getKey(PushEncryptionKeyName name) =>
-      js_util.callMethod(this, 'getKey', [name.name]);
+      js_util.callMethod(this, 'getKey', [name.value]);
 
   Future<bool> unsubscribe() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'unsubscribe', []));
@@ -144,11 +139,16 @@ extension PropsPushSubscriptionJSON on PushSubscriptionJSON {
   }
 }
 
-enum PushEncryptionKeyName { p256dh, auth }
+enum PushEncryptionKeyName {
+  p256dh('p256dh'),
+  auth('auth');
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+  final String value;
+  static PushEncryptionKeyName fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const PushEncryptionKeyName(this.value);
+}
+
 ///  The interface of the Push API provides methods which let you
 /// retrieve the push data sent by a server in various formats.
 ///  Unlike the similar methods in the Fetch API, which only allow
@@ -157,7 +157,6 @@ enum PushEncryptionKeyName { p256dh, auth }
 ///  Messages received through the Push API are sent encrypted by
 /// push services and then automatically decrypted by browsers before
 /// they are made accessible through the methods of the interface.
-@experimental
 @JS()
 @staticInterop
 class PushMessageData {
@@ -174,9 +173,6 @@ extension PropsPushMessageData on PushMessageData {
   String text() => js_util.callMethod(this, 'text', []);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Push API represents a push message that has
 /// been received. This event is sent to the global scope of a
 /// [ServiceWorker]. It contains the information sent from an
@@ -190,7 +186,11 @@ extension PropsPushMessageData on PushMessageData {
 ///
 ///
 ///
+///
+///
 ///    ExtendableEvent
+///
+///
 ///
 ///
 ///

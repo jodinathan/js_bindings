@@ -1,6 +1,6 @@
 /// WebGL EXT_frag_depth Khronos Ratified Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_frag_depth/
+/// https://registry.khronos.org/webgl/extensions/EXT_frag_depth/
 
 // ignore_for_file: unused_import
 

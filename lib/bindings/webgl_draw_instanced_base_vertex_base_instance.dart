@@ -1,6 +1,6 @@
 /// WebGL WEBGL_draw_instanced_base_vertex_base_instance Extension Draft Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/WEBGL_draw_instanced_base_vertex_base_instance/
+/// https://registry.khronos.org/webgl/extensions/WEBGL_draw_instanced_base_vertex_base_instance/
 
 // ignore_for_file: unused_import
 

@@ -10,12 +10,16 @@ library cookie_store;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [Cookie Store API] provides methods for
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the 'Cookie Store API' provides methods for
 /// getting and setting cookies asynchronously from either a page or
 /// a service worker.
 ///  The is accessed via attributes in the global scope in a [Window]
@@ -30,9 +34,12 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    CookieStore
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class CookieStore implements EventTarget {
@@ -82,7 +89,16 @@ extension PropsCookieStoreGetOptions on CookieStoreGetOptions {
   }
 }
 
-enum CookieSameSite { strict, lax, none }
+enum CookieSameSite {
+  strict('strict'),
+  lax('lax'),
+  none('none');
+
+  final String value;
+  static CookieSameSite fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const CookieSameSite(this.value);
+}
 
 @anonymous
 @JS()
@@ -109,7 +125,7 @@ class CookieInit {
           expires: expires,
           domain: domain,
           path: path,
-          sameSite: sameSite?.name);
+          sameSite: sameSite?.value);
 }
 
 extension PropsCookieInit on CookieInit {
@@ -139,9 +155,9 @@ extension PropsCookieInit on CookieInit {
   }
 
   CookieSameSite get sameSite =>
-      CookieSameSite.values.byName(js_util.getProperty(this, 'sameSite'));
+      CookieSameSite.fromValue(js_util.getProperty(this, 'sameSite'));
   set sameSite(CookieSameSite newValue) {
-    js_util.setProperty(this, 'sameSite', newValue.name);
+    js_util.setProperty(this, 'sameSite', newValue.value);
   }
 }
 
@@ -198,7 +214,7 @@ class CookieListItem {
           path: path,
           expires: expires,
           secure: secure,
-          sameSite: sameSite.name);
+          sameSite: sameSite.value);
 }
 
 extension PropsCookieListItem on CookieListItem {
@@ -233,25 +249,28 @@ extension PropsCookieListItem on CookieListItem {
   }
 
   CookieSameSite get sameSite =>
-      CookieSameSite.values.byName(js_util.getProperty(this, 'sameSite'));
+      CookieSameSite.fromValue(js_util.getProperty(this, 'sameSite'));
   set sameSite(CookieSameSite newValue) {
-    js_util.setProperty(this, 'sameSite', newValue.name);
+    js_util.setProperty(this, 'sameSite', newValue.value);
   }
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [Cookie Store] API allows service workers
-/// to subscribe to events for cookie changes. By using the
-/// [subscribe()] method a particular service worker registration can
-/// indicate that it is interested in change events.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the 'Cookie Store API' allows service workers
+/// to subscribe to cookie change events. Call [subscribe()] on a
+/// particular service worker registration to receive change events.
 ///  A has an associated [ServiceWorkerRegistration]. Each service
 /// worker registration has a cookie change subscription list, which
 /// is a list of cookie change subscriptions each containing a name
-/// and url. The methods in this interface allow the service worker
+/// and URL. The methods in this interface allow the service worker
 /// to add and remove subscriptions from this list, and to get a list
 /// of all subscriptions.
 /// To get a , call [ServiceWorkerRegistration.cookies].
+@experimental
 @JS()
 @staticInterop
 class CookieStoreManager {
@@ -272,11 +291,14 @@ extension PropsCookieStoreManager on CookieStoreManager {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [Cookie Store API] is the event type passed
-/// to [CookieStore.onchange()] when any cookie changes have
-/// occurred. A cookie change consists of a cookie and a type (either
-/// "changed" or "deleted").
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the 'Cookie Store API' is the event type passed
+/// to [CookieStore.onchange()] when any cookie changes occur. A
+/// cookie change consists of a cookie and a type (either "changed"
+/// or "deleted").
 /// Cookie changes that will cause the to be dispatched are:
 ///
 ///   A cookie is newly created and not immediately removed. In this
@@ -297,9 +319,12 @@ extension PropsCookieStoreManager on CookieStoreManager {
 ///
 ///
 ///
+///
+///
 ///    CookieChangeEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class CookieChangeEvent implements Event {
@@ -335,10 +360,10 @@ extension PropsCookieChangeEventInit on CookieChangeEventInit {
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the [Cookie Store API] is the event type passed
+///  The interface of the'Cookie Store API' is the event type passed
 /// to [ServiceWorkerRegistration.oncookiechange()] when any cookie
-/// changes have occurred. A cookie change event consists of a cookie
-/// and a type (either "changed" or "deleted".)
+/// changes occur. A cookie change event consists of a cookie and a
+/// type (either "changed" or "deleted".)
 /// Cookie changes that cause the to be dispatched are:
 ///
 ///   A cookie is newly created and not immediately removed. In this
@@ -359,7 +384,11 @@ extension PropsCookieChangeEventInit on CookieChangeEventInit {
 ///
 ///
 ///
+///
+///
 ///    ExtendableEvent
+///
+///
 ///
 ///
 ///

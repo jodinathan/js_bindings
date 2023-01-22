@@ -25,6 +25,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    MediaRecorder
 ///
 ///
@@ -39,7 +41,7 @@ extension PropsMediaRecorder on MediaRecorder {
   MediaStream get stream => js_util.getProperty(this, 'stream');
   String get mimeType => js_util.getProperty(this, 'mimeType');
   RecordingState get state =>
-      RecordingState.values.byName(js_util.getProperty(this, 'state'));
+      RecordingState.fromValue(js_util.getProperty(this, 'state'));
   EventHandlerNonNull? get onstart => js_util.getProperty(this, 'onstart');
   set onstart(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onstart', newValue);
@@ -74,7 +76,7 @@ extension PropsMediaRecorder on MediaRecorder {
   int get videoBitsPerSecond => js_util.getProperty(this, 'videoBitsPerSecond');
   int get audioBitsPerSecond => js_util.getProperty(this, 'audioBitsPerSecond');
   BitrateMode get audioBitrateMode =>
-      BitrateMode.values.byName(js_util.getProperty(this, 'audioBitrateMode'));
+      BitrateMode.fromValue(js_util.getProperty(this, 'audioBitrateMode'));
   void start([int? timeslice]) =>
       js_util.callMethod(this, 'start', [timeslice]);
 
@@ -112,7 +114,7 @@ class MediaRecorderOptions {
           audioBitsPerSecond: audioBitsPerSecond,
           videoBitsPerSecond: videoBitsPerSecond,
           bitsPerSecond: bitsPerSecond,
-          audioBitrateMode: audioBitrateMode?.name);
+          audioBitrateMode: audioBitrateMode?.value);
 }
 
 extension PropsMediaRecorderOptions on MediaRecorderOptions {
@@ -137,15 +139,32 @@ extension PropsMediaRecorderOptions on MediaRecorderOptions {
   }
 
   BitrateMode get audioBitrateMode =>
-      BitrateMode.values.byName(js_util.getProperty(this, 'audioBitrateMode'));
+      BitrateMode.fromValue(js_util.getProperty(this, 'audioBitrateMode'));
   set audioBitrateMode(BitrateMode newValue) {
-    js_util.setProperty(this, 'audioBitrateMode', newValue.name);
+    js_util.setProperty(this, 'audioBitrateMode', newValue.value);
   }
 }
 
-enum BitrateMode { constant, variable }
+enum BitrateMode {
+  constant('constant'),
+  variable('variable');
 
-enum RecordingState { inactive, recording, paused }
+  final String value;
+  static BitrateMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const BitrateMode(this.value);
+}
+
+enum RecordingState {
+  inactive('inactive'),
+  recording('recording'),
+  paused('paused');
+
+  final String value;
+  static RecordingState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const RecordingState(this.value);
+}
 
 ///  The interface represents events associated with a [Blob]. These
 /// blobs are typically, but not necessarily, associated with media
@@ -154,6 +173,8 @@ enum RecordingState { inactive, recording, paused }
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///

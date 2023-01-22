@@ -14,10 +14,31 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The is fired at the [Window.onbeforeinstallprompt] handler
-/// before a user is prompted to "install" a web site to a home
-/// screen on mobile.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Non-standard: This feature is non-standard and is not
+/// on a standards track. Do not use it on production sites facing
+/// the Web: it will not work for every user. There may also be large
+/// incompatibilities between implementations and the behavior may
+/// change in the future.
+///  The is the interface of the [beforeinstallprompt] event fired at
+/// the [Window] object before a user is prompted to "install" a
+/// website to a home screen on mobile.
 /// This interface inherits from the [Event] interface.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    BeforeInstallPromptEvent
+///
+///
 @experimental
 @JS()
 @staticInterop
@@ -38,37 +59,23 @@ class PromptResponseObject {
   external factory PromptResponseObject._({required String userChoice});
 
   factory PromptResponseObject({required AppBannerPromptOutcome userChoice}) =>
-      PromptResponseObject._(userChoice: userChoice.name);
+      PromptResponseObject._(userChoice: userChoice.value);
 }
 
 extension PropsPromptResponseObject on PromptResponseObject {
-  AppBannerPromptOutcome get userChoice => AppBannerPromptOutcome.values
-      .byName(js_util.getProperty(this, 'userChoice'));
+  AppBannerPromptOutcome get userChoice =>
+      AppBannerPromptOutcome.fromValue(js_util.getProperty(this, 'userChoice'));
   set userChoice(AppBannerPromptOutcome newValue) {
-    js_util.setProperty(this, 'userChoice', newValue.name);
+    js_util.setProperty(this, 'userChoice', newValue.value);
   }
 }
 
-enum AppBannerPromptOutcome { accepted, dismissed }
+enum AppBannerPromptOutcome {
+  accepted('accepted'),
+  dismissed('dismissed');
 
-@JS()
-@staticInterop
-class LaunchParams {
-  external factory LaunchParams();
-}
-
-extension PropsLaunchParams on LaunchParams {
-  String? get targetURL => js_util.getProperty(this, 'targetURL');
-  Iterable<FileSystemHandle> get files => js_util.getProperty(this, 'files');
-}
-
-@JS()
-@staticInterop
-class LaunchQueue {
-  external factory LaunchQueue();
-}
-
-extension PropsLaunchQueue on LaunchQueue {
-  void setConsumer(LaunchConsumer consumer) =>
-      js_util.callMethod(this, 'setConsumer', [allowInterop(consumer)]);
+  final String value;
+  static AppBannerPromptOutcome fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const AppBannerPromptOutcome(this.value);
 }

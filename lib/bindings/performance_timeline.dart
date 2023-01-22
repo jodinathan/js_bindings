@@ -1,4 +1,4 @@
-/// Performance Timeline Level 2
+/// Performance Timeline
 ///
 /// https://w3c.github.io/performance-timeline/
 
@@ -13,21 +13,30 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The object encapsulates a single performance metric that is part
-/// of the performance timeline. A performance entry can be directly
-/// created by making a performance [mark] or [measure] (for example
-/// by calling the [mark()] method) at an explicit point in an
-/// application. Performance entries are also created in indirect
-/// ways such as loading a resource (such as an image).
-///  instances will always be one of the following subtypes:
 ///
+///  Note: This feature is available in Web Workers
+///
+///  The object encapsulates a single performance metric that is part
+/// of the browser's performance timeline.
+///  The Performance API offers built-in metrics which are
+/// specialized subclasses of . This includes entries for resource
+/// loading, event timing, first input delay (FID), and more.
+///  A performance entry can also be created by calling the
+/// [Performance.mark()] or [Performance.measure()] methods at an
+/// explicit point in an application. This allows you to add your own
+/// metrics to the performance timeline.
+/// The instances will always be one of the following subclasses:
+///
+///  [LargestContentfulPaint]
+///  [PerformanceEventTiming]
+///  [PerformanceLongTaskTiming]
 ///  [PerformanceMark]
 ///  [PerformanceMeasure]
 ///  [PerformanceNavigationTiming]
-///  [PerformanceResourceTiming]
 ///  [PerformancePaintTiming]
-///
-///  Note: This feature is available in Web Workers
+///  [PerformanceResourceTiming]
+///  [PerformanceServerTiming]
+///  [TaskAttributionTiming]
 ///
 @JS()
 @staticInterop
@@ -43,11 +52,12 @@ extension PropsPerformanceEntry on PerformanceEntry {
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
+///
+///  Note: This feature is available in Web Workers
+///
 ///  The interface is used to observe performance measurement events
 /// and be notified of new performance entries as they are recorded
 /// in the browser's performance timeline.
-///  Note: This feature is available in Web Workers
-///
 @JS()
 @staticInterop
 class PerformanceObserver {
@@ -112,7 +122,6 @@ extension PropsPerformanceObserverInit on PerformanceObserverInit {
 
 ///  The interface is a list of performance events that were
 /// explicitly observed via the [observe()] method.
-/// Note: this interface is exposed to [Window] and [Worker].
 @JS()
 @staticInterop
 class PerformanceObserverEntryList {

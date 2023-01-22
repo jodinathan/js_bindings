@@ -1,6 +1,6 @@
 /// CSSOM View Module
 ///
-/// https://drafts.csswg.org/cssom-view/
+/// https://drafts.csswg.org/cssom-view-1/
 
 // ignore_for_file: unused_import
 
@@ -14,7 +14,15 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum ScrollBehavior { auto, smooth }
+enum ScrollBehavior {
+  auto('auto'),
+  smooth('smooth');
+
+  final String value;
+  static ScrollBehavior fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ScrollBehavior(this.value);
+}
 
 @anonymous
 @JS()
@@ -23,14 +31,14 @@ class ScrollOptions {
   external factory ScrollOptions._({String? behavior});
 
   factory ScrollOptions({ScrollBehavior? behavior = ScrollBehavior.auto}) =>
-      ScrollOptions._(behavior: behavior?.name);
+      ScrollOptions._(behavior: behavior?.value);
 }
 
 extension PropsScrollOptions on ScrollOptions {
   ScrollBehavior get behavior =>
-      ScrollBehavior.values.byName(js_util.getProperty(this, 'behavior'));
+      ScrollBehavior.fromValue(js_util.getProperty(this, 'behavior'));
   set behavior(ScrollBehavior newValue) {
-    js_util.setProperty(this, 'behavior', newValue.name);
+    js_util.setProperty(this, 'behavior', newValue.value);
   }
 }
 
@@ -75,6 +83,8 @@ extension PropsScrollToOptions on ScrollToOptions {
 ///
 ///
 ///
+///
+///
 ///    MediaQueryList
 ///
 ///
@@ -101,13 +111,13 @@ extension PropsMediaQueryList on MediaQueryList {
 
 ///  The object stores information on the changes that have happened
 /// to a [MediaQueryList] object — instances are available as the
-/// event object on a function referenced by a
-/// [MediaQueryList.onchange] property or
-/// [MediaQueryList.addListener()] call.
+/// event object on a function referenced by a [change] event.
 ///
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -194,7 +204,17 @@ extension PropsCaretPosition on CaretPosition {
   DOMRect? getClientRect() => js_util.callMethod(this, 'getClientRect', []);
 }
 
-enum ScrollLogicalPosition { start, center, end, nearest }
+enum ScrollLogicalPosition {
+  start('start'),
+  center('center'),
+  end('end'),
+  nearest('nearest');
+
+  final String value;
+  static ScrollLogicalPosition fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ScrollLogicalPosition(this.value);
+}
 
 @anonymous
 @JS()
@@ -205,20 +225,20 @@ class ScrollIntoViewOptions implements ScrollOptions {
   factory ScrollIntoViewOptions(
           {ScrollLogicalPosition? block = ScrollLogicalPosition.start,
           ScrollLogicalPosition? inline = ScrollLogicalPosition.nearest}) =>
-      ScrollIntoViewOptions._(block: block?.name, inline: inline?.name);
+      ScrollIntoViewOptions._(block: block?.value, inline: inline?.value);
 }
 
 extension PropsScrollIntoViewOptions on ScrollIntoViewOptions {
   ScrollLogicalPosition get block =>
-      ScrollLogicalPosition.values.byName(js_util.getProperty(this, 'block'));
+      ScrollLogicalPosition.fromValue(js_util.getProperty(this, 'block'));
   set block(ScrollLogicalPosition newValue) {
-    js_util.setProperty(this, 'block', newValue.name);
+    js_util.setProperty(this, 'block', newValue.value);
   }
 
   ScrollLogicalPosition get inline =>
-      ScrollLogicalPosition.values.byName(js_util.getProperty(this, 'inline'));
+      ScrollLogicalPosition.fromValue(js_util.getProperty(this, 'inline'));
   set inline(ScrollLogicalPosition newValue) {
-    js_util.setProperty(this, 'inline', newValue.name);
+    js_util.setProperty(this, 'inline', newValue.value);
   }
 }
 
@@ -243,7 +263,17 @@ extension PropsCheckVisibilityOptions on CheckVisibilityOptions {
   }
 }
 
-enum CSSBoxType { margin, border, padding, content }
+enum CSSBoxType {
+  margin('margin'),
+  border('border'),
+  padding('padding'),
+  content('content');
+
+  final String value;
+  static CSSBoxType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const CSSBoxType(this.value);
+}
 
 @anonymous
 @JS()
@@ -253,14 +283,13 @@ class BoxQuadOptions {
 
   factory BoxQuadOptions(
           {CSSBoxType? box = CSSBoxType.border, dynamic relativeTo}) =>
-      BoxQuadOptions._(box: box?.name, relativeTo: relativeTo);
+      BoxQuadOptions._(box: box?.value, relativeTo: relativeTo);
 }
 
 extension PropsBoxQuadOptions on BoxQuadOptions {
-  CSSBoxType get box =>
-      CSSBoxType.values.byName(js_util.getProperty(this, 'box'));
+  CSSBoxType get box => CSSBoxType.fromValue(js_util.getProperty(this, 'box'));
   set box(CSSBoxType newValue) {
-    js_util.setProperty(this, 'box', newValue.name);
+    js_util.setProperty(this, 'box', newValue.value);
   }
 
   dynamic get relativeTo => js_util.getProperty(this, 'relativeTo');
@@ -278,20 +307,20 @@ class ConvertCoordinateOptions {
   factory ConvertCoordinateOptions(
           {CSSBoxType? fromBox = CSSBoxType.border,
           CSSBoxType? toBox = CSSBoxType.border}) =>
-      ConvertCoordinateOptions._(fromBox: fromBox?.name, toBox: toBox?.name);
+      ConvertCoordinateOptions._(fromBox: fromBox?.value, toBox: toBox?.value);
 }
 
 extension PropsConvertCoordinateOptions on ConvertCoordinateOptions {
   CSSBoxType get fromBox =>
-      CSSBoxType.values.byName(js_util.getProperty(this, 'fromBox'));
+      CSSBoxType.fromValue(js_util.getProperty(this, 'fromBox'));
   set fromBox(CSSBoxType newValue) {
-    js_util.setProperty(this, 'fromBox', newValue.name);
+    js_util.setProperty(this, 'fromBox', newValue.value);
   }
 
   CSSBoxType get toBox =>
-      CSSBoxType.values.byName(js_util.getProperty(this, 'toBox'));
+      CSSBoxType.fromValue(js_util.getProperty(this, 'toBox'));
   set toBox(CSSBoxType newValue) {
-    js_util.setProperty(this, 'toBox', newValue.name);
+    js_util.setProperty(this, 'toBox', newValue.value);
   }
 }
 
@@ -342,6 +371,8 @@ extension PropsGeometryUtils on GeometryUtils {
 ///
 ///
 ///
+///
+///
 ///    VisualViewport
 ///
 ///
@@ -367,5 +398,11 @@ extension PropsVisualViewport on VisualViewport {
   EventHandlerNonNull? get onscroll => js_util.getProperty(this, 'onscroll');
   set onscroll(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onscroll', newValue);
+  }
+
+  EventHandlerNonNull? get onscrollend =>
+      js_util.getProperty(this, 'onscrollend');
+  set onscrollend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onscrollend', newValue);
   }
 }

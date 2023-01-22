@@ -15,10 +15,10 @@ import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
-///  The interface represents an object able to programmatically
-/// obtain the position of the device. It gives Web content access to
-/// the location of the device. This allows a Web site or app to
-/// offer customized results based on the user's location.
+///  The interface represents an object able to obtain the position
+/// of the device programmatically. It gives Web content access to
+/// the location of the device. This allows a website or app to offer
+/// customized results based on the user's location.
 ///  An object with this interface is obtained using the
 /// [navigator.geolocation] property implemented by the [Navigator]
 /// object.

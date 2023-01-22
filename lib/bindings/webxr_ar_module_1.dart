@@ -13,6 +13,23 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum XREnvironmentBlendMode { opaque, alphaBlend, additive }
+enum XREnvironmentBlendMode {
+  opaque('opaque'),
+  alphaBlend('alpha-blend'),
+  additive('additive');
 
-enum XRInteractionMode { screenSpace, worldSpace }
+  final String value;
+  static XREnvironmentBlendMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const XREnvironmentBlendMode(this.value);
+}
+
+enum XRInteractionMode {
+  screenSpace('screen-space'),
+  worldSpace('world-space');
+
+  final String value;
+  static XRInteractionMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const XRInteractionMode(this.value);
+}

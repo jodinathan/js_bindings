@@ -1,6 +1,6 @@
 /// WebGL OES_draw_buffers_indexed Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/OES_draw_buffers_indexed/
+/// https://registry.khronos.org/webgl/extensions/OES_draw_buffers_indexed/
 
 // ignore_for_file: unused_import
 

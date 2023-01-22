@@ -1,6 +1,6 @@
 /// WebGL EXT_float_blend Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_float_blend/
+/// https://registry.khronos.org/webgl/extensions/EXT_float_blend/
 
 // ignore_for_file: unused_import
 
@@ -24,7 +24,8 @@ import 'package:js_bindings/js_bindings.dart';
 /// 32-bit floating-point draw buffers by enabling the extension
 /// [WEBGL_color_buffer_float] (for WebGL1) or
 /// [EXT_color_buffer_float] (for WebGL2). Doing so automatically
-/// enables as well.
+/// enables as well, if and only if is also supported. Support for
+/// [EXT_color_buffer_float] does not imply support for .
 ///
 ///  With this extension enabled, calling [drawArrays()] or
 /// [drawElements()] with blending enabled and a draw buffer with

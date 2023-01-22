@@ -10,9 +10,31 @@ library webtransport;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebTransport API represents a duplex stream
+/// that can be used for unreliable transport of datagrams between
+/// client and server. Provides access to a [ReadableStream] for
+/// reading incoming datagrams, a [WritableStream] for writing
+/// outgoing datagrams, and various settings and statistics related
+/// to the stream.
+/// This is accessed via the [WebTransport.datagrams] property.
+///  "Unreliable" means that transmission of data is not guaranteed,
+/// nor is arrival in a specific order. This is fine in some
+/// situations and provides very fast delivery. For example, you
+/// might want to transmit regular game state updates where each
+/// message supersedes the last one that arrives, and order is not
+/// important.
+///
+///  Note: This feature is available in Web Workers
+///
+@experimental
 @JS()
 @staticInterop
 class WebTransportDatagramDuplexStream {
@@ -47,6 +69,18 @@ extension PropsWebTransportDatagramDuplexStream
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebTransport API provides functionality to
+/// enable a user agent to connect to an HTTP/3 server, initiate
+/// reliable and unreliable transport in either or both directions,
+/// and close the connection once it is no longer needed.
+///
+///  Note: This feature is available in Web Workers
+///
+@experimental
 @JS()
 @staticInterop
 class WebTransport {
@@ -60,11 +94,11 @@ extension PropsWebTransport on WebTransport {
   Future<void> get ready =>
       js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
   WebTransportReliabilityMode get reliability =>
-      WebTransportReliabilityMode.values
-          .byName(js_util.getProperty(this, 'reliability'));
+      WebTransportReliabilityMode.fromValue(
+          js_util.getProperty(this, 'reliability'));
   WebTransportCongestionControl get congestionControl =>
-      WebTransportCongestionControl.values
-          .byName(js_util.getProperty(this, 'congestionControl'));
+      WebTransportCongestionControl.fromValue(
+          js_util.getProperty(this, 'congestionControl'));
   Future<WebTransportCloseInfo> get closed =>
       js_util.promiseToFuture(js_util.getProperty(this, 'closed'));
   void close([WebTransportCloseInfo? closeInfo]) =>
@@ -72,21 +106,32 @@ extension PropsWebTransport on WebTransport {
 
   WebTransportDatagramDuplexStream get datagrams =>
       js_util.getProperty(this, 'datagrams');
-  Future<WebTransportBidirectionalStream> createBidirectionalStream() =>
+  Future<WebTransportBidirectionalStream> createBidirectionalStream(
+          [WebTransportSendStreamOptions? options]) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'createBidirectionalStream', []));
+          js_util.callMethod(this, 'createBidirectionalStream', [options]));
 
   ReadableStream get incomingBidirectionalStreams =>
       js_util.getProperty(this, 'incomingBidirectionalStreams');
-  Future<WebTransportSendStream> createUnidirectionalStream() =>
+  Future<WebTransportSendStream> createUnidirectionalStream(
+          [WebTransportSendStreamOptions? options]) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'createUnidirectionalStream', []));
+          js_util.callMethod(this, 'createUnidirectionalStream', [options]));
 
   ReadableStream get incomingUnidirectionalStreams =>
       js_util.getProperty(this, 'incomingUnidirectionalStreams');
 }
 
-enum WebTransportReliabilityMode { pending, reliableOnly, supportsUnreliable }
+enum WebTransportReliabilityMode {
+  pending('pending'),
+  reliableOnly('reliable-only'),
+  supportsUnreliable('supports-unreliable');
+
+  final String value;
+  static WebTransportReliabilityMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const WebTransportReliabilityMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -127,7 +172,7 @@ class WebTransportOptions {
           allowPooling: allowPooling,
           requireUnreliable: requireUnreliable,
           serverCertificateHashes: serverCertificateHashes,
-          congestionControl: congestionControl?.name);
+          congestionControl: congestionControl?.value);
 }
 
 extension PropsWebTransportOptions on WebTransportOptions {
@@ -148,14 +193,23 @@ extension PropsWebTransportOptions on WebTransportOptions {
   }
 
   WebTransportCongestionControl get congestionControl =>
-      WebTransportCongestionControl.values
-          .byName(js_util.getProperty(this, 'congestionControl'));
+      WebTransportCongestionControl.fromValue(
+          js_util.getProperty(this, 'congestionControl'));
   set congestionControl(WebTransportCongestionControl newValue) {
-    js_util.setProperty(this, 'congestionControl', newValue.name);
+    js_util.setProperty(this, 'congestionControl', newValue.value);
   }
 }
 
-enum WebTransportCongestionControl { valueDefault, throughput, lowLatency }
+enum WebTransportCongestionControl {
+  valueDefault('default'),
+  throughput('throughput'),
+  lowLatency('low-latency');
+
+  final String value;
+  static WebTransportCongestionControl fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const WebTransportCongestionControl(this.value);
+}
 
 @anonymous
 @JS()
@@ -174,6 +228,20 @@ extension PropsWebTransportCloseInfo on WebTransportCloseInfo {
   String get reason => js_util.getProperty(this, 'reason');
   set reason(String newValue) {
     js_util.setProperty(this, 'reason', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class WebTransportSendStreamOptions {
+  external factory WebTransportSendStreamOptions({int? sendOrder});
+}
+
+extension PropsWebTransportSendStreamOptions on WebTransportSendStreamOptions {
+  int? get sendOrder => js_util.getProperty(this, 'sendOrder');
+  set sendOrder(int? newValue) {
+    js_util.setProperty(this, 'sendOrder', newValue);
   }
 }
 
@@ -377,6 +445,19 @@ extension PropsWebTransportReceiveStreamStats
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebTransport API represents a bidirectional
+/// stream created by a server or a client that can be used for
+/// reliable transport. Provides access to a [ReadableStream] for
+/// reading incoming data, and a [WritableStream] for writing
+/// outgoing data.
+///
+///  Note: This feature is available in Web Workers
+///
+@experimental
 @JS()
 @staticInterop
 class WebTransportBidirectionalStream {
@@ -385,10 +466,37 @@ class WebTransportBidirectionalStream {
 
 extension PropsWebTransportBidirectionalStream
     on WebTransportBidirectionalStream {
-  ReadableStream get readable => js_util.getProperty(this, 'readable');
-  WritableStream get writable => js_util.getProperty(this, 'writable');
+  WebTransportReceiveStream get readable =>
+      js_util.getProperty(this, 'readable');
+  WebTransportSendStream get writable => js_util.getProperty(this, 'writable');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the WebTransport API represents an error
+/// related to the API, which can arise from server errors, network
+/// connection problems, or client-initiated abort operations (for
+/// example, arising from a [WritableStream.abort()] call).
+///
+///
+///
+///    DOMException
+///
+///
+///
+///
+///
+///
+///
+///    WebTransportError
+///
+///
+///
+///  Note: This feature is available in Web Workers
+///
+@experimental
 @JS()
 @staticInterop
 class WebTransportError implements DOMException {
@@ -396,8 +504,8 @@ class WebTransportError implements DOMException {
 }
 
 extension PropsWebTransportError on WebTransportError {
-  WebTransportErrorSource get source => WebTransportErrorSource.values
-      .byName(js_util.getProperty(this, 'source'));
+  WebTransportErrorSource get source =>
+      WebTransportErrorSource.fromValue(js_util.getProperty(this, 'source'));
   int? get streamErrorCode => js_util.getProperty(this, 'streamErrorCode');
 }
 
@@ -421,4 +529,12 @@ extension PropsWebTransportErrorInit on WebTransportErrorInit {
   }
 }
 
-enum WebTransportErrorSource { stream, session }
+enum WebTransportErrorSource {
+  stream('stream'),
+  session('session');
+
+  final String value;
+  static WebTransportErrorSource fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const WebTransportErrorSource(this.value);
+}

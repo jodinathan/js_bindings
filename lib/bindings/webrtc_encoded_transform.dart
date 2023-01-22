@@ -14,27 +14,15 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
-@anonymous
-@JS()
-@staticInterop
-class RTCInsertableStreams {
-  external factory RTCInsertableStreams(
-      {required ReadableStream readable, required WritableStream writable});
+enum SFrameTransformRole {
+  encrypt('encrypt'),
+  decrypt('decrypt');
+
+  final String value;
+  static SFrameTransformRole fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const SFrameTransformRole(this.value);
 }
-
-extension PropsRTCInsertableStreams on RTCInsertableStreams {
-  ReadableStream get readable => js_util.getProperty(this, 'readable');
-  set readable(ReadableStream newValue) {
-    js_util.setProperty(this, 'readable', newValue);
-  }
-
-  WritableStream get writable => js_util.getProperty(this, 'writable');
-  set writable(WritableStream newValue) {
-    js_util.setProperty(this, 'writable', newValue);
-  }
-}
-
-enum SFrameTransformRole { encrypt, decrypt }
 
 @anonymous
 @JS()
@@ -44,14 +32,14 @@ class SFrameTransformOptions {
 
   factory SFrameTransformOptions(
           {SFrameTransformRole? role = SFrameTransformRole.encrypt}) =>
-      SFrameTransformOptions._(role: role?.name);
+      SFrameTransformOptions._(role: role?.value);
 }
 
 extension PropsSFrameTransformOptions on SFrameTransformOptions {
   SFrameTransformRole get role =>
-      SFrameTransformRole.values.byName(js_util.getProperty(this, 'role'));
+      SFrameTransformRole.fromValue(js_util.getProperty(this, 'role'));
   set role(SFrameTransformRole newValue) {
-    js_util.setProperty(this, 'role', newValue.name);
+    js_util.setProperty(this, 'role', newValue.value);
   }
 }
 
@@ -72,7 +60,16 @@ extension PropsSFrameTransform on SFrameTransform {
   }
 }
 
-enum SFrameTransformErrorEventType { authentication, keyID, syntax }
+enum SFrameTransformErrorEventType {
+  authentication('authentication'),
+  keyID('keyID'),
+  syntax('syntax');
+
+  final String value;
+  static SFrameTransformErrorEventType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const SFrameTransformErrorEventType(this.value);
+}
 
 @JS()
 @staticInterop
@@ -83,8 +80,8 @@ class SFrameTransformErrorEvent implements Event {
 
 extension PropsSFrameTransformErrorEvent on SFrameTransformErrorEvent {
   SFrameTransformErrorEventType get errorType =>
-      SFrameTransformErrorEventType.values
-          .byName(js_util.getProperty(this, 'errorType'));
+      SFrameTransformErrorEventType.fromValue(
+          js_util.getProperty(this, 'errorType'));
   dynamic get keyID => js_util.getProperty(this, 'keyID');
   dynamic get frame => js_util.getProperty(this, 'frame');
 }
@@ -101,15 +98,15 @@ class SFrameTransformErrorEventInit implements EventInit {
           dynamic frame,
           dynamic keyID}) =>
       SFrameTransformErrorEventInit._(
-          errorType: errorType.name, frame: frame, keyID: keyID);
+          errorType: errorType.value, frame: frame, keyID: keyID);
 }
 
 extension PropsSFrameTransformErrorEventInit on SFrameTransformErrorEventInit {
   SFrameTransformErrorEventType get errorType =>
-      SFrameTransformErrorEventType.values
-          .byName(js_util.getProperty(this, 'errorType'));
+      SFrameTransformErrorEventType.fromValue(
+          js_util.getProperty(this, 'errorType'));
   set errorType(SFrameTransformErrorEventType newValue) {
-    js_util.setProperty(this, 'errorType', newValue.name);
+    js_util.setProperty(this, 'errorType', newValue.value);
   }
 
   dynamic get frame => js_util.getProperty(this, 'frame');
@@ -123,7 +120,16 @@ extension PropsSFrameTransformErrorEventInit on SFrameTransformErrorEventInit {
   }
 }
 
-enum RTCEncodedVideoFrameType { empty, key, delta }
+enum RTCEncodedVideoFrameType {
+  empty('empty'),
+  key('key'),
+  delta('delta');
+
+  final String value;
+  static RTCEncodedVideoFrameType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const RTCEncodedVideoFrameType(this.value);
+}
 
 @anonymous
 @JS()
@@ -198,7 +204,7 @@ class RTCEncodedVideoFrame {
 
 extension PropsRTCEncodedVideoFrame on RTCEncodedVideoFrame {
   RTCEncodedVideoFrameType get type =>
-      RTCEncodedVideoFrameType.values.byName(js_util.getProperty(this, 'type'));
+      RTCEncodedVideoFrameType.fromValue(js_util.getProperty(this, 'type'));
   int get timestamp => js_util.getProperty(this, 'timestamp');
   ByteBuffer get data => js_util.getProperty(this, 'data');
   set data(ByteBuffer newValue) {

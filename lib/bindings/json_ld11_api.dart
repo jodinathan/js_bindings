@@ -243,14 +243,14 @@ class JsonLdError {
   external factory JsonLdError._({required String code, String? message});
 
   factory JsonLdError({required JsonLdErrorCode code, String? message}) =>
-      JsonLdError._(code: code.name, message: message);
+      JsonLdError._(code: code.value, message: message);
 }
 
 extension PropsJsonLdError on JsonLdError {
   JsonLdErrorCode get code =>
-      JsonLdErrorCode.values.byName(js_util.getProperty(this, 'code'));
+      JsonLdErrorCode.fromValue(js_util.getProperty(this, 'code'));
   set code(JsonLdErrorCode newValue) {
-    js_util.setProperty(this, 'code', newValue.name);
+    js_util.setProperty(this, 'code', newValue.value);
   }
 
   String? get message => js_util.getProperty(this, 'message');
@@ -260,53 +260,58 @@ extension PropsJsonLdError on JsonLdError {
 }
 
 enum JsonLdErrorCode {
-  collidingKeywords,
-  conflictingIndexes,
-  contextOverflow,
-  cyclicIRIMapping,
-  invalididValue,
-  invalidimportValue,
-  invalidincludedValue,
-  invalidindexValue,
-  invalidnestValue,
-  invalidprefixValue,
-  invalidpropagateValue,
-  invalidprotectedValue,
-  invalidreverseValue,
-  invalidversionValue,
-  invalidBaseDirection,
-  invalidBaseIRI,
-  invalidContainerMapping,
-  invalidContextEntry,
-  invalidContextNullification,
-  invalidDefaultLanguage,
-  invalidIRIMapping,
-  invalidJSONLiteral,
-  invalidKeywordAlias,
-  invalidLanguageMapValue,
-  invalidLanguageMapping,
-  invalidLanguageTaggedString,
-  invalidLanguageTaggedValue,
-  invalidLocalContext,
-  invalidRemoteContext,
-  invalidReversePropertyMap,
-  invalidReversePropertyValue,
-  invalidReverseProperty,
-  invalidScopedContext,
-  invalidScriptElement,
-  invalidSetOrListObject,
-  invalidTermDefinition,
-  invalidTypeMapping,
-  invalidTypeValue,
-  invalidTypedValue,
-  invalidValueObjectValue,
-  invalidValueObject,
-  invalidVocabMapping,
-  iRIConfusedWithPrefix,
-  keywordRedefinition,
-  loadingDocumentFailed,
-  loadingRemoteContextFailed,
-  multipleContextLinkHeaders,
-  processingModeConflict,
-  protectedTermRedefinition
+  collidingKeywords('colliding keywords'),
+  conflictingIndexes('conflicting indexes'),
+  contextOverflow('context overflow'),
+  cyclicIRIMapping('cyclic IRI mapping'),
+  invalididValue('invalid @id value'),
+  invalidimportValue('invalid @import value'),
+  invalidincludedValue('invalid @included value'),
+  invalidindexValue('invalid @index value'),
+  invalidnestValue('invalid @nest value'),
+  invalidprefixValue('invalid @prefix value'),
+  invalidpropagateValue('invalid @propagate value'),
+  invalidprotectedValue('invalid @protected value'),
+  invalidreverseValue('invalid @reverse value'),
+  invalidversionValue('invalid @version value'),
+  invalidBaseDirection('invalid base direction'),
+  invalidBaseIRI('invalid base IRI'),
+  invalidContainerMapping('invalid container mapping'),
+  invalidContextEntry('invalid context entry'),
+  invalidContextNullification('invalid context nullification'),
+  invalidDefaultLanguage('invalid default language'),
+  invalidIRIMapping('invalid IRI mapping'),
+  invalidJSONLiteral('invalid JSON literal'),
+  invalidKeywordAlias('invalid keyword alias'),
+  invalidLanguageMapValue('invalid language map value'),
+  invalidLanguageMapping('invalid language mapping'),
+  invalidLanguageTaggedString('invalid language-tagged string'),
+  invalidLanguageTaggedValue('invalid language-tagged value'),
+  invalidLocalContext('invalid local context'),
+  invalidRemoteContext('invalid remote context'),
+  invalidReversePropertyMap('invalid reverse property map'),
+  invalidReversePropertyValue('invalid reverse property value'),
+  invalidReverseProperty('invalid reverse property'),
+  invalidScopedContext('invalid scoped context'),
+  invalidScriptElement('invalid script element'),
+  invalidSetOrListObject('invalid set or list object'),
+  invalidTermDefinition('invalid term definition'),
+  invalidTypeMapping('invalid type mapping'),
+  invalidTypeValue('invalid type value'),
+  invalidTypedValue('invalid typed value'),
+  invalidValueObjectValue('invalid value object value'),
+  invalidValueObject('invalid value object'),
+  invalidVocabMapping('invalid vocab mapping'),
+  iRIConfusedWithPrefix('IRI confused with prefix'),
+  keywordRedefinition('keyword redefinition'),
+  loadingDocumentFailed('loading document failed'),
+  loadingRemoteContextFailed('loading remote context failed'),
+  multipleContextLinkHeaders('multiple context link headers'),
+  processingModeConflict('processing mode conflict'),
+  protectedTermRedefinition('protected term redefinition');
+
+  final String value;
+  static JsonLdErrorCode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const JsonLdErrorCode(this.value);
 }

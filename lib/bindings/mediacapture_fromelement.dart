@@ -10,7 +10,6 @@ library mediacapture_fromelement;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -27,7 +26,11 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    MediaStreamTrack
+///
+///
 ///
 ///
 ///
@@ -36,7 +39,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///    CanvasCaptureMediaStreamTrack
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class CanvasCaptureMediaStreamTrack implements MediaStreamTrack {

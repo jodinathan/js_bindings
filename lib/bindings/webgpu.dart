@@ -93,8 +93,8 @@ extension PropsGPUSupportedLimits on GPUSupportedLimits {
       js_util.getProperty(this, 'maxInterStageShaderVariables');
   int get maxColorAttachments =>
       js_util.getProperty(this, 'maxColorAttachments');
-  int get maxColorAttachmentBytesPerPixel =>
-      js_util.getProperty(this, 'maxColorAttachmentBytesPerPixel');
+  int get maxColorAttachmentBytesPerSample =>
+      js_util.getProperty(this, 'maxColorAttachmentBytesPerSample');
   int get maxComputeWorkgroupStorageSize =>
       js_util.getProperty(this, 'maxComputeWorkgroupStorageSize');
   int get maxComputeInvocationsPerWorkgroup =>
@@ -164,15 +164,15 @@ class GPURequestAdapterOptions {
           {required GPUPowerPreference powerPreference,
           bool? forceFallbackAdapter = false}) =>
       GPURequestAdapterOptions._(
-          powerPreference: powerPreference.name,
+          powerPreference: powerPreference.value,
           forceFallbackAdapter: forceFallbackAdapter);
 }
 
 extension PropsGPURequestAdapterOptions on GPURequestAdapterOptions {
-  GPUPowerPreference get powerPreference => GPUPowerPreference.values
-      .byName(js_util.getProperty(this, 'powerPreference'));
+  GPUPowerPreference get powerPreference => GPUPowerPreference.fromValue(
+      js_util.getProperty(this, 'powerPreference'));
   set powerPreference(GPUPowerPreference newValue) {
-    js_util.setProperty(this, 'powerPreference', newValue.name);
+    js_util.setProperty(this, 'powerPreference', newValue.value);
   }
 
   bool get forceFallbackAdapter =>
@@ -182,7 +182,15 @@ extension PropsGPURequestAdapterOptions on GPURequestAdapterOptions {
   }
 }
 
-enum GPUPowerPreference { lowPower, highPerformance }
+enum GPUPowerPreference {
+  lowPower('low-power'),
+  highPerformance('high-performance');
+
+  final String value;
+  static GPUPowerPreference fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUPowerPreference(this.value);
+}
 
 @JS()
 @staticInterop
@@ -217,16 +225,16 @@ class GPUDeviceDescriptor implements GPUObjectDescriptorBase {
           dynamic requiredLimits,
           GPUQueueDescriptor? defaultQueue}) =>
       GPUDeviceDescriptor._(
-          requiredFeatures: requiredFeatures?.names,
+          requiredFeatures: requiredFeatures?.values,
           requiredLimits: requiredLimits,
           defaultQueue: defaultQueue);
 }
 
 extension PropsGPUDeviceDescriptor on GPUDeviceDescriptor {
-  Iterable<GPUFeatureName> get requiredFeatures => GPUFeatureName.values
-      .byNames(js_util.getProperty(this, 'requiredFeatures'));
+  Iterable<GPUFeatureName> get requiredFeatures =>
+      GPUFeatureName.fromValues(js_util.getProperty(this, 'requiredFeatures'));
   set requiredFeatures(Iterable<GPUFeatureName> newValue) {
-    js_util.setProperty(this, 'requiredFeatures', newValue.names);
+    js_util.setProperty(this, 'requiredFeatures', newValue.values);
   }
 
   dynamic get requiredLimits => js_util.getProperty(this, 'requiredLimits');
@@ -242,16 +250,20 @@ extension PropsGPUDeviceDescriptor on GPUDeviceDescriptor {
 }
 
 enum GPUFeatureName {
-  depthClipControl,
-  depth32floatStencil8,
-  textureCompressionBc,
-  textureCompressionEtc2,
-  textureCompressionAstc,
-  timestampQuery,
-  indirectFirstInstance,
-  shaderF16,
-  bgra8unormStorage,
-  rg11b10ufloatRenderable
+  depthClipControl('depth-clip-control'),
+  depth32floatStencil8('depth32float-stencil8'),
+  textureCompressionBc('texture-compression-bc'),
+  textureCompressionEtc2('texture-compression-etc2'),
+  textureCompressionAstc('texture-compression-astc'),
+  timestampQuery('timestamp-query'),
+  indirectFirstInstance('indirect-first-instance'),
+  shaderF16('shader-f16'),
+  rg11b10ufloatRenderable('rg11b10ufloat-renderable');
+
+  final String value;
+  static GPUFeatureName fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUFeatureName(this.value);
 }
 
 @JS()
@@ -325,7 +337,7 @@ extension PropsGPUDevice on GPUDevice {
   Future<GPUDeviceLostInfo> get lost =>
       js_util.promiseToFuture(js_util.getProperty(this, 'lost'));
   void pushErrorScope(GPUErrorFilter filter) =>
-      js_util.callMethod(this, 'pushErrorScope', [filter.name]);
+      js_util.callMethod(this, 'pushErrorScope', [filter.value]);
 
   Future<GPUError> popErrorScope() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'popErrorScope', []));
@@ -347,7 +359,7 @@ extension PropsGPUBuffer on GPUBuffer {
   int get size => js_util.getProperty(this, 'size');
   int get usage => js_util.getProperty(this, 'usage');
   GPUBufferMapState get mapState =>
-      GPUBufferMapState.values.byName(js_util.getProperty(this, 'mapState'));
+      GPUBufferMapState.fromValue(js_util.getProperty(this, 'mapState'));
   Future<void> mapAsync(int mode, [int? offset = 0, int? size]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'mapAsync', [mode, offset, size]));
@@ -360,7 +372,16 @@ extension PropsGPUBuffer on GPUBuffer {
   void destroy() => js_util.callMethod(this, 'destroy', []);
 }
 
-enum GPUBufferMapState { unmapped, pending, mapped }
+enum GPUBufferMapState {
+  unmapped('unmapped'),
+  pending('pending'),
+  mapped('mapped');
+
+  final String value;
+  static GPUBufferMapState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUBufferMapState(this.value);
+}
 
 @anonymous
 @JS()
@@ -453,9 +474,9 @@ extension PropsGPUTexture on GPUTexture {
   int get mipLevelCount => js_util.getProperty(this, 'mipLevelCount');
   int get sampleCount => js_util.getProperty(this, 'sampleCount');
   GPUTextureDimension get dimension =>
-      GPUTextureDimension.values.byName(js_util.getProperty(this, 'dimension'));
+      GPUTextureDimension.fromValue(js_util.getProperty(this, 'dimension'));
   GPUTextureFormat get format =>
-      GPUTextureFormat.values.byName(js_util.getProperty(this, 'format'));
+      GPUTextureFormat.fromValue(js_util.getProperty(this, 'format'));
   int get usage => js_util.getProperty(this, 'usage');
 }
 
@@ -484,10 +505,10 @@ class GPUTextureDescriptor implements GPUObjectDescriptorBase {
           size: size,
           mipLevelCount: mipLevelCount,
           sampleCount: sampleCount,
-          dimension: dimension?.name,
-          format: format?.name,
+          dimension: dimension?.value,
+          format: format?.value,
           usage: usage,
-          viewFormats: viewFormats?.names);
+          viewFormats: viewFormats?.values);
 }
 
 extension PropsGPUTextureDescriptor on GPUTextureDescriptor {
@@ -507,15 +528,15 @@ extension PropsGPUTextureDescriptor on GPUTextureDescriptor {
   }
 
   GPUTextureDimension get dimension =>
-      GPUTextureDimension.values.byName(js_util.getProperty(this, 'dimension'));
+      GPUTextureDimension.fromValue(js_util.getProperty(this, 'dimension'));
   set dimension(GPUTextureDimension newValue) {
-    js_util.setProperty(this, 'dimension', newValue.name);
+    js_util.setProperty(this, 'dimension', newValue.value);
   }
 
   GPUTextureFormat get format =>
-      GPUTextureFormat.values.byName(js_util.getProperty(this, 'format'));
+      GPUTextureFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(GPUTextureFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
   int get usage => js_util.getProperty(this, 'usage');
@@ -524,13 +545,22 @@ extension PropsGPUTextureDescriptor on GPUTextureDescriptor {
   }
 
   Iterable<GPUTextureFormat> get viewFormats =>
-      GPUTextureFormat.values.byNames(js_util.getProperty(this, 'viewFormats'));
+      GPUTextureFormat.fromValues(js_util.getProperty(this, 'viewFormats'));
   set viewFormats(Iterable<GPUTextureFormat> newValue) {
-    js_util.setProperty(this, 'viewFormats', newValue.names);
+    js_util.setProperty(this, 'viewFormats', newValue.values);
   }
 }
 
-enum GPUTextureDimension { value1d, value2d, value3d }
+enum GPUTextureDimension {
+  value1d('1d'),
+  value2d('2d'),
+  value3d('3d');
+
+  final String value;
+  static GPUTextureDimension fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUTextureDimension(this.value);
+}
 
 @JS()
 @staticInterop
@@ -581,9 +611,9 @@ class GPUTextureViewDescriptor implements GPUObjectDescriptorBase {
           int? baseArrayLayer = 0,
           int? arrayLayerCount}) =>
       GPUTextureViewDescriptor._(
-          format: format.name,
-          dimension: dimension.name,
-          aspect: aspect?.name,
+          format: format.value,
+          dimension: dimension.value,
+          aspect: aspect?.value,
           baseMipLevel: baseMipLevel,
           mipLevelCount: mipLevelCount,
           baseArrayLayer: baseArrayLayer,
@@ -592,21 +622,21 @@ class GPUTextureViewDescriptor implements GPUObjectDescriptorBase {
 
 extension PropsGPUTextureViewDescriptor on GPUTextureViewDescriptor {
   GPUTextureFormat get format =>
-      GPUTextureFormat.values.byName(js_util.getProperty(this, 'format'));
+      GPUTextureFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(GPUTextureFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
-  GPUTextureViewDimension get dimension => GPUTextureViewDimension.values
-      .byName(js_util.getProperty(this, 'dimension'));
+  GPUTextureViewDimension get dimension =>
+      GPUTextureViewDimension.fromValue(js_util.getProperty(this, 'dimension'));
   set dimension(GPUTextureViewDimension newValue) {
-    js_util.setProperty(this, 'dimension', newValue.name);
+    js_util.setProperty(this, 'dimension', newValue.value);
   }
 
   GPUTextureAspect get aspect =>
-      GPUTextureAspect.values.byName(js_util.getProperty(this, 'aspect'));
+      GPUTextureAspect.fromValue(js_util.getProperty(this, 'aspect'));
   set aspect(GPUTextureAspect newValue) {
-    js_util.setProperty(this, 'aspect', newValue.name);
+    js_util.setProperty(this, 'aspect', newValue.value);
   }
 
   int get baseMipLevel => js_util.getProperty(this, 'baseMipLevel');
@@ -631,111 +661,130 @@ extension PropsGPUTextureViewDescriptor on GPUTextureViewDescriptor {
 }
 
 enum GPUTextureViewDimension {
-  value1d,
-  value2d,
-  value2dArray,
-  cube,
-  cubeArray,
-  value3d
+  value1d('1d'),
+  value2d('2d'),
+  value2dArray('2d-array'),
+  cube('cube'),
+  cubeArray('cube-array'),
+  value3d('3d');
+
+  final String value;
+  static GPUTextureViewDimension fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUTextureViewDimension(this.value);
 }
 
-enum GPUTextureAspect { all, stencilOnly, depthOnly }
+enum GPUTextureAspect {
+  all('all'),
+  stencilOnly('stencil-only'),
+  depthOnly('depth-only');
+
+  final String value;
+  static GPUTextureAspect fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUTextureAspect(this.value);
+}
 
 enum GPUTextureFormat {
-  r8unorm,
-  r8snorm,
-  r8uint,
-  r8sint,
-  r16uint,
-  r16sint,
-  r16float,
-  rg8unorm,
-  rg8snorm,
-  rg8uint,
-  rg8sint,
-  r32uint,
-  r32sint,
-  r32float,
-  rg16uint,
-  rg16sint,
-  rg16float,
-  rgba8unorm,
-  rgba8unormSrgb,
-  rgba8snorm,
-  rgba8uint,
-  rgba8sint,
-  bgra8unorm,
-  bgra8unormSrgb,
-  rgb9e5ufloat,
-  rgb10a2unorm,
-  rg11b10ufloat,
-  rg32uint,
-  rg32sint,
-  rg32float,
-  rgba16uint,
-  rgba16sint,
-  rgba16float,
-  rgba32uint,
-  rgba32sint,
-  rgba32float,
-  stencil8,
-  depth16unorm,
-  depth24plus,
-  depth24plusStencil8,
-  depth32float,
-  depth32floatStencil8,
-  bc1RgbaUnorm,
-  bc1RgbaUnormSrgb,
-  bc2RgbaUnorm,
-  bc2RgbaUnormSrgb,
-  bc3RgbaUnorm,
-  bc3RgbaUnormSrgb,
-  bc4RUnorm,
-  bc4RSnorm,
-  bc5RgUnorm,
-  bc5RgSnorm,
-  bc6hRgbUfloat,
-  bc6hRgbFloat,
-  bc7RgbaUnorm,
-  bc7RgbaUnormSrgb,
-  etc2Rgb8unorm,
-  etc2Rgb8unormSrgb,
-  etc2Rgb8a1unorm,
-  etc2Rgb8a1unormSrgb,
-  etc2Rgba8unorm,
-  etc2Rgba8unormSrgb,
-  eacR11unorm,
-  eacR11snorm,
-  eacRg11unorm,
-  eacRg11snorm,
-  astc4x4Unorm,
-  astc4x4UnormSrgb,
-  astc5x4Unorm,
-  astc5x4UnormSrgb,
-  astc5x5Unorm,
-  astc5x5UnormSrgb,
-  astc6x5Unorm,
-  astc6x5UnormSrgb,
-  astc6x6Unorm,
-  astc6x6UnormSrgb,
-  astc8x5Unorm,
-  astc8x5UnormSrgb,
-  astc8x6Unorm,
-  astc8x6UnormSrgb,
-  astc8x8Unorm,
-  astc8x8UnormSrgb,
-  astc10x5Unorm,
-  astc10x5UnormSrgb,
-  astc10x6Unorm,
-  astc10x6UnormSrgb,
-  astc10x8Unorm,
-  astc10x8UnormSrgb,
-  astc10x10Unorm,
-  astc10x10UnormSrgb,
-  astc12x10Unorm,
-  astc12x10UnormSrgb,
-  astc12x12Unorm,
-  astc12x12UnormSrgb
+  r8unorm('r8unorm'),
+  r8snorm('r8snorm'),
+  r8uint('r8uint'),
+  r8sint('r8sint'),
+  r16uint('r16uint'),
+  r16sint('r16sint'),
+  r16float('r16float'),
+  rg8unorm('rg8unorm'),
+  rg8snorm('rg8snorm'),
+  rg8uint('rg8uint'),
+  rg8sint('rg8sint'),
+  r32uint('r32uint'),
+  r32sint('r32sint'),
+  r32float('r32float'),
+  rg16uint('rg16uint'),
+  rg16sint('rg16sint'),
+  rg16float('rg16float'),
+  rgba8unorm('rgba8unorm'),
+  rgba8unormSrgb('rgba8unorm-srgb'),
+  rgba8snorm('rgba8snorm'),
+  rgba8uint('rgba8uint'),
+  rgba8sint('rgba8sint'),
+  bgra8unorm('bgra8unorm'),
+  bgra8unormSrgb('bgra8unorm-srgb'),
+  rgb9e5ufloat('rgb9e5ufloat'),
+  rgb10a2unorm('rgb10a2unorm'),
+  rg11b10ufloat('rg11b10ufloat'),
+  rg32uint('rg32uint'),
+  rg32sint('rg32sint'),
+  rg32float('rg32float'),
+  rgba16uint('rgba16uint'),
+  rgba16sint('rgba16sint'),
+  rgba16float('rgba16float'),
+  rgba32uint('rgba32uint'),
+  rgba32sint('rgba32sint'),
+  rgba32float('rgba32float'),
+  stencil8('stencil8'),
+  depth16unorm('depth16unorm'),
+  depth24plus('depth24plus'),
+  depth24plusStencil8('depth24plus-stencil8'),
+  depth32float('depth32float'),
+  depth32floatStencil8('depth32float-stencil8'),
+  bc1RgbaUnorm('bc1-rgba-unorm'),
+  bc1RgbaUnormSrgb('bc1-rgba-unorm-srgb'),
+  bc2RgbaUnorm('bc2-rgba-unorm'),
+  bc2RgbaUnormSrgb('bc2-rgba-unorm-srgb'),
+  bc3RgbaUnorm('bc3-rgba-unorm'),
+  bc3RgbaUnormSrgb('bc3-rgba-unorm-srgb'),
+  bc4RUnorm('bc4-r-unorm'),
+  bc4RSnorm('bc4-r-snorm'),
+  bc5RgUnorm('bc5-rg-unorm'),
+  bc5RgSnorm('bc5-rg-snorm'),
+  bc6hRgbUfloat('bc6h-rgb-ufloat'),
+  bc6hRgbFloat('bc6h-rgb-float'),
+  bc7RgbaUnorm('bc7-rgba-unorm'),
+  bc7RgbaUnormSrgb('bc7-rgba-unorm-srgb'),
+  etc2Rgb8unorm('etc2-rgb8unorm'),
+  etc2Rgb8unormSrgb('etc2-rgb8unorm-srgb'),
+  etc2Rgb8a1unorm('etc2-rgb8a1unorm'),
+  etc2Rgb8a1unormSrgb('etc2-rgb8a1unorm-srgb'),
+  etc2Rgba8unorm('etc2-rgba8unorm'),
+  etc2Rgba8unormSrgb('etc2-rgba8unorm-srgb'),
+  eacR11unorm('eac-r11unorm'),
+  eacR11snorm('eac-r11snorm'),
+  eacRg11unorm('eac-rg11unorm'),
+  eacRg11snorm('eac-rg11snorm'),
+  astc4x4Unorm('astc-4x4-unorm'),
+  astc4x4UnormSrgb('astc-4x4-unorm-srgb'),
+  astc5x4Unorm('astc-5x4-unorm'),
+  astc5x4UnormSrgb('astc-5x4-unorm-srgb'),
+  astc5x5Unorm('astc-5x5-unorm'),
+  astc5x5UnormSrgb('astc-5x5-unorm-srgb'),
+  astc6x5Unorm('astc-6x5-unorm'),
+  astc6x5UnormSrgb('astc-6x5-unorm-srgb'),
+  astc6x6Unorm('astc-6x6-unorm'),
+  astc6x6UnormSrgb('astc-6x6-unorm-srgb'),
+  astc8x5Unorm('astc-8x5-unorm'),
+  astc8x5UnormSrgb('astc-8x5-unorm-srgb'),
+  astc8x6Unorm('astc-8x6-unorm'),
+  astc8x6UnormSrgb('astc-8x6-unorm-srgb'),
+  astc8x8Unorm('astc-8x8-unorm'),
+  astc8x8UnormSrgb('astc-8x8-unorm-srgb'),
+  astc10x5Unorm('astc-10x5-unorm'),
+  astc10x5UnormSrgb('astc-10x5-unorm-srgb'),
+  astc10x6Unorm('astc-10x6-unorm'),
+  astc10x6UnormSrgb('astc-10x6-unorm-srgb'),
+  astc10x8Unorm('astc-10x8-unorm'),
+  astc10x8UnormSrgb('astc-10x8-unorm-srgb'),
+  astc10x10Unorm('astc-10x10-unorm'),
+  astc10x10UnormSrgb('astc-10x10-unorm-srgb'),
+  astc12x10Unorm('astc-12x10-unorm'),
+  astc12x10UnormSrgb('astc-12x10-unorm-srgb'),
+  astc12x12Unorm('astc-12x12-unorm'),
+  astc12x12UnormSrgb('astc-12x12-unorm-srgb');
+
+  final String value;
+  static GPUTextureFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUTextureFormat(this.value);
 }
 
 @JS()
@@ -759,7 +808,7 @@ class GPUExternalTextureDescriptor implements GPUObjectDescriptorBase {
           {required HTMLVideoElement source,
           PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb}) =>
       GPUExternalTextureDescriptor._(
-          source: source, colorSpace: colorSpace?.name);
+          source: source, colorSpace: colorSpace?.value);
 }
 
 extension PropsGPUExternalTextureDescriptor on GPUExternalTextureDescriptor {
@@ -768,10 +817,10 @@ extension PropsGPUExternalTextureDescriptor on GPUExternalTextureDescriptor {
     js_util.setProperty(this, 'source', newValue);
   }
 
-  PredefinedColorSpace get colorSpace => PredefinedColorSpace.values
-      .byName(js_util.getProperty(this, 'colorSpace'));
+  PredefinedColorSpace get colorSpace =>
+      PredefinedColorSpace.fromValue(js_util.getProperty(this, 'colorSpace'));
   set colorSpace(PredefinedColorSpace newValue) {
-    js_util.setProperty(this, 'colorSpace', newValue.name);
+    js_util.setProperty(this, 'colorSpace', newValue.value);
   }
 }
 
@@ -809,53 +858,53 @@ class GPUSamplerDescriptor implements GPUObjectDescriptorBase {
           GPUCompareFunction? compare,
           int? maxAnisotropy = 1}) =>
       GPUSamplerDescriptor._(
-          addressModeU: addressModeU?.name,
-          addressModeV: addressModeV?.name,
-          addressModeW: addressModeW?.name,
-          magFilter: magFilter?.name,
-          minFilter: minFilter?.name,
-          mipmapFilter: mipmapFilter?.name,
+          addressModeU: addressModeU?.value,
+          addressModeV: addressModeV?.value,
+          addressModeW: addressModeW?.value,
+          magFilter: magFilter?.value,
+          minFilter: minFilter?.value,
+          mipmapFilter: mipmapFilter?.value,
           lodMinClamp: lodMinClamp,
           lodMaxClamp: lodMaxClamp,
-          compare: compare?.name,
+          compare: compare?.value,
           maxAnisotropy: maxAnisotropy);
 }
 
 extension PropsGPUSamplerDescriptor on GPUSamplerDescriptor {
   GPUAddressMode get addressModeU =>
-      GPUAddressMode.values.byName(js_util.getProperty(this, 'addressModeU'));
+      GPUAddressMode.fromValue(js_util.getProperty(this, 'addressModeU'));
   set addressModeU(GPUAddressMode newValue) {
-    js_util.setProperty(this, 'addressModeU', newValue.name);
+    js_util.setProperty(this, 'addressModeU', newValue.value);
   }
 
   GPUAddressMode get addressModeV =>
-      GPUAddressMode.values.byName(js_util.getProperty(this, 'addressModeV'));
+      GPUAddressMode.fromValue(js_util.getProperty(this, 'addressModeV'));
   set addressModeV(GPUAddressMode newValue) {
-    js_util.setProperty(this, 'addressModeV', newValue.name);
+    js_util.setProperty(this, 'addressModeV', newValue.value);
   }
 
   GPUAddressMode get addressModeW =>
-      GPUAddressMode.values.byName(js_util.getProperty(this, 'addressModeW'));
+      GPUAddressMode.fromValue(js_util.getProperty(this, 'addressModeW'));
   set addressModeW(GPUAddressMode newValue) {
-    js_util.setProperty(this, 'addressModeW', newValue.name);
+    js_util.setProperty(this, 'addressModeW', newValue.value);
   }
 
   GPUFilterMode get magFilter =>
-      GPUFilterMode.values.byName(js_util.getProperty(this, 'magFilter'));
+      GPUFilterMode.fromValue(js_util.getProperty(this, 'magFilter'));
   set magFilter(GPUFilterMode newValue) {
-    js_util.setProperty(this, 'magFilter', newValue.name);
+    js_util.setProperty(this, 'magFilter', newValue.value);
   }
 
   GPUFilterMode get minFilter =>
-      GPUFilterMode.values.byName(js_util.getProperty(this, 'minFilter'));
+      GPUFilterMode.fromValue(js_util.getProperty(this, 'minFilter'));
   set minFilter(GPUFilterMode newValue) {
-    js_util.setProperty(this, 'minFilter', newValue.name);
+    js_util.setProperty(this, 'minFilter', newValue.value);
   }
 
-  GPUMipmapFilterMode get mipmapFilter => GPUMipmapFilterMode.values
-      .byName(js_util.getProperty(this, 'mipmapFilter'));
+  GPUMipmapFilterMode get mipmapFilter =>
+      GPUMipmapFilterMode.fromValue(js_util.getProperty(this, 'mipmapFilter'));
   set mipmapFilter(GPUMipmapFilterMode newValue) {
-    js_util.setProperty(this, 'mipmapFilter', newValue.name);
+    js_util.setProperty(this, 'mipmapFilter', newValue.value);
   }
 
   double get lodMinClamp => js_util.getProperty(this, 'lodMinClamp');
@@ -869,9 +918,9 @@ extension PropsGPUSamplerDescriptor on GPUSamplerDescriptor {
   }
 
   GPUCompareFunction get compare =>
-      GPUCompareFunction.values.byName(js_util.getProperty(this, 'compare'));
+      GPUCompareFunction.fromValue(js_util.getProperty(this, 'compare'));
   set compare(GPUCompareFunction newValue) {
-    js_util.setProperty(this, 'compare', newValue.name);
+    js_util.setProperty(this, 'compare', newValue.value);
   }
 
   int get maxAnisotropy => js_util.getProperty(this, 'maxAnisotropy');
@@ -880,21 +929,51 @@ extension PropsGPUSamplerDescriptor on GPUSamplerDescriptor {
   }
 }
 
-enum GPUAddressMode { clampToEdge, repeat, mirrorRepeat }
+enum GPUAddressMode {
+  clampToEdge('clamp-to-edge'),
+  repeat('repeat'),
+  mirrorRepeat('mirror-repeat');
 
-enum GPUFilterMode { nearest, linear }
+  final String value;
+  static GPUAddressMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUAddressMode(this.value);
+}
 
-enum GPUMipmapFilterMode { nearest, linear }
+enum GPUFilterMode {
+  nearest('nearest'),
+  linear('linear');
+
+  final String value;
+  static GPUFilterMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUFilterMode(this.value);
+}
+
+enum GPUMipmapFilterMode {
+  nearest('nearest'),
+  linear('linear');
+
+  final String value;
+  static GPUMipmapFilterMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUMipmapFilterMode(this.value);
+}
 
 enum GPUCompareFunction {
-  never,
-  less,
-  equal,
-  lessEqual,
-  greater,
-  notEqual,
-  greaterEqual,
-  always
+  never('never'),
+  less('less'),
+  equal('equal'),
+  lessEqual('less-equal'),
+  greater('greater'),
+  notEqual('not-equal'),
+  greaterEqual('greater-equal'),
+  always('always');
+
+  final String value;
+  static GPUCompareFunction fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUCompareFunction(this.value);
 }
 
 @JS()
@@ -987,7 +1066,16 @@ class GPUShaderStage {
   external factory GPUShaderStage();
 }
 
-enum GPUBufferBindingType { uniform, storage, readOnlyStorage }
+enum GPUBufferBindingType {
+  uniform('uniform'),
+  storage('storage'),
+  readOnlyStorage('read-only-storage');
+
+  final String value;
+  static GPUBufferBindingType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUBufferBindingType(this.value);
+}
 
 @anonymous
 @JS()
@@ -1001,16 +1089,16 @@ class GPUBufferBindingLayout {
           bool? hasDynamicOffset = false,
           int? minBindingSize = 0}) =>
       GPUBufferBindingLayout._(
-          type: type?.name,
+          type: type?.value,
           hasDynamicOffset: hasDynamicOffset,
           minBindingSize: minBindingSize);
 }
 
 extension PropsGPUBufferBindingLayout on GPUBufferBindingLayout {
   GPUBufferBindingType get type =>
-      GPUBufferBindingType.values.byName(js_util.getProperty(this, 'type'));
+      GPUBufferBindingType.fromValue(js_util.getProperty(this, 'type'));
   set type(GPUBufferBindingType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   bool get hasDynamicOffset => js_util.getProperty(this, 'hasDynamicOffset');
@@ -1024,7 +1112,16 @@ extension PropsGPUBufferBindingLayout on GPUBufferBindingLayout {
   }
 }
 
-enum GPUSamplerBindingType { filtering, nonFiltering, comparison }
+enum GPUSamplerBindingType {
+  filtering('filtering'),
+  nonFiltering('non-filtering'),
+  comparison('comparison');
+
+  final String value;
+  static GPUSamplerBindingType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUSamplerBindingType(this.value);
+}
 
 @anonymous
 @JS()
@@ -1034,18 +1131,29 @@ class GPUSamplerBindingLayout {
 
   factory GPUSamplerBindingLayout(
           {GPUSamplerBindingType? type = GPUSamplerBindingType.filtering}) =>
-      GPUSamplerBindingLayout._(type: type?.name);
+      GPUSamplerBindingLayout._(type: type?.value);
 }
 
 extension PropsGPUSamplerBindingLayout on GPUSamplerBindingLayout {
   GPUSamplerBindingType get type =>
-      GPUSamplerBindingType.values.byName(js_util.getProperty(this, 'type'));
+      GPUSamplerBindingType.fromValue(js_util.getProperty(this, 'type'));
   set type(GPUSamplerBindingType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 }
 
-enum GPUTextureSampleType { float, unfilterableFloat, depth, sint, uint }
+enum GPUTextureSampleType {
+  float('float'),
+  unfilterableFloat('unfilterable-float'),
+  depth('depth'),
+  sint('sint'),
+  uint('uint');
+
+  final String value;
+  static GPUTextureSampleType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUTextureSampleType(this.value);
+}
 
 @anonymous
 @JS()
@@ -1060,22 +1168,23 @@ class GPUTextureBindingLayout {
               GPUTextureViewDimension.value2d,
           bool? multisampled = false}) =>
       GPUTextureBindingLayout._(
-          sampleType: sampleType?.name,
-          viewDimension: viewDimension?.name,
+          sampleType: sampleType?.value,
+          viewDimension: viewDimension?.value,
           multisampled: multisampled);
 }
 
 extension PropsGPUTextureBindingLayout on GPUTextureBindingLayout {
-  GPUTextureSampleType get sampleType => GPUTextureSampleType.values
-      .byName(js_util.getProperty(this, 'sampleType'));
+  GPUTextureSampleType get sampleType =>
+      GPUTextureSampleType.fromValue(js_util.getProperty(this, 'sampleType'));
   set sampleType(GPUTextureSampleType newValue) {
-    js_util.setProperty(this, 'sampleType', newValue.name);
+    js_util.setProperty(this, 'sampleType', newValue.value);
   }
 
-  GPUTextureViewDimension get viewDimension => GPUTextureViewDimension.values
-      .byName(js_util.getProperty(this, 'viewDimension'));
+  GPUTextureViewDimension get viewDimension =>
+      GPUTextureViewDimension.fromValue(
+          js_util.getProperty(this, 'viewDimension'));
   set viewDimension(GPUTextureViewDimension newValue) {
-    js_util.setProperty(this, 'viewDimension', newValue.name);
+    js_util.setProperty(this, 'viewDimension', newValue.value);
   }
 
   bool get multisampled => js_util.getProperty(this, 'multisampled');
@@ -1084,7 +1193,14 @@ extension PropsGPUTextureBindingLayout on GPUTextureBindingLayout {
   }
 }
 
-enum GPUStorageTextureAccess { writeOnly }
+enum GPUStorageTextureAccess {
+  writeOnly('write-only');
+
+  final String value;
+  static GPUStorageTextureAccess fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUStorageTextureAccess(this.value);
+}
 
 @anonymous
 @JS()
@@ -1099,29 +1215,30 @@ class GPUStorageTextureBindingLayout {
           GPUTextureViewDimension? viewDimension =
               GPUTextureViewDimension.value2d}) =>
       GPUStorageTextureBindingLayout._(
-          access: access?.name,
-          format: format?.name,
-          viewDimension: viewDimension?.name);
+          access: access?.value,
+          format: format?.value,
+          viewDimension: viewDimension?.value);
 }
 
 extension PropsGPUStorageTextureBindingLayout
     on GPUStorageTextureBindingLayout {
-  GPUStorageTextureAccess get access => GPUStorageTextureAccess.values
-      .byName(js_util.getProperty(this, 'access'));
+  GPUStorageTextureAccess get access =>
+      GPUStorageTextureAccess.fromValue(js_util.getProperty(this, 'access'));
   set access(GPUStorageTextureAccess newValue) {
-    js_util.setProperty(this, 'access', newValue.name);
+    js_util.setProperty(this, 'access', newValue.value);
   }
 
   GPUTextureFormat get format =>
-      GPUTextureFormat.values.byName(js_util.getProperty(this, 'format'));
+      GPUTextureFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(GPUTextureFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
-  GPUTextureViewDimension get viewDimension => GPUTextureViewDimension.values
-      .byName(js_util.getProperty(this, 'viewDimension'));
+  GPUTextureViewDimension get viewDimension =>
+      GPUTextureViewDimension.fromValue(
+          js_util.getProperty(this, 'viewDimension'));
   set viewDimension(GPUTextureViewDimension newValue) {
-    js_util.setProperty(this, 'viewDimension', newValue.name);
+    js_util.setProperty(this, 'viewDimension', newValue.value);
   }
 }
 
@@ -1277,7 +1394,16 @@ extension PropsGPUShaderModuleCompilationHint
   }
 }
 
-enum GPUCompilationMessageType { error, warning, info }
+enum GPUCompilationMessageType {
+  error('error'),
+  warning('warning'),
+  info('info');
+
+  final String value;
+  static GPUCompilationMessageType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUCompilationMessageType(this.value);
+}
 
 @JS()
 @staticInterop
@@ -1287,8 +1413,8 @@ class GPUCompilationMessage {
 
 extension PropsGPUCompilationMessage on GPUCompilationMessage {
   String get message => js_util.getProperty(this, 'message');
-  GPUCompilationMessageType get type => GPUCompilationMessageType.values
-      .byName(js_util.getProperty(this, 'type'));
+  GPUCompilationMessageType get type =>
+      GPUCompilationMessageType.fromValue(js_util.getProperty(this, 'type'));
   int get lineNum => js_util.getProperty(this, 'lineNum');
   int get linePos => js_util.getProperty(this, 'linePos');
   int get offset => js_util.getProperty(this, 'offset');
@@ -1306,7 +1432,54 @@ extension PropsGPUCompilationInfo on GPUCompilationInfo {
       js_util.getProperty(this, 'messages');
 }
 
-enum GPUAutoLayoutMode { auto }
+@JS()
+@staticInterop
+class GPUPipelineError implements DOMException {
+  external factory GPUPipelineError(
+      String message, GPUPipelineErrorInit options);
+}
+
+extension PropsGPUPipelineError on GPUPipelineError {
+  GPUPipelineErrorReason get reason =>
+      GPUPipelineErrorReason.fromValue(js_util.getProperty(this, 'reason'));
+}
+
+@anonymous
+@JS()
+@staticInterop
+class GPUPipelineErrorInit {
+  external factory GPUPipelineErrorInit._({required String reason});
+
+  factory GPUPipelineErrorInit({required GPUPipelineErrorReason reason}) =>
+      GPUPipelineErrorInit._(reason: reason.value);
+}
+
+extension PropsGPUPipelineErrorInit on GPUPipelineErrorInit {
+  GPUPipelineErrorReason get reason =>
+      GPUPipelineErrorReason.fromValue(js_util.getProperty(this, 'reason'));
+  set reason(GPUPipelineErrorReason newValue) {
+    js_util.setProperty(this, 'reason', newValue.value);
+  }
+}
+
+enum GPUPipelineErrorReason {
+  validation('validation'),
+  internal('internal');
+
+  final String value;
+  static GPUPipelineErrorReason fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUPipelineErrorReason(this.value);
+}
+
+enum GPUAutoLayoutMode {
+  auto('auto');
+
+  final String value;
+  static GPUAutoLayoutMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUAutoLayoutMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -1446,36 +1619,36 @@ class GPUPrimitiveState {
           GPUCullMode? cullMode = GPUCullMode.none,
           bool? unclippedDepth = false}) =>
       GPUPrimitiveState._(
-          topology: topology?.name,
-          stripIndexFormat: stripIndexFormat?.name,
-          frontFace: frontFace?.name,
-          cullMode: cullMode?.name,
+          topology: topology?.value,
+          stripIndexFormat: stripIndexFormat?.value,
+          frontFace: frontFace?.value,
+          cullMode: cullMode?.value,
           unclippedDepth: unclippedDepth);
 }
 
 extension PropsGPUPrimitiveState on GPUPrimitiveState {
   GPUPrimitiveTopology get topology =>
-      GPUPrimitiveTopology.values.byName(js_util.getProperty(this, 'topology'));
+      GPUPrimitiveTopology.fromValue(js_util.getProperty(this, 'topology'));
   set topology(GPUPrimitiveTopology newValue) {
-    js_util.setProperty(this, 'topology', newValue.name);
+    js_util.setProperty(this, 'topology', newValue.value);
   }
 
-  GPUIndexFormat get stripIndexFormat => GPUIndexFormat.values
-      .byName(js_util.getProperty(this, 'stripIndexFormat'));
+  GPUIndexFormat get stripIndexFormat =>
+      GPUIndexFormat.fromValue(js_util.getProperty(this, 'stripIndexFormat'));
   set stripIndexFormat(GPUIndexFormat newValue) {
-    js_util.setProperty(this, 'stripIndexFormat', newValue.name);
+    js_util.setProperty(this, 'stripIndexFormat', newValue.value);
   }
 
   GPUFrontFace get frontFace =>
-      GPUFrontFace.values.byName(js_util.getProperty(this, 'frontFace'));
+      GPUFrontFace.fromValue(js_util.getProperty(this, 'frontFace'));
   set frontFace(GPUFrontFace newValue) {
-    js_util.setProperty(this, 'frontFace', newValue.name);
+    js_util.setProperty(this, 'frontFace', newValue.value);
   }
 
   GPUCullMode get cullMode =>
-      GPUCullMode.values.byName(js_util.getProperty(this, 'cullMode'));
+      GPUCullMode.fromValue(js_util.getProperty(this, 'cullMode'));
   set cullMode(GPUCullMode newValue) {
-    js_util.setProperty(this, 'cullMode', newValue.name);
+    js_util.setProperty(this, 'cullMode', newValue.value);
   }
 
   bool get unclippedDepth => js_util.getProperty(this, 'unclippedDepth');
@@ -1485,16 +1658,38 @@ extension PropsGPUPrimitiveState on GPUPrimitiveState {
 }
 
 enum GPUPrimitiveTopology {
-  pointList,
-  lineList,
-  lineStrip,
-  triangleList,
-  triangleStrip
+  pointList('point-list'),
+  lineList('line-list'),
+  lineStrip('line-strip'),
+  triangleList('triangle-list'),
+  triangleStrip('triangle-strip');
+
+  final String value;
+  static GPUPrimitiveTopology fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUPrimitiveTopology(this.value);
 }
 
-enum GPUFrontFace { ccw, cw }
+enum GPUFrontFace {
+  ccw('ccw'),
+  cw('cw');
 
-enum GPUCullMode { none, front, back }
+  final String value;
+  static GPUFrontFace fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUFrontFace(this.value);
+}
+
+enum GPUCullMode {
+  none('none'),
+  front('front'),
+  back('back');
+
+  final String value;
+  static GPUCullMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUCullMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -1553,14 +1748,14 @@ class GPUColorTargetState {
           required GPUBlendState blend,
           int? writeMask = 0xF}) =>
       GPUColorTargetState._(
-          format: format.name, blend: blend, writeMask: writeMask);
+          format: format.value, blend: blend, writeMask: writeMask);
 }
 
 extension PropsGPUColorTargetState on GPUColorTargetState {
   GPUTextureFormat get format =>
-      GPUTextureFormat.values.byName(js_util.getProperty(this, 'format'));
+      GPUTextureFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(GPUTextureFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
   GPUBlendState get blend => js_util.getProperty(this, 'blend');
@@ -1627,48 +1822,64 @@ class GPUBlendComponent {
           GPUBlendFactor? srcFactor = GPUBlendFactor.one,
           GPUBlendFactor? dstFactor = GPUBlendFactor.zero}) =>
       GPUBlendComponent._(
-          operation: operation?.name,
-          srcFactor: srcFactor?.name,
-          dstFactor: dstFactor?.name);
+          operation: operation?.value,
+          srcFactor: srcFactor?.value,
+          dstFactor: dstFactor?.value);
 }
 
 extension PropsGPUBlendComponent on GPUBlendComponent {
   GPUBlendOperation get operation =>
-      GPUBlendOperation.values.byName(js_util.getProperty(this, 'operation'));
+      GPUBlendOperation.fromValue(js_util.getProperty(this, 'operation'));
   set operation(GPUBlendOperation newValue) {
-    js_util.setProperty(this, 'operation', newValue.name);
+    js_util.setProperty(this, 'operation', newValue.value);
   }
 
   GPUBlendFactor get srcFactor =>
-      GPUBlendFactor.values.byName(js_util.getProperty(this, 'srcFactor'));
+      GPUBlendFactor.fromValue(js_util.getProperty(this, 'srcFactor'));
   set srcFactor(GPUBlendFactor newValue) {
-    js_util.setProperty(this, 'srcFactor', newValue.name);
+    js_util.setProperty(this, 'srcFactor', newValue.value);
   }
 
   GPUBlendFactor get dstFactor =>
-      GPUBlendFactor.values.byName(js_util.getProperty(this, 'dstFactor'));
+      GPUBlendFactor.fromValue(js_util.getProperty(this, 'dstFactor'));
   set dstFactor(GPUBlendFactor newValue) {
-    js_util.setProperty(this, 'dstFactor', newValue.name);
+    js_util.setProperty(this, 'dstFactor', newValue.value);
   }
 }
 
 enum GPUBlendFactor {
-  zero,
-  one,
-  src,
-  oneMinusSrc,
-  srcAlpha,
-  oneMinusSrcAlpha,
-  dst,
-  oneMinusDst,
-  dstAlpha,
-  oneMinusDstAlpha,
-  srcAlphaSaturated,
-  constant,
-  oneMinusConstant
+  zero('zero'),
+  one('one'),
+  src('src'),
+  oneMinusSrc('one-minus-src'),
+  srcAlpha('src-alpha'),
+  oneMinusSrcAlpha('one-minus-src-alpha'),
+  dst('dst'),
+  oneMinusDst('one-minus-dst'),
+  dstAlpha('dst-alpha'),
+  oneMinusDstAlpha('one-minus-dst-alpha'),
+  srcAlphaSaturated('src-alpha-saturated'),
+  constant('constant'),
+  oneMinusConstant('one-minus-constant');
+
+  final String value;
+  static GPUBlendFactor fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUBlendFactor(this.value);
 }
 
-enum GPUBlendOperation { add, subtract, reverseSubtract, min, max }
+enum GPUBlendOperation {
+  add('add'),
+  subtract('subtract'),
+  reverseSubtract('reverse-subtract'),
+  min('min'),
+  max('max');
+
+  final String value;
+  static GPUBlendOperation fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUBlendOperation(this.value);
+}
 
 @anonymous
 @JS()
@@ -1698,9 +1909,9 @@ class GPUDepthStencilState {
           double? depthBiasSlopeScale = 0,
           double? depthBiasClamp = 0}) =>
       GPUDepthStencilState._(
-          format: format.name,
+          format: format.value,
           depthWriteEnabled: depthWriteEnabled,
-          depthCompare: depthCompare?.name,
+          depthCompare: depthCompare?.value,
           stencilFront: stencilFront,
           stencilBack: stencilBack,
           stencilReadMask: stencilReadMask,
@@ -1712,9 +1923,9 @@ class GPUDepthStencilState {
 
 extension PropsGPUDepthStencilState on GPUDepthStencilState {
   GPUTextureFormat get format =>
-      GPUTextureFormat.values.byName(js_util.getProperty(this, 'format'));
+      GPUTextureFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(GPUTextureFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
   bool get depthWriteEnabled => js_util.getProperty(this, 'depthWriteEnabled');
@@ -1722,10 +1933,10 @@ extension PropsGPUDepthStencilState on GPUDepthStencilState {
     js_util.setProperty(this, 'depthWriteEnabled', newValue);
   }
 
-  GPUCompareFunction get depthCompare => GPUCompareFunction.values
-      .byName(js_util.getProperty(this, 'depthCompare'));
+  GPUCompareFunction get depthCompare =>
+      GPUCompareFunction.fromValue(js_util.getProperty(this, 'depthCompare'));
   set depthCompare(GPUCompareFunction newValue) {
-    js_util.setProperty(this, 'depthCompare', newValue.name);
+    js_util.setProperty(this, 'depthCompare', newValue.value);
   }
 
   GPUStencilFaceState get stencilFront =>
@@ -1780,85 +1991,111 @@ class GPUStencilFaceState {
           GPUStencilOperation? depthFailOp = GPUStencilOperation.keep,
           GPUStencilOperation? passOp = GPUStencilOperation.keep}) =>
       GPUStencilFaceState._(
-          compare: compare?.name,
-          failOp: failOp?.name,
-          depthFailOp: depthFailOp?.name,
-          passOp: passOp?.name);
+          compare: compare?.value,
+          failOp: failOp?.value,
+          depthFailOp: depthFailOp?.value,
+          passOp: passOp?.value);
 }
 
 extension PropsGPUStencilFaceState on GPUStencilFaceState {
   GPUCompareFunction get compare =>
-      GPUCompareFunction.values.byName(js_util.getProperty(this, 'compare'));
+      GPUCompareFunction.fromValue(js_util.getProperty(this, 'compare'));
   set compare(GPUCompareFunction newValue) {
-    js_util.setProperty(this, 'compare', newValue.name);
+    js_util.setProperty(this, 'compare', newValue.value);
   }
 
   GPUStencilOperation get failOp =>
-      GPUStencilOperation.values.byName(js_util.getProperty(this, 'failOp'));
+      GPUStencilOperation.fromValue(js_util.getProperty(this, 'failOp'));
   set failOp(GPUStencilOperation newValue) {
-    js_util.setProperty(this, 'failOp', newValue.name);
+    js_util.setProperty(this, 'failOp', newValue.value);
   }
 
-  GPUStencilOperation get depthFailOp => GPUStencilOperation.values
-      .byName(js_util.getProperty(this, 'depthFailOp'));
+  GPUStencilOperation get depthFailOp =>
+      GPUStencilOperation.fromValue(js_util.getProperty(this, 'depthFailOp'));
   set depthFailOp(GPUStencilOperation newValue) {
-    js_util.setProperty(this, 'depthFailOp', newValue.name);
+    js_util.setProperty(this, 'depthFailOp', newValue.value);
   }
 
   GPUStencilOperation get passOp =>
-      GPUStencilOperation.values.byName(js_util.getProperty(this, 'passOp'));
+      GPUStencilOperation.fromValue(js_util.getProperty(this, 'passOp'));
   set passOp(GPUStencilOperation newValue) {
-    js_util.setProperty(this, 'passOp', newValue.name);
+    js_util.setProperty(this, 'passOp', newValue.value);
   }
 }
 
 enum GPUStencilOperation {
-  keep,
-  zero,
-  replace,
-  invert,
-  incrementClamp,
-  decrementClamp,
-  incrementWrap,
-  decrementWrap
+  keep('keep'),
+  zero('zero'),
+  replace('replace'),
+  invert('invert'),
+  incrementClamp('increment-clamp'),
+  decrementClamp('decrement-clamp'),
+  incrementWrap('increment-wrap'),
+  decrementWrap('decrement-wrap');
+
+  final String value;
+  static GPUStencilOperation fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUStencilOperation(this.value);
 }
 
-enum GPUIndexFormat { uint16, uint32 }
+enum GPUIndexFormat {
+  uint16('uint16'),
+  uint32('uint32');
+
+  final String value;
+  static GPUIndexFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUIndexFormat(this.value);
+}
 
 enum GPUVertexFormat {
-  uint8x2,
-  uint8x4,
-  sint8x2,
-  sint8x4,
-  unorm8x2,
-  unorm8x4,
-  snorm8x2,
-  snorm8x4,
-  uint16x2,
-  uint16x4,
-  sint16x2,
-  sint16x4,
-  unorm16x2,
-  unorm16x4,
-  snorm16x2,
-  snorm16x4,
-  float16x2,
-  float16x4,
-  float32,
-  float32x2,
-  float32x3,
-  float32x4,
-  uint32,
-  uint32x2,
-  uint32x3,
-  uint32x4,
-  sint32,
-  sint32x2,
-  sint32x3,
-  sint32x4
+  uint8x2('uint8x2'),
+  uint8x4('uint8x4'),
+  sint8x2('sint8x2'),
+  sint8x4('sint8x4'),
+  unorm8x2('unorm8x2'),
+  unorm8x4('unorm8x4'),
+  snorm8x2('snorm8x2'),
+  snorm8x4('snorm8x4'),
+  uint16x2('uint16x2'),
+  uint16x4('uint16x4'),
+  sint16x2('sint16x2'),
+  sint16x4('sint16x4'),
+  unorm16x2('unorm16x2'),
+  unorm16x4('unorm16x4'),
+  snorm16x2('snorm16x2'),
+  snorm16x4('snorm16x4'),
+  float16x2('float16x2'),
+  float16x4('float16x4'),
+  float32('float32'),
+  float32x2('float32x2'),
+  float32x3('float32x3'),
+  float32x4('float32x4'),
+  uint32('uint32'),
+  uint32x2('uint32x2'),
+  uint32x3('uint32x3'),
+  uint32x4('uint32x4'),
+  sint32('sint32'),
+  sint32x2('sint32x2'),
+  sint32x3('sint32x3'),
+  sint32x4('sint32x4');
+
+  final String value;
+  static GPUVertexFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUVertexFormat(this.value);
 }
 
-enum GPUVertexStepMode { vertex, instance }
+enum GPUVertexStepMode {
+  vertex('vertex'),
+  instance('instance');
+
+  final String value;
+  static GPUVertexStepMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUVertexStepMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -1891,7 +2128,7 @@ class GPUVertexBufferLayout {
           Iterable<GPUVertexAttribute>? attributes}) =>
       GPUVertexBufferLayout._(
           arrayStride: arrayStride,
-          stepMode: stepMode?.name,
+          stepMode: stepMode?.value,
           attributes: attributes);
 }
 
@@ -1902,9 +2139,9 @@ extension PropsGPUVertexBufferLayout on GPUVertexBufferLayout {
   }
 
   GPUVertexStepMode get stepMode =>
-      GPUVertexStepMode.values.byName(js_util.getProperty(this, 'stepMode'));
+      GPUVertexStepMode.fromValue(js_util.getProperty(this, 'stepMode'));
   set stepMode(GPUVertexStepMode newValue) {
-    js_util.setProperty(this, 'stepMode', newValue.name);
+    js_util.setProperty(this, 'stepMode', newValue.value);
   }
 
   Iterable<GPUVertexAttribute> get attributes =>
@@ -1928,14 +2165,14 @@ class GPUVertexAttribute {
           required int offset,
           required int shaderLocation}) =>
       GPUVertexAttribute._(
-          format: format.name, offset: offset, shaderLocation: shaderLocation);
+          format: format.value, offset: offset, shaderLocation: shaderLocation);
 }
 
 extension PropsGPUVertexAttribute on GPUVertexAttribute {
   GPUVertexFormat get format =>
-      GPUVertexFormat.values.byName(js_util.getProperty(this, 'format'));
+      GPUVertexFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(GPUVertexFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
   int get offset => js_util.getProperty(this, 'offset');
@@ -1946,6 +2183,144 @@ extension PropsGPUVertexAttribute on GPUVertexAttribute {
   int get shaderLocation => js_util.getProperty(this, 'shaderLocation');
   set shaderLocation(int newValue) {
     js_util.setProperty(this, 'shaderLocation', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class GPUImageDataLayout {
+  external factory GPUImageDataLayout(
+      {int? offset = 0, int? bytesPerRow, int? rowsPerImage});
+}
+
+extension PropsGPUImageDataLayout on GPUImageDataLayout {
+  int get offset => js_util.getProperty(this, 'offset');
+  set offset(int newValue) {
+    js_util.setProperty(this, 'offset', newValue);
+  }
+
+  int get bytesPerRow => js_util.getProperty(this, 'bytesPerRow');
+  set bytesPerRow(int newValue) {
+    js_util.setProperty(this, 'bytesPerRow', newValue);
+  }
+
+  int get rowsPerImage => js_util.getProperty(this, 'rowsPerImage');
+  set rowsPerImage(int newValue) {
+    js_util.setProperty(this, 'rowsPerImage', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class GPUImageCopyBuffer implements GPUImageDataLayout {
+  external factory GPUImageCopyBuffer({required GPUBuffer buffer});
+}
+
+extension PropsGPUImageCopyBuffer on GPUImageCopyBuffer {
+  GPUBuffer get buffer => js_util.getProperty(this, 'buffer');
+  set buffer(GPUBuffer newValue) {
+    js_util.setProperty(this, 'buffer', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class GPUImageCopyTexture {
+  external factory GPUImageCopyTexture._(
+      {required GPUTexture texture,
+      int? mipLevel = 0,
+      dynamic origin,
+      String? aspect});
+
+  factory GPUImageCopyTexture(
+          {required GPUTexture texture,
+          int? mipLevel = 0,
+          dynamic origin,
+          GPUTextureAspect? aspect = GPUTextureAspect.all}) =>
+      GPUImageCopyTexture._(
+          texture: texture,
+          mipLevel: mipLevel,
+          origin: origin,
+          aspect: aspect?.value);
+}
+
+extension PropsGPUImageCopyTexture on GPUImageCopyTexture {
+  GPUTexture get texture => js_util.getProperty(this, 'texture');
+  set texture(GPUTexture newValue) {
+    js_util.setProperty(this, 'texture', newValue);
+  }
+
+  int get mipLevel => js_util.getProperty(this, 'mipLevel');
+  set mipLevel(int newValue) {
+    js_util.setProperty(this, 'mipLevel', newValue);
+  }
+
+  dynamic get origin => js_util.getProperty(this, 'origin');
+  set origin(dynamic newValue) {
+    js_util.setProperty(this, 'origin', newValue);
+  }
+
+  GPUTextureAspect get aspect =>
+      GPUTextureAspect.fromValue(js_util.getProperty(this, 'aspect'));
+  set aspect(GPUTextureAspect newValue) {
+    js_util.setProperty(this, 'aspect', newValue.value);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class GPUImageCopyTextureTagged implements GPUImageCopyTexture {
+  external factory GPUImageCopyTextureTagged._(
+      {String? colorSpace, bool? premultipliedAlpha = false});
+
+  factory GPUImageCopyTextureTagged(
+          {PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb,
+          bool? premultipliedAlpha = false}) =>
+      GPUImageCopyTextureTagged._(
+          colorSpace: colorSpace?.value,
+          premultipliedAlpha: premultipliedAlpha);
+}
+
+extension PropsGPUImageCopyTextureTagged on GPUImageCopyTextureTagged {
+  PredefinedColorSpace get colorSpace =>
+      PredefinedColorSpace.fromValue(js_util.getProperty(this, 'colorSpace'));
+  set colorSpace(PredefinedColorSpace newValue) {
+    js_util.setProperty(this, 'colorSpace', newValue.value);
+  }
+
+  bool get premultipliedAlpha =>
+      js_util.getProperty(this, 'premultipliedAlpha');
+  set premultipliedAlpha(bool newValue) {
+    js_util.setProperty(this, 'premultipliedAlpha', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class GPUImageCopyExternalImage {
+  external factory GPUImageCopyExternalImage(
+      {dynamic source, dynamic origin, bool? flipY = false});
+}
+
+extension PropsGPUImageCopyExternalImage on GPUImageCopyExternalImage {
+  dynamic get source => js_util.getProperty(this, 'source');
+  set source(dynamic newValue) {
+    js_util.setProperty(this, 'source', newValue);
+  }
+
+  dynamic get origin => js_util.getProperty(this, 'origin');
+  set origin(dynamic newValue) {
+    js_util.setProperty(this, 'origin', newValue);
+  }
+
+  bool get flipY => js_util.getProperty(this, 'flipY');
+  set flipY(bool newValue) {
+    js_util.setProperty(this, 'flipY', newValue);
   }
 }
 
@@ -2025,143 +2400,6 @@ class GPUCommandEncoderDescriptor implements GPUObjectDescriptorBase {
   external factory GPUCommandEncoderDescriptor();
 }
 
-@anonymous
-@JS()
-@staticInterop
-class GPUImageDataLayout {
-  external factory GPUImageDataLayout(
-      {int? offset = 0, int? bytesPerRow, int? rowsPerImage});
-}
-
-extension PropsGPUImageDataLayout on GPUImageDataLayout {
-  int get offset => js_util.getProperty(this, 'offset');
-  set offset(int newValue) {
-    js_util.setProperty(this, 'offset', newValue);
-  }
-
-  int get bytesPerRow => js_util.getProperty(this, 'bytesPerRow');
-  set bytesPerRow(int newValue) {
-    js_util.setProperty(this, 'bytesPerRow', newValue);
-  }
-
-  int get rowsPerImage => js_util.getProperty(this, 'rowsPerImage');
-  set rowsPerImage(int newValue) {
-    js_util.setProperty(this, 'rowsPerImage', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class GPUImageCopyBuffer implements GPUImageDataLayout {
-  external factory GPUImageCopyBuffer({required GPUBuffer buffer});
-}
-
-extension PropsGPUImageCopyBuffer on GPUImageCopyBuffer {
-  GPUBuffer get buffer => js_util.getProperty(this, 'buffer');
-  set buffer(GPUBuffer newValue) {
-    js_util.setProperty(this, 'buffer', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class GPUImageCopyTexture {
-  external factory GPUImageCopyTexture._(
-      {required GPUTexture texture,
-      int? mipLevel = 0,
-      dynamic origin,
-      String? aspect});
-
-  factory GPUImageCopyTexture(
-          {required GPUTexture texture,
-          int? mipLevel = 0,
-          dynamic origin,
-          GPUTextureAspect? aspect = GPUTextureAspect.all}) =>
-      GPUImageCopyTexture._(
-          texture: texture,
-          mipLevel: mipLevel,
-          origin: origin,
-          aspect: aspect?.name);
-}
-
-extension PropsGPUImageCopyTexture on GPUImageCopyTexture {
-  GPUTexture get texture => js_util.getProperty(this, 'texture');
-  set texture(GPUTexture newValue) {
-    js_util.setProperty(this, 'texture', newValue);
-  }
-
-  int get mipLevel => js_util.getProperty(this, 'mipLevel');
-  set mipLevel(int newValue) {
-    js_util.setProperty(this, 'mipLevel', newValue);
-  }
-
-  dynamic get origin => js_util.getProperty(this, 'origin');
-  set origin(dynamic newValue) {
-    js_util.setProperty(this, 'origin', newValue);
-  }
-
-  GPUTextureAspect get aspect =>
-      GPUTextureAspect.values.byName(js_util.getProperty(this, 'aspect'));
-  set aspect(GPUTextureAspect newValue) {
-    js_util.setProperty(this, 'aspect', newValue.name);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class GPUImageCopyTextureTagged implements GPUImageCopyTexture {
-  external factory GPUImageCopyTextureTagged._(
-      {String? colorSpace, bool? premultipliedAlpha = false});
-
-  factory GPUImageCopyTextureTagged(
-          {PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb,
-          bool? premultipliedAlpha = false}) =>
-      GPUImageCopyTextureTagged._(
-          colorSpace: colorSpace?.name, premultipliedAlpha: premultipliedAlpha);
-}
-
-extension PropsGPUImageCopyTextureTagged on GPUImageCopyTextureTagged {
-  PredefinedColorSpace get colorSpace => PredefinedColorSpace.values
-      .byName(js_util.getProperty(this, 'colorSpace'));
-  set colorSpace(PredefinedColorSpace newValue) {
-    js_util.setProperty(this, 'colorSpace', newValue.name);
-  }
-
-  bool get premultipliedAlpha =>
-      js_util.getProperty(this, 'premultipliedAlpha');
-  set premultipliedAlpha(bool newValue) {
-    js_util.setProperty(this, 'premultipliedAlpha', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class GPUImageCopyExternalImage {
-  external factory GPUImageCopyExternalImage(
-      {dynamic source, dynamic origin, bool? flipY = false});
-}
-
-extension PropsGPUImageCopyExternalImage on GPUImageCopyExternalImage {
-  dynamic get source => js_util.getProperty(this, 'source');
-  set source(dynamic newValue) {
-    js_util.setProperty(this, 'source', newValue);
-  }
-
-  dynamic get origin => js_util.getProperty(this, 'origin');
-  set origin(dynamic newValue) {
-    js_util.setProperty(this, 'origin', newValue);
-  }
-
-  bool get flipY => js_util.getProperty(this, 'flipY');
-  set flipY(bool newValue) {
-    js_util.setProperty(this, 'flipY', newValue);
-  }
-}
-
 @JS()
 @staticInterop
 class GPUBindingCommandsMixin {
@@ -2226,7 +2464,15 @@ extension PropsGPUComputePassEncoder on GPUComputePassEncoder {
   void end() => js_util.callMethod(this, 'end', []);
 }
 
-enum GPUComputePassTimestampLocation { beginning, end }
+enum GPUComputePassTimestampLocation {
+  beginning('beginning'),
+  end('end');
+
+  final String value;
+  static GPUComputePassTimestampLocation fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUComputePassTimestampLocation(this.value);
+}
 
 @anonymous
 @JS()
@@ -2242,7 +2488,7 @@ class GPUComputePassTimestampWrite {
           required int queryIndex,
           required GPUComputePassTimestampLocation location}) =>
       GPUComputePassTimestampWrite._(
-          querySet: querySet, queryIndex: queryIndex, location: location.name);
+          querySet: querySet, queryIndex: queryIndex, location: location.value);
 }
 
 extension PropsGPUComputePassTimestampWrite on GPUComputePassTimestampWrite {
@@ -2257,10 +2503,10 @@ extension PropsGPUComputePassTimestampWrite on GPUComputePassTimestampWrite {
   }
 
   GPUComputePassTimestampLocation get location =>
-      GPUComputePassTimestampLocation.values
-          .byName(js_util.getProperty(this, 'location'));
+      GPUComputePassTimestampLocation.fromValue(
+          js_util.getProperty(this, 'location'));
   set location(GPUComputePassTimestampLocation newValue) {
-    js_util.setProperty(this, 'location', newValue.name);
+    js_util.setProperty(this, 'location', newValue.value);
   }
 }
 
@@ -2318,7 +2564,15 @@ extension PropsGPURenderPassEncoder on GPURenderPassEncoder {
   void end() => js_util.callMethod(this, 'end', []);
 }
 
-enum GPURenderPassTimestampLocation { beginning, end }
+enum GPURenderPassTimestampLocation {
+  beginning('beginning'),
+  end('end');
+
+  final String value;
+  static GPURenderPassTimestampLocation fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPURenderPassTimestampLocation(this.value);
+}
 
 @anonymous
 @JS()
@@ -2334,7 +2588,7 @@ class GPURenderPassTimestampWrite {
           required int queryIndex,
           required GPURenderPassTimestampLocation location}) =>
       GPURenderPassTimestampWrite._(
-          querySet: querySet, queryIndex: queryIndex, location: location.name);
+          querySet: querySet, queryIndex: queryIndex, location: location.value);
 }
 
 extension PropsGPURenderPassTimestampWrite on GPURenderPassTimestampWrite {
@@ -2349,10 +2603,10 @@ extension PropsGPURenderPassTimestampWrite on GPURenderPassTimestampWrite {
   }
 
   GPURenderPassTimestampLocation get location =>
-      GPURenderPassTimestampLocation.values
-          .byName(js_util.getProperty(this, 'location'));
+      GPURenderPassTimestampLocation.fromValue(
+          js_util.getProperty(this, 'location'));
   set location(GPURenderPassTimestampLocation newValue) {
-    js_util.setProperty(this, 'location', newValue.name);
+    js_util.setProperty(this, 'location', newValue.value);
   }
 }
 
@@ -2420,8 +2674,8 @@ class GPURenderPassColorAttachment {
           view: view,
           resolveTarget: resolveTarget,
           clearValue: clearValue,
-          loadOp: loadOp.name,
-          storeOp: storeOp.name);
+          loadOp: loadOp.value,
+          storeOp: storeOp.value);
 }
 
 extension PropsGPURenderPassColorAttachment on GPURenderPassColorAttachment {
@@ -2442,15 +2696,15 @@ extension PropsGPURenderPassColorAttachment on GPURenderPassColorAttachment {
   }
 
   GPULoadOp get loadOp =>
-      GPULoadOp.values.byName(js_util.getProperty(this, 'loadOp'));
+      GPULoadOp.fromValue(js_util.getProperty(this, 'loadOp'));
   set loadOp(GPULoadOp newValue) {
-    js_util.setProperty(this, 'loadOp', newValue.name);
+    js_util.setProperty(this, 'loadOp', newValue.value);
   }
 
   GPUStoreOp get storeOp =>
-      GPUStoreOp.values.byName(js_util.getProperty(this, 'storeOp'));
+      GPUStoreOp.fromValue(js_util.getProperty(this, 'storeOp'));
   set storeOp(GPUStoreOp newValue) {
-    js_util.setProperty(this, 'storeOp', newValue.name);
+    js_util.setProperty(this, 'storeOp', newValue.value);
   }
 }
 
@@ -2482,12 +2736,12 @@ class GPURenderPassDepthStencilAttachment {
       GPURenderPassDepthStencilAttachment._(
           view: view,
           depthClearValue: depthClearValue,
-          depthLoadOp: depthLoadOp?.name,
-          depthStoreOp: depthStoreOp?.name,
+          depthLoadOp: depthLoadOp?.value,
+          depthStoreOp: depthStoreOp?.value,
           depthReadOnly: depthReadOnly,
           stencilClearValue: stencilClearValue,
-          stencilLoadOp: stencilLoadOp?.name,
-          stencilStoreOp: stencilStoreOp?.name,
+          stencilLoadOp: stencilLoadOp?.value,
+          stencilStoreOp: stencilStoreOp?.value,
           stencilReadOnly: stencilReadOnly);
 }
 
@@ -2504,15 +2758,15 @@ extension PropsGPURenderPassDepthStencilAttachment
   }
 
   GPULoadOp get depthLoadOp =>
-      GPULoadOp.values.byName(js_util.getProperty(this, 'depthLoadOp'));
+      GPULoadOp.fromValue(js_util.getProperty(this, 'depthLoadOp'));
   set depthLoadOp(GPULoadOp newValue) {
-    js_util.setProperty(this, 'depthLoadOp', newValue.name);
+    js_util.setProperty(this, 'depthLoadOp', newValue.value);
   }
 
   GPUStoreOp get depthStoreOp =>
-      GPUStoreOp.values.byName(js_util.getProperty(this, 'depthStoreOp'));
+      GPUStoreOp.fromValue(js_util.getProperty(this, 'depthStoreOp'));
   set depthStoreOp(GPUStoreOp newValue) {
-    js_util.setProperty(this, 'depthStoreOp', newValue.name);
+    js_util.setProperty(this, 'depthStoreOp', newValue.value);
   }
 
   bool get depthReadOnly => js_util.getProperty(this, 'depthReadOnly');
@@ -2526,15 +2780,15 @@ extension PropsGPURenderPassDepthStencilAttachment
   }
 
   GPULoadOp get stencilLoadOp =>
-      GPULoadOp.values.byName(js_util.getProperty(this, 'stencilLoadOp'));
+      GPULoadOp.fromValue(js_util.getProperty(this, 'stencilLoadOp'));
   set stencilLoadOp(GPULoadOp newValue) {
-    js_util.setProperty(this, 'stencilLoadOp', newValue.name);
+    js_util.setProperty(this, 'stencilLoadOp', newValue.value);
   }
 
   GPUStoreOp get stencilStoreOp =>
-      GPUStoreOp.values.byName(js_util.getProperty(this, 'stencilStoreOp'));
+      GPUStoreOp.fromValue(js_util.getProperty(this, 'stencilStoreOp'));
   set stencilStoreOp(GPUStoreOp newValue) {
-    js_util.setProperty(this, 'stencilStoreOp', newValue.name);
+    js_util.setProperty(this, 'stencilStoreOp', newValue.value);
   }
 
   bool get stencilReadOnly => js_util.getProperty(this, 'stencilReadOnly');
@@ -2543,9 +2797,25 @@ extension PropsGPURenderPassDepthStencilAttachment
   }
 }
 
-enum GPULoadOp { load, clear }
+enum GPULoadOp {
+  load('load'),
+  clear('clear');
 
-enum GPUStoreOp { store, discard }
+  final String value;
+  static GPULoadOp fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPULoadOp(this.value);
+}
+
+enum GPUStoreOp {
+  store('store'),
+  discard('discard');
+
+  final String value;
+  static GPUStoreOp fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUStoreOp(this.value);
+}
 
 @anonymous
 @JS()
@@ -2561,8 +2831,8 @@ class GPURenderPassLayout implements GPUObjectDescriptorBase {
           required GPUTextureFormat depthStencilFormat,
           int? sampleCount = 1}) =>
       GPURenderPassLayout._(
-          colorFormats: colorFormats?.names,
-          depthStencilFormat: depthStencilFormat.name,
+          colorFormats: colorFormats?.values,
+          depthStencilFormat: depthStencilFormat.value,
           sampleCount: sampleCount);
 }
 
@@ -2570,17 +2840,17 @@ extension PropsGPURenderPassLayout on GPURenderPassLayout {
   Iterable<GPUTextureFormat>? get colorFormats {
     final ret = js_util.getProperty(this, 'colorFormats');
 
-    return ret == null ? null : GPUTextureFormat.values.byNames(ret);
+    return ret == null ? null : GPUTextureFormat.fromValues(ret);
   }
 
   set colorFormats(Iterable<GPUTextureFormat>? newValue) {
-    js_util.setProperty(this, 'colorFormats', newValue?.names);
+    js_util.setProperty(this, 'colorFormats', newValue?.values);
   }
 
-  GPUTextureFormat get depthStencilFormat => GPUTextureFormat.values
-      .byName(js_util.getProperty(this, 'depthStencilFormat'));
+  GPUTextureFormat get depthStencilFormat => GPUTextureFormat.fromValue(
+      js_util.getProperty(this, 'depthStencilFormat'));
   set depthStencilFormat(GPUTextureFormat newValue) {
-    js_util.setProperty(this, 'depthStencilFormat', newValue.name);
+    js_util.setProperty(this, 'depthStencilFormat', newValue.value);
   }
 
   int get sampleCount => js_util.getProperty(this, 'sampleCount');
@@ -2602,7 +2872,7 @@ extension PropsGPURenderCommandsMixin on GPURenderCommandsMixin {
   void setIndexBuffer(GPUBuffer buffer, GPUIndexFormat indexFormat,
           [int? offset = 0, int? size]) =>
       js_util.callMethod(
-          this, 'setIndexBuffer', [buffer, indexFormat.name, offset, size]);
+          this, 'setIndexBuffer', [buffer, indexFormat.value, offset, size]);
 
   void setVertexBuffer(int slot, GPUBuffer buffer,
           [int? offset = 0, int? size]) =>
@@ -2728,7 +2998,7 @@ extension PropsGPUQuerySet on GPUQuerySet {
   void destroy() => js_util.callMethod(this, 'destroy', []);
 
   GPUQueryType get type =>
-      GPUQueryType.values.byName(js_util.getProperty(this, 'type'));
+      GPUQueryType.fromValue(js_util.getProperty(this, 'type'));
   int get count => js_util.getProperty(this, 'count');
 }
 
@@ -2741,14 +3011,14 @@ class GPUQuerySetDescriptor implements GPUObjectDescriptorBase {
 
   factory GPUQuerySetDescriptor(
           {required GPUQueryType type, required int count}) =>
-      GPUQuerySetDescriptor._(type: type.name, count: count);
+      GPUQuerySetDescriptor._(type: type.value, count: count);
 }
 
 extension PropsGPUQuerySetDescriptor on GPUQuerySetDescriptor {
   GPUQueryType get type =>
-      GPUQueryType.values.byName(js_util.getProperty(this, 'type'));
+      GPUQueryType.fromValue(js_util.getProperty(this, 'type'));
   set type(GPUQueryType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   int get count => js_util.getProperty(this, 'count');
@@ -2757,7 +3027,15 @@ extension PropsGPUQuerySetDescriptor on GPUQuerySetDescriptor {
   }
 }
 
-enum GPUQueryType { occlusion, timestamp }
+enum GPUQueryType {
+  occlusion('occlusion'),
+  timestamp('timestamp');
+
+  final String value;
+  static GPUQueryType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUQueryType(this.value);
+}
 
 @JS()
 @staticInterop
@@ -2776,7 +3054,15 @@ extension PropsGPUCanvasContext on GPUCanvasContext {
       js_util.callMethod(this, 'getCurrentTexture', []);
 }
 
-enum GPUCanvasAlphaMode { opaque, premultiplied }
+enum GPUCanvasAlphaMode {
+  opaque('opaque'),
+  premultiplied('premultiplied');
+
+  final String value;
+  static GPUCanvasAlphaMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUCanvasAlphaMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -2799,11 +3085,11 @@ class GPUCanvasConfiguration {
           GPUCanvasAlphaMode? alphaMode = GPUCanvasAlphaMode.opaque}) =>
       GPUCanvasConfiguration._(
           device: device,
-          format: format.name,
+          format: format.value,
           usage: usage,
-          viewFormats: viewFormats?.names,
-          colorSpace: colorSpace?.name,
-          alphaMode: alphaMode?.name);
+          viewFormats: viewFormats?.values,
+          colorSpace: colorSpace?.value,
+          alphaMode: alphaMode?.value);
 }
 
 extension PropsGPUCanvasConfiguration on GPUCanvasConfiguration {
@@ -2813,9 +3099,9 @@ extension PropsGPUCanvasConfiguration on GPUCanvasConfiguration {
   }
 
   GPUTextureFormat get format =>
-      GPUTextureFormat.values.byName(js_util.getProperty(this, 'format'));
+      GPUTextureFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(GPUTextureFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
   int get usage => js_util.getProperty(this, 'usage');
@@ -2824,25 +3110,32 @@ extension PropsGPUCanvasConfiguration on GPUCanvasConfiguration {
   }
 
   Iterable<GPUTextureFormat> get viewFormats =>
-      GPUTextureFormat.values.byNames(js_util.getProperty(this, 'viewFormats'));
+      GPUTextureFormat.fromValues(js_util.getProperty(this, 'viewFormats'));
   set viewFormats(Iterable<GPUTextureFormat> newValue) {
-    js_util.setProperty(this, 'viewFormats', newValue.names);
+    js_util.setProperty(this, 'viewFormats', newValue.values);
   }
 
-  PredefinedColorSpace get colorSpace => PredefinedColorSpace.values
-      .byName(js_util.getProperty(this, 'colorSpace'));
+  PredefinedColorSpace get colorSpace =>
+      PredefinedColorSpace.fromValue(js_util.getProperty(this, 'colorSpace'));
   set colorSpace(PredefinedColorSpace newValue) {
-    js_util.setProperty(this, 'colorSpace', newValue.name);
+    js_util.setProperty(this, 'colorSpace', newValue.value);
   }
 
   GPUCanvasAlphaMode get alphaMode =>
-      GPUCanvasAlphaMode.values.byName(js_util.getProperty(this, 'alphaMode'));
+      GPUCanvasAlphaMode.fromValue(js_util.getProperty(this, 'alphaMode'));
   set alphaMode(GPUCanvasAlphaMode newValue) {
-    js_util.setProperty(this, 'alphaMode', newValue.name);
+    js_util.setProperty(this, 'alphaMode', newValue.value);
   }
 }
 
-enum GPUDeviceLostReason { destroyed }
+enum GPUDeviceLostReason {
+  destroyed('destroyed');
+
+  final String value;
+  static GPUDeviceLostReason fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUDeviceLostReason(this.value);
+}
 
 @JS()
 @staticInterop
@@ -2854,8 +3147,6 @@ extension PropsGPUDeviceLostInfo on GPUDeviceLostInfo {
   dynamic get reason => js_util.getProperty(this, 'reason');
   String get message => js_util.getProperty(this, 'message');
 }
-
-enum GPUErrorFilter { outOfMemory, validation }
 
 @JS()
 @staticInterop
@@ -2869,14 +3160,31 @@ extension PropsGPUError on GPUError {
 
 @JS()
 @staticInterop
+class GPUValidationError implements GPUError {
+  external factory GPUValidationError(String message);
+}
+
+@JS()
+@staticInterop
 class GPUOutOfMemoryError implements GPUError {
   external factory GPUOutOfMemoryError(String message);
 }
 
 @JS()
 @staticInterop
-class GPUValidationError implements GPUError {
-  external factory GPUValidationError(String message);
+class GPUInternalError implements GPUError {
+  external factory GPUInternalError(String message);
+}
+
+enum GPUErrorFilter {
+  validation('validation'),
+  outOfMemory('out-of-memory'),
+  internal('internal');
+
+  final String value;
+  static GPUErrorFilter fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const GPUErrorFilter(this.value);
 }
 
 @JS()

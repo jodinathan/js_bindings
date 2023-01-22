@@ -1,6 +1,6 @@
 /// WebGL EXT_color_buffer_half_float Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_color_buffer_half_float/
+/// https://registry.khronos.org/webgl/extensions/EXT_color_buffer_half_float/
 
 // ignore_for_file: unused_import
 

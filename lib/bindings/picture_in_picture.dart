@@ -28,6 +28,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    PictureInPictureWindow
 ///
 ///
@@ -53,6 +55,8 @@ extension PropsPictureInPictureWindow on PictureInPictureWindow {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///

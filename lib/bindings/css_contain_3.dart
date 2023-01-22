@@ -18,3 +18,8 @@ import 'package:js_bindings/js_bindings.dart';
 class CSSContainerRule implements CSSConditionRule {
   external factory CSSContainerRule();
 }
+
+extension PropsCSSContainerRule on CSSContainerRule {
+  String get containerName => js_util.getProperty(this, 'containerName');
+  String get containerQuery => js_util.getProperty(this, 'containerQuery');
+}

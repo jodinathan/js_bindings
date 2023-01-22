@@ -10,13 +10,29 @@ library webxr_depth_sensing_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
-enum XRDepthUsage { cpuOptimized, gpuOptimized }
+enum XRDepthUsage {
+  cpuOptimized('cpu-optimized'),
+  gpuOptimized('gpu-optimized');
 
-enum XRDepthDataFormat { luminanceAlpha, float32 }
+  final String value;
+  static XRDepthUsage fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const XRDepthUsage(this.value);
+}
+
+enum XRDepthDataFormat {
+  luminanceAlpha('luminance-alpha'),
+  float32('float32');
+
+  final String value;
+  static XRDepthDataFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const XRDepthDataFormat(this.value);
+}
 
 @anonymous
 @JS()
@@ -30,29 +46,32 @@ class XRDepthStateInit {
           {required Iterable<XRDepthUsage> usagePreference,
           required Iterable<XRDepthDataFormat> dataFormatPreference}) =>
       XRDepthStateInit._(
-          usagePreference: usagePreference.names,
-          dataFormatPreference: dataFormatPreference.names);
+          usagePreference: usagePreference.values,
+          dataFormatPreference: dataFormatPreference.values);
 }
 
 extension PropsXRDepthStateInit on XRDepthStateInit {
   Iterable<XRDepthUsage> get usagePreference =>
-      XRDepthUsage.values.byNames(js_util.getProperty(this, 'usagePreference'));
+      XRDepthUsage.fromValues(js_util.getProperty(this, 'usagePreference'));
   set usagePreference(Iterable<XRDepthUsage> newValue) {
-    js_util.setProperty(this, 'usagePreference', newValue.names);
+    js_util.setProperty(this, 'usagePreference', newValue.values);
   }
 
   Iterable<XRDepthDataFormat> get dataFormatPreference =>
-      XRDepthDataFormat.values
-          .byNames(js_util.getProperty(this, 'dataFormatPreference'));
+      XRDepthDataFormat.fromValues(
+          js_util.getProperty(this, 'dataFormatPreference'));
   set dataFormatPreference(Iterable<XRDepthDataFormat> newValue) {
-    js_util.setProperty(this, 'dataFormatPreference', newValue.names);
+    js_util.setProperty(this, 'dataFormatPreference', newValue.values);
   }
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface contains information about the distance from the
-/// user’s device to the real-world geometry in the user’s
+/// user's device to the real-world geometry in the user's
 /// environment.
 /// This interface is the parent of:
 ///
@@ -69,6 +88,7 @@ extension PropsXRDepthStateInit on XRDepthStateInit {
 ///
 ///  You will usually interact with these child interfaces. However,
 /// provides some useful properties that are inherited:
+@experimental
 @JS()
 @staticInterop
 class XRDepthInformation {
@@ -84,7 +104,10 @@ extension PropsXRDepthInformation on XRDepthInformation {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface contains depth information from the CPU (returned
 /// by [XRFrame.getDepthInformation()]).
 ///
@@ -96,11 +119,14 @@ extension PropsXRDepthInformation on XRDepthInformation {
 ///
 ///
 ///
+///
+///
 ///    XRCPUDepthInformation
 ///
 ///
 ///  This interface inherits properties from its parent,
 /// [XRDepthInformation].
+@experimental
 @JS()
 @staticInterop
 class XRCPUDepthInformation implements XRDepthInformation {
@@ -114,7 +140,10 @@ extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface contains depth information from the GPU/WebGL
 /// (returned by [XRWebGLBinding.getDepthInformation()]).
 ///
@@ -126,11 +155,14 @@ extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
 ///
 ///
 ///
+///
+///
 ///    XRWebGLDepthInformation
 ///
 ///
 ///  This interface inherits properties from its parent,
 /// [XRDepthInformation].
+@experimental
 @JS()
 @staticInterop
 class XRWebGLDepthInformation implements XRDepthInformation {

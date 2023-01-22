@@ -25,7 +25,9 @@ class SecurePaymentConfirmationRequest {
       required int timeout,
       required String payeeName,
       required String payeeOrigin,
-      required AuthenticationExtensionsClientInputs extensions});
+      required AuthenticationExtensionsClientInputs extensions,
+      required Iterable<String> locale,
+      required bool showOptOut});
 }
 
 extension PropsSecurePaymentConfirmationRequest
@@ -71,6 +73,16 @@ extension PropsSecurePaymentConfirmationRequest
       js_util.getProperty(this, 'extensions');
   set extensions(AuthenticationExtensionsClientInputs newValue) {
     js_util.setProperty(this, 'extensions', newValue);
+  }
+
+  Iterable<String> get locale => js_util.getProperty(this, 'locale');
+  set locale(Iterable<String> newValue) {
+    js_util.setProperty(this, 'locale', newValue);
+  }
+
+  bool get showOptOut => js_util.getProperty(this, 'showOptOut');
+  set showOptOut(bool newValue) {
+    js_util.setProperty(this, 'showOptOut', newValue);
   }
 }
 
@@ -217,4 +229,14 @@ extension PropsPaymentCredentialInstrument on PaymentCredentialInstrument {
   }
 }
 
-enum TransactionAutomationMode { none, autoaccept, autoreject }
+enum TransactionAutomationMode {
+  none('none'),
+  autoAccept('autoAccept'),
+  autoReject('autoReject'),
+  autoOptOut('autoOptOut');
+
+  final String value;
+  static TransactionAutomationMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const TransactionAutomationMode(this.value);
+}

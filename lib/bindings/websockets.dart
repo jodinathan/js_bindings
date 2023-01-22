@@ -13,7 +13,15 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum BinaryType { blob, arraybuffer }
+enum BinaryType {
+  blob('blob'),
+  arraybuffer('arraybuffer');
+
+  final String value;
+  static BinaryType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const BinaryType(this.value);
+}
 
 ///  The object provides the API for creating and managing a
 /// WebSocket connection to a server, as well as for sending and
@@ -24,6 +32,8 @@ enum BinaryType { blob, arraybuffer }
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -79,9 +89,9 @@ extension PropsWebSocket on WebSocket {
   }
 
   BinaryType get binaryType =>
-      BinaryType.values.byName(js_util.getProperty(this, 'binaryType'));
+      BinaryType.fromValue(js_util.getProperty(this, 'binaryType'));
   set binaryType(BinaryType newValue) {
-    js_util.setProperty(this, 'binaryType', newValue.name);
+    js_util.setProperty(this, 'binaryType', newValue.value);
   }
 
   void send(dynamic data) => js_util.callMethod(this, 'send', [data]);
@@ -94,6 +104,8 @@ extension PropsWebSocket on WebSocket {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///

@@ -13,7 +13,15 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum FileSystemPermissionMode { read, readwrite }
+enum FileSystemPermissionMode {
+  read('read'),
+  readwrite('readwrite');
+
+  final String value;
+  static FileSystemPermissionMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const FileSystemPermissionMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -25,7 +33,7 @@ class FileSystemPermissionDescriptor implements PermissionDescriptor {
   factory FileSystemPermissionDescriptor(
           {required FileSystemHandle handle,
           FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
-      FileSystemPermissionDescriptor._(handle: handle, mode: mode?.name);
+      FileSystemPermissionDescriptor._(handle: handle, mode: mode?.value);
 }
 
 extension PropsFileSystemPermissionDescriptor
@@ -36,9 +44,9 @@ extension PropsFileSystemPermissionDescriptor
   }
 
   FileSystemPermissionMode get mode =>
-      FileSystemPermissionMode.values.byName(js_util.getProperty(this, 'mode'));
+      FileSystemPermissionMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(FileSystemPermissionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 }
 
@@ -50,25 +58,30 @@ class FileSystemHandlePermissionDescriptor {
 
   factory FileSystemHandlePermissionDescriptor(
           {FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
-      FileSystemHandlePermissionDescriptor._(mode: mode?.name);
+      FileSystemHandlePermissionDescriptor._(mode: mode?.value);
 }
 
 extension PropsFileSystemHandlePermissionDescriptor
     on FileSystemHandlePermissionDescriptor {
   FileSystemPermissionMode get mode =>
-      FileSystemPermissionMode.values.byName(js_util.getProperty(this, 'mode'));
+      FileSystemPermissionMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(FileSystemPermissionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 }
 
 enum WellKnownDirectory {
-  desktop,
-  documents,
-  downloads,
-  music,
-  pictures,
-  videos
+  desktop('desktop'),
+  documents('documents'),
+  downloads('downloads'),
+  music('music'),
+  pictures('pictures'),
+  videos('videos');
+
+  final String value;
+  static WellKnownDirectory fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const WellKnownDirectory(this.value);
 }
 
 @anonymous
@@ -165,7 +178,7 @@ class DirectoryPickerOptions {
           {required String id,
           dynamic startIn,
           FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
-      DirectoryPickerOptions._(id: id, startIn: startIn, mode: mode?.name);
+      DirectoryPickerOptions._(id: id, startIn: startIn, mode: mode?.value);
 }
 
 extension PropsDirectoryPickerOptions on DirectoryPickerOptions {
@@ -180,8 +193,8 @@ extension PropsDirectoryPickerOptions on DirectoryPickerOptions {
   }
 
   FileSystemPermissionMode get mode =>
-      FileSystemPermissionMode.values.byName(js_util.getProperty(this, 'mode'));
+      FileSystemPermissionMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(FileSystemPermissionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 }

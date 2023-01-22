@@ -13,7 +13,16 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum HighlightType { highlight, spellingError, grammarError }
+enum HighlightType {
+  highlight('highlight'),
+  spellingError('spelling-error'),
+  grammarError('grammar-error');
+
+  final String value;
+  static HighlightType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const HighlightType(this.value);
+}
 
 @JS()
 @staticInterop
@@ -31,9 +40,9 @@ extension PropsHighlight on Highlight {
   }
 
   HighlightType get type =>
-      HighlightType.values.byName(js_util.getProperty(this, 'type'));
+      HighlightType.fromValue(js_util.getProperty(this, 'type'));
   set type(HighlightType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 }
 

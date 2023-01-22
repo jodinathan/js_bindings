@@ -79,6 +79,8 @@ extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
 ///
 ///
 ///
+///
+///
 ///    StylePropertyMap
 ///
 ///
@@ -118,6 +120,8 @@ extension PropsStylePropertyMap on StylePropertyMap {
 ///
 ///
 ///    CSSStyleValue
+///
+///
 ///
 ///
 ///
@@ -179,6 +183,8 @@ extension PropsCSSVariableReferenceValue on CSSVariableReferenceValue {
 ///
 ///
 ///
+///
+///
 ///    CSSKeywordValue
 ///
 ///
@@ -197,13 +203,18 @@ extension PropsCSSKeywordValue on CSSKeywordValue {
 }
 
 enum CSSNumericBaseType {
-  length,
-  angle,
-  time,
-  frequency,
-  resolution,
-  flex,
-  percent
+  length('length'),
+  angle('angle'),
+  time('time'),
+  frequency('frequency'),
+  resolution('resolution'),
+  flex('flex'),
+  percent('percent');
+
+  final String value;
+  static CSSNumericBaseType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const CSSNumericBaseType(this.value);
 }
 
 @anonymous
@@ -237,7 +248,7 @@ class CSSNumericType {
           resolution: resolution,
           flex: flex,
           percent: percent,
-          percentHint: percentHint.name);
+          percentHint: percentHint.value);
 }
 
 extension PropsCSSNumericType on CSSNumericType {
@@ -276,10 +287,10 @@ extension PropsCSSNumericType on CSSNumericType {
     js_util.setProperty(this, 'percent', newValue);
   }
 
-  CSSNumericBaseType get percentHint => CSSNumericBaseType.values
-      .byName(js_util.getProperty(this, 'percentHint'));
+  CSSNumericBaseType get percentHint =>
+      CSSNumericBaseType.fromValue(js_util.getProperty(this, 'percentHint'));
   set percentHint(CSSNumericBaseType newValue) {
-    js_util.setProperty(this, 'percentHint', newValue.name);
+    js_util.setProperty(this, 'percentHint', newValue.value);
   }
 }
 
@@ -292,6 +303,8 @@ extension PropsCSSNumericType on CSSNumericType {
 ///
 ///
 ///    CSSStyleValue
+///
+///
 ///
 ///
 ///
@@ -355,7 +368,11 @@ extension PropsCSSNumericValue on CSSNumericValue {
 ///
 ///
 ///
+///
+///
 ///    CSSNumericValue
+///
+///
 ///
 ///
 ///
@@ -394,7 +411,11 @@ extension PropsCSSUnitValue on CSSUnitValue {
 ///
 ///
 ///
+///
+///
 ///    CSSNumericValue
+///
+///
 ///
 ///
 ///
@@ -414,7 +435,7 @@ extension PropsCSSMathValue on CSSMathValue {
   @JS('operator')
   @staticInterop
   CSSMathOperator get mOperator =>
-      CSSMathOperator.values.byName(js_util.getProperty(this, 'operator'));
+      CSSMathOperator.fromValue(js_util.getProperty(this, 'operator'));
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -435,13 +456,19 @@ extension PropsCSSMathValue on CSSMathValue {
 ///
 ///
 ///
+///
+///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    CSSMathValue
+///
+///
 ///
 ///
 ///
@@ -477,13 +504,19 @@ extension PropsCSSMathSum on CSSMathSum {
 ///
 ///
 ///
+///
+///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    CSSMathValue
+///
+///
 ///
 ///
 ///
@@ -519,13 +552,19 @@ extension PropsCSSMathProduct on CSSMathProduct {
 ///
 ///
 ///
+///
+///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    CSSMathValue
+///
+///
 ///
 ///
 ///
@@ -561,13 +600,19 @@ extension PropsCSSMathNegate on CSSMathNegate {
 ///
 ///
 ///
+///
+///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    CSSMathValue
+///
+///
 ///
 ///
 ///
@@ -602,13 +647,19 @@ extension PropsCSSMathInvert on CSSMathInvert {
 ///
 ///
 ///
+///
+///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    CSSMathValue
+///
+///
 ///
 ///
 ///
@@ -643,13 +694,19 @@ extension PropsCSSMathMin on CSSMathMin {
 ///
 ///
 ///
+///
+///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    CSSMathValue
+///
+///
 ///
 ///
 ///
@@ -697,7 +754,20 @@ extension PropsCSSNumericArray on CSSNumericArray {
   int get length => js_util.getProperty(this, 'length');
 }
 
-enum CSSMathOperator { sum, product, negate, invert, min, max, clamp }
+enum CSSMathOperator {
+  sum('sum'),
+  product('product'),
+  negate('negate'),
+  invert('invert'),
+  min('min'),
+  max('max'),
+  clamp('clamp');
+
+  final String value;
+  static CSSMathOperator fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const CSSMathOperator(this.value);
+}
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -709,6 +779,8 @@ enum CSSMathOperator { sum, product, negate, invert, min, max, clamp }
 ///
 ///
 ///    CSSStyleValue
+///
+///
 ///
 ///
 ///
@@ -731,6 +803,9 @@ extension PropsCSSTransformValue on CSSTransformValue {
   DOMMatrix toMatrix() => js_util.callMethod(this, 'toMatrix', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the CSS_Object_Model#css_typed_object_model is
 /// part of the [CSSTransformValue] interface.
 @experimental
@@ -762,6 +837,8 @@ extension PropsCSSTransformComponent on CSSTransformComponent {
 ///
 ///
 ///    CSSTransformComponent
+///
+///
 ///
 ///
 ///
@@ -806,6 +883,8 @@ extension PropsCSSTranslate on CSSTranslate {
 ///
 ///
 ///    CSSTransformComponent
+///
+///
 ///
 ///
 ///
@@ -860,6 +939,8 @@ extension PropsCSSRotate on CSSRotate {
 ///
 ///
 ///
+///
+///
 ///    CSSScale
 ///
 ///
@@ -897,6 +978,8 @@ extension PropsCSSScale on CSSScale {
 ///
 ///
 ///    CSSTransformComponent
+///
+///
 ///
 ///
 ///
@@ -940,6 +1023,8 @@ extension PropsCSSSkew on CSSSkew {
 ///
 ///
 ///
+///
+///
 ///    CSSSkewX
 ///
 ///
@@ -968,6 +1053,8 @@ extension PropsCSSSkewX on CSSSkewX {
 ///
 ///
 ///    CSSTransformComponent
+///
+///
 ///
 ///
 ///
@@ -1006,6 +1093,8 @@ extension PropsCSSSkewY on CSSSkewY {
 ///
 ///
 ///
+///
+///
 ///    CSSPerspective
 ///
 ///
@@ -1034,6 +1123,8 @@ extension PropsCSSPerspective on CSSPerspective {
 ///
 ///
 ///    CSSTransformComponent
+///
+///
 ///
 ///
 ///
@@ -1077,13 +1168,15 @@ extension PropsCSSMatrixComponentOptions on CSSMatrixComponentOptions {
 ///  The interface of the CSS Typed Object Model API represents
 /// values for properties that take an image, for example
 /// [background-image], [list-style-image], or [border-image-source].
-///  The CSSImageValue object represents an [<image>] that involves
-/// an URL, such as [url()] or [image()], but not [linear-gradient()]
-/// or [element()].
+///  The CSSImageValue object represents an [<image>] that involves a
+/// URL, such as [url()] or [image()], but not [linear-gradient()] or
+/// [element()].
 ///
 ///
 ///
 ///    CSSStyleValue
+///
+///
 ///
 ///
 ///

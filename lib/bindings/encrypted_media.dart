@@ -14,7 +14,16 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
-enum MediaKeysRequirement { valueRequired, optional, notAllowed }
+enum MediaKeysRequirement {
+  valueRequired('required'),
+  optional('optional'),
+  notAllowed('not-allowed');
+
+  final String value;
+  static MediaKeysRequirement fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const MediaKeysRequirement(this.value);
+}
 
 @anonymous
 @JS()
@@ -43,8 +52,8 @@ class MediaKeySystemConfiguration {
           initDataTypes: initDataTypes,
           audioCapabilities: audioCapabilities,
           videoCapabilities: videoCapabilities,
-          distinctiveIdentifier: distinctiveIdentifier?.name,
-          persistentState: persistentState?.name,
+          distinctiveIdentifier: distinctiveIdentifier?.value,
+          persistentState: persistentState?.value,
           sessionTypes: sessionTypes);
 }
 
@@ -72,16 +81,17 @@ extension PropsMediaKeySystemConfiguration on MediaKeySystemConfiguration {
     js_util.setProperty(this, 'videoCapabilities', newValue);
   }
 
-  MediaKeysRequirement get distinctiveIdentifier => MediaKeysRequirement.values
-      .byName(js_util.getProperty(this, 'distinctiveIdentifier'));
+  MediaKeysRequirement get distinctiveIdentifier =>
+      MediaKeysRequirement.fromValue(
+          js_util.getProperty(this, 'distinctiveIdentifier'));
   set distinctiveIdentifier(MediaKeysRequirement newValue) {
-    js_util.setProperty(this, 'distinctiveIdentifier', newValue.name);
+    js_util.setProperty(this, 'distinctiveIdentifier', newValue.value);
   }
 
-  MediaKeysRequirement get persistentState => MediaKeysRequirement.values
-      .byName(js_util.getProperty(this, 'persistentState'));
+  MediaKeysRequirement get persistentState => MediaKeysRequirement.fromValue(
+      js_util.getProperty(this, 'persistentState'));
   set persistentState(MediaKeysRequirement newValue) {
-    js_util.setProperty(this, 'persistentState', newValue.name);
+    js_util.setProperty(this, 'persistentState', newValue.value);
   }
 
   Iterable<String> get sessionTypes =>
@@ -118,9 +128,6 @@ extension PropsMediaKeySystemMediaCapability on MediaKeySystemMediaCapability {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the EncryptedMediaExtensions API provides
 /// access to a Key System for decryption and/or a content protection
 /// provider. You can request an instance of this object using the
@@ -140,11 +147,16 @@ extension PropsMediaKeySystemAccess on MediaKeySystemAccess {
       js_util.promiseToFuture(js_util.callMethod(this, 'createMediaKeys', []));
 }
 
-enum MediaKeySessionType { temporary, persistentLicense }
+enum MediaKeySessionType {
+  temporary('temporary'),
+  persistentLicense('persistent-license');
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+  final String value;
+  static MediaKeySessionType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const MediaKeySessionType(this.value);
+}
+
 ///  The interface of EncryptedMediaExtensions API represents a set
 /// of keys that an associated [HTMLMediaElement] can use for
 /// decryption of media data during playback.
@@ -157,7 +169,7 @@ class MediaKeys {
 extension PropsMediaKeys on MediaKeys {
   MediaKeySession createSession(
           [MediaKeySessionType? sessionType = MediaKeySessionType.temporary]) =>
-      js_util.callMethod(this, 'createSession', [sessionType?.name]);
+      js_util.callMethod(this, 'createSession', [sessionType?.value]);
 
   Future<bool> setServerCertificate(dynamic serverCertificate) =>
       js_util.promiseToFuture(js_util
@@ -165,11 +177,16 @@ extension PropsMediaKeys on MediaKeys {
 }
 
 enum MediaKeySessionClosedReason {
-  internalError,
-  closedByApplication,
-  releaseAcknowledged,
-  hardwareContextReset,
-  resourceEvicted
+  internalError('internal-error'),
+  closedByApplication('closed-by-application'),
+  releaseAcknowledged('release-acknowledged'),
+  hardwareContextReset('hardware-context-reset'),
+  resourceEvicted('resource-evicted');
+
+  final String value;
+  static MediaKeySessionClosedReason fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const MediaKeySessionClosedReason(this.value);
 }
 
 ///  The interface of the EncryptedMediaExtensions API represents a
@@ -179,6 +196,8 @@ enum MediaKeySessionClosedReason {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -198,7 +217,7 @@ extension PropsMediaKeySession on MediaKeySession {
 /* double | NaN */ dynamic get expiration =>
       js_util.getProperty(this, 'expiration');
   Future<MediaKeySessionClosedReason> get closed async =>
-      MediaKeySessionClosedReason.values.byName(
+      MediaKeySessionClosedReason.fromValue(
           await js_util.promiseToFuture(js_util.getProperty(this, 'closed')));
   MediaKeyStatusMap get keyStatuses => js_util.getProperty(this, 'keyStatuses');
   EventHandlerNonNull? get onkeystatuseschange =>
@@ -229,9 +248,6 @@ extension PropsMediaKeySession on MediaKeySession {
       js_util.promiseToFuture(js_util.callMethod(this, 'remove', []));
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the EncryptedMediaExtensions API is a read-only
 /// map of media key statuses by key IDs.
 @JS()
@@ -250,26 +266,33 @@ extension PropsMediaKeyStatusMap on MediaKeyStatusMap {
 }
 
 enum MediaKeyStatus {
-  usable,
-  expired,
-  released,
-  outputRestricted,
-  outputDownscaled,
-  usableInFuture,
-  statusPending,
-  internalError
+  usable('usable'),
+  expired('expired'),
+  released('released'),
+  outputRestricted('output-restricted'),
+  outputDownscaled('output-downscaled'),
+  usableInFuture('usable-in-future'),
+  statusPending('status-pending'),
+  internalError('internal-error');
+
+  final String value;
+  static MediaKeyStatus fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const MediaKeyStatus(this.value);
 }
 
 enum MediaKeyMessageType {
-  licenseRequest,
-  licenseRenewal,
-  licenseRelease,
-  individualizationRequest
+  licenseRequest('license-request'),
+  licenseRenewal('license-renewal'),
+  licenseRelease('license-release'),
+  individualizationRequest('individualization-request');
+
+  final String value;
+  static MediaKeyMessageType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const MediaKeyMessageType(this.value);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the EncryptedMediaExtensions API contains the
 /// content and related data when the content decryption module
 /// generates a message for the session.
@@ -277,6 +300,8 @@ enum MediaKeyMessageType {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -293,8 +318,8 @@ class MediaKeyMessageEvent implements Event {
 }
 
 extension PropsMediaKeyMessageEvent on MediaKeyMessageEvent {
-  MediaKeyMessageType get messageType => MediaKeyMessageType.values
-      .byName(js_util.getProperty(this, 'messageType'));
+  MediaKeyMessageType get messageType =>
+      MediaKeyMessageType.fromValue(js_util.getProperty(this, 'messageType'));
   ByteBuffer get message => js_util.getProperty(this, 'message');
 }
 
@@ -309,14 +334,14 @@ class MediaKeyMessageEventInit implements EventInit {
           {required MediaKeyMessageType messageType,
           required ByteBuffer message}) =>
       MediaKeyMessageEventInit._(
-          messageType: messageType.name, message: message);
+          messageType: messageType.value, message: message);
 }
 
 extension PropsMediaKeyMessageEventInit on MediaKeyMessageEventInit {
-  MediaKeyMessageType get messageType => MediaKeyMessageType.values
-      .byName(js_util.getProperty(this, 'messageType'));
+  MediaKeyMessageType get messageType =>
+      MediaKeyMessageType.fromValue(js_util.getProperty(this, 'messageType'));
   set messageType(MediaKeyMessageType newValue) {
-    js_util.setProperty(this, 'messageType', newValue.name);
+    js_util.setProperty(this, 'messageType', newValue.value);
   }
 
   ByteBuffer get message => js_util.getProperty(this, 'message');

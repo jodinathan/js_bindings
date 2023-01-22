@@ -33,26 +33,42 @@ class LayoutOptions {
   factory LayoutOptions(
           {ChildDisplayType? childDisplay = ChildDisplayType.block,
           LayoutSizingMode? sizing = LayoutSizingMode.blockLike}) =>
-      LayoutOptions._(childDisplay: childDisplay?.name, sizing: sizing?.name);
+      LayoutOptions._(childDisplay: childDisplay?.value, sizing: sizing?.value);
 }
 
 extension PropsLayoutOptions on LayoutOptions {
   ChildDisplayType get childDisplay =>
-      ChildDisplayType.values.byName(js_util.getProperty(this, 'childDisplay'));
+      ChildDisplayType.fromValue(js_util.getProperty(this, 'childDisplay'));
   set childDisplay(ChildDisplayType newValue) {
-    js_util.setProperty(this, 'childDisplay', newValue.name);
+    js_util.setProperty(this, 'childDisplay', newValue.value);
   }
 
   LayoutSizingMode get sizing =>
-      LayoutSizingMode.values.byName(js_util.getProperty(this, 'sizing'));
+      LayoutSizingMode.fromValue(js_util.getProperty(this, 'sizing'));
   set sizing(LayoutSizingMode newValue) {
-    js_util.setProperty(this, 'sizing', newValue.name);
+    js_util.setProperty(this, 'sizing', newValue.value);
   }
 }
 
-enum ChildDisplayType { block, normal }
+enum ChildDisplayType {
+  block('block'),
+  normal('normal');
 
-enum LayoutSizingMode { blockLike, manual }
+  final String value;
+  static ChildDisplayType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ChildDisplayType(this.value);
+}
+
+enum LayoutSizingMode {
+  blockLike('block-like'),
+  manual('manual');
+
+  final String value;
+  static LayoutSizingMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const LayoutSizingMode(this.value);
+}
 
 @JS()
 @staticInterop
@@ -126,12 +142,22 @@ extension PropsLayoutConstraints on LayoutConstraints {
   double? get blockFragmentationOffset =>
       js_util.getProperty(this, 'blockFragmentationOffset');
   BlockFragmentationType get blockFragmentationType =>
-      BlockFragmentationType.values
-          .byName(js_util.getProperty(this, 'blockFragmentationType'));
+      BlockFragmentationType.fromValue(
+          js_util.getProperty(this, 'blockFragmentationType'));
   dynamic get data => js_util.getProperty(this, 'data');
 }
 
-enum BlockFragmentationType { none, page, column, region }
+enum BlockFragmentationType {
+  none('none'),
+  page('page'),
+  column('column'),
+  region('region');
+
+  final String value;
+  static BlockFragmentationType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const BlockFragmentationType(this.value);
+}
 
 @anonymous
 @JS()
@@ -167,7 +193,7 @@ class LayoutConstraintsOptions {
           percentageInlineSize: percentageInlineSize,
           percentageBlockSize: percentageBlockSize,
           blockFragmentationOffset: blockFragmentationOffset,
-          blockFragmentationType: blockFragmentationType?.name,
+          blockFragmentationType: blockFragmentationType?.value,
           data: data);
 }
 
@@ -213,10 +239,10 @@ extension PropsLayoutConstraintsOptions on LayoutConstraintsOptions {
   }
 
   BlockFragmentationType get blockFragmentationType =>
-      BlockFragmentationType.values
-          .byName(js_util.getProperty(this, 'blockFragmentationType'));
+      BlockFragmentationType.fromValue(
+          js_util.getProperty(this, 'blockFragmentationType'));
   set blockFragmentationType(BlockFragmentationType newValue) {
-    js_util.setProperty(this, 'blockFragmentationType', newValue.name);
+    js_util.setProperty(this, 'blockFragmentationType', newValue.value);
   }
 
   dynamic get data => js_util.getProperty(this, 'data');
@@ -233,7 +259,7 @@ class ChildBreakToken {
 
 extension PropsChildBreakToken on ChildBreakToken {
   BreakType get breakType =>
-      BreakType.values.byName(js_util.getProperty(this, 'breakType'));
+      BreakType.fromValue(js_util.getProperty(this, 'breakType'));
   LayoutChild get child => js_util.getProperty(this, 'child');
 }
 
@@ -270,7 +296,18 @@ extension PropsBreakTokenOptions on BreakTokenOptions {
   }
 }
 
-enum BreakType { none, line, column, page, region }
+enum BreakType {
+  none('none'),
+  line('line'),
+  column('column'),
+  page('page'),
+  region('region');
+
+  final String value;
+  static BreakType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const BreakType(this.value);
+}
 
 @JS()
 @staticInterop

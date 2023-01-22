@@ -10,7 +10,6 @@ library web_locks;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -24,13 +23,9 @@ extension PropsNavigatorLocks on NavigatorLocks {
   LockManager get locks => js_util.getProperty(this, 'locks');
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Web Locks API provides methods for
 /// requesting a new [Lock] object and querying for an existing
 /// [Lock] object. To get an instance of , call [navigator.locks].
-@experimental
 @JS()
 @staticInterop
 class LockManager {
@@ -47,7 +42,15 @@ extension PropsLockManager on LockManager {
       js_util.promiseToFuture(js_util.callMethod(this, 'query', []));
 }
 
-enum LockMode { shared, exclusive }
+enum LockMode {
+  shared('shared'),
+  exclusive('exclusive');
+
+  final String value;
+  static LockMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const LockMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -65,17 +68,16 @@ class LockOptions {
           bool? steal = false,
           AbortSignal? signal}) =>
       LockOptions._(
-          mode: mode?.name,
+          mode: mode?.value,
           ifAvailable: ifAvailable,
           steal: steal,
           signal: signal);
 }
 
 extension PropsLockOptions on LockOptions {
-  LockMode get mode =>
-      LockMode.values.byName(js_util.getProperty(this, 'mode'));
+  LockMode get mode => LockMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(LockMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 
   bool get ifAvailable => js_util.getProperty(this, 'ifAvailable');
@@ -125,7 +127,7 @@ class LockInfo {
           {required String name,
           required LockMode mode,
           required String clientId}) =>
-      LockInfo._(name: name, mode: mode.name, clientId: clientId);
+      LockInfo._(name: name, mode: mode.value, clientId: clientId);
 }
 
 extension PropsLockInfo on LockInfo {
@@ -134,10 +136,9 @@ extension PropsLockInfo on LockInfo {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  LockMode get mode =>
-      LockMode.values.byName(js_util.getProperty(this, 'mode'));
+  LockMode get mode => LockMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(LockMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 
   String get clientId => js_util.getProperty(this, 'clientId');
@@ -146,9 +147,6 @@ extension PropsLockInfo on LockInfo {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///
 ///   The interface of the Web Locks API provides the name and mode
 /// of a lock.
@@ -156,7 +154,6 @@ extension PropsLockInfo on LockInfo {
 /// callback to [LockManager.request()], or a record of an active or
 /// queued lock returned by [LockManager.query()].
 ///
-@experimental
 @JS()
 @staticInterop
 class Lock {
@@ -165,6 +162,5 @@ class Lock {
 
 extension PropsLock on Lock {
   String get name => js_util.getProperty(this, 'name');
-  LockMode get mode =>
-      LockMode.values.byName(js_util.getProperty(this, 'mode'));
+  LockMode get mode => LockMode.fromValue(js_util.getProperty(this, 'mode'));
 }

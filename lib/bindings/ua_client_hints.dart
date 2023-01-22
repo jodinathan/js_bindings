@@ -10,6 +10,7 @@ library ua_client_hints;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -132,6 +133,9 @@ extension PropsUALowEntropyJSON on UALowEntropyJSON {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the [User-Agent Client Hints API] returns
 /// information about the browser and operating system of a user.
 ///  An instance of this object is returned by calling
@@ -147,6 +151,7 @@ extension PropsUALowEntropyJSON on UALowEntropyJSON {
 /// [Future], allowing time for the browser to request user
 /// permission, or make other checks.
 ///
+@experimental
 @JS()
 @staticInterop
 class NavigatorUAData {

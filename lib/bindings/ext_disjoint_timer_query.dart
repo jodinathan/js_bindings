@@ -1,6 +1,6 @@
 /// WebGL EXT_disjoint_timer_query Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_disjoint_timer_query/
+/// https://registry.khronos.org/webgl/extensions/EXT_disjoint_timer_query/
 
 // ignore_for_file: unused_import
 

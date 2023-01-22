@@ -14,31 +14,36 @@ import 'package:js/js.dart';
 import 'package:js_bindings/js_bindings.dart';
 
 enum XRHandJoint {
-  wrist,
-  thumbMetacarpal,
-  thumbPhalanxProximal,
-  thumbPhalanxDistal,
-  thumbTip,
-  indexFingerMetacarpal,
-  indexFingerPhalanxProximal,
-  indexFingerPhalanxIntermediate,
-  indexFingerPhalanxDistal,
-  indexFingerTip,
-  middleFingerMetacarpal,
-  middleFingerPhalanxProximal,
-  middleFingerPhalanxIntermediate,
-  middleFingerPhalanxDistal,
-  middleFingerTip,
-  ringFingerMetacarpal,
-  ringFingerPhalanxProximal,
-  ringFingerPhalanxIntermediate,
-  ringFingerPhalanxDistal,
-  ringFingerTip,
-  pinkyFingerMetacarpal,
-  pinkyFingerPhalanxProximal,
-  pinkyFingerPhalanxIntermediate,
-  pinkyFingerPhalanxDistal,
-  pinkyFingerTip
+  wrist('wrist'),
+  thumbMetacarpal('thumb-metacarpal'),
+  thumbPhalanxProximal('thumb-phalanx-proximal'),
+  thumbPhalanxDistal('thumb-phalanx-distal'),
+  thumbTip('thumb-tip'),
+  indexFingerMetacarpal('index-finger-metacarpal'),
+  indexFingerPhalanxProximal('index-finger-phalanx-proximal'),
+  indexFingerPhalanxIntermediate('index-finger-phalanx-intermediate'),
+  indexFingerPhalanxDistal('index-finger-phalanx-distal'),
+  indexFingerTip('index-finger-tip'),
+  middleFingerMetacarpal('middle-finger-metacarpal'),
+  middleFingerPhalanxProximal('middle-finger-phalanx-proximal'),
+  middleFingerPhalanxIntermediate('middle-finger-phalanx-intermediate'),
+  middleFingerPhalanxDistal('middle-finger-phalanx-distal'),
+  middleFingerTip('middle-finger-tip'),
+  ringFingerMetacarpal('ring-finger-metacarpal'),
+  ringFingerPhalanxProximal('ring-finger-phalanx-proximal'),
+  ringFingerPhalanxIntermediate('ring-finger-phalanx-intermediate'),
+  ringFingerPhalanxDistal('ring-finger-phalanx-distal'),
+  ringFingerTip('ring-finger-tip'),
+  pinkyFingerMetacarpal('pinky-finger-metacarpal'),
+  pinkyFingerPhalanxProximal('pinky-finger-phalanx-proximal'),
+  pinkyFingerPhalanxIntermediate('pinky-finger-phalanx-intermediate'),
+  pinkyFingerPhalanxDistal('pinky-finger-phalanx-distal'),
+  pinkyFingerTip('pinky-finger-tip');
+
+  final String value;
+  static XRHandJoint fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const XRHandJoint(this.value);
 }
 
 ///  The interface is pair iterator (an ordered map) with the key
@@ -55,7 +60,7 @@ extension PropsXRHand on XRHand {
   @JS('get')
   @staticInterop
   XRJointSpace mGet(XRHandJoint key) =>
-      js_util.callMethod(this, 'get', [key.name]);
+      js_util.callMethod(this, 'get', [key.value]);
 }
 
 ///  The interface is an [XRSpace] and represents the position and
@@ -69,7 +74,11 @@ extension PropsXRHand on XRHand {
 ///
 ///
 ///
+///
+///
 ///    XRSpace
+///
+///
 ///
 ///
 ///
@@ -86,7 +95,7 @@ class XRJointSpace implements XRSpace {
 
 extension PropsXRJointSpace on XRJointSpace {
   XRHandJoint get jointName =>
-      XRHandJoint.values.byName(js_util.getProperty(this, 'jointName'));
+      XRHandJoint.fromValue(js_util.getProperty(this, 'jointName'));
 }
 
 ///  The interface is an [XRPose] with additional information about
@@ -95,6 +104,8 @@ extension PropsXRJointSpace on XRJointSpace {
 ///
 ///
 ///    XRPose
+///
+///
 ///
 ///
 ///

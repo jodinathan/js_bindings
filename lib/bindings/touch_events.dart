@@ -13,7 +13,15 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum TouchType { direct, stylus }
+enum TouchType {
+  direct('direct'),
+  stylus('stylus');
+
+  final String value;
+  static TouchType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const TouchType(this.value);
+}
 
 @anonymous
 @JS()
@@ -67,7 +75,7 @@ class TouchInit {
           force: force,
           altitudeAngle: altitudeAngle,
           azimuthAngle: azimuthAngle,
-          touchType: touchType?.name);
+          touchType: touchType?.value);
 }
 
 extension PropsTouchInit on TouchInit {
@@ -142,9 +150,9 @@ extension PropsTouchInit on TouchInit {
   }
 
   TouchType get touchType =>
-      TouchType.values.byName(js_util.getProperty(this, 'touchType'));
+      TouchType.fromValue(js_util.getProperty(this, 'touchType'));
   set touchType(TouchType newValue) {
-    js_util.setProperty(this, 'touchType', newValue.name);
+    js_util.setProperty(this, 'touchType', newValue.value);
   }
 }
 
@@ -157,7 +165,7 @@ extension PropsTouchInit on TouchInit {
 /// pointing devices such as fingers. These values are set to
 /// describe an ellipse that as closely as possible matches the
 /// entire area of contact (such as the user's fingertip).
-///
+///   Experimental
 ///   Note: Many of the properties' values are hardware-dependent;
 /// for example, if the device doesn't have a way to detect the
 /// amount of pressure placed on the surface, the [force] value will
@@ -187,7 +195,7 @@ extension PropsTouch on Touch {
   double get altitudeAngle => js_util.getProperty(this, 'altitudeAngle');
   double get azimuthAngle => js_util.getProperty(this, 'azimuthAngle');
   TouchType get touchType =>
-      TouchType.values.byName(js_util.getProperty(this, 'touchType'));
+      TouchType.fromValue(js_util.getProperty(this, 'touchType'));
 }
 
 ///  The interface represents a list of contact points on a touch
@@ -195,6 +203,14 @@ extension PropsTouch on Touch {
 /// surface (such as a screen or trackpad), the corresponding object
 /// would have one [Touch] object for each finger, for a total of
 /// three entries.
+///
+///   Note: This interface was an attempt to create an unmodifiable
+/// list and only continues to be supported to not break code that's
+/// already using it. Modern APIs use types that wrap around
+/// ECMAScript array types instead, so you can treat them like
+/// ECMAScript arrays, and at the same time impose additional
+/// semantics on their usage (such as making their items read-only).
+///
 @JS()
 @staticInterop
 class TouchList {
@@ -254,7 +270,11 @@ extension PropsTouchEventInit on TouchEventInit {
 ///
 ///
 ///
+///
+///
 ///    UIEvent
+///
+///
 ///
 ///
 ///

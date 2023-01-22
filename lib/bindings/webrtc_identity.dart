@@ -174,12 +174,17 @@ extension PropsRTCIdentityAssertion on RTCIdentityAssertion {
 }
 
 enum RTCErrorDetailTypeIdp {
-  idpBadScriptFailure,
-  idpExecutionFailure,
-  idpLoadFailure,
-  idpNeedLogin,
-  idpTimeout,
-  idpTlsFailure,
-  idpTokenExpired,
-  idpTokenInvalid
+  idpBadScriptFailure('idp-bad-script-failure'),
+  idpExecutionFailure('idp-execution-failure'),
+  idpLoadFailure('idp-load-failure'),
+  idpNeedLogin('idp-need-login'),
+  idpTimeout('idp-timeout'),
+  idpTlsFailure('idp-tls-failure'),
+  idpTokenExpired('idp-token-expired'),
+  idpTokenInvalid('idp-token-invalid');
+
+  final String value;
+  static RTCErrorDetailTypeIdp fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const RTCErrorDetailTypeIdp(this.value);
 }

@@ -14,10 +14,15 @@ import 'package:js/js.dart';
 import 'package:js_bindings/js_bindings.dart';
 
 enum ScriptingPolicyViolationType {
-  externalScript,
-  inlineScript,
-  inlineEventHandler,
-  eval
+  externalScript('externalScript'),
+  inlineScript('inlineScript'),
+  inlineEventHandler('inlineEventHandler'),
+  eval('eval');
+
+  final String value;
+  static ScriptingPolicyViolationType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ScriptingPolicyViolationType(this.value);
 }
 
 @JS()

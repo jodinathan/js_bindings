@@ -32,6 +32,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    MediaStream
 ///
 ///
@@ -89,6 +91,8 @@ extension PropsMediaStream on MediaStream {
 ///
 ///
 ///
+///
+///
 ///    MediaStreamTrack
 ///
 ///
@@ -118,8 +122,8 @@ extension PropsMediaStreamTrack on MediaStreamTrack {
     js_util.setProperty(this, 'onunmute', newValue);
   }
 
-  MediaStreamTrackState get readyState => MediaStreamTrackState.values
-      .byName(js_util.getProperty(this, 'readyState'));
+  MediaStreamTrackState get readyState =>
+      MediaStreamTrackState.fromValue(js_util.getProperty(this, 'readyState'));
   EventHandlerNonNull? get onended => js_util.getProperty(this, 'onended');
   set onended(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onended', newValue);
@@ -168,10 +172,18 @@ extension PropsMediaStreamTrack on MediaStreamTrack {
 
   Future<void> sendCaptureAction(CaptureAction action) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'sendCaptureAction', [action.name]));
+          js_util.callMethod(this, 'sendCaptureAction', [action.value]));
 }
 
-enum MediaStreamTrackState { live, ended }
+enum MediaStreamTrackState {
+  live('live'),
+  ended('ended');
+
+  final String value;
+  static MediaStreamTrackState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const MediaStreamTrackState(this.value);
+}
 
 ///  The dictionary establishes the list of constrainable properties
 /// recognized by the user agent or browser in its implementation of
@@ -180,7 +192,7 @@ enum MediaStreamTrackState { live, ended }
 ///  Because of the way interface definitions in WebIDL work, if a
 /// constraint is requested but not supported, no error will occur.
 /// Instead, the specified constraints will be applied, with any
-/// unrecognized constraints stripped from the request.That can lead
+/// unrecognized constraints stripped from the request. That can lead
 /// to confusing and hard to debug errors, so be sure to use
 /// [getSupportedConstraints()] to retrieve this information before
 /// attempting to establish constraints if you need to know the
@@ -622,18 +634,38 @@ extension PropsMediaTrackSettings on MediaTrackSettings {
   }
 }
 
-enum VideoFacingModeEnum { user, environment, left, right }
+enum VideoFacingModeEnum {
+  user('user'),
+  environment('environment'),
+  left('left'),
+  right('right');
 
-enum VideoResizeModeEnum { none, cropAndScale }
+  final String value;
+  static VideoFacingModeEnum fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const VideoFacingModeEnum(this.value);
+}
+
+enum VideoResizeModeEnum {
+  none('none'),
+  cropAndScale('crop-and-scale');
+
+  final String value;
+  static VideoResizeModeEnum fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const VideoResizeModeEnum(this.value);
+}
 
 ///  The interface represents events which indicate that a
 /// [MediaStream] has had tracks added to or removed from the stream
-/// through calls to Media Stream API methods. These events are sent
-/// to the stream when these changes occur.
+/// through calls to Media Capture and Streams API methods. These
+/// events are sent to the stream when these changes occur.
 ///
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -670,10 +702,7 @@ extension PropsMediaStreamTrackEventInit on MediaStreamTrackEventInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Media Capture and Streams API indicates
 /// that the set of desired capabilities for the current
 /// [MediaStreamTrack] cannot currently be met. When this event is
@@ -684,6 +713,8 @@ extension PropsMediaStreamTrackEventInit on MediaStreamTrackEventInit {
 ///
 ///
 ///    DOMException
+///
+///
 ///
 ///
 ///
@@ -711,6 +742,8 @@ extension PropsOverconstrainedError on OverconstrainedError {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -782,22 +815,33 @@ class MediaDeviceInfo {
 extension PropsMediaDeviceInfo on MediaDeviceInfo {
   String get deviceId => js_util.getProperty(this, 'deviceId');
   MediaDeviceKind get kind =>
-      MediaDeviceKind.values.byName(js_util.getProperty(this, 'kind'));
+      MediaDeviceKind.fromValue(js_util.getProperty(this, 'kind'));
   String get label => js_util.getProperty(this, 'label');
   String get groupId => js_util.getProperty(this, 'groupId');
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
-enum MediaDeviceKind { audioinput, audiooutput, videoinput }
+enum MediaDeviceKind {
+  audioinput('audioinput'),
+  audiooutput('audiooutput'),
+  videoinput('videoinput');
 
-///  The interface of the Media Streams API gives access to the
-/// capabilities of the input device that it represents.
+  final String value;
+  static MediaDeviceKind fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const MediaDeviceKind(this.value);
+}
+
+///  The interface of the Media Capture and Streams API gives access
+/// to the capabilities of the input device that it represents.
 ///   objects are returned by [MediaDevices.enumerateDevices()] if
 /// the returned device is an audio or video input device.
 ///
 ///
 ///
 ///    MediaDeviceInfo
+///
+///
 ///
 ///
 ///

@@ -1,6 +1,6 @@
 /// WebGL OES_element_index_uint Khronos Ratified Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/OES_element_index_uint/
+/// https://registry.khronos.org/webgl/extensions/OES_element_index_uint/
 
 // ignore_for_file: unused_import
 

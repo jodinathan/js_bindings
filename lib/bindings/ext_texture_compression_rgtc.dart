@@ -1,6 +1,6 @@
 /// WebGL EXT_texture_compression_rgtc Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_texture_compression_rgtc/
+/// https://registry.khronos.org/webgl/extensions/EXT_texture_compression_rgtc/
 
 // ignore_for_file: unused_import
 

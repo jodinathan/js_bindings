@@ -10,11 +10,15 @@ library serial;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the [Web Serial API] provides attributes and
 /// methods for finding and connecting to serial ports from a web
 /// page.
@@ -27,9 +31,12 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    Serial
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class Serial implements EventTarget {
@@ -92,7 +99,10 @@ extension PropsSerialPortFilter on SerialPortFilter {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the [Web Serial API] provides access to a
 /// serial port on the host device.
 ///
@@ -104,9 +114,12 @@ extension PropsSerialPortFilter on SerialPortFilter {
 ///
 ///
 ///
+///
+///
 ///    SerialPort
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class SerialPort implements EventTarget {
@@ -188,9 +201,9 @@ class SerialOptions {
           baudRate: baudRate,
           dataBits: dataBits,
           stopBits: stopBits,
-          parity: parity?.name,
+          parity: parity?.value,
           bufferSize: bufferSize,
-          flowControl: flowControl?.name);
+          flowControl: flowControl?.value);
 }
 
 extension PropsSerialOptions on SerialOptions {
@@ -210,9 +223,9 @@ extension PropsSerialOptions on SerialOptions {
   }
 
   ParityType get parity =>
-      ParityType.values.byName(js_util.getProperty(this, 'parity'));
+      ParityType.fromValue(js_util.getProperty(this, 'parity'));
   set parity(ParityType newValue) {
-    js_util.setProperty(this, 'parity', newValue.name);
+    js_util.setProperty(this, 'parity', newValue.value);
   }
 
   int get bufferSize => js_util.getProperty(this, 'bufferSize');
@@ -221,15 +234,32 @@ extension PropsSerialOptions on SerialOptions {
   }
 
   FlowControlType get flowControl =>
-      FlowControlType.values.byName(js_util.getProperty(this, 'flowControl'));
+      FlowControlType.fromValue(js_util.getProperty(this, 'flowControl'));
   set flowControl(FlowControlType newValue) {
-    js_util.setProperty(this, 'flowControl', newValue.name);
+    js_util.setProperty(this, 'flowControl', newValue.value);
   }
 }
 
-enum ParityType { none, even, odd }
+enum ParityType {
+  none('none'),
+  even('even'),
+  odd('odd');
 
-enum FlowControlType { none, hardware }
+  final String value;
+  static ParityType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ParityType(this.value);
+}
+
+enum FlowControlType {
+  none('none'),
+  hardware('hardware');
+
+  final String value;
+  static FlowControlType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const FlowControlType(this.value);
+}
 
 @anonymous
 @JS()

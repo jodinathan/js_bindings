@@ -13,4 +13,12 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum ClientLifecycleState { active, frozen }
+enum ClientLifecycleState {
+  active('active'),
+  frozen('frozen');
+
+  final String value;
+  static ClientLifecycleState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  const ClientLifecycleState(this.value);
+}

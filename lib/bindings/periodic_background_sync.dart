@@ -10,14 +10,19 @@ library periodic_background_sync;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the [Web Periodic Background Synchronization
 /// API] provides a way to register tasks to be run in a service
 /// worker at periodic intervals with network connectivity. These
 /// tasks are referred to as periodic background sync requests.
 /// Access through the [ServiceWorkerRegistration.periodicSync].
+@experimental
 @JS()
 @staticInterop
 class PeriodicSyncManager {
@@ -63,19 +68,23 @@ extension PropsPeriodicSyncEventInit on PeriodicSyncEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the [Web Periodic Background Synchronization
 /// API] provides a way to run tasks in the service worker with
 /// network connectivity.
-///  An instance of this event is passed to the
-/// [ServiceWorkerGlobalScope.onperiodicsync] handler. This happens
-/// periodically, at an interval greater than or equal to that set in
-/// the [PeriodicSyncManager.register()] method. Other
-/// implementation-specific factors such as the user's engagement
-/// with the site decide the actual interval.
+///  An instance of this event is passed to the [periodicsync]
+/// handler. This happens periodically, at an interval greater than
+/// or equal to that set in the [PeriodicSyncManager.register()]
+/// method. Other implementation-specific factors such as the user's
+/// engagement with the site decide the actual interval.
 ///
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -87,9 +96,12 @@ extension PropsPeriodicSyncEventInit on PeriodicSyncEventInit {
 ///
 ///
 ///
+///
+///
 ///    PeriodicSyncEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class PeriodicSyncEvent implements ExtendableEvent {

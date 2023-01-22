@@ -24,7 +24,11 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -36,7 +40,11 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -87,7 +95,11 @@ extension PropsSVGFilterPrimitiveStandardAttributes
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -99,7 +111,11 @@ extension PropsSVGFilterPrimitiveStandardAttributes
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -182,7 +198,11 @@ extension PropsSVGFEBlendElement on SVGFEBlendElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -194,7 +214,11 @@ extension PropsSVGFEBlendElement on SVGFEBlendElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -242,7 +266,11 @@ extension PropsSVGFEColorMatrixElement on SVGFEColorMatrixElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -254,7 +282,11 @@ extension PropsSVGFEColorMatrixElement on SVGFEColorMatrixElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -285,7 +317,11 @@ extension PropsSVGFEComponentTransferElement on SVGFEComponentTransferElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -297,7 +333,11 @@ extension PropsSVGFEComponentTransferElement on SVGFEComponentTransferElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -352,7 +392,11 @@ extension PropsSVGComponentTransferFunctionElement
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -364,13 +408,19 @@ extension PropsSVGComponentTransferFunctionElement
 ///
 ///
 ///
+///
+///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    SVGComponentTransferFunctionElement
+///
+///
 ///
 ///
 ///
@@ -395,7 +445,11 @@ class SVGFEFuncRElement implements SVGComponentTransferFunctionElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -407,13 +461,19 @@ class SVGFEFuncRElement implements SVGComponentTransferFunctionElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    SVGComponentTransferFunctionElement
+///
+///
 ///
 ///
 ///
@@ -438,7 +498,11 @@ class SVGFEFuncGElement implements SVGComponentTransferFunctionElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -450,13 +514,19 @@ class SVGFEFuncGElement implements SVGComponentTransferFunctionElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    SVGComponentTransferFunctionElement
+///
+///
 ///
 ///
 ///
@@ -481,7 +551,11 @@ class SVGFEFuncBElement implements SVGComponentTransferFunctionElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -493,13 +567,19 @@ class SVGFEFuncBElement implements SVGComponentTransferFunctionElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    SVGComponentTransferFunctionElement
+///
+///
 ///
 ///
 ///
@@ -524,7 +604,11 @@ class SVGFEFuncAElement implements SVGComponentTransferFunctionElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -536,7 +620,11 @@ class SVGFEFuncAElement implements SVGComponentTransferFunctionElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -595,7 +683,11 @@ extension PropsSVGFECompositeElement on SVGFECompositeElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -607,7 +699,11 @@ extension PropsSVGFECompositeElement on SVGFECompositeElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -664,7 +760,11 @@ extension PropsSVGFEConvolveMatrixElement on SVGFEConvolveMatrixElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -676,7 +776,11 @@ extension PropsSVGFEConvolveMatrixElement on SVGFEConvolveMatrixElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -714,7 +818,11 @@ extension PropsSVGFEDiffuseLightingElement on SVGFEDiffuseLightingElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -726,7 +834,11 @@ extension PropsSVGFEDiffuseLightingElement on SVGFEDiffuseLightingElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -756,7 +868,11 @@ extension PropsSVGFEDistantLightElement on SVGFEDistantLightElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -768,7 +884,11 @@ extension PropsSVGFEDistantLightElement on SVGFEDistantLightElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -799,7 +919,11 @@ extension PropsSVGFEPointLightElement on SVGFEPointLightElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -811,7 +935,11 @@ extension PropsSVGFEPointLightElement on SVGFEPointLightElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -849,7 +977,11 @@ extension PropsSVGFESpotLightElement on SVGFESpotLightElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -861,7 +993,11 @@ extension PropsSVGFESpotLightElement on SVGFESpotLightElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -912,7 +1048,11 @@ extension PropsSVGFEDisplacementMapElement on SVGFEDisplacementMapElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -924,7 +1064,11 @@ extension PropsSVGFEDisplacementMapElement on SVGFEDisplacementMapElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -962,7 +1106,11 @@ extension PropsSVGFEDropShadowElement on SVGFEDropShadowElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -974,7 +1122,11 @@ extension PropsSVGFEDropShadowElement on SVGFEDropShadowElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1000,7 +1152,11 @@ class SVGFEFloodElement
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1012,7 +1168,11 @@ class SVGFEFloodElement
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1061,7 +1221,11 @@ extension PropsSVGFEGaussianBlurElement on SVGFEGaussianBlurElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1073,7 +1237,11 @@ extension PropsSVGFEGaussianBlurElement on SVGFEGaussianBlurElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1108,7 +1276,11 @@ extension PropsSVGFEImageElement on SVGFEImageElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1120,7 +1292,11 @@ extension PropsSVGFEImageElement on SVGFEImageElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1146,7 +1322,11 @@ class SVGFEMergeElement
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1158,7 +1338,11 @@ class SVGFEMergeElement
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1187,7 +1371,11 @@ extension PropsSVGFEMergeNodeElement on SVGFEMergeNodeElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1199,7 +1387,11 @@ extension PropsSVGFEMergeNodeElement on SVGFEMergeNodeElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1243,7 +1435,11 @@ extension PropsSVGFEMorphologyElement on SVGFEMorphologyElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1255,7 +1451,11 @@ extension PropsSVGFEMorphologyElement on SVGFEMorphologyElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1287,7 +1487,11 @@ extension PropsSVGFEOffsetElement on SVGFEOffsetElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1299,7 +1503,11 @@ extension PropsSVGFEOffsetElement on SVGFEOffsetElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1339,7 +1547,11 @@ extension PropsSVGFESpecularLightingElement on SVGFESpecularLightingElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1351,7 +1563,11 @@ extension PropsSVGFESpecularLightingElement on SVGFESpecularLightingElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -1381,7 +1597,11 @@ extension PropsSVGFETileElement on SVGFETileElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -1393,7 +1613,11 @@ extension PropsSVGFETileElement on SVGFETileElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
