@@ -9,7 +9,7 @@ abstract class JSObject {
 @JS('Map')
 @staticInterop
 class JsMap<K extends Object, V> {
-  external JsMap([Iterable<Iterable> initial]);
+  external factory JsMap([Iterable<Iterable> initial]);
 }
 
 extension DartMap<K extends Object, V> on JsMap<K, V> {
