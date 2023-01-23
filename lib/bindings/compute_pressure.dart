@@ -22,6 +22,8 @@ enum PressureState {
   final String value;
   static PressureState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PressureState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PressureState(this.value);
 }
 
@@ -32,6 +34,8 @@ enum PressureFactor {
   final String value;
   static PressureFactor fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PressureFactor> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PressureFactor(this.value);
 }
 
@@ -41,6 +45,8 @@ enum PressureSource {
   final String value;
   static PressureSource fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PressureSource> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PressureSource(this.value);
 }
 

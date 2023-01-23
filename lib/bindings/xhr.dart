@@ -79,6 +79,9 @@ enum XMLHttpRequestResponseType {
   final String value;
   static XMLHttpRequestResponseType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XMLHttpRequestResponseType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const XMLHttpRequestResponseType(this.value);
 }
 

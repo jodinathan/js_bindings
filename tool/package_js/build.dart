@@ -168,6 +168,7 @@ Future<void> main() async {
             }).join('\n')}
               final String value;
               static $name fromValue(String value) => values.firstWhere((e) => e.value == value);
+              static Iterable<$name> fromValues(Iterable<String> values) => values.map(fromValue);
               const $name(this.value);
             }
             ''');
@@ -465,7 +466,7 @@ Future<void> main() async {
                             'static set $mName(${dartType.fullName} newValue);');
                       } else {
                         lines.add('''set $mName($dartType newValue) {
-                          js_util.setProperty(this, '$origMName', newValue${dartType.isEnum.truth('${dartType.nullable.truth('?')}.value${dartType.isIterable.truth('s')}')});
+                          js_util.setProperty(this, '$origMName', newValue${dartType.isEnum.truth('${dartType.nullable.truth('?')}.${dartType.isIterable ? 'map((e) => e.value)' : 'value'}')});
                           }''');
                       }
                     }
@@ -499,7 +500,7 @@ Future<void> main() async {
 
                           if (henum) {
                             lines.add(
-                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary ? '${param.name}: ' : ''}${param.name}${param.dartType.isEnum ? '${param.isNullable ? '?' : ''}.value${param.dartType.isIterable ? 's' : ''}' : ''}').join(', ')});');
+                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.dartType.isEnum ? '${param.isNullable.truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}' : ''}').join(', ')});');
                           }
                         }
                       }
@@ -561,7 +562,7 @@ Future<void> main() async {
                               '${param.isNullable.truth('$name == null ? null : ')}allowInterop($name)';
                         } else if (param.dartType.isEnum) {
                           name =
-                              '$name${param.isNullable.truth('?')}.value${param.dartType.isIterable.truth('s')}';
+                              '$name${param.isNullable.truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}';
                         }
 
                         if (param.isVariadic) {

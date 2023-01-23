@@ -22,6 +22,8 @@ enum ScrollAxis {
   final String value;
   static ScrollAxis fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ScrollAxis> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ScrollAxis(this.value);
 }
 

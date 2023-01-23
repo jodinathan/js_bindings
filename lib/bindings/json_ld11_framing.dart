@@ -45,6 +45,8 @@ enum JsonLdFramingErrorCode {
   final String value;
   static JsonLdFramingErrorCode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<JsonLdFramingErrorCode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const JsonLdFramingErrorCode(this.value);
 }
 
@@ -56,5 +58,7 @@ enum JsonLdEmbed {
   final String value;
   static JsonLdEmbed fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<JsonLdEmbed> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const JsonLdEmbed(this.value);
 }

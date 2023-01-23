@@ -21,6 +21,8 @@ enum WebGLPowerPreference {
   final String value;
   static WebGLPowerPreference fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<WebGLPowerPreference> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const WebGLPowerPreference(this.value);
 }
 

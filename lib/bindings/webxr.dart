@@ -69,6 +69,8 @@ enum XRSessionMode {
   final String value;
   static XRSessionMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRSessionMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRSessionMode(this.value);
 }
 
@@ -103,6 +105,8 @@ enum XRVisibilityState {
   final String value;
   static XRVisibilityState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRVisibilityState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRVisibilityState(this.value);
 }
 
@@ -446,6 +450,8 @@ enum XRReferenceSpaceType {
   final String value;
   static XRReferenceSpaceType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRReferenceSpaceType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRReferenceSpaceType(this.value);
 }
 
@@ -580,6 +586,8 @@ enum XREye {
   final String value;
   static XREye fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XREye> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XREye(this.value);
 }
 
@@ -751,6 +759,8 @@ enum XRHandedness {
   final String value;
   static XRHandedness fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRHandedness> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRHandedness(this.value);
 }
 
@@ -762,6 +772,8 @@ enum XRTargetRayMode {
   final String value;
   static XRTargetRayMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRTargetRayMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRTargetRayMode(this.value);
 }
 

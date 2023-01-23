@@ -22,6 +22,8 @@ enum CaptureAction {
   final String value;
   static CaptureAction fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CaptureAction> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CaptureAction(this.value);
 }
 

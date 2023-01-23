@@ -57,6 +57,8 @@ enum ChildDisplayType {
   final String value;
   static ChildDisplayType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ChildDisplayType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ChildDisplayType(this.value);
 }
 
@@ -67,6 +69,8 @@ enum LayoutSizingMode {
   final String value;
   static LayoutSizingMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<LayoutSizingMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const LayoutSizingMode(this.value);
 }
 
@@ -156,6 +160,8 @@ enum BlockFragmentationType {
   final String value;
   static BlockFragmentationType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<BlockFragmentationType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const BlockFragmentationType(this.value);
 }
 
@@ -306,6 +312,8 @@ enum BreakType {
   final String value;
   static BreakType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<BreakType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const BreakType(this.value);
 }
 

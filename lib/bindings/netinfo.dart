@@ -28,6 +28,8 @@ enum ConnectionType {
   final String value;
   static ConnectionType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ConnectionType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ConnectionType(this.value);
 }
 
@@ -40,6 +42,9 @@ enum EffectiveConnectionType {
   final String value;
   static EffectiveConnectionType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<EffectiveConnectionType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const EffectiveConnectionType(this.value);
 }
 

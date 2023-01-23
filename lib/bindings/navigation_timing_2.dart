@@ -82,6 +82,8 @@ enum NavigationTimingType {
   final String value;
   static NavigationTimingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationTimingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const NavigationTimingType(this.value);
 }
 

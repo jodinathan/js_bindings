@@ -20,6 +20,9 @@ enum FileSystemPermissionMode {
   final String value;
   static FileSystemPermissionMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FileSystemPermissionMode> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const FileSystemPermissionMode(this.value);
 }
 
@@ -81,6 +84,8 @@ enum WellKnownDirectory {
   final String value;
   static WellKnownDirectory fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<WellKnownDirectory> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const WellKnownDirectory(this.value);
 }
 

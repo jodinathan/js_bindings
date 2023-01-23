@@ -24,6 +24,8 @@ enum ContentCategory {
   final String value;
   static ContentCategory fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ContentCategory> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ContentCategory(this.value);
 }
 

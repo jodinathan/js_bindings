@@ -20,6 +20,8 @@ enum TouchType {
   final String value;
   static TouchType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<TouchType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const TouchType(this.value);
 }
 

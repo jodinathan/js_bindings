@@ -129,6 +129,9 @@ enum CredentialMediationRequirement {
   final String value;
   static CredentialMediationRequirement fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CredentialMediationRequirement> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const CredentialMediationRequirement(this.value);
 }
 

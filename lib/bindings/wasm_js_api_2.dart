@@ -61,6 +61,8 @@ enum ImportExportKind {
   final String value;
   static ImportExportKind fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ImportExportKind> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ImportExportKind(this.value);
 }
 
@@ -188,6 +190,8 @@ enum TableKind {
   final String value;
   static TableKind fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<TableKind> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const TableKind(this.value);
 }
 
@@ -258,6 +262,8 @@ enum ValueType {
   final String value;
   static ValueType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ValueType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ValueType(this.value);
 }
 

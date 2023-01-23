@@ -68,6 +68,9 @@ enum IterationCompositeOperation {
   final String value;
   static IterationCompositeOperation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<IterationCompositeOperation> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const IterationCompositeOperation(this.value);
 }
 

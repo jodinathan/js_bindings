@@ -22,6 +22,8 @@ enum XRHitTestTrackableType {
   final String value;
   static XRHitTestTrackableType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRHitTestTrackableType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRHitTestTrackableType(this.value);
 }
 
@@ -39,7 +41,9 @@ class XRHitTestOptionsInit {
           required Iterable<XRHitTestTrackableType> entityTypes,
           required XRRay offsetRay}) =>
       XRHitTestOptionsInit._(
-          space: space, entityTypes: entityTypes.values, offsetRay: offsetRay);
+          space: space,
+          entityTypes: entityTypes.map((e) => e.value),
+          offsetRay: offsetRay);
 }
 
 extension PropsXRHitTestOptionsInit on XRHitTestOptionsInit {
@@ -52,7 +56,7 @@ extension PropsXRHitTestOptionsInit on XRHitTestOptionsInit {
       XRHitTestTrackableType.fromValues(
           js_util.getProperty(this, 'entityTypes'));
   set entityTypes(Iterable<XRHitTestTrackableType> newValue) {
-    js_util.setProperty(this, 'entityTypes', newValue.values);
+    js_util.setProperty(this, 'entityTypes', newValue.map((e) => e.value));
   }
 
   XRRay get offsetRay => js_util.getProperty(this, 'offsetRay');
@@ -76,7 +80,7 @@ class XRTransientInputHitTestOptionsInit {
           required XRRay offsetRay}) =>
       XRTransientInputHitTestOptionsInit._(
           profile: profile,
-          entityTypes: entityTypes.values,
+          entityTypes: entityTypes.map((e) => e.value),
           offsetRay: offsetRay);
 }
 
@@ -91,7 +95,7 @@ extension PropsXRTransientInputHitTestOptionsInit
       XRHitTestTrackableType.fromValues(
           js_util.getProperty(this, 'entityTypes'));
   set entityTypes(Iterable<XRHitTestTrackableType> newValue) {
-    js_util.setProperty(this, 'entityTypes', newValue.values);
+    js_util.setProperty(this, 'entityTypes', newValue.map((e) => e.value));
   }
 
   XRRay get offsetRay => js_util.getProperty(this, 'offsetRay');

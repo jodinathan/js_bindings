@@ -21,6 +21,8 @@ enum TaskPriority {
   final String value;
   static TaskPriority fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<TaskPriority> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const TaskPriority(this.value);
 }
 

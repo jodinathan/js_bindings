@@ -77,5 +77,7 @@ enum AppBannerPromptOutcome {
   final String value;
   static AppBannerPromptOutcome fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AppBannerPromptOutcome> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AppBannerPromptOutcome(this.value);
 }

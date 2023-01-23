@@ -35,6 +35,8 @@ enum XRDOMOverlayType {
   final String value;
   static XRDOMOverlayType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRDOMOverlayType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRDOMOverlayType(this.value);
 }
 

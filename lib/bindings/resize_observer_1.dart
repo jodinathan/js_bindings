@@ -21,6 +21,9 @@ enum ResizeObserverBoxOptions {
   final String value;
   static ResizeObserverBoxOptions fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ResizeObserverBoxOptions> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const ResizeObserverBoxOptions(this.value);
 }
 

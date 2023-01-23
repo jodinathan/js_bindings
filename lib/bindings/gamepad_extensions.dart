@@ -22,6 +22,8 @@ enum GamepadHand {
   final String value;
   static GamepadHand fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GamepadHand> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GamepadHand(this.value);
 }
 
@@ -63,6 +65,8 @@ enum GamepadHapticsResult {
   final String value;
   static GamepadHapticsResult fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GamepadHapticsResult> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GamepadHapticsResult(this.value);
 }
 
@@ -73,6 +77,9 @@ enum GamepadHapticActuatorType {
   final String value;
   static GamepadHapticActuatorType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GamepadHapticActuatorType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const GamepadHapticActuatorType(this.value);
 }
 
@@ -82,6 +89,9 @@ enum GamepadHapticEffectType {
   final String value;
   static GamepadHapticEffectType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GamepadHapticEffectType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const GamepadHapticEffectType(this.value);
 }
 

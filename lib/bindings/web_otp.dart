@@ -54,7 +54,7 @@ class OTPCredentialRequestOptions {
 
   factory OTPCredentialRequestOptions(
           {Iterable<OTPCredentialTransportType>? transport = const []}) =>
-      OTPCredentialRequestOptions._(transport: transport?.values);
+      OTPCredentialRequestOptions._(transport: transport?.map((e) => e.value));
 }
 
 extension PropsOTPCredentialRequestOptions on OTPCredentialRequestOptions {
@@ -62,7 +62,7 @@ extension PropsOTPCredentialRequestOptions on OTPCredentialRequestOptions {
       OTPCredentialTransportType.fromValues(
           js_util.getProperty(this, 'transport'));
   set transport(Iterable<OTPCredentialTransportType> newValue) {
-    js_util.setProperty(this, 'transport', newValue.values);
+    js_util.setProperty(this, 'transport', newValue.map((e) => e.value));
   }
 }
 
@@ -72,5 +72,8 @@ enum OTPCredentialTransportType {
   final String value;
   static OTPCredentialTransportType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<OTPCredentialTransportType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const OTPCredentialTransportType(this.value);
 }

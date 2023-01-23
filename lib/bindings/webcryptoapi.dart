@@ -74,6 +74,8 @@ enum KeyType {
   final String value;
   static KeyType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<KeyType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const KeyType(this.value);
 }
 
@@ -90,6 +92,8 @@ enum KeyUsage {
   final String value;
   static KeyUsage fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<KeyUsage> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const KeyUsage(this.value);
 }
 
@@ -122,6 +126,8 @@ enum KeyFormat {
   final String value;
   static KeyFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<KeyFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const KeyFormat(this.value);
 }
 
@@ -176,8 +182,8 @@ extension PropsSubtleCrypto on SubtleCrypto {
 
   Future<dynamic> generateKey(
           dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
-      js_util.promiseToFuture(js_util.callMethod(
-          this, 'generateKey', [algorithm, extractable, keyUsages.values]));
+      js_util.promiseToFuture(js_util.callMethod(this, 'generateKey',
+          [algorithm, extractable, keyUsages.map((e) => e.value)]));
 
   Future<dynamic> deriveKey(
           dynamic algorithm,
@@ -185,8 +191,13 @@ extension PropsSubtleCrypto on SubtleCrypto {
           dynamic derivedKeyType,
           bool extractable,
           Iterable<KeyUsage> keyUsages) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'deriveKey',
-          [algorithm, baseKey, derivedKeyType, extractable, keyUsages.values]));
+      js_util.promiseToFuture(js_util.callMethod(this, 'deriveKey', [
+        algorithm,
+        baseKey,
+        derivedKeyType,
+        extractable,
+        keyUsages.map((e) => e.value)
+      ]));
 
   Future<ByteBuffer> deriveBits(
           dynamic algorithm, CryptoKey baseKey, int length) =>
@@ -195,8 +206,13 @@ extension PropsSubtleCrypto on SubtleCrypto {
 
   Future<CryptoKey> importKey(KeyFormat format, dynamic keyData,
           dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'importKey',
-          [format.value, keyData, algorithm, extractable, keyUsages.values]));
+      js_util.promiseToFuture(js_util.callMethod(this, 'importKey', [
+        format.value,
+        keyData,
+        algorithm,
+        extractable,
+        keyUsages.map((e) => e.value)
+      ]));
 
   Future<dynamic> exportKey(KeyFormat format, CryptoKey key) =>
       js_util.promiseToFuture(
@@ -222,7 +238,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
         unwrapAlgorithm,
         unwrappedKeyAlgorithm,
         extractable,
-        keyUsages.values
+        keyUsages.map((e) => e.value)
       ]));
 }
 

@@ -162,6 +162,8 @@ enum DocumentReadyState {
   final String value;
   static DocumentReadyState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<DocumentReadyState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const DocumentReadyState(this.value);
 }
 
@@ -172,6 +174,9 @@ enum DocumentVisibilityState {
   final String value;
   static DocumentVisibilityState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<DocumentVisibilityState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const DocumentVisibilityState(this.value);
 }
 
@@ -2993,6 +2998,8 @@ enum CanPlayTypeResult {
   final String value;
   static CanPlayTypeResult fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanPlayTypeResult> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanPlayTypeResult(this.value);
 }
 
@@ -3446,6 +3453,8 @@ enum TextTrackMode {
   final String value;
   static TextTrackMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<TextTrackMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const TextTrackMode(this.value);
 }
 
@@ -3459,6 +3468,8 @@ enum TextTrackKind {
   final String value;
   static TextTrackKind fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<TextTrackKind> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const TextTrackKind(this.value);
 }
 
@@ -5790,6 +5801,8 @@ enum SelectionMode {
   final String value;
   static SelectionMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SelectionMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const SelectionMode(this.value);
 }
 
@@ -6364,6 +6377,8 @@ enum PredefinedColorSpace {
   final String value;
   static PredefinedColorSpace fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PredefinedColorSpace> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PredefinedColorSpace(this.value);
 }
 
@@ -6374,6 +6389,8 @@ enum CanvasFillRule {
   final String value;
   static CanvasFillRule fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasFillRule> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasFillRule(this.value);
 }
 
@@ -6432,6 +6449,8 @@ enum ImageSmoothingQuality {
   final String value;
   static ImageSmoothingQuality fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ImageSmoothingQuality> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ImageSmoothingQuality(this.value);
 }
 
@@ -6787,6 +6806,8 @@ enum CanvasLineCap {
   final String value;
   static CanvasLineCap fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasLineCap> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasLineCap(this.value);
 }
 
@@ -6798,6 +6819,8 @@ enum CanvasLineJoin {
   final String value;
   static CanvasLineJoin fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasLineJoin> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasLineJoin(this.value);
 }
 
@@ -6811,6 +6834,8 @@ enum CanvasTextAlign {
   final String value;
   static CanvasTextAlign fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasTextAlign> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasTextAlign(this.value);
 }
 
@@ -6825,6 +6850,8 @@ enum CanvasTextBaseline {
   final String value;
   static CanvasTextBaseline fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasTextBaseline> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasTextBaseline(this.value);
 }
 
@@ -6836,6 +6863,8 @@ enum CanvasDirection {
   final String value;
   static CanvasDirection fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasDirection> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasDirection(this.value);
 }
 
@@ -6847,6 +6876,8 @@ enum CanvasFontKerning {
   final String value;
   static CanvasFontKerning fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasFontKerning> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasFontKerning(this.value);
 }
 
@@ -6864,6 +6895,8 @@ enum CanvasFontStretch {
   final String value;
   static CanvasFontStretch fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasFontStretch> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasFontStretch(this.value);
 }
 
@@ -6879,6 +6912,8 @@ enum CanvasFontVariantCaps {
   final String value;
   static CanvasFontVariantCaps fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasFontVariantCaps> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasFontVariantCaps(this.value);
 }
 
@@ -6891,6 +6926,8 @@ enum CanvasTextRendering {
   final String value;
   static CanvasTextRendering fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CanvasTextRendering> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CanvasTextRendering(this.value);
 }
 
@@ -7267,6 +7304,9 @@ enum OffscreenRenderingContextId {
   final String value;
   static OffscreenRenderingContextId fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<OffscreenRenderingContextId> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const OffscreenRenderingContextId(this.value);
 }
 
@@ -8139,6 +8179,8 @@ enum ScrollRestoration {
   final String value;
   static ScrollRestoration fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ScrollRestoration> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ScrollRestoration(this.value);
 }
 
@@ -9295,6 +9337,8 @@ enum DOMParserSupportedType {
   final String value;
   static DOMParserSupportedType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<DOMParserSupportedType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const DOMParserSupportedType(this.value);
 }
 
@@ -9639,6 +9683,8 @@ enum ImageOrientation {
   final String value;
   static ImageOrientation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ImageOrientation> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ImageOrientation(this.value);
 }
 
@@ -9650,6 +9696,8 @@ enum PremultiplyAlpha {
   final String value;
   static PremultiplyAlpha fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PremultiplyAlpha> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PremultiplyAlpha(this.value);
 }
 
@@ -9660,6 +9708,8 @@ enum ColorSpaceConversion {
   final String value;
   static ColorSpaceConversion fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ColorSpaceConversion> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ColorSpaceConversion(this.value);
 }
 
@@ -9672,6 +9722,8 @@ enum ResizeQuality {
   final String value;
   static ResizeQuality fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ResizeQuality> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ResizeQuality(this.value);
 }
 
@@ -10359,6 +10411,8 @@ enum WorkerType {
   final String value;
   static WorkerType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<WorkerType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const WorkerType(this.value);
 }
 

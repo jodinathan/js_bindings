@@ -717,6 +717,9 @@ enum AuthenticatorAttachment {
   final String value;
   static AuthenticatorAttachment fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AuthenticatorAttachment> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const AuthenticatorAttachment(this.value);
 }
 
@@ -728,6 +731,8 @@ enum ResidentKeyRequirement {
   final String value;
   static ResidentKeyRequirement fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ResidentKeyRequirement> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ResidentKeyRequirement(this.value);
 }
 
@@ -740,6 +745,9 @@ enum AttestationConveyancePreference {
   final String value;
   static AttestationConveyancePreference fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AttestationConveyancePreference> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const AttestationConveyancePreference(this.value);
 }
 
@@ -882,6 +890,8 @@ enum TokenBindingStatus {
   final String value;
   static TokenBindingStatus fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<TokenBindingStatus> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const TokenBindingStatus(this.value);
 }
 
@@ -891,6 +901,9 @@ enum PublicKeyCredentialType {
   final String value;
   static PublicKeyCredentialType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PublicKeyCredentialType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const PublicKeyCredentialType(this.value);
 }
 
@@ -929,6 +942,8 @@ enum AuthenticatorTransport {
   final String value;
   static AuthenticatorTransport fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AuthenticatorTransport> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AuthenticatorTransport(this.value);
 }
 
@@ -940,6 +955,9 @@ enum UserVerificationRequirement {
   final String value;
   static UserVerificationRequirement fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<UserVerificationRequirement> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const UserVerificationRequirement(this.value);
 }
 
@@ -1031,6 +1049,8 @@ enum LargeBlobSupport {
   final String value;
   static LargeBlobSupport fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<LargeBlobSupport> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const LargeBlobSupport(this.value);
 }
 

@@ -20,6 +20,8 @@ enum BinaryType {
   final String value;
   static BinaryType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<BinaryType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const BinaryType(this.value);
 }
 

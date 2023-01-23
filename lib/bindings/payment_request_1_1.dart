@@ -249,6 +249,8 @@ enum PaymentComplete {
   final String value;
   static PaymentComplete fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PaymentComplete> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PaymentComplete(this.value);
 }
 

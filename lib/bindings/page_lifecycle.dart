@@ -20,5 +20,7 @@ enum ClientLifecycleState {
   final String value;
   static ClientLifecycleState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ClientLifecycleState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ClientLifecycleState(this.value);
 }

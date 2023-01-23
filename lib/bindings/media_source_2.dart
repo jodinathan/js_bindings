@@ -22,6 +22,8 @@ enum ReadyState {
   final String value;
   static ReadyState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ReadyState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ReadyState(this.value);
 }
 
@@ -32,6 +34,8 @@ enum EndOfStreamError {
   final String value;
   static EndOfStreamError fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<EndOfStreamError> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const EndOfStreamError(this.value);
 }
 
@@ -145,6 +149,8 @@ enum AppendMode {
   final String value;
   static AppendMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AppendMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AppendMode(this.value);
 }
 

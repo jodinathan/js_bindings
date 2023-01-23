@@ -39,5 +39,7 @@ enum AacBitstreamFormat {
   final String value;
   static AacBitstreamFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AacBitstreamFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AacBitstreamFormat(this.value);
 }

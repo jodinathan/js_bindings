@@ -21,6 +21,8 @@ enum FileSystemHandleKind {
   final String value;
   static FileSystemHandleKind fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FileSystemHandleKind> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const FileSystemHandleKind(this.value);
 }
 
@@ -211,6 +213,8 @@ enum WriteCommandType {
   final String value;
   static WriteCommandType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<WriteCommandType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const WriteCommandType(this.value);
 }
 

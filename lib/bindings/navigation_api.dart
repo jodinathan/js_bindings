@@ -205,6 +205,9 @@ enum NavigationHistoryBehavior {
   final String value;
   static NavigationHistoryBehavior fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationHistoryBehavior> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const NavigationHistoryBehavior(this.value);
 }
 
@@ -489,6 +492,8 @@ enum NavigationFocusReset {
   final String value;
   static NavigationFocusReset fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationFocusReset> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const NavigationFocusReset(this.value);
 }
 
@@ -499,6 +504,9 @@ enum NavigationScrollBehavior {
   final String value;
   static NavigationScrollBehavior fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationScrollBehavior> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const NavigationScrollBehavior(this.value);
 }
 
@@ -511,6 +519,8 @@ enum NavigationType {
   final String value;
   static NavigationType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const NavigationType(this.value);
 }
 

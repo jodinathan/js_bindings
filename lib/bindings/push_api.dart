@@ -146,6 +146,8 @@ enum PushEncryptionKeyName {
   final String value;
   static PushEncryptionKeyName fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PushEncryptionKeyName> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PushEncryptionKeyName(this.value);
 }
 

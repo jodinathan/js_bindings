@@ -21,6 +21,9 @@ enum CaptureStartFocusBehavior {
   final String value;
   static CaptureStartFocusBehavior fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CaptureStartFocusBehavior> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const CaptureStartFocusBehavior(this.value);
 }
 
@@ -52,6 +55,9 @@ enum SelfCapturePreferenceEnum {
   final String value;
   static SelfCapturePreferenceEnum fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SelfCapturePreferenceEnum> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const SelfCapturePreferenceEnum(this.value);
 }
 
@@ -62,6 +68,9 @@ enum SystemAudioPreferenceEnum {
   final String value;
   static SystemAudioPreferenceEnum fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SystemAudioPreferenceEnum> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const SystemAudioPreferenceEnum(this.value);
 }
 
@@ -72,6 +81,9 @@ enum SurfaceSwitchingPreferenceEnum {
   final String value;
   static SurfaceSwitchingPreferenceEnum fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SurfaceSwitchingPreferenceEnum> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const SurfaceSwitchingPreferenceEnum(this.value);
 }
 
@@ -149,6 +161,9 @@ enum DisplayCaptureSurfaceType {
   final String value;
   static DisplayCaptureSurfaceType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<DisplayCaptureSurfaceType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const DisplayCaptureSurfaceType(this.value);
 }
 
@@ -160,5 +175,8 @@ enum CursorCaptureConstraint {
   final String value;
   static CursorCaptureConstraint fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CursorCaptureConstraint> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const CursorCaptureConstraint(this.value);
 }

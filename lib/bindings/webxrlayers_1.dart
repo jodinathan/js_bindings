@@ -24,6 +24,8 @@ enum XRLayerLayout {
   final String value;
   static XRLayerLayout fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRLayerLayout> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRLayerLayout(this.value);
 }
 
@@ -582,6 +584,8 @@ enum XRTextureType {
   final String value;
   static XRTextureType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRTextureType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRTextureType(this.value);
 }
 

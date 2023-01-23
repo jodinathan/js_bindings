@@ -117,6 +117,8 @@ enum RTCIceTransportPolicy {
   final String value;
   static RTCIceTransportPolicy fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceTransportPolicy> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceTransportPolicy(this.value);
 }
 
@@ -128,6 +130,8 @@ enum RTCBundlePolicy {
   final String value;
   static RTCBundlePolicy fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCBundlePolicy> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCBundlePolicy(this.value);
 }
 
@@ -137,6 +141,8 @@ enum RTCRtcpMuxPolicy {
   final String value;
   static RTCRtcpMuxPolicy fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCRtcpMuxPolicy> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCRtcpMuxPolicy(this.value);
 }
 
@@ -179,6 +185,8 @@ enum RTCSignalingState {
   final String value;
   static RTCSignalingState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCSignalingState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCSignalingState(this.value);
 }
 
@@ -190,6 +198,8 @@ enum RTCIceGatheringState {
   final String value;
   static RTCIceGatheringState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceGatheringState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceGatheringState(this.value);
 }
 
@@ -204,6 +214,8 @@ enum RTCPeerConnectionState {
   final String value;
   static RTCPeerConnectionState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCPeerConnectionState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCPeerConnectionState(this.value);
 }
 
@@ -219,6 +231,8 @@ enum RTCIceConnectionState {
   final String value;
   static RTCIceConnectionState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceConnectionState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceConnectionState(this.value);
 }
 
@@ -439,6 +453,8 @@ enum RTCSdpType {
   final String value;
   static RTCSdpType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCSdpType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCSdpType(this.value);
 }
 
@@ -622,6 +638,8 @@ enum RTCIceProtocol {
   final String value;
   static RTCIceProtocol fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceProtocol> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceProtocol(this.value);
 }
 
@@ -633,6 +651,8 @@ enum RTCIceTcpCandidateType {
   final String value;
   static RTCIceTcpCandidateType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceTcpCandidateType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceTcpCandidateType(this.value);
 }
 
@@ -645,6 +665,8 @@ enum RTCIceCandidateType {
   final String value;
   static RTCIceCandidateType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceCandidateType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceCandidateType(this.value);
 }
 
@@ -656,6 +678,9 @@ enum RTCIceServerTransportProtocol {
   final String value;
   static RTCIceServerTransportProtocol fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceServerTransportProtocol> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceServerTransportProtocol(this.value);
 }
 
@@ -859,6 +884,9 @@ enum RTCRtpTransceiverDirection {
   final String value;
   static RTCRtpTransceiverDirection fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCRtpTransceiverDirection> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const RTCRtpTransceiverDirection(this.value);
 }
 
@@ -1402,6 +1430,8 @@ enum RTCDtlsTransportState {
   final String value;
   static RTCDtlsTransportState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCDtlsTransportState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCDtlsTransportState(this.value);
 }
 
@@ -1578,6 +1608,8 @@ enum RTCIceGathererState {
   final String value;
   static RTCIceGathererState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceGathererState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceGathererState(this.value);
 }
 
@@ -1593,6 +1625,8 @@ enum RTCIceTransportState {
   final String value;
   static RTCIceTransportState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceTransportState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceTransportState(this.value);
 }
 
@@ -1604,6 +1638,8 @@ enum RTCIceRole {
   final String value;
   static RTCIceRole fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceRole> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceRole(this.value);
 }
 
@@ -1614,6 +1650,8 @@ enum RTCIceComponent {
   final String value;
   static RTCIceComponent fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceComponent> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCIceComponent(this.value);
 }
 
@@ -1739,6 +1777,8 @@ enum RTCSctpTransportState {
   final String value;
   static RTCSctpTransportState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCSctpTransportState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCSctpTransportState(this.value);
 }
 
@@ -1890,6 +1930,8 @@ enum RTCDataChannelState {
   final String value;
   static RTCDataChannelState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCDataChannelState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCDataChannelState(this.value);
 }
 
@@ -2180,6 +2222,8 @@ enum RTCErrorDetailType {
   final String value;
   static RTCErrorDetailType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCErrorDetailType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCErrorDetailType(this.value);
 }
 

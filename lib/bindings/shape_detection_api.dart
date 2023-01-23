@@ -99,6 +99,8 @@ enum LandmarkType {
   final String value;
   static LandmarkType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<LandmarkType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const LandmarkType(this.value);
 }
 
@@ -134,14 +136,14 @@ class BarcodeDetectorOptions {
       {required Iterable<String> formats});
 
   factory BarcodeDetectorOptions({required Iterable<BarcodeFormat> formats}) =>
-      BarcodeDetectorOptions._(formats: formats.values);
+      BarcodeDetectorOptions._(formats: formats.map((e) => e.value));
 }
 
 extension PropsBarcodeDetectorOptions on BarcodeDetectorOptions {
   Iterable<BarcodeFormat> get formats =>
       BarcodeFormat.fromValues(js_util.getProperty(this, 'formats'));
   set formats(Iterable<BarcodeFormat> newValue) {
-    js_util.setProperty(this, 'formats', newValue.values);
+    js_util.setProperty(this, 'formats', newValue.map((e) => e.value));
   }
 }
 
@@ -210,5 +212,7 @@ enum BarcodeFormat {
   final String value;
   static BarcodeFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<BarcodeFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const BarcodeFormat(this.value);
 }

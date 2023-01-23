@@ -34,6 +34,8 @@ enum RTCStatsType {
   final String value;
   static RTCStatsType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCStatsType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCStatsType(this.value);
 }
 
@@ -816,6 +818,9 @@ enum RTCQualityLimitationReason {
   final String value;
   static RTCQualityLimitationReason fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCQualityLimitationReason> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const RTCQualityLimitationReason(this.value);
 }
 
@@ -1290,6 +1295,8 @@ enum RTCDtlsRole {
   final String value;
   static RTCDtlsRole fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCDtlsRole> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCDtlsRole(this.value);
 }
 
@@ -1631,6 +1638,9 @@ enum RTCStatsIceCandidatePairState {
   final String value;
   static RTCStatsIceCandidatePairState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCStatsIceCandidatePairState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const RTCStatsIceCandidatePairState(this.value);
 }
 

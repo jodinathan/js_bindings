@@ -60,6 +60,9 @@ enum OrientationSensorLocalCoordinateSystem {
   final String value;
   static OrientationSensorLocalCoordinateSystem fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<OrientationSensorLocalCoordinateSystem> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const OrientationSensorLocalCoordinateSystem(this.value);
 }
 

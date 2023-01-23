@@ -230,6 +230,8 @@ enum NotificationPermission {
   final String value;
   static NotificationPermission fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<NotificationPermission> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const NotificationPermission(this.value);
 }
 
@@ -241,6 +243,8 @@ enum NotificationDirection {
   final String value;
   static NotificationDirection fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<NotificationDirection> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const NotificationDirection(this.value);
 }
 

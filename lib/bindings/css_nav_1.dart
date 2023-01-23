@@ -22,6 +22,9 @@ enum SpatialNavigationDirection {
   final String value;
   static SpatialNavigationDirection fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SpatialNavigationDirection> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const SpatialNavigationDirection(this.value);
 }
 
@@ -32,6 +35,9 @@ enum FocusableAreaSearchMode {
   final String value;
   static FocusableAreaSearchMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FocusableAreaSearchMode> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const FocusableAreaSearchMode(this.value);
 }
 

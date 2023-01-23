@@ -49,5 +49,7 @@ enum SupportedType {
   final String value;
   static SupportedType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SupportedType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const SupportedType(this.value);
 }

@@ -21,6 +21,8 @@ enum UserIdleState {
   final String value;
   static UserIdleState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<UserIdleState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const UserIdleState(this.value);
 }
 
@@ -31,6 +33,8 @@ enum ScreenIdleState {
   final String value;
   static ScreenIdleState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ScreenIdleState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ScreenIdleState(this.value);
 }
 

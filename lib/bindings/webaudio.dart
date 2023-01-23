@@ -22,6 +22,8 @@ enum AudioContextState {
   final String value;
   static AudioContextState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AudioContextState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AudioContextState(this.value);
 }
 
@@ -145,6 +147,9 @@ enum AudioContextLatencyCategory {
   final String value;
   static AudioContextLatencyCategory fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AudioContextLatencyCategory> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const AudioContextLatencyCategory(this.value);
 }
 
@@ -154,6 +159,8 @@ enum AudioSinkType {
   final String value;
   static AudioSinkType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AudioSinkType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AudioSinkType(this.value);
 }
 
@@ -655,6 +662,8 @@ enum ChannelCountMode {
   final String value;
   static ChannelCountMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ChannelCountMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ChannelCountMode(this.value);
 }
 
@@ -665,6 +674,8 @@ enum ChannelInterpretation {
   final String value;
   static ChannelInterpretation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ChannelInterpretation> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ChannelInterpretation(this.value);
 }
 
@@ -714,6 +725,8 @@ enum AutomationRate {
   final String value;
   static AutomationRate fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AutomationRate> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AutomationRate(this.value);
 }
 
@@ -1298,6 +1311,8 @@ enum BiquadFilterType {
   final String value;
   static BiquadFilterType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<BiquadFilterType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const BiquadFilterType(this.value);
 }
 
@@ -2468,6 +2483,8 @@ enum OscillatorType {
   final String value;
   static OscillatorType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<OscillatorType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const OscillatorType(this.value);
 }
 
@@ -2601,6 +2618,8 @@ enum PanningModelType {
   final String value;
   static PanningModelType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PanningModelType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PanningModelType(this.value);
 }
 
@@ -2612,6 +2631,8 @@ enum DistanceModelType {
   final String value;
   static DistanceModelType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<DistanceModelType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const DistanceModelType(this.value);
 }
 
@@ -3098,6 +3119,8 @@ enum OverSampleType {
   final String value;
   static OverSampleType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<OverSampleType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const OverSampleType(this.value);
 }
 

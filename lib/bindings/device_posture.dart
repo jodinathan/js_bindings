@@ -36,5 +36,7 @@ enum DevicePostureType {
   final String value;
   static DevicePostureType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<DevicePostureType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const DevicePostureType(this.value);
 }

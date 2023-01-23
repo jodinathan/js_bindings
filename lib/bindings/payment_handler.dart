@@ -37,8 +37,8 @@ extension PropsPaymentManager on PaymentManager {
   }
 
   Future<void> enableDelegations(Iterable<PaymentDelegation> delegations) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'enableDelegations', [delegations.values]));
+      js_util.promiseToFuture(js_util.callMethod(
+          this, 'enableDelegations', [delegations.map((e) => e.value)]));
 }
 
 enum PaymentDelegation {
@@ -50,6 +50,8 @@ enum PaymentDelegation {
   final String value;
   static PaymentDelegation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PaymentDelegation> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PaymentDelegation(this.value);
 }
 
@@ -584,6 +586,8 @@ enum PaymentShippingType {
   final String value;
   static PaymentShippingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PaymentShippingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PaymentShippingType(this.value);
 }
 

@@ -241,6 +241,8 @@ enum MIDIPortType {
   final String value;
   static MIDIPortType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MIDIPortType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MIDIPortType(this.value);
 }
 
@@ -251,6 +253,8 @@ enum MIDIPortDeviceState {
   final String value;
   static MIDIPortDeviceState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MIDIPortDeviceState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MIDIPortDeviceState(this.value);
 }
 
@@ -262,6 +266,9 @@ enum MIDIPortConnectionState {
   final String value;
   static MIDIPortConnectionState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MIDIPortConnectionState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const MIDIPortConnectionState(this.value);
 }
 

@@ -51,6 +51,8 @@ enum EndingType {
   final String value;
   static EndingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<EndingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const EndingType(this.value);
 }
 

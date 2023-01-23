@@ -89,6 +89,8 @@ enum MediaDecodingType {
   final String value;
   static MediaDecodingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaDecodingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaDecodingType(this.value);
 }
 
@@ -99,6 +101,8 @@ enum MediaEncodingType {
   final String value;
   static MediaEncodingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaEncodingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaEncodingType(this.value);
 }
 
@@ -214,6 +218,8 @@ enum HdrMetadataType {
   final String value;
   static HdrMetadataType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<HdrMetadataType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const HdrMetadataType(this.value);
 }
 
@@ -225,6 +231,8 @@ enum ColorGamut {
   final String value;
   static ColorGamut fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ColorGamut> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ColorGamut(this.value);
 }
 
@@ -236,6 +244,8 @@ enum TransferFunction {
   final String value;
   static TransferFunction fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<TransferFunction> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const TransferFunction(this.value);
 }
 

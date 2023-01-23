@@ -21,6 +21,8 @@ enum XREnvironmentBlendMode {
   final String value;
   static XREnvironmentBlendMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XREnvironmentBlendMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XREnvironmentBlendMode(this.value);
 }
 
@@ -31,5 +33,7 @@ enum XRInteractionMode {
   final String value;
   static XRInteractionMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRInteractionMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRInteractionMode(this.value);
 }

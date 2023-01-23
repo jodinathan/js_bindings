@@ -22,6 +22,9 @@ enum ScriptingPolicyViolationType {
   final String value;
   static ScriptingPolicyViolationType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ScriptingPolicyViolationType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const ScriptingPolicyViolationType(this.value);
 }
 

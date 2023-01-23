@@ -22,6 +22,8 @@ enum MediaKeysRequirement {
   final String value;
   static MediaKeysRequirement fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaKeysRequirement> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaKeysRequirement(this.value);
 }
 
@@ -154,6 +156,8 @@ enum MediaKeySessionType {
   final String value;
   static MediaKeySessionType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaKeySessionType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaKeySessionType(this.value);
 }
 
@@ -186,6 +190,9 @@ enum MediaKeySessionClosedReason {
   final String value;
   static MediaKeySessionClosedReason fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaKeySessionClosedReason> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const MediaKeySessionClosedReason(this.value);
 }
 
@@ -278,6 +285,8 @@ enum MediaKeyStatus {
   final String value;
   static MediaKeyStatus fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaKeyStatus> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaKeyStatus(this.value);
 }
 
@@ -290,6 +299,8 @@ enum MediaKeyMessageType {
   final String value;
   static MediaKeyMessageType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaKeyMessageType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaKeyMessageType(this.value);
 }
 

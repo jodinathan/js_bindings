@@ -182,6 +182,8 @@ enum MediaStreamTrackState {
   final String value;
   static MediaStreamTrackState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaStreamTrackState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaStreamTrackState(this.value);
 }
 
@@ -643,6 +645,8 @@ enum VideoFacingModeEnum {
   final String value;
   static VideoFacingModeEnum fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<VideoFacingModeEnum> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const VideoFacingModeEnum(this.value);
 }
 
@@ -653,6 +657,8 @@ enum VideoResizeModeEnum {
   final String value;
   static VideoResizeModeEnum fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<VideoResizeModeEnum> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const VideoResizeModeEnum(this.value);
 }
 
@@ -829,6 +835,8 @@ enum MediaDeviceKind {
   final String value;
   static MediaDeviceKind fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaDeviceKind> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaDeviceKind(this.value);
 }
 

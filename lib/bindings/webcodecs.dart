@@ -676,6 +676,8 @@ enum HardwareAcceleration {
   final String value;
   static HardwareAcceleration fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<HardwareAcceleration> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const HardwareAcceleration(this.value);
 }
 
@@ -686,6 +688,8 @@ enum AlphaOption {
   final String value;
   static AlphaOption fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AlphaOption> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AlphaOption(this.value);
 }
 
@@ -696,6 +700,8 @@ enum LatencyMode {
   final String value;
   static LatencyMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<LatencyMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const LatencyMode(this.value);
 }
 
@@ -721,6 +727,8 @@ enum CodecState {
   final String value;
   static CodecState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CodecState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CodecState(this.value);
 }
 
@@ -798,6 +806,8 @@ enum EncodedAudioChunkType {
   final String value;
   static EncodedAudioChunkType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<EncodedAudioChunkType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const EncodedAudioChunkType(this.value);
 }
 
@@ -875,6 +885,8 @@ enum EncodedVideoChunkType {
   final String value;
   static EncodedVideoChunkType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<EncodedVideoChunkType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const EncodedVideoChunkType(this.value);
 }
 
@@ -1032,6 +1044,8 @@ enum AudioSampleFormat {
   final String value;
   static AudioSampleFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AudioSampleFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AudioSampleFormat(this.value);
 }
 
@@ -1301,6 +1315,8 @@ enum VideoPixelFormat {
   final String value;
   static VideoPixelFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<VideoPixelFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const VideoPixelFormat(this.value);
 }
 
@@ -1401,6 +1417,8 @@ enum VideoColorPrimaries {
   final String value;
   static VideoColorPrimaries fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<VideoColorPrimaries> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const VideoColorPrimaries(this.value);
 }
 
@@ -1415,6 +1433,9 @@ enum VideoTransferCharacteristics {
   final String value;
   static VideoTransferCharacteristics fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<VideoTransferCharacteristics> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const VideoTransferCharacteristics(this.value);
 }
 
@@ -1428,6 +1449,9 @@ enum VideoMatrixCoefficients {
   final String value;
   static VideoMatrixCoefficients fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<VideoMatrixCoefficients> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const VideoMatrixCoefficients(this.value);
 }
 

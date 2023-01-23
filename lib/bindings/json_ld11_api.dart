@@ -313,5 +313,7 @@ enum JsonLdErrorCode {
   final String value;
   static JsonLdErrorCode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<JsonLdErrorCode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const JsonLdErrorCode(this.value);
 }

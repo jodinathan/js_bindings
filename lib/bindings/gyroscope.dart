@@ -60,6 +60,9 @@ enum GyroscopeLocalCoordinateSystem {
   final String value;
   static GyroscopeLocalCoordinateSystem fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GyroscopeLocalCoordinateSystem> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const GyroscopeLocalCoordinateSystem(this.value);
 }
 

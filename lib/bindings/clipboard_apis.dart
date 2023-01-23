@@ -95,6 +95,8 @@ enum PresentationStyle {
   final String value;
   static PresentationStyle fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PresentationStyle> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PresentationStyle(this.value);
 }
 

@@ -20,6 +20,9 @@ enum MockCapturePromptResult {
   final String value;
   static MockCapturePromptResult fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MockCapturePromptResult> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const MockCapturePromptResult(this.value);
 }
 

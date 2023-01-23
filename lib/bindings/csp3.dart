@@ -70,6 +70,9 @@ enum SecurityPolicyViolationEventDisposition {
   final String value;
   static SecurityPolicyViolationEventDisposition fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SecurityPolicyViolationEventDisposition> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const SecurityPolicyViolationEventDisposition(this.value);
 }
 

@@ -21,6 +21,8 @@ enum HighlightType {
   final String value;
   static HighlightType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<HighlightType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const HighlightType(this.value);
 }
 

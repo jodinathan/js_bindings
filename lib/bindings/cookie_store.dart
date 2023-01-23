@@ -97,6 +97,8 @@ enum CookieSameSite {
   final String value;
   static CookieSameSite fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CookieSameSite> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CookieSameSite(this.value);
 }
 

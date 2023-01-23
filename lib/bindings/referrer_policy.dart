@@ -27,5 +27,7 @@ enum ReferrerPolicy {
   final String value;
   static ReferrerPolicy fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ReferrerPolicy> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ReferrerPolicy(this.value);
 }

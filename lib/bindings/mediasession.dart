@@ -21,6 +21,9 @@ enum MediaSessionPlaybackState {
   final String value;
   static MediaSessionPlaybackState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaSessionPlaybackState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const MediaSessionPlaybackState(this.value);
 }
 
@@ -43,6 +46,8 @@ enum MediaSessionAction {
   final String value;
   static MediaSessionAction fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MediaSessionAction> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MediaSessionAction(this.value);
 }
 

@@ -152,6 +152,8 @@ enum BitrateMode {
   final String value;
   static BitrateMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<BitrateMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const BitrateMode(this.value);
 }
 
@@ -163,6 +165,8 @@ enum RecordingState {
   final String value;
   static RecordingState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RecordingState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RecordingState(this.value);
 }
 

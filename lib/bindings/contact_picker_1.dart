@@ -24,6 +24,8 @@ enum ContactProperty {
   final String value;
   static ContactProperty fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ContactProperty> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ContactProperty(this.value);
 }
 
@@ -138,6 +140,6 @@ extension PropsContactsManager on ContactsManager {
 
   Future<Iterable<ContactInfo>> select(Iterable<ContactProperty> properties,
           [ContactsSelectOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'select', [properties.values, options]));
+      js_util.promiseToFuture(js_util.callMethod(
+          this, 'select', [properties.map((e) => e.value), options]));
 }

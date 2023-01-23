@@ -178,6 +178,8 @@ enum USBTransferStatus {
   final String value;
   static USBTransferStatus fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<USBTransferStatus> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const USBTransferStatus(this.value);
 }
 
@@ -441,6 +443,8 @@ enum USBRequestType {
   final String value;
   static USBRequestType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<USBRequestType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const USBRequestType(this.value);
 }
 
@@ -453,6 +457,8 @@ enum USBRecipient {
   final String value;
   static USBRecipient fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<USBRecipient> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const USBRecipient(this.value);
 }
 
@@ -592,6 +598,8 @@ enum USBDirection {
   final String value;
   static USBDirection fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<USBDirection> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const USBDirection(this.value);
 }
 
@@ -603,6 +611,8 @@ enum USBEndpointType {
   final String value;
   static USBEndpointType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<USBEndpointType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const USBEndpointType(this.value);
 }
 

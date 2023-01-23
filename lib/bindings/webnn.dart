@@ -30,6 +30,8 @@ enum MLDeviceType {
   final String value;
   static MLDeviceType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLDeviceType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLDeviceType(this.value);
 }
 
@@ -41,6 +43,8 @@ enum MLPowerPreference {
   final String value;
   static MLPowerPreference fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLPowerPreference> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLPowerPreference(this.value);
 }
 
@@ -133,6 +137,8 @@ enum MLInputOperandLayout {
   final String value;
   static MLInputOperandLayout fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLInputOperandLayout> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLInputOperandLayout(this.value);
 }
 
@@ -147,6 +153,8 @@ enum MLOperandType {
   final String value;
   static MLOperandType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLOperandType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLOperandType(this.value);
 }
 
@@ -496,6 +504,9 @@ enum MLConv2dFilterOperandLayout {
   final String value;
   static MLConv2dFilterOperandLayout fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLConv2dFilterOperandLayout> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const MLConv2dFilterOperandLayout(this.value);
 }
 
@@ -507,6 +518,8 @@ enum MLAutoPad {
   final String value;
   static MLAutoPad fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLAutoPad> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLAutoPad(this.value);
 }
 
@@ -607,6 +620,9 @@ enum MLConvTranspose2dFilterOperandLayout {
   final String value;
   static MLConvTranspose2dFilterOperandLayout fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLConvTranspose2dFilterOperandLayout> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const MLConvTranspose2dFilterOperandLayout(this.value);
 }
 
@@ -775,6 +791,8 @@ enum MLGruWeightLayout {
   final String value;
   static MLGruWeightLayout fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLGruWeightLayout> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLGruWeightLayout(this.value);
 }
 
@@ -786,6 +804,9 @@ enum MLRecurrentNetworkDirection {
   final String value;
   static MLRecurrentNetworkDirection fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLRecurrentNetworkDirection> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const MLRecurrentNetworkDirection(this.value);
 }
 
@@ -1028,6 +1049,8 @@ enum MLLstmWeightLayout {
   final String value;
   static MLLstmWeightLayout fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLLstmWeightLayout> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLLstmWeightLayout(this.value);
 }
 
@@ -1185,6 +1208,8 @@ enum MLPaddingMode {
   final String value;
   static MLPaddingMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLPaddingMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLPaddingMode(this.value);
 }
 
@@ -1219,6 +1244,8 @@ enum MLRoundingType {
   final String value;
   static MLRoundingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLRoundingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLRoundingType(this.value);
 }
 
@@ -1329,6 +1356,8 @@ enum MLInterpolationMode {
   final String value;
   static MLInterpolationMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MLInterpolationMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MLInterpolationMode(this.value);
 }
 

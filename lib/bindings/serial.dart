@@ -248,6 +248,8 @@ enum ParityType {
   final String value;
   static ParityType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ParityType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ParityType(this.value);
 }
 
@@ -258,6 +260,8 @@ enum FlowControlType {
   final String value;
   static FlowControlType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FlowControlType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const FlowControlType(this.value);
 }
 

@@ -294,6 +294,8 @@ enum RequestDestination {
   final String value;
   static RequestDestination fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RequestDestination> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RequestDestination(this.value);
 }
 
@@ -306,6 +308,8 @@ enum RequestMode {
   final String value;
   static RequestMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RequestMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RequestMode(this.value);
 }
 
@@ -317,6 +321,8 @@ enum RequestCredentials {
   final String value;
   static RequestCredentials fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RequestCredentials> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RequestCredentials(this.value);
 }
 
@@ -331,6 +337,8 @@ enum RequestCache {
   final String value;
   static RequestCache fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RequestCache> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RequestCache(this.value);
 }
 
@@ -342,6 +350,8 @@ enum RequestRedirect {
   final String value;
   static RequestRedirect fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RequestRedirect> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RequestRedirect(this.value);
 }
 
@@ -351,6 +361,8 @@ enum RequestDuplex {
   final String value;
   static RequestDuplex fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RequestDuplex> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RequestDuplex(this.value);
 }
 
@@ -362,6 +374,8 @@ enum RequestPriority {
   final String value;
   static RequestPriority fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RequestPriority> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RequestPriority(this.value);
 }
 
@@ -433,5 +447,7 @@ enum ResponseType {
   final String value;
   static ResponseType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ResponseType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ResponseType(this.value);
 }

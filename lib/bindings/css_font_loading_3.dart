@@ -98,6 +98,8 @@ enum FontFaceLoadStatus {
   final String value;
   static FontFaceLoadStatus fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FontFaceLoadStatus> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const FontFaceLoadStatus(this.value);
 }
 
@@ -293,6 +295,8 @@ enum FontFaceSetLoadStatus {
   final String value;
   static FontFaceSetLoadStatus fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FontFaceSetLoadStatus> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const FontFaceSetLoadStatus(this.value);
 }
 

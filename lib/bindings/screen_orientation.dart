@@ -65,6 +65,8 @@ enum OrientationLockType {
   final String value;
   static OrientationLockType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<OrientationLockType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const OrientationLockType(this.value);
 }
 
@@ -77,5 +79,7 @@ enum OrientationType {
   final String value;
   static OrientationType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<OrientationType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const OrientationType(this.value);
 }

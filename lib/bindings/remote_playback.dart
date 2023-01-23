@@ -75,5 +75,7 @@ enum RemotePlaybackState {
   final String value;
   static RemotePlaybackState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RemotePlaybackState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RemotePlaybackState(this.value);
 }

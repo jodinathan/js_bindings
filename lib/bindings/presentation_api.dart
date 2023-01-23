@@ -206,6 +206,9 @@ enum PresentationConnectionState {
   final String value;
   static PresentationConnectionState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PresentationConnectionState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const PresentationConnectionState(this.value);
 }
 
@@ -285,6 +288,9 @@ enum PresentationConnectionCloseReason {
   final String value;
   static PresentationConnectionCloseReason fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PresentationConnectionCloseReason> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const PresentationConnectionCloseReason(this.value);
 }
 

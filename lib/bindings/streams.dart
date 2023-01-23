@@ -50,6 +50,9 @@ enum ReadableStreamReaderMode {
   final String value;
   static ReadableStreamReaderMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ReadableStreamReaderMode> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const ReadableStreamReaderMode(this.value);
 }
 
@@ -201,6 +204,8 @@ enum ReadableStreamType {
   final String value;
   static ReadableStreamType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ReadableStreamType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ReadableStreamType(this.value);
 }
 

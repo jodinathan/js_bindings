@@ -625,5 +625,7 @@ enum HIDUnitSystem {
   final String value;
   static HIDUnitSystem fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<HIDUnitSystem> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const HIDUnitSystem(this.value);
 }

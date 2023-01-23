@@ -39,5 +39,7 @@ enum HevcBitstreamFormat {
   final String value;
   static HevcBitstreamFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<HevcBitstreamFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const HevcBitstreamFormat(this.value);
 }

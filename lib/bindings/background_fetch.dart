@@ -145,6 +145,8 @@ enum BackgroundFetchResult {
   final String value;
   static BackgroundFetchResult fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<BackgroundFetchResult> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const BackgroundFetchResult(this.value);
 }
 
@@ -159,6 +161,9 @@ enum BackgroundFetchFailureReason {
   final String value;
   static BackgroundFetchFailureReason fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<BackgroundFetchFailureReason> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const BackgroundFetchFailureReason(this.value);
 }
 

@@ -43,6 +43,8 @@ enum XRHandJoint {
   final String value;
   static XRHandJoint fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRHandJoint> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRHandJoint(this.value);
 }
 

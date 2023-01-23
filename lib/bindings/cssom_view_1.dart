@@ -21,6 +21,8 @@ enum ScrollBehavior {
   final String value;
   static ScrollBehavior fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ScrollBehavior> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ScrollBehavior(this.value);
 }
 
@@ -213,6 +215,8 @@ enum ScrollLogicalPosition {
   final String value;
   static ScrollLogicalPosition fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ScrollLogicalPosition> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ScrollLogicalPosition(this.value);
 }
 
@@ -272,6 +276,8 @@ enum CSSBoxType {
   final String value;
   static CSSBoxType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CSSBoxType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CSSBoxType(this.value);
 }
 

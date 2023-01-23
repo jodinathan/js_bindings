@@ -150,6 +150,9 @@ enum SpeechRecognitionErrorCode {
   final String value;
   static SpeechRecognitionErrorCode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SpeechRecognitionErrorCode> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const SpeechRecognitionErrorCode(this.value);
 }
 
@@ -592,6 +595,9 @@ enum SpeechSynthesisErrorCode {
   final String value;
   static SpeechSynthesisErrorCode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SpeechSynthesisErrorCode> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const SpeechSynthesisErrorCode(this.value);
 }
 

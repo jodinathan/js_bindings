@@ -64,7 +64,7 @@ class PhotoCapabilities {
           redEyeReduction: redEyeReduction.value,
           imageHeight: imageHeight,
           imageWidth: imageWidth,
-          fillLightMode: fillLightMode.values);
+          fillLightMode: fillLightMode.map((e) => e.value));
 }
 
 extension PropsPhotoCapabilities on PhotoCapabilities {
@@ -88,7 +88,7 @@ extension PropsPhotoCapabilities on PhotoCapabilities {
   Iterable<FillLightMode> get fillLightMode =>
       FillLightMode.fromValues(js_util.getProperty(this, 'fillLightMode'));
   set fillLightMode(Iterable<FillLightMode> newValue) {
-    js_util.setProperty(this, 'fillLightMode', newValue.values);
+    js_util.setProperty(this, 'fillLightMode', newValue.map((e) => e.value));
   }
 }
 
@@ -170,6 +170,8 @@ enum RedEyeReduction {
   final String value;
   static RedEyeReduction fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RedEyeReduction> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RedEyeReduction(this.value);
 }
 
@@ -181,6 +183,8 @@ enum FillLightMode {
   final String value;
   static FillLightMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FillLightMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const FillLightMode(this.value);
 }
 
@@ -213,6 +217,8 @@ enum MeteringMode {
   final String value;
   static MeteringMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MeteringMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MeteringMode(this.value);
 }
 

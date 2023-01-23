@@ -82,6 +82,8 @@ enum IDBRequestReadyState {
   final String value;
   static IDBRequestReadyState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<IDBRequestReadyState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const IDBRequestReadyState(this.value);
 }
 
@@ -311,6 +313,9 @@ enum IDBTransactionDurability {
   final String value;
   static IDBTransactionDurability fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<IDBTransactionDurability> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const IDBTransactionDurability(this.value);
 }
 
@@ -666,6 +671,8 @@ enum IDBCursorDirection {
   final String value;
   static IDBCursorDirection fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<IDBCursorDirection> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const IDBCursorDirection(this.value);
 }
 
@@ -786,5 +793,7 @@ enum IDBTransactionMode {
   final String value;
   static IDBTransactionMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<IDBTransactionMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const IDBTransactionMode(this.value);
 }

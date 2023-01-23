@@ -178,6 +178,8 @@ enum AnimationPlayState {
   final String value;
   static AnimationPlayState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AnimationPlayState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AnimationPlayState(this.value);
 }
 
@@ -189,6 +191,8 @@ enum AnimationReplaceState {
   final String value;
   static AnimationReplaceState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AnimationReplaceState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AnimationReplaceState(this.value);
 }
 
@@ -378,6 +382,8 @@ enum FillMode {
   final String value;
   static FillMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FillMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const FillMode(this.value);
 }
 
@@ -390,6 +396,8 @@ enum PlaybackDirection {
   final String value;
   static PlaybackDirection fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PlaybackDirection> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PlaybackDirection(this.value);
 }
 
@@ -611,6 +619,8 @@ enum CompositeOperation {
   final String value;
   static CompositeOperation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CompositeOperation> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CompositeOperation(this.value);
 }
 
@@ -623,6 +633,9 @@ enum CompositeOperationOrAuto {
   final String value;
   static CompositeOperationOrAuto fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CompositeOperationOrAuto> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const CompositeOperationOrAuto(this.value);
 }
 

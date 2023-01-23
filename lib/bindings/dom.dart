@@ -1295,6 +1295,8 @@ enum ShadowRootMode {
   final String value;
   static ShadowRootMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ShadowRootMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ShadowRootMode(this.value);
 }
 
@@ -1305,6 +1307,8 @@ enum SlotAssignmentMode {
   final String value;
   static SlotAssignmentMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SlotAssignmentMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const SlotAssignmentMode(this.value);
 }
 

@@ -189,6 +189,8 @@ enum GPUPowerPreference {
   final String value;
   static GPUPowerPreference fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUPowerPreference> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUPowerPreference(this.value);
 }
 
@@ -225,7 +227,7 @@ class GPUDeviceDescriptor implements GPUObjectDescriptorBase {
           dynamic requiredLimits,
           GPUQueueDescriptor? defaultQueue}) =>
       GPUDeviceDescriptor._(
-          requiredFeatures: requiredFeatures?.values,
+          requiredFeatures: requiredFeatures?.map((e) => e.value),
           requiredLimits: requiredLimits,
           defaultQueue: defaultQueue);
 }
@@ -234,7 +236,7 @@ extension PropsGPUDeviceDescriptor on GPUDeviceDescriptor {
   Iterable<GPUFeatureName> get requiredFeatures =>
       GPUFeatureName.fromValues(js_util.getProperty(this, 'requiredFeatures'));
   set requiredFeatures(Iterable<GPUFeatureName> newValue) {
-    js_util.setProperty(this, 'requiredFeatures', newValue.values);
+    js_util.setProperty(this, 'requiredFeatures', newValue.map((e) => e.value));
   }
 
   dynamic get requiredLimits => js_util.getProperty(this, 'requiredLimits');
@@ -263,6 +265,8 @@ enum GPUFeatureName {
   final String value;
   static GPUFeatureName fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUFeatureName> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUFeatureName(this.value);
 }
 
@@ -380,6 +384,8 @@ enum GPUBufferMapState {
   final String value;
   static GPUBufferMapState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUBufferMapState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUBufferMapState(this.value);
 }
 
@@ -508,7 +514,7 @@ class GPUTextureDescriptor implements GPUObjectDescriptorBase {
           dimension: dimension?.value,
           format: format?.value,
           usage: usage,
-          viewFormats: viewFormats?.values);
+          viewFormats: viewFormats?.map((e) => e.value));
 }
 
 extension PropsGPUTextureDescriptor on GPUTextureDescriptor {
@@ -547,7 +553,7 @@ extension PropsGPUTextureDescriptor on GPUTextureDescriptor {
   Iterable<GPUTextureFormat> get viewFormats =>
       GPUTextureFormat.fromValues(js_util.getProperty(this, 'viewFormats'));
   set viewFormats(Iterable<GPUTextureFormat> newValue) {
-    js_util.setProperty(this, 'viewFormats', newValue.values);
+    js_util.setProperty(this, 'viewFormats', newValue.map((e) => e.value));
   }
 }
 
@@ -559,6 +565,8 @@ enum GPUTextureDimension {
   final String value;
   static GPUTextureDimension fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUTextureDimension> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUTextureDimension(this.value);
 }
 
@@ -671,6 +679,9 @@ enum GPUTextureViewDimension {
   final String value;
   static GPUTextureViewDimension fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUTextureViewDimension> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const GPUTextureViewDimension(this.value);
 }
 
@@ -682,6 +693,8 @@ enum GPUTextureAspect {
   final String value;
   static GPUTextureAspect fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUTextureAspect> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUTextureAspect(this.value);
 }
 
@@ -784,6 +797,8 @@ enum GPUTextureFormat {
   final String value;
   static GPUTextureFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUTextureFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUTextureFormat(this.value);
 }
 
@@ -937,6 +952,8 @@ enum GPUAddressMode {
   final String value;
   static GPUAddressMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUAddressMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUAddressMode(this.value);
 }
 
@@ -947,6 +964,8 @@ enum GPUFilterMode {
   final String value;
   static GPUFilterMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUFilterMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUFilterMode(this.value);
 }
 
@@ -957,6 +976,8 @@ enum GPUMipmapFilterMode {
   final String value;
   static GPUMipmapFilterMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUMipmapFilterMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUMipmapFilterMode(this.value);
 }
 
@@ -973,6 +994,8 @@ enum GPUCompareFunction {
   final String value;
   static GPUCompareFunction fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUCompareFunction> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUCompareFunction(this.value);
 }
 
@@ -1074,6 +1097,8 @@ enum GPUBufferBindingType {
   final String value;
   static GPUBufferBindingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUBufferBindingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUBufferBindingType(this.value);
 }
 
@@ -1120,6 +1145,8 @@ enum GPUSamplerBindingType {
   final String value;
   static GPUSamplerBindingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUSamplerBindingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUSamplerBindingType(this.value);
 }
 
@@ -1152,6 +1179,8 @@ enum GPUTextureSampleType {
   final String value;
   static GPUTextureSampleType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUTextureSampleType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUTextureSampleType(this.value);
 }
 
@@ -1199,6 +1228,9 @@ enum GPUStorageTextureAccess {
   final String value;
   static GPUStorageTextureAccess fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUStorageTextureAccess> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const GPUStorageTextureAccess(this.value);
 }
 
@@ -1402,6 +1434,9 @@ enum GPUCompilationMessageType {
   final String value;
   static GPUCompilationMessageType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUCompilationMessageType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const GPUCompilationMessageType(this.value);
 }
 
@@ -1469,6 +1504,8 @@ enum GPUPipelineErrorReason {
   final String value;
   static GPUPipelineErrorReason fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUPipelineErrorReason> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUPipelineErrorReason(this.value);
 }
 
@@ -1478,6 +1515,8 @@ enum GPUAutoLayoutMode {
   final String value;
   static GPUAutoLayoutMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUAutoLayoutMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUAutoLayoutMode(this.value);
 }
 
@@ -1667,6 +1706,8 @@ enum GPUPrimitiveTopology {
   final String value;
   static GPUPrimitiveTopology fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUPrimitiveTopology> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUPrimitiveTopology(this.value);
 }
 
@@ -1677,6 +1718,8 @@ enum GPUFrontFace {
   final String value;
   static GPUFrontFace fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUFrontFace> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUFrontFace(this.value);
 }
 
@@ -1688,6 +1731,8 @@ enum GPUCullMode {
   final String value;
   static GPUCullMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUCullMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUCullMode(this.value);
 }
 
@@ -1865,6 +1910,8 @@ enum GPUBlendFactor {
   final String value;
   static GPUBlendFactor fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUBlendFactor> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUBlendFactor(this.value);
 }
 
@@ -1878,6 +1925,8 @@ enum GPUBlendOperation {
   final String value;
   static GPUBlendOperation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUBlendOperation> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUBlendOperation(this.value);
 }
 
@@ -2036,6 +2085,8 @@ enum GPUStencilOperation {
   final String value;
   static GPUStencilOperation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUStencilOperation> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUStencilOperation(this.value);
 }
 
@@ -2046,6 +2097,8 @@ enum GPUIndexFormat {
   final String value;
   static GPUIndexFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUIndexFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUIndexFormat(this.value);
 }
 
@@ -2084,6 +2137,8 @@ enum GPUVertexFormat {
   final String value;
   static GPUVertexFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUVertexFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUVertexFormat(this.value);
 }
 
@@ -2094,6 +2149,8 @@ enum GPUVertexStepMode {
   final String value;
   static GPUVertexStepMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUVertexStepMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUVertexStepMode(this.value);
 }
 
@@ -2471,6 +2528,9 @@ enum GPUComputePassTimestampLocation {
   final String value;
   static GPUComputePassTimestampLocation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUComputePassTimestampLocation> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const GPUComputePassTimestampLocation(this.value);
 }
 
@@ -2571,6 +2631,9 @@ enum GPURenderPassTimestampLocation {
   final String value;
   static GPURenderPassTimestampLocation fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPURenderPassTimestampLocation> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const GPURenderPassTimestampLocation(this.value);
 }
 
@@ -2804,6 +2867,8 @@ enum GPULoadOp {
   final String value;
   static GPULoadOp fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPULoadOp> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPULoadOp(this.value);
 }
 
@@ -2814,6 +2879,8 @@ enum GPUStoreOp {
   final String value;
   static GPUStoreOp fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUStoreOp> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUStoreOp(this.value);
 }
 
@@ -2831,7 +2898,7 @@ class GPURenderPassLayout implements GPUObjectDescriptorBase {
           required GPUTextureFormat depthStencilFormat,
           int? sampleCount = 1}) =>
       GPURenderPassLayout._(
-          colorFormats: colorFormats?.values,
+          colorFormats: colorFormats?.map((e) => e.value),
           depthStencilFormat: depthStencilFormat.value,
           sampleCount: sampleCount);
 }
@@ -2844,7 +2911,7 @@ extension PropsGPURenderPassLayout on GPURenderPassLayout {
   }
 
   set colorFormats(Iterable<GPUTextureFormat>? newValue) {
-    js_util.setProperty(this, 'colorFormats', newValue?.values);
+    js_util.setProperty(this, 'colorFormats', newValue?.map((e) => e.value));
   }
 
   GPUTextureFormat get depthStencilFormat => GPUTextureFormat.fromValue(
@@ -3034,6 +3101,8 @@ enum GPUQueryType {
   final String value;
   static GPUQueryType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUQueryType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUQueryType(this.value);
 }
 
@@ -3061,6 +3130,8 @@ enum GPUCanvasAlphaMode {
   final String value;
   static GPUCanvasAlphaMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUCanvasAlphaMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUCanvasAlphaMode(this.value);
 }
 
@@ -3087,7 +3158,7 @@ class GPUCanvasConfiguration {
           device: device,
           format: format.value,
           usage: usage,
-          viewFormats: viewFormats?.values,
+          viewFormats: viewFormats?.map((e) => e.value),
           colorSpace: colorSpace?.value,
           alphaMode: alphaMode?.value);
 }
@@ -3112,7 +3183,7 @@ extension PropsGPUCanvasConfiguration on GPUCanvasConfiguration {
   Iterable<GPUTextureFormat> get viewFormats =>
       GPUTextureFormat.fromValues(js_util.getProperty(this, 'viewFormats'));
   set viewFormats(Iterable<GPUTextureFormat> newValue) {
-    js_util.setProperty(this, 'viewFormats', newValue.values);
+    js_util.setProperty(this, 'viewFormats', newValue.map((e) => e.value));
   }
 
   PredefinedColorSpace get colorSpace =>
@@ -3134,6 +3205,8 @@ enum GPUDeviceLostReason {
   final String value;
   static GPUDeviceLostReason fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUDeviceLostReason> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUDeviceLostReason(this.value);
 }
 
@@ -3184,6 +3257,8 @@ enum GPUErrorFilter {
   final String value;
   static GPUErrorFilter fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GPUErrorFilter> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GPUErrorFilter(this.value);
 }
 

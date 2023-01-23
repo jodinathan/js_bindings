@@ -73,6 +73,8 @@ enum ServiceWorkerState {
   final String value;
   static ServiceWorkerState fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ServiceWorkerState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ServiceWorkerState(this.value);
 }
 
@@ -159,6 +161,9 @@ enum ServiceWorkerUpdateViaCache {
   final String value;
   static ServiceWorkerUpdateViaCache fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ServiceWorkerUpdateViaCache> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const ServiceWorkerUpdateViaCache(this.value);
 }
 
@@ -549,6 +554,8 @@ enum FrameType {
   final String value;
   static FrameType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FrameType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const FrameType(this.value);
 }
 
@@ -612,6 +619,8 @@ enum ClientType {
   final String value;
   static ClientType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ClientType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ClientType(this.value);
 }
 

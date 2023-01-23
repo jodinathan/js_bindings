@@ -220,6 +220,8 @@ enum MockSensorType {
   final String value;
   static MockSensorType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MockSensorType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const MockSensorType(this.value);
 }
 

@@ -186,5 +186,7 @@ enum RTCErrorDetailTypeIdp {
   final String value;
   static RTCErrorDetailTypeIdp fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCErrorDetailTypeIdp> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const RTCErrorDetailTypeIdp(this.value);
 }

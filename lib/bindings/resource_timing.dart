@@ -64,5 +64,8 @@ enum RenderBlockingStatusType {
   final String value;
   static RenderBlockingStatusType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RenderBlockingStatusType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const RenderBlockingStatusType(this.value);
 }

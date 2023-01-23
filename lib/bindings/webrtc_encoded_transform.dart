@@ -21,6 +21,8 @@ enum SFrameTransformRole {
   final String value;
   static SFrameTransformRole fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SFrameTransformRole> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const SFrameTransformRole(this.value);
 }
 
@@ -68,6 +70,9 @@ enum SFrameTransformErrorEventType {
   final String value;
   static SFrameTransformErrorEventType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<SFrameTransformErrorEventType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const SFrameTransformErrorEventType(this.value);
 }
 
@@ -128,6 +133,9 @@ enum RTCEncodedVideoFrameType {
   final String value;
   static RTCEncodedVideoFrameType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCEncodedVideoFrameType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const RTCEncodedVideoFrameType(this.value);
 }
 

@@ -65,6 +65,9 @@ enum AccelerometerLocalCoordinateSystem {
   final String value;
   static AccelerometerLocalCoordinateSystem fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AccelerometerLocalCoordinateSystem> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const AccelerometerLocalCoordinateSystem(this.value);
 }
 

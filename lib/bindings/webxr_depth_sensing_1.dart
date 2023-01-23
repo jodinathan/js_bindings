@@ -21,6 +21,8 @@ enum XRDepthUsage {
   final String value;
   static XRDepthUsage fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRDepthUsage> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRDepthUsage(this.value);
 }
 
@@ -31,6 +33,8 @@ enum XRDepthDataFormat {
   final String value;
   static XRDepthDataFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<XRDepthDataFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const XRDepthDataFormat(this.value);
 }
 
@@ -46,22 +50,23 @@ class XRDepthStateInit {
           {required Iterable<XRDepthUsage> usagePreference,
           required Iterable<XRDepthDataFormat> dataFormatPreference}) =>
       XRDepthStateInit._(
-          usagePreference: usagePreference.values,
-          dataFormatPreference: dataFormatPreference.values);
+          usagePreference: usagePreference.map((e) => e.value),
+          dataFormatPreference: dataFormatPreference.map((e) => e.value));
 }
 
 extension PropsXRDepthStateInit on XRDepthStateInit {
   Iterable<XRDepthUsage> get usagePreference =>
       XRDepthUsage.fromValues(js_util.getProperty(this, 'usagePreference'));
   set usagePreference(Iterable<XRDepthUsage> newValue) {
-    js_util.setProperty(this, 'usagePreference', newValue.values);
+    js_util.setProperty(this, 'usagePreference', newValue.map((e) => e.value));
   }
 
   Iterable<XRDepthDataFormat> get dataFormatPreference =>
       XRDepthDataFormat.fromValues(
           js_util.getProperty(this, 'dataFormatPreference'));
   set dataFormatPreference(Iterable<XRDepthDataFormat> newValue) {
-    js_util.setProperty(this, 'dataFormatPreference', newValue.values);
+    js_util.setProperty(
+        this, 'dataFormatPreference', newValue.map((e) => e.value));
   }
 }
 

@@ -66,6 +66,9 @@ enum MagnetometerLocalCoordinateSystem {
   final String value;
   static MagnetometerLocalCoordinateSystem fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<MagnetometerLocalCoordinateSystem> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const MagnetometerLocalCoordinateSystem(this.value);
 }
 

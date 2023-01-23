@@ -144,6 +144,8 @@ enum ItemType {
   final String value;
   static ItemType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ItemType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ItemType(this.value);
 }
 

@@ -19,6 +19,8 @@ enum AutoKeyword {
   final String value;
   static AutoKeyword fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AutoKeyword> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AutoKeyword(this.value);
 }
 
@@ -30,6 +32,8 @@ enum DirectionSetting {
   final String value;
   static DirectionSetting fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<DirectionSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const DirectionSetting(this.value);
 }
 
@@ -41,6 +45,8 @@ enum LineAlignSetting {
   final String value;
   static LineAlignSetting fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<LineAlignSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const LineAlignSetting(this.value);
 }
 
@@ -53,6 +59,8 @@ enum PositionAlignSetting {
   final String value;
   static PositionAlignSetting fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<PositionAlignSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const PositionAlignSetting(this.value);
 }
 
@@ -66,6 +74,8 @@ enum AlignSetting {
   final String value;
   static AlignSetting fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AlignSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AlignSetting(this.value);
 }
 
@@ -167,6 +177,8 @@ enum ScrollSetting {
   final String value;
   static ScrollSetting fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<ScrollSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const ScrollSetting(this.value);
 }
 

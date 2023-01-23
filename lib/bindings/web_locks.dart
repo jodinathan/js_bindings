@@ -49,6 +49,8 @@ enum LockMode {
   final String value;
   static LockMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<LockMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const LockMode(this.value);
 }
 

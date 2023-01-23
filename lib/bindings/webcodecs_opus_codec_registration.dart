@@ -81,5 +81,7 @@ enum OpusBitstreamFormat {
   final String value;
   static OpusBitstreamFormat fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<OpusBitstreamFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const OpusBitstreamFormat(this.value);
 }

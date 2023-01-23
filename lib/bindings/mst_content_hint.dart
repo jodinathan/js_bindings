@@ -21,5 +21,8 @@ enum RTCDegradationPreference {
   final String value;
   static RTCDegradationPreference fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<RTCDegradationPreference> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const RTCDegradationPreference(this.value);
 }

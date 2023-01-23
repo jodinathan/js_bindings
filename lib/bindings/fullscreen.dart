@@ -21,6 +21,8 @@ enum FullscreenNavigationUI {
   final String value;
   static FullscreenNavigationUI fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<FullscreenNavigationUI> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const FullscreenNavigationUI(this.value);
 }
 

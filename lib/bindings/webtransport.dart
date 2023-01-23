@@ -130,6 +130,9 @@ enum WebTransportReliabilityMode {
   final String value;
   static WebTransportReliabilityMode fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<WebTransportReliabilityMode> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const WebTransportReliabilityMode(this.value);
 }
 
@@ -208,6 +211,9 @@ enum WebTransportCongestionControl {
   final String value;
   static WebTransportCongestionControl fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<WebTransportCongestionControl> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const WebTransportCongestionControl(this.value);
 }
 
@@ -536,5 +542,8 @@ enum WebTransportErrorSource {
   final String value;
   static WebTransportErrorSource fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<WebTransportErrorSource> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const WebTransportErrorSource(this.value);
 }

@@ -75,6 +75,8 @@ enum GamepadMappingType {
   final String value;
   static GamepadMappingType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<GamepadMappingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const GamepadMappingType(this.value);
 }
 

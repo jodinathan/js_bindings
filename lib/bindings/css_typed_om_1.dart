@@ -214,6 +214,8 @@ enum CSSNumericBaseType {
   final String value;
   static CSSNumericBaseType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CSSNumericBaseType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CSSNumericBaseType(this.value);
 }
 
@@ -766,6 +768,8 @@ enum CSSMathOperator {
   final String value;
   static CSSMathOperator fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<CSSMathOperator> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const CSSMathOperator(this.value);
 }
 

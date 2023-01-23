@@ -21,6 +21,8 @@ enum AutoplayPolicy {
   final String value;
   static AutoplayPolicy fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AutoplayPolicy> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
   const AutoplayPolicy(this.value);
 }
 
@@ -31,5 +33,8 @@ enum AutoplayPolicyMediaType {
   final String value;
   static AutoplayPolicyMediaType fromValue(String value) =>
       values.firstWhere((e) => e.value == value);
+  static Iterable<AutoplayPolicyMediaType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
   const AutoplayPolicyMediaType(this.value);
 }
