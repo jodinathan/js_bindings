@@ -10,12 +10,17 @@ library webcodecs;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 /// The interface of the WebCodecs API decodes chunks of audio.
+@experimental
 @JS()
 @staticInterop
 class AudioDecoder {
@@ -24,7 +29,7 @@ class AudioDecoder {
 
 extension PropsAudioDecoder on AudioDecoder {
   CodecState get state =>
-      CodecState.values.byName(js_util.getProperty(this, 'state'));
+      CodecState.fromValue(js_util.getProperty(this, 'state'));
   int get decodeQueueSize => js_util.getProperty(this, 'decodeQueueSize');
   EventHandlerNonNull? get ondequeue => js_util.getProperty(this, 'ondequeue');
   set ondequeue(EventHandlerNonNull? newValue) {
@@ -72,8 +77,12 @@ extension PropsAudioDecoderInit on AudioDecoderInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 /// The interface of the WebCodecs API decodes chunks of video.
+@experimental
 @JS()
 @staticInterop
 class VideoDecoder {
@@ -82,7 +91,7 @@ class VideoDecoder {
 
 extension PropsVideoDecoder on VideoDecoder {
   CodecState get state =>
-      CodecState.values.byName(js_util.getProperty(this, 'state'));
+      CodecState.fromValue(js_util.getProperty(this, 'state'));
   int get decodeQueueSize => js_util.getProperty(this, 'decodeQueueSize');
   EventHandlerNonNull? get ondequeue => js_util.getProperty(this, 'ondequeue');
   set ondequeue(EventHandlerNonNull? newValue) {
@@ -129,7 +138,13 @@ extension PropsVideoDecoderInit on VideoDecoderInit {
   }
 }
 
-/// The interface of the WebCodecs API encodes [AudioData] objects.
+///
+///   Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the WebCodecs API encodes [AudioData] objects.
+///
+@experimental
 @JS()
 @staticInterop
 class AudioEncoder {
@@ -138,7 +153,7 @@ class AudioEncoder {
 
 extension PropsAudioEncoder on AudioEncoder {
   CodecState get state =>
-      CodecState.values.byName(js_util.getProperty(this, 'state'));
+      CodecState.fromValue(js_util.getProperty(this, 'state'));
   int get encodeQueueSize => js_util.getProperty(this, 'encodeQueueSize');
   EventHandlerNonNull? get ondequeue => js_util.getProperty(this, 'ondequeue');
   set ondequeue(EventHandlerNonNull? newValue) {
@@ -201,7 +216,11 @@ extension PropsEncodedAudioChunkMetadata on EncodedAudioChunkMetadata {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 /// The interface of the WebCodecs API encodes [VideoFrame] objects.
+@experimental
 @JS()
 @staticInterop
 class VideoEncoder {
@@ -210,7 +229,7 @@ class VideoEncoder {
 
 extension PropsVideoEncoder on VideoEncoder {
   CodecState get state =>
-      CodecState.values.byName(js_util.getProperty(this, 'state'));
+      CodecState.fromValue(js_util.getProperty(this, 'state'));
   int get encodeQueueSize => js_util.getProperty(this, 'encodeQueueSize');
   EventHandlerNonNull? get ondequeue => js_util.getProperty(this, 'ondequeue');
   set ondequeue(EventHandlerNonNull? newValue) {
@@ -447,7 +466,7 @@ class VideoDecoderConfig {
           displayAspectWidth: displayAspectWidth,
           displayAspectHeight: displayAspectHeight,
           colorSpace: colorSpace,
-          hardwareAcceleration: hardwareAcceleration?.name,
+          hardwareAcceleration: hardwareAcceleration?.value,
           optimizeForLatency: optimizeForLatency);
 }
 
@@ -488,10 +507,11 @@ extension PropsVideoDecoderConfig on VideoDecoderConfig {
     js_util.setProperty(this, 'colorSpace', newValue);
   }
 
-  HardwareAcceleration get hardwareAcceleration => HardwareAcceleration.values
-      .byName(js_util.getProperty(this, 'hardwareAcceleration'));
+  HardwareAcceleration get hardwareAcceleration =>
+      HardwareAcceleration.fromValue(
+          js_util.getProperty(this, 'hardwareAcceleration'));
   set hardwareAcceleration(HardwareAcceleration newValue) {
-    js_util.setProperty(this, 'hardwareAcceleration', newValue.name);
+    js_util.setProperty(this, 'hardwareAcceleration', newValue.value);
   }
 
   bool get optimizeForLatency =>
@@ -574,11 +594,11 @@ class VideoEncoderConfig {
           displayHeight: displayHeight,
           bitrate: bitrate,
           framerate: framerate,
-          hardwareAcceleration: hardwareAcceleration?.name,
-          alpha: alpha?.name,
+          hardwareAcceleration: hardwareAcceleration?.value,
+          alpha: alpha?.value,
           scalabilityMode: scalabilityMode,
-          bitrateMode: bitrateMode?.name,
-          latencyMode: latencyMode?.name);
+          bitrateMode: bitrateMode?.value,
+          latencyMode: latencyMode?.value);
 }
 
 extension PropsVideoEncoderConfig on VideoEncoderConfig {
@@ -617,16 +637,17 @@ extension PropsVideoEncoderConfig on VideoEncoderConfig {
     js_util.setProperty(this, 'framerate', newValue);
   }
 
-  HardwareAcceleration get hardwareAcceleration => HardwareAcceleration.values
-      .byName(js_util.getProperty(this, 'hardwareAcceleration'));
+  HardwareAcceleration get hardwareAcceleration =>
+      HardwareAcceleration.fromValue(
+          js_util.getProperty(this, 'hardwareAcceleration'));
   set hardwareAcceleration(HardwareAcceleration newValue) {
-    js_util.setProperty(this, 'hardwareAcceleration', newValue.name);
+    js_util.setProperty(this, 'hardwareAcceleration', newValue.value);
   }
 
   AlphaOption get alpha =>
-      AlphaOption.values.byName(js_util.getProperty(this, 'alpha'));
+      AlphaOption.fromValue(js_util.getProperty(this, 'alpha'));
   set alpha(AlphaOption newValue) {
-    js_util.setProperty(this, 'alpha', newValue.name);
+    js_util.setProperty(this, 'alpha', newValue.value);
   }
 
   String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
@@ -635,23 +656,54 @@ extension PropsVideoEncoderConfig on VideoEncoderConfig {
   }
 
   BitrateMode get bitrateMode =>
-      BitrateMode.values.byName(js_util.getProperty(this, 'bitrateMode'));
+      BitrateMode.fromValue(js_util.getProperty(this, 'bitrateMode'));
   set bitrateMode(BitrateMode newValue) {
-    js_util.setProperty(this, 'bitrateMode', newValue.name);
+    js_util.setProperty(this, 'bitrateMode', newValue.value);
   }
 
   LatencyMode get latencyMode =>
-      LatencyMode.values.byName(js_util.getProperty(this, 'latencyMode'));
+      LatencyMode.fromValue(js_util.getProperty(this, 'latencyMode'));
   set latencyMode(LatencyMode newValue) {
-    js_util.setProperty(this, 'latencyMode', newValue.name);
+    js_util.setProperty(this, 'latencyMode', newValue.value);
   }
 }
 
-enum HardwareAcceleration { noPreference, preferHardware, preferSoftware }
+enum HardwareAcceleration {
+  noPreference('no-preference'),
+  preferHardware('prefer-hardware'),
+  preferSoftware('prefer-software');
 
-enum AlphaOption { keep, discard }
+  final String value;
+  static HardwareAcceleration fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<HardwareAcceleration> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const HardwareAcceleration(this.value);
+}
 
-enum LatencyMode { quality, realtime }
+enum AlphaOption {
+  keep('keep'),
+  discard('discard');
+
+  final String value;
+  static AlphaOption fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AlphaOption> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AlphaOption(this.value);
+}
+
+enum LatencyMode {
+  quality('quality'),
+  realtime('realtime');
+
+  final String value;
+  static LatencyMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<LatencyMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const LatencyMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -667,10 +719,25 @@ extension PropsVideoEncoderEncodeOptions on VideoEncoderEncodeOptions {
   }
 }
 
-enum CodecState { unconfigured, configured, closed }
+enum CodecState {
+  unconfigured('unconfigured'),
+  configured('configured'),
+  closed('closed');
 
+  final String value;
+  static CodecState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<CodecState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const CodecState(this.value);
+}
+
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebCodecs API represents a chunk of encoded
 /// audio data.
+@experimental
 @JS()
 @staticInterop
 class EncodedAudioChunk {
@@ -679,7 +746,7 @@ class EncodedAudioChunk {
 
 extension PropsEncodedAudioChunk on EncodedAudioChunk {
   EncodedAudioChunkType get type =>
-      EncodedAudioChunkType.values.byName(js_util.getProperty(this, 'type'));
+      EncodedAudioChunkType.fromValue(js_util.getProperty(this, 'type'));
   int get timestamp => js_util.getProperty(this, 'timestamp');
   int? get duration => js_util.getProperty(this, 'duration');
   int get byteLength => js_util.getProperty(this, 'byteLength');
@@ -703,7 +770,7 @@ class EncodedAudioChunkInit {
           required int duration,
           dynamic data}) =>
       EncodedAudioChunkInit._(
-          type: type.name,
+          type: type.value,
           timestamp: timestamp,
           duration: duration,
           data: data);
@@ -711,9 +778,9 @@ class EncodedAudioChunkInit {
 
 extension PropsEncodedAudioChunkInit on EncodedAudioChunkInit {
   EncodedAudioChunkType get type =>
-      EncodedAudioChunkType.values.byName(js_util.getProperty(this, 'type'));
+      EncodedAudioChunkType.fromValue(js_util.getProperty(this, 'type'));
   set type(EncodedAudioChunkType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   int get timestamp => js_util.getProperty(this, 'timestamp');
@@ -732,10 +799,24 @@ extension PropsEncodedAudioChunkInit on EncodedAudioChunkInit {
   }
 }
 
-enum EncodedAudioChunkType { key, delta }
+enum EncodedAudioChunkType {
+  key('key'),
+  delta('delta');
 
+  final String value;
+  static EncodedAudioChunkType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<EncodedAudioChunkType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const EncodedAudioChunkType(this.value);
+}
+
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebCodecs API represents a chunk of encoded
 /// video data.
+@experimental
 @JS()
 @staticInterop
 class EncodedVideoChunk {
@@ -744,7 +825,7 @@ class EncodedVideoChunk {
 
 extension PropsEncodedVideoChunk on EncodedVideoChunk {
   EncodedVideoChunkType get type =>
-      EncodedVideoChunkType.values.byName(js_util.getProperty(this, 'type'));
+      EncodedVideoChunkType.fromValue(js_util.getProperty(this, 'type'));
   int get timestamp => js_util.getProperty(this, 'timestamp');
   int? get duration => js_util.getProperty(this, 'duration');
   int get byteLength => js_util.getProperty(this, 'byteLength');
@@ -768,7 +849,7 @@ class EncodedVideoChunkInit {
           required int duration,
           dynamic data}) =>
       EncodedVideoChunkInit._(
-          type: type.name,
+          type: type.value,
           timestamp: timestamp,
           duration: duration,
           data: data);
@@ -776,9 +857,9 @@ class EncodedVideoChunkInit {
 
 extension PropsEncodedVideoChunkInit on EncodedVideoChunkInit {
   EncodedVideoChunkType get type =>
-      EncodedVideoChunkType.values.byName(js_util.getProperty(this, 'type'));
+      EncodedVideoChunkType.fromValue(js_util.getProperty(this, 'type'));
   set type(EncodedVideoChunkType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   int get timestamp => js_util.getProperty(this, 'timestamp');
@@ -797,9 +878,24 @@ extension PropsEncodedVideoChunkInit on EncodedVideoChunkInit {
   }
 }
 
-enum EncodedVideoChunkType { key, delta }
+enum EncodedVideoChunkType {
+  key('key'),
+  delta('delta');
 
-/// The interface of the [WebCodecs API] represents an audio sample.
+  final String value;
+  static EncodedVideoChunkType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<EncodedVideoChunkType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const EncodedVideoChunkType(this.value);
+}
+
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+/// The interface of the WebCodecs API represents an audio sample.
+///  is a transferable object.
+@experimental
 @JS()
 @staticInterop
 class AudioData {
@@ -810,7 +906,7 @@ extension PropsAudioData on AudioData {
   AudioSampleFormat? get format {
     final ret = js_util.getProperty(this, 'format');
 
-    return ret == null ? null : AudioSampleFormat.values.byName(ret);
+    return ret == null ? null : AudioSampleFormat.fromValue(ret);
   }
 
   double get sampleRate => js_util.getProperty(this, 'sampleRate');
@@ -849,7 +945,7 @@ class AudioDataInit {
           required int timestamp,
           dynamic data}) =>
       AudioDataInit._(
-          format: format.name,
+          format: format.value,
           sampleRate: sampleRate,
           numberOfFrames: numberOfFrames,
           numberOfChannels: numberOfChannels,
@@ -859,9 +955,9 @@ class AudioDataInit {
 
 extension PropsAudioDataInit on AudioDataInit {
   AudioSampleFormat get format =>
-      AudioSampleFormat.values.byName(js_util.getProperty(this, 'format'));
+      AudioSampleFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(AudioSampleFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
   double get sampleRate => js_util.getProperty(this, 'sampleRate');
@@ -909,7 +1005,7 @@ class AudioDataCopyToOptions {
           planeIndex: planeIndex,
           frameOffset: frameOffset,
           frameCount: frameCount,
-          format: format?.name);
+          format: format?.value);
 }
 
 extension PropsAudioDataCopyToOptions on AudioDataCopyToOptions {
@@ -929,25 +1025,37 @@ extension PropsAudioDataCopyToOptions on AudioDataCopyToOptions {
   }
 
   AudioSampleFormat get format =>
-      AudioSampleFormat.values.byName(js_util.getProperty(this, 'format'));
+      AudioSampleFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(AudioSampleFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 }
 
 enum AudioSampleFormat {
-  u8,
-  s16,
-  s32,
-  f32,
-  u8Planar,
-  s16Planar,
-  s32Planar,
-  f32Planar
+  u8('u8'),
+  s16('s16'),
+  s32('s32'),
+  f32('f32'),
+  u8Planar('u8-planar'),
+  s16Planar('s16-planar'),
+  s32Planar('s32-planar'),
+  f32Planar('f32-planar');
+
+  final String value;
+  static AudioSampleFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AudioSampleFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AudioSampleFormat(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Codecs API represents a frame of a
 /// video.
+///  is a transferable object.
+@experimental
 @JS()
 @staticInterop
 class VideoFrame {
@@ -958,7 +1066,7 @@ extension PropsVideoFrame on VideoFrame {
   VideoPixelFormat? get format {
     final ret = js_util.getProperty(this, 'format');
 
-    return ret == null ? null : VideoPixelFormat.values.byName(ret);
+    return ret == null ? null : VideoPixelFormat.fromValue(ret);
   }
 
   int get codedWidth => js_util.getProperty(this, 'codedWidth');
@@ -968,8 +1076,10 @@ extension PropsVideoFrame on VideoFrame {
   int get displayWidth => js_util.getProperty(this, 'displayWidth');
   int get displayHeight => js_util.getProperty(this, 'displayHeight');
   int? get duration => js_util.getProperty(this, 'duration');
-  int? get timestamp => js_util.getProperty(this, 'timestamp');
+  int get timestamp => js_util.getProperty(this, 'timestamp');
   VideoColorSpace get colorSpace => js_util.getProperty(this, 'colorSpace');
+  VideoFrameMetadata metadata() => js_util.callMethod(this, 'metadata', []);
+
   int allocationSize([VideoFrameCopyToOptions? options]) =>
       js_util.callMethod(this, 'allocationSize', [options]);
 
@@ -993,7 +1103,8 @@ class VideoFrameInit {
       String? alpha,
       DOMRectInit? visibleRect,
       int? displayWidth,
-      int? displayHeight});
+      int? displayHeight,
+      VideoFrameMetadata? metadata});
 
   factory VideoFrameInit(
           {required int duration,
@@ -1001,14 +1112,16 @@ class VideoFrameInit {
           AlphaOption? alpha = AlphaOption.keep,
           DOMRectInit? visibleRect,
           int? displayWidth,
-          int? displayHeight}) =>
+          int? displayHeight,
+          VideoFrameMetadata? metadata}) =>
       VideoFrameInit._(
           duration: duration,
           timestamp: timestamp,
-          alpha: alpha?.name,
+          alpha: alpha?.value,
           visibleRect: visibleRect,
           displayWidth: displayWidth,
-          displayHeight: displayHeight);
+          displayHeight: displayHeight,
+          metadata: metadata);
 }
 
 extension PropsVideoFrameInit on VideoFrameInit {
@@ -1023,9 +1136,9 @@ extension PropsVideoFrameInit on VideoFrameInit {
   }
 
   AlphaOption get alpha =>
-      AlphaOption.values.byName(js_util.getProperty(this, 'alpha'));
+      AlphaOption.fromValue(js_util.getProperty(this, 'alpha'));
   set alpha(AlphaOption newValue) {
-    js_util.setProperty(this, 'alpha', newValue.name);
+    js_util.setProperty(this, 'alpha', newValue.value);
   }
 
   DOMRectInit get visibleRect => js_util.getProperty(this, 'visibleRect');
@@ -1041,6 +1154,11 @@ extension PropsVideoFrameInit on VideoFrameInit {
   int get displayHeight => js_util.getProperty(this, 'displayHeight');
   set displayHeight(int newValue) {
     js_util.setProperty(this, 'displayHeight', newValue);
+  }
+
+  VideoFrameMetadata get metadata => js_util.getProperty(this, 'metadata');
+  set metadata(VideoFrameMetadata newValue) {
+    js_util.setProperty(this, 'metadata', newValue);
   }
 }
 
@@ -1072,7 +1190,7 @@ class VideoFrameBufferInit {
           required int displayHeight,
           required VideoColorSpaceInit colorSpace}) =>
       VideoFrameBufferInit._(
-          format: format.name,
+          format: format.value,
           codedWidth: codedWidth,
           codedHeight: codedHeight,
           timestamp: timestamp,
@@ -1086,9 +1204,9 @@ class VideoFrameBufferInit {
 
 extension PropsVideoFrameBufferInit on VideoFrameBufferInit {
   VideoPixelFormat get format =>
-      VideoPixelFormat.values.byName(js_util.getProperty(this, 'format'));
+      VideoPixelFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(VideoPixelFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
   int get codedWidth => js_util.getProperty(this, 'codedWidth');
@@ -1140,6 +1258,13 @@ extension PropsVideoFrameBufferInit on VideoFrameBufferInit {
 @anonymous
 @JS()
 @staticInterop
+class VideoFrameMetadata {
+  external factory VideoFrameMetadata();
+}
+
+@anonymous
+@JS()
+@staticInterop
 class VideoFrameCopyToOptions {
   external factory VideoFrameCopyToOptions(
       {required DOMRectInit rect, required Iterable<PlaneLayout> layout});
@@ -1176,7 +1301,24 @@ extension PropsPlaneLayout on PlaneLayout {
   }
 }
 
-enum VideoPixelFormat { i420, i420a, i422, i444, nv12, rgba, rgbx, bgra, bgrx }
+enum VideoPixelFormat {
+  i420('I420'),
+  i420a('I420A'),
+  i422('I422'),
+  i444('I444'),
+  nv12('NV12'),
+  rgba('RGBA'),
+  rgbx('RGBX'),
+  bgra('BGRA'),
+  bgrx('BGRX');
+
+  final String value;
+  static VideoPixelFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<VideoPixelFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const VideoPixelFormat(this.value);
+}
 
 ///  The interface of the WebCodecs API represents the color space of
 /// a video.
@@ -1190,19 +1332,19 @@ extension PropsVideoColorSpace on VideoColorSpace {
   VideoColorPrimaries? get primaries {
     final ret = js_util.getProperty(this, 'primaries');
 
-    return ret == null ? null : VideoColorPrimaries.values.byName(ret);
+    return ret == null ? null : VideoColorPrimaries.fromValue(ret);
   }
 
   VideoTransferCharacteristics? get transfer {
     final ret = js_util.getProperty(this, 'transfer');
 
-    return ret == null ? null : VideoTransferCharacteristics.values.byName(ret);
+    return ret == null ? null : VideoTransferCharacteristics.fromValue(ret);
   }
 
   VideoMatrixCoefficients? get matrix {
     final ret = js_util.getProperty(this, 'matrix');
 
-    return ret == null ? null : VideoMatrixCoefficients.values.byName(ret);
+    return ret == null ? null : VideoMatrixCoefficients.fromValue(ret);
   }
 
   bool? get fullRange => js_util.getProperty(this, 'fullRange');
@@ -1214,59 +1356,113 @@ extension PropsVideoColorSpace on VideoColorSpace {
 @staticInterop
 class VideoColorSpaceInit {
   external factory VideoColorSpaceInit._(
-      {required String primaries,
-      required String transfer,
-      required String matrix,
-      required bool fullRange});
+      {String? primaries, String? transfer, String? matrix, bool? fullRange});
 
   factory VideoColorSpaceInit(
-          {required VideoColorPrimaries primaries,
-          required VideoTransferCharacteristics transfer,
-          required VideoMatrixCoefficients matrix,
-          required bool fullRange}) =>
+          {VideoColorPrimaries? primaries,
+          VideoTransferCharacteristics? transfer,
+          VideoMatrixCoefficients? matrix,
+          bool? fullRange}) =>
       VideoColorSpaceInit._(
-          primaries: primaries.name,
-          transfer: transfer.name,
-          matrix: matrix.name,
+          primaries: primaries?.value,
+          transfer: transfer?.value,
+          matrix: matrix?.value,
           fullRange: fullRange);
 }
 
 extension PropsVideoColorSpaceInit on VideoColorSpaceInit {
-  VideoColorPrimaries get primaries =>
-      VideoColorPrimaries.values.byName(js_util.getProperty(this, 'primaries'));
-  set primaries(VideoColorPrimaries newValue) {
-    js_util.setProperty(this, 'primaries', newValue.name);
+  VideoColorPrimaries? get primaries {
+    final ret = js_util.getProperty(this, 'primaries');
+
+    return ret == null ? null : VideoColorPrimaries.fromValue(ret);
   }
 
-  VideoTransferCharacteristics get transfer =>
-      VideoTransferCharacteristics.values
-          .byName(js_util.getProperty(this, 'transfer'));
-  set transfer(VideoTransferCharacteristics newValue) {
-    js_util.setProperty(this, 'transfer', newValue.name);
+  set primaries(VideoColorPrimaries? newValue) {
+    js_util.setProperty(this, 'primaries', newValue?.value);
   }
 
-  VideoMatrixCoefficients get matrix => VideoMatrixCoefficients.values
-      .byName(js_util.getProperty(this, 'matrix'));
-  set matrix(VideoMatrixCoefficients newValue) {
-    js_util.setProperty(this, 'matrix', newValue.name);
+  VideoTransferCharacteristics? get transfer {
+    final ret = js_util.getProperty(this, 'transfer');
+
+    return ret == null ? null : VideoTransferCharacteristics.fromValue(ret);
   }
 
-  bool get fullRange => js_util.getProperty(this, 'fullRange');
-  set fullRange(bool newValue) {
+  set transfer(VideoTransferCharacteristics? newValue) {
+    js_util.setProperty(this, 'transfer', newValue?.value);
+  }
+
+  VideoMatrixCoefficients? get matrix {
+    final ret = js_util.getProperty(this, 'matrix');
+
+    return ret == null ? null : VideoMatrixCoefficients.fromValue(ret);
+  }
+
+  set matrix(VideoMatrixCoefficients? newValue) {
+    js_util.setProperty(this, 'matrix', newValue?.value);
+  }
+
+  bool? get fullRange => js_util.getProperty(this, 'fullRange');
+  set fullRange(bool? newValue) {
     js_util.setProperty(this, 'fullRange', newValue);
   }
 }
 
-enum VideoColorPrimaries { bt709, bt470bg, smpte170m }
+enum VideoColorPrimaries {
+  bt709('bt709'),
+  bt470bg('bt470bg'),
+  smpte170m('smpte170m'),
+  bt2020('bt2020'),
+  smpte432('smpte432');
 
-enum VideoTransferCharacteristics { bt709, smpte170m, iec6196621 }
+  final String value;
+  static VideoColorPrimaries fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<VideoColorPrimaries> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const VideoColorPrimaries(this.value);
+}
 
-enum VideoMatrixCoefficients { rgb, bt709, bt470bg, smpte170m }
+enum VideoTransferCharacteristics {
+  bt709('bt709'),
+  smpte170m('smpte170m'),
+  iec6196621('iec61966-2-1'),
+  linear('linear'),
+  pq('pq'),
+  hlg('hlg');
+
+  final String value;
+  static VideoTransferCharacteristics fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<VideoTransferCharacteristics> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const VideoTransferCharacteristics(this.value);
+}
+
+enum VideoMatrixCoefficients {
+  rgb('rgb'),
+  bt709('bt709'),
+  bt470bg('bt470bg'),
+  smpte170m('smpte170m'),
+  bt2020Ncl('bt2020-ncl');
+
+  final String value;
+  static VideoMatrixCoefficients fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<VideoMatrixCoefficients> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const VideoMatrixCoefficients(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebCodecs API provides a way to unpack and
 /// decode encoded image data.
+@experimental
 @JS()
 @staticInterop
 class ImageDecoder {
@@ -1297,7 +1493,6 @@ class ImageDecoderInit {
   external factory ImageDecoderInit._(
       {required String type,
       dynamic data,
-      String? premultiplyAlpha,
       String? colorSpaceConversion,
       int? desiredWidth,
       int? desiredHeight,
@@ -1306,7 +1501,6 @@ class ImageDecoderInit {
   factory ImageDecoderInit(
           {required String type,
           dynamic data,
-          PremultiplyAlpha? premultiplyAlpha = PremultiplyAlpha.valueDefault,
           ColorSpaceConversion? colorSpaceConversion =
               ColorSpaceConversion.valueDefault,
           int? desiredWidth,
@@ -1315,8 +1509,7 @@ class ImageDecoderInit {
       ImageDecoderInit._(
           type: type,
           data: data,
-          premultiplyAlpha: premultiplyAlpha?.name,
-          colorSpaceConversion: colorSpaceConversion?.name,
+          colorSpaceConversion: colorSpaceConversion?.value,
           desiredWidth: desiredWidth,
           desiredHeight: desiredHeight,
           preferAnimation: preferAnimation);
@@ -1333,16 +1526,11 @@ extension PropsImageDecoderInit on ImageDecoderInit {
     js_util.setProperty(this, 'data', newValue);
   }
 
-  PremultiplyAlpha get premultiplyAlpha => PremultiplyAlpha.values
-      .byName(js_util.getProperty(this, 'premultiplyAlpha'));
-  set premultiplyAlpha(PremultiplyAlpha newValue) {
-    js_util.setProperty(this, 'premultiplyAlpha', newValue.name);
-  }
-
-  ColorSpaceConversion get colorSpaceConversion => ColorSpaceConversion.values
-      .byName(js_util.getProperty(this, 'colorSpaceConversion'));
+  ColorSpaceConversion get colorSpaceConversion =>
+      ColorSpaceConversion.fromValue(
+          js_util.getProperty(this, 'colorSpaceConversion'));
   set colorSpaceConversion(ColorSpaceConversion newValue) {
-    js_util.setProperty(this, 'colorSpaceConversion', newValue.name);
+    js_util.setProperty(this, 'colorSpaceConversion', newValue.value);
   }
 
   int get desiredWidth => js_util.getProperty(this, 'desiredWidth');
@@ -1402,8 +1590,12 @@ extension PropsImageDecodeResult on ImageDecodeResult {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebCodecs API represents a list of image
 /// tracks.
+@experimental
 @JS()
 @staticInterop
 class ImageTrackList {
@@ -1418,20 +1610,12 @@ extension PropsImageTrackList on ImageTrackList {
   ImageTrack? get selectedTrack => js_util.getProperty(this, 'selectedTrack');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebCodecs API represents an individual
 /// image track.
-///
-///
-///
-///    EventTarget
-///
-///
-///
-///
-///
-///    ImageTrack
-///
-///
+@experimental
 @JS()
 @staticInterop
 class ImageTrack {

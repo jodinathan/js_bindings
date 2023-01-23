@@ -1,4 +1,4 @@
-/// The Screen Orientation API
+/// Screen Orientation
 ///
 /// https://w3c.github.io/screen-orientation/
 
@@ -26,6 +26,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    ScreenOrientation
 ///
 ///
@@ -37,12 +39,12 @@ class ScreenOrientation implements EventTarget {
 
 extension PropsScreenOrientation on ScreenOrientation {
   Future<void> lock(OrientationLockType orientation) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'lock', [orientation.name]));
+      .promiseToFuture(js_util.callMethod(this, 'lock', [orientation.value]));
 
   void unlock() => js_util.callMethod(this, 'unlock', []);
 
   OrientationType get type =>
-      OrientationType.values.byName(js_util.getProperty(this, 'type'));
+      OrientationType.fromValue(js_util.getProperty(this, 'type'));
   int get angle => js_util.getProperty(this, 'angle');
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
@@ -51,19 +53,33 @@ extension PropsScreenOrientation on ScreenOrientation {
 }
 
 enum OrientationLockType {
-  any,
-  natural,
-  landscape,
-  portrait,
-  portraitPrimary,
-  portraitSecondary,
-  landscapePrimary,
-  landscapeSecondary
+  any('any'),
+  natural('natural'),
+  landscape('landscape'),
+  portrait('portrait'),
+  portraitPrimary('portrait-primary'),
+  portraitSecondary('portrait-secondary'),
+  landscapePrimary('landscape-primary'),
+  landscapeSecondary('landscape-secondary');
+
+  final String value;
+  static OrientationLockType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<OrientationLockType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const OrientationLockType(this.value);
 }
 
 enum OrientationType {
-  portraitPrimary,
-  portraitSecondary,
-  landscapePrimary,
-  landscapeSecondary
+  portraitPrimary('portrait-primary'),
+  portraitSecondary('portrait-secondary'),
+  landscapePrimary('landscape-primary'),
+  landscapeSecondary('landscape-secondary');
+
+  final String value;
+  static OrientationType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<OrientationType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const OrientationType(this.value);
 }

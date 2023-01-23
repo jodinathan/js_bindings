@@ -10,6 +10,7 @@ library shape_detection_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -74,7 +75,7 @@ class Landmark {
 
   factory Landmark(
           {required Iterable<Point2D> locations, required LandmarkType type}) =>
-      Landmark._(locations: locations, type: type.name);
+      Landmark._(locations: locations, type: type.value);
 }
 
 extension PropsLandmark on Landmark {
@@ -84,18 +85,33 @@ extension PropsLandmark on Landmark {
   }
 
   LandmarkType get type =>
-      LandmarkType.values.byName(js_util.getProperty(this, 'type'));
+      LandmarkType.fromValue(js_util.getProperty(this, 'type'));
   set type(LandmarkType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 }
 
-enum LandmarkType { mouth, eye, nose }
+enum LandmarkType {
+  mouth('mouth'),
+  eye('eye'),
+  nose('nose');
+
+  final String value;
+  static LandmarkType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<LandmarkType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const LandmarkType(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the [Barcode Detection API] allows detection of
 /// linear and two dimensional barcodes in images.
+@experimental
 @JS()
 @staticInterop
 class BarcodeDetector {
@@ -120,14 +136,14 @@ class BarcodeDetectorOptions {
       {required Iterable<String> formats});
 
   factory BarcodeDetectorOptions({required Iterable<BarcodeFormat> formats}) =>
-      BarcodeDetectorOptions._(formats: formats.names);
+      BarcodeDetectorOptions._(formats: formats.map((e) => e.value));
 }
 
 extension PropsBarcodeDetectorOptions on BarcodeDetectorOptions {
   Iterable<BarcodeFormat> get formats =>
-      BarcodeFormat.values.byNames(js_util.getProperty(this, 'formats'));
+      BarcodeFormat.fromValues(js_util.getProperty(this, 'formats'));
   set formats(Iterable<BarcodeFormat> newValue) {
-    js_util.setProperty(this, 'formats', newValue.names);
+    js_util.setProperty(this, 'formats', newValue.map((e) => e.value));
   }
 }
 
@@ -149,7 +165,7 @@ class DetectedBarcode {
       DetectedBarcode._(
           boundingBox: boundingBox,
           rawValue: rawValue,
-          format: format.name,
+          format: format.value,
           cornerPoints: cornerPoints);
 }
 
@@ -165,9 +181,9 @@ extension PropsDetectedBarcode on DetectedBarcode {
   }
 
   BarcodeFormat get format =>
-      BarcodeFormat.values.byName(js_util.getProperty(this, 'format'));
+      BarcodeFormat.fromValue(js_util.getProperty(this, 'format'));
   set format(BarcodeFormat newValue) {
-    js_util.setProperty(this, 'format', newValue.name);
+    js_util.setProperty(this, 'format', newValue.value);
   }
 
   Iterable<Point2D> get cornerPoints =>
@@ -178,18 +194,25 @@ extension PropsDetectedBarcode on DetectedBarcode {
 }
 
 enum BarcodeFormat {
-  aztec,
-  code128,
-  code39,
-  code93,
-  codabar,
-  dataMatrix,
-  ean13,
-  ean8,
-  itf,
-  pdf417,
-  qrCode,
-  unknown,
-  upcA,
-  upcE
+  aztec('aztec'),
+  code128('code_128'),
+  code39('code_39'),
+  code93('code_93'),
+  codabar('codabar'),
+  dataMatrix('data_matrix'),
+  ean13('ean_13'),
+  ean8('ean_8'),
+  itf('itf'),
+  pdf417('pdf417'),
+  qrCode('qr_code'),
+  unknown('unknown'),
+  upcA('upc_a'),
+  upcE('upc_e');
+
+  final String value;
+  static BarcodeFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<BarcodeFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const BarcodeFormat(this.value);
 }

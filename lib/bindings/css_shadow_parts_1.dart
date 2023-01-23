@@ -1,6 +1,6 @@
 /// CSS Shadow Parts
 ///
-/// https://drafts.csswg.org/css-shadow-parts/
+/// https://drafts.csswg.org/css-shadow-parts-1/
 
 // ignore_for_file: unused_import
 

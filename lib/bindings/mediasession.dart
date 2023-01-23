@@ -13,26 +13,44 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum MediaSessionPlaybackState { none, paused, playing }
+enum MediaSessionPlaybackState {
+  none('none'),
+  paused('paused'),
+  playing('playing');
 
-enum MediaSessionAction {
-  play,
-  pause,
-  seekbackward,
-  seekforward,
-  previoustrack,
-  nexttrack,
-  skipad,
-  stop,
-  seekto,
-  togglemicrophone,
-  togglecamera,
-  hangup
+  final String value;
+  static MediaSessionPlaybackState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MediaSessionPlaybackState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const MediaSessionPlaybackState(this.value);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+enum MediaSessionAction {
+  play('play'),
+  pause('pause'),
+  seekbackward('seekbackward'),
+  seekforward('seekforward'),
+  previoustrack('previoustrack'),
+  nexttrack('nexttrack'),
+  skipad('skipad'),
+  stop('stop'),
+  seekto('seekto'),
+  togglemicrophone('togglemicrophone'),
+  togglecamera('togglecamera'),
+  hangup('hangup'),
+  previousslide('previousslide'),
+  nextslide('nextslide');
+
+  final String value;
+  static MediaSessionAction fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MediaSessionAction> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MediaSessionAction(this.value);
+}
+
 ///  The interface of the Media Session API allows a web page to
 /// provide custom behaviors for standard media playback
 /// interactions, and to report metadata that can be sent by the user
@@ -56,16 +74,16 @@ extension PropsMediaSession on MediaSession {
   }
 
   MediaSessionPlaybackState get playbackState =>
-      MediaSessionPlaybackState.values
-          .byName(js_util.getProperty(this, 'playbackState'));
+      MediaSessionPlaybackState.fromValue(
+          js_util.getProperty(this, 'playbackState'));
   set playbackState(MediaSessionPlaybackState newValue) {
-    js_util.setProperty(this, 'playbackState', newValue.name);
+    js_util.setProperty(this, 'playbackState', newValue.value);
   }
 
   void setActionHandler(
           MediaSessionAction action, MediaSessionActionHandler? handler) =>
       js_util.callMethod(this, 'setActionHandler',
-          [action.name, handler == null ? null : allowInterop(handler)]);
+          [action.value, handler == null ? null : allowInterop(handler)]);
 
   void setPositionState([MediaPositionState? state]) =>
       js_util.callMethod(this, 'setPositionState', [state]);
@@ -77,9 +95,6 @@ extension PropsMediaSession on MediaSession {
       js_util.callMethod(this, 'setCameraActive', [active]);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Media Session API allows a web page to
 /// provide rich media metadata for display in a platform UI.
 @JS()
@@ -206,17 +221,17 @@ extension PropsMediaPositionState on MediaPositionState {
 class MediaSessionActionDetails {
   external factory MediaSessionActionDetails._(
       {required String action,
-      double? seekOffset,
-      double? seekTime,
-      bool? fastSeek});
+      required double seekOffset,
+      required double seekTime,
+      required bool fastSeek});
 
   factory MediaSessionActionDetails(
           {required MediaSessionAction action,
-          double? seekOffset,
-          double? seekTime,
-          bool? fastSeek}) =>
+          required double seekOffset,
+          required double seekTime,
+          required bool fastSeek}) =>
       MediaSessionActionDetails._(
-          action: action.name,
+          action: action.value,
           seekOffset: seekOffset,
           seekTime: seekTime,
           fastSeek: fastSeek);
@@ -224,23 +239,23 @@ class MediaSessionActionDetails {
 
 extension PropsMediaSessionActionDetails on MediaSessionActionDetails {
   MediaSessionAction get action =>
-      MediaSessionAction.values.byName(js_util.getProperty(this, 'action'));
+      MediaSessionAction.fromValue(js_util.getProperty(this, 'action'));
   set action(MediaSessionAction newValue) {
-    js_util.setProperty(this, 'action', newValue.name);
+    js_util.setProperty(this, 'action', newValue.value);
   }
 
-  double? get seekOffset => js_util.getProperty(this, 'seekOffset');
-  set seekOffset(double? newValue) {
+  double get seekOffset => js_util.getProperty(this, 'seekOffset');
+  set seekOffset(double newValue) {
     js_util.setProperty(this, 'seekOffset', newValue);
   }
 
-  double? get seekTime => js_util.getProperty(this, 'seekTime');
-  set seekTime(double? newValue) {
+  double get seekTime => js_util.getProperty(this, 'seekTime');
+  set seekTime(double newValue) {
     js_util.setProperty(this, 'seekTime', newValue);
   }
 
-  bool? get fastSeek => js_util.getProperty(this, 'fastSeek');
-  set fastSeek(bool? newValue) {
+  bool get fastSeek => js_util.getProperty(this, 'fastSeek');
+  set fastSeek(bool newValue) {
     js_util.setProperty(this, 'fastSeek', newValue);
   }
 }

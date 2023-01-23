@@ -10,16 +10,9 @@ library media_capabilities;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  The [MediaCapabilities] dictionary of the Media Capabilities API
-/// describes how media and audio files must be configured, or
-/// defined, to be passed as a parameter of the
-/// [MediaCapabilities.encodingInfo()] and
-/// [MediaCapabilities.encodingInfo()] methods.
-@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -40,11 +33,6 @@ extension PropsMediaConfiguration on MediaConfiguration {
   }
 }
 
-///  The dictionary of the Media Capabilities API is used to define
-/// the type of media being tested when calling
-/// [MediaCapabilities.decodingInfo()] to query whether a specific
-/// media configuration is supported, smooth, and/or power efficient.
-@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -58,14 +46,14 @@ class MediaDecodingConfiguration implements MediaConfiguration {
           required MediaCapabilitiesKeySystemConfiguration
               keySystemConfiguration}) =>
       MediaDecodingConfiguration._(
-          type: type.name, keySystemConfiguration: keySystemConfiguration);
+          type: type.value, keySystemConfiguration: keySystemConfiguration);
 }
 
 extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
   MediaDecodingType get type =>
-      MediaDecodingType.values.byName(js_util.getProperty(this, 'type'));
+      MediaDecodingType.fromValue(js_util.getProperty(this, 'type'));
   set type(MediaDecodingType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration =>
@@ -75,11 +63,6 @@ extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
   }
 }
 
-///  The dictionary of the Media Capabilities API is used to define
-/// the type of media being tested when calling
-/// [MediaCapabilities.encodingInfo()] to query whether a specific
-/// media configuration is supported, smooth, and/or power efficient.
-@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -87,28 +70,42 @@ class MediaEncodingConfiguration implements MediaConfiguration {
   external factory MediaEncodingConfiguration._({required String type});
 
   factory MediaEncodingConfiguration({required MediaEncodingType type}) =>
-      MediaEncodingConfiguration._(type: type.name);
+      MediaEncodingConfiguration._(type: type.value);
 }
 
 extension PropsMediaEncodingConfiguration on MediaEncodingConfiguration {
   MediaEncodingType get type =>
-      MediaEncodingType.values.byName(js_util.getProperty(this, 'type'));
+      MediaEncodingType.fromValue(js_util.getProperty(this, 'type'));
   set type(MediaEncodingType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 }
 
-enum MediaDecodingType { file, mediaSource, webrtc }
+enum MediaDecodingType {
+  file('file'),
+  mediaSource('media-source'),
+  webrtc('webrtc');
 
-enum MediaEncodingType { record, webrtc }
+  final String value;
+  static MediaDecodingType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MediaDecodingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MediaDecodingType(this.value);
+}
 
-///  The dictionary of the Media Capabilities API is used to define
-/// the video file being tested when calling the [MediaCapabilities]
-/// methods [encodingInfo()] and [decodingInfo()] to determine
-/// whether or not the described video configuration is supported,
-/// and how smoothly and how smooth and power-efficient it can be
-/// handled.
-@experimental
+enum MediaEncodingType {
+  record('record'),
+  webrtc('webrtc');
+
+  final String value;
+  static MediaEncodingType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MediaEncodingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MediaEncodingType(this.value);
+}
+
 @anonymous
 @JS()
 @staticInterop
@@ -145,9 +142,9 @@ class VideoConfiguration {
           bitrate: bitrate,
           framerate: framerate,
           hasAlphaChannel: hasAlphaChannel,
-          hdrMetadataType: hdrMetadataType.name,
-          colorGamut: colorGamut.name,
-          transferFunction: transferFunction.name,
+          hdrMetadataType: hdrMetadataType.value,
+          colorGamut: colorGamut.value,
+          transferFunction: transferFunction.value,
           scalabilityMode: scalabilityMode,
           spatialScalability: spatialScalability);
 }
@@ -183,22 +180,22 @@ extension PropsVideoConfiguration on VideoConfiguration {
     js_util.setProperty(this, 'hasAlphaChannel', newValue);
   }
 
-  HdrMetadataType get hdrMetadataType => HdrMetadataType.values
-      .byName(js_util.getProperty(this, 'hdrMetadataType'));
+  HdrMetadataType get hdrMetadataType =>
+      HdrMetadataType.fromValue(js_util.getProperty(this, 'hdrMetadataType'));
   set hdrMetadataType(HdrMetadataType newValue) {
-    js_util.setProperty(this, 'hdrMetadataType', newValue.name);
+    js_util.setProperty(this, 'hdrMetadataType', newValue.value);
   }
 
   ColorGamut get colorGamut =>
-      ColorGamut.values.byName(js_util.getProperty(this, 'colorGamut'));
+      ColorGamut.fromValue(js_util.getProperty(this, 'colorGamut'));
   set colorGamut(ColorGamut newValue) {
-    js_util.setProperty(this, 'colorGamut', newValue.name);
+    js_util.setProperty(this, 'colorGamut', newValue.value);
   }
 
-  TransferFunction get transferFunction => TransferFunction.values
-      .byName(js_util.getProperty(this, 'transferFunction'));
+  TransferFunction get transferFunction =>
+      TransferFunction.fromValue(js_util.getProperty(this, 'transferFunction'));
   set transferFunction(TransferFunction newValue) {
-    js_util.setProperty(this, 'transferFunction', newValue.name);
+    js_util.setProperty(this, 'transferFunction', newValue.value);
   }
 
   String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
@@ -213,17 +210,45 @@ extension PropsVideoConfiguration on VideoConfiguration {
   }
 }
 
-enum HdrMetadataType { smpteSt2086, smpteSt209410, smpteSt209440 }
+enum HdrMetadataType {
+  smpteSt2086('smpteSt2086'),
+  smpteSt209410('smpteSt2094-10'),
+  smpteSt209440('smpteSt2094-40');
 
-enum ColorGamut { srgb, p3, rec2020 }
+  final String value;
+  static HdrMetadataType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<HdrMetadataType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const HdrMetadataType(this.value);
+}
 
-enum TransferFunction { srgb, pq, hlg }
+enum ColorGamut {
+  srgb('srgb'),
+  p3('p3'),
+  rec2020('rec2020');
 
-///  The dictionary of the Media Capabilities API defines the audio
-/// file being tested when calling [MediaCapabilities.encodingInfo()]
-/// or [MediaCapabilities.decodingInfo()] to query whether a specific
-/// audio configuration is supported, smooth, and/or power efficient.
-@experimental
+  final String value;
+  static ColorGamut fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ColorGamut> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const ColorGamut(this.value);
+}
+
+enum TransferFunction {
+  srgb('srgb'),
+  pq('pq'),
+  hlg('hlg');
+
+  final String value;
+  static TransferFunction fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<TransferFunction> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const TransferFunction(this.value);
+}
+
 @anonymous
 @JS()
 @staticInterop
@@ -288,8 +313,8 @@ class MediaCapabilitiesKeySystemConfiguration {
       MediaCapabilitiesKeySystemConfiguration._(
           keySystem: keySystem,
           initDataType: initDataType,
-          distinctiveIdentifier: distinctiveIdentifier?.name,
-          persistentState: persistentState?.name,
+          distinctiveIdentifier: distinctiveIdentifier?.value,
+          persistentState: persistentState?.value,
           sessionTypes: sessionTypes,
           audio: audio,
           video: video);
@@ -307,16 +332,17 @@ extension PropsMediaCapabilitiesKeySystemConfiguration
     js_util.setProperty(this, 'initDataType', newValue);
   }
 
-  MediaKeysRequirement get distinctiveIdentifier => MediaKeysRequirement.values
-      .byName(js_util.getProperty(this, 'distinctiveIdentifier'));
+  MediaKeysRequirement get distinctiveIdentifier =>
+      MediaKeysRequirement.fromValue(
+          js_util.getProperty(this, 'distinctiveIdentifier'));
   set distinctiveIdentifier(MediaKeysRequirement newValue) {
-    js_util.setProperty(this, 'distinctiveIdentifier', newValue.name);
+    js_util.setProperty(this, 'distinctiveIdentifier', newValue.value);
   }
 
-  MediaKeysRequirement get persistentState => MediaKeysRequirement.values
-      .byName(js_util.getProperty(this, 'persistentState'));
+  MediaKeysRequirement get persistentState => MediaKeysRequirement.fromValue(
+      js_util.getProperty(this, 'persistentState'));
   set persistentState(MediaKeysRequirement newValue) {
-    js_util.setProperty(this, 'persistentState', newValue.name);
+    js_util.setProperty(this, 'persistentState', newValue.value);
   }
 
   Iterable<String> get sessionTypes =>
@@ -431,7 +457,6 @@ extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
 /// and power efficient.
 ///  The information is accessed through the [mediaCapabilities]
 /// property of the [Navigator] interface.
-@experimental
 @JS()
 @staticInterop
 class MediaCapabilities {

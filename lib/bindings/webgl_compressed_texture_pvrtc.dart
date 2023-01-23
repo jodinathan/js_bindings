@@ -1,6 +1,6 @@
 /// WebGL WEBGL_compressed_texture_pvrtc Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_pvrtc/
+/// https://registry.khronos.org/webgl/extensions/WEBGL_compressed_texture_pvrtc/
 
 // ignore_for_file: unused_import
 

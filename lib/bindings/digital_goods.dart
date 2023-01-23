@@ -66,7 +66,7 @@ class ItemDetails {
           itemId: itemId,
           title: title,
           price: price,
-          type: type.name,
+          type: type.value,
           description: description,
           iconURLs: iconURLs,
           subscriptionPeriod: subscriptionPeriod,
@@ -92,10 +92,9 @@ extension PropsItemDetails on ItemDetails {
     js_util.setProperty(this, 'price', newValue);
   }
 
-  ItemType get type =>
-      ItemType.values.byName(js_util.getProperty(this, 'type'));
+  ItemType get type => ItemType.fromValue(js_util.getProperty(this, 'type'));
   set type(ItemType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   String get description => js_util.getProperty(this, 'description');
@@ -138,7 +137,17 @@ extension PropsItemDetails on ItemDetails {
   }
 }
 
-enum ItemType { product, subscription }
+enum ItemType {
+  product('product'),
+  subscription('subscription');
+
+  final String value;
+  static ItemType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ItemType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const ItemType(this.value);
+}
 
 @anonymous
 @JS()

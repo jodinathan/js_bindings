@@ -47,9 +47,6 @@ extension PropsMIDIOptions on MIDIOptions {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The read-only interface of the Web MIDI API provides a
 /// [Map]-like interface to the currently available MIDI input ports.
 /// Though it works generally like a map, because it is read-only it
@@ -60,9 +57,6 @@ class MIDIInputMap extends JsMap<MIDIInput, String> {
   external factory MIDIInputMap();
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The read-only interface of the Web MIDI API provides a
 /// [Map]-like interface to the currently available MIDI output
 /// ports. Although it works like a map, because it is read-only, it
@@ -82,6 +76,8 @@ class MIDIOutputMap extends JsMap<MIDIOutput, String> {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -123,6 +119,8 @@ extension PropsMIDIAccess on MIDIAccess {
 ///
 ///
 ///
+///
+///
 ///    MIDIPort
 ///
 ///
@@ -137,12 +135,12 @@ extension PropsMIDIPort on MIDIPort {
   String? get manufacturer => js_util.getProperty(this, 'manufacturer');
   String? get name => js_util.getProperty(this, 'name');
   MIDIPortType get type =>
-      MIDIPortType.values.byName(js_util.getProperty(this, 'type'));
+      MIDIPortType.fromValue(js_util.getProperty(this, 'type'));
   String? get version => js_util.getProperty(this, 'version');
   MIDIPortDeviceState get state =>
-      MIDIPortDeviceState.values.byName(js_util.getProperty(this, 'state'));
-  MIDIPortConnectionState get connection => MIDIPortConnectionState.values
-      .byName(js_util.getProperty(this, 'connection'));
+      MIDIPortDeviceState.fromValue(js_util.getProperty(this, 'state'));
+  MIDIPortConnectionState get connection => MIDIPortConnectionState.fromValue(
+      js_util.getProperty(this, 'connection'));
   EventHandlerNonNull? get onstatechange =>
       js_util.getProperty(this, 'onstatechange');
   set onstatechange(EventHandlerNonNull? newValue) {
@@ -169,7 +167,11 @@ extension PropsMIDIPort on MIDIPort {
 ///
 ///
 ///
+///
+///
 ///    MIDIPort
+///
+///
 ///
 ///
 ///
@@ -206,7 +208,11 @@ extension PropsMIDIInput on MIDIInput {
 ///
 ///
 ///
+///
+///
 ///    MIDIPort
+///
+///
 ///
 ///
 ///
@@ -228,16 +234,48 @@ extension PropsMIDIOutput on MIDIOutput {
   void clear() => js_util.callMethod(this, 'clear', []);
 }
 
-enum MIDIPortType { input, output }
+enum MIDIPortType {
+  input('input'),
+  output('output');
 
-enum MIDIPortDeviceState { disconnected, connected }
+  final String value;
+  static MIDIPortType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MIDIPortType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MIDIPortType(this.value);
+}
 
-enum MIDIPortConnectionState { open, closed, pending }
+enum MIDIPortDeviceState {
+  disconnected('disconnected'),
+  connected('connected');
+
+  final String value;
+  static MIDIPortDeviceState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MIDIPortDeviceState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MIDIPortDeviceState(this.value);
+}
+
+enum MIDIPortConnectionState {
+  open('open'),
+  closed('closed'),
+  pending('pending');
+
+  final String value;
+  static MIDIPortConnectionState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MIDIPortConnectionState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const MIDIPortConnectionState(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Web MIDI API represents the event passed to
-/// the [onmidimessage] event handler of the [MIDIInput] interface. A
+/// the [midimessage] event of the [MIDIInput] interface. A
 /// [midimessage] event is fired every time a MIDI message is sent
 /// from a device represented by a [MIDIInput], for example when a
 /// MIDI keyboard key is pressed, a knob is tweaked, or a slider is
@@ -246,6 +284,8 @@ enum MIDIPortConnectionState { open, closed, pending }
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -282,16 +322,18 @@ extension PropsMIDIMessageEventInit on MIDIMessageEventInit {
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Web MIDI API is the event passed to the
-/// [onstatechange] event handler of the [MIDIAccess] interface and
-/// the [onstatechange] event of the [MIDIPort] interface. This
-/// occurs any time a new port becomes available, or when a
-/// previously available port becomes unavailable. For example, this
-/// event is fired whenever a MIDI device is either plugged in to or
-/// unplugged from a computer.
+/// [statechange] event of the [MIDIAccess] interface and the
+/// [statechange] event of the [MIDIPort] interface. This occurs any
+/// time a new port becomes available, or when a previously available
+/// port becomes unavailable. For example, this event is fired
+/// whenever a MIDI device is either plugged in to or unplugged from
+/// a computer.
 ///
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///

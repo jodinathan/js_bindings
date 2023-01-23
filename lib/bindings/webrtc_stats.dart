@@ -14,21 +14,29 @@ import 'package:js/js.dart';
 import 'package:js_bindings/js_bindings.dart';
 
 enum RTCStatsType {
-  codec,
-  inboundRtp,
-  outboundRtp,
-  remoteInboundRtp,
-  remoteOutboundRtp,
-  mediaSource,
-  peerConnection,
-  dataChannel,
-  stream,
-  track,
-  transport,
-  candidatePair,
-  localCandidate,
-  remoteCandidate,
-  certificate
+  codec('codec'),
+  inboundRtp('inbound-rtp'),
+  outboundRtp('outbound-rtp'),
+  remoteInboundRtp('remote-inbound-rtp'),
+  remoteOutboundRtp('remote-outbound-rtp'),
+  mediaSource('media-source'),
+  mediaPlayout('media-playout'),
+  peerConnection('peer-connection'),
+  dataChannel('data-channel'),
+  stream('stream'),
+  track('track'),
+  transport('transport'),
+  candidatePair('candidate-pair'),
+  localCandidate('local-candidate'),
+  remoteCandidate('remote-candidate'),
+  certificate('certificate');
+
+  final String value;
+  static RTCStatsType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCStatsType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCStatsType(this.value);
 }
 
 ///  The dictionary is returned by the
@@ -132,8 +140,7 @@ class RTCReceivedRtpStreamStats implements RTCRtpStreamStats {
   external factory RTCReceivedRtpStreamStats(
       {required int packetsReceived,
       required int packetsLost,
-      required double jitter,
-      required int framesDropped});
+      required double jitter});
 }
 
 extension PropsRTCReceivedRtpStreamStats on RTCReceivedRtpStreamStats {
@@ -150,11 +157,6 @@ extension PropsRTCReceivedRtpStreamStats on RTCReceivedRtpStreamStats {
   double get jitter => js_util.getProperty(this, 'jitter');
   set jitter(double newValue) {
     js_util.setProperty(this, 'jitter', newValue);
-  }
-
-  int get framesDropped => js_util.getProperty(this, 'framesDropped');
-  set framesDropped(int newValue) {
-    js_util.setProperty(this, 'framesDropped', newValue);
   }
 }
 
@@ -173,6 +175,8 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
       required String remoteId,
       required int framesDecoded,
       required int keyFramesDecoded,
+      required int framesRendered,
+      required int framesDropped,
       required int frameWidth,
       required int frameHeight,
       required double framesPerSecond,
@@ -180,6 +184,10 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
       required double totalDecodeTime,
       required double totalInterFrameDelay,
       required double totalSquaredInterFrameDelay,
+      required int pauseCount,
+      required double totalPausesDuration,
+      required int freezeCount,
+      required double totalFreezesDuration,
       required double lastPacketReceivedTimestamp,
       required int headerBytesReceived,
       required int packetsDiscarded,
@@ -205,7 +213,11 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
       required double totalAudioEnergy,
       required double totalSamplesDuration,
       required int framesReceived,
-      required String decoderImplementation});
+      required String decoderImplementation,
+      required String playoutId,
+      required bool powerEfficientDecoder,
+      required int framesAssembledFromMultiplePackets,
+      required double totalAssemblyTime});
 }
 
 extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
@@ -237,6 +249,16 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
   int get keyFramesDecoded => js_util.getProperty(this, 'keyFramesDecoded');
   set keyFramesDecoded(int newValue) {
     js_util.setProperty(this, 'keyFramesDecoded', newValue);
+  }
+
+  int get framesRendered => js_util.getProperty(this, 'framesRendered');
+  set framesRendered(int newValue) {
+    js_util.setProperty(this, 'framesRendered', newValue);
+  }
+
+  int get framesDropped => js_util.getProperty(this, 'framesDropped');
+  set framesDropped(int newValue) {
+    js_util.setProperty(this, 'framesDropped', newValue);
   }
 
   int get frameWidth => js_util.getProperty(this, 'frameWidth');
@@ -274,6 +296,28 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
       js_util.getProperty(this, 'totalSquaredInterFrameDelay');
   set totalSquaredInterFrameDelay(double newValue) {
     js_util.setProperty(this, 'totalSquaredInterFrameDelay', newValue);
+  }
+
+  int get pauseCount => js_util.getProperty(this, 'pauseCount');
+  set pauseCount(int newValue) {
+    js_util.setProperty(this, 'pauseCount', newValue);
+  }
+
+  double get totalPausesDuration =>
+      js_util.getProperty(this, 'totalPausesDuration');
+  set totalPausesDuration(double newValue) {
+    js_util.setProperty(this, 'totalPausesDuration', newValue);
+  }
+
+  int get freezeCount => js_util.getProperty(this, 'freezeCount');
+  set freezeCount(int newValue) {
+    js_util.setProperty(this, 'freezeCount', newValue);
+  }
+
+  double get totalFreezesDuration =>
+      js_util.getProperty(this, 'totalFreezesDuration');
+  set totalFreezesDuration(double newValue) {
+    js_util.setProperty(this, 'totalFreezesDuration', newValue);
   }
 
   double get lastPacketReceivedTimestamp =>
@@ -420,6 +464,29 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
   set decoderImplementation(String newValue) {
     js_util.setProperty(this, 'decoderImplementation', newValue);
   }
+
+  String get playoutId => js_util.getProperty(this, 'playoutId');
+  set playoutId(String newValue) {
+    js_util.setProperty(this, 'playoutId', newValue);
+  }
+
+  bool get powerEfficientDecoder =>
+      js_util.getProperty(this, 'powerEfficientDecoder');
+  set powerEfficientDecoder(bool newValue) {
+    js_util.setProperty(this, 'powerEfficientDecoder', newValue);
+  }
+
+  int get framesAssembledFromMultiplePackets =>
+      js_util.getProperty(this, 'framesAssembledFromMultiplePackets');
+  set framesAssembledFromMultiplePackets(int newValue) {
+    js_util.setProperty(this, 'framesAssembledFromMultiplePackets', newValue);
+  }
+
+  double get totalAssemblyTime =>
+      js_util.getProperty(this, 'totalAssemblyTime');
+  set totalAssemblyTime(double newValue) {
+    js_util.setProperty(this, 'totalAssemblyTime', newValue);
+  }
 }
 
 @anonymous
@@ -518,7 +585,9 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
       required int firCount,
       required int pliCount,
       required String encoderImplementation,
-      required bool active});
+      required bool powerEfficientEncoder,
+      required bool active,
+      required String scalabilityMode});
 
   factory RTCOutboundRtpStreamStats(
           {required String mid,
@@ -547,7 +616,9 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
           required int firCount,
           required int pliCount,
           required String encoderImplementation,
-          required bool active}) =>
+          required bool powerEfficientEncoder,
+          required bool active,
+          required String scalabilityMode}) =>
       RTCOutboundRtpStreamStats._(
           mid: mid,
           mediaSourceId: mediaSourceId,
@@ -568,7 +639,7 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
           qpSum: qpSum,
           totalEncodeTime: totalEncodeTime,
           totalPacketSendDelay: totalPacketSendDelay,
-          qualityLimitationReason: qualityLimitationReason.name,
+          qualityLimitationReason: qualityLimitationReason.value,
           qualityLimitationDurations: qualityLimitationDurations,
           qualityLimitationResolutionChanges:
               qualityLimitationResolutionChanges,
@@ -576,7 +647,9 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
           firCount: firCount,
           pliCount: pliCount,
           encoderImplementation: encoderImplementation,
-          active: active);
+          powerEfficientEncoder: powerEfficientEncoder,
+          active: active,
+          scalabilityMode: scalabilityMode);
 }
 
 extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
@@ -680,10 +753,10 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
   }
 
   RTCQualityLimitationReason get qualityLimitationReason =>
-      RTCQualityLimitationReason.values
-          .byName(js_util.getProperty(this, 'qualityLimitationReason'));
+      RTCQualityLimitationReason.fromValue(
+          js_util.getProperty(this, 'qualityLimitationReason'));
   set qualityLimitationReason(RTCQualityLimitationReason newValue) {
-    js_util.setProperty(this, 'qualityLimitationReason', newValue.name);
+    js_util.setProperty(this, 'qualityLimitationReason', newValue.value);
   }
 
   dynamic get qualityLimitationDurations =>
@@ -719,13 +792,37 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'encoderImplementation', newValue);
   }
 
+  bool get powerEfficientEncoder =>
+      js_util.getProperty(this, 'powerEfficientEncoder');
+  set powerEfficientEncoder(bool newValue) {
+    js_util.setProperty(this, 'powerEfficientEncoder', newValue);
+  }
+
   bool get active => js_util.getProperty(this, 'active');
   set active(bool newValue) {
     js_util.setProperty(this, 'active', newValue);
   }
+
+  String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
+  set scalabilityMode(String newValue) {
+    js_util.setProperty(this, 'scalabilityMode', newValue);
+  }
 }
 
-enum RTCQualityLimitationReason { none, cpu, bandwidth, other }
+enum RTCQualityLimitationReason {
+  none('none'),
+  cpu('cpu'),
+  bandwidth('bandwidth'),
+  other('other');
+
+  final String value;
+  static RTCQualityLimitationReason fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCQualityLimitationReason> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCQualityLimitationReason(this.value);
+}
 
 ///  The WebRTC statistics model's dictionary extends the underlying
 /// [RTCSentRtpStreamStats] dictionary with properties measuring
@@ -807,7 +904,11 @@ class RTCAudioSourceStats implements RTCMediaSourceStats {
       required double totalAudioEnergy,
       required double totalSamplesDuration,
       required double echoReturnLoss,
-      required double echoReturnLossEnhancement});
+      required double echoReturnLossEnhancement,
+      required double droppedSamplesDuration,
+      required int droppedSamplesEvents,
+      required double totalCaptureDelay,
+      required int totalSamplesCaptured});
 }
 
 extension PropsRTCAudioSourceStats on RTCAudioSourceStats {
@@ -836,6 +937,30 @@ extension PropsRTCAudioSourceStats on RTCAudioSourceStats {
       js_util.getProperty(this, 'echoReturnLossEnhancement');
   set echoReturnLossEnhancement(double newValue) {
     js_util.setProperty(this, 'echoReturnLossEnhancement', newValue);
+  }
+
+  double get droppedSamplesDuration =>
+      js_util.getProperty(this, 'droppedSamplesDuration');
+  set droppedSamplesDuration(double newValue) {
+    js_util.setProperty(this, 'droppedSamplesDuration', newValue);
+  }
+
+  int get droppedSamplesEvents =>
+      js_util.getProperty(this, 'droppedSamplesEvents');
+  set droppedSamplesEvents(int newValue) {
+    js_util.setProperty(this, 'droppedSamplesEvents', newValue);
+  }
+
+  double get totalCaptureDelay =>
+      js_util.getProperty(this, 'totalCaptureDelay');
+  set totalCaptureDelay(double newValue) {
+    js_util.setProperty(this, 'totalCaptureDelay', newValue);
+  }
+
+  int get totalSamplesCaptured =>
+      js_util.getProperty(this, 'totalSamplesCaptured');
+  set totalSamplesCaptured(int newValue) {
+    js_util.setProperty(this, 'totalSamplesCaptured', newValue);
   }
 }
 
@@ -869,6 +994,49 @@ extension PropsRTCVideoSourceStats on RTCVideoSourceStats {
   double get framesPerSecond => js_util.getProperty(this, 'framesPerSecond');
   set framesPerSecond(double newValue) {
     js_util.setProperty(this, 'framesPerSecond', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class RTCAudioPlayoutStats implements RTCStats {
+  external factory RTCAudioPlayoutStats(
+      {required double synthesizedSamplesDuration,
+      required int synthesizedSamplesEvents,
+      required double totalSamplesDuration,
+      required double totalPlayoutDelay,
+      required int totalSamplesCount});
+}
+
+extension PropsRTCAudioPlayoutStats on RTCAudioPlayoutStats {
+  double get synthesizedSamplesDuration =>
+      js_util.getProperty(this, 'synthesizedSamplesDuration');
+  set synthesizedSamplesDuration(double newValue) {
+    js_util.setProperty(this, 'synthesizedSamplesDuration', newValue);
+  }
+
+  int get synthesizedSamplesEvents =>
+      js_util.getProperty(this, 'synthesizedSamplesEvents');
+  set synthesizedSamplesEvents(int newValue) {
+    js_util.setProperty(this, 'synthesizedSamplesEvents', newValue);
+  }
+
+  double get totalSamplesDuration =>
+      js_util.getProperty(this, 'totalSamplesDuration');
+  set totalSamplesDuration(double newValue) {
+    js_util.setProperty(this, 'totalSamplesDuration', newValue);
+  }
+
+  double get totalPlayoutDelay =>
+      js_util.getProperty(this, 'totalPlayoutDelay');
+  set totalPlayoutDelay(double newValue) {
+    js_util.setProperty(this, 'totalPlayoutDelay', newValue);
+  }
+
+  int get totalSamplesCount => js_util.getProperty(this, 'totalSamplesCount');
+  set totalSamplesCount(int newValue) {
+    js_util.setProperty(this, 'totalSamplesCount', newValue);
   }
 }
 
@@ -919,7 +1087,7 @@ class RTCDataChannelStats implements RTCStats {
           label: label,
           protocol: protocol,
           dataChannelIdentifier: dataChannelIdentifier,
-          state: state.name,
+          state: state.value,
           messagesSent: messagesSent,
           bytesSent: bytesSent,
           messagesReceived: messagesReceived,
@@ -944,9 +1112,9 @@ extension PropsRTCDataChannelStats on RTCDataChannelStats {
   }
 
   RTCDataChannelState get state =>
-      RTCDataChannelState.values.byName(js_util.getProperty(this, 'state'));
+      RTCDataChannelState.fromValue(js_util.getProperty(this, 'state'));
   set state(RTCDataChannelState newValue) {
-    js_util.setProperty(this, 'state', newValue.name);
+    js_util.setProperty(this, 'state', newValue.value);
   }
 
   int get messagesSent => js_util.getProperty(this, 'messagesSent');
@@ -1014,16 +1182,16 @@ class RTCTransportStats implements RTCStats {
           packetsReceived: packetsReceived,
           bytesSent: bytesSent,
           bytesReceived: bytesReceived,
-          iceRole: iceRole.name,
+          iceRole: iceRole.value,
           iceLocalUsernameFragment: iceLocalUsernameFragment,
-          dtlsState: dtlsState.name,
-          iceState: iceState.name,
+          dtlsState: dtlsState.value,
+          iceState: iceState.value,
           selectedCandidatePairId: selectedCandidatePairId,
           localCertificateId: localCertificateId,
           remoteCertificateId: remoteCertificateId,
           tlsVersion: tlsVersion,
           dtlsCipher: dtlsCipher,
-          dtlsRole: dtlsRole.name,
+          dtlsRole: dtlsRole.value,
           srtpCipher: srtpCipher,
           selectedCandidatePairChanges: selectedCandidatePairChanges);
 }
@@ -1050,9 +1218,9 @@ extension PropsRTCTransportStats on RTCTransportStats {
   }
 
   RTCIceRole get iceRole =>
-      RTCIceRole.values.byName(js_util.getProperty(this, 'iceRole'));
+      RTCIceRole.fromValue(js_util.getProperty(this, 'iceRole'));
   set iceRole(RTCIceRole newValue) {
-    js_util.setProperty(this, 'iceRole', newValue.name);
+    js_util.setProperty(this, 'iceRole', newValue.value);
   }
 
   String get iceLocalUsernameFragment =>
@@ -1061,16 +1229,16 @@ extension PropsRTCTransportStats on RTCTransportStats {
     js_util.setProperty(this, 'iceLocalUsernameFragment', newValue);
   }
 
-  RTCDtlsTransportState get dtlsState => RTCDtlsTransportState.values
-      .byName(js_util.getProperty(this, 'dtlsState'));
+  RTCDtlsTransportState get dtlsState =>
+      RTCDtlsTransportState.fromValue(js_util.getProperty(this, 'dtlsState'));
   set dtlsState(RTCDtlsTransportState newValue) {
-    js_util.setProperty(this, 'dtlsState', newValue.name);
+    js_util.setProperty(this, 'dtlsState', newValue.value);
   }
 
   RTCIceTransportState get iceState =>
-      RTCIceTransportState.values.byName(js_util.getProperty(this, 'iceState'));
+      RTCIceTransportState.fromValue(js_util.getProperty(this, 'iceState'));
   set iceState(RTCIceTransportState newValue) {
-    js_util.setProperty(this, 'iceState', newValue.name);
+    js_util.setProperty(this, 'iceState', newValue.value);
   }
 
   String get selectedCandidatePairId =>
@@ -1102,9 +1270,9 @@ extension PropsRTCTransportStats on RTCTransportStats {
   }
 
   RTCDtlsRole get dtlsRole =>
-      RTCDtlsRole.values.byName(js_util.getProperty(this, 'dtlsRole'));
+      RTCDtlsRole.fromValue(js_util.getProperty(this, 'dtlsRole'));
   set dtlsRole(RTCDtlsRole newValue) {
-    js_util.setProperty(this, 'dtlsRole', newValue.name);
+    js_util.setProperty(this, 'dtlsRole', newValue.value);
   }
 
   String get srtpCipher => js_util.getProperty(this, 'srtpCipher');
@@ -1119,7 +1287,18 @@ extension PropsRTCTransportStats on RTCTransportStats {
   }
 }
 
-enum RTCDtlsRole { client, server, unknown }
+enum RTCDtlsRole {
+  client('client'),
+  server('server'),
+  unknown('unknown');
+
+  final String value;
+  static RTCDtlsRole fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCDtlsRole> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCDtlsRole(this.value);
+}
 
 ///  The WebRTC API's dictionary provides statistics related to an
 /// [RTCIceCandidate].
@@ -1135,7 +1314,12 @@ class RTCIceCandidateStats implements RTCStats {
       required String candidateType,
       required int priority,
       required String url,
-      required String relayProtocol});
+      required String relayProtocol,
+      required String foundation,
+      required String relatedAddress,
+      required int relatedPort,
+      required String usernameFragment,
+      required String tcpType});
 
   factory RTCIceCandidateStats(
           {required String transportId,
@@ -1145,16 +1329,26 @@ class RTCIceCandidateStats implements RTCStats {
           required RTCIceCandidateType candidateType,
           required int priority,
           required String url,
-          required String relayProtocol}) =>
+          required RTCIceServerTransportProtocol relayProtocol,
+          required String foundation,
+          required String relatedAddress,
+          required int relatedPort,
+          required String usernameFragment,
+          required RTCIceTcpCandidateType tcpType}) =>
       RTCIceCandidateStats._(
           transportId: transportId,
           address: address,
           port: port,
           protocol: protocol,
-          candidateType: candidateType.name,
+          candidateType: candidateType.value,
           priority: priority,
           url: url,
-          relayProtocol: relayProtocol);
+          relayProtocol: relayProtocol.value,
+          foundation: foundation,
+          relatedAddress: relatedAddress,
+          relatedPort: relatedPort,
+          usernameFragment: usernameFragment,
+          tcpType: tcpType.value);
 }
 
 extension PropsRTCIceCandidateStats on RTCIceCandidateStats {
@@ -1178,10 +1372,10 @@ extension PropsRTCIceCandidateStats on RTCIceCandidateStats {
     js_util.setProperty(this, 'protocol', newValue);
   }
 
-  RTCIceCandidateType get candidateType => RTCIceCandidateType.values
-      .byName(js_util.getProperty(this, 'candidateType'));
+  RTCIceCandidateType get candidateType =>
+      RTCIceCandidateType.fromValue(js_util.getProperty(this, 'candidateType'));
   set candidateType(RTCIceCandidateType newValue) {
-    js_util.setProperty(this, 'candidateType', newValue.name);
+    js_util.setProperty(this, 'candidateType', newValue.value);
   }
 
   int get priority => js_util.getProperty(this, 'priority');
@@ -1194,9 +1388,37 @@ extension PropsRTCIceCandidateStats on RTCIceCandidateStats {
     js_util.setProperty(this, 'url', newValue);
   }
 
-  String get relayProtocol => js_util.getProperty(this, 'relayProtocol');
-  set relayProtocol(String newValue) {
-    js_util.setProperty(this, 'relayProtocol', newValue);
+  RTCIceServerTransportProtocol get relayProtocol =>
+      RTCIceServerTransportProtocol.fromValue(
+          js_util.getProperty(this, 'relayProtocol'));
+  set relayProtocol(RTCIceServerTransportProtocol newValue) {
+    js_util.setProperty(this, 'relayProtocol', newValue.value);
+  }
+
+  String get foundation => js_util.getProperty(this, 'foundation');
+  set foundation(String newValue) {
+    js_util.setProperty(this, 'foundation', newValue);
+  }
+
+  String get relatedAddress => js_util.getProperty(this, 'relatedAddress');
+  set relatedAddress(String newValue) {
+    js_util.setProperty(this, 'relatedAddress', newValue);
+  }
+
+  int get relatedPort => js_util.getProperty(this, 'relatedPort');
+  set relatedPort(int newValue) {
+    js_util.setProperty(this, 'relatedPort', newValue);
+  }
+
+  String get usernameFragment => js_util.getProperty(this, 'usernameFragment');
+  set usernameFragment(String newValue) {
+    js_util.setProperty(this, 'usernameFragment', newValue);
+  }
+
+  RTCIceTcpCandidateType get tcpType =>
+      RTCIceTcpCandidateType.fromValue(js_util.getProperty(this, 'tcpType'));
+  set tcpType(RTCIceTcpCandidateType newValue) {
+    js_util.setProperty(this, 'tcpType', newValue.value);
   }
 }
 
@@ -1261,7 +1483,7 @@ class RTCIceCandidatePairStats implements RTCStats {
           transportId: transportId,
           localCandidateId: localCandidateId,
           remoteCandidateId: remoteCandidateId,
-          state: state.name,
+          state: state.value,
           nominated: nominated,
           packetsSent: packetsSent,
           packetsReceived: packetsReceived,
@@ -1300,10 +1522,10 @@ extension PropsRTCIceCandidatePairStats on RTCIceCandidatePairStats {
   }
 
   RTCStatsIceCandidatePairState get state =>
-      RTCStatsIceCandidatePairState.values
-          .byName(js_util.getProperty(this, 'state'));
+      RTCStatsIceCandidatePairState.fromValue(
+          js_util.getProperty(this, 'state'));
   set state(RTCStatsIceCandidatePairState newValue) {
-    js_util.setProperty(this, 'state', newValue.name);
+    js_util.setProperty(this, 'state', newValue.value);
   }
 
   bool get nominated => js_util.getProperty(this, 'nominated');
@@ -1407,11 +1629,19 @@ extension PropsRTCIceCandidatePairStats on RTCIceCandidatePairStats {
 }
 
 enum RTCStatsIceCandidatePairState {
-  frozen,
-  waiting,
-  inProgress,
-  failed,
-  succeeded
+  frozen('frozen'),
+  waiting('waiting'),
+  inProgress('in-progress'),
+  failed('failed'),
+  succeeded('succeeded');
+
+  final String value;
+  static RTCStatsIceCandidatePairState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCStatsIceCandidatePairState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCStatsIceCandidatePairState(this.value);
 }
 
 @anonymous

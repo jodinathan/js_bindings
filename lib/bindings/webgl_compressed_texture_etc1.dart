@@ -1,6 +1,6 @@
 /// WebGL WEBGL_compressed_texture_etc1 Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_etc1/
+/// https://registry.khronos.org/webgl/extensions/WEBGL_compressed_texture_etc1/
 
 // ignore_for_file: unused_import
 

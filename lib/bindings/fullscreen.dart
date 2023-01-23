@@ -13,7 +13,18 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum FullscreenNavigationUI { auto, valueShow, valueHide }
+enum FullscreenNavigationUI {
+  auto('auto'),
+  valueShow('show'),
+  valueHide('hide');
+
+  final String value;
+  static FullscreenNavigationUI fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<FullscreenNavigationUI> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const FullscreenNavigationUI(this.value);
+}
 
 @anonymous
 @JS()
@@ -24,13 +35,13 @@ class FullscreenOptions {
   factory FullscreenOptions(
           {FullscreenNavigationUI? navigationUI =
               FullscreenNavigationUI.auto}) =>
-      FullscreenOptions._(navigationUI: navigationUI?.name);
+      FullscreenOptions._(navigationUI: navigationUI?.value);
 }
 
 extension PropsFullscreenOptions on FullscreenOptions {
-  FullscreenNavigationUI get navigationUI => FullscreenNavigationUI.values
-      .byName(js_util.getProperty(this, 'navigationUI'));
+  FullscreenNavigationUI get navigationUI => FullscreenNavigationUI.fromValue(
+      js_util.getProperty(this, 'navigationUI'));
   set navigationUI(FullscreenNavigationUI newValue) {
-    js_util.setProperty(this, 'navigationUI', newValue.name);
+    js_util.setProperty(this, 'navigationUI', newValue.value);
   }
 }

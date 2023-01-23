@@ -10,7 +10,6 @@ library payment_request_1_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -24,6 +23,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -240,7 +241,18 @@ extension PropsPaymentCompleteDetails on PaymentCompleteDetails {
   }
 }
 
-enum PaymentComplete { fail, success, unknown }
+enum PaymentComplete {
+  fail('fail'),
+  success('success'),
+  unknown('unknown');
+
+  final String value;
+  static PaymentComplete fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<PaymentComplete> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const PaymentComplete(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
@@ -255,10 +267,11 @@ enum PaymentComplete { fail, success, unknown }
 ///
 ///
 ///
+///
+///
 ///    PaymentResponse
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class PaymentResponse implements EventTarget {
@@ -275,21 +288,12 @@ extension PropsPaymentResponse on PaymentResponse {
           [PaymentComplete? result = PaymentComplete.unknown,
           PaymentCompleteDetails? details]) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'complete', [result?.name, details]));
+          js_util.callMethod(this, 'complete', [result?.value, details]));
 
   Future<void> retry([PaymentValidationErrors? errorFields]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'retry', [errorFields]));
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The dictionary represents objects providing information about
-/// any and all errors that occurred while processing a payment
-/// request. When validation of the [PaymentResponse] returned by the
-/// [PaymentRequest.show()] or [PaymentResponse.retry()] methods
-/// fails, your code creates a object to pass into [retry()] so that
-/// the user agent knows what needs to be fixed and what if any error
-/// messages to display to the user.
 @anonymous
 @JS()
 @staticInterop
@@ -325,7 +329,11 @@ extension PropsPaymentValidationErrors on PaymentValidationErrors {
 ///
 ///
 ///
+///
+///
 ///    PaymentRequestUpdateEvent
+///
+///
 ///
 ///
 ///
@@ -374,19 +382,11 @@ extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
 ///
 ///  [shippingaddresschange] Secure context
 ///
-///
-///    Dispatched whenever the user changes their shipping address.
-///     Also available using the [onshippingaddresschange] event
-/// handler property.
-///
+///   Dispatched whenever the user changes their shipping address.
 ///
 ///  [shippingoptionchange] Secure context
 ///
-///
-///    Dispatched whenever the user changes a shipping option.
-///     Also available using the [onshippingoptionchange] event
-/// handler property.
-///
+///   Dispatched whenever the user changes a shipping option.
 ///
 ///
 ///
@@ -398,10 +398,11 @@ extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
 ///
 ///
 ///
+///
+///
 ///    PaymentRequestUpdateEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class PaymentRequestUpdateEvent implements Event {

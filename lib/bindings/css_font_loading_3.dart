@@ -1,6 +1,6 @@
 /// CSS Font Loading Module Level 3
 ///
-/// https://drafts.csswg.org/css-font-loading/
+/// https://drafts.csswg.org/css-font-loading-3/
 
 // ignore_for_file: unused_import
 
@@ -10,7 +10,6 @@ library css_font_loading_3;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -90,12 +89,29 @@ extension PropsFontFaceDescriptors on FontFaceDescriptors {
   }
 }
 
-enum FontFaceLoadStatus { unloaded, loading, loaded, error }
+enum FontFaceLoadStatus {
+  unloaded('unloaded'),
+  loading('loading'),
+  loaded('loaded'),
+  error('error');
 
-///  The interface represents a single usable font face. It allows
-/// control of the source of the font face, being a URL to an
-/// external resource, or a buffer; it also allows control of when
-/// the font face is loaded and its current status.
+  final String value;
+  static FontFaceLoadStatus fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<FontFaceLoadStatus> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const FontFaceLoadStatus(this.value);
+}
+
+///  The interface of the CSS Font Loading API represents a single
+/// usable font face.
+///
+///   This interface defines the source of a font face, either a URL
+/// to an external resource or a buffer, and font properties such as
+/// [style], [weight], and so on.
+///   For URL font sources it allows authors to trigger when the
+/// remote font is fetched and loaded, and to track loading status.
+///
 @JS()
 @staticInterop
 class FontFace {
@@ -166,7 +182,7 @@ extension PropsFontFace on FontFace {
   }
 
   FontFaceLoadStatus get status =>
-      FontFaceLoadStatus.values.byName(js_util.getProperty(this, 'status'));
+      FontFaceLoadStatus.fromValue(js_util.getProperty(this, 'status'));
   Future<FontFace> load() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'load', []));
 
@@ -242,11 +258,11 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the CSS Font Loading API is fired whenever a
-/// [FontFaceSet] loads.
+///  The interface of the CSS Font Loading API represents events
+/// fired at a [FontFaceSet] after it starts loading font faces.
+///  Events are fired when font loading starts ([loading]), loading
+/// completes ([loadingdone]) or there is an error loading one of the
+/// fonts ([loadingerror]).
 ///
 ///
 ///
@@ -256,10 +272,11 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
 ///
 ///
 ///
+///
+///
 ///    FontFaceSetLoadEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class FontFaceSetLoadEvent implements Event {
@@ -271,15 +288,28 @@ extension PropsFontFaceSetLoadEvent on FontFaceSetLoadEvent {
   Iterable<FontFace> get fontfaces => js_util.getProperty(this, 'fontfaces');
 }
 
-enum FontFaceSetLoadStatus { loading, loaded }
+enum FontFaceSetLoadStatus {
+  loading('loading'),
+  loaded('loaded');
+
+  final String value;
+  static FontFaceSetLoadStatus fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<FontFaceSetLoadStatus> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const FontFaceSetLoadStatus(this.value);
+}
 
 ///  The interface of the CSS Font Loading API manages the loading of
-/// font-faces and querying of their download status. It is available
-/// as [Document.fonts].
+/// font-faces and querying of their download status.
+///  This property is available as [Document.fonts], or [self.fonts]
+/// in web workers.
 ///
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -327,7 +357,7 @@ extension PropsFontFaceSet on FontFaceSet {
   Future<FontFaceSet> get ready =>
       js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
   FontFaceSetLoadStatus get status =>
-      FontFaceSetLoadStatus.values.byName(js_util.getProperty(this, 'status'));
+      FontFaceSetLoadStatus.fromValue(js_util.getProperty(this, 'status'));
 }
 
 @JS()

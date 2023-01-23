@@ -27,7 +27,18 @@ extension PropsXRDOMOverlayInit on XRDOMOverlayInit {
   }
 }
 
-enum XRDOMOverlayType { screen, floating, headLocked }
+enum XRDOMOverlayType {
+  screen('screen'),
+  floating('floating'),
+  headLocked('head-locked');
+
+  final String value;
+  static XRDOMOverlayType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XRDOMOverlayType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const XRDOMOverlayType(this.value);
+}
 
 @anonymous
 @JS()
@@ -36,13 +47,13 @@ class XRDOMOverlayState {
   external factory XRDOMOverlayState._({required String type});
 
   factory XRDOMOverlayState({required XRDOMOverlayType type}) =>
-      XRDOMOverlayState._(type: type.name);
+      XRDOMOverlayState._(type: type.value);
 }
 
 extension PropsXRDOMOverlayState on XRDOMOverlayState {
   XRDOMOverlayType get type =>
-      XRDOMOverlayType.values.byName(js_util.getProperty(this, 'type'));
+      XRDOMOverlayType.fromValue(js_util.getProperty(this, 'type'));
   set type(XRDOMOverlayType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 }

@@ -14,6 +14,9 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the MediaStream Image Capture API provides
 /// methods to enable the capture of images or photos from a camera
 /// or other photographic device. It provides an interface for
@@ -58,17 +61,17 @@ class PhotoCapabilities {
           required MediaSettingsRange imageWidth,
           required Iterable<FillLightMode> fillLightMode}) =>
       PhotoCapabilities._(
-          redEyeReduction: redEyeReduction.name,
+          redEyeReduction: redEyeReduction.value,
           imageHeight: imageHeight,
           imageWidth: imageWidth,
-          fillLightMode: fillLightMode.names);
+          fillLightMode: fillLightMode.map((e) => e.value));
 }
 
 extension PropsPhotoCapabilities on PhotoCapabilities {
-  RedEyeReduction get redEyeReduction => RedEyeReduction.values
-      .byName(js_util.getProperty(this, 'redEyeReduction'));
+  RedEyeReduction get redEyeReduction =>
+      RedEyeReduction.fromValue(js_util.getProperty(this, 'redEyeReduction'));
   set redEyeReduction(RedEyeReduction newValue) {
-    js_util.setProperty(this, 'redEyeReduction', newValue.name);
+    js_util.setProperty(this, 'redEyeReduction', newValue.value);
   }
 
   MediaSettingsRange get imageHeight =>
@@ -83,9 +86,9 @@ extension PropsPhotoCapabilities on PhotoCapabilities {
   }
 
   Iterable<FillLightMode> get fillLightMode =>
-      FillLightMode.values.byNames(js_util.getProperty(this, 'fillLightMode'));
+      FillLightMode.fromValues(js_util.getProperty(this, 'fillLightMode'));
   set fillLightMode(Iterable<FillLightMode> newValue) {
-    js_util.setProperty(this, 'fillLightMode', newValue.names);
+    js_util.setProperty(this, 'fillLightMode', newValue.map((e) => e.value));
   }
 }
 
@@ -105,7 +108,7 @@ class PhotoSettings {
           required double imageWidth,
           required bool redEyeReduction}) =>
       PhotoSettings._(
-          fillLightMode: fillLightMode.name,
+          fillLightMode: fillLightMode.value,
           imageHeight: imageHeight,
           imageWidth: imageWidth,
           redEyeReduction: redEyeReduction);
@@ -113,9 +116,9 @@ class PhotoSettings {
 
 extension PropsPhotoSettings on PhotoSettings {
   FillLightMode get fillLightMode =>
-      FillLightMode.values.byName(js_util.getProperty(this, 'fillLightMode'));
+      FillLightMode.fromValue(js_util.getProperty(this, 'fillLightMode'));
   set fillLightMode(FillLightMode newValue) {
-    js_util.setProperty(this, 'fillLightMode', newValue.name);
+    js_util.setProperty(this, 'fillLightMode', newValue.value);
   }
 
   double get imageHeight => js_util.getProperty(this, 'imageHeight');
@@ -159,9 +162,31 @@ extension PropsMediaSettingsRange on MediaSettingsRange {
   }
 }
 
-enum RedEyeReduction { never, always, controllable }
+enum RedEyeReduction {
+  never('never'),
+  always('always'),
+  controllable('controllable');
 
-enum FillLightMode { auto, off, flash }
+  final String value;
+  static RedEyeReduction fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RedEyeReduction> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RedEyeReduction(this.value);
+}
+
+enum FillLightMode {
+  auto('auto'),
+  off('off'),
+  flash('flash');
+
+  final String value;
+  static FillLightMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<FillLightMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const FillLightMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -183,7 +208,19 @@ extension PropsConstrainPoint2DParameters on ConstrainPoint2DParameters {
   }
 }
 
-enum MeteringMode { none, manual, singleShot, continuous }
+enum MeteringMode {
+  none('none'),
+  manual('manual'),
+  singleShot('single-shot'),
+  continuous('continuous');
+
+  final String value;
+  static MeteringMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MeteringMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MeteringMode(this.value);
+}
 
 @anonymous
 @JS()

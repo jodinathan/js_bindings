@@ -17,11 +17,8 @@ import 'package:js_bindings/js_bindings.dart';
 /// other sensor interfaces. This interface cannot be used directly.
 /// Instead it provides properties, event handlers, and methods
 /// accessed by interfaces that inherit from it.
-///  If a feature policy blocks use of a feature it is because your
-/// code is inconsistent with the policies set on your server. This
-/// is not something that would ever be shown to a user. The
-/// [Feature-Policy] HTTP header article contains implementation
-/// instructions.
+///  This feature may be blocked by a Permissions Policy set on your
+/// server.
 ///
 ///
 ///
@@ -31,16 +28,18 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    Sensor
 ///
 ///
 ///  When initially created, the object is idle, meaning it does not
-/// take measures. Once the [start()]} method is called, it prepares
+/// take measures. Once the [start()] method is called, it prepares
 /// itself to read data and, once ready, the [activate] event is sent
 /// and the sensor becomes activated. It then sends a [reading] event
 /// each time new data is available.
 ///  In case of an error, the [error] event is sent, reading stops,
-/// and the object becomes idle again. The [start()]} method needs to
+/// and the object becomes idle again. The [start()] method needs to
 /// be called again before it can read further data.
 @JS()
 @staticInterop
@@ -98,6 +97,8 @@ extension PropsSensorOptions on SensorOptions {
 ///
 ///
 ///
+///
+///
 ///    SensorErrorEvent
 ///
 ///
@@ -142,7 +143,7 @@ class MockSensorConfiguration {
           double? maxSamplingFrequency,
           double? minSamplingFrequency}) =>
       MockSensorConfiguration._(
-          mockSensorType: mockSensorType.name,
+          mockSensorType: mockSensorType.value,
           connected: connected,
           maxSamplingFrequency: maxSamplingFrequency,
           minSamplingFrequency: minSamplingFrequency);
@@ -150,9 +151,9 @@ class MockSensorConfiguration {
 
 extension PropsMockSensorConfiguration on MockSensorConfiguration {
   MockSensorType get mockSensorType =>
-      MockSensorType.values.byName(js_util.getProperty(this, 'mockSensorType'));
+      MockSensorType.fromValue(js_util.getProperty(this, 'mockSensorType'));
   set mockSensorType(MockSensorType newValue) {
-    js_util.setProperty(this, 'mockSensorType', newValue.name);
+    js_util.setProperty(this, 'mockSensorType', newValue.value);
   }
 
   bool get connected => js_util.getProperty(this, 'connected');
@@ -204,17 +205,24 @@ extension PropsMockSensor on MockSensor {
 }
 
 enum MockSensorType {
-  ambientLight,
-  accelerometer,
-  linearAcceleration,
-  gravity,
-  gyroscope,
-  magnetometer,
-  uncalibratedMagnetometer,
-  absoluteOrientation,
-  relativeOrientation,
-  geolocation,
-  proximity
+  ambientLight('ambient-light'),
+  accelerometer('accelerometer'),
+  linearAcceleration('linear-acceleration'),
+  gravity('gravity'),
+  gyroscope('gyroscope'),
+  magnetometer('magnetometer'),
+  uncalibratedMagnetometer('uncalibrated-magnetometer'),
+  absoluteOrientation('absolute-orientation'),
+  relativeOrientation('relative-orientation'),
+  geolocation('geolocation'),
+  proximity('proximity');
+
+  final String value;
+  static MockSensorType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MockSensorType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MockSensorType(this.value);
 }
 
 @anonymous

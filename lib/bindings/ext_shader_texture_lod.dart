@@ -1,6 +1,6 @@
 /// WebGL EXT_shader_texture_lod Khronos Ratified Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_shader_texture_lod/
+/// https://registry.khronos.org/webgl/extensions/EXT_shader_texture_lod/
 
 // ignore_for_file: unused_import
 

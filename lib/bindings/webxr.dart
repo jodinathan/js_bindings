@@ -15,7 +15,10 @@ import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The WebXR Device API interface provides methods which let you
 /// get access to an [XRSession] object representing a WebXR session.
 /// With that [XRSession] in hand, you can use it to interact with
@@ -24,6 +27,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -42,12 +47,12 @@ class XRSystem implements EventTarget {
 extension PropsXRSystem on XRSystem {
   Future<bool> isSessionSupported(XRSessionMode mode) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'isSessionSupported', [mode.name]));
+          js_util.callMethod(this, 'isSessionSupported', [mode.value]));
 
   Future<XRSession> requestSession(XRSessionMode mode,
           [XRSessionInit? options]) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'requestSession', [mode.name, options]));
+          js_util.callMethod(this, 'requestSession', [mode.value, options]));
 
   EventHandlerNonNull? get ondevicechange =>
       js_util.getProperty(this, 'ondevicechange');
@@ -56,7 +61,18 @@ extension PropsXRSystem on XRSystem {
   }
 }
 
-enum XRSessionMode { inline, immersiveVr, immersiveAr }
+enum XRSessionMode {
+  inline('inline'),
+  immersiveVr('immersive-vr'),
+  immersiveAr('immersive-ar');
+
+  final String value;
+  static XRSessionMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XRSessionMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const XRSessionMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -81,11 +97,25 @@ extension PropsXRSessionInit on XRSessionInit {
   }
 }
 
-enum XRVisibilityState { visible, visibleBlurred, hidden }
+enum XRVisibilityState {
+  visible('visible'),
+  visibleBlurred('visible-blurred'),
+  hidden('hidden');
+
+  final String value;
+  static XRVisibilityState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XRVisibilityState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const XRVisibilityState(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The WebXR Device API's interface represents an ongoing XR
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  The [WebXR Device API]'s interface represents an ongoing XR
 /// session, providing methods and properties used to interact with
 /// and control the session. To open a WebXR session, use the
 /// [XRSystem] interface's [requestSession()] method.
@@ -102,9 +132,12 @@ enum XRVisibilityState { visible, visibleBlurred, hidden }
 ///
 ///
 ///
+///
+///
 ///    XRSession
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class XRSession implements EventTarget {
@@ -112,8 +145,8 @@ class XRSession implements EventTarget {
 }
 
 extension PropsXRSession on XRSession {
-  XRVisibilityState get visibilityState => XRVisibilityState.values
-      .byName(js_util.getProperty(this, 'visibilityState'));
+  XRVisibilityState get visibilityState =>
+      XRVisibilityState.fromValue(js_util.getProperty(this, 'visibilityState'));
   double? get frameRate => js_util.getProperty(this, 'frameRate');
   Float32List? get supportedFrameRates =>
       js_util.getProperty(this, 'supportedFrameRates');
@@ -130,7 +163,7 @@ extension PropsXRSession on XRSession {
 
   Future<XRReferenceSpace> requestReferenceSpace(XRReferenceSpaceType type) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'requestReferenceSpace', [type.name]));
+          js_util.callMethod(this, 'requestReferenceSpace', [type.value]));
 
   int requestAnimationFrame(XRFrameRequestCallback callback) => js_util
       .callMethod(this, 'requestAnimationFrame', [allowInterop(callback)]);
@@ -199,20 +232,28 @@ extension PropsXRSession on XRSession {
   }
 
   XREnvironmentBlendMode get environmentBlendMode =>
-      XREnvironmentBlendMode.values
-          .byName(js_util.getProperty(this, 'environmentBlendMode'));
-  XRInteractionMode get interactionMode => XRInteractionMode.values
-      .byName(js_util.getProperty(this, 'interactionMode'));
+      XREnvironmentBlendMode.fromValue(
+          js_util.getProperty(this, 'environmentBlendMode'));
+  XRInteractionMode get interactionMode =>
+      XRInteractionMode.fromValue(js_util.getProperty(this, 'interactionMode'));
   Future<XRLightProbe> requestLightProbe([XRLightProbeInit? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestLightProbe', [options]));
 
-  XRReflectionFormat get preferredReflectionFormat => XRReflectionFormat.values
-      .byName(js_util.getProperty(this, 'preferredReflectionFormat'));
+  XRReflectionFormat get preferredReflectionFormat =>
+      XRReflectionFormat.fromValue(
+          js_util.getProperty(this, 'preferredReflectionFormat'));
+  Future<XRAnchor> restorePersistentAnchor(String uuid) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'restorePersistentAnchor', [uuid]));
+
+  Future<void> deletePersistentAnchor(String uuid) => js_util.promiseToFuture(
+      js_util.callMethod(this, 'deletePersistentAnchor', [uuid]));
+
   XRDepthUsage get depthUsage =>
-      XRDepthUsage.values.byName(js_util.getProperty(this, 'depthUsage'));
-  XRDepthDataFormat get depthDataFormat => XRDepthDataFormat.values
-      .byName(js_util.getProperty(this, 'depthDataFormat'));
+      XRDepthUsage.fromValue(js_util.getProperty(this, 'depthUsage'));
+  XRDepthDataFormat get depthDataFormat =>
+      XRDepthDataFormat.fromValue(js_util.getProperty(this, 'depthDataFormat'));
   Future<XRHitTestSource> requestHitTestSource(XRHitTestOptionsInit options) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestHitTestSource', [options]));
@@ -267,7 +308,10 @@ extension PropsXRRenderStateInit on XRRenderStateInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebXR Device API contains configurable
 /// values which affect how the imagery generated by an [XRSession]
 /// gets composited. These properties include the range of distances
@@ -280,6 +324,7 @@ extension PropsXRRenderStateInit on XRRenderStateInit {
 /// [updateRenderState()], the specified changes take effect after
 /// the current animation frame has completed, but before the next
 /// one begins.
+@experimental
 @JS()
 @staticInterop
 class XRRenderState {
@@ -296,7 +341,10 @@ extension PropsXRRenderState on XRRenderState {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  A WebXR Device API object is passed into the
 /// [requestAnimationFrame()] callback function and provides access
 /// to the information needed in order to render a single frame of
@@ -309,6 +357,7 @@ extension PropsXRRenderState on XRRenderState {
 /// position and orientation in space, and [getPose()] can be used to
 /// create an [XRPose] describing the relative position of one
 /// [XRSpace] relative to another.
+@experimental
 @JS()
 @staticInterop
 class XRFrame {
@@ -380,17 +429,31 @@ extension PropsXRFrame on XRFrame {
 ///
 ///
 ///
+///
+///
 ///    XRSpace
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRSpace implements EventTarget {
   external factory XRSpace();
 }
 
-enum XRReferenceSpaceType { viewer, local, localFloor, boundedFloor, unbounded }
+enum XRReferenceSpaceType {
+  viewer('viewer'),
+  local('local'),
+  localFloor('local-floor'),
+  boundedFloor('bounded-floor'),
+  unbounded('unbounded');
+
+  final String value;
+  static XRReferenceSpaceType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XRReferenceSpaceType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const XRReferenceSpaceType(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
@@ -423,7 +486,11 @@ enum XRReferenceSpaceType { viewer, local, localFloor, boundedFloor, unbounded }
 ///
 ///
 ///
+///
+///
 ///    XRSpace
+///
+///
 ///
 ///
 ///
@@ -449,7 +516,10 @@ extension PropsXRReferenceSpace on XRReferenceSpace {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The WebXR Device API's interface describes a virtual world
 /// reference space which has preset boundaries. This extends
 /// [XRReferenceSpace], which describes an essentially unrestricted
@@ -475,7 +545,11 @@ extension PropsXRReferenceSpace on XRReferenceSpace {
 ///
 ///
 ///
+///
+///
 ///    XRSpace
+///
+///
 ///
 ///
 ///
@@ -487,9 +561,12 @@ extension PropsXRReferenceSpace on XRReferenceSpace {
 ///
 ///
 ///
+///
+///
 ///    XRBoundedReferenceSpace
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class XRBoundedReferenceSpace implements XRReferenceSpace {
@@ -501,10 +578,24 @@ extension PropsXRBoundedReferenceSpace on XRBoundedReferenceSpace {
       js_util.getProperty(this, 'boundsGeometry');
 }
 
-enum XREye { none, left, right }
+enum XREye {
+  none('none'),
+  left('left'),
+  right('right');
+
+  final String value;
+  static XREye fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XREye> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const XREye(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The WebXR Device API's interface describes a single view into
 /// the XR scene for a specific frame, providing orientation and
 /// position information for the viewpoint. You can think of it as a
@@ -514,6 +605,7 @@ enum XREye { none, left, right }
 /// distance between the viewer's eyes. This allows the two views,
 /// when projected in isolation into the appropriate eyes, to
 /// simulate a 3D world.
+@experimental
 @JS()
 @staticInterop
 class XRView {
@@ -521,7 +613,7 @@ class XRView {
 }
 
 extension PropsXRView on XRView {
-  XREye get eye => XREye.values.byName(js_util.getProperty(this, 'eye'));
+  XREye get eye => XREye.fromValue(js_util.getProperty(this, 'eye'));
   Float32List get projectionMatrix =>
       js_util.getProperty(this, 'projectionMatrix');
   XRRigidTransform get transform => js_util.getProperty(this, 'transform');
@@ -532,6 +624,7 @@ extension PropsXRView on XRView {
 
   bool get isFirstPersonObserver =>
       js_util.getProperty(this, 'isFirstPersonObserver');
+  XRCamera? get camera => js_util.getProperty(this, 'camera');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -643,6 +736,8 @@ extension PropsXRPose on XRPose {
 ///
 ///
 ///
+///
+///
 ///    XRViewerPose
 ///
 ///
@@ -656,9 +751,31 @@ extension PropsXRViewerPose on XRViewerPose {
   Iterable<XRView> get views => js_util.getProperty(this, 'views');
 }
 
-enum XRHandedness { none, left, right }
+enum XRHandedness {
+  none('none'),
+  left('left'),
+  right('right');
 
-enum XRTargetRayMode { gaze, trackedPointer, screen }
+  final String value;
+  static XRHandedness fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XRHandedness> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const XRHandedness(this.value);
+}
+
+enum XRTargetRayMode {
+  gaze('gaze'),
+  trackedPointer('tracked-pointer'),
+  screen('screen');
+
+  final String value;
+  static XRTargetRayMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XRTargetRayMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const XRTargetRayMode(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
@@ -668,7 +785,6 @@ enum XRTargetRayMode { gaze, trackedPointer, screen }
 /// the platform being used, but provides the direction in which it
 /// is being aimed and optionally may generate events if the user
 /// triggers performs actions using the device.
-@experimental
 @JS()
 @staticInterop
 class XRInputSource {
@@ -677,9 +793,9 @@ class XRInputSource {
 
 extension PropsXRInputSource on XRInputSource {
   XRHandedness get handedness =>
-      XRHandedness.values.byName(js_util.getProperty(this, 'handedness'));
+      XRHandedness.fromValue(js_util.getProperty(this, 'handedness'));
   XRTargetRayMode get targetRayMode =>
-      XRTargetRayMode.values.byName(js_util.getProperty(this, 'targetRayMode'));
+      XRTargetRayMode.fromValue(js_util.getProperty(this, 'targetRayMode'));
   XRSpace get targetRaySpace => js_util.getProperty(this, 'targetRaySpace');
   XRSpace? get gripSpace => js_util.getProperty(this, 'gripSpace');
   Iterable<String> get profiles => js_util.getProperty(this, 'profiles');
@@ -688,7 +804,10 @@ extension PropsXRInputSource on XRInputSource {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface represents a live list of WebXR input sources, and
 /// is used as the return value of the [XRSession] property
 /// [inputSources]. Each entry is an [XRInputSource] representing one
@@ -697,6 +816,7 @@ extension PropsXRInputSource on XRInputSource {
 /// list using standard array notation (that is, with index numbers
 /// inside square brackets), methods are available to allow the use
 /// of iterators and the [forEach()] method is also available.
+@experimental
 @JS()
 @staticInterop
 class XRInputSourceArray extends JsArray<XRInputSource> {
@@ -708,7 +828,10 @@ extension PropsXRInputSourceArray on XRInputSourceArray {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebXR Device API is the base class for
 /// WebXR layer types. It inherits methods from [EventTarget].
 ///
@@ -720,9 +843,12 @@ extension PropsXRInputSourceArray on XRInputSourceArray {
 ///
 ///
 ///
+///
+///
 ///    XRLayer
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class XRLayer implements EventTarget {
@@ -776,7 +902,10 @@ extension PropsXRWebGLLayerInit on XRWebGLLayerInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebXR Device API provides a linkage between
 /// the WebXR device (or simulated XR device, in the case of an
 /// inline session) and a WebGL context used to render the scene for
@@ -795,7 +924,11 @@ extension PropsXRWebGLLayerInit on XRWebGLLayerInit {
 ///
 ///
 ///
+///
+///
 ///    XRLayer
+///
+///
 ///
 ///
 ///
@@ -838,6 +971,8 @@ extension PropsXRWebGLLayer on XRWebGLLayer {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -889,6 +1024,8 @@ extension PropsXRSessionEventInit on XRSessionEventInit {
 ///
 ///
 ///
+///
+///
 ///    XRInputSourceEvent
 ///
 ///
@@ -933,6 +1070,8 @@ extension PropsXRInputSourceEventInit on XRInputSourceEventInit {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -995,6 +1134,8 @@ extension PropsXRInputSourcesChangeEventInit on XRInputSourcesChangeEventInit {
 ///
 ///
 ///
+///
+///
 ///    XRReferenceSpaceEvent
 ///
 ///
@@ -1041,15 +1182,15 @@ class XRSessionSupportedPermissionDescriptor implements PermissionDescriptor {
 
   factory XRSessionSupportedPermissionDescriptor(
           {required XRSessionMode mode}) =>
-      XRSessionSupportedPermissionDescriptor._(mode: mode.name);
+      XRSessionSupportedPermissionDescriptor._(mode: mode.value);
 }
 
 extension PropsXRSessionSupportedPermissionDescriptor
     on XRSessionSupportedPermissionDescriptor {
   XRSessionMode get mode =>
-      XRSessionMode.values.byName(js_util.getProperty(this, 'mode'));
+      XRSessionMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(XRSessionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 }
 
@@ -1067,16 +1208,16 @@ class XRPermissionDescriptor implements PermissionDescriptor {
           required Iterable<String> requiredFeatures,
           required Iterable<String> optionalFeatures}) =>
       XRPermissionDescriptor._(
-          mode: mode.name,
+          mode: mode.value,
           requiredFeatures: requiredFeatures,
           optionalFeatures: optionalFeatures);
 }
 
 extension PropsXRPermissionDescriptor on XRPermissionDescriptor {
   XRSessionMode get mode =>
-      XRSessionMode.values.byName(js_util.getProperty(this, 'mode'));
+      XRSessionMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(XRSessionMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 
   Iterable<String> get requiredFeatures =>
@@ -1092,31 +1233,6 @@ extension PropsXRPermissionDescriptor on XRPermissionDescriptor {
   }
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface defines the object returned by calling
-/// [navigator.permissions.query()] for the [xr] permission name; it
-/// indicates whether or not the app or site has permission to use
-/// WebXR, and may be monitored over time for changes to that
-/// permissions tate.
-///
-///
-///
-///    EventTarget
-///
-///
-///
-///
-///
-///    PermissionStatus
-///
-///
-///
-///
-///
-///    XRPermissionStatus
-///
-///
 @JS()
 @staticInterop
 class XRPermissionStatus implements PermissionStatus {

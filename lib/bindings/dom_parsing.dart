@@ -40,9 +40,16 @@ extension PropsInnerHTML on InnerHTML {
 }
 
 enum SupportedType {
-  textHtml,
-  textXml,
-  applicationXml,
-  applicationXhtmlxml,
-  imageSvgxml
+  textHtml('text/html'),
+  textXml('text/xml'),
+  applicationXml('application/xml'),
+  applicationXhtmlxml('application/xhtml+xml'),
+  imageSvgxml('image/svg+xml');
+
+  final String value;
+  static SupportedType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<SupportedType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const SupportedType(this.value);
 }

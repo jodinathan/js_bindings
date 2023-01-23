@@ -10,9 +10,41 @@ library navigation_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Navigation API allows control over all
+/// navigation actions for the current [window] in one central place,
+/// including initiating navigations programmatically, examining
+/// navigation history entries, and managing navigations as they
+/// happen.
+/// It is accessed via the [Window.navigation] property.
+///  The Navigation API only exposes history entries created in the
+/// current browsing context that have the same origin as the current
+/// page (e.g. not navigations inside embedded [<iframe>]s, or
+/// cross-origin navigations), providing an accurate list of all
+/// previous history entries just for your app. This makes traversing
+/// the history a much less fragile proposition than with the older
+/// History API.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    Navigation
+///
+///
+@experimental
 @JS()
 @staticInterop
 class Navigation implements EventTarget {
@@ -112,7 +144,7 @@ class NavigationNavigateOptions implements NavigationOptions {
           {dynamic state,
           NavigationHistoryBehavior? history =
               NavigationHistoryBehavior.auto}) =>
-      NavigationNavigateOptions._(state: state, history: history?.name);
+      NavigationNavigateOptions._(state: state, history: history?.value);
 }
 
 extension PropsNavigationNavigateOptions on NavigationNavigateOptions {
@@ -121,10 +153,10 @@ extension PropsNavigationNavigateOptions on NavigationNavigateOptions {
     js_util.setProperty(this, 'state', newValue);
   }
 
-  NavigationHistoryBehavior get history => NavigationHistoryBehavior.values
-      .byName(js_util.getProperty(this, 'history'));
+  NavigationHistoryBehavior get history =>
+      NavigationHistoryBehavior.fromValue(js_util.getProperty(this, 'history'));
   set history(NavigationHistoryBehavior newValue) {
-    js_util.setProperty(this, 'history', newValue.name);
+    js_util.setProperty(this, 'history', newValue.value);
   }
 }
 
@@ -165,8 +197,50 @@ extension PropsNavigationResult on NavigationResult {
   }
 }
 
-enum NavigationHistoryBehavior { auto, push, replace }
+enum NavigationHistoryBehavior {
+  auto('auto'),
+  push('push'),
+  replace('replace');
 
+  final String value;
+  static NavigationHistoryBehavior fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationHistoryBehavior> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const NavigationHistoryBehavior(this.value);
+}
+
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Navigation API is the event object for the
+/// [currententrychange] event, which fires when the
+/// [Navigation.currentEntry] has changed.
+///  This event will fire for same-document navigations (e.g.
+/// [back()] or [traverseTo()]), replacements (i.e. a [navigate()]
+/// call with [history] set to [replace]), or other calls that change
+/// the entry's state (e.g. [updateCurrentEntry()], or the History
+/// API's [History.replaceState()]).
+///  This event fires after the navigation is committed, meaning that
+/// the visible URL has changed and the [NavigationHistoryEntry]
+/// update has occurred. It is useful for migrating from usage of
+/// older API features like the [hashchange] or [popstate] events.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    NavigationCurrentEntryChangeEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class NavigationCurrentEntryChangeEvent implements Event {
@@ -179,7 +253,7 @@ extension PropsNavigationCurrentEntryChangeEvent
   NavigationType? get navigationType {
     final ret = js_util.getProperty(this, 'navigationType');
 
-    return ret == null ? null : NavigationType.values.byName(ret);
+    return ret == null ? null : NavigationType.fromValue(ret);
   }
 
   NavigationHistoryEntry get from => js_util.getProperty(this, 'from');
@@ -196,7 +270,7 @@ class NavigationCurrentEntryChangeEventInit implements EventInit {
           {NavigationType? navigationType,
           required NavigationHistoryEntry destination}) =>
       NavigationCurrentEntryChangeEventInit._(
-          navigationType: navigationType?.name, destination: destination);
+          navigationType: navigationType?.value, destination: destination);
 }
 
 extension PropsNavigationCurrentEntryChangeEventInit
@@ -204,11 +278,11 @@ extension PropsNavigationCurrentEntryChangeEventInit
   NavigationType? get navigationType {
     final ret = js_util.getProperty(this, 'navigationType');
 
-    return ret == null ? null : NavigationType.values.byName(ret);
+    return ret == null ? null : NavigationType.fromValue(ret);
   }
 
   set navigationType(NavigationType? newValue) {
-    js_util.setProperty(this, 'navigationType', newValue?.name);
+    js_util.setProperty(this, 'navigationType', newValue?.value);
   }
 
   NavigationHistoryEntry get destination =>
@@ -218,6 +292,14 @@ extension PropsNavigationCurrentEntryChangeEventInit
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Navigation API represents an ongoing
+/// navigation, that is, a navigation that hasn't yet reached the
+/// [navigatesuccess] or [navigateerror] stage.
+/// It is accessed via the [Navigation.transition] property.
+@experimental
 @JS()
 @staticInterop
 class NavigationTransition {
@@ -226,12 +308,36 @@ class NavigationTransition {
 
 extension PropsNavigationTransition on NavigationTransition {
   NavigationType get navigationType =>
-      NavigationType.values.byName(js_util.getProperty(this, 'navigationType'));
+      NavigationType.fromValue(js_util.getProperty(this, 'navigationType'));
   NavigationHistoryEntry get from => js_util.getProperty(this, 'from');
   Future<void> get finished =>
       js_util.promiseToFuture(js_util.getProperty(this, 'finished'));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Navigation API is the event object for the
+/// [navigate] event, which fires when any type of navigation is
+/// initiated (this includes usage of History API features like
+/// [History.go()]). provides access to information about that
+/// navigation, and allows developers to intercept and control the
+/// navigation handling.
+///
+///
+///
+///    Event
+///
+///
+///
+///
+///
+///
+///
+///    NavigateEvent
+///
+///
+@experimental
 @JS()
 @staticInterop
 class NavigateEvent implements Event {
@@ -240,7 +346,7 @@ class NavigateEvent implements Event {
 
 extension PropsNavigateEvent on NavigateEvent {
   NavigationType get navigationType =>
-      NavigationType.values.byName(js_util.getProperty(this, 'navigationType'));
+      NavigationType.fromValue(js_util.getProperty(this, 'navigationType'));
   NavigationDestination get destination =>
       js_util.getProperty(this, 'destination');
   bool get canIntercept => js_util.getProperty(this, 'canIntercept');
@@ -282,7 +388,7 @@ class NavigateEventInit implements EventInit {
           String? downloadRequest,
           dynamic info}) =>
       NavigateEventInit._(
-          navigationType: navigationType?.name,
+          navigationType: navigationType?.value,
           destination: destination,
           canIntercept: canIntercept,
           userInitiated: userInitiated,
@@ -295,9 +401,9 @@ class NavigateEventInit implements EventInit {
 
 extension PropsNavigateEventInit on NavigateEventInit {
   NavigationType get navigationType =>
-      NavigationType.values.byName(js_util.getProperty(this, 'navigationType'));
+      NavigationType.fromValue(js_util.getProperty(this, 'navigationType'));
   set navigationType(NavigationType newValue) {
-    js_util.setProperty(this, 'navigationType', newValue.name);
+    js_util.setProperty(this, 'navigationType', newValue.value);
   }
 
   NavigationDestination get destination =>
@@ -356,7 +462,7 @@ class NavigationInterceptOptions {
           required NavigationFocusReset focusReset,
           required NavigationScrollBehavior scroll}) =>
       NavigationInterceptOptions._(
-          handler: handler, focusReset: focusReset.name, scroll: scroll.name);
+          handler: handler, focusReset: focusReset.value, scroll: scroll.value);
 }
 
 extension PropsNavigationInterceptOptions on NavigationInterceptOptions {
@@ -366,25 +472,65 @@ extension PropsNavigationInterceptOptions on NavigationInterceptOptions {
     js_util.setProperty(this, 'handler', newValue);
   }
 
-  NavigationFocusReset get focusReset => NavigationFocusReset.values
-      .byName(js_util.getProperty(this, 'focusReset'));
+  NavigationFocusReset get focusReset =>
+      NavigationFocusReset.fromValue(js_util.getProperty(this, 'focusReset'));
   set focusReset(NavigationFocusReset newValue) {
-    js_util.setProperty(this, 'focusReset', newValue.name);
+    js_util.setProperty(this, 'focusReset', newValue.value);
   }
 
-  NavigationScrollBehavior get scroll => NavigationScrollBehavior.values
-      .byName(js_util.getProperty(this, 'scroll'));
+  NavigationScrollBehavior get scroll =>
+      NavigationScrollBehavior.fromValue(js_util.getProperty(this, 'scroll'));
   set scroll(NavigationScrollBehavior newValue) {
-    js_util.setProperty(this, 'scroll', newValue.name);
+    js_util.setProperty(this, 'scroll', newValue.value);
   }
 }
 
-enum NavigationFocusReset { afterTransition, manual }
+enum NavigationFocusReset {
+  afterTransition('after-transition'),
+  manual('manual');
 
-enum NavigationScrollBehavior { afterTransition, manual }
+  final String value;
+  static NavigationFocusReset fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationFocusReset> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const NavigationFocusReset(this.value);
+}
 
-enum NavigationType { reload, push, replace, traverse }
+enum NavigationScrollBehavior {
+  afterTransition('after-transition'),
+  manual('manual');
 
+  final String value;
+  static NavigationScrollBehavior fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationScrollBehavior> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const NavigationScrollBehavior(this.value);
+}
+
+enum NavigationType {
+  reload('reload'),
+  push('push'),
+  replace('replace'),
+  traverse('traverse');
+
+  final String value;
+  static NavigationType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const NavigationType(this.value);
+}
+
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Navigation API represents the destination
+/// being navigated to in the current navigation.
+/// It is accessed via the [NavigateEvent.destination] property.
+@experimental
 @JS()
 @staticInterop
 class NavigationDestination {
@@ -400,6 +546,36 @@ extension PropsNavigationDestination on NavigationDestination {
   dynamic getState() => js_util.callMethod(this, 'getState', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Navigation API represents a single
+/// navigation history entry.
+///  These objects are commonly accessed via the
+/// [Navigation.currentEntry] property and [Navigation.entries()]
+/// method.
+///  The Navigation API only exposes history entries created in the
+/// current browsing context that have the same origin as the current
+/// page (e.g. not navigations inside embedded [<iframe>]s, or
+/// cross-origin navigations), providing an accurate list of all
+/// previous history entries just for your app. This makes traversing
+/// the history a much less fragile proposition than with the older
+/// History API.
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///
+///
+///    NavigationHistoryEntry
+///
+///
+@experimental
 @JS()
 @staticInterop
 class NavigationHistoryEntry implements EventTarget {

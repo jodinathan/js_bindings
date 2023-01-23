@@ -66,17 +66,35 @@ extension PropsKeyAlgorithm on KeyAlgorithm {
   }
 }
 
-enum KeyType { public, private, secret }
+enum KeyType {
+  public('public'),
+  private('private'),
+  secret('secret');
+
+  final String value;
+  static KeyType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<KeyType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const KeyType(this.value);
+}
 
 enum KeyUsage {
-  encrypt,
-  decrypt,
-  sign,
-  verify,
-  deriveKey,
-  deriveBits,
-  wrapKey,
-  unwrapKey
+  encrypt('encrypt'),
+  decrypt('decrypt'),
+  sign('sign'),
+  verify('verify'),
+  deriveKey('deriveKey'),
+  deriveBits('deriveBits'),
+  wrapKey('wrapKey'),
+  unwrapKey('unwrapKey');
+
+  final String value;
+  static KeyUsage fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<KeyUsage> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const KeyUsage(this.value);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -93,13 +111,25 @@ class CryptoKey {
 }
 
 extension PropsCryptoKey on CryptoKey {
-  KeyType get type => KeyType.values.byName(js_util.getProperty(this, 'type'));
+  KeyType get type => KeyType.fromValue(js_util.getProperty(this, 'type'));
   bool get extractable => js_util.getProperty(this, 'extractable');
   dynamic get algorithm => js_util.getProperty(this, 'algorithm');
   dynamic get usages => js_util.getProperty(this, 'usages');
 }
 
-enum KeyFormat { raw, spki, pkcs8, jwk }
+enum KeyFormat {
+  raw('raw'),
+  spki('spki'),
+  pkcs8('pkcs8'),
+  jwk('jwk');
+
+  final String value;
+  static KeyFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<KeyFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const KeyFormat(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
@@ -152,8 +182,8 @@ extension PropsSubtleCrypto on SubtleCrypto {
 
   Future<dynamic> generateKey(
           dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
-      js_util.promiseToFuture(js_util.callMethod(
-          this, 'generateKey', [algorithm, extractable, keyUsages.names]));
+      js_util.promiseToFuture(js_util.callMethod(this, 'generateKey',
+          [algorithm, extractable, keyUsages.map((e) => e.value)]));
 
   Future<dynamic> deriveKey(
           dynamic algorithm,
@@ -161,8 +191,13 @@ extension PropsSubtleCrypto on SubtleCrypto {
           dynamic derivedKeyType,
           bool extractable,
           Iterable<KeyUsage> keyUsages) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'deriveKey',
-          [algorithm, baseKey, derivedKeyType, extractable, keyUsages.names]));
+      js_util.promiseToFuture(js_util.callMethod(this, 'deriveKey', [
+        algorithm,
+        baseKey,
+        derivedKeyType,
+        extractable,
+        keyUsages.map((e) => e.value)
+      ]));
 
   Future<ByteBuffer> deriveBits(
           dynamic algorithm, CryptoKey baseKey, int length) =>
@@ -171,17 +206,22 @@ extension PropsSubtleCrypto on SubtleCrypto {
 
   Future<CryptoKey> importKey(KeyFormat format, dynamic keyData,
           dynamic algorithm, bool extractable, Iterable<KeyUsage> keyUsages) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'importKey',
-          [format.name, keyData, algorithm, extractable, keyUsages.names]));
+      js_util.promiseToFuture(js_util.callMethod(this, 'importKey', [
+        format.value,
+        keyData,
+        algorithm,
+        extractable,
+        keyUsages.map((e) => e.value)
+      ]));
 
   Future<dynamic> exportKey(KeyFormat format, CryptoKey key) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'exportKey', [format.name, key]));
+          js_util.callMethod(this, 'exportKey', [format.value, key]));
 
   Future<dynamic> wrapKey(KeyFormat format, CryptoKey key,
           CryptoKey wrappingKey, dynamic wrapAlgorithm) =>
       js_util.promiseToFuture(js_util.callMethod(
-          this, 'wrapKey', [format.name, key, wrappingKey, wrapAlgorithm]));
+          this, 'wrapKey', [format.value, key, wrappingKey, wrapAlgorithm]));
 
   Future<CryptoKey> unwrapKey(
           KeyFormat format,
@@ -192,13 +232,13 @@ extension PropsSubtleCrypto on SubtleCrypto {
           bool extractable,
           Iterable<KeyUsage> keyUsages) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'unwrapKey', [
-        format.name,
+        format.value,
         wrappedKey,
         unwrappingKey,
         unwrapAlgorithm,
         unwrappedKeyAlgorithm,
         extractable,
-        keyUsages.names
+        keyUsages.map((e) => e.value)
       ]));
 }
 
@@ -587,7 +627,7 @@ extension PropsEcKeyImportParams on EcKeyImportParams {
 /// public and a private key to derive a shared secret. They exchange
 /// public keys and use the combination of their private key and the
 /// other entity's public key to derive a secret key that they — and
-/// noone else — share.
+/// no one else — share.
 ///  The parameters for ECDH [deriveKey()] therefore include the
 /// other entity's public key, which is combined with this entity's
 /// private key to derive the shared secret.

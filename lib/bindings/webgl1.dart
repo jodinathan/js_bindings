@@ -1,6 +1,6 @@
 /// WebGL Specification
 ///
-/// https://www.khronos.org/registry/webgl/specs/latest/1.0/
+/// https://registry.khronos.org/webgl/specs/latest/1.0/
 
 // ignore_for_file: unused_import
 
@@ -13,7 +13,18 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum WebGLPowerPreference { valueDefault, lowPower, highPerformance }
+enum WebGLPowerPreference {
+  valueDefault('default'),
+  lowPower('low-power'),
+  highPerformance('high-performance');
+
+  final String value;
+  static WebGLPowerPreference fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<WebGLPowerPreference> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const WebGLPowerPreference(this.value);
+}
 
 @anonymous
 @JS()
@@ -48,7 +59,7 @@ class WebGLContextAttributes {
           antialias: antialias,
           premultipliedAlpha: premultipliedAlpha,
           preserveDrawingBuffer: preserveDrawingBuffer,
-          powerPreference: powerPreference?.name,
+          powerPreference: powerPreference?.value,
           failIfMajorPerformanceCaveat: failIfMajorPerformanceCaveat,
           desynchronized: desynchronized);
 }
@@ -86,10 +97,10 @@ extension PropsWebGLContextAttributes on WebGLContextAttributes {
     js_util.setProperty(this, 'preserveDrawingBuffer', newValue);
   }
 
-  WebGLPowerPreference get powerPreference => WebGLPowerPreference.values
-      .byName(js_util.getProperty(this, 'powerPreference'));
+  WebGLPowerPreference get powerPreference => WebGLPowerPreference.fromValue(
+      js_util.getProperty(this, 'powerPreference'));
   set powerPreference(WebGLPowerPreference newValue) {
-    js_util.setProperty(this, 'powerPreference', newValue.name);
+    js_util.setProperty(this, 'powerPreference', newValue.value);
   }
 
   bool get failIfMajorPerformanceCaveat =>
@@ -122,6 +133,8 @@ class WebGLObject {
 ///
 ///
 ///
+///
+///
 ///    WebGLBuffer
 ///
 ///
@@ -138,6 +151,8 @@ class WebGLBuffer implements WebGLObject {
 ///
 ///
 ///    WebGLObject
+///
+///
 ///
 ///
 ///
@@ -164,13 +179,15 @@ class WebGLFramebuffer implements WebGLObject {
 ///
 ///
 ///
+///
+///
 ///    WebGLProgram
 ///
 ///
 ///  To create a , call the GL context's [createProgram()] function.
 /// After attaching the shader programs using [attachShader()], you
 /// link them into a usable program. This is shown in the code below.
-/// [var program = gl.createProgram();
+/// [const program = gl.createProgram();
 ///
 /// // Attach pre-existing shaders
 /// gl.attachShader(program, vertexShader);
@@ -178,9 +195,9 @@ class WebGLFramebuffer implements WebGLObject {
 ///
 /// gl.linkProgram(program);
 ///
-/// if ( !gl.getProgramParameter( program, gl.LINK_STATUS) ) {
-///  var info = gl.getProgramInfoLog(program);
-///  throw 'Could not compile WebGL program. \n\n' + info;
+/// if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+///  const info = gl.getProgramInfoLog(program);
+///  throw `Could not compile WebGL program. \n\n${info}`;
 /// }
 /// ]
 ///  See [WebGLShader] for information on creating the [vertexShader]
@@ -198,6 +215,8 @@ class WebGLProgram implements WebGLObject {
 ///
 ///
 ///    WebGLObject
+///
+///
 ///
 ///
 ///
@@ -224,6 +243,8 @@ class WebGLRenderbuffer implements WebGLObject {
 ///
 ///
 ///
+///
+///
 ///    WebGLShader
 ///
 ///
@@ -240,6 +261,8 @@ class WebGLShader implements WebGLObject {
 ///
 ///
 ///    WebGLObject
+///
+///
 ///
 ///
 ///
@@ -1194,16 +1217,16 @@ extension PropsWebGLRenderingContextBase on WebGLRenderingContextBase {
   int get drawingBufferHeight =>
       js_util.getProperty(this, 'drawingBufferHeight');
   PredefinedColorSpace get drawingBufferColorSpace =>
-      PredefinedColorSpace.values
-          .byName(js_util.getProperty(this, 'drawingBufferColorSpace'));
+      PredefinedColorSpace.fromValue(
+          js_util.getProperty(this, 'drawingBufferColorSpace'));
   set drawingBufferColorSpace(PredefinedColorSpace newValue) {
-    js_util.setProperty(this, 'drawingBufferColorSpace', newValue.name);
+    js_util.setProperty(this, 'drawingBufferColorSpace', newValue.value);
   }
 
-  PredefinedColorSpace get unpackColorSpace => PredefinedColorSpace.values
-      .byName(js_util.getProperty(this, 'unpackColorSpace'));
+  PredefinedColorSpace get unpackColorSpace => PredefinedColorSpace.fromValue(
+      js_util.getProperty(this, 'unpackColorSpace'));
   set unpackColorSpace(PredefinedColorSpace newValue) {
-    js_util.setProperty(this, 'unpackColorSpace', newValue.name);
+    js_util.setProperty(this, 'unpackColorSpace', newValue.value);
   }
 
   WebGLContextAttributes? getContextAttributes() =>
@@ -1695,8 +1718,8 @@ extension PropsWebGLRenderingContextOverloads
 ///  To get an access to a WebGL context for 2D and/or 3D graphics
 /// rendering, call [getContext()] on a [<canvas>] element, supplying
 /// "webgl" as the argument:
-/// [var canvas = document.getElementById('myCanvas');
-/// var gl = canvas.getContext('webgl');
+/// [const canvas = document.getElementById('myCanvas');
+/// const gl = canvas.getContext('webgl');
 /// ]
 ///  Once you have the WebGL rendering context for a canvas, you can
 /// render within it. The WebGL tutorial has more information,
@@ -1718,6 +1741,8 @@ class WebGLRenderingContext
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///

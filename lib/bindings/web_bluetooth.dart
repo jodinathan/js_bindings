@@ -160,6 +160,8 @@ extension PropsRequestDeviceOptions on RequestDeviceOptions {
 ///
 ///
 ///
+///
+///
 ///    Bluetooth
 ///
 ///
@@ -328,8 +330,8 @@ extension PropsValueEventInit on ValueEventInit {
 /// Browser compatibility table carefully before using this in
 /// production.
 ///
-///  The BluetoothDevice interface of the Web Bluetooth
-///  API represents a Bluetooth device inside a particular script
+///   The BluetoothDevice interface of the Web Bluetooth API
+/// represents a Bluetooth device inside a particular script
 /// execution
 ///  environment.
 ///
@@ -337,6 +339,8 @@ extension PropsValueEventInit on ValueEventInit {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -484,12 +488,6 @@ extension PropsBluetoothAdvertisingEventInit on BluetoothAdvertisingEventInit {
 ///  The interface of the Web Bluetooth API represents a GATT
 ///  Server on a remote device.
 ///
-///    Note: This page describes the W3C Community Group Web
-/// Bluetooth API. For the Firefox OS
-///   Bluetooth API, see [BluetoothGattServer]
-/// (Firefox OS).
-///
-///
 @experimental
 @JS()
 @staticInterop
@@ -519,13 +517,6 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
 /// Browser compatibility table carefully before using this in
 /// production.
 ///
-///
-///    Note: This page describes the W3C Community Group
-/// BluetoothRemoteGATTService, formerly
-///    called BluetoothGATTService. For the Firefox OS interface of
-/// the same name,
-///   see [BluetoothGattService].
-///
 ///  The interface of the Web Bluetooth API represents a
 ///   service provided by a GATT server, including a device, a list
 /// of referenced services,
@@ -535,6 +526,8 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -581,11 +574,13 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
 ///  The [BluetoothRemoteGattCharacteristic] interface of the Web
 /// Bluetooth API represents a GATT Characteristic, which is a basic
 /// data element that provides further information about a
-/// peripheral’s service.
+/// peripheral's service.
 ///
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -677,14 +672,8 @@ extension PropsBluetoothCharacteristicProperties
 ///
 ///   The interface of the Web Bluetooth API provides a GATT
 /// Descriptor,
-///   which provides further information about a characteristic’s
+///   which provides further information about a characteristic's
 /// value.
-///
-///    Note: This page describes the W3C Community Group Web
-/// Bluetooth API. For the Firefox OS
-///   Bluetooth API, see [BluetoothGattDescriptor]
-/// (Firefox OS).
-///
 ///
 @experimental
 @JS()

@@ -1,6 +1,6 @@
 /// WebGL ANGLE_instanced_arrays Khronos Ratified Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/ANGLE_instanced_arrays/
+/// https://registry.khronos.org/webgl/extensions/ANGLE_instanced_arrays/
 
 // ignore_for_file: unused_import
 

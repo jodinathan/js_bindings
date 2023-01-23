@@ -22,14 +22,14 @@ class JsonLdFramingError {
 
   factory JsonLdFramingError(
           {required JsonLdFramingErrorCode code, String? message}) =>
-      JsonLdFramingError._(code: code.name, message: message);
+      JsonLdFramingError._(code: code.value, message: message);
 }
 
 extension PropsJsonLdFramingError on JsonLdFramingError {
   JsonLdFramingErrorCode get code =>
-      JsonLdFramingErrorCode.values.byName(js_util.getProperty(this, 'code'));
+      JsonLdFramingErrorCode.fromValue(js_util.getProperty(this, 'code'));
   set code(JsonLdFramingErrorCode newValue) {
-    js_util.setProperty(this, 'code', newValue.name);
+    js_util.setProperty(this, 'code', newValue.value);
   }
 
   String? get message => js_util.getProperty(this, 'message');
@@ -38,6 +38,27 @@ extension PropsJsonLdFramingError on JsonLdFramingError {
   }
 }
 
-enum JsonLdFramingErrorCode { invalidFrame, invalidembedValue }
+enum JsonLdFramingErrorCode {
+  invalidFrame('invalid frame'),
+  invalidembedValue('invalid @embed value');
 
-enum JsonLdEmbed { always, once, never }
+  final String value;
+  static JsonLdFramingErrorCode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<JsonLdFramingErrorCode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const JsonLdFramingErrorCode(this.value);
+}
+
+enum JsonLdEmbed {
+  always('@always'),
+  once('@once'),
+  never('@never');
+
+  final String value;
+  static JsonLdEmbed fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<JsonLdEmbed> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const JsonLdEmbed(this.value);
+}

@@ -21,11 +21,22 @@ class DevicePosture implements EventTarget {
 
 extension PropsDevicePosture on DevicePosture {
   DevicePostureType get type =>
-      DevicePostureType.values.byName(js_util.getProperty(this, 'type'));
+      DevicePostureType.fromValue(js_util.getProperty(this, 'type'));
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onchange', newValue);
   }
 }
 
-enum DevicePostureType { continuous, folded, foldedOver }
+enum DevicePostureType {
+  continuous('continuous'),
+  folded('folded'),
+  foldedOver('folded-over');
+
+  final String value;
+  static DevicePostureType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<DevicePostureType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const DevicePostureType(this.value);
+}

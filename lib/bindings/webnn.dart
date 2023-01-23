@@ -23,9 +23,30 @@ extension PropsNavigatorML on NavigatorML {
   Ml get ml => js_util.getProperty(this, 'ml');
 }
 
-enum MLDeviceType { cpu, gpu }
+enum MLDeviceType {
+  cpu('cpu'),
+  gpu('gpu');
 
-enum MLPowerPreference { valueDefault, highPerformance, lowPower }
+  final String value;
+  static MLDeviceType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLDeviceType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLDeviceType(this.value);
+}
+
+enum MLPowerPreference {
+  valueDefault('default'),
+  highPerformance('high-performance'),
+  lowPower('low-power');
+
+  final String value;
+  static MLPowerPreference fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLPowerPreference> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLPowerPreference(this.value);
+}
 
 @anonymous
 @JS()
@@ -39,20 +60,21 @@ class MLContextOptions {
           MLPowerPreference? powerPreference =
               MLPowerPreference.valueDefault}) =>
       MLContextOptions._(
-          deviceType: deviceType?.name, powerPreference: powerPreference?.name);
+          deviceType: deviceType?.value,
+          powerPreference: powerPreference?.value);
 }
 
 extension PropsMLContextOptions on MLContextOptions {
   MLDeviceType get deviceType =>
-      MLDeviceType.values.byName(js_util.getProperty(this, 'deviceType'));
+      MLDeviceType.fromValue(js_util.getProperty(this, 'deviceType'));
   set deviceType(MLDeviceType newValue) {
-    js_util.setProperty(this, 'deviceType', newValue.name);
+    js_util.setProperty(this, 'deviceType', newValue.value);
   }
 
-  MLPowerPreference get powerPreference => MLPowerPreference.values
-      .byName(js_util.getProperty(this, 'powerPreference'));
+  MLPowerPreference get powerPreference =>
+      MLPowerPreference.fromValue(js_util.getProperty(this, 'powerPreference'));
   set powerPreference(MLPowerPreference newValue) {
-    js_util.setProperty(this, 'powerPreference', newValue.name);
+    js_util.setProperty(this, 'powerPreference', newValue.value);
   }
 }
 
@@ -63,8 +85,11 @@ class Ml {
 }
 
 extension PropsMl on Ml {
-  MLContext createContext([MLContextOptions? options]) =>
-      js_util.callMethod(this, 'createContext', [options]);
+  Future<MLContext> createContext([MLContextOptions? options]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'createContext', [options]));
+
+  MLContext createContextSync([MLContextOptions? options]) =>
+      js_util.callMethod(this, 'createContextSync', [options]);
 }
 
 @JS()
@@ -74,20 +99,64 @@ class MLContext {
 }
 
 extension PropsMLContext on MLContext {
-  void compute(MLGraph graph, dynamic inputs, dynamic outputs) =>
-      js_util.callMethod(this, 'compute', [graph, inputs, outputs]);
+  void computeSync(MLGraph graph, dynamic inputs, dynamic outputs) =>
+      js_util.callMethod(this, 'computeSync', [graph, inputs, outputs]);
 
-  Future<void> computeAsync(MLGraph graph, dynamic inputs, dynamic outputs) =>
+  Future<MLComputeResult> compute(
+          MLGraph graph, dynamic inputs, dynamic outputs) =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'computeAsync', [graph, inputs, outputs]));
+          js_util.callMethod(this, 'compute', [graph, inputs, outputs]));
 
   MLCommandEncoder createCommandEncoder() =>
       js_util.callMethod(this, 'createCommandEncoder', []);
 }
 
-enum MLInputOperandLayout { nchw, nhwc }
+@anonymous
+@JS()
+@staticInterop
+class MLComputeResult {
+  external factory MLComputeResult({dynamic inputs, dynamic outputs});
+}
 
-enum MLOperandType { float32, float16, int32, uint32, int8, uint8 }
+extension PropsMLComputeResult on MLComputeResult {
+  dynamic get inputs => js_util.getProperty(this, 'inputs');
+  set inputs(dynamic newValue) {
+    js_util.setProperty(this, 'inputs', newValue);
+  }
+
+  dynamic get outputs => js_util.getProperty(this, 'outputs');
+  set outputs(dynamic newValue) {
+    js_util.setProperty(this, 'outputs', newValue);
+  }
+}
+
+enum MLInputOperandLayout {
+  nchw('nchw'),
+  nhwc('nhwc');
+
+  final String value;
+  static MLInputOperandLayout fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLInputOperandLayout> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLInputOperandLayout(this.value);
+}
+
+enum MLOperandType {
+  float32('float32'),
+  float16('float16'),
+  int32('int32'),
+  uint32('uint32'),
+  int8('int8'),
+  uint8('uint8');
+
+  final String value;
+  static MLOperandType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLOperandType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLOperandType(this.value);
+}
 
 @anonymous
 @JS()
@@ -98,14 +167,14 @@ class MLOperandDescriptor {
 
   factory MLOperandDescriptor(
           {required MLOperandType type, required Iterable<int> dimensions}) =>
-      MLOperandDescriptor._(type: type.name, dimensions: dimensions);
+      MLOperandDescriptor._(type: type.value, dimensions: dimensions);
 }
 
 extension PropsMLOperandDescriptor on MLOperandDescriptor {
   MLOperandType get type =>
-      MLOperandType.values.byName(js_util.getProperty(this, 'type'));
+      MLOperandType.fromValue(js_util.getProperty(this, 'type'));
   set type(MLOperandType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   Iterable<int> get dimensions => js_util.getProperty(this, 'dimensions');
@@ -122,8 +191,8 @@ class MLOperand {
 
 @JS()
 @staticInterop
-class MLOperator {
-  external factory MLOperator();
+class MLActivation {
+  external factory MLActivation();
 }
 
 @anonymous
@@ -164,11 +233,11 @@ extension PropsMLGraphBuilder on MLGraphBuilder {
   MLOperand constant(MLOperandDescriptor desc, dynamic bufferView) =>
       js_util.callMethod(this, 'constant', [desc, bufferView]);
 
-  MLGraph build(dynamic outputs) =>
-      js_util.callMethod(this, 'build', [outputs]);
+  Future<MLGraph> build(dynamic outputs) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'build', [outputs]));
 
-  Future<MLGraph> buildAsync(dynamic outputs) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'buildAsync', [outputs]));
+  MLGraph buildSync(dynamic outputs) =>
+      js_util.callMethod(this, 'buildSync', [outputs]);
 
   MLOperand batchNormalization(
           MLOperand input, MLOperand mean, MLOperand variance,
@@ -260,11 +329,35 @@ extension PropsMLGraphBuilder on MLGraphBuilder {
   MLOperand leakyRelu([MLOperand? x, MLLeakyReluOptions? options]) =>
       js_util.callMethod(this, 'leakyRelu', [x, options]);
 
-  MLOperand matmul(MLOperand a, MLOperand b) =>
-      js_util.callMethod(this, 'matmul', [a, b]);
-
   MLOperand linear([MLOperand? x, MLLinearOptions? options]) =>
       js_util.callMethod(this, 'linear', [x, options]);
+
+  Iterable<MLOperand> lstm(MLOperand input, MLOperand weight,
+          MLOperand recurrentWeight, int steps, int hiddenSize,
+          [MLLstmOptions? options]) =>
+      js_util.callMethod(this, 'lstm',
+          [input, weight, recurrentWeight, steps, hiddenSize, options]);
+
+  Iterable<MLOperand> lstmCell(
+          MLOperand input,
+          MLOperand weight,
+          MLOperand recurrentWeight,
+          MLOperand hiddenState,
+          MLOperand cellState,
+          int hiddenSize,
+          [MLLstmCellOptions? options]) =>
+      js_util.callMethod(this, 'lstmCell', [
+        input,
+        weight,
+        recurrentWeight,
+        hiddenState,
+        cellState,
+        hiddenSize,
+        options
+      ]);
+
+  MLOperand matmul(MLOperand a, MLOperand b) =>
+      js_util.callMethod(this, 'matmul', [a, b]);
 
   MLOperand pad(MLOperand input, MLOperand padding, [MLPadOptions? options]) =>
       js_util.callMethod(this, 'pad', [input, padding, options]);
@@ -313,7 +406,7 @@ extension PropsMLGraphBuilder on MLGraphBuilder {
   MLOperand resample2d(MLOperand input, [MLResample2dOptions? options]) =>
       js_util.callMethod(this, 'resample2d', [input, options]);
 
-  MLOperand reshape(MLOperand input, Iterable<int> newShape) =>
+  MLOperand reshape(MLOperand input, Iterable<int>? newShape) =>
       js_util.callMethod(this, 'reshape', [input, newShape]);
 
   MLOperand sigmoid([MLOperand? x]) => js_util.callMethod(this, 'sigmoid', [x]);
@@ -322,7 +415,7 @@ extension PropsMLGraphBuilder on MLGraphBuilder {
           [MLSliceOptions? options]) =>
       js_util.callMethod(this, 'slice', [input, starts, sizes, options]);
 
-  MLOperand softmax(MLOperand x) => js_util.callMethod(this, 'softmax', [x]);
+  MLOperand softmax([MLOperand? x]) => js_util.callMethod(this, 'softmax', [x]);
 
   MLOperand softplus([MLOperand? x, MLSoftplusOptions? options]) =>
       js_util.callMethod(this, 'softplus', [x, options]);
@@ -352,7 +445,7 @@ class MLBatchNormalizationOptions {
       required MLOperand bias,
       int? axis = 1,
       double? epsilon = 1e-5,
-      MLOperator? activation});
+      MLActivation? activation});
 }
 
 extension PropsMLBatchNormalizationOptions on MLBatchNormalizationOptions {
@@ -376,8 +469,8 @@ extension PropsMLBatchNormalizationOptions on MLBatchNormalizationOptions {
     js_util.setProperty(this, 'epsilon', newValue);
   }
 
-  MLOperator get activation => js_util.getProperty(this, 'activation');
-  set activation(MLOperator newValue) {
+  MLActivation get activation => js_util.getProperty(this, 'activation');
+  set activation(MLActivation newValue) {
     js_util.setProperty(this, 'activation', newValue);
   }
 }
@@ -402,9 +495,33 @@ extension PropsMLClampOptions on MLClampOptions {
   }
 }
 
-enum MLConv2dFilterOperandLayout { oihw, hwio, ohwi, ihwo }
+enum MLConv2dFilterOperandLayout {
+  oihw('oihw'),
+  hwio('hwio'),
+  ohwi('ohwi'),
+  ihwo('ihwo');
 
-enum MLAutoPad { explicit, sameUpper, sameLower }
+  final String value;
+  static MLConv2dFilterOperandLayout fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLConv2dFilterOperandLayout> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const MLConv2dFilterOperandLayout(this.value);
+}
+
+enum MLAutoPad {
+  explicit('explicit'),
+  sameUpper('same-upper'),
+  sameLower('same-lower');
+
+  final String value;
+  static MLAutoPad fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLAutoPad> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLAutoPad(this.value);
+}
 
 @anonymous
 @JS()
@@ -419,7 +536,7 @@ class MLConv2dOptions {
       String? inputLayout,
       String? filterLayout,
       MLOperand? bias,
-      MLOperator? activation});
+      MLActivation? activation});
 
   factory MLConv2dOptions(
           {required Iterable<int> padding,
@@ -431,15 +548,15 @@ class MLConv2dOptions {
           MLConv2dFilterOperandLayout? filterLayout =
               MLConv2dFilterOperandLayout.oihw,
           MLOperand? bias,
-          MLOperator? activation}) =>
+          MLActivation? activation}) =>
       MLConv2dOptions._(
           padding: padding,
           strides: strides,
           dilations: dilations,
-          autoPad: autoPad?.name,
+          autoPad: autoPad?.value,
           groups: groups,
-          inputLayout: inputLayout?.name,
-          filterLayout: filterLayout?.name,
+          inputLayout: inputLayout?.value,
+          filterLayout: filterLayout?.value,
           bias: bias,
           activation: activation);
 }
@@ -461,9 +578,9 @@ extension PropsMLConv2dOptions on MLConv2dOptions {
   }
 
   MLAutoPad get autoPad =>
-      MLAutoPad.values.byName(js_util.getProperty(this, 'autoPad'));
+      MLAutoPad.fromValue(js_util.getProperty(this, 'autoPad'));
   set autoPad(MLAutoPad newValue) {
-    js_util.setProperty(this, 'autoPad', newValue.name);
+    js_util.setProperty(this, 'autoPad', newValue.value);
   }
 
   int get groups => js_util.getProperty(this, 'groups');
@@ -471,17 +588,17 @@ extension PropsMLConv2dOptions on MLConv2dOptions {
     js_util.setProperty(this, 'groups', newValue);
   }
 
-  MLInputOperandLayout get inputLayout => MLInputOperandLayout.values
-      .byName(js_util.getProperty(this, 'inputLayout'));
+  MLInputOperandLayout get inputLayout =>
+      MLInputOperandLayout.fromValue(js_util.getProperty(this, 'inputLayout'));
   set inputLayout(MLInputOperandLayout newValue) {
-    js_util.setProperty(this, 'inputLayout', newValue.name);
+    js_util.setProperty(this, 'inputLayout', newValue.value);
   }
 
   MLConv2dFilterOperandLayout get filterLayout =>
-      MLConv2dFilterOperandLayout.values
-          .byName(js_util.getProperty(this, 'filterLayout'));
+      MLConv2dFilterOperandLayout.fromValue(
+          js_util.getProperty(this, 'filterLayout'));
   set filterLayout(MLConv2dFilterOperandLayout newValue) {
-    js_util.setProperty(this, 'filterLayout', newValue.name);
+    js_util.setProperty(this, 'filterLayout', newValue.value);
   }
 
   MLOperand get bias => js_util.getProperty(this, 'bias');
@@ -489,13 +606,25 @@ extension PropsMLConv2dOptions on MLConv2dOptions {
     js_util.setProperty(this, 'bias', newValue);
   }
 
-  MLOperator get activation => js_util.getProperty(this, 'activation');
-  set activation(MLOperator newValue) {
+  MLActivation get activation => js_util.getProperty(this, 'activation');
+  set activation(MLActivation newValue) {
     js_util.setProperty(this, 'activation', newValue);
   }
 }
 
-enum MLConvTranspose2dFilterOperandLayout { iohw, hwoi, ohwi }
+enum MLConvTranspose2dFilterOperandLayout {
+  iohw('iohw'),
+  hwoi('hwoi'),
+  ohwi('ohwi');
+
+  final String value;
+  static MLConvTranspose2dFilterOperandLayout fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLConvTranspose2dFilterOperandLayout> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const MLConvTranspose2dFilterOperandLayout(this.value);
+}
 
 @anonymous
 @JS()
@@ -512,7 +641,7 @@ class MLConvTranspose2dOptions {
       String? inputLayout,
       String? filterLayout,
       MLOperand? bias,
-      MLOperator? activation});
+      MLActivation? activation});
 
   factory MLConvTranspose2dOptions(
           {required Iterable<int> padding,
@@ -526,17 +655,17 @@ class MLConvTranspose2dOptions {
           MLConvTranspose2dFilterOperandLayout? filterLayout =
               MLConvTranspose2dFilterOperandLayout.iohw,
           MLOperand? bias,
-          MLOperator? activation}) =>
+          MLActivation? activation}) =>
       MLConvTranspose2dOptions._(
           padding: padding,
           strides: strides,
           dilations: dilations,
           outputPadding: outputPadding,
           outputSizes: outputSizes,
-          autoPad: autoPad?.name,
+          autoPad: autoPad?.value,
           groups: groups,
-          inputLayout: inputLayout?.name,
-          filterLayout: filterLayout?.name,
+          inputLayout: inputLayout?.value,
+          filterLayout: filterLayout?.value,
           bias: bias,
           activation: activation);
 }
@@ -568,9 +697,9 @@ extension PropsMLConvTranspose2dOptions on MLConvTranspose2dOptions {
   }
 
   MLAutoPad get autoPad =>
-      MLAutoPad.values.byName(js_util.getProperty(this, 'autoPad'));
+      MLAutoPad.fromValue(js_util.getProperty(this, 'autoPad'));
   set autoPad(MLAutoPad newValue) {
-    js_util.setProperty(this, 'autoPad', newValue.name);
+    js_util.setProperty(this, 'autoPad', newValue.value);
   }
 
   int get groups => js_util.getProperty(this, 'groups');
@@ -578,17 +707,17 @@ extension PropsMLConvTranspose2dOptions on MLConvTranspose2dOptions {
     js_util.setProperty(this, 'groups', newValue);
   }
 
-  MLInputOperandLayout get inputLayout => MLInputOperandLayout.values
-      .byName(js_util.getProperty(this, 'inputLayout'));
+  MLInputOperandLayout get inputLayout =>
+      MLInputOperandLayout.fromValue(js_util.getProperty(this, 'inputLayout'));
   set inputLayout(MLInputOperandLayout newValue) {
-    js_util.setProperty(this, 'inputLayout', newValue.name);
+    js_util.setProperty(this, 'inputLayout', newValue.value);
   }
 
   MLConvTranspose2dFilterOperandLayout get filterLayout =>
-      MLConvTranspose2dFilterOperandLayout.values
-          .byName(js_util.getProperty(this, 'filterLayout'));
+      MLConvTranspose2dFilterOperandLayout.fromValue(
+          js_util.getProperty(this, 'filterLayout'));
   set filterLayout(MLConvTranspose2dFilterOperandLayout newValue) {
-    js_util.setProperty(this, 'filterLayout', newValue.name);
+    js_util.setProperty(this, 'filterLayout', newValue.value);
   }
 
   MLOperand get bias => js_util.getProperty(this, 'bias');
@@ -596,8 +725,8 @@ extension PropsMLConvTranspose2dOptions on MLConvTranspose2dOptions {
     js_util.setProperty(this, 'bias', newValue);
   }
 
-  MLOperator get activation => js_util.getProperty(this, 'activation');
-  set activation(MLOperator newValue) {
+  MLActivation get activation => js_util.getProperty(this, 'activation');
+  set activation(MLActivation newValue) {
     js_util.setProperty(this, 'activation', newValue);
   }
 }
@@ -655,9 +784,31 @@ extension PropsMLGemmOptions on MLGemmOptions {
   }
 }
 
-enum MLRecurrentNetworkWeightLayout { zrn, rzn }
+enum MLGruWeightLayout {
+  zrn('zrn'),
+  rzn('rzn');
 
-enum MLRecurrentNetworkDirection { forward, backward, both }
+  final String value;
+  static MLGruWeightLayout fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLGruWeightLayout> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLGruWeightLayout(this.value);
+}
+
+enum MLRecurrentNetworkDirection {
+  forward('forward'),
+  backward('backward'),
+  both('both');
+
+  final String value;
+  static MLRecurrentNetworkDirection fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLRecurrentNetworkDirection> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const MLRecurrentNetworkDirection(this.value);
+}
 
 @anonymous
 @JS()
@@ -671,7 +822,7 @@ class MLGruOptions {
       bool? returnSequence = false,
       String? direction,
       String? layout,
-      Iterable<MLOperator>? activations});
+      Iterable<MLActivation>? activations});
 
   factory MLGruOptions(
           {required MLOperand bias,
@@ -681,17 +832,16 @@ class MLGruOptions {
           bool? returnSequence = false,
           MLRecurrentNetworkDirection? direction =
               MLRecurrentNetworkDirection.forward,
-          MLRecurrentNetworkWeightLayout? layout =
-              MLRecurrentNetworkWeightLayout.zrn,
-          Iterable<MLOperator>? activations}) =>
+          MLGruWeightLayout? layout = MLGruWeightLayout.zrn,
+          Iterable<MLActivation>? activations}) =>
       MLGruOptions._(
           bias: bias,
           recurrentBias: recurrentBias,
           initialHiddenState: initialHiddenState,
           resetAfter: resetAfter,
           returnSequence: returnSequence,
-          direction: direction?.name,
-          layout: layout?.name,
+          direction: direction?.value,
+          layout: layout?.value,
           activations: activations);
 }
 
@@ -723,22 +873,21 @@ extension PropsMLGruOptions on MLGruOptions {
   }
 
   MLRecurrentNetworkDirection get direction =>
-      MLRecurrentNetworkDirection.values
-          .byName(js_util.getProperty(this, 'direction'));
+      MLRecurrentNetworkDirection.fromValue(
+          js_util.getProperty(this, 'direction'));
   set direction(MLRecurrentNetworkDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue.name);
+    js_util.setProperty(this, 'direction', newValue.value);
   }
 
-  MLRecurrentNetworkWeightLayout get layout =>
-      MLRecurrentNetworkWeightLayout.values
-          .byName(js_util.getProperty(this, 'layout'));
-  set layout(MLRecurrentNetworkWeightLayout newValue) {
-    js_util.setProperty(this, 'layout', newValue.name);
+  MLGruWeightLayout get layout =>
+      MLGruWeightLayout.fromValue(js_util.getProperty(this, 'layout'));
+  set layout(MLGruWeightLayout newValue) {
+    js_util.setProperty(this, 'layout', newValue.value);
   }
 
-  Iterable<MLOperator> get activations =>
+  Iterable<MLActivation> get activations =>
       js_util.getProperty(this, 'activations');
-  set activations(Iterable<MLOperator> newValue) {
+  set activations(Iterable<MLActivation> newValue) {
     js_util.setProperty(this, 'activations', newValue);
   }
 }
@@ -752,20 +901,19 @@ class MLGruCellOptions {
       required MLOperand recurrentBias,
       bool? resetAfter = true,
       String? layout,
-      Iterable<MLOperator>? activations});
+      Iterable<MLActivation>? activations});
 
   factory MLGruCellOptions(
           {required MLOperand bias,
           required MLOperand recurrentBias,
           bool? resetAfter = true,
-          MLRecurrentNetworkWeightLayout? layout =
-              MLRecurrentNetworkWeightLayout.zrn,
-          Iterable<MLOperator>? activations}) =>
+          MLGruWeightLayout? layout = MLGruWeightLayout.zrn,
+          Iterable<MLActivation>? activations}) =>
       MLGruCellOptions._(
           bias: bias,
           recurrentBias: recurrentBias,
           resetAfter: resetAfter,
-          layout: layout?.name,
+          layout: layout?.value,
           activations: activations);
 }
 
@@ -785,16 +933,15 @@ extension PropsMLGruCellOptions on MLGruCellOptions {
     js_util.setProperty(this, 'resetAfter', newValue);
   }
 
-  MLRecurrentNetworkWeightLayout get layout =>
-      MLRecurrentNetworkWeightLayout.values
-          .byName(js_util.getProperty(this, 'layout'));
-  set layout(MLRecurrentNetworkWeightLayout newValue) {
-    js_util.setProperty(this, 'layout', newValue.name);
+  MLGruWeightLayout get layout =>
+      MLGruWeightLayout.fromValue(js_util.getProperty(this, 'layout'));
+  set layout(MLGruWeightLayout newValue) {
+    js_util.setProperty(this, 'layout', newValue.value);
   }
 
-  Iterable<MLOperator> get activations =>
+  Iterable<MLActivation> get activations =>
       js_util.getProperty(this, 'activations');
-  set activations(Iterable<MLOperator> newValue) {
+  set activations(Iterable<MLActivation> newValue) {
     js_util.setProperty(this, 'activations', newValue);
   }
 }
@@ -835,7 +982,7 @@ class MLInstanceNormalizationOptions {
           double? epsilon = 1e-5,
           MLInputOperandLayout? layout = MLInputOperandLayout.nchw}) =>
       MLInstanceNormalizationOptions._(
-          scale: scale, bias: bias, epsilon: epsilon, layout: layout?.name);
+          scale: scale, bias: bias, epsilon: epsilon, layout: layout?.value);
 }
 
 extension PropsMLInstanceNormalizationOptions
@@ -856,9 +1003,9 @@ extension PropsMLInstanceNormalizationOptions
   }
 
   MLInputOperandLayout get layout =>
-      MLInputOperandLayout.values.byName(js_util.getProperty(this, 'layout'));
+      MLInputOperandLayout.fromValue(js_util.getProperty(this, 'layout'));
   set layout(MLInputOperandLayout newValue) {
-    js_util.setProperty(this, 'layout', newValue.name);
+    js_util.setProperty(this, 'layout', newValue.value);
   }
 }
 
@@ -895,7 +1042,176 @@ extension PropsMLLinearOptions on MLLinearOptions {
   }
 }
 
-enum MLPaddingMode { constant, edge, reflection, symmetric }
+enum MLLstmWeightLayout {
+  iofg('iofg'),
+  ifgo('ifgo');
+
+  final String value;
+  static MLLstmWeightLayout fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLLstmWeightLayout> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLLstmWeightLayout(this.value);
+}
+
+@anonymous
+@JS()
+@staticInterop
+class MLLstmOptions {
+  external factory MLLstmOptions._(
+      {required MLOperand bias,
+      required MLOperand recurrentBias,
+      required MLOperand peepholeWeight,
+      required MLOperand initialHiddenState,
+      required MLOperand initialCellState,
+      bool? returnSequence = false,
+      String? direction,
+      String? layout,
+      Iterable<MLActivation>? activations});
+
+  factory MLLstmOptions(
+          {required MLOperand bias,
+          required MLOperand recurrentBias,
+          required MLOperand peepholeWeight,
+          required MLOperand initialHiddenState,
+          required MLOperand initialCellState,
+          bool? returnSequence = false,
+          MLRecurrentNetworkDirection? direction =
+              MLRecurrentNetworkDirection.forward,
+          MLLstmWeightLayout? layout = MLLstmWeightLayout.iofg,
+          Iterable<MLActivation>? activations}) =>
+      MLLstmOptions._(
+          bias: bias,
+          recurrentBias: recurrentBias,
+          peepholeWeight: peepholeWeight,
+          initialHiddenState: initialHiddenState,
+          initialCellState: initialCellState,
+          returnSequence: returnSequence,
+          direction: direction?.value,
+          layout: layout?.value,
+          activations: activations);
+}
+
+extension PropsMLLstmOptions on MLLstmOptions {
+  MLOperand get bias => js_util.getProperty(this, 'bias');
+  set bias(MLOperand newValue) {
+    js_util.setProperty(this, 'bias', newValue);
+  }
+
+  MLOperand get recurrentBias => js_util.getProperty(this, 'recurrentBias');
+  set recurrentBias(MLOperand newValue) {
+    js_util.setProperty(this, 'recurrentBias', newValue);
+  }
+
+  MLOperand get peepholeWeight => js_util.getProperty(this, 'peepholeWeight');
+  set peepholeWeight(MLOperand newValue) {
+    js_util.setProperty(this, 'peepholeWeight', newValue);
+  }
+
+  MLOperand get initialHiddenState =>
+      js_util.getProperty(this, 'initialHiddenState');
+  set initialHiddenState(MLOperand newValue) {
+    js_util.setProperty(this, 'initialHiddenState', newValue);
+  }
+
+  MLOperand get initialCellState =>
+      js_util.getProperty(this, 'initialCellState');
+  set initialCellState(MLOperand newValue) {
+    js_util.setProperty(this, 'initialCellState', newValue);
+  }
+
+  bool get returnSequence => js_util.getProperty(this, 'returnSequence');
+  set returnSequence(bool newValue) {
+    js_util.setProperty(this, 'returnSequence', newValue);
+  }
+
+  MLRecurrentNetworkDirection get direction =>
+      MLRecurrentNetworkDirection.fromValue(
+          js_util.getProperty(this, 'direction'));
+  set direction(MLRecurrentNetworkDirection newValue) {
+    js_util.setProperty(this, 'direction', newValue.value);
+  }
+
+  MLLstmWeightLayout get layout =>
+      MLLstmWeightLayout.fromValue(js_util.getProperty(this, 'layout'));
+  set layout(MLLstmWeightLayout newValue) {
+    js_util.setProperty(this, 'layout', newValue.value);
+  }
+
+  Iterable<MLActivation> get activations =>
+      js_util.getProperty(this, 'activations');
+  set activations(Iterable<MLActivation> newValue) {
+    js_util.setProperty(this, 'activations', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class MLLstmCellOptions {
+  external factory MLLstmCellOptions._(
+      {required MLOperand bias,
+      required MLOperand recurrentBias,
+      required MLOperand peepholeWeight,
+      String? layout,
+      Iterable<MLActivation>? activations});
+
+  factory MLLstmCellOptions(
+          {required MLOperand bias,
+          required MLOperand recurrentBias,
+          required MLOperand peepholeWeight,
+          MLLstmWeightLayout? layout = MLLstmWeightLayout.iofg,
+          Iterable<MLActivation>? activations}) =>
+      MLLstmCellOptions._(
+          bias: bias,
+          recurrentBias: recurrentBias,
+          peepholeWeight: peepholeWeight,
+          layout: layout?.value,
+          activations: activations);
+}
+
+extension PropsMLLstmCellOptions on MLLstmCellOptions {
+  MLOperand get bias => js_util.getProperty(this, 'bias');
+  set bias(MLOperand newValue) {
+    js_util.setProperty(this, 'bias', newValue);
+  }
+
+  MLOperand get recurrentBias => js_util.getProperty(this, 'recurrentBias');
+  set recurrentBias(MLOperand newValue) {
+    js_util.setProperty(this, 'recurrentBias', newValue);
+  }
+
+  MLOperand get peepholeWeight => js_util.getProperty(this, 'peepholeWeight');
+  set peepholeWeight(MLOperand newValue) {
+    js_util.setProperty(this, 'peepholeWeight', newValue);
+  }
+
+  MLLstmWeightLayout get layout =>
+      MLLstmWeightLayout.fromValue(js_util.getProperty(this, 'layout'));
+  set layout(MLLstmWeightLayout newValue) {
+    js_util.setProperty(this, 'layout', newValue.value);
+  }
+
+  Iterable<MLActivation> get activations =>
+      js_util.getProperty(this, 'activations');
+  set activations(Iterable<MLActivation> newValue) {
+    js_util.setProperty(this, 'activations', newValue);
+  }
+}
+
+enum MLPaddingMode {
+  constant('constant'),
+  edge('edge'),
+  reflection('reflection'),
+  symmetric('symmetric');
+
+  final String value;
+  static MLPaddingMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLPaddingMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLPaddingMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -905,14 +1221,14 @@ class MLPadOptions {
 
   factory MLPadOptions(
           {MLPaddingMode? mode = MLPaddingMode.constant, double? value = 0}) =>
-      MLPadOptions._(mode: mode?.name, value: value);
+      MLPadOptions._(mode: mode?.value, value: value);
 }
 
 extension PropsMLPadOptions on MLPadOptions {
   MLPaddingMode get mode =>
-      MLPaddingMode.values.byName(js_util.getProperty(this, 'mode'));
+      MLPaddingMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(MLPaddingMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 
   double get value => js_util.getProperty(this, 'value');
@@ -921,7 +1237,17 @@ extension PropsMLPadOptions on MLPadOptions {
   }
 }
 
-enum MLRoundingType { floor, ceil }
+enum MLRoundingType {
+  floor('floor'),
+  ceil('ceil');
+
+  final String value;
+  static MLRoundingType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLRoundingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLRoundingType(this.value);
+}
 
 @anonymous
 @JS()
@@ -951,9 +1277,9 @@ class MLPool2dOptions {
           padding: padding,
           strides: strides,
           dilations: dilations,
-          autoPad: autoPad?.name,
-          layout: layout?.name,
-          roundingType: roundingType?.name,
+          autoPad: autoPad?.value,
+          layout: layout?.value,
+          roundingType: roundingType?.value,
           outputSizes: outputSizes);
 }
 
@@ -980,21 +1306,21 @@ extension PropsMLPool2dOptions on MLPool2dOptions {
   }
 
   MLAutoPad get autoPad =>
-      MLAutoPad.values.byName(js_util.getProperty(this, 'autoPad'));
+      MLAutoPad.fromValue(js_util.getProperty(this, 'autoPad'));
   set autoPad(MLAutoPad newValue) {
-    js_util.setProperty(this, 'autoPad', newValue.name);
+    js_util.setProperty(this, 'autoPad', newValue.value);
   }
 
   MLInputOperandLayout get layout =>
-      MLInputOperandLayout.values.byName(js_util.getProperty(this, 'layout'));
+      MLInputOperandLayout.fromValue(js_util.getProperty(this, 'layout'));
   set layout(MLInputOperandLayout newValue) {
-    js_util.setProperty(this, 'layout', newValue.name);
+    js_util.setProperty(this, 'layout', newValue.value);
   }
 
   MLRoundingType get roundingType =>
-      MLRoundingType.values.byName(js_util.getProperty(this, 'roundingType'));
+      MLRoundingType.fromValue(js_util.getProperty(this, 'roundingType'));
   set roundingType(MLRoundingType newValue) {
-    js_util.setProperty(this, 'roundingType', newValue.name);
+    js_util.setProperty(this, 'roundingType', newValue.value);
   }
 
   Iterable<int> get outputSizes => js_util.getProperty(this, 'outputSizes');
@@ -1023,7 +1349,17 @@ extension PropsMLReduceOptions on MLReduceOptions {
   }
 }
 
-enum MLInterpolationMode { nearestNeighbor, linear }
+enum MLInterpolationMode {
+  nearestNeighbor('nearest-neighbor'),
+  linear('linear');
+
+  final String value;
+  static MLInterpolationMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MLInterpolationMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const MLInterpolationMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -1041,14 +1377,14 @@ class MLResample2dOptions {
           Iterable<int>? sizes,
           Iterable<int>? axes}) =>
       MLResample2dOptions._(
-          mode: mode?.name, scales: scales, sizes: sizes, axes: axes);
+          mode: mode?.value, scales: scales, sizes: sizes, axes: axes);
 }
 
 extension PropsMLResample2dOptions on MLResample2dOptions {
   MLInterpolationMode get mode =>
-      MLInterpolationMode.values.byName(js_util.getProperty(this, 'mode'));
+      MLInterpolationMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(MLInterpolationMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 
   Iterable<double> get scales => js_util.getProperty(this, 'scales');

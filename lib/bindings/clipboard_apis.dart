@@ -10,7 +10,6 @@ library clipboard_apis;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -28,9 +27,6 @@ extension PropsClipboardEventInit on ClipboardEventInit {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface represents events providing information related to
 /// modification of the clipboard, that is [cut], [copy], and [paste]
 /// events.
@@ -43,10 +39,11 @@ extension PropsClipboardEventInit on ClipboardEventInit {
 ///
 ///
 ///
+///
+///
 ///    ClipboardEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class ClipboardEvent implements Event {
@@ -83,14 +80,25 @@ class ClipboardItem {
 }
 
 extension PropsClipboardItem on ClipboardItem {
-  PresentationStyle get presentationStyle => PresentationStyle.values
-      .byName(js_util.getProperty(this, 'presentationStyle'));
+  PresentationStyle get presentationStyle => PresentationStyle.fromValue(
+      js_util.getProperty(this, 'presentationStyle'));
   Iterable<String> get types => js_util.getProperty(this, 'types');
   Future<Blob> getType(String type) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getType', [type]));
 }
 
-enum PresentationStyle { unspecified, inline, attachment }
+enum PresentationStyle {
+  unspecified('unspecified'),
+  inline('inline'),
+  attachment('attachment');
+
+  final String value;
+  static PresentationStyle fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<PresentationStyle> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const PresentationStyle(this.value);
+}
 
 @anonymous
 @JS()
@@ -101,14 +109,14 @@ class ClipboardItemOptions {
   factory ClipboardItemOptions(
           {PresentationStyle? presentationStyle =
               PresentationStyle.unspecified}) =>
-      ClipboardItemOptions._(presentationStyle: presentationStyle?.name);
+      ClipboardItemOptions._(presentationStyle: presentationStyle?.value);
 }
 
 extension PropsClipboardItemOptions on ClipboardItemOptions {
-  PresentationStyle get presentationStyle => PresentationStyle.values
-      .byName(js_util.getProperty(this, 'presentationStyle'));
+  PresentationStyle get presentationStyle => PresentationStyle.fromValue(
+      js_util.getProperty(this, 'presentationStyle'));
   set presentationStyle(PresentationStyle newValue) {
-    js_util.setProperty(this, 'presentationStyle', newValue.name);
+    js_util.setProperty(this, 'presentationStyle', newValue.value);
   }
 }
 
@@ -127,6 +135,8 @@ extension PropsClipboardItemOptions on ClipboardItemOptions {
 ///
 ///
 ///
+///
+///
 ///    Clipboard
 ///
 ///
@@ -134,7 +144,7 @@ extension PropsClipboardItemOptions on ClipboardItemOptions {
 /// [Navigator.clipboard] property.
 ///  Calls to the methods of the object will not succeed if the user
 /// hasn't granted the needed permissions using the Permissions API
-/// and the ["clipboard-read"] or ["clipboard-write"] permission as
+/// and the ['clipboard-read'] or ['clipboard-write'] permission as
 /// appropriate.
 ///
 ///   Note: In reality, at this time browser requirements for access
@@ -145,20 +155,6 @@ extension PropsClipboardItemOptions on ClipboardItemOptions {
 /// return a [Future] which is resolved once the clipboard access has
 /// been completed. The promise is rejected if clipboard access is
 /// denied.
-///
-///
-///    Note: The clipboard is a data buffer that is used for
-/// short-term, data storage and/or data transfers, this can be
-/// between documents or applications
-///    It is usually implemented as an anonymous, temporary data
-/// buffer, sometimes called the paste buffer, that can be accessed
-/// from most or all programs within the environment via defined
-/// programming interfaces.
-///
-///   A typical application accesses clipboard functionality by
-/// mapping user input such as keybindings, menu selections, etc. to
-/// these interfaces.
-///
 @JS()
 @staticInterop
 class Clipboard implements EventTarget {

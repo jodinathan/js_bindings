@@ -29,6 +29,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    UIEvent
 ///
 ///
@@ -84,7 +86,11 @@ extension PropsUIEventInit on UIEventInit {
 ///
 ///
 ///
+///
+///
 ///    UIEvent
+///
+///
 ///
 ///
 ///
@@ -138,7 +144,11 @@ extension PropsFocusEventInit on FocusEventInit {
 ///
 ///
 ///
+///
+///
 ///    UIEvent
+///
+///
 ///
 ///
 ///
@@ -383,13 +393,19 @@ extension PropsEventModifierInit on EventModifierInit {
 ///
 ///
 ///
+///
+///
 ///    UIEvent
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    MouseEvent
+///
+///
 ///
 ///
 ///
@@ -463,7 +479,11 @@ extension PropsWheelEventInit on WheelEventInit {
 ///
 ///
 ///
+///
+///
 ///    UIEvent
+///
+///
 ///
 ///
 ///
@@ -534,7 +554,11 @@ extension PropsInputEventInit on InputEventInit {
 ///
 ///
 ///
+///
+///
 ///    UIEvent
+///
+///
 ///
 ///
 ///
@@ -651,7 +675,11 @@ extension PropsKeyboardEventInit on KeyboardEventInit {
 ///
 ///
 ///
+///
+///
 ///    UIEvent
+///
+///
 ///
 ///
 ///
@@ -711,6 +739,8 @@ extension PropsCompositionEventInit on CompositionEventInit {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///

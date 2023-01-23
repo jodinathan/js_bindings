@@ -10,11 +10,22 @@ library webaudio;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
-enum AudioContextState { suspended, running, closed }
+enum AudioContextState {
+  suspended('suspended'),
+  running('running'),
+  closed('closed');
+
+  final String value;
+  static AudioContextState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AudioContextState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AudioContextState(this.value);
+}
 
 ///  The interface of the Web Audio API acts as a base definition for
 /// online and offline audio-processing graphs, as represented by
@@ -27,6 +38,8 @@ enum AudioContextState { suspended, running, closed }
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -48,7 +61,7 @@ extension PropsBaseAudioContext on BaseAudioContext {
   double get currentTime => js_util.getProperty(this, 'currentTime');
   AudioListener get listener => js_util.getProperty(this, 'listener');
   AudioContextState get state =>
-      AudioContextState.values.byName(js_util.getProperty(this, 'state'));
+      AudioContextState.fromValue(js_util.getProperty(this, 'state'));
   AudioWorklet get audioWorklet => js_util.getProperty(this, 'audioWorklet');
   EventHandlerNonNull? get onstatechange =>
       js_util.getProperty(this, 'onstatechange');
@@ -126,7 +139,30 @@ extension PropsBaseAudioContext on BaseAudioContext {
       ]));
 }
 
-enum AudioContextLatencyCategory { balanced, interactive, playback }
+enum AudioContextLatencyCategory {
+  balanced('balanced'),
+  interactive('interactive'),
+  playback('playback');
+
+  final String value;
+  static AudioContextLatencyCategory fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AudioContextLatencyCategory> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const AudioContextLatencyCategory(this.value);
+}
+
+enum AudioSinkType {
+  none('none');
+
+  final String value;
+  static AudioSinkType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AudioSinkType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AudioSinkType(this.value);
+}
 
 ///  The interface represents an audio-processing graph built from
 /// audio modules linked together, each represented by an
@@ -147,7 +183,11 @@ enum AudioContextLatencyCategory { balanced, interactive, playback }
 ///
 ///
 ///
+///
+///
 ///    BaseAudioContext
+///
+///
 ///
 ///
 ///
@@ -165,8 +205,15 @@ class AudioContext implements BaseAudioContext {
 extension PropsAudioContext on AudioContext {
   double get baseLatency => js_util.getProperty(this, 'baseLatency');
   double get outputLatency => js_util.getProperty(this, 'outputLatency');
+  dynamic get sinkId => js_util.getProperty(this, 'sinkId');
   AudioRenderCapacity get renderCapacity =>
       js_util.getProperty(this, 'renderCapacity');
+  EventHandlerNonNull? get onsinkchange =>
+      js_util.getProperty(this, 'onsinkchange');
+  set onsinkchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onsinkchange', newValue);
+  }
+
   AudioTimestamp getOutputTimestamp() =>
       js_util.callMethod(this, 'getOutputTimestamp', []);
 
@@ -178,6 +225,9 @@ extension PropsAudioContext on AudioContext {
 
   Future<void> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
+
+  Future<void> setSinkId(dynamic sinkId) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'setSinkId', [sinkId]));
 
   MediaElementAudioSourceNode createMediaElementSource(
           HTMLMediaElement mediaElement) =>
@@ -200,7 +250,7 @@ extension PropsAudioContext on AudioContext {
 @staticInterop
 class AudioContextOptions {
   external factory AudioContextOptions(
-      {dynamic latencyHint, required double sampleRate});
+      {dynamic latencyHint, required double sampleRate, dynamic sinkId});
 }
 
 extension PropsAudioContextOptions on AudioContextOptions {
@@ -213,6 +263,40 @@ extension PropsAudioContextOptions on AudioContextOptions {
   set sampleRate(double newValue) {
     js_util.setProperty(this, 'sampleRate', newValue);
   }
+
+  dynamic get sinkId => js_util.getProperty(this, 'sinkId');
+  set sinkId(dynamic newValue) {
+    js_util.setProperty(this, 'sinkId', newValue);
+  }
+}
+
+@anonymous
+@JS()
+@staticInterop
+class AudioSinkOptions {
+  external factory AudioSinkOptions._({required String type});
+
+  factory AudioSinkOptions({required AudioSinkType type}) =>
+      AudioSinkOptions._(type: type.value);
+}
+
+extension PropsAudioSinkOptions on AudioSinkOptions {
+  AudioSinkType get type =>
+      AudioSinkType.fromValue(js_util.getProperty(this, 'type'));
+  set type(AudioSinkType newValue) {
+    js_util.setProperty(this, 'type', newValue.value);
+  }
+}
+
+@JS()
+@staticInterop
+class AudioSinkInfo {
+  external factory AudioSinkInfo();
+}
+
+extension PropsAudioSinkInfo on AudioSinkInfo {
+  AudioSinkType get type =>
+      AudioSinkType.fromValue(js_util.getProperty(this, 'type'));
 }
 
 @anonymous
@@ -328,7 +412,11 @@ extension PropsAudioRenderCapacityEventInit on AudioRenderCapacityEventInit {
 ///
 ///
 ///
+///
+///
 ///    BaseAudioContext
+///
+///
 ///
 ///
 ///
@@ -400,6 +488,8 @@ extension PropsOfflineAudioContextOptions on OfflineAudioContextOptions {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -519,6 +609,8 @@ extension PropsAudioBufferOptions on AudioBufferOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
 ///
 ///
@@ -548,23 +640,44 @@ extension PropsAudioNode on AudioNode {
     js_util.setProperty(this, 'channelCount', newValue);
   }
 
-  ChannelCountMode get channelCountMode => ChannelCountMode.values
-      .byName(js_util.getProperty(this, 'channelCountMode'));
+  ChannelCountMode get channelCountMode =>
+      ChannelCountMode.fromValue(js_util.getProperty(this, 'channelCountMode'));
   set channelCountMode(ChannelCountMode newValue) {
-    js_util.setProperty(this, 'channelCountMode', newValue.name);
+    js_util.setProperty(this, 'channelCountMode', newValue.value);
   }
 
   ChannelInterpretation get channelInterpretation =>
-      ChannelInterpretation.values
-          .byName(js_util.getProperty(this, 'channelInterpretation'));
+      ChannelInterpretation.fromValue(
+          js_util.getProperty(this, 'channelInterpretation'));
   set channelInterpretation(ChannelInterpretation newValue) {
-    js_util.setProperty(this, 'channelInterpretation', newValue.name);
+    js_util.setProperty(this, 'channelInterpretation', newValue.value);
   }
 }
 
-enum ChannelCountMode { max, clampedMax, explicit }
+enum ChannelCountMode {
+  max('max'),
+  clampedMax('clamped-max'),
+  explicit('explicit');
 
-enum ChannelInterpretation { speakers, discrete }
+  final String value;
+  static ChannelCountMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ChannelCountMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const ChannelCountMode(this.value);
+}
+
+enum ChannelInterpretation {
+  speakers('speakers'),
+  discrete('discrete');
+
+  final String value;
+  static ChannelInterpretation fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ChannelInterpretation> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const ChannelInterpretation(this.value);
+}
 
 @anonymous
 @JS()
@@ -581,8 +694,8 @@ class AudioNodeOptions {
           required ChannelInterpretation channelInterpretation}) =>
       AudioNodeOptions._(
           channelCount: channelCount,
-          channelCountMode: channelCountMode.name,
-          channelInterpretation: channelInterpretation.name);
+          channelCountMode: channelCountMode.value,
+          channelInterpretation: channelInterpretation.value);
 }
 
 extension PropsAudioNodeOptions on AudioNodeOptions {
@@ -591,21 +704,31 @@ extension PropsAudioNodeOptions on AudioNodeOptions {
     js_util.setProperty(this, 'channelCount', newValue);
   }
 
-  ChannelCountMode get channelCountMode => ChannelCountMode.values
-      .byName(js_util.getProperty(this, 'channelCountMode'));
+  ChannelCountMode get channelCountMode =>
+      ChannelCountMode.fromValue(js_util.getProperty(this, 'channelCountMode'));
   set channelCountMode(ChannelCountMode newValue) {
-    js_util.setProperty(this, 'channelCountMode', newValue.name);
+    js_util.setProperty(this, 'channelCountMode', newValue.value);
   }
 
   ChannelInterpretation get channelInterpretation =>
-      ChannelInterpretation.values
-          .byName(js_util.getProperty(this, 'channelInterpretation'));
+      ChannelInterpretation.fromValue(
+          js_util.getProperty(this, 'channelInterpretation'));
   set channelInterpretation(ChannelInterpretation newValue) {
-    js_util.setProperty(this, 'channelInterpretation', newValue.name);
+    js_util.setProperty(this, 'channelInterpretation', newValue.value);
   }
 }
 
-enum AutomationRate { aRate, kRate }
+enum AutomationRate {
+  aRate('a-rate'),
+  kRate('k-rate');
+
+  final String value;
+  static AutomationRate fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AutomationRate> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AutomationRate(this.value);
+}
 
 ///  The Web Audio API's interface represents an audio-related
 /// parameter, usually a parameter of an [AudioNode] (such as
@@ -632,9 +755,9 @@ extension PropsAudioParam on AudioParam {
   }
 
   AutomationRate get automationRate =>
-      AutomationRate.values.byName(js_util.getProperty(this, 'automationRate'));
+      AutomationRate.fromValue(js_util.getProperty(this, 'automationRate'));
   set automationRate(AutomationRate newValue) {
-    js_util.setProperty(this, 'automationRate', newValue.name);
+    js_util.setProperty(this, 'automationRate', newValue.value);
   }
 
   double get defaultValue => js_util.getProperty(this, 'defaultValue');
@@ -671,11 +794,11 @@ extension PropsAudioParam on AudioParam {
 /// for several types of audio source node interfaces which share the
 /// ability to be started and stopped, optionally at specified times.
 /// Specifically, this interface defines the [start()] and [stop()]
-/// methods, as well as the [onended] event handler.
+/// methods, as well as the [ended] event.
 ///
-///   Note: You can't create an object directly. Instead, use the
+///   Note: You can't create an object directly. Instead, use an
 /// interface which extends it, such as [AudioBufferSourceNode],
-/// [OscillatorNode], and [ConstantSourceNode].
+/// [OscillatorNode] or [ConstantSourceNode].
 ///
 ///  Unless stated otherwise, nodes based upon output silence when
 /// not playing (that is, before [start()] is called and after
@@ -690,7 +813,11 @@ extension PropsAudioParam on AudioParam {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -735,7 +862,11 @@ extension PropsAudioScheduledSourceNode on AudioScheduledSourceNode {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -864,13 +995,19 @@ extension PropsAnalyserOptions on AnalyserOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    AudioScheduledSourceNode
+///
+///
 ///
 ///
 ///
@@ -1011,7 +1148,11 @@ extension PropsAudioBufferSourceOptions on AudioBufferSourceOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1111,6 +1252,8 @@ extension PropsAudioListener on AudioListener {
 ///
 ///
 ///
+///
+///
 ///    AudioProcessingEvent
 ///
 ///
@@ -1156,14 +1299,21 @@ extension PropsAudioProcessingEventInit on AudioProcessingEventInit {
 }
 
 enum BiquadFilterType {
-  lowpass,
-  highpass,
-  bandpass,
-  lowshelf,
-  highshelf,
-  peaking,
-  notch,
-  allpass
+  lowpass('lowpass'),
+  highpass('highpass'),
+  bandpass('bandpass'),
+  lowshelf('lowshelf'),
+  highshelf('highshelf'),
+  peaking('peaking'),
+  notch('notch'),
+  allpass('allpass');
+
+  final String value;
+  static BiquadFilterType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<BiquadFilterType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const BiquadFilterType(this.value);
 }
 
 ///  The interface represents a simple low-order filter, and is
@@ -1180,7 +1330,11 @@ enum BiquadFilterType {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1222,9 +1376,9 @@ class BiquadFilterNode implements AudioNode {
 
 extension PropsBiquadFilterNode on BiquadFilterNode {
   BiquadFilterType get type =>
-      BiquadFilterType.values.byName(js_util.getProperty(this, 'type'));
+      BiquadFilterType.fromValue(js_util.getProperty(this, 'type'));
   set type(BiquadFilterType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   AudioParam get frequency => js_util.getProperty(this, 'frequency');
@@ -1255,7 +1409,7 @@ class BiquadFilterOptions implements AudioNodeOptions {
           double? frequency = 350,
           double? gain = 0}) =>
       BiquadFilterOptions._(
-          type: type?.name,
+          type: type?.value,
           Q: Q,
           detune: detune,
           frequency: frequency,
@@ -1264,9 +1418,9 @@ class BiquadFilterOptions implements AudioNodeOptions {
 
 extension PropsBiquadFilterOptions on BiquadFilterOptions {
   BiquadFilterType get type =>
-      BiquadFilterType.values.byName(js_util.getProperty(this, 'type'));
+      BiquadFilterType.fromValue(js_util.getProperty(this, 'type'));
   set type(BiquadFilterType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   double get q => js_util.getProperty(this, 'Q');
@@ -1317,7 +1471,11 @@ extension PropsBiquadFilterOptions on BiquadFilterOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1338,7 +1496,7 @@ extension PropsBiquadFilterOptions on BiquadFilterOptions {
 ///
 ///
 ///    Channel count mode
-///    ["max"]
+///    ["explicit"]
 ///
 ///
 ///    Channel count
@@ -1394,7 +1552,11 @@ extension PropsChannelMergerOptions on ChannelMergerOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1476,13 +1638,19 @@ extension PropsChannelSplitterOptions on ChannelSplitterOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    AudioScheduledSourceNode
+///
+///
 ///
 ///
 ///
@@ -1544,7 +1712,11 @@ extension PropsConstantSourceOptions on ConstantSourceOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1637,7 +1809,11 @@ extension PropsConvolverOptions on ConvolverOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1715,7 +1891,11 @@ extension PropsDelayOptions on DelayOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1826,7 +2006,11 @@ extension PropsDynamicsCompressorOptions on DynamicsCompressorOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1898,7 +2082,11 @@ extension PropsGainOptions on GainOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -1987,12 +2175,11 @@ extension PropsIIRFilterOptions on IIRFilterOptions {
   }
 }
 
-///  The interface represents an audio source consisting of an HTML5
+///  The interface represents an audio source consisting of an HTML
 /// [<audio>] or [<video>] element. It is an [AudioNode] that acts as
 /// an audio source.
-///  A [MediaElementSourceNode] has no inputs and exactly one output,
-/// and is created using the
-/// [AudioContext.createMediaElementSource()] method. The amount of
+///  A has no inputs and exactly one output, and is created using the
+/// [AudioContext.createMediaElementSource()] method. The number of
 /// channels in the output equals the number of channels of the audio
 /// referenced by the [HTMLMediaElement] used in the creation of the
 /// node, or is 1 if the [HTMLMediaElement] has no audio.
@@ -2005,7 +2192,11 @@ extension PropsIIRFilterOptions on IIRFilterOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -2026,12 +2217,9 @@ extension PropsIIRFilterOptions on IIRFilterOptions {
 ///
 ///
 ///    Channel count
-///
-///     defined by the media in the [HTMLMediaElement]
-///     passed to the
-///     [AudioContext.createMediaElementSource]
-///     method that created it.
-///
+///     2 (but note that [AudioNode.channelCount] is only used for
+/// up-mixing and down-mixing [AudioNode] inputs, and doesn't have
+/// any input)
 ///
 ///
 ///
@@ -2067,7 +2255,7 @@ extension PropsMediaElementAudioSourceOptions
 ///  The interface represents an audio destination consisting of a
 /// WebRTC [MediaStream] with a single [AudioMediaStreamTrack], which
 /// can be used in a similar way to a [MediaStream] obtained from
-/// [Navigator.getUserMedia()].
+/// [navigator.mediaDevices.getUserMedia()].
 ///  It is an [AudioNode] that acts as an audio destination, created
 /// using the [AudioContext.createMediaStreamDestination()] method.
 ///
@@ -2079,7 +2267,11 @@ extension PropsMediaElementAudioSourceOptions
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -2146,7 +2338,11 @@ extension PropsMediaStreamAudioDestinationNode
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -2167,12 +2363,9 @@ extension PropsMediaStreamAudioDestinationNode
 ///
 ///
 ///    Channel count
-///
-///     defined by the first audio [MediaStreamTrack]
-///     passed to the
-///     [AudioContext.createMediaStreamSource()]
-///     method that created it.
-///
+///     2 (but note that [AudioNode.channelCount] is only used for
+/// up-mixing and down-mixing [AudioNode] inputs, and doesn't have
+/// any input)
 ///
 ///
 ///
@@ -2222,7 +2415,11 @@ extension PropsMediaStreamAudioSourceOptions on MediaStreamAudioSourceOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -2276,7 +2473,20 @@ extension PropsMediaStreamTrackAudioSourceOptions
   }
 }
 
-enum OscillatorType { sine, square, sawtooth, triangle, custom }
+enum OscillatorType {
+  sine('sine'),
+  square('square'),
+  sawtooth('sawtooth'),
+  triangle('triangle'),
+  custom('custom');
+
+  final String value;
+  static OscillatorType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<OscillatorType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const OscillatorType(this.value);
+}
 
 ///  The interface represents a periodic waveform, such as a sine
 /// wave. It is an [AudioScheduledSourceNode] audio-processing module
@@ -2291,13 +2501,19 @@ enum OscillatorType { sine, square, sawtooth, triangle, custom }
 ///
 ///
 ///
+///
+///
 ///    AudioNode
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    AudioScheduledSourceNode
+///
+///
 ///
 ///
 ///
@@ -2339,9 +2555,9 @@ class OscillatorNode implements AudioScheduledSourceNode {
 
 extension PropsOscillatorNode on OscillatorNode {
   OscillatorType get type =>
-      OscillatorType.values.byName(js_util.getProperty(this, 'type'));
+      OscillatorType.fromValue(js_util.getProperty(this, 'type'));
   set type(OscillatorType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   AudioParam get frequency => js_util.getProperty(this, 'frequency');
@@ -2366,7 +2582,7 @@ class OscillatorOptions implements AudioNodeOptions {
           double? detune = 0,
           PeriodicWave? periodicWave}) =>
       OscillatorOptions._(
-          type: type?.name,
+          type: type?.value,
           frequency: frequency,
           detune: detune,
           periodicWave: periodicWave);
@@ -2374,9 +2590,9 @@ class OscillatorOptions implements AudioNodeOptions {
 
 extension PropsOscillatorOptions on OscillatorOptions {
   OscillatorType get type =>
-      OscillatorType.values.byName(js_util.getProperty(this, 'type'));
+      OscillatorType.fromValue(js_util.getProperty(this, 'type'));
   set type(OscillatorType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   double get frequency => js_util.getProperty(this, 'frequency');
@@ -2395,15 +2611,36 @@ extension PropsOscillatorOptions on OscillatorOptions {
   }
 }
 
-enum PanningModelType { equalpower, hrtf }
+enum PanningModelType {
+  equalpower('equalpower'),
+  hrtf('HRTF');
 
-enum DistanceModelType { linear, inverse, exponential }
+  final String value;
+  static PanningModelType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<PanningModelType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const PanningModelType(this.value);
+}
 
-///  The interface represents the position and behavior of an audio
-/// source signal in space. It is an [AudioNode] audio-processing
-/// module describing its position with right-hand Cartesian
-/// coordinates, its movement using a velocity vector and its
-/// directionality using a directionality cone.
+enum DistanceModelType {
+  linear('linear'),
+  inverse('inverse'),
+  exponential('exponential');
+
+  final String value;
+  static DistanceModelType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<DistanceModelType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const DistanceModelType(this.value);
+}
+
+///  The interface defines an audio-processing object that represents
+/// the location, direction, and behavior of an audio source signal
+/// in a simulated physical space. This [AudioNode] uses right-hand
+/// Cartesian coordinates to describe the source's position as a
+/// vector and its orientation as a 3D directional cone.
 ///  A always has exactly one input and one output: the input can be
 /// mono or stereo but the output is always stereo (2 channels); you
 /// can't have panning effects without at least two audio channels!
@@ -2419,7 +2656,11 @@ enum DistanceModelType { linear, inverse, exponential }
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -2461,9 +2702,9 @@ class PannerNode implements AudioNode {
 
 extension PropsPannerNode on PannerNode {
   PanningModelType get panningModel =>
-      PanningModelType.values.byName(js_util.getProperty(this, 'panningModel'));
+      PanningModelType.fromValue(js_util.getProperty(this, 'panningModel'));
   set panningModel(PanningModelType newValue) {
-    js_util.setProperty(this, 'panningModel', newValue.name);
+    js_util.setProperty(this, 'panningModel', newValue.value);
   }
 
   AudioParam get positionX => js_util.getProperty(this, 'positionX');
@@ -2472,10 +2713,10 @@ extension PropsPannerNode on PannerNode {
   AudioParam get orientationX => js_util.getProperty(this, 'orientationX');
   AudioParam get orientationY => js_util.getProperty(this, 'orientationY');
   AudioParam get orientationZ => js_util.getProperty(this, 'orientationZ');
-  DistanceModelType get distanceModel => DistanceModelType.values
-      .byName(js_util.getProperty(this, 'distanceModel'));
+  DistanceModelType get distanceModel =>
+      DistanceModelType.fromValue(js_util.getProperty(this, 'distanceModel'));
   set distanceModel(DistanceModelType newValue) {
-    js_util.setProperty(this, 'distanceModel', newValue.name);
+    js_util.setProperty(this, 'distanceModel', newValue.value);
   }
 
   double get refDistance => js_util.getProperty(this, 'refDistance');
@@ -2551,8 +2792,8 @@ class PannerOptions implements AudioNodeOptions {
           double? coneOuterAngle = 360,
           double? coneOuterGain = 0}) =>
       PannerOptions._(
-          panningModel: panningModel?.name,
-          distanceModel: distanceModel?.name,
+          panningModel: panningModel?.value,
+          distanceModel: distanceModel?.value,
           positionX: positionX,
           positionY: positionY,
           positionZ: positionZ,
@@ -2569,15 +2810,15 @@ class PannerOptions implements AudioNodeOptions {
 
 extension PropsPannerOptions on PannerOptions {
   PanningModelType get panningModel =>
-      PanningModelType.values.byName(js_util.getProperty(this, 'panningModel'));
+      PanningModelType.fromValue(js_util.getProperty(this, 'panningModel'));
   set panningModel(PanningModelType newValue) {
-    js_util.setProperty(this, 'panningModel', newValue.name);
+    js_util.setProperty(this, 'panningModel', newValue.value);
   }
 
-  DistanceModelType get distanceModel => DistanceModelType.values
-      .byName(js_util.getProperty(this, 'distanceModel'));
+  DistanceModelType get distanceModel =>
+      DistanceModelType.fromValue(js_util.getProperty(this, 'distanceModel'));
   set distanceModel(DistanceModelType newValue) {
-    js_util.setProperty(this, 'distanceModel', newValue.name);
+    js_util.setProperty(this, 'distanceModel', newValue.value);
   }
 
   double get positionX => js_util.getProperty(this, 'positionX');
@@ -2709,7 +2950,11 @@ extension PropsPeriodicWaveOptions on PeriodicWaveOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -2804,7 +3049,11 @@ extension PropsScriptProcessorNode on ScriptProcessorNode {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -2862,7 +3111,18 @@ extension PropsStereoPannerOptions on StereoPannerOptions {
   }
 }
 
-enum OverSampleType { none, value2x, value4x }
+enum OverSampleType {
+  none('none'),
+  value2x('2x'),
+  value4x('4x');
+
+  final String value;
+  static OverSampleType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<OverSampleType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const OverSampleType(this.value);
+}
 
 /// The interface represents a non-linear distorter.
 ///  It is an [AudioNode] that uses a curve to apply a wave shaping
@@ -2878,7 +3138,11 @@ enum OverSampleType { none, value2x, value4x }
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -2925,9 +3189,9 @@ extension PropsWaveShaperNode on WaveShaperNode {
   }
 
   OverSampleType get oversample =>
-      OverSampleType.values.byName(js_util.getProperty(this, 'oversample'));
+      OverSampleType.fromValue(js_util.getProperty(this, 'oversample'));
   set oversample(OverSampleType newValue) {
-    js_util.setProperty(this, 'oversample', newValue.name);
+    js_util.setProperty(this, 'oversample', newValue.value);
   }
 }
 
@@ -2941,7 +3205,7 @@ class WaveShaperOptions implements AudioNodeOptions {
   factory WaveShaperOptions(
           {required Iterable<double> curve,
           OverSampleType? oversample = OverSampleType.none}) =>
-      WaveShaperOptions._(curve: curve, oversample: oversample?.name);
+      WaveShaperOptions._(curve: curve, oversample: oversample?.value);
 }
 
 extension PropsWaveShaperOptions on WaveShaperOptions {
@@ -2951,9 +3215,9 @@ extension PropsWaveShaperOptions on WaveShaperOptions {
   }
 
   OverSampleType get oversample =>
-      OverSampleType.values.byName(js_util.getProperty(this, 'oversample'));
+      OverSampleType.fromValue(js_util.getProperty(this, 'oversample'));
   set oversample(OverSampleType newValue) {
-    js_util.setProperty(this, 'oversample', newValue.name);
+    js_util.setProperty(this, 'oversample', newValue.value);
   }
 }
 
@@ -2976,6 +3240,8 @@ extension PropsWaveShaperOptions on WaveShaperOptions {
 ///
 ///
 ///
+///
+///
 ///    AudioWorklet
 ///
 ///
@@ -2983,6 +3249,10 @@ extension PropsWaveShaperOptions on WaveShaperOptions {
 @staticInterop
 class AudioWorklet implements Worklet {
   external factory AudioWorklet();
+}
+
+extension PropsAudioWorklet on AudioWorklet {
+  MessagePort get port => js_util.getProperty(this, 'port');
 }
 
 ///  The interface of the Web Audio API represents a global execution
@@ -2994,11 +3264,13 @@ class AudioWorklet implements Worklet {
 ///  As the global execution context is shared across the current
 /// [BaseAudioContext], it's possible to define any other variables
 /// and perform any actions allowed in worklets — apart from defining
-/// [AudioWorkletProcessor]-derived classes.
+/// [AudioWorkletProcessor] derived classes.
 ///
 ///
 ///
 ///    WorkletGlobalScope
+///
+///
 ///
 ///
 ///
@@ -3022,12 +3294,12 @@ extension PropsAudioWorkletGlobalScope on AudioWorkletGlobalScope {
   int get currentFrame => js_util.getProperty(this, 'currentFrame');
   double get currentTime => js_util.getProperty(this, 'currentTime');
   double get sampleRate => js_util.getProperty(this, 'sampleRate');
+  MessagePort get port => js_util.getProperty(this, 'port');
 }
 
 ///  The Web Audio API interface represents a set of multiple audio
-/// parameters, each described as a mapping of a [String] identifying
+/// parameters, each described as a mapping of a string identifying
 /// the parameter to the [AudioParam] object representing its value.
-@experimental
 @JS()
 @staticInterop
 class AudioParamMap extends JsMap<AudioParam, String> {
@@ -3054,7 +3326,11 @@ class AudioParamMap extends JsMap<AudioParam, String> {
 ///
 ///
 ///
+///
+///
 ///    AudioNode
+///
+///
 ///
 ///
 ///
@@ -3063,7 +3339,6 @@ class AudioParamMap extends JsMap<AudioParam, String> {
 ///    AudioWorkletNode
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class AudioWorkletNode implements AudioNode {
@@ -3166,7 +3441,7 @@ class AudioParamDescriptor {
           defaultValue: defaultValue,
           minValue: minValue,
           maxValue: maxValue,
-          automationRate: automationRate?.name);
+          automationRate: automationRate?.value);
 }
 
 extension PropsAudioParamDescriptor on AudioParamDescriptor {
@@ -3191,8 +3466,8 @@ extension PropsAudioParamDescriptor on AudioParamDescriptor {
   }
 
   AutomationRate get automationRate =>
-      AutomationRate.values.byName(js_util.getProperty(this, 'automationRate'));
+      AutomationRate.fromValue(js_util.getProperty(this, 'automationRate'));
   set automationRate(AutomationRate newValue) {
-    js_util.setProperty(this, 'automationRate', newValue.name);
+    js_util.setProperty(this, 'automationRate', newValue.value);
   }
 }

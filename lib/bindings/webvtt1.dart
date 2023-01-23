@@ -13,15 +13,71 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum AutoKeyword { auto }
+enum AutoKeyword {
+  auto('auto');
 
-enum DirectionSetting { empty, rl, lr }
+  final String value;
+  static AutoKeyword fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AutoKeyword> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AutoKeyword(this.value);
+}
 
-enum LineAlignSetting { start, center, end }
+enum DirectionSetting {
+  empty(''),
+  rl('rl'),
+  lr('lr');
 
-enum PositionAlignSetting { lineLeft, center, lineRight, auto }
+  final String value;
+  static DirectionSetting fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<DirectionSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const DirectionSetting(this.value);
+}
 
-enum AlignSetting { start, center, end, left, right }
+enum LineAlignSetting {
+  start('start'),
+  center('center'),
+  end('end');
+
+  final String value;
+  static LineAlignSetting fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<LineAlignSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const LineAlignSetting(this.value);
+}
+
+enum PositionAlignSetting {
+  lineLeft('line-left'),
+  center('center'),
+  lineRight('line-right'),
+  auto('auto');
+
+  final String value;
+  static PositionAlignSetting fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<PositionAlignSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const PositionAlignSetting(this.value);
+}
+
+enum AlignSetting {
+  start('start'),
+  center('center'),
+  end('end'),
+  left('left'),
+  right('right');
+
+  final String value;
+  static AlignSetting fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AlignSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AlignSetting(this.value);
+}
 
 ///  The interface—part of the API for handling WebVTT (text tracks
 /// on media presentations)—describes and controls the text track
@@ -35,7 +91,11 @@ enum AlignSetting { start, center, end, left, right }
 ///
 ///
 ///
+///
+///
 ///    TextTrackCue
+///
+///
 ///
 ///
 ///
@@ -58,9 +118,9 @@ extension PropsVTTCue on VTTCue {
   }
 
   DirectionSetting get vertical =>
-      DirectionSetting.values.byName(js_util.getProperty(this, 'vertical'));
+      DirectionSetting.fromValue(js_util.getProperty(this, 'vertical'));
   set vertical(DirectionSetting newValue) {
-    js_util.setProperty(this, 'vertical', newValue.name);
+    js_util.setProperty(this, 'vertical', newValue.value);
   }
 
   bool get snapToLines => js_util.getProperty(this, 'snapToLines');
@@ -74,9 +134,9 @@ extension PropsVTTCue on VTTCue {
   }
 
   LineAlignSetting get lineAlign =>
-      LineAlignSetting.values.byName(js_util.getProperty(this, 'lineAlign'));
+      LineAlignSetting.fromValue(js_util.getProperty(this, 'lineAlign'));
   set lineAlign(LineAlignSetting newValue) {
-    js_util.setProperty(this, 'lineAlign', newValue.name);
+    js_util.setProperty(this, 'lineAlign', newValue.value);
   }
 
   dynamic get position => js_util.getProperty(this, 'position');
@@ -84,10 +144,10 @@ extension PropsVTTCue on VTTCue {
     js_util.setProperty(this, 'position', newValue);
   }
 
-  PositionAlignSetting get positionAlign => PositionAlignSetting.values
-      .byName(js_util.getProperty(this, 'positionAlign'));
+  PositionAlignSetting get positionAlign => PositionAlignSetting.fromValue(
+      js_util.getProperty(this, 'positionAlign'));
   set positionAlign(PositionAlignSetting newValue) {
-    js_util.setProperty(this, 'positionAlign', newValue.name);
+    js_util.setProperty(this, 'positionAlign', newValue.value);
   }
 
   double get size => js_util.getProperty(this, 'size');
@@ -96,9 +156,9 @@ extension PropsVTTCue on VTTCue {
   }
 
   AlignSetting get align =>
-      AlignSetting.values.byName(js_util.getProperty(this, 'align'));
+      AlignSetting.fromValue(js_util.getProperty(this, 'align'));
   set align(AlignSetting newValue) {
-    js_util.setProperty(this, 'align', newValue.name);
+    js_util.setProperty(this, 'align', newValue.value);
   }
 
   String get text => js_util.getProperty(this, 'text');
@@ -110,7 +170,17 @@ extension PropsVTTCue on VTTCue {
       js_util.callMethod(this, 'getCueAsHTML', []);
 }
 
-enum ScrollSetting { empty, up }
+enum ScrollSetting {
+  empty(''),
+  up('up');
+
+  final String value;
+  static ScrollSetting fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ScrollSetting> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const ScrollSetting(this.value);
+}
 
 ///  The interface—part of the API for handling WebVTT (text tracks
 /// on media presentations)—describes a portion of the video to
@@ -158,8 +228,8 @@ extension PropsVTTRegion on VTTRegion {
   }
 
   ScrollSetting get scroll =>
-      ScrollSetting.values.byName(js_util.getProperty(this, 'scroll'));
+      ScrollSetting.fromValue(js_util.getProperty(this, 'scroll'));
   set scroll(ScrollSetting newValue) {
-    js_util.setProperty(this, 'scroll', newValue.name);
+    js_util.setProperty(this, 'scroll', newValue.value);
   }
 }

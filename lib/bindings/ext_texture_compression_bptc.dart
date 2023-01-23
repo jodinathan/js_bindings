@@ -1,6 +1,6 @@
 /// WebGL EXT_texture_compression_bptc Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_texture_compression_bptc/
+/// https://registry.khronos.org/webgl/extensions/EXT_texture_compression_bptc/
 
 // ignore_for_file: unused_import
 

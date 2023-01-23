@@ -62,6 +62,8 @@ extension PropsPresentation on Presentation {
 ///
 ///
 ///
+///
+///
 ///    PresentationRequest
 ///
 ///
@@ -113,6 +115,8 @@ extension PropsPresentationRequest on PresentationRequest {
 ///
 ///
 ///
+///
+///
 ///    PresentationAvailability
 ///
 ///
@@ -157,6 +161,8 @@ extension PropsPresentationAvailability on PresentationAvailability {
 ///
 ///
 ///
+///
+///
 ///    PresentationConnectionAvailableEvent
 ///
 ///
@@ -191,7 +197,20 @@ extension PropsPresentationConnectionAvailableEventInit
   }
 }
 
-enum PresentationConnectionState { connecting, connected, closed, terminated }
+enum PresentationConnectionState {
+  connecting('connecting'),
+  connected('connected'),
+  closed('closed'),
+  terminated('terminated');
+
+  final String value;
+  static PresentationConnectionState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<PresentationConnectionState> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const PresentationConnectionState(this.value);
+}
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -210,6 +229,8 @@ enum PresentationConnectionState { connecting, connected, closed, terminated }
 ///
 ///
 ///
+///
+///
 ///    PresentationConnection
 ///
 ///
@@ -223,8 +244,8 @@ class PresentationConnection implements EventTarget {
 extension PropsPresentationConnection on PresentationConnection {
   String get id => js_util.getProperty(this, 'id');
   String get url => js_util.getProperty(this, 'url');
-  PresentationConnectionState get state => PresentationConnectionState.values
-      .byName(js_util.getProperty(this, 'state'));
+  PresentationConnectionState get state =>
+      PresentationConnectionState.fromValue(js_util.getProperty(this, 'state'));
   void close() => js_util.callMethod(this, 'close', []);
 
   void terminate() => js_util.callMethod(this, 'terminate', []);
@@ -246,9 +267,9 @@ extension PropsPresentationConnection on PresentationConnection {
   }
 
   BinaryType get binaryType =>
-      BinaryType.values.byName(js_util.getProperty(this, 'binaryType'));
+      BinaryType.fromValue(js_util.getProperty(this, 'binaryType'));
   set binaryType(BinaryType newValue) {
-    js_util.setProperty(this, 'binaryType', newValue.name);
+    js_util.setProperty(this, 'binaryType', newValue.value);
   }
 
   EventHandlerNonNull? get onmessage => js_util.getProperty(this, 'onmessage');
@@ -259,7 +280,19 @@ extension PropsPresentationConnection on PresentationConnection {
   void send(String message) => js_util.callMethod(this, 'send', [message]);
 }
 
-enum PresentationConnectionCloseReason { error, closed, wentaway }
+enum PresentationConnectionCloseReason {
+  error('error'),
+  closed('closed'),
+  wentaway('wentaway');
+
+  final String value;
+  static PresentationConnectionCloseReason fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<PresentationConnectionCloseReason> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const PresentationConnectionCloseReason(this.value);
+}
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
@@ -271,6 +304,8 @@ enum PresentationConnectionCloseReason { error, closed, wentaway }
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -290,8 +325,8 @@ class PresentationConnectionCloseEvent implements Event {
 extension PropsPresentationConnectionCloseEvent
     on PresentationConnectionCloseEvent {
   PresentationConnectionCloseReason get reason =>
-      PresentationConnectionCloseReason.values
-          .byName(js_util.getProperty(this, 'reason'));
+      PresentationConnectionCloseReason.fromValue(
+          js_util.getProperty(this, 'reason'));
   String get message => js_util.getProperty(this, 'message');
 }
 
@@ -306,16 +341,16 @@ class PresentationConnectionCloseEventInit implements EventInit {
           {required PresentationConnectionCloseReason reason,
           String? message = ''}) =>
       PresentationConnectionCloseEventInit._(
-          reason: reason.name, message: message);
+          reason: reason.value, message: message);
 }
 
 extension PropsPresentationConnectionCloseEventInit
     on PresentationConnectionCloseEventInit {
   PresentationConnectionCloseReason get reason =>
-      PresentationConnectionCloseReason.values
-          .byName(js_util.getProperty(this, 'reason'));
+      PresentationConnectionCloseReason.fromValue(
+          js_util.getProperty(this, 'reason'));
   set reason(PresentationConnectionCloseReason newValue) {
-    js_util.setProperty(this, 'reason', newValue.name);
+    js_util.setProperty(this, 'reason', newValue.value);
   }
 
   String get message => js_util.getProperty(this, 'message');
@@ -354,6 +389,8 @@ extension PropsPresentationReceiver on PresentationReceiver {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///

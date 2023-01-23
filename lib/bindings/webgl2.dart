@@ -1,6 +1,6 @@
 /// WebGL 2.0 Specification
 ///
-/// https://www.khronos.org/registry/webgl/specs/latest/2.0/
+/// https://registry.khronos.org/webgl/specs/latest/2.0/
 
 // ignore_for_file: unused_import
 
@@ -10,7 +10,6 @@ library webgl2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -30,6 +29,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    WebGLQuery
 ///
 ///
@@ -44,7 +45,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///  [WebGL2RenderingContext.getQuery()]
 ///  [WebGL2RenderingContext.getQueryParameter()]
 ///
-@experimental
 @JS()
 @staticInterop
 class WebGLQuery implements WebGLObject {
@@ -62,6 +62,8 @@ class WebGLQuery implements WebGLObject {
 ///
 ///
 ///
+///
+///
 ///    WebGLSampler
 ///
 ///
@@ -74,7 +76,6 @@ class WebGLQuery implements WebGLObject {
 ///  [WebGL2RenderingContext.bindSampler()]
 ///  [WebGL2RenderingContext.getSamplerParameter()]
 ///
-@experimental
 @JS()
 @staticInterop
 class WebGLSampler implements WebGLObject {
@@ -87,6 +88,8 @@ class WebGLSampler implements WebGLObject {
 ///
 ///
 ///    WebGLObject
+///
+///
 ///
 ///
 ///
@@ -105,7 +108,6 @@ class WebGLSampler implements WebGLObject {
 ///  [WebGL2RenderingContext.waitSync()]
 ///  [WebGL2RenderingContext.getSyncParameter()]
 ///
-@experimental
 @JS()
 @staticInterop
 class WebGLSync implements WebGLObject {
@@ -121,6 +123,8 @@ class WebGLSync implements WebGLObject {
 ///
 ///
 ///    WebGLObject
+///
+///
 ///
 ///
 ///
@@ -156,6 +160,8 @@ class WebGLTransformFeedback implements WebGLObject {
 ///
 ///
 ///    WebGLObject
+///
+///
 ///
 ///
 ///
@@ -1545,8 +1551,8 @@ extension PropsWebGL2RenderingContextOverloads
 /// element.
 ///  To get an object of this interface, call [getContext()] on a
 /// [<canvas>] element, supplying "webgl2" as the argument:
-/// [var canvas = document.getElementById('myCanvas');
-/// var gl = canvas.getContext('webgl2');
+/// [const canvas = document.getElementById('myCanvas');
+/// const gl = canvas.getContext('webgl2');
 /// ]
 ///
 ///   Note: WebGL 2 is an extension to WebGL 1. The interface

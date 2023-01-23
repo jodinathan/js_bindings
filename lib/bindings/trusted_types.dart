@@ -1,6 +1,6 @@
 /// Trusted Types
 ///
-/// https://w3c.github.io/webappsec-trusted-types/dist/spec/
+/// https://w3c.github.io/trusted-types/dist/spec/
 
 // ignore_for_file: unused_import
 

@@ -13,7 +13,18 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum MockCapturePromptResult { granted, denied }
+enum MockCapturePromptResult {
+  granted('granted'),
+  denied('denied');
+
+  final String value;
+  static MockCapturePromptResult fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<MockCapturePromptResult> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const MockCapturePromptResult(this.value);
+}
 
 @anonymous
 @JS()
@@ -26,22 +37,23 @@ class MockCapturePromptResultConfiguration {
           {required MockCapturePromptResult getUserMedia,
           required MockCapturePromptResult getDisplayMedia}) =>
       MockCapturePromptResultConfiguration._(
-          getUserMedia: getUserMedia.name,
-          getDisplayMedia: getDisplayMedia.name);
+          getUserMedia: getUserMedia.value,
+          getDisplayMedia: getDisplayMedia.value);
 }
 
 extension PropsMockCapturePromptResultConfiguration
     on MockCapturePromptResultConfiguration {
-  MockCapturePromptResult get getUserMedia => MockCapturePromptResult.values
-      .byName(js_util.getProperty(this, 'getUserMedia'));
+  MockCapturePromptResult get getUserMedia => MockCapturePromptResult.fromValue(
+      js_util.getProperty(this, 'getUserMedia'));
   set getUserMedia(MockCapturePromptResult newValue) {
-    js_util.setProperty(this, 'getUserMedia', newValue.name);
+    js_util.setProperty(this, 'getUserMedia', newValue.value);
   }
 
-  MockCapturePromptResult get getDisplayMedia => MockCapturePromptResult.values
-      .byName(js_util.getProperty(this, 'getDisplayMedia'));
+  MockCapturePromptResult get getDisplayMedia =>
+      MockCapturePromptResult.fromValue(
+          js_util.getProperty(this, 'getDisplayMedia'));
   set getDisplayMedia(MockCapturePromptResult newValue) {
-    js_util.setProperty(this, 'getDisplayMedia', newValue.name);
+    js_util.setProperty(this, 'getDisplayMedia', newValue.value);
   }
 }
 

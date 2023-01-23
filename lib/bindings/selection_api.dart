@@ -25,7 +25,7 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///   Note: Anchor and focus should not be confused with the start
 /// and end positions of a selection. The anchor can be placed before
-/// the focus or vice-versa, depending on the direction you made your
+/// the focus or vice versa, depending on the direction you made your
 /// selection.
 ///
 @JS()
@@ -53,6 +53,13 @@ extension PropsSelection on Selection {
   void removeAllRanges() => js_util.callMethod(this, 'removeAllRanges', []);
 
   void empty() => js_util.callMethod(this, 'empty', []);
+
+  StaticRange getComposedRange(
+          [ShadowRoot? shadowRoots1,
+          ShadowRoot? shadowRoots2,
+          ShadowRoot? shadowRoots3]) =>
+      js_util.callMethod(
+          this, 'getComposedRange', [shadowRoots1, shadowRoots2, shadowRoots3]);
 
   void collapse(Node? node, [int? offset = 0]) =>
       js_util.callMethod(this, 'collapse', [node, offset]);

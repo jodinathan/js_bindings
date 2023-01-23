@@ -10,13 +10,9 @@ library web_animations_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Web Animations API represents the timeline
 /// of an animation. This interface exists to define timeline
 /// features (inherited by [DocumentTimeline] and future timeline
@@ -31,6 +27,9 @@ class AnimationTimeline {
 
 extension PropsAnimationTimeline on AnimationTimeline {
   double? get currentTime => js_util.getProperty(this, 'currentTime');
+  CSSNumericValue? getCurrentTime([String? rangeName]) =>
+      js_util.callMethod(this, 'getCurrentTime', [rangeName]);
+
   dynamic get duration => js_util.getProperty(this, 'duration');
   Animation play([AnimationEffect? effect]) =>
       js_util.callMethod(this, 'play', [effect]);
@@ -50,9 +49,6 @@ extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Web Animations API represents animation
 /// timelines, including the default document timeline (accessed via
 /// [Document.timeline]).
@@ -60,6 +56,8 @@ extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
 ///
 ///
 ///    AnimationTimeline
+///
+///
 ///
 ///
 ///
@@ -81,6 +79,8 @@ class DocumentTimeline implements AnimationTimeline {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -118,9 +118,9 @@ extension PropsAnimation on Animation {
   }
 
   AnimationPlayState get playState =>
-      AnimationPlayState.values.byName(js_util.getProperty(this, 'playState'));
-  AnimationReplaceState get replaceState => AnimationReplaceState.values
-      .byName(js_util.getProperty(this, 'replaceState'));
+      AnimationPlayState.fromValue(js_util.getProperty(this, 'playState'));
+  AnimationReplaceState get replaceState => AnimationReplaceState.fromValue(
+      js_util.getProperty(this, 'replaceState'));
   bool get pending => js_util.getProperty(this, 'pending');
   Future<Animation> get ready =>
       js_util.promiseToFuture(js_util.getProperty(this, 'ready'));
@@ -169,13 +169,33 @@ extension PropsAnimation on Animation {
   }
 }
 
-enum AnimationPlayState { idle, running, paused, finished }
+enum AnimationPlayState {
+  idle('idle'),
+  running('running'),
+  paused('paused'),
+  finished('finished');
 
-enum AnimationReplaceState { active, removed, persisted }
+  final String value;
+  static AnimationPlayState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AnimationPlayState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AnimationPlayState(this.value);
+}
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+enum AnimationReplaceState {
+  active('active'),
+  removed('removed'),
+  persisted('persisted');
+
+  final String value;
+  static AnimationReplaceState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<AnimationReplaceState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const AnimationReplaceState(this.value);
+}
+
 ///  The interface of the Web Animations API defines current and
 /// future animation effects like [KeyframeEffect], which can be
 /// passed to [Animation] objects for playing, and [KeyframeEffect]
@@ -238,18 +258,17 @@ class EffectTiming {
           PlaybackDirection? direction = PlaybackDirection.normal,
           String? easing = 'linear'}) =>
       EffectTiming._(
-          fill: fill?.name,
+          fill: fill?.value,
           iterationStart: iterationStart,
           iterations: iterations,
-          direction: direction?.name,
+          direction: direction?.value,
           easing: easing);
 }
 
 extension PropsEffectTiming on EffectTiming {
-  FillMode get fill =>
-      FillMode.values.byName(js_util.getProperty(this, 'fill'));
+  FillMode get fill => FillMode.fromValue(js_util.getProperty(this, 'fill'));
   set fill(FillMode newValue) {
-    js_util.setProperty(this, 'fill', newValue.name);
+    js_util.setProperty(this, 'fill', newValue.value);
   }
 
   double get iterationStart => js_util.getProperty(this, 'iterationStart');
@@ -264,9 +283,9 @@ extension PropsEffectTiming on EffectTiming {
   }
 
   PlaybackDirection get direction =>
-      PlaybackDirection.values.byName(js_util.getProperty(this, 'direction'));
+      PlaybackDirection.fromValue(js_util.getProperty(this, 'direction'));
   set direction(PlaybackDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue.name);
+    js_util.setProperty(this, 'direction', newValue.value);
   }
 
   String get easing => js_util.getProperty(this, 'easing');
@@ -301,11 +320,11 @@ class OptionalEffectTiming {
       OptionalEffectTiming._(
           delay: delay,
           endDelay: endDelay,
-          fill: fill.name,
+          fill: fill.value,
           iterationStart: iterationStart,
           iterations: iterations,
           duration: duration,
-          direction: direction.name,
+          direction: direction.value,
           easing: easing);
 }
 
@@ -320,10 +339,9 @@ extension PropsOptionalEffectTiming on OptionalEffectTiming {
     js_util.setProperty(this, 'endDelay', newValue);
   }
 
-  FillMode get fill =>
-      FillMode.values.byName(js_util.getProperty(this, 'fill'));
+  FillMode get fill => FillMode.fromValue(js_util.getProperty(this, 'fill'));
   set fill(FillMode newValue) {
-    js_util.setProperty(this, 'fill', newValue.name);
+    js_util.setProperty(this, 'fill', newValue.value);
   }
 
   double get iterationStart => js_util.getProperty(this, 'iterationStart');
@@ -343,9 +361,9 @@ extension PropsOptionalEffectTiming on OptionalEffectTiming {
   }
 
   PlaybackDirection get direction =>
-      PlaybackDirection.values.byName(js_util.getProperty(this, 'direction'));
+      PlaybackDirection.fromValue(js_util.getProperty(this, 'direction'));
   set direction(PlaybackDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue.name);
+    js_util.setProperty(this, 'direction', newValue.value);
   }
 
   String get easing => js_util.getProperty(this, 'easing');
@@ -354,9 +372,34 @@ extension PropsOptionalEffectTiming on OptionalEffectTiming {
   }
 }
 
-enum FillMode { none, forwards, backwards, both, auto }
+enum FillMode {
+  none('none'),
+  forwards('forwards'),
+  backwards('backwards'),
+  both('both'),
+  auto('auto');
 
-enum PlaybackDirection { normal, reverse, alternate, alternateReverse }
+  final String value;
+  static FillMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<FillMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const FillMode(this.value);
+}
+
+enum PlaybackDirection {
+  normal('normal'),
+  reverse('reverse'),
+  alternate('alternate'),
+  alternateReverse('alternate-reverse');
+
+  final String value;
+  static PlaybackDirection fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<PlaybackDirection> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const PlaybackDirection(this.value);
+}
 
 @anonymous
 @JS()
@@ -379,9 +422,6 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Web Animations API lets us create sets of
 /// animatable properties and values, called keyframes. These can
 /// then be played using the [Animation()] constructor.
@@ -394,10 +434,11 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
 ///
 ///
 ///
+///
+///
 ///    KeyframeEffect
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class KeyframeEffect implements AnimationEffect {
@@ -417,9 +458,9 @@ extension PropsKeyframeEffect on KeyframeEffect {
   }
 
   CompositeOperation get composite =>
-      CompositeOperation.values.byName(js_util.getProperty(this, 'composite'));
+      CompositeOperation.fromValue(js_util.getProperty(this, 'composite'));
   set composite(CompositeOperation newValue) {
-    js_util.setProperty(this, 'composite', newValue.name);
+    js_util.setProperty(this, 'composite', newValue.value);
   }
 
   Iterable<dynamic> getKeyframes() =>
@@ -429,10 +470,10 @@ extension PropsKeyframeEffect on KeyframeEffect {
       js_util.callMethod(this, 'setKeyframes', [keyframes]);
 
   IterationCompositeOperation get iterationComposite =>
-      IterationCompositeOperation.values
-          .byName(js_util.getProperty(this, 'iterationComposite'));
+      IterationCompositeOperation.fromValue(
+          js_util.getProperty(this, 'iterationComposite'));
   set iterationComposite(IterationCompositeOperation newValue) {
-    js_util.setProperty(this, 'iterationComposite', newValue.name);
+    js_util.setProperty(this, 'iterationComposite', newValue.value);
   }
 }
 
@@ -456,7 +497,7 @@ class BaseComputedKeyframe {
           offset: offset,
           computedOffset: computedOffset,
           easing: easing,
-          composite: composite?.name);
+          composite: composite?.value);
 }
 
 extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
@@ -475,10 +516,10 @@ extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
     js_util.setProperty(this, 'easing', newValue);
   }
 
-  CompositeOperationOrAuto get composite => CompositeOperationOrAuto.values
-      .byName(js_util.getProperty(this, 'composite'));
+  CompositeOperationOrAuto get composite => CompositeOperationOrAuto.fromValue(
+      js_util.getProperty(this, 'composite'));
   set composite(CompositeOperationOrAuto newValue) {
-    js_util.setProperty(this, 'composite', newValue.name);
+    js_util.setProperty(this, 'composite', newValue.value);
   }
 }
 
@@ -522,7 +563,7 @@ class BaseKeyframe {
           CompositeOperationOrAuto? composite =
               CompositeOperationOrAuto.auto}) =>
       BaseKeyframe._(
-          offset: offset, easing: easing, composite: composite?.name);
+          offset: offset, easing: easing, composite: composite?.value);
 }
 
 extension PropsBaseKeyframe on BaseKeyframe {
@@ -536,10 +577,10 @@ extension PropsBaseKeyframe on BaseKeyframe {
     js_util.setProperty(this, 'easing', newValue);
   }
 
-  CompositeOperationOrAuto get composite => CompositeOperationOrAuto.values
-      .byName(js_util.getProperty(this, 'composite'));
+  CompositeOperationOrAuto get composite => CompositeOperationOrAuto.fromValue(
+      js_util.getProperty(this, 'composite'));
   set composite(CompositeOperationOrAuto newValue) {
-    js_util.setProperty(this, 'composite', newValue.name);
+    js_util.setProperty(this, 'composite', newValue.value);
   }
 }
 
@@ -554,14 +595,14 @@ class KeyframeEffectOptions implements EffectTiming {
           {CompositeOperation? composite = CompositeOperation.replace,
           String? pseudoElement}) =>
       KeyframeEffectOptions._(
-          composite: composite?.name, pseudoElement: pseudoElement);
+          composite: composite?.value, pseudoElement: pseudoElement);
 }
 
 extension PropsKeyframeEffectOptions on KeyframeEffectOptions {
   CompositeOperation get composite =>
-      CompositeOperation.values.byName(js_util.getProperty(this, 'composite'));
+      CompositeOperation.fromValue(js_util.getProperty(this, 'composite'));
   set composite(CompositeOperation newValue) {
-    js_util.setProperty(this, 'composite', newValue.name);
+    js_util.setProperty(this, 'composite', newValue.value);
   }
 
   String? get pseudoElement => js_util.getProperty(this, 'pseudoElement');
@@ -570,9 +611,33 @@ extension PropsKeyframeEffectOptions on KeyframeEffectOptions {
   }
 }
 
-enum CompositeOperation { replace, add, accumulate }
+enum CompositeOperation {
+  replace('replace'),
+  add('add'),
+  accumulate('accumulate');
 
-enum CompositeOperationOrAuto { replace, add, accumulate, auto }
+  final String value;
+  static CompositeOperation fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<CompositeOperation> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const CompositeOperation(this.value);
+}
+
+enum CompositeOperationOrAuto {
+  replace('replace'),
+  add('add'),
+  accumulate('accumulate'),
+  auto('auto');
+
+  final String value;
+  static CompositeOperationOrAuto fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<CompositeOperationOrAuto> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const CompositeOperationOrAuto(this.value);
+}
 
 @JS()
 @staticInterop

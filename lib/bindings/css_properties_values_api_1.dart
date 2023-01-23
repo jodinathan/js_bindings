@@ -10,7 +10,6 @@ library css_properties_values_api_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -58,10 +57,11 @@ extension PropsPropertyDefinition on PropertyDefinition {
 ///
 ///
 ///
+///
+///
 ///    CSSPropertyRule
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class CSSPropertyRule implements CSSRule {

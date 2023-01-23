@@ -10,7 +10,7 @@ library webrtc;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -35,9 +35,9 @@ class RTCConfiguration {
           int? iceCandidatePoolSize = 0}) =>
       RTCConfiguration._(
           iceServers: iceServers,
-          iceTransportPolicy: iceTransportPolicy?.name,
-          bundlePolicy: bundlePolicy?.name,
-          rtcpMuxPolicy: rtcpMuxPolicy?.name,
+          iceTransportPolicy: iceTransportPolicy?.value,
+          bundlePolicy: bundlePolicy?.value,
+          rtcpMuxPolicy: rtcpMuxPolicy?.value,
           certificates: certificates,
           iceCandidatePoolSize: iceCandidatePoolSize);
 }
@@ -49,22 +49,23 @@ extension PropsRTCConfiguration on RTCConfiguration {
     js_util.setProperty(this, 'iceServers', newValue);
   }
 
-  RTCIceTransportPolicy get iceTransportPolicy => RTCIceTransportPolicy.values
-      .byName(js_util.getProperty(this, 'iceTransportPolicy'));
+  RTCIceTransportPolicy get iceTransportPolicy =>
+      RTCIceTransportPolicy.fromValue(
+          js_util.getProperty(this, 'iceTransportPolicy'));
   set iceTransportPolicy(RTCIceTransportPolicy newValue) {
-    js_util.setProperty(this, 'iceTransportPolicy', newValue.name);
+    js_util.setProperty(this, 'iceTransportPolicy', newValue.value);
   }
 
   RTCBundlePolicy get bundlePolicy =>
-      RTCBundlePolicy.values.byName(js_util.getProperty(this, 'bundlePolicy'));
+      RTCBundlePolicy.fromValue(js_util.getProperty(this, 'bundlePolicy'));
   set bundlePolicy(RTCBundlePolicy newValue) {
-    js_util.setProperty(this, 'bundlePolicy', newValue.name);
+    js_util.setProperty(this, 'bundlePolicy', newValue.value);
   }
 
-  RTCRtcpMuxPolicy get rtcpMuxPolicy => RTCRtcpMuxPolicy.values
-      .byName(js_util.getProperty(this, 'rtcpMuxPolicy'));
+  RTCRtcpMuxPolicy get rtcpMuxPolicy =>
+      RTCRtcpMuxPolicy.fromValue(js_util.getProperty(this, 'rtcpMuxPolicy'));
   set rtcpMuxPolicy(RTCRtcpMuxPolicy newValue) {
-    js_util.setProperty(this, 'rtcpMuxPolicy', newValue.name);
+    js_util.setProperty(this, 'rtcpMuxPolicy', newValue.value);
   }
 
   Iterable<RTCCertificate> get certificates =>
@@ -80,34 +81,16 @@ extension PropsRTCConfiguration on RTCConfiguration {
   }
 }
 
-enum RTCIceCredentialType { password }
-
 ///  The dictionary defines how to connect to a single ICE server
 /// (such as a STUN or TURN server). Objects of this type are
 /// provided in the configuration of an [RTCPeerConnection], in the
 /// [iceServers] array.
-@experimental
 @anonymous
 @JS()
 @staticInterop
 class RTCIceServer {
-  external factory RTCIceServer._(
-      {dynamic urls,
-      required String username,
-      required String credential,
-      String? credentialType});
-
-  factory RTCIceServer(
-          {dynamic urls,
-          required String username,
-          required String credential,
-          RTCIceCredentialType? credentialType =
-              RTCIceCredentialType.password}) =>
-      RTCIceServer._(
-          urls: urls,
-          username: username,
-          credential: credential,
-          credentialType: credentialType?.name);
+  external factory RTCIceServer(
+      {dynamic urls, required String username, required String credential});
 }
 
 extension PropsRTCIceServer on RTCIceServer {
@@ -125,19 +108,43 @@ extension PropsRTCIceServer on RTCIceServer {
   set credential(String newValue) {
     js_util.setProperty(this, 'credential', newValue);
   }
-
-  RTCIceCredentialType get credentialType => RTCIceCredentialType.values
-      .byName(js_util.getProperty(this, 'credentialType'));
-  set credentialType(RTCIceCredentialType newValue) {
-    js_util.setProperty(this, 'credentialType', newValue.name);
-  }
 }
 
-enum RTCIceTransportPolicy { relay, all }
+enum RTCIceTransportPolicy {
+  relay('relay'),
+  all('all');
 
-enum RTCBundlePolicy { balanced, maxCompat, maxBundle }
+  final String value;
+  static RTCIceTransportPolicy fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceTransportPolicy> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceTransportPolicy(this.value);
+}
 
-enum RTCRtcpMuxPolicy { require }
+enum RTCBundlePolicy {
+  balanced('balanced'),
+  maxCompat('max-compat'),
+  maxBundle('max-bundle');
+
+  final String value;
+  static RTCBundlePolicy fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCBundlePolicy> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCBundlePolicy(this.value);
+}
+
+enum RTCRtcpMuxPolicy {
+  require('require');
+
+  final String value;
+  static RTCRtcpMuxPolicy fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCRtcpMuxPolicy> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCRtcpMuxPolicy(this.value);
+}
 
 @anonymous
 @JS()
@@ -168,33 +175,65 @@ class RTCAnswerOptions implements RTCOfferAnswerOptions {
 }
 
 enum RTCSignalingState {
-  stable,
-  haveLocalOffer,
-  haveRemoteOffer,
-  haveLocalPranswer,
-  haveRemotePranswer,
-  closed
+  stable('stable'),
+  haveLocalOffer('have-local-offer'),
+  haveRemoteOffer('have-remote-offer'),
+  haveLocalPranswer('have-local-pranswer'),
+  haveRemotePranswer('have-remote-pranswer'),
+  closed('closed');
+
+  final String value;
+  static RTCSignalingState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCSignalingState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCSignalingState(this.value);
 }
 
-enum RTCIceGatheringState { valueNew, gathering, complete }
+enum RTCIceGatheringState {
+  valueNew('new'),
+  gathering('gathering'),
+  complete('complete');
+
+  final String value;
+  static RTCIceGatheringState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceGatheringState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceGatheringState(this.value);
+}
 
 enum RTCPeerConnectionState {
-  closed,
-  failed,
-  disconnected,
-  valueNew,
-  connecting,
-  connected
+  closed('closed'),
+  failed('failed'),
+  disconnected('disconnected'),
+  valueNew('new'),
+  connecting('connecting'),
+  connected('connected');
+
+  final String value;
+  static RTCPeerConnectionState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCPeerConnectionState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCPeerConnectionState(this.value);
 }
 
 enum RTCIceConnectionState {
-  closed,
-  failed,
-  disconnected,
-  valueNew,
-  checking,
-  completed,
-  connected
+  closed('closed'),
+  failed('failed'),
+  disconnected('disconnected'),
+  valueNew('new'),
+  checking('checking'),
+  completed('completed'),
+  connected('connected');
+
+  final String value;
+  static RTCIceConnectionState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceConnectionState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceConnectionState(this.value);
 }
 
 ///  The interface represents a WebRTC connection between the local
@@ -205,6 +244,8 @@ enum RTCIceConnectionState {
 ///
 ///
 ///    EventTarget
+///
+///
 ///
 ///
 ///
@@ -232,14 +273,16 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
       js_util.getProperty(this, 'currentRemoteDescription');
   RTCSessionDescription? get pendingRemoteDescription =>
       js_util.getProperty(this, 'pendingRemoteDescription');
-  RTCSignalingState get signalingState => RTCSignalingState.values
-      .byName(js_util.getProperty(this, 'signalingState'));
-  RTCIceGatheringState get iceGatheringState => RTCIceGatheringState.values
-      .byName(js_util.getProperty(this, 'iceGatheringState'));
-  RTCIceConnectionState get iceConnectionState => RTCIceConnectionState.values
-      .byName(js_util.getProperty(this, 'iceConnectionState'));
-  RTCPeerConnectionState get connectionState => RTCPeerConnectionState.values
-      .byName(js_util.getProperty(this, 'connectionState'));
+  RTCSignalingState get signalingState =>
+      RTCSignalingState.fromValue(js_util.getProperty(this, 'signalingState'));
+  RTCIceGatheringState get iceGatheringState => RTCIceGatheringState.fromValue(
+      js_util.getProperty(this, 'iceGatheringState'));
+  RTCIceConnectionState get iceConnectionState =>
+      RTCIceConnectionState.fromValue(
+          js_util.getProperty(this, 'iceConnectionState'));
+  RTCPeerConnectionState get connectionState =>
+      RTCPeerConnectionState.fromValue(
+          js_util.getProperty(this, 'connectionState'));
   bool? get canTrickleIceCandidates =>
       js_util.getProperty(this, 'canTrickleIceCandidates');
   void restartIce() => js_util.callMethod(this, 'restartIce', []);
@@ -401,11 +444,20 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
   String? get idpErrorInfo => js_util.getProperty(this, 'idpErrorInfo');
 }
 
-enum RTCSdpType { offer, pranswer, answer, rollback }
+enum RTCSdpType {
+  offer('offer'),
+  pranswer('pranswer'),
+  answer('answer'),
+  rollback('rollback');
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+  final String value;
+  static RTCSdpType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCSdpType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCSdpType(this.value);
+}
+
 ///  The interface describes one end of a connection—or potential
 /// connection—and how it's configured. Each consists of a
 /// description [type] indicating which part of the offer/answer
@@ -417,7 +469,6 @@ enum RTCSdpType { offer, pranswer, answer, rollback }
 /// that the sender of the description supports. Once the two peers
 /// agree upon a configuration for the connection, negotiation is
 /// complete.
-@experimental
 @JS()
 @staticInterop
 class RTCSessionDescription {
@@ -427,7 +478,7 @@ class RTCSessionDescription {
 
 extension PropsRTCSessionDescription on RTCSessionDescription {
   RTCSdpType get type =>
-      RTCSdpType.values.byName(js_util.getProperty(this, 'type'));
+      RTCSdpType.fromValue(js_util.getProperty(this, 'type'));
   String get sdp => js_util.getProperty(this, 'sdp');
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
@@ -441,14 +492,14 @@ class RTCSessionDescriptionInit {
 
   factory RTCSessionDescriptionInit(
           {required RTCSdpType type, String? sdp = ''}) =>
-      RTCSessionDescriptionInit._(type: type.name, sdp: sdp);
+      RTCSessionDescriptionInit._(type: type.value, sdp: sdp);
 }
 
 extension PropsRTCSessionDescriptionInit on RTCSessionDescriptionInit {
   RTCSdpType get type =>
-      RTCSdpType.values.byName(js_util.getProperty(this, 'type'));
+      RTCSdpType.fromValue(js_util.getProperty(this, 'type'));
   set type(RTCSdpType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   String get sdp => js_util.getProperty(this, 'sdp');
@@ -466,15 +517,15 @@ class RTCLocalSessionDescriptionInit {
 
   factory RTCLocalSessionDescriptionInit(
           {required RTCSdpType type, String? sdp = ''}) =>
-      RTCLocalSessionDescriptionInit._(type: type.name, sdp: sdp);
+      RTCLocalSessionDescriptionInit._(type: type.value, sdp: sdp);
 }
 
 extension PropsRTCLocalSessionDescriptionInit
     on RTCLocalSessionDescriptionInit {
   RTCSdpType get type =>
-      RTCSdpType.values.byName(js_util.getProperty(this, 'type'));
+      RTCSdpType.fromValue(js_util.getProperty(this, 'type'));
   set type(RTCSdpType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   String get sdp => js_util.getProperty(this, 'sdp');
@@ -510,7 +561,7 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   RTCIceComponent? get component {
     final ret = js_util.getProperty(this, 'component');
 
-    return ret == null ? null : RTCIceComponent.values.byName(ret);
+    return ret == null ? null : RTCIceComponent.fromValue(ret);
   }
 
   int? get priority => js_util.getProperty(this, 'priority');
@@ -518,25 +569,32 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   RTCIceProtocol? get protocol {
     final ret = js_util.getProperty(this, 'protocol');
 
-    return ret == null ? null : RTCIceProtocol.values.byName(ret);
+    return ret == null ? null : RTCIceProtocol.fromValue(ret);
   }
 
   int? get port => js_util.getProperty(this, 'port');
   RTCIceCandidateType? get type {
     final ret = js_util.getProperty(this, 'type');
 
-    return ret == null ? null : RTCIceCandidateType.values.byName(ret);
+    return ret == null ? null : RTCIceCandidateType.fromValue(ret);
   }
 
   RTCIceTcpCandidateType? get tcpType {
     final ret = js_util.getProperty(this, 'tcpType');
 
-    return ret == null ? null : RTCIceTcpCandidateType.values.byName(ret);
+    return ret == null ? null : RTCIceTcpCandidateType.fromValue(ret);
   }
 
   String? get relatedAddress => js_util.getProperty(this, 'relatedAddress');
   int? get relatedPort => js_util.getProperty(this, 'relatedPort');
   String? get usernameFragment => js_util.getProperty(this, 'usernameFragment');
+  RTCIceServerTransportProtocol? get relayProtocol {
+    final ret = js_util.getProperty(this, 'relayProtocol');
+
+    return ret == null ? null : RTCIceServerTransportProtocol.fromValue(ret);
+  }
+
+  String? get url => js_util.getProperty(this, 'url');
   RTCIceCandidateInit toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
@@ -573,11 +631,58 @@ extension PropsRTCIceCandidateInit on RTCIceCandidateInit {
   }
 }
 
-enum RTCIceProtocol { udp, tcp }
+enum RTCIceProtocol {
+  udp('udp'),
+  tcp('tcp');
 
-enum RTCIceTcpCandidateType { active, passive, so }
+  final String value;
+  static RTCIceProtocol fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceProtocol> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceProtocol(this.value);
+}
 
-enum RTCIceCandidateType { host, srflx, prflx, relay }
+enum RTCIceTcpCandidateType {
+  active('active'),
+  passive('passive'),
+  so('so');
+
+  final String value;
+  static RTCIceTcpCandidateType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceTcpCandidateType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceTcpCandidateType(this.value);
+}
+
+enum RTCIceCandidateType {
+  host('host'),
+  srflx('srflx'),
+  prflx('prflx'),
+  relay('relay');
+
+  final String value;
+  static RTCIceCandidateType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceCandidateType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceCandidateType(this.value);
+}
+
+enum RTCIceServerTransportProtocol {
+  udp('udp'),
+  tcp('tcp'),
+  tls('tls');
+
+  final String value;
+  static RTCIceServerTransportProtocol fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceServerTransportProtocol> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceServerTransportProtocol(this.value);
+}
 
 ///  The interface represents events that occur in relation to ICE
 /// candidates with the target, usually an [RTCPeerConnection].
@@ -591,10 +696,11 @@ enum RTCIceCandidateType { host, srflx, prflx, relay }
 ///
 ///
 ///
+///
+///
 ///    RTCPeerConnectionIceEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class RTCPeerConnectionIceEvent implements Event {
@@ -634,6 +740,8 @@ extension PropsRTCPeerConnectionIceEventInit on RTCPeerConnectionIceEventInit {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -741,16 +849,17 @@ class RTCRtpTransceiverInit {
           Iterable<MediaStream>? streams = const [],
           Iterable<RTCRtpEncodingParameters>? sendEncodings = const []}) =>
       RTCRtpTransceiverInit._(
-          direction: direction?.name,
+          direction: direction?.value,
           streams: streams,
           sendEncodings: sendEncodings);
 }
 
 extension PropsRTCRtpTransceiverInit on RTCRtpTransceiverInit {
-  RTCRtpTransceiverDirection get direction => RTCRtpTransceiverDirection.values
-      .byName(js_util.getProperty(this, 'direction'));
+  RTCRtpTransceiverDirection get direction =>
+      RTCRtpTransceiverDirection.fromValue(
+          js_util.getProperty(this, 'direction'));
   set direction(RTCRtpTransceiverDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue.name);
+    js_util.setProperty(this, 'direction', newValue.value);
   }
 
   Iterable<MediaStream> get streams => js_util.getProperty(this, 'streams');
@@ -766,11 +875,19 @@ extension PropsRTCRtpTransceiverInit on RTCRtpTransceiverInit {
 }
 
 enum RTCRtpTransceiverDirection {
-  sendrecv,
-  sendonly,
-  recvonly,
-  inactive,
-  stopped
+  sendrecv('sendrecv'),
+  sendonly('sendonly'),
+  recvonly('recvonly'),
+  inactive('inactive'),
+  stopped('stopped');
+
+  final String value;
+  static RTCRtpTransceiverDirection fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCRtpTransceiverDirection> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCRtpTransceiverDirection(this.value);
 }
 
 ///  The interface provides the ability to control and obtain details
@@ -922,7 +1039,10 @@ extension PropsRTCRtpCodingParameters on RTCRtpCodingParameters {
 @staticInterop
 class RTCRtpEncodingParameters implements RTCRtpCodingParameters {
   external factory RTCRtpEncodingParameters(
-      {bool? active = true, int? maxBitrate, double? scaleResolutionDownBy});
+      {bool? active = true,
+      int? maxBitrate,
+      double? maxFramerate,
+      double? scaleResolutionDownBy});
 }
 
 extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
@@ -934,6 +1054,11 @@ extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
   int get maxBitrate => js_util.getProperty(this, 'maxBitrate');
   set maxBitrate(int newValue) {
     js_util.setProperty(this, 'maxBitrate', newValue);
+  }
+
+  double get maxFramerate => js_util.getProperty(this, 'maxFramerate');
+  set maxFramerate(double newValue) {
+    js_util.setProperty(this, 'maxFramerate', newValue);
   }
 
   double get scaleResolutionDownBy =>
@@ -1227,16 +1352,17 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
   String? get mid => js_util.getProperty(this, 'mid');
   RTCRtpSender get sender => js_util.getProperty(this, 'sender');
   RTCRtpReceiver get receiver => js_util.getProperty(this, 'receiver');
-  RTCRtpTransceiverDirection get direction => RTCRtpTransceiverDirection.values
-      .byName(js_util.getProperty(this, 'direction'));
+  RTCRtpTransceiverDirection get direction =>
+      RTCRtpTransceiverDirection.fromValue(
+          js_util.getProperty(this, 'direction'));
   set direction(RTCRtpTransceiverDirection newValue) {
-    js_util.setProperty(this, 'direction', newValue.name);
+    js_util.setProperty(this, 'direction', newValue.value);
   }
 
   RTCRtpTransceiverDirection? get currentDirection {
     final ret = js_util.getProperty(this, 'currentDirection');
 
-    return ret == null ? null : RTCRtpTransceiverDirection.values.byName(ret);
+    return ret == null ? null : RTCRtpTransceiverDirection.fromValue(ret);
   }
 
   void stop() => js_util.callMethod(this, 'stop', []);
@@ -1264,10 +1390,11 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
 ///
 ///
 ///
+///
+///
 ///    RTCDtlsTransport
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class RTCDtlsTransport implements EventTarget {
@@ -1277,7 +1404,7 @@ class RTCDtlsTransport implements EventTarget {
 extension PropsRTCDtlsTransport on RTCDtlsTransport {
   RTCIceTransport get iceTransport => js_util.getProperty(this, 'iceTransport');
   RTCDtlsTransportState get state =>
-      RTCDtlsTransportState.values.byName(js_util.getProperty(this, 'state'));
+      RTCDtlsTransportState.fromValue(js_util.getProperty(this, 'state'));
   Iterable<ByteBuffer> getRemoteCertificates() =>
       js_util.callMethod(this, 'getRemoteCertificates', []);
 
@@ -1293,7 +1420,20 @@ extension PropsRTCDtlsTransport on RTCDtlsTransport {
   }
 }
 
-enum RTCDtlsTransportState { valueNew, connecting, connected, closed, failed }
+enum RTCDtlsTransportState {
+  valueNew('new'),
+  connecting('connecting'),
+  connected('connected'),
+  closed('closed'),
+  failed('failed');
+
+  final String value;
+  static RTCDtlsTransportState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCDtlsTransportState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCDtlsTransportState(this.value);
+}
 
 @anonymous
 @JS()
@@ -1330,6 +1470,8 @@ extension PropsRTCDtlsFingerprint on RTCDtlsFingerprint {
 ///
 ///
 ///
+///
+///
 ///    RTCIceTransport
 ///
 ///
@@ -1341,13 +1483,13 @@ class RTCIceTransport implements EventTarget {
 
 extension PropsRTCIceTransport on RTCIceTransport {
   RTCIceRole get role =>
-      RTCIceRole.values.byName(js_util.getProperty(this, 'role'));
+      RTCIceRole.fromValue(js_util.getProperty(this, 'role'));
   RTCIceComponent get component =>
-      RTCIceComponent.values.byName(js_util.getProperty(this, 'component'));
+      RTCIceComponent.fromValue(js_util.getProperty(this, 'component'));
   RTCIceTransportState get state =>
-      RTCIceTransportState.values.byName(js_util.getProperty(this, 'state'));
-  RTCIceGathererState get gatheringState => RTCIceGathererState.values
-      .byName(js_util.getProperty(this, 'gatheringState'));
+      RTCIceTransportState.fromValue(js_util.getProperty(this, 'state'));
+  RTCIceGathererState get gatheringState => RTCIceGathererState.fromValue(
+      js_util.getProperty(this, 'gatheringState'));
   Iterable<RTCIceCandidate> getLocalCandidates() =>
       js_util.callMethod(this, 'getLocalCandidates', []);
 
@@ -1387,7 +1529,7 @@ extension PropsRTCIceTransport on RTCIceTransport {
   void start(
           [RTCIceParameters? remoteParameters,
           RTCIceRole? role = RTCIceRole.controlled]) =>
-      js_util.callMethod(this, 'start', [remoteParameters, role?.name]);
+      js_util.callMethod(this, 'start', [remoteParameters, role?.value]);
 
   void stop() => js_util.callMethod(this, 'stop', []);
 
@@ -1458,21 +1600,60 @@ extension PropsRTCIceCandidatePair on RTCIceCandidatePair {
   }
 }
 
-enum RTCIceGathererState { valueNew, gathering, complete }
+enum RTCIceGathererState {
+  valueNew('new'),
+  gathering('gathering'),
+  complete('complete');
 
-enum RTCIceTransportState {
-  valueNew,
-  checking,
-  connected,
-  completed,
-  disconnected,
-  failed,
-  closed
+  final String value;
+  static RTCIceGathererState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceGathererState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceGathererState(this.value);
 }
 
-enum RTCIceRole { unknown, controlling, controlled }
+enum RTCIceTransportState {
+  valueNew('new'),
+  checking('checking'),
+  connected('connected'),
+  completed('completed'),
+  disconnected('disconnected'),
+  failed('failed'),
+  closed('closed');
 
-enum RTCIceComponent { rtp, rtcp }
+  final String value;
+  static RTCIceTransportState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceTransportState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceTransportState(this.value);
+}
+
+enum RTCIceRole {
+  unknown('unknown'),
+  controlling('controlling'),
+  controlled('controlled');
+
+  final String value;
+  static RTCIceRole fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceRole> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceRole(this.value);
+}
+
+enum RTCIceComponent {
+  rtp('rtp'),
+  rtcp('rtcp');
+
+  final String value;
+  static RTCIceComponent fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceComponent> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceComponent(this.value);
+}
 
 ///  The WebRTC API interface represents the [track] event, which is
 /// sent when a new [MediaStreamTrack] is added to an
@@ -1486,6 +1667,8 @@ enum RTCIceComponent { rtp, rtcp }
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -1540,9 +1723,6 @@ extension PropsRTCTrackEventInit on RTCTrackEventInit {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface provides information which describes a Stream
 /// Control Transmission Protocol (SCTP) transport. This provides
 /// information about limitations of the transport, but also provides
@@ -1564,10 +1744,11 @@ extension PropsRTCTrackEventInit on RTCTrackEventInit {
 ///
 ///
 ///
+///
+///
 ///    RTCSctpTransport
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class RTCSctpTransport implements EventTarget {
@@ -1577,7 +1758,7 @@ class RTCSctpTransport implements EventTarget {
 extension PropsRTCSctpTransport on RTCSctpTransport {
   RTCDtlsTransport get transport => js_util.getProperty(this, 'transport');
   RTCSctpTransportState get state =>
-      RTCSctpTransportState.values.byName(js_util.getProperty(this, 'state'));
+      RTCSctpTransportState.fromValue(js_util.getProperty(this, 'state'));
 /* double | NaN */ dynamic get maxMessageSize =>
       js_util.getProperty(this, 'maxMessageSize');
   int? get maxChannels => js_util.getProperty(this, 'maxChannels');
@@ -1588,7 +1769,18 @@ extension PropsRTCSctpTransport on RTCSctpTransport {
   }
 }
 
-enum RTCSctpTransportState { connecting, connected, closed }
+enum RTCSctpTransportState {
+  connecting('connecting'),
+  connected('connected'),
+  closed('closed');
+
+  final String value;
+  static RTCSctpTransportState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCSctpTransportState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCSctpTransportState(this.value);
+}
 
 ///  The interface represents a network channel which can be used for
 /// bidirectional peer-to-peer transfers of arbitrary data. Every
@@ -1601,6 +1793,7 @@ enum RTCSctpTransportState { connecting, connected, closed }
 /// being invited to exchange data receives a [datachannel] event
 /// (which has type [RTCDataChannelEvent]) to let it know the data
 /// channel has been added to the connection.
+///  is a transferable object.
 ///
 ///
 ///
@@ -1610,10 +1803,11 @@ enum RTCSctpTransportState { connecting, connected, closed }
 ///
 ///
 ///
+///
+///
 ///    RTCDataChannel
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class RTCDataChannel implements EventTarget {
@@ -1628,8 +1822,8 @@ extension PropsRTCDataChannel on RTCDataChannel {
   String get protocol => js_util.getProperty(this, 'protocol');
   bool get negotiated => js_util.getProperty(this, 'negotiated');
   int? get id => js_util.getProperty(this, 'id');
-  RTCDataChannelState get readyState => RTCDataChannelState.values
-      .byName(js_util.getProperty(this, 'readyState'));
+  RTCDataChannelState get readyState =>
+      RTCDataChannelState.fromValue(js_util.getProperty(this, 'readyState'));
   int get bufferedAmount => js_util.getProperty(this, 'bufferedAmount');
   int get bufferedAmountLowThreshold =>
       js_util.getProperty(this, 'bufferedAmountLowThreshold');
@@ -1671,15 +1865,15 @@ extension PropsRTCDataChannel on RTCDataChannel {
   }
 
   BinaryType get binaryType =>
-      BinaryType.values.byName(js_util.getProperty(this, 'binaryType'));
+      BinaryType.fromValue(js_util.getProperty(this, 'binaryType'));
   set binaryType(BinaryType newValue) {
-    js_util.setProperty(this, 'binaryType', newValue.name);
+    js_util.setProperty(this, 'binaryType', newValue.value);
   }
 
   void send(String data) => js_util.callMethod(this, 'send', [data]);
 
   RTCPriorityType get priority =>
-      RTCPriorityType.values.byName(js_util.getProperty(this, 'priority'));
+      RTCPriorityType.fromValue(js_util.getProperty(this, 'priority'));
 }
 
 @anonymous
@@ -1727,7 +1921,19 @@ extension PropsRTCDataChannelInit on RTCDataChannelInit {
   }
 }
 
-enum RTCDataChannelState { connecting, open, closing, closed }
+enum RTCDataChannelState {
+  connecting('connecting'),
+  open('open'),
+  closing('closing'),
+  closed('closed');
+
+  final String value;
+  static RTCDataChannelState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCDataChannelState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCDataChannelState(this.value);
+}
 
 ///
 ///  The interface
@@ -1737,6 +1943,8 @@ enum RTCDataChannelState { connecting, open, closing, closed }
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///
@@ -1790,6 +1998,8 @@ extension PropsRTCDataChannelEventInit on RTCDataChannelEventInit {
 ///
 ///
 ///
+///
+///
 ///    RTCDTMFSender
 ///
 ///
@@ -1826,6 +2036,8 @@ extension PropsRTCDTMFSender on RTCDTMFSender {
 ///
 ///
 ///
+///
+///
 ///    RTCDTMFToneChangeEvent
 ///
 ///
@@ -1854,9 +2066,6 @@ extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
   }
 }
 
-///  Draft: This page is not complete.This page is currently
-/// incomplete and under active construction. Please be aware that
-/// it's not going to answer all of your questions just yet.
 ///  The interface provides a statistics report obtained by calling
 /// one of the [RTCPeerConnection.getStats()],
 /// [RTCRtpReceiver.getStats()], and [RTCRtpSender.getStats()]
@@ -1893,7 +2102,7 @@ class RTCStats {
           {required double timestamp,
           required RTCStatsType type,
           required String id}) =>
-      RTCStats._(timestamp: timestamp, type: type.name, id: id);
+      RTCStats._(timestamp: timestamp, type: type.value, id: id);
 }
 
 extension PropsRTCStats on RTCStats {
@@ -1903,9 +2112,9 @@ extension PropsRTCStats on RTCStats {
   }
 
   RTCStatsType get type =>
-      RTCStatsType.values.byName(js_util.getProperty(this, 'type'));
+      RTCStatsType.fromValue(js_util.getProperty(this, 'type'));
   set type(RTCStatsType newValue) {
-    js_util.setProperty(this, 'type', newValue.name);
+    js_util.setProperty(this, 'type', newValue.value);
   }
 
   String get id => js_util.getProperty(this, 'id');
@@ -1926,6 +2135,8 @@ extension PropsRTCStats on RTCStats {
 ///
 ///
 ///
+///
+///
 ///    RTCError
 ///
 ///
@@ -1936,8 +2147,8 @@ class RTCError implements DOMException {
 }
 
 extension PropsRTCError on RTCError {
-  RTCErrorDetailType get errorDetail => RTCErrorDetailType.values
-      .byName(js_util.getProperty(this, 'errorDetail'));
+  RTCErrorDetailType get errorDetail =>
+      RTCErrorDetailType.fromValue(js_util.getProperty(this, 'errorDetail'));
   int? get sdpLineNumber => js_util.getProperty(this, 'sdpLineNumber');
   int? get sctpCauseCode => js_util.getProperty(this, 'sctpCauseCode');
   int? get receivedAlert => js_util.getProperty(this, 'receivedAlert');
@@ -1964,7 +2175,7 @@ class RTCErrorInit {
           required int receivedAlert,
           required int sentAlert}) =>
       RTCErrorInit._(
-          errorDetail: errorDetail.name,
+          errorDetail: errorDetail.value,
           sdpLineNumber: sdpLineNumber,
           sctpCauseCode: sctpCauseCode,
           receivedAlert: receivedAlert,
@@ -1972,10 +2183,10 @@ class RTCErrorInit {
 }
 
 extension PropsRTCErrorInit on RTCErrorInit {
-  RTCErrorDetailType get errorDetail => RTCErrorDetailType.values
-      .byName(js_util.getProperty(this, 'errorDetail'));
+  RTCErrorDetailType get errorDetail =>
+      RTCErrorDetailType.fromValue(js_util.getProperty(this, 'errorDetail'));
   set errorDetail(RTCErrorDetailType newValue) {
-    js_util.setProperty(this, 'errorDetail', newValue.name);
+    js_util.setProperty(this, 'errorDetail', newValue.value);
   }
 
   int get sdpLineNumber => js_util.getProperty(this, 'sdpLineNumber');
@@ -2000,13 +2211,20 @@ extension PropsRTCErrorInit on RTCErrorInit {
 }
 
 enum RTCErrorDetailType {
-  dataChannelFailure,
-  dtlsFailure,
-  fingerprintFailure,
-  sctpFailure,
-  sdpSyntaxError,
-  hardwareEncoderNotAvailable,
-  hardwareEncoderError
+  dataChannelFailure('data-channel-failure'),
+  dtlsFailure('dtls-failure'),
+  fingerprintFailure('fingerprint-failure'),
+  sctpFailure('sctp-failure'),
+  sdpSyntaxError('sdp-syntax-error'),
+  hardwareEncoderNotAvailable('hardware-encoder-not-available'),
+  hardwareEncoderError('hardware-encoder-error');
+
+  final String value;
+  static RTCErrorDetailType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCErrorDetailType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCErrorDetailType(this.value);
 }
 
 ///  The WebRTC API's interface represents an error sent to a WebRTC
@@ -2016,6 +2234,8 @@ enum RTCErrorDetailType {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///

@@ -16,12 +16,9 @@ import 'package:js_bindings/js_bindings.dart';
 ///  The interface of the Sensor APIs provides on each reading the
 /// angular velocity of the device along all three axes.
 ///  To use this sensor, the user must grant permission to the
-/// ['gyroscope'] device sensor through the Permissions API.
-///  If a feature policy blocks use of a feature it is because your
-/// code is inconsistent with the policies set on your server. This
-/// is not something that would ever be shown to a user. The
-/// [Feature-Policy] HTTP header article contains implementation
-/// instructions.
+/// ['gyroscope'] device sensor through the Permissions API. In
+/// addition, this feature may be blocked by a Permissions Policy set
+/// on your server.
 ///
 ///
 ///
@@ -31,7 +28,11 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    Sensor
+///
+///
 ///
 ///
 ///
@@ -52,7 +53,18 @@ extension PropsGyroscope on Gyroscope {
   double? get z => js_util.getProperty(this, 'z');
 }
 
-enum GyroscopeLocalCoordinateSystem { device, screen }
+enum GyroscopeLocalCoordinateSystem {
+  device('device'),
+  screen('screen');
+
+  final String value;
+  static GyroscopeLocalCoordinateSystem fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<GyroscopeLocalCoordinateSystem> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const GyroscopeLocalCoordinateSystem(this.value);
+}
 
 @anonymous
 @JS()
@@ -63,15 +75,15 @@ class GyroscopeSensorOptions implements SensorOptions {
   factory GyroscopeSensorOptions(
           {GyroscopeLocalCoordinateSystem? referenceFrame =
               GyroscopeLocalCoordinateSystem.device}) =>
-      GyroscopeSensorOptions._(referenceFrame: referenceFrame?.name);
+      GyroscopeSensorOptions._(referenceFrame: referenceFrame?.value);
 }
 
 extension PropsGyroscopeSensorOptions on GyroscopeSensorOptions {
   GyroscopeLocalCoordinateSystem get referenceFrame =>
-      GyroscopeLocalCoordinateSystem.values
-          .byName(js_util.getProperty(this, 'referenceFrame'));
+      GyroscopeLocalCoordinateSystem.fromValue(
+          js_util.getProperty(this, 'referenceFrame'));
   set referenceFrame(GyroscopeLocalCoordinateSystem newValue) {
-    js_util.setProperty(this, 'referenceFrame', newValue.name);
+    js_util.setProperty(this, 'referenceFrame', newValue.value);
   }
 }
 

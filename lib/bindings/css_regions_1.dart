@@ -1,6 +1,6 @@
 /// CSS Regions Module Level 1
 ///
-/// https://drafts.csswg.org/css-regions/
+/// https://drafts.csswg.org/css-regions-1/
 
 // ignore_for_file: unused_import
 

@@ -1,3 +1,7 @@
+## 0.0.8
+- Correctly translate enums to their JS types. Previously, the enum `name` getter was being provided to the interop layer, but in cases where this is camel cased the value was incorrect (same for the reverse).
+- Updated bindings.
+
 ## 0.0.7
  - Adjusted to use the factory generator of ` staticInterop`  
 

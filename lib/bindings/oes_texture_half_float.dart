@@ -1,6 +1,6 @@
 /// WebGL OES_texture_half_float Khronos Ratified Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/OES_texture_half_float/
+/// https://registry.khronos.org/webgl/extensions/OES_texture_half_float/
 
 // ignore_for_file: unused_import
 

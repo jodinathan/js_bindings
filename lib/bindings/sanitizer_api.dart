@@ -10,6 +10,7 @@ library sanitizer_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -23,7 +24,7 @@ import 'package:js_bindings/js_bindings.dart';
 /// [DocumentFragment] objects.
 ///   After sanitization, unwanted elements or attributes are
 /// removed, and the returned objects can safely be inserted into a
-/// document’s DOM.
+/// document's DOM.
 ///
 ///  A object is also used by the [Element.setHTML()] method to parse
 /// and sanitize a string of HTML, and immediately insert it into an
@@ -34,6 +35,7 @@ import 'package:js_bindings/js_bindings.dart';
 /// comments.
 ///  This configuration may be customized using constructor options.
 ///
+@experimental
 @JS()
 @staticInterop
 class Sanitizer {

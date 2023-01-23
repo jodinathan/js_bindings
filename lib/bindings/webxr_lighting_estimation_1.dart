@@ -10,12 +10,15 @@ library webxr_lighting_estimation_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebXR Device API contains lighting
 /// information at a given point in the user's environment. You can
 /// get an [XRLighting] object using the
@@ -32,9 +35,12 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    XRLightProbe
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class XRLightProbe implements EventTarget {
@@ -50,14 +56,28 @@ extension PropsXRLightProbe on XRLightProbe {
   }
 }
 
-enum XRReflectionFormat { srgba8, rgba16f }
+enum XRReflectionFormat {
+  srgba8('srgba8'),
+  rgba16f('rgba16f');
+
+  final String value;
+  static XRReflectionFormat fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XRReflectionFormat> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const XRReflectionFormat(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebXR Device API provides the estimated
 /// lighting values for an [XRLightProbe] at the time represented by
 /// an [XRFrame].
 /// To get an object, call the [XRFrame.getLightEstimate()] method.
+@experimental
 @JS()
 @staticInterop
 class XRLightEstimate {
@@ -81,13 +101,13 @@ class XRLightProbeInit {
 
   factory XRLightProbeInit(
           {XRReflectionFormat? reflectionFormat = XRReflectionFormat.srgba8}) =>
-      XRLightProbeInit._(reflectionFormat: reflectionFormat?.name);
+      XRLightProbeInit._(reflectionFormat: reflectionFormat?.value);
 }
 
 extension PropsXRLightProbeInit on XRLightProbeInit {
-  XRReflectionFormat get reflectionFormat => XRReflectionFormat.values
-      .byName(js_util.getProperty(this, 'reflectionFormat'));
+  XRReflectionFormat get reflectionFormat => XRReflectionFormat.fromValue(
+      js_util.getProperty(this, 'reflectionFormat'));
   set reflectionFormat(XRReflectionFormat newValue) {
-    js_util.setProperty(this, 'reflectionFormat', newValue.name);
+    js_util.setProperty(this, 'reflectionFormat', newValue.value);
   }
 }

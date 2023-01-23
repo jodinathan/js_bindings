@@ -1,6 +1,6 @@
 /// WebGL EXT_sRGB Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_sRGB/
+/// https://registry.khronos.org/webgl/extensions/EXT_sRGB/
 
 // ignore_for_file: unused_import
 

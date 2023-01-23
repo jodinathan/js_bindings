@@ -10,7 +10,7 @@ library fetch;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -33,15 +33,14 @@ import 'package:js_bindings/js_bindings.dart';
 /// see Guard.
 ///  You can retrieve a object via the [Request.headers] and
 /// [Response.headers] properties, and create a new object using the
-/// [Headers.Headers()] constructor.
+/// [Headers()] constructor.
 ///  An object implementing can directly be used in a [for...of]
-/// structure, instead of [entries()]: [for (var p of myHeaders)] is
-/// equivalent to [for (var p of myHeaders.entries())].
+/// structure, instead of [entries()]: [for (const p of myHeaders)]
+/// is equivalent to [for (const p of myHeaders.entries())].
 ///
-///   Note: you can find more out about the available headers by
+///   Note: you can find out more about the available headers by
 /// reading our HTTP headers reference.
 ///
-@experimental
 @JS()
 @staticInterop
 class Headers {
@@ -106,19 +105,19 @@ extension PropsRequest on Request {
   String get method => js_util.getProperty(this, 'method');
   String get url => js_util.getProperty(this, 'url');
   Headers get headers => js_util.getProperty(this, 'headers');
-  RequestDestination get destination => RequestDestination.values
-      .byName(js_util.getProperty(this, 'destination'));
+  RequestDestination get destination =>
+      RequestDestination.fromValue(js_util.getProperty(this, 'destination'));
   String get referrer => js_util.getProperty(this, 'referrer');
   ReferrerPolicy get referrerPolicy =>
-      ReferrerPolicy.values.byName(js_util.getProperty(this, 'referrerPolicy'));
+      ReferrerPolicy.fromValue(js_util.getProperty(this, 'referrerPolicy'));
   RequestMode get mode =>
-      RequestMode.values.byName(js_util.getProperty(this, 'mode'));
-  RequestCredentials get credentials => RequestCredentials.values
-      .byName(js_util.getProperty(this, 'credentials'));
+      RequestMode.fromValue(js_util.getProperty(this, 'mode'));
+  RequestCredentials get credentials =>
+      RequestCredentials.fromValue(js_util.getProperty(this, 'credentials'));
   RequestCache get cache =>
-      RequestCache.values.byName(js_util.getProperty(this, 'cache'));
+      RequestCache.fromValue(js_util.getProperty(this, 'cache'));
   RequestRedirect get redirect =>
-      RequestRedirect.values.byName(js_util.getProperty(this, 'redirect'));
+      RequestRedirect.fromValue(js_util.getProperty(this, 'redirect'));
   String get integrity => js_util.getProperty(this, 'integrity');
   bool get keepalive => js_util.getProperty(this, 'keepalive');
   bool get isReloadNavigation =>
@@ -126,10 +125,9 @@ extension PropsRequest on Request {
   bool get isHistoryNavigation =>
       js_util.getProperty(this, 'isHistoryNavigation');
   AbortSignal get signal => js_util.getProperty(this, 'signal');
+  RequestDuplex get duplex =>
+      RequestDuplex.fromValue(js_util.getProperty(this, 'duplex'));
   Request clone() => js_util.callMethod(this, 'clone', []);
-
-  FetchPriority get priority =>
-      FetchPriority.values.byName(js_util.getProperty(this, 'priority'));
 }
 
 @anonymous
@@ -150,6 +148,7 @@ class RequestInit {
       required bool keepalive,
       AbortSignal? signal,
       required String duplex,
+      required String priority,
       dynamic window});
 
   factory RequestInit(
@@ -166,21 +165,23 @@ class RequestInit {
           required bool keepalive,
           AbortSignal? signal,
           required RequestDuplex duplex,
+          required RequestPriority priority,
           dynamic window}) =>
       RequestInit._(
           method: method,
           headers: headers,
           body: body,
           referrer: referrer,
-          referrerPolicy: referrerPolicy.name,
-          mode: mode.name,
-          credentials: credentials.name,
-          cache: cache.name,
-          redirect: redirect.name,
+          referrerPolicy: referrerPolicy.value,
+          mode: mode.value,
+          credentials: credentials.value,
+          cache: cache.value,
+          redirect: redirect.value,
           integrity: integrity,
           keepalive: keepalive,
           signal: signal,
-          duplex: duplex.name,
+          duplex: duplex.value,
+          priority: priority.value,
           window: window);
 }
 
@@ -206,33 +207,33 @@ extension PropsRequestInit on RequestInit {
   }
 
   ReferrerPolicy get referrerPolicy =>
-      ReferrerPolicy.values.byName(js_util.getProperty(this, 'referrerPolicy'));
+      ReferrerPolicy.fromValue(js_util.getProperty(this, 'referrerPolicy'));
   set referrerPolicy(ReferrerPolicy newValue) {
-    js_util.setProperty(this, 'referrerPolicy', newValue.name);
+    js_util.setProperty(this, 'referrerPolicy', newValue.value);
   }
 
   RequestMode get mode =>
-      RequestMode.values.byName(js_util.getProperty(this, 'mode'));
+      RequestMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(RequestMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 
-  RequestCredentials get credentials => RequestCredentials.values
-      .byName(js_util.getProperty(this, 'credentials'));
+  RequestCredentials get credentials =>
+      RequestCredentials.fromValue(js_util.getProperty(this, 'credentials'));
   set credentials(RequestCredentials newValue) {
-    js_util.setProperty(this, 'credentials', newValue.name);
+    js_util.setProperty(this, 'credentials', newValue.value);
   }
 
   RequestCache get cache =>
-      RequestCache.values.byName(js_util.getProperty(this, 'cache'));
+      RequestCache.fromValue(js_util.getProperty(this, 'cache'));
   set cache(RequestCache newValue) {
-    js_util.setProperty(this, 'cache', newValue.name);
+    js_util.setProperty(this, 'cache', newValue.value);
   }
 
   RequestRedirect get redirect =>
-      RequestRedirect.values.byName(js_util.getProperty(this, 'redirect'));
+      RequestRedirect.fromValue(js_util.getProperty(this, 'redirect'));
   set redirect(RequestRedirect newValue) {
-    js_util.setProperty(this, 'redirect', newValue.name);
+    js_util.setProperty(this, 'redirect', newValue.value);
   }
 
   String get integrity => js_util.getProperty(this, 'integrity');
@@ -251,9 +252,15 @@ extension PropsRequestInit on RequestInit {
   }
 
   RequestDuplex get duplex =>
-      RequestDuplex.values.byName(js_util.getProperty(this, 'duplex'));
+      RequestDuplex.fromValue(js_util.getProperty(this, 'duplex'));
   set duplex(RequestDuplex newValue) {
-    js_util.setProperty(this, 'duplex', newValue.name);
+    js_util.setProperty(this, 'duplex', newValue.value);
+  }
+
+  RequestPriority get priority =>
+      RequestPriority.fromValue(js_util.getProperty(this, 'priority'));
+  set priority(RequestPriority newValue) {
+    js_util.setProperty(this, 'priority', newValue.value);
   }
 
   dynamic get window => js_util.getProperty(this, 'window');
@@ -263,51 +270,121 @@ extension PropsRequestInit on RequestInit {
 }
 
 enum RequestDestination {
-  empty,
-  audio,
-  audioworklet,
-  document,
-  embed,
-  font,
-  frame,
-  iframe,
-  image,
-  manifest,
-  object,
-  paintworklet,
-  report,
-  script,
-  sharedworker,
-  style,
-  track,
-  video,
-  worker,
-  xslt
+  empty(''),
+  audio('audio'),
+  audioworklet('audioworklet'),
+  document('document'),
+  embed('embed'),
+  font('font'),
+  frame('frame'),
+  iframe('iframe'),
+  image('image'),
+  manifest('manifest'),
+  object('object'),
+  paintworklet('paintworklet'),
+  report('report'),
+  script('script'),
+  sharedworker('sharedworker'),
+  style('style'),
+  track('track'),
+  video('video'),
+  worker('worker'),
+  xslt('xslt');
+
+  final String value;
+  static RequestDestination fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RequestDestination> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RequestDestination(this.value);
 }
 
-enum RequestMode { navigate, sameOrigin, noCors, cors }
+enum RequestMode {
+  navigate('navigate'),
+  sameOrigin('same-origin'),
+  noCors('no-cors'),
+  cors('cors');
 
-enum RequestCredentials { omit, sameOrigin, include }
+  final String value;
+  static RequestMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RequestMode> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RequestMode(this.value);
+}
+
+enum RequestCredentials {
+  omit('omit'),
+  sameOrigin('same-origin'),
+  include('include');
+
+  final String value;
+  static RequestCredentials fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RequestCredentials> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RequestCredentials(this.value);
+}
 
 enum RequestCache {
-  valueDefault,
-  noStore,
-  reload,
-  noCache,
-  forceCache,
-  onlyIfCached
+  valueDefault('default'),
+  noStore('no-store'),
+  reload('reload'),
+  noCache('no-cache'),
+  forceCache('force-cache'),
+  onlyIfCached('only-if-cached');
+
+  final String value;
+  static RequestCache fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RequestCache> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RequestCache(this.value);
 }
 
-enum RequestRedirect { follow, error, manual }
+enum RequestRedirect {
+  follow('follow'),
+  error('error'),
+  manual('manual');
 
-enum RequestDuplex { half }
+  final String value;
+  static RequestRedirect fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RequestRedirect> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RequestRedirect(this.value);
+}
+
+enum RequestDuplex {
+  half('half');
+
+  final String value;
+  static RequestDuplex fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RequestDuplex> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RequestDuplex(this.value);
+}
+
+enum RequestPriority {
+  high('high'),
+  low('low'),
+  auto('auto');
+
+  final String value;
+  static RequestPriority fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RequestPriority> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RequestPriority(this.value);
+}
 
 ///  The interface of the Fetch API represents the response to a
 /// request.
-///  You can create a new object using the [Response.Response()]
-/// constructor, but you are more likely to encounter a object being
-/// returned as the result of another API operation—for example, a
-/// service worker [FetchEvent.respondWith], or a simple [fetch()].
+///  You can create a new object using the [Response()] constructor,
+/// but you are more likely to encounter a object being returned as
+/// the result of another API operation—for example, a service worker
+/// [FetchEvent.respondWith], or a simple [fetch()].
 @JS()
 @staticInterop
 class Response implements Body {
@@ -324,7 +401,7 @@ extension PropsResponse on Response {
       js_util.callMethod(Response, 'json', [data, init]);
 
   ResponseType get type =>
-      ResponseType.values.byName(js_util.getProperty(this, 'type'));
+      ResponseType.fromValue(js_util.getProperty(this, 'type'));
   String get url => js_util.getProperty(this, 'url');
   bool get redirected => js_util.getProperty(this, 'redirected');
   int get status => js_util.getProperty(this, 'status');
@@ -359,4 +436,18 @@ extension PropsResponseInit on ResponseInit {
   }
 }
 
-enum ResponseType { basic, cors, valueDefault, error, opaque, opaqueredirect }
+enum ResponseType {
+  basic('basic'),
+  cors('cors'),
+  valueDefault('default'),
+  error('error'),
+  opaque('opaque'),
+  opaqueredirect('opaqueredirect');
+
+  final String value;
+  static ResponseType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ResponseType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const ResponseType(this.value);
+}

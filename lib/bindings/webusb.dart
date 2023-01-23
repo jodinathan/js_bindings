@@ -91,9 +91,12 @@ extension PropsUSBDeviceRequestOptions on USBDeviceRequestOptions {
 ///
 ///
 ///
+///
+///
 ///    USB
 ///
 ///
+@experimental
 @JS('USB')
 @staticInterop
 class Usb implements EventTarget {
@@ -134,7 +137,10 @@ extension PropsUSBConnectionEventInit on USBConnectionEventInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API is the event type passed to
 /// [USB.onconnect] and [USB.ondisconnect] when the user agent
 /// detects that a new USB device has been connected or disconnected.
@@ -147,9 +153,12 @@ extension PropsUSBConnectionEventInit on USBConnectionEventInit {
 ///
 ///
 ///
+///
+///
 ///    USBConnectionEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class USBConnectionEvent implements Event {
@@ -161,10 +170,24 @@ extension PropsUSBConnectionEvent on USBConnectionEvent {
   USBDevice get device => js_util.getProperty(this, 'device');
 }
 
-enum USBTransferStatus { ok, stall, babble }
+enum USBTransferStatus {
+  ok('ok'),
+  stall('stall'),
+  babble('babble');
+
+  final String value;
+  static USBTransferStatus fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<USBTransferStatus> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const USBTransferStatus(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API provides the result from a call
 /// to the [transferIn()] and [controlTransferIn()] methods of the
 /// [USBDevice] interface. It represents the result from requesting a
@@ -176,17 +199,20 @@ class USBInTransferResult {
   external factory USBInTransferResult._(String status, [ByteData? data]);
 
   factory USBInTransferResult(USBTransferStatus status, [ByteData? data]) =>
-      USBInTransferResult._(status.name, data);
+      USBInTransferResult._(status.value, data);
 }
 
 extension PropsUSBInTransferResult on USBInTransferResult {
   ByteData? get data => js_util.getProperty(this, 'data');
   USBTransferStatus get status =>
-      USBTransferStatus.values.byName(js_util.getProperty(this, 'status'));
+      USBTransferStatus.fromValue(js_util.getProperty(this, 'status'));
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API provides the result from a call
 /// to the [transferOut()] and [controlTransferOut()] methods of the
 /// [USBDevice] interface. It represents the result from requesting a
@@ -200,17 +226,20 @@ class USBOutTransferResult {
 
   factory USBOutTransferResult(USBTransferStatus status,
           [int? bytesWritten = 0]) =>
-      USBOutTransferResult._(status.name, bytesWritten);
+      USBOutTransferResult._(status.value, bytesWritten);
 }
 
 extension PropsUSBOutTransferResult on USBOutTransferResult {
   int get bytesWritten => js_util.getProperty(this, 'bytesWritten');
   USBTransferStatus get status =>
-      USBTransferStatus.values.byName(js_util.getProperty(this, 'status'));
+      USBTransferStatus.fromValue(js_util.getProperty(this, 'status'));
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API is part of the response from a
 /// call to the [isochronousTransferIn()] method of the [USBDevice]
 /// interface. It represents the status of an individual packet from
@@ -225,18 +254,21 @@ class USBIsochronousInTransferPacket {
 
   factory USBIsochronousInTransferPacket(USBTransferStatus status,
           [ByteData? data]) =>
-      USBIsochronousInTransferPacket._(status.name, data);
+      USBIsochronousInTransferPacket._(status.value, data);
 }
 
 extension PropsUSBIsochronousInTransferPacket
     on USBIsochronousInTransferPacket {
   ByteData? get data => js_util.getProperty(this, 'data');
   USBTransferStatus get status =>
-      USBTransferStatus.values.byName(js_util.getProperty(this, 'status'));
+      USBTransferStatus.fromValue(js_util.getProperty(this, 'status'));
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API provides the result from a call
 /// to the [isochronousTransferIn()] method of the [USBDevice]
 /// interface. It represents the result from requesting a transfer of
@@ -258,7 +290,10 @@ extension PropsUSBIsochronousInTransferResult
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API is part of the response from a
 /// call to the [isochronousTransferOut()] method of the [USBDevice]
 /// interface. It represents the status of an individual packet from
@@ -273,18 +308,21 @@ class USBIsochronousOutTransferPacket {
 
   factory USBIsochronousOutTransferPacket(USBTransferStatus status,
           [int? bytesWritten = 0]) =>
-      USBIsochronousOutTransferPacket._(status.name, bytesWritten);
+      USBIsochronousOutTransferPacket._(status.value, bytesWritten);
 }
 
 extension PropsUSBIsochronousOutTransferPacket
     on USBIsochronousOutTransferPacket {
   int get bytesWritten => js_util.getProperty(this, 'bytesWritten');
   USBTransferStatus get status =>
-      USBTransferStatus.values.byName(js_util.getProperty(this, 'status'));
+      USBTransferStatus.fromValue(js_util.getProperty(this, 'status'));
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API provides the result from a call
 /// to the [isochronousTransferOut()] method of the [USBDevice]
 /// interface. It represents the result from requesting a transfer of
@@ -308,6 +346,7 @@ extension PropsUSBIsochronousOutTransferResult
 /// production.
 ///  The interface of the WebUSB API provides access to metadata
 /// about a paired USB device and methods for controlling it.
+@experimental
 @JS()
 @staticInterop
 class USBDevice {
@@ -372,7 +411,7 @@ extension PropsUSBDevice on USBDevice {
 
   Future<void> clearHalt(USBDirection direction, int endpointNumber) =>
       js_util.promiseToFuture(js_util
-          .callMethod(this, 'clearHalt', [direction.name, endpointNumber]));
+          .callMethod(this, 'clearHalt', [direction.value, endpointNumber]));
 
   Future<USBInTransferResult> transferIn(int endpointNumber, int length) =>
       js_util.promiseToFuture(
@@ -396,9 +435,32 @@ extension PropsUSBDevice on USBDevice {
       js_util.promiseToFuture(js_util.callMethod(this, 'reset', []));
 }
 
-enum USBRequestType { standard, valueClass, vendor }
+enum USBRequestType {
+  standard('standard'),
+  valueClass('class'),
+  vendor('vendor');
 
-enum USBRecipient { device, valueInterface, endpoint, other }
+  final String value;
+  static USBRequestType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<USBRequestType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const USBRequestType(this.value);
+}
+
+enum USBRecipient {
+  device('device'),
+  valueInterface('interface'),
+  endpoint('endpoint'),
+  other('other');
+
+  final String value;
+  static USBRecipient fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<USBRecipient> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const USBRecipient(this.value);
+}
 
 @anonymous
 @JS()
@@ -418,8 +480,8 @@ class USBControlTransferParameters {
           required int value,
           required int index}) =>
       USBControlTransferParameters._(
-          requestType: requestType.name,
-          recipient: recipient.name,
+          requestType: requestType.value,
+          recipient: recipient.value,
           request: request,
           value: value,
           index: index);
@@ -427,15 +489,15 @@ class USBControlTransferParameters {
 
 extension PropsUSBControlTransferParameters on USBControlTransferParameters {
   USBRequestType get requestType =>
-      USBRequestType.values.byName(js_util.getProperty(this, 'requestType'));
+      USBRequestType.fromValue(js_util.getProperty(this, 'requestType'));
   set requestType(USBRequestType newValue) {
-    js_util.setProperty(this, 'requestType', newValue.name);
+    js_util.setProperty(this, 'requestType', newValue.value);
   }
 
   USBRecipient get recipient =>
-      USBRecipient.values.byName(js_util.getProperty(this, 'recipient'));
+      USBRecipient.fromValue(js_util.getProperty(this, 'recipient'));
   set recipient(USBRecipient newValue) {
-    js_util.setProperty(this, 'recipient', newValue.name);
+    js_util.setProperty(this, 'recipient', newValue.value);
   }
 
   int get request => js_util.getProperty(this, 'request');
@@ -455,10 +517,14 @@ extension PropsUSBControlTransferParameters on USBControlTransferParameters {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API provides information about a
 /// particular configuration of a USB device and the interfaces that
 /// it supports.
+@experimental
 @JS()
 @staticInterop
 class USBConfiguration {
@@ -474,7 +540,10 @@ extension PropsUSBConfiguration on USBConfiguration {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API provides information about an
 /// interface provided by the USB device. An interface represents a
 /// feature of the device which implements a particular protocol and
@@ -496,7 +565,10 @@ extension PropsUSBInterface on USBInterface {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API provides information about a
 /// particular configuration of an interface provided by the USB
 /// device. An interface includes one or more alternate settings
@@ -519,15 +591,40 @@ extension PropsUSBAlternateInterface on USBAlternateInterface {
   Iterable<USBEndpoint> get endpoints => js_util.getProperty(this, 'endpoints');
 }
 
-enum USBDirection { valueIn, out }
+enum USBDirection {
+  valueIn('in'),
+  out('out');
 
-enum USBEndpointType { bulk, interrupt, isochronous }
+  final String value;
+  static USBDirection fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<USBDirection> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const USBDirection(this.value);
+}
+
+enum USBEndpointType {
+  bulk('bulk'),
+  interrupt('interrupt'),
+  isochronous('isochronous');
+
+  final String value;
+  static USBEndpointType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<USBEndpointType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const USBEndpointType(this.value);
+}
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebUSB API provides information about an
 /// endpoint provided by the USB device. An endpoint represents a
 /// unidirectional data stream into or out of a device.
+@experimental
 @JS()
 @staticInterop
 class USBEndpoint {
@@ -536,15 +633,15 @@ class USBEndpoint {
 
   factory USBEndpoint(USBAlternateInterface alternate, int endpointNumber,
           USBDirection direction) =>
-      USBEndpoint._(alternate, endpointNumber, direction.name);
+      USBEndpoint._(alternate, endpointNumber, direction.value);
 }
 
 extension PropsUSBEndpoint on USBEndpoint {
   int get endpointNumber => js_util.getProperty(this, 'endpointNumber');
   USBDirection get direction =>
-      USBDirection.values.byName(js_util.getProperty(this, 'direction'));
+      USBDirection.fromValue(js_util.getProperty(this, 'direction'));
   USBEndpointType get type =>
-      USBEndpointType.values.byName(js_util.getProperty(this, 'type'));
+      USBEndpointType.fromValue(js_util.getProperty(this, 'type'));
   int get packetSize => js_util.getProperty(this, 'packetSize');
 }
 

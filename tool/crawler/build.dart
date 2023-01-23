@@ -17,7 +17,7 @@ final urls = [];
 
 Future<void> main() async {
   // clones the MDN repo locally
-  //await cloneMDN();
+  await cloneMDN();
   // copy the list of webIDLs, parsed in JSON, from github.com/w3c/webref/
   await cloneIDLs();
   // merge ed and tr IDLs into /merged
@@ -116,8 +116,8 @@ Future<void> mergeIDLs() async {
 Future<void> cloneIDLs() async {
   print('Will clone IDLs now. Exclduing dirs $dirs');
 
-  for (final dir in dirs) {
-    await Directory('../webIDL/$dir').delete(recursive: true);
+  if (await Directory('../webIDL').exists()) {
+    await Directory('../webIDL').delete(recursive: true);
   }
 
   print('Fetching $w3cTreeUrl');
@@ -402,9 +402,7 @@ Future<Map<String, dynamic>> crawlJS() async {
                               name!, pscan.enclosed('<dd>', '</dd>') ?? '');
 
                           if (dd?.isNotEmpty == true) {
-                            params[name] = <String, dynamic>{
-                              'desc': dd
-                            };
+                            params[name] = <String, dynamic>{'desc': dd};
                           }
                         }
                       }
@@ -450,8 +448,7 @@ Future<Map<String, dynamic>> crawlJS() async {
                       if (params.isNotEmpty) {
                         final spl = [
                           for (final line in syntax.split('\n'))
-                            if (line.length > 1)
-                              line,
+                            if (line.length > 1) line,
                         ];
                         final lp = params.values.last;
 
@@ -461,15 +458,16 @@ Future<Map<String, dynamic>> crawlJS() async {
 
                         if (spl.length > 1) {
                           final min = spl.fold<int>(params.length,
-                                  (previousValue, element) {
-                                final spl = element.split(',');
+                              (previousValue, element) {
+                            final spl = element.split(',');
 
-                                return previousValue > spl.length
-                                    ? spl.length
-                                    : previousValue;
-                              });
+                            return previousValue > spl.length
+                                ? spl.length
+                                : previousValue;
+                          });
 
-                          params.values.toList()
+                          params.values
+                              .toList()
                               .getRange(min, params.values.length)
                               .forEach((param) => param['optional'] = true);
                         }
@@ -498,9 +496,11 @@ Future<Map<String, dynamic>> crawlJS() async {
                 raw: getMDNContent(details, 'Static_methods'),
                 type: 'operation');
             await parseProps(
-                raw: getMDNContent(details, 'Instance_properties'), type: 'attribute');
+                raw: getMDNContent(details, 'Instance_properties'),
+                type: 'attribute');
             await parseProps(
-                raw: getMDNContent(details, 'Instance_methods'), type: 'operation');
+                raw: getMDNContent(details, 'Instance_methods'),
+                type: 'operation');
           }
 
           object['members'] = members;

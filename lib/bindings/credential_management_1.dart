@@ -14,10 +14,8 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Credential Management API provides
 /// information about an entity (usually a user) as a prerequisite to
 /// a trust decision.
@@ -27,7 +25,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///  [PublicKeyCredential]
 ///  [FederatedCredential]
 ///
-@experimental
 @JS()
 @staticInterop
 class Credential {
@@ -53,15 +50,12 @@ extension PropsCredentialUserData on CredentialUserData {
   String get iconURL => js_util.getProperty(this, 'iconURL');
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Credential Management API exposes methods
 /// to request credentials and notify the user agent when events such
 /// as successful sign in or sign out happen. This interface is
 /// accessible from [Navigator.credentials].
-@experimental
 @JS()
 @staticInterop
 class CredentialsContainer {
@@ -109,15 +103,15 @@ class CredentialRequestOptions {
           {CredentialMediationRequirement? mediation =
               CredentialMediationRequirement.optional,
           AbortSignal? signal}) =>
-      CredentialRequestOptions._(mediation: mediation?.name, signal: signal);
+      CredentialRequestOptions._(mediation: mediation?.value, signal: signal);
 }
 
 extension PropsCredentialRequestOptions on CredentialRequestOptions {
   CredentialMediationRequirement get mediation =>
-      CredentialMediationRequirement.values
-          .byName(js_util.getProperty(this, 'mediation'));
+      CredentialMediationRequirement.fromValue(
+          js_util.getProperty(this, 'mediation'));
   set mediation(CredentialMediationRequirement newValue) {
-    js_util.setProperty(this, 'mediation', newValue.name);
+    js_util.setProperty(this, 'mediation', newValue.value);
   }
 
   AbortSignal get signal => js_util.getProperty(this, 'signal');
@@ -127,10 +121,18 @@ extension PropsCredentialRequestOptions on CredentialRequestOptions {
 }
 
 enum CredentialMediationRequirement {
-  silent,
-  optional,
-  conditional,
-  valueRequired
+  silent('silent'),
+  optional('optional'),
+  conditional('conditional'),
+  valueRequired('required');
+
+  final String value;
+  static CredentialMediationRequirement fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<CredentialMediationRequirement> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const CredentialMediationRequirement(this.value);
 }
 
 @anonymous
@@ -168,9 +170,12 @@ extension PropsCredentialCreationOptions on CredentialCreationOptions {
 ///
 ///
 ///
+///
+///
 ///    PasswordCredential
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class PasswordCredential implements Credential, CredentialUserData {
@@ -235,9 +240,12 @@ extension PropsPasswordCredentialData on PasswordCredentialData {
 ///
 ///
 ///
+///
+///
 ///    FederatedCredential
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class FederatedCredential implements Credential, CredentialUserData {

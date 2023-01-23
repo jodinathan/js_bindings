@@ -14,7 +14,15 @@ import 'package:js/js.dart';
 import 'package:js_bindings/js_bindings.dart';
 
 enum RTCDegradationPreference {
-  maintainFramerate,
-  maintainResolution,
-  balanced
+  maintainFramerate('maintain-framerate'),
+  maintainResolution('maintain-resolution'),
+  balanced('balanced');
+
+  final String value;
+  static RTCDegradationPreference fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCDegradationPreference> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCDegradationPreference(this.value);
 }

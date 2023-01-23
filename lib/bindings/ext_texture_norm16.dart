@@ -1,6 +1,6 @@
 /// WebGL EXT_texture_norm16 Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_texture_norm16/
+/// https://registry.khronos.org/webgl/extensions/EXT_texture_norm16/
 
 // ignore_for_file: unused_import
 

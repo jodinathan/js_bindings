@@ -10,10 +10,24 @@ library content_index;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum ContentCategory { empty, homepage, article, video, audio }
+enum ContentCategory {
+  empty(''),
+  homepage('homepage'),
+  article('article'),
+  video('video'),
+  audio('audio');
+
+  final String value;
+  static ContentCategory fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ContentCategory> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const ContentCategory(this.value);
+}
 
 @anonymous
 @JS()
@@ -38,7 +52,7 @@ class ContentDescription {
           id: id,
           title: title,
           description: description,
-          category: category.name,
+          category: category.value,
           icons: icons,
           url: url);
 }
@@ -60,9 +74,9 @@ extension PropsContentDescription on ContentDescription {
   }
 
   ContentCategory get category =>
-      ContentCategory.values.byName(js_util.getProperty(this, 'category'));
+      ContentCategory.fromValue(js_util.getProperty(this, 'category'));
   set category(ContentCategory newValue) {
-    js_util.setProperty(this, 'category', newValue.name);
+    js_util.setProperty(this, 'category', newValue.value);
   }
 
   Iterable<ImageResource> get icons => js_util.getProperty(this, 'icons');
@@ -76,8 +90,12 @@ extension PropsContentDescription on ContentDescription {
   }
 }
 
-///  The interface of the [Content Index API] allows developers to
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Content Index API allows developers to
 /// register their offline enabled content with the browser.
+@experimental
 @JS()
 @staticInterop
 class ContentIndex {
@@ -109,10 +127,13 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
   }
 }
 
-///  The interface of the [Content Index API] defines the object used
-/// to represent the [contentdelete] event.
-///  This event is sent to the [global scope] of a [ServiceWorker].
-/// It contains the id of the indexed content to be removed.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the content index defines the object used to
+/// represent the [contentdelete] event.
+///  This event is sent to the global scope of a [ServiceWorker]. It
+/// contains the id of the indexed content to be removed.
 ///  The [contentdelete] event is only fired when the deletion
 /// happens due to interaction with the browser's built-in user
 /// interface. It is not fired when the [ContentIndex.delete] method
@@ -126,7 +147,11 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
 ///
 ///
 ///
+///
+///
 ///    ExtendableEvent
+///
+///
 ///
 ///
 ///
@@ -135,6 +160,7 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
 ///    ContentIndexEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class ContentIndexEvent implements ExtendableEvent {

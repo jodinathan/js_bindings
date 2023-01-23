@@ -10,10 +10,34 @@ library csp3;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface contains the report data for a Content Security
+/// Policy (CSP) violation. CSP violations are thrown when the
+/// webpage attempts to load a resource that violates the CSP set by
+/// the [Content-Security-Policy] HTTP header.
+///
+///   Note: this interface is similar, but not identical to, the JSON
+/// objects sent back to the [report-uri] or [report-to] policy
+/// directive of the [Content-Security-Policy] header.
+///
+///
+///
+///
+///    ReportBody
+///
+///
+///
+///
+///
+///
+///
+///    CSPViolationReportBody
+///
+///
 @JS()
 @staticInterop
 class CSPViolationReportBody implements ReportBody {
@@ -32,18 +56,26 @@ extension PropsCSPViolationReportBody on CSPViolationReportBody {
   String? get sourceFile => js_util.getProperty(this, 'sourceFile');
   String? get sample => js_util.getProperty(this, 'sample');
   SecurityPolicyViolationEventDisposition get disposition =>
-      SecurityPolicyViolationEventDisposition.values
-          .byName(js_util.getProperty(this, 'disposition'));
+      SecurityPolicyViolationEventDisposition.fromValue(
+          js_util.getProperty(this, 'disposition'));
   int get statusCode => js_util.getProperty(this, 'statusCode');
   int? get lineNumber => js_util.getProperty(this, 'lineNumber');
   int? get columnNumber => js_util.getProperty(this, 'columnNumber');
 }
 
-enum SecurityPolicyViolationEventDisposition { enforce, report }
+enum SecurityPolicyViolationEventDisposition {
+  enforce('enforce'),
+  report('report');
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+  final String value;
+  static SecurityPolicyViolationEventDisposition fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<SecurityPolicyViolationEventDisposition> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const SecurityPolicyViolationEventDisposition(this.value);
+}
+
 ///  The interface inherits from [Event], and represents the event
 /// object of an event sent on a document or worker when its content
 /// security policy is violated.
@@ -56,10 +88,11 @@ enum SecurityPolicyViolationEventDisposition { enforce, report }
 ///
 ///
 ///
+///
+///
 ///    SecurityPolicyViolationEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class SecurityPolicyViolationEvent implements Event {
@@ -79,8 +112,8 @@ extension PropsSecurityPolicyViolationEvent on SecurityPolicyViolationEvent {
   String get sourceFile => js_util.getProperty(this, 'sourceFile');
   String get sample => js_util.getProperty(this, 'sample');
   SecurityPolicyViolationEventDisposition get disposition =>
-      SecurityPolicyViolationEventDisposition.values
-          .byName(js_util.getProperty(this, 'disposition'));
+      SecurityPolicyViolationEventDisposition.fromValue(
+          js_util.getProperty(this, 'disposition'));
   int get statusCode => js_util.getProperty(this, 'statusCode');
   int get lineNumber => js_util.getProperty(this, 'lineNumber');
   int get columnNumber => js_util.getProperty(this, 'columnNumber');
@@ -126,7 +159,7 @@ class SecurityPolicyViolationEventInit implements EventInit {
           originalPolicy: originalPolicy,
           sourceFile: sourceFile,
           sample: sample,
-          disposition: disposition?.name,
+          disposition: disposition?.value,
           statusCode: statusCode,
           lineNumber: lineNumber,
           columnNumber: columnNumber);
@@ -177,10 +210,10 @@ extension PropsSecurityPolicyViolationEventInit
   }
 
   SecurityPolicyViolationEventDisposition get disposition =>
-      SecurityPolicyViolationEventDisposition.values
-          .byName(js_util.getProperty(this, 'disposition'));
+      SecurityPolicyViolationEventDisposition.fromValue(
+          js_util.getProperty(this, 'disposition'));
   set disposition(SecurityPolicyViolationEventDisposition newValue) {
-    js_util.setProperty(this, 'disposition', newValue.name);
+    js_util.setProperty(this, 'disposition', newValue.value);
   }
 
   int get statusCode => js_util.getProperty(this, 'statusCode');

@@ -5,8 +5,14 @@ import 'package:collection/collection.dart';
 
 import '../base.dart';
 
-const instanceMemberTypes = {'attribute', 'field', 'operation',
-  'setlike', 'iterable', 'maplike'};
+const instanceMemberTypes = {
+  'attribute',
+  'field',
+  'operation',
+  'setlike',
+  'iterable',
+  'maplike'
+};
 const objectMembers = {'hash', 'hashCode', 'toString'};
 
 extension UtilsBool on bool {
@@ -63,11 +69,12 @@ Future<void> main() async {
       final obj = objs[name];
       final types = obj['type'].toString().split(' ');
       final args = obj['arguments'] ??
-          (obj['members']?.isNotEmpty == true ?
-          obj['members'][0]['arguments'] : null);
+          (obj['members']?.isNotEmpty == true
+              ? obj['members'][0]['arguments']
+              : null);
 
-      if (types.contains('callback') && (types.length == 1 ||
-          name == 'EventListener')) {
+      if (types.contains('callback') &&
+          (types.length == 1 || name == 'EventListener')) {
         var fn = name;
         final method = spec.makeMethod(args);
         final params = method.build();
@@ -144,7 +151,7 @@ Future<void> main() async {
 
             lines.add('''
             enum $name {
-              ${values.map((item) {
+              ${values.mapIndexed((index, item) {
               final val = item['value'].toString();
               var label = val.camelCase.replaceAll('+', '');
 
@@ -155,12 +162,14 @@ Future<void> main() async {
                 label = 'value${label.pascalCase}';
               }
 
-              final ret = '''
-                ${val == label || true ? '' : '@JS(\'$val\')\n'}${label.replaceAll('@', '')}
-                ''';
+              final end = index == values.length - 1 ? ';' : ',';
 
-              return ret;
-            }).join(',\n')}
+              return "${label.replaceAll('@', '')}('$val')$end";
+            }).join('\n')}
+              final String value;
+              static $name fromValue(String value) => values.firstWhere((e) => e.value == value);
+              static Iterable<$name> fromValues(Iterable<String> values) => values.map(fromValue);
+              const $name(this.value);
             }
             ''');
             break;
@@ -180,18 +189,16 @@ Future<void> main() async {
             var parentHasCtorWithParams = false;
             final dictionary = type == 'dictionary';
             final factory = 'factory ';
-            final maplike = members?.firstWhereOrNull(
-                    (member) => member['type'] == 'maplike');
+            final maplike = members
+                ?.firstWhereOrNull((member) => member['type'] == 'maplike');
             final iterablelike = members?.firstWhereOrNull(
-                    (member) => ['iterable', 'setlike'].contains(member['type']));
+                (member) => ['iterable', 'setlike'].contains(member['type']));
 
             if (maplike != null) {
               final key = spec.getDartType(maplike['idlType'][1]).toString();
 
-              inheritance = 'extends JsMap<${key == 'dynamic' ?
-              'Object' : key}, ${
-                  spec.getDartType(maplike['idlType'][0]).toString()
-              }>';
+              inheritance =
+                  'extends JsMap<${key == 'dynamic' ? 'Object' : key}, ${spec.getDartType(maplike['idlType'][0]).toString()}>';
             } else if (iterablelike != null) {
               final type = iterablelike['idlType'];
               String key;
@@ -211,7 +218,7 @@ Future<void> main() async {
 
             Map<String, dynamic> findByType(String typeName) {
               final ret = spec.objects.values
-                  .firstWhereOrNull((obj) => obj['name'] == typeName) ??
+                      .firstWhereOrNull((obj) => obj['name'] == typeName) ??
                   mainGroup.specs
                       .firstWhereOrNull(
                           (spec) => spec.objects.keys.contains(typeName))
@@ -231,13 +238,13 @@ Future<void> main() async {
 
               while (grand != null) {
                 final parentMembers = (grand['members'] ?? []) as Iterable;
-                final parentConstructors = parentMembers.where(
-                        (member) => member['type'] == 'constructor');
+                final parentConstructors = parentMembers
+                    .where((member) => member['type'] == 'constructor');
 
                 parentHasCtor = parentHasCtor || parentConstructors.isNotEmpty;
                 parentHasCtorWithParams = parentHasCtorWithParams ||
-                    parentConstructors.any(
-                        (ctor) => ctor['arguments']?.isNotEmpty == true);
+                    parentConstructors
+                        .any((ctor) => ctor['arguments']?.isNotEmpty == true);
 
                 final next = grand['inheritance'];
 
@@ -282,8 +289,8 @@ Future<void> main() async {
                     'Current: $deps');
                 deps.addAll(mixins.keys);
 
-                inheritance += '${inheritance.isNotEmpty ?
-                ',' : glue} ${exts.join(', ')}';
+                inheritance +=
+                    '${inheritance.isNotEmpty ? ',' : glue} ${exts.join(', ')}';
               }
             }
 
@@ -291,7 +298,7 @@ Future<void> main() async {
             final className = name.pascalCase;
 
             lines.add('''
-            @JS(${className != originalName ?  "'$originalName'" : ''})
+            @JS(${className != originalName ? "'$originalName'" : ''})
             @staticInterop
             class $className $inheritance {
             ''');
@@ -300,8 +307,7 @@ Future<void> main() async {
 
             if (members != null) {
               print('Generating class of $name.\n'
-                  'Operations: ${members.where(
-                      (m) => m['type'] == 'operation').map((m) => m['name'])}');
+                  'Operations: ${members.where((m) => m['type'] == 'operation').map((m) => m['name'])}');
 
               for (final member in members) {
                 final mType = member['type'];
@@ -311,8 +317,7 @@ Future<void> main() async {
                   continue;
                 }
 
-                lines = isInstanceMember ?
-                properties : mainLines;
+                lines = isInstanceMember ? properties : mainLines;
 
                 var mName = member['name'] as String?;
                 var origMName = mName;
@@ -328,7 +333,8 @@ Future<void> main() async {
 
                 print('Processing member $name ($mName)');
 
-                final overrides = !isInstanceMember && parent != null &&
+                final overrides = !isInstanceMember &&
+                    parent != null &&
                     mName?.isNotEmpty == true &&
                     member['special'] != 'static' &&
                     (parent['members'] as Iterable?)
@@ -357,8 +363,8 @@ Future<void> main() async {
                 deprecated(member);
 
                 if (mName != null) {
-                  if (forbidden.contains(mName) || (isInstanceMember &&
-                  objectMembers.contains(mName))) {
+                  if (forbidden.contains(mName) ||
+                      (isInstanceMember && objectMembers.contains(mName))) {
                     js(mName);
                     mName = 'm${mName.pascalCase}';
                   }
@@ -376,7 +382,9 @@ Future<void> main() async {
                       return members?.any((member) =>
                               member['name'] == mName &&
                               dartType !=
-                                  spec.getDartType(member['idlType']).fullName) ==
+                                  spec
+                                      .getDartType(member['idlType'])
+                                      .fullName) ==
                           true;
                     });
 
@@ -416,18 +424,18 @@ Future<void> main() async {
                       external static $dartType get $mName;
                       ''');
                     } else {
-                      final prop = "js_util.getProperty(${static || constant ?
-                      className : 'this'}, '$origMName')";
+                      final prop =
+                          "js_util.getProperty(${static || constant ? className : 'this'}, '$origMName')";
                       final async = dartType.isPromise && dartType.isEnum;
 
                       String mk(String prop) {
-                        var jget = dartType.isPromise ?
-                        'js_util.promiseToFuture($prop)' : prop;
+                        var jget = dartType.isPromise
+                            ? 'js_util.promiseToFuture($prop)'
+                            : prop;
 
                         if (dartType.isEnum) {
-                          jget = '${dartType.simpleName}.values.byName${
-                              dartType.isIterable.truth('s')}(${
-                              async.truth('await ')}$jget)';
+                          jget =
+                              '${dartType.simpleName}.fromValue${dartType.isIterable.truth('s')}(${async.truth('await ')}$jget)';
                         }
 
                         return jget;
@@ -454,13 +462,11 @@ Future<void> main() async {
                       }
 
                       if (static || constant) {
-                        lines.add('static set $mName(${dartType.fullName} newValue);');
-                      } else {
                         lines.add(
-                            '''set $mName($dartType newValue) {
-                          js_util.setProperty(this, '$origMName', newValue${
-                                dartType.isEnum.truth('${
-                                    dartType.nullable.truth('?')}.name${dartType.isIterable.truth('s')}')});
+                            'static set $mName(${dartType.fullName} newValue);');
+                      } else {
+                        lines.add('''set $mName($dartType newValue) {
+                          js_util.setProperty(this, '$origMName', newValue${dartType.isEnum.truth('${dartType.nullable.truth('?')}.${dartType.isIterable ? 'map((e) => e.value)' : 'value'}')});
                           }''');
                       }
                     }
@@ -470,7 +476,8 @@ Future<void> main() async {
                     final isc = mType == 'constructor';
                     String fn;
                     final method = spec.makeMethod(member['arguments'] == null
-                        ? [] : member['arguments'] as Iterable);
+                        ? []
+                        : member['arguments'] as Iterable);
                     final cparams = method.build(anonymous: dictionary);
 
                     if (isc) {
@@ -478,38 +485,22 @@ Future<void> main() async {
                         print(
                             'Skipping $name constructor because it is a mixin.');
                       } else {
-                        final params = method.build(anonymous: dictionary,
-                            enumAsStrings: true);
+                        final params = method.build(
+                            anonymous: dictionary, enumAsStrings: true);
 
                         if (params.isNotEmpty) {
                           fn = '$factory$className';
                           addedCtor = true;
 
-                          final henum = method.params.any(
-                                  (param) => param.dartType.isEnum);
+                          final henum = method.params
+                              .any((param) => param.dartType.isEnum);
 
                           lines.add(
-                              '\nexternal $fn${henum ? '._' : ''}(${
-                                  params.isNotEmpty ? (dictionary
-                                      ? '{$params}'
-                                      : params) : ''});');
+                              '\nexternal $fn${henum ? '._' : ''}(${params.isNotEmpty ? (dictionary ? '{$params}' : params) : ''});');
 
                           if (henum) {
                             lines.add(
-                                '\nfactory $className(${
-                                    params.isNotEmpty ? (dictionary
-                                        ? '{$cparams}'
-                                        : cparams) : ''}) => $className._(${
-                                    method.params.map(
-                                            (param) =>
-                                            '${dictionary ?
-                                            '${param.name}: ' : ''}${param.name}${
-                                            param.dartType.isEnum ?
-                                            '${param.isNullable ? '?' : ''}.name${
-                                            param.dartType.isIterable ? 's' : ''
-                                            }' : ''
-                                        }').join(', ')
-                                });');
+                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.dartType.isEnum ? '${param.isNullable.truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}' : ''}').join(', ')});');
                           }
                         }
                       }
@@ -556,36 +547,35 @@ Future<void> main() async {
 
                       assert(dartType.dartName.isNotEmpty == true);
 
-                      fn = '${static ?
-                      'static ' : ''}$dartType ${mName.camelCase}';
+                      fn =
+                          '${static ? 'static ' : ''}$dartType ${mName.camelCase}';
 
                       final jsCall = '''
                       js_util.callMethod(${static ? className : 'this'}, 
                       '$origMName',
                     [
-                    ${method.params.map(
-                              (param) {
-                                var name = param.name;
+                    ${method.params.map((param) {
+                        var name = param.name;
 
-                            if (param.dartType.isCallback) {
-                              name = '${param.isNullable
-                                  .truth('$name == null ? null : ')}allowInterop($name)';
-                            } else if (param.dartType.isEnum) {
-                              name = '$name${param.isNullable.truth('?')}.name${param.dartType.isIterable.truth('s')}';
-                            }
+                        if (param.dartType.isCallback) {
+                          name =
+                              '${param.isNullable.truth('$name == null ? null : ')}allowInterop($name)';
+                        } else if (param.dartType.isEnum) {
+                          name =
+                              '$name${param.isNullable.truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}';
+                        }
 
-                            if (param.isVariadic) {
-                              name = '${name}1, ${name}2, ${name}3';
-                            }
+                        if (param.isVariadic) {
+                          name = '${name}1, ${name}2, ${name}3';
+                        }
 
-                            return name;
-                          }).join(', ')}
+                        return name;
+                      }).join(', ')}
                     ])
                       ''';
 
                       lines.add('''
-                    $fn($cparams) => ${dartType.isPromise ?
-                      'js_util.promiseToFuture($jsCall)' : jsCall}; 
+                    $fn($cparams) => ${dartType.isPromise ? 'js_util.promiseToFuture($jsCall)' : jsCall}; 
                     ''');
                     }
                     break;

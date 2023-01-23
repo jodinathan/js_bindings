@@ -10,6 +10,7 @@ library local_font_access;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -28,6 +29,12 @@ extension PropsQueryOptions on QueryOptions {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Local Font Access API represents a single
+/// local font face.
+@experimental
 @JS()
 @staticInterop
 class FontData {

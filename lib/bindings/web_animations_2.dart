@@ -10,7 +10,6 @@ library web_animations_2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -62,11 +61,19 @@ extension PropsSequenceEffect on SequenceEffect {
   SequenceEffect clone() => js_util.callMethod(this, 'clone', []);
 }
 
-enum IterationCompositeOperation { replace, accumulate }
+enum IterationCompositeOperation {
+  replace('replace'),
+  accumulate('accumulate');
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+  final String value;
+  static IterationCompositeOperation fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<IterationCompositeOperation> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const IterationCompositeOperation(this.value);
+}
+
 ///  The AnimationPlaybackEvent interface of the Web Animations API
 /// represents animation events.
 ///  As animations play, they report changes to their [playState]
@@ -80,10 +87,11 @@ enum IterationCompositeOperation { replace, accumulate }
 ///
 ///
 ///
+///
+///
 ///    AnimationPlaybackEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class AnimationPlaybackEvent implements Event {

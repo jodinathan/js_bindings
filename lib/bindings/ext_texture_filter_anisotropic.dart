@@ -1,6 +1,6 @@
 /// WebGL EXT_texture_filter_anisotropic Khronos Ratified Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/EXT_texture_filter_anisotropic/
+/// https://registry.khronos.org/webgl/extensions/EXT_texture_filter_anisotropic/
 
 // ignore_for_file: unused_import
 

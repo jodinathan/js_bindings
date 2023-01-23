@@ -10,11 +10,15 @@ library web_otp;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the WebOTP API contains the attributes that are
 /// returned when a new one-time password is retrieved.
 ///
@@ -26,9 +30,12 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    OTPCredential
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class OTPCredential implements Credential {
@@ -47,16 +54,26 @@ class OTPCredentialRequestOptions {
 
   factory OTPCredentialRequestOptions(
           {Iterable<OTPCredentialTransportType>? transport = const []}) =>
-      OTPCredentialRequestOptions._(transport: transport?.names);
+      OTPCredentialRequestOptions._(transport: transport?.map((e) => e.value));
 }
 
 extension PropsOTPCredentialRequestOptions on OTPCredentialRequestOptions {
   Iterable<OTPCredentialTransportType> get transport =>
-      OTPCredentialTransportType.values
-          .byNames(js_util.getProperty(this, 'transport'));
+      OTPCredentialTransportType.fromValues(
+          js_util.getProperty(this, 'transport'));
   set transport(Iterable<OTPCredentialTransportType> newValue) {
-    js_util.setProperty(this, 'transport', newValue.names);
+    js_util.setProperty(this, 'transport', newValue.map((e) => e.value));
   }
 }
 
-enum OTPCredentialTransportType { sms }
+enum OTPCredentialTransportType {
+  sms('sms');
+
+  final String value;
+  static OTPCredentialTransportType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<OTPCredentialTransportType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const OTPCredentialTransportType(this.value);
+}

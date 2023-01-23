@@ -13,21 +13,10 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///   is the interface that describes the event handlers you can
-/// implement in an object that will handle events for an
-/// [XMLHttpRequest].
-///
-///
-///
-///    EventTarget
-///
-///
-///
-///
-///
-///    XMLHttpRequestEventTarget
-///
-///
+///   is the interface that describes the event handlers shared on
+/// [XMLHttpRequest] and [XMLHttpRequestUpload].
+///  You don't use directly; instead you interact with the sub
+/// classes.
 @JS()
 @staticInterop
 class XMLHttpRequestEventTarget implements EventTarget {
@@ -80,12 +69,20 @@ class XMLHttpRequestUpload implements XMLHttpRequestEventTarget {
 }
 
 enum XMLHttpRequestResponseType {
-  empty,
-  arraybuffer,
-  blob,
-  document,
-  json,
-  text
+  empty(''),
+  arraybuffer('arraybuffer'),
+  blob('blob'),
+  document('document'),
+  json('json'),
+  text('text');
+
+  final String value;
+  static XMLHttpRequestResponseType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<XMLHttpRequestResponseType> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const XMLHttpRequestResponseType(this.value);
 }
 
 ///   (XHR) objects are used to interact with servers. You can
@@ -102,7 +99,11 @@ enum XMLHttpRequestResponseType {
 ///
 ///
 ///
+///
+///
 ///    XMLHttpRequestEventTarget
+///
+///
 ///
 ///
 ///
@@ -185,10 +186,10 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
       js_util.callMethod(this, 'overrideMimeType', [mime]);
 
   XMLHttpRequestResponseType get responseType =>
-      XMLHttpRequestResponseType.values
-          .byName(js_util.getProperty(this, 'responseType'));
+      XMLHttpRequestResponseType.fromValue(
+          js_util.getProperty(this, 'responseType'));
   set responseType(XMLHttpRequestResponseType newValue) {
-    js_util.setProperty(this, 'responseType', newValue.name);
+    js_util.setProperty(this, 'responseType', newValue.value);
   }
 
   dynamic get response => js_util.getProperty(this, 'response');
@@ -196,17 +197,17 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   Document? get responseXML => js_util.getProperty(this, 'responseXML');
 }
 
-///  The interface provides a way to easily construct a set of
-/// key/value pairs representing form fields and their values, which
-/// can then be easily sent using the [XMLHttpRequest.send()] method.
-/// It uses the same format a form would use if the encoding type
-/// were set to ["multipart/form-data"].
+///  The interface provides a way to construct a set of key/value
+/// pairs representing form fields and their values, which can be
+/// sent using the [fetch()] or [XMLHttpRequest.send()] method. It
+/// uses the same format a form would use if the encoding type were
+/// set to ["multipart/form-data"].
 ///  You can also pass it directly to the [URLSearchParams]
 /// constructor if you want to generate query parameters in the way a
 /// [<form>] would do if it were using simple [GET] submission.
 ///  An object implementing can directly be used in a [for...of]
-/// structure, instead of [entries()]: [for (var p of myFormData)] is
-/// equivalent to [for (var p of myFormData.entries())].
+/// structure, instead of [entries()]: [for (const p of myFormData)]
+/// is equivalent to [for (const p of myFormData.entries())].
 ///
 ///  Note: This feature is available in Web Workers.
 ///
@@ -245,6 +246,8 @@ extension PropsFormData on FormData {
 ///
 ///
 ///    Event
+///
+///
 ///
 ///
 ///

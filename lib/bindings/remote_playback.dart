@@ -25,6 +25,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    RemotePlayback
 ///
 ///
@@ -43,7 +45,7 @@ extension PropsRemotePlayback on RemotePlayback {
       js_util.callMethod(this, 'cancelWatchAvailability', [id]));
 
   RemotePlaybackState get state =>
-      RemotePlaybackState.values.byName(js_util.getProperty(this, 'state'));
+      RemotePlaybackState.fromValue(js_util.getProperty(this, 'state'));
   EventHandlerNonNull? get onconnecting =>
       js_util.getProperty(this, 'onconnecting');
   set onconnecting(EventHandlerNonNull? newValue) {
@@ -65,4 +67,15 @@ extension PropsRemotePlayback on RemotePlayback {
       js_util.promiseToFuture(js_util.callMethod(this, 'prompt', []));
 }
 
-enum RemotePlaybackState { connecting, connected, disconnected }
+enum RemotePlaybackState {
+  connecting('connecting'),
+  connected('connected'),
+  disconnected('disconnected');
+
+  final String value;
+  static RemotePlaybackState fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RemotePlaybackState> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RemotePlaybackState(this.value);
+}

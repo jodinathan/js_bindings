@@ -1,6 +1,6 @@
 /// Resize Observer
 ///
-/// https://drafts.csswg.org/resize-observer/
+/// https://drafts.csswg.org/resize-observer-1/
 
 // ignore_for_file: unused_import
 
@@ -10,11 +10,22 @@ library resize_observer_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum ResizeObserverBoxOptions { borderBox, contentBox, devicePixelContentBox }
+enum ResizeObserverBoxOptions {
+  borderBox('border-box'),
+  contentBox('content-box'),
+  devicePixelContentBox('device-pixel-content-box');
+
+  final String value;
+  static ResizeObserverBoxOptions fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ResizeObserverBoxOptions> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const ResizeObserverBoxOptions(this.value);
+}
 
 @anonymous
 @JS()
@@ -25,14 +36,14 @@ class ResizeObserverOptions {
   factory ResizeObserverOptions(
           {ResizeObserverBoxOptions? box =
               ResizeObserverBoxOptions.contentBox}) =>
-      ResizeObserverOptions._(box: box?.name);
+      ResizeObserverOptions._(box: box?.value);
 }
 
 extension PropsResizeObserverOptions on ResizeObserverOptions {
   ResizeObserverBoxOptions get box =>
-      ResizeObserverBoxOptions.values.byName(js_util.getProperty(this, 'box'));
+      ResizeObserverBoxOptions.fromValue(js_util.getProperty(this, 'box'));
   set box(ResizeObserverBoxOptions newValue) {
-    js_util.setProperty(this, 'box', newValue.name);
+    js_util.setProperty(this, 'box', newValue.value);
   }
 }
 
@@ -45,12 +56,6 @@ extension PropsResizeObserverOptions on ResizeObserverOptions {
 /// width. The border box encompasses the content, padding, and
 /// border. See The box model for further explanation.
 ///
-///   avoids infinite callback loops and cyclic dependencies that are
-/// often created when resizing via a callback function. It does this
-/// by only processing elements deeper in the DOM in subsequent
-/// frames. Implementations should, if they follow the specification,
-/// invoke resize events before paint and after layout.
-@experimental
 @JS()
 @staticInterop
 class ResizeObserver {

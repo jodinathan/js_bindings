@@ -1,6 +1,6 @@
 /// WebGL WEBGL_depth_texture Khronos Ratified Extension Specification
 ///
-/// https://www.khronos.org/registry/webgl/extensions/WEBGL_depth_texture/
+/// https://registry.khronos.org/webgl/extensions/WEBGL_depth_texture/
 
 // ignore_for_file: unused_import
 

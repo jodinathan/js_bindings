@@ -24,12 +24,9 @@ extension PropsNavigatorStorage on NavigatorStorage {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Storage API provides an interface for
-/// managing persistance permissions and estimating available
+/// managing persistence permissions and estimating available
 /// storage. You can get a reference to this interface using either
 /// [navigator.storage] or [WorkerNavigator.storage].
 @JS()

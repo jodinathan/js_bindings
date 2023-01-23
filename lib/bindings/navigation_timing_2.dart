@@ -13,17 +13,20 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface provides methods and properties to store and
 /// retrieve metrics regarding the browser's document navigation
 /// events. For example, this interface can be used to determine how
 /// much time it takes to load or unload a document.
+///  Only the current document is included in the performance
+/// timeline, so there is only one object in the performance
+/// timeline. It inherits all of the properties and methods of
+/// [PerformanceResourceTiming] and [PerformanceEntry].
 ///
 ///
 ///
 ///    PerformanceEntry
+///
+///
 ///
 ///
 ///
@@ -35,7 +38,14 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    PerformanceNavigationTiming
+///
+///
+///  The following diagram shows all of the timestamp properties
+/// defined in .
+///
 ///
 ///
 @JS()
@@ -56,14 +66,26 @@ extension PropsPerformanceNavigationTiming on PerformanceNavigationTiming {
   double get loadEventStart => js_util.getProperty(this, 'loadEventStart');
   double get loadEventEnd => js_util.getProperty(this, 'loadEventEnd');
   NavigationTimingType get type =>
-      NavigationTimingType.values.byName(js_util.getProperty(this, 'type'));
+      NavigationTimingType.fromValue(js_util.getProperty(this, 'type'));
   int get redirectCount => js_util.getProperty(this, 'redirectCount');
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
   double get activationStart => js_util.getProperty(this, 'activationStart');
 }
 
-enum NavigationTimingType { navigate, reload, backForward, prerender }
+enum NavigationTimingType {
+  navigate('navigate'),
+  reload('reload'),
+  backForward('back_forward'),
+  prerender('prerender');
+
+  final String value;
+  static NavigationTimingType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<NavigationTimingType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const NavigationTimingType(this.value);
+}
 
 ///  Deprecated: This feature is no longer recommended. Though some
 /// browsers might still support it, it may have already been removed

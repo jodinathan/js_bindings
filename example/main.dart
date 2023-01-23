@@ -4,16 +4,18 @@ void main() {
   window.document.title = 'JS Bindings example';
 
   var init = RequestInit(
-      method: 'GET',
-      referrer: '',
-      duplex: RequestDuplex.half,
-      referrerPolicy: ReferrerPolicy.origin,
-      mode: RequestMode.cors,
-      credentials: RequestCredentials.omit,
-      cache: RequestCache.noCache,
-      redirect: RequestRedirect.follow,
-      integrity: '',
-      keepalive: true);
+    method: 'GET',
+    referrer: '',
+    duplex: RequestDuplex.half,
+    referrerPolicy: ReferrerPolicy.origin,
+    mode: RequestMode.cors,
+    credentials: RequestCredentials.omit,
+    cache: RequestCache.noCache,
+    redirect: RequestRedirect.follow,
+    integrity: '',
+    keepalive: true,
+    priority: RequestPriority.auto,
+  );
 
   print('init $init');
 

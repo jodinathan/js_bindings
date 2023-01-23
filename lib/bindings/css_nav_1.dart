@@ -13,9 +13,33 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-enum SpatialNavigationDirection { up, down, left, right }
+enum SpatialNavigationDirection {
+  up('up'),
+  down('down'),
+  left('left'),
+  right('right');
 
-enum FocusableAreaSearchMode { visible, all }
+  final String value;
+  static SpatialNavigationDirection fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<SpatialNavigationDirection> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const SpatialNavigationDirection(this.value);
+}
+
+enum FocusableAreaSearchMode {
+  visible('visible'),
+  all('all');
+
+  final String value;
+  static FocusableAreaSearchMode fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<FocusableAreaSearchMode> fromValues(
+          Iterable<String> values) =>
+      values.map(fromValue);
+  const FocusableAreaSearchMode(this.value);
+}
 
 @anonymous
 @JS()
@@ -24,14 +48,14 @@ class FocusableAreasOption {
   external factory FocusableAreasOption._({required String mode});
 
   factory FocusableAreasOption({required FocusableAreaSearchMode mode}) =>
-      FocusableAreasOption._(mode: mode.name);
+      FocusableAreasOption._(mode: mode.value);
 }
 
 extension PropsFocusableAreasOption on FocusableAreasOption {
   FocusableAreaSearchMode get mode =>
-      FocusableAreaSearchMode.values.byName(js_util.getProperty(this, 'mode'));
+      FocusableAreaSearchMode.fromValue(js_util.getProperty(this, 'mode'));
   set mode(FocusableAreaSearchMode newValue) {
-    js_util.setProperty(this, 'mode', newValue.name);
+    js_util.setProperty(this, 'mode', newValue.value);
   }
 }
 
@@ -64,8 +88,8 @@ class NavigationEvent implements UIEvent {
 }
 
 extension PropsNavigationEvent on NavigationEvent {
-  SpatialNavigationDirection get dir => SpatialNavigationDirection.values
-      .byName(js_util.getProperty(this, 'dir'));
+  SpatialNavigationDirection get dir =>
+      SpatialNavigationDirection.fromValue(js_util.getProperty(this, 'dir'));
   EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');
 }
 
@@ -79,14 +103,14 @@ class NavigationEventInit implements UIEventInit {
   factory NavigationEventInit(
           {required SpatialNavigationDirection dir,
           EventTarget? relatedTarget}) =>
-      NavigationEventInit._(dir: dir.name, relatedTarget: relatedTarget);
+      NavigationEventInit._(dir: dir.value, relatedTarget: relatedTarget);
 }
 
 extension PropsNavigationEventInit on NavigationEventInit {
-  SpatialNavigationDirection get dir => SpatialNavigationDirection.values
-      .byName(js_util.getProperty(this, 'dir'));
+  SpatialNavigationDirection get dir =>
+      SpatialNavigationDirection.fromValue(js_util.getProperty(this, 'dir'));
   set dir(SpatialNavigationDirection newValue) {
-    js_util.setProperty(this, 'dir', newValue.name);
+    js_util.setProperty(this, 'dir', newValue.value);
   }
 
   EventTarget? get relatedTarget => js_util.getProperty(this, 'relatedTarget');

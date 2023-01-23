@@ -24,6 +24,8 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
+///
+///
 ///    TimeEvent
 ///
 ///
@@ -53,7 +55,11 @@ extension PropsTimeEvent on TimeEvent {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -65,7 +71,11 @@ extension PropsTimeEvent on TimeEvent {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -125,7 +135,11 @@ extension PropsSVGAnimationElement on SVGAnimationElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -137,13 +151,19 @@ extension PropsSVGAnimationElement on SVGAnimationElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    SVGAnimationElement
+///
+///
 ///
 ///
 ///
@@ -168,7 +188,11 @@ class SVGAnimateElement implements SVGAnimationElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -180,13 +204,19 @@ class SVGAnimateElement implements SVGAnimationElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    SVGAnimationElement
+///
+///
 ///
 ///
 ///
@@ -211,7 +241,11 @@ class SVGSetElement implements SVGAnimationElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -223,13 +257,19 @@ class SVGSetElement implements SVGAnimationElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    SVGAnimationElement
+///
+///
 ///
 ///
 ///
@@ -254,7 +294,11 @@ class SVGAnimateMotionElement implements SVGAnimationElement {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -266,7 +310,11 @@ class SVGAnimateMotionElement implements SVGAnimationElement {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
+///
+///
 ///
 ///
 ///
@@ -291,7 +339,11 @@ class SVGMPathElement implements SVGElement, SVGURIReference {
 ///
 ///
 ///
+///
+///
 ///    Node
+///
+///
 ///
 ///
 ///
@@ -303,13 +355,19 @@ class SVGMPathElement implements SVGElement, SVGURIReference {
 ///
 ///
 ///
+///
+///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
+///
+///
 ///    SVGAnimationElement
+///
+///
 ///
 ///
 ///
