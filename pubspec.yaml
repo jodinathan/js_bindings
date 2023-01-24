@@ -1,6 +1,6 @@
 name: js_bindings
 description: Complete JS bindings interop with autocomplete and documentation.
-version: 0.0.9
+version: 0.0.10
 repository: https://github.com/jodinathan/js_bindings
 
 environment:

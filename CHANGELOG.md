@@ -1,3 +1,6 @@
+## 0.0.10
+- Use `self` rather than `window` when accessing context.
+
 ## 0.0.9
 - Preparing for Dart 3
 
