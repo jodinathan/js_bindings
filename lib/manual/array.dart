@@ -5,7 +5,7 @@ part of '../manual.dart';
 /// A [List] that proxies a JavaScript array.
 class JsArray<E> {
   /// Creates an empty JavaScript array.
-  external JsArray([E variadic1, E variadic2, E variadic3,
+  external factory JsArray([E variadic1, E variadic2, E variadic3,
     E variadic4, E variadic5]);
 
   /// Creates a new JavaScript array and initializes it to the contents of
