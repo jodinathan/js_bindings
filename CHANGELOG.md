@@ -1,3 +1,6 @@
+## 0.0.9+1
+- Fixes ` JsArray`  to work with Dart 3 (only in dart2js, DDC still needs fixing)
+
 ## 0.0.9
 - Preparing for Dart 3
 

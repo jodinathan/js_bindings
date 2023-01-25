@@ -2,15 +2,16 @@ part of '../manual.dart';
 
 @JS('Array')
 @staticInterop
+
 /// A [List] that proxies a JavaScript array.
 class JsArray<E> {
   /// Creates an empty JavaScript array.
-  external factory JsArray([E variadic1, E variadic2, E variadic3,
-    E variadic4, E variadic5]);
+  external factory JsArray(
+      [E variadic1, E variadic2, E variadic3, E variadic4, E variadic5]);
 
   /// Creates a new JavaScript array and initializes it to the contents of
   /// [other].
-  external JsArray.from(Iterable<E> other);
+  external factory JsArray.from(Iterable<E> other);
 }
 
 class JsArrayWrapper<E> extends ListBase<E> {
@@ -19,7 +20,9 @@ class JsArrayWrapper<E> extends ListBase<E> {
   final JsArray<E> _jsArray;
 
   @override
-  set length(int newLength) { _jsArray.length = newLength; }
+  set length(int newLength) {
+    _jsArray.length = newLength;
+  }
 
   @override
   int get length => _jsArray.length;
@@ -28,42 +31,50 @@ class JsArrayWrapper<E> extends ListBase<E> {
   E operator [](int index) => _jsArray[index];
 
   @override
-  void operator []=(int index, E value) { _jsArray[index] = value; }
+  void operator []=(int index, E value) {
+    _jsArray[index] = value;
+  }
 }
 
 extension AdvJsArray<E> on JsArray<E> {
   List<E> toList() => JsArrayWrapper(this);
 
   void forEach(void Function(E, int) fn) {
-    jsu.callMethod(this, 'forEach', [ allowInterop(fn)]);
+    jsu.callMethod(this, 'forEach', [allowInterop(fn)]);
   }
 
-  E operator[](int key) => jsu.getProperty(this, key);
+  E operator [](int key) => jsu.getProperty(this, key);
 
-  void operator[]=(int key, E value) =>
-      jsu.setProperty<E>(this, key, value);
+  void operator []=(int key, E value) => jsu.setProperty<E>(this, key, value);
 
-  external int get length;
+  int get length => jsu.getProperty(this, 'length');
 
-  external set length(int length);
+  set length(int value) {
+    jsu.setProperty(this, 'length', value);
+  }
 
   // Methods overridden for better performance
-  external void add(E element);
+  void add(E element) => jsu.callMethod(this, 'add', [element]);
 
-  external void addAll(Iterable<E> iterable);
+  void addAll(Iterable<E> iterable) =>
+      jsu.callMethod(this, 'addAll', [iterable]);
 
-  external void insert(int index, E element);
+  void insert(int index, E element) =>
+      jsu.callMethod(this, 'insert', [index, element]);
 
-  external E removeAt(int index);
+  E removeAt(int index) => jsu.callMethod(this, 'removeAt', [index]);
 
-  external E removeLast();
+  E removeLast() => jsu.callMethod(this, 'removeLast', []);
 
-  external void removeRange(int start, int end);
+  void removeRange(int start, int end) =>
+      jsu.callMethod(this, 'removeRange', [start, end]);
 
-  external String join(Object separator);
+  String join(Object separator) => jsu.callMethod(this, 'join', [separator]);
 
-  external void setRange(int start, int end, Iterable<E> iterable,
-      [int skipCount = 0]);
+  void setRange(int start, int end, Iterable<E> iterable,
+          [int skipCount = 0]) =>
+      jsu.callMethod(this, 'setRange', [start, end, iterable, skipCount]);
 
-  external void sort([int Function(E a, E b)? compare]);
+  void sort([int Function(E a, E b)? compare]) =>
+      jsu.callMethod(this, 'sort', [compare]);
 }
