@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_import
 
-@JS('window')
+@JS('self')
 @staticInterop
 library picture_in_picture;
 

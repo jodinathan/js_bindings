@@ -655,7 +655,7 @@ Future<void> main() async {
       
       // ignore_for_file: unused_import
       
-      @JS('window')
+      @JS('self')
       @staticInterop
       library $libraryName;
 

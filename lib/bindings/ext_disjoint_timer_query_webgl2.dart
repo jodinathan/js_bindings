@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_import
 
-@JS('window')
+@JS('self')
 @staticInterop
 library ext_disjoint_timer_query_webgl2;
 

@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_import
 
-@JS('window')
+@JS('self')
 @staticInterop
 library webgl_multi_draw_instanced_base_vertex_base_instance;
 

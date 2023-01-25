@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_import
 
-@JS('window')
+@JS('self')
 @staticInterop
 library custom_state_pseudo_class;
 
