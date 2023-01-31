@@ -18,9 +18,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class EditContextInit {
   external factory EditContextInit(
-      {required String text,
-      required int selectionStart,
-      required int selectionEnd});
+      {String? text, int? selectionStart, int? selectionEnd});
 }
 
 extension PropsEditContextInit on EditContextInit {
@@ -118,13 +116,13 @@ extension PropsEditContext on EditContext {
 @staticInterop
 class TextUpdateEventInit {
   external factory TextUpdateEventInit(
-      {required int updateRangeStart,
-      required int updateRangeEnd,
-      required String text,
-      required int selectionStart,
-      required int selectionEnd,
-      required int compositionStart,
-      required int compositionEnd});
+      {int? updateRangeStart,
+      int? updateRangeEnd,
+      String? text,
+      int? selectionStart,
+      int? selectionEnd,
+      int? compositionStart,
+      int? compositionEnd});
 }
 
 extension PropsTextUpdateEventInit on TextUpdateEventInit {
@@ -185,13 +183,13 @@ extension PropsTextUpdateEvent on TextUpdateEvent {
 @staticInterop
 class TextFormatInit {
   external factory TextFormatInit(
-      {required int rangeStart,
-      required int rangeEnd,
-      required String textColor,
-      required String backgroundColor,
-      required String underlineStyle,
-      required String underlineThickness,
-      required String underlineColor});
+      {int? rangeStart,
+      int? rangeEnd,
+      String? textColor,
+      String? backgroundColor,
+      String? underlineStyle,
+      String? underlineThickness,
+      String? underlineColor});
 }
 
 extension PropsTextFormatInit on TextFormatInit {
@@ -281,7 +279,7 @@ extension PropsTextFormat on TextFormat {
 @staticInterop
 class TextFormatUpdateEventInit {
   external factory TextFormatUpdateEventInit(
-      {required Iterable<TextFormat> textFormats});
+      {Iterable<TextFormat>? textFormats});
 }
 
 extension PropsTextFormatUpdateEventInit on TextFormatUpdateEventInit {
@@ -308,7 +306,7 @@ extension PropsTextFormatUpdateEvent on TextFormatUpdateEvent {
 @staticInterop
 class CharacterBoundsUpdateEventInit {
   external factory CharacterBoundsUpdateEventInit(
-      {required int rangeStart, required int rangeEnd});
+      {int? rangeStart, int? rangeEnd});
 }
 
 extension PropsCharacterBoundsUpdateEventInit

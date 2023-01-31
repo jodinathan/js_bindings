@@ -10,7 +10,7 @@ library fetch;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -33,17 +33,18 @@ import 'package:js_bindings/js_bindings.dart';
 /// see Guard.
 ///  You can retrieve a object via the [Request.headers] and
 /// [Response.headers] properties, and create a new object using the
-/// [Headers()] constructor.
+/// [Headers.Headers()] constructor.
 ///  An object implementing can directly be used in a [for...of]
-/// structure, instead of [entries()]: [for (const p of myHeaders)]
-/// is equivalent to [for (const p of myHeaders.entries())].
+/// structure, instead of [entries()]: [for (var p of myHeaders)] is
+/// equivalent to [for (var p of myHeaders.entries())].
 ///
-///   Note: you can find out more about the available headers by
+///   Note: you can find more out about the available headers by
 /// reading our HTTP headers reference.
 ///
+@experimental
 @JS()
 @staticInterop
-class Headers {
+class Headers extends JsArray<String> {
   external factory Headers([dynamic init]);
 }
 
@@ -53,15 +54,11 @@ extension PropsHeaders on Headers {
 
   void delete(String name) => js_util.callMethod(this, 'delete', [name]);
 
-  @JS('get')
-  @staticInterop
-  String? mGet(String name) => js_util.callMethod(this, 'get', [name]);
+  String? get(String name) => js_util.callMethod(this, 'get', [name]);
 
   bool has(String name) => js_util.callMethod(this, 'has', [name]);
 
-  @JS('set')
-  @staticInterop
-  void mSet(String name, String value) =>
+  void set(String name, String value) =>
       js_util.callMethod(this, 'set', [name, value]);
 }
 
@@ -125,9 +122,10 @@ extension PropsRequest on Request {
   bool get isHistoryNavigation =>
       js_util.getProperty(this, 'isHistoryNavigation');
   AbortSignal get signal => js_util.getProperty(this, 'signal');
-  RequestDuplex get duplex =>
-      RequestDuplex.fromValue(js_util.getProperty(this, 'duplex'));
   Request clone() => js_util.callMethod(this, 'clone', []);
+
+  FetchPriority get priority =>
+      FetchPriority.fromValue(js_util.getProperty(this, 'priority'));
 }
 
 @anonymous
@@ -135,53 +133,50 @@ extension PropsRequest on Request {
 @staticInterop
 class RequestInit {
   external factory RequestInit._(
-      {required String method,
+      {String? method,
       dynamic headers,
       dynamic body,
-      required String referrer,
-      required String referrerPolicy,
-      required String mode,
-      required String credentials,
-      required String cache,
-      required String redirect,
-      required String integrity,
-      required bool keepalive,
+      String? referrer,
+      String? referrerPolicy,
+      String? mode,
+      String? credentials,
+      String? cache,
+      String? redirect,
+      String? integrity,
+      bool? keepalive,
       AbortSignal? signal,
-      required String duplex,
-      required String priority,
+      String? duplex,
       dynamic window});
 
   factory RequestInit(
-          {required String method,
+          {String? method,
           dynamic headers,
           dynamic body,
-          required String referrer,
-          required ReferrerPolicy referrerPolicy,
-          required RequestMode mode,
-          required RequestCredentials credentials,
-          required RequestCache cache,
-          required RequestRedirect redirect,
-          required String integrity,
-          required bool keepalive,
+          String? referrer,
+          ReferrerPolicy? referrerPolicy,
+          RequestMode? mode,
+          RequestCredentials? credentials,
+          RequestCache? cache,
+          RequestRedirect? redirect,
+          String? integrity,
+          bool? keepalive,
           AbortSignal? signal,
-          required RequestDuplex duplex,
-          required RequestPriority priority,
+          RequestDuplex? duplex,
           dynamic window}) =>
       RequestInit._(
           method: method,
           headers: headers,
           body: body,
           referrer: referrer,
-          referrerPolicy: referrerPolicy.value,
-          mode: mode.value,
-          credentials: credentials.value,
-          cache: cache.value,
-          redirect: redirect.value,
+          referrerPolicy: referrerPolicy?.value,
+          mode: mode?.value,
+          credentials: credentials?.value,
+          cache: cache?.value,
+          redirect: redirect?.value,
           integrity: integrity,
           keepalive: keepalive,
           signal: signal,
-          duplex: duplex.value,
-          priority: priority.value,
+          duplex: duplex?.value,
           window: window);
 }
 
@@ -255,12 +250,6 @@ extension PropsRequestInit on RequestInit {
       RequestDuplex.fromValue(js_util.getProperty(this, 'duplex'));
   set duplex(RequestDuplex newValue) {
     js_util.setProperty(this, 'duplex', newValue.value);
-  }
-
-  RequestPriority get priority =>
-      RequestPriority.fromValue(js_util.getProperty(this, 'priority'));
-  set priority(RequestPriority newValue) {
-    js_util.setProperty(this, 'priority', newValue.value);
   }
 
   dynamic get window => js_util.getProperty(this, 'window');
@@ -366,40 +355,22 @@ enum RequestDuplex {
   const RequestDuplex(this.value);
 }
 
-enum RequestPriority {
-  high('high'),
-  low('low'),
-  auto('auto');
-
-  final String value;
-  static RequestPriority fromValue(String value) =>
-      values.firstWhere((e) => e.value == value);
-  static Iterable<RequestPriority> fromValues(Iterable<String> values) =>
-      values.map(fromValue);
-  const RequestPriority(this.value);
-}
-
 ///  The interface of the Fetch API represents the response to a
 /// request.
-///  You can create a new object using the [Response()] constructor,
-/// but you are more likely to encounter a object being returned as
-/// the result of another API operation—for example, a service worker
-/// [FetchEvent.respondWith], or a simple [fetch()].
+///  You can create a new object using the [Response.Response()]
+/// constructor, but you are more likely to encounter a object being
+/// returned as the result of another API operation—for example, a
+/// service worker [FetchEvent.respondWith], or a simple [fetch()].
 @JS()
 @staticInterop
 class Response implements Body {
   external factory Response([dynamic body, ResponseInit? init]);
+  external static Response error();
+  external static Response redirect(String url, [int? status = 302]);
+  external static Response json(dynamic data, [ResponseInit? init]);
 }
 
 extension PropsResponse on Response {
-  static Response error() => js_util.callMethod(Response, 'error', []);
-
-  static Response redirect(String url, [int? status = 302]) =>
-      js_util.callMethod(Response, 'redirect', [url, status]);
-
-  static Response json(dynamic data, [ResponseInit? init]) =>
-      js_util.callMethod(Response, 'json', [data, init]);
-
   ResponseType get type =>
       ResponseType.fromValue(js_util.getProperty(this, 'type'));
   String get url => js_util.getProperty(this, 'url');

@@ -32,7 +32,7 @@ extension PropsMidiPermissionDescriptor on MidiPermissionDescriptor {
 @JS()
 @staticInterop
 class MIDIOptions {
-  external factory MIDIOptions({required bool sysex, required bool software});
+  external factory MIDIOptions({bool? sysex, bool? software});
 }
 
 extension PropsMIDIOptions on MIDIOptions {
@@ -47,6 +47,9 @@ extension PropsMIDIOptions on MIDIOptions {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The read-only interface of the Web MIDI API provides a
 /// [Map]-like interface to the currently available MIDI input ports.
 /// Though it works generally like a map, because it is read-only it
@@ -57,6 +60,9 @@ class MIDIInputMap extends JsMap<MIDIInput, String> {
   external factory MIDIInputMap();
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The read-only interface of the Web MIDI API provides a
 /// [Map]-like interface to the currently available MIDI output
 /// ports. Although it works like a map, because it is read-only, it
@@ -76,8 +82,6 @@ class MIDIOutputMap extends JsMap<MIDIOutput, String> {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -114,8 +118,6 @@ extension PropsMIDIAccess on MIDIAccess {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -167,11 +169,7 @@ extension PropsMIDIPort on MIDIPort {
 ///
 ///
 ///
-///
-///
 ///    MIDIPort
-///
-///
 ///
 ///
 ///
@@ -208,11 +206,7 @@ extension PropsMIDIInput on MIDIInput {
 ///
 ///
 ///
-///
-///
 ///    MIDIPort
-///
-///
 ///
 ///
 ///
@@ -275,7 +269,7 @@ enum MIDIPortConnectionState {
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Web MIDI API represents the event passed to
-/// the [midimessage] event of the [MIDIInput] interface. A
+/// the [onmidimessage] event handler of the [MIDIInput] interface. A
 /// [midimessage] event is fired every time a MIDI message is sent
 /// from a device represented by a [MIDIInput], for example when a
 /// MIDI keyboard key is pressed, a knob is tweaked, or a slider is
@@ -284,8 +278,6 @@ enum MIDIPortConnectionState {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -309,7 +301,7 @@ extension PropsMIDIMessageEvent on MIDIMessageEvent {
 @JS()
 @staticInterop
 class MIDIMessageEventInit implements EventInit {
-  external factory MIDIMessageEventInit({required Uint8List data});
+  external factory MIDIMessageEventInit({Uint8List? data});
 }
 
 extension PropsMIDIMessageEventInit on MIDIMessageEventInit {
@@ -322,18 +314,16 @@ extension PropsMIDIMessageEventInit on MIDIMessageEventInit {
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Web MIDI API is the event passed to the
-/// [statechange] event of the [MIDIAccess] interface and the
-/// [statechange] event of the [MIDIPort] interface. This occurs any
-/// time a new port becomes available, or when a previously available
-/// port becomes unavailable. For example, this event is fired
-/// whenever a MIDI device is either plugged in to or unplugged from
-/// a computer.
+/// [onstatechange] event handler of the [MIDIAccess] interface and
+/// the [onstatechange] event of the [MIDIPort] interface. This
+/// occurs any time a new port becomes available, or when a
+/// previously available port becomes unavailable. For example, this
+/// event is fired whenever a MIDI device is either plugged in to or
+/// unplugged from a computer.
 ///
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -357,7 +347,7 @@ extension PropsMIDIConnectionEvent on MIDIConnectionEvent {
 @JS()
 @staticInterop
 class MIDIConnectionEventInit implements EventInit {
-  external factory MIDIConnectionEventInit({required MIDIPort port});
+  external factory MIDIConnectionEventInit({MIDIPort? port});
 }
 
 extension PropsMIDIConnectionEventInit on MIDIConnectionEventInit {

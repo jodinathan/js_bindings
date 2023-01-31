@@ -59,9 +59,7 @@ class XRHand extends JsArray<XRJointSpace> {
 
 extension PropsXRHand on XRHand {
   int get size => js_util.getProperty(this, 'size');
-  @JS('get')
-  @staticInterop
-  XRJointSpace mGet(XRHandJoint key) =>
+  XRJointSpace get(XRHandJoint key) =>
       js_util.callMethod(this, 'get', [key.value]);
 }
 
@@ -76,11 +74,7 @@ extension PropsXRHand on XRHand {
 ///
 ///
 ///
-///
-///
 ///    XRSpace
-///
-///
 ///
 ///
 ///
@@ -106,8 +100,6 @@ extension PropsXRJointSpace on XRJointSpace {
 ///
 ///
 ///    XRPose
-///
-///
 ///
 ///
 ///

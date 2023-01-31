@@ -10,7 +10,7 @@ library webxr_depth_sensing_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -71,12 +71,9 @@ extension PropsXRDepthStateInit on XRDepthStateInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface contains information about the distance from the
-/// user's device to the real-world geometry in the user's
+/// user’s device to the real-world geometry in the user’s
 /// environment.
 /// This interface is the parent of:
 ///
@@ -93,7 +90,6 @@ extension PropsXRDepthStateInit on XRDepthStateInit {
 ///
 ///  You will usually interact with these child interfaces. However,
 /// provides some useful properties that are inherited:
-@experimental
 @JS()
 @staticInterop
 class XRDepthInformation {
@@ -109,10 +105,7 @@ extension PropsXRDepthInformation on XRDepthInformation {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface contains depth information from the CPU (returned
 /// by [XRFrame.getDepthInformation()]).
 ///
@@ -124,14 +117,11 @@ extension PropsXRDepthInformation on XRDepthInformation {
 ///
 ///
 ///
-///
-///
 ///    XRCPUDepthInformation
 ///
 ///
 ///  This interface inherits properties from its parent,
 /// [XRDepthInformation].
-@experimental
 @JS()
 @staticInterop
 class XRCPUDepthInformation implements XRDepthInformation {
@@ -145,10 +135,7 @@ extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface contains depth information from the GPU/WebGL
 /// (returned by [XRWebGLBinding.getDepthInformation()]).
 ///
@@ -160,14 +147,11 @@ extension PropsXRCPUDepthInformation on XRCPUDepthInformation {
 ///
 ///
 ///
-///
-///
 ///    XRWebGLDepthInformation
 ///
 ///
 ///  This interface inherits properties from its parent,
 /// [XRDepthInformation].
-@experimental
 @JS()
 @staticInterop
 class XRWebGLDepthInformation implements XRDepthInformation {

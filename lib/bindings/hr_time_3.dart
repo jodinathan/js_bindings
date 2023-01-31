@@ -14,19 +14,23 @@ import 'package:js/js.dart';
 import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface provides access to performance-related information
-/// for the current page.
-///  An object of this type can be obtained by calling
-/// [window.performance] or [self.performance] in workers. Note that
-/// Performance entries are per context. If you create a mark on the
-/// main thread (or other worker), you cannot see it in a worker
-/// thread, and vice versa. See [self.performance] for which APIs are
-/// available in window and worker contexts.
+/// for the current page. It's part of the High Resolution Time API,
+/// but is enhanced by the Performance Timeline API, the Navigation
+/// Timing API, the User Timing API, and the Resource Timing API.
+///  An object of this type can be obtained by calling the
+/// [window.performance] read-only attribute.
+///
+///   Note: This interface and its members are available in Web
+/// Workers via [WorkerGlobalScope.performance] , except where
+/// indicated below. Also, note that performance markers and measures
+/// are per context. If you create a mark on the main thread (or
+/// other worker), you cannot see it in a worker thread, and vice
+/// versa.
+///
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -47,9 +51,6 @@ extension PropsPerformance on Performance {
   double get timeOrigin => js_util.getProperty(this, 'timeOrigin');
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
-  PerformanceTiming get timing => js_util.getProperty(this, 'timing');
-  PerformanceNavigation get navigation =>
-      js_util.getProperty(this, 'navigation');
   void clearResourceTimings() =>
       js_util.callMethod(this, 'clearResourceTimings', []);
 
@@ -62,6 +63,9 @@ extension PropsPerformance on Performance {
     js_util.setProperty(this, 'onresourcetimingbufferfull', newValue);
   }
 
+  PerformanceTiming get timing => js_util.getProperty(this, 'timing');
+  PerformanceNavigation get navigation =>
+      js_util.getProperty(this, 'navigation');
   PerformanceMark mark(String markName,
           [PerformanceMarkOptions? markOptions]) =>
       js_util.callMethod(this, 'mark', [markName, markOptions]);
@@ -78,7 +82,8 @@ extension PropsPerformance on Performance {
       js_util.callMethod(this, 'clearMeasures', [measureName]);
 
   EventCounts get eventCounts => js_util.getProperty(this, 'eventCounts');
-  int get interactionCount => js_util.getProperty(this, 'interactionCount');
+  InteractionCounts get interactionCounts =>
+      js_util.getProperty(this, 'interactionCounts');
   Iterable<PerformanceEntry> getEntries() =>
       js_util.callMethod(this, 'getEntries', []);
 

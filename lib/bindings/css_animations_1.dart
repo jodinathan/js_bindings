@@ -1,6 +1,6 @@
 /// CSS Animations Level 1
 ///
-/// https://drafts.csswg.org/css-animations-1/
+/// https://drafts.csswg.org/css-animations/
 
 // ignore_for_file: unused_import
 
@@ -19,8 +19,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -71,13 +69,11 @@ extension PropsAnimationEventInit on AnimationEventInit {
 
 ///  The interface describes an object representing a set of styles
 /// for a given keyframe. It corresponds to the contents of a single
-/// keyframe of a [@keyframes] at-rule.
+/// keyframe of a [@keyframes] [at-rule].
 ///
 ///
 ///
 ///    CSSRule
-///
-///
 ///
 ///
 ///
@@ -103,13 +99,11 @@ extension PropsCSSKeyframeRule on CSSKeyframeRule {
 
 ///  The interface describes an object representing a complete set of
 /// keyframes for a CSS animation. It corresponds to the contents of
-/// a whole [@keyframes] at-rule.
+/// a whole [@keyframes] [at-rule].
 ///
 ///
 ///
 ///    CSSRule
-///
-///
 ///
 ///
 ///
@@ -131,7 +125,6 @@ extension PropsCSSKeyframesRule on CSSKeyframesRule {
   }
 
   CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
-  int get length => js_util.getProperty(this, 'length');
   void appendRule(String rule) =>
       js_util.callMethod(this, 'appendRule', [rule]);
 

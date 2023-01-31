@@ -1,6 +1,6 @@
 /// WebGL WEBGL_draw_buffers Khronos Ratified Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/WEBGL_draw_buffers/
+/// https://www.khronos.org/registry/webgl/extensions/WEBGL_draw_buffers/
 
 // ignore_for_file: unused_import
 

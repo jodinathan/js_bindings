@@ -170,24 +170,24 @@ enum BlockFragmentationType {
 @staticInterop
 class LayoutConstraintsOptions {
   external factory LayoutConstraintsOptions._(
-      {required double availableInlineSize,
-      required double availableBlockSize,
-      required double fixedInlineSize,
-      required double fixedBlockSize,
-      required double percentageInlineSize,
-      required double percentageBlockSize,
-      required double blockFragmentationOffset,
+      {double? availableInlineSize,
+      double? availableBlockSize,
+      double? fixedInlineSize,
+      double? fixedBlockSize,
+      double? percentageInlineSize,
+      double? percentageBlockSize,
+      double? blockFragmentationOffset,
       String? blockFragmentationType,
       dynamic data});
 
   factory LayoutConstraintsOptions(
-          {required double availableInlineSize,
-          required double availableBlockSize,
-          required double fixedInlineSize,
-          required double fixedBlockSize,
-          required double percentageInlineSize,
-          required double percentageBlockSize,
-          required double blockFragmentationOffset,
+          {double? availableInlineSize,
+          double? availableBlockSize,
+          double? fixedInlineSize,
+          double? fixedBlockSize,
+          double? percentageInlineSize,
+          double? percentageBlockSize,
+          double? blockFragmentationOffset,
           BlockFragmentationType? blockFragmentationType =
               BlockFragmentationType.none,
           dynamic data}) =>
@@ -286,7 +286,7 @@ extension PropsBreakToken on BreakToken {
 @staticInterop
 class BreakTokenOptions {
   external factory BreakTokenOptions(
-      {required Iterable<ChildBreakToken> childBreakTokens, dynamic data});
+      {Iterable<ChildBreakToken>? childBreakTokens, dynamic data});
 }
 
 extension PropsBreakTokenOptions on BreakTokenOptions {
@@ -394,7 +394,7 @@ extension PropsFragmentResult on FragmentResult {
 @staticInterop
 class IntrinsicSizesResultOptions {
   external factory IntrinsicSizesResultOptions(
-      {required double maxContentSize, required double minContentSize});
+      {double? maxContentSize, double? minContentSize});
 }
 
 extension PropsIntrinsicSizesResultOptions on IntrinsicSizesResultOptions {

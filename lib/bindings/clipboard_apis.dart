@@ -10,6 +10,7 @@ library clipboard_apis;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -27,6 +28,9 @@ extension PropsClipboardEventInit on ClipboardEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface represents events providing information related to
 /// modification of the clipboard, that is [cut], [copy], and [paste]
 /// events.
@@ -39,11 +43,10 @@ extension PropsClipboardEventInit on ClipboardEventInit {
 ///
 ///
 ///
-///
-///
 ///    ClipboardEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class ClipboardEvent implements Event {
@@ -135,8 +138,6 @@ extension PropsClipboardItemOptions on ClipboardItemOptions {
 ///
 ///
 ///
-///
-///
 ///    Clipboard
 ///
 ///
@@ -144,7 +145,7 @@ extension PropsClipboardItemOptions on ClipboardItemOptions {
 /// [Navigator.clipboard] property.
 ///  Calls to the methods of the object will not succeed if the user
 /// hasn't granted the needed permissions using the Permissions API
-/// and the ['clipboard-read'] or ['clipboard-write'] permission as
+/// and the ["clipboard-read"] or ["clipboard-write"] permission as
 /// appropriate.
 ///
 ///   Note: In reality, at this time browser requirements for access
@@ -155,6 +156,20 @@ extension PropsClipboardItemOptions on ClipboardItemOptions {
 /// return a [Future] which is resolved once the clipboard access has
 /// been completed. The promise is rejected if clipboard access is
 /// denied.
+///
+///
+///    Note: The clipboard is a data buffer that is used for
+/// short-term, data storage and/or data transfers, this can be
+/// between documents or applications
+///    It is usually implemented as an anonymous, temporary data
+/// buffer, sometimes called the paste buffer, that can be accessed
+/// from most or all programs within the environment via defined
+/// programming interfaces.
+///
+///   A typical application accesses clipboard functionality by
+/// mapping user input such as keybindings, menu selections, etc. to
+/// these interfaces.
+///
 @JS()
 @staticInterop
 class Clipboard implements EventTarget {

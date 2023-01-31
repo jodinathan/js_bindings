@@ -1,6 +1,6 @@
 /// CSS Font Loading Module Level 3
 ///
-/// https://drafts.csswg.org/css-font-loading-3/
+/// https://drafts.csswg.org/css-font-loading/
 
 // ignore_for_file: unused_import
 
@@ -10,6 +10,7 @@ library css_font_loading_3;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -103,15 +104,10 @@ enum FontFaceLoadStatus {
   const FontFaceLoadStatus(this.value);
 }
 
-///  The interface of the CSS Font Loading API represents a single
-/// usable font face.
-///
-///   This interface defines the source of a font face, either a URL
-/// to an external resource or a buffer, and font properties such as
-/// [style], [weight], and so on.
-///   For URL font sources it allows authors to trigger when the
-/// remote font is fetched and loaded, and to track loading status.
-///
+///  The interface represents a single usable font face. It allows
+/// control of the source of the font face, being a URL to an
+/// external resource, or a buffer; it also allows control of when
+/// the font face is loaded and its current status.
 @JS()
 @staticInterop
 class FontFace {
@@ -258,11 +254,11 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
   }
 }
 
-///  The interface of the CSS Font Loading API represents events
-/// fired at a [FontFaceSet] after it starts loading font faces.
-///  Events are fired when font loading starts ([loading]), loading
-/// completes ([loadingdone]) or there is an error loading one of the
-/// fonts ([loadingerror]).
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the CSS Font Loading API is fired whenever a
+/// [FontFaceSet] loads.
 ///
 ///
 ///
@@ -272,11 +268,10 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
 ///
 ///
 ///
-///
-///
 ///    FontFaceSetLoadEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class FontFaceSetLoadEvent implements Event {
@@ -301,15 +296,12 @@ enum FontFaceSetLoadStatus {
 }
 
 ///  The interface of the CSS Font Loading API manages the loading of
-/// font-faces and querying of their download status.
-///  This property is available as [Document.fonts], or [self.fonts]
-/// in web workers.
+/// font-faces and querying of their download status. It is available
+/// as [Document.fonts].
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -321,7 +313,7 @@ enum FontFaceSetLoadStatus {
 @JS()
 @staticInterop
 class FontFaceSet implements EventTarget {
-  external factory FontFaceSet([Iterable<FontFace>? initialFaces]);
+  external factory FontFaceSet(Iterable<FontFace> initialFaces);
 }
 
 extension PropsFontFaceSet on FontFaceSet {

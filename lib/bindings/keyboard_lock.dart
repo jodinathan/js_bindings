@@ -16,8 +16,7 @@ import 'package:js_bindings/js_bindings.dart';
 
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
+/// production.
 ///  The interface of the Keyboard API provides functions that
 /// retrieve keyboard layout maps and toggle capturing of key presses
 /// from the physical keyboard.
@@ -27,8 +26,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///

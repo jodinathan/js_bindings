@@ -39,6 +39,9 @@ enum EndOfStreamError {
   const EndOfStreamError(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Media Source Extensions API represents a
 /// source of media data for an [HTMLMediaElement] object. A object
 /// can be attached to a [HTMLMediaElement] to be played in the user
@@ -52,14 +55,14 @@ enum EndOfStreamError {
 ///
 ///
 ///
-///
-///
 ///    MediaSource
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class MediaSource implements EventTarget {
+  external static bool isTypeSupported(String type);
   external factory MediaSource();
 }
 
@@ -111,31 +114,8 @@ extension PropsMediaSource on MediaSource {
 
   void clearLiveSeekableRange() =>
       js_util.callMethod(this, 'clearLiveSeekableRange', []);
-
-  static bool isTypeSupported(String type) =>
-      js_util.callMethod(MediaSource, 'isTypeSupported', [type]);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Media Source Extensions API is a proxy for
-/// a [MediaSource] that can be transferred from a dedicated worker
-/// back to the main thread and attached to a media element via its
-/// [HTMLMediaElement.srcObject] property. [MediaSource] objects are
-/// not transferable because they are event targets, hence the need
-/// for s.
-/// It can be accessed via the [MediaSource.handle] property.
-///  Each [MediaSource] object created inside a dedicated worker has
-/// its own distinct . The [MediaSource.handle] getter will always
-/// return the instance specific to the associated dedicated worker
-/// [MediaSource] instance. If the handle has already been
-/// transferred to the main thread using [postMessage()], the handle
-/// instance in the worker is technically detached and can't be
-/// transferred again.
-///  Note: This feature is available in Web Workers
-///
-@experimental
 @JS()
 @staticInterop
 class MediaSourceHandle {
@@ -166,11 +146,10 @@ enum AppendMode {
 ///
 ///
 ///
-///
-///
 ///    SourceBuffer
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class SourceBuffer implements EventTarget {
@@ -245,6 +224,9 @@ extension PropsSourceBuffer on SourceBuffer {
       js_util.callMethod(this, 'remove', [start, end]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface represents a simple container list for multiple
 /// [SourceBuffer] objects.
 ///  The source buffer list containing the [SourceBuffer]s appended
@@ -261,11 +243,10 @@ extension PropsSourceBuffer on SourceBuffer {
 ///
 ///
 ///
-///
-///
 ///    SourceBufferList
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class SourceBufferList implements EventTarget {

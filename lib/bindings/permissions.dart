@@ -10,12 +10,17 @@ library permissions;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The Permissions interface of the Permissions API provides the
 /// core Permission API functionality, such as methods for querying
 /// and revoking permissions
+@experimental
 @JS()
 @staticInterop
 class Permissions {
@@ -47,6 +52,9 @@ extension PropsPermissionDescriptor on PermissionDescriptor {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Permissions API provides the state of an
 /// object and an event handler for monitoring changes to said state.
 ///
@@ -58,11 +66,10 @@ extension PropsPermissionDescriptor on PermissionDescriptor {
 ///
 ///
 ///
-///
-///
 ///    PermissionStatus
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class PermissionStatus implements EventTarget {
@@ -97,12 +104,16 @@ enum PermissionState {
 @staticInterop
 class PermissionSetParameters {
   external factory PermissionSetParameters._(
-      {required PermissionDescriptor descriptor, required String state});
+      {required PermissionDescriptor descriptor,
+      required String state,
+      bool? oneRealm = false});
 
   factory PermissionSetParameters(
           {required PermissionDescriptor descriptor,
-          required PermissionState state}) =>
-      PermissionSetParameters._(descriptor: descriptor, state: state.value);
+          required PermissionState state,
+          bool? oneRealm = false}) =>
+      PermissionSetParameters._(
+          descriptor: descriptor, state: state.value, oneRealm: oneRealm);
 }
 
 extension PropsPermissionSetParameters on PermissionSetParameters {
@@ -116,5 +127,10 @@ extension PropsPermissionSetParameters on PermissionSetParameters {
       PermissionState.fromValue(js_util.getProperty(this, 'state'));
   set state(PermissionState newValue) {
     js_util.setProperty(this, 'state', newValue.value);
+  }
+
+  bool get oneRealm => js_util.getProperty(this, 'oneRealm');
+  set oneRealm(bool newValue) {
+    js_util.setProperty(this, 'oneRealm', newValue);
   }
 }

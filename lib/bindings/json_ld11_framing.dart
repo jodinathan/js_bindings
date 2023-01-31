@@ -17,12 +17,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class JsonLdFramingError {
-  external factory JsonLdFramingError._(
-      {required String code, String? message});
+  external factory JsonLdFramingError._({String? code, String? message});
 
-  factory JsonLdFramingError(
-          {required JsonLdFramingErrorCode code, String? message}) =>
-      JsonLdFramingError._(code: code.value, message: message);
+  factory JsonLdFramingError({JsonLdFramingErrorCode? code, String? message}) =>
+      JsonLdFramingError._(code: code?.value, message: message);
 }
 
 extension PropsJsonLdFramingError on JsonLdFramingError {

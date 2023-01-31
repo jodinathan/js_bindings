@@ -10,34 +10,10 @@ library csp3;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface contains the report data for a Content Security
-/// Policy (CSP) violation. CSP violations are thrown when the
-/// webpage attempts to load a resource that violates the CSP set by
-/// the [Content-Security-Policy] HTTP header.
-///
-///   Note: this interface is similar, but not identical to, the JSON
-/// objects sent back to the [report-uri] or [report-to] policy
-/// directive of the [Content-Security-Policy] header.
-///
-///
-///
-///
-///    ReportBody
-///
-///
-///
-///
-///
-///
-///
-///    CSPViolationReportBody
-///
-///
 @JS()
 @staticInterop
 class CSPViolationReportBody implements ReportBody {
@@ -76,6 +52,9 @@ enum SecurityPolicyViolationEventDisposition {
   const SecurityPolicyViolationEventDisposition(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface inherits from [Event], and represents the event
 /// object of an event sent on a document or worker when its content
 /// security policy is violated.
@@ -88,11 +67,10 @@ enum SecurityPolicyViolationEventDisposition {
 ///
 ///
 ///
-///
-///
 ///    SecurityPolicyViolationEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class SecurityPolicyViolationEvent implements Event {

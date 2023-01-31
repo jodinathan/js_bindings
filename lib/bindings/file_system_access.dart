@@ -93,8 +93,7 @@ enum WellKnownDirectory {
 @JS()
 @staticInterop
 class FilePickerAcceptType {
-  external factory FilePickerAcceptType(
-      {required String description, dynamic accept});
+  external factory FilePickerAcceptType({String? description, dynamic accept});
 }
 
 extension PropsFilePickerAcceptType on FilePickerAcceptType {
@@ -114,7 +113,7 @@ extension PropsFilePickerAcceptType on FilePickerAcceptType {
 @staticInterop
 class FilePickerOptions {
   external factory FilePickerOptions(
-      {required Iterable<FilePickerAcceptType> types,
+      {Iterable<FilePickerAcceptType>? types,
       bool? excludeAcceptAllOption = false,
       String? id,
       dynamic startIn});
@@ -177,10 +176,10 @@ extension PropsSaveFilePickerOptions on SaveFilePickerOptions {
 @staticInterop
 class DirectoryPickerOptions {
   external factory DirectoryPickerOptions._(
-      {required String id, dynamic startIn, String? mode});
+      {String? id, dynamic startIn, String? mode});
 
   factory DirectoryPickerOptions(
-          {required String id,
+          {String? id,
           dynamic startIn,
           FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
       DirectoryPickerOptions._(id: id, startIn: startIn, mode: mode?.value);

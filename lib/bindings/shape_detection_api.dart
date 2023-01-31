@@ -10,7 +10,6 @@ library shape_detection_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -29,8 +28,7 @@ extension PropsFaceDetector on FaceDetector {
 @JS()
 @staticInterop
 class FaceDetectorOptions {
-  external factory FaceDetectorOptions(
-      {required int maxDetectedFaces, required bool fastMode});
+  external factory FaceDetectorOptions({int? maxDetectedFaces, bool? fastMode});
 }
 
 extension PropsFaceDetectorOptions on FaceDetectorOptions {
@@ -71,11 +69,11 @@ extension PropsDetectedFace on DetectedFace {
 @staticInterop
 class Landmark {
   external factory Landmark._(
-      {required Iterable<Point2D> locations, required String type});
+      {required Iterable<Point2D> locations, String? type});
 
   factory Landmark(
-          {required Iterable<Point2D> locations, required LandmarkType type}) =>
-      Landmark._(locations: locations, type: type.value);
+          {required Iterable<Point2D> locations, LandmarkType? type}) =>
+      Landmark._(locations: locations, type: type?.value);
 }
 
 extension PropsLandmark on Landmark {
@@ -105,25 +103,18 @@ enum LandmarkType {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [Barcode Detection API] allows detection of
 /// linear and two dimensional barcodes in images.
-@experimental
 @JS()
 @staticInterop
 class BarcodeDetector {
   external factory BarcodeDetector(
       [BarcodeDetectorOptions? barcodeDetectorOptions]);
+  external static Future<Iterable<BarcodeFormat>> getSupportedFormats();
 }
 
 extension PropsBarcodeDetector on BarcodeDetector {
-  static Future<Iterable<BarcodeFormat>> getSupportedFormats() =>
-      js_util.promiseToFuture(
-          js_util.callMethod(BarcodeDetector, 'getSupportedFormats', []));
-
   Future<Iterable<DetectedBarcode>> detect(dynamic image) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'detect', [image]));
 }
@@ -132,11 +123,10 @@ extension PropsBarcodeDetector on BarcodeDetector {
 @JS()
 @staticInterop
 class BarcodeDetectorOptions {
-  external factory BarcodeDetectorOptions._(
-      {required Iterable<String> formats});
+  external factory BarcodeDetectorOptions._({Iterable<String>? formats});
 
-  factory BarcodeDetectorOptions({required Iterable<BarcodeFormat> formats}) =>
-      BarcodeDetectorOptions._(formats: formats.map((e) => e.value));
+  factory BarcodeDetectorOptions({Iterable<BarcodeFormat>? formats}) =>
+      BarcodeDetectorOptions._(formats: formats?.map((e) => e.value));
 }
 
 extension PropsBarcodeDetectorOptions on BarcodeDetectorOptions {

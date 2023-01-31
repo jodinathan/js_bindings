@@ -20,7 +20,6 @@ enum RTCStatsType {
   remoteInboundRtp('remote-inbound-rtp'),
   remoteOutboundRtp('remote-outbound-rtp'),
   mediaSource('media-source'),
-  mediaPlayout('media-playout'),
   peerConnection('peer-connection'),
   dataChannel('data-channel'),
   stream('stream'),
@@ -62,8 +61,8 @@ class RTCRtpStreamStats implements RTCStats {
   external factory RTCRtpStreamStats(
       {required int ssrc,
       required String kind,
-      required String transportId,
-      required String codecId});
+      String? transportId,
+      String? codecId});
 }
 
 extension PropsRTCRtpStreamStats on RTCRtpStreamStats {
@@ -96,9 +95,9 @@ class RTCCodecStats implements RTCStats {
       {required int payloadType,
       required String transportId,
       required String mimeType,
-      required int clockRate,
-      required int channels,
-      required String sdpFmtpLine});
+      int? clockRate,
+      int? channels,
+      String? sdpFmtpLine});
 }
 
 extension PropsRTCCodecStats on RTCCodecStats {
@@ -138,9 +137,10 @@ extension PropsRTCCodecStats on RTCCodecStats {
 @staticInterop
 class RTCReceivedRtpStreamStats implements RTCRtpStreamStats {
   external factory RTCReceivedRtpStreamStats(
-      {required int packetsReceived,
-      required int packetsLost,
-      required double jitter});
+      {int? packetsReceived,
+      int? packetsLost,
+      double? jitter,
+      int? framesDropped});
 }
 
 extension PropsRTCReceivedRtpStreamStats on RTCReceivedRtpStreamStats {
@@ -158,6 +158,11 @@ extension PropsRTCReceivedRtpStreamStats on RTCReceivedRtpStreamStats {
   set jitter(double newValue) {
     js_util.setProperty(this, 'jitter', newValue);
   }
+
+  int get framesDropped => js_util.getProperty(this, 'framesDropped');
+  set framesDropped(int newValue) {
+    js_util.setProperty(this, 'framesDropped', newValue);
+  }
 }
 
 ///  The WebRTC API's dictionary, based upon
@@ -171,53 +176,43 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
   external factory RTCInboundRtpStreamStats(
       {required String trackIdentifier,
       required String kind,
-      required String mid,
-      required String remoteId,
-      required int framesDecoded,
-      required int keyFramesDecoded,
-      required int framesRendered,
-      required int framesDropped,
-      required int frameWidth,
-      required int frameHeight,
-      required double framesPerSecond,
-      required int qpSum,
-      required double totalDecodeTime,
-      required double totalInterFrameDelay,
-      required double totalSquaredInterFrameDelay,
-      required int pauseCount,
-      required double totalPausesDuration,
-      required int freezeCount,
-      required double totalFreezesDuration,
-      required double lastPacketReceivedTimestamp,
-      required int headerBytesReceived,
-      required int packetsDiscarded,
-      required int fecPacketsReceived,
-      required int fecPacketsDiscarded,
-      required int bytesReceived,
-      required int nackCount,
-      required int firCount,
-      required int pliCount,
-      required double totalProcessingDelay,
-      required double estimatedPlayoutTimestamp,
-      required double jitterBufferDelay,
-      required double jitterBufferTargetDelay,
-      required int jitterBufferEmittedCount,
-      required double jitterBufferMinimumDelay,
-      required int totalSamplesReceived,
-      required int concealedSamples,
-      required int silentConcealedSamples,
-      required int concealmentEvents,
-      required int insertedSamplesForDeceleration,
-      required int removedSamplesForAcceleration,
-      required double audioLevel,
-      required double totalAudioEnergy,
-      required double totalSamplesDuration,
-      required int framesReceived,
-      required String decoderImplementation,
-      required String playoutId,
-      required bool powerEfficientDecoder,
-      required int framesAssembledFromMultiplePackets,
-      required double totalAssemblyTime});
+      String? mid,
+      String? remoteId,
+      int? framesDecoded,
+      int? keyFramesDecoded,
+      int? frameWidth,
+      int? frameHeight,
+      double? framesPerSecond,
+      int? qpSum,
+      double? totalDecodeTime,
+      double? totalInterFrameDelay,
+      double? totalSquaredInterFrameDelay,
+      double? lastPacketReceivedTimestamp,
+      int? headerBytesReceived,
+      int? packetsDiscarded,
+      int? fecPacketsReceived,
+      int? fecPacketsDiscarded,
+      int? bytesReceived,
+      int? nackCount,
+      int? firCount,
+      int? pliCount,
+      double? totalProcessingDelay,
+      double? estimatedPlayoutTimestamp,
+      double? jitterBufferDelay,
+      double? jitterBufferTargetDelay,
+      int? jitterBufferEmittedCount,
+      double? jitterBufferMinimumDelay,
+      int? totalSamplesReceived,
+      int? concealedSamples,
+      int? silentConcealedSamples,
+      int? concealmentEvents,
+      int? insertedSamplesForDeceleration,
+      int? removedSamplesForAcceleration,
+      double? audioLevel,
+      double? totalAudioEnergy,
+      double? totalSamplesDuration,
+      int? framesReceived,
+      String? decoderImplementation});
 }
 
 extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
@@ -249,16 +244,6 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
   int get keyFramesDecoded => js_util.getProperty(this, 'keyFramesDecoded');
   set keyFramesDecoded(int newValue) {
     js_util.setProperty(this, 'keyFramesDecoded', newValue);
-  }
-
-  int get framesRendered => js_util.getProperty(this, 'framesRendered');
-  set framesRendered(int newValue) {
-    js_util.setProperty(this, 'framesRendered', newValue);
-  }
-
-  int get framesDropped => js_util.getProperty(this, 'framesDropped');
-  set framesDropped(int newValue) {
-    js_util.setProperty(this, 'framesDropped', newValue);
   }
 
   int get frameWidth => js_util.getProperty(this, 'frameWidth');
@@ -296,28 +281,6 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
       js_util.getProperty(this, 'totalSquaredInterFrameDelay');
   set totalSquaredInterFrameDelay(double newValue) {
     js_util.setProperty(this, 'totalSquaredInterFrameDelay', newValue);
-  }
-
-  int get pauseCount => js_util.getProperty(this, 'pauseCount');
-  set pauseCount(int newValue) {
-    js_util.setProperty(this, 'pauseCount', newValue);
-  }
-
-  double get totalPausesDuration =>
-      js_util.getProperty(this, 'totalPausesDuration');
-  set totalPausesDuration(double newValue) {
-    js_util.setProperty(this, 'totalPausesDuration', newValue);
-  }
-
-  int get freezeCount => js_util.getProperty(this, 'freezeCount');
-  set freezeCount(int newValue) {
-    js_util.setProperty(this, 'freezeCount', newValue);
-  }
-
-  double get totalFreezesDuration =>
-      js_util.getProperty(this, 'totalFreezesDuration');
-  set totalFreezesDuration(double newValue) {
-    js_util.setProperty(this, 'totalFreezesDuration', newValue);
   }
 
   double get lastPacketReceivedTimestamp =>
@@ -464,29 +427,6 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
   set decoderImplementation(String newValue) {
     js_util.setProperty(this, 'decoderImplementation', newValue);
   }
-
-  String get playoutId => js_util.getProperty(this, 'playoutId');
-  set playoutId(String newValue) {
-    js_util.setProperty(this, 'playoutId', newValue);
-  }
-
-  bool get powerEfficientDecoder =>
-      js_util.getProperty(this, 'powerEfficientDecoder');
-  set powerEfficientDecoder(bool newValue) {
-    js_util.setProperty(this, 'powerEfficientDecoder', newValue);
-  }
-
-  int get framesAssembledFromMultiplePackets =>
-      js_util.getProperty(this, 'framesAssembledFromMultiplePackets');
-  set framesAssembledFromMultiplePackets(int newValue) {
-    js_util.setProperty(this, 'framesAssembledFromMultiplePackets', newValue);
-  }
-
-  double get totalAssemblyTime =>
-      js_util.getProperty(this, 'totalAssemblyTime');
-  set totalAssemblyTime(double newValue) {
-    js_util.setProperty(this, 'totalAssemblyTime', newValue);
-  }
 }
 
 @anonymous
@@ -494,11 +434,11 @@ extension PropsRTCInboundRtpStreamStats on RTCInboundRtpStreamStats {
 @staticInterop
 class RTCRemoteInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
   external factory RTCRemoteInboundRtpStreamStats(
-      {required String localId,
-      required double roundTripTime,
-      required double totalRoundTripTime,
-      required double fractionLost,
-      required int roundTripTimeMeasurements});
+      {String? localId,
+      double? roundTripTime,
+      double? totalRoundTripTime,
+      double? fractionLost,
+      int? roundTripTimeMeasurements});
 }
 
 extension PropsRTCRemoteInboundRtpStreamStats
@@ -535,8 +475,7 @@ extension PropsRTCRemoteInboundRtpStreamStats
 @JS()
 @staticInterop
 class RTCSentRtpStreamStats implements RTCRtpStreamStats {
-  external factory RTCSentRtpStreamStats(
-      {required int packetsSent, required int bytesSent});
+  external factory RTCSentRtpStreamStats({int? packetsSent, int? bytesSent});
 }
 
 extension PropsRTCSentRtpStreamStats on RTCSentRtpStreamStats {
@@ -559,66 +498,62 @@ extension PropsRTCSentRtpStreamStats on RTCSentRtpStreamStats {
 @staticInterop
 class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
   external factory RTCOutboundRtpStreamStats._(
-      {required String mid,
-      required String mediaSourceId,
-      required String remoteId,
-      required String rid,
-      required int headerBytesSent,
-      required int retransmittedPacketsSent,
-      required int retransmittedBytesSent,
-      required double targetBitrate,
-      required int totalEncodedBytesTarget,
-      required int frameWidth,
-      required int frameHeight,
-      required double framesPerSecond,
-      required int framesSent,
-      required int hugeFramesSent,
-      required int framesEncoded,
-      required int keyFramesEncoded,
-      required int qpSum,
-      required double totalEncodeTime,
-      required double totalPacketSendDelay,
-      required String qualityLimitationReason,
+      {String? mid,
+      String? mediaSourceId,
+      String? remoteId,
+      String? rid,
+      int? headerBytesSent,
+      int? retransmittedPacketsSent,
+      int? retransmittedBytesSent,
+      double? targetBitrate,
+      int? totalEncodedBytesTarget,
+      int? frameWidth,
+      int? frameHeight,
+      double? framesPerSecond,
+      int? framesSent,
+      int? hugeFramesSent,
+      int? framesEncoded,
+      int? keyFramesEncoded,
+      int? qpSum,
+      double? totalEncodeTime,
+      double? totalPacketSendDelay,
+      String? qualityLimitationReason,
       dynamic qualityLimitationDurations,
-      required int qualityLimitationResolutionChanges,
-      required int nackCount,
-      required int firCount,
-      required int pliCount,
-      required String encoderImplementation,
-      required bool powerEfficientEncoder,
-      required bool active,
-      required String scalabilityMode});
+      int? qualityLimitationResolutionChanges,
+      int? nackCount,
+      int? firCount,
+      int? pliCount,
+      String? encoderImplementation,
+      bool? active});
 
   factory RTCOutboundRtpStreamStats(
-          {required String mid,
-          required String mediaSourceId,
-          required String remoteId,
-          required String rid,
-          required int headerBytesSent,
-          required int retransmittedPacketsSent,
-          required int retransmittedBytesSent,
-          required double targetBitrate,
-          required int totalEncodedBytesTarget,
-          required int frameWidth,
-          required int frameHeight,
-          required double framesPerSecond,
-          required int framesSent,
-          required int hugeFramesSent,
-          required int framesEncoded,
-          required int keyFramesEncoded,
-          required int qpSum,
-          required double totalEncodeTime,
-          required double totalPacketSendDelay,
-          required RTCQualityLimitationReason qualityLimitationReason,
+          {String? mid,
+          String? mediaSourceId,
+          String? remoteId,
+          String? rid,
+          int? headerBytesSent,
+          int? retransmittedPacketsSent,
+          int? retransmittedBytesSent,
+          double? targetBitrate,
+          int? totalEncodedBytesTarget,
+          int? frameWidth,
+          int? frameHeight,
+          double? framesPerSecond,
+          int? framesSent,
+          int? hugeFramesSent,
+          int? framesEncoded,
+          int? keyFramesEncoded,
+          int? qpSum,
+          double? totalEncodeTime,
+          double? totalPacketSendDelay,
+          RTCQualityLimitationReason? qualityLimitationReason,
           dynamic qualityLimitationDurations,
-          required int qualityLimitationResolutionChanges,
-          required int nackCount,
-          required int firCount,
-          required int pliCount,
-          required String encoderImplementation,
-          required bool powerEfficientEncoder,
-          required bool active,
-          required String scalabilityMode}) =>
+          int? qualityLimitationResolutionChanges,
+          int? nackCount,
+          int? firCount,
+          int? pliCount,
+          String? encoderImplementation,
+          bool? active}) =>
       RTCOutboundRtpStreamStats._(
           mid: mid,
           mediaSourceId: mediaSourceId,
@@ -639,7 +574,7 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
           qpSum: qpSum,
           totalEncodeTime: totalEncodeTime,
           totalPacketSendDelay: totalPacketSendDelay,
-          qualityLimitationReason: qualityLimitationReason.value,
+          qualityLimitationReason: qualityLimitationReason?.value,
           qualityLimitationDurations: qualityLimitationDurations,
           qualityLimitationResolutionChanges:
               qualityLimitationResolutionChanges,
@@ -647,9 +582,7 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
           firCount: firCount,
           pliCount: pliCount,
           encoderImplementation: encoderImplementation,
-          powerEfficientEncoder: powerEfficientEncoder,
-          active: active,
-          scalabilityMode: scalabilityMode);
+          active: active);
 }
 
 extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
@@ -792,20 +725,9 @@ extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
     js_util.setProperty(this, 'encoderImplementation', newValue);
   }
 
-  bool get powerEfficientEncoder =>
-      js_util.getProperty(this, 'powerEfficientEncoder');
-  set powerEfficientEncoder(bool newValue) {
-    js_util.setProperty(this, 'powerEfficientEncoder', newValue);
-  }
-
   bool get active => js_util.getProperty(this, 'active');
   set active(bool newValue) {
     js_util.setProperty(this, 'active', newValue);
-  }
-
-  String get scalabilityMode => js_util.getProperty(this, 'scalabilityMode');
-  set scalabilityMode(String newValue) {
-    js_util.setProperty(this, 'scalabilityMode', newValue);
   }
 }
 
@@ -832,12 +754,12 @@ enum RTCQualityLimitationReason {
 @staticInterop
 class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
   external factory RTCRemoteOutboundRtpStreamStats(
-      {required String localId,
-      required double remoteTimestamp,
-      required int reportsSent,
-      required double roundTripTime,
-      required double totalRoundTripTime,
-      required int roundTripTimeMeasurements});
+      {String? localId,
+      double? remoteTimestamp,
+      int? reportsSent,
+      double? roundTripTime,
+      double? totalRoundTripTime,
+      int? roundTripTimeMeasurements});
 }
 
 extension PropsRTCRemoteOutboundRtpStreamStats
@@ -900,15 +822,11 @@ extension PropsRTCMediaSourceStats on RTCMediaSourceStats {
 @staticInterop
 class RTCAudioSourceStats implements RTCMediaSourceStats {
   external factory RTCAudioSourceStats(
-      {required double audioLevel,
-      required double totalAudioEnergy,
-      required double totalSamplesDuration,
-      required double echoReturnLoss,
-      required double echoReturnLossEnhancement,
-      required double droppedSamplesDuration,
-      required int droppedSamplesEvents,
-      required double totalCaptureDelay,
-      required int totalSamplesCaptured});
+      {double? audioLevel,
+      double? totalAudioEnergy,
+      double? totalSamplesDuration,
+      double? echoReturnLoss,
+      double? echoReturnLossEnhancement});
 }
 
 extension PropsRTCAudioSourceStats on RTCAudioSourceStats {
@@ -938,30 +856,6 @@ extension PropsRTCAudioSourceStats on RTCAudioSourceStats {
   set echoReturnLossEnhancement(double newValue) {
     js_util.setProperty(this, 'echoReturnLossEnhancement', newValue);
   }
-
-  double get droppedSamplesDuration =>
-      js_util.getProperty(this, 'droppedSamplesDuration');
-  set droppedSamplesDuration(double newValue) {
-    js_util.setProperty(this, 'droppedSamplesDuration', newValue);
-  }
-
-  int get droppedSamplesEvents =>
-      js_util.getProperty(this, 'droppedSamplesEvents');
-  set droppedSamplesEvents(int newValue) {
-    js_util.setProperty(this, 'droppedSamplesEvents', newValue);
-  }
-
-  double get totalCaptureDelay =>
-      js_util.getProperty(this, 'totalCaptureDelay');
-  set totalCaptureDelay(double newValue) {
-    js_util.setProperty(this, 'totalCaptureDelay', newValue);
-  }
-
-  int get totalSamplesCaptured =>
-      js_util.getProperty(this, 'totalSamplesCaptured');
-  set totalSamplesCaptured(int newValue) {
-    js_util.setProperty(this, 'totalSamplesCaptured', newValue);
-  }
 }
 
 @anonymous
@@ -969,10 +863,7 @@ extension PropsRTCAudioSourceStats on RTCAudioSourceStats {
 @staticInterop
 class RTCVideoSourceStats implements RTCMediaSourceStats {
   external factory RTCVideoSourceStats(
-      {required int width,
-      required int height,
-      required int frames,
-      required double framesPerSecond});
+      {int? width, int? height, int? frames, double? framesPerSecond});
 }
 
 extension PropsRTCVideoSourceStats on RTCVideoSourceStats {
@@ -1000,52 +891,9 @@ extension PropsRTCVideoSourceStats on RTCVideoSourceStats {
 @anonymous
 @JS()
 @staticInterop
-class RTCAudioPlayoutStats implements RTCStats {
-  external factory RTCAudioPlayoutStats(
-      {required double synthesizedSamplesDuration,
-      required int synthesizedSamplesEvents,
-      required double totalSamplesDuration,
-      required double totalPlayoutDelay,
-      required int totalSamplesCount});
-}
-
-extension PropsRTCAudioPlayoutStats on RTCAudioPlayoutStats {
-  double get synthesizedSamplesDuration =>
-      js_util.getProperty(this, 'synthesizedSamplesDuration');
-  set synthesizedSamplesDuration(double newValue) {
-    js_util.setProperty(this, 'synthesizedSamplesDuration', newValue);
-  }
-
-  int get synthesizedSamplesEvents =>
-      js_util.getProperty(this, 'synthesizedSamplesEvents');
-  set synthesizedSamplesEvents(int newValue) {
-    js_util.setProperty(this, 'synthesizedSamplesEvents', newValue);
-  }
-
-  double get totalSamplesDuration =>
-      js_util.getProperty(this, 'totalSamplesDuration');
-  set totalSamplesDuration(double newValue) {
-    js_util.setProperty(this, 'totalSamplesDuration', newValue);
-  }
-
-  double get totalPlayoutDelay =>
-      js_util.getProperty(this, 'totalPlayoutDelay');
-  set totalPlayoutDelay(double newValue) {
-    js_util.setProperty(this, 'totalPlayoutDelay', newValue);
-  }
-
-  int get totalSamplesCount => js_util.getProperty(this, 'totalSamplesCount');
-  set totalSamplesCount(int newValue) {
-    js_util.setProperty(this, 'totalSamplesCount', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
 class RTCPeerConnectionStats implements RTCStats {
   external factory RTCPeerConnectionStats(
-      {required int dataChannelsOpened, required int dataChannelsClosed});
+      {int? dataChannelsOpened, int? dataChannelsClosed});
 }
 
 extension PropsRTCPeerConnectionStats on RTCPeerConnectionStats {
@@ -1065,24 +913,24 @@ extension PropsRTCPeerConnectionStats on RTCPeerConnectionStats {
 @staticInterop
 class RTCDataChannelStats implements RTCStats {
   external factory RTCDataChannelStats._(
-      {required String label,
-      required String protocol,
-      required int dataChannelIdentifier,
+      {String? label,
+      String? protocol,
+      int? dataChannelIdentifier,
       required String state,
-      required int messagesSent,
-      required int bytesSent,
-      required int messagesReceived,
-      required int bytesReceived});
+      int? messagesSent,
+      int? bytesSent,
+      int? messagesReceived,
+      int? bytesReceived});
 
   factory RTCDataChannelStats(
-          {required String label,
-          required String protocol,
-          required int dataChannelIdentifier,
+          {String? label,
+          String? protocol,
+          int? dataChannelIdentifier,
           required RTCDataChannelState state,
-          required int messagesSent,
-          required int bytesSent,
-          required int messagesReceived,
-          required int bytesReceived}) =>
+          int? messagesSent,
+          int? bytesSent,
+          int? messagesReceived,
+          int? bytesReceived}) =>
       RTCDataChannelStats._(
           label: label,
           protocol: protocol,
@@ -1143,55 +991,55 @@ extension PropsRTCDataChannelStats on RTCDataChannelStats {
 @staticInterop
 class RTCTransportStats implements RTCStats {
   external factory RTCTransportStats._(
-      {required int packetsSent,
-      required int packetsReceived,
-      required int bytesSent,
-      required int bytesReceived,
-      required String iceRole,
-      required String iceLocalUsernameFragment,
+      {int? packetsSent,
+      int? packetsReceived,
+      int? bytesSent,
+      int? bytesReceived,
+      String? iceRole,
+      String? iceLocalUsernameFragment,
       required String dtlsState,
-      required String iceState,
-      required String selectedCandidatePairId,
-      required String localCertificateId,
-      required String remoteCertificateId,
-      required String tlsVersion,
-      required String dtlsCipher,
-      required String dtlsRole,
-      required String srtpCipher,
-      required int selectedCandidatePairChanges});
+      String? iceState,
+      String? selectedCandidatePairId,
+      String? localCertificateId,
+      String? remoteCertificateId,
+      String? tlsVersion,
+      String? dtlsCipher,
+      String? dtlsRole,
+      String? srtpCipher,
+      int? selectedCandidatePairChanges});
 
   factory RTCTransportStats(
-          {required int packetsSent,
-          required int packetsReceived,
-          required int bytesSent,
-          required int bytesReceived,
-          required RTCIceRole iceRole,
-          required String iceLocalUsernameFragment,
+          {int? packetsSent,
+          int? packetsReceived,
+          int? bytesSent,
+          int? bytesReceived,
+          RTCIceRole? iceRole,
+          String? iceLocalUsernameFragment,
           required RTCDtlsTransportState dtlsState,
-          required RTCIceTransportState iceState,
-          required String selectedCandidatePairId,
-          required String localCertificateId,
-          required String remoteCertificateId,
-          required String tlsVersion,
-          required String dtlsCipher,
-          required RTCDtlsRole dtlsRole,
-          required String srtpCipher,
-          required int selectedCandidatePairChanges}) =>
+          RTCIceTransportState? iceState,
+          String? selectedCandidatePairId,
+          String? localCertificateId,
+          String? remoteCertificateId,
+          String? tlsVersion,
+          String? dtlsCipher,
+          RTCDtlsRole? dtlsRole,
+          String? srtpCipher,
+          int? selectedCandidatePairChanges}) =>
       RTCTransportStats._(
           packetsSent: packetsSent,
           packetsReceived: packetsReceived,
           bytesSent: bytesSent,
           bytesReceived: bytesReceived,
-          iceRole: iceRole.value,
+          iceRole: iceRole?.value,
           iceLocalUsernameFragment: iceLocalUsernameFragment,
           dtlsState: dtlsState.value,
-          iceState: iceState.value,
+          iceState: iceState?.value,
           selectedCandidatePairId: selectedCandidatePairId,
           localCertificateId: localCertificateId,
           remoteCertificateId: remoteCertificateId,
           tlsVersion: tlsVersion,
           dtlsCipher: dtlsCipher,
-          dtlsRole: dtlsRole.value,
+          dtlsRole: dtlsRole?.value,
           srtpCipher: srtpCipher,
           selectedCandidatePairChanges: selectedCandidatePairChanges);
 }
@@ -1309,32 +1157,22 @@ class RTCIceCandidateStats implements RTCStats {
   external factory RTCIceCandidateStats._(
       {required String transportId,
       String? address,
-      required int port,
-      required String protocol,
+      int? port,
+      String? protocol,
       required String candidateType,
-      required int priority,
-      required String url,
-      required String relayProtocol,
-      required String foundation,
-      required String relatedAddress,
-      required int relatedPort,
-      required String usernameFragment,
-      required String tcpType});
+      int? priority,
+      String? url,
+      String? relayProtocol});
 
   factory RTCIceCandidateStats(
           {required String transportId,
           String? address,
-          required int port,
-          required String protocol,
+          int? port,
+          String? protocol,
           required RTCIceCandidateType candidateType,
-          required int priority,
-          required String url,
-          required RTCIceServerTransportProtocol relayProtocol,
-          required String foundation,
-          required String relatedAddress,
-          required int relatedPort,
-          required String usernameFragment,
-          required RTCIceTcpCandidateType tcpType}) =>
+          int? priority,
+          String? url,
+          String? relayProtocol}) =>
       RTCIceCandidateStats._(
           transportId: transportId,
           address: address,
@@ -1343,12 +1181,7 @@ class RTCIceCandidateStats implements RTCStats {
           candidateType: candidateType.value,
           priority: priority,
           url: url,
-          relayProtocol: relayProtocol.value,
-          foundation: foundation,
-          relatedAddress: relatedAddress,
-          relatedPort: relatedPort,
-          usernameFragment: usernameFragment,
-          tcpType: tcpType.value);
+          relayProtocol: relayProtocol);
 }
 
 extension PropsRTCIceCandidateStats on RTCIceCandidateStats {
@@ -1388,37 +1221,9 @@ extension PropsRTCIceCandidateStats on RTCIceCandidateStats {
     js_util.setProperty(this, 'url', newValue);
   }
 
-  RTCIceServerTransportProtocol get relayProtocol =>
-      RTCIceServerTransportProtocol.fromValue(
-          js_util.getProperty(this, 'relayProtocol'));
-  set relayProtocol(RTCIceServerTransportProtocol newValue) {
-    js_util.setProperty(this, 'relayProtocol', newValue.value);
-  }
-
-  String get foundation => js_util.getProperty(this, 'foundation');
-  set foundation(String newValue) {
-    js_util.setProperty(this, 'foundation', newValue);
-  }
-
-  String get relatedAddress => js_util.getProperty(this, 'relatedAddress');
-  set relatedAddress(String newValue) {
-    js_util.setProperty(this, 'relatedAddress', newValue);
-  }
-
-  int get relatedPort => js_util.getProperty(this, 'relatedPort');
-  set relatedPort(int newValue) {
-    js_util.setProperty(this, 'relatedPort', newValue);
-  }
-
-  String get usernameFragment => js_util.getProperty(this, 'usernameFragment');
-  set usernameFragment(String newValue) {
-    js_util.setProperty(this, 'usernameFragment', newValue);
-  }
-
-  RTCIceTcpCandidateType get tcpType =>
-      RTCIceTcpCandidateType.fromValue(js_util.getProperty(this, 'tcpType'));
-  set tcpType(RTCIceTcpCandidateType newValue) {
-    js_util.setProperty(this, 'tcpType', newValue.value);
+  String get relayProtocol => js_util.getProperty(this, 'relayProtocol');
+  set relayProtocol(String newValue) {
+    js_util.setProperty(this, 'relayProtocol', newValue);
   }
 }
 
@@ -1437,48 +1242,48 @@ class RTCIceCandidatePairStats implements RTCStats {
       required String localCandidateId,
       required String remoteCandidateId,
       required String state,
-      required bool nominated,
-      required int packetsSent,
-      required int packetsReceived,
-      required int bytesSent,
-      required int bytesReceived,
-      required double lastPacketSentTimestamp,
-      required double lastPacketReceivedTimestamp,
-      required double totalRoundTripTime,
-      required double currentRoundTripTime,
-      required double availableOutgoingBitrate,
-      required double availableIncomingBitrate,
-      required int requestsReceived,
-      required int requestsSent,
-      required int responsesReceived,
-      required int responsesSent,
-      required int consentRequestsSent,
-      required int packetsDiscardedOnSend,
-      required int bytesDiscardedOnSend});
+      bool? nominated,
+      int? packetsSent,
+      int? packetsReceived,
+      int? bytesSent,
+      int? bytesReceived,
+      double? lastPacketSentTimestamp,
+      double? lastPacketReceivedTimestamp,
+      double? totalRoundTripTime,
+      double? currentRoundTripTime,
+      double? availableOutgoingBitrate,
+      double? availableIncomingBitrate,
+      int? requestsReceived,
+      int? requestsSent,
+      int? responsesReceived,
+      int? responsesSent,
+      int? consentRequestsSent,
+      int? packetsDiscardedOnSend,
+      int? bytesDiscardedOnSend});
 
   factory RTCIceCandidatePairStats(
           {required String transportId,
           required String localCandidateId,
           required String remoteCandidateId,
           required RTCStatsIceCandidatePairState state,
-          required bool nominated,
-          required int packetsSent,
-          required int packetsReceived,
-          required int bytesSent,
-          required int bytesReceived,
-          required double lastPacketSentTimestamp,
-          required double lastPacketReceivedTimestamp,
-          required double totalRoundTripTime,
-          required double currentRoundTripTime,
-          required double availableOutgoingBitrate,
-          required double availableIncomingBitrate,
-          required int requestsReceived,
-          required int requestsSent,
-          required int responsesReceived,
-          required int responsesSent,
-          required int consentRequestsSent,
-          required int packetsDiscardedOnSend,
-          required int bytesDiscardedOnSend}) =>
+          bool? nominated,
+          int? packetsSent,
+          int? packetsReceived,
+          int? bytesSent,
+          int? bytesReceived,
+          double? lastPacketSentTimestamp,
+          double? lastPacketReceivedTimestamp,
+          double? totalRoundTripTime,
+          double? currentRoundTripTime,
+          double? availableOutgoingBitrate,
+          double? availableIncomingBitrate,
+          int? requestsReceived,
+          int? requestsSent,
+          int? responsesReceived,
+          int? responsesSent,
+          int? consentRequestsSent,
+          int? packetsDiscardedOnSend,
+          int? bytesDiscardedOnSend}) =>
       RTCIceCandidatePairStats._(
           transportId: transportId,
           localCandidateId: localCandidateId,
@@ -1652,7 +1457,7 @@ class RTCCertificateStats implements RTCStats {
       {required String fingerprint,
       required String fingerprintAlgorithm,
       required String base64Certificate,
-      required String issuerCertificateId});
+      String? issuerCertificateId});
 }
 
 extension PropsRTCCertificateStats on RTCCertificateStats {

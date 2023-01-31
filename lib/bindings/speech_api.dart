@@ -32,8 +32,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    SpeechRecognition
 ///
 ///
@@ -170,8 +168,6 @@ enum SpeechRecognitionErrorCode {
 ///
 ///
 ///
-///
-///
 ///    SpeechRecognitionErrorEvent
 ///
 ///
@@ -214,8 +210,12 @@ extension PropsSpeechRecognitionErrorEventInit
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Speech API represents a single word
 /// that has been recognized by the speech recognition service.
+@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionAlternative {
@@ -227,9 +227,13 @@ extension PropsSpeechRecognitionAlternative on SpeechRecognitionAlternative {
   double get confidence => js_util.getProperty(this, 'confidence');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Speech API represents a single
 /// recognition match, which may contain multiple
 /// [SpeechRecognitionAlternative] objects.
+@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionResult {
@@ -244,9 +248,13 @@ extension PropsSpeechRecognitionResult on SpeechRecognitionResult {
   bool get isFinal => js_util.getProperty(this, 'isFinal');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Speech API represents a list of
 /// [SpeechRecognitionResult] objects, or a single one if results are
-/// being captured in [non-continuous] mode.
+/// being captured in [continuous] mode.
+@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionResultList {
@@ -271,11 +279,10 @@ extension PropsSpeechRecognitionResultList on SpeechRecognitionResultList {
 ///
 ///
 ///
-///
-///
 ///    SpeechRecognitionEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class SpeechRecognitionEvent implements Event {
@@ -376,8 +383,6 @@ extension PropsSpeechGrammarList on SpeechGrammarList {
 ///
 ///
 ///
-///
-///
 ///    SpeechSynthesis
 ///
 ///
@@ -421,8 +426,6 @@ extension PropsSpeechSynthesis on SpeechSynthesis {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -517,8 +520,6 @@ extension PropsSpeechSynthesisUtterance on SpeechSynthesisUtterance {
 ///
 ///
 ///
-///
-///
 ///    SpeechSynthesisEvent
 ///
 ///
@@ -601,6 +602,9 @@ enum SpeechSynthesisErrorCode {
   const SpeechSynthesisErrorCode(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Speech API contains information about
 /// any errors that occur while processing [SpeechSynthesisUtterance]
 /// objects in the speech service.
@@ -613,11 +617,7 @@ enum SpeechSynthesisErrorCode {
 ///
 ///
 ///
-///
-///
 ///    SpeechSynthesisEvent
-///
-///
 ///
 ///
 ///
@@ -626,6 +626,7 @@ enum SpeechSynthesisErrorCode {
 ///    SpeechSynthesisErrorEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class SpeechSynthesisErrorEvent implements SpeechSynthesisEvent {

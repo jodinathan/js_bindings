@@ -1,6 +1,6 @@
 /// CSS Object Model (CSSOM)
 ///
-/// https://drafts.csswg.org/cssom-1/
+/// https://drafts.csswg.org/cssom/
 
 // ignore_for_file: unused_import
 
@@ -77,8 +77,6 @@ extension PropsStyleSheet on StyleSheet {
 ///
 ///
 ///
-///
-///
 ///    CSSStyleSheet
 ///
 ///
@@ -135,7 +133,7 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
 @staticInterop
 class CSSStyleSheetInit {
   external factory CSSStyleSheetInit(
-      {required String baseURL, dynamic media, bool? disabled = false});
+      {String? baseURL, dynamic media, bool? disabled = false});
 }
 
 extension PropsCSSStyleSheetInit on CSSStyleSheetInit {
@@ -161,14 +159,6 @@ extension PropsCSSStyleSheetInit on CSSStyleSheetInit {
 ///  It is an array-like object but can't be iterated over using
 /// [Array] methods. However it can be iterated over in a standard
 /// [for] loop over its indices, or converted to an [Array].
-///
-///   Note: This interface was an attempt to create an unmodifiable
-/// list and only continues to be supported to not break code that's
-/// already using it. Modern APIs use types that wrap around
-/// ECMAScript array types instead, so you can treat them like
-/// ECMAScript arrays, and at the same time impose additional
-/// semantics on their usage (such as making their items read-only).
-///
 @JS()
 @staticInterop
 class StyleSheetList {
@@ -201,14 +191,6 @@ extension PropsLinkStyle on LinkStyle {
 /// which are methods of [CSSStyleSheet].
 ///  The interface has no constructor. An instance of is returned by
 /// [CSSStyleSheet.cssRules] and [CSSKeyframesRule.cssRules].
-///
-///   Note: This interface was an attempt to create an unmodifiable
-/// list and only continues to be supported to not break code that's
-/// already using it. Modern APIs use types that wrap around
-/// ECMAScript array types instead, so you can treat them like
-/// ECMAScript arrays, and at the same time impose additional
-/// semantics on their usage (such as making their items read-only).
-///
 @JS()
 @staticInterop
 class CSSRuleList {
@@ -265,6 +247,9 @@ class CSSRule {
   @JS('NAMESPACE_RULE')
   external static int get namespaceRule;
 
+  @JS('VIEWPORT_RULE')
+  external static int get viewportRule;
+
   @JS('KEYFRAMES_RULE')
   external static int get keyframesRule;
 
@@ -305,8 +290,6 @@ extension PropsCSSRule on CSSRule {
 ///
 ///
 ///
-///
-///
 ///    CSSStyleRule
 ///
 ///
@@ -331,13 +314,11 @@ extension PropsCSSStyleRule on CSSStyleRule {
   void deleteRule(int index) => js_util.callMethod(this, 'deleteRule', [index]);
 }
 
-/// The interface represents an [@import] at-rule.
+/// The interface represents an [@import] [at-rule].
 ///
 ///
 ///
 ///    CSSRule
-///
-///
 ///
 ///
 ///
@@ -359,14 +340,12 @@ extension PropsCSSImportRule on CSSImportRule {
   String? get layerName => js_util.getProperty(this, 'layerName');
 }
 
-///  The interface of the CSS Object Model represents any CSS at-rule
-/// that contains other rules nested within it.
+///  The interface of the [CSS Object Model] represents any CSS
+/// [at-rule] that contains other rules nested within it.
 ///
 ///
 ///
 ///    CSSRule
-///
-///
 ///
 ///
 ///
@@ -399,11 +378,7 @@ extension PropsCSSGroupingRule on CSSGroupingRule {
 ///
 ///
 ///
-///
-///
 ///    CSSGroupingRule
-///
-///
 ///
 ///
 ///
@@ -439,13 +414,11 @@ extension PropsCSSMarginRule on CSSMarginRule {
 }
 
 ///  The interface describes an object representing a single CSS
-/// [@namespace] at-rule.
+/// [@namespace] [at-rule].
 ///
 ///
 ///
 ///    CSSRule
-///
-///
 ///
 ///
 ///
@@ -471,7 +444,7 @@ extension PropsCSSNamespaceRule on CSSNamespaceRule {
 /// A object can be exposed using three different APIs:
 ///
 ///   Via [HTMLElement.style], which deals with the inline styles of
-/// a single element (e.g., [<div style="…">]).
+/// a single element (e.g., [<div style="...">]).
 ///   Via the [CSSStyleSheet] API. For example,
 /// [document.styleSheets[0].cssRules[0].style] returns a object on
 /// the first CSS rule in the document's first stylesheet.

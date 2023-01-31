@@ -10,15 +10,22 @@ library media_capabilities;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  The [MediaCapabilities] dictionary of the Media Capabilities API
+/// describes how media and audio files must be configured, or
+/// defined, to be passed as a parameter of the
+/// [MediaCapabilities.encodingInfo()] and
+/// [MediaCapabilities.encodingInfo()] methods.
+@experimental
 @anonymous
 @JS()
 @staticInterop
 class MediaConfiguration {
   external factory MediaConfiguration(
-      {required VideoConfiguration video, required AudioConfiguration audio});
+      {VideoConfiguration? video, AudioConfiguration? audio});
 }
 
 extension PropsMediaConfiguration on MediaConfiguration {
@@ -33,18 +40,22 @@ extension PropsMediaConfiguration on MediaConfiguration {
   }
 }
 
+///  The dictionary of the Media Capabilities API is used to define
+/// the type of media being tested when calling
+/// [MediaCapabilities.decodingInfo()] to query whether a specific
+/// media configuration is supported, smooth, and/or power efficient.
+@experimental
 @anonymous
 @JS()
 @staticInterop
 class MediaDecodingConfiguration implements MediaConfiguration {
   external factory MediaDecodingConfiguration._(
       {required String type,
-      required MediaCapabilitiesKeySystemConfiguration keySystemConfiguration});
+      MediaCapabilitiesKeySystemConfiguration? keySystemConfiguration});
 
   factory MediaDecodingConfiguration(
           {required MediaDecodingType type,
-          required MediaCapabilitiesKeySystemConfiguration
-              keySystemConfiguration}) =>
+          MediaCapabilitiesKeySystemConfiguration? keySystemConfiguration}) =>
       MediaDecodingConfiguration._(
           type: type.value, keySystemConfiguration: keySystemConfiguration);
 }
@@ -63,6 +74,11 @@ extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
   }
 }
 
+///  The dictionary of the Media Capabilities API is used to define
+/// the type of media being tested when calling
+/// [MediaCapabilities.encodingInfo()] to query whether a specific
+/// media configuration is supported, smooth, and/or power efficient.
+@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -106,6 +122,13 @@ enum MediaEncodingType {
   const MediaEncodingType(this.value);
 }
 
+///  The dictionary of the Media Capabilities API is used to define
+/// the video file being tested when calling the [MediaCapabilities]
+/// methods [encodingInfo()] and [decodingInfo()] to determine
+/// whether or not the described video configuration is supported,
+/// and how smoothly and how smooth and power-efficient it can be
+/// handled.
+@experimental
 @anonymous
 @JS()
 @staticInterop
@@ -116,12 +139,12 @@ class VideoConfiguration {
       required int height,
       required int bitrate,
       required double framerate,
-      required bool hasAlphaChannel,
-      required String hdrMetadataType,
-      required String colorGamut,
-      required String transferFunction,
-      required String scalabilityMode,
-      required bool spatialScalability});
+      bool? hasAlphaChannel,
+      String? hdrMetadataType,
+      String? colorGamut,
+      String? transferFunction,
+      String? scalabilityMode,
+      bool? spatialScalability});
 
   factory VideoConfiguration(
           {required String contentType,
@@ -129,12 +152,12 @@ class VideoConfiguration {
           required int height,
           required int bitrate,
           required double framerate,
-          required bool hasAlphaChannel,
-          required HdrMetadataType hdrMetadataType,
-          required ColorGamut colorGamut,
-          required TransferFunction transferFunction,
-          required String scalabilityMode,
-          required bool spatialScalability}) =>
+          bool? hasAlphaChannel,
+          HdrMetadataType? hdrMetadataType,
+          ColorGamut? colorGamut,
+          TransferFunction? transferFunction,
+          String? scalabilityMode,
+          bool? spatialScalability}) =>
       VideoConfiguration._(
           contentType: contentType,
           width: width,
@@ -142,9 +165,9 @@ class VideoConfiguration {
           bitrate: bitrate,
           framerate: framerate,
           hasAlphaChannel: hasAlphaChannel,
-          hdrMetadataType: hdrMetadataType.value,
-          colorGamut: colorGamut.value,
-          transferFunction: transferFunction.value,
+          hdrMetadataType: hdrMetadataType?.value,
+          colorGamut: colorGamut?.value,
+          transferFunction: transferFunction?.value,
           scalabilityMode: scalabilityMode,
           spatialScalability: spatialScalability);
 }
@@ -249,16 +272,21 @@ enum TransferFunction {
   const TransferFunction(this.value);
 }
 
+///  The dictionary of the Media Capabilities API defines the audio
+/// file being tested when calling [MediaCapabilities.encodingInfo()]
+/// or [MediaCapabilities.decodingInfo()] to query whether a specific
+/// audio configuration is supported, smooth, and/or power efficient.
+@experimental
 @anonymous
 @JS()
 @staticInterop
 class AudioConfiguration {
   external factory AudioConfiguration(
       {required String contentType,
-      required String channels,
-      required int bitrate,
-      required int samplerate,
-      required bool spatialRendering});
+      String? channels,
+      int? bitrate,
+      int? samplerate,
+      bool? spatialRendering});
 }
 
 extension PropsAudioConfiguration on AudioConfiguration {
@@ -415,7 +443,7 @@ extension PropsMediaCapabilitiesInfo on MediaCapabilitiesInfo {
 class MediaCapabilitiesDecodingInfo implements MediaCapabilitiesInfo {
   external factory MediaCapabilitiesDecodingInfo(
       {required MediaKeySystemAccess keySystemAccess,
-      required MediaDecodingConfiguration configuration});
+      MediaDecodingConfiguration? configuration});
 }
 
 extension PropsMediaCapabilitiesDecodingInfo on MediaCapabilitiesDecodingInfo {
@@ -437,7 +465,7 @@ extension PropsMediaCapabilitiesDecodingInfo on MediaCapabilitiesDecodingInfo {
 @staticInterop
 class MediaCapabilitiesEncodingInfo implements MediaCapabilitiesInfo {
   external factory MediaCapabilitiesEncodingInfo(
-      {required MediaEncodingConfiguration configuration});
+      {MediaEncodingConfiguration? configuration});
 }
 
 extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
@@ -457,6 +485,7 @@ extension PropsMediaCapabilitiesEncodingInfo on MediaCapabilitiesEncodingInfo {
 /// and power efficient.
 ///  The information is accessed through the [mediaCapabilities]
 /// property of the [Navigator] interface.
+@experimental
 @JS()
 @staticInterop
 class MediaCapabilities {

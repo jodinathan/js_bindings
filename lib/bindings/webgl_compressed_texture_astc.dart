@@ -1,6 +1,6 @@
 /// WebGL WEBGL_compressed_texture_astc Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/WEBGL_compressed_texture_astc/
+/// https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_astc/
 
 // ignore_for_file: unused_import
 
@@ -17,13 +17,13 @@ import 'package:js_bindings/js_bindings.dart';
 /// Scalable Texture Compression (ASTC) compressed texture formats to
 /// WebGL.
 ///  For more information, see the article Using ASTC Texture
-/// Compression for Game Assets by NVIDIA.
+/// Compression for Game Assets by nvidia.
 ///  WebGL extensions are available using the
 /// [WebGLRenderingContext.getExtension()] method. For more
 /// information, see also Using Extensions in the WebGL tutorial.
 ///
 ///   Note: ASTC compression is typically available on Mali ARM GPUs,
-/// Intel GPUs, and NVIDIA Tegra chips.
+/// Intel GPUs, and Nividia Tegra chips.
 ///   This extension is available to both, WebGL1 and WebGL2
 /// contexts.
 ///

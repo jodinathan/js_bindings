@@ -27,13 +27,16 @@ enum GamepadHand {
   const GamepadHand(this.value);
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Gamepad API represents hardware in the
 /// controller designed to provide haptic feedback to the user (if
 /// available), most commonly vibration hardware.
 ///  This interface is accessible through the
 /// [Gamepad.hapticActuators] property.
+@experimental
 @JS()
 @staticInterop
 class GamepadHapticActuator {
@@ -43,36 +46,12 @@ class GamepadHapticActuator {
 extension PropsGamepadHapticActuator on GamepadHapticActuator {
   GamepadHapticActuatorType get type =>
       GamepadHapticActuatorType.fromValue(js_util.getProperty(this, 'type'));
-  bool canPlayEffectType(GamepadHapticEffectType type) =>
-      js_util.callMethod(this, 'canPlayEffectType', [type.value]);
-
-  Future<GamepadHapticsResult> playEffect(GamepadHapticEffectType type,
-          [GamepadEffectParameters? params]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'playEffect', [type.value, params]));
-
   Future<bool> pulse(double value, double duration) => js_util
       .promiseToFuture(js_util.callMethod(this, 'pulse', [value, duration]));
-
-  Future<GamepadHapticsResult> reset() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'reset', []));
-}
-
-enum GamepadHapticsResult {
-  complete('complete'),
-  preempted('preempted');
-
-  final String value;
-  static GamepadHapticsResult fromValue(String value) =>
-      values.firstWhere((e) => e.value == value);
-  static Iterable<GamepadHapticsResult> fromValues(Iterable<String> values) =>
-      values.map(fromValue);
-  const GamepadHapticsResult(this.value);
 }
 
 enum GamepadHapticActuatorType {
-  vibration('vibration'),
-  dualRumble('dual-rumble');
+  vibration('vibration');
 
   final String value;
   static GamepadHapticActuatorType fromValue(String value) =>
@@ -83,51 +62,6 @@ enum GamepadHapticActuatorType {
   const GamepadHapticActuatorType(this.value);
 }
 
-enum GamepadHapticEffectType {
-  dualRumble('dual-rumble');
-
-  final String value;
-  static GamepadHapticEffectType fromValue(String value) =>
-      values.firstWhere((e) => e.value == value);
-  static Iterable<GamepadHapticEffectType> fromValues(
-          Iterable<String> values) =>
-      values.map(fromValue);
-  const GamepadHapticEffectType(this.value);
-}
-
-@anonymous
-@JS()
-@staticInterop
-class GamepadEffectParameters {
-  external factory GamepadEffectParameters(
-      {double? duration = 0.0,
-      double? startDelay = 0.0,
-      double? strongMagnitude = 0.0,
-      double? weakMagnitude = 0.0});
-}
-
-extension PropsGamepadEffectParameters on GamepadEffectParameters {
-  double get duration => js_util.getProperty(this, 'duration');
-  set duration(double newValue) {
-    js_util.setProperty(this, 'duration', newValue);
-  }
-
-  double get startDelay => js_util.getProperty(this, 'startDelay');
-  set startDelay(double newValue) {
-    js_util.setProperty(this, 'startDelay', newValue);
-  }
-
-  double get strongMagnitude => js_util.getProperty(this, 'strongMagnitude');
-  set strongMagnitude(double newValue) {
-    js_util.setProperty(this, 'strongMagnitude', newValue);
-  }
-
-  double get weakMagnitude => js_util.getProperty(this, 'weakMagnitude');
-  set weakMagnitude(double newValue) {
-    js_util.setProperty(this, 'weakMagnitude', newValue);
-  }
-}
-
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting
 /// browsers.Experimental: This is an experimental technologyCheck
@@ -135,7 +69,7 @@ extension PropsGamepadEffectParameters on GamepadEffectParameters {
 /// production.
 ///  The interface of the Gamepad API represents the pose of a WebVR
 /// controller at a given timestamp (which includes orientation,
-/// position, velocity, and acceleration information).
+/// position, velocity, and acceleration information.)
 ///  This interface is accessible through the [Gamepad.pose]
 /// property.
 @experimental

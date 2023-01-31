@@ -10,7 +10,6 @@ library ua_client_hints;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -18,8 +17,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class NavigatorUABrandVersion {
-  external factory NavigatorUABrandVersion(
-      {required String brand, required String version});
+  external factory NavigatorUABrandVersion({String? brand, String? version});
 }
 
 extension PropsNavigatorUABrandVersion on NavigatorUABrandVersion {
@@ -39,16 +37,16 @@ extension PropsNavigatorUABrandVersion on NavigatorUABrandVersion {
 @staticInterop
 class UADataValues {
   external factory UADataValues(
-      {required Iterable<NavigatorUABrandVersion> brands,
-      required bool mobile,
-      required String architecture,
-      required String bitness,
-      required String model,
-      required String platform,
-      required String platformVersion,
-      required String uaFullVersion,
-      required bool wow64,
-      required Iterable<NavigatorUABrandVersion> fullVersionList});
+      {Iterable<NavigatorUABrandVersion>? brands,
+      bool? mobile,
+      String? architecture,
+      String? bitness,
+      String? model,
+      String? platform,
+      String? platformVersion,
+      String? uaFullVersion,
+      bool? wow64,
+      Iterable<NavigatorUABrandVersion>? fullVersionList});
 }
 
 extension PropsUADataValues on UADataValues {
@@ -110,9 +108,9 @@ extension PropsUADataValues on UADataValues {
 @staticInterop
 class UALowEntropyJSON {
   external factory UALowEntropyJSON(
-      {required Iterable<NavigatorUABrandVersion> brands,
-      required bool mobile,
-      required String platform});
+      {Iterable<NavigatorUABrandVersion>? brands,
+      bool? mobile,
+      String? platform});
 }
 
 extension PropsUALowEntropyJSON on UALowEntropyJSON {
@@ -133,9 +131,6 @@ extension PropsUALowEntropyJSON on UALowEntropyJSON {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the [User-Agent Client Hints API] returns
 /// information about the browser and operating system of a user.
 ///  An instance of this object is returned by calling
@@ -151,7 +146,6 @@ extension PropsUALowEntropyJSON on UALowEntropyJSON {
 /// [Future], allowing time for the browser to request user
 /// permission, or make other checks.
 ///
-@experimental
 @JS()
 @staticInterop
 class NavigatorUAData {

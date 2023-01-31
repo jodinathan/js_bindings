@@ -16,21 +16,21 @@ import 'package:js_bindings/js_bindings.dart';
 @anonymous
 @JS()
 @staticInterop
-class VideoFrameCallbackMetadata {
-  external factory VideoFrameCallbackMetadata(
+class VideoFrameMetadata {
+  external factory VideoFrameMetadata(
       {required double presentationTime,
       required double expectedDisplayTime,
       required int width,
       required int height,
       required double mediaTime,
       required int presentedFrames,
-      required double processingDuration,
-      required double captureTime,
-      required double receiveTime,
-      required int rtpTimestamp});
+      double? processingDuration,
+      double? captureTime,
+      double? receiveTime,
+      int? rtpTimestamp});
 }
 
-extension PropsVideoFrameCallbackMetadata on VideoFrameCallbackMetadata {
+extension PropsVideoFrameMetadata on VideoFrameMetadata {
   double get presentationTime => js_util.getProperty(this, 'presentationTime');
   set presentationTime(double newValue) {
     js_util.setProperty(this, 'presentationTime', newValue);

@@ -1,16 +1,15 @@
 /// Contact Picker API
 ///
-/// https://w3c.github.io/contact-picker/spec/
+/// https://w3c.github.io/contact-api/spec/
 
 // ignore_for_file: unused_import
 
 @JS('self')
 @staticInterop
-library contact_picker_1;
+library contact_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -30,18 +29,14 @@ enum ContactProperty {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Contact Picker API represents a physical
 /// address. Instances of this interface are retrieved from the
 /// [address] property of the objects returned by
-/// [ContactsManager.getProperties()].
-///  It may be useful to refer to the Universal Postal Union
-/// website's Addressing S42 standard materials, which provide
+/// [ContactManager.getProperties()].
+///  It may be useful to refer to the Universal Postal Union web
+/// site's Addressing S42 standard materials, which provide
 /// information about international standards for postal addresses.
-@experimental
 @JS()
 @staticInterop
 class ContactAddress {
@@ -69,11 +64,11 @@ extension PropsContactAddress on ContactAddress {
 @staticInterop
 class ContactInfo {
   external factory ContactInfo(
-      {required Iterable<ContactAddress> address,
-      required Iterable<String> email,
-      required Iterable<Blob> icon,
-      required Iterable<String> name,
-      required Iterable<String> tel});
+      {Iterable<ContactAddress>? address,
+      Iterable<String>? email,
+      Iterable<Blob>? icon,
+      Iterable<String>? name,
+      Iterable<String>? tel});
 }
 
 extension PropsContactInfo on ContactInfo {
@@ -118,16 +113,12 @@ extension PropsContactsSelectOptions on ContactsSelectOptions {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [Contact Picker API] allows users to select
 /// entries from their contact list and share limited details of the
 /// selected entries with a website or application.
 ///  The is available through the global [navigator.contacts]
 /// property.
-@experimental
 @JS()
 @staticInterop
 class ContactsManager {

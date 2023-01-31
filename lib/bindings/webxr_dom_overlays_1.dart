@@ -44,10 +44,10 @@ enum XRDOMOverlayType {
 @JS()
 @staticInterop
 class XRDOMOverlayState {
-  external factory XRDOMOverlayState._({required String type});
+  external factory XRDOMOverlayState._({String? type});
 
-  factory XRDOMOverlayState({required XRDOMOverlayType type}) =>
-      XRDOMOverlayState._(type: type.value);
+  factory XRDOMOverlayState({XRDOMOverlayType? type}) =>
+      XRDOMOverlayState._(type: type?.value);
 }
 
 extension PropsXRDOMOverlayState on XRDOMOverlayState {

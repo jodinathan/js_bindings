@@ -96,10 +96,19 @@ Future<void> main() async {
 
   final p = '../../lib/bindings/callbacks.dart';
   final contents = cbacks.join('\n');
+  String formatted;
+
+  try {
+    formatted = formatter.format(contents);
+  } catch (e) {
+    print('2ERROR: Could not format file $p. Error: $e\n\n');
+    formatted = contents;
+    rethrow;
+  }
 
   File(p)
     ..createSync(recursive: true)
-    ..writeAsStringSync(formatter.format(contents));
+    ..writeAsStringSync(formatted);
 
   for (var spec in list) {
     final name = spec.name;
@@ -500,13 +509,13 @@ Future<void> main() async {
 
                           if (henum) {
                             lines.add(
-                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.dartType.isEnum ? '${param.isNullable.truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}' : ''}').join(', ')});');
+                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.dartType.isEnum ? '${(param.isNullable || param.isRequired == false).truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}' : ''}').join(', ')});');
                           }
                         }
                       }
                     } else {
                       DartType dartType;
-                      lines = properties;
+                      lines = static ? mainLines : properties;
 
                       if (mName == null || mName.isEmpty) {
                         if (member['special'] == 'stringifier') {
@@ -548,35 +557,39 @@ Future<void> main() async {
                       assert(dartType.dartName.isNotEmpty == true);
 
                       fn =
-                          '${static ? 'static ' : ''}$dartType ${mName.camelCase}';
+                          '${static ? 'external static ' : ''}$dartType ${mName.camelCase}';
 
-                      final jsCall = '''
+                      if (static) {
+                        lines.add('$fn($cparams);');
+                      } else {
+                        final jsCall = '''
                       js_util.callMethod(${static ? className : 'this'}, 
                       '$origMName',
                     [
                     ${method.params.map((param) {
-                        var name = param.name;
+                          var name = param.name;
 
-                        if (param.dartType.isCallback) {
-                          name =
-                              '${param.isNullable.truth('$name == null ? null : ')}allowInterop($name)';
-                        } else if (param.dartType.isEnum) {
-                          name =
-                              '$name${param.isNullable.truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}';
-                        }
+                          if (param.dartType.isCallback) {
+                            name =
+                                '${param.isNullable.truth('$name == null ? null : ')}allowInterop($name)';
+                          } else if (param.dartType.isEnum) {
+                            name =
+                                '$name${param.isNullable.truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}';
+                          }
 
-                        if (param.isVariadic) {
-                          name = '${name}1, ${name}2, ${name}3';
-                        }
+                          if (param.isVariadic) {
+                            name = '${name}1, ${name}2, ${name}3';
+                          }
 
-                        return name;
-                      }).join(', ')}
+                          return name;
+                        }).join(', ')}
                     ])
                       ''';
 
-                      lines.add('''
+                        lines.add('''
                     $fn($cparams) => ${dartType.isPromise ? 'js_util.promiseToFuture($jsCall)' : jsCall}; 
                     ''');
+                      }
                     }
                     break;
                   default:
@@ -676,8 +689,8 @@ Future<void> main() async {
       try {
         formatted = formatter.format(contents);
       } catch (e) {
-        print('ERROR: Could not format file $p. Error: $e\n\n$contents');
-        //formatted = contents;
+        print('ERROR: Could not format file $p. Error: $e\n\n');
+        formatted = contents;
         rethrow;
       }
 

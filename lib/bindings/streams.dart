@@ -10,16 +10,16 @@ library streams;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 ///  The interface of the Streams API represents a readable stream of
 /// byte data. The Fetch API offers a concrete instance of a through
 /// the [body] property of a [Response] object.
-///  is a transferable object.
 @JS()
 @staticInterop
-class ReadableStream {
+class ReadableStream extends JsArray<dynamic> {
   external factory ReadableStream(
       [dynamic underlyingSource, QueuingStrategy? strategy]);
 }
@@ -60,11 +60,10 @@ enum ReadableStreamReaderMode {
 @JS()
 @staticInterop
 class ReadableStreamGetReaderOptions {
-  external factory ReadableStreamGetReaderOptions._({required String mode});
+  external factory ReadableStreamGetReaderOptions._({String? mode});
 
-  factory ReadableStreamGetReaderOptions(
-          {required ReadableStreamReaderMode mode}) =>
-      ReadableStreamGetReaderOptions._(mode: mode.value);
+  factory ReadableStreamGetReaderOptions({ReadableStreamReaderMode? mode}) =>
+      ReadableStreamGetReaderOptions._(mode: mode?.value);
 }
 
 extension PropsReadableStreamGetReaderOptions
@@ -148,23 +147,23 @@ extension PropsStreamPipeOptions on StreamPipeOptions {
 @staticInterop
 class UnderlyingSource {
   external factory UnderlyingSource._(
-      {required UnderlyingSourceStartCallback start,
-      required UnderlyingSourcePullCallback pull,
-      required UnderlyingSourceCancelCallback cancel,
-      required String type,
-      required int autoAllocateChunkSize});
+      {UnderlyingSourceStartCallback? start,
+      UnderlyingSourcePullCallback? pull,
+      UnderlyingSourceCancelCallback? cancel,
+      String? type,
+      int? autoAllocateChunkSize});
 
   factory UnderlyingSource(
-          {required UnderlyingSourceStartCallback start,
-          required UnderlyingSourcePullCallback pull,
-          required UnderlyingSourceCancelCallback cancel,
-          required ReadableStreamType type,
-          required int autoAllocateChunkSize}) =>
+          {UnderlyingSourceStartCallback? start,
+          UnderlyingSourcePullCallback? pull,
+          UnderlyingSourceCancelCallback? cancel,
+          ReadableStreamType? type,
+          int? autoAllocateChunkSize}) =>
       UnderlyingSource._(
           start: start,
           pull: pull,
           cancel: cancel,
-          type: type.value,
+          type: type?.value,
           autoAllocateChunkSize: autoAllocateChunkSize);
 }
 
@@ -224,20 +223,7 @@ extension PropsReadableStreamGenericReader on ReadableStreamGenericReader {
 
 ///  The interface of the Streams API represents a default reader
 /// that can be used to read stream data supplied from a network
-/// (such as a fetch request).
-///  A can be used to read from a [ReadableStream] that has an
-/// underlying source of any type (unlike a
-/// [ReadableStreamBYOBReader], which can only be used with readable
-/// streams that have an underlying byte source).
-///
-///   Note however that zero-copy transfer from an underlying source
-/// is only supported for underlying byte sources that autoallocate
-/// buffers.
-///   In other words, the stream must have been constructed
-/// specifying both [type="bytes"] and [autoAllocateChunkSize].
-///   For any other underlying source, the stream will always satisfy
-/// read requests with data from internal queues.
-///
+/// (e.g. a fetch request).
 @JS()
 @staticInterop
 class ReadableStreamDefaultReader implements ReadableStreamGenericReader {
@@ -255,8 +241,7 @@ extension PropsReadableStreamDefaultReader on ReadableStreamDefaultReader {
 @JS()
 @staticInterop
 class ReadableStreamReadResult {
-  external factory ReadableStreamReadResult(
-      {dynamic value, required bool done});
+  external factory ReadableStreamReadResult({dynamic value, bool? done});
 }
 
 extension PropsReadableStreamReadResult on ReadableStreamReadResult {
@@ -271,30 +256,13 @@ extension PropsReadableStreamReadResult on ReadableStreamReadResult {
   }
 }
 
-///
-///   The interface of the Streams API defines a reader for a
-/// [ReadableStream] that supports zero-copy reading from an
-/// underlying byte source.
-///   It is used for efficient copying from underlying sources where
-/// the data is delivered as an "anonymous" sequence of bytes, such
-/// as files.
-///   An instance of this reader type should usually be obtained by
-/// calling [ReadableStream.getReader()] on the stream, specifying
-/// [mode: "byob"] in the options parameter.
-///   The readable stream must have an underlying byte source. In
-/// other words, it must have been constructed specifying an
-/// underlying source with [type: "bytes"]).
-///   Using this kind of reader, a [read()] request when the readable
-/// stream's internal queues are empty will result in a zero copy
-/// transfer from the underlying source (bypassing the stream's
-/// internal queues).
-///   If the internal queues are not empty, a [read()] will satisfy
-/// the request from the buffered data.
-///   Note that the methods and properties are similar to those for
-/// the default reader ([ReadableStreamDefaultReader]).
-///   The [read()] method differs in that it provide a view into
-/// which data should be written.
-///
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API represents a BYOB ("bring your
+/// own buffer") reader that can be used to read stream data supplied
+/// by the developer (e.g. a custom [ReadableStream()] constructor).
+@experimental
 @JS()
 @staticInterop
 class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
@@ -329,51 +297,13 @@ extension PropsReadableStreamDefaultController
   void error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
-///
-///   The interface of the Streams API represents a controller for a
-/// readable byte stream.
-///   It allows control of the state and internal queue of a
-/// [ReadableStream] with an underlying byte source, and enables
-/// efficient zero-copy transfer of data from the underlying source
-/// to a consumer when the stream's internal queue is empty.
-///   An instance of this controller type is created if an
-/// [underlyingSource] object with the property [type="bytes"] is
-/// passed as an argument to the [ReadableStream()] constructor.
-///   The [underlyingSource] object may also define [start()] and
-/// [pull()] callback functions.
-///   These are called with the controller as a parameter, in order
-/// to setup the underlying source, and request data when needed.
-///   The underlying source uses the controller to supply data to the
-/// stream via its [byobRequest] property or [enqueue()] method.
-///   [byobRequest] is a [ReadableStreamBYOBRequest] object that
-/// represents a pending request from a consumer to make a zero-copy
-/// transfer of data direct to a consumer.
-///   [byobRequest] must be used to copy data if it exists (do not
-/// use [enqueue()] in this case)!
-///   If the underlying source needs to pass data to the stream and
-/// [byobRequest] is [null] then the source can call [enqueue()] to
-/// add the data to the stream's internal queues.
-///   Note that the [byobRequest] is only created in "BYOB mode" when
-/// there is a request from a reader and the stream's internal queue
-/// is empty.
-///   "BYOB mode" is enabled when using a [ReadableStreamBYOBReader]
-/// (typically constructed by calling [ReadableStream.getReader()]
-/// with the argument [{ mode: 'byob' }]).
-///   It is also enabled when using a default reader and
-/// [autoAllocateChunkSize] is specified in the
-/// [ReadableController()] constructor.
-///   An underlying byte source can also use the controller to
-/// [close()] the stream when all the data has been sent and report
-/// errors from the underlying source using [error()].
-///   The controller's [desiredSize] property is used to apply
-/// "backpressure", informing the underlying source of the size of
-/// the internal queue (small values indicate that the queue is
-/// filling up, hinting to the underlying source that it is be
-/// desirable to pause or throttle the inflow).
-///
-///  Note that even though the controller is primarily used by the
-/// underlying byte source, there is no reason it cannot be stored
-/// used by other parts of the system to signal the stream.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API represents a controller
+/// allowing control of a [ReadableStream]'s state and internal
+/// queue. Byte stream controllers are for byte streams.
+@experimental
 @JS()
 @staticInterop
 class ReadableByteStreamController {
@@ -392,42 +322,16 @@ extension PropsReadableByteStreamController on ReadableByteStreamController {
   void error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
-///  The interface of the Streams API represents a "pull request" for
-/// data from an underlying source that will made as a zero-copy
-/// transfer to a consumer (bypassing the stream's internal queues).
-///
-///    objects are created in "BYOB mode" when a consumer makes a
-/// request for data and the stream's internal queue is empty.
-///   (The stream will resolve the consumer's request directly if it
-/// already has buffered data).
-///   An underlying byte source can access active BYOB requests
-/// through its controller's
-/// [ReadableByteStreamController.byobRequest] property, which will
-/// be set to [null] if there is no outstanding request.
-///   An underlying source that supports "BYOB mode" should check for
-/// [ReadableByteStreamController.byobRequest] and must use it for
-/// transferring data, if present.
-///   If data arrives from the underlying source when
-/// [ReadableByteStreamController.byobRequest] is [null], it can be
-/// queued using [ReadableByteStreamController.enqueue()].
-///   This might happen when an underlying push source receives new
-/// data when the stream's internal buffers are not empty.
-///   An underlying source uses the request by writing data to the
-/// BYOB request's [view] and then calling [respond()], or by calling
-/// [respondWithNewView()] and passing a new view as an argument.
-///   Note that the "new view" must actually be a view over the same
-/// buffer as the original [view], starting at the same offset.
-///   This might be used to return a shorter buffer if the underlying
-/// source is unable to fill the entire original view.
-///   Note that a [ReadableByteStreamController] is only created for
-/// underlying sources when [type="bytes"] is specified for the
-/// source in the [ReadableStream()] constructor.
-///   "BYOB mode" is enabled when either [autoAllocateChunkSize] is
-/// specified in the [ReadableController()] constructor or when using
-/// a [ReadableStreamBYOBReader] (typically constructed by calling
-/// [ReadableStream.getReader()] with the argument [{ mode: 'byob'
-/// }]).
-///
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API represents a pull request into
+/// a [ReadableByteStreamController] view.
+///  A view, as mentioned below, refers to a typed array representing
+/// the destination region to which the associated
+/// [ReadableByteStreamController] controller can write generated
+/// data.
+@experimental
 @JS()
 @staticInterop
 class ReadableStreamBYOBRequest {
@@ -443,13 +347,13 @@ extension PropsReadableStreamBYOBRequest on ReadableStreamBYOBRequest {
       js_util.callMethod(this, 'respondWithNewView', [view]);
 }
 
-///
-///   The interface of the Streams API provides a standard
-/// abstraction for writing streaming data to a destination, known as
-/// a sink.
-///  This object comes with built-in backpressure and queuing.
-///
-///  is a transferable object.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Streams API provides a standard abstraction
+/// for writing streaming data to a destination, known as a sink.
+/// This object comes with built-in backpressure and queuing.
+@experimental
 @JS()
 @staticInterop
 class WritableStream {
@@ -474,10 +378,10 @@ extension PropsWritableStream on WritableStream {
 @staticInterop
 class UnderlyingSink {
   external factory UnderlyingSink(
-      {required UnderlyingSinkStartCallback start,
-      required UnderlyingSinkWriteCallback write,
-      required UnderlyingSinkCloseCallback close,
-      required UnderlyingSinkAbortCallback abort,
+      {UnderlyingSinkStartCallback? start,
+      UnderlyingSinkWriteCallback? write,
+      UnderlyingSinkCloseCallback? close,
+      UnderlyingSinkAbortCallback? abort,
       dynamic type});
 }
 
@@ -508,10 +412,14 @@ extension PropsUnderlyingSink on UnderlyingSink {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Streams API is the object returned by
 /// [WritableStream.getWriter()] and once created locks the writer to
 /// the [WritableStream] ensuring that no other streams can write to
 /// the underlying sink.
+@experimental
 @JS()
 @staticInterop
 class WritableStreamDefaultWriter {
@@ -537,10 +445,14 @@ extension PropsWritableStreamDefaultWriter on WritableStreamDefaultWriter {
       js_util.promiseToFuture(js_util.callMethod(this, 'write', [chunk]));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Streams API represents a controller
 /// allowing control of a [WritableStream]'s state. When constructing
 /// a [WritableStream], the underlying sink is given a corresponding
 /// instance to manipulate.
+@experimental
 @JS()
 @staticInterop
 class WritableStreamDefaultController {
@@ -553,20 +465,8 @@ extension PropsWritableStreamDefaultController
   void error([dynamic e]) => js_util.callMethod(this, 'error', [e]);
 }
 
-///  The interface of the Streams API represents a concrete
-/// implementation of the pipe chain transform stream concept.
-///
-///   It may be passed to the [ReadableStream.pipeThrough()] method
-/// in order to transform a stream of data from one format into
-/// another.
-///   For example, it might be used to decode (or encode) video
-/// frames, decompress data, or convert the stream from XML to JSON.
-///   A transformation algorithm may be provided as an optional
-/// argument to the object constructor.
-///   If not supplied, data is not modified when piped through the
-/// stream.
-///
-///  is a transferable object.
+///  The interface of the Streams API represents a set of
+/// transformable data.
 @JS()
 @staticInterop
 class TransformStream {
@@ -586,9 +486,9 @@ extension PropsTransformStream on TransformStream {
 @staticInterop
 class Transformer {
   external factory Transformer(
-      {required TransformerStartCallback start,
-      required TransformerTransformCallback transform,
-      required TransformerFlushCallback flush,
+      {TransformerStartCallback? start,
+      TransformerTransformCallback? transform,
+      TransformerFlushCallback? flush,
       dynamic readableType,
       dynamic writableType});
 }
@@ -625,7 +525,7 @@ extension PropsTransformer on Transformer {
 /// the associated [ReadableStream] and [WritableStream].
 ///  When constructing a [TransformStream], the is created. It
 /// therefore has no constructor. The way to get an instance of is
-/// via the callback methods of [TransformStream()].
+/// via the callback methods of [TransformStream.TransformStream()].
 @JS()
 @staticInterop
 class TransformStreamDefaultController {
@@ -648,8 +548,7 @@ extension PropsTransformStreamDefaultController
 @staticInterop
 class QueuingStrategy {
   external factory QueuingStrategy(
-      {/* double | NaN */ dynamic highWaterMark,
-      required QueuingStrategySize size});
+      {/* double | NaN */ dynamic highWaterMark, QueuingStrategySize? size});
 }
 
 extension PropsQueuingStrategy on QueuingStrategy {
@@ -681,8 +580,12 @@ extension PropsQueuingStrategyInit on QueuingStrategyInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Streams API provides a built-in byte length
 /// queuing strategy that can be used when constructing streams.
+@experimental
 @JS()
 @staticInterop
 class ByteLengthQueuingStrategy {
@@ -695,9 +598,13 @@ extension PropsByteLengthQueuingStrategy on ByteLengthQueuingStrategy {
   Function get size => js_util.getProperty(this, 'size');
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Streams API provides a built-in chunk
 /// counting queuing strategy that can be used when constructing
 /// streams.
+@experimental
 @JS()
 @staticInterop
 class CountQueuingStrategy {

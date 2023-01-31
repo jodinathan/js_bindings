@@ -24,11 +24,7 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -40,11 +36,7 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -77,11 +69,7 @@ extension PropsSVGClipPathElement on SVGClipPathElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -93,11 +81,7 @@ extension PropsSVGClipPathElement on SVGClipPathElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///

@@ -63,8 +63,7 @@ extension PropsProfilerTrace on ProfilerTrace {
 @JS()
 @staticInterop
 class ProfilerSample {
-  external factory ProfilerSample(
-      {required double timestamp, required int stackId});
+  external factory ProfilerSample({required double timestamp, int? stackId});
 }
 
 extension PropsProfilerSample on ProfilerSample {
@@ -83,7 +82,7 @@ extension PropsProfilerSample on ProfilerSample {
 @JS()
 @staticInterop
 class ProfilerStack {
-  external factory ProfilerStack({required int parentId, required int frameId});
+  external factory ProfilerStack({int? parentId, required int frameId});
 }
 
 extension PropsProfilerStack on ProfilerStack {
@@ -103,10 +102,7 @@ extension PropsProfilerStack on ProfilerStack {
 @staticInterop
 class ProfilerFrame {
   external factory ProfilerFrame(
-      {required String name,
-      required int resourceId,
-      required int line,
-      required int column});
+      {required String name, int? resourceId, int? line, int? column});
 }
 
 extension PropsProfilerFrame on ProfilerFrame {

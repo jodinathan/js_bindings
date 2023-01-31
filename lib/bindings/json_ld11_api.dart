@@ -22,43 +22,24 @@ class JsonLd {
 @JS()
 @staticInterop
 class JsonLdProcessor {
+  external static Future<dynamic> compact(dynamic input,
+      [dynamic context, JsonLdOptions? options]);
+  external static Future<Iterable<dynamic>> expand(dynamic input,
+      [JsonLdOptions? options]);
+  external static Future<dynamic> flatten(dynamic input,
+      [dynamic context, JsonLdOptions? options]);
+  external static Future<Iterable<dynamic>> fromRdf(RdfDataset input,
+      [JsonLdOptions? options]);
+  external static Future<RdfDataset> toRdf(dynamic input,
+      [JsonLdOptions? options]);
+  external static Future<dynamic> frame(dynamic input, dynamic frame,
+      [JsonLdOptions? options]);
   external factory JsonLdProcessor();
-}
-
-extension PropsJsonLdProcessor on JsonLdProcessor {
-  static Future<dynamic> compact(dynamic input,
-          [dynamic context, JsonLdOptions? options]) =>
-      js_util.promiseToFuture(js_util
-          .callMethod(JsonLdProcessor, 'compact', [input, context, options]));
-
-  static Future<Iterable<dynamic>> expand(dynamic input,
-          [JsonLdOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(JsonLdProcessor, 'expand', [input, options]));
-
-  static Future<dynamic> flatten(dynamic input,
-          [dynamic context, JsonLdOptions? options]) =>
-      js_util.promiseToFuture(js_util
-          .callMethod(JsonLdProcessor, 'flatten', [input, context, options]));
-
-  static Future<Iterable<dynamic>> fromRdf(RdfDataset input,
-          [JsonLdOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(JsonLdProcessor, 'fromRdf', [input, options]));
-
-  static Future<RdfDataset> toRdf(dynamic input, [JsonLdOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(JsonLdProcessor, 'toRdf', [input, options]));
-
-  static Future<dynamic> frame(dynamic input, dynamic frame,
-          [JsonLdOptions? options]) =>
-      js_util.promiseToFuture(js_util
-          .callMethod(JsonLdProcessor, 'frame', [input, frame, options]));
 }
 
 @JS()
 @staticInterop
-class RdfDataset {
+class RdfDataset extends JsArray<RdfGraph> {
   external factory RdfDataset();
 }
 
@@ -70,7 +51,7 @@ extension PropsRdfDataset on RdfDataset {
 
 @JS()
 @staticInterop
-class RdfGraph {
+class RdfGraph extends JsArray<RdfTriple> {
   external factory RdfGraph();
 }
 
@@ -240,10 +221,10 @@ extension PropsRemoteDocument on RemoteDocument {
 @JS()
 @staticInterop
 class JsonLdError {
-  external factory JsonLdError._({required String code, String? message});
+  external factory JsonLdError._({String? code, String? message});
 
-  factory JsonLdError({required JsonLdErrorCode code, String? message}) =>
-      JsonLdError._(code: code.value, message: message);
+  factory JsonLdError({JsonLdErrorCode? code, String? message}) =>
+      JsonLdError._(code: code?.value, message: message);
 }
 
 extension PropsJsonLdError on JsonLdError {

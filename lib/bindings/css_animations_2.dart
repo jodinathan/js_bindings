@@ -13,6 +13,9 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Animations API represents an
 /// [Animation] object.
 ///
@@ -24,11 +27,7 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Animation
-///
-///
 ///
 ///
 ///

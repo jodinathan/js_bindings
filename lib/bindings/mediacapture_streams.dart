@@ -32,8 +32,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    MediaStream
 ///
 ///
@@ -86,8 +84,6 @@ extension PropsMediaStream on MediaStream {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -194,7 +190,7 @@ enum MediaStreamTrackState {
 ///  Because of the way interface definitions in WebIDL work, if a
 /// constraint is requested but not supported, no error will occur.
 /// Instead, the specified constraints will be applied, with any
-/// unrecognized constraints stripped from the request. That can lead
+/// unrecognized constraints stripped from the request.That can lead
 /// to confusing and hard to debug errors, so be sure to use
 /// [getSupportedConstraints()] to retrieve this information before
 /// attempting to establish constraints if you need to know the
@@ -309,21 +305,21 @@ extension PropsMediaTrackSupportedConstraints
 @staticInterop
 class MediaTrackCapabilities {
   external factory MediaTrackCapabilities(
-      {required ULongRange width,
-      required ULongRange height,
-      required DoubleRange aspectRatio,
-      required DoubleRange frameRate,
-      required Iterable<String> facingMode,
-      required Iterable<String> resizeMode,
-      required ULongRange sampleRate,
-      required ULongRange sampleSize,
-      required Iterable<bool> echoCancellation,
-      required Iterable<bool> autoGainControl,
-      required Iterable<bool> noiseSuppression,
-      required DoubleRange latency,
-      required ULongRange channelCount,
-      required String deviceId,
-      required String groupId});
+      {ULongRange? width,
+      ULongRange? height,
+      DoubleRange? aspectRatio,
+      DoubleRange? frameRate,
+      Iterable<String>? facingMode,
+      Iterable<String>? resizeMode,
+      ULongRange? sampleRate,
+      ULongRange? sampleSize,
+      Iterable<bool>? echoCancellation,
+      Iterable<bool>? autoGainControl,
+      Iterable<bool>? noiseSuppression,
+      DoubleRange? latency,
+      ULongRange? channelCount,
+      String? deviceId,
+      String? groupId});
 }
 
 extension PropsMediaTrackCapabilities on MediaTrackCapabilities {
@@ -418,7 +414,7 @@ extension PropsMediaTrackCapabilities on MediaTrackCapabilities {
 @staticInterop
 class MediaTrackConstraints implements MediaTrackConstraintSet {
   external factory MediaTrackConstraints(
-      {required Iterable<MediaTrackConstraintSet> advanced});
+      {Iterable<MediaTrackConstraintSet>? advanced});
 }
 
 extension PropsMediaTrackConstraints on MediaTrackConstraints {
@@ -542,21 +538,21 @@ extension PropsMediaTrackConstraintSet on MediaTrackConstraintSet {
 @staticInterop
 class MediaTrackSettings {
   external factory MediaTrackSettings(
-      {required int width,
-      required int height,
-      required double aspectRatio,
-      required double frameRate,
-      required String facingMode,
-      required String resizeMode,
-      required int sampleRate,
-      required int sampleSize,
-      required bool echoCancellation,
-      required bool autoGainControl,
-      required bool noiseSuppression,
-      required double latency,
-      required int channelCount,
-      required String deviceId,
-      required String groupId});
+      {int? width,
+      int? height,
+      double? aspectRatio,
+      double? frameRate,
+      String? facingMode,
+      String? resizeMode,
+      int? sampleRate,
+      int? sampleSize,
+      bool? echoCancellation,
+      bool? autoGainControl,
+      bool? noiseSuppression,
+      double? latency,
+      int? channelCount,
+      String? deviceId,
+      String? groupId});
 }
 
 extension PropsMediaTrackSettings on MediaTrackSettings {
@@ -664,14 +660,12 @@ enum VideoResizeModeEnum {
 
 ///  The interface represents events which indicate that a
 /// [MediaStream] has had tracks added to or removed from the stream
-/// through calls to Media Capture and Streams API methods. These
-/// events are sent to the stream when these changes occur.
+/// through calls to Media Stream API methods. These events are sent
+/// to the stream when these changes occur.
 ///
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -708,7 +702,10 @@ extension PropsMediaStreamTrackEventInit on MediaStreamTrackEventInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Media Capture and Streams API indicates
 /// that the set of desired capabilities for the current
 /// [MediaStreamTrack] cannot currently be met. When this event is
@@ -719,8 +716,6 @@ extension PropsMediaStreamTrackEventInit on MediaStreamTrackEventInit {
 ///
 ///
 ///    DOMException
-///
-///
 ///
 ///
 ///
@@ -748,8 +743,6 @@ extension PropsOverconstrainedError on OverconstrainedError {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -840,16 +833,14 @@ enum MediaDeviceKind {
   const MediaDeviceKind(this.value);
 }
 
-///  The interface of the Media Capture and Streams API gives access
-/// to the capabilities of the input device that it represents.
+///  The interface of the Media Streams API gives access to the
+/// capabilities of the input device that it represents.
 ///   objects are returned by [MediaDevices.enumerateDevices()] if
 /// the returned device is an audio or video input device.
 ///
 ///
 ///
 ///    MediaDeviceInfo
-///
-///
 ///
 ///
 ///
@@ -893,7 +884,7 @@ extension PropsMediaStreamConstraints on MediaStreamConstraints {
 @JS()
 @staticInterop
 class DoubleRange {
-  external factory DoubleRange({required double max, required double min});
+  external factory DoubleRange({double? max, double? min});
 }
 
 extension PropsDoubleRange on DoubleRange {
@@ -912,8 +903,7 @@ extension PropsDoubleRange on DoubleRange {
 @JS()
 @staticInterop
 class ConstrainDoubleRange implements DoubleRange {
-  external factory ConstrainDoubleRange(
-      {required double exact, required double ideal});
+  external factory ConstrainDoubleRange({double? exact, double? ideal});
 }
 
 extension PropsConstrainDoubleRange on ConstrainDoubleRange {
@@ -932,7 +922,7 @@ extension PropsConstrainDoubleRange on ConstrainDoubleRange {
 @JS()
 @staticInterop
 class ULongRange {
-  external factory ULongRange({required int max, required int min});
+  external factory ULongRange({int? max, int? min});
 }
 
 extension PropsULongRange on ULongRange {
@@ -951,8 +941,7 @@ extension PropsULongRange on ULongRange {
 @JS()
 @staticInterop
 class ConstrainULongRange implements ULongRange {
-  external factory ConstrainULongRange(
-      {required int exact, required int ideal});
+  external factory ConstrainULongRange({int? exact, int? ideal});
 }
 
 extension PropsConstrainULongRange on ConstrainULongRange {
@@ -971,8 +960,7 @@ extension PropsConstrainULongRange on ConstrainULongRange {
 @JS()
 @staticInterop
 class ConstrainBooleanParameters {
-  external factory ConstrainBooleanParameters(
-      {required bool exact, required bool ideal});
+  external factory ConstrainBooleanParameters({bool? exact, bool? ideal});
 }
 
 extension PropsConstrainBooleanParameters on ConstrainBooleanParameters {
@@ -1010,7 +998,7 @@ extension PropsConstrainDOMStringParameters on ConstrainDOMStringParameters {
 @JS()
 @staticInterop
 class DevicePermissionDescriptor implements PermissionDescriptor {
-  external factory DevicePermissionDescriptor({required String deviceId});
+  external factory DevicePermissionDescriptor({String? deviceId});
 }
 
 extension PropsDevicePermissionDescriptor on DevicePermissionDescriptor {

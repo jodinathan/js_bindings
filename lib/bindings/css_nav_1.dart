@@ -45,10 +45,10 @@ enum FocusableAreaSearchMode {
 @JS()
 @staticInterop
 class FocusableAreasOption {
-  external factory FocusableAreasOption._({required String mode});
+  external factory FocusableAreasOption._({String? mode});
 
-  factory FocusableAreasOption({required FocusableAreaSearchMode mode}) =>
-      FocusableAreasOption._(mode: mode.value);
+  factory FocusableAreasOption({FocusableAreaSearchMode? mode}) =>
+      FocusableAreasOption._(mode: mode?.value);
 }
 
 extension PropsFocusableAreasOption on FocusableAreasOption {
@@ -64,7 +64,7 @@ extension PropsFocusableAreasOption on FocusableAreasOption {
 @staticInterop
 class SpatialNavigationSearchOptions {
   external factory SpatialNavigationSearchOptions(
-      {required Iterable<Node> candidates, Node? container});
+      {Iterable<Node>? candidates, Node? container});
 }
 
 extension PropsSpatialNavigationSearchOptions
@@ -98,12 +98,11 @@ extension PropsNavigationEvent on NavigationEvent {
 @staticInterop
 class NavigationEventInit implements UIEventInit {
   external factory NavigationEventInit._(
-      {required String dir, EventTarget? relatedTarget});
+      {String? dir, EventTarget? relatedTarget});
 
   factory NavigationEventInit(
-          {required SpatialNavigationDirection dir,
-          EventTarget? relatedTarget}) =>
-      NavigationEventInit._(dir: dir.value, relatedTarget: relatedTarget);
+          {SpatialNavigationDirection? dir, EventTarget? relatedTarget}) =>
+      NavigationEventInit._(dir: dir?.value, relatedTarget: relatedTarget);
 }
 
 extension PropsNavigationEventInit on NavigationEventInit {

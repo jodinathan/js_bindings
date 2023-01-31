@@ -17,14 +17,12 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class GeolocationSensor implements Sensor {
   external factory GeolocationSensor([GeolocationSensorOptions? options]);
+  external static Future<GeolocationSensorReading> read(
+      [ReadOptions? readOptions]);
 }
 
 extension PropsGeolocationSensor on GeolocationSensor {
-  static Future<GeolocationSensorReading> read([ReadOptions? readOptions]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(GeolocationSensor, 'read', [readOptions]));
-
-/* double | NaN */ dynamic get latitude =>
+  /* double | NaN */ dynamic get latitude =>
       js_util.getProperty(this, 'latitude');
 /* double | NaN */ dynamic get longitude =>
       js_util.getProperty(this, 'longitude');

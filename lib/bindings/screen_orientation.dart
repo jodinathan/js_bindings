@@ -1,4 +1,4 @@
-/// Screen Orientation
+/// The Screen Orientation API
 ///
 /// https://w3c.github.io/screen-orientation/
 
@@ -21,8 +21,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///

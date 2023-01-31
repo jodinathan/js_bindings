@@ -1,6 +1,6 @@
 /// WebGL EXT_blend_minmax Khronos Ratified Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/EXT_blend_minmax/
+/// https://www.khronos.org/registry/webgl/extensions/EXT_blend_minmax/
 
 // ignore_for_file: unused_import
 

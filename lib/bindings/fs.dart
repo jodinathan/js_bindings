@@ -10,7 +10,6 @@ library fs;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -75,9 +74,9 @@ extension PropsFileSystemCreateWritableOptions
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the File System Access API represents a handle
-/// to a file system entry. The interface is accessed through the
-/// [window.showOpenFilePicker()] method.
+///  The interface of the [File System Access API] represents a
+/// handle to a file system entry. The interface is accessed through
+/// the [window.showOpenFilePicker()] method.
 ///  Note that read and write operations depend on file-access
 /// permissions that do not persist after a page refresh if no other
 /// tabs for that origin remain open. The [queryPermission] method of
@@ -87,8 +86,6 @@ extension PropsFileSystemCreateWritableOptions
 ///
 ///
 ///    FileSystemHandle
-///
-///
 ///
 ///
 ///
@@ -111,9 +108,6 @@ extension PropsFileSystemFileHandle on FileSystemFileHandle {
           [FileSystemCreateWritableOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'createWritable', [options]));
-
-  Future<FileSystemSyncAccessHandle> createSyncAccessHandle() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'createSyncAccessHandle', []));
 }
 
 @anonymous
@@ -161,16 +155,12 @@ extension PropsFileSystemRemoveOptions on FileSystemRemoveOptions {
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [File System Access API] provides a handle
-/// to a file system directory.
-///  The interface can be accessed via the
-/// [window.showDirectoryPicker()] and
-/// [StorageManager.getDirectory()] methods.
+/// to a file system directory. The interface is accessed via the
+/// [window.showDirectoryPicker()] method.
 ///
 ///
 ///
 ///    FileSystemHandle
-///
-///
 ///
 ///
 ///
@@ -258,10 +248,7 @@ extension PropsWriteParams on WriteParams {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [File System Access API] is a
 /// [WritableStream] object with additional convenience methods,
 /// which operates on a single file on disk. The interface is
@@ -276,12 +263,9 @@ extension PropsWriteParams on WriteParams {
 ///
 ///
 ///
-///
-///
 ///    FileSystemWritableFileStream
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class FileSystemWritableFileStream implements WritableStream {
@@ -297,51 +281,4 @@ extension PropsFileSystemWritableFileStream on FileSystemWritableFileStream {
 
   Future<void> truncate(int size) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'truncate', [size]));
-}
-
-@anonymous
-@JS()
-@staticInterop
-class FileSystemReadWriteOptions {
-  external factory FileSystemReadWriteOptions({required int at});
-}
-
-extension PropsFileSystemReadWriteOptions on FileSystemReadWriteOptions {
-  int get at => js_util.getProperty(this, 'at');
-  set at(int newValue) {
-    js_util.setProperty(this, 'at', newValue);
-  }
-}
-
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the File System Access API represents a
-/// synchronous handle to a file system entry. The synchronous nature
-/// of the file reads and writes allows for higher performance for
-/// critical methods in contexts where asynchronous operations come
-/// with high overhead, e.g., WebAssembly.
-///  This class is only accessible inside dedicated Web Workers for
-/// files within the origin private file system.
-///  The interface is accessed through the
-/// [FileSystemFileHandle.createSyncAccessHandle()] method.
-@JS()
-@staticInterop
-class FileSystemSyncAccessHandle {
-  external factory FileSystemSyncAccessHandle();
-}
-
-extension PropsFileSystemSyncAccessHandle on FileSystemSyncAccessHandle {
-  int read(dynamic buffer, [FileSystemReadWriteOptions? options]) =>
-      js_util.callMethod(this, 'read', [buffer, options]);
-
-  int write(dynamic buffer, [FileSystemReadWriteOptions? options]) =>
-      js_util.callMethod(this, 'write', [buffer, options]);
-
-  void truncate(int newSize) => js_util.callMethod(this, 'truncate', [newSize]);
-
-  int getSize() => js_util.callMethod(this, 'getSize', []);
-
-  void flush() => js_util.callMethod(this, 'flush', []);
-
-  void close() => js_util.callMethod(this, 'close', []);
 }

@@ -10,7 +10,7 @@ library webxr_hit_test_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -33,16 +33,16 @@ enum XRHitTestTrackableType {
 class XRHitTestOptionsInit {
   external factory XRHitTestOptionsInit._(
       {required XRSpace space,
-      required Iterable<String> entityTypes,
-      required XRRay offsetRay});
+      Iterable<String>? entityTypes,
+      XRRay? offsetRay});
 
   factory XRHitTestOptionsInit(
           {required XRSpace space,
-          required Iterable<XRHitTestTrackableType> entityTypes,
-          required XRRay offsetRay}) =>
+          Iterable<XRHitTestTrackableType>? entityTypes,
+          XRRay? offsetRay}) =>
       XRHitTestOptionsInit._(
           space: space,
-          entityTypes: entityTypes.map((e) => e.value),
+          entityTypes: entityTypes?.map((e) => e.value),
           offsetRay: offsetRay);
 }
 
@@ -71,16 +71,16 @@ extension PropsXRHitTestOptionsInit on XRHitTestOptionsInit {
 class XRTransientInputHitTestOptionsInit {
   external factory XRTransientInputHitTestOptionsInit._(
       {required String profile,
-      required Iterable<String> entityTypes,
-      required XRRay offsetRay});
+      Iterable<String>? entityTypes,
+      XRRay? offsetRay});
 
   factory XRTransientInputHitTestOptionsInit(
           {required String profile,
-          required Iterable<XRHitTestTrackableType> entityTypes,
-          required XRRay offsetRay}) =>
+          Iterable<XRHitTestTrackableType>? entityTypes,
+          XRRay? offsetRay}) =>
       XRTransientInputHitTestOptionsInit._(
           profile: profile,
-          entityTypes: entityTypes.map((e) => e.value),
+          entityTypes: entityTypes?.map((e) => e.value),
           offsetRay: offsetRay);
 }
 
@@ -105,10 +105,7 @@ extension PropsXRTransientInputHitTestOptionsInit
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API handles hit test
 /// subscriptions. You can get an object by using the
 /// [XRSession.requestHitTestSource()] method.
@@ -116,7 +113,6 @@ extension PropsXRTransientInputHitTestOptionsInit
 /// used to compute hit tests for each [XRFrame] by calling
 /// [XRFrame.getHitTestResults()], which returns [XRHitTestResult]
 /// objects.
-@experimental
 @JS()
 @staticInterop
 class XRHitTestSource {
@@ -128,10 +124,7 @@ extension PropsXRHitTestSource on XRHitTestSource {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API handles transient input
 /// hit test subscriptions. You can get an object by calling the
 /// [XRSession.requestHitTestSourceForTransientInput()].
@@ -139,7 +132,6 @@ extension PropsXRHitTestSource on XRHitTestSource {
 /// results, but it is used to compute hit tests for each [XRFrame]
 /// by calling [XRFrame.getHitTestResultsForTransientInput()], which
 /// returns [XRTransientInputHitTestResult] objects.
-@experimental
 @JS()
 @staticInterop
 class XRTransientInputHitTestSource {
@@ -151,14 +143,10 @@ extension PropsXRTransientInputHitTestSource on XRTransientInputHitTestSource {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API contains a single result
 /// of a hit test. You can get an array of objects for a frame by
 /// calling [XRFrame.getHitTestResults()].
-@experimental
 @JS()
 @staticInterop
 class XRHitTestResult {
@@ -174,16 +162,12 @@ extension PropsXRHitTestResult on XRHitTestResult {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API contains an array of
 /// results of a hit test for transient input, grouped by input
 /// source.
 ///  You can get an array of [XRHitTestResult] objects for a frame by
 /// calling [XRFrame.getHitTestResultsForTransientInput()].
-@experimental
 @JS()
 @staticInterop
 class XRTransientInputHitTestResult {
@@ -226,16 +210,12 @@ extension PropsXRRayDirectionInit on XRRayDirectionInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API is a geometric ray
 /// described by an origin point and a direction vector.
 ///   objects can be passed to [XRSession.requestHitTestSource()] or
 /// [XRSession.requestHitTestSourceForTransientInput()] to perform
 /// hit testing.
-@experimental
 @JS()
 @staticInterop
 class XRRay {

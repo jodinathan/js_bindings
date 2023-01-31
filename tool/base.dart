@@ -61,69 +61,85 @@ const typedData = {
 };
 
 const forbidden = {
-  'abstract',
-  'else',
-  'import',
-  'show',
-  'as',
-  'enum',
-  'in',
-  'static',
-  'assert',
-  'export',
-  'interface',
-  'super',
-  'async',
-  'extends',
   'is',
-  'switch',
-  'await',
-  'extension',
-  'late',
-  'sync',
+  'assert',
+  'Function',
+  'default',
+  'continue',
   'break',
-  'external',
-  'library',
-  'this',
   'case',
-  'factory',
-  'mixin',
-  'throw',
-  'catch',
+  'extends',
+  'in',
   'new',
   'class',
-  'final',
-  'try',
-  'const',
-  'finally',
-  'on',
-  'typedef',
-  'continue',
-  'for',
-  'operator',
-  'var',
-  'covariant',
-  'Function',
-  'part',
-  'void',
-  'default',
-  'get',
-  'required',
-  'while',
-  'deferred',
-  'hide',
-  'rethrow',
-  'with',
-  'do',
-  'if',
-  'return',
-  'yield',
-  'dynamic',
-  'implements',
-  'set',
   'int',
   'double'
 };
+
+// const forbidden = {
+//   'abstract',
+//   'else',
+//   'import',
+//   'show',
+//   'as',
+//   'enum',
+//   'in',
+//   'static',
+//   'assert',
+//   'export',
+//   'interface',
+//   'super',
+//   'async',
+//   'extends',
+//   'is',
+//   'switch',
+//   'await',
+//   'extension',
+//   'late',
+//   'sync',
+//   'break',
+//   'external',
+//   'library',
+//   'this',
+//   'case',
+//   'factory',
+//   'mixin',
+//   'throw',
+//   'catch',
+//   'new',
+//   'class',
+//   'final',
+//   'try',
+//   'const',
+//   'finally',
+//   'on',
+//   'typedef',
+//   'continue',
+//   'for',
+//   'operator',
+//   'var',
+//   'covariant',
+//   'Function',
+//   'part',
+//   'void',
+//   'default',
+//   'get',
+//   'required',
+//   'while',
+//   'deferred',
+//   'hide',
+//   'rethrow',
+//   'with',
+//   'do',
+//   'if',
+//   'return',
+//   'yield',
+//   'dynamic',
+//   'implements',
+//   'set',
+//   'int',
+//   'double'
+// };
 
 const bannedMembers = {
   // https://github.com/w3c/css-houdini-drafts/issues/855
@@ -176,8 +192,8 @@ final missing = {
 
 late final SpecGroup mainGroup;
 
-String docClear(String buf) => buf.replaceAll('  ', ' ')
-    .replaceAll('\n\n\n', '\n');
+String docClear(String buf) =>
+    buf.replaceAll('  ', ' ').replaceAll('\n\n\n', '\n');
 
 class DartType {
   DartType({
@@ -188,14 +204,16 @@ class DartType {
     this.isIterable = false,
     this.isEnum = false,
     this.specType,
-  }) : fullName = '$name${nullable && name != 'dynamic' &&
-      !name.endsWith(' dynamic') ? '?' : ''}',
-  nullable = nullable || name == 'dynamic' || name.endsWith(' dynamic'),
-  isDynamic = name == 'dynamic',
-  isPromise = name == 'Promise' || name.startsWith('Promise<'),
-  simpleName = RegExp(r'\<\w+\>').hasMatch(name) ?
-  RegExp(r'\<\w+\>').stringMatch(name)!.replaceAll(RegExp(r'\<|\>'), '')
-      : name;
+  })  : fullName =
+            '$name${nullable && name != 'dynamic' && !name.endsWith(' dynamic') ? '?' : ''}',
+        nullable = nullable || name == 'dynamic' || name.endsWith(' dynamic'),
+        isDynamic = name == 'dynamic',
+        isPromise = name == 'Promise' || name.startsWith('Promise<'),
+        simpleName = RegExp(r'\<\w+\>').hasMatch(name)
+            ? RegExp(r'\<\w+\>')
+                .stringMatch(name)!
+                .replaceAll(RegExp(r'\<|\>'), '')
+            : name;
 
   final String name;
   final String fullName;
@@ -209,9 +227,9 @@ class DartType {
   final String? description;
   final Map<String, dynamic>? specType;
 
-  String get dartName => isPromise ?
-    (name == 'Promise' ? 'Future' : name.replaceAll('Promise<', 'Future<')) :
-    fullName;
+  String get dartName => isPromise
+      ? (name == 'Promise' ? 'Future' : name.replaceAll('Promise<', 'Future<'))
+      : fullName;
 
   bool get extendsEvent {
     var specType = this.specType;
@@ -236,22 +254,23 @@ class DartType {
 }
 
 class MethodParam {
-  MethodParam({
-    required this.name,
-    required this.dartType,
-    required this.typeName,
-    this.isNullable = false,
-    this.isOptional = false,
-    this.isVariadic = false,
-    this.defaultValue,
-    this.description = ''
-  });
+  MethodParam(
+      {required this.name,
+      required this.dartType,
+      required this.typeName,
+      this.isNullable = false,
+      this.isOptional = false,
+      this.isVariadic = false,
+      this.isRequired,
+      this.defaultValue,
+      this.description = ''});
 
   final String name;
   final String description;
   final bool isNullable;
   final bool isOptional;
   final bool isVariadic;
+  final bool? isRequired;
   final DartType dartType;
   final String typeName;
   final Object? defaultValue;
@@ -329,21 +348,29 @@ class Method {
         optional = true;
       }
 
+      final req = arg['required'] == null ? null : arg['required'] == true;
+
+      if (name == 'referrerPolicy') {
+        print('referrerPolicy($req)==${prettyJson(arg)}');
+      }
+
       params.add(MethodParam(
-        name: name,
-        description: arg['desc'] ?? '',
-        typeName: type,
-        dartType: dtype,
-        defaultValue: defaultValue,
-        isNullable: dtype.nullable || optional,
-        isOptional: optional,
-        isVariadic: arg['variadic'] == true
-      ));
+          name: name,
+          description: arg['desc'] ?? '',
+          typeName: type,
+          dartType: dtype,
+          defaultValue: defaultValue,
+          isNullable: dtype.nullable || optional,
+          isOptional: optional,
+          isRequired: req,
+          isVariadic: arg['variadic'] == true));
     }
   }
 
-  String build({bool anonymous = false, bool documentation = true,
-  bool enumAsStrings = false}) {
+  String build(
+      {bool anonymous = false,
+      bool documentation = true,
+      bool enumAsStrings = false}) {
     var ret = <String>[];
     var optional = false;
 
@@ -364,7 +391,10 @@ class Method {
         typeName = arg.typeName;
       }
 
-      if (arg.isNullable && !typeName.endsWith('?') &&
+      final nullable = arg.isNullable || (anonymous && arg.isRequired == false);
+
+      if (nullable &&
+          !typeName.endsWith('?') &&
           !arg.dartType.isDynamic &&
           !typeName.endsWith(' dynamic')) {
         typeName += '?';
@@ -376,15 +406,14 @@ class Method {
         call = '${call}1, ${call}2, ${call}3';
       }
 
-      if (documentation &&
-          arg.description.isNotEmpty) {
+      if (documentation && arg.description.isNotEmpty) {
         call = '${makeDoc(arg.description)}\n$call';
       }
 
       if (arg.isOptional && !optional && !anonymous) {
         call = '[$call';
         optional = true;
-      } else if (!arg.isNullable && anonymous) {
+      } else if (!nullable && anonymous) {
         call = 'required $call';
       }
 
@@ -474,8 +503,7 @@ class Spec {
         } else {
           var dartType = types[returnType];
 
-          assert(dartType != null,
-          '''
+          assert(dartType != null, '''
 Unknown dart type "$returnType".  
 There are couple of reasons for this:
   - This is a simple typedef like "DOMTimeStamp" and the parser could not find it. 
@@ -521,12 +549,14 @@ It is also nice to start an issue so they fix the files: https://github.com/w3c/
 
     final type = spt?['type']?.toString().split(' ') ?? [];
 
-    return DartType(name: ret, nullable: nullable,
+    return DartType(
+        name: ret,
+        nullable: nullable,
         isIterable: iterable,
         isEnum: type.contains('enum'),
-        isCallback: type.contains('callback') && (ret == 'EventListener' ||
-        type.length == 1),
-    specType: spt);
+        isCallback: type.contains('callback') &&
+            (ret == 'EventListener' || type.length == 1),
+        specType: spt);
   }
 
   Method makeMethod(Iterable args) {
@@ -578,8 +608,8 @@ Future<SpecGroup> getSpecs() async {
 
     final file = File(entity.path);
     final map = Map<String, dynamic>.from(
-        decodeMap('Spec ${entity.path}',
-            file.readAsStringSync()) as Map<String, dynamic>);
+        decodeMap('Spec ${entity.path}', file.readAsStringSync())
+            as Map<String, dynamic>);
     final objs = map['idlparsed']?['idlNames'] as Map<String, dynamic>?;
     final extended =
         map['idlparsed']?['idlExtendedNames'] as Map<String, dynamic>?;
@@ -725,7 +755,7 @@ Future<SpecGroup> getSpecs() async {
         final members = ms.toList();
 
         for (final member in ms) {
-          final name = member['name'];
+          final name = member['name'] as String?;
           final isc = member['type'] == 'constructor';
 
           hasConstructor = hasConstructor || isc;
@@ -738,7 +768,8 @@ Future<SpecGroup> getSpecs() async {
           final same = members
               .where((mi) =>
                   mi != member &&
-                  (mi['name'] == name || mi['type'] == 'constructor' && isc))
+                  ((mi['name'] == name && name?.isNotEmpty == true) ||
+                      mi['type'] == 'constructor' && isc))
               .toList();
 
           if (obj['name'] == 'PasswordCredential') {
@@ -801,7 +832,8 @@ Future<SpecGroup> getSpecs() async {
                         'extAttrs': [],
                         'idlType': m['idlType'],
                         'default': m['default'],
-                        'variadic': false
+                        'variadic': false,
+                        'required': m['required']
                       })
                   .toList(),
               'extAttrs': []
@@ -820,7 +852,8 @@ Future<SpecGroup> getSpecs() async {
       }
 
       if (removed.isNotEmpty) {
-        print('RemovedMembers of $name: ${removed.map((m) => m['name'])}');
+        print(
+            'RemovedMembers of $name: ${removed.map((m) => '${m['type']}: ${m['name']}')}');
       }
     }
   }
@@ -849,6 +882,9 @@ Future<SpecGroup> getSpecs() async {
 
 String prettyJson(js) {
   final enc = convert.JsonEncoder.withIndent('  ', (e) {
+    if (e is Set) {
+      return e.toList();
+    }
     print('JSON ERROR ${e.runtimeType}\n$e');
     return e;
   });
@@ -884,7 +920,7 @@ Future<Iterable<Map<String, dynamic>>> getIDLs({String dir = 'ed'}) async {
   for (var entity in list) {
     final file = File(entity.path);
     final js = decodeMap('IDL ${entity.path}', file.readAsStringSync())
-      as Map<String, dynamic>;
+        as Map<String, dynamic>;
     final idlName = entity.basename.replaceAll('.json', '');
 
     if (bannedIDLs.containsKey(idlName)) {
@@ -899,7 +935,7 @@ Future<Iterable<Map<String, dynamic>>> getIDLs({String dir = 'ed'}) async {
         final idlNames = js['idlparsed']['idlNames'];
 
         assert(idlNames.containsKey(type) || dir == 'tr',
-        '$dir.$idlName does not have $type. Keys: ${idlNames.keys.join(', ')}');
+            '$dir.$idlName does not have $type. Keys: ${idlNames.keys.join(', ')}');
         print('Removing banned type $type from $dir.$idlName. '
             'Contains: ${idlNames.containsKey(type)}. ');
         idlNames.remove(type);
@@ -918,18 +954,16 @@ Future<Iterable<Map<String, dynamic>>> getIDLs({String dir = 'ed'}) async {
 }
 
 String replaceAllByMap(String buf, Map<String, dynamic> map) =>
-    buf.replaceAllMapped(
-    RegExp(map.keys.map((k) => '\\$k').join('|')), (match) => map[match[0]]!);
+    buf.replaceAllMapped(RegExp(map.keys.map((k) => '\\$k').join('|')),
+        (match) => map[match[0]]!);
 
 String makeDoc(String? rbuf, {bool wrap = true}) {
   if (rbuf == null) {
     return '';
   }
 
-  var buf = replaceAllByMap(rbuf, {
-    for (final key in types.keys)
-      '[$key]': '[${types[key]!}]'
-  });
+  var buf = replaceAllByMap(
+      rbuf, {for (final key in types.keys) '[$key]': '[${types[key]!}]'});
   const max = 65;
   final ret = <String>[];
 

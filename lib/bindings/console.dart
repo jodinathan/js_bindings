@@ -26,7 +26,7 @@ import 'package:js_bindings/js_bindings.dart';
 /// referenced as
 ///  . For example:
 ///
-/// [console.log("Failed to open the specified link");
+/// [console.log("Failed to open the specified link")
 /// ]
 ///
 ///  This page documents the Methods available on the object and

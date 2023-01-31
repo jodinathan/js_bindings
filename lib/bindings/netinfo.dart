@@ -61,21 +61,16 @@ extension PropsNavigatorNetworkInformation on NavigatorNetworkInformation {
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
 /// production.
-///
-///   The interface of the Network Information API provides
-/// information about the connection a device is using to communicate
-/// with the network and provides a means for scripts to be notified
-/// if the connection type changes.
-///   The interface cannot be instantiated. It is instead accessed
-/// through the [connection] property of the [Navigator] interface.
-///
+///  The interface provides information about the connection a device
+/// is using to communicate with the network and provides a means for
+/// scripts to be notified if the connection type changes. The
+/// interfaces cannot be instantiated. It is instead accessed through
+/// the [connection] property of the [Navigator] interface.
 ///  Note: This feature is available in Web Workers
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///

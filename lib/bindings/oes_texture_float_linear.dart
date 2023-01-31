@@ -1,6 +1,6 @@
 /// WebGL OES_texture_float_linear Khronos Ratified Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/OES_texture_float_linear/
+/// https://www.khronos.org/registry/webgl/extensions/OES_texture_float_linear/
 
 // ignore_for_file: unused_import
 

@@ -31,14 +31,14 @@ enum MockCapturePromptResult {
 @staticInterop
 class MockCapturePromptResultConfiguration {
   external factory MockCapturePromptResultConfiguration._(
-      {required String getUserMedia, required String getDisplayMedia});
+      {String? getUserMedia, String? getDisplayMedia});
 
   factory MockCapturePromptResultConfiguration(
-          {required MockCapturePromptResult getUserMedia,
-          required MockCapturePromptResult getDisplayMedia}) =>
+          {MockCapturePromptResult? getUserMedia,
+          MockCapturePromptResult? getDisplayMedia}) =>
       MockCapturePromptResultConfiguration._(
-          getUserMedia: getUserMedia.value,
-          getDisplayMedia: getDisplayMedia.value);
+          getUserMedia: getUserMedia?.value,
+          getDisplayMedia: getDisplayMedia?.value);
 }
 
 extension PropsMockCapturePromptResultConfiguration
@@ -62,9 +62,7 @@ extension PropsMockCapturePromptResultConfiguration
 @staticInterop
 class MockCaptureDeviceConfiguration {
   external factory MockCaptureDeviceConfiguration(
-      {required String label,
-      required String deviceId,
-      required String groupId});
+      {String? label, String? deviceId, String? groupId});
 }
 
 extension PropsMockCaptureDeviceConfiguration

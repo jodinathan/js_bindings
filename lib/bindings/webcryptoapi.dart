@@ -246,8 +246,7 @@ extension PropsSubtleCrypto on SubtleCrypto {
 @JS()
 @staticInterop
 class RsaOtherPrimesInfo {
-  external factory RsaOtherPrimesInfo(
-      {required String r, required String d, required String t});
+  external factory RsaOtherPrimesInfo({String? r, String? d, String? t});
 }
 
 extension PropsRsaOtherPrimesInfo on RsaOtherPrimesInfo {
@@ -272,24 +271,24 @@ extension PropsRsaOtherPrimesInfo on RsaOtherPrimesInfo {
 @staticInterop
 class JsonWebKey {
   external factory JsonWebKey(
-      {required String kty,
-      required String use,
-      required Iterable<String> key_ops,
-      required String alg,
-      required bool ext,
-      required String crv,
-      required String x,
-      required String y,
-      required String d,
-      required String n,
-      required String e,
-      required String p,
-      required String q,
-      required String dp,
-      required String dq,
-      required String qi,
-      required Iterable<RsaOtherPrimesInfo> oth,
-      required String k});
+      {String? kty,
+      String? use,
+      Iterable<String>? key_ops,
+      String? alg,
+      bool? ext,
+      String? crv,
+      String? x,
+      String? y,
+      String? d,
+      String? n,
+      String? e,
+      String? p,
+      String? q,
+      String? dp,
+      String? dq,
+      String? qi,
+      Iterable<RsaOtherPrimesInfo>? oth,
+      String? k});
 }
 
 extension PropsJsonWebKey on JsonWebKey {
@@ -397,8 +396,7 @@ extension PropsJsonWebKey on JsonWebKey {
 @JS()
 @staticInterop
 class CryptoKeyPair {
-  external factory CryptoKeyPair(
-      {required CryptoKey publicKey, required CryptoKey privateKey});
+  external factory CryptoKeyPair({CryptoKey? publicKey, CryptoKey? privateKey});
 }
 
 extension PropsCryptoKeyPair on CryptoKeyPair {
@@ -627,7 +625,7 @@ extension PropsEcKeyImportParams on EcKeyImportParams {
 /// public and a private key to derive a shared secret. They exchange
 /// public keys and use the combination of their private key and the
 /// other entity's public key to derive a secret key that they — and
-/// no one else — share.
+/// noone else — share.
 ///  The parameters for ECDH [deriveKey()] therefore include the
 /// other entity's public key, which is combined with this entity's
 /// private key to derive the shared secret.
@@ -780,7 +778,7 @@ extension PropsAesCbcParams on AesCbcParams {
 @staticInterop
 class AesGcmParams implements Algorithm {
   external factory AesGcmParams(
-      {dynamic iv, dynamic additionalData, required int tagLength});
+      {dynamic iv, dynamic additionalData, int? tagLength});
 }
 
 extension PropsAesGcmParams on AesGcmParams {
@@ -808,7 +806,7 @@ extension PropsAesGcmParams on AesGcmParams {
 @JS()
 @staticInterop
 class HmacImportParams implements Algorithm {
-  external factory HmacImportParams({dynamic hash, required int length});
+  external factory HmacImportParams({dynamic hash, int? length});
 }
 
 extension PropsHmacImportParams on HmacImportParams {
@@ -855,7 +853,7 @@ extension PropsHmacKeyAlgorithm on HmacKeyAlgorithm {
 @JS()
 @staticInterop
 class HmacKeyGenParams implements Algorithm {
-  external factory HmacKeyGenParams({dynamic hash, required int length});
+  external factory HmacKeyGenParams({dynamic hash, int? length});
 }
 
 extension PropsHmacKeyGenParams on HmacKeyGenParams {

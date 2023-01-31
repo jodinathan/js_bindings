@@ -22,12 +22,10 @@ class SecurePaymentConfirmationRequest {
       required String rpId,
       required Iterable<dynamic> credentialIds,
       required PaymentCredentialInstrument instrument,
-      required int timeout,
-      required String payeeName,
-      required String payeeOrigin,
-      required AuthenticationExtensionsClientInputs extensions,
-      required Iterable<String> locale,
-      required bool showOptOut});
+      int? timeout,
+      String? payeeName,
+      String? payeeOrigin,
+      AuthenticationExtensionsClientInputs? extensions});
 }
 
 extension PropsSecurePaymentConfirmationRequest
@@ -74,16 +72,6 @@ extension PropsSecurePaymentConfirmationRequest
   set extensions(AuthenticationExtensionsClientInputs newValue) {
     js_util.setProperty(this, 'extensions', newValue);
   }
-
-  Iterable<String> get locale => js_util.getProperty(this, 'locale');
-  set locale(Iterable<String> newValue) {
-    js_util.setProperty(this, 'locale', newValue);
-  }
-
-  bool get showOptOut => js_util.getProperty(this, 'showOptOut');
-  set showOptOut(bool newValue) {
-    js_util.setProperty(this, 'showOptOut', newValue);
-  }
 }
 
 @anonymous
@@ -91,13 +79,13 @@ extension PropsSecurePaymentConfirmationRequest
 @staticInterop
 class AuthenticationExtensionsPaymentInputs {
   external factory AuthenticationExtensionsPaymentInputs(
-      {required bool isPayment,
-      required String rpId,
-      required String topOrigin,
-      required String payeeName,
-      required String payeeOrigin,
-      required PaymentCurrencyAmount total,
-      required PaymentCredentialInstrument instrument});
+      {bool? isPayment,
+      String? rpId,
+      String? topOrigin,
+      String? payeeName,
+      String? payeeOrigin,
+      PaymentCurrencyAmount? total,
+      PaymentCredentialInstrument? instrument});
 }
 
 extension PropsAuthenticationExtensionsPaymentInputs
@@ -162,8 +150,8 @@ class CollectedClientAdditionalPaymentData {
   external factory CollectedClientAdditionalPaymentData(
       {required String rpId,
       required String topOrigin,
-      required String payeeName,
-      required String payeeOrigin,
+      String? payeeName,
+      String? payeeOrigin,
       required PaymentCurrencyAmount total,
       required PaymentCredentialInstrument instrument});
 }
@@ -231,9 +219,8 @@ extension PropsPaymentCredentialInstrument on PaymentCredentialInstrument {
 
 enum TransactionAutomationMode {
   none('none'),
-  autoAccept('autoAccept'),
-  autoReject('autoReject'),
-  autoOptOut('autoOptOut');
+  autoaccept('autoaccept'),
+  autoreject('autoreject');
 
   final String value;
   static TransactionAutomationMode fromValue(String value) =>

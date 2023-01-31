@@ -10,7 +10,6 @@ library sanitizer_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -24,7 +23,7 @@ import 'package:js_bindings/js_bindings.dart';
 /// [DocumentFragment] objects.
 ///   After sanitization, unwanted elements or attributes are
 /// removed, and the returned objects can safely be inserted into a
-/// document's DOM.
+/// document’s DOM.
 ///
 ///  A object is also used by the [Element.setHTML()] method to parse
 /// and sanitize a string of HTML, and immediately insert it into an
@@ -35,11 +34,11 @@ import 'package:js_bindings/js_bindings.dart';
 /// comments.
 ///  This configuration may be customized using constructor options.
 ///
-@experimental
 @JS()
 @staticInterop
 class Sanitizer {
   external factory Sanitizer([SanitizerConfig? config]);
+  external static SanitizerConfig getDefaultConfiguration();
 }
 
 extension PropsSanitizer on Sanitizer {
@@ -51,16 +50,13 @@ extension PropsSanitizer on Sanitizer {
 
   SanitizerConfig getConfiguration() =>
       js_util.callMethod(this, 'getConfiguration', []);
-
-  static SanitizerConfig getDefaultConfiguration() =>
-      js_util.callMethod(Sanitizer, 'getDefaultConfiguration', []);
 }
 
 @anonymous
 @JS()
 @staticInterop
 class SetHTMLOptions {
-  external factory SetHTMLOptions({required Sanitizer sanitizer});
+  external factory SetHTMLOptions({Sanitizer? sanitizer});
 }
 
 extension PropsSetHTMLOptions on SetHTMLOptions {
@@ -75,14 +71,14 @@ extension PropsSetHTMLOptions on SetHTMLOptions {
 @staticInterop
 class SanitizerConfig {
   external factory SanitizerConfig(
-      {required Iterable<String> allowElements,
-      required Iterable<String> blockElements,
-      required Iterable<String> dropElements,
+      {Iterable<String>? allowElements,
+      Iterable<String>? blockElements,
+      Iterable<String>? dropElements,
       dynamic allowAttributes,
       dynamic dropAttributes,
-      required bool allowCustomElements,
-      required bool allowUnknownMarkup,
-      required bool allowComments});
+      bool? allowCustomElements,
+      bool? allowUnknownMarkup,
+      bool? allowComments});
 }
 
 extension PropsSanitizerConfig on SanitizerConfig {

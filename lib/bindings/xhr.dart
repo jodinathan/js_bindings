@@ -13,10 +13,21 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///   is the interface that describes the event handlers shared on
-/// [XMLHttpRequest] and [XMLHttpRequestUpload].
-///  You don't use directly; instead you interact with the sub
-/// classes.
+///   is the interface that describes the event handlers you can
+/// implement in an object that will handle events for an
+/// [XMLHttpRequest].
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    XMLHttpRequestEventTarget
+///
+///
 @JS()
 @staticInterop
 class XMLHttpRequestEventTarget implements EventTarget {
@@ -99,11 +110,7 @@ enum XMLHttpRequestResponseType {
 ///
 ///
 ///
-///
-///
 ///    XMLHttpRequestEventTarget
-///
-///
 ///
 ///
 ///
@@ -151,9 +158,9 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
 
   int get readyState => js_util.getProperty(this, 'readyState');
   void open(String method,
-          [String? url, bool? mAsync, String? username, String? password]) =>
+          [String? url, bool? async, String? username, String? password]) =>
       js_util
-          .callMethod(this, 'open', [method, url, mAsync, username, password]);
+          .callMethod(this, 'open', [method, url, async, username, password]);
 
   void setRequestHeader(String name, String value) =>
       js_util.callMethod(this, 'setRequestHeader', [name, value]);
@@ -197,23 +204,23 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
   Document? get responseXML => js_util.getProperty(this, 'responseXML');
 }
 
-///  The interface provides a way to construct a set of key/value
-/// pairs representing form fields and their values, which can be
-/// sent using the [fetch()] or [XMLHttpRequest.send()] method. It
-/// uses the same format a form would use if the encoding type were
-/// set to ["multipart/form-data"].
+///  The interface provides a way to easily construct a set of
+/// key/value pairs representing form fields and their values, which
+/// can then be easily sent using the [XMLHttpRequest.send()] method.
+/// It uses the same format a form would use if the encoding type
+/// were set to ["multipart/form-data"].
 ///  You can also pass it directly to the [URLSearchParams]
 /// constructor if you want to generate query parameters in the way a
 /// [<form>] would do if it were using simple [GET] submission.
 ///  An object implementing can directly be used in a [for...of]
-/// structure, instead of [entries()]: [for (const p of myFormData)]
-/// is equivalent to [for (const p of myFormData.entries())].
+/// structure, instead of [entries()]: [for (var p of myFormData)] is
+/// equivalent to [for (var p of myFormData.entries())].
 ///
 ///  Note: This feature is available in Web Workers.
 ///
 @JS()
 @staticInterop
-class FormData {
+class FormData extends JsArray<dynamic> {
   external factory FormData([HTMLFormElement? form]);
 }
 
@@ -223,18 +230,14 @@ extension PropsFormData on FormData {
 
   void delete(String name) => js_util.callMethod(this, 'delete', [name]);
 
-  @JS('get')
-  @staticInterop
-  dynamic mGet(String name) => js_util.callMethod(this, 'get', [name]);
+  dynamic get(String name) => js_util.callMethod(this, 'get', [name]);
 
   Iterable<dynamic> getAll(String name) =>
       js_util.callMethod(this, 'getAll', [name]);
 
   bool has(String name) => js_util.callMethod(this, 'has', [name]);
 
-  @JS('set')
-  @staticInterop
-  void mSet(String name, [Blob? blobValue, String? filename]) =>
+  void set(String name, [Blob? blobValue, String? filename]) =>
       js_util.callMethod(this, 'set', [name, blobValue, filename]);
 }
 
@@ -246,8 +249,6 @@ extension PropsFormData on FormData {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///

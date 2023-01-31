@@ -7,8 +7,6 @@ import 'all_bindings.dart';
 
 typedef MediaSessionActionHandler = Function(MediaSessionActionDetails details);
 
-typedef UpdateCallback = Function();
-
 typedef UnderlyingSourceStartCallback = Function(dynamic controller);
 
 typedef UnderlyingSourcePullCallback = Function(dynamic controller);
@@ -122,7 +120,7 @@ typedef NavigatorUserMediaSuccessCallback = Function(MediaStream stream);
 typedef NavigatorUserMediaErrorCallback = Function(Exception error);
 
 typedef VideoFrameRequestCallback = Function(
-    double now, VideoFrameCallbackMetadata metadata);
+    double now, VideoFrameMetadata metadata);
 
 typedef GenerateAssertionCallback = Function(
     String contents, String origin, RTCIdentityProviderOptions options);
@@ -137,10 +135,10 @@ typedef NotificationPermissionCallback = Function(
 typedef AnimatorInstanceConstructor = Function(dynamic options,
     [dynamic state]);
 
-typedef LaunchConsumer = Function(LaunchParams params);
-
 typedef ResizeObserverCallback = Function(
     Iterable<ResizeObserverEntry> entries, ResizeObserver observer);
+
+typedef LaunchConsumer = Function(LaunchParams params);
 
 typedef RemotePlaybackAvailabilityCallback = Function(bool available);
 

@@ -10,7 +10,7 @@ library encoding;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -66,6 +66,7 @@ extension PropsTextDecodeOptions on TextDecodeOptions {
 /// points.
 ///  Note: This feature is available in Web Workers
 ///
+@experimental
 @JS()
 @staticInterop
 class TextDecoder implements TextDecoderCommon {
@@ -92,8 +93,7 @@ extension PropsTextEncoderCommon on TextEncoderCommon {
 @JS()
 @staticInterop
 class TextEncoderEncodeIntoResult {
-  external factory TextEncoderEncodeIntoResult(
-      {required int read, required int written});
+  external factory TextEncoderEncodeIntoResult({int? read, int? written});
 }
 
 extension PropsTextEncoderEncodeIntoResult on TextEncoderEncodeIntoResult {
@@ -112,6 +112,7 @@ extension PropsTextEncoderEncodeIntoResult on TextEncoderEncodeIntoResult {
 /// stream of UTF-8 bytes.
 ///  Note: This feature is available in Web Workers
 ///
+@experimental
 @JS()
 @staticInterop
 class TextEncoder implements TextEncoderCommon {
@@ -127,11 +128,9 @@ extension PropsTextEncoder on TextEncoder {
       js_util.callMethod(this, 'encodeInto', [source, destination]);
 }
 
-///
-///   The interface of the Encoding API converts a stream of text in
-/// a binary encoding, such as UTF-8 etc., to a stream of strings.
-///  It is the streaming equivalent of [TextDecoder].
-///
+///  The interface of the Encoding API converts a stream of strings
+/// into bytes in the UTF-8 encoding. It is the streaming equivalent
+/// of [TextDecoder].
 @JS()
 @staticInterop
 class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {

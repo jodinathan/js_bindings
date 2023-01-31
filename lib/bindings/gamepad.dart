@@ -44,8 +44,6 @@ extension PropsGamepad on Gamepad {
   GamepadPose? get pose => js_util.getProperty(this, 'pose');
   Iterable<GamepadTouch> get touchEvents =>
       js_util.getProperty(this, 'touchEvents');
-  GamepadHapticActuator get vibrationActuator =>
-      js_util.getProperty(this, 'vibrationActuator');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -84,14 +82,12 @@ enum GamepadMappingType {
 /// contexts (HTTPS), in some or all supporting browsers.
 ///  The GamepadEvent interface of the Gamepad API contains
 /// references to gamepads connected to the system, which is what the
-/// gamepad events [gamepadconnected] and [gamepaddisconnected] are
-/// fired in response to.
+/// gamepad events [Window.gamepadconnected] and
+/// [Window.gamepaddisconnected] are fired in response to.
 ///
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///

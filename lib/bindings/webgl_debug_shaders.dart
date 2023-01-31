@@ -1,6 +1,6 @@
 /// WebGL WEBGL_debug_shaders Khronos Ratified Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/WEBGL_debug_shaders/
+/// https://www.khronos.org/registry/webgl/extensions/WEBGL_debug_shaders/
 
 // ignore_for_file: unused_import
 

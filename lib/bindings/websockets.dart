@@ -39,8 +39,6 @@ enum BinaryType {
 ///
 ///
 ///
-///
-///
 ///    WebSocket
 ///
 ///
@@ -106,8 +104,6 @@ extension PropsWebSocket on WebSocket {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///

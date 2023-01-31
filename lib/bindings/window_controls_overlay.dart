@@ -10,15 +10,13 @@ library window_controls_overlay;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
 ///
 ///   The interface of the Window Controls Overlay API exposes
 /// information about the geometry
@@ -35,12 +33,9 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    WindowControlsOverlay
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class WindowControlsOverlay implements EventTarget {
@@ -59,9 +54,6 @@ extension PropsWindowControlsOverlay on WindowControlsOverlay {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Window Controls Overlay API is passed to
 /// [geometrychange] when the size or visibility of a desktop
 /// Progress Web App's title bar region changes.
@@ -74,12 +66,9 @@ extension PropsWindowControlsOverlay on WindowControlsOverlay {
 ///
 ///
 ///
-///
-///
 ///    WindowControlsOverlayGeometryChangeEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class WindowControlsOverlayGeometryChangeEvent implements Event {

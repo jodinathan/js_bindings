@@ -10,15 +10,11 @@ library serial;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [Web Serial API] provides attributes and
 /// methods for finding and connecting to serial ports from a web
 /// page.
@@ -31,12 +27,9 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Serial
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class Serial implements EventTarget {
@@ -67,7 +60,7 @@ extension PropsSerial on Serial {
 @staticInterop
 class SerialPortRequestOptions {
   external factory SerialPortRequestOptions(
-      {required Iterable<SerialPortFilter> filters});
+      {Iterable<SerialPortFilter>? filters});
 }
 
 extension PropsSerialPortRequestOptions on SerialPortRequestOptions {
@@ -82,8 +75,7 @@ extension PropsSerialPortRequestOptions on SerialPortRequestOptions {
 @JS()
 @staticInterop
 class SerialPortFilter {
-  external factory SerialPortFilter(
-      {required int usbVendorId, required int usbProductId});
+  external factory SerialPortFilter({int? usbVendorId, int? usbProductId});
 }
 
 extension PropsSerialPortFilter on SerialPortFilter {
@@ -99,10 +91,7 @@ extension PropsSerialPortFilter on SerialPortFilter {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [Web Serial API] provides access to a
 /// serial port on the host device.
 ///
@@ -114,12 +103,9 @@ extension PropsSerialPortFilter on SerialPortFilter {
 ///
 ///
 ///
-///
-///
 ///    SerialPort
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class SerialPort implements EventTarget {
@@ -162,8 +148,7 @@ extension PropsSerialPort on SerialPort {
 @JS()
 @staticInterop
 class SerialPortInfo {
-  external factory SerialPortInfo(
-      {required int usbVendorId, required int usbProductId});
+  external factory SerialPortInfo({int? usbVendorId, int? usbProductId});
 }
 
 extension PropsSerialPortInfo on SerialPortInfo {
@@ -270,9 +255,7 @@ enum FlowControlType {
 @staticInterop
 class SerialOutputSignals {
   external factory SerialOutputSignals(
-      {required bool dataTerminalReady,
-      required bool requestToSend,
-      required bool mBreak});
+      {bool? dataTerminalReady, bool? requestToSend, bool? mBreak});
 }
 
 extension PropsSerialOutputSignals on SerialOutputSignals {

@@ -10,6 +10,7 @@ library dom;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -139,8 +140,6 @@ extension PropsEventInit on EventInit {
 ///
 ///
 ///
-///
-///
 ///    CustomEvent
 ///
 ///
@@ -226,7 +225,7 @@ extension PropsEventListenerOptions on EventListenerOptions {
 @staticInterop
 class AddEventListenerOptions implements EventListenerOptions {
   external factory AddEventListenerOptions(
-      {required bool passive, bool? once = false, AbortSignal? signal});
+      {bool? passive, bool? once = false, AbortSignal? signal});
 }
 
 extension PropsAddEventListenerOptions on AddEventListenerOptions {
@@ -251,6 +250,7 @@ extension PropsAddEventListenerOptions on AddEventListenerOptions {
 ///  You can create a new object using the [AbortController()]
 /// constructor. Communicating with a DOM request is done using an
 /// [AbortSignal] object.
+@experimental
 @JS()
 @staticInterop
 class AbortController {
@@ -274,24 +274,19 @@ extension PropsAbortController on AbortController {
 ///
 ///
 ///
-///
-///
 ///    AbortSignal
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class AbortSignal implements EventTarget {
+  external static AbortSignal abort([dynamic reason]);
+  external static AbortSignal timeout(int milliseconds);
   external factory AbortSignal();
 }
 
 extension PropsAbortSignal on AbortSignal {
-  static AbortSignal abort([dynamic reason]) =>
-      js_util.callMethod(AbortSignal, 'abort', [reason]);
-
-  static AbortSignal timeout(int milliseconds) =>
-      js_util.callMethod(AbortSignal, 'timeout', [milliseconds]);
-
   bool get aborted => js_util.getProperty(this, 'aborted');
   dynamic get reason => js_util.getProperty(this, 'reason');
   void throwIfAborted() => js_util.callMethod(this, 'throwIfAborted', []);
@@ -417,6 +412,10 @@ extension PropsSlottable on Slottable {
 ///   Note: Although is not an [Array], it is possible to iterate
 /// over it with [forEach()]. It can also be converted to a real
 /// [Array] using [Array.from()].
+///   However, some older browsers have not implemented
+/// [NodeList.forEach()] nor [Array.from()]. This can be circumvented
+/// by using [Array.prototype.forEach()] — see this document's
+/// Example.
 ///
 @JS()
 @staticInterop
@@ -440,16 +439,8 @@ extension PropsNodeList on NodeList {
 ///
 ///  An in the HTML DOM is live; it is automatically updated when the
 /// underlying document is changed. For this reason it is a good idea
-/// to make a copy (e.g., using [Array.from]) to iterate over if
+/// to make a copy (eg. using [Array.from]) to iterate over if
 /// adding, moving, or removing nodes.
-///
-///   Note: This interface was an attempt to create an unmodifiable
-/// list and only continues to be supported to not break code that's
-/// already using it. Modern APIs use types that wrap around
-/// ECMAScript array types instead, so you can treat them like
-/// ECMAScript arrays, and at the same time impose additional
-/// semantics on their usage (such as making their items read-only).
-///
 @JS()
 @staticInterop
 class HTMLCollection {
@@ -537,9 +528,8 @@ extension PropsMutationObserverInit on MutationObserverInit {
   }
 }
 
-///  The is a read-only interface that represents an individual DOM
-/// mutation observed by a [MutationObserver]. It is the object
-/// inside the array passed to the callback of a [MutationObserver].
+///  A represents an individual DOM mutation. It is the object that
+/// is inside the array passed to [MutationObserver]'s callback.
 @JS()
 @staticInterop
 class MutationRecord {
@@ -588,8 +578,6 @@ extension PropsMutationRecord on MutationRecord {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -754,11 +742,7 @@ extension PropsGetRootNodeOptions on GetRootNodeOptions {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -784,7 +768,8 @@ class Document
         DocumentOrShadowRoot,
         ParentNode,
         XPathEvaluatorBase,
-        GlobalEventHandlers {
+        GlobalEventHandlers,
+        DocumentAndElementEventHandlers {
   external factory Document();
 }
 
@@ -845,8 +830,8 @@ extension PropsDocument on Document {
   Attr createAttributeNS(String? namespace, String qualifiedName) =>
       js_util.callMethod(this, 'createAttributeNS', [namespace, qualifiedName]);
 
-  Event createEvent(String mInterface) =>
-      js_util.callMethod(this, 'createEvent', [mInterface]);
+  Event createEvent(String interface) =>
+      js_util.callMethod(this, 'createEvent', [interface]);
 
   Range createRange() => js_util.callMethod(this, 'createRange', []);
 
@@ -865,10 +850,6 @@ extension PropsDocument on Document {
 
   Future<void> requestStorageAccess() => js_util
       .promiseToFuture(js_util.callMethod(this, 'requestStorageAccess', []));
-
-  ViewTransition startViewTransition([UpdateCallback? callback]) =>
-      js_util.callMethod(this, 'startViewTransition',
-          [callback == null ? null : allowInterop(callback)]);
 
   Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
 
@@ -1092,19 +1073,13 @@ extension PropsDocument on Document {
 ///
 ///
 ///
-///
-///
 ///    Node
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    Document
-///
-///
 ///
 ///
 ///
@@ -1123,7 +1098,7 @@ class XMLDocument implements Document {
 @JS()
 @staticInterop
 class ElementCreationOptions {
-  external factory ElementCreationOptions({required String mIs});
+  external factory ElementCreationOptions({String? mIs});
 }
 
 extension PropsElementCreationOptions on ElementCreationOptions {
@@ -1171,11 +1146,7 @@ extension PropsDOMImplementation on DOMImplementation {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1202,8 +1173,9 @@ extension PropsDocumentType on DocumentType {
 /// segment of a document structure comprised of nodes just like a
 /// standard document. The key difference is due to the fact that the
 /// document fragment isn't part of the active document tree
-/// structure. Changes made to the fragment don't affect the
-/// document.
+/// structure. Changes made to the fragment don't affect the document
+/// (even on reflow) or incur any performance impact when changes are
+/// made.
 ///
 ///
 ///
@@ -1213,11 +1185,7 @@ extension PropsDocumentType on DocumentType {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1247,19 +1215,13 @@ class DocumentFragment implements Node, NonElementParentNode, ParentNode {
 ///
 ///
 ///
-///
-///
 ///    Node
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    DocumentFragment
-///
-///
 ///
 ///
 ///
@@ -1331,11 +1293,7 @@ enum SlotAssignmentMode {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1559,9 +1517,7 @@ extension PropsElement on Element {
   void setHTML(String input, [SetHTMLOptions? options]) =>
       js_util.callMethod(this, 'setHTML', [input, options]);
 
-  @JS('part')
-  @staticInterop
-  DOMTokenList get mPart => js_util.getProperty(this, 'part');
+  DOMTokenList get part => js_util.getProperty(this, 'part');
   EditContext? get editContext => js_util.getProperty(this, 'editContext');
   set editContext(EditContext? newValue) {
     js_util.setProperty(this, 'editContext', newValue);
@@ -1613,8 +1569,9 @@ extension PropsShadowRootInit on ShadowRootInit {
 /// made to its contents internally or elsewhere.
 ///
 ///   Note: Although called , this interface doesn't deal with [Node]
-/// objects but with [Attr] objects, which are a specialized class of
-/// [Node] objects.
+/// objects but with [Attr] objects, which were originally a
+/// specialized class of [Node], and still are in some
+/// implementations.
 ///
 @JS()
 @staticInterop
@@ -1650,28 +1607,6 @@ extension PropsNamedNodeMap on NamedNodeMap {
 /// attribute value as a string (e.g., [Element.getAttribute()]), but
 /// certain functions (e.g., [Element.getAttributeNode()]) or means
 /// of iterating return instances.
-///
-///
-///
-///    EventTarget
-///
-///
-///
-///
-///
-///
-///
-///    Node
-///
-///
-///
-///
-///
-///
-///
-///    Attr
-///
-///
 ///  The core idea of an object of type is the association between a
 /// name and a value. An attribute may also be part of a namespace
 /// and, in this case, it also has a URI identifying the namespace,
@@ -1715,6 +1650,26 @@ extension PropsNamedNodeMap on NamedNodeMap {
 ///    [myns:myAttr]
 ///
 ///
+///
+///
+///
+///
+///    EventTarget
+///
+///
+///
+///
+///
+///    Node
+///
+///
+///
+///
+///
+///    Attr
+///
+///
+///
 ///   Note: This interface represents only attributes present in the
 /// tree representation of the [Element], being a SVG, an HTML or a
 /// MathML element. It doesn't represent the property of an interface
@@ -1756,11 +1711,7 @@ extension PropsAttr on Attr {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1808,11 +1759,7 @@ extension PropsCharacterData on CharacterData {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1824,33 +1771,22 @@ extension PropsCharacterData on CharacterData {
 ///
 ///
 ///
-///
-///
 ///    Text
 ///
 ///
 ///  To understand what a text node is, consider the following
 /// document:
-/// [<html lang="en" class="e">
-///  <head>
-///   <title>Aliens?</title>
-///  </head>
-///  <body>
-///   Why yes.
-///  </body>
-/// </html>
+/// [<html class="e"><head><title>Aliens?</title></head>
+///  <body>Why yes.
+/// </body></html>
 /// ]
-///  In that document, there are five text nodes, with the following
+///  In that document, there are three text nodes, with the following
 /// contents:
 ///
-///   ["\n "] (after the [<head>] start tag, a newline followed by
-/// four spaces)
-///  ["Aliens?"] (the contents of the [title] element)
-///   ["\n "] (after the [</head>] end tag, a newline followed by two
-/// spaces)
-///   ["\n "] (after the [<body>] start tag, a newline followed by
-/// two spaces)
-///  ["\n Why yes.\n \n\n"] (the contents of the [body] element)
+///  "[Aliens?]" (the contents of the [title] element)
+///   "[\n]" (after the [</head>] end tag, a newline followed by a
+/// space)
+///  "[Why yes.\n]" (the contents of the [body] element)
 ///
 ///  Each of those text nodes is an object that has the properties
 /// and methods documented in this article.
@@ -1875,13 +1811,11 @@ extension PropsText on Text {
 ///  as they normally do.
 ///
 /// In XML, a CDATA section looks like:
-/// [<![CDATA[ … ]]>
+/// [<![CDATA[ ... ]]>
 /// ]
 /// For example:
-/// [<foo>
-///   Here is a CDATA section: <![CDATA[ < > & ]]> with all kinds of
-/// unescaped text.
-/// </foo>
+///  [<foo>Here is a CDATA section: <![CDATA[ < > & ]]> with all
+/// kinds of unescaped text.</foo>
 /// ]
 ///
 ///   The only sequence which is not allowed within a CDATA section
@@ -1899,11 +1833,7 @@ extension PropsText on Text {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1915,11 +1845,7 @@ extension PropsText on Text {
 ///
 ///
 ///
-///
-///
 ///    Text
-///
-///
 ///
 ///
 ///
@@ -1954,13 +1880,11 @@ class CDATASection implements Text {
 /// For example:
 /// [<?xml version="1.0"?>
 /// ]
-/// is a processing instruction whose [target] is [xml].
+/// is a processing instruction whose [target]is [xml].
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -1972,11 +1896,7 @@ class CDATASection implements Text {
 ///
 ///
 ///
-///
-///
 ///    CharacterData
-///
-///
 ///
 ///
 ///
@@ -2010,19 +1930,13 @@ extension PropsProcessingInstruction on ProcessingInstruction {
 ///
 ///
 ///
-///
-///
 ///    Node
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    CharacterData
-///
-///
 ///
 ///
 ///
@@ -2109,8 +2023,6 @@ extension PropsStaticRangeInit on StaticRangeInit {
 ///
 ///
 ///
-///
-///
 ///    StaticRange
 ///
 ///
@@ -2131,8 +2043,6 @@ class StaticRange implements AbstractRange {
 ///
 ///
 ///    AbstractRange
-///
-///
 ///
 ///
 ///
@@ -2288,6 +2198,16 @@ extension PropsTreeWalker on TreeWalker {
   Node? nextNode() => js_util.callMethod(this, 'nextNode', []);
 }
 
+///  A interface represents an object used to filter the nodes in a
+/// [NodeIterator] or [TreeWalker]. A knows nothing about the
+/// document or traversing nodes; it only knows how to evaluate a
+/// single node against the provided filter.
+///
+///   Note: The browser doesn't provide any object implementing this
+/// interface. It is the user who is expected to write one, tailoring
+/// the [acceptNode()] method to its needs, and using it with some
+/// [TreeWalker] or [NodeIterator] objects.
+///
 @JS()
 @staticInterop
 class NodeFilter {
@@ -2504,6 +2424,13 @@ class XPathEvaluator implements XPathEvaluatorBase {
   external factory XPathEvaluator();
 }
 
+///  Non-standard: This feature is non-standard and is not on a
+/// standards track. Do not use it on production sites facing the
+/// Web: it will not work for every user. There may also be large
+/// incompatibilities between implementations and the behavior may
+/// change in the future.Experimental: This is an experimental
+/// technologyCheck the Browser compatibility table carefully before
+/// using this in production.
 ///
 ///   An applies an XSLT stylesheet transformation to an XML document
 /// to

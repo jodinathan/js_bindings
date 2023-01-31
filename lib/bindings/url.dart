@@ -30,6 +30,8 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class Url {
   external factory Url(String url, [String? base]);
+  external static String createObjectURL(dynamic obj);
+  external static void revokeObjectURL(String url);
 }
 
 extension PropsUrl on Url {
@@ -88,12 +90,6 @@ extension PropsUrl on Url {
   }
 
   String toJSON() => js_util.callMethod(this, 'toJSON', []);
-
-  static String createObjectURL(dynamic obj) =>
-      js_util.callMethod(Url, 'createObjectURL', [obj]);
-
-  static void revokeObjectURL(String url) =>
-      js_util.callMethod(Url, 'revokeObjectURL', [url]);
 }
 
 ///  The interface defines utility methods to work with the query
@@ -109,7 +105,7 @@ extension PropsUrl on Url {
 ///
 @JS()
 @staticInterop
-class URLSearchParams {
+class URLSearchParams extends JsArray<String> {
   external factory URLSearchParams([dynamic init]);
 }
 
@@ -119,18 +115,14 @@ extension PropsURLSearchParams on URLSearchParams {
 
   void delete(String name) => js_util.callMethod(this, 'delete', [name]);
 
-  @JS('get')
-  @staticInterop
-  String? mGet(String name) => js_util.callMethod(this, 'get', [name]);
+  String? get(String name) => js_util.callMethod(this, 'get', [name]);
 
   Iterable<String> getAll(String name) =>
       js_util.callMethod(this, 'getAll', [name]);
 
   bool has(String name) => js_util.callMethod(this, 'has', [name]);
 
-  @JS('set')
-  @staticInterop
-  void mSet(String name, String value) =>
+  void set(String name, String value) =>
       js_util.callMethod(this, 'set', [name, value]);
 
   void sort() => js_util.callMethod(this, 'sort', []);

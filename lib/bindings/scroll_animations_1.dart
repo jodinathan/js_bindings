@@ -1,4 +1,4 @@
-/// Scroll-driven Animations
+/// Scroll-linked Animations
 ///
 /// https://drafts.csswg.org/scroll-animations-1/
 
@@ -67,11 +67,10 @@ extension PropsScrollTimeline on ScrollTimeline {
 @JS()
 @staticInterop
 class ViewTimelineOptions {
-  external factory ViewTimelineOptions._(
-      {required Element subject, String? axis});
+  external factory ViewTimelineOptions._({Element? subject, String? axis});
 
   factory ViewTimelineOptions(
-          {required Element subject, ScrollAxis? axis = ScrollAxis.block}) =>
+          {Element? subject, ScrollAxis? axis = ScrollAxis.block}) =>
       ViewTimelineOptions._(subject: subject, axis: axis?.value);
 }
 

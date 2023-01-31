@@ -39,7 +39,7 @@ extension PropsCloseWatcher on CloseWatcher {
 @JS()
 @staticInterop
 class CloseWatcherOptions {
-  external factory CloseWatcherOptions({required AbortSignal signal});
+  external factory CloseWatcherOptions({AbortSignal? signal});
 }
 
 extension PropsCloseWatcherOptions on CloseWatcherOptions {

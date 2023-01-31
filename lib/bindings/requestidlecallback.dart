@@ -17,7 +17,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class IdleRequestOptions {
-  external factory IdleRequestOptions({required int timeout});
+  external factory IdleRequestOptions({int? timeout});
 }
 
 extension PropsIdleRequestOptions on IdleRequestOptions {

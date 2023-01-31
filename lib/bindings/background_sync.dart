@@ -10,16 +10,11 @@ library background_sync;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the ServiceWorker API provides an interface for
 /// registering and listing sync registrations.
-@experimental
 @JS()
 @staticInterop
 class SyncManager {
@@ -34,9 +29,11 @@ extension PropsSyncManager on SyncManager {
       js_util.promiseToFuture(js_util.callMethod(this, 'getTags', []));
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
+///  Non-standard: This feature is non-standard and is not on a
+/// standards track. Do not use it on production sites facing the
+/// Web: it will not work for every user. There may also be large
+/// incompatibilities between implementations and the behavior may
+/// change in the future.
 ///  The interface represents a sync action that is dispatched on the
 /// [ServiceWorkerGlobalScope] of a ServiceWorker.
 /// This interface inherits from the [ExtendableEvent] interface.
@@ -49,11 +46,7 @@ extension PropsSyncManager on SyncManager {
 ///
 ///
 ///
-///
-///
 ///    ExtendableEvent
-///
-///
 ///
 ///
 ///
@@ -62,7 +55,6 @@ extension PropsSyncManager on SyncManager {
 ///    SyncEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class SyncEvent implements ExtendableEvent {

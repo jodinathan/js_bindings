@@ -10,7 +10,6 @@ library content_index;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -37,7 +36,7 @@ class ContentDescription {
       {required String id,
       required String title,
       required String description,
-      required String category,
+      String? category,
       Iterable<ImageResource>? icons = const [],
       String? url});
 
@@ -45,14 +44,14 @@ class ContentDescription {
           {required String id,
           required String title,
           required String description,
-          required ContentCategory category,
+          ContentCategory? category,
           Iterable<ImageResource>? icons = const [],
           String? url}) =>
       ContentDescription._(
           id: id,
           title: title,
           description: description,
-          category: category.value,
+          category: category?.value,
           icons: icons,
           url: url);
 }
@@ -90,12 +89,8 @@ extension PropsContentDescription on ContentDescription {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Content Index API allows developers to
+///  The interface of the [Content Index API] allows developers to
 /// register their offline enabled content with the browser.
-@experimental
 @JS()
 @staticInterop
 class ContentIndex {
@@ -127,13 +122,10 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the content index defines the object used to
-/// represent the [contentdelete] event.
-///  This event is sent to the global scope of a [ServiceWorker]. It
-/// contains the id of the indexed content to be removed.
+///  The interface of the [Content Index API] defines the object used
+/// to represent the [contentdelete] event.
+///  This event is sent to the [global scope] of a [ServiceWorker].
+/// It contains the id of the indexed content to be removed.
 ///  The [contentdelete] event is only fired when the deletion
 /// happens due to interaction with the browser's built-in user
 /// interface. It is not fired when the [ContentIndex.delete] method
@@ -147,11 +139,7 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
 ///
 ///
 ///
-///
-///
 ///    ExtendableEvent
-///
-///
 ///
 ///
 ///
@@ -160,7 +148,6 @@ extension PropsContentIndexEventInit on ContentIndexEventInit {
 ///    ContentIndexEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class ContentIndexEvent implements ExtendableEvent {

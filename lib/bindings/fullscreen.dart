@@ -15,8 +15,8 @@ import 'package:js_bindings/js_bindings.dart';
 
 enum FullscreenNavigationUI {
   auto('auto'),
-  valueShow('show'),
-  valueHide('hide');
+  show('show'),
+  hide('hide');
 
   final String value;
   static FullscreenNavigationUI fromValue(String value) =>

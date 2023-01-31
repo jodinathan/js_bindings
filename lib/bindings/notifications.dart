@@ -10,6 +10,7 @@ library notifications;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -31,8 +32,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Notification
 ///
 ///
@@ -40,17 +39,12 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class Notification implements EventTarget {
   external factory Notification(String title, [NotificationOptions? options]);
+  external static Future<NotificationPermission> requestPermission(
+      [NotificationPermissionCallback? deprecatedCallback]);
 }
 
 extension PropsNotification on Notification {
   external static NotificationPermission get permission;
-
-  static Future<NotificationPermission> requestPermission(
-          [NotificationPermissionCallback? deprecatedCallback]) =>
-      js_util.promiseToFuture(js_util.callMethod(
-          Notification, 'requestPermission', [
-        deprecatedCallback == null ? null : allowInterop(deprecatedCallback)
-      ]));
 
   external static int get maxActions;
 
@@ -253,7 +247,7 @@ enum NotificationDirection {
 @staticInterop
 class NotificationAction {
   external factory NotificationAction(
-      {required String action, required String title, required String icon});
+      {required String action, required String title, String? icon});
 }
 
 extension PropsNotificationAction on NotificationAction {
@@ -301,11 +295,7 @@ extension PropsGetNotificationOptions on GetNotificationOptions {
 ///
 ///
 ///
-///
-///
 ///    ExtendableEvent
-///
-///
 ///
 ///
 ///
@@ -314,6 +304,7 @@ extension PropsGetNotificationOptions on GetNotificationOptions {
 ///    NotificationEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class NotificationEvent implements ExtendableEvent {

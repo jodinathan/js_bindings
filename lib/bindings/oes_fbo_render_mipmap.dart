@@ -1,6 +1,6 @@
 /// WebGL OES_fbo_render_mipmap Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/OES_fbo_render_mipmap/
+/// https://www.khronos.org/registry/webgl/extensions/OES_fbo_render_mipmap/
 
 // ignore_for_file: unused_import
 

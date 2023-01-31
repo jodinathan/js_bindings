@@ -10,7 +10,6 @@ library ambient_light;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -22,14 +21,15 @@ import 'package:js_bindings/js_bindings.dart';
 ///  To use this sensor, the user must grant permission to the
 /// ['ambient-light-sensor'] device sensor through the Permissions
 /// API.
-///  This feature may be blocked by a Permissions Policy set on your
-/// server.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -41,12 +41,9 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    AmbientLightSensor
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class AmbientLightSensor implements Sensor {

@@ -30,16 +30,16 @@ extension PropsHTMLAllCollection on HTMLAllCollection {
 }
 
 ///  The interface represents a collection of HTML form control
-/// elements, returned by the [HTMLFormElement] interface's
-/// [elements] property.
+/// elements.
+///  It represents the lists returned by the [HTMLFormElement]
+/// interface's [elements] property and the [HTMLFieldSetElement]
+/// interface's [elements] property.
 ///  This interface replaces one method from [HTMLCollection], on
 /// which it is based.
 ///
 ///
 ///
 ///    HTMLCollection
-///
-///
 ///
 ///
 ///
@@ -65,8 +65,6 @@ extension PropsHTMLFormControlsCollection on HTMLFormControlsCollection {
 ///
 ///
 ///    NodeList
-///
-///
 ///
 ///
 ///
@@ -102,8 +100,6 @@ extension PropsRadioNodeList on RadioNodeList {
 ///
 ///
 ///
-///
-///
 ///    HTMLOptionsCollection
 ///
 ///
@@ -130,16 +126,8 @@ extension PropsHTMLOptionsCollection on HTMLOptionsCollection {
   }
 }
 
-///  The [String] interface is a legacy type returned by some APIs
-/// and represents a non-modifiable list of strings ([String]).
-/// Modern APIs use [Array] objects (in WebIDL:
-/// [sequence<DOMString>]) instead.
-/// This interface is used in IndexedDB and in the [Location] API:
-///
-///  [IDBDatabase.objectStoreNames]
-///  [IDBObjectStore.indexNames]
-///  [Location.ancestorOrigins]
-///
+///  A type returned by some APIs which contains a list of DOMString
+/// (strings).
 @JS()
 @staticInterop
 class DOMStringList {
@@ -192,19 +180,13 @@ enum DocumentVisibilityState {
 ///
 ///
 ///
-///
-///
 ///    Node
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    Element
-///
-///
 ///
 ///
 ///
@@ -219,6 +201,7 @@ class HTMLElement
     implements
         Element,
         GlobalEventHandlers,
+        DocumentAndElementEventHandlers,
         ElementContentEditable,
         HTMLOrSVGElement,
         ElementCSSInlineStyle {
@@ -311,11 +294,7 @@ extension PropsHTMLElement on HTMLElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -327,11 +306,7 @@ extension PropsHTMLElement on HTMLElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -398,11 +373,7 @@ class DOMStringMap {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -414,11 +385,7 @@ class DOMStringMap {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -452,11 +419,7 @@ extension PropsHTMLHtmlElement on HTMLHtmlElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -468,11 +431,7 @@ extension PropsHTMLHtmlElement on HTMLHtmlElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -487,15 +446,13 @@ class HTMLHeadElement implements HTMLElement {
   external factory HTMLHeadElement();
 }
 
-///  The interface is implemented by a document's [<title>]. This
-/// element inherits all of the properties and methods of the
-/// [HTMLElement] interface.
+///  The interface contains the title for a document. This element
+/// inherits all of the properties and methods of the [HTMLElement]
+/// interface.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -507,19 +464,13 @@ class HTMLHeadElement implements HTMLElement {
 ///
 ///
 ///
-///
-///
 ///    Element
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -553,11 +504,7 @@ extension PropsHTMLTitleElement on HTMLTitleElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -569,11 +516,7 @@ extension PropsHTMLTitleElement on HTMLTitleElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -602,7 +545,7 @@ extension PropsHTMLBaseElement on HTMLBaseElement {
 
 ///  The interface represents reference information for external
 /// resources and the relationship of those resources to a document
-/// and vice versa (corresponds to [<link>] element; not to be
+/// and vice-versa (corresponds to [<link>] element; not to be
 /// confused with [<a>], which is represented by
 /// [HTMLAnchorElement]). This object inherits all of the properties
 /// and methods of the [HTMLElement] interface.
@@ -615,11 +558,7 @@ extension PropsHTMLBaseElement on HTMLBaseElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -631,11 +570,7 @@ extension PropsHTMLBaseElement on HTMLBaseElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -666,10 +601,8 @@ extension PropsHTMLLinkElement on HTMLLinkElement {
     js_util.setProperty(this, 'rel', newValue);
   }
 
-  @JS('as')
-  @staticInterop
-  String get mAs => js_util.getProperty(this, 'as');
-  set mAs(String newValue) {
+  String get as => js_util.getProperty(this, 'as');
+  set as(String newValue) {
     js_util.setProperty(this, 'as', newValue);
   }
 
@@ -737,18 +670,13 @@ extension PropsHTMLLinkElement on HTMLLinkElement {
   }
 }
 
-///
-///   The interface contains descriptive metadata about a document
-/// provided in HTML as [<meta>] elements.
-///   This interface inherits all of the properties and methods
-/// described in the [HTMLElement] interface.
-///
+///  The interface contains descriptive metadata about a document. It
+/// inherits all of the properties and methods described in the
+/// [HTMLElement] interface.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -760,19 +688,13 @@ extension PropsHTMLLinkElement on HTMLLinkElement {
 ///
 ///
 ///
-///
-///
 ///    Element
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -829,11 +751,7 @@ extension PropsHTMLMetaElement on HTMLMetaElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -845,11 +763,7 @@ extension PropsHTMLMetaElement on HTMLMetaElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -894,11 +808,7 @@ extension PropsHTMLStyleElement on HTMLStyleElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -910,11 +820,7 @@ extension PropsHTMLStyleElement on HTMLStyleElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -979,11 +885,7 @@ extension PropsHTMLBodyElement on HTMLBodyElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -995,11 +897,7 @@ extension PropsHTMLBodyElement on HTMLBodyElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1033,11 +931,7 @@ extension PropsHTMLHeadingElement on HTMLHeadingElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1049,11 +943,7 @@ extension PropsHTMLHeadingElement on HTMLHeadingElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1087,11 +977,7 @@ extension PropsHTMLParagraphElement on HTMLParagraphElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1103,11 +989,7 @@ extension PropsHTMLParagraphElement on HTMLParagraphElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1162,11 +1044,7 @@ extension PropsHTMLHRElement on HTMLHRElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1178,11 +1056,7 @@ extension PropsHTMLHRElement on HTMLHRElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1217,11 +1091,7 @@ extension PropsHTMLPreElement on HTMLPreElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1233,11 +1103,7 @@ extension PropsHTMLPreElement on HTMLPreElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1271,11 +1137,7 @@ extension PropsHTMLQuoteElement on HTMLQuoteElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1287,11 +1149,7 @@ extension PropsHTMLQuoteElement on HTMLQuoteElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1330,14 +1188,11 @@ extension PropsHTMLOListElement on HTMLOListElement {
 
 ///  The interface provides special properties (beyond those defined
 /// on the regular [HTMLElement] interface it also has available to
-/// it by inheritance) for manipulating unordered list ([<ul>])
-/// elements.
+/// it by inheritance) for manipulating unordered list elements.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -1349,19 +1204,13 @@ extension PropsHTMLOListElement on HTMLOListElement {
 ///
 ///
 ///
-///
-///
 ///    Element
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1388,6 +1237,9 @@ extension PropsHTMLUListElement on HTMLUListElement {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface provides special properties (beyond those defined
 /// on the regular [HTMLElement] interface it also has available to
 /// it by inheritance) for manipulating [<menu>] elements.
@@ -1400,11 +1252,7 @@ extension PropsHTMLUListElement on HTMLUListElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1416,11 +1264,7 @@ extension PropsHTMLUListElement on HTMLUListElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1429,6 +1273,7 @@ extension PropsHTMLUListElement on HTMLUListElement {
 ///    HTMLMenuElement
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class HTMLMenuElement implements HTMLElement {
@@ -1454,11 +1299,7 @@ extension PropsHTMLMenuElement on HTMLMenuElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1470,11 +1311,7 @@ extension PropsHTMLMenuElement on HTMLMenuElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1513,11 +1350,7 @@ extension PropsHTMLLIElement on HTMLLIElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1529,11 +1362,7 @@ extension PropsHTMLLIElement on HTMLLIElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1567,11 +1396,7 @@ extension PropsHTMLDListElement on HTMLDListElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1583,11 +1408,7 @@ extension PropsHTMLDListElement on HTMLDListElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1624,11 +1445,7 @@ extension PropsHTMLDivElement on HTMLDivElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1640,11 +1457,7 @@ extension PropsHTMLDivElement on HTMLDivElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1749,11 +1562,7 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1765,11 +1574,7 @@ extension PropsHTMLAnchorElement on HTMLAnchorElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1803,11 +1608,7 @@ extension PropsHTMLDataElement on HTMLDataElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1819,11 +1620,7 @@ extension PropsHTMLDataElement on HTMLDataElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1857,11 +1654,7 @@ extension PropsHTMLTimeElement on HTMLTimeElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1873,11 +1666,7 @@ extension PropsHTMLTimeElement on HTMLTimeElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -1903,11 +1692,7 @@ class HTMLSpanElement implements HTMLElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1919,11 +1704,7 @@ class HTMLSpanElement implements HTMLElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -2019,11 +1800,7 @@ extension PropsHTMLHyperlinkElementUtils on HTMLHyperlinkElementUtils {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2035,11 +1812,7 @@ extension PropsHTMLHyperlinkElementUtils on HTMLHyperlinkElementUtils {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -2066,6 +1839,9 @@ extension PropsHTMLModElement on HTMLModElement {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface represents a [<picture>] HTML element. It doesn't
 /// implement specific properties or methods.
 ///
@@ -2077,11 +1853,7 @@ extension PropsHTMLModElement on HTMLModElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2093,11 +1865,7 @@ extension PropsHTMLModElement on HTMLModElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -2106,6 +1874,7 @@ extension PropsHTMLModElement on HTMLModElement {
 ///    HTMLPictureElement
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class HTMLPictureElement implements HTMLElement {
@@ -2124,11 +1893,7 @@ class HTMLPictureElement implements HTMLElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2140,11 +1905,7 @@ class HTMLPictureElement implements HTMLElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -2207,11 +1968,7 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2223,11 +1980,7 @@ extension PropsHTMLSourceElement on HTMLSourceElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -2366,11 +2119,7 @@ extension PropsHTMLImageElement on HTMLImageElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2382,11 +2131,7 @@ extension PropsHTMLImageElement on HTMLImageElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -2512,11 +2257,7 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2528,11 +2269,7 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -2594,11 +2331,7 @@ extension PropsHTMLEmbedElement on HTMLEmbedElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2610,11 +2343,7 @@ extension PropsHTMLEmbedElement on HTMLEmbedElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -2727,10 +2456,9 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
   }
 }
 
-///  Implemented by the [<video>] element, the interface provides
-/// special properties and methods for manipulating video objects. It
-/// also inherits properties and methods of [HTMLMediaElement] and
-/// [HTMLElement].
+///  The interface provides special properties and methods for
+/// manipulating video objects. It also inherits properties and
+/// methods of [HTMLMediaElement] and [HTMLElement].
 ///  The list of supported media formats varies from one browser to
 /// the other. You should either provide your video in a single
 /// format that all the relevant browsers supports, or provide
@@ -2745,11 +2473,7 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2761,19 +2485,13 @@ extension PropsHTMLObjectElement on HTMLObjectElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    HTMLMediaElement
-///
-///
 ///
 ///
 ///
@@ -2829,6 +2547,12 @@ extension PropsHTMLVideoElement on HTMLVideoElement {
     js_util.setProperty(this, 'onleavepictureinpicture', newValue);
   }
 
+  bool get autoPictureInPicture =>
+      js_util.getProperty(this, 'autoPictureInPicture');
+  set autoPictureInPicture(bool newValue) {
+    js_util.setProperty(this, 'autoPictureInPicture', newValue);
+  }
+
   bool get disablePictureInPicture =>
       js_util.getProperty(this, 'disablePictureInPicture');
   set disablePictureInPicture(bool newValue) {
@@ -2855,11 +2579,7 @@ extension PropsHTMLVideoElement on HTMLVideoElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2871,19 +2591,13 @@ extension PropsHTMLVideoElement on HTMLVideoElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    HTMLMediaElement
-///
-///
 ///
 ///
 ///
@@ -2911,11 +2625,7 @@ class HTMLAudioElement implements HTMLMediaElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2927,11 +2637,7 @@ class HTMLAudioElement implements HTMLMediaElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -3017,11 +2723,7 @@ enum CanPlayTypeResult {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -3033,11 +2735,7 @@ enum CanPlayTypeResult {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -3258,8 +2956,6 @@ extension PropsMediaError on MediaError {
 ///
 ///
 ///
-///
-///
 ///    AudioTrackList
 ///
 ///
@@ -3331,8 +3027,6 @@ extension PropsAudioTrack on AudioTrack {
 ///
 ///
 ///
-///
-///
 ///    VideoTrackList
 ///
 ///
@@ -3398,16 +3092,14 @@ extension PropsVideoTrack on VideoTrack {
 ///  For a given [HTMLMediaElement] object media, the individual
 /// tracks can be accessed using:
 ///
-///   [media.TextTracks[n]], to get the n-th text track from the
-/// object's list of text tracks
+///   [media.TextTracks[n]], to get the nth text track from the
+/// object’s list of text tracks
 ///  the [media.textTracks].[getTrackById()] method
 ///
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -3485,8 +3177,6 @@ enum TextTrackKind {
 ///
 ///
 ///
-///
-///
 ///    TextTrack
 ///
 ///
@@ -3555,8 +3245,6 @@ extension PropsTextTrackCueList on TextTrackCueList {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -3652,8 +3340,6 @@ extension PropsTimeRanges on TimeRanges {
 ///
 ///
 ///
-///
-///
 ///    TrackEvent
 ///
 ///
@@ -3694,11 +3380,7 @@ extension PropsTrackEventInit on TrackEventInit {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -3710,11 +3392,7 @@ extension PropsTrackEventInit on TrackEventInit {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -3751,11 +3429,7 @@ extension PropsHTMLMapElement on HTMLMapElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -3767,11 +3441,7 @@ extension PropsHTMLMapElement on HTMLMapElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -3847,11 +3517,7 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -3863,11 +3529,7 @@ extension PropsHTMLAreaElement on HTMLAreaElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -3969,15 +3631,13 @@ extension PropsHTMLTableElement on HTMLTableElement {
   }
 }
 
-///  The interface provides special properties (beyond the regular
+///  The interface special properties (beyond the regular
 /// [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating table [<caption>] elements.
+/// inheritance) for manipulating table caption elements.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -3989,19 +3649,13 @@ extension PropsHTMLTableElement on HTMLTableElement {
 ///
 ///
 ///
-///
-///
 ///    Element
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4034,11 +3688,7 @@ extension PropsHTMLTableCaptionElement on HTMLTableCaptionElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -4050,11 +3700,7 @@ extension PropsHTMLTableCaptionElement on HTMLTableCaptionElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4104,14 +3750,11 @@ extension PropsHTMLTableColElement on HTMLTableColElement {
 ///  The interface provides special properties and methods (beyond
 /// the [HTMLElement] interface it also has available to it by
 /// inheritance) for manipulating the layout and presentation of
-/// sections, that is headers, footers and bodies ([<thead>],
-/// [<tfoot>], and [<tbody>], respectively) in an HTML table.
+/// sections, that is headers, footers and bodies, in an HTML table.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -4123,19 +3766,13 @@ extension PropsHTMLTableColElement on HTMLTableColElement {
 ///
 ///
 ///
-///
-///
 ///    Element
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4191,11 +3828,7 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -4207,11 +3840,7 @@ extension PropsHTMLTableSectionElement on HTMLTableSectionElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4264,14 +3893,11 @@ extension PropsHTMLTableRowElement on HTMLTableRowElement {
 ///  The interface provides special properties and methods (beyond
 /// the regular [HTMLElement] interface it also has available to it
 /// by inheritance) for manipulating the layout and presentation of
-/// table cells, either header cells ([<th>])) or data cells
-/// ([<td>]), in an HTML document.
+/// table cells, either header or data cells, in an HTML document.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -4283,19 +3909,13 @@ extension PropsHTMLTableRowElement on HTMLTableRowElement {
 ///
 ///
 ///
-///
-///
 ///    Element
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4395,11 +4015,7 @@ extension PropsHTMLTableCellElement on HTMLTableCellElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -4411,11 +4027,7 @@ extension PropsHTMLTableCellElement on HTMLTableCellElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4509,11 +4121,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -4525,11 +4133,7 @@ extension PropsHTMLFormElement on HTMLFormElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4566,11 +4170,7 @@ extension PropsHTMLLabelElement on HTMLLabelElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -4582,11 +4182,7 @@ extension PropsHTMLLabelElement on HTMLLabelElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4678,7 +4274,7 @@ extension PropsHTMLInputElement on HTMLInputElement {
     js_util.setProperty(this, 'indeterminate', newValue);
   }
 
-  HTMLDataListElement? get list => js_util.getProperty(this, 'list');
+  HTMLElement? get list => js_util.getProperty(this, 'list');
   String get max => js_util.getProperty(this, 'max');
   set max(String newValue) {
     js_util.setProperty(this, 'max', newValue);
@@ -4724,10 +4320,8 @@ extension PropsHTMLInputElement on HTMLInputElement {
     js_util.setProperty(this, 'readOnly', newValue);
   }
 
-  @JS('required')
-  @staticInterop
-  bool get mRequired => js_util.getProperty(this, 'required');
-  set mRequired(bool newValue) {
+  bool get required => js_util.getProperty(this, 'required');
+  set required(bool newValue) {
     js_util.setProperty(this, 'required', newValue);
   }
 
@@ -4859,11 +4453,7 @@ extension PropsHTMLInputElement on HTMLInputElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -4875,11 +4465,7 @@ extension PropsHTMLInputElement on HTMLInputElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -4967,11 +4553,7 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -4983,11 +4565,7 @@ extension PropsHTMLButtonElement on HTMLButtonElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5024,10 +4602,8 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
     js_util.setProperty(this, 'name', newValue);
   }
 
-  @JS('required')
-  @staticInterop
-  bool get mRequired => js_util.getProperty(this, 'required');
-  set mRequired(bool newValue) {
+  bool get required => js_util.getProperty(this, 'required');
+  set required(bool newValue) {
     js_util.setProperty(this, 'required', newValue);
   }
 
@@ -5093,11 +4669,7 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5109,11 +4681,7 @@ extension PropsHTMLSelectElement on HTMLSelectElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5145,11 +4713,7 @@ extension PropsHTMLDataListElement on HTMLDataListElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5161,11 +4725,7 @@ extension PropsHTMLDataListElement on HTMLDataListElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5203,11 +4763,7 @@ extension PropsHTMLOptGroupElement on HTMLOptGroupElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5219,11 +4775,7 @@ extension PropsHTMLOptGroupElement on HTMLOptGroupElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5285,11 +4837,7 @@ extension PropsHTMLOptionElement on HTMLOptionElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5301,11 +4849,7 @@ extension PropsHTMLOptionElement on HTMLOptionElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5367,10 +4911,8 @@ extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
     js_util.setProperty(this, 'readOnly', newValue);
   }
 
-  @JS('required')
-  @staticInterop
-  bool get mRequired => js_util.getProperty(this, 'required');
-  set mRequired(bool newValue) {
+  bool get required => js_util.getProperty(this, 'required');
+  set required(bool newValue) {
     js_util.setProperty(this, 'required', newValue);
   }
 
@@ -5450,11 +4992,7 @@ extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5466,11 +5004,7 @@ extension PropsHTMLTextAreaElement on HTMLTextAreaElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5531,11 +5065,7 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5547,11 +5077,7 @@ extension PropsHTMLOutputElement on HTMLOutputElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5594,11 +5120,7 @@ extension PropsHTMLProgressElement on HTMLProgressElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5610,11 +5132,7 @@ extension PropsHTMLProgressElement on HTMLProgressElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5676,11 +5194,7 @@ extension PropsHTMLMeterElement on HTMLMeterElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5692,11 +5206,7 @@ extension PropsHTMLMeterElement on HTMLMeterElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5749,11 +5259,7 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5765,11 +5271,7 @@ extension PropsHTMLFieldSetElement on HTMLFieldSetElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5842,8 +5344,6 @@ extension PropsValidityState on ValidityState {
 ///
 ///
 ///
-///
-///
 ///    SubmitEvent
 ///
 ///
@@ -5889,11 +5389,10 @@ extension PropsSubmitEventInit on SubmitEventInit {
 ///
 ///
 ///
-///
-///
 ///    FormDataEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class FormDataEvent implements Event {
@@ -5930,11 +5429,7 @@ extension PropsFormDataEventInit on FormDataEventInit {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -5946,11 +5441,7 @@ extension PropsFormDataEventInit on FormDataEventInit {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -5972,6 +5463,9 @@ extension PropsHTMLDetailsElement on HTMLDetailsElement {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface provides methods to manipulate [<dialog>]
 /// elements. It inherits properties and methods from the
 /// [HTMLElement] interface.
@@ -5984,11 +5478,7 @@ extension PropsHTMLDetailsElement on HTMLDetailsElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -6000,11 +5490,7 @@ extension PropsHTMLDetailsElement on HTMLDetailsElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -6013,6 +5499,7 @@ extension PropsHTMLDetailsElement on HTMLDetailsElement {
 ///    HTMLDialogElement
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class HTMLDialogElement implements HTMLElement {
@@ -6030,9 +5517,7 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
     js_util.setProperty(this, 'returnValue', newValue);
   }
 
-  @JS('show')
-  @staticInterop
-  void mShow() => js_util.callMethod(this, 'show', []);
+  void show() => js_util.callMethod(this, 'show', []);
 
   void showModal() => js_util.callMethod(this, 'showModal', []);
 
@@ -6059,11 +5544,7 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -6075,11 +5556,7 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -6091,6 +5568,7 @@ extension PropsHTMLDialogElement on HTMLDialogElement {
 @JS()
 @staticInterop
 class HTMLScriptElement implements HTMLElement, HTMLAttributionSrcElementUtils {
+  external static bool supports(String type);
   external factory HTMLScriptElement();
 }
 
@@ -6110,10 +5588,8 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
     js_util.setProperty(this, 'noModule', newValue);
   }
 
-  @JS('async')
-  @staticInterop
-  bool get mAsync => js_util.getProperty(this, 'async');
-  set mAsync(bool newValue) {
+  bool get async => js_util.getProperty(this, 'async');
+  set async(bool newValue) {
     js_util.setProperty(this, 'async', newValue);
   }
 
@@ -6143,9 +5619,6 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
   }
 
   DOMTokenList get blocking => js_util.getProperty(this, 'blocking');
-  static bool supports(String type) =>
-      js_util.callMethod(HTMLScriptElement, 'supports', [type]);
-
   String get fetchPriority => js_util.getProperty(this, 'fetchPriority');
   set fetchPriority(String newValue) {
     js_util.setProperty(this, 'fetchPriority', newValue);
@@ -6178,11 +5651,7 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -6194,11 +5663,7 @@ extension PropsHTMLScriptElement on HTMLScriptElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -6228,11 +5693,7 @@ extension PropsHTMLTemplateElement on HTMLTemplateElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -6244,11 +5705,7 @@ extension PropsHTMLTemplateElement on HTMLTemplateElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -6306,11 +5763,7 @@ extension PropsAssignedNodesOptions on AssignedNodesOptions {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -6322,11 +5775,7 @@ extension PropsAssignedNodesOptions on AssignedNodesOptions {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -6454,21 +5903,12 @@ enum ImageSmoothingQuality {
   const ImageSmoothingQuality(this.value);
 }
 
-///
-///   The interface, part of the Canvas API, provides the 2D
-/// rendering context for the drawing surface of a [<canvas>]
-/// element.
-///  It is used for drawing shapes, text, images, and other objects.
-///   The interface's properties and methods are described in the
-/// reference section of this page.
-///   The Canvas tutorial has more explanation, examples, and
+///  The interface, part of the Canvas API, provides the 2D rendering
+/// context for the drawing surface of a [<canvas>] element. It is
+/// used for drawing shapes, text, images, and other objects.
+///  See the interface's properties and methods in the sidebar and
+/// below. The Canvas tutorial has more explanation, examples, and
 /// resources, as well.
-///   For [OffscreenCanvas], there is an equivalent interface that
-/// provides the rendering context.
-///   The offscreen rendering context inherits most of the same
-/// properties and methods as the and is described in more detail in
-/// the [OffscreenCanvasRenderingContext2D] reference page.
-///
 @JS()
 @staticInterop
 class CanvasRenderingContext2D
@@ -7187,10 +6627,10 @@ extension PropsTextMetrics on TextMetrics {
 @JS()
 @staticInterop
 class ImageDataSettings {
-  external factory ImageDataSettings._({required String colorSpace});
+  external factory ImageDataSettings._({String? colorSpace});
 
-  factory ImageDataSettings({required PredefinedColorSpace colorSpace}) =>
-      ImageDataSettings._(colorSpace: colorSpace.value);
+  factory ImageDataSettings({PredefinedColorSpace? colorSpace}) =>
+      ImageDataSettings._(colorSpace: colorSpace?.value);
 }
 
 extension PropsImageDataSettings on ImageDataSettings {
@@ -7240,6 +6680,9 @@ extension PropsPath2D on Path2D {
       js_util.callMethod(this, 'addPath', [path, transform]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface is a canvas rendering context that provides the
 /// functionality to replace the canvas's contents with the given
 /// [ImageBitmap]. Its context id (the first argument to
@@ -7247,6 +6690,7 @@ extension PropsPath2D on Path2D {
 /// [OffscreenCanvas.getContext()]) is ["bitmaprenderer"].
 ///  This interface is available in both the window and the worker
 /// context.
+@experimental
 @JS()
 @staticInterop
 class ImageBitmapRenderingContext {
@@ -7310,20 +6754,11 @@ enum OffscreenRenderingContextId {
   const OffscreenRenderingContextId(this.value);
 }
 
-///
-///   When using the [<canvas>] element or the Canvas API, rendering,
-/// animation, and user interaction usually happen on the main
-/// execution thread of a web application.
-///   The computation relating to canvas animations and rendering can
-/// have a significant impact on application performance.
-///   The interface provides a canvas that can be rendered off
-/// screen, decoupling the DOM and the Canvas API so that the
-/// [<canvas>] element is no longer entirely dependent on the DOM.
-///   Rendering operations can also be run inside a worker context,
-/// allowing you to run some tasks in a separate thread and avoid
-/// heavy work on the main thread.
-///
-///  is a transferable object.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface provides a canvas that can be rendered off screen.
+/// It is available in both the window and worker contexts.
 ///  Note: This feature is available in Web Workers
 ///
 ///
@@ -7334,11 +6769,10 @@ enum OffscreenRenderingContextId {
 ///
 ///
 ///
-///
-///
 ///    OffscreenCanvas
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class OffscreenCanvas implements EventTarget {
@@ -7379,19 +6813,6 @@ extension PropsOffscreenCanvas on OffscreenCanvas {
   }
 }
 
-///
-///   The interface is a [CanvasRenderingContext2D] rendering context
-/// for drawing to the bitmap of an [OffscreenCanvas] object.
-///   It is similar to the [CanvasRenderingContext2D] object, with
-/// the following differences:
-///   there is no support for user-interface features
-/// ([drawFocusIfNeeded], and [scrollPathIntoView])
-///   its [canvas] attribute refers to an [OffscreenCanvas] object
-/// rather than a [<canvas>] element
-///   it has a [commit()] method for pushing rendered images to the
-/// context's [OffscreenCanvas] object's placeholder [<canvas>]
-/// element
-///
 @JS()
 @staticInterop
 class OffscreenCanvasRenderingContext2D
@@ -7424,6 +6845,7 @@ extension PropsOffscreenCanvasRenderingContext2D
 ///  The interface provides methods for registering custom elements
 /// and querying registered elements. To get an instance of it, use
 /// the [window.customElements] property.
+@experimental
 @JS()
 @staticInterop
 class CustomElementRegistry {
@@ -7436,9 +6858,7 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
       js_util.callMethod(
           this, 'define', [name, allowInterop(constructor), options]);
 
-  @JS('get')
-  @staticInterop
-  dynamic mGet(String name) => js_util.callMethod(this, 'get', [name]);
+  dynamic get(String name) => js_util.callMethod(this, 'get', [name]);
 
   Future<CustomElementConstructor> whenDefined(String name) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'whenDefined', [name]));
@@ -7450,7 +6870,7 @@ extension PropsCustomElementRegistry on CustomElementRegistry {
 @JS()
 @staticInterop
 class ElementDefinitionOptions {
-  external factory ElementDefinitionOptions({required String mExtends});
+  external factory ElementDefinitionOptions({String? mExtends});
 }
 
 extension PropsElementDefinitionOptions on ElementDefinitionOptions {
@@ -7462,7 +6882,7 @@ extension PropsElementDefinitionOptions on ElementDefinitionOptions {
   }
 }
 
-///  The interface of the Document Object Model gives web developers
+///  The interface of the Document_Object_Model gives web developers
 /// a way to allow custom elements to fully participate in HTML
 /// forms. It provides utilities for working with these elements in
 /// the same way you would work with any standard HTML form element,
@@ -7562,39 +6982,6 @@ extension PropsValidityStateFlags on ValidityStateFlags {
   set customError(bool newValue) {
     js_util.setProperty(this, 'customError', newValue);
   }
-}
-
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface allows querying information about a window's user
-/// activation state.
-///  A user activation either implies that the user is currently
-/// interacting with the page, or has completed an interaction since
-/// page load. Typically, this is a click on a button or some other
-/// user interaction with the UI.
-/// There are two kinds of window user activation states:
-///
-///   Transient activation (user is currently interacting with the
-/// page) and
-///   Sticky activation (user has interacted at least once since page
-/// load).
-///
-///  See Features gated by user activation for more information and a
-/// list of APIs that require either sticky or transient user
-/// activation.
-///  This API is only available in the window context and not exposed
-/// to workers.
-@experimental
-@JS()
-@staticInterop
-class UserActivation {
-  external factory UserActivation();
-}
-
-extension PropsUserActivation on UserActivation {
-  bool get hasBeenActive => js_util.getProperty(this, 'hasBeenActive');
-  bool get isActive => js_util.getProperty(this, 'isActive');
 }
 
 @anonymous
@@ -7752,19 +7139,13 @@ extension PropsDataTransferItem on DataTransferItem {
 ///
 ///
 ///
-///
-///
 ///    UIEvent
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    MouseEvent
-///
-///
 ///
 ///
 ///
@@ -7821,8 +7202,6 @@ extension PropsDragEventInit on DragEventInit {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -8015,7 +7394,6 @@ extension PropsWindow on Window {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'showDirectoryPicker', [options]));
 
-  LaunchQueue get launchQueue => js_util.getProperty(this, 'launchQueue');
   int get orientation => js_util.getProperty(this, 'orientation');
   EventHandlerNonNull? get onorientationchange =>
       js_util.getProperty(this, 'onorientationchange');
@@ -8035,6 +7413,7 @@ extension PropsWindow on Window {
     js_util.setProperty(this, 'onbeforeinstallprompt', newValue);
   }
 
+  LaunchQueue get launchQueue => js_util.getProperty(this, 'launchQueue');
   void navigate(SpatialNavigationDirection dir) =>
       js_util.callMethod(this, 'navigate', [dir.value]);
 
@@ -8042,9 +7421,7 @@ extension PropsWindow on Window {
 
   void releaseEvents() => js_util.callMethod(this, 'releaseEvents', []);
 
-  @JS('external')
-  @staticInterop
-  External get mExternal => js_util.getProperty(this, 'external');
+  External get external => js_util.getProperty(this, 'external');
   CSSStyleDeclaration getComputedStyle(Element elt, [String? pseudoElt]) =>
       js_util.callMethod(this, 'getComputedStyle', [elt, pseudoElt]);
 
@@ -8105,6 +7482,49 @@ class BarProp {
 
 extension PropsBarProp on BarProp {
   bool get visible => js_util.getProperty(this, 'visible');
+}
+
+enum ScrollRestoration {
+  auto('auto'),
+  manual('manual');
+
+  final String value;
+  static ScrollRestoration fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<ScrollRestoration> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const ScrollRestoration(this.value);
+}
+
+///  The interface allows manipulation of the browser session
+/// history, that is the pages visited in the tab or frame that the
+/// current page is loaded in.
+@JS()
+@staticInterop
+class History {
+  external factory History();
+}
+
+extension PropsHistory on History {
+  int get length => js_util.getProperty(this, 'length');
+  ScrollRestoration get scrollRestoration => ScrollRestoration.fromValue(
+      js_util.getProperty(this, 'scrollRestoration'));
+  set scrollRestoration(ScrollRestoration newValue) {
+    js_util.setProperty(this, 'scrollRestoration', newValue.value);
+  }
+
+  dynamic get state => js_util.getProperty(this, 'state');
+  void go([int? delta = 0]) => js_util.callMethod(this, 'go', [delta]);
+
+  void back() => js_util.callMethod(this, 'back', []);
+
+  void forward() => js_util.callMethod(this, 'forward', []);
+
+  void pushState(dynamic data, String unused, [String? url]) =>
+      js_util.callMethod(this, 'pushState', [data, unused, url]);
+
+  void replaceState(dynamic data, String unused, [String? url]) =>
+      js_util.callMethod(this, 'replaceState', [data, unused, url]);
 }
 
 ///  The interface represents the location (URL) of the object it is
@@ -8172,51 +7592,9 @@ extension PropsLocation on Location {
       js_util.getProperty(this, 'ancestorOrigins');
 }
 
-enum ScrollRestoration {
-  auto('auto'),
-  manual('manual');
-
-  final String value;
-  static ScrollRestoration fromValue(String value) =>
-      values.firstWhere((e) => e.value == value);
-  static Iterable<ScrollRestoration> fromValues(Iterable<String> values) =>
-      values.map(fromValue);
-  const ScrollRestoration(this.value);
-}
-
-///  The interface allows manipulation of the browser session
-/// history, that is the pages visited in the tab or frame that the
-/// current page is loaded in.
-@JS()
-@staticInterop
-class History {
-  external factory History();
-}
-
-extension PropsHistory on History {
-  int get length => js_util.getProperty(this, 'length');
-  ScrollRestoration get scrollRestoration => ScrollRestoration.fromValue(
-      js_util.getProperty(this, 'scrollRestoration'));
-  set scrollRestoration(ScrollRestoration newValue) {
-    js_util.setProperty(this, 'scrollRestoration', newValue.value);
-  }
-
-  dynamic get state => js_util.getProperty(this, 'state');
-  void go([int? delta = 0]) => js_util.callMethod(this, 'go', [delta]);
-
-  void back() => js_util.callMethod(this, 'back', []);
-
-  void forward() => js_util.callMethod(this, 'forward', []);
-
-  void pushState(dynamic data, String unused, [String? url]) =>
-      js_util.callMethod(this, 'pushState', [data, unused, url]);
-
-  void replaceState(dynamic data, String unused, [String? url]) =>
-      js_util.callMethod(this, 'replaceState', [data, unused, url]);
-}
-
-///  is an interface for the [popstate] event.
 ///
+///   is an event handler for the
+///  [popstate] event on the window.
 ///   A [popstate] event is dispatched to the window every time the
 /// active history
 ///   entry changes between two history entries for the same
@@ -8227,12 +7605,29 @@ extension PropsHistory on History {
 ///   event's [state] property contains a copy of the history entry's
 /// state object.
 ///
+///   Note: Just calling [history.pushState()] or
+///   [history.replaceState()] won't trigger a [popstate] event. The
+///    [popstate] event is only triggered by doing a browser action
+/// such as a
+///    clicking on the back button (or calling [history.back()] in
+/// JavaScript).
+///    And the event is only triggered when the user navigates
+/// between two history entries
+///   for the same document.
+///
+///
+///   Note: Browsers used to handle the [popstate] event
+///    differently on page load, but now they behave the same.
+/// Firefox never emitted a
+///    popstate event on page load. Chrome did until version 34,
+/// while Safari did until
+///   version 10.0.
+///
+///
 ///
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -8274,8 +7669,6 @@ extension PropsPopStateEventInit on PopStateEventInit {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -8328,8 +7721,6 @@ extension PropsHashChangeEventInit on HashChangeEventInit {
 ///
 ///
 ///
-///
-///
 ///    PageTransitionEvent
 ///
 ///
@@ -8358,7 +7749,6 @@ extension PropsPageTransitionEventInit on PageTransitionEventInit {
   }
 }
 
-///  is an interface for the [beforeunload] event.
 ///  The [beforeunload] event is fired when the window, the document
 /// and its resources are about to be unloaded.
 ///  When a non-empty string is assigned to the [returnValue] Event
@@ -8369,15 +7759,9 @@ extension PropsPageTransitionEventInit on PageTransitionEventInit {
 /// gesture or user interaction. See Browser compatibility for more
 /// information.
 ///
-///   Note: For security reasons, only a generic string not under the
-/// control of the webpage is shown instead of the returned string.
-///
-///
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -8425,8 +7809,6 @@ extension PropsBeforeUnloadEvent on BeforeUnloadEvent {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -8492,13 +7874,12 @@ extension PropsErrorEventInit on ErrorEventInit {
 /// script context when JavaScript [Future]s are rejected. These
 /// events are particularly useful for telemetry and debugging
 /// purposes.
-/// For details, see Promise rejection events.
+///  For details on promise rejection events, see Promise rejection
+/// events in Using Promises.
 ///
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -8541,6 +7922,14 @@ extension PropsPromiseRejectionEventInit on PromiseRejectionEventInit {
   }
 }
 
+///  The mixin describes the event handlers common to several
+/// interfaces like [HTMLElement], [Document], or [Window]. Each of
+/// these interfaces can, of course, add more event handlers in
+/// addition to the ones listed below.
+///
+///   Note: is a mixin and not an interface; you can't actually
+/// create an object of type .
+///
 @JS()
 @staticInterop
 class GlobalEventHandlers {
@@ -8625,20 +8014,10 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
     js_util.setProperty(this, 'oncontextrestored', newValue);
   }
 
-  EventHandlerNonNull? get oncopy => js_util.getProperty(this, 'oncopy');
-  set oncopy(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'oncopy', newValue);
-  }
-
   EventHandlerNonNull? get oncuechange =>
       js_util.getProperty(this, 'oncuechange');
   set oncuechange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'oncuechange', newValue);
-  }
-
-  EventHandlerNonNull? get oncut => js_util.getProperty(this, 'oncut');
-  set oncut(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'oncut', newValue);
   }
 
   EventHandlerNonNull? get ondblclick =>
@@ -8809,11 +8188,6 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
     js_util.setProperty(this, 'onmouseup', newValue);
   }
 
-  EventHandlerNonNull? get onpaste => js_util.getProperty(this, 'onpaste');
-  set onpaste(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpaste', newValue);
-  }
-
   EventHandlerNonNull? get onpause => js_util.getProperty(this, 'onpause');
   set onpause(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onpause', newValue);
@@ -8854,12 +8228,6 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
   EventHandlerNonNull? get onscroll => js_util.getProperty(this, 'onscroll');
   set onscroll(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onscroll', newValue);
-  }
-
-  EventHandlerNonNull? get onscrollend =>
-      js_util.getProperty(this, 'onscrollend');
-  set onscrollend(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onscrollend', newValue);
   }
 
   EventHandlerNonNull? get onsecuritypolicyviolation =>
@@ -9112,6 +8480,14 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
   }
 }
 
+///  The mixin describes the event handlers common to several
+/// interfaces like [Window], or [HTMLBodyElement] and
+/// [HTMLFrameSetElement]. Each of these interfaces can implement
+/// additional specific event handlers.
+///
+///   Note: is a mixin and not an interface; you can't actually
+/// create an object of type .
+///
 @JS()
 @staticInterop
 class WindowEventHandlers {
@@ -9226,6 +8602,30 @@ extension PropsWindowEventHandlers on WindowEventHandlers {
       js_util.getProperty(this, 'ongamepaddisconnected');
   set ongamepaddisconnected(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'ongamepaddisconnected', newValue);
+  }
+}
+
+@JS()
+@staticInterop
+class DocumentAndElementEventHandlers {
+  external factory DocumentAndElementEventHandlers();
+}
+
+extension PropsDocumentAndElementEventHandlers
+    on DocumentAndElementEventHandlers {
+  EventHandlerNonNull? get oncopy => js_util.getProperty(this, 'oncopy');
+  set oncopy(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncopy', newValue);
+  }
+
+  EventHandlerNonNull? get oncut => js_util.getProperty(this, 'oncut');
+  set oncut(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncut', newValue);
+  }
+
+  EventHandlerNonNull? get onpaste => js_util.getProperty(this, 'onpaste');
+  set onpaste(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpaste', newValue);
   }
 }
 
@@ -9438,8 +8838,6 @@ extension PropsNavigator on Navigator {
       js_util.callMethod(this, 'sendBeacon', [url, data]);
 
   Usb get usb => js_util.getProperty(this, 'usb');
-  UserActivation get userActivation =>
-      js_util.getProperty(this, 'userActivation');
   Future<BatteryManager> getBattery() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getBattery', []));
 
@@ -9551,7 +8949,7 @@ extension PropsNavigatorPlugins on NavigatorPlugins {
 ///   Note: Own properties of objects are no longer enumerable in the
 /// latest browser versions.
 ///
-@Deprecated('Not official in the specs')
+@experimental
 @JS()
 @staticInterop
 class PluginArray {
@@ -9579,15 +8977,6 @@ extension PropsPluginArray on PluginArray {
 ///  The interface returns an array of [MimeType] instances, each of
 /// which contains information about a supported browser plugins.
 /// This object is returned by [Navigator.mimeTypes].
-///
-///   Note: This interface was an attempt to create an unmodifiable
-/// list and only continues to be supported to not break code that's
-/// already using it. Modern APIs use types that wrap around
-/// ECMAScript array types instead, so you can treat them like
-/// ECMAScript arrays, and at the same time impose additional
-/// semantics on their usage (such as making their items read-only).
-///
-@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class MimeTypeArray {
@@ -9615,7 +9004,6 @@ extension PropsMimeTypeArray on MimeTypeArray {
 ///   Note: Own properties of objects are no longer enumerable in the
 /// latest browser versions.
 ///
-@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class Plugin {
@@ -9644,7 +9032,6 @@ extension PropsPlugin on Plugin {
 ///  The interface provides contains information about a MIME type
 /// associated with a particular plugin. [Navigator.mimeTypes]
 /// returns an array of this object.
-@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class MimeType {
@@ -9663,7 +9050,6 @@ extension PropsMimeType on MimeType {
 /// variety of source objects using the [createImageBitmap()] factory
 /// method. provides an asynchronous and resource efficient pathway
 /// to prepare textures for rendering in WebGL.
-///  is a transferable object.
 @JS()
 @staticInterop
 class ImageBitmap {
@@ -9677,7 +9063,7 @@ extension PropsImageBitmap on ImageBitmap {
 }
 
 enum ImageOrientation {
-  fromImage('from-image'),
+  none('none'),
   flipY('flipY');
 
   final String value;
@@ -9740,7 +9126,7 @@ class ImageBitmapOptions {
       String? resizeQuality});
 
   factory ImageBitmapOptions(
-          {ImageOrientation? imageOrientation = ImageOrientation.fromImage,
+          {ImageOrientation? imageOrientation = ImageOrientation.none,
           PremultiplyAlpha? premultiplyAlpha = PremultiplyAlpha.valueDefault,
           ColorSpaceConversion? colorSpaceConversion =
               ColorSpaceConversion.valueDefault,
@@ -9810,19 +9196,19 @@ extension PropsAnimationFrameProvider on AnimationFrameProvider {
 /// The interface represents a message received by a target object.
 /// This is used to represent messages in:
 ///
-///  Server-sent events (see [EventSource.message_event]).
+///  Server-sent events (see [EventSource.onmessage]).
 ///   Web sockets (see the [onmessage] property of the WebSocket
 /// interface).
 ///   Cross-document messaging (see [Window.postMessage()] and
-/// [Window.message_event]).
+/// [Window.onmessage]).
 ///   Channel messaging (see [MessagePort.postMessage()] and
-/// [MessagePort.message_event]).
+/// [MessagePort.onmessage]).
 ///   Cross-worker/document messaging (see the above two entries, but
-/// also [Worker.postMessage()], [Worker.message_event],
-/// [ServiceWorkerGlobalScope.message_event], etc.)
+/// also [Worker.postMessage()], [Worker.onmessage],
+/// [ServiceWorkerGlobalScope.onmessage], etc.)
 ///   Broadcast channels (see [Broadcastchannel.postMessage()]) and
-/// [BroadcastChannel.message_event]).
-///  WebRTC data channels (see [onmessage]).
+/// [BroadcastChannel.onmessage]).
+///  WebRTC data channels (see [RTCDataChannel.onmessage]).
 ///
 ///  The action triggered by this event is defined in a function set
 /// as the event handler for the relevant [message] event (e.g. using
@@ -9832,8 +9218,6 @@ extension PropsAnimationFrameProvider on AnimationFrameProvider {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -9921,8 +9305,6 @@ extension PropsMessageEventInit on MessageEventInit {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -10027,14 +9409,11 @@ extension PropsMessageChannel on MessageChannel {
 ///  The interface of the Channel Messaging API represents one of the
 /// two ports of a [MessageChannel], allowing messages to be sent
 /// from one port and listening out for them arriving at the other.
-///  is a transferable object.
 ///  Note: This feature is available in Web Workers
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -10089,7 +9468,7 @@ extension PropsStructuredSerializeOptions on StructuredSerializeOptions {
 /// communication between different documents (in different windows,
 /// tabs, frames or iframes) of the same origin. Messages are
 /// broadcasted via a [message] event fired at all objects listening
-/// to the channel, except the object that sent the message.
+/// to the channel.
 ///  Note: This feature is available in Web Workers
 ///
 ///
@@ -10100,11 +9479,10 @@ extension PropsStructuredSerializeOptions on StructuredSerializeOptions {
 ///
 ///
 ///
-///
-///
 ///    BroadcastChannel
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class BroadcastChannel implements EventTarget {
@@ -10145,8 +9523,6 @@ extension PropsBroadcastChannel on BroadcastChannel {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -10218,11 +9594,7 @@ extension PropsWorkerGlobalScope on WorkerGlobalScope {
 ///
 ///
 ///
-///
-///
 ///    WorkerGlobalScope
-///
-///
 ///
 ///
 ///
@@ -10278,11 +9650,7 @@ extension PropsDedicatedWorkerGlobalScope on DedicatedWorkerGlobalScope {
 ///
 ///
 ///
-///
-///
 ///    WorkerGlobalScope
-///
-///
 ///
 ///
 ///
@@ -10336,8 +9704,6 @@ extension PropsAbstractWorker on AbstractWorker {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -10435,8 +9801,6 @@ enum WorkerType {
 ///
 ///
 ///
-///
-///
 ///    SharedWorker
 ///
 ///
@@ -10527,6 +9891,9 @@ class WorkletGlobalScope {
   external factory WorkletGlobalScope();
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface is a lightweight version of [Web Workers] and
 /// gives developers access to low-level parts of the rendering
 /// pipeline.
@@ -10621,8 +9988,6 @@ extension PropsWindowLocalStorage on WindowLocalStorage {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -10723,11 +10088,7 @@ extension PropsStorageEventInit on StorageEventInit {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -10739,11 +10100,7 @@ extension PropsStorageEventInit on StorageEventInit {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -10840,11 +10197,7 @@ extension PropsHTMLMarqueeElement on HTMLMarqueeElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -10856,11 +10209,7 @@ extension PropsHTMLMarqueeElement on HTMLMarqueeElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -10971,11 +10320,7 @@ extension PropsHTMLDirectoryElement on HTMLDirectoryElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -10987,11 +10332,7 @@ extension PropsHTMLDirectoryElement on HTMLDirectoryElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -11024,14 +10365,6 @@ extension PropsHTMLFontElement on HTMLFontElement {
   }
 }
 
-///  Deprecated: This feature is no longer recommended. Though some
-/// browsers might still support it, it may have already been removed
-/// from the relevant web standards, may be in the process of being
-/// dropped, or may only be kept for compatibility purposes. Avoid
-/// using it, and update existing code if possible; see the
-/// compatibility table at the bottom of this page to guide your
-/// decision. Be aware that this feature may cease to work at any
-/// time.
 ///  The interface provides special properties (beyond those of the
 /// regular [HTMLElement] object interface it inherits) for
 /// manipulating [<param>] elements, representing a pair of a key and
@@ -11045,11 +10378,7 @@ extension PropsHTMLFontElement on HTMLFontElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -11061,11 +10390,7 @@ extension PropsHTMLFontElement on HTMLFontElement {
 ///
 ///
 ///
-///
-///
 ///    HTMLElement
-///
-///
 ///
 ///
 ///
@@ -11074,7 +10399,6 @@ extension PropsHTMLFontElement on HTMLFontElement {
 ///    HTMLParamElement
 ///
 ///
-@Deprecated('Not official in the specs')
 @JS()
 @staticInterop
 class HTMLParamElement implements HTMLElement {

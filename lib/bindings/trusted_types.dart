@@ -1,6 +1,6 @@
 /// Trusted Types
 ///
-/// https://w3c.github.io/trusted-types/dist/spec/
+/// https://w3c.github.io/webappsec-trusted-types/dist/spec/
 
 // ignore_for_file: unused_import
 
@@ -24,6 +24,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class TrustedHTML {
+  external static TrustedHTML fromLiteral(dynamic templateStringsArray);
   external factory TrustedHTML();
 }
 
@@ -31,9 +32,6 @@ extension PropsTrustedHTML on TrustedHTML {
   String mToString() => js_util.callMethod(this, 'toString', []);
 
   String toJSON() => js_util.callMethod(this, 'toJSON', []);
-
-  static TrustedHTML fromLiteral(dynamic templateStringsArray) =>
-      js_util.callMethod(TrustedHTML, 'fromLiteral', [templateStringsArray]);
 }
 
 ///  The interface of the [Trusted Types API] represents a string
@@ -47,6 +45,7 @@ extension PropsTrustedHTML on TrustedHTML {
 @JS()
 @staticInterop
 class TrustedScript {
+  external static TrustedScript fromLiteral(dynamic templateStringsArray);
   external factory TrustedScript();
 }
 
@@ -54,9 +53,6 @@ extension PropsTrustedScript on TrustedScript {
   String mToString() => js_util.callMethod(this, 'toString', []);
 
   String toJSON() => js_util.callMethod(this, 'toJSON', []);
-
-  static TrustedScript fromLiteral(dynamic templateStringsArray) =>
-      js_util.callMethod(TrustedScript, 'fromLiteral', [templateStringsArray]);
 }
 
 ///  The interface of the [Trusted Types API] represents a string
@@ -70,6 +66,7 @@ extension PropsTrustedScript on TrustedScript {
 @JS()
 @staticInterop
 class TrustedScriptURL {
+  external static TrustedScriptURL fromLiteral(dynamic templateStringsArray);
   external factory TrustedScriptURL();
 }
 
@@ -77,9 +74,6 @@ extension PropsTrustedScriptURL on TrustedScriptURL {
   String mToString() => js_util.callMethod(this, 'toString', []);
 
   String toJSON() => js_util.callMethod(this, 'toJSON', []);
-
-  static TrustedScriptURL fromLiteral(dynamic templateStringsArray) => js_util
-      .callMethod(TrustedScriptURL, 'fromLiteral', [templateStringsArray]);
 }
 
 ///  The interface of the [Trusted Types API] creates policies and

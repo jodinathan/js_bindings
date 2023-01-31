@@ -62,8 +62,6 @@ extension PropsPresentation on Presentation {
 ///
 ///
 ///
-///
-///
 ///    PresentationRequest
 ///
 ///
@@ -115,8 +113,6 @@ extension PropsPresentationRequest on PresentationRequest {
 ///
 ///
 ///
-///
-///
 ///    PresentationAvailability
 ///
 ///
@@ -156,8 +152,6 @@ extension PropsPresentationAvailability on PresentationAvailability {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -224,8 +218,6 @@ enum PresentationConnectionState {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -309,8 +301,6 @@ enum PresentationConnectionCloseReason {
 ///
 ///
 ///
-///
-///
 ///    PresentationConnectionCloseEvent
 ///
 ///
@@ -389,8 +379,6 @@ extension PropsPresentationReceiver on PresentationReceiver {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///

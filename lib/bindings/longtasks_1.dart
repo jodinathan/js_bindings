@@ -17,9 +17,20 @@ import 'package:js_bindings/js_bindings.dart';
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
 /// production.
-///  The interface provides information about tasks that occupy the
-/// UI thread for 50 milliseconds or more.
-@experimental
+///  The interface of the Long Tasks API reports instances of long
+/// tasks.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    PerformanceLongTaskTiming
+///
+///
 @JS()
 @staticInterop
 class PerformanceLongTaskTiming implements PerformanceEntry {
@@ -35,18 +46,15 @@ extension PropsPerformanceLongTaskTiming on PerformanceLongTaskTiming {
 ///  Experimental: This is an experimental technologyCheck the
 /// Browser compatibility table carefully before using this in
 /// production.
-///  The interface returns information about the work involved in a
-/// long task and its associate frame context. The frame context,
-/// also called the container, is the iframe, embed or object that is
-/// being implicated, on the whole, for a long task.
-/// You usually work with objects when observing long tasks.
-///  inherits from [PerformanceEntry].
+///  The interface of the Long Tasks API returns information about
+/// the work involved in a long task and its associate frame context.
+/// The frame context, also called the container, is the iframe,
+/// embed or object that is being implicated, on the whole, for a
+/// long task.
 ///
 ///
 ///
 ///    PerformanceEntry
-///
-///
 ///
 ///
 ///

@@ -19,12 +19,12 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class USBDeviceFilter {
   external factory USBDeviceFilter(
-      {required int vendorId,
-      required int productId,
-      required int classCode,
-      required int subclassCode,
-      required int protocolCode,
-      required String serialNumber});
+      {int? vendorId,
+      int? productId,
+      int? classCode,
+      int? subclassCode,
+      int? protocolCode,
+      String? serialNumber});
 }
 
 extension PropsUSBDeviceFilter on USBDeviceFilter {
@@ -91,12 +91,9 @@ extension PropsUSBDeviceRequestOptions on USBDeviceRequestOptions {
 ///
 ///
 ///
-///
-///
 ///    USB
 ///
 ///
-@experimental
 @JS('USB')
 @staticInterop
 class Usb implements EventTarget {
@@ -137,10 +134,7 @@ extension PropsUSBConnectionEventInit on USBConnectionEventInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API is the event type passed to
 /// [USB.onconnect] and [USB.ondisconnect] when the user agent
 /// detects that a new USB device has been connected or disconnected.
@@ -153,12 +147,9 @@ extension PropsUSBConnectionEventInit on USBConnectionEventInit {
 ///
 ///
 ///
-///
-///
 ///    USBConnectionEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class USBConnectionEvent implements Event {
@@ -184,10 +175,7 @@ enum USBTransferStatus {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API provides the result from a call
 /// to the [transferIn()] and [controlTransferIn()] methods of the
 /// [USBDevice] interface. It represents the result from requesting a
@@ -209,10 +197,7 @@ extension PropsUSBInTransferResult on USBInTransferResult {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API provides the result from a call
 /// to the [transferOut()] and [controlTransferOut()] methods of the
 /// [USBDevice] interface. It represents the result from requesting a
@@ -236,10 +221,7 @@ extension PropsUSBOutTransferResult on USBOutTransferResult {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API is part of the response from a
 /// call to the [isochronousTransferIn()] method of the [USBDevice]
 /// interface. It represents the status of an individual packet from
@@ -265,10 +247,7 @@ extension PropsUSBIsochronousInTransferPacket
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API provides the result from a call
 /// to the [isochronousTransferIn()] method of the [USBDevice]
 /// interface. It represents the result from requesting a transfer of
@@ -290,10 +269,7 @@ extension PropsUSBIsochronousInTransferResult
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API is part of the response from a
 /// call to the [isochronousTransferOut()] method of the [USBDevice]
 /// interface. It represents the status of an individual packet from
@@ -319,10 +295,7 @@ extension PropsUSBIsochronousOutTransferPacket
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API provides the result from a call
 /// to the [isochronousTransferOut()] method of the [USBDevice]
 /// interface. It represents the result from requesting a transfer of
@@ -346,7 +319,6 @@ extension PropsUSBIsochronousOutTransferResult
 /// production.
 ///  The interface of the WebUSB API provides access to metadata
 /// about a paired USB device and methods for controlling it.
-@experimental
 @JS()
 @staticInterop
 class USBDevice {
@@ -450,7 +422,7 @@ enum USBRequestType {
 
 enum USBRecipient {
   device('device'),
-  valueInterface('interface'),
+  interface('interface'),
   endpoint('endpoint'),
   other('other');
 
@@ -517,14 +489,10 @@ extension PropsUSBControlTransferParameters on USBControlTransferParameters {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API provides information about a
 /// particular configuration of a USB device and the interfaces that
 /// it supports.
-@experimental
 @JS()
 @staticInterop
 class USBConfiguration {
@@ -540,10 +508,7 @@ extension PropsUSBConfiguration on USBConfiguration {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API provides information about an
 /// interface provided by the USB device. An interface represents a
 /// feature of the device which implements a particular protocol and
@@ -565,10 +530,7 @@ extension PropsUSBInterface on USBInterface {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API provides information about a
 /// particular configuration of an interface provided by the USB
 /// device. An interface includes one or more alternate settings
@@ -617,14 +579,10 @@ enum USBEndpointType {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebUSB API provides information about an
 /// endpoint provided by the USB device. An endpoint represents a
 /// unidirectional data stream into or out of a device.
-@experimental
 @JS()
 @staticInterop
 class USBEndpoint {
@@ -650,7 +608,7 @@ extension PropsUSBEndpoint on USBEndpoint {
 @staticInterop
 class USBPermissionDescriptor implements PermissionDescriptor {
   external factory USBPermissionDescriptor(
-      {required Iterable<USBDeviceFilter> filters});
+      {Iterable<USBDeviceFilter>? filters});
 }
 
 extension PropsUSBPermissionDescriptor on USBPermissionDescriptor {
@@ -665,9 +623,7 @@ extension PropsUSBPermissionDescriptor on USBPermissionDescriptor {
 @staticInterop
 class AllowedUSBDevice {
   external factory AllowedUSBDevice(
-      {required int vendorId,
-      required int productId,
-      required String serialNumber});
+      {required int vendorId, required int productId, String? serialNumber});
 }
 
 extension PropsAllowedUSBDevice on AllowedUSBDevice {

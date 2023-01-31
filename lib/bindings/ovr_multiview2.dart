@@ -1,6 +1,6 @@
 /// WebGL OVR_multiview2 Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/OVR_multiview2/
+/// https://www.khronos.org/registry/webgl/extensions/OVR_multiview2/
 
 // ignore_for_file: unused_import
 

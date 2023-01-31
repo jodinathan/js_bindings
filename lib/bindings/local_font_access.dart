@@ -10,7 +10,6 @@ library local_font_access;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -18,7 +17,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class QueryOptions {
-  external factory QueryOptions({required Iterable<String> postscriptNames});
+  external factory QueryOptions({Iterable<String>? postscriptNames});
 }
 
 extension PropsQueryOptions on QueryOptions {
@@ -29,12 +28,6 @@ extension PropsQueryOptions on QueryOptions {
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Local Font Access API represents a single
-/// local font face.
-@experimental
 @JS()
 @staticInterop
 class FontData {

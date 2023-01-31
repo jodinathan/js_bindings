@@ -10,6 +10,7 @@ library web_animations_2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -74,6 +75,9 @@ enum IterationCompositeOperation {
   const IterationCompositeOperation(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The AnimationPlaybackEvent interface of the Web Animations API
 /// represents animation events.
 ///  As animations play, they report changes to their [playState]
@@ -87,11 +91,10 @@ enum IterationCompositeOperation {
 ///
 ///
 ///
-///
-///
 ///    AnimationPlaybackEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class AnimationPlaybackEvent implements Event {

@@ -17,8 +17,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PerformanceMarkOptions {
-  external factory PerformanceMarkOptions(
-      {dynamic detail, required double startTime});
+  external factory PerformanceMarkOptions({dynamic detail, double? startTime});
 }
 
 extension PropsPerformanceMarkOptions on PerformanceMarkOptions {
@@ -38,7 +37,7 @@ extension PropsPerformanceMarkOptions on PerformanceMarkOptions {
 @staticInterop
 class PerformanceMeasureOptions {
   external factory PerformanceMeasureOptions(
-      {dynamic detail, dynamic start, required double duration, dynamic end});
+      {dynamic detail, dynamic start, double? duration, dynamic end});
 }
 
 extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {
@@ -63,19 +62,14 @@ extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {
   }
 }
 
-///   is an interface for [PerformanceEntry] objects with an
-/// [entryType] of "[mark]".
-///  Entries of this type are typically created by calling
-/// [performance.mark()] to add a named [double] (the mark) to the
-/// browser's performance timeline. To create a performance mark that
-/// isn't added to the browser's performance timeline, use the
-/// constructor.
+///   is an abstract interface for [PerformanceEntry] objects with an
+/// [entryType] of "[mark]". Entries of this type are created by
+/// calling [performance.mark()] to add a named [double] (the mark)
+/// to the browser's performance timeline.
 ///
 ///
 ///
 ///    PerformanceEntry
-///
-///
 ///
 ///
 ///
@@ -106,8 +100,6 @@ extension PropsPerformanceMark on PerformanceMark {
 ///
 ///
 ///    PerformanceEntry
-///
-///
 ///
 ///
 ///

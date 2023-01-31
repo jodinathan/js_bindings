@@ -14,7 +14,7 @@ import 'package:js/js.dart';
 import 'package:js_bindings/js_bindings.dart';
 
 ///  An object implementing the interface represents a single
-/// condition CSS at-rule, which consists of a condition and a
+/// condition CSS [at-rule], which consists of a condition and a
 /// statement block.
 /// Two objects derive from : [CSSMediaRule] and [CSSSupportsRule].
 ///
@@ -26,11 +26,7 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    CSSGroupingRule
-///
-///
 ///
 ///
 ///
@@ -59,19 +55,13 @@ extension PropsCSSConditionRule on CSSConditionRule {
 ///
 ///
 ///
-///
-///
 ///    CSSGroupingRule
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    CSSConditionRule
-///
-///
 ///
 ///
 ///
@@ -90,13 +80,11 @@ extension PropsCSSMediaRule on CSSMediaRule {
   MediaList get media => js_util.getProperty(this, 'media');
 }
 
-/// The interface represents a single CSS [@supports] at-rule.
+/// The interface represents a single CSS [@supports] [at-rule].
 ///
 ///
 ///
 ///    CSSRule
-///
-///
 ///
 ///
 ///
@@ -108,11 +96,7 @@ extension PropsCSSMediaRule on CSSMediaRule {
 ///
 ///
 ///
-///
-///
 ///    CSSConditionRule
-///
-///
 ///
 ///
 ///

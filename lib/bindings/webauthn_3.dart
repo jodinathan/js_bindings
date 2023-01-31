@@ -32,8 +32,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    PublicKeyCredential
 ///
 ///
@@ -44,6 +42,13 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PublicKeyCredential implements Credential {
+  external static Future<bool> isConditionalMediationAvailable();
+  external static Future<bool> isUserVerifyingPlatformAuthenticatorAvailable();
+  external static PublicKeyCredentialCreationOptions
+      parseCreationOptionsFromJSON(
+          PublicKeyCredentialCreationOptionsJSON options);
+  external static PublicKeyCredentialRequestOptions parseRequestOptionsFromJSON(
+      PublicKeyCredentialRequestOptionsJSON options);
   external factory PublicKeyCredential();
 }
 
@@ -55,25 +60,7 @@ extension PropsPublicKeyCredential on PublicKeyCredential {
   AuthenticationExtensionsClientOutputs getClientExtensionResults() =>
       js_util.callMethod(this, 'getClientExtensionResults', []);
 
-  static Future<bool> isConditionalMediationAvailable() =>
-      js_util.promiseToFuture(js_util.callMethod(
-          PublicKeyCredential, 'isConditionalMediationAvailable', []));
-
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
-
-  static Future<bool> isUserVerifyingPlatformAuthenticatorAvailable() =>
-      js_util.promiseToFuture(js_util.callMethod(PublicKeyCredential,
-          'isUserVerifyingPlatformAuthenticatorAvailable', []));
-
-  static PublicKeyCredentialCreationOptions parseCreationOptionsFromJSON(
-          PublicKeyCredentialCreationOptionsJSON options) =>
-      js_util.callMethod(
-          PublicKeyCredential, 'parseCreationOptionsFromJSON', [options]);
-
-  static PublicKeyCredentialRequestOptions parseRequestOptionsFromJSON(
-          PublicKeyCredentialRequestOptionsJSON options) =>
-      js_util.callMethod(
-          PublicKeyCredential, 'parseRequestOptionsFromJSON', [options]);
 }
 
 @anonymous
@@ -81,12 +68,12 @@ extension PropsPublicKeyCredential on PublicKeyCredential {
 @staticInterop
 class RegistrationResponseJSON {
   external factory RegistrationResponseJSON(
-      {required String id,
-      required String rawId,
-      required AuthenticatorAttestationResponseJSON response,
+      {String? id,
+      String? rawId,
+      AuthenticatorAttestationResponseJSON? response,
       String? authenticatorAttachment,
-      required AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
-      required String type});
+      AuthenticationExtensionsClientOutputsJSON? clientExtensionResults,
+      String? type});
 }
 
 extension PropsRegistrationResponseJSON on RegistrationResponseJSON {
@@ -130,9 +117,9 @@ extension PropsRegistrationResponseJSON on RegistrationResponseJSON {
 @staticInterop
 class AuthenticatorAttestationResponseJSON {
   external factory AuthenticatorAttestationResponseJSON(
-      {required String clientDataJSON,
-      required String attestationObject,
-      required Iterable<String> transports});
+      {String? clientDataJSON,
+      String? attestationObject,
+      Iterable<String>? transports});
 }
 
 extension PropsAuthenticatorAttestationResponseJSON
@@ -159,12 +146,12 @@ extension PropsAuthenticatorAttestationResponseJSON
 @staticInterop
 class AuthenticationResponseJSON {
   external factory AuthenticationResponseJSON(
-      {required String id,
-      required String rawId,
-      required AuthenticatorAssertionResponseJSON response,
+      {String? id,
+      String? rawId,
+      AuthenticatorAssertionResponseJSON? response,
       String? authenticatorAttachment,
-      required AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
-      required String type});
+      AuthenticationExtensionsClientOutputsJSON? clientExtensionResults,
+      String? type});
 }
 
 extension PropsAuthenticationResponseJSON on AuthenticationResponseJSON {
@@ -208,9 +195,9 @@ extension PropsAuthenticationResponseJSON on AuthenticationResponseJSON {
 @staticInterop
 class AuthenticatorAssertionResponseJSON {
   external factory AuthenticatorAssertionResponseJSON(
-      {required String clientDataJSON,
-      required String authenticatorData,
-      required String signature,
+      {String? clientDataJSON,
+      String? authenticatorData,
+      String? signature,
       String? userHandle});
 }
 
@@ -254,7 +241,7 @@ class PublicKeyCredentialCreationOptionsJSON {
       required PublicKeyCredentialUserEntityJSON user,
       required String challenge,
       required Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
-      required int timeout,
+      int? timeout,
       Iterable<PublicKeyCredentialDescriptorJSON>? excludeCredentials =
           const [],
       AuthenticatorSelectionCriteria? authenticatorSelection,
@@ -346,9 +333,7 @@ extension PropsPublicKeyCredentialUserEntityJSON
 @staticInterop
 class PublicKeyCredentialDescriptorJSON {
   external factory PublicKeyCredentialDescriptorJSON(
-      {required String id,
-      required String type,
-      required Iterable<String> transports});
+      {required String id, required String type, Iterable<String>? transports});
 }
 
 extension PropsPublicKeyCredentialDescriptorJSON
@@ -382,8 +367,8 @@ class AuthenticationExtensionsClientInputsJSON {
 class PublicKeyCredentialRequestOptionsJSON {
   external factory PublicKeyCredentialRequestOptionsJSON(
       {required String challenge,
-      required int timeout,
-      required String rpId,
+      int? timeout,
+      String? rpId,
       Iterable<PublicKeyCredentialDescriptorJSON>? allowCredentials = const [],
       String? userVerification = 'preferred',
       AuthenticationExtensionsClientInputsJSON? extensions});
@@ -459,8 +444,6 @@ extension PropsAuthenticatorResponse on AuthenticatorResponse {
 ///
 ///
 ///
-///
-///
 ///    AuthenticatorAttestationResponse
 ///
 ///
@@ -506,8 +489,6 @@ extension PropsAuthenticatorAttestationResponse
 ///
 ///
 ///
-///
-///
 ///    AuthenticatorAssertionResponse
 ///
 ///
@@ -527,8 +508,6 @@ extension PropsAuthenticatorAssertionResponse
       js_util.getProperty(this, 'authenticatorData');
   ByteBuffer get signature => js_util.getProperty(this, 'signature');
   ByteBuffer? get userHandle => js_util.getProperty(this, 'userHandle');
-  ByteBuffer? get attestationObject =>
-      js_util.getProperty(this, 'attestationObject');
 }
 
 @anonymous
@@ -560,11 +539,10 @@ class PublicKeyCredentialCreationOptions {
       required PublicKeyCredentialUserEntity user,
       dynamic challenge,
       required Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
-      required int timeout,
+      int? timeout,
       Iterable<PublicKeyCredentialDescriptor>? excludeCredentials = const [],
       AuthenticatorSelectionCriteria? authenticatorSelection,
       String? attestation = 'none',
-      Iterable<String>? attestationFormats = const [],
       AuthenticationExtensionsClientInputs? extensions});
 }
 
@@ -613,12 +591,6 @@ extension PropsPublicKeyCredentialCreationOptions
     js_util.setProperty(this, 'attestation', newValue);
   }
 
-  Iterable<String> get attestationFormats =>
-      js_util.getProperty(this, 'attestationFormats');
-  set attestationFormats(Iterable<String> newValue) {
-    js_util.setProperty(this, 'attestationFormats', newValue);
-  }
-
   AuthenticationExtensionsClientInputs get extensions =>
       js_util.getProperty(this, 'extensions');
   set extensions(AuthenticationExtensionsClientInputs newValue) {
@@ -644,7 +616,7 @@ extension PropsPublicKeyCredentialEntity on PublicKeyCredentialEntity {
 @JS()
 @staticInterop
 class PublicKeyCredentialRpEntity implements PublicKeyCredentialEntity {
-  external factory PublicKeyCredentialRpEntity({required String id});
+  external factory PublicKeyCredentialRpEntity({String? id});
 }
 
 extension PropsPublicKeyCredentialRpEntity on PublicKeyCredentialRpEntity {
@@ -679,8 +651,8 @@ extension PropsPublicKeyCredentialUserEntity on PublicKeyCredentialUserEntity {
 @staticInterop
 class AuthenticatorSelectionCriteria {
   external factory AuthenticatorSelectionCriteria(
-      {required String authenticatorAttachment,
-      required String residentKey,
+      {String? authenticatorAttachment,
+      String? residentKey,
       bool? requireResidentKey = false,
       String? userVerification = 'preferred'});
 }
@@ -726,7 +698,7 @@ enum AuthenticatorAttachment {
 enum ResidentKeyRequirement {
   discouraged('discouraged'),
   preferred('preferred'),
-  valueRequired('required');
+  required('required');
 
   final String value;
   static ResidentKeyRequirement fromValue(String value) =>
@@ -762,12 +734,10 @@ enum AttestationConveyancePreference {
 class PublicKeyCredentialRequestOptions {
   external factory PublicKeyCredentialRequestOptions(
       {dynamic challenge,
-      required int timeout,
-      required String rpId,
+      int? timeout,
+      String? rpId,
       Iterable<PublicKeyCredentialDescriptor>? allowCredentials = const [],
       String? userVerification = 'preferred',
-      String? attestation = 'none',
-      Iterable<String>? attestationFormats = const [],
       AuthenticationExtensionsClientInputs? extensions});
 }
 
@@ -799,17 +769,6 @@ extension PropsPublicKeyCredentialRequestOptions
     js_util.setProperty(this, 'userVerification', newValue);
   }
 
-  String get attestation => js_util.getProperty(this, 'attestation');
-  set attestation(String newValue) {
-    js_util.setProperty(this, 'attestation', newValue);
-  }
-
-  Iterable<String> get attestationFormats =>
-      js_util.getProperty(this, 'attestationFormats');
-  set attestationFormats(Iterable<String> newValue) {
-    js_util.setProperty(this, 'attestationFormats', newValue);
-  }
-
   AuthenticationExtensionsClientInputs get extensions =>
       js_util.getProperty(this, 'extensions');
   set extensions(AuthenticationExtensionsClientInputs newValue) {
@@ -839,7 +798,7 @@ class CollectedClientData {
       {required String type,
       required String challenge,
       required String origin,
-      required bool crossOrigin});
+      bool? crossOrigin});
 }
 
 extension PropsCollectedClientData on CollectedClientData {
@@ -868,7 +827,7 @@ extension PropsCollectedClientData on CollectedClientData {
 @JS()
 @staticInterop
 class TokenBinding {
-  external factory TokenBinding({required String status, required String id});
+  external factory TokenBinding({required String status, String? id});
 }
 
 extension PropsTokenBinding on TokenBinding {
@@ -912,7 +871,7 @@ enum PublicKeyCredentialType {
 @staticInterop
 class PublicKeyCredentialDescriptor {
   external factory PublicKeyCredentialDescriptor(
-      {required String type, dynamic id, required Iterable<String> transports});
+      {required String type, dynamic id, Iterable<String>? transports});
 }
 
 extension PropsPublicKeyCredentialDescriptor on PublicKeyCredentialDescriptor {
@@ -948,7 +907,7 @@ enum AuthenticatorTransport {
 }
 
 enum UserVerificationRequirement {
-  valueRequired('required'),
+  required('required'),
   preferred('preferred'),
   discouraged('discouraged');
 
@@ -965,7 +924,7 @@ enum UserVerificationRequirement {
 @JS()
 @staticInterop
 class CredentialPropertiesOutput {
-  external factory CredentialPropertiesOutput({required bool rk});
+  external factory CredentialPropertiesOutput({bool? rk});
 }
 
 extension PropsCredentialPropertiesOutput on CredentialPropertiesOutput {
@@ -980,7 +939,7 @@ extension PropsCredentialPropertiesOutput on CredentialPropertiesOutput {
 @staticInterop
 class AuthenticationExtensionsPRFValues {
   external factory AuthenticationExtensionsPRFValues(
-      {required ByteBuffer first, required ByteBuffer second});
+      {required ByteBuffer first, ByteBuffer? second});
 }
 
 extension PropsAuthenticationExtensionsPRFValues
@@ -1001,8 +960,7 @@ extension PropsAuthenticationExtensionsPRFValues
 @staticInterop
 class AuthenticationExtensionsPRFInputs {
   external factory AuthenticationExtensionsPRFInputs(
-      {required AuthenticationExtensionsPRFValues eval,
-      dynamic evalByCredential});
+      {AuthenticationExtensionsPRFValues? eval, dynamic evalByCredential});
 }
 
 extension PropsAuthenticationExtensionsPRFInputs
@@ -1024,8 +982,7 @@ extension PropsAuthenticationExtensionsPRFInputs
 @staticInterop
 class AuthenticationExtensionsPRFOutputs {
   external factory AuthenticationExtensionsPRFOutputs(
-      {required bool enabled,
-      required AuthenticationExtensionsPRFValues results});
+      {bool? enabled, AuthenticationExtensionsPRFValues? results});
 }
 
 extension PropsAuthenticationExtensionsPRFOutputs
@@ -1043,7 +1000,7 @@ extension PropsAuthenticationExtensionsPRFOutputs
 }
 
 enum LargeBlobSupport {
-  valueRequired('required'),
+  required('required'),
   preferred('preferred');
 
   final String value;
@@ -1059,7 +1016,7 @@ enum LargeBlobSupport {
 @staticInterop
 class AuthenticationExtensionsLargeBlobInputs {
   external factory AuthenticationExtensionsLargeBlobInputs(
-      {required String support, required bool read, dynamic write});
+      {String? support, bool? read, dynamic write});
 }
 
 extension PropsAuthenticationExtensionsLargeBlobInputs
@@ -1085,9 +1042,7 @@ extension PropsAuthenticationExtensionsLargeBlobInputs
 @staticInterop
 class AuthenticationExtensionsLargeBlobOutputs {
   external factory AuthenticationExtensionsLargeBlobOutputs(
-      {required bool supported,
-      required ByteBuffer blob,
-      required bool written});
+      {bool? supported, ByteBuffer? blob, bool? written});
 }
 
 extension PropsAuthenticationExtensionsLargeBlobOutputs
@@ -1105,50 +1060,5 @@ extension PropsAuthenticationExtensionsLargeBlobOutputs
   bool get written => js_util.getProperty(this, 'written');
   set written(bool newValue) {
     js_util.setProperty(this, 'written', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class AuthenticationExtensionsDevicePublicKeyInputs {
-  external factory AuthenticationExtensionsDevicePublicKeyInputs(
-      {String? attestation = 'none',
-      Iterable<String>? attestationFormats = const []});
-}
-
-extension PropsAuthenticationExtensionsDevicePublicKeyInputs
-    on AuthenticationExtensionsDevicePublicKeyInputs {
-  String get attestation => js_util.getProperty(this, 'attestation');
-  set attestation(String newValue) {
-    js_util.setProperty(this, 'attestation', newValue);
-  }
-
-  Iterable<String> get attestationFormats =>
-      js_util.getProperty(this, 'attestationFormats');
-  set attestationFormats(Iterable<String> newValue) {
-    js_util.setProperty(this, 'attestationFormats', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class AuthenticationExtensionsDevicePublicKeyOutputs {
-  external factory AuthenticationExtensionsDevicePublicKeyOutputs(
-      {required ByteBuffer authenticatorOutput, required ByteBuffer signature});
-}
-
-extension PropsAuthenticationExtensionsDevicePublicKeyOutputs
-    on AuthenticationExtensionsDevicePublicKeyOutputs {
-  ByteBuffer get authenticatorOutput =>
-      js_util.getProperty(this, 'authenticatorOutput');
-  set authenticatorOutput(ByteBuffer newValue) {
-    js_util.setProperty(this, 'authenticatorOutput', newValue);
-  }
-
-  ByteBuffer get signature => js_util.getProperty(this, 'signature');
-  set signature(ByteBuffer newValue) {
-    js_util.setProperty(this, 'signature', newValue);
   }
 }

@@ -15,7 +15,7 @@ import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
 enum MediaKeysRequirement {
-  valueRequired('required'),
+  required('required'),
   optional('optional'),
   notAllowed('not-allowed');
 
@@ -130,6 +130,9 @@ extension PropsMediaKeySystemMediaCapability on MediaKeySystemMediaCapability {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the EncryptedMediaExtensions API provides
 /// access to a Key System for decryption and/or a content protection
 /// provider. You can request an instance of this object using the
@@ -161,6 +164,9 @@ enum MediaKeySessionType {
   const MediaKeySessionType(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of EncryptedMediaExtensions API represents a set
 /// of keys that an associated [HTMLMediaElement] can use for
 /// decryption of media data during playback.
@@ -203,8 +209,6 @@ enum MediaKeySessionClosedReason {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -255,6 +259,9 @@ extension PropsMediaKeySession on MediaKeySession {
       js_util.promiseToFuture(js_util.callMethod(this, 'remove', []));
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the EncryptedMediaExtensions API is a read-only
 /// map of media key statuses by key IDs.
 @JS()
@@ -267,9 +274,7 @@ extension PropsMediaKeyStatusMap on MediaKeyStatusMap {
   int get size => js_util.getProperty(this, 'size');
   bool has(dynamic keyId) => js_util.callMethod(this, 'has', [keyId]);
 
-  @JS('get')
-  @staticInterop
-  dynamic mGet(dynamic keyId) => js_util.callMethod(this, 'get', [keyId]);
+  dynamic get(dynamic keyId) => js_util.callMethod(this, 'get', [keyId]);
 }
 
 enum MediaKeyStatus {
@@ -304,6 +309,9 @@ enum MediaKeyMessageType {
   const MediaKeyMessageType(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the EncryptedMediaExtensions API contains the
 /// content and related data when the content decryption module
 /// generates a message for the session.
@@ -311,8 +319,6 @@ enum MediaKeyMessageType {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///

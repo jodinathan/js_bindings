@@ -10,7 +10,7 @@ library webrtc;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -81,16 +81,43 @@ extension PropsRTCConfiguration on RTCConfiguration {
   }
 }
 
+enum RTCIceCredentialType {
+  password('password');
+
+  final String value;
+  static RTCIceCredentialType fromValue(String value) =>
+      values.firstWhere((e) => e.value == value);
+  static Iterable<RTCIceCredentialType> fromValues(Iterable<String> values) =>
+      values.map(fromValue);
+  const RTCIceCredentialType(this.value);
+}
+
 ///  The dictionary defines how to connect to a single ICE server
 /// (such as a STUN or TURN server). Objects of this type are
 /// provided in the configuration of an [RTCPeerConnection], in the
 /// [iceServers] array.
+@experimental
 @anonymous
 @JS()
 @staticInterop
 class RTCIceServer {
-  external factory RTCIceServer(
-      {dynamic urls, required String username, required String credential});
+  external factory RTCIceServer._(
+      {dynamic urls,
+      String? username,
+      String? credential,
+      String? credentialType});
+
+  factory RTCIceServer(
+          {dynamic urls,
+          String? username,
+          String? credential,
+          RTCIceCredentialType? credentialType =
+              RTCIceCredentialType.password}) =>
+      RTCIceServer._(
+          urls: urls,
+          username: username,
+          credential: credential,
+          credentialType: credentialType?.value);
 }
 
 extension PropsRTCIceServer on RTCIceServer {
@@ -107,6 +134,12 @@ extension PropsRTCIceServer on RTCIceServer {
   String get credential => js_util.getProperty(this, 'credential');
   set credential(String newValue) {
     js_util.setProperty(this, 'credential', newValue);
+  }
+
+  RTCIceCredentialType get credentialType => RTCIceCredentialType.fromValue(
+      js_util.getProperty(this, 'credentialType'));
+  set credentialType(RTCIceCredentialType newValue) {
+    js_util.setProperty(this, 'credentialType', newValue.value);
   }
 }
 
@@ -249,8 +282,6 @@ enum RTCIceConnectionState {
 ///
 ///
 ///
-///
-///
 ///    RTCPeerConnection
 ///
 ///
@@ -258,6 +289,8 @@ enum RTCIceConnectionState {
 @staticInterop
 class RTCPeerConnection implements EventTarget {
   external factory RTCPeerConnection([RTCConfiguration? configuration]);
+  external static Future<RTCCertificate> generateCertificate(
+      dynamic keygenAlgorithm);
 }
 
 extension PropsRTCPeerConnection on RTCPeerConnection {
@@ -385,10 +418,6 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
         failureCallback == null ? null : allowInterop(failureCallback)
       ]));
 
-  static Future<RTCCertificate> generateCertificate(dynamic keygenAlgorithm) =>
-      js_util.promiseToFuture(js_util.callMethod(
-          RTCPeerConnection, 'generateCertificate', [keygenAlgorithm]));
-
   Iterable<RTCRtpSender> getSenders() =>
       js_util.callMethod(this, 'getSenders', []);
 
@@ -458,6 +487,9 @@ enum RTCSdpType {
   const RTCSdpType(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface describes one end of a connection—or potential
 /// connection—and how it's configured. Each consists of a
 /// description [type] indicating which part of the offer/answer
@@ -469,6 +501,7 @@ enum RTCSdpType {
 /// that the sender of the description supports. Once the two peers
 /// agree upon a configuration for the connection, negotiation is
 /// complete.
+@experimental
 @JS()
 @staticInterop
 class RTCSessionDescription {
@@ -513,11 +546,11 @@ extension PropsRTCSessionDescriptionInit on RTCSessionDescriptionInit {
 @staticInterop
 class RTCLocalSessionDescriptionInit {
   external factory RTCLocalSessionDescriptionInit._(
-      {required String type, String? sdp = ''});
+      {String? type, String? sdp = ''});
 
   factory RTCLocalSessionDescriptionInit(
-          {required RTCSdpType type, String? sdp = ''}) =>
-      RTCLocalSessionDescriptionInit._(type: type.value, sdp: sdp);
+          {RTCSdpType? type, String? sdp = ''}) =>
+      RTCLocalSessionDescriptionInit._(type: type?.value, sdp: sdp);
 }
 
 extension PropsRTCLocalSessionDescriptionInit
@@ -588,13 +621,6 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
   String? get relatedAddress => js_util.getProperty(this, 'relatedAddress');
   int? get relatedPort => js_util.getProperty(this, 'relatedPort');
   String? get usernameFragment => js_util.getProperty(this, 'usernameFragment');
-  RTCIceServerTransportProtocol? get relayProtocol {
-    final ret = js_util.getProperty(this, 'relayProtocol');
-
-    return ret == null ? null : RTCIceServerTransportProtocol.fromValue(ret);
-  }
-
-  String? get url => js_util.getProperty(this, 'url');
   RTCIceCandidateInit toJSON() => js_util.callMethod(this, 'toJSON', []);
 }
 
@@ -670,20 +696,6 @@ enum RTCIceCandidateType {
   const RTCIceCandidateType(this.value);
 }
 
-enum RTCIceServerTransportProtocol {
-  udp('udp'),
-  tcp('tcp'),
-  tls('tls');
-
-  final String value;
-  static RTCIceServerTransportProtocol fromValue(String value) =>
-      values.firstWhere((e) => e.value == value);
-  static Iterable<RTCIceServerTransportProtocol> fromValues(
-          Iterable<String> values) =>
-      values.map(fromValue);
-  const RTCIceServerTransportProtocol(this.value);
-}
-
 ///  The interface represents events that occur in relation to ICE
 /// candidates with the target, usually an [RTCPeerConnection].
 /// Only one event is of this type: [icecandidate].
@@ -696,11 +708,10 @@ enum RTCIceServerTransportProtocol {
 ///
 ///
 ///
-///
-///
 ///    RTCPeerConnectionIceEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class RTCPeerConnectionIceEvent implements Event {
@@ -745,8 +756,6 @@ extension PropsRTCPeerConnectionIceEventInit on RTCPeerConnectionIceEventInit {
 ///
 ///
 ///
-///
-///
 ///    RTCPeerConnectionIceErrorEvent
 ///
 ///
@@ -773,9 +782,9 @@ class RTCPeerConnectionIceErrorEventInit implements EventInit {
   external factory RTCPeerConnectionIceErrorEventInit(
       {String? address,
       int? port,
-      required String url,
+      String? url,
       required int errorCode,
-      required String errorText});
+      String? errorText});
 }
 
 extension PropsRTCPeerConnectionIceErrorEventInit
@@ -810,7 +819,7 @@ extension PropsRTCPeerConnectionIceErrorEventInit
 @JS()
 @staticInterop
 class RTCCertificateExpiration {
-  external factory RTCCertificateExpiration({required int expires});
+  external factory RTCCertificateExpiration({int? expires});
 }
 
 extension PropsRTCCertificateExpiration on RTCCertificateExpiration {
@@ -902,15 +911,13 @@ enum RTCRtpTransceiverDirection {
 @JS()
 @staticInterop
 class RTCRtpSender {
+  external static RTCRtpCapabilities? getCapabilities(String kind);
   external factory RTCRtpSender();
 }
 
 extension PropsRTCRtpSender on RTCRtpSender {
   MediaStreamTrack? get track => js_util.getProperty(this, 'track');
   RTCDtlsTransport? get transport => js_util.getProperty(this, 'transport');
-  static RTCRtpCapabilities? getCapabilities(String kind) =>
-      js_util.callMethod(RTCRtpSender, 'getCapabilities', [kind]);
-
   Future<void> setParameters(RTCRtpSendParameters parameters) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setParameters', [parameters]));
 
@@ -1018,7 +1025,7 @@ class RTCRtpReceiveParameters implements RTCRtpParameters {
 @JS()
 @staticInterop
 class RTCRtpCodingParameters {
-  external factory RTCRtpCodingParameters({required String rid});
+  external factory RTCRtpCodingParameters({String? rid});
 }
 
 extension PropsRTCRtpCodingParameters on RTCRtpCodingParameters {
@@ -1039,10 +1046,7 @@ extension PropsRTCRtpCodingParameters on RTCRtpCodingParameters {
 @staticInterop
 class RTCRtpEncodingParameters implements RTCRtpCodingParameters {
   external factory RTCRtpEncodingParameters(
-      {bool? active = true,
-      int? maxBitrate,
-      double? maxFramerate,
-      double? scaleResolutionDownBy});
+      {bool? active = true, int? maxBitrate, double? scaleResolutionDownBy});
 }
 
 extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
@@ -1054,11 +1058,6 @@ extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
   int get maxBitrate => js_util.getProperty(this, 'maxBitrate');
   set maxBitrate(int newValue) {
     js_util.setProperty(this, 'maxBitrate', newValue);
-  }
-
-  double get maxFramerate => js_util.getProperty(this, 'maxFramerate');
-  set maxFramerate(double newValue) {
-    js_util.setProperty(this, 'maxFramerate', newValue);
   }
 
   double get scaleResolutionDownBy =>
@@ -1075,8 +1074,7 @@ extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
 @JS()
 @staticInterop
 class RTCRtcpParameters {
-  external factory RTCRtcpParameters(
-      {required String cname, required bool reducedSize});
+  external factory RTCRtcpParameters({String? cname, bool? reducedSize});
 }
 
 extension PropsRTCRtcpParameters on RTCRtcpParameters {
@@ -1136,8 +1134,8 @@ class RTCRtpCodecParameters {
       {required int payloadType,
       required String mimeType,
       required int clockRate,
-      required int channels,
-      required String sdpFmtpLine});
+      int? channels,
+      String? sdpFmtpLine});
 }
 
 extension PropsRTCRtpCodecParameters on RTCRtpCodecParameters {
@@ -1208,8 +1206,8 @@ class RTCRtpCodecCapability {
   external factory RTCRtpCodecCapability(
       {required String mimeType,
       required int clockRate,
-      required int channels,
-      required String sdpFmtpLine});
+      int? channels,
+      String? sdpFmtpLine});
 }
 
 extension PropsRTCRtpCodecCapability on RTCRtpCodecCapability {
@@ -1238,7 +1236,7 @@ extension PropsRTCRtpCodecCapability on RTCRtpCodecCapability {
 @JS()
 @staticInterop
 class RTCRtpHeaderExtensionCapability {
-  external factory RTCRtpHeaderExtensionCapability({required String uri});
+  external factory RTCRtpHeaderExtensionCapability({String? uri});
 }
 
 extension PropsRTCRtpHeaderExtensionCapability
@@ -1255,15 +1253,13 @@ extension PropsRTCRtpHeaderExtensionCapability
 @JS()
 @staticInterop
 class RTCRtpReceiver {
+  external static RTCRtpCapabilities? getCapabilities(String kind);
   external factory RTCRtpReceiver();
 }
 
 extension PropsRTCRtpReceiver on RTCRtpReceiver {
   MediaStreamTrack get track => js_util.getProperty(this, 'track');
   RTCDtlsTransport? get transport => js_util.getProperty(this, 'transport');
-  static RTCRtpCapabilities? getCapabilities(String kind) =>
-      js_util.callMethod(RTCRtpReceiver, 'getCapabilities', [kind]);
-
   RTCRtpReceiveParameters getParameters() =>
       js_util.callMethod(this, 'getParameters', []);
 
@@ -1295,7 +1291,7 @@ class RTCRtpContributingSource {
   external factory RTCRtpContributingSource(
       {required double timestamp,
       required int source,
-      required double audioLevel,
+      double? audioLevel,
       required int rtpTimestamp});
 }
 
@@ -1390,11 +1386,10 @@ extension PropsRTCRtpTransceiver on RTCRtpTransceiver {
 ///
 ///
 ///
-///
-///
 ///    RTCDtlsTransport
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class RTCDtlsTransport implements EventTarget {
@@ -1439,8 +1434,7 @@ enum RTCDtlsTransportState {
 @JS()
 @staticInterop
 class RTCDtlsFingerprint {
-  external factory RTCDtlsFingerprint(
-      {required String algorithm, required String value});
+  external factory RTCDtlsFingerprint({String? algorithm, String? value});
 }
 
 extension PropsRTCDtlsFingerprint on RTCDtlsFingerprint {
@@ -1465,8 +1459,6 @@ extension PropsRTCDtlsFingerprint on RTCDtlsFingerprint {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -1560,7 +1552,7 @@ extension PropsRTCIceTransport on RTCIceTransport {
 @staticInterop
 class RTCIceParameters {
   external factory RTCIceParameters(
-      {required String usernameFragment, required String password});
+      {String? usernameFragment, String? password});
 }
 
 extension PropsRTCIceParameters on RTCIceParameters {
@@ -1585,7 +1577,7 @@ extension PropsRTCIceParameters on RTCIceParameters {
 @staticInterop
 class RTCIceCandidatePair {
   external factory RTCIceCandidatePair(
-      {required RTCIceCandidate local, required RTCIceCandidate remote});
+      {RTCIceCandidate? local, RTCIceCandidate? remote});
 }
 
 extension PropsRTCIceCandidatePair on RTCIceCandidatePair {
@@ -1672,8 +1664,6 @@ enum RTCIceComponent {
 ///
 ///
 ///
-///
-///
 ///    RTCTrackEvent
 ///
 ///
@@ -1723,6 +1713,9 @@ extension PropsRTCTrackEventInit on RTCTrackEventInit {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface provides information which describes a Stream
 /// Control Transmission Protocol (SCTP) transport. This provides
 /// information about limitations of the transport, but also provides
@@ -1744,11 +1737,10 @@ extension PropsRTCTrackEventInit on RTCTrackEventInit {
 ///
 ///
 ///
-///
-///
 ///    RTCSctpTransport
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class RTCSctpTransport implements EventTarget {
@@ -1793,7 +1785,6 @@ enum RTCSctpTransportState {
 /// being invited to exchange data receives a [datachannel] event
 /// (which has type [RTCDataChannelEvent]) to let it know the data
 /// channel has been added to the connection.
-///  is a transferable object.
 ///
 ///
 ///
@@ -1803,11 +1794,10 @@ enum RTCSctpTransportState {
 ///
 ///
 ///
-///
-///
 ///    RTCDataChannel
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class RTCDataChannel implements EventTarget {
@@ -1948,8 +1938,6 @@ enum RTCDataChannelState {
 ///
 ///
 ///
-///
-///
 ///    RTCDataChannelEvent
 ///
 ///
@@ -1998,8 +1986,6 @@ extension PropsRTCDataChannelEventInit on RTCDataChannelEventInit {
 ///
 ///
 ///
-///
-///
 ///    RTCDTMFSender
 ///
 ///
@@ -2036,8 +2022,6 @@ extension PropsRTCDTMFSender on RTCDTMFSender {
 ///
 ///
 ///
-///
-///
 ///    RTCDTMFToneChangeEvent
 ///
 ///
@@ -2066,6 +2050,9 @@ extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
   }
 }
 
+///  Draft: This page is not complete.This page is currently
+/// incomplete and under active construction. Please be aware that
+/// it's not going to answer all of your questions just yet.
 ///  The interface provides a statistics report obtained by calling
 /// one of the [RTCPeerConnection.getStats()],
 /// [RTCRtpReceiver.getStats()], and [RTCRtpSender.getStats()]
@@ -2135,8 +2122,6 @@ extension PropsRTCStats on RTCStats {
 ///
 ///
 ///
-///
-///
 ///    RTCError
 ///
 ///
@@ -2163,17 +2148,17 @@ extension PropsRTCError on RTCError {
 class RTCErrorInit {
   external factory RTCErrorInit._(
       {required String errorDetail,
-      required int sdpLineNumber,
-      required int sctpCauseCode,
-      required int receivedAlert,
-      required int sentAlert});
+      int? sdpLineNumber,
+      int? sctpCauseCode,
+      int? receivedAlert,
+      int? sentAlert});
 
   factory RTCErrorInit(
           {required RTCErrorDetailType errorDetail,
-          required int sdpLineNumber,
-          required int sctpCauseCode,
-          required int receivedAlert,
-          required int sentAlert}) =>
+          int? sdpLineNumber,
+          int? sctpCauseCode,
+          int? receivedAlert,
+          int? sentAlert}) =>
       RTCErrorInit._(
           errorDetail: errorDetail.value,
           sdpLineNumber: sdpLineNumber,
@@ -2234,8 +2219,6 @@ enum RTCErrorDetailType {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///

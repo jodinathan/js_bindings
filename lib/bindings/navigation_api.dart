@@ -10,41 +10,9 @@ library navigation_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Navigation API allows control over all
-/// navigation actions for the current [window] in one central place,
-/// including initiating navigations programmatically, examining
-/// navigation history entries, and managing navigations as they
-/// happen.
-/// It is accessed via the [Window.navigation] property.
-///  The Navigation API only exposes history entries created in the
-/// current browsing context that have the same origin as the current
-/// page (e.g. not navigations inside embedded [<iframe>]s, or
-/// cross-origin navigations), providing an accurate list of all
-/// previous history entries just for your app. This makes traversing
-/// the history a much less fragile proposition than with the older
-/// History API.
-///
-///
-///
-///    EventTarget
-///
-///
-///
-///
-///
-///
-///
-///    Navigation
-///
-///
-@experimental
 @JS()
 @staticInterop
 class Navigation implements EventTarget {
@@ -179,8 +147,8 @@ extension PropsNavigationReloadOptions on NavigationReloadOptions {
 @staticInterop
 class NavigationResult {
   external factory NavigationResult(
-      {required Future<NavigationHistoryEntry> committed,
-      required Future<NavigationHistoryEntry> finished});
+      {Future<NavigationHistoryEntry>? committed,
+      Future<NavigationHistoryEntry>? finished});
 }
 
 extension PropsNavigationResult on NavigationResult {
@@ -211,36 +179,6 @@ enum NavigationHistoryBehavior {
   const NavigationHistoryBehavior(this.value);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Navigation API is the event object for the
-/// [currententrychange] event, which fires when the
-/// [Navigation.currentEntry] has changed.
-///  This event will fire for same-document navigations (e.g.
-/// [back()] or [traverseTo()]), replacements (i.e. a [navigate()]
-/// call with [history] set to [replace]), or other calls that change
-/// the entry's state (e.g. [updateCurrentEntry()], or the History
-/// API's [History.replaceState()]).
-///  This event fires after the navigation is committed, meaning that
-/// the visible URL has changed and the [NavigationHistoryEntry]
-/// update has occurred. It is useful for migrating from usage of
-/// older API features like the [hashchange] or [popstate] events.
-///
-///
-///
-///    Event
-///
-///
-///
-///
-///
-///
-///
-///    NavigationCurrentEntryChangeEvent
-///
-///
-@experimental
 @JS()
 @staticInterop
 class NavigationCurrentEntryChangeEvent implements Event {
@@ -292,14 +230,6 @@ extension PropsNavigationCurrentEntryChangeEventInit
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Navigation API represents an ongoing
-/// navigation, that is, a navigation that hasn't yet reached the
-/// [navigatesuccess] or [navigateerror] stage.
-/// It is accessed via the [Navigation.transition] property.
-@experimental
 @JS()
 @staticInterop
 class NavigationTransition {
@@ -314,30 +244,6 @@ extension PropsNavigationTransition on NavigationTransition {
       js_util.promiseToFuture(js_util.getProperty(this, 'finished'));
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Navigation API is the event object for the
-/// [navigate] event, which fires when any type of navigation is
-/// initiated (this includes usage of History API features like
-/// [History.go()]). provides access to information about that
-/// navigation, and allows developers to intercept and control the
-/// navigation handling.
-///
-///
-///
-///    Event
-///
-///
-///
-///
-///
-///
-///
-///    NavigateEvent
-///
-///
-@experimental
 @JS()
 @staticInterop
 class NavigateEvent implements Event {
@@ -453,16 +359,18 @@ extension PropsNavigateEventInit on NavigateEventInit {
 @staticInterop
 class NavigationInterceptOptions {
   external factory NavigationInterceptOptions._(
-      {required NavigationInterceptHandler handler,
-      required String focusReset,
-      required String scroll});
+      {NavigationInterceptHandler? handler,
+      String? focusReset,
+      String? scroll});
 
   factory NavigationInterceptOptions(
-          {required NavigationInterceptHandler handler,
-          required NavigationFocusReset focusReset,
-          required NavigationScrollBehavior scroll}) =>
+          {NavigationInterceptHandler? handler,
+          NavigationFocusReset? focusReset,
+          NavigationScrollBehavior? scroll}) =>
       NavigationInterceptOptions._(
-          handler: handler, focusReset: focusReset.value, scroll: scroll.value);
+          handler: handler,
+          focusReset: focusReset?.value,
+          scroll: scroll?.value);
 }
 
 extension PropsNavigationInterceptOptions on NavigationInterceptOptions {
@@ -524,13 +432,6 @@ enum NavigationType {
   const NavigationType(this.value);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Navigation API represents the destination
-/// being navigated to in the current navigation.
-/// It is accessed via the [NavigateEvent.destination] property.
-@experimental
 @JS()
 @staticInterop
 class NavigationDestination {
@@ -546,36 +447,6 @@ extension PropsNavigationDestination on NavigationDestination {
   dynamic getState() => js_util.callMethod(this, 'getState', []);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the Navigation API represents a single
-/// navigation history entry.
-///  These objects are commonly accessed via the
-/// [Navigation.currentEntry] property and [Navigation.entries()]
-/// method.
-///  The Navigation API only exposes history entries created in the
-/// current browsing context that have the same origin as the current
-/// page (e.g. not navigations inside embedded [<iframe>]s, or
-/// cross-origin navigations), providing an accurate list of all
-/// previous history entries just for your app. This makes traversing
-/// the history a much less fragile proposition than with the older
-/// History API.
-///
-///
-///
-///    EventTarget
-///
-///
-///
-///
-///
-///
-///
-///    NavigationHistoryEntry
-///
-///
-@experimental
 @JS()
 @staticInterop
 class NavigationHistoryEntry implements EventTarget {

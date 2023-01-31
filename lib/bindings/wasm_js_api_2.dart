@@ -127,18 +127,10 @@ extension PropsModuleImportDescriptor on ModuleImportDescriptor {
 @staticInterop
 class Module {
   external factory Module(dynamic bytes);
-}
-
-extension PropsModule on Module {
-  static Iterable<ModuleExportDescriptor> exports(Module moduleObject) =>
-      js_util.callMethod(Module, 'exports', [moduleObject]);
-
-  static Iterable<ModuleImportDescriptor> imports(Module moduleObject) =>
-      js_util.callMethod(Module, 'imports', [moduleObject]);
-
-  static Iterable<ByteBuffer> customSections(
-          Module moduleObject, String sectionName) =>
-      js_util.callMethod(Module, 'customSections', [moduleObject, sectionName]);
+  external static Iterable<ModuleExportDescriptor> exports(Module moduleObject);
+  external static Iterable<ModuleImportDescriptor> imports(Module moduleObject);
+  external static Iterable<ByteBuffer> customSections(
+      Module moduleObject, String sectionName);
 }
 
 @JS()
@@ -155,8 +147,7 @@ extension PropsInstance on Instance {
 @JS()
 @staticInterop
 class MemoryDescriptor {
-  external factory MemoryDescriptor(
-      {required int initial, required int maximum});
+  external factory MemoryDescriptor({required int initial, int? maximum});
 }
 
 extension PropsMemoryDescriptor on MemoryDescriptor {
@@ -200,12 +191,10 @@ enum TableKind {
 @staticInterop
 class TableDescriptor {
   external factory TableDescriptor._(
-      {required String element, required int initial, required int maximum});
+      {required String element, required int initial, int? maximum});
 
   factory TableDescriptor(
-          {required TableKind element,
-          required int initial,
-          required int maximum}) =>
+          {required TableKind element, required int initial, int? maximum}) =>
       TableDescriptor._(
           element: element.value, initial: initial, maximum: maximum);
 }
@@ -238,13 +227,9 @@ extension PropsTable on Table {
   int grow(int delta, [dynamic value]) =>
       js_util.callMethod(this, 'grow', [delta, value]);
 
-  @JS('get')
-  @staticInterop
-  dynamic mGet(int index) => js_util.callMethod(this, 'get', [index]);
+  dynamic get(int index) => js_util.callMethod(this, 'get', [index]);
 
-  @JS('set')
-  @staticInterop
-  void mSet(int index, [dynamic value]) =>
+  void set(int index, [dynamic value]) =>
       js_util.callMethod(this, 'set', [index, value]);
 
   int get length => js_util.getProperty(this, 'length');

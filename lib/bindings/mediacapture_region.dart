@@ -16,13 +16,8 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CropTarget {
+  external static Future<CropTarget> fromElement(Element element);
   external factory CropTarget();
-}
-
-extension PropsCropTarget on CropTarget {
-  static Future<CropTarget> fromElement(Element element) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(CropTarget, 'fromElement', [element]));
 }
 
 @JS()

@@ -10,7 +10,6 @@ library eyedropper_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -18,7 +17,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class ColorSelectionResult {
-  external factory ColorSelectionResult({required String sRGBHex});
+  external factory ColorSelectionResult({String? sRGBHex});
 }
 
 extension PropsColorSelectionResult on ColorSelectionResult {
@@ -32,7 +31,7 @@ extension PropsColorSelectionResult on ColorSelectionResult {
 @JS()
 @staticInterop
 class ColorSelectionOptions {
-  external factory ColorSelectionOptions({required AbortSignal signal});
+  external factory ColorSelectionOptions({AbortSignal? signal});
 }
 
 extension PropsColorSelectionOptions on ColorSelectionOptions {
@@ -50,7 +49,6 @@ extension PropsColorSelectionOptions on ColorSelectionOptions {
 ///  The interface represents an instance of an eyedropper tool that
 /// can be opened and used by the user to select colors from the
 /// screen.
-@experimental
 @JS()
 @staticInterop
 class EyeDropper {

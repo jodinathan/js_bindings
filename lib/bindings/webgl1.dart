@@ -1,6 +1,6 @@
 /// WebGL Specification
 ///
-/// https://registry.khronos.org/webgl/specs/latest/1.0/
+/// https://www.khronos.org/registry/webgl/specs/latest/1.0/
 
 // ignore_for_file: unused_import
 
@@ -133,8 +133,6 @@ class WebGLObject {
 ///
 ///
 ///
-///
-///
 ///    WebGLBuffer
 ///
 ///
@@ -151,8 +149,6 @@ class WebGLBuffer implements WebGLObject {
 ///
 ///
 ///    WebGLObject
-///
-///
 ///
 ///
 ///
@@ -179,15 +175,13 @@ class WebGLFramebuffer implements WebGLObject {
 ///
 ///
 ///
-///
-///
 ///    WebGLProgram
 ///
 ///
 ///  To create a , call the GL context's [createProgram()] function.
 /// After attaching the shader programs using [attachShader()], you
 /// link them into a usable program. This is shown in the code below.
-/// [const program = gl.createProgram();
+/// [var program = gl.createProgram();
 ///
 /// // Attach pre-existing shaders
 /// gl.attachShader(program, vertexShader);
@@ -195,9 +189,9 @@ class WebGLFramebuffer implements WebGLObject {
 ///
 /// gl.linkProgram(program);
 ///
-/// if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-///  const info = gl.getProgramInfoLog(program);
-///  throw `Could not compile WebGL program. \n\n${info}`;
+/// if ( !gl.getProgramParameter( program, gl.LINK_STATUS) ) {
+///  var info = gl.getProgramInfoLog(program);
+///  throw 'Could not compile WebGL program. \n\n' + info;
 /// }
 /// ]
 ///  See [WebGLShader] for information on creating the [vertexShader]
@@ -215,8 +209,6 @@ class WebGLProgram implements WebGLObject {
 ///
 ///
 ///    WebGLObject
-///
-///
 ///
 ///
 ///
@@ -243,8 +235,6 @@ class WebGLRenderbuffer implements WebGLObject {
 ///
 ///
 ///
-///
-///
 ///    WebGLShader
 ///
 ///
@@ -261,8 +251,6 @@ class WebGLShader implements WebGLObject {
 ///
 ///
 ///    WebGLObject
-///
-///
 ///
 ///
 ///
@@ -1718,8 +1706,8 @@ extension PropsWebGLRenderingContextOverloads
 ///  To get an access to a WebGL context for 2D and/or 3D graphics
 /// rendering, call [getContext()] on a [<canvas>] element, supplying
 /// "webgl" as the argument:
-/// [const canvas = document.getElementById('myCanvas');
-/// const gl = canvas.getContext('webgl');
+/// [var canvas = document.getElementById('myCanvas');
+/// var gl = canvas.getContext('webgl');
 /// ]
 ///  Once you have the WebGL rendering context for a canvas, you can
 /// render within it. The WebGL tutorial has more information,
@@ -1741,8 +1729,6 @@ class WebGLRenderingContext
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///

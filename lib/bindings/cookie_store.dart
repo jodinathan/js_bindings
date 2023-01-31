@@ -10,16 +10,12 @@ library cookie_store;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the 'Cookie Store API' provides methods for
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the [Cookie Store API] provides methods for
 /// getting and setting cookies asynchronously from either a page or
 /// a service worker.
 ///  The is accessed via attributes in the global scope in a [Window]
@@ -34,12 +30,9 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    CookieStore
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class CookieStore implements EventTarget {
@@ -47,17 +40,13 @@ class CookieStore implements EventTarget {
 }
 
 extension PropsCookieStore on CookieStore {
-  @JS('get')
-  @staticInterop
-  Future<CookieListItem> mGet(String name) =>
+  Future<CookieListItem> get(String name) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'get', [name]));
 
   Future<Iterable<CookieListItem>> getAll(String name) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getAll', [name]));
 
-  @JS('set')
-  @staticInterop
-  Future<void> mSet([String? name, String? value]) =>
+  Future<void> set([String? name, String? value]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'set', [name, value]));
 
   Future<void> delete(String name) =>
@@ -73,8 +62,7 @@ extension PropsCookieStore on CookieStore {
 @JS()
 @staticInterop
 class CookieStoreGetOptions {
-  external factory CookieStoreGetOptions(
-      {required String name, required String url});
+  external factory CookieStoreGetOptions({String? name, String? url});
 }
 
 extension PropsCookieStoreGetOptions on CookieStoreGetOptions {
@@ -193,22 +181,22 @@ extension PropsCookieStoreDeleteOptions on CookieStoreDeleteOptions {
 @staticInterop
 class CookieListItem {
   external factory CookieListItem._(
-      {required String name,
-      required String value,
+      {String? name,
+      String? value,
       String? domain,
-      required String path,
+      String? path,
       int? expires,
-      required bool secure,
-      required String sameSite});
+      bool? secure,
+      String? sameSite});
 
   factory CookieListItem(
-          {required String name,
-          required String value,
+          {String? name,
+          String? value,
           String? domain,
-          required String path,
+          String? path,
           int? expires,
-          required bool secure,
-          required CookieSameSite sameSite}) =>
+          bool? secure,
+          CookieSameSite? sameSite}) =>
       CookieListItem._(
           name: name,
           value: value,
@@ -216,7 +204,7 @@ class CookieListItem {
           path: path,
           expires: expires,
           secure: secure,
-          sameSite: sameSite.value);
+          sameSite: sameSite?.value);
 }
 
 extension PropsCookieListItem on CookieListItem {
@@ -258,21 +246,18 @@ extension PropsCookieListItem on CookieListItem {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the 'Cookie Store API' allows service workers
-/// to subscribe to cookie change events. Call [subscribe()] on a
-/// particular service worker registration to receive change events.
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the [Cookie Store] API allows service workers
+/// to subscribe to events for cookie changes. By using the
+/// [subscribe()] method a particular service worker registration can
+/// indicate that it is interested in change events.
 ///  A has an associated [ServiceWorkerRegistration]. Each service
 /// worker registration has a cookie change subscription list, which
 /// is a list of cookie change subscriptions each containing a name
-/// and URL. The methods in this interface allow the service worker
+/// and url. The methods in this interface allow the service worker
 /// to add and remove subscriptions from this list, and to get a list
 /// of all subscriptions.
 /// To get a , call [ServiceWorkerRegistration.cookies].
-@experimental
 @JS()
 @staticInterop
 class CookieStoreManager {
@@ -293,14 +278,11 @@ extension PropsCookieStoreManager on CookieStoreManager {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
-///  The interface of the 'Cookie Store API' is the event type passed
-/// to [CookieStore.onchange()] when any cookie changes occur. A
-/// cookie change consists of a cookie and a type (either "changed"
-/// or "deleted").
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The interface of the [Cookie Store API] is the event type passed
+/// to [CookieStore.onchange()] when any cookie changes have
+/// occurred. A cookie change consists of a cookie and a type (either
+/// "changed" or "deleted").
 /// Cookie changes that will cause the to be dispatched are:
 ///
 ///   A cookie is newly created and not immediately removed. In this
@@ -321,12 +303,9 @@ extension PropsCookieStoreManager on CookieStoreManager {
 ///
 ///
 ///
-///
-///
 ///    CookieChangeEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class CookieChangeEvent implements Event {
@@ -344,8 +323,7 @@ extension PropsCookieChangeEvent on CookieChangeEvent {
 @staticInterop
 class CookieChangeEventInit implements EventInit {
   external factory CookieChangeEventInit(
-      {required Iterable<CookieListItem> changed,
-      required Iterable<CookieListItem> deleted});
+      {Iterable<CookieListItem>? changed, Iterable<CookieListItem>? deleted});
 }
 
 extension PropsCookieChangeEventInit on CookieChangeEventInit {
@@ -362,10 +340,10 @@ extension PropsCookieChangeEventInit on CookieChangeEventInit {
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the'Cookie Store API' is the event type passed
+///  The interface of the [Cookie Store API] is the event type passed
 /// to [ServiceWorkerRegistration.oncookiechange()] when any cookie
-/// changes occur. A cookie change event consists of a cookie and a
-/// type (either "changed" or "deleted".)
+/// changes have occurred. A cookie change event consists of a cookie
+/// and a type (either "changed" or "deleted".)
 /// Cookie changes that cause the to be dispatched are:
 ///
 ///   A cookie is newly created and not immediately removed. In this
@@ -386,11 +364,7 @@ extension PropsCookieChangeEventInit on CookieChangeEventInit {
 ///
 ///
 ///
-///
-///
 ///    ExtendableEvent
-///
-///
 ///
 ///
 ///
@@ -416,8 +390,7 @@ extension PropsExtendableCookieChangeEvent on ExtendableCookieChangeEvent {
 @staticInterop
 class ExtendableCookieChangeEventInit implements ExtendableEventInit {
   external factory ExtendableCookieChangeEventInit(
-      {required Iterable<CookieListItem> changed,
-      required Iterable<CookieListItem> deleted});
+      {Iterable<CookieListItem>? changed, Iterable<CookieListItem>? deleted});
 }
 
 extension PropsExtendableCookieChangeEventInit

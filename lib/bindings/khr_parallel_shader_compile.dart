@@ -1,6 +1,6 @@
 /// WebGL KHR_parallel_shader_compile Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/KHR_parallel_shader_compile/
+/// https://www.khronos.org/registry/webgl/extensions/KHR_parallel_shader_compile/
 
 // ignore_for_file: unused_import
 

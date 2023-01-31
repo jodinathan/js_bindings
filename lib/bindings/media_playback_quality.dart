@@ -10,6 +10,7 @@ library media_playback_quality;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -17,6 +18,7 @@ import 'package:js_bindings/js_bindings.dart';
 /// [HTMLVideoElement.getVideoPlaybackQuality()] method and contains
 /// metrics that can be used to determine the playback quality of a
 /// video.
+@experimental
 @JS()
 @staticInterop
 class VideoPlaybackQuality {

@@ -1,6 +1,6 @@
 /// CSSOM View Module
 ///
-/// https://drafts.csswg.org/cssom-view-1/
+/// https://drafts.csswg.org/cssom-view/
 
 // ignore_for_file: unused_import
 
@@ -85,8 +85,6 @@ extension PropsScrollToOptions on ScrollToOptions {
 ///
 ///
 ///
-///
-///
 ///    MediaQueryList
 ///
 ///
@@ -113,13 +111,13 @@ extension PropsMediaQueryList on MediaQueryList {
 
 ///  The object stores information on the changes that have happened
 /// to a [MediaQueryList] object — instances are available as the
-/// event object on a function referenced by a [change] event.
+/// event object on a function referenced by a
+/// [MediaQueryList.onchange] property or
+/// [MediaQueryList.addListener()] call.
 ///
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -377,8 +375,6 @@ extension PropsGeometryUtils on GeometryUtils {
 ///
 ///
 ///
-///
-///
 ///    VisualViewport
 ///
 ///
@@ -404,11 +400,5 @@ extension PropsVisualViewport on VisualViewport {
   EventHandlerNonNull? get onscroll => js_util.getProperty(this, 'onscroll');
   set onscroll(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onscroll', newValue);
-  }
-
-  EventHandlerNonNull? get onscrollend =>
-      js_util.getProperty(this, 'onscrollend');
-  set onscrollend(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onscrollend', newValue);
   }
 }

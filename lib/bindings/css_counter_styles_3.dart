@@ -1,6 +1,6 @@
 /// CSS Counter Styles Level 3
 ///
-/// https://drafts.csswg.org/css-counter-styles-3/
+/// https://drafts.csswg.org/css-counter-styles/
 
 // ignore_for_file: unused_import
 
@@ -18,8 +18,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    CSSRule
-///
-///
 ///
 ///
 ///

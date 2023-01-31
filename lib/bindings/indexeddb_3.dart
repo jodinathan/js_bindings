@@ -31,18 +31,16 @@ import 'package:js_bindings/js_bindings.dart';
 ///  In plain words, all asynchronous methods return a request
 /// object. If the request has been completed successfully, the
 /// result is made available through the [result] property and an
-/// event indicating success is fired at the request ([success]). If
-/// an error occurs while performing the operation, the exception is
-/// made available through the [error] property and an error event is
-/// fired ([error]).
+/// event indicating success is fired at the request
+/// ([IDBRequest.onsuccess]). If an error occurs while performing the
+/// operation, the exception is made available through the [result]
+/// property and an error event is fired ([IDBRequest.onerror]).
 /// The interface [IDBOpenDBRequest] is derived from .
 ///  Note: This feature is available in Web Workers
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -101,11 +99,7 @@ enum IDBRequestReadyState {
 ///
 ///
 ///
-///
-///
 ///    IDBRequest
-///
-///
 ///
 ///
 ///
@@ -134,15 +128,13 @@ extension PropsIDBOpenDBRequest on IDBOpenDBRequest {
 }
 
 ///  The interface of the IndexedDB API indicates that the version of
-/// the database has changed, as the result of an [onupgradeneeded]
-/// event handler function.
+/// the database has changed, as the result of an
+/// [IDBOpenDBRequest.onupgradeneeded] event handler function.
 ///  Note: This feature is available in Web Workers
 ///
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -214,8 +206,7 @@ extension PropsIDBFactory on IDBFactory {
 @JS()
 @staticInterop
 class IDBDatabaseInfo {
-  external factory IDBDatabaseInfo(
-      {required String name, required int version});
+  external factory IDBDatabaseInfo({String? name, int? version});
 }
 
 extension PropsIDBDatabaseInfo on IDBDatabaseInfo {
@@ -247,8 +238,6 @@ extension PropsIDBDatabaseInfo on IDBDatabaseInfo {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -392,9 +381,7 @@ extension PropsIDBObjectStore on IDBObjectStore {
 
   IDBRequest clear() => js_util.callMethod(this, 'clear', []);
 
-  @JS('get')
-  @staticInterop
-  IDBRequest mGet(dynamic query) => js_util.callMethod(this, 'get', [query]);
+  IDBRequest get(dynamic query) => js_util.callMethod(this, 'get', [query]);
 
   IDBRequest getKey(dynamic query) =>
       js_util.callMethod(this, 'getKey', [query]);
@@ -485,9 +472,7 @@ extension PropsIDBIndex on IDBIndex {
   dynamic get keyPath => js_util.getProperty(this, 'keyPath');
   bool get multiEntry => js_util.getProperty(this, 'multiEntry');
   bool get unique => js_util.getProperty(this, 'unique');
-  @JS('get')
-  @staticInterop
-  IDBRequest mGet(dynamic query) => js_util.callMethod(this, 'get', [query]);
+  IDBRequest get(dynamic query) => js_util.callMethod(this, 'get', [query]);
 
   IDBRequest getKey(dynamic query) =>
       js_util.callMethod(this, 'getKey', [query]);
@@ -535,39 +520,39 @@ extension PropsIDBIndex on IDBIndex {
 ///
 ///
 ///    All keys ≥ x
-///    [IDBKeyRange.lowerBound] [(x)]
+///    [IDBKeyRange.lowerBound][(x)]
 ///
 ///
 ///    All keys > x
-///    [IDBKeyRange.lowerBound] [(x, true)]
+///    [IDBKeyRange.lowerBound][(x, true)]
 ///
 ///
 ///    All keys ≤ y
-///    [IDBKeyRange.upperBound] [(y)]
+///    [IDBKeyRange.upperBound][(y)]
 ///
 ///
 ///    All keys < y
-///    [IDBKeyRange.upperBound] [(y, true)]
+///    [IDBKeyRange.upperBound][(y, true)]
 ///
 ///
 ///    All keys ≥ x && ≤ y
-///    [IDBKeyRange.bound] [(x, y)]
+///    [IDBKeyRange.bound][(x, y)]
 ///
 ///
 ///    All keys > x &&< y
-///    [IDBKeyRange.bound] [(x, y, true, true)]
+///    [IDBKeyRange.bound][(x, y, true, true)]
 ///
 ///
 ///    All keys > x && ≤ y
-///    [IDBKeyRange.bound] [(x, y, true, false)]
+///    [IDBKeyRange.bound][(x, y, true, false)]
 ///
 ///
 ///    All keys ≥ x &&< y
-///    [IDBKeyRange.bound] [(x, y, false, true)]
+///    [IDBKeyRange.bound][(x, y, false, true)]
 ///
 ///
 ///    The key = z
-///    [IDBKeyRange.only] [(z)]
+///    [IDBKeyRange.only][(z)]
 ///
 ///
 ///
@@ -593,6 +578,11 @@ extension PropsIDBIndex on IDBIndex {
 @JS()
 @staticInterop
 class IDBKeyRange {
+  external static IDBKeyRange only(dynamic value);
+  external static IDBKeyRange lowerBound(dynamic lower, [bool? open = false]);
+  external static IDBKeyRange upperBound(dynamic upper, [bool? open = false]);
+  external static IDBKeyRange bound(dynamic lower, dynamic upper,
+      [bool? lowerOpen = false, bool? upperOpen = false]);
   external factory IDBKeyRange();
 }
 
@@ -601,20 +591,6 @@ extension PropsIDBKeyRange on IDBKeyRange {
   dynamic get upper => js_util.getProperty(this, 'upper');
   bool get lowerOpen => js_util.getProperty(this, 'lowerOpen');
   bool get upperOpen => js_util.getProperty(this, 'upperOpen');
-  static IDBKeyRange only(dynamic value) =>
-      js_util.callMethod(IDBKeyRange, 'only', [value]);
-
-  static IDBKeyRange lowerBound(dynamic lower, [bool? open = false]) =>
-      js_util.callMethod(IDBKeyRange, 'lowerBound', [lower, open]);
-
-  static IDBKeyRange upperBound(dynamic upper, [bool? open = false]) =>
-      js_util.callMethod(IDBKeyRange, 'upperBound', [upper, open]);
-
-  static IDBKeyRange bound(dynamic lower, dynamic upper,
-          [bool? lowerOpen = false, bool? upperOpen = false]) =>
-      js_util.callMethod(
-          IDBKeyRange, 'bound', [lower, upper, lowerOpen, upperOpen]);
-
   bool includes(dynamic key) => js_util.callMethod(this, 'includes', [key]);
 }
 
@@ -698,8 +674,6 @@ enum IDBCursorDirection {
 ///
 ///
 ///
-///
-///
 ///    IDBCursorWithValue
 ///
 ///
@@ -730,17 +704,15 @@ extension PropsIDBCursorWithValue on IDBCursorWithValue {
 ///
 ///
 ///
-///
-///
 ///    IDBTransaction
 ///
 ///
 ///  Transactions are started when the transaction is created, not
 /// when the first request is placed; for example consider this:
-/// [const trans1 = db.transaction("foo", "readwrite");
-/// const trans2 = db.transaction("foo", "readwrite");
-/// const objectStore2 = trans2.objectStore("foo")
-/// const objectStore1 = trans1.objectStore("foo")
+/// [var trans1 = db.transaction("foo", "readwrite");
+/// var trans2 = db.transaction("foo", "readwrite");
+/// var objectStore2 = trans2.objectStore("foo")
+/// var objectStore1 = trans1.objectStore("foo")
 /// objectStore2.put("2", "key");
 /// objectStore1.put("1", "key");
 /// ]

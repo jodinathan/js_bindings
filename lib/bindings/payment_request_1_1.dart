@@ -10,6 +10,7 @@ library payment_request_1_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -28,8 +29,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    PaymentRequest
 ///
 ///
@@ -41,9 +40,7 @@ class PaymentRequest implements EventTarget {
 }
 
 extension PropsPaymentRequest on PaymentRequest {
-  @JS('show')
-  @staticInterop
-  Future<PaymentResponse> mShow(
+  Future<PaymentResponse> show(
           [Future<PaymentDetailsUpdate>? detailsPromise]) =>
       js_util
           .promiseToFuture(js_util.callMethod(this, 'show', [detailsPromise]));
@@ -107,8 +104,8 @@ extension PropsPaymentCurrencyAmount on PaymentCurrencyAmount {
 @staticInterop
 class PaymentDetailsBase {
   external factory PaymentDetailsBase(
-      {required Iterable<PaymentItem> displayItems,
-      required Iterable<PaymentDetailsModifier> modifiers});
+      {Iterable<PaymentItem>? displayItems,
+      Iterable<PaymentDetailsModifier>? modifiers});
 }
 
 extension PropsPaymentDetailsBase on PaymentDetailsBase {
@@ -129,8 +126,7 @@ extension PropsPaymentDetailsBase on PaymentDetailsBase {
 @JS()
 @staticInterop
 class PaymentDetailsInit implements PaymentDetailsBase {
-  external factory PaymentDetailsInit(
-      {required String id, required PaymentItem total});
+  external factory PaymentDetailsInit({String? id, required PaymentItem total});
 }
 
 extension PropsPaymentDetailsInit on PaymentDetailsInit {
@@ -150,7 +146,7 @@ extension PropsPaymentDetailsInit on PaymentDetailsInit {
 @staticInterop
 class PaymentDetailsUpdate implements PaymentDetailsBase {
   external factory PaymentDetailsUpdate(
-      {required PaymentItem total, dynamic paymentMethodErrors});
+      {PaymentItem? total, dynamic paymentMethodErrors});
 }
 
 extension PropsPaymentDetailsUpdate on PaymentDetailsUpdate {
@@ -172,8 +168,8 @@ extension PropsPaymentDetailsUpdate on PaymentDetailsUpdate {
 class PaymentDetailsModifier {
   external factory PaymentDetailsModifier(
       {required String supportedMethods,
-      required PaymentItem total,
-      required Iterable<PaymentItem> additionalDisplayItems,
+      PaymentItem? total,
+      Iterable<PaymentItem>? additionalDisplayItems,
       dynamic data});
 }
 
@@ -267,11 +263,10 @@ enum PaymentComplete {
 ///
 ///
 ///
-///
-///
 ///    PaymentResponse
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class PaymentResponse implements EventTarget {
@@ -294,12 +289,21 @@ extension PropsPaymentResponse on PaymentResponse {
       js_util.promiseToFuture(js_util.callMethod(this, 'retry', [errorFields]));
 }
 
+///  Secure context: This feature is available only in secure
+/// contexts (HTTPS), in some or all supporting browsers.
+///  The dictionary represents objects providing information about
+/// any and all errors that occurred while processing a payment
+/// request. When validation of the [PaymentResponse] returned by the
+/// [PaymentRequest.show()] or [PaymentResponse.retry()] methods
+/// fails, your code creates a object to pass into [retry()] so that
+/// the user agent knows what needs to be fixed and what if any error
+/// messages to display to the user.
 @anonymous
 @JS()
 @staticInterop
 class PaymentValidationErrors {
   external factory PaymentValidationErrors(
-      {required String error, dynamic paymentMethod});
+      {String? error, dynamic paymentMethod});
 }
 
 extension PropsPaymentValidationErrors on PaymentValidationErrors {
@@ -329,11 +333,7 @@ extension PropsPaymentValidationErrors on PaymentValidationErrors {
 ///
 ///
 ///
-///
-///
 ///    PaymentRequestUpdateEvent
-///
-///
 ///
 ///
 ///
@@ -382,11 +382,19 @@ extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
 ///
 ///  [shippingaddresschange] Secure context
 ///
-///   Dispatched whenever the user changes their shipping address.
+///
+///    Dispatched whenever the user changes their shipping address.
+///     Also available using the [onshippingaddresschange] event
+/// handler property.
+///
 ///
 ///  [shippingoptionchange] Secure context
 ///
-///   Dispatched whenever the user changes a shipping option.
+///
+///    Dispatched whenever the user changes a shipping option.
+///     Also available using the [onshippingoptionchange] event
+/// handler property.
+///
 ///
 ///
 ///
@@ -398,11 +406,10 @@ extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
 ///
 ///
 ///
-///
-///
 ///    PaymentRequestUpdateEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class PaymentRequestUpdateEvent implements Event {

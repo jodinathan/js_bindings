@@ -1,6 +1,6 @@
 /// Resize Observer
 ///
-/// https://drafts.csswg.org/resize-observer-1/
+/// https://drafts.csswg.org/resize-observer/
 
 // ignore_for_file: unused_import
 
@@ -10,6 +10,7 @@ library resize_observer_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -56,6 +57,12 @@ extension PropsResizeObserverOptions on ResizeObserverOptions {
 /// width. The border box encompasses the content, padding, and
 /// border. See The box model for further explanation.
 ///
+///   avoids infinite callback loops and cyclic dependencies that are
+/// often created when resizing via a callback function. It does this
+/// by only processing elements deeper in the DOM in subsequent
+/// frames. Implementations should, if they follow the specification,
+/// invoke resize events before paint and after layout.
+@experimental
 @JS()
 @staticInterop
 class ResizeObserver {

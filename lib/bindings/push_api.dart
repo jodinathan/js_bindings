@@ -10,7 +10,7 @@ library push_api;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -33,6 +33,7 @@ extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
 /// for push notifications.
 ///  This interface is accessed via the
 /// [ServiceWorkerRegistration.pushManager] property.
+@experimental
 @JS()
 @staticInterop
 class PushManager {
@@ -92,9 +93,13 @@ extension PropsPushSubscriptionOptionsInit on PushSubscriptionOptionsInit {
   }
 }
 
-///  The interface of the Push API provides a subscription's URL
-/// endpoint and allows unsubscribing from a push service.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The interface of the Push API provides a subcription's URL
+/// endpoint and allows unsubscription from a push service.
 /// An instance of this interface can be serialized.
+@experimental
 @JS()
 @staticInterop
 class PushSubscription {
@@ -119,7 +124,7 @@ extension PropsPushSubscription on PushSubscription {
 @staticInterop
 class PushSubscriptionJSON {
   external factory PushSubscriptionJSON(
-      {required String endpoint, int? expirationTime, dynamic keys});
+      {String? endpoint, int? expirationTime, dynamic keys});
 }
 
 extension PropsPushSubscriptionJSON on PushSubscriptionJSON {
@@ -151,6 +156,9 @@ enum PushEncryptionKeyName {
   const PushEncryptionKeyName(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Push API provides methods which let you
 /// retrieve the push data sent by a server in various formats.
 ///  Unlike the similar methods in the Fetch API, which only allow
@@ -159,6 +167,7 @@ enum PushEncryptionKeyName {
 ///  Messages received through the Push API are sent encrypted by
 /// push services and then automatically decrypted by browsers before
 /// they are made accessible through the methods of the interface.
+@experimental
 @JS()
 @staticInterop
 class PushMessageData {
@@ -175,6 +184,9 @@ extension PropsPushMessageData on PushMessageData {
   String text() => js_util.callMethod(this, 'text', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Push API represents a push message that has
 /// been received. This event is sent to the global scope of a
 /// [ServiceWorker]. It contains the information sent from an
@@ -188,11 +200,7 @@ extension PropsPushMessageData on PushMessageData {
 ///
 ///
 ///
-///
-///
 ///    ExtendableEvent
-///
-///
 ///
 ///
 ///
@@ -244,8 +252,7 @@ extension PropsPushSubscriptionChangeEvent on PushSubscriptionChangeEvent {
 @staticInterop
 class PushSubscriptionChangeEventInit implements ExtendableEventInit {
   external factory PushSubscriptionChangeEventInit(
-      {required PushSubscription newSubscription,
-      required PushSubscription oldSubscription});
+      {PushSubscription? newSubscription, PushSubscription? oldSubscription});
 }
 
 extension PropsPushSubscriptionChangeEventInit

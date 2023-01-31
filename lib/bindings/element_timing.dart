@@ -10,17 +10,25 @@ library element_timing;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
-///  The interface contains render timing information for image and
-/// text node elements the developer annotated with an
-/// [elementtiming] attribute for observation.
-@experimental
+///  The interface of the Element Timing API reports timing
+/// information on a specific element identified by the page author.
+/// For example it could report timing information about the main
+/// image in an article.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    PerformanceElementTiming
+///
+///
 @JS()
 @staticInterop
 class PerformanceElementTiming implements PerformanceEntry {

@@ -14,9 +14,6 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the MediaStream Image Capture API provides
 /// methods to enable the capture of images or photos from a camera
 /// or other photographic device. It provides an interface for
@@ -50,21 +47,21 @@ extension PropsImageCapture on ImageCapture {
 @staticInterop
 class PhotoCapabilities {
   external factory PhotoCapabilities._(
-      {required String redEyeReduction,
-      required MediaSettingsRange imageHeight,
-      required MediaSettingsRange imageWidth,
-      required Iterable<String> fillLightMode});
+      {String? redEyeReduction,
+      MediaSettingsRange? imageHeight,
+      MediaSettingsRange? imageWidth,
+      Iterable<String>? fillLightMode});
 
   factory PhotoCapabilities(
-          {required RedEyeReduction redEyeReduction,
-          required MediaSettingsRange imageHeight,
-          required MediaSettingsRange imageWidth,
-          required Iterable<FillLightMode> fillLightMode}) =>
+          {RedEyeReduction? redEyeReduction,
+          MediaSettingsRange? imageHeight,
+          MediaSettingsRange? imageWidth,
+          Iterable<FillLightMode>? fillLightMode}) =>
       PhotoCapabilities._(
-          redEyeReduction: redEyeReduction.value,
+          redEyeReduction: redEyeReduction?.value,
           imageHeight: imageHeight,
           imageWidth: imageWidth,
-          fillLightMode: fillLightMode.map((e) => e.value));
+          fillLightMode: fillLightMode?.map((e) => e.value));
 }
 
 extension PropsPhotoCapabilities on PhotoCapabilities {
@@ -97,18 +94,18 @@ extension PropsPhotoCapabilities on PhotoCapabilities {
 @staticInterop
 class PhotoSettings {
   external factory PhotoSettings._(
-      {required String fillLightMode,
-      required double imageHeight,
-      required double imageWidth,
-      required bool redEyeReduction});
+      {String? fillLightMode,
+      double? imageHeight,
+      double? imageWidth,
+      bool? redEyeReduction});
 
   factory PhotoSettings(
-          {required FillLightMode fillLightMode,
-          required double imageHeight,
-          required double imageWidth,
-          required bool redEyeReduction}) =>
+          {FillLightMode? fillLightMode,
+          double? imageHeight,
+          double? imageWidth,
+          bool? redEyeReduction}) =>
       PhotoSettings._(
-          fillLightMode: fillLightMode.value,
+          fillLightMode: fillLightMode?.value,
           imageHeight: imageHeight,
           imageWidth: imageWidth,
           redEyeReduction: redEyeReduction);
@@ -141,8 +138,7 @@ extension PropsPhotoSettings on PhotoSettings {
 @JS()
 @staticInterop
 class MediaSettingsRange {
-  external factory MediaSettingsRange(
-      {required double max, required double min, required double step});
+  external factory MediaSettingsRange({double? max, double? min, double? step});
 }
 
 extension PropsMediaSettingsRange on MediaSettingsRange {
@@ -193,7 +189,7 @@ enum FillLightMode {
 @staticInterop
 class ConstrainPoint2DParameters {
   external factory ConstrainPoint2DParameters(
-      {required Iterable<Point2D> exact, required Iterable<Point2D> ideal});
+      {Iterable<Point2D>? exact, Iterable<Point2D>? ideal});
 }
 
 extension PropsConstrainPoint2DParameters on ConstrainPoint2DParameters {

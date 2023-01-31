@@ -1,6 +1,6 @@
 /// WebGL WEBGL_lose_context Khronos Ratified Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/WEBGL_lose_context/
+/// https://www.khronos.org/registry/webgl/extensions/WEBGL_lose_context/
 
 // ignore_for_file: unused_import
 

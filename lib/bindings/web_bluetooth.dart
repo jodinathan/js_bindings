@@ -69,11 +69,11 @@ extension PropsBluetoothServiceDataFilterInit
 @staticInterop
 class BluetoothLEScanFilterInit {
   external factory BluetoothLEScanFilterInit(
-      {required Iterable<dynamic> services,
-      required String name,
-      required String namePrefix,
-      required Iterable<BluetoothManufacturerDataFilterInit> manufacturerData,
-      required Iterable<BluetoothServiceDataFilterInit> serviceData});
+      {Iterable<dynamic>? services,
+      String? name,
+      String? namePrefix,
+      Iterable<BluetoothManufacturerDataFilterInit>? manufacturerData,
+      Iterable<BluetoothServiceDataFilterInit>? serviceData});
 }
 
 extension PropsBluetoothLEScanFilterInit on BluetoothLEScanFilterInit {
@@ -110,7 +110,7 @@ extension PropsBluetoothLEScanFilterInit on BluetoothLEScanFilterInit {
 @staticInterop
 class RequestDeviceOptions {
   external factory RequestDeviceOptions(
-      {required Iterable<BluetoothLEScanFilterInit> filters,
+      {Iterable<BluetoothLEScanFilterInit>? filters,
       Iterable<dynamic>? optionalServices = const [],
       Iterable<int>? optionalManufacturerData = const [],
       bool? acceptAllDevices = false});
@@ -160,8 +160,6 @@ extension PropsRequestDeviceOptions on RequestDeviceOptions {
 ///
 ///
 ///
-///
-///
 ///    Bluetooth
 ///
 ///
@@ -202,8 +200,8 @@ extension PropsBluetooth on Bluetooth {
 @staticInterop
 class BluetoothPermissionDescriptor implements PermissionDescriptor {
   external factory BluetoothPermissionDescriptor(
-      {required String deviceId,
-      required Iterable<BluetoothLEScanFilterInit> filters,
+      {String? deviceId,
+      Iterable<BluetoothLEScanFilterInit>? filters,
       Iterable<dynamic>? optionalServices = const [],
       Iterable<int>? optionalManufacturerData = const [],
       bool? acceptAllDevices = false});
@@ -330,8 +328,8 @@ extension PropsValueEventInit on ValueEventInit {
 /// Browser compatibility table carefully before using this in
 /// production.
 ///
-///   The BluetoothDevice interface of the Web Bluetooth API
-/// represents a Bluetooth device inside a particular script
+///  The BluetoothDevice interface of the Web Bluetooth
+///  API represents a Bluetooth device inside a particular script
 /// execution
 ///  environment.
 ///
@@ -339,8 +337,6 @@ extension PropsValueEventInit on ValueEventInit {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -380,7 +376,7 @@ extension PropsBluetoothDevice on BluetoothDevice {
 @JS()
 @staticInterop
 class WatchAdvertisementsOptions {
-  external factory WatchAdvertisementsOptions({required AbortSignal signal});
+  external factory WatchAdvertisementsOptions({AbortSignal? signal});
 }
 
 extension PropsWatchAdvertisementsOptions on WatchAdvertisementsOptions {
@@ -429,12 +425,12 @@ class BluetoothAdvertisingEventInit implements EventInit {
   external factory BluetoothAdvertisingEventInit(
       {required BluetoothDevice device,
       dynamic uuids,
-      required String name,
-      required int appearance,
-      required int txPower,
-      required int rssi,
-      required BluetoothManufacturerDataMap manufacturerData,
-      required BluetoothServiceDataMap serviceData});
+      String? name,
+      int? appearance,
+      int? txPower,
+      int? rssi,
+      BluetoothManufacturerDataMap? manufacturerData,
+      BluetoothServiceDataMap? serviceData});
 }
 
 extension PropsBluetoothAdvertisingEventInit on BluetoothAdvertisingEventInit {
@@ -488,6 +484,12 @@ extension PropsBluetoothAdvertisingEventInit on BluetoothAdvertisingEventInit {
 ///  The interface of the Web Bluetooth API represents a GATT
 ///  Server on a remote device.
 ///
+///    Note: This page describes the W3C Community Group Web
+/// Bluetooth API. For the Firefox OS
+///   Bluetooth API, see [BluetoothGattServer]
+/// (Firefox OS).
+///
+///
 @experimental
 @JS()
 @staticInterop
@@ -517,6 +519,13 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
 /// Browser compatibility table carefully before using this in
 /// production.
 ///
+///
+///    Note: This page describes the W3C Community Group
+/// BluetoothRemoteGATTService, formerly
+///    called BluetoothGATTService. For the Firefox OS interface of
+/// the same name,
+///   see [BluetoothGattService].
+///
 ///  The interface of the Web Bluetooth API represents a
 ///   service provided by a GATT server, including a device, a list
 /// of referenced services,
@@ -526,8 +535,6 @@ extension PropsBluetoothRemoteGATTServer on BluetoothRemoteGATTServer {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -574,13 +581,11 @@ extension PropsBluetoothRemoteGATTService on BluetoothRemoteGATTService {
 ///  The [BluetoothRemoteGattCharacteristic] interface of the Web
 /// Bluetooth API represents a GATT Characteristic, which is a basic
 /// data element that provides further information about a
-/// peripheral's service.
+/// peripheral’s service.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -672,8 +677,14 @@ extension PropsBluetoothCharacteristicProperties
 ///
 ///   The interface of the Web Bluetooth API provides a GATT
 /// Descriptor,
-///   which provides further information about a characteristic's
+///   which provides further information about a characteristic’s
 /// value.
+///
+///    Note: This page describes the W3C Community Group Web
+/// Bluetooth API. For the Firefox OS
+///   Bluetooth API, see [BluetoothGattDescriptor]
+/// (Firefox OS).
+///
 ///
 @experimental
 @JS()
@@ -762,19 +773,9 @@ extension PropsServiceEventHandlers on ServiceEventHandlers {
 @JS()
 @staticInterop
 class BluetoothUUID {
+  external static String getService(dynamic name);
+  external static String getCharacteristic(dynamic name);
+  external static String getDescriptor(dynamic name);
+  external static String canonicalUUID(int alias);
   external factory BluetoothUUID();
-}
-
-extension PropsBluetoothUUID on BluetoothUUID {
-  static String getService(dynamic name) =>
-      js_util.callMethod(BluetoothUUID, 'getService', [name]);
-
-  static String getCharacteristic(dynamic name) =>
-      js_util.callMethod(BluetoothUUID, 'getCharacteristic', [name]);
-
-  static String getDescriptor(dynamic name) =>
-      js_util.callMethod(BluetoothUUID, 'getDescriptor', [name]);
-
-  static String canonicalUUID(int alias) =>
-      js_util.callMethod(BluetoothUUID, 'canonicalUUID', [alias]);
 }

@@ -14,9 +14,6 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Reporting API represents the body of an
 /// intervention report.
 ///  An intervention report is generated when usage of a feature in a
@@ -34,8 +31,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    ReportBody
-///
-///
 ///
 ///
 ///

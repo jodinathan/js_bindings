@@ -1,4 +1,4 @@
-/// Resource Timing
+/// Resource Timing Level 2
 ///
 /// https://w3c.github.io/resource-timing/
 
@@ -6,21 +6,40 @@
 
 @JS('self')
 @staticInterop
-library resource_timing;
+library resource_timing_2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///
-///  Note: This feature is available in Web Workers
-///
 ///  The interface enables retrieval and analysis of detailed network
 /// timing data regarding the loading of an application's resources.
 /// An application can use the timing metrics to determine, for
 /// example, the length of time it takes to fetch a specific
 /// resource, such as an [XMLHttpRequest], [<SVG>], image, or script.
+///  The interface's properties create a resource loading timeline
+/// with [high-resolution timestamps] for network events such as
+/// redirect start and end times, fetch start, DNS lookup start and
+/// end times, response start and end times, etc.. Additionally, the
+/// interface extends [PerformanceEntry] with other properties which
+/// provide data about the size of the fetched resource as well as
+/// the type of resource that initiated the fetch.
+///
+///
+///
+///    PerformanceEntry
+///
+///
+///
+///
+///
+///    PerformanceResourceTiming
+///
+///
+///
+///  Note: This feature is available in Web Workers
+///
 @JS()
 @staticInterop
 class PerformanceResourceTiming implements PerformanceEntry {
@@ -47,7 +66,6 @@ extension PropsPerformanceResourceTiming on PerformanceResourceTiming {
   int get transferSize => js_util.getProperty(this, 'transferSize');
   int get encodedBodySize => js_util.getProperty(this, 'encodedBodySize');
   int get decodedBodySize => js_util.getProperty(this, 'decodedBodySize');
-  int get responseStatus => js_util.getProperty(this, 'responseStatus');
   RenderBlockingStatusType get renderBlockingStatus =>
       RenderBlockingStatusType.fromValue(
           js_util.getProperty(this, 'renderBlockingStatus'));

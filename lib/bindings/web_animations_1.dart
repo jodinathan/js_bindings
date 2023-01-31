@@ -10,9 +10,13 @@ library web_animations_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Animations API represents the timeline
 /// of an animation. This interface exists to define timeline
 /// features (inherited by [DocumentTimeline] and future timeline
@@ -27,9 +31,6 @@ class AnimationTimeline {
 
 extension PropsAnimationTimeline on AnimationTimeline {
   double? get currentTime => js_util.getProperty(this, 'currentTime');
-  CSSNumericValue? getCurrentTime([String? rangeName]) =>
-      js_util.callMethod(this, 'getCurrentTime', [rangeName]);
-
   dynamic get duration => js_util.getProperty(this, 'duration');
   Animation play([AnimationEffect? effect]) =>
       js_util.callMethod(this, 'play', [effect]);
@@ -49,6 +50,9 @@ extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Animations API represents animation
 /// timelines, including the default document timeline (accessed via
 /// [Document.timeline]).
@@ -56,8 +60,6 @@ extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
 ///
 ///
 ///    AnimationTimeline
-///
-///
 ///
 ///
 ///
@@ -79,8 +81,6 @@ class DocumentTimeline implements AnimationTimeline {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -196,6 +196,9 @@ enum AnimationReplaceState {
   const AnimationReplaceState(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Animations API defines current and
 /// future animation effects like [KeyframeEffect], which can be
 /// passed to [Animation] objects for playing, and [KeyframeEffect]
@@ -299,32 +302,32 @@ extension PropsEffectTiming on EffectTiming {
 @staticInterop
 class OptionalEffectTiming {
   external factory OptionalEffectTiming._(
-      {required double delay,
-      required double endDelay,
-      required String fill,
-      required double iterationStart,
+      {double? delay,
+      double? endDelay,
+      String? fill,
+      double? iterationStart,
       /* double | NaN */ dynamic iterations,
       dynamic duration,
-      required String direction,
-      required String easing});
+      String? direction,
+      String? easing});
 
   factory OptionalEffectTiming(
-          {required double delay,
-          required double endDelay,
-          required FillMode fill,
-          required double iterationStart,
+          {double? delay,
+          double? endDelay,
+          FillMode? fill,
+          double? iterationStart,
           /* double | NaN */ dynamic iterations,
           dynamic duration,
-          required PlaybackDirection direction,
-          required String easing}) =>
+          PlaybackDirection? direction,
+          String? easing}) =>
       OptionalEffectTiming._(
           delay: delay,
           endDelay: endDelay,
-          fill: fill.value,
+          fill: fill?.value,
           iterationStart: iterationStart,
           iterations: iterations,
           duration: duration,
-          direction: direction.value,
+          direction: direction?.value,
           easing: easing);
 }
 
@@ -422,6 +425,9 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
   }
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Web Animations API lets us create sets of
 /// animatable properties and values, called keyframes. These can
 /// then be played using the [Animation()] constructor.
@@ -434,11 +440,10 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
 ///
 ///
 ///
-///
-///
 ///    KeyframeEffect
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class KeyframeEffect implements AnimationEffect {
@@ -483,13 +488,13 @@ extension PropsKeyframeEffect on KeyframeEffect {
 class BaseComputedKeyframe {
   external factory BaseComputedKeyframe._(
       {double? offset,
-      required double computedOffset,
+      double? computedOffset,
       String? easing = 'linear',
       String? composite});
 
   factory BaseComputedKeyframe(
           {double? offset,
-          required double computedOffset,
+          double? computedOffset,
           String? easing = 'linear',
           CompositeOperationOrAuto? composite =
               CompositeOperationOrAuto.auto}) =>

@@ -84,9 +84,10 @@ extension PropsBlobPropertyBag on BlobPropertyBag {
 /// JavaScript in a web page to access their content.
 ///   objects are generally retrieved from a [FileList] object
 /// returned as a result of a user selecting files using the
-/// [<input>] element, or from a drag and drop operation's
-/// [DataTransfer] object.
-///  A object is a specific kind of [Blob], and can be used in any
+/// [<input>] element, from a drag and drop operation's
+/// [DataTransfer] object, or from the [mozGetAsFile()] API on an
+/// [HTMLCanvasElement].
+///  A object is a specific kind of a [Blob], and can be used in any
 /// context that a Blob can. In particular, [FileReader],
 /// [URL.createObjectURL()], [createImageBitmap()], and
 /// [XMLHttpRequest.send()] accept both [Blob]s and s.
@@ -96,8 +97,6 @@ extension PropsBlobPropertyBag on BlobPropertyBag {
 ///
 ///
 ///    Blob
-///
-///
 ///
 ///
 ///
@@ -124,7 +123,7 @@ extension PropsFile on File {
 @JS()
 @staticInterop
 class FilePropertyBag implements BlobPropertyBag {
-  external factory FilePropertyBag({required int lastModified});
+  external factory FilePropertyBag({int? lastModified});
 }
 
 extension PropsFilePropertyBag on FilePropertyBag {
@@ -140,22 +139,12 @@ extension PropsFilePropertyBag on FilePropertyBag {
 /// used for a list of files dropped into web content when using the
 /// drag and drop API; see the [DataTransfer] object for details on
 /// this usage.
-///  All [<input>] element nodes have a [files] attribute of type on
-/// them which allows access to the items in this list. For example,
-/// if the HTML includes the following file input:
-/// [<input id="fileItem" type="file" />
-/// ]
-///  The following line of code fetches the first file in the node's
-/// file list as a [File] object:
-/// [const file = document.getElementById('fileItem').files[0];
-/// ]
 ///
-///   Note: This interface was an attempt to create an unmodifiable
-/// list and only continues to be supported to not break code that's
-/// already using it. Modern APIs use types that wrap around
-/// ECMAScript array types instead, so you can treat them like
-/// ECMAScript arrays, and at the same time impose additional
-/// semantics on their usage (such as making their items read-only).
+///   Note: Prior to Gecko 1.9.2, the input element only supported a
+/// single file being selected at a time, meaning that the FileList
+/// would contain only one file. Starting with Gecko 1.9.2, if the
+/// input element's multiple attribute is true, the FileList may
+/// contain multiple files.
 ///
 @JS()
 @staticInterop
@@ -175,8 +164,8 @@ extension PropsFileList on FileList {
 /// data to read.
 ///  File objects may be obtained from a [FileList] object returned
 /// as a result of a user selecting files using the [<input>]
-/// element, or from a drag and drop operation's [DataTransfer]
-/// object.
+/// element, from a drag and drop operation's [DataTransfer] object,
+/// or from the [mozGetAsFile()] API on an [HTMLCanvasElement].
 ///   can only access the contents of files that the user has
 /// explicitly selected, either using an HTML [<input type="file">]
 /// element or by drag and drop. It cannot be used to read a file by
@@ -189,8 +178,6 @@ extension PropsFileList on FileList {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///

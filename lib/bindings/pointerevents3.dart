@@ -130,19 +130,13 @@ extension PropsPointerEventInit on PointerEventInit {
 ///
 ///
 ///
-///
-///
 ///    UIEvent
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    MouseEvent
-///
-///
 ///
 ///
 ///

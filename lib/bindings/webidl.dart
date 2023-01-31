@@ -19,9 +19,6 @@ import 'package:js_bindings/js_bindings.dart';
 /// in web APIs.
 ///  Each exception has a name, which is a short "PascalCase"-style
 /// string identifying the error or abnormal condition.
-///   is a Serializable object, so it can be cloned with
-/// [structuredClone()] or copied between Workers using
-/// [postMessage()].
 @JS()
 @staticInterop
 class DOMException {

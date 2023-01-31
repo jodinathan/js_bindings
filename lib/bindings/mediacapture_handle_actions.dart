@@ -42,7 +42,7 @@ extension PropsCaptureActionEvent on CaptureActionEvent {
 @JS()
 @staticInterop
 class CaptureActionEventInit implements EventInit {
-  external factory CaptureActionEventInit({required String action});
+  external factory CaptureActionEventInit({String? action});
 }
 
 extension PropsCaptureActionEventInit on CaptureActionEventInit {

@@ -1,6 +1,6 @@
 /// WebGL OES_standard_derivatives Khronos Ratified Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/OES_standard_derivatives/
+/// https://www.khronos.org/registry/webgl/extensions/OES_standard_derivatives/
 
 // ignore_for_file: unused_import
 

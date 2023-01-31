@@ -1,6 +1,6 @@
 /// WebGL WEBGL_multi_draw Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/WEBGL_multi_draw/
+/// https://www.khronos.org/registry/webgl/extensions/WEBGL_multi_draw/
 
 // ignore_for_file: unused_import
 

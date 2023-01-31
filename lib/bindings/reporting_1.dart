@@ -14,13 +14,9 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Reporting API represents the body of a
 /// report. Individual report types inherit from this interface,
 /// adding specific attributes relevant to the particular report.
-@experimental
 @JS()
 @staticInterop
 class ReportBody {
@@ -83,12 +79,18 @@ extension PropsReportingObserver on ReportingObserver {
   Iterable<Report> takeRecords() => js_util.callMethod(this, 'takeRecords', []);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The dictionary of the Reporting API allows options to be set in
+/// the constructor when creating a [ReportingObserver].
+@experimental
 @anonymous
 @JS()
 @staticInterop
 class ReportingObserverOptions {
   external factory ReportingObserverOptions(
-      {required Iterable<String> types, bool? buffered = false});
+      {Iterable<String>? types, bool? buffered = false});
 }
 
 extension PropsReportingObserverOptions on ReportingObserverOptions {

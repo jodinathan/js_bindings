@@ -17,8 +17,11 @@ import 'package:js_bindings/js_bindings.dart';
 /// orientation sensors. This interface cannot be used directly.
 /// Instead it provides properties and methods accessed by interfaces
 /// that inherit from it.
-///  This feature may be blocked by a Permissions Policy set on your
-/// server.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
 ///
 ///
 ///
@@ -28,11 +31,7 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Sensor
-///
-///
 ///
 ///
 ///
@@ -93,14 +92,15 @@ extension PropsOrientationSensorOptions on OrientationSensorOptions {
 ///  To use this sensor, the user must grant permission to the
 /// ['accelerometer'], ['gyroscope'], and ['magnetometer'] device
 /// sensors through the Permissions API.
-///  This feature may be blocked by a Permissions Policy set on your
-/// server.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -112,11 +112,7 @@ extension PropsOrientationSensorOptions on OrientationSensorOptions {
 ///
 ///
 ///
-///
-///
 ///    OrientationSensor
-///
-///
 ///
 ///
 ///
@@ -137,14 +133,16 @@ class AbsoluteOrientationSensor implements OrientationSensor {
 /// system.
 ///  To use this sensor, the user must grant permission to the
 /// ['accelerometer'], and ['gyroscope'] device sensors through the
-/// Permissions API. In addition, this feature may be blocked by a
-/// Permissions Policy set on your server.
+/// Permissions API.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -156,11 +154,7 @@ class AbsoluteOrientationSensor implements OrientationSensor {
 ///
 ///
 ///
-///
-///
 ///    OrientationSensor
-///
-///
 ///
 ///
 ///

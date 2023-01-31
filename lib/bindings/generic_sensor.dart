@@ -17,8 +17,11 @@ import 'package:js_bindings/js_bindings.dart';
 /// other sensor interfaces. This interface cannot be used directly.
 /// Instead it provides properties, event handlers, and methods
 /// accessed by interfaces that inherit from it.
-///  This feature may be blocked by a Permissions Policy set on your
-/// server.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
 ///
 ///
 ///
@@ -28,18 +31,16 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Sensor
 ///
 ///
 ///  When initially created, the object is idle, meaning it does not
-/// take measures. Once the [start()] method is called, it prepares
+/// take measures. Once the [start()]} method is called, it prepares
 /// itself to read data and, once ready, the [activate] event is sent
 /// and the sensor becomes activated. It then sends a [reading] event
 /// each time new data is available.
 ///  In case of an error, the [error] event is sent, reading stops,
-/// and the object becomes idle again. The [start()] method needs to
+/// and the object becomes idle again. The [start()]} method needs to
 /// be called again before it can read further data.
 @JS()
 @staticInterop
@@ -76,7 +77,7 @@ extension PropsSensor on Sensor {
 @JS()
 @staticInterop
 class SensorOptions {
-  external factory SensorOptions({required double frequency});
+  external factory SensorOptions({double? frequency});
 }
 
 extension PropsSensorOptions on SensorOptions {
@@ -92,8 +93,6 @@ extension PropsSensorOptions on SensorOptions {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -179,9 +178,9 @@ extension PropsMockSensorConfiguration on MockSensorConfiguration {
 @staticInterop
 class MockSensor {
   external factory MockSensor(
-      {required double maxSamplingFrequency,
-      required double minSamplingFrequency,
-      required double requestedSamplingFrequency});
+      {double? maxSamplingFrequency,
+      double? minSamplingFrequency,
+      double? requestedSamplingFrequency});
 }
 
 extension PropsMockSensor on MockSensor {

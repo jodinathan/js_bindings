@@ -18,10 +18,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class RelatedApplication {
   external factory RelatedApplication(
-      {required String platform,
-      required String url,
-      required String id,
-      required String version});
+      {required String platform, String? url, String? id, String? version});
 }
 
 extension PropsRelatedApplication on RelatedApplication {

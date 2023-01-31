@@ -10,7 +10,6 @@ library accelerometer;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -21,14 +20,15 @@ import 'package:js_bindings/js_bindings.dart';
 /// acceleration applied to the device along all three axes.
 ///  To use this sensor, the user must grant permission to the
 /// ['accelerometer'], device sensor through the Permissions API.
-///  This feature may be blocked by a Permissions Policy set on your
-/// server.
+///  If a feature policy blocks the use of a feature, it is because
+/// your code is inconsistent with the policies set on your server.
+/// This is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -40,12 +40,9 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Accelerometer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class Accelerometer implements Sensor {
@@ -96,15 +93,16 @@ extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
 /// acceleration applied to the device along all three axes, but
 /// without the contribution of gravity.
 ///  To use this sensor, the user must grant permission to the
-/// ['accelerometer'] device sensor through the Permissions API. In
-/// addition, this feature may be blocked by a Permissions Policy set
-/// on your server.
+/// ['accelerometer'] device sensor through the Permissions API.
+///  If a feature policy blocks use of a feature it is because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -116,11 +114,7 @@ extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
 ///
 ///
 ///
-///
-///
 ///    Accelerometer
-///
-///
 ///
 ///
 ///
@@ -139,15 +133,11 @@ class LinearAccelerationSensor implements Accelerometer {
 ///  The interface of the Sensor APIs provides on each reading the
 /// gravity applied to the device along all three axes.
 ///  To use this sensor, the user must grant permission to the
-/// ['accelerometer'] device sensor through the Permissions API. In
-/// addition, this feature may be blocked by a Permissions Policy set
-/// on your server.
+/// ['accelerometer'] device sensor through the Permissions API.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -159,11 +149,7 @@ class LinearAccelerationSensor implements Accelerometer {
 ///
 ///
 ///
-///
-///
 ///    Accelerometer
-///
-///
 ///
 ///
 ///

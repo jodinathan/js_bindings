@@ -1,6 +1,6 @@
 /// WebGL WEBGL_debug_renderer_info Khronos Ratified Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/WEBGL_debug_renderer_info/
+/// https://www.khronos.org/registry/webgl/extensions/WEBGL_debug_renderer_info/
 
 // ignore_for_file: unused_import
 

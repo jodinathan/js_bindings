@@ -24,19 +24,13 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Node
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    Element
-///
-///
 ///
 ///
 ///
@@ -51,6 +45,7 @@ class SVGElement
     implements
         Element,
         GlobalEventHandlers,
+        DocumentAndElementEventHandlers,
         HTMLOrSVGElement,
         SVGElementInstance,
         ElementCSSInlineStyle {
@@ -109,11 +104,7 @@ extension PropsSVGBoundingBoxOptions on SVGBoundingBoxOptions {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -125,11 +116,7 @@ extension PropsSVGBoundingBoxOptions on SVGBoundingBoxOptions {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -167,11 +154,7 @@ extension PropsSVGGraphicsElement on SVGGraphicsElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -183,19 +166,13 @@ extension PropsSVGGraphicsElement on SVGGraphicsElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -664,11 +641,7 @@ extension PropsSVGURIReference on SVGURIReference {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -680,19 +653,13 @@ extension PropsSVGURIReference on SVGURIReference {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -793,11 +760,7 @@ extension PropsSVGSVGElement on SVGSVGElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -809,19 +772,13 @@ extension PropsSVGSVGElement on SVGSVGElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -846,11 +803,7 @@ class SVGGElement implements SVGGraphicsElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -862,19 +815,13 @@ class SVGGElement implements SVGGraphicsElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -899,11 +846,7 @@ class SVGDefsElement implements SVGGraphicsElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -915,11 +858,7 @@ class SVGDefsElement implements SVGGraphicsElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -944,11 +883,7 @@ class SVGDescElement implements SVGElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -960,11 +895,7 @@ class SVGDescElement implements SVGElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -989,11 +920,7 @@ class SVGMetadataElement implements SVGElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1005,11 +932,7 @@ class SVGMetadataElement implements SVGElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -1034,11 +957,7 @@ class SVGTitleElement implements SVGElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1050,19 +969,13 @@ class SVGTitleElement implements SVGElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -1132,11 +1045,7 @@ extension PropsShadowAnimation on ShadowAnimation {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1148,19 +1057,13 @@ extension PropsShadowAnimation on ShadowAnimation {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -1185,45 +1088,6 @@ extension PropsGetSVGDocument on GetSVGDocument {
   Document getSVGDocument() => js_util.callMethod(this, 'getSVGDocument', []);
 }
 
-/// The interface corresponds to the SVG [<style>] element.
-///
-///
-///
-///    EventTarget
-///
-///
-///
-///
-///
-///
-///
-///    Node
-///
-///
-///
-///
-///
-///
-///
-///    Element
-///
-///
-///
-///
-///
-///
-///
-///    SVGElement
-///
-///
-///
-///
-///
-///
-///
-///    SVGStyleElement
-///
-///
 @JS()
 @staticInterop
 class SVGStyleElement implements SVGElement, LinkStyle {
@@ -1423,11 +1287,7 @@ extension PropsSVGAnimatedPreserveAspectRatio
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1439,11 +1299,7 @@ extension PropsSVGAnimatedPreserveAspectRatio
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -1455,11 +1311,7 @@ extension PropsSVGAnimatedPreserveAspectRatio
 ///
 ///
 ///
-///
-///
 ///    SVGGeometryElement
-///
-///
 ///
 ///
 ///
@@ -1491,11 +1343,7 @@ class SVGPathElement implements SVGGeometryElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1507,11 +1355,7 @@ class SVGPathElement implements SVGGeometryElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -1523,11 +1367,7 @@ class SVGPathElement implements SVGGeometryElement {
 ///
 ///
 ///
-///
-///
 ///    SVGGeometryElement
-///
-///
 ///
 ///
 ///
@@ -1561,11 +1401,7 @@ extension PropsSVGRectElement on SVGRectElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1577,11 +1413,7 @@ extension PropsSVGRectElement on SVGRectElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -1593,11 +1425,7 @@ extension PropsSVGRectElement on SVGRectElement {
 ///
 ///
 ///
-///
-///
 ///    SVGGeometryElement
-///
-///
 ///
 ///
 ///
@@ -1629,11 +1457,7 @@ extension PropsSVGCircleElement on SVGCircleElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1645,11 +1469,7 @@ extension PropsSVGCircleElement on SVGCircleElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -1661,11 +1481,7 @@ extension PropsSVGCircleElement on SVGCircleElement {
 ///
 ///
 ///
-///
-///
 ///    SVGGeometryElement
-///
-///
 ///
 ///
 ///
@@ -1698,11 +1514,7 @@ extension PropsSVGEllipseElement on SVGEllipseElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1714,11 +1526,7 @@ extension PropsSVGEllipseElement on SVGEllipseElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -1730,11 +1538,7 @@ extension PropsSVGEllipseElement on SVGEllipseElement {
 ///
 ///
 ///
-///
-///
 ///    SVGGeometryElement
-///
-///
 ///
 ///
 ///
@@ -1811,11 +1615,7 @@ extension PropsSVGPointList on SVGPointList {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1827,11 +1627,7 @@ extension PropsSVGPointList on SVGPointList {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -1843,11 +1639,7 @@ extension PropsSVGPointList on SVGPointList {
 ///
 ///
 ///
-///
-///
 ///    SVGGeometryElement
-///
-///
 ///
 ///
 ///
@@ -1873,11 +1665,7 @@ class SVGPolylineElement implements SVGGeometryElement, SVGAnimatedPoints {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1889,11 +1677,7 @@ class SVGPolylineElement implements SVGGeometryElement, SVGAnimatedPoints {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -1905,11 +1689,7 @@ class SVGPolylineElement implements SVGGeometryElement, SVGAnimatedPoints {
 ///
 ///
 ///
-///
-///
 ///    SVGGeometryElement
-///
-///
 ///
 ///
 ///
@@ -1937,11 +1717,7 @@ class SVGPolygonElement implements SVGGeometryElement, SVGAnimatedPoints {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -1953,19 +1729,13 @@ class SVGPolygonElement implements SVGGeometryElement, SVGAnimatedPoints {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -2033,11 +1803,7 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2049,11 +1815,7 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2065,11 +1827,7 @@ extension PropsSVGTextContentElement on SVGTextContentElement {
 ///
 ///
 ///
-///
-///
 ///    SVGTextContentElement
-///
-///
 ///
 ///
 ///
@@ -2102,11 +1860,7 @@ extension PropsSVGTextPositioningElement on SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2118,11 +1872,7 @@ extension PropsSVGTextPositioningElement on SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2134,19 +1884,13 @@ extension PropsSVGTextPositioningElement on SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    SVGTextContentElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGTextPositioningElement
-///
-///
 ///
 ///
 ///
@@ -2171,11 +1915,7 @@ class SVGTextElement implements SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2187,11 +1927,7 @@ class SVGTextElement implements SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2203,19 +1939,13 @@ class SVGTextElement implements SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    SVGTextContentElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGTextPositioningElement
-///
-///
 ///
 ///
 ///
@@ -2240,11 +1970,7 @@ class SVGTSpanElement implements SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2256,11 +1982,7 @@ class SVGTSpanElement implements SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2272,11 +1994,7 @@ class SVGTSpanElement implements SVGTextPositioningElement {
 ///
 ///
 ///
-///
-///
 ///    SVGTextContentElement
-///
-///
 ///
 ///
 ///
@@ -2325,11 +2043,7 @@ extension PropsSVGTextPathElement on SVGTextPathElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2341,19 +2055,13 @@ extension PropsSVGTextPathElement on SVGTextPathElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -2393,11 +2101,7 @@ extension PropsSVGImageElement on SVGImageElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2409,19 +2113,13 @@ extension PropsSVGImageElement on SVGImageElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -2455,11 +2153,7 @@ extension PropsSVGForeignObjectElement on SVGForeignObjectElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2471,11 +2165,7 @@ extension PropsSVGForeignObjectElement on SVGForeignObjectElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2543,11 +2233,7 @@ extension PropsSVGMarkerElement on SVGMarkerElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2559,11 +2245,7 @@ extension PropsSVGMarkerElement on SVGMarkerElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2609,11 +2291,7 @@ extension PropsSVGGradientElement on SVGGradientElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2625,19 +2303,13 @@ extension PropsSVGGradientElement on SVGGradientElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGradientElement
-///
-///
 ///
 ///
 ///
@@ -2669,11 +2341,7 @@ extension PropsSVGLinearGradientElement on SVGLinearGradientElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2685,19 +2353,13 @@ extension PropsSVGLinearGradientElement on SVGLinearGradientElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGradientElement
-///
-///
 ///
 ///
 ///
@@ -2731,11 +2393,7 @@ extension PropsSVGRadialGradientElement on SVGRadialGradientElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2747,11 +2405,7 @@ extension PropsSVGRadialGradientElement on SVGRadialGradientElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2780,11 +2434,7 @@ extension PropsSVGStopElement on SVGStopElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2796,11 +2446,7 @@ extension PropsSVGStopElement on SVGStopElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2839,11 +2485,7 @@ extension PropsSVGPatternElement on SVGPatternElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2855,11 +2497,7 @@ extension PropsSVGPatternElement on SVGPatternElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///
@@ -2897,11 +2535,7 @@ extension PropsSVGScriptElement on SVGScriptElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -2913,19 +2547,13 @@ extension PropsSVGScriptElement on SVGScriptElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    SVGGraphicsElement
-///
-///
 ///
 ///
 ///
@@ -3038,11 +2666,7 @@ extension PropsSVGAElement on SVGAElement {
 ///
 ///
 ///
-///
-///
 ///    Node
-///
-///
 ///
 ///
 ///
@@ -3054,11 +2678,7 @@ extension PropsSVGAElement on SVGAElement {
 ///
 ///
 ///
-///
-///
 ///    SVGElement
-///
-///
 ///
 ///
 ///

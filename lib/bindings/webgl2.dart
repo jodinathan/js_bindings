@@ -1,6 +1,6 @@
 /// WebGL 2.0 Specification
 ///
-/// https://registry.khronos.org/webgl/specs/latest/2.0/
+/// https://www.khronos.org/registry/webgl/specs/latest/2.0/
 
 // ignore_for_file: unused_import
 
@@ -10,6 +10,7 @@ library webgl2;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -29,8 +30,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    WebGLQuery
 ///
 ///
@@ -45,6 +44,7 @@ import 'package:js_bindings/js_bindings.dart';
 ///  [WebGL2RenderingContext.getQuery()]
 ///  [WebGL2RenderingContext.getQueryParameter()]
 ///
+@experimental
 @JS()
 @staticInterop
 class WebGLQuery implements WebGLObject {
@@ -62,8 +62,6 @@ class WebGLQuery implements WebGLObject {
 ///
 ///
 ///
-///
-///
 ///    WebGLSampler
 ///
 ///
@@ -76,6 +74,7 @@ class WebGLQuery implements WebGLObject {
 ///  [WebGL2RenderingContext.bindSampler()]
 ///  [WebGL2RenderingContext.getSamplerParameter()]
 ///
+@experimental
 @JS()
 @staticInterop
 class WebGLSampler implements WebGLObject {
@@ -88,8 +87,6 @@ class WebGLSampler implements WebGLObject {
 ///
 ///
 ///    WebGLObject
-///
-///
 ///
 ///
 ///
@@ -108,6 +105,7 @@ class WebGLSampler implements WebGLObject {
 ///  [WebGL2RenderingContext.waitSync()]
 ///  [WebGL2RenderingContext.getSyncParameter()]
 ///
+@experimental
 @JS()
 @staticInterop
 class WebGLSync implements WebGLObject {
@@ -123,8 +121,6 @@ class WebGLSync implements WebGLObject {
 ///
 ///
 ///    WebGLObject
-///
-///
 ///
 ///
 ///
@@ -160,8 +156,6 @@ class WebGLTransformFeedback implements WebGLObject {
 ///
 ///
 ///    WebGLObject
-///
-///
 ///
 ///
 ///
@@ -1298,19 +1292,19 @@ extension PropsWebGL2RenderingContextBase on WebGL2RenderingContextBase {
   WebGLSync? fenceSync(int condition, int flags) =>
       js_util.callMethod(this, 'fenceSync', [condition, flags]);
 
-  bool isSync(WebGLSync? mSync) => js_util.callMethod(this, 'isSync', [mSync]);
+  bool isSync(WebGLSync? sync) => js_util.callMethod(this, 'isSync', [sync]);
 
-  void deleteSync(WebGLSync? mSync) =>
-      js_util.callMethod(this, 'deleteSync', [mSync]);
+  void deleteSync(WebGLSync? sync) =>
+      js_util.callMethod(this, 'deleteSync', [sync]);
 
-  int clientWaitSync(WebGLSync mSync, int flags, int timeout) =>
-      js_util.callMethod(this, 'clientWaitSync', [mSync, flags, timeout]);
+  int clientWaitSync(WebGLSync sync, int flags, int timeout) =>
+      js_util.callMethod(this, 'clientWaitSync', [sync, flags, timeout]);
 
-  void waitSync(WebGLSync mSync, int flags, int timeout) =>
-      js_util.callMethod(this, 'waitSync', [mSync, flags, timeout]);
+  void waitSync(WebGLSync sync, int flags, int timeout) =>
+      js_util.callMethod(this, 'waitSync', [sync, flags, timeout]);
 
-  dynamic getSyncParameter(WebGLSync mSync, int pname) =>
-      js_util.callMethod(this, 'getSyncParameter', [mSync, pname]);
+  dynamic getSyncParameter(WebGLSync sync, int pname) =>
+      js_util.callMethod(this, 'getSyncParameter', [sync, pname]);
 
   WebGLTransformFeedback? createTransformFeedback() =>
       js_util.callMethod(this, 'createTransformFeedback', []);
@@ -1551,8 +1545,8 @@ extension PropsWebGL2RenderingContextOverloads
 /// element.
 ///  To get an object of this interface, call [getContext()] on a
 /// [<canvas>] element, supplying "webgl2" as the argument:
-/// [const canvas = document.getElementById('myCanvas');
-/// const gl = canvas.getContext('webgl2');
+/// [var canvas = document.getElementById('myCanvas');
+/// var gl = canvas.getContext('webgl2');
 /// ]
 ///
 ///   Note: WebGL 2 is an extension to WebGL 1. The interface

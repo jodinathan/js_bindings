@@ -10,15 +10,12 @@ library webhid;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface provides methods for connecting to HID devices,
 /// listing attached HID devices and event handlers for connected HID
 /// devices.
@@ -31,12 +28,9 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    HID
 ///
 ///
-@experimental
 @JS('HID')
 @staticInterop
 class Hid implements EventTarget {
@@ -69,7 +63,7 @@ extension PropsHid on Hid {
 class HIDDeviceRequestOptions {
   external factory HIDDeviceRequestOptions(
       {required Iterable<HIDDeviceFilter> filters,
-      required Iterable<HIDDeviceFilter> exclusionFilters});
+      Iterable<HIDDeviceFilter>? exclusionFilters});
 }
 
 extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
@@ -90,10 +84,7 @@ extension PropsHIDDeviceRequestOptions on HIDDeviceRequestOptions {
 @staticInterop
 class HIDDeviceFilter {
   external factory HIDDeviceFilter(
-      {required int vendorId,
-      required int productId,
-      required int usagePage,
-      required int usage});
+      {int? vendorId, int? productId, int? usagePage, int? usage});
 }
 
 extension PropsHIDDeviceFilter on HIDDeviceFilter {
@@ -119,10 +110,7 @@ extension PropsHIDDeviceFilter on HIDDeviceFilter {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [WebHID API] represents a HID Device. It
 /// provides properties for accessing information about the device,
 /// methods for opening and closing the connection, and the sending
@@ -136,12 +124,9 @@ extension PropsHIDDeviceFilter on HIDDeviceFilter {
 ///
 ///
 ///
-///
-///
 ///    HIDDevice
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class HIDDevice implements EventTarget {
@@ -184,10 +169,7 @@ extension PropsHIDDevice on HIDDevice {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [WebHID API] represents HID connection
 /// events, and is the event type passed to [HID.onconnect] and
 /// [HID.ondisconnect] when an input report is received.
@@ -200,12 +182,9 @@ extension PropsHIDDevice on HIDDevice {
 ///
 ///
 ///
-///
-///
 ///    HIDConnectionEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class HIDConnectionEvent implements Event {
@@ -232,13 +211,10 @@ extension PropsHIDConnectionEventInit on HIDConnectionEventInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the [WebHID API] is passed to
-/// [HIDDevice.inputreport_event] when an input report is received
-/// from any associated HID device.
+/// [HIDDevice.oninputreport] when an input report is received from
+/// any associated HID device.
 ///
 ///
 ///
@@ -248,12 +224,9 @@ extension PropsHIDConnectionEventInit on HIDConnectionEventInit {
 ///
 ///
 ///
-///
-///
 ///    HIDInputReportEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class HIDInputReportEvent implements Event {
@@ -299,13 +272,13 @@ extension PropsHIDInputReportEventInit on HIDInputReportEventInit {
 @staticInterop
 class HIDCollectionInfo {
   external factory HIDCollectionInfo(
-      {required int usagePage,
-      required int usage,
-      required int type,
-      required Iterable<HIDCollectionInfo> children,
-      required Iterable<HIDReportInfo> inputReports,
-      required Iterable<HIDReportInfo> outputReports,
-      required Iterable<HIDReportInfo> featureReports});
+      {int? usagePage,
+      int? usage,
+      int? type,
+      Iterable<HIDCollectionInfo>? children,
+      Iterable<HIDReportInfo>? inputReports,
+      Iterable<HIDReportInfo>? outputReports,
+      Iterable<HIDReportInfo>? featureReports});
 }
 
 extension PropsHIDCollectionInfo on HIDCollectionInfo {
@@ -354,7 +327,7 @@ extension PropsHIDCollectionInfo on HIDCollectionInfo {
 @staticInterop
 class HIDReportInfo {
   external factory HIDReportInfo(
-      {required int reportId, required Iterable<HIDReportItem> items});
+      {int? reportId, Iterable<HIDReportItem>? items});
 }
 
 extension PropsHIDReportInfo on HIDReportInfo {
@@ -374,64 +347,64 @@ extension PropsHIDReportInfo on HIDReportInfo {
 @staticInterop
 class HIDReportItem {
   external factory HIDReportItem._(
-      {required bool isAbsolute,
-      required bool isArray,
-      required bool isBufferedBytes,
-      required bool isConstant,
-      required bool isLinear,
-      required bool isRange,
-      required bool isVolatile,
-      required bool hasNull,
-      required bool hasPreferredState,
-      required bool wrap,
-      required Iterable<int> usages,
-      required int usageMinimum,
-      required int usageMaximum,
-      required int reportSize,
-      required int reportCount,
-      required int unitExponent,
-      required String unitSystem,
-      required int unitFactorLengthExponent,
-      required int unitFactorMassExponent,
-      required int unitFactorTimeExponent,
-      required int unitFactorTemperatureExponent,
-      required int unitFactorCurrentExponent,
-      required int unitFactorLuminousIntensityExponent,
-      required int logicalMinimum,
-      required int logicalMaximum,
-      required int physicalMinimum,
-      required int physicalMaximum,
-      required Iterable<String> strings});
+      {bool? isAbsolute,
+      bool? isArray,
+      bool? isBufferedBytes,
+      bool? isConstant,
+      bool? isLinear,
+      bool? isRange,
+      bool? isVolatile,
+      bool? hasNull,
+      bool? hasPreferredState,
+      bool? wrap,
+      Iterable<int>? usages,
+      int? usageMinimum,
+      int? usageMaximum,
+      int? reportSize,
+      int? reportCount,
+      int? unitExponent,
+      String? unitSystem,
+      int? unitFactorLengthExponent,
+      int? unitFactorMassExponent,
+      int? unitFactorTimeExponent,
+      int? unitFactorTemperatureExponent,
+      int? unitFactorCurrentExponent,
+      int? unitFactorLuminousIntensityExponent,
+      int? logicalMinimum,
+      int? logicalMaximum,
+      int? physicalMinimum,
+      int? physicalMaximum,
+      Iterable<String>? strings});
 
   factory HIDReportItem(
-          {required bool isAbsolute,
-          required bool isArray,
-          required bool isBufferedBytes,
-          required bool isConstant,
-          required bool isLinear,
-          required bool isRange,
-          required bool isVolatile,
-          required bool hasNull,
-          required bool hasPreferredState,
-          required bool wrap,
-          required Iterable<int> usages,
-          required int usageMinimum,
-          required int usageMaximum,
-          required int reportSize,
-          required int reportCount,
-          required int unitExponent,
-          required HIDUnitSystem unitSystem,
-          required int unitFactorLengthExponent,
-          required int unitFactorMassExponent,
-          required int unitFactorTimeExponent,
-          required int unitFactorTemperatureExponent,
-          required int unitFactorCurrentExponent,
-          required int unitFactorLuminousIntensityExponent,
-          required int logicalMinimum,
-          required int logicalMaximum,
-          required int physicalMinimum,
-          required int physicalMaximum,
-          required Iterable<String> strings}) =>
+          {bool? isAbsolute,
+          bool? isArray,
+          bool? isBufferedBytes,
+          bool? isConstant,
+          bool? isLinear,
+          bool? isRange,
+          bool? isVolatile,
+          bool? hasNull,
+          bool? hasPreferredState,
+          bool? wrap,
+          Iterable<int>? usages,
+          int? usageMinimum,
+          int? usageMaximum,
+          int? reportSize,
+          int? reportCount,
+          int? unitExponent,
+          HIDUnitSystem? unitSystem,
+          int? unitFactorLengthExponent,
+          int? unitFactorMassExponent,
+          int? unitFactorTimeExponent,
+          int? unitFactorTemperatureExponent,
+          int? unitFactorCurrentExponent,
+          int? unitFactorLuminousIntensityExponent,
+          int? logicalMinimum,
+          int? logicalMaximum,
+          int? physicalMinimum,
+          int? physicalMaximum,
+          Iterable<String>? strings}) =>
       HIDReportItem._(
           isAbsolute: isAbsolute,
           isArray: isArray,
@@ -449,7 +422,7 @@ class HIDReportItem {
           reportSize: reportSize,
           reportCount: reportCount,
           unitExponent: unitExponent,
-          unitSystem: unitSystem.value,
+          unitSystem: unitSystem?.value,
           unitFactorLengthExponent: unitFactorLengthExponent,
           unitFactorMassExponent: unitFactorMassExponent,
           unitFactorTimeExponent: unitFactorTimeExponent,

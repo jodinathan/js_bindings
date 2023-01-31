@@ -10,7 +10,7 @@ library web_nfc;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
+
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -23,8 +23,7 @@ import 'package:js_bindings/js_bindings.dart';
 /// NDEF message that has been read from or could be written to an
 /// NFC tag. An instance is acquired by calling the [NDEFMessage()]
 /// constructor or from the [NDEFReadingEvent.message] property,
-/// which is passed to the [reading] event.
-@experimental
+/// which is passed to [NDEFReader.onreading].
 @JS()
 @staticInterop
 class NDEFMessage {
@@ -57,7 +56,6 @@ extension PropsNDEFMessageInit on NDEFMessageInit {
 ///  The interface of the Web NFC API provides data that can be read
 /// from, or written to, compatible NFC devices, e.g. NFC tags
 /// supporting NDEF.
-@experimental
 @JS()
 @staticInterop
 class NDEFRecord {
@@ -80,10 +78,10 @@ extension PropsNDEFRecord on NDEFRecord {
 class NDEFRecordInit {
   external factory NDEFRecordInit(
       {required String recordType,
-      required String mediaType,
-      required String id,
-      required String encoding,
-      required String lang,
+      String? mediaType,
+      String? id,
+      String? encoding,
+      String? lang,
       dynamic data});
 }
 
@@ -137,12 +135,9 @@ extension PropsNDEFRecordInit on NDEFRecordInit {
 ///
 ///
 ///
-///
-///
 ///    NDEFReader
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class NDEFReader implements EventTarget {
@@ -175,8 +170,6 @@ extension PropsNDEFReader on NDEFReader {
 /// contexts (HTTPS), in some or all supporting
 /// browsers.Experimental: This is an experimental technologyCheck
 /// the Browser compatibility table carefully before using this in
-/// production.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
 /// production.
 ///  The interface of the Web NFC API represents events dispatched on
 /// new NFC readings obtained by [NDEFReader].
@@ -189,12 +182,9 @@ extension PropsNDEFReader on NDEFReader {
 ///
 ///
 ///
-///
-///
 ///    NDEFReadingEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class NDEFReadingEvent implements Event {
@@ -265,7 +255,7 @@ extension PropsNDEFMakeReadOnlyOptions on NDEFMakeReadOnlyOptions {
 @JS()
 @staticInterop
 class NDEFScanOptions {
-  external factory NDEFScanOptions({required AbortSignal signal});
+  external factory NDEFScanOptions({AbortSignal? signal});
 }
 
 extension PropsNDEFScanOptions on NDEFScanOptions {

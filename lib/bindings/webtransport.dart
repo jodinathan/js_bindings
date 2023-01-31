@@ -10,31 +10,9 @@ library webtransport;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the WebTransport API represents a duplex stream
-/// that can be used for unreliable transport of datagrams between
-/// client and server. Provides access to a [ReadableStream] for
-/// reading incoming datagrams, a [WritableStream] for writing
-/// outgoing datagrams, and various settings and statistics related
-/// to the stream.
-/// This is accessed via the [WebTransport.datagrams] property.
-///  "Unreliable" means that transmission of data is not guaranteed,
-/// nor is arrival in a specific order. This is fine in some
-/// situations and provides very fast delivery. For example, you
-/// might want to transmit regular game state updates where each
-/// message supersedes the last one that arrives, and order is not
-/// important.
-///
-///  Note: This feature is available in Web Workers
-///
-@experimental
 @JS()
 @staticInterop
 class WebTransportDatagramDuplexStream {
@@ -69,18 +47,6 @@ extension PropsWebTransportDatagramDuplexStream
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the WebTransport API provides functionality to
-/// enable a user agent to connect to an HTTP/3 server, initiate
-/// reliable and unreliable transport in either or both directions,
-/// and close the connection once it is no longer needed.
-///
-///  Note: This feature is available in Web Workers
-///
-@experimental
 @JS()
 @staticInterop
 class WebTransport {
@@ -106,17 +72,15 @@ extension PropsWebTransport on WebTransport {
 
   WebTransportDatagramDuplexStream get datagrams =>
       js_util.getProperty(this, 'datagrams');
-  Future<WebTransportBidirectionalStream> createBidirectionalStream(
-          [WebTransportSendStreamOptions? options]) =>
+  Future<WebTransportBidirectionalStream> createBidirectionalStream() =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'createBidirectionalStream', [options]));
+          js_util.callMethod(this, 'createBidirectionalStream', []));
 
   ReadableStream get incomingBidirectionalStreams =>
       js_util.getProperty(this, 'incomingBidirectionalStreams');
-  Future<WebTransportSendStream> createUnidirectionalStream(
-          [WebTransportSendStreamOptions? options]) =>
+  Future<WebTransportSendStream> createUnidirectionalStream() =>
       js_util.promiseToFuture(
-          js_util.callMethod(this, 'createUnidirectionalStream', [options]));
+          js_util.callMethod(this, 'createUnidirectionalStream', []));
 
   ReadableStream get incomingUnidirectionalStreams =>
       js_util.getProperty(this, 'incomingUnidirectionalStreams');
@@ -140,7 +104,7 @@ enum WebTransportReliabilityMode {
 @JS()
 @staticInterop
 class WebTransportHash {
-  external factory WebTransportHash({required String algorithm, dynamic value});
+  external factory WebTransportHash({String? algorithm, dynamic value});
 }
 
 extension PropsWebTransportHash on WebTransportHash {
@@ -240,34 +204,20 @@ extension PropsWebTransportCloseInfo on WebTransportCloseInfo {
 @anonymous
 @JS()
 @staticInterop
-class WebTransportSendStreamOptions {
-  external factory WebTransportSendStreamOptions({int? sendOrder});
-}
-
-extension PropsWebTransportSendStreamOptions on WebTransportSendStreamOptions {
-  int? get sendOrder => js_util.getProperty(this, 'sendOrder');
-  set sendOrder(int? newValue) {
-    js_util.setProperty(this, 'sendOrder', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
 class WebTransportStats {
   external factory WebTransportStats(
-      {required double timestamp,
-      required int bytesSent,
-      required int packetsSent,
-      required int packetsLost,
-      required int numOutgoingStreamsCreated,
-      required int numIncomingStreamsCreated,
-      required int bytesReceived,
-      required int packetsReceived,
-      required double smoothedRtt,
-      required double rttVariation,
-      required double minRtt,
-      required WebTransportDatagramStats datagrams});
+      {double? timestamp,
+      int? bytesSent,
+      int? packetsSent,
+      int? packetsLost,
+      int? numOutgoingStreamsCreated,
+      int? numIncomingStreamsCreated,
+      int? bytesReceived,
+      int? packetsReceived,
+      double? smoothedRtt,
+      double? rttVariation,
+      double? minRtt,
+      WebTransportDatagramStats? datagrams});
 }
 
 extension PropsWebTransportStats on WebTransportStats {
@@ -340,10 +290,10 @@ extension PropsWebTransportStats on WebTransportStats {
 @staticInterop
 class WebTransportDatagramStats {
   external factory WebTransportDatagramStats(
-      {required double timestamp,
-      required int expiredOutgoing,
-      required int droppedIncoming,
-      required int lostOutgoing});
+      {double? timestamp,
+      int? expiredOutgoing,
+      int? droppedIncoming,
+      int? lostOutgoing});
 }
 
 extension PropsWebTransportDatagramStats on WebTransportDatagramStats {
@@ -384,10 +334,10 @@ extension PropsWebTransportSendStream on WebTransportSendStream {
 @staticInterop
 class WebTransportSendStreamStats {
   external factory WebTransportSendStreamStats(
-      {required double timestamp,
-      required int bytesWritten,
-      required int bytesSent,
-      required int bytesAcknowledged});
+      {double? timestamp,
+      int? bytesWritten,
+      int? bytesSent,
+      int? bytesAcknowledged});
 }
 
 extension PropsWebTransportSendStreamStats on WebTransportSendStreamStats {
@@ -428,9 +378,7 @@ extension PropsWebTransportReceiveStream on WebTransportReceiveStream {
 @staticInterop
 class WebTransportReceiveStreamStats {
   external factory WebTransportReceiveStreamStats(
-      {required double timestamp,
-      required int bytesReceived,
-      required int bytesRead});
+      {double? timestamp, int? bytesReceived, int? bytesRead});
 }
 
 extension PropsWebTransportReceiveStreamStats
@@ -451,19 +399,6 @@ extension PropsWebTransportReceiveStreamStats
   }
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the WebTransport API represents a bidirectional
-/// stream created by a server or a client that can be used for
-/// reliable transport. Provides access to a [ReadableStream] for
-/// reading incoming data, and a [WritableStream] for writing
-/// outgoing data.
-///
-///  Note: This feature is available in Web Workers
-///
-@experimental
 @JS()
 @staticInterop
 class WebTransportBidirectionalStream {
@@ -472,37 +407,10 @@ class WebTransportBidirectionalStream {
 
 extension PropsWebTransportBidirectionalStream
     on WebTransportBidirectionalStream {
-  WebTransportReceiveStream get readable =>
-      js_util.getProperty(this, 'readable');
-  WebTransportSendStream get writable => js_util.getProperty(this, 'writable');
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
+  WritableStream get writable => js_util.getProperty(this, 'writable');
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.Secure context: This feature is available only in
-/// secure contexts (HTTPS), in some or all supporting browsers.
-///  The interface of the WebTransport API represents an error
-/// related to the API, which can arise from server errors, network
-/// connection problems, or client-initiated abort operations (for
-/// example, arising from a [WritableStream.abort()] call).
-///
-///
-///
-///    DOMException
-///
-///
-///
-///
-///
-///
-///
-///    WebTransportError
-///
-///
-///
-///  Note: This feature is available in Web Workers
-///
-@experimental
 @JS()
 @staticInterop
 class WebTransportError implements DOMException {
@@ -520,7 +428,7 @@ extension PropsWebTransportError on WebTransportError {
 @staticInterop
 class WebTransportErrorInit {
   external factory WebTransportErrorInit(
-      {required int streamErrorCode, required String message});
+      {int? streamErrorCode, String? message});
 }
 
 extension PropsWebTransportErrorInit on WebTransportErrorInit {

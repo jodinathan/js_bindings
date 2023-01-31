@@ -14,9 +14,6 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///
 ///  The interface matches URLs or parts of URLs against a pattern.
 ///   The pattern can contain capturing groups that extract parts of
@@ -31,8 +28,7 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class URLPattern {
-  external factory URLPattern(dynamic input,
-      [String? baseURL, URLPatternOptions? options]);
+  external factory URLPattern([dynamic input, String? baseURL]);
 }
 
 extension PropsURLPattern on URLPattern {
@@ -59,15 +55,15 @@ extension PropsURLPattern on URLPattern {
 @staticInterop
 class URLPatternInit {
   external factory URLPatternInit(
-      {required String protocol,
-      required String username,
-      required String password,
-      required String hostname,
-      required String port,
-      required String pathname,
-      required String search,
-      required String hash,
-      required String baseURL});
+      {String? protocol,
+      String? username,
+      String? password,
+      String? hostname,
+      String? port,
+      String? pathname,
+      String? search,
+      String? hash,
+      String? baseURL});
 }
 
 extension PropsURLPatternInit on URLPatternInit {
@@ -122,31 +118,17 @@ extension PropsURLPatternInit on URLPatternInit {
 @anonymous
 @JS()
 @staticInterop
-class URLPatternOptions {
-  external factory URLPatternOptions({bool? ignoreCase = false});
-}
-
-extension PropsURLPatternOptions on URLPatternOptions {
-  bool get ignoreCase => js_util.getProperty(this, 'ignoreCase');
-  set ignoreCase(bool newValue) {
-    js_util.setProperty(this, 'ignoreCase', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
 class URLPatternResult {
   external factory URLPatternResult(
-      {required Iterable<dynamic> inputs,
-      required URLPatternComponentResult protocol,
-      required URLPatternComponentResult username,
-      required URLPatternComponentResult password,
-      required URLPatternComponentResult hostname,
-      required URLPatternComponentResult port,
-      required URLPatternComponentResult pathname,
-      required URLPatternComponentResult search,
-      required URLPatternComponentResult hash});
+      {Iterable<dynamic>? inputs,
+      URLPatternComponentResult? protocol,
+      URLPatternComponentResult? username,
+      URLPatternComponentResult? password,
+      URLPatternComponentResult? hostname,
+      URLPatternComponentResult? port,
+      URLPatternComponentResult? pathname,
+      URLPatternComponentResult? search,
+      URLPatternComponentResult? hash});
 }
 
 extension PropsURLPatternResult on URLPatternResult {
@@ -207,8 +189,7 @@ extension PropsURLPatternResult on URLPatternResult {
 @JS()
 @staticInterop
 class URLPatternComponentResult {
-  external factory URLPatternComponentResult(
-      {required String input, dynamic groups});
+  external factory URLPatternComponentResult({String? input, dynamic groups});
 }
 
 extension PropsURLPatternComponentResult on URLPatternComponentResult {

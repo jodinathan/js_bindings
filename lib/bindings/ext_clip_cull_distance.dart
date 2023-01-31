@@ -1,6 +1,6 @@
 /// WebGL EXT_clip_cull_distance Extension Draft Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/EXT_clip_cull_distance/
+/// https://www.khronos.org/registry/webgl/extensions/EXT_clip_cull_distance/
 
 // ignore_for_file: unused_import
 

@@ -13,20 +13,17 @@ import 'package:js/js.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface provides methods and properties to store and
 /// retrieve metrics regarding the browser's document navigation
 /// events. For example, this interface can be used to determine how
 /// much time it takes to load or unload a document.
-///  Only the current document is included in the performance
-/// timeline, so there is only one object in the performance
-/// timeline. It inherits all of the properties and methods of
-/// [PerformanceResourceTiming] and [PerformanceEntry].
 ///
 ///
 ///
 ///    PerformanceEntry
-///
-///
 ///
 ///
 ///
@@ -38,14 +35,7 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    PerformanceNavigationTiming
-///
-///
-///  The following diagram shows all of the timestamp properties
-/// defined in .
-///
 ///
 ///
 @JS()

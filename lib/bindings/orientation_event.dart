@@ -10,14 +10,15 @@ library orientation_event;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///
-///
-///   The object provides web developers with information from the
-/// physical orientation of the device running the web page.
-///
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The provides web developers with information from the physical
+/// orientation of the device running the web page.
 ///
 ///
 ///
@@ -27,16 +28,16 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    DeviceOrientationEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class DeviceOrientationEvent implements Event {
   external factory DeviceOrientationEvent(String type,
       [DeviceOrientationEventInit? eventInitDict]);
+  external static Future<PermissionState> requestPermission();
 }
 
 extension PropsDeviceOrientationEvent on DeviceOrientationEvent {
@@ -44,8 +45,6 @@ extension PropsDeviceOrientationEvent on DeviceOrientationEvent {
   double? get beta => js_util.getProperty(this, 'beta');
   double? get gamma => js_util.getProperty(this, 'gamma');
   bool get absolute => js_util.getProperty(this, 'absolute');
-  static Future<PermissionState> requestPermission() => js_util.promiseToFuture(
-      js_util.callMethod(DeviceOrientationEvent, 'requestPermission', []));
 }
 
 @anonymous
@@ -79,9 +78,13 @@ extension PropsDeviceOrientationEventInit on DeviceOrientationEventInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
-///  The object provides information about the amount of acceleration
+/// contexts (HTTPS), in some or all supporting
+/// browsers.Experimental: This is an experimental technologyCheck
+/// the Browser compatibility table carefully before using this in
+/// production.
+///  A object provides information about the amount of acceleration
 /// the device is experiencing along all three axes.
+@experimental
 @JS()
 @staticInterop
 class DeviceMotionEventAcceleration {
@@ -96,8 +99,11 @@ extension PropsDeviceMotionEventAcceleration on DeviceMotionEventAcceleration {
 
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
+/// Experimental: This is an experimental technologyCheck the Browser
+/// compatibility table carefully before using this in production.
 ///  A object provides information about the rate at which the device
 /// is rotating around all three axes.
+@experimental
 @JS()
 @staticInterop
 class DeviceMotionEventRotationRate {
@@ -110,8 +116,11 @@ extension PropsDeviceMotionEventRotationRate on DeviceMotionEventRotationRate {
   double? get gamma => js_util.getProperty(this, 'gamma');
 }
 
-///  The interface provides web developers with information about the
-/// speed of changes for the device's position and orientation.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
+///  The provides web developers with information about the speed of
+/// changes for the device's position and orientation.
 ///
 ///   Warning: Currently, Firefox and Chrome do not handle the
 /// coordinates the same way. Take care about this while using them.
@@ -125,16 +134,16 @@ extension PropsDeviceMotionEventRotationRate on DeviceMotionEventRotationRate {
 ///
 ///
 ///
-///
-///
 ///    DeviceMotionEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class DeviceMotionEvent implements Event {
   external factory DeviceMotionEvent(String type,
       [DeviceMotionEventInit? eventInitDict]);
+  external static Future<PermissionState> requestPermission();
 }
 
 extension PropsDeviceMotionEvent on DeviceMotionEvent {
@@ -145,8 +154,6 @@ extension PropsDeviceMotionEvent on DeviceMotionEvent {
   DeviceMotionEventRotationRate? get rotationRate =>
       js_util.getProperty(this, 'rotationRate');
   double get interval => js_util.getProperty(this, 'interval');
-  static Future<PermissionState> requestPermission() => js_util.promiseToFuture(
-      js_util.callMethod(DeviceMotionEvent, 'requestPermission', []));
 }
 
 @anonymous
@@ -206,9 +213,9 @@ extension PropsDeviceMotionEventRotationRateInit
 @staticInterop
 class DeviceMotionEventInit implements EventInit {
   external factory DeviceMotionEventInit(
-      {required DeviceMotionEventAccelerationInit acceleration,
-      required DeviceMotionEventAccelerationInit accelerationIncludingGravity,
-      required DeviceMotionEventRotationRateInit rotationRate,
+      {DeviceMotionEventAccelerationInit? acceleration,
+      DeviceMotionEventAccelerationInit? accelerationIncludingGravity,
+      DeviceMotionEventRotationRateInit? rotationRate,
       double? interval = 0});
 }
 

@@ -1,6 +1,6 @@
 /// Geometry Interfaces Module Level 1
 ///
-/// https://drafts.fxtf.org/geometry-1/
+/// https://drafts.fxtf.org/geometry/
 
 // ignore_for_file: unused_import
 
@@ -23,19 +23,18 @@ import 'package:js_bindings/js_bindings.dart';
 /// its constructor, passing in the values of the parameters for each
 /// dimension and, optionally, the perspective:
 /// [/* 2D */
-/// const point2D = new DOMPointReadOnly(50, 50);
+/// const point = new DOMPointReadOnly(50, 50);
 ///
 /// /* 3D */
-/// const point3D = new DOMPointReadOnly(50, 50, 25);
+/// const point = new DOMPointReadOnly(50, 50, 25);
 ///
 /// /* 3D with perspective */
-///  const point3DPerspective = new DOMPointReadOnly(100, 100, 100,
-/// 1.0);
+/// const point = new DOMPointReadOnly(100, 100, 100, 1.0);
 /// ]
 ///  The other option is to use the static
 /// [DOMPointReadOnly.fromPoint()] method:
 ///  [const point = DOMPointReadOnly.fromPoint({x: 100, y: 100, z:
-/// 50, w: 1.0});
+/// 50; w: 1.0});
 /// ]
 @JS()
 @staticInterop
@@ -45,13 +44,11 @@ class DOMPointReadOnly {
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic z = 0,
       /* double | NaN */ dynamic w = 1]);
+  external static dynamic fromPoint([DOMPointInit? other]);
 }
 
 extension PropsDOMPointReadOnly on DOMPointReadOnly {
-  static dynamic fromPoint([DOMPointInit? other]) =>
-      js_util.callMethod(DOMPointReadOnly, 'fromPoint', [other]);
-
-/* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
 /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
 /* double | NaN */ dynamic get z => js_util.getProperty(this, 'z');
 /* double | NaN */ dynamic get w => js_util.getProperty(this, 'w');
@@ -79,8 +76,6 @@ extension PropsDOMPointReadOnly on DOMPointReadOnly {
 ///
 ///
 ///
-///
-///
 ///    DOMPoint
 ///
 ///
@@ -92,13 +87,11 @@ class DOMPoint implements DOMPointReadOnly {
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic z = 0,
       /* double | NaN */ dynamic w = 1]);
+  external static DOMPoint fromPoint([DOMPointInit? other]);
 }
 
 extension PropsDOMPoint on DOMPoint {
-  static DOMPoint fromPoint([DOMPointInit? other]) =>
-      js_util.callMethod(DOMPoint, 'fromPoint', [other]);
-
-/* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
   set x(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'x', newValue);
   }
@@ -162,13 +155,11 @@ class DOMRectReadOnly {
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic width = 0,
       /* double | NaN */ dynamic height = 0]);
+  external static dynamic fromRect([DOMRectInit? other]);
 }
 
 extension PropsDOMRectReadOnly on DOMRectReadOnly {
-  static dynamic fromRect([DOMRectInit? other]) =>
-      js_util.callMethod(DOMRectReadOnly, 'fromRect', [other]);
-
-/* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
 /* double | NaN */ dynamic get y => js_util.getProperty(this, 'y');
 /* double | NaN */ dynamic get width => js_util.getProperty(this, 'width');
 /* double | NaN */ dynamic get height => js_util.getProperty(this, 'height');
@@ -195,8 +186,6 @@ extension PropsDOMRectReadOnly on DOMRectReadOnly {
 ///
 ///
 ///
-///
-///
 ///    DOMRect
 ///
 ///
@@ -208,13 +197,11 @@ class DOMRect implements DOMRectReadOnly {
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic width = 0,
       /* double | NaN */ dynamic height = 0]);
+  external static DOMRect fromRect([DOMRectInit? other]);
 }
 
 extension PropsDOMRect on DOMRect {
-  static DOMRect fromRect([DOMRectInit? other]) =>
-      js_util.callMethod(DOMRect, 'fromRect', [other]);
-
-/* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
+  /* double | NaN */ dynamic get x => js_util.getProperty(this, 'x');
   set x(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'x', newValue);
   }
@@ -279,26 +266,26 @@ extension PropsDOMRectList on DOMRectList {
   DOMRect? item(int index) => js_util.callMethod(this, 'item', [index]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  A is a collection of four [DOMPoint]s defining the corners of an
 /// arbitrary quadrilateral. Returning s lets [getBoxQuads()] return
 /// accurate information even when arbitrary 2D or 3D transforms are
 /// present. It has a handy [bounds] attribute returning a
 /// [DOMRectReadOnly] for those cases where you just want an
 /// axis-aligned bounding rectangle.
+@experimental
 @JS()
 @staticInterop
 class DOMQuad {
   external factory DOMQuad(
       [DOMPointInit? p1, DOMPointInit? p2, DOMPointInit? p3, DOMPointInit? p4]);
+  external static DOMQuad fromRect([DOMRectInit? other]);
+  external static DOMQuad fromQuad([DOMQuadInit? other]);
 }
 
 extension PropsDOMQuad on DOMQuad {
-  static DOMQuad fromRect([DOMRectInit? other]) =>
-      js_util.callMethod(DOMQuad, 'fromRect', [other]);
-
-  static DOMQuad fromQuad([DOMQuadInit? other]) =>
-      js_util.callMethod(DOMQuad, 'fromQuad', [other]);
-
   DOMPoint get p1 => js_util.getProperty(this, 'p1');
   DOMPoint get p2 => js_util.getProperty(this, 'p2');
   DOMPoint get p3 => js_util.getProperty(this, 'p3');
@@ -313,10 +300,7 @@ extension PropsDOMQuad on DOMQuad {
 @staticInterop
 class DOMQuadInit {
   external factory DOMQuadInit(
-      {required DOMPointInit p1,
-      required DOMPointInit p2,
-      required DOMPointInit p3,
-      required DOMPointInit p4});
+      {DOMPointInit? p1, DOMPointInit? p2, DOMPointInit? p3, DOMPointInit? p4});
 }
 
 extension PropsDOMQuadInit on DOMQuadInit {
@@ -351,19 +335,13 @@ extension PropsDOMQuadInit on DOMQuadInit {
 @staticInterop
 class DOMMatrixReadOnly {
   external factory DOMMatrixReadOnly([dynamic init]);
+  external static dynamic fromMatrix([DOMMatrixInit? other]);
+  external static dynamic fromFloat32Array(Float32List array32);
+  external static dynamic fromFloat64Array(Float64List array64);
 }
 
 extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
-  static dynamic fromMatrix([DOMMatrixInit? other]) =>
-      js_util.callMethod(DOMMatrixReadOnly, 'fromMatrix', [other]);
-
-  static dynamic fromFloat32Array(Float32List array32) =>
-      js_util.callMethod(DOMMatrixReadOnly, 'fromFloat32Array', [array32]);
-
-  static dynamic fromFloat64Array(Float64List array64) =>
-      js_util.callMethod(DOMMatrixReadOnly, 'fromFloat64Array', [array64]);
-
-/* double | NaN */ dynamic get a => js_util.getProperty(this, 'a');
+  /* double | NaN */ dynamic get a => js_util.getProperty(this, 'a');
 /* double | NaN */ dynamic get b => js_util.getProperty(this, 'b');
 /* double | NaN */ dynamic get c => js_util.getProperty(this, 'c');
 /* double | NaN */ dynamic get d => js_util.getProperty(this, 'd');
@@ -477,8 +455,6 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
 ///
 ///
 ///
-///
-///
 ///    DOMMatrix
 ///
 ///
@@ -487,19 +463,13 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
 @staticInterop
 class DOMMatrix implements DOMMatrixReadOnly {
   external factory DOMMatrix([dynamic init]);
+  external static DOMMatrix fromMatrix([DOMMatrixInit? other]);
+  external static DOMMatrix fromFloat32Array(Float32List array32);
+  external static DOMMatrix fromFloat64Array(Float64List array64);
 }
 
 extension PropsDOMMatrix on DOMMatrix {
-  static DOMMatrix fromMatrix([DOMMatrixInit? other]) =>
-      js_util.callMethod(DOMMatrix, 'fromMatrix', [other]);
-
-  static DOMMatrix fromFloat32Array(Float32List array32) =>
-      js_util.callMethod(DOMMatrix, 'fromFloat32Array', [array32]);
-
-  static DOMMatrix fromFloat64Array(Float64List array64) =>
-      js_util.callMethod(DOMMatrix, 'fromFloat64Array', [array64]);
-
-/* double | NaN */ dynamic get a => js_util.getProperty(this, 'a');
+  /* double | NaN */ dynamic get a => js_util.getProperty(this, 'a');
   set a(/* double | NaN */ dynamic newValue) {
     js_util.setProperty(this, 'a', newValue);
   }

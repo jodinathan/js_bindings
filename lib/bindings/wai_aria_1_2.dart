@@ -104,10 +104,10 @@ extension PropsARIAMixin on ARIAMixin {
     js_util.setProperty(this, 'ariaDisabled', newValue);
   }
 
-  Iterable<Element> get ariaErrorMessageElements =>
-      js_util.getProperty(this, 'ariaErrorMessageElements');
-  set ariaErrorMessageElements(Iterable<Element> newValue) {
-    js_util.setProperty(this, 'ariaErrorMessageElements', newValue);
+  Element? get ariaErrorMessageElement =>
+      js_util.getProperty(this, 'ariaErrorMessageElement');
+  set ariaErrorMessageElement(Element? newValue) {
+    js_util.setProperty(this, 'ariaErrorMessageElement', newValue);
   }
 
   String? get ariaExpanded => js_util.getProperty(this, 'ariaExpanded');

@@ -45,8 +45,7 @@ extension PropsCaptureHandleConfig on CaptureHandleConfig {
 @JS()
 @staticInterop
 class CaptureHandle {
-  external factory CaptureHandle(
-      {required String origin, required String handle});
+  external factory CaptureHandle({String? origin, String? handle});
 }
 
 extension PropsCaptureHandle on CaptureHandle {

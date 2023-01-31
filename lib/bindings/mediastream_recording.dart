@@ -25,8 +25,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    MediaRecorder
 ///
 ///
@@ -35,6 +33,7 @@ import 'package:js_bindings/js_bindings.dart';
 class MediaRecorder implements EventTarget {
   external factory MediaRecorder(MediaStream stream,
       [MediaRecorderOptions? options]);
+  external static bool isTypeSupported(String type);
 }
 
 extension PropsMediaRecorder on MediaRecorder {
@@ -87,9 +86,6 @@ extension PropsMediaRecorder on MediaRecorder {
   void resume() => js_util.callMethod(this, 'resume', []);
 
   void requestData() => js_util.callMethod(this, 'requestData', []);
-
-  static bool isTypeSupported(String type) =>
-      js_util.callMethod(MediaRecorder, 'isTypeSupported', [type]);
 }
 
 @anonymous
@@ -182,8 +178,6 @@ enum RecordingState {
 ///
 ///
 ///
-///
-///
 ///    BlobEvent
 ///
 ///
@@ -202,8 +196,7 @@ extension PropsBlobEvent on BlobEvent {
 @JS()
 @staticInterop
 class BlobEventInit {
-  external factory BlobEventInit(
-      {required Blob data, required double timecode});
+  external factory BlobEventInit({required Blob data, double? timecode});
 }
 
 extension PropsBlobEventInit on BlobEventInit {

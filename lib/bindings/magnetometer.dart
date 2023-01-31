@@ -10,26 +10,23 @@ library magnetometer;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the Sensor APIs provides information about the
 /// magnetic field as detected by the device's primary magnetometer
 /// sensor.
 ///  To use this sensor, the user must grant permission to the
-/// ['magnetometer'] device sensor through the Permissions API. In
-/// addition, this feature may be blocked by a Permissions Policy set
-/// on your server.
+/// ['magnetometer'] device sensor through the Permissions API.
+///  If a feature policy blocks use of a feature, it's because your
+/// code is inconsistent with the policies set on your server. This
+/// is not something that would ever be shown to a user. The
+/// [Feature-Policy] HTTP header article contains implementation
+/// instructions.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -41,12 +38,9 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///
-///
-///
 ///    Magnetometer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class Magnetometer implements Sensor {

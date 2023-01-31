@@ -10,6 +10,7 @@ library service_workers;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -32,8 +33,6 @@ import 'package:js_bindings/js_bindings.dart';
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -97,8 +96,6 @@ enum ServiceWorkerState {
 ///
 ///
 ///
-///
-///
 ///    ServiceWorkerRegistration
 ///
 ///
@@ -148,9 +145,7 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
           js_util.callMethod(this, 'getNotifications', [filter]));
 
   PushManager get pushManager => js_util.getProperty(this, 'pushManager');
-  @JS('sync')
-  @staticInterop
-  SyncManager get mSync => js_util.getProperty(this, 'sync');
+  SyncManager get sync => js_util.getProperty(this, 'sync');
 }
 
 enum ServiceWorkerUpdateViaCache {
@@ -181,8 +176,6 @@ enum ServiceWorkerUpdateViaCache {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -237,10 +230,10 @@ extension PropsServiceWorkerContainer on ServiceWorkerContainer {
 @staticInterop
 class RegistrationOptions {
   external factory RegistrationOptions._(
-      {required String scope, String? type, String? updateViaCache});
+      {String? scope, String? type, String? updateViaCache});
 
   factory RegistrationOptions(
-          {required String scope,
+          {String? scope,
           WorkerType? type = WorkerType.classic,
           ServiceWorkerUpdateViaCache? updateViaCache =
               ServiceWorkerUpdateViaCache.imports}) =>
@@ -271,14 +264,7 @@ extension PropsRegistrationOptions on RegistrationOptions {
 }
 
 ///  The interface of the Service Worker API provides methods for
-/// managing the preloading of resources in parallel with service
-/// worker bootup.
-///
-///   If supported, an object of this type is returned by
-/// [ServiceWorkerRegistration.navigationPreload].
-///   The result of a preload fetch request is waited on using the
-/// promise returned by [FetchEvent.preloadResponse].
-///
+/// managing the preloading of resources with a service worker.
 @JS()
 @staticInterop
 class NavigationPreloadManager {
@@ -328,7 +314,8 @@ extension PropsNavigationPreloadState on NavigationPreloadState {
 ///  Once successfully registered, a service worker can and will be
 /// terminated when idle to conserve memory and processor power. An
 /// active service worker is automatically restarted to respond to
-/// events, such as [fetch] or [message].
+/// events, such as [ServiceWorkerGlobalScope.onfetch] or
+/// [ServiceWorkerGlobalScope.onmessage].
 ///  Additionally, synchronous requests are not allowed from within a
 /// service worker — only asynchronous requests, like those initiated
 /// via the [fetch()] method, can be used.
@@ -343,11 +330,7 @@ extension PropsNavigationPreloadState on NavigationPreloadState {
 ///
 ///
 ///
-///
-///
 ///    WorkerGlobalScope
-///
-///
 ///
 ///
 ///
@@ -486,6 +469,7 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
 /// by the more-specific [WindowClient]. You can get /[WindowClient]
 /// objects from methods such as [Clients.matchAll()] and
 /// [Clients.get()].
+@experimental
 @JS()
 @staticInterop
 class Client {
@@ -520,11 +504,10 @@ extension PropsClient on Client {
 ///
 ///
 ///
-///
-///
 ///    WindowClient
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class WindowClient implements Client {
@@ -561,6 +544,7 @@ enum FrameType {
 
 ///  The interface provides access to [Client] objects. Access it via
 /// [[self].clients] within a service worker.
+@experimental
 @JS()
 @staticInterop
 class Clients {
@@ -568,9 +552,7 @@ class Clients {
 }
 
 extension PropsClients on Clients {
-  @JS('get')
-  @staticInterop
-  dynamic mGet(String id) => js_util.callMethod(this, 'get', [id]);
+  dynamic get(String id) => js_util.callMethod(this, 'get', [id]);
 
   Future<Iterable<Client>> matchAll([ClientQueryOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'matchAll', [options]));
@@ -647,8 +629,6 @@ enum ClientType {
 ///
 ///
 ///
-///
-///
 ///    ExtendableEvent
 ///
 ///
@@ -657,6 +637,7 @@ enum ClientType {
 /// a [ServiceWorkerGlobalScope]. It is not available when it is a
 /// [Window], or the scope of another kind of worker.
 ///
+@experimental
 @JS()
 @staticInterop
 class ExtendableEvent implements Event {
@@ -690,11 +671,7 @@ class ExtendableEventInit implements EventInit {
 ///
 ///
 ///
-///
-///
 ///    ExtendableEvent
-///
-///
 ///
 ///
 ///
@@ -729,7 +706,7 @@ extension PropsFetchEvent on FetchEvent {
 class FetchEventInit implements ExtendableEventInit {
   external factory FetchEventInit(
       {required Request request,
-      required Future<dynamic> preloadResponse,
+      Future<dynamic>? preloadResponse,
       String? clientId = '',
       String? resultingClientId = '',
       String? replacesClientId = '',
@@ -785,11 +762,7 @@ extension PropsFetchEventInit on FetchEventInit {
 ///
 ///
 ///
-///
-///
 ///    ExtendableEvent
-///
-///
 ///
 ///
 ///
@@ -798,6 +771,7 @@ extension PropsFetchEventInit on FetchEventInit {
 ///    ExtendableMessageEvent
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class ExtendableMessageEvent implements ExtendableEvent {
@@ -853,39 +827,40 @@ extension PropsExtendableMessageEventInit on ExtendableMessageEventInit {
 }
 
 ///  The interface provides a persistent storage mechanism for
-/// [Request] / [Response] object pairs that are cached in long lived
-/// memory. How long a object lives is browser dependent, but a
+/// [[Request]] / [[Response]] object pairs that are cached in long
+/// lived memory. How long a Cache lives is browser dependent, but a
 /// single origin's scripts can typically rely on the presence of a
-/// previously populated object. Note that the interface is exposed
-/// to windowed scopes as well as workers. You don't have to use it
-/// in conjunction with service workers, even though it is defined in
+/// previously populated Cache. Note that the interface is exposed to
+/// windowed scopes as well as workers. You don't have to use it in
+/// conjunction with service workers, even though it is defined in
 /// the service worker spec.
 ///  An origin can have multiple, named objects. You are responsible
 /// for implementing how your script (e.g. in a [ServiceWorker])
 /// handles updates. Items in a do not get updated unless explicitly
-/// requested; they don't expire unless deleted. Use
+/// requested; they don’t expire unless deleted. Use
 /// [CacheStorage.open()] to open a specific named object and then
 /// call any of the methods to maintain the .
 ///  You are also responsible for periodically purging cache entries.
 /// Each browser has a hard limit on the amount of cache storage that
-/// a given origin can use. quota usage estimates are available via
-/// the [StorageManager.estimate()] method. The browser does its best
-/// to manage disk space, but it may delete the storage for an
-/// origin. The browser will generally delete all of the data for an
-/// origin or none of the data for an origin. Make sure to version
-/// caches by name and use the caches only from the version of the
-/// script that they can safely operate on. See Deleting old caches
-/// for more information.
+/// a given origin can use. Cache quota usage estimates are available
+/// via the [StorageManager.estimate()] method. The browser does its
+/// best to manage disk space, but it may delete the Cache storage
+/// for an origin. The browser will generally delete all of the data
+/// for an origin or none of the data for an origin. Make sure to
+/// version caches by name and use the caches only from the version
+/// of the script that they can safely operate on. See Deleting old
+/// caches for more information.
 ///
 ///   Note: The key matching algorithm depends on the VARY header in
 /// the value. So matching a new key requires looking at both key and
-/// value for entries in the object.
+/// value for entries in the Cache.
 ///  Note: The caching API doesn't honor HTTP caching headers.
 ///
 ///  Note: This feature is available in Web Workers
 ///
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
+@experimental
 @JS()
 @staticInterop
 class Cache {
@@ -951,7 +926,13 @@ extension PropsCacheQueryOptions on CacheQueryOptions {
 ///
 ///   Provides a master directory of all the named caches that can be
 /// accessed by a [ServiceWorker] or other type of worker or [window]
-/// scope (you're not limited to only using it with service workers).
+/// scope (you’re not limited to only using it with service workers).
+///
+///     Note: Chrome and Safari only expose `CacheStorage` to the
+/// windowed context over HTTPS. [caches] will be undefined unless an
+/// SSL certificate is configured.
+///
+///
 ///   Maintains a mapping of string names to corresponding [Cache]
 /// objects.
 ///
@@ -979,6 +960,7 @@ extension PropsCacheQueryOptions on CacheQueryOptions {
 ///
 ///  Secure context: This feature is available only in secure
 /// contexts (HTTPS), in some or all supporting browsers.
+@experimental
 @JS()
 @staticInterop
 class CacheStorage {
@@ -1006,7 +988,7 @@ extension PropsCacheStorage on CacheStorage {
 @JS()
 @staticInterop
 class MultiCacheQueryOptions implements CacheQueryOptions {
-  external factory MultiCacheQueryOptions({required String cacheName});
+  external factory MultiCacheQueryOptions({String? cacheName});
 }
 
 extension PropsMultiCacheQueryOptions on MultiCacheQueryOptions {

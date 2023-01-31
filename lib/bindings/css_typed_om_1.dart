@@ -24,17 +24,14 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CSSStyleValue {
+  external static dynamic parse(String property, String cssText);
+  external static Iterable<CSSStyleValue> parseAll(
+      String property, String cssText);
   external factory CSSStyleValue();
 }
 
 extension PropsCSSStyleValue on CSSStyleValue {
   String mToString() => js_util.callMethod(this, 'toString', []);
-
-  static dynamic parse(String property, String cssText) =>
-      js_util.callMethod(CSSStyleValue, 'parse', [property, cssText]);
-
-  static Iterable<CSSStyleValue> parseAll(String property, String cssText) =>
-      js_util.callMethod(CSSStyleValue, 'parseAll', [property, cssText]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -52,9 +49,7 @@ class StylePropertyMapReadOnly extends JsArray<Iterable<CSSStyleValue>> {
 }
 
 extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
-  @JS('get')
-  @staticInterop
-  dynamic mGet(String property) => js_util.callMethod(this, 'get', [property]);
+  dynamic get(String property) => js_util.callMethod(this, 'get', [property]);
 
   Iterable<CSSStyleValue> getAll(String property) =>
       js_util.callMethod(this, 'getAll', [property]);
@@ -79,8 +74,6 @@ extension PropsStylePropertyMapReadOnly on StylePropertyMapReadOnly {
 ///
 ///
 ///
-///
-///
 ///    StylePropertyMap
 ///
 ///
@@ -92,9 +85,7 @@ class StylePropertyMap implements StylePropertyMapReadOnly {
 }
 
 extension PropsStylePropertyMap on StylePropertyMap {
-  @JS('set')
-  @staticInterop
-  void mSet(String property,
+  void set(String property,
           [dynamic values1, dynamic values2, dynamic values3]) =>
       js_util.callMethod(this, 'set', [property, values1, values2, values3]);
 
@@ -125,8 +116,6 @@ extension PropsStylePropertyMap on StylePropertyMap {
 ///
 ///
 ///
-///
-///
 ///    CSSUnparsedValue
 ///
 ///
@@ -134,7 +123,7 @@ extension PropsStylePropertyMap on StylePropertyMap {
 @JS()
 @staticInterop
 class CSSUnparsedValue implements CSSStyleValue {
-  external factory CSSUnparsedValue([Iterable<dynamic>? members]);
+  external factory CSSUnparsedValue(Iterable<dynamic> members);
 }
 
 extension PropsCSSUnparsedValue on CSSUnparsedValue {
@@ -183,8 +172,6 @@ extension PropsCSSVariableReferenceValue on CSSVariableReferenceValue {
 ///
 ///
 ///
-///
-///
 ///    CSSKeywordValue
 ///
 ///
@@ -224,24 +211,24 @@ enum CSSNumericBaseType {
 @staticInterop
 class CSSNumericType {
   external factory CSSNumericType._(
-      {required int length,
-      required int angle,
-      required int time,
-      required int frequency,
-      required int resolution,
-      required int flex,
-      required int percent,
-      required String percentHint});
+      {int? length,
+      int? angle,
+      int? time,
+      int? frequency,
+      int? resolution,
+      int? flex,
+      int? percent,
+      String? percentHint});
 
   factory CSSNumericType(
-          {required int length,
-          required int angle,
-          required int time,
-          required int frequency,
-          required int resolution,
-          required int flex,
-          required int percent,
-          required CSSNumericBaseType percentHint}) =>
+          {int? length,
+          int? angle,
+          int? time,
+          int? frequency,
+          int? resolution,
+          int? flex,
+          int? percent,
+          CSSNumericBaseType? percentHint}) =>
       CSSNumericType._(
           length: length,
           angle: angle,
@@ -250,7 +237,7 @@ class CSSNumericType {
           resolution: resolution,
           flex: flex,
           percent: percent,
-          percentHint: percentHint.value);
+          percentHint: percentHint?.value);
 }
 
 extension PropsCSSNumericType on CSSNumericType {
@@ -310,8 +297,6 @@ extension PropsCSSNumericType on CSSNumericType {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
 ///
 ///
@@ -319,6 +304,7 @@ extension PropsCSSNumericType on CSSNumericType {
 @JS()
 @staticInterop
 class CSSNumericValue implements CSSStyleValue {
+  external static CSSNumericValue parse(String cssText);
   external factory CSSNumericValue();
 }
 
@@ -350,9 +336,6 @@ extension PropsCSSNumericValue on CSSNumericValue {
       js_util.callMethod(this, 'toSum', [units1, units2, units3]);
 
   CSSNumericType type() => js_util.callMethod(this, 'type', []);
-
-  static CSSNumericValue parse(String cssText) =>
-      js_util.callMethod(CSSNumericValue, 'parse', [cssText]);
 }
 
 ///  Experimental: This is an experimental technologyCheck the
@@ -370,11 +353,7 @@ extension PropsCSSNumericValue on CSSNumericValue {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
-///
-///
 ///
 ///
 ///
@@ -413,11 +392,7 @@ extension PropsCSSUnitValue on CSSUnitValue {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
-///
-///
 ///
 ///
 ///
@@ -434,9 +409,7 @@ class CSSMathValue implements CSSNumericValue {
 }
 
 extension PropsCSSMathValue on CSSMathValue {
-  @JS('operator')
-  @staticInterop
-  CSSMathOperator get mOperator =>
+  CSSMathOperator get operator =>
       CSSMathOperator.fromValue(js_util.getProperty(this, 'operator'));
 }
 
@@ -458,19 +431,13 @@ extension PropsCSSMathValue on CSSMathValue {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    CSSMathValue
-///
-///
 ///
 ///
 ///
@@ -506,19 +473,13 @@ extension PropsCSSMathSum on CSSMathSum {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    CSSMathValue
-///
-///
 ///
 ///
 ///
@@ -554,19 +515,13 @@ extension PropsCSSMathProduct on CSSMathProduct {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    CSSMathValue
-///
-///
 ///
 ///
 ///
@@ -602,19 +557,13 @@ extension PropsCSSMathNegate on CSSMathNegate {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    CSSMathValue
-///
-///
 ///
 ///
 ///
@@ -649,19 +598,13 @@ extension PropsCSSMathInvert on CSSMathInvert {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    CSSMathValue
-///
-///
 ///
 ///
 ///
@@ -696,19 +639,13 @@ extension PropsCSSMathMin on CSSMathMin {
 ///
 ///
 ///
-///
-///
 ///    CSSNumericValue
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    CSSMathValue
-///
-///
 ///
 ///
 ///
@@ -788,8 +725,6 @@ enum CSSMathOperator {
 ///
 ///
 ///
-///
-///
 ///    CSSTransformValue
 ///
 ///
@@ -798,7 +733,7 @@ enum CSSMathOperator {
 @staticInterop
 class CSSTransformValue implements CSSStyleValue {
   external factory CSSTransformValue(
-      [Iterable<CSSTransformComponent>? transforms]);
+      Iterable<CSSTransformComponent> transforms);
 }
 
 extension PropsCSSTransformValue on CSSTransformValue {
@@ -807,9 +742,6 @@ extension PropsCSSTransformValue on CSSTransformValue {
   DOMMatrix toMatrix() => js_util.callMethod(this, 'toMatrix', []);
 }
 
-///  Experimental: This is an experimental technologyCheck the
-/// Browser compatibility table carefully before using this in
-/// production.
 ///  The interface of the CSS_Object_Model#css_typed_object_model is
 /// part of the [CSSTransformValue] interface.
 @experimental
@@ -841,8 +773,6 @@ extension PropsCSSTransformComponent on CSSTransformComponent {
 ///
 ///
 ///    CSSTransformComponent
-///
-///
 ///
 ///
 ///
@@ -887,8 +817,6 @@ extension PropsCSSTranslate on CSSTranslate {
 ///
 ///
 ///    CSSTransformComponent
-///
-///
 ///
 ///
 ///
@@ -943,8 +871,6 @@ extension PropsCSSRotate on CSSRotate {
 ///
 ///
 ///
-///
-///
 ///    CSSScale
 ///
 ///
@@ -982,8 +908,6 @@ extension PropsCSSScale on CSSScale {
 ///
 ///
 ///    CSSTransformComponent
-///
-///
 ///
 ///
 ///
@@ -1027,8 +951,6 @@ extension PropsCSSSkew on CSSSkew {
 ///
 ///
 ///
-///
-///
 ///    CSSSkewX
 ///
 ///
@@ -1057,8 +979,6 @@ extension PropsCSSSkewX on CSSSkewX {
 ///
 ///
 ///    CSSTransformComponent
-///
-///
 ///
 ///
 ///
@@ -1097,8 +1017,6 @@ extension PropsCSSSkewY on CSSSkewY {
 ///
 ///
 ///
-///
-///
 ///    CSSPerspective
 ///
 ///
@@ -1132,8 +1050,6 @@ extension PropsCSSPerspective on CSSPerspective {
 ///
 ///
 ///
-///
-///
 ///    CSSMatrixComponent
 ///
 ///
@@ -1156,7 +1072,7 @@ extension PropsCSSMatrixComponent on CSSMatrixComponent {
 @JS()
 @staticInterop
 class CSSMatrixComponentOptions {
-  external factory CSSMatrixComponentOptions({required bool is2D});
+  external factory CSSMatrixComponentOptions({bool? is2D});
 }
 
 extension PropsCSSMatrixComponentOptions on CSSMatrixComponentOptions {
@@ -1172,15 +1088,13 @@ extension PropsCSSMatrixComponentOptions on CSSMatrixComponentOptions {
 ///  The interface of the CSS Typed Object Model API represents
 /// values for properties that take an image, for example
 /// [background-image], [list-style-image], or [border-image-source].
-///  The CSSImageValue object represents an [<image>] that involves a
-/// URL, such as [url()] or [image()], but not [linear-gradient()] or
-/// [element()].
+///  The CSSImageValue object represents an [<image>] that involves
+/// an URL, such as [url()] or [image()], but not [linear-gradient()]
+/// or [element()].
 ///
 ///
 ///
 ///    CSSStyleValue
-///
-///
 ///
 ///
 ///
@@ -1199,12 +1113,8 @@ class CSSImageValue implements CSSStyleValue {
 @JS()
 @staticInterop
 class CSSColorValue implements CSSStyleValue {
+  external static dynamic parse(String cssText);
   external factory CSSColorValue();
-}
-
-extension PropsCSSColorValue on CSSColorValue {
-  static dynamic parse(String cssText) =>
-      js_util.callMethod(CSSColorValue, 'parse', [cssText]);
 }
 
 @JS('CSSRGB')

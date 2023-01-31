@@ -167,7 +167,7 @@ extension PropsTouchInit on TouchInit {
 /// pointing devices such as fingers. These values are set to
 /// describe an ellipse that as closely as possible matches the
 /// entire area of contact (such as the user's fingertip).
-///   Experimental
+///
 ///   Note: Many of the properties' values are hardware-dependent;
 /// for example, if the device doesn't have a way to detect the
 /// amount of pressure placed on the surface, the [force] value will
@@ -205,14 +205,6 @@ extension PropsTouch on Touch {
 /// surface (such as a screen or trackpad), the corresponding object
 /// would have one [Touch] object for each finger, for a total of
 /// three entries.
-///
-///   Note: This interface was an attempt to create an unmodifiable
-/// list and only continues to be supported to not break code that's
-/// already using it. Modern APIs use types that wrap around
-/// ECMAScript array types instead, so you can treat them like
-/// ECMAScript arrays, and at the same time impose additional
-/// semantics on their usage (such as making their items read-only).
-///
 @JS()
 @staticInterop
 class TouchList {
@@ -272,11 +264,7 @@ extension PropsTouchEventInit on TouchEventInit {
 ///
 ///
 ///
-///
-///
 ///    UIEvent
-///
-///
 ///
 ///
 ///

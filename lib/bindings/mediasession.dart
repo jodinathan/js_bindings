@@ -39,9 +39,7 @@ enum MediaSessionAction {
   seekto('seekto'),
   togglemicrophone('togglemicrophone'),
   togglecamera('togglecamera'),
-  hangup('hangup'),
-  previousslide('previousslide'),
-  nextslide('nextslide');
+  hangup('hangup');
 
   final String value;
   static MediaSessionAction fromValue(String value) =>
@@ -51,6 +49,9 @@ enum MediaSessionAction {
   const MediaSessionAction(this.value);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Media Session API allows a web page to
 /// provide custom behaviors for standard media playback
 /// interactions, and to report metadata that can be sent by the user
@@ -95,6 +96,9 @@ extension PropsMediaSession on MediaSession {
       js_util.callMethod(this, 'setCameraActive', [active]);
 }
 
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.
 ///  The interface of the Media Session API allows a web page to
 /// provide rich media metadata for display in a platform UI.
 @JS()
@@ -193,9 +197,7 @@ extension PropsMediaImage on MediaImage {
 @staticInterop
 class MediaPositionState {
   external factory MediaPositionState(
-      {required double duration,
-      required double playbackRate,
-      required double position});
+      {double? duration, double? playbackRate, double? position});
 }
 
 extension PropsMediaPositionState on MediaPositionState {
@@ -221,15 +223,15 @@ extension PropsMediaPositionState on MediaPositionState {
 class MediaSessionActionDetails {
   external factory MediaSessionActionDetails._(
       {required String action,
-      required double seekOffset,
-      required double seekTime,
-      required bool fastSeek});
+      double? seekOffset,
+      double? seekTime,
+      bool? fastSeek});
 
   factory MediaSessionActionDetails(
           {required MediaSessionAction action,
-          required double seekOffset,
-          required double seekTime,
-          required bool fastSeek}) =>
+          double? seekOffset,
+          double? seekTime,
+          bool? fastSeek}) =>
       MediaSessionActionDetails._(
           action: action.value,
           seekOffset: seekOffset,
@@ -244,18 +246,18 @@ extension PropsMediaSessionActionDetails on MediaSessionActionDetails {
     js_util.setProperty(this, 'action', newValue.value);
   }
 
-  double get seekOffset => js_util.getProperty(this, 'seekOffset');
-  set seekOffset(double newValue) {
+  double? get seekOffset => js_util.getProperty(this, 'seekOffset');
+  set seekOffset(double? newValue) {
     js_util.setProperty(this, 'seekOffset', newValue);
   }
 
-  double get seekTime => js_util.getProperty(this, 'seekTime');
-  set seekTime(double newValue) {
+  double? get seekTime => js_util.getProperty(this, 'seekTime');
+  set seekTime(double? newValue) {
     js_util.setProperty(this, 'seekTime', newValue);
   }
 
-  bool get fastSeek => js_util.getProperty(this, 'fastSeek');
-  set fastSeek(bool newValue) {
+  bool? get fastSeek => js_util.getProperty(this, 'fastSeek');
+  set fastSeek(bool? newValue) {
     js_util.setProperty(this, 'fastSeek', newValue);
   }
 }

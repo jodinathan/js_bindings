@@ -10,7 +10,7 @@ library webaudio;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-
+import 'package:meta/meta.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
@@ -38,8 +38,6 @@ enum AudioContextState {
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -153,17 +151,6 @@ enum AudioContextLatencyCategory {
   const AudioContextLatencyCategory(this.value);
 }
 
-enum AudioSinkType {
-  none('none');
-
-  final String value;
-  static AudioSinkType fromValue(String value) =>
-      values.firstWhere((e) => e.value == value);
-  static Iterable<AudioSinkType> fromValues(Iterable<String> values) =>
-      values.map(fromValue);
-  const AudioSinkType(this.value);
-}
-
 ///  The interface represents an audio-processing graph built from
 /// audio modules linked together, each represented by an
 /// [AudioNode].
@@ -183,11 +170,7 @@ enum AudioSinkType {
 ///
 ///
 ///
-///
-///
 ///    BaseAudioContext
-///
-///
 ///
 ///
 ///
@@ -205,15 +188,8 @@ class AudioContext implements BaseAudioContext {
 extension PropsAudioContext on AudioContext {
   double get baseLatency => js_util.getProperty(this, 'baseLatency');
   double get outputLatency => js_util.getProperty(this, 'outputLatency');
-  dynamic get sinkId => js_util.getProperty(this, 'sinkId');
   AudioRenderCapacity get renderCapacity =>
       js_util.getProperty(this, 'renderCapacity');
-  EventHandlerNonNull? get onsinkchange =>
-      js_util.getProperty(this, 'onsinkchange');
-  set onsinkchange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onsinkchange', newValue);
-  }
-
   AudioTimestamp getOutputTimestamp() =>
       js_util.callMethod(this, 'getOutputTimestamp', []);
 
@@ -225,9 +201,6 @@ extension PropsAudioContext on AudioContext {
 
   Future<void> close() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'close', []));
-
-  Future<void> setSinkId(dynamic sinkId) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'setSinkId', [sinkId]));
 
   MediaElementAudioSourceNode createMediaElementSource(
           HTMLMediaElement mediaElement) =>
@@ -250,7 +223,7 @@ extension PropsAudioContext on AudioContext {
 @staticInterop
 class AudioContextOptions {
   external factory AudioContextOptions(
-      {dynamic latencyHint, required double sampleRate, dynamic sinkId});
+      {dynamic latencyHint, double? sampleRate});
 }
 
 extension PropsAudioContextOptions on AudioContextOptions {
@@ -263,40 +236,6 @@ extension PropsAudioContextOptions on AudioContextOptions {
   set sampleRate(double newValue) {
     js_util.setProperty(this, 'sampleRate', newValue);
   }
-
-  dynamic get sinkId => js_util.getProperty(this, 'sinkId');
-  set sinkId(dynamic newValue) {
-    js_util.setProperty(this, 'sinkId', newValue);
-  }
-}
-
-@anonymous
-@JS()
-@staticInterop
-class AudioSinkOptions {
-  external factory AudioSinkOptions._({required String type});
-
-  factory AudioSinkOptions({required AudioSinkType type}) =>
-      AudioSinkOptions._(type: type.value);
-}
-
-extension PropsAudioSinkOptions on AudioSinkOptions {
-  AudioSinkType get type =>
-      AudioSinkType.fromValue(js_util.getProperty(this, 'type'));
-  set type(AudioSinkType newValue) {
-    js_util.setProperty(this, 'type', newValue.value);
-  }
-}
-
-@JS()
-@staticInterop
-class AudioSinkInfo {
-  external factory AudioSinkInfo();
-}
-
-extension PropsAudioSinkInfo on AudioSinkInfo {
-  AudioSinkType get type =>
-      AudioSinkType.fromValue(js_util.getProperty(this, 'type'));
 }
 
 @anonymous
@@ -304,7 +243,7 @@ extension PropsAudioSinkInfo on AudioSinkInfo {
 @staticInterop
 class AudioTimestamp {
   external factory AudioTimestamp(
-      {required double contextTime, required double performanceTime});
+      {double? contextTime, double? performanceTime});
 }
 
 extension PropsAudioTimestamp on AudioTimestamp {
@@ -412,11 +351,7 @@ extension PropsAudioRenderCapacityEventInit on AudioRenderCapacityEventInit {
 ///
 ///
 ///
-///
-///
 ///    BaseAudioContext
-///
-///
 ///
 ///
 ///
@@ -488,8 +423,6 @@ extension PropsOfflineAudioContextOptions on OfflineAudioContextOptions {
 ///
 ///
 ///    Event
-///
-///
 ///
 ///
 ///
@@ -609,8 +542,6 @@ extension PropsAudioBufferOptions on AudioBufferOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
 ///
 ///
@@ -684,18 +615,18 @@ enum ChannelInterpretation {
 @staticInterop
 class AudioNodeOptions {
   external factory AudioNodeOptions._(
-      {required int channelCount,
-      required String channelCountMode,
-      required String channelInterpretation});
+      {int? channelCount,
+      String? channelCountMode,
+      String? channelInterpretation});
 
   factory AudioNodeOptions(
-          {required int channelCount,
-          required ChannelCountMode channelCountMode,
-          required ChannelInterpretation channelInterpretation}) =>
+          {int? channelCount,
+          ChannelCountMode? channelCountMode,
+          ChannelInterpretation? channelInterpretation}) =>
       AudioNodeOptions._(
           channelCount: channelCount,
-          channelCountMode: channelCountMode.value,
-          channelInterpretation: channelInterpretation.value);
+          channelCountMode: channelCountMode?.value,
+          channelInterpretation: channelInterpretation?.value);
 }
 
 extension PropsAudioNodeOptions on AudioNodeOptions {
@@ -794,11 +725,11 @@ extension PropsAudioParam on AudioParam {
 /// for several types of audio source node interfaces which share the
 /// ability to be started and stopped, optionally at specified times.
 /// Specifically, this interface defines the [start()] and [stop()]
-/// methods, as well as the [ended] event.
+/// methods, as well as the [onended] event handler.
 ///
-///   Note: You can't create an object directly. Instead, use an
+///   Note: You can't create an object directly. Instead, use the
 /// interface which extends it, such as [AudioBufferSourceNode],
-/// [OscillatorNode] or [ConstantSourceNode].
+/// [OscillatorNode], and [ConstantSourceNode].
 ///
 ///  Unless stated otherwise, nodes based upon output silence when
 /// not playing (that is, before [start()] is called and after
@@ -813,11 +744,7 @@ extension PropsAudioParam on AudioParam {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -862,11 +789,7 @@ extension PropsAudioScheduledSourceNode on AudioScheduledSourceNode {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -995,19 +918,13 @@ extension PropsAnalyserOptions on AnalyserOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    AudioScheduledSourceNode
-///
-///
 ///
 ///
 ///
@@ -1148,11 +1065,7 @@ extension PropsAudioBufferSourceOptions on AudioBufferSourceOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -1252,8 +1165,6 @@ extension PropsAudioListener on AudioListener {
 ///
 ///
 ///
-///
-///
 ///    AudioProcessingEvent
 ///
 ///
@@ -1330,11 +1241,7 @@ enum BiquadFilterType {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -1471,11 +1378,7 @@ extension PropsBiquadFilterOptions on BiquadFilterOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -1496,7 +1399,7 @@ extension PropsBiquadFilterOptions on BiquadFilterOptions {
 ///
 ///
 ///    Channel count mode
-///    ["explicit"]
+///    ["max"]
 ///
 ///
 ///    Channel count
@@ -1552,11 +1455,7 @@ extension PropsChannelMergerOptions on ChannelMergerOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -1638,19 +1537,13 @@ extension PropsChannelSplitterOptions on ChannelSplitterOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    AudioScheduledSourceNode
-///
-///
 ///
 ///
 ///
@@ -1712,11 +1605,7 @@ extension PropsConstantSourceOptions on ConstantSourceOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -1809,11 +1698,7 @@ extension PropsConvolverOptions on ConvolverOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -1891,11 +1776,7 @@ extension PropsDelayOptions on DelayOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -2006,11 +1887,7 @@ extension PropsDynamicsCompressorOptions on DynamicsCompressorOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -2082,11 +1959,7 @@ extension PropsGainOptions on GainOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -2175,11 +2048,12 @@ extension PropsIIRFilterOptions on IIRFilterOptions {
   }
 }
 
-///  The interface represents an audio source consisting of an HTML
+///  The interface represents an audio source consisting of an HTML5
 /// [<audio>] or [<video>] element. It is an [AudioNode] that acts as
 /// an audio source.
-///  A has no inputs and exactly one output, and is created using the
-/// [AudioContext.createMediaElementSource()] method. The number of
+///  A [MediaElementSourceNode] has no inputs and exactly one output,
+/// and is created using the
+/// [AudioContext.createMediaElementSource()] method. The amount of
 /// channels in the output equals the number of channels of the audio
 /// referenced by the [HTMLMediaElement] used in the creation of the
 /// node, or is 1 if the [HTMLMediaElement] has no audio.
@@ -2192,11 +2066,7 @@ extension PropsIIRFilterOptions on IIRFilterOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -2217,9 +2087,12 @@ extension PropsIIRFilterOptions on IIRFilterOptions {
 ///
 ///
 ///    Channel count
-///     2 (but note that [AudioNode.channelCount] is only used for
-/// up-mixing and down-mixing [AudioNode] inputs, and doesn't have
-/// any input)
+///
+///     defined by the media in the [HTMLMediaElement]
+///     passed to the
+///     [AudioContext.createMediaElementSource]
+///     method that created it.
+///
 ///
 ///
 ///
@@ -2255,7 +2128,7 @@ extension PropsMediaElementAudioSourceOptions
 ///  The interface represents an audio destination consisting of a
 /// WebRTC [MediaStream] with a single [AudioMediaStreamTrack], which
 /// can be used in a similar way to a [MediaStream] obtained from
-/// [navigator.mediaDevices.getUserMedia()].
+/// [Navigator.getUserMedia()].
 ///  It is an [AudioNode] that acts as an audio destination, created
 /// using the [AudioContext.createMediaStreamDestination()] method.
 ///
@@ -2267,11 +2140,7 @@ extension PropsMediaElementAudioSourceOptions
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -2338,11 +2207,7 @@ extension PropsMediaStreamAudioDestinationNode
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -2363,9 +2228,12 @@ extension PropsMediaStreamAudioDestinationNode
 ///
 ///
 ///    Channel count
-///     2 (but note that [AudioNode.channelCount] is only used for
-/// up-mixing and down-mixing [AudioNode] inputs, and doesn't have
-/// any input)
+///
+///     defined by the first audio [MediaStreamTrack]
+///     passed to the
+///     [AudioContext.createMediaStreamSource()]
+///     method that created it.
+///
 ///
 ///
 ///
@@ -2415,11 +2283,7 @@ extension PropsMediaStreamAudioSourceOptions on MediaStreamAudioSourceOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -2501,19 +2365,13 @@ enum OscillatorType {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
 ///
 ///
 ///
 ///
 ///
-///
-///
 ///    AudioScheduledSourceNode
-///
-///
 ///
 ///
 ///
@@ -2636,11 +2494,11 @@ enum DistanceModelType {
   const DistanceModelType(this.value);
 }
 
-///  The interface defines an audio-processing object that represents
-/// the location, direction, and behavior of an audio source signal
-/// in a simulated physical space. This [AudioNode] uses right-hand
-/// Cartesian coordinates to describe the source's position as a
-/// vector and its orientation as a 3D directional cone.
+///  The interface represents the position and behavior of an audio
+/// source signal in space. It is an [AudioNode] audio-processing
+/// module describing its position with right-hand Cartesian
+/// coordinates, its movement using a velocity vector and its
+/// directionality using a directionality cone.
 ///  A always has exactly one input and one output: the input can be
 /// mono or stereo but the output is always stereo (2 channels); you
 /// can't have panning effects without at least two audio channels!
@@ -2656,11 +2514,7 @@ enum DistanceModelType {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -2916,7 +2770,7 @@ extension PropsPeriodicWaveConstraints on PeriodicWaveConstraints {
 @staticInterop
 class PeriodicWaveOptions implements PeriodicWaveConstraints {
   external factory PeriodicWaveOptions(
-      {required Iterable<double> real, required Iterable<double> imag});
+      {Iterable<double>? real, Iterable<double>? imag});
 }
 
 extension PropsPeriodicWaveOptions on PeriodicWaveOptions {
@@ -2950,11 +2804,7 @@ extension PropsPeriodicWaveOptions on PeriodicWaveOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -3049,11 +2899,7 @@ extension PropsScriptProcessorNode on ScriptProcessorNode {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -3138,11 +2984,7 @@ enum OverSampleType {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -3200,10 +3042,10 @@ extension PropsWaveShaperNode on WaveShaperNode {
 @staticInterop
 class WaveShaperOptions implements AudioNodeOptions {
   external factory WaveShaperOptions._(
-      {required Iterable<double> curve, String? oversample});
+      {Iterable<double>? curve, String? oversample});
 
   factory WaveShaperOptions(
-          {required Iterable<double> curve,
+          {Iterable<double>? curve,
           OverSampleType? oversample = OverSampleType.none}) =>
       WaveShaperOptions._(curve: curve, oversample: oversample?.value);
 }
@@ -3240,8 +3082,6 @@ extension PropsWaveShaperOptions on WaveShaperOptions {
 ///
 ///
 ///
-///
-///
 ///    AudioWorklet
 ///
 ///
@@ -3249,10 +3089,6 @@ extension PropsWaveShaperOptions on WaveShaperOptions {
 @staticInterop
 class AudioWorklet implements Worklet {
   external factory AudioWorklet();
-}
-
-extension PropsAudioWorklet on AudioWorklet {
-  MessagePort get port => js_util.getProperty(this, 'port');
 }
 
 ///  The interface of the Web Audio API represents a global execution
@@ -3264,13 +3100,11 @@ extension PropsAudioWorklet on AudioWorklet {
 ///  As the global execution context is shared across the current
 /// [BaseAudioContext], it's possible to define any other variables
 /// and perform any actions allowed in worklets — apart from defining
-/// [AudioWorkletProcessor] derived classes.
+/// [AudioWorkletProcessor]-derived classes.
 ///
 ///
 ///
 ///    WorkletGlobalScope
-///
-///
 ///
 ///
 ///
@@ -3294,12 +3128,12 @@ extension PropsAudioWorkletGlobalScope on AudioWorkletGlobalScope {
   int get currentFrame => js_util.getProperty(this, 'currentFrame');
   double get currentTime => js_util.getProperty(this, 'currentTime');
   double get sampleRate => js_util.getProperty(this, 'sampleRate');
-  MessagePort get port => js_util.getProperty(this, 'port');
 }
 
 ///  The Web Audio API interface represents a set of multiple audio
-/// parameters, each described as a mapping of a string identifying
+/// parameters, each described as a mapping of a [String] identifying
 /// the parameter to the [AudioParam] object representing its value.
+@experimental
 @JS()
 @staticInterop
 class AudioParamMap extends JsMap<AudioParam, String> {
@@ -3326,11 +3160,7 @@ class AudioParamMap extends JsMap<AudioParam, String> {
 ///
 ///
 ///
-///
-///
 ///    AudioNode
-///
-///
 ///
 ///
 ///
@@ -3339,6 +3169,7 @@ class AudioParamMap extends JsMap<AudioParam, String> {
 ///    AudioWorkletNode
 ///
 ///
+@experimental
 @JS()
 @staticInterop
 class AudioWorkletNode implements AudioNode {

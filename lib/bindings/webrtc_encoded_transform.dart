@@ -14,6 +14,26 @@ import 'package:js/js.dart';
 import 'dart:typed_data';
 import 'package:js_bindings/js_bindings.dart';
 
+@anonymous
+@JS()
+@staticInterop
+class RTCInsertableStreams {
+  external factory RTCInsertableStreams(
+      {ReadableStream? readable, WritableStream? writable});
+}
+
+extension PropsRTCInsertableStreams on RTCInsertableStreams {
+  ReadableStream get readable => js_util.getProperty(this, 'readable');
+  set readable(ReadableStream newValue) {
+    js_util.setProperty(this, 'readable', newValue);
+  }
+
+  WritableStream get writable => js_util.getProperty(this, 'writable');
+  set writable(WritableStream newValue) {
+    js_util.setProperty(this, 'writable', newValue);
+  }
+}
+
 enum SFrameTransformRole {
   encrypt('encrypt'),
   decrypt('decrypt');
@@ -144,15 +164,15 @@ enum RTCEncodedVideoFrameType {
 @staticInterop
 class RTCEncodedVideoFrameMetadata {
   external factory RTCEncodedVideoFrameMetadata(
-      {required int frameId,
-      required Iterable<int> dependencies,
-      required int width,
-      required int height,
-      required int spatialIndex,
-      required int temporalIndex,
-      required int synchronizationSource,
-      required int payloadType,
-      required Iterable<int> contributingSources});
+      {int? frameId,
+      Iterable<int>? dependencies,
+      int? width,
+      int? height,
+      int? spatialIndex,
+      int? temporalIndex,
+      int? synchronizationSource,
+      int? payloadType,
+      Iterable<int>? contributingSources});
 }
 
 extension PropsRTCEncodedVideoFrameMetadata on RTCEncodedVideoFrameMetadata {
@@ -228,9 +248,9 @@ extension PropsRTCEncodedVideoFrame on RTCEncodedVideoFrame {
 @staticInterop
 class RTCEncodedAudioFrameMetadata {
   external factory RTCEncodedAudioFrameMetadata(
-      {required int synchronizationSource,
-      required int payloadType,
-      required Iterable<int> contributingSources});
+      {int? synchronizationSource,
+      int? payloadType,
+      Iterable<int>? contributingSources});
 }
 
 extension PropsRTCEncodedAudioFrameMetadata on RTCEncodedAudioFrameMetadata {

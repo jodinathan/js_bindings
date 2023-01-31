@@ -55,8 +55,6 @@ extension PropsFileSystemEntry on FileSystemEntry {
 ///
 ///
 ///
-///
-///
 ///    FileSystemDirectoryEntry
 ///
 ///
@@ -134,16 +132,14 @@ extension PropsFileSystemDirectoryReader on FileSystemDirectoryReader {
       ]);
 }
 
-///  The interface of the File and Directory Entries API represents a
-/// file in a file system. It offers properties describing the file's
-/// attributes, as well as the [file()] method, which creates a
-/// [File] object that can be used to read the file.
+///  The interface of the File System API represents a file in a file
+/// system. It offers properties describing the file's attributes, as
+/// well as the [file()] method, which creates a [File] object that
+/// can be used to read the file.
 ///
 ///
 ///
 ///    FileSystemEntry
-///
-///
 ///
 ///
 ///
@@ -171,11 +167,11 @@ extension PropsFileSystemFileEntry on FileSystemFileEntry {
 /// [filesystem] property on any file system entry. Some browsers
 /// offer additional APIs to create and manage file systems, such as
 /// Chrome's [requestFileSystem()] method.
-///  This interface will not grant you access to the users'
-/// filesystem. Instead, you will have a "virtual drive" within the
-/// browser sandbox if you want to gain access to the users' file
-/// system, you need to invoke the user, for example by installing a
-/// Chrome extension. The relevant Chrome API can be found here.
+///  This interface will not grant you access to the users
+/// filesystem. Instead you will have a "virtual drive" within the
+/// browser sandbox. If you want to gain access to the users
+/// filesystem you need to invoke the user by eg. installing a Chrome
+/// extension. The relevant Chrome API can be found here.
 @JS()
 @staticInterop
 class FileSystem {

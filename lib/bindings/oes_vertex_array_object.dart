@@ -1,6 +1,6 @@
 /// WebGL OES_vertex_array_object Khronos Ratified Extension Specification
 ///
-/// https://registry.khronos.org/webgl/extensions/OES_vertex_array_object/
+/// https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/
 
 // ignore_for_file: unused_import
 

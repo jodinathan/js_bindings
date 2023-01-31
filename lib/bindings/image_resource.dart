@@ -18,10 +18,7 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class ImageResource {
   external factory ImageResource(
-      {required String src,
-      required String sizes,
-      required String type,
-      required String label});
+      {required String src, String? sizes, String? type, String? label});
 }
 
 extension PropsImageResource on ImageResource {

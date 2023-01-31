@@ -10,7 +10,6 @@ library idle_detection;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -42,8 +41,7 @@ enum ScreenIdleState {
 @JS()
 @staticInterop
 class IdleOptions {
-  external factory IdleOptions(
-      {required int threshold, required AbortSignal signal});
+  external factory IdleOptions({int? threshold, AbortSignal? signal});
 }
 
 extension PropsIdleOptions on IdleOptions {
@@ -59,10 +57,7 @@ extension PropsIdleOptions on IdleOptions {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 /// The interface of the Idle
 ///  Detection API provides methods and events for detecting user
 /// activity on a device or screen.
@@ -76,15 +71,13 @@ extension PropsIdleOptions on IdleOptions {
 ///
 ///
 ///
-///
-///
 ///    IdleDetector
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class IdleDetector implements EventTarget {
+  external static Future<PermissionState> requestPermission();
   external factory IdleDetector();
 }
 
@@ -105,9 +98,6 @@ extension PropsIdleDetector on IdleDetector {
   set onchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onchange', newValue);
   }
-
-  static Future<PermissionState> requestPermission() => js_util.promiseToFuture(
-      js_util.callMethod(IdleDetector, 'requestPermission', []));
 
   Future<void> start([IdleOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'start', [options]));

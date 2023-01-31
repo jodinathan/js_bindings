@@ -14,8 +14,10 @@ import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Credential Management API provides
 /// information about an entity (usually a user) as a prerequisite to
 /// a trust decision.
@@ -25,18 +27,17 @@ import 'package:js_bindings/js_bindings.dart';
 ///  [PublicKeyCredential]
 ///  [FederatedCredential]
 ///
+@experimental
 @JS()
 @staticInterop
 class Credential {
+  external static Future<bool> isConditionalMediationAvailable();
   external factory Credential();
 }
 
 extension PropsCredential on Credential {
   String get id => js_util.getProperty(this, 'id');
   String get type => js_util.getProperty(this, 'type');
-  static Future<bool> isConditionalMediationAvailable() =>
-      js_util.promiseToFuture(js_util
-          .callMethod(Credential, 'isConditionalMediationAvailable', []));
 }
 
 @JS()
@@ -50,12 +51,15 @@ extension PropsCredentialUserData on CredentialUserData {
   String get iconURL => js_util.getProperty(this, 'iconURL');
 }
 
-///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting browsers.
+///  Experimental: This is an experimental technologyCheck the
+/// Browser compatibility table carefully before using this in
+/// production.Secure context: This feature is available only in
+/// secure contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the Credential Management API exposes methods
 /// to request credentials and notify the user agent when events such
 /// as successful sign in or sign out happen. This interface is
 /// accessible from [Navigator.credentials].
+@experimental
 @JS()
 @staticInterop
 class CredentialsContainer {
@@ -63,9 +67,7 @@ class CredentialsContainer {
 }
 
 extension PropsCredentialsContainer on CredentialsContainer {
-  @JS('get')
-  @staticInterop
-  Future<Credential> mGet([CredentialRequestOptions? options]) =>
+  Future<Credential> get([CredentialRequestOptions? options]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'get', [options]));
 
   Future<Credential> store(Credential credential) =>
@@ -124,7 +126,7 @@ enum CredentialMediationRequirement {
   silent('silent'),
   optional('optional'),
   conditional('conditional'),
-  valueRequired('required');
+  required('required');
 
   final String value;
   static CredentialMediationRequirement fromValue(String value) =>
@@ -139,7 +141,7 @@ enum CredentialMediationRequirement {
 @JS()
 @staticInterop
 class CredentialCreationOptions {
-  external factory CredentialCreationOptions({required AbortSignal signal});
+  external factory CredentialCreationOptions({AbortSignal? signal});
 }
 
 extension PropsCredentialCreationOptions on CredentialCreationOptions {
@@ -170,12 +172,9 @@ extension PropsCredentialCreationOptions on CredentialCreationOptions {
 ///
 ///
 ///
-///
-///
 ///    PasswordCredential
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class PasswordCredential implements Credential, CredentialUserData {
@@ -191,8 +190,8 @@ extension PropsPasswordCredential on PasswordCredential {
 @staticInterop
 class PasswordCredentialData implements CredentialData {
   external factory PasswordCredentialData(
-      {required String name,
-      required String iconURL,
+      {String? name,
+      String? iconURL,
       required String origin,
       required String password});
 }
@@ -240,12 +239,9 @@ extension PropsPasswordCredentialData on PasswordCredentialData {
 ///
 ///
 ///
-///
-///
 ///    FederatedCredential
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class FederatedCredential implements Credential, CredentialUserData {
@@ -262,8 +258,7 @@ extension PropsFederatedCredential on FederatedCredential {
 @staticInterop
 class FederatedCredentialRequestOptions {
   external factory FederatedCredentialRequestOptions(
-      {required Iterable<String> providers,
-      required Iterable<String> protocols});
+      {Iterable<String>? providers, Iterable<String>? protocols});
 }
 
 extension PropsFederatedCredentialRequestOptions
@@ -284,11 +279,11 @@ extension PropsFederatedCredentialRequestOptions
 @staticInterop
 class FederatedCredentialInit implements CredentialData {
   external factory FederatedCredentialInit(
-      {required String name,
-      required String iconURL,
+      {String? name,
+      String? iconURL,
       required String origin,
       required String provider,
-      required String protocol});
+      String? protocol});
 }
 
 extension PropsFederatedCredentialInit on FederatedCredentialInit {

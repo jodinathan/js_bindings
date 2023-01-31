@@ -10,7 +10,6 @@ library webxrlayers_1;
 
 import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 
 import 'package:js_bindings/js_bindings.dart';
 
@@ -30,10 +29,7 @@ enum XRLayerLayout {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API is a base class that
 /// defines a set of common properties and behaviors for WebXR layer
 /// types. It is not constructable on its own.
@@ -56,11 +52,7 @@ enum XRLayerLayout {
 ///
 ///
 ///
-///
-///
 ///    XRLayer
-///
-///
 ///
 ///
 ///
@@ -69,7 +61,6 @@ enum XRLayerLayout {
 ///    XRCompositionLayer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRCompositionLayer implements XRLayer {
@@ -91,12 +82,6 @@ extension PropsXRCompositionLayer on XRCompositionLayer {
     js_util.setProperty(this, 'chromaticAberrationCorrection', newValue);
   }
 
-  bool get forceMonoPresentation =>
-      js_util.getProperty(this, 'forceMonoPresentation');
-  set forceMonoPresentation(bool newValue) {
-    js_util.setProperty(this, 'forceMonoPresentation', newValue);
-  }
-
   double get opacity => js_util.getProperty(this, 'opacity');
   set opacity(double newValue) {
     js_util.setProperty(this, 'opacity', newValue);
@@ -108,10 +93,7 @@ extension PropsXRCompositionLayer on XRCompositionLayer {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API is a layer that fills the
 /// entire view of the observer and is refreshed close to the
 /// device's native frame rate.
@@ -123,14 +105,12 @@ extension PropsXRCompositionLayer on XRCompositionLayer {
 ///   To present layers to the XR device, add them to the [layers]
 /// render state using [XRSession.updateRenderState()].
 ///
-///   objects don't have an associated [XRSpace], because they render
+///   objects don’t have an associated [XRSpace], because they render
 /// to the full frame.
 ///
 ///
 ///
 ///    EventTarget
-///
-///
 ///
 ///
 ///
@@ -142,11 +122,7 @@ extension PropsXRCompositionLayer on XRCompositionLayer {
 ///
 ///
 ///
-///
-///
 ///    XRCompositionLayer
-///
-///
 ///
 ///
 ///
@@ -155,7 +131,6 @@ extension PropsXRCompositionLayer on XRCompositionLayer {
 ///    XRProjectionLayer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRProjectionLayer implements XRCompositionLayer {
@@ -171,18 +146,10 @@ extension PropsXRProjectionLayer on XRProjectionLayer {
   set fixedFoveation(double? newValue) {
     js_util.setProperty(this, 'fixedFoveation', newValue);
   }
-
-  XRRigidTransform? get deltaPose => js_util.getProperty(this, 'deltaPose');
-  set deltaPose(XRRigidTransform? newValue) {
-    js_util.setProperty(this, 'deltaPose', newValue);
-  }
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API is a layer that takes up a
 /// flat rectangular space in the virtual environment. An has no
 /// thickness. It is a two-dimensional object positioned and oriented
@@ -208,11 +175,7 @@ extension PropsXRProjectionLayer on XRProjectionLayer {
 ///
 ///
 ///
-///
-///
 ///    XRLayer
-///
-///
 ///
 ///
 ///
@@ -224,12 +187,9 @@ extension PropsXRProjectionLayer on XRProjectionLayer {
 ///
 ///
 ///
-///
-///
 ///    XRQuadLayer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRQuadLayer implements XRCompositionLayer {
@@ -264,10 +224,7 @@ extension PropsXRQuadLayer on XRQuadLayer {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API is a layer that takes up a
 /// curved rectangular space in the virtual environment. Only the
 /// front of the layer is visible.
@@ -291,11 +248,7 @@ extension PropsXRQuadLayer on XRQuadLayer {
 ///
 ///
 ///
-///
-///
 ///    XRLayer
-///
-///
 ///
 ///
 ///
@@ -307,12 +260,9 @@ extension PropsXRQuadLayer on XRQuadLayer {
 ///
 ///
 ///
-///
-///
 ///    XRCylinderLayer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRCylinderLayer implements XRCompositionLayer {
@@ -352,10 +302,7 @@ extension PropsXRCylinderLayer on XRCylinderLayer {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API is a layer that maps
 /// equirectangular coded data onto the inside of a sphere.
 ///   requires the [layers] feature to be enabled for the
@@ -378,11 +325,7 @@ extension PropsXRCylinderLayer on XRCylinderLayer {
 ///
 ///
 ///
-///
-///
 ///    XRLayer
-///
-///
 ///
 ///
 ///
@@ -394,12 +337,9 @@ extension PropsXRCylinderLayer on XRCylinderLayer {
 ///
 ///
 ///
-///
-///
 ///    XREquirectLayer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XREquirectLayer implements XRCompositionLayer {
@@ -447,10 +387,7 @@ extension PropsXREquirectLayer on XREquirectLayer {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API is a layer that renders
 /// directly from a cubemap and projects it onto the inside faces of
 /// a cube.
@@ -468,11 +405,7 @@ extension PropsXREquirectLayer on XREquirectLayer {
 ///
 ///
 ///
-///
-///
 ///    XRLayer
-///
-///
 ///
 ///
 ///
@@ -484,12 +417,9 @@ extension PropsXREquirectLayer on XREquirectLayer {
 ///
 ///
 ///
-///
-///
 ///    XRCubeLayer
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRCubeLayer implements XRCompositionLayer {
@@ -514,13 +444,9 @@ extension PropsXRCubeLayer on XRCubeLayer {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API represents what viewport
 /// of the GPU texture to use for rendering.
-@experimental
 @JS()
 @staticInterop
 class XRSubImage {
@@ -532,10 +458,7 @@ extension PropsXRSubImage on XRSubImage {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 /// The interface is used during rendering of WebGL layers.
 ///
 ///
@@ -546,12 +469,9 @@ extension PropsXRSubImage on XRSubImage {
 ///
 ///
 ///
-///
-///
 ///    XRWebGLSubImage
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRWebGLSubImage implements XRSubImage {
@@ -562,19 +482,9 @@ extension PropsXRWebGLSubImage on XRWebGLSubImage {
   WebGLTexture get colorTexture => js_util.getProperty(this, 'colorTexture');
   WebGLTexture? get depthStencilTexture =>
       js_util.getProperty(this, 'depthStencilTexture');
-  WebGLTexture? get motionVectorTexture =>
-      js_util.getProperty(this, 'motionVectorTexture');
   int? get imageIndex => js_util.getProperty(this, 'imageIndex');
-  int get colorTextureWidth => js_util.getProperty(this, 'colorTextureWidth');
-  int get colorTextureHeight => js_util.getProperty(this, 'colorTextureHeight');
-  int? get depthStencilTextureWidth =>
-      js_util.getProperty(this, 'depthStencilTextureWidth');
-  int? get depthStencilTextureHeight =>
-      js_util.getProperty(this, 'depthStencilTextureHeight');
-  int? get motionVectorTextureWidth =>
-      js_util.getProperty(this, 'motionVectorTextureWidth');
-  int? get motionVectorTextureHeight =>
-      js_util.getProperty(this, 'motionVectorTextureHeight');
+  int get textureWidth => js_util.getProperty(this, 'textureWidth');
+  int get textureHeight => js_util.getProperty(this, 'textureHeight');
 }
 
 enum XRTextureType {
@@ -888,12 +798,8 @@ extension PropsXRCubeLayerInit on XRCubeLayerInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 /// The interface is used to create layers that have a GPU backend.
-@experimental
 @JS()
 @staticInterop
 class XRWebGLBinding {
@@ -931,9 +837,6 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
 
   XRWebGLDepthInformation? getDepthInformation(XRView view) =>
       js_util.callMethod(this, 'getDepthInformation', [view]);
-
-  WebGLTexture? getCameraImage(XRCamera camera) =>
-      js_util.callMethod(this, 'getCameraImage', [camera]);
 }
 
 @anonymous
@@ -1070,10 +973,7 @@ extension PropsXRMediaEquirectLayerInit on XRMediaEquirectLayerInit {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface is used to create layers that display the content
 /// of an [HTMLVideoElement].
 ///
@@ -1084,7 +984,6 @@ extension PropsXRMediaEquirectLayerInit on XRMediaEquirectLayerInit {
 /// another layer.
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRMediaBinding {
@@ -1106,10 +1005,7 @@ extension PropsXRMediaBinding on XRMediaBinding {
 }
 
 ///  Secure context: This feature is available only in secure
-/// contexts (HTTPS), in some or all supporting
-/// browsers.Experimental: This is an experimental technologyCheck
-/// the Browser compatibility table carefully before using this in
-/// production.
+/// contexts (HTTPS), in some or all supporting browsers.
 ///  The interface of the WebXR Device API is the event type for
 /// events related to a change of state of an [XRLayer] object. These
 /// events occur, for example, when the layer needs to be redrawn.
@@ -1122,12 +1018,9 @@ extension PropsXRMediaBinding on XRMediaBinding {
 ///
 ///
 ///
-///
-///
 ///    XRLayerEvent
 ///
 ///
-@experimental
 @JS()
 @staticInterop
 class XRLayerEvent implements Event {

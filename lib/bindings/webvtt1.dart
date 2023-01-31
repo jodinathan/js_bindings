@@ -91,11 +91,7 @@ enum AlignSetting {
 ///
 ///
 ///
-///
-///
 ///    TextTrackCue
-///
-///
 ///
 ///
 ///
