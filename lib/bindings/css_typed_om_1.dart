@@ -230,14 +230,14 @@ class CSSNumericType {
           int? percent,
           CSSNumericBaseType? percentHint}) =>
       CSSNumericType._(
-          length: length,
-          angle: angle,
-          time: time,
-          frequency: frequency,
-          resolution: resolution,
-          flex: flex,
-          percent: percent,
-          percentHint: percentHint?.value);
+          length: length ?? undefined,
+          angle: angle ?? undefined,
+          time: time ?? undefined,
+          frequency: frequency ?? undefined,
+          resolution: resolution ?? undefined,
+          flex: flex ?? undefined,
+          percent: percent ?? undefined,
+          percentHint: percentHint?.value ?? undefined);
 }
 
 extension PropsCSSNumericType on CSSNumericType {

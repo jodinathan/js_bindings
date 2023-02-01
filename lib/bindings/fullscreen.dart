@@ -35,7 +35,7 @@ class FullscreenOptions {
   factory FullscreenOptions(
           {FullscreenNavigationUI? navigationUI =
               FullscreenNavigationUI.auto}) =>
-      FullscreenOptions._(navigationUI: navigationUI?.value);
+      FullscreenOptions._(navigationUI: navigationUI?.value ?? undefined);
 }
 
 extension PropsFullscreenOptions on FullscreenOptions {

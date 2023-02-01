@@ -234,9 +234,9 @@ class MediaSessionActionDetails {
           bool? fastSeek}) =>
       MediaSessionActionDetails._(
           action: action.value,
-          seekOffset: seekOffset,
-          seekTime: seekTime,
-          fastSeek: fastSeek);
+          seekOffset: seekOffset ?? undefined,
+          seekTime: seekTime ?? undefined,
+          fastSeek: fastSeek ?? undefined);
 }
 
 extension PropsMediaSessionActionDetails on MediaSessionActionDetails {

@@ -261,11 +261,11 @@ class EffectTiming {
           PlaybackDirection? direction = PlaybackDirection.normal,
           String? easing = 'linear'}) =>
       EffectTiming._(
-          fill: fill?.value,
-          iterationStart: iterationStart,
-          iterations: iterations,
-          direction: direction?.value,
-          easing: easing);
+          fill: fill?.value ?? undefined,
+          iterationStart: iterationStart ?? undefined,
+          iterations: iterations ?? undefined,
+          direction: direction?.value ?? undefined,
+          easing: easing ?? undefined);
 }
 
 extension PropsEffectTiming on EffectTiming {
@@ -321,14 +321,14 @@ class OptionalEffectTiming {
           PlaybackDirection? direction,
           String? easing}) =>
       OptionalEffectTiming._(
-          delay: delay,
-          endDelay: endDelay,
-          fill: fill?.value,
-          iterationStart: iterationStart,
-          iterations: iterations,
-          duration: duration,
-          direction: direction?.value,
-          easing: easing);
+          delay: delay ?? undefined,
+          endDelay: endDelay ?? undefined,
+          fill: fill?.value ?? undefined,
+          iterationStart: iterationStart ?? undefined,
+          iterations: iterations ?? undefined,
+          duration: duration ?? undefined,
+          direction: direction?.value ?? undefined,
+          easing: easing ?? undefined);
 }
 
 extension PropsOptionalEffectTiming on OptionalEffectTiming {
@@ -499,10 +499,10 @@ class BaseComputedKeyframe {
           CompositeOperationOrAuto? composite =
               CompositeOperationOrAuto.auto}) =>
       BaseComputedKeyframe._(
-          offset: offset,
-          computedOffset: computedOffset,
-          easing: easing,
-          composite: composite?.value);
+          offset: offset ?? undefined,
+          computedOffset: computedOffset ?? undefined,
+          easing: easing ?? undefined,
+          composite: composite?.value ?? undefined);
 }
 
 extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
@@ -568,7 +568,9 @@ class BaseKeyframe {
           CompositeOperationOrAuto? composite =
               CompositeOperationOrAuto.auto}) =>
       BaseKeyframe._(
-          offset: offset, easing: easing, composite: composite?.value);
+          offset: offset ?? undefined,
+          easing: easing ?? undefined,
+          composite: composite?.value ?? undefined);
 }
 
 extension PropsBaseKeyframe on BaseKeyframe {
@@ -600,7 +602,8 @@ class KeyframeEffectOptions implements EffectTiming {
           {CompositeOperation? composite = CompositeOperation.replace,
           String? pseudoElement}) =>
       KeyframeEffectOptions._(
-          composite: composite?.value, pseudoElement: pseudoElement);
+          composite: composite?.value ?? undefined,
+          pseudoElement: pseudoElement ?? undefined);
 }
 
 extension PropsKeyframeEffectOptions on KeyframeEffectOptions {

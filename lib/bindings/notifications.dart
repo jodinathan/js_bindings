@@ -125,20 +125,20 @@ class NotificationOptions {
           dynamic data,
           Iterable<NotificationAction>? actions = const []}) =>
       NotificationOptions._(
-          dir: dir?.value,
-          lang: lang,
-          body: body,
-          tag: tag,
-          image: image,
-          icon: icon,
-          badge: badge,
-          vibrate: vibrate,
-          timestamp: timestamp,
-          renotify: renotify,
-          silent: silent,
-          requireInteraction: requireInteraction,
-          data: data,
-          actions: actions);
+          dir: dir?.value ?? undefined,
+          lang: lang ?? undefined,
+          body: body ?? undefined,
+          tag: tag ?? undefined,
+          image: image ?? undefined,
+          icon: icon ?? undefined,
+          badge: badge ?? undefined,
+          vibrate: vibrate ?? undefined,
+          timestamp: timestamp ?? undefined,
+          renotify: renotify ?? undefined,
+          silent: silent ?? undefined,
+          requireInteraction: requireInteraction ?? undefined,
+          data: data ?? undefined,
+          actions: actions ?? undefined);
 }
 
 extension PropsNotificationOptions on NotificationOptions {

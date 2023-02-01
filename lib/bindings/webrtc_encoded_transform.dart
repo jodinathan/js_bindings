@@ -54,7 +54,7 @@ class SFrameTransformOptions {
 
   factory SFrameTransformOptions(
           {SFrameTransformRole? role = SFrameTransformRole.encrypt}) =>
-      SFrameTransformOptions._(role: role?.value);
+      SFrameTransformOptions._(role: role?.value ?? undefined);
 }
 
 extension PropsSFrameTransformOptions on SFrameTransformOptions {
@@ -123,7 +123,9 @@ class SFrameTransformErrorEventInit implements EventInit {
           dynamic frame,
           dynamic keyID}) =>
       SFrameTransformErrorEventInit._(
-          errorType: errorType.value, frame: frame, keyID: keyID);
+          errorType: errorType.value,
+          frame: frame ?? undefined,
+          keyID: keyID ?? undefined);
 }
 
 extension PropsSFrameTransformErrorEventInit on SFrameTransformErrorEventInit {

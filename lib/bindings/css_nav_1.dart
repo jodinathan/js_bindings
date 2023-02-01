@@ -48,7 +48,7 @@ class FocusableAreasOption {
   external factory FocusableAreasOption._({String? mode});
 
   factory FocusableAreasOption({FocusableAreaSearchMode? mode}) =>
-      FocusableAreasOption._(mode: mode?.value);
+      FocusableAreasOption._(mode: mode?.value ?? undefined);
 }
 
 extension PropsFocusableAreasOption on FocusableAreasOption {
@@ -102,7 +102,9 @@ class NavigationEventInit implements UIEventInit {
 
   factory NavigationEventInit(
           {SpatialNavigationDirection? dir, EventTarget? relatedTarget}) =>
-      NavigationEventInit._(dir: dir?.value, relatedTarget: relatedTarget);
+      NavigationEventInit._(
+          dir: dir?.value ?? undefined,
+          relatedTarget: relatedTarget ?? undefined);
 }
 
 extension PropsNavigationEventInit on NavigationEventInit {

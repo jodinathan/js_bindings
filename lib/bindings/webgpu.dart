@@ -164,8 +164,8 @@ class GPURequestAdapterOptions {
           {GPUPowerPreference? powerPreference,
           bool? forceFallbackAdapter = false}) =>
       GPURequestAdapterOptions._(
-          powerPreference: powerPreference?.value,
-          forceFallbackAdapter: forceFallbackAdapter);
+          powerPreference: powerPreference?.value ?? undefined,
+          forceFallbackAdapter: forceFallbackAdapter ?? undefined);
 }
 
 extension PropsGPURequestAdapterOptions on GPURequestAdapterOptions {
@@ -227,9 +227,9 @@ class GPUDeviceDescriptor implements GPUObjectDescriptorBase {
           dynamic requiredLimits,
           GPUQueueDescriptor? defaultQueue}) =>
       GPUDeviceDescriptor._(
-          requiredFeatures: requiredFeatures?.map((e) => e.value),
-          requiredLimits: requiredLimits,
-          defaultQueue: defaultQueue);
+          requiredFeatures: requiredFeatures?.map((e) => e.value) ?? undefined,
+          requiredLimits: requiredLimits ?? undefined,
+          defaultQueue: defaultQueue ?? undefined);
 }
 
 extension PropsGPUDeviceDescriptor on GPUDeviceDescriptor {
@@ -509,13 +509,13 @@ class GPUTextureDescriptor implements GPUObjectDescriptorBase {
           int? usage,
           Iterable<GPUTextureFormat>? viewFormats = const []}) =>
       GPUTextureDescriptor._(
-          size: size,
-          mipLevelCount: mipLevelCount,
-          sampleCount: sampleCount,
-          dimension: dimension?.value,
-          format: format?.value,
-          usage: usage,
-          viewFormats: viewFormats?.map((e) => e.value));
+          size: size ?? undefined,
+          mipLevelCount: mipLevelCount ?? undefined,
+          sampleCount: sampleCount ?? undefined,
+          dimension: dimension?.value ?? undefined,
+          format: format?.value ?? undefined,
+          usage: usage ?? undefined,
+          viewFormats: viewFormats?.map((e) => e.value) ?? undefined);
 }
 
 extension PropsGPUTextureDescriptor on GPUTextureDescriptor {
@@ -620,13 +620,13 @@ class GPUTextureViewDescriptor implements GPUObjectDescriptorBase {
           int? baseArrayLayer = 0,
           int? arrayLayerCount}) =>
       GPUTextureViewDescriptor._(
-          format: format?.value,
-          dimension: dimension?.value,
-          aspect: aspect?.value,
-          baseMipLevel: baseMipLevel,
-          mipLevelCount: mipLevelCount,
-          baseArrayLayer: baseArrayLayer,
-          arrayLayerCount: arrayLayerCount);
+          format: format?.value ?? undefined,
+          dimension: dimension?.value ?? undefined,
+          aspect: aspect?.value ?? undefined,
+          baseMipLevel: baseMipLevel ?? undefined,
+          mipLevelCount: mipLevelCount ?? undefined,
+          baseArrayLayer: baseArrayLayer ?? undefined,
+          arrayLayerCount: arrayLayerCount ?? undefined);
 }
 
 extension PropsGPUTextureViewDescriptor on GPUTextureViewDescriptor {
@@ -824,7 +824,7 @@ class GPUExternalTextureDescriptor implements GPUObjectDescriptorBase {
           {required HTMLVideoElement source,
           PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb}) =>
       GPUExternalTextureDescriptor._(
-          source: source, colorSpace: colorSpace?.value);
+          source: source, colorSpace: colorSpace?.value ?? undefined);
 }
 
 extension PropsGPUExternalTextureDescriptor on GPUExternalTextureDescriptor {
@@ -874,16 +874,16 @@ class GPUSamplerDescriptor implements GPUObjectDescriptorBase {
           GPUCompareFunction? compare,
           int? maxAnisotropy = 1}) =>
       GPUSamplerDescriptor._(
-          addressModeU: addressModeU?.value,
-          addressModeV: addressModeV?.value,
-          addressModeW: addressModeW?.value,
-          magFilter: magFilter?.value,
-          minFilter: minFilter?.value,
-          mipmapFilter: mipmapFilter?.value,
-          lodMinClamp: lodMinClamp,
-          lodMaxClamp: lodMaxClamp,
-          compare: compare?.value,
-          maxAnisotropy: maxAnisotropy);
+          addressModeU: addressModeU?.value ?? undefined,
+          addressModeV: addressModeV?.value ?? undefined,
+          addressModeW: addressModeW?.value ?? undefined,
+          magFilter: magFilter?.value ?? undefined,
+          minFilter: minFilter?.value ?? undefined,
+          mipmapFilter: mipmapFilter?.value ?? undefined,
+          lodMinClamp: lodMinClamp ?? undefined,
+          lodMaxClamp: lodMaxClamp ?? undefined,
+          compare: compare?.value ?? undefined,
+          maxAnisotropy: maxAnisotropy ?? undefined);
 }
 
 extension PropsGPUSamplerDescriptor on GPUSamplerDescriptor {
@@ -1115,9 +1115,9 @@ class GPUBufferBindingLayout {
           bool? hasDynamicOffset = false,
           int? minBindingSize = 0}) =>
       GPUBufferBindingLayout._(
-          type: type?.value,
-          hasDynamicOffset: hasDynamicOffset,
-          minBindingSize: minBindingSize);
+          type: type?.value ?? undefined,
+          hasDynamicOffset: hasDynamicOffset ?? undefined,
+          minBindingSize: minBindingSize ?? undefined);
 }
 
 extension PropsGPUBufferBindingLayout on GPUBufferBindingLayout {
@@ -1159,7 +1159,7 @@ class GPUSamplerBindingLayout {
 
   factory GPUSamplerBindingLayout(
           {GPUSamplerBindingType? type = GPUSamplerBindingType.filtering}) =>
-      GPUSamplerBindingLayout._(type: type?.value);
+      GPUSamplerBindingLayout._(type: type?.value ?? undefined);
 }
 
 extension PropsGPUSamplerBindingLayout on GPUSamplerBindingLayout {
@@ -1198,9 +1198,9 @@ class GPUTextureBindingLayout {
               GPUTextureViewDimension.value2d,
           bool? multisampled = false}) =>
       GPUTextureBindingLayout._(
-          sampleType: sampleType?.value,
-          viewDimension: viewDimension?.value,
-          multisampled: multisampled);
+          sampleType: sampleType?.value ?? undefined,
+          viewDimension: viewDimension?.value ?? undefined,
+          multisampled: multisampled ?? undefined);
 }
 
 extension PropsGPUTextureBindingLayout on GPUTextureBindingLayout {
@@ -1248,9 +1248,9 @@ class GPUStorageTextureBindingLayout {
           GPUTextureViewDimension? viewDimension =
               GPUTextureViewDimension.value2d}) =>
       GPUStorageTextureBindingLayout._(
-          access: access?.value,
-          format: format?.value,
-          viewDimension: viewDimension?.value);
+          access: access?.value ?? undefined,
+          format: format?.value ?? undefined,
+          viewDimension: viewDimension?.value ?? undefined);
 }
 
 extension PropsGPUStorageTextureBindingLayout
@@ -1617,11 +1617,11 @@ class GPUPrimitiveState {
           GPUCullMode? cullMode = GPUCullMode.none,
           bool? unclippedDepth = false}) =>
       GPUPrimitiveState._(
-          topology: topology?.value,
-          stripIndexFormat: stripIndexFormat?.value,
-          frontFace: frontFace?.value,
-          cullMode: cullMode?.value,
-          unclippedDepth: unclippedDepth);
+          topology: topology?.value ?? undefined,
+          stripIndexFormat: stripIndexFormat?.value ?? undefined,
+          frontFace: frontFace?.value ?? undefined,
+          cullMode: cullMode?.value ?? undefined,
+          unclippedDepth: unclippedDepth ?? undefined);
 }
 
 extension PropsGPUPrimitiveState on GPUPrimitiveState {
@@ -1750,7 +1750,9 @@ class GPUColorTargetState {
           GPUBlendState? blend,
           int? writeMask = 0xF}) =>
       GPUColorTargetState._(
-          format: format.value, blend: blend, writeMask: writeMask);
+          format: format.value,
+          blend: blend ?? undefined,
+          writeMask: writeMask ?? undefined);
 }
 
 extension PropsGPUColorTargetState on GPUColorTargetState {
@@ -1824,9 +1826,9 @@ class GPUBlendComponent {
           GPUBlendFactor? srcFactor = GPUBlendFactor.one,
           GPUBlendFactor? dstFactor = GPUBlendFactor.zero}) =>
       GPUBlendComponent._(
-          operation: operation?.value,
-          srcFactor: srcFactor?.value,
-          dstFactor: dstFactor?.value);
+          operation: operation?.value ?? undefined,
+          srcFactor: srcFactor?.value ?? undefined,
+          dstFactor: dstFactor?.value ?? undefined);
 }
 
 extension PropsGPUBlendComponent on GPUBlendComponent {
@@ -1916,15 +1918,15 @@ class GPUDepthStencilState {
           double? depthBiasClamp = 0}) =>
       GPUDepthStencilState._(
           format: format.value,
-          depthWriteEnabled: depthWriteEnabled,
-          depthCompare: depthCompare?.value,
-          stencilFront: stencilFront,
-          stencilBack: stencilBack,
-          stencilReadMask: stencilReadMask,
-          stencilWriteMask: stencilWriteMask,
-          depthBias: depthBias,
-          depthBiasSlopeScale: depthBiasSlopeScale,
-          depthBiasClamp: depthBiasClamp);
+          depthWriteEnabled: depthWriteEnabled ?? undefined,
+          depthCompare: depthCompare?.value ?? undefined,
+          stencilFront: stencilFront ?? undefined,
+          stencilBack: stencilBack ?? undefined,
+          stencilReadMask: stencilReadMask ?? undefined,
+          stencilWriteMask: stencilWriteMask ?? undefined,
+          depthBias: depthBias ?? undefined,
+          depthBiasSlopeScale: depthBiasSlopeScale ?? undefined,
+          depthBiasClamp: depthBiasClamp ?? undefined);
 }
 
 extension PropsGPUDepthStencilState on GPUDepthStencilState {
@@ -1997,10 +1999,10 @@ class GPUStencilFaceState {
           GPUStencilOperation? depthFailOp = GPUStencilOperation.keep,
           GPUStencilOperation? passOp = GPUStencilOperation.keep}) =>
       GPUStencilFaceState._(
-          compare: compare?.value,
-          failOp: failOp?.value,
-          depthFailOp: depthFailOp?.value,
-          passOp: passOp?.value);
+          compare: compare?.value ?? undefined,
+          failOp: failOp?.value ?? undefined,
+          depthFailOp: depthFailOp?.value ?? undefined,
+          passOp: passOp?.value ?? undefined);
 }
 
 extension PropsGPUStencilFaceState on GPUStencilFaceState {
@@ -2142,8 +2144,8 @@ class GPUVertexBufferLayout {
           Iterable<GPUVertexAttribute>? attributes}) =>
       GPUVertexBufferLayout._(
           arrayStride: arrayStride,
-          stepMode: stepMode?.value,
-          attributes: attributes);
+          stepMode: stepMode?.value ?? undefined,
+          attributes: attributes ?? undefined);
 }
 
 extension PropsGPUVertexBufferLayout on GPUVertexBufferLayout {
@@ -2332,9 +2334,9 @@ class GPUImageCopyTexture {
           GPUTextureAspect? aspect = GPUTextureAspect.all}) =>
       GPUImageCopyTexture._(
           texture: texture,
-          mipLevel: mipLevel,
-          origin: origin,
-          aspect: aspect?.value);
+          mipLevel: mipLevel ?? undefined,
+          origin: origin ?? undefined,
+          aspect: aspect?.value ?? undefined);
 }
 
 extension PropsGPUImageCopyTexture on GPUImageCopyTexture {
@@ -2371,8 +2373,8 @@ class GPUImageCopyTextureTagged implements GPUImageCopyTexture {
           {PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb,
           bool? premultipliedAlpha = false}) =>
       GPUImageCopyTextureTagged._(
-          colorSpace: colorSpace?.value,
-          premultipliedAlpha: premultipliedAlpha);
+          colorSpace: colorSpace?.value ?? undefined,
+          premultipliedAlpha: premultipliedAlpha ?? undefined);
 }
 
 extension PropsGPUImageCopyTextureTagged on GPUImageCopyTextureTagged {
@@ -2692,8 +2694,8 @@ class GPURenderPassColorAttachment {
           required GPUStoreOp storeOp}) =>
       GPURenderPassColorAttachment._(
           view: view,
-          resolveTarget: resolveTarget,
-          clearValue: clearValue,
+          resolveTarget: resolveTarget ?? undefined,
+          clearValue: clearValue ?? undefined,
           loadOp: loadOp.value,
           storeOp: storeOp.value);
 }
@@ -2755,14 +2757,14 @@ class GPURenderPassDepthStencilAttachment {
           bool? stencilReadOnly = false}) =>
       GPURenderPassDepthStencilAttachment._(
           view: view,
-          depthClearValue: depthClearValue,
-          depthLoadOp: depthLoadOp?.value,
-          depthStoreOp: depthStoreOp?.value,
-          depthReadOnly: depthReadOnly,
-          stencilClearValue: stencilClearValue,
-          stencilLoadOp: stencilLoadOp?.value,
-          stencilStoreOp: stencilStoreOp?.value,
-          stencilReadOnly: stencilReadOnly);
+          depthClearValue: depthClearValue ?? undefined,
+          depthLoadOp: depthLoadOp?.value ?? undefined,
+          depthStoreOp: depthStoreOp?.value ?? undefined,
+          depthReadOnly: depthReadOnly ?? undefined,
+          stencilClearValue: stencilClearValue ?? undefined,
+          stencilLoadOp: stencilLoadOp?.value ?? undefined,
+          stencilStoreOp: stencilStoreOp?.value ?? undefined,
+          stencilReadOnly: stencilReadOnly ?? undefined);
 }
 
 extension PropsGPURenderPassDepthStencilAttachment
@@ -2855,9 +2857,9 @@ class GPURenderPassLayout implements GPUObjectDescriptorBase {
           GPUTextureFormat? depthStencilFormat,
           int? sampleCount = 1}) =>
       GPURenderPassLayout._(
-          colorFormats: colorFormats?.map((e) => e.value),
-          depthStencilFormat: depthStencilFormat?.value,
-          sampleCount: sampleCount);
+          colorFormats: colorFormats?.map((e) => e.value) ?? undefined,
+          depthStencilFormat: depthStencilFormat?.value ?? undefined,
+          sampleCount: sampleCount ?? undefined);
 }
 
 extension PropsGPURenderPassLayout on GPURenderPassLayout {
@@ -3114,10 +3116,10 @@ class GPUCanvasConfiguration {
       GPUCanvasConfiguration._(
           device: device,
           format: format.value,
-          usage: usage,
-          viewFormats: viewFormats?.map((e) => e.value),
-          colorSpace: colorSpace?.value,
-          alphaMode: alphaMode?.value);
+          usage: usage ?? undefined,
+          viewFormats: viewFormats?.map((e) => e.value) ?? undefined,
+          colorSpace: colorSpace?.value ?? undefined,
+          alphaMode: alphaMode?.value ?? undefined);
 }
 
 extension PropsGPUCanvasConfiguration on GPUCanvasConfiguration {

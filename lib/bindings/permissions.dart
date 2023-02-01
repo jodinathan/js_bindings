@@ -113,7 +113,9 @@ class PermissionSetParameters {
           required PermissionState state,
           bool? oneRealm = false}) =>
       PermissionSetParameters._(
-          descriptor: descriptor, state: state.value, oneRealm: oneRealm);
+          descriptor: descriptor,
+          state: state.value,
+          oneRealm: oneRealm ?? undefined);
 }
 
 extension PropsPermissionSetParameters on PermissionSetParameters {

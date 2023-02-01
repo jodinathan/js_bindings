@@ -37,7 +37,7 @@ class ResizeObserverOptions {
   factory ResizeObserverOptions(
           {ResizeObserverBoxOptions? box =
               ResizeObserverBoxOptions.contentBox}) =>
-      ResizeObserverOptions._(box: box?.value);
+      ResizeObserverOptions._(box: box?.value ?? undefined);
 }
 
 extension PropsResizeObserverOptions on ResizeObserverOptions {

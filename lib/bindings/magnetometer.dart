@@ -75,7 +75,8 @@ class MagnetometerSensorOptions implements SensorOptions {
   factory MagnetometerSensorOptions(
           {MagnetometerLocalCoordinateSystem? referenceFrame =
               MagnetometerLocalCoordinateSystem.device}) =>
-      MagnetometerSensorOptions._(referenceFrame: referenceFrame?.value);
+      MagnetometerSensorOptions._(
+          referenceFrame: referenceFrame?.value ?? undefined);
 }
 
 extension PropsMagnetometerSensorOptions on MagnetometerSensorOptions {

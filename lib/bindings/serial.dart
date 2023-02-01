@@ -184,11 +184,11 @@ class SerialOptions {
           FlowControlType? flowControl = FlowControlType.none}) =>
       SerialOptions._(
           baudRate: baudRate,
-          dataBits: dataBits,
-          stopBits: stopBits,
-          parity: parity?.value,
-          bufferSize: bufferSize,
-          flowControl: flowControl?.value);
+          dataBits: dataBits ?? undefined,
+          stopBits: stopBits ?? undefined,
+          parity: parity?.value ?? undefined,
+          bufferSize: bufferSize ?? undefined,
+          flowControl: flowControl?.value ?? undefined);
 }
 
 extension PropsSerialOptions on SerialOptions {

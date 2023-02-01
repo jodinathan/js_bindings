@@ -7,11 +7,11 @@ targets:
         options:
           compiler: dart2js
           dart2js_args:
-            - --fast-startup
-            - -O4
+            #- --fast-startup
+            - -O1
             - --no-minify
-            - --trust-primitives
-            - --omit-implicit-checks
+            #- --trust-primitives
+            #- --omit-implicit-checks
             #- --dump-info
         release_options:
           dart2js_args:

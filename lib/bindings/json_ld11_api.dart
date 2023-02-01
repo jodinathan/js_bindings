@@ -224,7 +224,8 @@ class JsonLdError {
   external factory JsonLdError._({String? code, String? message});
 
   factory JsonLdError({JsonLdErrorCode? code, String? message}) =>
-      JsonLdError._(code: code?.value, message: message);
+      JsonLdError._(
+          code: code?.value ?? undefined, message: message ?? undefined);
 }
 
 extension PropsJsonLdError on JsonLdError {

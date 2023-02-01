@@ -42,8 +42,8 @@ class XRHitTestOptionsInit {
           XRRay? offsetRay}) =>
       XRHitTestOptionsInit._(
           space: space,
-          entityTypes: entityTypes?.map((e) => e.value),
-          offsetRay: offsetRay);
+          entityTypes: entityTypes?.map((e) => e.value) ?? undefined,
+          offsetRay: offsetRay ?? undefined);
 }
 
 extension PropsXRHitTestOptionsInit on XRHitTestOptionsInit {
@@ -80,8 +80,8 @@ class XRTransientInputHitTestOptionsInit {
           XRRay? offsetRay}) =>
       XRTransientInputHitTestOptionsInit._(
           profile: profile,
-          entityTypes: entityTypes?.map((e) => e.value),
-          offsetRay: offsetRay);
+          entityTypes: entityTypes?.map((e) => e.value) ?? undefined,
+          offsetRay: offsetRay ?? undefined);
 }
 
 extension PropsXRTransientInputHitTestOptionsInit

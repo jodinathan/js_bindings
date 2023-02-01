@@ -112,7 +112,8 @@ class NavigationNavigateOptions implements NavigationOptions {
           {dynamic state,
           NavigationHistoryBehavior? history =
               NavigationHistoryBehavior.auto}) =>
-      NavigationNavigateOptions._(state: state, history: history?.value);
+      NavigationNavigateOptions._(
+          state: state ?? undefined, history: history?.value ?? undefined);
 }
 
 extension PropsNavigationNavigateOptions on NavigationNavigateOptions {
@@ -208,7 +209,8 @@ class NavigationCurrentEntryChangeEventInit implements EventInit {
           {NavigationType? navigationType,
           required NavigationHistoryEntry destination}) =>
       NavigationCurrentEntryChangeEventInit._(
-          navigationType: navigationType?.value, destination: destination);
+          navigationType: navigationType?.value ?? undefined,
+          destination: destination);
 }
 
 extension PropsNavigationCurrentEntryChangeEventInit
@@ -294,15 +296,15 @@ class NavigateEventInit implements EventInit {
           String? downloadRequest,
           dynamic info}) =>
       NavigateEventInit._(
-          navigationType: navigationType?.value,
-          destination: destination,
-          canIntercept: canIntercept,
-          userInitiated: userInitiated,
-          hashChange: hashChange,
-          signal: signal,
-          formData: formData,
-          downloadRequest: downloadRequest,
-          info: info);
+          navigationType: navigationType?.value ?? undefined,
+          destination: destination ?? undefined,
+          canIntercept: canIntercept ?? undefined,
+          userInitiated: userInitiated ?? undefined,
+          hashChange: hashChange ?? undefined,
+          signal: signal ?? undefined,
+          formData: formData ?? undefined,
+          downloadRequest: downloadRequest ?? undefined,
+          info: info ?? undefined);
 }
 
 extension PropsNavigateEventInit on NavigateEventInit {
@@ -368,9 +370,9 @@ class NavigationInterceptOptions {
           NavigationFocusReset? focusReset,
           NavigationScrollBehavior? scroll}) =>
       NavigationInterceptOptions._(
-          handler: handler,
-          focusReset: focusReset?.value,
-          scroll: scroll?.value);
+          handler: handler ?? undefined,
+          focusReset: focusReset?.value ?? undefined,
+          scroll: scroll?.value ?? undefined);
 }
 
 extension PropsNavigationInterceptOptions on NavigationInterceptOptions {

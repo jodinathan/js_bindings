@@ -36,7 +36,9 @@ class SchedulerPostTaskOptions {
   factory SchedulerPostTaskOptions(
           {AbortSignal? signal, TaskPriority? priority, int? delay = 0}) =>
       SchedulerPostTaskOptions._(
-          signal: signal, priority: priority?.value, delay: delay);
+          signal: signal ?? undefined,
+          priority: priority?.value ?? undefined,
+          delay: delay ?? undefined);
 }
 
 extension PropsSchedulerPostTaskOptions on SchedulerPostTaskOptions {
@@ -110,7 +112,7 @@ class TaskControllerInit {
 
   factory TaskControllerInit(
           {TaskPriority? priority = TaskPriority.userVisible}) =>
-      TaskControllerInit._(priority: priority?.value);
+      TaskControllerInit._(priority: priority?.value ?? undefined);
 }
 
 extension PropsTaskControllerInit on TaskControllerInit {

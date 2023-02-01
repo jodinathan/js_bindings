@@ -33,7 +33,9 @@ class LayoutOptions {
   factory LayoutOptions(
           {ChildDisplayType? childDisplay = ChildDisplayType.block,
           LayoutSizingMode? sizing = LayoutSizingMode.blockLike}) =>
-      LayoutOptions._(childDisplay: childDisplay?.value, sizing: sizing?.value);
+      LayoutOptions._(
+          childDisplay: childDisplay?.value ?? undefined,
+          sizing: sizing?.value ?? undefined);
 }
 
 extension PropsLayoutOptions on LayoutOptions {
@@ -192,15 +194,15 @@ class LayoutConstraintsOptions {
               BlockFragmentationType.none,
           dynamic data}) =>
       LayoutConstraintsOptions._(
-          availableInlineSize: availableInlineSize,
-          availableBlockSize: availableBlockSize,
-          fixedInlineSize: fixedInlineSize,
-          fixedBlockSize: fixedBlockSize,
-          percentageInlineSize: percentageInlineSize,
-          percentageBlockSize: percentageBlockSize,
-          blockFragmentationOffset: blockFragmentationOffset,
-          blockFragmentationType: blockFragmentationType?.value,
-          data: data);
+          availableInlineSize: availableInlineSize ?? undefined,
+          availableBlockSize: availableBlockSize ?? undefined,
+          fixedInlineSize: fixedInlineSize ?? undefined,
+          fixedBlockSize: fixedBlockSize ?? undefined,
+          percentageInlineSize: percentageInlineSize ?? undefined,
+          percentageBlockSize: percentageBlockSize ?? undefined,
+          blockFragmentationOffset: blockFragmentationOffset ?? undefined,
+          blockFragmentationType: blockFragmentationType?.value ?? undefined,
+          data: data ?? undefined);
 }
 
 extension PropsLayoutConstraintsOptions on LayoutConstraintsOptions {

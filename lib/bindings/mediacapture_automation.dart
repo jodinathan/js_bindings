@@ -37,8 +37,8 @@ class MockCapturePromptResultConfiguration {
           {MockCapturePromptResult? getUserMedia,
           MockCapturePromptResult? getDisplayMedia}) =>
       MockCapturePromptResultConfiguration._(
-          getUserMedia: getUserMedia?.value,
-          getDisplayMedia: getDisplayMedia?.value);
+          getUserMedia: getUserMedia?.value ?? undefined,
+          getDisplayMedia: getDisplayMedia?.value ?? undefined);
 }
 
 extension PropsMockCapturePromptResultConfiguration

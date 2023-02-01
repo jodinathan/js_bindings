@@ -164,20 +164,20 @@ class RequestInit {
           RequestDuplex? duplex,
           dynamic window}) =>
       RequestInit._(
-          method: method,
-          headers: headers,
-          body: body,
-          referrer: referrer,
-          referrerPolicy: referrerPolicy?.value,
-          mode: mode?.value,
-          credentials: credentials?.value,
-          cache: cache?.value,
-          redirect: redirect?.value,
-          integrity: integrity,
-          keepalive: keepalive,
-          signal: signal,
-          duplex: duplex?.value,
-          window: window);
+          method: method ?? undefined,
+          headers: headers ?? undefined,
+          body: body ?? undefined,
+          referrer: referrer ?? undefined,
+          referrerPolicy: referrerPolicy?.value ?? undefined,
+          mode: mode?.value ?? undefined,
+          credentials: credentials?.value ?? undefined,
+          cache: cache?.value ?? undefined,
+          redirect: redirect?.value ?? undefined,
+          integrity: integrity ?? undefined,
+          keepalive: keepalive ?? undefined,
+          signal: signal ?? undefined,
+          duplex: duplex?.value ?? undefined,
+          window: window ?? undefined);
 }
 
 extension PropsRequestInit on RequestInit {

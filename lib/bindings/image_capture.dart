@@ -58,10 +58,10 @@ class PhotoCapabilities {
           MediaSettingsRange? imageWidth,
           Iterable<FillLightMode>? fillLightMode}) =>
       PhotoCapabilities._(
-          redEyeReduction: redEyeReduction?.value,
-          imageHeight: imageHeight,
-          imageWidth: imageWidth,
-          fillLightMode: fillLightMode?.map((e) => e.value));
+          redEyeReduction: redEyeReduction?.value ?? undefined,
+          imageHeight: imageHeight ?? undefined,
+          imageWidth: imageWidth ?? undefined,
+          fillLightMode: fillLightMode?.map((e) => e.value) ?? undefined);
 }
 
 extension PropsPhotoCapabilities on PhotoCapabilities {
@@ -105,10 +105,10 @@ class PhotoSettings {
           double? imageWidth,
           bool? redEyeReduction}) =>
       PhotoSettings._(
-          fillLightMode: fillLightMode?.value,
-          imageHeight: imageHeight,
-          imageWidth: imageWidth,
-          redEyeReduction: redEyeReduction);
+          fillLightMode: fillLightMode?.value ?? undefined,
+          imageHeight: imageHeight ?? undefined,
+          imageWidth: imageWidth ?? undefined,
+          redEyeReduction: redEyeReduction ?? undefined);
 }
 
 extension PropsPhotoSettings on PhotoSettings {

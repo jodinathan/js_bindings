@@ -112,10 +112,10 @@ class CookieInit {
       CookieInit._(
           name: name,
           value: value,
-          expires: expires,
-          domain: domain,
-          path: path,
-          sameSite: sameSite?.value);
+          expires: expires ?? undefined,
+          domain: domain ?? undefined,
+          path: path ?? undefined,
+          sameSite: sameSite?.value ?? undefined);
 }
 
 extension PropsCookieInit on CookieInit {
@@ -198,13 +198,13 @@ class CookieListItem {
           bool? secure,
           CookieSameSite? sameSite}) =>
       CookieListItem._(
-          name: name,
-          value: value,
-          domain: domain,
-          path: path,
-          expires: expires,
-          secure: secure,
-          sameSite: sameSite?.value);
+          name: name ?? undefined,
+          value: value ?? undefined,
+          domain: domain ?? undefined,
+          path: path ?? undefined,
+          expires: expires ?? undefined,
+          secure: secure ?? undefined,
+          sameSite: sameSite?.value ?? undefined);
 }
 
 extension PropsCookieListItem on CookieListItem {

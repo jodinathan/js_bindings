@@ -65,19 +65,19 @@ class TouchInit {
       TouchInit._(
           identifier: identifier,
           target: target,
-          clientX: clientX,
-          clientY: clientY,
-          screenX: screenX,
-          screenY: screenY,
-          pageX: pageX,
-          pageY: pageY,
-          radiusX: radiusX,
-          radiusY: radiusY,
-          rotationAngle: rotationAngle,
-          force: force,
-          altitudeAngle: altitudeAngle,
-          azimuthAngle: azimuthAngle,
-          touchType: touchType?.value);
+          clientX: clientX ?? undefined,
+          clientY: clientY ?? undefined,
+          screenX: screenX ?? undefined,
+          screenY: screenY ?? undefined,
+          pageX: pageX ?? undefined,
+          pageY: pageY ?? undefined,
+          radiusX: radiusX ?? undefined,
+          radiusY: radiusY ?? undefined,
+          rotationAngle: rotationAngle ?? undefined,
+          force: force ?? undefined,
+          altitudeAngle: altitudeAngle ?? undefined,
+          azimuthAngle: azimuthAngle ?? undefined,
+          touchType: touchType?.value ?? undefined);
 }
 
 extension PropsTouchInit on TouchInit {

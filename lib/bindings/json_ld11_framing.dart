@@ -20,7 +20,8 @@ class JsonLdFramingError {
   external factory JsonLdFramingError._({String? code, String? message});
 
   factory JsonLdFramingError({JsonLdFramingErrorCode? code, String? message}) =>
-      JsonLdFramingError._(code: code?.value, message: message);
+      JsonLdFramingError._(
+          code: code?.value ?? undefined, message: message ?? undefined);
 }
 
 extension PropsJsonLdFramingError on JsonLdFramingError {

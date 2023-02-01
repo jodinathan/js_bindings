@@ -60,8 +60,8 @@ class MLContextOptions {
           MLPowerPreference? powerPreference =
               MLPowerPreference.valueDefault}) =>
       MLContextOptions._(
-          deviceType: deviceType?.value,
-          powerPreference: powerPreference?.value);
+          deviceType: deviceType?.value ?? undefined,
+          powerPreference: powerPreference?.value ?? undefined);
 }
 
 extension PropsMLContextOptions on MLContextOptions {
@@ -144,7 +144,8 @@ class MLOperandDescriptor {
 
   factory MLOperandDescriptor(
           {required MLOperandType type, Iterable<int>? dimensions}) =>
-      MLOperandDescriptor._(type: type.value, dimensions: dimensions);
+      MLOperandDescriptor._(
+          type: type.value, dimensions: dimensions ?? undefined);
 }
 
 extension PropsMLOperandDescriptor on MLOperandDescriptor {
@@ -502,15 +503,15 @@ class MLConv2dOptions {
           MLOperand? bias,
           MLOperator? activation}) =>
       MLConv2dOptions._(
-          padding: padding,
-          strides: strides,
-          dilations: dilations,
-          autoPad: autoPad?.value,
-          groups: groups,
-          inputLayout: inputLayout?.value,
-          filterLayout: filterLayout?.value,
-          bias: bias,
-          activation: activation);
+          padding: padding ?? undefined,
+          strides: strides ?? undefined,
+          dilations: dilations ?? undefined,
+          autoPad: autoPad?.value ?? undefined,
+          groups: groups ?? undefined,
+          inputLayout: inputLayout?.value ?? undefined,
+          filterLayout: filterLayout?.value ?? undefined,
+          bias: bias ?? undefined,
+          activation: activation ?? undefined);
 }
 
 extension PropsMLConv2dOptions on MLConv2dOptions {
@@ -609,17 +610,17 @@ class MLConvTranspose2dOptions {
           MLOperand? bias,
           MLOperator? activation}) =>
       MLConvTranspose2dOptions._(
-          padding: padding,
-          strides: strides,
-          dilations: dilations,
-          outputPadding: outputPadding,
-          outputSizes: outputSizes,
-          autoPad: autoPad?.value,
-          groups: groups,
-          inputLayout: inputLayout?.value,
-          filterLayout: filterLayout?.value,
-          bias: bias,
-          activation: activation);
+          padding: padding ?? undefined,
+          strides: strides ?? undefined,
+          dilations: dilations ?? undefined,
+          outputPadding: outputPadding ?? undefined,
+          outputSizes: outputSizes ?? undefined,
+          autoPad: autoPad?.value ?? undefined,
+          groups: groups ?? undefined,
+          inputLayout: inputLayout?.value ?? undefined,
+          filterLayout: filterLayout?.value ?? undefined,
+          bias: bias ?? undefined,
+          activation: activation ?? undefined);
 }
 
 extension PropsMLConvTranspose2dOptions on MLConvTranspose2dOptions {
@@ -789,14 +790,14 @@ class MLGruOptions {
               MLRecurrentNetworkWeightLayout.zrn,
           Iterable<MLOperator>? activations}) =>
       MLGruOptions._(
-          bias: bias,
-          recurrentBias: recurrentBias,
-          initialHiddenState: initialHiddenState,
-          resetAfter: resetAfter,
-          returnSequence: returnSequence,
-          direction: direction?.value,
-          layout: layout?.value,
-          activations: activations);
+          bias: bias ?? undefined,
+          recurrentBias: recurrentBias ?? undefined,
+          initialHiddenState: initialHiddenState ?? undefined,
+          resetAfter: resetAfter ?? undefined,
+          returnSequence: returnSequence ?? undefined,
+          direction: direction?.value ?? undefined,
+          layout: layout?.value ?? undefined,
+          activations: activations ?? undefined);
 }
 
 extension PropsMLGruOptions on MLGruOptions {
@@ -866,11 +867,11 @@ class MLGruCellOptions {
               MLRecurrentNetworkWeightLayout.zrn,
           Iterable<MLOperator>? activations}) =>
       MLGruCellOptions._(
-          bias: bias,
-          recurrentBias: recurrentBias,
-          resetAfter: resetAfter,
-          layout: layout?.value,
-          activations: activations);
+          bias: bias ?? undefined,
+          recurrentBias: recurrentBias ?? undefined,
+          resetAfter: resetAfter ?? undefined,
+          layout: layout?.value ?? undefined,
+          activations: activations ?? undefined);
 }
 
 extension PropsMLGruCellOptions on MLGruCellOptions {
@@ -939,7 +940,10 @@ class MLInstanceNormalizationOptions {
           double? epsilon = 1e-5,
           MLInputOperandLayout? layout = MLInputOperandLayout.nchw}) =>
       MLInstanceNormalizationOptions._(
-          scale: scale, bias: bias, epsilon: epsilon, layout: layout?.value);
+          scale: scale ?? undefined,
+          bias: bias ?? undefined,
+          epsilon: epsilon ?? undefined,
+          layout: layout?.value ?? undefined);
 }
 
 extension PropsMLInstanceNormalizationOptions
@@ -1021,7 +1025,7 @@ class MLPadOptions {
 
   factory MLPadOptions(
           {MLPaddingMode? mode = MLPaddingMode.constant, double? value = 0}) =>
-      MLPadOptions._(mode: mode?.value, value: value);
+      MLPadOptions._(mode: mode?.value ?? undefined, value: value ?? undefined);
 }
 
 extension PropsMLPadOptions on MLPadOptions {
@@ -1073,14 +1077,14 @@ class MLPool2dOptions {
           MLRoundingType? roundingType = MLRoundingType.floor,
           Iterable<int>? outputSizes}) =>
       MLPool2dOptions._(
-          windowDimensions: windowDimensions,
-          padding: padding,
-          strides: strides,
-          dilations: dilations,
-          autoPad: autoPad?.value,
-          layout: layout?.value,
-          roundingType: roundingType?.value,
-          outputSizes: outputSizes);
+          windowDimensions: windowDimensions ?? undefined,
+          padding: padding ?? undefined,
+          strides: strides ?? undefined,
+          dilations: dilations ?? undefined,
+          autoPad: autoPad?.value ?? undefined,
+          layout: layout?.value ?? undefined,
+          roundingType: roundingType?.value ?? undefined,
+          outputSizes: outputSizes ?? undefined);
 }
 
 extension PropsMLPool2dOptions on MLPool2dOptions {
@@ -1177,7 +1181,10 @@ class MLResample2dOptions {
           Iterable<int>? sizes,
           Iterable<int>? axes}) =>
       MLResample2dOptions._(
-          mode: mode?.value, scales: scales, sizes: sizes, axes: axes);
+          mode: mode?.value ?? undefined,
+          scales: scales ?? undefined,
+          sizes: sizes ?? undefined,
+          axes: axes ?? undefined);
 }
 
 extension PropsMLResample2dOptions on MLResample2dOptions {

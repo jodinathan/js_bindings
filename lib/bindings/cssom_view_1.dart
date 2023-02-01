@@ -33,7 +33,7 @@ class ScrollOptions {
   external factory ScrollOptions._({String? behavior});
 
   factory ScrollOptions({ScrollBehavior? behavior = ScrollBehavior.auto}) =>
-      ScrollOptions._(behavior: behavior?.value);
+      ScrollOptions._(behavior: behavior?.value ?? undefined);
 }
 
 extension PropsScrollOptions on ScrollOptions {
@@ -227,7 +227,8 @@ class ScrollIntoViewOptions implements ScrollOptions {
   factory ScrollIntoViewOptions(
           {ScrollLogicalPosition? block = ScrollLogicalPosition.start,
           ScrollLogicalPosition? inline = ScrollLogicalPosition.nearest}) =>
-      ScrollIntoViewOptions._(block: block?.value, inline: inline?.value);
+      ScrollIntoViewOptions._(
+          block: block?.value ?? undefined, inline: inline?.value ?? undefined);
 }
 
 extension PropsScrollIntoViewOptions on ScrollIntoViewOptions {
@@ -287,7 +288,8 @@ class BoxQuadOptions {
 
   factory BoxQuadOptions(
           {CSSBoxType? box = CSSBoxType.border, dynamic relativeTo}) =>
-      BoxQuadOptions._(box: box?.value, relativeTo: relativeTo);
+      BoxQuadOptions._(
+          box: box?.value ?? undefined, relativeTo: relativeTo ?? undefined);
 }
 
 extension PropsBoxQuadOptions on BoxQuadOptions {
@@ -311,7 +313,9 @@ class ConvertCoordinateOptions {
   factory ConvertCoordinateOptions(
           {CSSBoxType? fromBox = CSSBoxType.border,
           CSSBoxType? toBox = CSSBoxType.border}) =>
-      ConvertCoordinateOptions._(fromBox: fromBox?.value, toBox: toBox?.value);
+      ConvertCoordinateOptions._(
+          fromBox: fromBox?.value ?? undefined,
+          toBox: toBox?.value ?? undefined);
 }
 
 extension PropsConvertCoordinateOptions on ConvertCoordinateOptions {

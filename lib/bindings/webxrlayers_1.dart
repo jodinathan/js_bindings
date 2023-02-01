@@ -515,10 +515,10 @@ class XRProjectionLayerInit {
           int? depthFormat = 0x1902,
           double? scaleFactor = 1.0}) =>
       XRProjectionLayerInit._(
-          textureType: textureType?.value,
-          colorFormat: colorFormat,
-          depthFormat: depthFormat,
-          scaleFactor: scaleFactor);
+          textureType: textureType?.value ?? undefined,
+          colorFormat: colorFormat ?? undefined,
+          depthFormat: depthFormat ?? undefined,
+          scaleFactor: scaleFactor ?? undefined);
 }
 
 extension PropsXRProjectionLayerInit on XRProjectionLayerInit {
@@ -569,13 +569,13 @@ class XRLayerInit {
           bool? isStatic = false}) =>
       XRLayerInit._(
           space: space,
-          colorFormat: colorFormat,
-          depthFormat: depthFormat,
-          mipLevels: mipLevels,
-          viewPixelWidth: viewPixelWidth,
-          viewPixelHeight: viewPixelHeight,
-          layout: layout?.value,
-          isStatic: isStatic);
+          colorFormat: colorFormat ?? undefined,
+          depthFormat: depthFormat ?? undefined,
+          mipLevels: mipLevels ?? undefined,
+          viewPixelWidth: viewPixelWidth ?? undefined,
+          viewPixelHeight: viewPixelHeight ?? undefined,
+          layout: layout?.value ?? undefined,
+          isStatic: isStatic ?? undefined);
 }
 
 extension PropsXRLayerInit on XRLayerInit {
@@ -637,10 +637,10 @@ class XRQuadLayerInit implements XRLayerInit {
           double? width = 1.0,
           double? height = 1.0}) =>
       XRQuadLayerInit._(
-          textureType: textureType?.value,
-          transform: transform,
-          width: width,
-          height: height);
+          textureType: textureType?.value ?? undefined,
+          transform: transform ?? undefined,
+          width: width ?? undefined,
+          height: height ?? undefined);
 }
 
 extension PropsXRQuadLayerInit on XRQuadLayerInit {
@@ -684,11 +684,11 @@ class XRCylinderLayerInit implements XRLayerInit {
           double? centralAngle = 0.78539,
           double? aspectRatio = 2.0}) =>
       XRCylinderLayerInit._(
-          textureType: textureType?.value,
-          transform: transform,
-          radius: radius,
-          centralAngle: centralAngle,
-          aspectRatio: aspectRatio);
+          textureType: textureType?.value ?? undefined,
+          transform: transform ?? undefined,
+          radius: radius ?? undefined,
+          centralAngle: centralAngle ?? undefined,
+          aspectRatio: aspectRatio ?? undefined);
 }
 
 extension PropsXRCylinderLayerInit on XRCylinderLayerInit {
@@ -739,12 +739,12 @@ class XREquirectLayerInit implements XRLayerInit {
           double? upperVerticalAngle = 1.570795,
           double? lowerVerticalAngle = -1.570795}) =>
       XREquirectLayerInit._(
-          textureType: textureType?.value,
-          transform: transform,
-          radius: radius,
-          centralHorizontalAngle: centralHorizontalAngle,
-          upperVerticalAngle: upperVerticalAngle,
-          lowerVerticalAngle: lowerVerticalAngle);
+          textureType: textureType?.value ?? undefined,
+          transform: transform ?? undefined,
+          radius: radius ?? undefined,
+          centralHorizontalAngle: centralHorizontalAngle ?? undefined,
+          upperVerticalAngle: upperVerticalAngle ?? undefined,
+          lowerVerticalAngle: lowerVerticalAngle ?? undefined);
 }
 
 extension PropsXREquirectLayerInit on XREquirectLayerInit {
@@ -851,7 +851,9 @@ class XRMediaLayerInit {
           XRLayerLayout? layout = XRLayerLayout.mono,
           bool? invertStereo = false}) =>
       XRMediaLayerInit._(
-          space: space, layout: layout?.value, invertStereo: invertStereo);
+          space: space,
+          layout: layout?.value ?? undefined,
+          invertStereo: invertStereo ?? undefined);
 }
 
 extension PropsXRMediaLayerInit on XRMediaLayerInit {

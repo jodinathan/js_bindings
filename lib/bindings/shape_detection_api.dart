@@ -73,7 +73,7 @@ class Landmark {
 
   factory Landmark(
           {required Iterable<Point2D> locations, LandmarkType? type}) =>
-      Landmark._(locations: locations, type: type?.value);
+      Landmark._(locations: locations, type: type?.value ?? undefined);
 }
 
 extension PropsLandmark on Landmark {
@@ -126,7 +126,8 @@ class BarcodeDetectorOptions {
   external factory BarcodeDetectorOptions._({Iterable<String>? formats});
 
   factory BarcodeDetectorOptions({Iterable<BarcodeFormat>? formats}) =>
-      BarcodeDetectorOptions._(formats: formats?.map((e) => e.value));
+      BarcodeDetectorOptions._(
+          formats: formats?.map((e) => e.value) ?? undefined);
 }
 
 extension PropsBarcodeDetectorOptions on BarcodeDetectorOptions {

@@ -74,7 +74,8 @@ class OrientationSensorOptions implements SensorOptions {
   factory OrientationSensorOptions(
           {OrientationSensorLocalCoordinateSystem? referenceFrame =
               OrientationSensorLocalCoordinateSystem.device}) =>
-      OrientationSensorOptions._(referenceFrame: referenceFrame?.value);
+      OrientationSensorOptions._(
+          referenceFrame: referenceFrame?.value ?? undefined);
 }
 
 extension PropsOrientationSensorOptions on OrientationSensorOptions {

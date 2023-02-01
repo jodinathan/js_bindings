@@ -51,9 +51,9 @@ class ContentDescription {
           id: id,
           title: title,
           description: description,
-          category: category?.value,
-          icons: icons,
-          url: url);
+          category: category?.value ?? undefined,
+          icons: icons ?? undefined,
+          url: url ?? undefined);
 }
 
 extension PropsContentDescription on ContentDescription {

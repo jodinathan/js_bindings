@@ -1,5 +1,15 @@
 import 'package:js_bindings/js_bindings.dart';
 
+Future<void> _fetch() async {
+  try {
+    final r = await window.fetch(
+        'https://jsonplaceholder.typicode.com/todos/1', RequestInit());
+    print(r);
+  } catch (e) {
+    print(e);
+  }
+}
+
 void main() {
   window.document.title = 'JS Bindings example';
 
@@ -17,6 +27,8 @@ void main() {
 
   print('RequestInit:');
   window.console.log(init);
+
+  _fetch().then((ev) => print('Fetch test finished.'));
 
   final map = JsMap([
     [1, 'one'],

@@ -221,7 +221,10 @@ class WriteParams {
           int? position,
           dynamic data}) =>
       WriteParams._(
-          type: type.value, size: size, position: position, data: data);
+          type: type.value,
+          size: size ?? undefined,
+          position: position ?? undefined,
+          data: data ?? undefined);
 }
 
 extension PropsWriteParams on WriteParams {

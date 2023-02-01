@@ -34,12 +34,12 @@ class RTCConfiguration {
           Iterable<RTCCertificate>? certificates = const [],
           int? iceCandidatePoolSize = 0}) =>
       RTCConfiguration._(
-          iceServers: iceServers,
-          iceTransportPolicy: iceTransportPolicy?.value,
-          bundlePolicy: bundlePolicy?.value,
-          rtcpMuxPolicy: rtcpMuxPolicy?.value,
-          certificates: certificates,
-          iceCandidatePoolSize: iceCandidatePoolSize);
+          iceServers: iceServers ?? undefined,
+          iceTransportPolicy: iceTransportPolicy?.value ?? undefined,
+          bundlePolicy: bundlePolicy?.value ?? undefined,
+          rtcpMuxPolicy: rtcpMuxPolicy?.value ?? undefined,
+          certificates: certificates ?? undefined,
+          iceCandidatePoolSize: iceCandidatePoolSize ?? undefined);
 }
 
 extension PropsRTCConfiguration on RTCConfiguration {
@@ -114,10 +114,10 @@ class RTCIceServer {
           RTCIceCredentialType? credentialType =
               RTCIceCredentialType.password}) =>
       RTCIceServer._(
-          urls: urls,
-          username: username,
-          credential: credential,
-          credentialType: credentialType?.value);
+          urls: urls ?? undefined,
+          username: username ?? undefined,
+          credential: credential ?? undefined,
+          credentialType: credentialType?.value ?? undefined);
 }
 
 extension PropsRTCIceServer on RTCIceServer {
@@ -525,7 +525,7 @@ class RTCSessionDescriptionInit {
 
   factory RTCSessionDescriptionInit(
           {required RTCSdpType type, String? sdp = ''}) =>
-      RTCSessionDescriptionInit._(type: type.value, sdp: sdp);
+      RTCSessionDescriptionInit._(type: type.value, sdp: sdp ?? undefined);
 }
 
 extension PropsRTCSessionDescriptionInit on RTCSessionDescriptionInit {
@@ -550,7 +550,8 @@ class RTCLocalSessionDescriptionInit {
 
   factory RTCLocalSessionDescriptionInit(
           {RTCSdpType? type, String? sdp = ''}) =>
-      RTCLocalSessionDescriptionInit._(type: type?.value, sdp: sdp);
+      RTCLocalSessionDescriptionInit._(
+          type: type?.value ?? undefined, sdp: sdp ?? undefined);
 }
 
 extension PropsRTCLocalSessionDescriptionInit
@@ -858,9 +859,9 @@ class RTCRtpTransceiverInit {
           Iterable<MediaStream>? streams = const [],
           Iterable<RTCRtpEncodingParameters>? sendEncodings = const []}) =>
       RTCRtpTransceiverInit._(
-          direction: direction?.value,
-          streams: streams,
-          sendEncodings: sendEncodings);
+          direction: direction?.value ?? undefined,
+          streams: streams ?? undefined,
+          sendEncodings: sendEncodings ?? undefined);
 }
 
 extension PropsRTCRtpTransceiverInit on RTCRtpTransceiverInit {
@@ -2161,10 +2162,10 @@ class RTCErrorInit {
           int? sentAlert}) =>
       RTCErrorInit._(
           errorDetail: errorDetail.value,
-          sdpLineNumber: sdpLineNumber,
-          sctpCauseCode: sctpCauseCode,
-          receivedAlert: receivedAlert,
-          sentAlert: sentAlert);
+          sdpLineNumber: sdpLineNumber ?? undefined,
+          sctpCauseCode: sctpCauseCode ?? undefined,
+          receivedAlert: receivedAlert ?? undefined,
+          sentAlert: sentAlert ?? undefined);
 }
 
 extension PropsRTCErrorInit on RTCErrorInit {

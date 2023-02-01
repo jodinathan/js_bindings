@@ -274,6 +274,8 @@ class MethodParam {
   final DartType dartType;
   final String typeName;
   final Object? defaultValue;
+
+  bool get anyNullable => isNullable || isRequired == false;
 }
 
 class Method {

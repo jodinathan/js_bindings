@@ -64,7 +64,8 @@ class BlobPropertyBag {
 
   factory BlobPropertyBag(
           {String? type = '', EndingType? endings = EndingType.transparent}) =>
-      BlobPropertyBag._(type: type, endings: endings?.value);
+      BlobPropertyBag._(
+          type: type ?? undefined, endings: endings?.value ?? undefined);
 }
 
 extension PropsBlobPropertyBag on BlobPropertyBag {

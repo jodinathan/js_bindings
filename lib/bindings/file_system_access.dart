@@ -36,7 +36,8 @@ class FileSystemPermissionDescriptor implements PermissionDescriptor {
   factory FileSystemPermissionDescriptor(
           {required FileSystemHandle handle,
           FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
-      FileSystemPermissionDescriptor._(handle: handle, mode: mode?.value);
+      FileSystemPermissionDescriptor._(
+          handle: handle, mode: mode?.value ?? undefined);
 }
 
 extension PropsFileSystemPermissionDescriptor
@@ -61,7 +62,7 @@ class FileSystemHandlePermissionDescriptor {
 
   factory FileSystemHandlePermissionDescriptor(
           {FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
-      FileSystemHandlePermissionDescriptor._(mode: mode?.value);
+      FileSystemHandlePermissionDescriptor._(mode: mode?.value ?? undefined);
 }
 
 extension PropsFileSystemHandlePermissionDescriptor
@@ -182,7 +183,10 @@ class DirectoryPickerOptions {
           {String? id,
           dynamic startIn,
           FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
-      DirectoryPickerOptions._(id: id, startIn: startIn, mode: mode?.value);
+      DirectoryPickerOptions._(
+          id: id ?? undefined,
+          startIn: startIn ?? undefined,
+          mode: mode?.value ?? undefined);
 }
 
 extension PropsDirectoryPickerOptions on DirectoryPickerOptions {

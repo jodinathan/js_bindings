@@ -91,7 +91,8 @@ class XRLightProbeInit {
 
   factory XRLightProbeInit(
           {XRReflectionFormat? reflectionFormat = XRReflectionFormat.srgba8}) =>
-      XRLightProbeInit._(reflectionFormat: reflectionFormat?.value);
+      XRLightProbeInit._(
+          reflectionFormat: reflectionFormat?.value ?? undefined);
 }
 
 extension PropsXRLightProbeInit on XRLightProbeInit {

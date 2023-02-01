@@ -24,7 +24,8 @@ class RTCIceGatherOptions {
           {RTCIceTransportPolicy? gatherPolicy = RTCIceTransportPolicy.all,
           Iterable<RTCIceServer>? iceServers}) =>
       RTCIceGatherOptions._(
-          gatherPolicy: gatherPolicy?.value, iceServers: iceServers);
+          gatherPolicy: gatherPolicy?.value ?? undefined,
+          iceServers: iceServers ?? undefined);
 }
 
 extension PropsRTCIceGatherOptions on RTCIceGatherOptions {

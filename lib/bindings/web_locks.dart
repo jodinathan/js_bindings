@@ -75,10 +75,10 @@ class LockOptions {
           bool? steal = false,
           AbortSignal? signal}) =>
       LockOptions._(
-          mode: mode?.value,
-          ifAvailable: ifAvailable,
-          steal: steal,
-          signal: signal);
+          mode: mode?.value ?? undefined,
+          ifAvailable: ifAvailable ?? undefined,
+          steal: steal ?? undefined,
+          signal: signal ?? undefined);
 }
 
 extension PropsLockOptions on LockOptions {
@@ -130,7 +130,10 @@ class LockInfo {
   external factory LockInfo._({String? name, String? mode, String? clientId});
 
   factory LockInfo({String? name, LockMode? mode, String? clientId}) =>
-      LockInfo._(name: name, mode: mode?.value, clientId: clientId);
+      LockInfo._(
+          name: name ?? undefined,
+          mode: mode?.value ?? undefined,
+          clientId: clientId ?? undefined);
 }
 
 extension PropsLockInfo on LockInfo {

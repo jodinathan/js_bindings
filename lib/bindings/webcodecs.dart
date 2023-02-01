@@ -429,14 +429,14 @@ class VideoDecoderConfig {
           bool? optimizeForLatency}) =>
       VideoDecoderConfig._(
           codec: codec,
-          description: description,
-          codedWidth: codedWidth,
-          codedHeight: codedHeight,
-          displayAspectWidth: displayAspectWidth,
-          displayAspectHeight: displayAspectHeight,
-          colorSpace: colorSpace,
-          hardwareAcceleration: hardwareAcceleration?.value,
-          optimizeForLatency: optimizeForLatency);
+          description: description ?? undefined,
+          codedWidth: codedWidth ?? undefined,
+          codedHeight: codedHeight ?? undefined,
+          displayAspectWidth: displayAspectWidth ?? undefined,
+          displayAspectHeight: displayAspectHeight ?? undefined,
+          colorSpace: colorSpace ?? undefined,
+          hardwareAcceleration: hardwareAcceleration?.value ?? undefined,
+          optimizeForLatency: optimizeForLatency ?? undefined);
 }
 
 extension PropsVideoDecoderConfig on VideoDecoderConfig {
@@ -559,15 +559,15 @@ class VideoEncoderConfig {
           codec: codec,
           width: width,
           height: height,
-          displayWidth: displayWidth,
-          displayHeight: displayHeight,
-          bitrate: bitrate,
-          framerate: framerate,
-          hardwareAcceleration: hardwareAcceleration?.value,
-          alpha: alpha?.value,
-          scalabilityMode: scalabilityMode,
-          bitrateMode: bitrateMode?.value,
-          latencyMode: latencyMode?.value);
+          displayWidth: displayWidth ?? undefined,
+          displayHeight: displayHeight ?? undefined,
+          bitrate: bitrate ?? undefined,
+          framerate: framerate ?? undefined,
+          hardwareAcceleration: hardwareAcceleration?.value ?? undefined,
+          alpha: alpha?.value ?? undefined,
+          scalabilityMode: scalabilityMode ?? undefined,
+          bitrateMode: bitrateMode?.value ?? undefined,
+          latencyMode: latencyMode?.value ?? undefined);
 }
 
 extension PropsVideoEncoderConfig on VideoEncoderConfig {
@@ -737,8 +737,8 @@ class EncodedAudioChunkInit {
       EncodedAudioChunkInit._(
           type: type.value,
           timestamp: timestamp,
-          duration: duration,
-          data: data);
+          duration: duration ?? undefined,
+          data: data ?? undefined);
 }
 
 extension PropsEncodedAudioChunkInit on EncodedAudioChunkInit {
@@ -812,8 +812,8 @@ class EncodedVideoChunkInit {
       EncodedVideoChunkInit._(
           type: type.value,
           timestamp: timestamp,
-          duration: duration,
-          data: data);
+          duration: duration ?? undefined,
+          data: data ?? undefined);
 }
 
 extension PropsEncodedVideoChunkInit on EncodedVideoChunkInit {
@@ -906,7 +906,7 @@ class AudioDataInit {
           numberOfFrames: numberOfFrames,
           numberOfChannels: numberOfChannels,
           timestamp: timestamp,
-          data: data);
+          data: data ?? undefined);
 }
 
 extension PropsAudioDataInit on AudioDataInit {
@@ -959,9 +959,9 @@ class AudioDataCopyToOptions {
           AudioSampleFormat? format}) =>
       AudioDataCopyToOptions._(
           planeIndex: planeIndex,
-          frameOffset: frameOffset,
-          frameCount: frameCount,
-          format: format?.value);
+          frameOffset: frameOffset ?? undefined,
+          frameCount: frameCount ?? undefined,
+          format: format?.value ?? undefined);
 }
 
 extension PropsAudioDataCopyToOptions on AudioDataCopyToOptions {
@@ -1062,12 +1062,12 @@ class VideoFrameInit {
           int? displayWidth,
           int? displayHeight}) =>
       VideoFrameInit._(
-          duration: duration,
-          timestamp: timestamp,
-          alpha: alpha?.value,
-          visibleRect: visibleRect,
-          displayWidth: displayWidth,
-          displayHeight: displayHeight);
+          duration: duration ?? undefined,
+          timestamp: timestamp ?? undefined,
+          alpha: alpha?.value ?? undefined,
+          visibleRect: visibleRect ?? undefined,
+          displayWidth: displayWidth ?? undefined,
+          displayHeight: displayHeight ?? undefined);
 }
 
 extension PropsVideoFrameInit on VideoFrameInit {
@@ -1135,12 +1135,12 @@ class VideoFrameBufferInit {
           codedWidth: codedWidth,
           codedHeight: codedHeight,
           timestamp: timestamp,
-          duration: duration,
-          layout: layout,
-          visibleRect: visibleRect,
-          displayWidth: displayWidth,
-          displayHeight: displayHeight,
-          colorSpace: colorSpace);
+          duration: duration ?? undefined,
+          layout: layout ?? undefined,
+          visibleRect: visibleRect ?? undefined,
+          displayWidth: displayWidth ?? undefined,
+          displayHeight: displayHeight ?? undefined,
+          colorSpace: colorSpace ?? undefined);
 }
 
 extension PropsVideoFrameBufferInit on VideoFrameBufferInit {
@@ -1298,10 +1298,10 @@ class VideoColorSpaceInit {
           VideoMatrixCoefficients? matrix,
           bool? fullRange}) =>
       VideoColorSpaceInit._(
-          primaries: primaries?.value,
-          transfer: transfer?.value,
-          matrix: matrix?.value,
-          fullRange: fullRange);
+          primaries: primaries?.value ?? undefined,
+          transfer: transfer?.value ?? undefined,
+          matrix: matrix?.value ?? undefined,
+          fullRange: fullRange ?? undefined);
 }
 
 extension PropsVideoColorSpaceInit on VideoColorSpaceInit {
@@ -1421,12 +1421,12 @@ class ImageDecoderInit {
           bool? preferAnimation}) =>
       ImageDecoderInit._(
           type: type,
-          data: data,
-          premultiplyAlpha: premultiplyAlpha?.value,
-          colorSpaceConversion: colorSpaceConversion?.value,
-          desiredWidth: desiredWidth,
-          desiredHeight: desiredHeight,
-          preferAnimation: preferAnimation);
+          data: data ?? undefined,
+          premultiplyAlpha: premultiplyAlpha?.value ?? undefined,
+          colorSpaceConversion: colorSpaceConversion?.value ?? undefined,
+          desiredWidth: desiredWidth ?? undefined,
+          desiredHeight: desiredHeight ?? undefined,
+          preferAnimation: preferAnimation ?? undefined);
 }
 
 extension PropsImageDecoderInit on ImageDecoderInit {

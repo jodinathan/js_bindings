@@ -106,11 +106,11 @@ class MediaRecorderOptions {
           int? bitsPerSecond,
           BitrateMode? audioBitrateMode = BitrateMode.variable}) =>
       MediaRecorderOptions._(
-          mimeType: mimeType,
-          audioBitsPerSecond: audioBitsPerSecond,
-          videoBitsPerSecond: videoBitsPerSecond,
-          bitsPerSecond: bitsPerSecond,
-          audioBitrateMode: audioBitrateMode?.value);
+          mimeType: mimeType ?? undefined,
+          audioBitsPerSecond: audioBitsPerSecond ?? undefined,
+          videoBitsPerSecond: videoBitsPerSecond ?? undefined,
+          bitsPerSecond: bitsPerSecond ?? undefined,
+          audioBitrateMode: audioBitrateMode?.value ?? undefined);
 }
 
 extension PropsMediaRecorderOptions on MediaRecorderOptions {

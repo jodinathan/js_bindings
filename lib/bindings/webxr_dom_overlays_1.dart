@@ -47,7 +47,7 @@ class XRDOMOverlayState {
   external factory XRDOMOverlayState._({String? type});
 
   factory XRDOMOverlayState({XRDOMOverlayType? type}) =>
-      XRDOMOverlayState._(type: type?.value);
+      XRDOMOverlayState._(type: type?.value ?? undefined);
 }
 
 extension PropsXRDOMOverlayState on XRDOMOverlayState {

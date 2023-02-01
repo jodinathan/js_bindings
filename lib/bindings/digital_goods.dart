@@ -66,14 +66,14 @@ class ItemDetails {
           itemId: itemId,
           title: title,
           price: price,
-          type: type?.value,
-          description: description,
-          iconURLs: iconURLs,
-          subscriptionPeriod: subscriptionPeriod,
-          freeTrialPeriod: freeTrialPeriod,
-          introductoryPrice: introductoryPrice,
-          introductoryPricePeriod: introductoryPricePeriod,
-          introductoryPriceCycles: introductoryPriceCycles);
+          type: type?.value ?? undefined,
+          description: description ?? undefined,
+          iconURLs: iconURLs ?? undefined,
+          subscriptionPeriod: subscriptionPeriod ?? undefined,
+          freeTrialPeriod: freeTrialPeriod ?? undefined,
+          introductoryPrice: introductoryPrice ?? undefined,
+          introductoryPricePeriod: introductoryPricePeriod ?? undefined,
+          introductoryPriceCycles: introductoryPriceCycles ?? undefined);
 }
 
 extension PropsItemDetails on ItemDetails {

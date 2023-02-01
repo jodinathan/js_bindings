@@ -136,10 +136,10 @@ class WebTransportOptions {
           WebTransportCongestionControl? congestionControl =
               WebTransportCongestionControl.valueDefault}) =>
       WebTransportOptions._(
-          allowPooling: allowPooling,
-          requireUnreliable: requireUnreliable,
-          serverCertificateHashes: serverCertificateHashes,
-          congestionControl: congestionControl?.value);
+          allowPooling: allowPooling ?? undefined,
+          requireUnreliable: requireUnreliable ?? undefined,
+          serverCertificateHashes: serverCertificateHashes ?? undefined,
+          congestionControl: congestionControl?.value ?? undefined);
 }
 
 extension PropsWebTransportOptions on WebTransportOptions {

@@ -63,7 +63,7 @@ class ReadableStreamGetReaderOptions {
   external factory ReadableStreamGetReaderOptions._({String? mode});
 
   factory ReadableStreamGetReaderOptions({ReadableStreamReaderMode? mode}) =>
-      ReadableStreamGetReaderOptions._(mode: mode?.value);
+      ReadableStreamGetReaderOptions._(mode: mode?.value ?? undefined);
 }
 
 extension PropsReadableStreamGetReaderOptions
@@ -160,11 +160,11 @@ class UnderlyingSource {
           ReadableStreamType? type,
           int? autoAllocateChunkSize}) =>
       UnderlyingSource._(
-          start: start,
-          pull: pull,
-          cancel: cancel,
-          type: type?.value,
-          autoAllocateChunkSize: autoAllocateChunkSize);
+          start: start ?? undefined,
+          pull: pull ?? undefined,
+          cancel: cancel ?? undefined,
+          type: type?.value ?? undefined,
+          autoAllocateChunkSize: autoAllocateChunkSize ?? undefined);
 }
 
 extension PropsUnderlyingSource on UnderlyingSource {

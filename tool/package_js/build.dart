@@ -509,7 +509,7 @@ Future<void> main() async {
 
                           if (henum) {
                             lines.add(
-                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.dartType.isEnum ? '${(param.isNullable || param.isRequired == false).truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}' : ''}').join(', ')});');
+                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.dartType.isEnum ? '${(param.anyNullable).truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}' : ''}${param.anyNullable.truth(' ?? undefined')}').join(', ')});');
                           }
                         }
                       }

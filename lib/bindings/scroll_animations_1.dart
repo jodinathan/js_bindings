@@ -35,7 +35,8 @@ class ScrollTimelineOptions {
 
   factory ScrollTimelineOptions(
           {Element? source, ScrollAxis? axis = ScrollAxis.block}) =>
-      ScrollTimelineOptions._(source: source, axis: axis?.value);
+      ScrollTimelineOptions._(
+          source: source ?? undefined, axis: axis?.value ?? undefined);
 }
 
 extension PropsScrollTimelineOptions on ScrollTimelineOptions {
@@ -71,7 +72,8 @@ class ViewTimelineOptions {
 
   factory ViewTimelineOptions(
           {Element? subject, ScrollAxis? axis = ScrollAxis.block}) =>
-      ViewTimelineOptions._(subject: subject, axis: axis?.value);
+      ViewTimelineOptions._(
+          subject: subject ?? undefined, axis: axis?.value ?? undefined);
 }
 
 extension PropsViewTimelineOptions on ViewTimelineOptions {

@@ -57,7 +57,8 @@ class MediaDecodingConfiguration implements MediaConfiguration {
           {required MediaDecodingType type,
           MediaCapabilitiesKeySystemConfiguration? keySystemConfiguration}) =>
       MediaDecodingConfiguration._(
-          type: type.value, keySystemConfiguration: keySystemConfiguration);
+          type: type.value,
+          keySystemConfiguration: keySystemConfiguration ?? undefined);
 }
 
 extension PropsMediaDecodingConfiguration on MediaDecodingConfiguration {
@@ -164,12 +165,12 @@ class VideoConfiguration {
           height: height,
           bitrate: bitrate,
           framerate: framerate,
-          hasAlphaChannel: hasAlphaChannel,
-          hdrMetadataType: hdrMetadataType?.value,
-          colorGamut: colorGamut?.value,
-          transferFunction: transferFunction?.value,
-          scalabilityMode: scalabilityMode,
-          spatialScalability: spatialScalability);
+          hasAlphaChannel: hasAlphaChannel ?? undefined,
+          hdrMetadataType: hdrMetadataType?.value ?? undefined,
+          colorGamut: colorGamut?.value ?? undefined,
+          transferFunction: transferFunction?.value ?? undefined,
+          scalabilityMode: scalabilityMode ?? undefined,
+          spatialScalability: spatialScalability ?? undefined);
 }
 
 extension PropsVideoConfiguration on VideoConfiguration {
@@ -340,12 +341,12 @@ class MediaCapabilitiesKeySystemConfiguration {
           KeySystemTrackConfiguration? video}) =>
       MediaCapabilitiesKeySystemConfiguration._(
           keySystem: keySystem,
-          initDataType: initDataType,
-          distinctiveIdentifier: distinctiveIdentifier?.value,
-          persistentState: persistentState?.value,
-          sessionTypes: sessionTypes,
-          audio: audio,
-          video: video);
+          initDataType: initDataType ?? undefined,
+          distinctiveIdentifier: distinctiveIdentifier?.value ?? undefined,
+          persistentState: persistentState?.value ?? undefined,
+          sessionTypes: sessionTypes ?? undefined,
+          audio: audio ?? undefined,
+          video: video ?? undefined);
 }
 
 extension PropsMediaCapabilitiesKeySystemConfiguration

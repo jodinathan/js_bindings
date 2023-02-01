@@ -86,10 +86,10 @@ class PressureRecord {
           Iterable<PressureFactor>? factors,
           double? time}) =>
       PressureRecord._(
-          source: source?.value,
-          state: state?.value,
-          factors: factors?.map((e) => e.value),
-          time: time);
+          source: source?.value ?? undefined,
+          state: state?.value ?? undefined,
+          factors: factors?.map((e) => e.value) ?? undefined,
+          time: time ?? undefined);
 }
 
 extension PropsPressureRecord on PressureRecord {

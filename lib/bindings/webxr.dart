@@ -1105,7 +1105,7 @@ class XRSessionSupportedPermissionDescriptor implements PermissionDescriptor {
   external factory XRSessionSupportedPermissionDescriptor._({String? mode});
 
   factory XRSessionSupportedPermissionDescriptor({XRSessionMode? mode}) =>
-      XRSessionSupportedPermissionDescriptor._(mode: mode?.value);
+      XRSessionSupportedPermissionDescriptor._(mode: mode?.value ?? undefined);
 }
 
 extension PropsXRSessionSupportedPermissionDescriptor
@@ -1131,9 +1131,9 @@ class XRPermissionDescriptor implements PermissionDescriptor {
           Iterable<String>? requiredFeatures,
           Iterable<String>? optionalFeatures}) =>
       XRPermissionDescriptor._(
-          mode: mode?.value,
-          requiredFeatures: requiredFeatures,
-          optionalFeatures: optionalFeatures);
+          mode: mode?.value ?? undefined,
+          requiredFeatures: requiredFeatures ?? undefined,
+          optionalFeatures: optionalFeatures ?? undefined);
 }
 
 extension PropsXRPermissionDescriptor on XRPermissionDescriptor {

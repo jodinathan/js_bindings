@@ -238,9 +238,9 @@ class RegistrationOptions {
           ServiceWorkerUpdateViaCache? updateViaCache =
               ServiceWorkerUpdateViaCache.imports}) =>
       RegistrationOptions._(
-          scope: scope,
-          type: type?.value,
-          updateViaCache: updateViaCache?.value);
+          scope: scope ?? undefined,
+          type: type?.value ?? undefined,
+          updateViaCache: updateViaCache?.value ?? undefined);
 }
 
 extension PropsRegistrationOptions on RegistrationOptions {
@@ -575,7 +575,8 @@ class ClientQueryOptions {
           {bool? includeUncontrolled = false,
           ClientType? type = ClientType.window}) =>
       ClientQueryOptions._(
-          includeUncontrolled: includeUncontrolled, type: type?.value);
+          includeUncontrolled: includeUncontrolled ?? undefined,
+          type: type?.value ?? undefined);
 }
 
 extension PropsClientQueryOptions on ClientQueryOptions {

@@ -130,17 +130,17 @@ class SecurityPolicyViolationEventInit implements EventInit {
           int? columnNumber = 0}) =>
       SecurityPolicyViolationEventInit._(
           documentURI: documentURI,
-          referrer: referrer,
-          blockedURI: blockedURI,
-          violatedDirective: violatedDirective,
-          effectiveDirective: effectiveDirective,
-          originalPolicy: originalPolicy,
-          sourceFile: sourceFile,
-          sample: sample,
-          disposition: disposition?.value,
-          statusCode: statusCode,
-          lineNumber: lineNumber,
-          columnNumber: columnNumber);
+          referrer: referrer ?? undefined,
+          blockedURI: blockedURI ?? undefined,
+          violatedDirective: violatedDirective ?? undefined,
+          effectiveDirective: effectiveDirective ?? undefined,
+          originalPolicy: originalPolicy ?? undefined,
+          sourceFile: sourceFile ?? undefined,
+          sample: sample ?? undefined,
+          disposition: disposition?.value ?? undefined,
+          statusCode: statusCode ?? undefined,
+          lineNumber: lineNumber ?? undefined,
+          columnNumber: columnNumber ?? undefined);
 }
 
 extension PropsSecurityPolicyViolationEventInit

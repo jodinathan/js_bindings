@@ -555,34 +555,34 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
           String? encoderImplementation,
           bool? active}) =>
       RTCOutboundRtpStreamStats._(
-          mid: mid,
-          mediaSourceId: mediaSourceId,
-          remoteId: remoteId,
-          rid: rid,
-          headerBytesSent: headerBytesSent,
-          retransmittedPacketsSent: retransmittedPacketsSent,
-          retransmittedBytesSent: retransmittedBytesSent,
-          targetBitrate: targetBitrate,
-          totalEncodedBytesTarget: totalEncodedBytesTarget,
-          frameWidth: frameWidth,
-          frameHeight: frameHeight,
-          framesPerSecond: framesPerSecond,
-          framesSent: framesSent,
-          hugeFramesSent: hugeFramesSent,
-          framesEncoded: framesEncoded,
-          keyFramesEncoded: keyFramesEncoded,
-          qpSum: qpSum,
-          totalEncodeTime: totalEncodeTime,
-          totalPacketSendDelay: totalPacketSendDelay,
-          qualityLimitationReason: qualityLimitationReason?.value,
-          qualityLimitationDurations: qualityLimitationDurations,
+          mid: mid ?? undefined,
+          mediaSourceId: mediaSourceId ?? undefined,
+          remoteId: remoteId ?? undefined,
+          rid: rid ?? undefined,
+          headerBytesSent: headerBytesSent ?? undefined,
+          retransmittedPacketsSent: retransmittedPacketsSent ?? undefined,
+          retransmittedBytesSent: retransmittedBytesSent ?? undefined,
+          targetBitrate: targetBitrate ?? undefined,
+          totalEncodedBytesTarget: totalEncodedBytesTarget ?? undefined,
+          frameWidth: frameWidth ?? undefined,
+          frameHeight: frameHeight ?? undefined,
+          framesPerSecond: framesPerSecond ?? undefined,
+          framesSent: framesSent ?? undefined,
+          hugeFramesSent: hugeFramesSent ?? undefined,
+          framesEncoded: framesEncoded ?? undefined,
+          keyFramesEncoded: keyFramesEncoded ?? undefined,
+          qpSum: qpSum ?? undefined,
+          totalEncodeTime: totalEncodeTime ?? undefined,
+          totalPacketSendDelay: totalPacketSendDelay ?? undefined,
+          qualityLimitationReason: qualityLimitationReason?.value ?? undefined,
+          qualityLimitationDurations: qualityLimitationDurations ?? undefined,
           qualityLimitationResolutionChanges:
-              qualityLimitationResolutionChanges,
-          nackCount: nackCount,
-          firCount: firCount,
-          pliCount: pliCount,
-          encoderImplementation: encoderImplementation,
-          active: active);
+              qualityLimitationResolutionChanges ?? undefined,
+          nackCount: nackCount ?? undefined,
+          firCount: firCount ?? undefined,
+          pliCount: pliCount ?? undefined,
+          encoderImplementation: encoderImplementation ?? undefined,
+          active: active ?? undefined);
 }
 
 extension PropsRTCOutboundRtpStreamStats on RTCOutboundRtpStreamStats {
@@ -932,14 +932,14 @@ class RTCDataChannelStats implements RTCStats {
           int? messagesReceived,
           int? bytesReceived}) =>
       RTCDataChannelStats._(
-          label: label,
-          protocol: protocol,
-          dataChannelIdentifier: dataChannelIdentifier,
+          label: label ?? undefined,
+          protocol: protocol ?? undefined,
+          dataChannelIdentifier: dataChannelIdentifier ?? undefined,
           state: state.value,
-          messagesSent: messagesSent,
-          bytesSent: bytesSent,
-          messagesReceived: messagesReceived,
-          bytesReceived: bytesReceived);
+          messagesSent: messagesSent ?? undefined,
+          bytesSent: bytesSent ?? undefined,
+          messagesReceived: messagesReceived ?? undefined,
+          bytesReceived: bytesReceived ?? undefined);
 }
 
 extension PropsRTCDataChannelStats on RTCDataChannelStats {
@@ -1026,22 +1026,23 @@ class RTCTransportStats implements RTCStats {
           String? srtpCipher,
           int? selectedCandidatePairChanges}) =>
       RTCTransportStats._(
-          packetsSent: packetsSent,
-          packetsReceived: packetsReceived,
-          bytesSent: bytesSent,
-          bytesReceived: bytesReceived,
-          iceRole: iceRole?.value,
-          iceLocalUsernameFragment: iceLocalUsernameFragment,
+          packetsSent: packetsSent ?? undefined,
+          packetsReceived: packetsReceived ?? undefined,
+          bytesSent: bytesSent ?? undefined,
+          bytesReceived: bytesReceived ?? undefined,
+          iceRole: iceRole?.value ?? undefined,
+          iceLocalUsernameFragment: iceLocalUsernameFragment ?? undefined,
           dtlsState: dtlsState.value,
-          iceState: iceState?.value,
-          selectedCandidatePairId: selectedCandidatePairId,
-          localCertificateId: localCertificateId,
-          remoteCertificateId: remoteCertificateId,
-          tlsVersion: tlsVersion,
-          dtlsCipher: dtlsCipher,
-          dtlsRole: dtlsRole?.value,
-          srtpCipher: srtpCipher,
-          selectedCandidatePairChanges: selectedCandidatePairChanges);
+          iceState: iceState?.value ?? undefined,
+          selectedCandidatePairId: selectedCandidatePairId ?? undefined,
+          localCertificateId: localCertificateId ?? undefined,
+          remoteCertificateId: remoteCertificateId ?? undefined,
+          tlsVersion: tlsVersion ?? undefined,
+          dtlsCipher: dtlsCipher ?? undefined,
+          dtlsRole: dtlsRole?.value ?? undefined,
+          srtpCipher: srtpCipher ?? undefined,
+          selectedCandidatePairChanges:
+              selectedCandidatePairChanges ?? undefined);
 }
 
 extension PropsRTCTransportStats on RTCTransportStats {
@@ -1175,13 +1176,13 @@ class RTCIceCandidateStats implements RTCStats {
           String? relayProtocol}) =>
       RTCIceCandidateStats._(
           transportId: transportId,
-          address: address,
-          port: port,
-          protocol: protocol,
+          address: address ?? undefined,
+          port: port ?? undefined,
+          protocol: protocol ?? undefined,
           candidateType: candidateType.value,
-          priority: priority,
-          url: url,
-          relayProtocol: relayProtocol);
+          priority: priority ?? undefined,
+          url: url ?? undefined,
+          relayProtocol: relayProtocol ?? undefined);
 }
 
 extension PropsRTCIceCandidateStats on RTCIceCandidateStats {
@@ -1289,24 +1290,24 @@ class RTCIceCandidatePairStats implements RTCStats {
           localCandidateId: localCandidateId,
           remoteCandidateId: remoteCandidateId,
           state: state.value,
-          nominated: nominated,
-          packetsSent: packetsSent,
-          packetsReceived: packetsReceived,
-          bytesSent: bytesSent,
-          bytesReceived: bytesReceived,
-          lastPacketSentTimestamp: lastPacketSentTimestamp,
-          lastPacketReceivedTimestamp: lastPacketReceivedTimestamp,
-          totalRoundTripTime: totalRoundTripTime,
-          currentRoundTripTime: currentRoundTripTime,
-          availableOutgoingBitrate: availableOutgoingBitrate,
-          availableIncomingBitrate: availableIncomingBitrate,
-          requestsReceived: requestsReceived,
-          requestsSent: requestsSent,
-          responsesReceived: responsesReceived,
-          responsesSent: responsesSent,
-          consentRequestsSent: consentRequestsSent,
-          packetsDiscardedOnSend: packetsDiscardedOnSend,
-          bytesDiscardedOnSend: bytesDiscardedOnSend);
+          nominated: nominated ?? undefined,
+          packetsSent: packetsSent ?? undefined,
+          packetsReceived: packetsReceived ?? undefined,
+          bytesSent: bytesSent ?? undefined,
+          bytesReceived: bytesReceived ?? undefined,
+          lastPacketSentTimestamp: lastPacketSentTimestamp ?? undefined,
+          lastPacketReceivedTimestamp: lastPacketReceivedTimestamp ?? undefined,
+          totalRoundTripTime: totalRoundTripTime ?? undefined,
+          currentRoundTripTime: currentRoundTripTime ?? undefined,
+          availableOutgoingBitrate: availableOutgoingBitrate ?? undefined,
+          availableIncomingBitrate: availableIncomingBitrate ?? undefined,
+          requestsReceived: requestsReceived ?? undefined,
+          requestsSent: requestsSent ?? undefined,
+          responsesReceived: responsesReceived ?? undefined,
+          responsesSent: responsesSent ?? undefined,
+          consentRequestsSent: consentRequestsSent ?? undefined,
+          packetsDiscardedOnSend: packetsDiscardedOnSend ?? undefined,
+          bytesDiscardedOnSend: bytesDiscardedOnSend ?? undefined);
 }
 
 extension PropsRTCIceCandidatePairStats on RTCIceCandidatePairStats {

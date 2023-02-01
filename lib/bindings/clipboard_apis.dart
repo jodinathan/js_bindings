@@ -112,7 +112,8 @@ class ClipboardItemOptions {
   factory ClipboardItemOptions(
           {PresentationStyle? presentationStyle =
               PresentationStyle.unspecified}) =>
-      ClipboardItemOptions._(presentationStyle: presentationStyle?.value);
+      ClipboardItemOptions._(
+          presentationStyle: presentationStyle?.value ?? undefined);
 }
 
 extension PropsClipboardItemOptions on ClipboardItemOptions {

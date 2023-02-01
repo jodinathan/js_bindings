@@ -193,7 +193,8 @@ class SpeechRecognitionErrorEventInit implements EventInit {
 
   factory SpeechRecognitionErrorEventInit(
           {required SpeechRecognitionErrorCode error, String? message = ''}) =>
-      SpeechRecognitionErrorEventInit._(error: error.value, message: message);
+      SpeechRecognitionErrorEventInit._(
+          error: error.value, message: message ?? undefined);
 }
 
 extension PropsSpeechRecognitionErrorEventInit

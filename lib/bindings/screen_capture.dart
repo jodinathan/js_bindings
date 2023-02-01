@@ -70,11 +70,11 @@ class DisplayMediaStreamOptions {
           SystemAudioPreferenceEnum? systemAudio,
           SurfaceSwitchingPreferenceEnum? surfaceSwitching}) =>
       DisplayMediaStreamOptions._(
-          video: video,
-          audio: audio,
-          selfBrowserSurface: selfBrowserSurface?.value,
-          systemAudio: systemAudio?.value,
-          surfaceSwitching: surfaceSwitching?.value);
+          video: video ?? undefined,
+          audio: audio ?? undefined,
+          selfBrowserSurface: selfBrowserSurface?.value ?? undefined,
+          systemAudio: systemAudio?.value ?? undefined,
+          surfaceSwitching: surfaceSwitching?.value ?? undefined);
 }
 
 extension PropsDisplayMediaStreamOptions on DisplayMediaStreamOptions {

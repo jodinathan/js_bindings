@@ -196,7 +196,9 @@ class TableDescriptor {
   factory TableDescriptor(
           {required TableKind element, required int initial, int? maximum}) =>
       TableDescriptor._(
-          element: element.value, initial: initial, maximum: maximum);
+          element: element.value,
+          initial: initial,
+          maximum: maximum ?? undefined);
 }
 
 extension PropsTableDescriptor on TableDescriptor {
@@ -260,7 +262,7 @@ class GlobalDescriptor {
       {required String value, bool? mutable = false});
 
   factory GlobalDescriptor({required ValueType value, bool? mutable = false}) =>
-      GlobalDescriptor._(value: value.value, mutable: mutable);
+      GlobalDescriptor._(value: value.value, mutable: mutable ?? undefined);
 }
 
 extension PropsGlobalDescriptor on GlobalDescriptor {

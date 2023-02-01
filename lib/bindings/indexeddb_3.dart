@@ -317,7 +317,7 @@ class IDBTransactionOptions {
   factory IDBTransactionOptions(
           {IDBTransactionDurability? durability =
               IDBTransactionDurability.valueDefault}) =>
-      IDBTransactionOptions._(durability: durability?.value);
+      IDBTransactionOptions._(durability: durability?.value ?? undefined);
 }
 
 extension PropsIDBTransactionOptions on IDBTransactionOptions {

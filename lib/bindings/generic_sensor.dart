@@ -143,9 +143,9 @@ class MockSensorConfiguration {
           double? minSamplingFrequency}) =>
       MockSensorConfiguration._(
           mockSensorType: mockSensorType.value,
-          connected: connected,
-          maxSamplingFrequency: maxSamplingFrequency,
-          minSamplingFrequency: minSamplingFrequency);
+          connected: connected ?? undefined,
+          maxSamplingFrequency: maxSamplingFrequency ?? undefined,
+          minSamplingFrequency: minSamplingFrequency ?? undefined);
 }
 
 extension PropsMockSensorConfiguration on MockSensorConfiguration {

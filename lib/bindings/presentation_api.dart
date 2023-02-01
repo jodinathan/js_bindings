@@ -331,7 +331,7 @@ class PresentationConnectionCloseEventInit implements EventInit {
           {required PresentationConnectionCloseReason reason,
           String? message = ''}) =>
       PresentationConnectionCloseEventInit._(
-          reason: reason.value, message: message);
+          reason: reason.value, message: message ?? undefined);
 }
 
 extension PropsPresentationConnectionCloseEventInit

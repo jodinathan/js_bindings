@@ -1539,8 +1539,8 @@ class ShadowRootInit {
           SlotAssignmentMode? slotAssignment = SlotAssignmentMode.named}) =>
       ShadowRootInit._(
           mode: mode.value,
-          delegatesFocus: delegatesFocus,
-          slotAssignment: slotAssignment?.value);
+          delegatesFocus: delegatesFocus ?? undefined,
+          slotAssignment: slotAssignment?.value ?? undefined);
 }
 
 extension PropsShadowRootInit on ShadowRootInit {

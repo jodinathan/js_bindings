@@ -624,9 +624,9 @@ class AudioNodeOptions {
           ChannelCountMode? channelCountMode,
           ChannelInterpretation? channelInterpretation}) =>
       AudioNodeOptions._(
-          channelCount: channelCount,
-          channelCountMode: channelCountMode?.value,
-          channelInterpretation: channelInterpretation?.value);
+          channelCount: channelCount ?? undefined,
+          channelCountMode: channelCountMode?.value ?? undefined,
+          channelInterpretation: channelInterpretation?.value ?? undefined);
 }
 
 extension PropsAudioNodeOptions on AudioNodeOptions {
@@ -1316,11 +1316,11 @@ class BiquadFilterOptions implements AudioNodeOptions {
           double? frequency = 350,
           double? gain = 0}) =>
       BiquadFilterOptions._(
-          type: type?.value,
-          Q: Q,
-          detune: detune,
-          frequency: frequency,
-          gain: gain);
+          type: type?.value ?? undefined,
+          Q: Q ?? undefined,
+          detune: detune ?? undefined,
+          frequency: frequency ?? undefined,
+          gain: gain ?? undefined);
 }
 
 extension PropsBiquadFilterOptions on BiquadFilterOptions {
@@ -2440,10 +2440,10 @@ class OscillatorOptions implements AudioNodeOptions {
           double? detune = 0,
           PeriodicWave? periodicWave}) =>
       OscillatorOptions._(
-          type: type?.value,
-          frequency: frequency,
-          detune: detune,
-          periodicWave: periodicWave);
+          type: type?.value ?? undefined,
+          frequency: frequency ?? undefined,
+          detune: detune ?? undefined,
+          periodicWave: periodicWave ?? undefined);
 }
 
 extension PropsOscillatorOptions on OscillatorOptions {
@@ -2646,20 +2646,20 @@ class PannerOptions implements AudioNodeOptions {
           double? coneOuterAngle = 360,
           double? coneOuterGain = 0}) =>
       PannerOptions._(
-          panningModel: panningModel?.value,
-          distanceModel: distanceModel?.value,
-          positionX: positionX,
-          positionY: positionY,
-          positionZ: positionZ,
-          orientationX: orientationX,
-          orientationY: orientationY,
-          orientationZ: orientationZ,
-          refDistance: refDistance,
-          maxDistance: maxDistance,
-          rolloffFactor: rolloffFactor,
-          coneInnerAngle: coneInnerAngle,
-          coneOuterAngle: coneOuterAngle,
-          coneOuterGain: coneOuterGain);
+          panningModel: panningModel?.value ?? undefined,
+          distanceModel: distanceModel?.value ?? undefined,
+          positionX: positionX ?? undefined,
+          positionY: positionY ?? undefined,
+          positionZ: positionZ ?? undefined,
+          orientationX: orientationX ?? undefined,
+          orientationY: orientationY ?? undefined,
+          orientationZ: orientationZ ?? undefined,
+          refDistance: refDistance ?? undefined,
+          maxDistance: maxDistance ?? undefined,
+          rolloffFactor: rolloffFactor ?? undefined,
+          coneInnerAngle: coneInnerAngle ?? undefined,
+          coneOuterAngle: coneOuterAngle ?? undefined,
+          coneOuterGain: coneOuterGain ?? undefined);
 }
 
 extension PropsPannerOptions on PannerOptions {
@@ -3047,7 +3047,9 @@ class WaveShaperOptions implements AudioNodeOptions {
   factory WaveShaperOptions(
           {Iterable<double>? curve,
           OverSampleType? oversample = OverSampleType.none}) =>
-      WaveShaperOptions._(curve: curve, oversample: oversample?.value);
+      WaveShaperOptions._(
+          curve: curve ?? undefined,
+          oversample: oversample?.value ?? undefined);
 }
 
 extension PropsWaveShaperOptions on WaveShaperOptions {
@@ -3269,10 +3271,10 @@ class AudioParamDescriptor {
           AutomationRate? automationRate = AutomationRate.aRate}) =>
       AudioParamDescriptor._(
           name: name,
-          defaultValue: defaultValue,
-          minValue: minValue,
-          maxValue: maxValue,
-          automationRate: automationRate?.value);
+          defaultValue: defaultValue ?? undefined,
+          minValue: minValue ?? undefined,
+          maxValue: maxValue ?? undefined,
+          automationRate: automationRate?.value ?? undefined);
 }
 
 extension PropsAudioParamDescriptor on AudioParamDescriptor {

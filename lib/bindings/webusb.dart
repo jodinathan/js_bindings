@@ -187,7 +187,7 @@ class USBInTransferResult {
   external factory USBInTransferResult._(String status, [ByteData? data]);
 
   factory USBInTransferResult(USBTransferStatus status, [ByteData? data]) =>
-      USBInTransferResult._(status.value, data);
+      USBInTransferResult._(status.value, data ?? undefined);
 }
 
 extension PropsUSBInTransferResult on USBInTransferResult {
@@ -211,7 +211,7 @@ class USBOutTransferResult {
 
   factory USBOutTransferResult(USBTransferStatus status,
           [int? bytesWritten = 0]) =>
-      USBOutTransferResult._(status.value, bytesWritten);
+      USBOutTransferResult._(status.value, bytesWritten ?? undefined);
 }
 
 extension PropsUSBOutTransferResult on USBOutTransferResult {
@@ -236,7 +236,7 @@ class USBIsochronousInTransferPacket {
 
   factory USBIsochronousInTransferPacket(USBTransferStatus status,
           [ByteData? data]) =>
-      USBIsochronousInTransferPacket._(status.value, data);
+      USBIsochronousInTransferPacket._(status.value, data ?? undefined);
 }
 
 extension PropsUSBIsochronousInTransferPacket
@@ -284,7 +284,8 @@ class USBIsochronousOutTransferPacket {
 
   factory USBIsochronousOutTransferPacket(USBTransferStatus status,
           [int? bytesWritten = 0]) =>
-      USBIsochronousOutTransferPacket._(status.value, bytesWritten);
+      USBIsochronousOutTransferPacket._(
+          status.value, bytesWritten ?? undefined);
 }
 
 extension PropsUSBIsochronousOutTransferPacket

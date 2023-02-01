@@ -5859,10 +5859,10 @@ class CanvasRenderingContext2DSettings {
           PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb,
           bool? willReadFrequently = false}) =>
       CanvasRenderingContext2DSettings._(
-          alpha: alpha,
-          desynchronized: desynchronized,
-          colorSpace: colorSpace?.value,
-          willReadFrequently: willReadFrequently);
+          alpha: alpha ?? undefined,
+          desynchronized: desynchronized ?? undefined,
+          colorSpace: colorSpace?.value ?? undefined,
+          willReadFrequently: willReadFrequently ?? undefined);
 }
 
 extension PropsCanvasRenderingContext2DSettings
@@ -6630,7 +6630,7 @@ class ImageDataSettings {
   external factory ImageDataSettings._({String? colorSpace});
 
   factory ImageDataSettings({PredefinedColorSpace? colorSpace}) =>
-      ImageDataSettings._(colorSpace: colorSpace?.value);
+      ImageDataSettings._(colorSpace: colorSpace?.value ?? undefined);
 }
 
 extension PropsImageDataSettings on ImageDataSettings {
@@ -9134,12 +9134,12 @@ class ImageBitmapOptions {
           int? resizeHeight,
           ResizeQuality? resizeQuality = ResizeQuality.low}) =>
       ImageBitmapOptions._(
-          imageOrientation: imageOrientation?.value,
-          premultiplyAlpha: premultiplyAlpha?.value,
-          colorSpaceConversion: colorSpaceConversion?.value,
-          resizeWidth: resizeWidth,
-          resizeHeight: resizeHeight,
-          resizeQuality: resizeQuality?.value);
+          imageOrientation: imageOrientation?.value ?? undefined,
+          premultiplyAlpha: premultiplyAlpha?.value ?? undefined,
+          colorSpaceConversion: colorSpaceConversion?.value ?? undefined,
+          resizeWidth: resizeWidth ?? undefined,
+          resizeHeight: resizeHeight ?? undefined,
+          resizeQuality: resizeQuality?.value ?? undefined);
 }
 
 extension PropsImageBitmapOptions on ImageBitmapOptions {
@@ -9748,7 +9748,9 @@ class WorkerOptions {
           RequestCredentials? credentials = RequestCredentials.sameOrigin,
           String? name = ''}) =>
       WorkerOptions._(
-          type: type?.value, credentials: credentials?.value, name: name);
+          type: type?.value ?? undefined,
+          credentials: credentials?.value ?? undefined,
+          name: name ?? undefined);
 }
 
 extension PropsWorkerOptions on WorkerOptions {
@@ -9920,7 +9922,7 @@ class WorkletOptions {
 
   factory WorkletOptions(
           {RequestCredentials? credentials = RequestCredentials.sameOrigin}) =>
-      WorkletOptions._(credentials: credentials?.value);
+      WorkletOptions._(credentials: credentials?.value ?? undefined);
 }
 
 extension PropsWorkletOptions on WorkletOptions {

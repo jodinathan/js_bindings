@@ -50,13 +50,13 @@ class MediaKeySystemConfiguration {
           MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
           Iterable<String>? sessionTypes}) =>
       MediaKeySystemConfiguration._(
-          label: label,
-          initDataTypes: initDataTypes,
-          audioCapabilities: audioCapabilities,
-          videoCapabilities: videoCapabilities,
-          distinctiveIdentifier: distinctiveIdentifier?.value,
-          persistentState: persistentState?.value,
-          sessionTypes: sessionTypes);
+          label: label ?? undefined,
+          initDataTypes: initDataTypes ?? undefined,
+          audioCapabilities: audioCapabilities ?? undefined,
+          videoCapabilities: videoCapabilities ?? undefined,
+          distinctiveIdentifier: distinctiveIdentifier?.value ?? undefined,
+          persistentState: persistentState?.value ?? undefined,
+          sessionTypes: sessionTypes ?? undefined);
 }
 
 extension PropsMediaKeySystemConfiguration on MediaKeySystemConfiguration {

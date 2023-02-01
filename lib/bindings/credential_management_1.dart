@@ -105,7 +105,9 @@ class CredentialRequestOptions {
           {CredentialMediationRequirement? mediation =
               CredentialMediationRequirement.optional,
           AbortSignal? signal}) =>
-      CredentialRequestOptions._(mediation: mediation?.value, signal: signal);
+      CredentialRequestOptions._(
+          mediation: mediation?.value ?? undefined,
+          signal: signal ?? undefined);
 }
 
 extension PropsCredentialRequestOptions on CredentialRequestOptions {

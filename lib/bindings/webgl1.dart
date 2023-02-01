@@ -53,15 +53,16 @@ class WebGLContextAttributes {
           bool? failIfMajorPerformanceCaveat = false,
           bool? desynchronized = false}) =>
       WebGLContextAttributes._(
-          alpha: alpha,
-          depth: depth,
-          stencil: stencil,
-          antialias: antialias,
-          premultipliedAlpha: premultipliedAlpha,
-          preserveDrawingBuffer: preserveDrawingBuffer,
-          powerPreference: powerPreference?.value,
-          failIfMajorPerformanceCaveat: failIfMajorPerformanceCaveat,
-          desynchronized: desynchronized);
+          alpha: alpha ?? undefined,
+          depth: depth ?? undefined,
+          stencil: stencil ?? undefined,
+          antialias: antialias ?? undefined,
+          premultipliedAlpha: premultipliedAlpha ?? undefined,
+          preserveDrawingBuffer: preserveDrawingBuffer ?? undefined,
+          powerPreference: powerPreference?.value ?? undefined,
+          failIfMajorPerformanceCaveat:
+              failIfMajorPerformanceCaveat ?? undefined,
+          desynchronized: desynchronized ?? undefined);
 }
 
 extension PropsWebGLContextAttributes on WebGLContextAttributes {

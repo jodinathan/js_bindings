@@ -38,7 +38,7 @@ class PromptResponseObject {
   external factory PromptResponseObject._({String? userChoice});
 
   factory PromptResponseObject({AppBannerPromptOutcome? userChoice}) =>
-      PromptResponseObject._(userChoice: userChoice?.value);
+      PromptResponseObject._(userChoice: userChoice?.value ?? undefined);
 }
 
 extension PropsPromptResponseObject on PromptResponseObject {
