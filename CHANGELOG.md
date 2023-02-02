@@ -1,3 +1,8 @@
+## 0.1.0
+- Rebuilt the forbidden words list, so some getters and methods are now using their original name, ie ` mGet`  is now ` get` 
+- Fixed a bug that we would use ` null`  instead of ` undefined`  in some factory anonymous ctors like ` RequestInit`  
+- Added ` static`  methods to the original ` class` 
+
 ## 0.0.10
 - Use `self` rather than `window` when accessing context.
 

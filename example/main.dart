@@ -4,7 +4,8 @@ Future<void> _fetch() async {
   try {
     final r = await window.fetch(
         'https://jsonplaceholder.typicode.com/todos/1', RequestInit());
-    print(r);
+    print('Fetch finished: $r');
+    window.console.log(r);
   } catch (e) {
     print(e);
   }
