@@ -623,7 +623,7 @@ class SpecGroup {
 
 Future<SpecGroup> getSpecs() async {
   final ret = SpecGroup();
-  final idls = Glob('./tool/webIDL/info/*.json');
+  final idls = Glob('${Directory.current}/tool/webIDL/info/*.json');
   final list = idls.listSync();
 
   for (var entity in list) {
@@ -933,7 +933,7 @@ Map decodeMap(String from, String buffer) {
 }
 
 Future<Iterable<Map<String, dynamic>>> getIDLs({String dir = 'ed'}) async {
-  final idls = Glob('./tool/webIDL/$dir/*.json');
+  final idls = Glob('${Directory.current}/tool/webIDL/$dir/*.json');
   final list = idls.listSync();
   final ret = <Map<String, dynamic>>[];
   final bannedIDLs = bannedTypes[dir] ?? {};
