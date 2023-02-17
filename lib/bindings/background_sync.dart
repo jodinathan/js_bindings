@@ -70,8 +70,10 @@ extension PropsSyncEvent on SyncEvent {
 @JS()
 @staticInterop
 class SyncEventInit implements ExtendableEventInit {
-  external factory SyncEventInit(
-      {required String tag, bool? lastChance = false});
+  external factory SyncEventInit._({required String tag, bool? lastChance});
+
+  factory SyncEventInit({required String tag, bool? lastChance}) =>
+      SyncEventInit._(tag: tag, lastChance: lastChance ?? false);
 }
 
 extension PropsSyncEventInit on SyncEventInit {

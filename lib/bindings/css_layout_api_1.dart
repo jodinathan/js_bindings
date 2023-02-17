@@ -31,11 +31,10 @@ class LayoutOptions {
   external factory LayoutOptions._({String? childDisplay, String? sizing});
 
   factory LayoutOptions(
-          {ChildDisplayType? childDisplay = ChildDisplayType.block,
-          LayoutSizingMode? sizing = LayoutSizingMode.blockLike}) =>
+          {ChildDisplayType? childDisplay, LayoutSizingMode? sizing}) =>
       LayoutOptions._(
-          childDisplay: childDisplay?.value ?? undefined,
-          sizing: sizing?.value ?? undefined);
+          childDisplay: childDisplay?.value ?? ChildDisplayType.block.value,
+          sizing: sizing?.value ?? LayoutSizingMode.blockLike.value);
 }
 
 extension PropsLayoutOptions on LayoutOptions {
@@ -190,8 +189,7 @@ class LayoutConstraintsOptions {
           double? percentageInlineSize,
           double? percentageBlockSize,
           double? blockFragmentationOffset,
-          BlockFragmentationType? blockFragmentationType =
-              BlockFragmentationType.none,
+          BlockFragmentationType? blockFragmentationType,
           dynamic data}) =>
       LayoutConstraintsOptions._(
           availableInlineSize: availableInlineSize ?? undefined,
@@ -201,7 +199,8 @@ class LayoutConstraintsOptions {
           percentageInlineSize: percentageInlineSize ?? undefined,
           percentageBlockSize: percentageBlockSize ?? undefined,
           blockFragmentationOffset: blockFragmentationOffset ?? undefined,
-          blockFragmentationType: blockFragmentationType?.value ?? undefined,
+          blockFragmentationType: blockFragmentationType?.value ??
+              BlockFragmentationType.none.value,
           data: data ?? undefined);
 }
 
@@ -338,13 +337,28 @@ extension PropsLayoutEdges on LayoutEdges {
 @JS()
 @staticInterop
 class FragmentResultOptions {
-  external factory FragmentResultOptions(
-      {double? inlineSize = 0,
-      double? blockSize = 0,
-      double? autoBlockSize = 0,
-      Iterable<LayoutFragment>? childFragments = const [],
+  external factory FragmentResultOptions._(
+      {double? inlineSize,
+      double? blockSize,
+      double? autoBlockSize,
+      Iterable<LayoutFragment>? childFragments,
       dynamic data,
       BreakTokenOptions? breakToken});
+
+  factory FragmentResultOptions(
+          {double? inlineSize,
+          double? blockSize,
+          double? autoBlockSize,
+          Iterable<LayoutFragment>? childFragments,
+          dynamic data,
+          BreakTokenOptions? breakToken}) =>
+      FragmentResultOptions._(
+          inlineSize: inlineSize ?? 0,
+          blockSize: blockSize ?? 0,
+          autoBlockSize: autoBlockSize ?? 0,
+          childFragments: childFragments ?? const [],
+          data: data ?? undefined,
+          breakToken: breakToken ?? undefined);
 }
 
 extension PropsFragmentResultOptions on FragmentResultOptions {

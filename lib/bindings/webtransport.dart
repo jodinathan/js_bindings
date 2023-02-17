@@ -124,22 +124,22 @@ extension PropsWebTransportHash on WebTransportHash {
 @staticInterop
 class WebTransportOptions {
   external factory WebTransportOptions._(
-      {bool? allowPooling = false,
-      bool? requireUnreliable = false,
+      {bool? allowPooling,
+      bool? requireUnreliable,
       Iterable<WebTransportHash>? serverCertificateHashes,
       String? congestionControl});
 
   factory WebTransportOptions(
-          {bool? allowPooling = false,
-          bool? requireUnreliable = false,
+          {bool? allowPooling,
+          bool? requireUnreliable,
           Iterable<WebTransportHash>? serverCertificateHashes,
-          WebTransportCongestionControl? congestionControl =
-              WebTransportCongestionControl.valueDefault}) =>
+          WebTransportCongestionControl? congestionControl}) =>
       WebTransportOptions._(
-          allowPooling: allowPooling ?? undefined,
-          requireUnreliable: requireUnreliable ?? undefined,
+          allowPooling: allowPooling ?? false,
+          requireUnreliable: requireUnreliable ?? false,
           serverCertificateHashes: serverCertificateHashes ?? undefined,
-          congestionControl: congestionControl?.value ?? undefined);
+          congestionControl: congestionControl?.value ??
+              WebTransportCongestionControl.valueDefault.value);
 }
 
 extension PropsWebTransportOptions on WebTransportOptions {
@@ -185,8 +185,10 @@ enum WebTransportCongestionControl {
 @JS()
 @staticInterop
 class WebTransportCloseInfo {
-  external factory WebTransportCloseInfo(
-      {int? closeCode = 0, String? reason = ''});
+  external factory WebTransportCloseInfo._({int? closeCode, String? reason});
+
+  factory WebTransportCloseInfo({int? closeCode, String? reason}) =>
+      WebTransportCloseInfo._(closeCode: closeCode ?? 0, reason: reason ?? '');
 }
 
 extension PropsWebTransportCloseInfo on WebTransportCloseInfo {

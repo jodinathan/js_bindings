@@ -37,7 +37,7 @@ class ContentDescription {
       required String title,
       required String description,
       String? category,
-      Iterable<ImageResource>? icons = const [],
+      Iterable<ImageResource>? icons,
       String? url});
 
   factory ContentDescription(
@@ -45,14 +45,14 @@ class ContentDescription {
           required String title,
           required String description,
           ContentCategory? category,
-          Iterable<ImageResource>? icons = const [],
+          Iterable<ImageResource>? icons,
           String? url}) =>
       ContentDescription._(
           id: id,
           title: title,
           description: description,
           category: category?.value ?? undefined,
-          icons: icons ?? undefined,
+          icons: icons ?? const [],
           url: url ?? undefined);
 }
 

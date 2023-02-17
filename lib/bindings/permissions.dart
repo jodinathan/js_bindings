@@ -106,16 +106,16 @@ class PermissionSetParameters {
   external factory PermissionSetParameters._(
       {required PermissionDescriptor descriptor,
       required String state,
-      bool? oneRealm = false});
+      bool? oneRealm});
 
   factory PermissionSetParameters(
           {required PermissionDescriptor descriptor,
           required PermissionState state,
-          bool? oneRealm = false}) =>
+          bool? oneRealm}) =>
       PermissionSetParameters._(
           descriptor: descriptor,
           state: state.value,
-          oneRealm: oneRealm ?? undefined);
+          oneRealm: oneRealm ?? false);
 }
 
 extension PropsPermissionSetParameters on PermissionSetParameters {

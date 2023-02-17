@@ -17,21 +17,52 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PointerEventInit implements MouseEventInit {
-  external factory PointerEventInit(
-      {int? pointerId = 0,
-      double? width = 1,
-      double? height = 1,
-      double? pressure = 0,
-      double? tangentialPressure = 0,
+  external factory PointerEventInit._(
+      {int? pointerId,
+      double? width,
+      double? height,
+      double? pressure,
+      double? tangentialPressure,
       int? tiltX,
       int? tiltY,
-      int? twist = 0,
+      int? twist,
       double? altitudeAngle,
       double? azimuthAngle,
-      String? pointerType = '',
-      bool? isPrimary = false,
-      Iterable<PointerEvent>? coalescedEvents = const [],
-      Iterable<PointerEvent>? predictedEvents = const []});
+      String? pointerType,
+      bool? isPrimary,
+      Iterable<PointerEvent>? coalescedEvents,
+      Iterable<PointerEvent>? predictedEvents});
+
+  factory PointerEventInit(
+          {int? pointerId,
+          double? width,
+          double? height,
+          double? pressure,
+          double? tangentialPressure,
+          int? tiltX,
+          int? tiltY,
+          int? twist,
+          double? altitudeAngle,
+          double? azimuthAngle,
+          String? pointerType,
+          bool? isPrimary,
+          Iterable<PointerEvent>? coalescedEvents,
+          Iterable<PointerEvent>? predictedEvents}) =>
+      PointerEventInit._(
+          pointerId: pointerId ?? 0,
+          width: width ?? 1,
+          height: height ?? 1,
+          pressure: pressure ?? 0,
+          tangentialPressure: tangentialPressure ?? 0,
+          tiltX: tiltX ?? undefined,
+          tiltY: tiltY ?? undefined,
+          twist: twist ?? 0,
+          altitudeAngle: altitudeAngle ?? undefined,
+          azimuthAngle: azimuthAngle ?? undefined,
+          pointerType: pointerType ?? '',
+          isPrimary: isPrimary ?? false,
+          coalescedEvents: coalescedEvents ?? const [],
+          predictedEvents: predictedEvents ?? const []);
 }
 
 extension PropsPointerEventInit on PointerEventInit {

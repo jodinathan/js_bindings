@@ -60,12 +60,12 @@ enum EndingType {
 @JS()
 @staticInterop
 class BlobPropertyBag {
-  external factory BlobPropertyBag._({String? type = '', String? endings});
+  external factory BlobPropertyBag._({String? type, String? endings});
 
-  factory BlobPropertyBag(
-          {String? type = '', EndingType? endings = EndingType.transparent}) =>
+  factory BlobPropertyBag({String? type, EndingType? endings}) =>
       BlobPropertyBag._(
-          type: type ?? undefined, endings: endings?.value ?? undefined);
+          type: type ?? '',
+          endings: endings?.value ?? EndingType.transparent.value);
 }
 
 extension PropsBlobPropertyBag on BlobPropertyBag {

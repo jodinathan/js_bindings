@@ -189,12 +189,12 @@ extension PropsSpeechRecognitionErrorEvent on SpeechRecognitionErrorEvent {
 @staticInterop
 class SpeechRecognitionErrorEventInit implements EventInit {
   external factory SpeechRecognitionErrorEventInit._(
-      {required String error, String? message = ''});
+      {required String error, String? message});
 
   factory SpeechRecognitionErrorEventInit(
-          {required SpeechRecognitionErrorCode error, String? message = ''}) =>
+          {required SpeechRecognitionErrorCode error, String? message}) =>
       SpeechRecognitionErrorEventInit._(
-          error: error.value, message: message ?? undefined);
+          error: error.value, message: message ?? '');
 }
 
 extension PropsSpeechRecognitionErrorEventInit
@@ -301,8 +301,13 @@ extension PropsSpeechRecognitionEvent on SpeechRecognitionEvent {
 @JS()
 @staticInterop
 class SpeechRecognitionEventInit implements EventInit {
-  external factory SpeechRecognitionEventInit(
-      {int? resultIndex = 0, SpeechRecognitionResultList? results});
+  external factory SpeechRecognitionEventInit._(
+      {int? resultIndex, SpeechRecognitionResultList? results});
+
+  factory SpeechRecognitionEventInit(
+          {int? resultIndex, SpeechRecognitionResultList? results}) =>
+      SpeechRecognitionEventInit._(
+          resultIndex: resultIndex ?? 0, results: results ?? undefined);
 }
 
 extension PropsSpeechRecognitionEventInit on SpeechRecognitionEventInit {
@@ -544,12 +549,25 @@ extension PropsSpeechSynthesisEvent on SpeechSynthesisEvent {
 @JS()
 @staticInterop
 class SpeechSynthesisEventInit implements EventInit {
-  external factory SpeechSynthesisEventInit(
+  external factory SpeechSynthesisEventInit._(
       {required SpeechSynthesisUtterance utterance,
-      int? charIndex = 0,
-      int? charLength = 0,
-      double? elapsedTime = 0,
-      String? name = ''});
+      int? charIndex,
+      int? charLength,
+      double? elapsedTime,
+      String? name});
+
+  factory SpeechSynthesisEventInit(
+          {required SpeechSynthesisUtterance utterance,
+          int? charIndex,
+          int? charLength,
+          double? elapsedTime,
+          String? name}) =>
+      SpeechSynthesisEventInit._(
+          utterance: utterance,
+          charIndex: charIndex ?? 0,
+          charLength: charLength ?? 0,
+          elapsedTime: elapsedTime ?? 0,
+          name: name ?? '');
 }
 
 extension PropsSpeechSynthesisEventInit on SpeechSynthesisEventInit {

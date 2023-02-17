@@ -32,30 +32,31 @@ enum MediaKeysRequirement {
 @staticInterop
 class MediaKeySystemConfiguration {
   external factory MediaKeySystemConfiguration._(
-      {String? label = '',
-      Iterable<String>? initDataTypes = const [],
-      Iterable<MediaKeySystemMediaCapability>? audioCapabilities = const [],
-      Iterable<MediaKeySystemMediaCapability>? videoCapabilities = const [],
+      {String? label,
+      Iterable<String>? initDataTypes,
+      Iterable<MediaKeySystemMediaCapability>? audioCapabilities,
+      Iterable<MediaKeySystemMediaCapability>? videoCapabilities,
       String? distinctiveIdentifier,
       String? persistentState,
       Iterable<String>? sessionTypes});
 
   factory MediaKeySystemConfiguration(
-          {String? label = '',
-          Iterable<String>? initDataTypes = const [],
-          Iterable<MediaKeySystemMediaCapability>? audioCapabilities = const [],
-          Iterable<MediaKeySystemMediaCapability>? videoCapabilities = const [],
-          MediaKeysRequirement? distinctiveIdentifier =
-              MediaKeysRequirement.optional,
-          MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
+          {String? label,
+          Iterable<String>? initDataTypes,
+          Iterable<MediaKeySystemMediaCapability>? audioCapabilities,
+          Iterable<MediaKeySystemMediaCapability>? videoCapabilities,
+          MediaKeysRequirement? distinctiveIdentifier,
+          MediaKeysRequirement? persistentState,
           Iterable<String>? sessionTypes}) =>
       MediaKeySystemConfiguration._(
-          label: label ?? undefined,
-          initDataTypes: initDataTypes ?? undefined,
-          audioCapabilities: audioCapabilities ?? undefined,
-          videoCapabilities: videoCapabilities ?? undefined,
-          distinctiveIdentifier: distinctiveIdentifier?.value ?? undefined,
-          persistentState: persistentState?.value ?? undefined,
+          label: label ?? '',
+          initDataTypes: initDataTypes ?? const [],
+          audioCapabilities: audioCapabilities ?? const [],
+          videoCapabilities: videoCapabilities ?? const [],
+          distinctiveIdentifier: distinctiveIdentifier?.value ??
+              MediaKeysRequirement.optional.value,
+          persistentState:
+              persistentState?.value ?? MediaKeysRequirement.optional.value,
           sessionTypes: sessionTypes ?? undefined);
 }
 
@@ -107,10 +108,17 @@ extension PropsMediaKeySystemConfiguration on MediaKeySystemConfiguration {
 @JS()
 @staticInterop
 class MediaKeySystemMediaCapability {
-  external factory MediaKeySystemMediaCapability(
-      {String? contentType = '',
-      String? encryptionScheme,
-      String? robustness = ''});
+  external factory MediaKeySystemMediaCapability._(
+      {String? contentType, String? encryptionScheme, String? robustness});
+
+  factory MediaKeySystemMediaCapability(
+          {String? contentType,
+          String? encryptionScheme,
+          String? robustness}) =>
+      MediaKeySystemMediaCapability._(
+          contentType: contentType ?? '',
+          encryptionScheme: encryptionScheme ?? undefined,
+          robustness: robustness ?? '');
 }
 
 extension PropsMediaKeySystemMediaCapability on MediaKeySystemMediaCapability {
@@ -383,8 +391,13 @@ extension PropsMediaEncryptedEvent on MediaEncryptedEvent {
 @JS()
 @staticInterop
 class MediaEncryptedEventInit implements EventInit {
-  external factory MediaEncryptedEventInit(
-      {String? initDataType = '', ByteBuffer? initData});
+  external factory MediaEncryptedEventInit._(
+      {String? initDataType, ByteBuffer? initData});
+
+  factory MediaEncryptedEventInit(
+          {String? initDataType, ByteBuffer? initData}) =>
+      MediaEncryptedEventInit._(
+          initDataType: initDataType ?? '', initData: initData ?? undefined);
 }
 
 extension PropsMediaEncryptedEventInit on MediaEncryptedEventInit {

@@ -13,9 +13,9 @@ class JsMap<K extends Object, V> {
 }
 
 extension DartMap<K extends Object, V> on JsMap<K, V> {
-  V? operator[](K key) => jsu.callMethod(this, 'get', [key]);
+  V? operator [](K key) => jsu.callMethod(this, 'get', [key]);
 
-  operator[]=(K key, V? value) {
+  operator []=(K key, V? value) {
     jsu.callMethod(this, 'set', [key, value]);
   }
 
@@ -27,13 +27,10 @@ extension DartMap<K extends Object, V> on JsMap<K, V> {
     }
   }
 
-  JsIterable<V> get keys => JsIterable(
-      jsu.callMethod(this, 'keys', const [])
-  );
+  JsIterable<V> get keys => JsIterable(jsu.callMethod(this, 'keys', const []));
 
-  JsIterable<V> get values => JsIterable(
-      jsu.callMethod(this, 'values', const [])
-  );
+  JsIterable<V> get values =>
+      JsIterable(jsu.callMethod(this, 'values', const []));
 
   bool containsKey(K key) => jsu.callMethod(this, 'has', [key]);
 
@@ -68,8 +65,8 @@ class JsIterator<E> {
 }
 
 extension AdvJsIterator<E> on JsIterator<E> {
-  IteratorItem next() => jsu.callMethod<IteratorItem<E>>(this, 'next',
-      const []);
+  IteratorItem next() =>
+      jsu.callMethod<IteratorItem<E>>(this, 'next', const []);
 }
 
 class JsIterable<E> extends Iterable<E> implements Iterator<E> {

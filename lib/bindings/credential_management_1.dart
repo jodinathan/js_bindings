@@ -102,11 +102,10 @@ class CredentialRequestOptions {
       {String? mediation, AbortSignal? signal});
 
   factory CredentialRequestOptions(
-          {CredentialMediationRequirement? mediation =
-              CredentialMediationRequirement.optional,
-          AbortSignal? signal}) =>
+          {CredentialMediationRequirement? mediation, AbortSignal? signal}) =>
       CredentialRequestOptions._(
-          mediation: mediation?.value ?? undefined,
+          mediation:
+              mediation?.value ?? CredentialMediationRequirement.optional.value,
           signal: signal ?? undefined);
 }
 

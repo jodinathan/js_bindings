@@ -31,14 +31,14 @@ enum TaskPriority {
 @staticInterop
 class SchedulerPostTaskOptions {
   external factory SchedulerPostTaskOptions._(
-      {AbortSignal? signal, String? priority, int? delay = 0});
+      {AbortSignal? signal, String? priority, int? delay});
 
   factory SchedulerPostTaskOptions(
-          {AbortSignal? signal, TaskPriority? priority, int? delay = 0}) =>
+          {AbortSignal? signal, TaskPriority? priority, int? delay}) =>
       SchedulerPostTaskOptions._(
           signal: signal ?? undefined,
           priority: priority?.value ?? undefined,
-          delay: delay ?? undefined);
+          delay: delay ?? 0);
 }
 
 extension PropsSchedulerPostTaskOptions on SchedulerPostTaskOptions {
@@ -110,9 +110,8 @@ extension PropsTaskPriorityChangeEventInit on TaskPriorityChangeEventInit {
 class TaskControllerInit {
   external factory TaskControllerInit._({String? priority});
 
-  factory TaskControllerInit(
-          {TaskPriority? priority = TaskPriority.userVisible}) =>
-      TaskControllerInit._(priority: priority?.value ?? undefined);
+  factory TaskControllerInit({TaskPriority? priority}) => TaskControllerInit._(
+      priority: priority?.value ?? TaskPriority.userVisible.value);
 }
 
 extension PropsTaskControllerInit on TaskControllerInit {

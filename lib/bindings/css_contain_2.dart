@@ -29,8 +29,11 @@ extension PropsContentVisibilityAutoStateChangedEvent
 @JS()
 @staticInterop
 class ContentVisibilityAutoStateChangedEventInit implements EventInit {
-  external factory ContentVisibilityAutoStateChangedEventInit(
-      {bool? skipped = false});
+  external factory ContentVisibilityAutoStateChangedEventInit._(
+      {bool? skipped});
+
+  factory ContentVisibilityAutoStateChangedEventInit({bool? skipped}) =>
+      ContentVisibilityAutoStateChangedEventInit._(skipped: skipped ?? false);
 }
 
 extension PropsContentVisibilityAutoStateChangedEventInit

@@ -386,8 +386,14 @@ extension PropsResponse on Response {
 @JS()
 @staticInterop
 class ResponseInit {
-  external factory ResponseInit(
-      {int? status = 200, String? statusText = '', dynamic headers});
+  external factory ResponseInit._(
+      {int? status, String? statusText, dynamic headers});
+
+  factory ResponseInit({int? status, String? statusText, dynamic headers}) =>
+      ResponseInit._(
+          status: status ?? 200,
+          statusText: statusText ?? '',
+          headers: headers ?? undefined);
 }
 
 extension PropsResponseInit on ResponseInit {

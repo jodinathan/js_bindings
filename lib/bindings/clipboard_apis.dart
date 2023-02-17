@@ -109,11 +109,10 @@ enum PresentationStyle {
 class ClipboardItemOptions {
   external factory ClipboardItemOptions._({String? presentationStyle});
 
-  factory ClipboardItemOptions(
-          {PresentationStyle? presentationStyle =
-              PresentationStyle.unspecified}) =>
+  factory ClipboardItemOptions({PresentationStyle? presentationStyle}) =>
       ClipboardItemOptions._(
-          presentationStyle: presentationStyle?.value ?? undefined);
+          presentationStyle:
+              presentationStyle?.value ?? PresentationStyle.unspecified.value);
 }
 
 extension PropsClipboardItemOptions on ClipboardItemOptions {
@@ -195,8 +194,11 @@ extension PropsClipboard on Clipboard {
 @JS()
 @staticInterop
 class ClipboardPermissionDescriptor implements PermissionDescriptor {
-  external factory ClipboardPermissionDescriptor(
-      {bool? allowWithoutGesture = false});
+  external factory ClipboardPermissionDescriptor._({bool? allowWithoutGesture});
+
+  factory ClipboardPermissionDescriptor({bool? allowWithoutGesture}) =>
+      ClipboardPermissionDescriptor._(
+          allowWithoutGesture: allowWithoutGesture ?? false);
 }
 
 extension PropsClipboardPermissionDescriptor on ClipboardPermissionDescriptor {

@@ -236,17 +236,37 @@ class AuthenticationExtensionsClientOutputsJSON {
 @JS()
 @staticInterop
 class PublicKeyCredentialCreationOptionsJSON {
-  external factory PublicKeyCredentialCreationOptionsJSON(
+  external factory PublicKeyCredentialCreationOptionsJSON._(
       {required PublicKeyCredentialRpEntity rp,
       required PublicKeyCredentialUserEntityJSON user,
       required String challenge,
       required Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
       int? timeout,
-      Iterable<PublicKeyCredentialDescriptorJSON>? excludeCredentials =
-          const [],
+      Iterable<PublicKeyCredentialDescriptorJSON>? excludeCredentials,
       AuthenticatorSelectionCriteria? authenticatorSelection,
-      String? attestation = 'none',
+      String? attestation,
       AuthenticationExtensionsClientInputsJSON? extensions});
+
+  factory PublicKeyCredentialCreationOptionsJSON(
+          {required PublicKeyCredentialRpEntity rp,
+          required PublicKeyCredentialUserEntityJSON user,
+          required String challenge,
+          required Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
+          int? timeout,
+          Iterable<PublicKeyCredentialDescriptorJSON>? excludeCredentials,
+          AuthenticatorSelectionCriteria? authenticatorSelection,
+          String? attestation,
+          AuthenticationExtensionsClientInputsJSON? extensions}) =>
+      PublicKeyCredentialCreationOptionsJSON._(
+          rp: rp,
+          user: user,
+          challenge: challenge,
+          pubKeyCredParams: pubKeyCredParams,
+          timeout: timeout ?? undefined,
+          excludeCredentials: excludeCredentials ?? const [],
+          authenticatorSelection: authenticatorSelection ?? undefined,
+          attestation: attestation ?? 'none',
+          extensions: extensions ?? undefined);
 }
 
 extension PropsPublicKeyCredentialCreationOptionsJSON
@@ -365,13 +385,28 @@ class AuthenticationExtensionsClientInputsJSON {
 @JS()
 @staticInterop
 class PublicKeyCredentialRequestOptionsJSON {
-  external factory PublicKeyCredentialRequestOptionsJSON(
+  external factory PublicKeyCredentialRequestOptionsJSON._(
       {required String challenge,
       int? timeout,
       String? rpId,
-      Iterable<PublicKeyCredentialDescriptorJSON>? allowCredentials = const [],
-      String? userVerification = 'preferred',
+      Iterable<PublicKeyCredentialDescriptorJSON>? allowCredentials,
+      String? userVerification,
       AuthenticationExtensionsClientInputsJSON? extensions});
+
+  factory PublicKeyCredentialRequestOptionsJSON(
+          {required String challenge,
+          int? timeout,
+          String? rpId,
+          Iterable<PublicKeyCredentialDescriptorJSON>? allowCredentials,
+          String? userVerification,
+          AuthenticationExtensionsClientInputsJSON? extensions}) =>
+      PublicKeyCredentialRequestOptionsJSON._(
+          challenge: challenge,
+          timeout: timeout ?? undefined,
+          rpId: rpId ?? undefined,
+          allowCredentials: allowCredentials ?? const [],
+          userVerification: userVerification ?? 'preferred',
+          extensions: extensions ?? undefined);
 }
 
 extension PropsPublicKeyCredentialRequestOptionsJSON
@@ -534,16 +569,37 @@ extension PropsPublicKeyCredentialParameters on PublicKeyCredentialParameters {
 @JS()
 @staticInterop
 class PublicKeyCredentialCreationOptions {
-  external factory PublicKeyCredentialCreationOptions(
+  external factory PublicKeyCredentialCreationOptions._(
       {required PublicKeyCredentialRpEntity rp,
       required PublicKeyCredentialUserEntity user,
       dynamic challenge,
       required Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
       int? timeout,
-      Iterable<PublicKeyCredentialDescriptor>? excludeCredentials = const [],
+      Iterable<PublicKeyCredentialDescriptor>? excludeCredentials,
       AuthenticatorSelectionCriteria? authenticatorSelection,
-      String? attestation = 'none',
+      String? attestation,
       AuthenticationExtensionsClientInputs? extensions});
+
+  factory PublicKeyCredentialCreationOptions(
+          {required PublicKeyCredentialRpEntity rp,
+          required PublicKeyCredentialUserEntity user,
+          dynamic challenge,
+          required Iterable<PublicKeyCredentialParameters> pubKeyCredParams,
+          int? timeout,
+          Iterable<PublicKeyCredentialDescriptor>? excludeCredentials,
+          AuthenticatorSelectionCriteria? authenticatorSelection,
+          String? attestation,
+          AuthenticationExtensionsClientInputs? extensions}) =>
+      PublicKeyCredentialCreationOptions._(
+          rp: rp,
+          user: user,
+          challenge: challenge ?? undefined,
+          pubKeyCredParams: pubKeyCredParams,
+          timeout: timeout ?? undefined,
+          excludeCredentials: excludeCredentials ?? const [],
+          authenticatorSelection: authenticatorSelection ?? undefined,
+          attestation: attestation ?? 'none',
+          extensions: extensions ?? undefined);
 }
 
 extension PropsPublicKeyCredentialCreationOptions
@@ -650,11 +706,22 @@ extension PropsPublicKeyCredentialUserEntity on PublicKeyCredentialUserEntity {
 @JS()
 @staticInterop
 class AuthenticatorSelectionCriteria {
-  external factory AuthenticatorSelectionCriteria(
+  external factory AuthenticatorSelectionCriteria._(
       {String? authenticatorAttachment,
       String? residentKey,
-      bool? requireResidentKey = false,
-      String? userVerification = 'preferred'});
+      bool? requireResidentKey,
+      String? userVerification});
+
+  factory AuthenticatorSelectionCriteria(
+          {String? authenticatorAttachment,
+          String? residentKey,
+          bool? requireResidentKey,
+          String? userVerification}) =>
+      AuthenticatorSelectionCriteria._(
+          authenticatorAttachment: authenticatorAttachment ?? undefined,
+          residentKey: residentKey ?? undefined,
+          requireResidentKey: requireResidentKey ?? false,
+          userVerification: userVerification ?? 'preferred');
 }
 
 extension PropsAuthenticatorSelectionCriteria
@@ -732,13 +799,28 @@ enum AttestationConveyancePreference {
 @JS()
 @staticInterop
 class PublicKeyCredentialRequestOptions {
-  external factory PublicKeyCredentialRequestOptions(
+  external factory PublicKeyCredentialRequestOptions._(
       {dynamic challenge,
       int? timeout,
       String? rpId,
-      Iterable<PublicKeyCredentialDescriptor>? allowCredentials = const [],
-      String? userVerification = 'preferred',
+      Iterable<PublicKeyCredentialDescriptor>? allowCredentials,
+      String? userVerification,
       AuthenticationExtensionsClientInputs? extensions});
+
+  factory PublicKeyCredentialRequestOptions(
+          {dynamic challenge,
+          int? timeout,
+          String? rpId,
+          Iterable<PublicKeyCredentialDescriptor>? allowCredentials,
+          String? userVerification,
+          AuthenticationExtensionsClientInputs? extensions}) =>
+      PublicKeyCredentialRequestOptions._(
+          challenge: challenge ?? undefined,
+          timeout: timeout ?? undefined,
+          rpId: rpId ?? undefined,
+          allowCredentials: allowCredentials ?? const [],
+          userVerification: userVerification ?? 'preferred',
+          extensions: extensions ?? undefined);
 }
 
 extension PropsPublicKeyCredentialRequestOptions

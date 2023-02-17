@@ -201,8 +201,13 @@ extension PropsNDEFReadingEvent on NDEFReadingEvent {
 @JS()
 @staticInterop
 class NDEFReadingEventInit implements EventInit {
-  external factory NDEFReadingEventInit(
-      {String? serialNumber = '', NDEFMessageInit? message});
+  external factory NDEFReadingEventInit._(
+      {String? serialNumber, NDEFMessageInit? message});
+
+  factory NDEFReadingEventInit(
+          {String? serialNumber, NDEFMessageInit? message}) =>
+      NDEFReadingEventInit._(
+          serialNumber: serialNumber ?? '', message: message ?? undefined);
 }
 
 extension PropsNDEFReadingEventInit on NDEFReadingEventInit {
@@ -221,8 +226,11 @@ extension PropsNDEFReadingEventInit on NDEFReadingEventInit {
 @JS()
 @staticInterop
 class NDEFWriteOptions {
-  external factory NDEFWriteOptions(
-      {bool? overwrite = true, AbortSignal? signal});
+  external factory NDEFWriteOptions._({bool? overwrite, AbortSignal? signal});
+
+  factory NDEFWriteOptions({bool? overwrite, AbortSignal? signal}) =>
+      NDEFWriteOptions._(
+          overwrite: overwrite ?? true, signal: signal ?? undefined);
 }
 
 extension PropsNDEFWriteOptions on NDEFWriteOptions {

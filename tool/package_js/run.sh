@@ -1,1 +1,2 @@
-dart --enable-asserts build.dart
+cd ../../
+dart --enable-asserts tool/package_js/build.dart

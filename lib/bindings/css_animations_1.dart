@@ -44,10 +44,17 @@ extension PropsAnimationEvent on AnimationEvent {
 @JS()
 @staticInterop
 class AnimationEventInit implements EventInit {
-  external factory AnimationEventInit(
-      {String? animationName = '',
-      double? elapsedTime = 0.0,
-      String? pseudoElement = ''});
+  external factory AnimationEventInit._(
+      {String? animationName, double? elapsedTime, String? pseudoElement});
+
+  factory AnimationEventInit(
+          {String? animationName,
+          double? elapsedTime,
+          String? pseudoElement}) =>
+      AnimationEventInit._(
+          animationName: animationName ?? '',
+          elapsedTime: elapsedTime ?? 0.0,
+          pseudoElement: pseudoElement ?? '');
 }
 
 extension PropsAnimationEventInit on AnimationEventInit {

@@ -58,7 +58,10 @@ extension PropsUIEvent on UIEvent {
 @JS()
 @staticInterop
 class UIEventInit implements EventInit {
-  external factory UIEventInit({Window? view, int? detail = 0});
+  external factory UIEventInit._({Window? view, int? detail});
+
+  factory UIEventInit({Window? view, int? detail}) =>
+      UIEventInit._(view: view ?? undefined, detail: detail ?? 0);
 }
 
 extension PropsUIEventInit on UIEventInit {
@@ -214,14 +217,31 @@ extension PropsMouseEvent on MouseEvent {
 @JS()
 @staticInterop
 class MouseEventInit implements EventModifierInit {
-  external factory MouseEventInit(
-      {int? screenX = 0,
-      int? screenY = 0,
-      int? clientX = 0,
-      int? clientY = 0,
-      int? button = 0,
-      int? buttons = 0,
+  external factory MouseEventInit._(
+      {int? screenX,
+      int? screenY,
+      int? clientX,
+      int? clientY,
+      int? button,
+      int? buttons,
       EventTarget? relatedTarget});
+
+  factory MouseEventInit(
+          {int? screenX,
+          int? screenY,
+          int? clientX,
+          int? clientY,
+          int? button,
+          int? buttons,
+          EventTarget? relatedTarget}) =>
+      MouseEventInit._(
+          screenX: screenX ?? 0,
+          screenY: screenY ?? 0,
+          clientX: clientX ?? 0,
+          clientY: clientY ?? 0,
+          button: button ?? 0,
+          buttons: buttons ?? 0,
+          relatedTarget: relatedTarget ?? undefined);
 }
 
 extension PropsMouseEventInit on MouseEventInit {
@@ -265,21 +285,52 @@ extension PropsMouseEventInit on MouseEventInit {
 @JS()
 @staticInterop
 class EventModifierInit implements UIEventInit {
-  external factory EventModifierInit(
-      {bool? ctrlKey = false,
-      bool? shiftKey = false,
-      bool? altKey = false,
-      bool? metaKey = false,
-      bool? modifierAltGraph = false,
-      bool? modifierCapsLock = false,
-      bool? modifierFn = false,
-      bool? modifierFnLock = false,
-      bool? modifierHyper = false,
-      bool? modifierNumLock = false,
-      bool? modifierScrollLock = false,
-      bool? modifierSuper = false,
-      bool? modifierSymbol = false,
-      bool? modifierSymbolLock = false});
+  external factory EventModifierInit._(
+      {bool? ctrlKey,
+      bool? shiftKey,
+      bool? altKey,
+      bool? metaKey,
+      bool? modifierAltGraph,
+      bool? modifierCapsLock,
+      bool? modifierFn,
+      bool? modifierFnLock,
+      bool? modifierHyper,
+      bool? modifierNumLock,
+      bool? modifierScrollLock,
+      bool? modifierSuper,
+      bool? modifierSymbol,
+      bool? modifierSymbolLock});
+
+  factory EventModifierInit(
+          {bool? ctrlKey,
+          bool? shiftKey,
+          bool? altKey,
+          bool? metaKey,
+          bool? modifierAltGraph,
+          bool? modifierCapsLock,
+          bool? modifierFn,
+          bool? modifierFnLock,
+          bool? modifierHyper,
+          bool? modifierNumLock,
+          bool? modifierScrollLock,
+          bool? modifierSuper,
+          bool? modifierSymbol,
+          bool? modifierSymbolLock}) =>
+      EventModifierInit._(
+          ctrlKey: ctrlKey ?? false,
+          shiftKey: shiftKey ?? false,
+          altKey: altKey ?? false,
+          metaKey: metaKey ?? false,
+          modifierAltGraph: modifierAltGraph ?? false,
+          modifierCapsLock: modifierCapsLock ?? false,
+          modifierFn: modifierFn ?? false,
+          modifierFnLock: modifierFnLock ?? false,
+          modifierHyper: modifierHyper ?? false,
+          modifierNumLock: modifierNumLock ?? false,
+          modifierScrollLock: modifierScrollLock ?? false,
+          modifierSuper: modifierSuper ?? false,
+          modifierSymbol: modifierSymbol ?? false,
+          modifierSymbolLock: modifierSymbolLock ?? false);
 }
 
 extension PropsEventModifierInit on EventModifierInit {
@@ -423,11 +474,16 @@ extension PropsWheelEvent on WheelEvent {
 @JS()
 @staticInterop
 class WheelEventInit implements MouseEventInit {
-  external factory WheelEventInit(
-      {double? deltaX = 0.0,
-      double? deltaY = 0.0,
-      double? deltaZ = 0.0,
-      int? deltaMode = 0});
+  external factory WheelEventInit._(
+      {double? deltaX, double? deltaY, double? deltaZ, int? deltaMode});
+
+  factory WheelEventInit(
+          {double? deltaX, double? deltaY, double? deltaZ, int? deltaMode}) =>
+      WheelEventInit._(
+          deltaX: deltaX ?? 0.0,
+          deltaY: deltaY ?? 0.0,
+          deltaZ: deltaZ ?? 0.0,
+          deltaMode: deltaMode ?? 0);
 }
 
 extension PropsWheelEventInit on WheelEventInit {
@@ -491,8 +547,15 @@ extension PropsInputEvent on InputEvent {
 @JS()
 @staticInterop
 class InputEventInit implements UIEventInit {
-  external factory InputEventInit(
-      {String? data, bool? isComposing = false, String? inputType = ''});
+  external factory InputEventInit._(
+      {String? data, bool? isComposing, String? inputType});
+
+  factory InputEventInit(
+          {String? data, bool? isComposing, String? inputType}) =>
+      InputEventInit._(
+          data: data ?? undefined,
+          isComposing: isComposing ?? false,
+          inputType: inputType ?? '');
 }
 
 extension PropsInputEventInit on InputEventInit {
@@ -605,12 +668,25 @@ extension PropsKeyboardEvent on KeyboardEvent {
 @JS()
 @staticInterop
 class KeyboardEventInit implements EventModifierInit {
-  external factory KeyboardEventInit(
-      {String? key = '',
-      String? code = '',
-      int? location = 0,
-      bool? repeat = false,
-      bool? isComposing = false});
+  external factory KeyboardEventInit._(
+      {String? key,
+      String? code,
+      int? location,
+      bool? repeat,
+      bool? isComposing});
+
+  factory KeyboardEventInit(
+          {String? key,
+          String? code,
+          int? location,
+          bool? repeat,
+          bool? isComposing}) =>
+      KeyboardEventInit._(
+          key: key ?? '',
+          code: code ?? '',
+          location: location ?? 0,
+          repeat: repeat ?? false,
+          isComposing: isComposing ?? false);
 }
 
 extension PropsKeyboardEventInit on KeyboardEventInit {
@@ -682,7 +758,10 @@ extension PropsCompositionEvent on CompositionEvent {
 @JS()
 @staticInterop
 class CompositionEventInit implements UIEventInit {
-  external factory CompositionEventInit({String? data = ''});
+  external factory CompositionEventInit._({String? data});
+
+  factory CompositionEventInit({String? data}) =>
+      CompositionEventInit._(data: data ?? '');
 }
 
 extension PropsCompositionEventInit on CompositionEventInit {

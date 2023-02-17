@@ -424,8 +424,7 @@ class VideoDecoderConfig {
           int? displayAspectWidth,
           int? displayAspectHeight,
           VideoColorSpaceInit? colorSpace,
-          HardwareAcceleration? hardwareAcceleration =
-              HardwareAcceleration.noPreference,
+          HardwareAcceleration? hardwareAcceleration,
           bool? optimizeForLatency}) =>
       VideoDecoderConfig._(
           codec: codec,
@@ -435,7 +434,8 @@ class VideoDecoderConfig {
           displayAspectWidth: displayAspectWidth ?? undefined,
           displayAspectHeight: displayAspectHeight ?? undefined,
           colorSpace: colorSpace ?? undefined,
-          hardwareAcceleration: hardwareAcceleration?.value ?? undefined,
+          hardwareAcceleration: hardwareAcceleration?.value ??
+              HardwareAcceleration.noPreference.value,
           optimizeForLatency: optimizeForLatency ?? undefined);
 }
 
@@ -549,12 +549,11 @@ class VideoEncoderConfig {
           int? displayHeight,
           int? bitrate,
           double? framerate,
-          HardwareAcceleration? hardwareAcceleration =
-              HardwareAcceleration.noPreference,
-          AlphaOption? alpha = AlphaOption.discard,
+          HardwareAcceleration? hardwareAcceleration,
+          AlphaOption? alpha,
           String? scalabilityMode,
-          BitrateMode? bitrateMode = BitrateMode.variable,
-          LatencyMode? latencyMode = LatencyMode.quality}) =>
+          BitrateMode? bitrateMode,
+          LatencyMode? latencyMode}) =>
       VideoEncoderConfig._(
           codec: codec,
           width: width,
@@ -563,11 +562,12 @@ class VideoEncoderConfig {
           displayHeight: displayHeight ?? undefined,
           bitrate: bitrate ?? undefined,
           framerate: framerate ?? undefined,
-          hardwareAcceleration: hardwareAcceleration?.value ?? undefined,
-          alpha: alpha?.value ?? undefined,
+          hardwareAcceleration: hardwareAcceleration?.value ??
+              HardwareAcceleration.noPreference.value,
+          alpha: alpha?.value ?? AlphaOption.discard.value,
           scalabilityMode: scalabilityMode ?? undefined,
-          bitrateMode: bitrateMode?.value ?? undefined,
-          latencyMode: latencyMode?.value ?? undefined);
+          bitrateMode: bitrateMode?.value ?? BitrateMode.variable.value,
+          latencyMode: latencyMode?.value ?? LatencyMode.quality.value);
 }
 
 extension PropsVideoEncoderConfig on VideoEncoderConfig {
@@ -678,7 +678,10 @@ enum LatencyMode {
 @JS()
 @staticInterop
 class VideoEncoderEncodeOptions {
-  external factory VideoEncoderEncodeOptions({bool? keyFrame = false});
+  external factory VideoEncoderEncodeOptions._({bool? keyFrame});
+
+  factory VideoEncoderEncodeOptions({bool? keyFrame}) =>
+      VideoEncoderEncodeOptions._(keyFrame: keyFrame ?? false);
 }
 
 extension PropsVideoEncoderEncodeOptions on VideoEncoderEncodeOptions {
@@ -948,18 +951,18 @@ extension PropsAudioDataInit on AudioDataInit {
 class AudioDataCopyToOptions {
   external factory AudioDataCopyToOptions._(
       {required int planeIndex,
-      int? frameOffset = 0,
+      int? frameOffset,
       int? frameCount,
       String? format});
 
   factory AudioDataCopyToOptions(
           {required int planeIndex,
-          int? frameOffset = 0,
+          int? frameOffset,
           int? frameCount,
           AudioSampleFormat? format}) =>
       AudioDataCopyToOptions._(
           planeIndex: planeIndex,
-          frameOffset: frameOffset ?? undefined,
+          frameOffset: frameOffset ?? 0,
           frameCount: frameCount ?? undefined,
           format: format?.value ?? undefined);
 }
@@ -1057,14 +1060,14 @@ class VideoFrameInit {
   factory VideoFrameInit(
           {int? duration,
           int? timestamp,
-          AlphaOption? alpha = AlphaOption.keep,
+          AlphaOption? alpha,
           DOMRectInit? visibleRect,
           int? displayWidth,
           int? displayHeight}) =>
       VideoFrameInit._(
           duration: duration ?? undefined,
           timestamp: timestamp ?? undefined,
-          alpha: alpha?.value ?? undefined,
+          alpha: alpha?.value ?? AlphaOption.keep.value,
           visibleRect: visibleRect ?? undefined,
           displayWidth: displayWidth ?? undefined,
           displayHeight: displayHeight ?? undefined);
@@ -1413,17 +1416,18 @@ class ImageDecoderInit {
   factory ImageDecoderInit(
           {required String type,
           dynamic data,
-          PremultiplyAlpha? premultiplyAlpha = PremultiplyAlpha.valueDefault,
-          ColorSpaceConversion? colorSpaceConversion =
-              ColorSpaceConversion.valueDefault,
+          PremultiplyAlpha? premultiplyAlpha,
+          ColorSpaceConversion? colorSpaceConversion,
           int? desiredWidth,
           int? desiredHeight,
           bool? preferAnimation}) =>
       ImageDecoderInit._(
           type: type,
           data: data ?? undefined,
-          premultiplyAlpha: premultiplyAlpha?.value ?? undefined,
-          colorSpaceConversion: colorSpaceConversion?.value ?? undefined,
+          premultiplyAlpha:
+              premultiplyAlpha?.value ?? PremultiplyAlpha.valueDefault.value,
+          colorSpaceConversion: colorSpaceConversion?.value ??
+              ColorSpaceConversion.valueDefault.value,
           desiredWidth: desiredWidth ?? undefined,
           desiredHeight: desiredHeight ?? undefined,
           preferAnimation: preferAnimation ?? undefined);
@@ -1473,8 +1477,13 @@ extension PropsImageDecoderInit on ImageDecoderInit {
 @JS()
 @staticInterop
 class ImageDecodeOptions {
-  external factory ImageDecodeOptions(
-      {int? frameIndex = 0, bool? completeFramesOnly = true});
+  external factory ImageDecodeOptions._(
+      {int? frameIndex, bool? completeFramesOnly});
+
+  factory ImageDecodeOptions({int? frameIndex, bool? completeFramesOnly}) =>
+      ImageDecodeOptions._(
+          frameIndex: frameIndex ?? 0,
+          completeFramesOnly: completeFramesOnly ?? true);
 }
 
 extension PropsImageDecodeOptions on ImageDecodeOptions {

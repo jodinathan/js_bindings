@@ -99,7 +99,7 @@ class CookieInit {
       required String value,
       int? expires,
       String? domain,
-      String? path = '/',
+      String? path,
       String? sameSite});
 
   factory CookieInit(
@@ -107,15 +107,15 @@ class CookieInit {
           required String value,
           int? expires,
           String? domain,
-          String? path = '/',
-          CookieSameSite? sameSite = CookieSameSite.strict}) =>
+          String? path,
+          CookieSameSite? sameSite}) =>
       CookieInit._(
           name: name,
           value: value,
           expires: expires ?? undefined,
           domain: domain ?? undefined,
-          path: path ?? undefined,
-          sameSite: sameSite?.value ?? undefined);
+          path: path ?? '/',
+          sameSite: sameSite?.value ?? CookieSameSite.strict.value);
 }
 
 extension PropsCookieInit on CookieInit {
@@ -155,8 +155,13 @@ extension PropsCookieInit on CookieInit {
 @JS()
 @staticInterop
 class CookieStoreDeleteOptions {
-  external factory CookieStoreDeleteOptions(
-      {required String name, String? domain, String? path = '/'});
+  external factory CookieStoreDeleteOptions._(
+      {required String name, String? domain, String? path});
+
+  factory CookieStoreDeleteOptions(
+          {required String name, String? domain, String? path}) =>
+      CookieStoreDeleteOptions._(
+          name: name, domain: domain ?? undefined, path: path ?? '/');
 }
 
 extension PropsCookieStoreDeleteOptions on CookieStoreDeleteOptions {

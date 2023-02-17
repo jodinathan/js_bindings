@@ -56,12 +56,11 @@ class MLContextOptions {
       {String? deviceType, String? powerPreference});
 
   factory MLContextOptions(
-          {MLDeviceType? deviceType = MLDeviceType.cpu,
-          MLPowerPreference? powerPreference =
-              MLPowerPreference.valueDefault}) =>
+          {MLDeviceType? deviceType, MLPowerPreference? powerPreference}) =>
       MLContextOptions._(
-          deviceType: deviceType?.value ?? undefined,
-          powerPreference: powerPreference?.value ?? undefined);
+          deviceType: deviceType?.value ?? MLDeviceType.cpu.value,
+          powerPreference:
+              powerPreference?.value ?? MLPowerPreference.valueDefault.value);
 }
 
 extension PropsMLContextOptions on MLContextOptions {
@@ -177,8 +176,13 @@ class MLOperator {
 @JS()
 @staticInterop
 class MLBufferResourceView {
-  external factory MLBufferResourceView(
-      {required GPUBuffer resource, int? offset = 0, int? size});
+  external factory MLBufferResourceView._(
+      {required GPUBuffer resource, int? offset, int? size});
+
+  factory MLBufferResourceView(
+          {required GPUBuffer resource, int? offset, int? size}) =>
+      MLBufferResourceView._(
+          resource: resource, offset: offset ?? 0, size: size ?? undefined);
 }
 
 extension PropsMLBufferResourceView on MLBufferResourceView {
@@ -394,12 +398,25 @@ extension PropsMLGraphBuilder on MLGraphBuilder {
 @JS()
 @staticInterop
 class MLBatchNormalizationOptions {
-  external factory MLBatchNormalizationOptions(
+  external factory MLBatchNormalizationOptions._(
       {MLOperand? scale,
       MLOperand? bias,
-      int? axis = 1,
-      double? epsilon = 1e-5,
+      int? axis,
+      double? epsilon,
       MLOperator? activation});
+
+  factory MLBatchNormalizationOptions(
+          {MLOperand? scale,
+          MLOperand? bias,
+          int? axis,
+          double? epsilon,
+          MLOperator? activation}) =>
+      MLBatchNormalizationOptions._(
+          scale: scale ?? undefined,
+          bias: bias ?? undefined,
+          axis: axis ?? 1,
+          epsilon: epsilon ?? 1e-5,
+          activation: activation ?? undefined);
 }
 
 extension PropsMLBatchNormalizationOptions on MLBatchNormalizationOptions {
@@ -485,7 +502,7 @@ class MLConv2dOptions {
       Iterable<int>? strides,
       Iterable<int>? dilations,
       String? autoPad,
-      int? groups = 1,
+      int? groups,
       String? inputLayout,
       String? filterLayout,
       MLOperand? bias,
@@ -495,21 +512,21 @@ class MLConv2dOptions {
           {Iterable<int>? padding,
           Iterable<int>? strides,
           Iterable<int>? dilations,
-          MLAutoPad? autoPad = MLAutoPad.explicit,
-          int? groups = 1,
-          MLInputOperandLayout? inputLayout = MLInputOperandLayout.nchw,
-          MLConv2dFilterOperandLayout? filterLayout =
-              MLConv2dFilterOperandLayout.oihw,
+          MLAutoPad? autoPad,
+          int? groups,
+          MLInputOperandLayout? inputLayout,
+          MLConv2dFilterOperandLayout? filterLayout,
           MLOperand? bias,
           MLOperator? activation}) =>
       MLConv2dOptions._(
           padding: padding ?? undefined,
           strides: strides ?? undefined,
           dilations: dilations ?? undefined,
-          autoPad: autoPad?.value ?? undefined,
-          groups: groups ?? undefined,
-          inputLayout: inputLayout?.value ?? undefined,
-          filterLayout: filterLayout?.value ?? undefined,
+          autoPad: autoPad?.value ?? MLAutoPad.explicit.value,
+          groups: groups ?? 1,
+          inputLayout: inputLayout?.value ?? MLInputOperandLayout.nchw.value,
+          filterLayout:
+              filterLayout?.value ?? MLConv2dFilterOperandLayout.oihw.value,
           bias: bias ?? undefined,
           activation: activation ?? undefined);
 }
@@ -590,7 +607,7 @@ class MLConvTranspose2dOptions {
       Iterable<int>? outputPadding,
       Iterable<int>? outputSizes,
       String? autoPad,
-      int? groups = 1,
+      int? groups,
       String? inputLayout,
       String? filterLayout,
       MLOperand? bias,
@@ -602,11 +619,10 @@ class MLConvTranspose2dOptions {
           Iterable<int>? dilations,
           Iterable<int>? outputPadding,
           Iterable<int>? outputSizes,
-          MLAutoPad? autoPad = MLAutoPad.explicit,
-          int? groups = 1,
-          MLInputOperandLayout? inputLayout = MLInputOperandLayout.nchw,
-          MLConvTranspose2dFilterOperandLayout? filterLayout =
-              MLConvTranspose2dFilterOperandLayout.iohw,
+          MLAutoPad? autoPad,
+          int? groups,
+          MLInputOperandLayout? inputLayout,
+          MLConvTranspose2dFilterOperandLayout? filterLayout,
           MLOperand? bias,
           MLOperator? activation}) =>
       MLConvTranspose2dOptions._(
@@ -615,10 +631,11 @@ class MLConvTranspose2dOptions {
           dilations: dilations ?? undefined,
           outputPadding: outputPadding ?? undefined,
           outputSizes: outputSizes ?? undefined,
-          autoPad: autoPad?.value ?? undefined,
-          groups: groups ?? undefined,
-          inputLayout: inputLayout?.value ?? undefined,
-          filterLayout: filterLayout?.value ?? undefined,
+          autoPad: autoPad?.value ?? MLAutoPad.explicit.value,
+          groups: groups ?? 1,
+          inputLayout: inputLayout?.value ?? MLInputOperandLayout.nchw.value,
+          filterLayout: filterLayout?.value ??
+              MLConvTranspose2dFilterOperandLayout.iohw.value,
           bias: bias ?? undefined,
           activation: activation ?? undefined);
 }
@@ -688,7 +705,9 @@ extension PropsMLConvTranspose2dOptions on MLConvTranspose2dOptions {
 @JS()
 @staticInterop
 class MLEluOptions {
-  external factory MLEluOptions({double? alpha = 1});
+  external factory MLEluOptions._({double? alpha});
+
+  factory MLEluOptions({double? alpha}) => MLEluOptions._(alpha: alpha ?? 1);
 }
 
 extension PropsMLEluOptions on MLEluOptions {
@@ -702,12 +721,25 @@ extension PropsMLEluOptions on MLEluOptions {
 @JS()
 @staticInterop
 class MLGemmOptions {
-  external factory MLGemmOptions(
+  external factory MLGemmOptions._(
       {MLOperand? c,
-      double? alpha = 1.0,
-      double? beta = 1.0,
-      bool? aTranspose = false,
-      bool? bTranspose = false});
+      double? alpha,
+      double? beta,
+      bool? aTranspose,
+      bool? bTranspose});
+
+  factory MLGemmOptions(
+          {MLOperand? c,
+          double? alpha,
+          double? beta,
+          bool? aTranspose,
+          bool? bTranspose}) =>
+      MLGemmOptions._(
+          c: c ?? undefined,
+          alpha: alpha ?? 1.0,
+          beta: beta ?? 1.0,
+          aTranspose: aTranspose ?? false,
+          bTranspose: bTranspose ?? false);
 }
 
 extension PropsMLGemmOptions on MLGemmOptions {
@@ -772,8 +804,8 @@ class MLGruOptions {
       {MLOperand? bias,
       MLOperand? recurrentBias,
       MLOperand? initialHiddenState,
-      bool? resetAfter = true,
-      bool? returnSequence = false,
+      bool? resetAfter,
+      bool? returnSequence,
       String? direction,
       String? layout,
       Iterable<MLOperator>? activations});
@@ -782,21 +814,20 @@ class MLGruOptions {
           {MLOperand? bias,
           MLOperand? recurrentBias,
           MLOperand? initialHiddenState,
-          bool? resetAfter = true,
-          bool? returnSequence = false,
-          MLRecurrentNetworkDirection? direction =
-              MLRecurrentNetworkDirection.forward,
-          MLRecurrentNetworkWeightLayout? layout =
-              MLRecurrentNetworkWeightLayout.zrn,
+          bool? resetAfter,
+          bool? returnSequence,
+          MLRecurrentNetworkDirection? direction,
+          MLRecurrentNetworkWeightLayout? layout,
           Iterable<MLOperator>? activations}) =>
       MLGruOptions._(
           bias: bias ?? undefined,
           recurrentBias: recurrentBias ?? undefined,
           initialHiddenState: initialHiddenState ?? undefined,
-          resetAfter: resetAfter ?? undefined,
-          returnSequence: returnSequence ?? undefined,
-          direction: direction?.value ?? undefined,
-          layout: layout?.value ?? undefined,
+          resetAfter: resetAfter ?? true,
+          returnSequence: returnSequence ?? false,
+          direction:
+              direction?.value ?? MLRecurrentNetworkDirection.forward.value,
+          layout: layout?.value ?? MLRecurrentNetworkWeightLayout.zrn.value,
           activations: activations ?? undefined);
 }
 
@@ -855,22 +886,21 @@ class MLGruCellOptions {
   external factory MLGruCellOptions._(
       {MLOperand? bias,
       MLOperand? recurrentBias,
-      bool? resetAfter = true,
+      bool? resetAfter,
       String? layout,
       Iterable<MLOperator>? activations});
 
   factory MLGruCellOptions(
           {MLOperand? bias,
           MLOperand? recurrentBias,
-          bool? resetAfter = true,
-          MLRecurrentNetworkWeightLayout? layout =
-              MLRecurrentNetworkWeightLayout.zrn,
+          bool? resetAfter,
+          MLRecurrentNetworkWeightLayout? layout,
           Iterable<MLOperator>? activations}) =>
       MLGruCellOptions._(
           bias: bias ?? undefined,
           recurrentBias: recurrentBias ?? undefined,
-          resetAfter: resetAfter ?? undefined,
-          layout: layout?.value ?? undefined,
+          resetAfter: resetAfter ?? true,
+          layout: layout?.value ?? MLRecurrentNetworkWeightLayout.zrn.value,
           activations: activations ?? undefined);
 }
 
@@ -908,8 +938,10 @@ extension PropsMLGruCellOptions on MLGruCellOptions {
 @JS()
 @staticInterop
 class MLHardSigmoidOptions {
-  external factory MLHardSigmoidOptions(
-      {double? alpha = 0.2, double? beta = 0.5});
+  external factory MLHardSigmoidOptions._({double? alpha, double? beta});
+
+  factory MLHardSigmoidOptions({double? alpha, double? beta}) =>
+      MLHardSigmoidOptions._(alpha: alpha ?? 0.2, beta: beta ?? 0.5);
 }
 
 extension PropsMLHardSigmoidOptions on MLHardSigmoidOptions {
@@ -929,21 +961,18 @@ extension PropsMLHardSigmoidOptions on MLHardSigmoidOptions {
 @staticInterop
 class MLInstanceNormalizationOptions {
   external factory MLInstanceNormalizationOptions._(
-      {MLOperand? scale,
-      MLOperand? bias,
-      double? epsilon = 1e-5,
-      String? layout});
+      {MLOperand? scale, MLOperand? bias, double? epsilon, String? layout});
 
   factory MLInstanceNormalizationOptions(
           {MLOperand? scale,
           MLOperand? bias,
-          double? epsilon = 1e-5,
-          MLInputOperandLayout? layout = MLInputOperandLayout.nchw}) =>
+          double? epsilon,
+          MLInputOperandLayout? layout}) =>
       MLInstanceNormalizationOptions._(
           scale: scale ?? undefined,
           bias: bias ?? undefined,
-          epsilon: epsilon ?? undefined,
-          layout: layout?.value ?? undefined);
+          epsilon: epsilon ?? 1e-5,
+          layout: layout?.value ?? MLInputOperandLayout.nchw.value);
 }
 
 extension PropsMLInstanceNormalizationOptions
@@ -974,7 +1003,10 @@ extension PropsMLInstanceNormalizationOptions
 @JS()
 @staticInterop
 class MLLeakyReluOptions {
-  external factory MLLeakyReluOptions({double? alpha = 0.01});
+  external factory MLLeakyReluOptions._({double? alpha});
+
+  factory MLLeakyReluOptions({double? alpha}) =>
+      MLLeakyReluOptions._(alpha: alpha ?? 0.01);
 }
 
 extension PropsMLLeakyReluOptions on MLLeakyReluOptions {
@@ -988,7 +1020,10 @@ extension PropsMLLeakyReluOptions on MLLeakyReluOptions {
 @JS()
 @staticInterop
 class MLLinearOptions {
-  external factory MLLinearOptions({double? alpha = 1, double? beta = 0});
+  external factory MLLinearOptions._({double? alpha, double? beta});
+
+  factory MLLinearOptions({double? alpha, double? beta}) =>
+      MLLinearOptions._(alpha: alpha ?? 1, beta: beta ?? 0);
 }
 
 extension PropsMLLinearOptions on MLLinearOptions {
@@ -1021,11 +1056,10 @@ enum MLPaddingMode {
 @JS()
 @staticInterop
 class MLPadOptions {
-  external factory MLPadOptions._({String? mode, double? value = 0});
+  external factory MLPadOptions._({String? mode, double? value});
 
-  factory MLPadOptions(
-          {MLPaddingMode? mode = MLPaddingMode.constant, double? value = 0}) =>
-      MLPadOptions._(mode: mode?.value ?? undefined, value: value ?? undefined);
+  factory MLPadOptions({MLPaddingMode? mode, double? value}) => MLPadOptions._(
+      mode: mode?.value ?? MLPaddingMode.constant.value, value: value ?? 0);
 }
 
 extension PropsMLPadOptions on MLPadOptions {
@@ -1072,18 +1106,18 @@ class MLPool2dOptions {
           Iterable<int>? padding,
           Iterable<int>? strides,
           Iterable<int>? dilations,
-          MLAutoPad? autoPad = MLAutoPad.explicit,
-          MLInputOperandLayout? layout = MLInputOperandLayout.nchw,
-          MLRoundingType? roundingType = MLRoundingType.floor,
+          MLAutoPad? autoPad,
+          MLInputOperandLayout? layout,
+          MLRoundingType? roundingType,
           Iterable<int>? outputSizes}) =>
       MLPool2dOptions._(
           windowDimensions: windowDimensions ?? undefined,
           padding: padding ?? undefined,
           strides: strides ?? undefined,
           dilations: dilations ?? undefined,
-          autoPad: autoPad?.value ?? undefined,
-          layout: layout?.value ?? undefined,
-          roundingType: roundingType?.value ?? undefined,
+          autoPad: autoPad?.value ?? MLAutoPad.explicit.value,
+          layout: layout?.value ?? MLInputOperandLayout.nchw.value,
+          roundingType: roundingType?.value ?? MLRoundingType.floor.value,
           outputSizes: outputSizes ?? undefined);
 }
 
@@ -1137,8 +1171,12 @@ extension PropsMLPool2dOptions on MLPool2dOptions {
 @JS()
 @staticInterop
 class MLReduceOptions {
-  external factory MLReduceOptions(
-      {Iterable<int>? axes, bool? keepDimensions = false});
+  external factory MLReduceOptions._(
+      {Iterable<int>? axes, bool? keepDimensions});
+
+  factory MLReduceOptions({Iterable<int>? axes, bool? keepDimensions}) =>
+      MLReduceOptions._(
+          axes: axes ?? undefined, keepDimensions: keepDimensions ?? false);
 }
 
 extension PropsMLReduceOptions on MLReduceOptions {
@@ -1176,12 +1214,12 @@ class MLResample2dOptions {
       Iterable<int>? axes});
 
   factory MLResample2dOptions(
-          {MLInterpolationMode? mode = MLInterpolationMode.nearestNeighbor,
+          {MLInterpolationMode? mode,
           Iterable<double>? scales,
           Iterable<int>? sizes,
           Iterable<int>? axes}) =>
       MLResample2dOptions._(
-          mode: mode?.value ?? undefined,
+          mode: mode?.value ?? MLInterpolationMode.nearestNeighbor.value,
           scales: scales ?? undefined,
           sizes: sizes ?? undefined,
           axes: axes ?? undefined);
@@ -1228,7 +1266,10 @@ extension PropsMLSliceOptions on MLSliceOptions {
 @JS()
 @staticInterop
 class MLSoftplusOptions {
-  external factory MLSoftplusOptions({double? steepness = 1});
+  external factory MLSoftplusOptions._({double? steepness});
+
+  factory MLSoftplusOptions({double? steepness}) =>
+      MLSoftplusOptions._(steepness: steepness ?? 1);
 }
 
 extension PropsMLSoftplusOptions on MLSoftplusOptions {
@@ -1242,7 +1283,9 @@ extension PropsMLSoftplusOptions on MLSoftplusOptions {
 @JS()
 @staticInterop
 class MLSplitOptions {
-  external factory MLSplitOptions({int? axis = 0});
+  external factory MLSplitOptions._({int? axis});
+
+  factory MLSplitOptions({int? axis}) => MLSplitOptions._(axis: axis ?? 0);
 }
 
 extension PropsMLSplitOptions on MLSplitOptions {

@@ -87,20 +87,49 @@ extension PropsRdfLiteral on RdfLiteral {
 @JS()
 @staticInterop
 class JsonLdOptions {
-  external factory JsonLdOptions(
+  external factory JsonLdOptions._(
       {String? base,
-      bool? compactArrays = true,
-      bool? compactToRelative = true,
+      bool? compactArrays,
+      bool? compactToRelative,
       LoadDocumentCallback? documentLoader,
       dynamic expandContext,
-      bool? extractAllScripts = false,
-      bool? frameExpansion = false,
-      bool? ordered = false,
-      String? processingMode = 'json-ld-1.1',
-      bool? produceGeneralizedRdf = true,
+      bool? extractAllScripts,
+      bool? frameExpansion,
+      bool? ordered,
+      String? processingMode,
+      bool? produceGeneralizedRdf,
       String? rdfDirection,
-      bool? useNativeTypes = false,
-      bool? useRdfType = false});
+      bool? useNativeTypes,
+      bool? useRdfType});
+
+  factory JsonLdOptions(
+          {String? base,
+          bool? compactArrays,
+          bool? compactToRelative,
+          LoadDocumentCallback? documentLoader,
+          dynamic expandContext,
+          bool? extractAllScripts,
+          bool? frameExpansion,
+          bool? ordered,
+          String? processingMode,
+          bool? produceGeneralizedRdf,
+          String? rdfDirection,
+          bool? useNativeTypes,
+          bool? useRdfType}) =>
+      JsonLdOptions._(
+          base: base ?? undefined,
+          compactArrays: compactArrays ?? true,
+          compactToRelative: compactToRelative ?? true,
+          documentLoader: documentLoader ?? undefined,
+          expandContext: expandContext ?? undefined,
+          extractAllScripts: extractAllScripts ?? false,
+          frameExpansion: frameExpansion ?? false,
+          ordered: ordered ?? false,
+          processingMode: processingMode ?? 'json-ld-1.1',
+          produceGeneralizedRdf: produceGeneralizedRdf ?? true,
+          rdfDirection: rdfDirection ?? undefined,
+          useNativeTypes: useNativeTypes ?? false,
+          useRdfType: useRdfType ?? false);
 }
 
 extension PropsJsonLdOptions on JsonLdOptions {
@@ -176,10 +205,15 @@ extension PropsJsonLdOptions on JsonLdOptions {
 @JS()
 @staticInterop
 class LoadDocumentOptions {
-  external factory LoadDocumentOptions(
-      {bool? extractAllScripts = false,
-      String? profile,
-      dynamic requestProfile});
+  external factory LoadDocumentOptions._(
+      {bool? extractAllScripts, String? profile, dynamic requestProfile});
+
+  factory LoadDocumentOptions(
+          {bool? extractAllScripts, String? profile, dynamic requestProfile}) =>
+      LoadDocumentOptions._(
+          extractAllScripts: extractAllScripts ?? false,
+          profile: profile ?? undefined,
+          requestProfile: requestProfile ?? undefined);
 }
 
 extension PropsLoadDocumentOptions on LoadDocumentOptions {

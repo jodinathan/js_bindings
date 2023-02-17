@@ -89,10 +89,10 @@ extension PropsXRLightEstimate on XRLightEstimate {
 class XRLightProbeInit {
   external factory XRLightProbeInit._({String? reflectionFormat});
 
-  factory XRLightProbeInit(
-          {XRReflectionFormat? reflectionFormat = XRReflectionFormat.srgba8}) =>
+  factory XRLightProbeInit({XRReflectionFormat? reflectionFormat}) =>
       XRLightProbeInit._(
-          reflectionFormat: reflectionFormat?.value ?? undefined);
+          reflectionFormat:
+              reflectionFormat?.value ?? XRReflectionFormat.srgba8.value);
 }
 
 extension PropsXRLightProbeInit on XRLightProbeInit {

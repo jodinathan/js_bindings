@@ -97,8 +97,10 @@ extension PropsFileSystemDirectoryEntry on FileSystemDirectoryEntry {
 @JS()
 @staticInterop
 class FileSystemFlags {
-  external factory FileSystemFlags(
-      {bool? create = false, bool? exclusive = false});
+  external factory FileSystemFlags._({bool? create, bool? exclusive});
+
+  factory FileSystemFlags({bool? create, bool? exclusive}) =>
+      FileSystemFlags._(create: create ?? false, exclusive: exclusive ?? false);
 }
 
 extension PropsFileSystemFlags on FileSystemFlags {

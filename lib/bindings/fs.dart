@@ -60,8 +60,11 @@ extension PropsFileSystemHandle on FileSystemHandle {
 @JS()
 @staticInterop
 class FileSystemCreateWritableOptions {
-  external factory FileSystemCreateWritableOptions(
-      {bool? keepExistingData = false});
+  external factory FileSystemCreateWritableOptions._({bool? keepExistingData});
+
+  factory FileSystemCreateWritableOptions({bool? keepExistingData}) =>
+      FileSystemCreateWritableOptions._(
+          keepExistingData: keepExistingData ?? false);
 }
 
 extension PropsFileSystemCreateWritableOptions
@@ -114,7 +117,10 @@ extension PropsFileSystemFileHandle on FileSystemFileHandle {
 @JS()
 @staticInterop
 class FileSystemGetFileOptions {
-  external factory FileSystemGetFileOptions({bool? create = false});
+  external factory FileSystemGetFileOptions._({bool? create});
+
+  factory FileSystemGetFileOptions({bool? create}) =>
+      FileSystemGetFileOptions._(create: create ?? false);
 }
 
 extension PropsFileSystemGetFileOptions on FileSystemGetFileOptions {
@@ -128,7 +134,10 @@ extension PropsFileSystemGetFileOptions on FileSystemGetFileOptions {
 @JS()
 @staticInterop
 class FileSystemGetDirectoryOptions {
-  external factory FileSystemGetDirectoryOptions({bool? create = false});
+  external factory FileSystemGetDirectoryOptions._({bool? create});
+
+  factory FileSystemGetDirectoryOptions({bool? create}) =>
+      FileSystemGetDirectoryOptions._(create: create ?? false);
 }
 
 extension PropsFileSystemGetDirectoryOptions on FileSystemGetDirectoryOptions {
@@ -142,7 +151,10 @@ extension PropsFileSystemGetDirectoryOptions on FileSystemGetDirectoryOptions {
 @JS()
 @staticInterop
 class FileSystemRemoveOptions {
-  external factory FileSystemRemoveOptions({bool? recursive = false});
+  external factory FileSystemRemoveOptions._({bool? recursive});
+
+  factory FileSystemRemoveOptions({bool? recursive}) =>
+      FileSystemRemoveOptions._(recursive: recursive ?? false);
 }
 
 extension PropsFileSystemRemoveOptions on FileSystemRemoveOptions {

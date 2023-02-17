@@ -1,3 +1,7 @@
+## 0.1.1
+- Now default parameters are aways passed to anonymous constructors, ie `ResponseInit().status == 200 // true` 
+- JsArray now fully complies to JavaScript `Array`
+
 ## 0.1.0
 - Rebuilt the forbidden words list, so some getters and methods are now using their original name, ie ` mGet`  is now ` get` 
 - Fixed a bug that we would use ` null`  instead of ` undefined`  in some factory anonymous ctors like ` RequestInit`  

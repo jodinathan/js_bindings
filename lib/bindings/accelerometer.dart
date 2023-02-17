@@ -75,10 +75,10 @@ class AccelerometerSensorOptions implements SensorOptions {
   external factory AccelerometerSensorOptions._({String? referenceFrame});
 
   factory AccelerometerSensorOptions(
-          {AccelerometerLocalCoordinateSystem? referenceFrame =
-              AccelerometerLocalCoordinateSystem.device}) =>
+          {AccelerometerLocalCoordinateSystem? referenceFrame}) =>
       AccelerometerSensorOptions._(
-          referenceFrame: referenceFrame?.value ?? undefined);
+          referenceFrame: referenceFrame?.value ??
+              AccelerometerLocalCoordinateSystem.device.value);
 }
 
 extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {

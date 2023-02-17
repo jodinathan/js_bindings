@@ -61,7 +61,10 @@ extension PropsBackgroundFetchUIOptions on BackgroundFetchUIOptions {
 @JS()
 @staticInterop
 class BackgroundFetchOptions implements BackgroundFetchUIOptions {
-  external factory BackgroundFetchOptions({int? downloadTotal = 0});
+  external factory BackgroundFetchOptions._({int? downloadTotal});
+
+  factory BackgroundFetchOptions({int? downloadTotal}) =>
+      BackgroundFetchOptions._(downloadTotal: downloadTotal ?? 0);
 }
 
 extension PropsBackgroundFetchOptions on BackgroundFetchOptions {

@@ -211,7 +211,7 @@ class USBOutTransferResult {
 
   factory USBOutTransferResult(USBTransferStatus status,
           [int? bytesWritten = 0]) =>
-      USBOutTransferResult._(status.value, bytesWritten ?? undefined);
+      USBOutTransferResult._(status.value, bytesWritten ?? 0);
 }
 
 extension PropsUSBOutTransferResult on USBOutTransferResult {
@@ -284,8 +284,7 @@ class USBIsochronousOutTransferPacket {
 
   factory USBIsochronousOutTransferPacket(USBTransferStatus status,
           [int? bytesWritten = 0]) =>
-      USBIsochronousOutTransferPacket._(
-          status.value, bytesWritten ?? undefined);
+      USBIsochronousOutTransferPacket._(status.value, bytesWritten ?? 0);
 }
 
 extension PropsUSBIsochronousOutTransferPacket
@@ -648,8 +647,11 @@ extension PropsAllowedUSBDevice on AllowedUSBDevice {
 @JS()
 @staticInterop
 class USBPermissionStorage {
-  external factory USBPermissionStorage(
-      {Iterable<AllowedUSBDevice>? allowedDevices = const []});
+  external factory USBPermissionStorage._(
+      {Iterable<AllowedUSBDevice>? allowedDevices});
+
+  factory USBPermissionStorage({Iterable<AllowedUSBDevice>? allowedDevices}) =>
+      USBPermissionStorage._(allowedDevices: allowedDevices ?? const []);
 }
 
 extension PropsUSBPermissionStorage on USBPermissionStorage {

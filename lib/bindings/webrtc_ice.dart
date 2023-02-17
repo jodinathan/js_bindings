@@ -21,10 +21,10 @@ class RTCIceGatherOptions {
       {String? gatherPolicy, Iterable<RTCIceServer>? iceServers});
 
   factory RTCIceGatherOptions(
-          {RTCIceTransportPolicy? gatherPolicy = RTCIceTransportPolicy.all,
+          {RTCIceTransportPolicy? gatherPolicy,
           Iterable<RTCIceServer>? iceServers}) =>
       RTCIceGatherOptions._(
-          gatherPolicy: gatherPolicy?.value ?? undefined,
+          gatherPolicy: gatherPolicy?.value ?? RTCIceTransportPolicy.all.value,
           iceServers: iceServers ?? undefined);
 }
 

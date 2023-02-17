@@ -280,7 +280,10 @@ extension PropsAudioRenderCapacity on AudioRenderCapacity {
 @JS()
 @staticInterop
 class AudioRenderCapacityOptions {
-  external factory AudioRenderCapacityOptions({double? updateInterval = 1});
+  external factory AudioRenderCapacityOptions._({double? updateInterval});
+
+  factory AudioRenderCapacityOptions({double? updateInterval}) =>
+      AudioRenderCapacityOptions._(updateInterval: updateInterval ?? 1);
 }
 
 extension PropsAudioRenderCapacityOptions on AudioRenderCapacityOptions {
@@ -308,11 +311,22 @@ extension PropsAudioRenderCapacityEvent on AudioRenderCapacityEvent {
 @JS()
 @staticInterop
 class AudioRenderCapacityEventInit implements EventInit {
-  external factory AudioRenderCapacityEventInit(
-      {double? timestamp = 0,
-      double? averageLoad = 0,
-      double? peakLoad = 0,
-      double? underrunRatio = 0});
+  external factory AudioRenderCapacityEventInit._(
+      {double? timestamp,
+      double? averageLoad,
+      double? peakLoad,
+      double? underrunRatio});
+
+  factory AudioRenderCapacityEventInit(
+          {double? timestamp,
+          double? averageLoad,
+          double? peakLoad,
+          double? underrunRatio}) =>
+      AudioRenderCapacityEventInit._(
+          timestamp: timestamp ?? 0,
+          averageLoad: averageLoad ?? 0,
+          peakLoad: peakLoad ?? 0,
+          underrunRatio: underrunRatio ?? 0);
 }
 
 extension PropsAudioRenderCapacityEventInit on AudioRenderCapacityEventInit {
@@ -389,8 +403,15 @@ extension PropsOfflineAudioContext on OfflineAudioContext {
 @JS()
 @staticInterop
 class OfflineAudioContextOptions {
-  external factory OfflineAudioContextOptions(
-      {int? numberOfChannels = 1, int? length, double? sampleRate});
+  external factory OfflineAudioContextOptions._(
+      {int? numberOfChannels, int? length, double? sampleRate});
+
+  factory OfflineAudioContextOptions(
+          {int? numberOfChannels, int? length, double? sampleRate}) =>
+      OfflineAudioContextOptions._(
+          numberOfChannels: numberOfChannels ?? 1,
+          length: length ?? undefined,
+          sampleRate: sampleRate ?? undefined);
 }
 
 extension PropsOfflineAudioContextOptions on OfflineAudioContextOptions {
@@ -501,8 +522,15 @@ extension PropsAudioBuffer on AudioBuffer {
 @JS()
 @staticInterop
 class AudioBufferOptions {
-  external factory AudioBufferOptions(
-      {int? numberOfChannels = 1, int? length, double? sampleRate});
+  external factory AudioBufferOptions._(
+      {int? numberOfChannels, int? length, double? sampleRate});
+
+  factory AudioBufferOptions(
+          {int? numberOfChannels, int? length, double? sampleRate}) =>
+      AudioBufferOptions._(
+          numberOfChannels: numberOfChannels ?? 1,
+          length: length ?? undefined,
+          sampleRate: sampleRate ?? undefined);
 }
 
 extension PropsAudioBufferOptions on AudioBufferOptions {
@@ -869,11 +897,22 @@ extension PropsAnalyserNode on AnalyserNode {
 @JS()
 @staticInterop
 class AnalyserOptions implements AudioNodeOptions {
-  external factory AnalyserOptions(
-      {int? fftSize = 2048,
-      double? maxDecibels = -30,
-      double? minDecibels = -100,
-      double? smoothingTimeConstant = 0.8});
+  external factory AnalyserOptions._(
+      {int? fftSize,
+      double? maxDecibels,
+      double? minDecibels,
+      double? smoothingTimeConstant});
+
+  factory AnalyserOptions(
+          {int? fftSize,
+          double? maxDecibels,
+          double? minDecibels,
+          double? smoothingTimeConstant}) =>
+      AnalyserOptions._(
+          fftSize: fftSize ?? 2048,
+          maxDecibels: maxDecibels ?? -30,
+          minDecibels: minDecibels ?? -100,
+          smoothingTimeConstant: smoothingTimeConstant ?? 0.8);
 }
 
 extension PropsAnalyserOptions on AnalyserOptions {
@@ -1005,13 +1044,28 @@ extension PropsAudioBufferSourceNode on AudioBufferSourceNode {
 @JS()
 @staticInterop
 class AudioBufferSourceOptions {
-  external factory AudioBufferSourceOptions(
+  external factory AudioBufferSourceOptions._(
       {AudioBuffer? buffer,
-      double? detune = 0,
-      bool? loop = false,
-      double? loopEnd = 0,
-      double? loopStart = 0,
-      double? playbackRate = 1});
+      double? detune,
+      bool? loop,
+      double? loopEnd,
+      double? loopStart,
+      double? playbackRate});
+
+  factory AudioBufferSourceOptions(
+          {AudioBuffer? buffer,
+          double? detune,
+          bool? loop,
+          double? loopEnd,
+          double? loopStart,
+          double? playbackRate}) =>
+      AudioBufferSourceOptions._(
+          buffer: buffer ?? undefined,
+          detune: detune ?? 0,
+          loop: loop ?? false,
+          loopEnd: loopEnd ?? 0,
+          loopStart: loopStart ?? 0,
+          playbackRate: playbackRate ?? 1);
 }
 
 extension PropsAudioBufferSourceOptions on AudioBufferSourceOptions {
@@ -1304,23 +1358,23 @@ extension PropsBiquadFilterNode on BiquadFilterNode {
 class BiquadFilterOptions implements AudioNodeOptions {
   external factory BiquadFilterOptions._(
       {String? type,
-      double? Q = 1,
-      double? detune = 0,
-      double? frequency = 350,
-      double? gain = 0});
+      double? Q,
+      double? detune,
+      double? frequency,
+      double? gain});
 
   factory BiquadFilterOptions(
-          {BiquadFilterType? type = BiquadFilterType.lowpass,
-          double? Q = 1,
-          double? detune = 0,
-          double? frequency = 350,
-          double? gain = 0}) =>
+          {BiquadFilterType? type,
+          double? Q,
+          double? detune,
+          double? frequency,
+          double? gain}) =>
       BiquadFilterOptions._(
-          type: type?.value ?? undefined,
-          Q: Q ?? undefined,
-          detune: detune ?? undefined,
-          frequency: frequency ?? undefined,
-          gain: gain ?? undefined);
+          type: type?.value ?? BiquadFilterType.lowpass.value,
+          Q: Q ?? 1,
+          detune: detune ?? 0,
+          frequency: frequency ?? 350,
+          gain: gain ?? 0);
 }
 
 extension PropsBiquadFilterOptions on BiquadFilterOptions {
@@ -1422,7 +1476,10 @@ class ChannelMergerNode implements AudioNode {
 @JS()
 @staticInterop
 class ChannelMergerOptions implements AudioNodeOptions {
-  external factory ChannelMergerOptions({int? numberOfInputs = 6});
+  external factory ChannelMergerOptions._({int? numberOfInputs});
+
+  factory ChannelMergerOptions({int? numberOfInputs}) =>
+      ChannelMergerOptions._(numberOfInputs: numberOfInputs ?? 6);
 }
 
 extension PropsChannelMergerOptions on ChannelMergerOptions {
@@ -1507,7 +1564,10 @@ class ChannelSplitterNode implements AudioNode {
 @JS()
 @staticInterop
 class ChannelSplitterOptions implements AudioNodeOptions {
-  external factory ChannelSplitterOptions({int? numberOfOutputs = 6});
+  external factory ChannelSplitterOptions._({int? numberOfOutputs});
+
+  factory ChannelSplitterOptions({int? numberOfOutputs}) =>
+      ChannelSplitterOptions._(numberOfOutputs: numberOfOutputs ?? 6);
 }
 
 extension PropsChannelSplitterOptions on ChannelSplitterOptions {
@@ -1579,7 +1639,10 @@ extension PropsConstantSourceNode on ConstantSourceNode {
 @JS()
 @staticInterop
 class ConstantSourceOptions {
-  external factory ConstantSourceOptions({double? offset = 1});
+  external factory ConstantSourceOptions._({double? offset});
+
+  factory ConstantSourceOptions({double? offset}) =>
+      ConstantSourceOptions._(offset: offset ?? 1);
 }
 
 extension PropsConstantSourceOptions on ConstantSourceOptions {
@@ -1661,8 +1724,13 @@ extension PropsConvolverNode on ConvolverNode {
 @JS()
 @staticInterop
 class ConvolverOptions implements AudioNodeOptions {
-  external factory ConvolverOptions(
-      {AudioBuffer? buffer, bool? disableNormalization = false});
+  external factory ConvolverOptions._(
+      {AudioBuffer? buffer, bool? disableNormalization});
+
+  factory ConvolverOptions({AudioBuffer? buffer, bool? disableNormalization}) =>
+      ConvolverOptions._(
+          buffer: buffer ?? undefined,
+          disableNormalization: disableNormalization ?? false);
 }
 
 extension PropsConvolverOptions on ConvolverOptions {
@@ -1745,8 +1813,11 @@ extension PropsDelayNode on DelayNode {
 @JS()
 @staticInterop
 class DelayOptions implements AudioNodeOptions {
-  external factory DelayOptions(
-      {double? maxDelayTime = 1, double? delayTime = 0});
+  external factory DelayOptions._({double? maxDelayTime, double? delayTime});
+
+  factory DelayOptions({double? maxDelayTime, double? delayTime}) =>
+      DelayOptions._(
+          maxDelayTime: maxDelayTime ?? 1, delayTime: delayTime ?? 0);
 }
 
 extension PropsDelayOptions on DelayOptions {
@@ -1829,12 +1900,25 @@ extension PropsDynamicsCompressorNode on DynamicsCompressorNode {
 @JS()
 @staticInterop
 class DynamicsCompressorOptions implements AudioNodeOptions {
-  external factory DynamicsCompressorOptions(
-      {double? attack = 0.003,
-      double? knee = 30,
-      double? ratio = 12,
-      double? release = 0.25,
-      double? threshold = -24});
+  external factory DynamicsCompressorOptions._(
+      {double? attack,
+      double? knee,
+      double? ratio,
+      double? release,
+      double? threshold});
+
+  factory DynamicsCompressorOptions(
+          {double? attack,
+          double? knee,
+          double? ratio,
+          double? release,
+          double? threshold}) =>
+      DynamicsCompressorOptions._(
+          attack: attack ?? 0.003,
+          knee: knee ?? 30,
+          ratio: ratio ?? 12,
+          release: release ?? 0.25,
+          threshold: threshold ?? -24);
 }
 
 extension PropsDynamicsCompressorOptions on DynamicsCompressorOptions {
@@ -1934,7 +2018,9 @@ extension PropsGainNode on GainNode {
 @JS()
 @staticInterop
 class GainOptions implements AudioNodeOptions {
-  external factory GainOptions({double? gain = 1.0});
+  external factory GainOptions._({double? gain});
+
+  factory GainOptions({double? gain}) => GainOptions._(gain: gain ?? 1.0);
 }
 
 extension PropsGainOptions on GainOptions {
@@ -2430,19 +2516,19 @@ extension PropsOscillatorNode on OscillatorNode {
 class OscillatorOptions implements AudioNodeOptions {
   external factory OscillatorOptions._(
       {String? type,
-      double? frequency = 440,
-      double? detune = 0,
+      double? frequency,
+      double? detune,
       PeriodicWave? periodicWave});
 
   factory OscillatorOptions(
-          {OscillatorType? type = OscillatorType.sine,
-          double? frequency = 440,
-          double? detune = 0,
+          {OscillatorType? type,
+          double? frequency,
+          double? detune,
           PeriodicWave? periodicWave}) =>
       OscillatorOptions._(
-          type: type?.value ?? undefined,
-          frequency: frequency ?? undefined,
-          detune: detune ?? undefined,
+          type: type?.value ?? OscillatorType.sine.value,
+          frequency: frequency ?? 440,
+          detune: detune ?? 0,
           periodicWave: periodicWave ?? undefined);
 }
 
@@ -2617,49 +2703,51 @@ class PannerOptions implements AudioNodeOptions {
   external factory PannerOptions._(
       {String? panningModel,
       String? distanceModel,
-      double? positionX = 0,
-      double? positionY = 0,
-      double? positionZ = 0,
-      double? orientationX = 1,
-      double? orientationY = 0,
-      double? orientationZ = 0,
-      double? refDistance = 1,
-      double? maxDistance = 10000,
-      double? rolloffFactor = 1,
-      double? coneInnerAngle = 360,
-      double? coneOuterAngle = 360,
-      double? coneOuterGain = 0});
+      double? positionX,
+      double? positionY,
+      double? positionZ,
+      double? orientationX,
+      double? orientationY,
+      double? orientationZ,
+      double? refDistance,
+      double? maxDistance,
+      double? rolloffFactor,
+      double? coneInnerAngle,
+      double? coneOuterAngle,
+      double? coneOuterGain});
 
   factory PannerOptions(
-          {PanningModelType? panningModel = PanningModelType.equalpower,
-          DistanceModelType? distanceModel = DistanceModelType.inverse,
-          double? positionX = 0,
-          double? positionY = 0,
-          double? positionZ = 0,
-          double? orientationX = 1,
-          double? orientationY = 0,
-          double? orientationZ = 0,
-          double? refDistance = 1,
-          double? maxDistance = 10000,
-          double? rolloffFactor = 1,
-          double? coneInnerAngle = 360,
-          double? coneOuterAngle = 360,
-          double? coneOuterGain = 0}) =>
+          {PanningModelType? panningModel,
+          DistanceModelType? distanceModel,
+          double? positionX,
+          double? positionY,
+          double? positionZ,
+          double? orientationX,
+          double? orientationY,
+          double? orientationZ,
+          double? refDistance,
+          double? maxDistance,
+          double? rolloffFactor,
+          double? coneInnerAngle,
+          double? coneOuterAngle,
+          double? coneOuterGain}) =>
       PannerOptions._(
-          panningModel: panningModel?.value ?? undefined,
-          distanceModel: distanceModel?.value ?? undefined,
-          positionX: positionX ?? undefined,
-          positionY: positionY ?? undefined,
-          positionZ: positionZ ?? undefined,
-          orientationX: orientationX ?? undefined,
-          orientationY: orientationY ?? undefined,
-          orientationZ: orientationZ ?? undefined,
-          refDistance: refDistance ?? undefined,
-          maxDistance: maxDistance ?? undefined,
-          rolloffFactor: rolloffFactor ?? undefined,
-          coneInnerAngle: coneInnerAngle ?? undefined,
-          coneOuterAngle: coneOuterAngle ?? undefined,
-          coneOuterGain: coneOuterGain ?? undefined);
+          panningModel:
+              panningModel?.value ?? PanningModelType.equalpower.value,
+          distanceModel:
+              distanceModel?.value ?? DistanceModelType.inverse.value,
+          positionX: positionX ?? 0,
+          positionY: positionY ?? 0,
+          positionZ: positionZ ?? 0,
+          orientationX: orientationX ?? 1,
+          orientationY: orientationY ?? 0,
+          orientationZ: orientationZ ?? 0,
+          refDistance: refDistance ?? 1,
+          maxDistance: maxDistance ?? 10000,
+          rolloffFactor: rolloffFactor ?? 1,
+          coneInnerAngle: coneInnerAngle ?? 360,
+          coneOuterAngle: coneOuterAngle ?? 360,
+          coneOuterGain: coneOuterGain ?? 0);
 }
 
 extension PropsPannerOptions on PannerOptions {
@@ -2753,8 +2841,11 @@ class PeriodicWave {
 @JS()
 @staticInterop
 class PeriodicWaveConstraints {
-  external factory PeriodicWaveConstraints(
-      {bool? disableNormalization = false});
+  external factory PeriodicWaveConstraints._({bool? disableNormalization});
+
+  factory PeriodicWaveConstraints({bool? disableNormalization}) =>
+      PeriodicWaveConstraints._(
+          disableNormalization: disableNormalization ?? false);
 }
 
 extension PropsPeriodicWaveConstraints on PeriodicWaveConstraints {
@@ -2947,7 +3038,10 @@ extension PropsStereoPannerNode on StereoPannerNode {
 @JS()
 @staticInterop
 class StereoPannerOptions implements AudioNodeOptions {
-  external factory StereoPannerOptions({double? pan = 0});
+  external factory StereoPannerOptions._({double? pan});
+
+  factory StereoPannerOptions({double? pan}) =>
+      StereoPannerOptions._(pan: pan ?? 0);
 }
 
 extension PropsStereoPannerOptions on StereoPannerOptions {
@@ -3045,11 +3139,10 @@ class WaveShaperOptions implements AudioNodeOptions {
       {Iterable<double>? curve, String? oversample});
 
   factory WaveShaperOptions(
-          {Iterable<double>? curve,
-          OverSampleType? oversample = OverSampleType.none}) =>
+          {Iterable<double>? curve, OverSampleType? oversample}) =>
       WaveShaperOptions._(
           curve: curve ?? undefined,
-          oversample: oversample?.value ?? undefined);
+          oversample: oversample?.value ?? OverSampleType.none.value);
 }
 
 extension PropsWaveShaperOptions on WaveShaperOptions {
@@ -3193,12 +3286,25 @@ extension PropsAudioWorkletNode on AudioWorkletNode {
 @JS()
 @staticInterop
 class AudioWorkletNodeOptions implements AudioNodeOptions {
-  external factory AudioWorkletNodeOptions(
-      {int? numberOfInputs = 1,
-      int? numberOfOutputs = 1,
+  external factory AudioWorkletNodeOptions._(
+      {int? numberOfInputs,
+      int? numberOfOutputs,
       Iterable<int>? outputChannelCount,
       dynamic parameterData,
       dynamic processorOptions});
+
+  factory AudioWorkletNodeOptions(
+          {int? numberOfInputs,
+          int? numberOfOutputs,
+          Iterable<int>? outputChannelCount,
+          dynamic parameterData,
+          dynamic processorOptions}) =>
+      AudioWorkletNodeOptions._(
+          numberOfInputs: numberOfInputs ?? 1,
+          numberOfOutputs: numberOfOutputs ?? 1,
+          outputChannelCount: outputChannelCount ?? undefined,
+          parameterData: parameterData ?? undefined,
+          processorOptions: processorOptions ?? undefined);
 }
 
 extension PropsAudioWorkletNodeOptions on AudioWorkletNodeOptions {
@@ -3258,23 +3364,23 @@ extension PropsAudioWorkletProcessor on AudioWorkletProcessor {
 class AudioParamDescriptor {
   external factory AudioParamDescriptor._(
       {required String name,
-      double? defaultValue = 0,
-      double? minValue = -3.4028235e38,
-      double? maxValue = 3.4028235e38,
+      double? defaultValue,
+      double? minValue,
+      double? maxValue,
       String? automationRate});
 
   factory AudioParamDescriptor(
           {required String name,
-          double? defaultValue = 0,
-          double? minValue = -3.4028235e38,
-          double? maxValue = 3.4028235e38,
-          AutomationRate? automationRate = AutomationRate.aRate}) =>
+          double? defaultValue,
+          double? minValue,
+          double? maxValue,
+          AutomationRate? automationRate}) =>
       AudioParamDescriptor._(
           name: name,
-          defaultValue: defaultValue ?? undefined,
-          minValue: minValue ?? undefined,
-          maxValue: maxValue ?? undefined,
-          automationRate: automationRate?.value ?? undefined);
+          defaultValue: defaultValue ?? 0,
+          minValue: minValue ?? -3.4028235e38,
+          maxValue: maxValue ?? 3.4028235e38,
+          automationRate: automationRate?.value ?? AutomationRate.aRate.value);
 }
 
 extension PropsAudioParamDescriptor on AudioParamDescriptor {

@@ -130,8 +130,15 @@ extension PropsIntersectionObserverEntryInit on IntersectionObserverEntryInit {
 @JS()
 @staticInterop
 class IntersectionObserverInit {
-  external factory IntersectionObserverInit(
-      {dynamic root, String? rootMargin = '0px', dynamic threshold = 0});
+  external factory IntersectionObserverInit._(
+      {dynamic root, String? rootMargin, dynamic threshold});
+
+  factory IntersectionObserverInit(
+          {dynamic root, String? rootMargin, dynamic threshold}) =>
+      IntersectionObserverInit._(
+          root: root ?? undefined,
+          rootMargin: rootMargin ?? '0px',
+          threshold: threshold ?? 0);
 }
 
 extension PropsIntersectionObserverInit on IntersectionObserverInit {

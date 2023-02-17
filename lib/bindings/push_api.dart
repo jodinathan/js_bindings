@@ -18,7 +18,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PushPermissionDescriptor implements PermissionDescriptor {
-  external factory PushPermissionDescriptor({bool? userVisibleOnly = false});
+  external factory PushPermissionDescriptor._({bool? userVisibleOnly});
+
+  factory PushPermissionDescriptor({bool? userVisibleOnly}) =>
+      PushPermissionDescriptor._(userVisibleOnly: userVisibleOnly ?? false);
 }
 
 extension PropsPushPermissionDescriptor on PushPermissionDescriptor {
@@ -76,8 +79,14 @@ extension PropsPushSubscriptionOptions on PushSubscriptionOptions {
 @JS()
 @staticInterop
 class PushSubscriptionOptionsInit {
-  external factory PushSubscriptionOptionsInit(
-      {bool? userVisibleOnly = false, dynamic applicationServerKey});
+  external factory PushSubscriptionOptionsInit._(
+      {bool? userVisibleOnly, dynamic applicationServerKey});
+
+  factory PushSubscriptionOptionsInit(
+          {bool? userVisibleOnly, dynamic applicationServerKey}) =>
+      PushSubscriptionOptionsInit._(
+          userVisibleOnly: userVisibleOnly ?? false,
+          applicationServerKey: applicationServerKey ?? undefined);
 }
 
 extension PropsPushSubscriptionOptionsInit on PushSubscriptionOptionsInit {

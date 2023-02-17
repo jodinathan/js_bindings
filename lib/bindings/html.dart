@@ -5740,7 +5740,10 @@ extension PropsHTMLSlotElement on HTMLSlotElement {
 @JS()
 @staticInterop
 class AssignedNodesOptions {
-  external factory AssignedNodesOptions({bool? flatten = false});
+  external factory AssignedNodesOptions._({bool? flatten});
+
+  factory AssignedNodesOptions({bool? flatten}) =>
+      AssignedNodesOptions._(flatten: flatten ?? false);
 }
 
 extension PropsAssignedNodesOptions on AssignedNodesOptions {
@@ -5848,21 +5851,21 @@ enum CanvasFillRule {
 @staticInterop
 class CanvasRenderingContext2DSettings {
   external factory CanvasRenderingContext2DSettings._(
-      {bool? alpha = true,
-      bool? desynchronized = false,
+      {bool? alpha,
+      bool? desynchronized,
       String? colorSpace,
-      bool? willReadFrequently = false});
+      bool? willReadFrequently});
 
   factory CanvasRenderingContext2DSettings(
-          {bool? alpha = true,
-          bool? desynchronized = false,
-          PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb,
-          bool? willReadFrequently = false}) =>
+          {bool? alpha,
+          bool? desynchronized,
+          PredefinedColorSpace? colorSpace,
+          bool? willReadFrequently}) =>
       CanvasRenderingContext2DSettings._(
-          alpha: alpha ?? undefined,
-          desynchronized: desynchronized ?? undefined,
-          colorSpace: colorSpace?.value ?? undefined,
-          willReadFrequently: willReadFrequently ?? undefined);
+          alpha: alpha ?? true,
+          desynchronized: desynchronized ?? false,
+          colorSpace: colorSpace?.value ?? PredefinedColorSpace.srgb.value,
+          willReadFrequently: willReadFrequently ?? false);
 }
 
 extension PropsCanvasRenderingContext2DSettings
@@ -6707,7 +6710,10 @@ extension PropsImageBitmapRenderingContext on ImageBitmapRenderingContext {
 @JS()
 @staticInterop
 class ImageBitmapRenderingContextSettings {
-  external factory ImageBitmapRenderingContextSettings({bool? alpha = true});
+  external factory ImageBitmapRenderingContextSettings._({bool? alpha});
+
+  factory ImageBitmapRenderingContextSettings({bool? alpha}) =>
+      ImageBitmapRenderingContextSettings._(alpha: alpha ?? true);
 }
 
 extension PropsImageBitmapRenderingContextSettings
@@ -6722,8 +6728,13 @@ extension PropsImageBitmapRenderingContextSettings
 @JS()
 @staticInterop
 class ImageEncodeOptions {
-  external factory ImageEncodeOptions(
-      {String? type = 'image/png', /* double | NaN */ dynamic quality});
+  external factory ImageEncodeOptions._(
+      {String? type, /* double | NaN */ dynamic quality});
+
+  factory ImageEncodeOptions(
+          {String? type, /* double | NaN */ dynamic quality}) =>
+      ImageEncodeOptions._(
+          type: type ?? 'image/png', quality: quality ?? undefined);
 }
 
 extension PropsImageEncodeOptions on ImageEncodeOptions {
@@ -6919,17 +6930,40 @@ extension PropsElementInternals on ElementInternals {
 @JS()
 @staticInterop
 class ValidityStateFlags {
-  external factory ValidityStateFlags(
-      {bool? valueMissing = false,
-      bool? typeMismatch = false,
-      bool? patternMismatch = false,
-      bool? tooLong = false,
-      bool? tooShort = false,
-      bool? rangeUnderflow = false,
-      bool? rangeOverflow = false,
-      bool? stepMismatch = false,
-      bool? badInput = false,
-      bool? customError = false});
+  external factory ValidityStateFlags._(
+      {bool? valueMissing,
+      bool? typeMismatch,
+      bool? patternMismatch,
+      bool? tooLong,
+      bool? tooShort,
+      bool? rangeUnderflow,
+      bool? rangeOverflow,
+      bool? stepMismatch,
+      bool? badInput,
+      bool? customError});
+
+  factory ValidityStateFlags(
+          {bool? valueMissing,
+          bool? typeMismatch,
+          bool? patternMismatch,
+          bool? tooLong,
+          bool? tooShort,
+          bool? rangeUnderflow,
+          bool? rangeOverflow,
+          bool? stepMismatch,
+          bool? badInput,
+          bool? customError}) =>
+      ValidityStateFlags._(
+          valueMissing: valueMissing ?? false,
+          typeMismatch: typeMismatch ?? false,
+          patternMismatch: patternMismatch ?? false,
+          tooLong: tooLong ?? false,
+          tooShort: tooShort ?? false,
+          rangeUnderflow: rangeUnderflow ?? false,
+          rangeOverflow: rangeOverflow ?? false,
+          stepMismatch: stepMismatch ?? false,
+          badInput: badInput ?? false,
+          customError: customError ?? false);
 }
 
 extension PropsValidityStateFlags on ValidityStateFlags {
@@ -6988,8 +7022,12 @@ extension PropsValidityStateFlags on ValidityStateFlags {
 @JS()
 @staticInterop
 class FocusOptions {
-  external factory FocusOptions(
-      {bool? preventScroll = false, bool? focusVisible});
+  external factory FocusOptions._({bool? preventScroll, bool? focusVisible});
+
+  factory FocusOptions({bool? preventScroll, bool? focusVisible}) =>
+      FocusOptions._(
+          preventScroll: preventScroll ?? false,
+          focusVisible: focusVisible ?? undefined);
 }
 
 extension PropsFocusOptions on FocusOptions {
@@ -7432,7 +7470,10 @@ extension PropsWindow on Window {
 @JS()
 @staticInterop
 class WindowPostMessageOptions implements StructuredSerializeOptions {
-  external factory WindowPostMessageOptions({String? targetOrigin = '/'});
+  external factory WindowPostMessageOptions._({String? targetOrigin});
+
+  factory WindowPostMessageOptions({String? targetOrigin}) =>
+      WindowPostMessageOptions._(targetOrigin: targetOrigin ?? '/');
 }
 
 extension PropsWindowPostMessageOptions on WindowPostMessageOptions {
@@ -7693,8 +7734,10 @@ extension PropsHashChangeEvent on HashChangeEvent {
 @JS()
 @staticInterop
 class HashChangeEventInit implements EventInit {
-  external factory HashChangeEventInit(
-      {String? oldURL = '', String? newURL = ''});
+  external factory HashChangeEventInit._({String? oldURL, String? newURL});
+
+  factory HashChangeEventInit({String? oldURL, String? newURL}) =>
+      HashChangeEventInit._(oldURL: oldURL ?? '', newURL: newURL ?? '');
 }
 
 extension PropsHashChangeEventInit on HashChangeEventInit {
@@ -7739,7 +7782,10 @@ extension PropsPageTransitionEvent on PageTransitionEvent {
 @JS()
 @staticInterop
 class PageTransitionEventInit implements EventInit {
-  external factory PageTransitionEventInit({bool? persisted = false});
+  external factory PageTransitionEventInit._({bool? persisted});
+
+  factory PageTransitionEventInit({bool? persisted}) =>
+      PageTransitionEventInit._(persisted: persisted ?? false);
 }
 
 extension PropsPageTransitionEventInit on PageTransitionEventInit {
@@ -7835,12 +7881,25 @@ extension PropsErrorEvent on ErrorEvent {
 @JS()
 @staticInterop
 class ErrorEventInit implements EventInit {
-  external factory ErrorEventInit(
-      {String? message = '',
-      String? filename = '',
-      int? lineno = 0,
-      int? colno = 0,
+  external factory ErrorEventInit._(
+      {String? message,
+      String? filename,
+      int? lineno,
+      int? colno,
       dynamic error});
+
+  factory ErrorEventInit(
+          {String? message,
+          String? filename,
+          int? lineno,
+          int? colno,
+          dynamic error}) =>
+      ErrorEventInit._(
+          message: message ?? '',
+          filename: filename ?? '',
+          lineno: lineno ?? 0,
+          colno: colno ?? 0,
+          error: error ?? undefined);
 }
 
 extension PropsErrorEventInit on ErrorEventInit {
@@ -9126,20 +9185,22 @@ class ImageBitmapOptions {
       String? resizeQuality});
 
   factory ImageBitmapOptions(
-          {ImageOrientation? imageOrientation = ImageOrientation.none,
-          PremultiplyAlpha? premultiplyAlpha = PremultiplyAlpha.valueDefault,
-          ColorSpaceConversion? colorSpaceConversion =
-              ColorSpaceConversion.valueDefault,
+          {ImageOrientation? imageOrientation,
+          PremultiplyAlpha? premultiplyAlpha,
+          ColorSpaceConversion? colorSpaceConversion,
           int? resizeWidth,
           int? resizeHeight,
-          ResizeQuality? resizeQuality = ResizeQuality.low}) =>
+          ResizeQuality? resizeQuality}) =>
       ImageBitmapOptions._(
-          imageOrientation: imageOrientation?.value ?? undefined,
-          premultiplyAlpha: premultiplyAlpha?.value ?? undefined,
-          colorSpaceConversion: colorSpaceConversion?.value ?? undefined,
+          imageOrientation:
+              imageOrientation?.value ?? ImageOrientation.none.value,
+          premultiplyAlpha:
+              premultiplyAlpha?.value ?? PremultiplyAlpha.valueDefault.value,
+          colorSpaceConversion: colorSpaceConversion?.value ??
+              ColorSpaceConversion.valueDefault.value,
           resizeWidth: resizeWidth ?? undefined,
           resizeHeight: resizeHeight ?? undefined,
-          resizeQuality: resizeQuality?.value ?? undefined);
+          resizeQuality: resizeQuality?.value ?? ResizeQuality.low.value);
 }
 
 extension PropsImageBitmapOptions on ImageBitmapOptions {
@@ -9262,12 +9323,25 @@ extension PropsMessageEvent on MessageEvent {
 @JS()
 @staticInterop
 class MessageEventInit implements EventInit {
-  external factory MessageEventInit(
+  external factory MessageEventInit._(
       {dynamic data,
-      String? origin = '',
-      String? lastEventId = '',
+      String? origin,
+      String? lastEventId,
       dynamic source,
-      Iterable<MessagePort>? ports = const []});
+      Iterable<MessagePort>? ports});
+
+  factory MessageEventInit(
+          {dynamic data,
+          String? origin,
+          String? lastEventId,
+          dynamic source,
+          Iterable<MessagePort>? ports}) =>
+      MessageEventInit._(
+          data: data ?? undefined,
+          origin: origin ?? '',
+          lastEventId: lastEventId ?? '',
+          source: source ?? undefined,
+          ports: ports ?? const []);
 }
 
 extension PropsMessageEventInit on MessageEventInit {
@@ -9380,7 +9454,10 @@ extension PropsEventSource on EventSource {
 @JS()
 @staticInterop
 class EventSourceInit {
-  external factory EventSourceInit({bool? withCredentials = false});
+  external factory EventSourceInit._({bool? withCredentials});
+
+  factory EventSourceInit({bool? withCredentials}) =>
+      EventSourceInit._(withCredentials: withCredentials ?? false);
 }
 
 extension PropsEventSourceInit on EventSourceInit {
@@ -9452,8 +9529,10 @@ extension PropsMessagePort on MessagePort {
 @JS()
 @staticInterop
 class StructuredSerializeOptions {
-  external factory StructuredSerializeOptions(
-      {Iterable<dynamic>? transfer = const []});
+  external factory StructuredSerializeOptions._({Iterable<dynamic>? transfer});
+
+  factory StructuredSerializeOptions({Iterable<dynamic>? transfer}) =>
+      StructuredSerializeOptions._(transfer: transfer ?? const []);
 }
 
 extension PropsStructuredSerializeOptions on StructuredSerializeOptions {
@@ -9741,16 +9820,15 @@ extension PropsWorker on Worker {
 @staticInterop
 class WorkerOptions {
   external factory WorkerOptions._(
-      {String? type, String? credentials, String? name = ''});
+      {String? type, String? credentials, String? name});
 
   factory WorkerOptions(
-          {WorkerType? type = WorkerType.classic,
-          RequestCredentials? credentials = RequestCredentials.sameOrigin,
-          String? name = ''}) =>
+          {WorkerType? type, RequestCredentials? credentials, String? name}) =>
       WorkerOptions._(
-          type: type?.value ?? undefined,
-          credentials: credentials?.value ?? undefined,
-          name: name ?? undefined);
+          type: type?.value ?? WorkerType.classic.value,
+          credentials:
+              credentials?.value ?? RequestCredentials.sameOrigin.value,
+          name: name ?? '');
 }
 
 extension PropsWorkerOptions on WorkerOptions {
@@ -9920,9 +9998,8 @@ extension PropsWorklet on Worklet {
 class WorkletOptions {
   external factory WorkletOptions._({String? credentials});
 
-  factory WorkletOptions(
-          {RequestCredentials? credentials = RequestCredentials.sameOrigin}) =>
-      WorkletOptions._(credentials: credentials?.value ?? undefined);
+  factory WorkletOptions({RequestCredentials? credentials}) => WorkletOptions._(
+      credentials: credentials?.value ?? RequestCredentials.sameOrigin.value);
 }
 
 extension PropsWorkletOptions on WorkletOptions {
@@ -10034,12 +10111,25 @@ extension PropsStorageEvent on StorageEvent {
 @JS()
 @staticInterop
 class StorageEventInit implements EventInit {
-  external factory StorageEventInit(
+  external factory StorageEventInit._(
       {String? key,
       String? oldValue,
       String? newValue,
-      String? url = '',
+      String? url,
       Storage? storageArea});
+
+  factory StorageEventInit(
+          {String? key,
+          String? oldValue,
+          String? newValue,
+          String? url,
+          Storage? storageArea}) =>
+      StorageEventInit._(
+          key: key ?? undefined,
+          oldValue: oldValue ?? undefined,
+          newValue: newValue ?? undefined,
+          url: url ?? '',
+          storageArea: storageArea ?? undefined);
 }
 
 extension PropsStorageEventInit on StorageEventInit {

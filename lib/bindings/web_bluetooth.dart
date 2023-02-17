@@ -109,11 +109,22 @@ extension PropsBluetoothLEScanFilterInit on BluetoothLEScanFilterInit {
 @JS()
 @staticInterop
 class RequestDeviceOptions {
-  external factory RequestDeviceOptions(
+  external factory RequestDeviceOptions._(
       {Iterable<BluetoothLEScanFilterInit>? filters,
-      Iterable<dynamic>? optionalServices = const [],
-      Iterable<int>? optionalManufacturerData = const [],
-      bool? acceptAllDevices = false});
+      Iterable<dynamic>? optionalServices,
+      Iterable<int>? optionalManufacturerData,
+      bool? acceptAllDevices});
+
+  factory RequestDeviceOptions(
+          {Iterable<BluetoothLEScanFilterInit>? filters,
+          Iterable<dynamic>? optionalServices,
+          Iterable<int>? optionalManufacturerData,
+          bool? acceptAllDevices}) =>
+      RequestDeviceOptions._(
+          filters: filters ?? undefined,
+          optionalServices: optionalServices ?? const [],
+          optionalManufacturerData: optionalManufacturerData ?? const [],
+          acceptAllDevices: acceptAllDevices ?? false);
 }
 
 extension PropsRequestDeviceOptions on RequestDeviceOptions {
@@ -199,12 +210,25 @@ extension PropsBluetooth on Bluetooth {
 @JS()
 @staticInterop
 class BluetoothPermissionDescriptor implements PermissionDescriptor {
-  external factory BluetoothPermissionDescriptor(
+  external factory BluetoothPermissionDescriptor._(
       {String? deviceId,
       Iterable<BluetoothLEScanFilterInit>? filters,
-      Iterable<dynamic>? optionalServices = const [],
-      Iterable<int>? optionalManufacturerData = const [],
-      bool? acceptAllDevices = false});
+      Iterable<dynamic>? optionalServices,
+      Iterable<int>? optionalManufacturerData,
+      bool? acceptAllDevices});
+
+  factory BluetoothPermissionDescriptor(
+          {String? deviceId,
+          Iterable<BluetoothLEScanFilterInit>? filters,
+          Iterable<dynamic>? optionalServices,
+          Iterable<int>? optionalManufacturerData,
+          bool? acceptAllDevices}) =>
+      BluetoothPermissionDescriptor._(
+          deviceId: deviceId ?? undefined,
+          filters: filters ?? undefined,
+          optionalServices: optionalServices ?? const [],
+          optionalManufacturerData: optionalManufacturerData ?? const [],
+          acceptAllDevices: acceptAllDevices ?? false);
 }
 
 extension PropsBluetoothPermissionDescriptor on BluetoothPermissionDescriptor {

@@ -84,8 +84,13 @@ extension PropsRTCIdentityAssertionResult on RTCIdentityAssertionResult {
 @JS()
 @staticInterop
 class RTCIdentityProviderDetails {
-  external factory RTCIdentityProviderDetails(
-      {required String domain, String? protocol = 'default'});
+  external factory RTCIdentityProviderDetails._(
+      {required String domain, String? protocol});
+
+  factory RTCIdentityProviderDetails(
+          {required String domain, String? protocol}) =>
+      RTCIdentityProviderDetails._(
+          domain: domain, protocol: protocol ?? 'default');
 }
 
 extension PropsRTCIdentityProviderDetails on RTCIdentityProviderDetails {
@@ -124,10 +129,15 @@ extension PropsRTCIdentityValidationResult on RTCIdentityValidationResult {
 @JS()
 @staticInterop
 class RTCIdentityProviderOptions {
-  external factory RTCIdentityProviderOptions(
-      {String? protocol = 'default',
-      String? usernameHint,
-      String? peerIdentity});
+  external factory RTCIdentityProviderOptions._(
+      {String? protocol, String? usernameHint, String? peerIdentity});
+
+  factory RTCIdentityProviderOptions(
+          {String? protocol, String? usernameHint, String? peerIdentity}) =>
+      RTCIdentityProviderOptions._(
+          protocol: protocol ?? 'default',
+          usernameHint: usernameHint ?? undefined,
+          peerIdentity: peerIdentity ?? undefined);
 }
 
 extension PropsRTCIdentityProviderOptions on RTCIdentityProviderOptions {

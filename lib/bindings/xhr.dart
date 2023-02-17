@@ -274,8 +274,15 @@ extension PropsProgressEvent on ProgressEvent {
 @JS()
 @staticInterop
 class ProgressEventInit implements EventInit {
-  external factory ProgressEventInit(
-      {bool? lengthComputable = false, int? loaded = 0, int? total = 0});
+  external factory ProgressEventInit._(
+      {bool? lengthComputable, int? loaded, int? total});
+
+  factory ProgressEventInit(
+          {bool? lengthComputable, int? loaded, int? total}) =>
+      ProgressEventInit._(
+          lengthComputable: lengthComputable ?? false,
+          loaded: loaded ?? 0,
+          total: total ?? 0);
 }
 
 extension PropsProgressEventInit on ProgressEventInit {

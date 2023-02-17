@@ -72,10 +72,10 @@ class GyroscopeSensorOptions implements SensorOptions {
   external factory GyroscopeSensorOptions._({String? referenceFrame});
 
   factory GyroscopeSensorOptions(
-          {GyroscopeLocalCoordinateSystem? referenceFrame =
-              GyroscopeLocalCoordinateSystem.device}) =>
+          {GyroscopeLocalCoordinateSystem? referenceFrame}) =>
       GyroscopeSensorOptions._(
-          referenceFrame: referenceFrame?.value ?? undefined);
+          referenceFrame: referenceFrame?.value ??
+              GyroscopeLocalCoordinateSystem.device.value);
 }
 
 extension PropsGyroscopeSensorOptions on GyroscopeSensorOptions {

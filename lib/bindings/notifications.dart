@@ -95,50 +95,50 @@ extension PropsNotification on Notification {
 class NotificationOptions {
   external factory NotificationOptions._(
       {String? dir,
-      String? lang = '',
-      String? body = '',
-      String? tag = '',
+      String? lang,
+      String? body,
+      String? tag,
       String? image,
       String? icon,
       String? badge,
       dynamic vibrate,
       int? timestamp,
-      bool? renotify = false,
-      bool? silent = false,
-      bool? requireInteraction = false,
+      bool? renotify,
+      bool? silent,
+      bool? requireInteraction,
       dynamic data,
-      Iterable<NotificationAction>? actions = const []});
+      Iterable<NotificationAction>? actions});
 
   factory NotificationOptions(
-          {NotificationDirection? dir = NotificationDirection.auto,
-          String? lang = '',
-          String? body = '',
-          String? tag = '',
+          {NotificationDirection? dir,
+          String? lang,
+          String? body,
+          String? tag,
           String? image,
           String? icon,
           String? badge,
           dynamic vibrate,
           int? timestamp,
-          bool? renotify = false,
-          bool? silent = false,
-          bool? requireInteraction = false,
+          bool? renotify,
+          bool? silent,
+          bool? requireInteraction,
           dynamic data,
-          Iterable<NotificationAction>? actions = const []}) =>
+          Iterable<NotificationAction>? actions}) =>
       NotificationOptions._(
-          dir: dir?.value ?? undefined,
-          lang: lang ?? undefined,
-          body: body ?? undefined,
-          tag: tag ?? undefined,
+          dir: dir?.value ?? NotificationDirection.auto.value,
+          lang: lang ?? '',
+          body: body ?? '',
+          tag: tag ?? '',
           image: image ?? undefined,
           icon: icon ?? undefined,
           badge: badge ?? undefined,
           vibrate: vibrate ?? undefined,
           timestamp: timestamp ?? undefined,
-          renotify: renotify ?? undefined,
-          silent: silent ?? undefined,
-          requireInteraction: requireInteraction ?? undefined,
+          renotify: renotify ?? false,
+          silent: silent ?? false,
+          requireInteraction: requireInteraction ?? false,
           data: data ?? undefined,
-          actions: actions ?? undefined);
+          actions: actions ?? const []);
 }
 
 extension PropsNotificationOptions on NotificationOptions {
@@ -271,7 +271,10 @@ extension PropsNotificationAction on NotificationAction {
 @JS()
 @staticInterop
 class GetNotificationOptions {
-  external factory GetNotificationOptions({String? tag = ''});
+  external factory GetNotificationOptions._({String? tag});
+
+  factory GetNotificationOptions({String? tag}) =>
+      GetNotificationOptions._(tag: tag ?? '');
 }
 
 extension PropsGetNotificationOptions on GetNotificationOptions {
@@ -321,8 +324,12 @@ extension PropsNotificationEvent on NotificationEvent {
 @JS()
 @staticInterop
 class NotificationEventInit implements ExtendableEventInit {
-  external factory NotificationEventInit(
-      {required Notification notification, String? action = ''});
+  external factory NotificationEventInit._(
+      {required Notification notification, String? action});
+
+  factory NotificationEventInit(
+          {required Notification notification, String? action}) =>
+      NotificationEventInit._(notification: notification, action: action ?? '');
 }
 
 extension PropsNotificationEventInit on NotificationEventInit {

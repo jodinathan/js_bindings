@@ -1120,7 +1120,11 @@ class CSSColorValue implements CSSStyleValue {
 @JS('CSSRGB')
 @staticInterop
 class Cssrgb implements CSSColorValue {
-  external factory Cssrgb(dynamic r, dynamic g, dynamic b, [dynamic alpha = 1]);
+  external factory Cssrgb._(dynamic r, dynamic g, dynamic b,
+      [dynamic alpha = 1]);
+
+  factory Cssrgb(dynamic r, dynamic g, dynamic b, [dynamic alpha = 1]) =>
+      Cssrgb._(r ?? undefined, g ?? undefined, b ?? undefined, alpha ?? 1);
 }
 
 extension PropsCssrgb on Cssrgb {
@@ -1148,7 +1152,11 @@ extension PropsCssrgb on Cssrgb {
 @JS('CSSHSL')
 @staticInterop
 class Csshsl implements CSSColorValue {
-  external factory Csshsl(dynamic h, dynamic s, dynamic l, [dynamic alpha = 1]);
+  external factory Csshsl._(dynamic h, dynamic s, dynamic l,
+      [dynamic alpha = 1]);
+
+  factory Csshsl(dynamic h, dynamic s, dynamic l, [dynamic alpha = 1]) =>
+      Csshsl._(h ?? undefined, s ?? undefined, l ?? undefined, alpha ?? 1);
 }
 
 extension PropsCsshsl on Csshsl {
@@ -1176,8 +1184,12 @@ extension PropsCsshsl on Csshsl {
 @JS('CSSHWB')
 @staticInterop
 class Csshwb implements CSSColorValue {
-  external factory Csshwb(CSSNumericValue h, dynamic w, dynamic b,
+  external factory Csshwb._(CSSNumericValue h, dynamic w, dynamic b,
       [dynamic alpha = 1]);
+
+  factory Csshwb(CSSNumericValue h, dynamic w, dynamic b,
+          [dynamic alpha = 1]) =>
+      Csshwb._(h, w ?? undefined, b ?? undefined, alpha ?? 1);
 }
 
 extension PropsCsshwb on Csshwb {
@@ -1205,7 +1217,11 @@ extension PropsCsshwb on Csshwb {
 @JS()
 @staticInterop
 class CSSLab implements CSSColorValue {
-  external factory CSSLab(dynamic l, dynamic a, dynamic b, [dynamic alpha = 1]);
+  external factory CSSLab._(dynamic l, dynamic a, dynamic b,
+      [dynamic alpha = 1]);
+
+  factory CSSLab(dynamic l, dynamic a, dynamic b, [dynamic alpha = 1]) =>
+      CSSLab._(l ?? undefined, a ?? undefined, b ?? undefined, alpha ?? 1);
 }
 
 extension PropsCSSLab on CSSLab {
@@ -1233,7 +1249,11 @@ extension PropsCSSLab on CSSLab {
 @JS('CSSLCH')
 @staticInterop
 class Csslch implements CSSColorValue {
-  external factory Csslch(dynamic l, dynamic c, dynamic h, [dynamic alpha = 1]);
+  external factory Csslch._(dynamic l, dynamic c, dynamic h,
+      [dynamic alpha = 1]);
+
+  factory Csslch(dynamic l, dynamic c, dynamic h, [dynamic alpha = 1]) =>
+      Csslch._(l ?? undefined, c ?? undefined, h ?? undefined, alpha ?? 1);
 }
 
 extension PropsCsslch on Csslch {
@@ -1261,8 +1281,11 @@ extension PropsCsslch on Csslch {
 @JS()
 @staticInterop
 class CSSOKLab implements CSSColorValue {
-  external factory CSSOKLab(dynamic l, dynamic a, dynamic b,
+  external factory CSSOKLab._(dynamic l, dynamic a, dynamic b,
       [dynamic alpha = 1]);
+
+  factory CSSOKLab(dynamic l, dynamic a, dynamic b, [dynamic alpha = 1]) =>
+      CSSOKLab._(l ?? undefined, a ?? undefined, b ?? undefined, alpha ?? 1);
 }
 
 extension PropsCSSOKLab on CSSOKLab {
@@ -1290,8 +1313,11 @@ extension PropsCSSOKLab on CSSOKLab {
 @JS('CSSOKLCH')
 @staticInterop
 class Cssoklch implements CSSColorValue {
-  external factory Cssoklch(dynamic l, dynamic c, dynamic h,
+  external factory Cssoklch._(dynamic l, dynamic c, dynamic h,
       [dynamic alpha = 1]);
+
+  factory Cssoklch(dynamic l, dynamic c, dynamic h, [dynamic alpha = 1]) =>
+      Cssoklch._(l ?? undefined, c ?? undefined, h ?? undefined, alpha ?? 1);
 }
 
 extension PropsCssoklch on Cssoklch {
@@ -1319,8 +1345,12 @@ extension PropsCssoklch on Cssoklch {
 @JS()
 @staticInterop
 class CSSColor implements CSSColorValue {
-  external factory CSSColor(dynamic colorSpace, Iterable<dynamic> channels,
+  external factory CSSColor._(dynamic colorSpace, Iterable<dynamic> channels,
       [dynamic alpha = 1]);
+
+  factory CSSColor(dynamic colorSpace, Iterable<dynamic> channels,
+          [dynamic alpha = 1]) =>
+      CSSColor._(colorSpace ?? undefined, channels, alpha ?? 1);
 }
 
 extension PropsCSSColor on CSSColor {

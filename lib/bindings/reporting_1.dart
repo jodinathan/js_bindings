@@ -89,8 +89,12 @@ extension PropsReportingObserver on ReportingObserver {
 @JS()
 @staticInterop
 class ReportingObserverOptions {
-  external factory ReportingObserverOptions(
-      {Iterable<String>? types, bool? buffered = false});
+  external factory ReportingObserverOptions._(
+      {Iterable<String>? types, bool? buffered});
+
+  factory ReportingObserverOptions({Iterable<String>? types, bool? buffered}) =>
+      ReportingObserverOptions._(
+          types: types ?? undefined, buffered: buffered ?? false);
 }
 
 extension PropsReportingObserverOptions on ReportingObserverOptions {
@@ -109,8 +113,13 @@ extension PropsReportingObserverOptions on ReportingObserverOptions {
 @JS()
 @staticInterop
 class GenerateTestReportParameters {
-  external factory GenerateTestReportParameters(
-      {required String message, String? group = 'default'});
+  external factory GenerateTestReportParameters._(
+      {required String message, String? group});
+
+  factory GenerateTestReportParameters(
+          {required String message, String? group}) =>
+      GenerateTestReportParameters._(
+          message: message, group: group ?? 'default');
 }
 
 extension PropsGenerateTestReportParameters on GenerateTestReportParameters {

@@ -45,7 +45,10 @@ enum BinaryType {
 @JS()
 @staticInterop
 class WebSocket implements EventTarget {
-  external factory WebSocket(String url, [dynamic protocols = const []]);
+  external factory WebSocket._(String url, [dynamic protocols = const []]);
+
+  factory WebSocket(String url, [dynamic protocols = const []]) =>
+      WebSocket._(url, protocols ?? const []);
   @JS('CONNECTING')
   external static int get connecting;
 
@@ -128,8 +131,12 @@ extension PropsCloseEvent on CloseEvent {
 @JS()
 @staticInterop
 class CloseEventInit implements EventInit {
-  external factory CloseEventInit(
-      {bool? wasClean = false, int? code = 0, String? reason = ''});
+  external factory CloseEventInit._(
+      {bool? wasClean, int? code, String? reason});
+
+  factory CloseEventInit({bool? wasClean, int? code, String? reason}) =>
+      CloseEventInit._(
+          wasClean: wasClean ?? false, code: code ?? 0, reason: reason ?? '');
 }
 
 extension PropsCloseEventInit on CloseEventInit {

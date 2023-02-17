@@ -87,8 +87,14 @@ extension PropsMockCaptureDeviceConfiguration
 @JS()
 @staticInterop
 class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
-  external factory MockCameraConfiguration(
-      {double? defaultFrameRate = 30, String? facingMode = 'user'});
+  external factory MockCameraConfiguration._(
+      {double? defaultFrameRate, String? facingMode});
+
+  factory MockCameraConfiguration(
+          {double? defaultFrameRate, String? facingMode}) =>
+      MockCameraConfiguration._(
+          defaultFrameRate: defaultFrameRate ?? 30,
+          facingMode: facingMode ?? 'user');
 }
 
 extension PropsMockCameraConfiguration on MockCameraConfiguration {
@@ -107,8 +113,11 @@ extension PropsMockCameraConfiguration on MockCameraConfiguration {
 @JS()
 @staticInterop
 class MockMicrophoneConfiguration implements MockCaptureDeviceConfiguration {
-  external factory MockMicrophoneConfiguration(
-      {int? defaultSampleRate = 44100});
+  external factory MockMicrophoneConfiguration._({int? defaultSampleRate});
+
+  factory MockMicrophoneConfiguration({int? defaultSampleRate}) =>
+      MockMicrophoneConfiguration._(
+          defaultSampleRate: defaultSampleRate ?? 44100);
 }
 
 extension PropsMockMicrophoneConfiguration on MockMicrophoneConfiguration {

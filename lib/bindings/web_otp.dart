@@ -46,9 +46,9 @@ class OTPCredentialRequestOptions {
   external factory OTPCredentialRequestOptions._({Iterable<String>? transport});
 
   factory OTPCredentialRequestOptions(
-          {Iterable<OTPCredentialTransportType>? transport = const []}) =>
+          {Iterable<OTPCredentialTransportType>? transport}) =>
       OTPCredentialRequestOptions._(
-          transport: transport?.map((e) => e.value) ?? undefined);
+          transport: transport?.map((e) => e.value) ?? const []);
 }
 
 extension PropsOTPCredentialRequestOptions on OTPCredentialRequestOptions {

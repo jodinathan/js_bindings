@@ -19,27 +19,28 @@ import 'package:js_bindings/js_bindings.dart';
 @staticInterop
 class RTCConfiguration {
   external factory RTCConfiguration._(
-      {Iterable<RTCIceServer>? iceServers = const [],
+      {Iterable<RTCIceServer>? iceServers,
       String? iceTransportPolicy,
       String? bundlePolicy,
       String? rtcpMuxPolicy,
-      Iterable<RTCCertificate>? certificates = const [],
-      int? iceCandidatePoolSize = 0});
+      Iterable<RTCCertificate>? certificates,
+      int? iceCandidatePoolSize});
 
   factory RTCConfiguration(
-          {Iterable<RTCIceServer>? iceServers = const [],
-          RTCIceTransportPolicy? iceTransportPolicy = RTCIceTransportPolicy.all,
-          RTCBundlePolicy? bundlePolicy = RTCBundlePolicy.balanced,
-          RTCRtcpMuxPolicy? rtcpMuxPolicy = RTCRtcpMuxPolicy.require,
-          Iterable<RTCCertificate>? certificates = const [],
-          int? iceCandidatePoolSize = 0}) =>
+          {Iterable<RTCIceServer>? iceServers,
+          RTCIceTransportPolicy? iceTransportPolicy,
+          RTCBundlePolicy? bundlePolicy,
+          RTCRtcpMuxPolicy? rtcpMuxPolicy,
+          Iterable<RTCCertificate>? certificates,
+          int? iceCandidatePoolSize}) =>
       RTCConfiguration._(
-          iceServers: iceServers ?? undefined,
-          iceTransportPolicy: iceTransportPolicy?.value ?? undefined,
-          bundlePolicy: bundlePolicy?.value ?? undefined,
-          rtcpMuxPolicy: rtcpMuxPolicy?.value ?? undefined,
-          certificates: certificates ?? undefined,
-          iceCandidatePoolSize: iceCandidatePoolSize ?? undefined);
+          iceServers: iceServers ?? const [],
+          iceTransportPolicy:
+              iceTransportPolicy?.value ?? RTCIceTransportPolicy.all.value,
+          bundlePolicy: bundlePolicy?.value ?? RTCBundlePolicy.balanced.value,
+          rtcpMuxPolicy: rtcpMuxPolicy?.value ?? RTCRtcpMuxPolicy.require.value,
+          certificates: certificates ?? const [],
+          iceCandidatePoolSize: iceCandidatePoolSize ?? 0);
 }
 
 extension PropsRTCConfiguration on RTCConfiguration {
@@ -111,13 +112,13 @@ class RTCIceServer {
           {dynamic urls,
           String? username,
           String? credential,
-          RTCIceCredentialType? credentialType =
-              RTCIceCredentialType.password}) =>
+          RTCIceCredentialType? credentialType}) =>
       RTCIceServer._(
           urls: urls ?? undefined,
           username: username ?? undefined,
           credential: credential ?? undefined,
-          credentialType: credentialType?.value ?? undefined);
+          credentialType:
+              credentialType?.value ?? RTCIceCredentialType.password.value);
 }
 
 extension PropsRTCIceServer on RTCIceServer {
@@ -190,7 +191,10 @@ class RTCOfferAnswerOptions {
 @JS()
 @staticInterop
 class RTCOfferOptions implements RTCOfferAnswerOptions {
-  external factory RTCOfferOptions({bool? iceRestart = false});
+  external factory RTCOfferOptions._({bool? iceRestart});
+
+  factory RTCOfferOptions({bool? iceRestart}) =>
+      RTCOfferOptions._(iceRestart: iceRestart ?? false);
 }
 
 extension PropsRTCOfferOptions on RTCOfferOptions {
@@ -521,11 +525,10 @@ extension PropsRTCSessionDescription on RTCSessionDescription {
 @staticInterop
 class RTCSessionDescriptionInit {
   external factory RTCSessionDescriptionInit._(
-      {required String type, String? sdp = ''});
+      {required String type, String? sdp});
 
-  factory RTCSessionDescriptionInit(
-          {required RTCSdpType type, String? sdp = ''}) =>
-      RTCSessionDescriptionInit._(type: type.value, sdp: sdp ?? undefined);
+  factory RTCSessionDescriptionInit({required RTCSdpType type, String? sdp}) =>
+      RTCSessionDescriptionInit._(type: type.value, sdp: sdp ?? '');
 }
 
 extension PropsRTCSessionDescriptionInit on RTCSessionDescriptionInit {
@@ -546,12 +549,11 @@ extension PropsRTCSessionDescriptionInit on RTCSessionDescriptionInit {
 @staticInterop
 class RTCLocalSessionDescriptionInit {
   external factory RTCLocalSessionDescriptionInit._(
-      {String? type, String? sdp = ''});
+      {String? type, String? sdp});
 
-  factory RTCLocalSessionDescriptionInit(
-          {RTCSdpType? type, String? sdp = ''}) =>
+  factory RTCLocalSessionDescriptionInit({RTCSdpType? type, String? sdp}) =>
       RTCLocalSessionDescriptionInit._(
-          type: type?.value ?? undefined, sdp: sdp ?? undefined);
+          type: type?.value ?? undefined, sdp: sdp ?? '');
 }
 
 extension PropsRTCLocalSessionDescriptionInit
@@ -629,11 +631,22 @@ extension PropsRTCIceCandidate on RTCIceCandidate {
 @JS()
 @staticInterop
 class RTCIceCandidateInit {
-  external factory RTCIceCandidateInit(
-      {String? candidate = '',
+  external factory RTCIceCandidateInit._(
+      {String? candidate,
       String? sdpMid,
       int? sdpMLineIndex,
       String? usernameFragment});
+
+  factory RTCIceCandidateInit(
+          {String? candidate,
+          String? sdpMid,
+          int? sdpMLineIndex,
+          String? usernameFragment}) =>
+      RTCIceCandidateInit._(
+          candidate: candidate ?? '',
+          sdpMid: sdpMid ?? undefined,
+          sdpMLineIndex: sdpMLineIndex ?? undefined,
+          usernameFragment: usernameFragment ?? undefined);
 }
 
 extension PropsRTCIceCandidateInit on RTCIceCandidateInit {
@@ -850,18 +863,18 @@ extension PropsRTCCertificate on RTCCertificate {
 class RTCRtpTransceiverInit {
   external factory RTCRtpTransceiverInit._(
       {String? direction,
-      Iterable<MediaStream>? streams = const [],
-      Iterable<RTCRtpEncodingParameters>? sendEncodings = const []});
+      Iterable<MediaStream>? streams,
+      Iterable<RTCRtpEncodingParameters>? sendEncodings});
 
   factory RTCRtpTransceiverInit(
-          {RTCRtpTransceiverDirection? direction =
-              RTCRtpTransceiverDirection.sendrecv,
-          Iterable<MediaStream>? streams = const [],
-          Iterable<RTCRtpEncodingParameters>? sendEncodings = const []}) =>
+          {RTCRtpTransceiverDirection? direction,
+          Iterable<MediaStream>? streams,
+          Iterable<RTCRtpEncodingParameters>? sendEncodings}) =>
       RTCRtpTransceiverInit._(
-          direction: direction?.value ?? undefined,
-          streams: streams ?? undefined,
-          sendEncodings: sendEncodings ?? undefined);
+          direction:
+              direction?.value ?? RTCRtpTransceiverDirection.sendrecv.value,
+          streams: streams ?? const [],
+          sendEncodings: sendEncodings ?? const []);
 }
 
 extension PropsRTCRtpTransceiverInit on RTCRtpTransceiverInit {
@@ -1046,8 +1059,15 @@ extension PropsRTCRtpCodingParameters on RTCRtpCodingParameters {
 @JS()
 @staticInterop
 class RTCRtpEncodingParameters implements RTCRtpCodingParameters {
-  external factory RTCRtpEncodingParameters(
-      {bool? active = true, int? maxBitrate, double? scaleResolutionDownBy});
+  external factory RTCRtpEncodingParameters._(
+      {bool? active, int? maxBitrate, double? scaleResolutionDownBy});
+
+  factory RTCRtpEncodingParameters(
+          {bool? active, int? maxBitrate, double? scaleResolutionDownBy}) =>
+      RTCRtpEncodingParameters._(
+          active: active ?? true,
+          maxBitrate: maxBitrate ?? undefined,
+          scaleResolutionDownBy: scaleResolutionDownBy ?? undefined);
 }
 
 extension PropsRTCRtpEncodingParameters on RTCRtpEncodingParameters {
@@ -1094,8 +1114,13 @@ extension PropsRTCRtcpParameters on RTCRtcpParameters {
 @JS()
 @staticInterop
 class RTCRtpHeaderExtensionParameters {
-  external factory RTCRtpHeaderExtensionParameters(
-      {required String uri, required int id, bool? encrypted = false});
+  external factory RTCRtpHeaderExtensionParameters._(
+      {required String uri, required int id, bool? encrypted});
+
+  factory RTCRtpHeaderExtensionParameters(
+          {required String uri, required int id, bool? encrypted}) =>
+      RTCRtpHeaderExtensionParameters._(
+          uri: uri, id: id, encrypted: encrypted ?? false);
 }
 
 extension PropsRTCRtpHeaderExtensionParameters
@@ -1685,11 +1710,22 @@ extension PropsRTCTrackEvent on RTCTrackEvent {
 @JS()
 @staticInterop
 class RTCTrackEventInit implements EventInit {
-  external factory RTCTrackEventInit(
+  external factory RTCTrackEventInit._(
       {required RTCRtpReceiver receiver,
       required MediaStreamTrack track,
-      Iterable<MediaStream>? streams = const [],
+      Iterable<MediaStream>? streams,
       RTCRtpTransceiver? transceiver});
+
+  factory RTCTrackEventInit(
+          {required RTCRtpReceiver receiver,
+          required MediaStreamTrack track,
+          Iterable<MediaStream>? streams,
+          RTCRtpTransceiver? transceiver}) =>
+      RTCTrackEventInit._(
+          receiver: receiver,
+          track: track,
+          streams: streams ?? const [],
+          transceiver: transceiver ?? undefined);
 }
 
 extension PropsRTCTrackEventInit on RTCTrackEventInit {
@@ -1871,13 +1907,28 @@ extension PropsRTCDataChannel on RTCDataChannel {
 @JS()
 @staticInterop
 class RTCDataChannelInit {
-  external factory RTCDataChannelInit(
-      {bool? ordered = true,
+  external factory RTCDataChannelInit._(
+      {bool? ordered,
       int? maxPacketLifeTime,
       int? maxRetransmits,
-      String? protocol = '',
-      bool? negotiated = false,
+      String? protocol,
+      bool? negotiated,
       int? id});
+
+  factory RTCDataChannelInit(
+          {bool? ordered,
+          int? maxPacketLifeTime,
+          int? maxRetransmits,
+          String? protocol,
+          bool? negotiated,
+          int? id}) =>
+      RTCDataChannelInit._(
+          ordered: ordered ?? true,
+          maxPacketLifeTime: maxPacketLifeTime ?? undefined,
+          maxRetransmits: maxRetransmits ?? undefined,
+          protocol: protocol ?? '',
+          negotiated: negotiated ?? false,
+          id: id ?? undefined);
 }
 
 extension PropsRTCDataChannelInit on RTCDataChannelInit {
@@ -2041,7 +2092,10 @@ extension PropsRTCDTMFToneChangeEvent on RTCDTMFToneChangeEvent {
 @JS()
 @staticInterop
 class RTCDTMFToneChangeEventInit implements EventInit {
-  external factory RTCDTMFToneChangeEventInit({String? tone = ''});
+  external factory RTCDTMFToneChangeEventInit._({String? tone});
+
+  factory RTCDTMFToneChangeEventInit({String? tone}) =>
+      RTCDTMFToneChangeEventInit._(tone: tone ?? '');
 }
 
 extension PropsRTCDTMFToneChangeEventInit on RTCDTMFToneChangeEventInit {
@@ -2129,7 +2183,10 @@ extension PropsRTCStats on RTCStats {
 @JS()
 @staticInterop
 class RTCError implements DOMException {
-  external factory RTCError(RTCErrorInit init, [String? message = '']);
+  external factory RTCError._(RTCErrorInit init, [String? message = '']);
+
+  factory RTCError(RTCErrorInit init, [String? message = '']) =>
+      RTCError._(init, message ?? '');
 }
 
 extension PropsRTCError on RTCError {

@@ -102,7 +102,10 @@ extension PropsContactInfo on ContactInfo {
 @JS()
 @staticInterop
 class ContactsSelectOptions {
-  external factory ContactsSelectOptions({bool? multiple = false});
+  external factory ContactsSelectOptions._({bool? multiple});
+
+  factory ContactsSelectOptions({bool? multiple}) =>
+      ContactsSelectOptions._(multiple: multiple ?? false);
 }
 
 extension PropsContactsSelectOptions on ContactsSelectOptions {

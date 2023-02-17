@@ -93,24 +93,25 @@ extension PropsMediaRecorder on MediaRecorder {
 @staticInterop
 class MediaRecorderOptions {
   external factory MediaRecorderOptions._(
-      {String? mimeType = '',
+      {String? mimeType,
       int? audioBitsPerSecond,
       int? videoBitsPerSecond,
       int? bitsPerSecond,
       String? audioBitrateMode});
 
   factory MediaRecorderOptions(
-          {String? mimeType = '',
+          {String? mimeType,
           int? audioBitsPerSecond,
           int? videoBitsPerSecond,
           int? bitsPerSecond,
-          BitrateMode? audioBitrateMode = BitrateMode.variable}) =>
+          BitrateMode? audioBitrateMode}) =>
       MediaRecorderOptions._(
-          mimeType: mimeType ?? undefined,
+          mimeType: mimeType ?? '',
           audioBitsPerSecond: audioBitsPerSecond ?? undefined,
           videoBitsPerSecond: videoBitsPerSecond ?? undefined,
           bitsPerSecond: bitsPerSecond ?? undefined,
-          audioBitrateMode: audioBitrateMode?.value ?? undefined);
+          audioBitrateMode:
+              audioBitrateMode?.value ?? BitrateMode.variable.value);
 }
 
 extension PropsMediaRecorderOptions on MediaRecorderOptions {

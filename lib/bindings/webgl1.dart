@@ -31,38 +31,37 @@ enum WebGLPowerPreference {
 @staticInterop
 class WebGLContextAttributes {
   external factory WebGLContextAttributes._(
-      {bool? alpha = true,
-      bool? depth = true,
-      bool? stencil = false,
-      bool? antialias = true,
-      bool? premultipliedAlpha = true,
-      bool? preserveDrawingBuffer = false,
+      {bool? alpha,
+      bool? depth,
+      bool? stencil,
+      bool? antialias,
+      bool? premultipliedAlpha,
+      bool? preserveDrawingBuffer,
       String? powerPreference,
-      bool? failIfMajorPerformanceCaveat = false,
-      bool? desynchronized = false});
+      bool? failIfMajorPerformanceCaveat,
+      bool? desynchronized});
 
   factory WebGLContextAttributes(
-          {bool? alpha = true,
-          bool? depth = true,
-          bool? stencil = false,
-          bool? antialias = true,
-          bool? premultipliedAlpha = true,
-          bool? preserveDrawingBuffer = false,
-          WebGLPowerPreference? powerPreference =
-              WebGLPowerPreference.valueDefault,
-          bool? failIfMajorPerformanceCaveat = false,
-          bool? desynchronized = false}) =>
+          {bool? alpha,
+          bool? depth,
+          bool? stencil,
+          bool? antialias,
+          bool? premultipliedAlpha,
+          bool? preserveDrawingBuffer,
+          WebGLPowerPreference? powerPreference,
+          bool? failIfMajorPerformanceCaveat,
+          bool? desynchronized}) =>
       WebGLContextAttributes._(
-          alpha: alpha ?? undefined,
-          depth: depth ?? undefined,
-          stencil: stencil ?? undefined,
-          antialias: antialias ?? undefined,
-          premultipliedAlpha: premultipliedAlpha ?? undefined,
-          preserveDrawingBuffer: preserveDrawingBuffer ?? undefined,
-          powerPreference: powerPreference?.value ?? undefined,
-          failIfMajorPerformanceCaveat:
-              failIfMajorPerformanceCaveat ?? undefined,
-          desynchronized: desynchronized ?? undefined);
+          alpha: alpha ?? true,
+          depth: depth ?? true,
+          stencil: stencil ?? false,
+          antialias: antialias ?? true,
+          premultipliedAlpha: premultipliedAlpha ?? true,
+          preserveDrawingBuffer: preserveDrawingBuffer ?? false,
+          powerPreference:
+              powerPreference?.value ?? WebGLPowerPreference.valueDefault.value,
+          failIfMajorPerformanceCaveat: failIfMajorPerformanceCaveat ?? false,
+          desynchronized: desynchronized ?? false);
 }
 
 extension PropsWebGLContextAttributes on WebGLContextAttributes {
@@ -1753,7 +1752,10 @@ extension PropsWebGLContextEvent on WebGLContextEvent {
 @JS()
 @staticInterop
 class WebGLContextEventInit implements EventInit {
-  external factory WebGLContextEventInit({String? statusMessage = ''});
+  external factory WebGLContextEventInit._({String? statusMessage});
+
+  factory WebGLContextEventInit({String? statusMessage}) =>
+      WebGLContextEventInit._(statusMessage: statusMessage ?? '');
 }
 
 extension PropsWebGLContextEventInit on WebGLContextEventInit {

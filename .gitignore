@@ -12,3 +12,5 @@ pubspec.lock
 tool/crawler/mdn
 tool/webIDL
 tool/crawler/mdn.zip
+
+lib/bindings/

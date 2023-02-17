@@ -158,14 +158,13 @@ extension PropsGpu on Gpu {
 @staticInterop
 class GPURequestAdapterOptions {
   external factory GPURequestAdapterOptions._(
-      {String? powerPreference, bool? forceFallbackAdapter = false});
+      {String? powerPreference, bool? forceFallbackAdapter});
 
   factory GPURequestAdapterOptions(
-          {GPUPowerPreference? powerPreference,
-          bool? forceFallbackAdapter = false}) =>
+          {GPUPowerPreference? powerPreference, bool? forceFallbackAdapter}) =>
       GPURequestAdapterOptions._(
           powerPreference: powerPreference?.value ?? undefined,
-          forceFallbackAdapter: forceFallbackAdapter ?? undefined);
+          forceFallbackAdapter: forceFallbackAdapter ?? false);
 }
 
 extension PropsGPURequestAdapterOptions on GPURequestAdapterOptions {
@@ -223,11 +222,11 @@ class GPUDeviceDescriptor implements GPUObjectDescriptorBase {
       GPUQueueDescriptor? defaultQueue});
 
   factory GPUDeviceDescriptor(
-          {Iterable<GPUFeatureName>? requiredFeatures = const [],
+          {Iterable<GPUFeatureName>? requiredFeatures,
           dynamic requiredLimits,
           GPUQueueDescriptor? defaultQueue}) =>
       GPUDeviceDescriptor._(
-          requiredFeatures: requiredFeatures?.map((e) => e.value) ?? undefined,
+          requiredFeatures: requiredFeatures?.map((e) => e.value) ?? const [],
           requiredLimits: requiredLimits ?? undefined,
           defaultQueue: defaultQueue ?? undefined);
 }
@@ -394,8 +393,15 @@ enum GPUBufferMapState {
 @JS()
 @staticInterop
 class GPUBufferDescriptor implements GPUObjectDescriptorBase {
-  external factory GPUBufferDescriptor(
-      {required int size, required int usage, bool? mappedAtCreation = false});
+  external factory GPUBufferDescriptor._(
+      {required int size, required int usage, bool? mappedAtCreation});
+
+  factory GPUBufferDescriptor(
+          {required int size, required int usage, bool? mappedAtCreation}) =>
+      GPUBufferDescriptor._(
+          size: size,
+          usage: usage,
+          mappedAtCreation: mappedAtCreation ?? false);
 }
 
 extension PropsGPUBufferDescriptor on GPUBufferDescriptor {
@@ -493,8 +499,8 @@ extension PropsGPUTexture on GPUTexture {
 class GPUTextureDescriptor implements GPUObjectDescriptorBase {
   external factory GPUTextureDescriptor._(
       {dynamic size,
-      int? mipLevelCount = 1,
-      int? sampleCount = 1,
+      int? mipLevelCount,
+      int? sampleCount,
       String? dimension,
       String? format,
       int? usage,
@@ -502,20 +508,20 @@ class GPUTextureDescriptor implements GPUObjectDescriptorBase {
 
   factory GPUTextureDescriptor(
           {dynamic size,
-          int? mipLevelCount = 1,
-          int? sampleCount = 1,
-          GPUTextureDimension? dimension = GPUTextureDimension.value2d,
+          int? mipLevelCount,
+          int? sampleCount,
+          GPUTextureDimension? dimension,
           GPUTextureFormat? format,
           int? usage,
-          Iterable<GPUTextureFormat>? viewFormats = const []}) =>
+          Iterable<GPUTextureFormat>? viewFormats}) =>
       GPUTextureDescriptor._(
           size: size ?? undefined,
-          mipLevelCount: mipLevelCount ?? undefined,
-          sampleCount: sampleCount ?? undefined,
-          dimension: dimension?.value ?? undefined,
+          mipLevelCount: mipLevelCount ?? 1,
+          sampleCount: sampleCount ?? 1,
+          dimension: dimension?.value ?? GPUTextureDimension.value2d.value,
           format: format?.value ?? undefined,
           usage: usage ?? undefined,
-          viewFormats: viewFormats?.map((e) => e.value) ?? undefined);
+          viewFormats: viewFormats?.map((e) => e.value) ?? const []);
 }
 
 extension PropsGPUTextureDescriptor on GPUTextureDescriptor {
@@ -606,26 +612,26 @@ class GPUTextureViewDescriptor implements GPUObjectDescriptorBase {
       {String? format,
       String? dimension,
       String? aspect,
-      int? baseMipLevel = 0,
+      int? baseMipLevel,
       int? mipLevelCount,
-      int? baseArrayLayer = 0,
+      int? baseArrayLayer,
       int? arrayLayerCount});
 
   factory GPUTextureViewDescriptor(
           {GPUTextureFormat? format,
           GPUTextureViewDimension? dimension,
-          GPUTextureAspect? aspect = GPUTextureAspect.all,
-          int? baseMipLevel = 0,
+          GPUTextureAspect? aspect,
+          int? baseMipLevel,
           int? mipLevelCount,
-          int? baseArrayLayer = 0,
+          int? baseArrayLayer,
           int? arrayLayerCount}) =>
       GPUTextureViewDescriptor._(
           format: format?.value ?? undefined,
           dimension: dimension?.value ?? undefined,
-          aspect: aspect?.value ?? undefined,
-          baseMipLevel: baseMipLevel ?? undefined,
+          aspect: aspect?.value ?? GPUTextureAspect.all.value,
+          baseMipLevel: baseMipLevel ?? 0,
           mipLevelCount: mipLevelCount ?? undefined,
-          baseArrayLayer: baseArrayLayer ?? undefined,
+          baseArrayLayer: baseArrayLayer ?? 0,
           arrayLayerCount: arrayLayerCount ?? undefined);
 }
 
@@ -822,9 +828,10 @@ class GPUExternalTextureDescriptor implements GPUObjectDescriptorBase {
 
   factory GPUExternalTextureDescriptor(
           {required HTMLVideoElement source,
-          PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb}) =>
+          PredefinedColorSpace? colorSpace}) =>
       GPUExternalTextureDescriptor._(
-          source: source, colorSpace: colorSpace?.value ?? undefined);
+          source: source,
+          colorSpace: colorSpace?.value ?? PredefinedColorSpace.srgb.value);
 }
 
 extension PropsGPUExternalTextureDescriptor on GPUExternalTextureDescriptor {
@@ -857,33 +864,34 @@ class GPUSamplerDescriptor implements GPUObjectDescriptorBase {
       String? magFilter,
       String? minFilter,
       String? mipmapFilter,
-      double? lodMinClamp = 0,
-      double? lodMaxClamp = 32,
+      double? lodMinClamp,
+      double? lodMaxClamp,
       String? compare,
-      int? maxAnisotropy = 1});
+      int? maxAnisotropy});
 
   factory GPUSamplerDescriptor(
-          {GPUAddressMode? addressModeU = GPUAddressMode.clampToEdge,
-          GPUAddressMode? addressModeV = GPUAddressMode.clampToEdge,
-          GPUAddressMode? addressModeW = GPUAddressMode.clampToEdge,
-          GPUFilterMode? magFilter = GPUFilterMode.nearest,
-          GPUFilterMode? minFilter = GPUFilterMode.nearest,
-          GPUMipmapFilterMode? mipmapFilter = GPUMipmapFilterMode.nearest,
-          double? lodMinClamp = 0,
-          double? lodMaxClamp = 32,
+          {GPUAddressMode? addressModeU,
+          GPUAddressMode? addressModeV,
+          GPUAddressMode? addressModeW,
+          GPUFilterMode? magFilter,
+          GPUFilterMode? minFilter,
+          GPUMipmapFilterMode? mipmapFilter,
+          double? lodMinClamp,
+          double? lodMaxClamp,
           GPUCompareFunction? compare,
-          int? maxAnisotropy = 1}) =>
+          int? maxAnisotropy}) =>
       GPUSamplerDescriptor._(
-          addressModeU: addressModeU?.value ?? undefined,
-          addressModeV: addressModeV?.value ?? undefined,
-          addressModeW: addressModeW?.value ?? undefined,
-          magFilter: magFilter?.value ?? undefined,
-          minFilter: minFilter?.value ?? undefined,
-          mipmapFilter: mipmapFilter?.value ?? undefined,
-          lodMinClamp: lodMinClamp ?? undefined,
-          lodMaxClamp: lodMaxClamp ?? undefined,
+          addressModeU: addressModeU?.value ?? GPUAddressMode.clampToEdge.value,
+          addressModeV: addressModeV?.value ?? GPUAddressMode.clampToEdge.value,
+          addressModeW: addressModeW?.value ?? GPUAddressMode.clampToEdge.value,
+          magFilter: magFilter?.value ?? GPUFilterMode.nearest.value,
+          minFilter: minFilter?.value ?? GPUFilterMode.nearest.value,
+          mipmapFilter:
+              mipmapFilter?.value ?? GPUMipmapFilterMode.nearest.value,
+          lodMinClamp: lodMinClamp ?? 0,
+          lodMaxClamp: lodMaxClamp ?? 32,
           compare: compare?.value ?? undefined,
-          maxAnisotropy: maxAnisotropy ?? undefined);
+          maxAnisotropy: maxAnisotropy ?? 1);
 }
 
 extension PropsGPUSamplerDescriptor on GPUSamplerDescriptor {
@@ -1108,16 +1116,16 @@ enum GPUBufferBindingType {
 @staticInterop
 class GPUBufferBindingLayout {
   external factory GPUBufferBindingLayout._(
-      {String? type, bool? hasDynamicOffset = false, int? minBindingSize = 0});
+      {String? type, bool? hasDynamicOffset, int? minBindingSize});
 
   factory GPUBufferBindingLayout(
-          {GPUBufferBindingType? type = GPUBufferBindingType.uniform,
-          bool? hasDynamicOffset = false,
-          int? minBindingSize = 0}) =>
+          {GPUBufferBindingType? type,
+          bool? hasDynamicOffset,
+          int? minBindingSize}) =>
       GPUBufferBindingLayout._(
-          type: type?.value ?? undefined,
-          hasDynamicOffset: hasDynamicOffset ?? undefined,
-          minBindingSize: minBindingSize ?? undefined);
+          type: type?.value ?? GPUBufferBindingType.uniform.value,
+          hasDynamicOffset: hasDynamicOffset ?? false,
+          minBindingSize: minBindingSize ?? 0);
 }
 
 extension PropsGPUBufferBindingLayout on GPUBufferBindingLayout {
@@ -1157,9 +1165,9 @@ enum GPUSamplerBindingType {
 class GPUSamplerBindingLayout {
   external factory GPUSamplerBindingLayout._({String? type});
 
-  factory GPUSamplerBindingLayout(
-          {GPUSamplerBindingType? type = GPUSamplerBindingType.filtering}) =>
-      GPUSamplerBindingLayout._(type: type?.value ?? undefined);
+  factory GPUSamplerBindingLayout({GPUSamplerBindingType? type}) =>
+      GPUSamplerBindingLayout._(
+          type: type?.value ?? GPUSamplerBindingType.filtering.value);
 }
 
 extension PropsGPUSamplerBindingLayout on GPUSamplerBindingLayout {
@@ -1190,17 +1198,17 @@ enum GPUTextureSampleType {
 @staticInterop
 class GPUTextureBindingLayout {
   external factory GPUTextureBindingLayout._(
-      {String? sampleType, String? viewDimension, bool? multisampled = false});
+      {String? sampleType, String? viewDimension, bool? multisampled});
 
   factory GPUTextureBindingLayout(
-          {GPUTextureSampleType? sampleType = GPUTextureSampleType.float,
-          GPUTextureViewDimension? viewDimension =
-              GPUTextureViewDimension.value2d,
-          bool? multisampled = false}) =>
+          {GPUTextureSampleType? sampleType,
+          GPUTextureViewDimension? viewDimension,
+          bool? multisampled}) =>
       GPUTextureBindingLayout._(
-          sampleType: sampleType?.value ?? undefined,
-          viewDimension: viewDimension?.value ?? undefined,
-          multisampled: multisampled ?? undefined);
+          sampleType: sampleType?.value ?? GPUTextureSampleType.float.value,
+          viewDimension:
+              viewDimension?.value ?? GPUTextureViewDimension.value2d.value,
+          multisampled: multisampled ?? false);
 }
 
 extension PropsGPUTextureBindingLayout on GPUTextureBindingLayout {
@@ -1243,14 +1251,14 @@ class GPUStorageTextureBindingLayout {
       {String? access, String? format, String? viewDimension});
 
   factory GPUStorageTextureBindingLayout(
-          {GPUStorageTextureAccess? access = GPUStorageTextureAccess.writeOnly,
+          {GPUStorageTextureAccess? access,
           GPUTextureFormat? format,
-          GPUTextureViewDimension? viewDimension =
-              GPUTextureViewDimension.value2d}) =>
+          GPUTextureViewDimension? viewDimension}) =>
       GPUStorageTextureBindingLayout._(
-          access: access?.value ?? undefined,
+          access: access?.value ?? GPUStorageTextureAccess.writeOnly.value,
           format: format?.value ?? undefined,
-          viewDimension: viewDimension?.value ?? undefined);
+          viewDimension:
+              viewDimension?.value ?? GPUTextureViewDimension.value2d.value);
 }
 
 extension PropsGPUStorageTextureBindingLayout
@@ -1333,8 +1341,13 @@ extension PropsGPUBindGroupEntry on GPUBindGroupEntry {
 @JS()
 @staticInterop
 class GPUBufferBinding {
-  external factory GPUBufferBinding(
-      {required GPUBuffer buffer, int? offset = 0, int? size});
+  external factory GPUBufferBinding._(
+      {required GPUBuffer buffer, int? offset, int? size});
+
+  factory GPUBufferBinding(
+          {required GPUBuffer buffer, int? offset, int? size}) =>
+      GPUBufferBinding._(
+          buffer: buffer, offset: offset ?? 0, size: size ?? undefined);
 }
 
 extension PropsGPUBufferBinding on GPUBufferBinding {
@@ -1608,20 +1621,20 @@ class GPUPrimitiveState {
       String? stripIndexFormat,
       String? frontFace,
       String? cullMode,
-      bool? unclippedDepth = false});
+      bool? unclippedDepth});
 
   factory GPUPrimitiveState(
-          {GPUPrimitiveTopology? topology = GPUPrimitiveTopology.triangleList,
+          {GPUPrimitiveTopology? topology,
           GPUIndexFormat? stripIndexFormat,
-          GPUFrontFace? frontFace = GPUFrontFace.ccw,
-          GPUCullMode? cullMode = GPUCullMode.none,
-          bool? unclippedDepth = false}) =>
+          GPUFrontFace? frontFace,
+          GPUCullMode? cullMode,
+          bool? unclippedDepth}) =>
       GPUPrimitiveState._(
-          topology: topology?.value ?? undefined,
+          topology: topology?.value ?? GPUPrimitiveTopology.triangleList.value,
           stripIndexFormat: stripIndexFormat?.value ?? undefined,
-          frontFace: frontFace?.value ?? undefined,
-          cullMode: cullMode?.value ?? undefined,
-          unclippedDepth: unclippedDepth ?? undefined);
+          frontFace: frontFace?.value ?? GPUFrontFace.ccw.value,
+          cullMode: cullMode?.value ?? GPUCullMode.none.value,
+          unclippedDepth: unclippedDepth ?? false);
 }
 
 extension PropsGPUPrimitiveState on GPUPrimitiveState {
@@ -1699,10 +1712,15 @@ enum GPUCullMode {
 @JS()
 @staticInterop
 class GPUMultisampleState {
-  external factory GPUMultisampleState(
-      {int? count = 1,
-      int? mask = 0xFFFFFFFF,
-      bool? alphaToCoverageEnabled = false});
+  external factory GPUMultisampleState._(
+      {int? count, int? mask, bool? alphaToCoverageEnabled});
+
+  factory GPUMultisampleState(
+          {int? count, int? mask, bool? alphaToCoverageEnabled}) =>
+      GPUMultisampleState._(
+          count: count ?? 1,
+          mask: mask ?? 0xFFFFFFFF,
+          alphaToCoverageEnabled: alphaToCoverageEnabled ?? false);
 }
 
 extension PropsGPUMultisampleState on GPUMultisampleState {
@@ -1743,16 +1761,16 @@ extension PropsGPUFragmentState on GPUFragmentState {
 @staticInterop
 class GPUColorTargetState {
   external factory GPUColorTargetState._(
-      {required String format, GPUBlendState? blend, int? writeMask = 0xF});
+      {required String format, GPUBlendState? blend, int? writeMask});
 
   factory GPUColorTargetState(
           {required GPUTextureFormat format,
           GPUBlendState? blend,
-          int? writeMask = 0xF}) =>
+          int? writeMask}) =>
       GPUColorTargetState._(
           format: format.value,
           blend: blend ?? undefined,
-          writeMask: writeMask ?? undefined);
+          writeMask: writeMask ?? 0xF);
 }
 
 extension PropsGPUColorTargetState on GPUColorTargetState {
@@ -1822,13 +1840,13 @@ class GPUBlendComponent {
       {String? operation, String? srcFactor, String? dstFactor});
 
   factory GPUBlendComponent(
-          {GPUBlendOperation? operation = GPUBlendOperation.add,
-          GPUBlendFactor? srcFactor = GPUBlendFactor.one,
-          GPUBlendFactor? dstFactor = GPUBlendFactor.zero}) =>
+          {GPUBlendOperation? operation,
+          GPUBlendFactor? srcFactor,
+          GPUBlendFactor? dstFactor}) =>
       GPUBlendComponent._(
-          operation: operation?.value ?? undefined,
-          srcFactor: srcFactor?.value ?? undefined,
-          dstFactor: dstFactor?.value ?? undefined);
+          operation: operation?.value ?? GPUBlendOperation.add.value,
+          srcFactor: srcFactor?.value ?? GPUBlendFactor.one.value,
+          dstFactor: dstFactor?.value ?? GPUBlendFactor.zero.value);
 }
 
 extension PropsGPUBlendComponent on GPUBlendComponent {
@@ -1895,38 +1913,38 @@ enum GPUBlendOperation {
 class GPUDepthStencilState {
   external factory GPUDepthStencilState._(
       {required String format,
-      bool? depthWriteEnabled = false,
+      bool? depthWriteEnabled,
       String? depthCompare,
       GPUStencilFaceState? stencilFront,
       GPUStencilFaceState? stencilBack,
-      int? stencilReadMask = 0xFFFFFFFF,
-      int? stencilWriteMask = 0xFFFFFFFF,
-      int? depthBias = 0,
-      double? depthBiasSlopeScale = 0,
-      double? depthBiasClamp = 0});
+      int? stencilReadMask,
+      int? stencilWriteMask,
+      int? depthBias,
+      double? depthBiasSlopeScale,
+      double? depthBiasClamp});
 
   factory GPUDepthStencilState(
           {required GPUTextureFormat format,
-          bool? depthWriteEnabled = false,
-          GPUCompareFunction? depthCompare = GPUCompareFunction.always,
+          bool? depthWriteEnabled,
+          GPUCompareFunction? depthCompare,
           GPUStencilFaceState? stencilFront,
           GPUStencilFaceState? stencilBack,
-          int? stencilReadMask = 0xFFFFFFFF,
-          int? stencilWriteMask = 0xFFFFFFFF,
-          int? depthBias = 0,
-          double? depthBiasSlopeScale = 0,
-          double? depthBiasClamp = 0}) =>
+          int? stencilReadMask,
+          int? stencilWriteMask,
+          int? depthBias,
+          double? depthBiasSlopeScale,
+          double? depthBiasClamp}) =>
       GPUDepthStencilState._(
           format: format.value,
-          depthWriteEnabled: depthWriteEnabled ?? undefined,
-          depthCompare: depthCompare?.value ?? undefined,
+          depthWriteEnabled: depthWriteEnabled ?? false,
+          depthCompare: depthCompare?.value ?? GPUCompareFunction.always.value,
           stencilFront: stencilFront ?? undefined,
           stencilBack: stencilBack ?? undefined,
-          stencilReadMask: stencilReadMask ?? undefined,
-          stencilWriteMask: stencilWriteMask ?? undefined,
-          depthBias: depthBias ?? undefined,
-          depthBiasSlopeScale: depthBiasSlopeScale ?? undefined,
-          depthBiasClamp: depthBiasClamp ?? undefined);
+          stencilReadMask: stencilReadMask ?? 0xFFFFFFFF,
+          stencilWriteMask: stencilWriteMask ?? 0xFFFFFFFF,
+          depthBias: depthBias ?? 0,
+          depthBiasSlopeScale: depthBiasSlopeScale ?? 0,
+          depthBiasClamp: depthBiasClamp ?? 0);
 }
 
 extension PropsGPUDepthStencilState on GPUDepthStencilState {
@@ -1994,15 +2012,15 @@ class GPUStencilFaceState {
       {String? compare, String? failOp, String? depthFailOp, String? passOp});
 
   factory GPUStencilFaceState(
-          {GPUCompareFunction? compare = GPUCompareFunction.always,
-          GPUStencilOperation? failOp = GPUStencilOperation.keep,
-          GPUStencilOperation? depthFailOp = GPUStencilOperation.keep,
-          GPUStencilOperation? passOp = GPUStencilOperation.keep}) =>
+          {GPUCompareFunction? compare,
+          GPUStencilOperation? failOp,
+          GPUStencilOperation? depthFailOp,
+          GPUStencilOperation? passOp}) =>
       GPUStencilFaceState._(
-          compare: compare?.value ?? undefined,
-          failOp: failOp?.value ?? undefined,
-          depthFailOp: depthFailOp?.value ?? undefined,
-          passOp: passOp?.value ?? undefined);
+          compare: compare?.value ?? GPUCompareFunction.always.value,
+          failOp: failOp?.value ?? GPUStencilOperation.keep.value,
+          depthFailOp: depthFailOp?.value ?? GPUStencilOperation.keep.value,
+          passOp: passOp?.value ?? GPUStencilOperation.keep.value);
 }
 
 extension PropsGPUStencilFaceState on GPUStencilFaceState {
@@ -2117,8 +2135,10 @@ enum GPUVertexStepMode {
 @JS()
 @staticInterop
 class GPUVertexState implements GPUProgrammableStage {
-  external factory GPUVertexState(
-      {Iterable<GPUVertexBufferLayout>? buffers = const []});
+  external factory GPUVertexState._({Iterable<GPUVertexBufferLayout>? buffers});
+
+  factory GPUVertexState({Iterable<GPUVertexBufferLayout>? buffers}) =>
+      GPUVertexState._(buffers: buffers ?? const []);
 }
 
 extension PropsGPUVertexState on GPUVertexState {
@@ -2140,11 +2160,11 @@ class GPUVertexBufferLayout {
 
   factory GPUVertexBufferLayout(
           {required int arrayStride,
-          GPUVertexStepMode? stepMode = GPUVertexStepMode.vertex,
+          GPUVertexStepMode? stepMode,
           Iterable<GPUVertexAttribute>? attributes}) =>
       GPUVertexBufferLayout._(
           arrayStride: arrayStride,
-          stepMode: stepMode?.value ?? undefined,
+          stepMode: stepMode?.value ?? GPUVertexStepMode.vertex.value,
           attributes: attributes ?? undefined);
 }
 
@@ -2282,8 +2302,15 @@ class GPUCommandEncoderDescriptor implements GPUObjectDescriptorBase {
 @JS()
 @staticInterop
 class GPUImageDataLayout {
-  external factory GPUImageDataLayout(
-      {int? offset = 0, int? bytesPerRow, int? rowsPerImage});
+  external factory GPUImageDataLayout._(
+      {int? offset, int? bytesPerRow, int? rowsPerImage});
+
+  factory GPUImageDataLayout(
+          {int? offset, int? bytesPerRow, int? rowsPerImage}) =>
+      GPUImageDataLayout._(
+          offset: offset ?? 0,
+          bytesPerRow: bytesPerRow ?? undefined,
+          rowsPerImage: rowsPerImage ?? undefined);
 }
 
 extension PropsGPUImageDataLayout on GPUImageDataLayout {
@@ -2323,20 +2350,20 @@ extension PropsGPUImageCopyBuffer on GPUImageCopyBuffer {
 class GPUImageCopyTexture {
   external factory GPUImageCopyTexture._(
       {required GPUTexture texture,
-      int? mipLevel = 0,
+      int? mipLevel,
       dynamic origin,
       String? aspect});
 
   factory GPUImageCopyTexture(
           {required GPUTexture texture,
-          int? mipLevel = 0,
+          int? mipLevel,
           dynamic origin,
-          GPUTextureAspect? aspect = GPUTextureAspect.all}) =>
+          GPUTextureAspect? aspect}) =>
       GPUImageCopyTexture._(
           texture: texture,
-          mipLevel: mipLevel ?? undefined,
+          mipLevel: mipLevel ?? 0,
           origin: origin ?? undefined,
-          aspect: aspect?.value ?? undefined);
+          aspect: aspect?.value ?? GPUTextureAspect.all.value);
 }
 
 extension PropsGPUImageCopyTexture on GPUImageCopyTexture {
@@ -2367,14 +2394,13 @@ extension PropsGPUImageCopyTexture on GPUImageCopyTexture {
 @staticInterop
 class GPUImageCopyTextureTagged implements GPUImageCopyTexture {
   external factory GPUImageCopyTextureTagged._(
-      {String? colorSpace, bool? premultipliedAlpha = false});
+      {String? colorSpace, bool? premultipliedAlpha});
 
   factory GPUImageCopyTextureTagged(
-          {PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb,
-          bool? premultipliedAlpha = false}) =>
+          {PredefinedColorSpace? colorSpace, bool? premultipliedAlpha}) =>
       GPUImageCopyTextureTagged._(
-          colorSpace: colorSpace?.value ?? undefined,
-          premultipliedAlpha: premultipliedAlpha ?? undefined);
+          colorSpace: colorSpace?.value ?? PredefinedColorSpace.srgb.value,
+          premultipliedAlpha: premultipliedAlpha ?? false);
 }
 
 extension PropsGPUImageCopyTextureTagged on GPUImageCopyTextureTagged {
@@ -2395,8 +2421,15 @@ extension PropsGPUImageCopyTextureTagged on GPUImageCopyTextureTagged {
 @JS()
 @staticInterop
 class GPUImageCopyExternalImage {
-  external factory GPUImageCopyExternalImage(
-      {dynamic source, dynamic origin, bool? flipY = false});
+  external factory GPUImageCopyExternalImage._(
+      {dynamic source, dynamic origin, bool? flipY});
+
+  factory GPUImageCopyExternalImage(
+          {dynamic source, dynamic origin, bool? flipY}) =>
+      GPUImageCopyExternalImage._(
+          source: source ?? undefined,
+          origin: origin ?? undefined,
+          flipY: flipY ?? false);
 }
 
 extension PropsGPUImageCopyExternalImage on GPUImageCopyExternalImage {
@@ -2533,8 +2566,12 @@ extension PropsGPUComputePassTimestampWrite on GPUComputePassTimestampWrite {
 @JS()
 @staticInterop
 class GPUComputePassDescriptor implements GPUObjectDescriptorBase {
-  external factory GPUComputePassDescriptor(
-      {Iterable<GPUComputePassTimestampWrite>? timestampWrites = const []});
+  external factory GPUComputePassDescriptor._(
+      {Iterable<GPUComputePassTimestampWrite>? timestampWrites});
+
+  factory GPUComputePassDescriptor(
+          {Iterable<GPUComputePassTimestampWrite>? timestampWrites}) =>
+      GPUComputePassDescriptor._(timestampWrites: timestampWrites ?? const []);
 }
 
 extension PropsGPUComputePassDescriptor on GPUComputePassDescriptor {
@@ -2636,12 +2673,25 @@ extension PropsGPURenderPassTimestampWrite on GPURenderPassTimestampWrite {
 @JS()
 @staticInterop
 class GPURenderPassDescriptor implements GPUObjectDescriptorBase {
-  external factory GPURenderPassDescriptor(
+  external factory GPURenderPassDescriptor._(
       {Iterable<GPURenderPassColorAttachment>? colorAttachments,
       GPURenderPassDepthStencilAttachment? depthStencilAttachment,
       GPUQuerySet? occlusionQuerySet,
-      Iterable<GPURenderPassTimestampWrite>? timestampWrites = const [],
-      int? maxDrawCount = 50000000});
+      Iterable<GPURenderPassTimestampWrite>? timestampWrites,
+      int? maxDrawCount});
+
+  factory GPURenderPassDescriptor(
+          {Iterable<GPURenderPassColorAttachment>? colorAttachments,
+          GPURenderPassDepthStencilAttachment? depthStencilAttachment,
+          GPUQuerySet? occlusionQuerySet,
+          Iterable<GPURenderPassTimestampWrite>? timestampWrites,
+          int? maxDrawCount}) =>
+      GPURenderPassDescriptor._(
+          colorAttachments: colorAttachments ?? undefined,
+          depthStencilAttachment: depthStencilAttachment ?? undefined,
+          occlusionQuerySet: occlusionQuerySet ?? undefined,
+          timestampWrites: timestampWrites ?? const [],
+          maxDrawCount: maxDrawCount ?? 50000000);
 }
 
 extension PropsGPURenderPassDescriptor on GPURenderPassDescriptor {
@@ -2736,35 +2786,35 @@ extension PropsGPURenderPassColorAttachment on GPURenderPassColorAttachment {
 class GPURenderPassDepthStencilAttachment {
   external factory GPURenderPassDepthStencilAttachment._(
       {required GPUTextureView view,
-      double? depthClearValue = 0,
+      double? depthClearValue,
       String? depthLoadOp,
       String? depthStoreOp,
-      bool? depthReadOnly = false,
-      int? stencilClearValue = 0,
+      bool? depthReadOnly,
+      int? stencilClearValue,
       String? stencilLoadOp,
       String? stencilStoreOp,
-      bool? stencilReadOnly = false});
+      bool? stencilReadOnly});
 
   factory GPURenderPassDepthStencilAttachment(
           {required GPUTextureView view,
-          double? depthClearValue = 0,
+          double? depthClearValue,
           GPULoadOp? depthLoadOp,
           GPUStoreOp? depthStoreOp,
-          bool? depthReadOnly = false,
-          int? stencilClearValue = 0,
+          bool? depthReadOnly,
+          int? stencilClearValue,
           GPULoadOp? stencilLoadOp,
           GPUStoreOp? stencilStoreOp,
-          bool? stencilReadOnly = false}) =>
+          bool? stencilReadOnly}) =>
       GPURenderPassDepthStencilAttachment._(
           view: view,
-          depthClearValue: depthClearValue ?? undefined,
+          depthClearValue: depthClearValue ?? 0,
           depthLoadOp: depthLoadOp?.value ?? undefined,
           depthStoreOp: depthStoreOp?.value ?? undefined,
-          depthReadOnly: depthReadOnly ?? undefined,
-          stencilClearValue: stencilClearValue ?? undefined,
+          depthReadOnly: depthReadOnly ?? false,
+          stencilClearValue: stencilClearValue ?? 0,
           stencilLoadOp: stencilLoadOp?.value ?? undefined,
           stencilStoreOp: stencilStoreOp?.value ?? undefined,
-          stencilReadOnly: stencilReadOnly ?? undefined);
+          stencilReadOnly: stencilReadOnly ?? false);
 }
 
 extension PropsGPURenderPassDepthStencilAttachment
@@ -2850,16 +2900,16 @@ class GPURenderPassLayout implements GPUObjectDescriptorBase {
   external factory GPURenderPassLayout._(
       {Iterable<String>? colorFormats,
       String? depthStencilFormat,
-      int? sampleCount = 1});
+      int? sampleCount});
 
   factory GPURenderPassLayout(
           {Iterable<GPUTextureFormat>? colorFormats,
           GPUTextureFormat? depthStencilFormat,
-          int? sampleCount = 1}) =>
+          int? sampleCount}) =>
       GPURenderPassLayout._(
           colorFormats: colorFormats?.map((e) => e.value) ?? undefined,
           depthStencilFormat: depthStencilFormat?.value ?? undefined,
-          sampleCount: sampleCount ?? undefined);
+          sampleCount: sampleCount ?? 1);
 }
 
 extension PropsGPURenderPassLayout on GPURenderPassLayout {
@@ -2961,8 +3011,14 @@ extension PropsGPURenderBundleEncoder on GPURenderBundleEncoder {
 @JS()
 @staticInterop
 class GPURenderBundleEncoderDescriptor implements GPURenderPassLayout {
-  external factory GPURenderBundleEncoderDescriptor(
-      {bool? depthReadOnly = false, bool? stencilReadOnly = false});
+  external factory GPURenderBundleEncoderDescriptor._(
+      {bool? depthReadOnly, bool? stencilReadOnly});
+
+  factory GPURenderBundleEncoderDescriptor(
+          {bool? depthReadOnly, bool? stencilReadOnly}) =>
+      GPURenderBundleEncoderDescriptor._(
+          depthReadOnly: depthReadOnly ?? false,
+          stencilReadOnly: stencilReadOnly ?? false);
 }
 
 extension PropsGPURenderBundleEncoderDescriptor
@@ -3101,7 +3157,7 @@ class GPUCanvasConfiguration {
   external factory GPUCanvasConfiguration._(
       {required GPUDevice device,
       required String format,
-      int? usage = 0x10,
+      int? usage,
       Iterable<String>? viewFormats,
       String? colorSpace,
       String? alphaMode});
@@ -3109,17 +3165,17 @@ class GPUCanvasConfiguration {
   factory GPUCanvasConfiguration(
           {required GPUDevice device,
           required GPUTextureFormat format,
-          int? usage = 0x10,
-          Iterable<GPUTextureFormat>? viewFormats = const [],
-          PredefinedColorSpace? colorSpace = PredefinedColorSpace.srgb,
-          GPUCanvasAlphaMode? alphaMode = GPUCanvasAlphaMode.opaque}) =>
+          int? usage,
+          Iterable<GPUTextureFormat>? viewFormats,
+          PredefinedColorSpace? colorSpace,
+          GPUCanvasAlphaMode? alphaMode}) =>
       GPUCanvasConfiguration._(
           device: device,
           format: format.value,
-          usage: usage ?? undefined,
-          viewFormats: viewFormats?.map((e) => e.value) ?? undefined,
-          colorSpace: colorSpace?.value ?? undefined,
-          alphaMode: alphaMode?.value ?? undefined);
+          usage: usage ?? 0x10,
+          viewFormats: viewFormats?.map((e) => e.value) ?? const [],
+          colorSpace: colorSpace?.value ?? PredefinedColorSpace.srgb.value,
+          alphaMode: alphaMode?.value ?? GPUCanvasAlphaMode.opaque.value);
 }
 
 extension PropsGPUCanvasConfiguration on GPUCanvasConfiguration {
@@ -3276,7 +3332,10 @@ extension PropsGPUColorDict on GPUColorDict {
 @JS()
 @staticInterop
 class GPUOrigin2DDict {
-  external factory GPUOrigin2DDict({int? x = 0, int? y = 0});
+  external factory GPUOrigin2DDict._({int? x, int? y});
+
+  factory GPUOrigin2DDict({int? x, int? y}) =>
+      GPUOrigin2DDict._(x: x ?? 0, y: y ?? 0);
 }
 
 extension PropsGPUOrigin2DDict on GPUOrigin2DDict {
@@ -3295,7 +3354,10 @@ extension PropsGPUOrigin2DDict on GPUOrigin2DDict {
 @JS()
 @staticInterop
 class GPUOrigin3DDict {
-  external factory GPUOrigin3DDict({int? x = 0, int? y = 0, int? z = 0});
+  external factory GPUOrigin3DDict._({int? x, int? y, int? z});
+
+  factory GPUOrigin3DDict({int? x, int? y, int? z}) =>
+      GPUOrigin3DDict._(x: x ?? 0, y: y ?? 0, z: z ?? 0);
 }
 
 extension PropsGPUOrigin3DDict on GPUOrigin3DDict {
@@ -3319,8 +3381,15 @@ extension PropsGPUOrigin3DDict on GPUOrigin3DDict {
 @JS()
 @staticInterop
 class GPUExtent3DDict {
-  external factory GPUExtent3DDict(
-      {required int width, int? height = 1, int? depthOrArrayLayers = 1});
+  external factory GPUExtent3DDict._(
+      {required int width, int? height, int? depthOrArrayLayers});
+
+  factory GPUExtent3DDict(
+          {required int width, int? height, int? depthOrArrayLayers}) =>
+      GPUExtent3DDict._(
+          width: width,
+          height: height ?? 1,
+          depthOrArrayLayers: depthOrArrayLayers ?? 1);
 }
 
 extension PropsGPUExtent3DDict on GPUExtent3DDict {

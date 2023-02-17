@@ -222,7 +222,10 @@ enum MeteringMode {
 @JS()
 @staticInterop
 class Point2D {
-  external factory Point2D({double? x = 0.0, double? y = 0.0});
+  external factory Point2D._({double? x, double? y});
+
+  factory Point2D({double? x, double? y}) =>
+      Point2D._(x: x ?? 0.0, y: y ?? 0.0);
 }
 
 extension PropsPoint2D on Point2D {

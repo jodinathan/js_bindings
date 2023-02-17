@@ -49,10 +49,15 @@ extension PropsTransitionEvent on TransitionEvent {
 @JS()
 @staticInterop
 class TransitionEventInit implements EventInit {
-  external factory TransitionEventInit(
-      {String? propertyName = '',
-      double? elapsedTime = 0.0,
-      String? pseudoElement = ''});
+  external factory TransitionEventInit._(
+      {String? propertyName, double? elapsedTime, String? pseudoElement});
+
+  factory TransitionEventInit(
+          {String? propertyName, double? elapsedTime, String? pseudoElement}) =>
+      TransitionEventInit._(
+          propertyName: propertyName ?? '',
+          elapsedTime: elapsedTime ?? 0.0,
+          pseudoElement: pseudoElement ?? '');
 }
 
 extension PropsTransitionEventInit on TransitionEventInit {

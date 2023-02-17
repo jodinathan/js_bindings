@@ -64,20 +64,17 @@ enum LockMode {
 @staticInterop
 class LockOptions {
   external factory LockOptions._(
-      {String? mode,
-      bool? ifAvailable = false,
-      bool? steal = false,
-      AbortSignal? signal});
+      {String? mode, bool? ifAvailable, bool? steal, AbortSignal? signal});
 
   factory LockOptions(
-          {LockMode? mode = LockMode.exclusive,
-          bool? ifAvailable = false,
-          bool? steal = false,
+          {LockMode? mode,
+          bool? ifAvailable,
+          bool? steal,
           AbortSignal? signal}) =>
       LockOptions._(
-          mode: mode?.value ?? undefined,
-          ifAvailable: ifAvailable ?? undefined,
-          steal: steal ?? undefined,
+          mode: mode?.value ?? LockMode.exclusive.value,
+          ifAvailable: ifAvailable ?? false,
+          steal: steal ?? false,
           signal: signal ?? undefined);
 }
 

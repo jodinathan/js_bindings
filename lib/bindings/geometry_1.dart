@@ -39,11 +39,18 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class DOMPointReadOnly {
-  external factory DOMPointReadOnly(
+  external factory DOMPointReadOnly._(
       [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic z = 0,
       /* double | NaN */ dynamic w = 1]);
+
+  factory DOMPointReadOnly(
+          [/* double | NaN */ dynamic x = 0,
+          /* double | NaN */ dynamic y = 0,
+          /* double | NaN */ dynamic z = 0,
+          /* double | NaN */ dynamic w = 1]) =>
+      DOMPointReadOnly._(x ?? 0, y ?? 0, z ?? 0, w ?? 1);
   external static dynamic fromPoint([DOMPointInit? other]);
 }
 
@@ -82,11 +89,18 @@ extension PropsDOMPointReadOnly on DOMPointReadOnly {
 @JS()
 @staticInterop
 class DOMPoint implements DOMPointReadOnly {
-  external factory DOMPoint(
+  external factory DOMPoint._(
       [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic z = 0,
       /* double | NaN */ dynamic w = 1]);
+
+  factory DOMPoint(
+          [/* double | NaN */ dynamic x = 0,
+          /* double | NaN */ dynamic y = 0,
+          /* double | NaN */ dynamic z = 0,
+          /* double | NaN */ dynamic w = 1]) =>
+      DOMPoint._(x ?? 0, y ?? 0, z ?? 0, w ?? 1);
   external static DOMPoint fromPoint([DOMPointInit? other]);
 }
 
@@ -116,11 +130,18 @@ extension PropsDOMPoint on DOMPoint {
 @JS()
 @staticInterop
 class DOMPointInit {
-  external factory DOMPointInit(
-      {/* double | NaN */ dynamic x = 0,
-      /* double | NaN */ dynamic y = 0,
-      /* double | NaN */ dynamic z = 0,
-      /* double | NaN */ dynamic w = 1});
+  external factory DOMPointInit._(
+      {/* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y,
+      /* double | NaN */ dynamic z,
+      /* double | NaN */ dynamic w});
+
+  factory DOMPointInit(
+          {/* double | NaN */ dynamic x,
+          /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic z,
+          /* double | NaN */ dynamic w}) =>
+      DOMPointInit._(x: x ?? 0, y: y ?? 0, z: z ?? 0, w: w ?? 1);
 }
 
 extension PropsDOMPointInit on DOMPointInit {
@@ -150,11 +171,18 @@ extension PropsDOMPointInit on DOMPointInit {
 @JS()
 @staticInterop
 class DOMRectReadOnly {
-  external factory DOMRectReadOnly(
+  external factory DOMRectReadOnly._(
       [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic width = 0,
       /* double | NaN */ dynamic height = 0]);
+
+  factory DOMRectReadOnly(
+          [/* double | NaN */ dynamic x = 0,
+          /* double | NaN */ dynamic y = 0,
+          /* double | NaN */ dynamic width = 0,
+          /* double | NaN */ dynamic height = 0]) =>
+      DOMRectReadOnly._(x ?? 0, y ?? 0, width ?? 0, height ?? 0);
   external static dynamic fromRect([DOMRectInit? other]);
 }
 
@@ -192,11 +220,18 @@ extension PropsDOMRectReadOnly on DOMRectReadOnly {
 @JS()
 @staticInterop
 class DOMRect implements DOMRectReadOnly {
-  external factory DOMRect(
+  external factory DOMRect._(
       [/* double | NaN */ dynamic x = 0,
       /* double | NaN */ dynamic y = 0,
       /* double | NaN */ dynamic width = 0,
       /* double | NaN */ dynamic height = 0]);
+
+  factory DOMRect(
+          [/* double | NaN */ dynamic x = 0,
+          /* double | NaN */ dynamic y = 0,
+          /* double | NaN */ dynamic width = 0,
+          /* double | NaN */ dynamic height = 0]) =>
+      DOMRect._(x ?? 0, y ?? 0, width ?? 0, height ?? 0);
   external static DOMRect fromRect([DOMRectInit? other]);
 }
 
@@ -226,11 +261,19 @@ extension PropsDOMRect on DOMRect {
 @JS()
 @staticInterop
 class DOMRectInit {
-  external factory DOMRectInit(
-      {/* double | NaN */ dynamic x = 0,
-      /* double | NaN */ dynamic y = 0,
-      /* double | NaN */ dynamic width = 0,
-      /* double | NaN */ dynamic height = 0});
+  external factory DOMRectInit._(
+      {/* double | NaN */ dynamic x,
+      /* double | NaN */ dynamic y,
+      /* double | NaN */ dynamic width,
+      /* double | NaN */ dynamic height});
+
+  factory DOMRectInit(
+          {/* double | NaN */ dynamic x,
+          /* double | NaN */ dynamic y,
+          /* double | NaN */ dynamic width,
+          /* double | NaN */ dynamic height}) =>
+      DOMRectInit._(
+          x: x ?? 0, y: y ?? 0, width: width ?? 0, height: height ?? 0);
 }
 
 extension PropsDOMRectInit on DOMRectInit {
@@ -724,18 +767,43 @@ extension PropsDOMMatrix2DInit on DOMMatrix2DInit {
 @JS()
 @staticInterop
 class DOMMatrixInit implements DOMMatrix2DInit {
-  external factory DOMMatrixInit(
-      {/* double | NaN */ dynamic m13 = 0,
-      /* double | NaN */ dynamic m14 = 0,
-      /* double | NaN */ dynamic m23 = 0,
-      /* double | NaN */ dynamic m24 = 0,
-      /* double | NaN */ dynamic m31 = 0,
-      /* double | NaN */ dynamic m32 = 0,
-      /* double | NaN */ dynamic m33 = 1,
-      /* double | NaN */ dynamic m34 = 0,
-      /* double | NaN */ dynamic m43 = 0,
-      /* double | NaN */ dynamic m44 = 1,
+  external factory DOMMatrixInit._(
+      {/* double | NaN */ dynamic m13,
+      /* double | NaN */ dynamic m14,
+      /* double | NaN */ dynamic m23,
+      /* double | NaN */ dynamic m24,
+      /* double | NaN */ dynamic m31,
+      /* double | NaN */ dynamic m32,
+      /* double | NaN */ dynamic m33,
+      /* double | NaN */ dynamic m34,
+      /* double | NaN */ dynamic m43,
+      /* double | NaN */ dynamic m44,
       bool? is2D});
+
+  factory DOMMatrixInit(
+          {/* double | NaN */ dynamic m13,
+          /* double | NaN */ dynamic m14,
+          /* double | NaN */ dynamic m23,
+          /* double | NaN */ dynamic m24,
+          /* double | NaN */ dynamic m31,
+          /* double | NaN */ dynamic m32,
+          /* double | NaN */ dynamic m33,
+          /* double | NaN */ dynamic m34,
+          /* double | NaN */ dynamic m43,
+          /* double | NaN */ dynamic m44,
+          bool? is2D}) =>
+      DOMMatrixInit._(
+          m13: m13 ?? 0,
+          m14: m14 ?? 0,
+          m23: m23 ?? 0,
+          m24: m24 ?? 0,
+          m31: m31 ?? 0,
+          m32: m32 ?? 0,
+          m33: m33 ?? 1,
+          m34: m34 ?? 0,
+          m43: m43 ?? 0,
+          m44: m44 ?? 1,
+          is2D: is2D ?? undefined);
 }
 
 extension PropsDOMMatrixInit on DOMMatrixInit {

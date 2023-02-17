@@ -86,8 +86,13 @@ extension PropsWindowControlsOverlayGeometryChangeEvent
 @JS()
 @staticInterop
 class WindowControlsOverlayGeometryChangeEventInit implements EventInit {
-  external factory WindowControlsOverlayGeometryChangeEventInit(
-      {required DOMRect titlebarAreaRect, bool? visible = false});
+  external factory WindowControlsOverlayGeometryChangeEventInit._(
+      {required DOMRect titlebarAreaRect, bool? visible});
+
+  factory WindowControlsOverlayGeometryChangeEventInit(
+          {required DOMRect titlebarAreaRect, bool? visible}) =>
+      WindowControlsOverlayGeometryChangeEventInit._(
+          titlebarAreaRect: titlebarAreaRect, visible: visible ?? false);
 }
 
 extension PropsWindowControlsOverlayGeometryChangeEventInit

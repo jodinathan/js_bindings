@@ -801,13 +801,28 @@ class XRLayer implements EventTarget {
 @JS()
 @staticInterop
 class XRWebGLLayerInit {
-  external factory XRWebGLLayerInit(
-      {bool? antialias = true,
-      bool? depth = true,
-      bool? stencil = false,
-      bool? alpha = true,
-      bool? ignoreDepthValues = false,
-      double? framebufferScaleFactor = 1.0});
+  external factory XRWebGLLayerInit._(
+      {bool? antialias,
+      bool? depth,
+      bool? stencil,
+      bool? alpha,
+      bool? ignoreDepthValues,
+      double? framebufferScaleFactor});
+
+  factory XRWebGLLayerInit(
+          {bool? antialias,
+          bool? depth,
+          bool? stencil,
+          bool? alpha,
+          bool? ignoreDepthValues,
+          double? framebufferScaleFactor}) =>
+      XRWebGLLayerInit._(
+          antialias: antialias ?? true,
+          depth: depth ?? true,
+          stencil: stencil ?? false,
+          alpha: alpha ?? true,
+          ignoreDepthValues: ignoreDepthValues ?? false,
+          framebufferScaleFactor: framebufferScaleFactor ?? 1.0);
 }
 
 extension PropsXRWebGLLayerInit on XRWebGLLayerInit {

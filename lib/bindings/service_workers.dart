@@ -234,13 +234,13 @@ class RegistrationOptions {
 
   factory RegistrationOptions(
           {String? scope,
-          WorkerType? type = WorkerType.classic,
-          ServiceWorkerUpdateViaCache? updateViaCache =
-              ServiceWorkerUpdateViaCache.imports}) =>
+          WorkerType? type,
+          ServiceWorkerUpdateViaCache? updateViaCache}) =>
       RegistrationOptions._(
           scope: scope ?? undefined,
-          type: type?.value ?? undefined,
-          updateViaCache: updateViaCache?.value ?? undefined);
+          type: type?.value ?? WorkerType.classic.value,
+          updateViaCache: updateViaCache?.value ??
+              ServiceWorkerUpdateViaCache.imports.value);
 }
 
 extension PropsRegistrationOptions on RegistrationOptions {
@@ -289,8 +289,12 @@ extension PropsNavigationPreloadManager on NavigationPreloadManager {
 @JS()
 @staticInterop
 class NavigationPreloadState {
-  external factory NavigationPreloadState(
-      {bool? enabled = false, String? headerValue});
+  external factory NavigationPreloadState._(
+      {bool? enabled, String? headerValue});
+
+  factory NavigationPreloadState({bool? enabled, String? headerValue}) =>
+      NavigationPreloadState._(
+          enabled: enabled ?? false, headerValue: headerValue ?? undefined);
 }
 
 extension PropsNavigationPreloadState on NavigationPreloadState {
@@ -569,14 +573,12 @@ extension PropsClients on Clients {
 @staticInterop
 class ClientQueryOptions {
   external factory ClientQueryOptions._(
-      {bool? includeUncontrolled = false, String? type});
+      {bool? includeUncontrolled, String? type});
 
-  factory ClientQueryOptions(
-          {bool? includeUncontrolled = false,
-          ClientType? type = ClientType.window}) =>
+  factory ClientQueryOptions({bool? includeUncontrolled, ClientType? type}) =>
       ClientQueryOptions._(
-          includeUncontrolled: includeUncontrolled ?? undefined,
-          type: type?.value ?? undefined);
+          includeUncontrolled: includeUncontrolled ?? false,
+          type: type?.value ?? ClientType.window.value);
 }
 
 extension PropsClientQueryOptions on ClientQueryOptions {
@@ -705,13 +707,28 @@ extension PropsFetchEvent on FetchEvent {
 @JS()
 @staticInterop
 class FetchEventInit implements ExtendableEventInit {
-  external factory FetchEventInit(
+  external factory FetchEventInit._(
       {required Request request,
       Future<dynamic>? preloadResponse,
-      String? clientId = '',
-      String? resultingClientId = '',
-      String? replacesClientId = '',
+      String? clientId,
+      String? resultingClientId,
+      String? replacesClientId,
       Future<void>? handled});
+
+  factory FetchEventInit(
+          {required Request request,
+          Future<dynamic>? preloadResponse,
+          String? clientId,
+          String? resultingClientId,
+          String? replacesClientId,
+          Future<void>? handled}) =>
+      FetchEventInit._(
+          request: request,
+          preloadResponse: preloadResponse ?? undefined,
+          clientId: clientId ?? '',
+          resultingClientId: resultingClientId ?? '',
+          replacesClientId: replacesClientId ?? '',
+          handled: handled ?? undefined);
 }
 
 extension PropsFetchEventInit on FetchEventInit {
@@ -792,12 +809,25 @@ extension PropsExtendableMessageEvent on ExtendableMessageEvent {
 @JS()
 @staticInterop
 class ExtendableMessageEventInit implements ExtendableEventInit {
-  external factory ExtendableMessageEventInit(
+  external factory ExtendableMessageEventInit._(
       {dynamic data,
-      String? origin = '',
-      String? lastEventId = '',
+      String? origin,
+      String? lastEventId,
       dynamic source,
-      Iterable<MessagePort>? ports = const []});
+      Iterable<MessagePort>? ports});
+
+  factory ExtendableMessageEventInit(
+          {dynamic data,
+          String? origin,
+          String? lastEventId,
+          dynamic source,
+          Iterable<MessagePort>? ports}) =>
+      ExtendableMessageEventInit._(
+          data: data ?? undefined,
+          origin: origin ?? '',
+          lastEventId: lastEventId ?? '',
+          source: source ?? undefined,
+          ports: ports ?? const []);
 }
 
 extension PropsExtendableMessageEventInit on ExtendableMessageEventInit {
@@ -899,10 +929,15 @@ extension PropsCache on Cache {
 @JS()
 @staticInterop
 class CacheQueryOptions {
-  external factory CacheQueryOptions(
-      {bool? ignoreSearch = false,
-      bool? ignoreMethod = false,
-      bool? ignoreVary = false});
+  external factory CacheQueryOptions._(
+      {bool? ignoreSearch, bool? ignoreMethod, bool? ignoreVary});
+
+  factory CacheQueryOptions(
+          {bool? ignoreSearch, bool? ignoreMethod, bool? ignoreVary}) =>
+      CacheQueryOptions._(
+          ignoreSearch: ignoreSearch ?? false,
+          ignoreMethod: ignoreMethod ?? false,
+          ignoreVary: ignoreVary ?? false);
 }
 
 extension PropsCacheQueryOptions on CacheQueryOptions {

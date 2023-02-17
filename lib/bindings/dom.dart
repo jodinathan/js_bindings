@@ -105,10 +105,14 @@ extension PropsEvent on Event {
 @JS()
 @staticInterop
 class EventInit {
-  external factory EventInit(
-      {bool? bubbles = false,
-      bool? cancelable = false,
-      bool? composed = false});
+  external factory EventInit._(
+      {bool? bubbles, bool? cancelable, bool? composed});
+
+  factory EventInit({bool? bubbles, bool? cancelable, bool? composed}) =>
+      EventInit._(
+          bubbles: bubbles ?? false,
+          cancelable: cancelable ?? false,
+          composed: composed ?? false);
 }
 
 extension PropsEventInit on EventInit {
@@ -210,7 +214,10 @@ extension PropsEventTarget on EventTarget {
 @JS()
 @staticInterop
 class EventListenerOptions {
-  external factory EventListenerOptions({bool? capture = false});
+  external factory EventListenerOptions._({bool? capture});
+
+  factory EventListenerOptions({bool? capture}) =>
+      EventListenerOptions._(capture: capture ?? false);
 }
 
 extension PropsEventListenerOptions on EventListenerOptions {
@@ -224,8 +231,15 @@ extension PropsEventListenerOptions on EventListenerOptions {
 @JS()
 @staticInterop
 class AddEventListenerOptions implements EventListenerOptions {
-  external factory AddEventListenerOptions(
-      {bool? passive, bool? once = false, AbortSignal? signal});
+  external factory AddEventListenerOptions._(
+      {bool? passive, bool? once, AbortSignal? signal});
+
+  factory AddEventListenerOptions(
+          {bool? passive, bool? once, AbortSignal? signal}) =>
+      AddEventListenerOptions._(
+          passive: passive ?? undefined,
+          once: once ?? false,
+          signal: signal ?? undefined);
 }
 
 extension PropsAddEventListenerOptions on AddEventListenerOptions {
@@ -479,14 +493,31 @@ extension PropsMutationObserver on MutationObserver {
 @JS()
 @staticInterop
 class MutationObserverInit {
-  external factory MutationObserverInit(
-      {bool? childList = false,
+  external factory MutationObserverInit._(
+      {bool? childList,
       bool? attributes,
       bool? characterData,
-      bool? subtree = false,
+      bool? subtree,
       bool? attributeOldValue,
       bool? characterDataOldValue,
       Iterable<String>? attributeFilter});
+
+  factory MutationObserverInit(
+          {bool? childList,
+          bool? attributes,
+          bool? characterData,
+          bool? subtree,
+          bool? attributeOldValue,
+          bool? characterDataOldValue,
+          Iterable<String>? attributeFilter}) =>
+      MutationObserverInit._(
+          childList: childList ?? false,
+          attributes: attributes ?? undefined,
+          characterData: characterData ?? undefined,
+          subtree: subtree ?? false,
+          attributeOldValue: attributeOldValue ?? undefined,
+          characterDataOldValue: characterDataOldValue ?? undefined,
+          attributeFilter: attributeFilter ?? undefined);
 }
 
 extension PropsMutationObserverInit on MutationObserverInit {
@@ -716,7 +747,10 @@ extension PropsNode on Node {
 @JS()
 @staticInterop
 class GetRootNodeOptions {
-  external factory GetRootNodeOptions({bool? composed = false});
+  external factory GetRootNodeOptions._({bool? composed});
+
+  factory GetRootNodeOptions({bool? composed}) =>
+      GetRootNodeOptions._(composed: composed ?? false);
 }
 
 extension PropsGetRootNodeOptions on GetRootNodeOptions {
@@ -1529,18 +1563,17 @@ extension PropsElement on Element {
 @staticInterop
 class ShadowRootInit {
   external factory ShadowRootInit._(
-      {required String mode,
-      bool? delegatesFocus = false,
-      String? slotAssignment});
+      {required String mode, bool? delegatesFocus, String? slotAssignment});
 
   factory ShadowRootInit(
           {required ShadowRootMode mode,
-          bool? delegatesFocus = false,
-          SlotAssignmentMode? slotAssignment = SlotAssignmentMode.named}) =>
+          bool? delegatesFocus,
+          SlotAssignmentMode? slotAssignment}) =>
       ShadowRootInit._(
           mode: mode.value,
-          delegatesFocus: delegatesFocus ?? undefined,
-          slotAssignment: slotAssignment?.value ?? undefined);
+          delegatesFocus: delegatesFocus ?? false,
+          slotAssignment:
+              slotAssignment?.value ?? SlotAssignmentMode.named.value);
 }
 
 extension PropsShadowRootInit on ShadowRootInit {
@@ -1793,7 +1826,9 @@ extension PropsCharacterData on CharacterData {
 @JS()
 @staticInterop
 class Text implements CharacterData, GeometryUtils, Slottable {
-  external factory Text([String? data = '']);
+  external factory Text._([String? data = '']);
+
+  factory Text([String? data = '']) => Text._(data ?? '');
 }
 
 extension PropsText on Text {
@@ -1948,7 +1983,9 @@ extension PropsProcessingInstruction on ProcessingInstruction {
 @JS()
 @staticInterop
 class Comment implements CharacterData {
-  external factory Comment([String? data = '']);
+  external factory Comment._([String? data = '']);
+
+  factory Comment([String? data = '']) => Comment._(data ?? '');
 }
 
 ///  The abstract interface is the base class upon which all DOM

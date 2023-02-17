@@ -18,18 +18,43 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class FontFaceDescriptors {
-  external factory FontFaceDescriptors(
-      {String? style = 'normal',
-      String? weight = 'normal',
-      String? stretch = 'normal',
-      String? unicodeRange = 'U+0-10FFFF',
-      String? variant = 'normal',
-      String? featureSettings = 'normal',
-      String? variationSettings = 'normal',
-      String? display = 'auto',
-      String? ascentOverride = 'normal',
-      String? descentOverride = 'normal',
-      String? lineGapOverride = 'normal'});
+  external factory FontFaceDescriptors._(
+      {String? style,
+      String? weight,
+      String? stretch,
+      String? unicodeRange,
+      String? variant,
+      String? featureSettings,
+      String? variationSettings,
+      String? display,
+      String? ascentOverride,
+      String? descentOverride,
+      String? lineGapOverride});
+
+  factory FontFaceDescriptors(
+          {String? style,
+          String? weight,
+          String? stretch,
+          String? unicodeRange,
+          String? variant,
+          String? featureSettings,
+          String? variationSettings,
+          String? display,
+          String? ascentOverride,
+          String? descentOverride,
+          String? lineGapOverride}) =>
+      FontFaceDescriptors._(
+          style: style ?? 'normal',
+          weight: weight ?? 'normal',
+          stretch: stretch ?? 'normal',
+          unicodeRange: unicodeRange ?? 'U+0-10FFFF',
+          variant: variant ?? 'normal',
+          featureSettings: featureSettings ?? 'normal',
+          variationSettings: variationSettings ?? 'normal',
+          display: display ?? 'auto',
+          ascentOverride: ascentOverride ?? 'normal',
+          descentOverride: descentOverride ?? 'normal',
+          lineGapOverride: lineGapOverride ?? 'normal');
 }
 
 extension PropsFontFaceDescriptors on FontFaceDescriptors {
@@ -243,8 +268,10 @@ extension PropsFontFacePalettes on FontFacePalettes {
 @JS()
 @staticInterop
 class FontFaceSetLoadEventInit implements EventInit {
-  external factory FontFaceSetLoadEventInit(
-      {Iterable<FontFace>? fontfaces = const []});
+  external factory FontFaceSetLoadEventInit._({Iterable<FontFace>? fontfaces});
+
+  factory FontFaceSetLoadEventInit({Iterable<FontFace>? fontfaces}) =>
+      FontFaceSetLoadEventInit._(fontfaces: fontfaces ?? const []);
 }
 
 extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {

@@ -17,10 +17,17 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CaptureHandleConfig {
-  external factory CaptureHandleConfig(
-      {bool? exposeOrigin = false,
-      String? handle = '',
-      Iterable<String>? permittedOrigins = const []});
+  external factory CaptureHandleConfig._(
+      {bool? exposeOrigin, String? handle, Iterable<String>? permittedOrigins});
+
+  factory CaptureHandleConfig(
+          {bool? exposeOrigin,
+          String? handle,
+          Iterable<String>? permittedOrigins}) =>
+      CaptureHandleConfig._(
+          exposeOrigin: exposeOrigin ?? false,
+          handle: handle ?? '',
+          permittedOrigins: permittedOrigins ?? const []);
 }
 
 extension PropsCaptureHandleConfig on CaptureHandleConfig {

@@ -34,10 +34,10 @@ class FileSystemPermissionDescriptor implements PermissionDescriptor {
       {required FileSystemHandle handle, String? mode});
 
   factory FileSystemPermissionDescriptor(
-          {required FileSystemHandle handle,
-          FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
+          {required FileSystemHandle handle, FileSystemPermissionMode? mode}) =>
       FileSystemPermissionDescriptor._(
-          handle: handle, mode: mode?.value ?? undefined);
+          handle: handle,
+          mode: mode?.value ?? FileSystemPermissionMode.read.value);
 }
 
 extension PropsFileSystemPermissionDescriptor
@@ -61,8 +61,9 @@ class FileSystemHandlePermissionDescriptor {
   external factory FileSystemHandlePermissionDescriptor._({String? mode});
 
   factory FileSystemHandlePermissionDescriptor(
-          {FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
-      FileSystemHandlePermissionDescriptor._(mode: mode?.value ?? undefined);
+          {FileSystemPermissionMode? mode}) =>
+      FileSystemHandlePermissionDescriptor._(
+          mode: mode?.value ?? FileSystemPermissionMode.read.value);
 }
 
 extension PropsFileSystemHandlePermissionDescriptor
@@ -113,11 +114,22 @@ extension PropsFilePickerAcceptType on FilePickerAcceptType {
 @JS()
 @staticInterop
 class FilePickerOptions {
-  external factory FilePickerOptions(
+  external factory FilePickerOptions._(
       {Iterable<FilePickerAcceptType>? types,
-      bool? excludeAcceptAllOption = false,
+      bool? excludeAcceptAllOption,
       String? id,
       dynamic startIn});
+
+  factory FilePickerOptions(
+          {Iterable<FilePickerAcceptType>? types,
+          bool? excludeAcceptAllOption,
+          String? id,
+          dynamic startIn}) =>
+      FilePickerOptions._(
+          types: types ?? undefined,
+          excludeAcceptAllOption: excludeAcceptAllOption ?? false,
+          id: id ?? undefined,
+          startIn: startIn ?? undefined);
 }
 
 extension PropsFilePickerOptions on FilePickerOptions {
@@ -148,7 +160,10 @@ extension PropsFilePickerOptions on FilePickerOptions {
 @JS()
 @staticInterop
 class OpenFilePickerOptions implements FilePickerOptions {
-  external factory OpenFilePickerOptions({bool? multiple = false});
+  external factory OpenFilePickerOptions._({bool? multiple});
+
+  factory OpenFilePickerOptions({bool? multiple}) =>
+      OpenFilePickerOptions._(multiple: multiple ?? false);
 }
 
 extension PropsOpenFilePickerOptions on OpenFilePickerOptions {
@@ -180,13 +195,11 @@ class DirectoryPickerOptions {
       {String? id, dynamic startIn, String? mode});
 
   factory DirectoryPickerOptions(
-          {String? id,
-          dynamic startIn,
-          FileSystemPermissionMode? mode = FileSystemPermissionMode.read}) =>
+          {String? id, dynamic startIn, FileSystemPermissionMode? mode}) =>
       DirectoryPickerOptions._(
           id: id ?? undefined,
           startIn: startIn ?? undefined,
-          mode: mode?.value ?? undefined);
+          mode: mode?.value ?? FileSystemPermissionMode.read.value);
 }
 
 extension PropsDirectoryPickerOptions on DirectoryPickerOptions {

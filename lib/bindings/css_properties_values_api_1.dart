@@ -18,11 +18,22 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class PropertyDefinition {
-  external factory PropertyDefinition(
+  external factory PropertyDefinition._(
       {required String name,
-      String? syntax = '*',
+      String? syntax,
       bool? inherits,
       String? initialValue});
+
+  factory PropertyDefinition(
+          {required String name,
+          String? syntax,
+          bool? inherits,
+          String? initialValue}) =>
+      PropertyDefinition._(
+          name: name,
+          syntax: syntax ?? '*',
+          inherits: inherits ?? undefined,
+          initialValue: initialValue ?? undefined);
 }
 
 extension PropsPropertyDefinition on PropertyDefinition {

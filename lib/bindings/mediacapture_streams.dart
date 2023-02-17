@@ -204,22 +204,55 @@ enum MediaStreamTrackState {
 @JS()
 @staticInterop
 class MediaTrackSupportedConstraints {
-  external factory MediaTrackSupportedConstraints(
-      {bool? width = true,
-      bool? height = true,
-      bool? aspectRatio = true,
-      bool? frameRate = true,
-      bool? facingMode = true,
-      bool? resizeMode = true,
-      bool? sampleRate = true,
-      bool? sampleSize = true,
-      bool? echoCancellation = true,
-      bool? autoGainControl = true,
-      bool? noiseSuppression = true,
-      bool? latency = true,
-      bool? channelCount = true,
-      bool? deviceId = true,
-      bool? groupId = true});
+  external factory MediaTrackSupportedConstraints._(
+      {bool? width,
+      bool? height,
+      bool? aspectRatio,
+      bool? frameRate,
+      bool? facingMode,
+      bool? resizeMode,
+      bool? sampleRate,
+      bool? sampleSize,
+      bool? echoCancellation,
+      bool? autoGainControl,
+      bool? noiseSuppression,
+      bool? latency,
+      bool? channelCount,
+      bool? deviceId,
+      bool? groupId});
+
+  factory MediaTrackSupportedConstraints(
+          {bool? width,
+          bool? height,
+          bool? aspectRatio,
+          bool? frameRate,
+          bool? facingMode,
+          bool? resizeMode,
+          bool? sampleRate,
+          bool? sampleSize,
+          bool? echoCancellation,
+          bool? autoGainControl,
+          bool? noiseSuppression,
+          bool? latency,
+          bool? channelCount,
+          bool? deviceId,
+          bool? groupId}) =>
+      MediaTrackSupportedConstraints._(
+          width: width ?? true,
+          height: height ?? true,
+          aspectRatio: aspectRatio ?? true,
+          frameRate: frameRate ?? true,
+          facingMode: facingMode ?? true,
+          resizeMode: resizeMode ?? true,
+          sampleRate: sampleRate ?? true,
+          sampleSize: sampleSize ?? true,
+          echoCancellation: echoCancellation ?? true,
+          autoGainControl: autoGainControl ?? true,
+          noiseSuppression: noiseSuppression ?? true,
+          latency: latency ?? true,
+          channelCount: channelCount ?? true,
+          deviceId: deviceId ?? true,
+          groupId: groupId ?? true);
 }
 
 extension PropsMediaTrackSupportedConstraints
@@ -727,8 +760,11 @@ extension PropsMediaStreamTrackEventInit on MediaStreamTrackEventInit {
 @JS()
 @staticInterop
 class OverconstrainedError implements DOMException {
-  external factory OverconstrainedError(String constraint,
+  external factory OverconstrainedError._(String constraint,
       [String? message = '']);
+
+  factory OverconstrainedError(String constraint, [String? message = '']) =>
+      OverconstrainedError._(constraint, message ?? '');
 }
 
 extension PropsOverconstrainedError on OverconstrainedError {
@@ -864,8 +900,10 @@ extension PropsInputDeviceInfo on InputDeviceInfo {
 @JS()
 @staticInterop
 class MediaStreamConstraints {
-  external factory MediaStreamConstraints(
-      {dynamic video = false, dynamic audio = false});
+  external factory MediaStreamConstraints._({dynamic video, dynamic audio});
+
+  factory MediaStreamConstraints({dynamic video, dynamic audio}) =>
+      MediaStreamConstraints._(video: video ?? false, audio: audio ?? false);
 }
 
 extension PropsMediaStreamConstraints on MediaStreamConstraints {
@@ -1012,8 +1050,10 @@ extension PropsDevicePermissionDescriptor on DevicePermissionDescriptor {
 @JS()
 @staticInterop
 class CameraDevicePermissionDescriptor implements DevicePermissionDescriptor {
-  external factory CameraDevicePermissionDescriptor(
-      {bool? panTiltZoom = false});
+  external factory CameraDevicePermissionDescriptor._({bool? panTiltZoom});
+
+  factory CameraDevicePermissionDescriptor({bool? panTiltZoom}) =>
+      CameraDevicePermissionDescriptor._(panTiltZoom: panTiltZoom ?? false);
 }
 
 extension PropsCameraDevicePermissionDescriptor

@@ -15,19 +15,13 @@ const instanceMemberTypes = {
 };
 const objectMembers = {'hash', 'hashCode', 'toString'};
 
-extension UtilsBool on bool {
-  String truth(String buf) {
-    return this ? buf : '';
-  }
-}
-
 /// TODO: Change how we struct the spec class to also translate the underlying
 /// map to classes with everything ready.
 Future<void> main() async {
   print('PackageJS bindings started...');
 
   print('Excluding bindings folder');
-  final dir = Directory('../../lib/bindings/');
+  final dir = Directory('./lib/bindings/');
 
   if (await dir.exists()) {
     await dir.delete(recursive: true);
@@ -46,7 +40,7 @@ Future<void> main() async {
 
   print('Spec amount: ${list.length}');
 
-  final allPath = '../../lib/bindings/all_bindings.dart';
+  final allPath = './lib/bindings/all_bindings.dart';
 
   File(allPath)
     ..createSync(recursive: true)
@@ -94,7 +88,7 @@ Future<void> main() async {
     }
   }
 
-  final p = '../../lib/bindings/callbacks.dart';
+  final p = './lib/bindings/callbacks.dart';
   final contents = cbacks.join('\n');
   String formatted;
 
@@ -501,15 +495,15 @@ Future<void> main() async {
                           fn = '$factory$className';
                           addedCtor = true;
 
-                          final henum = method.params
-                              .any((param) => param.dartType.isEnum);
+                          final privateFactory = method.params
+                              .any((param) => param.dartType.isEnum || param.defaultValue != null);
 
                           lines.add(
-                              '\nexternal $fn${henum ? '._' : ''}(${params.isNotEmpty ? (dictionary ? '{$params}' : params) : ''});');
+                              '\nexternal $fn${privateFactory ? '._' : ''}(${params.isNotEmpty ? (dictionary ? '{$params}' : params) : ''});');
 
-                          if (henum) {
+                          if (privateFactory) {
                             lines.add(
-                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.dartType.isEnum ? '${(param.anyNullable).truth('?')}.${param.dartType.isIterable ? 'map((e) => e.value)' : 'value'}' : ''}${param.anyNullable.truth(' ?? undefined')}').join(', ')});');
+                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.ctorArgDefaultValue}').join(', ')});');
                           }
                         }
                       }
@@ -679,7 +673,7 @@ Future<void> main() async {
       import 'package:js_bindings/js_bindings.dart';
       ''');
 
-      final p = '../../lib/bindings/$libraryName.dart';
+      final p = './lib/bindings/$libraryName.dart';
       final contents = lines.join('\n');
       String formatted;
 

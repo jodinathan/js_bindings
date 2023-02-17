@@ -46,8 +46,14 @@ extension PropsInputDeviceCapabilities on InputDeviceCapabilities {
 @JS()
 @staticInterop
 class InputDeviceCapabilitiesInit {
-  external factory InputDeviceCapabilitiesInit(
-      {bool? firesTouchEvents = false, bool? pointerMovementScrolls = false});
+  external factory InputDeviceCapabilitiesInit._(
+      {bool? firesTouchEvents, bool? pointerMovementScrolls});
+
+  factory InputDeviceCapabilitiesInit(
+          {bool? firesTouchEvents, bool? pointerMovementScrolls}) =>
+      InputDeviceCapabilitiesInit._(
+          firesTouchEvents: firesTouchEvents ?? false,
+          pointerMovementScrolls: pointerMovementScrolls ?? false);
 }
 
 extension PropsInputDeviceCapabilitiesInit on InputDeviceCapabilitiesInit {

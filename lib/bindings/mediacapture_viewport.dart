@@ -17,8 +17,12 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class ViewportMediaStreamConstraints {
-  external factory ViewportMediaStreamConstraints(
-      {dynamic video = true, dynamic audio = false});
+  external factory ViewportMediaStreamConstraints._(
+      {dynamic video, dynamic audio});
+
+  factory ViewportMediaStreamConstraints({dynamic video, dynamic audio}) =>
+      ViewportMediaStreamConstraints._(
+          video: video ?? true, audio: audio ?? false);
 }
 
 extension PropsViewportMediaStreamConstraints

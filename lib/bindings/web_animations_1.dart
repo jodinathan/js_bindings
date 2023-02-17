@@ -40,7 +40,10 @@ extension PropsAnimationTimeline on AnimationTimeline {
 @JS()
 @staticInterop
 class DocumentTimelineOptions {
-  external factory DocumentTimelineOptions({double? originTime = 0});
+  external factory DocumentTimelineOptions._({double? originTime});
+
+  factory DocumentTimelineOptions({double? originTime}) =>
+      DocumentTimelineOptions._(originTime: originTime ?? 0);
 }
 
 extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
@@ -249,23 +252,23 @@ extension PropsAnimationEffect on AnimationEffect {
 class EffectTiming {
   external factory EffectTiming._(
       {String? fill,
-      double? iterationStart = 0.0,
-      /* double | NaN */ dynamic iterations = 1.0,
+      double? iterationStart,
+      /* double | NaN */ dynamic iterations,
       String? direction,
-      String? easing = 'linear'});
+      String? easing});
 
   factory EffectTiming(
-          {FillMode? fill = FillMode.auto,
-          double? iterationStart = 0.0,
-          /* double | NaN */ dynamic iterations = 1.0,
-          PlaybackDirection? direction = PlaybackDirection.normal,
-          String? easing = 'linear'}) =>
+          {FillMode? fill,
+          double? iterationStart,
+          /* double | NaN */ dynamic iterations,
+          PlaybackDirection? direction,
+          String? easing}) =>
       EffectTiming._(
-          fill: fill?.value ?? undefined,
-          iterationStart: iterationStart ?? undefined,
-          iterations: iterations ?? undefined,
-          direction: direction?.value ?? undefined,
-          easing: easing ?? undefined);
+          fill: fill?.value ?? FillMode.auto.value,
+          iterationStart: iterationStart ?? 0.0,
+          iterations: iterations ?? 1.0,
+          direction: direction?.value ?? PlaybackDirection.normal.value,
+          easing: easing ?? 'linear');
 }
 
 extension PropsEffectTiming on EffectTiming {
@@ -489,20 +492,19 @@ class BaseComputedKeyframe {
   external factory BaseComputedKeyframe._(
       {double? offset,
       double? computedOffset,
-      String? easing = 'linear',
+      String? easing,
       String? composite});
 
   factory BaseComputedKeyframe(
           {double? offset,
           double? computedOffset,
-          String? easing = 'linear',
-          CompositeOperationOrAuto? composite =
-              CompositeOperationOrAuto.auto}) =>
+          String? easing,
+          CompositeOperationOrAuto? composite}) =>
       BaseComputedKeyframe._(
           offset: offset ?? undefined,
           computedOffset: computedOffset ?? undefined,
-          easing: easing ?? undefined,
-          composite: composite?.value ?? undefined);
+          easing: easing ?? 'linear',
+          composite: composite?.value ?? CompositeOperationOrAuto.auto.value);
 }
 
 extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
@@ -532,10 +534,15 @@ extension PropsBaseComputedKeyframe on BaseComputedKeyframe {
 @JS()
 @staticInterop
 class BasePropertyIndexedKeyframe {
-  external factory BasePropertyIndexedKeyframe(
-      {dynamic offset = const [],
-      dynamic easing = const [],
-      dynamic composite = const []});
+  external factory BasePropertyIndexedKeyframe._(
+      {dynamic offset, dynamic easing, dynamic composite});
+
+  factory BasePropertyIndexedKeyframe(
+          {dynamic offset, dynamic easing, dynamic composite}) =>
+      BasePropertyIndexedKeyframe._(
+          offset: offset ?? const [],
+          easing: easing ?? const [],
+          composite: composite ?? const []);
 }
 
 extension PropsBasePropertyIndexedKeyframe on BasePropertyIndexedKeyframe {
@@ -560,17 +567,16 @@ extension PropsBasePropertyIndexedKeyframe on BasePropertyIndexedKeyframe {
 @staticInterop
 class BaseKeyframe {
   external factory BaseKeyframe._(
-      {double? offset, String? easing = 'linear', String? composite});
+      {double? offset, String? easing, String? composite});
 
   factory BaseKeyframe(
           {double? offset,
-          String? easing = 'linear',
-          CompositeOperationOrAuto? composite =
-              CompositeOperationOrAuto.auto}) =>
+          String? easing,
+          CompositeOperationOrAuto? composite}) =>
       BaseKeyframe._(
           offset: offset ?? undefined,
-          easing: easing ?? undefined,
-          composite: composite?.value ?? undefined);
+          easing: easing ?? 'linear',
+          composite: composite?.value ?? CompositeOperationOrAuto.auto.value);
 }
 
 extension PropsBaseKeyframe on BaseKeyframe {
@@ -599,10 +605,9 @@ class KeyframeEffectOptions implements EffectTiming {
       {String? composite, String? pseudoElement});
 
   factory KeyframeEffectOptions(
-          {CompositeOperation? composite = CompositeOperation.replace,
-          String? pseudoElement}) =>
+          {CompositeOperation? composite, String? pseudoElement}) =>
       KeyframeEffectOptions._(
-          composite: composite?.value ?? undefined,
+          composite: composite?.value ?? CompositeOperation.replace.value,
           pseudoElement: pseudoElement ?? undefined);
 }
 
@@ -665,8 +670,11 @@ extension PropsAnimatable on Animatable {
 @JS()
 @staticInterop
 class KeyframeAnimationOptions implements KeyframeEffectOptions {
-  external factory KeyframeAnimationOptions(
-      {String? id = '', AnimationTimeline? timeline});
+  external factory KeyframeAnimationOptions._(
+      {String? id, AnimationTimeline? timeline});
+
+  factory KeyframeAnimationOptions({String? id, AnimationTimeline? timeline}) =>
+      KeyframeAnimationOptions._(id: id ?? '', timeline: timeline ?? undefined);
 }
 
 extension PropsKeyframeAnimationOptions on KeyframeAnimationOptions {
@@ -685,7 +693,10 @@ extension PropsKeyframeAnimationOptions on KeyframeAnimationOptions {
 @JS()
 @staticInterop
 class GetAnimationsOptions {
-  external factory GetAnimationsOptions({bool? subtree = false});
+  external factory GetAnimationsOptions._({bool? subtree});
+
+  factory GetAnimationsOptions({bool? subtree}) =>
+      GetAnimationsOptions._(subtree: subtree ?? false);
 }
 
 extension PropsGetAnimationsOptions on GetAnimationsOptions {

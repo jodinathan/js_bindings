@@ -325,13 +325,13 @@ extension PropsPresentationConnectionCloseEvent
 @staticInterop
 class PresentationConnectionCloseEventInit implements EventInit {
   external factory PresentationConnectionCloseEventInit._(
-      {required String reason, String? message = ''});
+      {required String reason, String? message});
 
   factory PresentationConnectionCloseEventInit(
           {required PresentationConnectionCloseReason reason,
-          String? message = ''}) =>
+          String? message}) =>
       PresentationConnectionCloseEventInit._(
-          reason: reason.value, message: message ?? undefined);
+          reason: reason.value, message: message ?? '');
 }
 
 extension PropsPresentationConnectionCloseEventInit

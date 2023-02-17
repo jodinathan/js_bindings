@@ -57,21 +57,21 @@ enum SurfaceSwitchingPreferenceEnum {
 @staticInterop
 class DisplayMediaStreamOptions {
   external factory DisplayMediaStreamOptions._(
-      {dynamic video = true,
-      dynamic audio = false,
+      {dynamic video,
+      dynamic audio,
       String? selfBrowserSurface,
       String? systemAudio,
       String? surfaceSwitching});
 
   factory DisplayMediaStreamOptions(
-          {dynamic video = true,
-          dynamic audio = false,
+          {dynamic video,
+          dynamic audio,
           SelfCapturePreferenceEnum? selfBrowserSurface,
           SystemAudioPreferenceEnum? systemAudio,
           SurfaceSwitchingPreferenceEnum? surfaceSwitching}) =>
       DisplayMediaStreamOptions._(
-          video: video ?? undefined,
-          audio: audio ?? undefined,
+          video: video ?? true,
+          audio: audio ?? false,
           selfBrowserSurface: selfBrowserSurface?.value ?? undefined,
           systemAudio: systemAudio?.value ?? undefined,
           surfaceSwitching: surfaceSwitching?.value ?? undefined);

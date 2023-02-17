@@ -32,52 +32,52 @@ class TouchInit {
   external factory TouchInit._(
       {required int identifier,
       required EventTarget target,
-      double? clientX = 0,
-      double? clientY = 0,
-      double? screenX = 0,
-      double? screenY = 0,
-      double? pageX = 0,
-      double? pageY = 0,
-      double? radiusX = 0,
-      double? radiusY = 0,
-      double? rotationAngle = 0,
-      double? force = 0,
-      double? altitudeAngle = 0,
-      double? azimuthAngle = 0,
+      double? clientX,
+      double? clientY,
+      double? screenX,
+      double? screenY,
+      double? pageX,
+      double? pageY,
+      double? radiusX,
+      double? radiusY,
+      double? rotationAngle,
+      double? force,
+      double? altitudeAngle,
+      double? azimuthAngle,
       String? touchType});
 
   factory TouchInit(
           {required int identifier,
           required EventTarget target,
-          double? clientX = 0,
-          double? clientY = 0,
-          double? screenX = 0,
-          double? screenY = 0,
-          double? pageX = 0,
-          double? pageY = 0,
-          double? radiusX = 0,
-          double? radiusY = 0,
-          double? rotationAngle = 0,
-          double? force = 0,
-          double? altitudeAngle = 0,
-          double? azimuthAngle = 0,
-          TouchType? touchType = TouchType.direct}) =>
+          double? clientX,
+          double? clientY,
+          double? screenX,
+          double? screenY,
+          double? pageX,
+          double? pageY,
+          double? radiusX,
+          double? radiusY,
+          double? rotationAngle,
+          double? force,
+          double? altitudeAngle,
+          double? azimuthAngle,
+          TouchType? touchType}) =>
       TouchInit._(
           identifier: identifier,
           target: target,
-          clientX: clientX ?? undefined,
-          clientY: clientY ?? undefined,
-          screenX: screenX ?? undefined,
-          screenY: screenY ?? undefined,
-          pageX: pageX ?? undefined,
-          pageY: pageY ?? undefined,
-          radiusX: radiusX ?? undefined,
-          radiusY: radiusY ?? undefined,
-          rotationAngle: rotationAngle ?? undefined,
-          force: force ?? undefined,
-          altitudeAngle: altitudeAngle ?? undefined,
-          azimuthAngle: azimuthAngle ?? undefined,
-          touchType: touchType?.value ?? undefined);
+          clientX: clientX ?? 0,
+          clientY: clientY ?? 0,
+          screenX: screenX ?? 0,
+          screenY: screenY ?? 0,
+          pageX: pageX ?? 0,
+          pageY: pageY ?? 0,
+          radiusX: radiusX ?? 0,
+          radiusY: radiusY ?? 0,
+          rotationAngle: rotationAngle ?? 0,
+          force: force ?? 0,
+          altitudeAngle: altitudeAngle ?? 0,
+          azimuthAngle: azimuthAngle ?? 0,
+          touchType: touchType?.value ?? TouchType.direct.value);
 }
 
 extension PropsTouchInit on TouchInit {
@@ -220,10 +220,19 @@ extension PropsTouchList on TouchList {
 @JS()
 @staticInterop
 class TouchEventInit implements EventModifierInit {
-  external factory TouchEventInit(
-      {Iterable<Touch>? touches = const [],
-      Iterable<Touch>? targetTouches = const [],
-      Iterable<Touch>? changedTouches = const []});
+  external factory TouchEventInit._(
+      {Iterable<Touch>? touches,
+      Iterable<Touch>? targetTouches,
+      Iterable<Touch>? changedTouches});
+
+  factory TouchEventInit(
+          {Iterable<Touch>? touches,
+          Iterable<Touch>? targetTouches,
+          Iterable<Touch>? changedTouches}) =>
+      TouchEventInit._(
+          touches: touches ?? const [],
+          targetTouches: targetTouches ?? const [],
+          changedTouches: changedTouches ?? const []);
 }
 
 extension PropsTouchEventInit on TouchEventInit {

@@ -18,7 +18,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class MidiPermissionDescriptor implements PermissionDescriptor {
-  external factory MidiPermissionDescriptor({bool? sysex = false});
+  external factory MidiPermissionDescriptor._({bool? sysex});
+
+  factory MidiPermissionDescriptor({bool? sysex}) =>
+      MidiPermissionDescriptor._(sysex: sysex ?? false);
 }
 
 extension PropsMidiPermissionDescriptor on MidiPermissionDescriptor {

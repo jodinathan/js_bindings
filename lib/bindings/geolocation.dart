@@ -59,10 +59,15 @@ extension PropsGeolocation on Geolocation {
 @JS()
 @staticInterop
 class PositionOptions {
-  external factory PositionOptions(
-      {bool? enableHighAccuracy = false,
-      int? timeout = 0xFFFFFFFF,
-      int? maximumAge = 0});
+  external factory PositionOptions._(
+      {bool? enableHighAccuracy, int? timeout, int? maximumAge});
+
+  factory PositionOptions(
+          {bool? enableHighAccuracy, int? timeout, int? maximumAge}) =>
+      PositionOptions._(
+          enableHighAccuracy: enableHighAccuracy ?? false,
+          timeout: timeout ?? 0xFFFFFFFF,
+          maximumAge: maximumAge ?? 0);
 }
 
 extension PropsPositionOptions on PositionOptions {

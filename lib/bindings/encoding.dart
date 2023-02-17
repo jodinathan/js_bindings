@@ -30,8 +30,11 @@ extension PropsTextDecoderCommon on TextDecoderCommon {
 @JS()
 @staticInterop
 class TextDecoderOptions {
-  external factory TextDecoderOptions(
-      {bool? fatal = false, bool? ignoreBOM = false});
+  external factory TextDecoderOptions._({bool? fatal, bool? ignoreBOM});
+
+  factory TextDecoderOptions({bool? fatal, bool? ignoreBOM}) =>
+      TextDecoderOptions._(
+          fatal: fatal ?? false, ignoreBOM: ignoreBOM ?? false);
 }
 
 extension PropsTextDecoderOptions on TextDecoderOptions {
@@ -50,7 +53,10 @@ extension PropsTextDecoderOptions on TextDecoderOptions {
 @JS()
 @staticInterop
 class TextDecodeOptions {
-  external factory TextDecodeOptions({bool? stream = false});
+  external factory TextDecodeOptions._({bool? stream});
+
+  factory TextDecodeOptions({bool? stream}) =>
+      TextDecodeOptions._(stream: stream ?? false);
 }
 
 extension PropsTextDecodeOptions on TextDecodeOptions {
@@ -70,8 +76,11 @@ extension PropsTextDecodeOptions on TextDecodeOptions {
 @JS()
 @staticInterop
 class TextDecoder implements TextDecoderCommon {
-  external factory TextDecoder(
+  external factory TextDecoder._(
       [String? label = 'utf-8', TextDecoderOptions? options]);
+
+  factory TextDecoder([String? label = 'utf-8', TextDecoderOptions? options]) =>
+      TextDecoder._(label ?? 'utf-8', options ?? undefined);
 }
 
 extension PropsTextDecoder on TextDecoder {
@@ -134,8 +143,12 @@ extension PropsTextEncoder on TextEncoder {
 @JS()
 @staticInterop
 class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
-  external factory TextDecoderStream(
+  external factory TextDecoderStream._(
       [String? label = 'utf-8', TextDecoderOptions? options]);
+
+  factory TextDecoderStream(
+          [String? label = 'utf-8', TextDecoderOptions? options]) =>
+      TextDecoderStream._(label ?? 'utf-8', options ?? undefined);
 }
 
 ///  The interface of the Encoding API converts a stream of strings

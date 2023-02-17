@@ -32,8 +32,8 @@ enum ScrollBehavior {
 class ScrollOptions {
   external factory ScrollOptions._({String? behavior});
 
-  factory ScrollOptions({ScrollBehavior? behavior = ScrollBehavior.auto}) =>
-      ScrollOptions._(behavior: behavior?.value ?? undefined);
+  factory ScrollOptions({ScrollBehavior? behavior}) =>
+      ScrollOptions._(behavior: behavior?.value ?? ScrollBehavior.auto.value);
 }
 
 extension PropsScrollOptions on ScrollOptions {
@@ -142,8 +142,10 @@ extension PropsMediaQueryListEvent on MediaQueryListEvent {
 @JS()
 @staticInterop
 class MediaQueryListEventInit implements EventInit {
-  external factory MediaQueryListEventInit(
-      {String? media = '', bool? matches = false});
+  external factory MediaQueryListEventInit._({String? media, bool? matches});
+
+  factory MediaQueryListEventInit({String? media, bool? matches}) =>
+      MediaQueryListEventInit._(media: media ?? '', matches: matches ?? false);
 }
 
 extension PropsMediaQueryListEventInit on MediaQueryListEventInit {
@@ -225,10 +227,10 @@ class ScrollIntoViewOptions implements ScrollOptions {
   external factory ScrollIntoViewOptions._({String? block, String? inline});
 
   factory ScrollIntoViewOptions(
-          {ScrollLogicalPosition? block = ScrollLogicalPosition.start,
-          ScrollLogicalPosition? inline = ScrollLogicalPosition.nearest}) =>
+          {ScrollLogicalPosition? block, ScrollLogicalPosition? inline}) =>
       ScrollIntoViewOptions._(
-          block: block?.value ?? undefined, inline: inline?.value ?? undefined);
+          block: block?.value ?? ScrollLogicalPosition.start.value,
+          inline: inline?.value ?? ScrollLogicalPosition.nearest.value);
 }
 
 extension PropsScrollIntoViewOptions on ScrollIntoViewOptions {
@@ -249,8 +251,14 @@ extension PropsScrollIntoViewOptions on ScrollIntoViewOptions {
 @JS()
 @staticInterop
 class CheckVisibilityOptions {
-  external factory CheckVisibilityOptions(
-      {bool? checkOpacity = false, bool? checkVisibilityCSS = false});
+  external factory CheckVisibilityOptions._(
+      {bool? checkOpacity, bool? checkVisibilityCSS});
+
+  factory CheckVisibilityOptions(
+          {bool? checkOpacity, bool? checkVisibilityCSS}) =>
+      CheckVisibilityOptions._(
+          checkOpacity: checkOpacity ?? false,
+          checkVisibilityCSS: checkVisibilityCSS ?? false);
 }
 
 extension PropsCheckVisibilityOptions on CheckVisibilityOptions {
@@ -286,10 +294,10 @@ enum CSSBoxType {
 class BoxQuadOptions {
   external factory BoxQuadOptions._({String? box, dynamic relativeTo});
 
-  factory BoxQuadOptions(
-          {CSSBoxType? box = CSSBoxType.border, dynamic relativeTo}) =>
+  factory BoxQuadOptions({CSSBoxType? box, dynamic relativeTo}) =>
       BoxQuadOptions._(
-          box: box?.value ?? undefined, relativeTo: relativeTo ?? undefined);
+          box: box?.value ?? CSSBoxType.border.value,
+          relativeTo: relativeTo ?? undefined);
 }
 
 extension PropsBoxQuadOptions on BoxQuadOptions {
@@ -310,12 +318,10 @@ extension PropsBoxQuadOptions on BoxQuadOptions {
 class ConvertCoordinateOptions {
   external factory ConvertCoordinateOptions._({String? fromBox, String? toBox});
 
-  factory ConvertCoordinateOptions(
-          {CSSBoxType? fromBox = CSSBoxType.border,
-          CSSBoxType? toBox = CSSBoxType.border}) =>
+  factory ConvertCoordinateOptions({CSSBoxType? fromBox, CSSBoxType? toBox}) =>
       ConvertCoordinateOptions._(
-          fromBox: fromBox?.value ?? undefined,
-          toBox: toBox?.value ?? undefined);
+          fromBox: fromBox?.value ?? CSSBoxType.border.value,
+          toBox: toBox?.value ?? CSSBoxType.border.value);
 }
 
 extension PropsConvertCoordinateOptions on ConvertCoordinateOptions {

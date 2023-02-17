@@ -109,11 +109,10 @@ class NavigationNavigateOptions implements NavigationOptions {
       {dynamic state, String? history});
 
   factory NavigationNavigateOptions(
-          {dynamic state,
-          NavigationHistoryBehavior? history =
-              NavigationHistoryBehavior.auto}) =>
+          {dynamic state, NavigationHistoryBehavior? history}) =>
       NavigationNavigateOptions._(
-          state: state ?? undefined, history: history?.value ?? undefined);
+          state: state ?? undefined,
+          history: history?.value ?? NavigationHistoryBehavior.auto.value);
 }
 
 extension PropsNavigationNavigateOptions on NavigationNavigateOptions {
@@ -277,30 +276,30 @@ class NavigateEventInit implements EventInit {
   external factory NavigateEventInit._(
       {String? navigationType,
       NavigationDestination? destination,
-      bool? canIntercept = false,
-      bool? userInitiated = false,
-      bool? hashChange = false,
+      bool? canIntercept,
+      bool? userInitiated,
+      bool? hashChange,
       AbortSignal? signal,
       FormData? formData,
       String? downloadRequest,
       dynamic info});
 
   factory NavigateEventInit(
-          {NavigationType? navigationType = NavigationType.push,
+          {NavigationType? navigationType,
           NavigationDestination? destination,
-          bool? canIntercept = false,
-          bool? userInitiated = false,
-          bool? hashChange = false,
+          bool? canIntercept,
+          bool? userInitiated,
+          bool? hashChange,
           AbortSignal? signal,
           FormData? formData,
           String? downloadRequest,
           dynamic info}) =>
       NavigateEventInit._(
-          navigationType: navigationType?.value ?? undefined,
+          navigationType: navigationType?.value ?? NavigationType.push.value,
           destination: destination ?? undefined,
-          canIntercept: canIntercept ?? undefined,
-          userInitiated: userInitiated ?? undefined,
-          hashChange: hashChange ?? undefined,
+          canIntercept: canIntercept ?? false,
+          userInitiated: userInitiated ?? false,
+          hashChange: hashChange ?? false,
           signal: signal ?? undefined,
           formData: formData ?? undefined,
           downloadRequest: downloadRequest ?? undefined,

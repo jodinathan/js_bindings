@@ -7,6 +7,12 @@ import 'package:glob/glob.dart';
 import 'package:glob/list_local_fs.dart';
 import 'package:recase/recase.dart';
 
+extension UtilsBool on bool {
+  String truth(String buf) {
+    return this ? buf : '';
+  }
+}
+
 const dirs = ['ed'];
 const baseDir = 'ed';
 const types = {
@@ -276,6 +282,21 @@ class MethodParam {
   final Object? defaultValue;
 
   bool get anyNullable => isNullable || isRequired == false;
+
+  String get ctorArgDefaultValue => [
+        if (dartType.isEnum)
+          '${(anyNullable).truth('?')}.${dartType.isIterable ? 'map((e) => e.value)' : 'value'}',
+        if (anyNullable) ...[
+          ' ?? ',
+          if (defaultValue == null)
+            'undefined'
+          else ...[
+            defaultValue,
+            if (dartType.isEnum && !dartType.isIterable) '.value'
+          ],
+        ]
+      ].join('');
+  //'${dartType.isEnum ? '${(anyNullable).truth('?')}.${dartType.isIterable ? 'map((e) => e.value)' : 'value'}' : ''}${anyNullable.truth(' ?? ${defaultValue ?? 'undefined'}')}';
 }
 
 class Method {
@@ -419,7 +440,7 @@ class Method {
         call = 'required $call';
       }
 
-      if (arg.defaultValue != null && !swapEnum) {
+      if (arg.defaultValue != null && !swapEnum && !anonymous) {
         call += ' = ${arg.defaultValue}';
       }
 
@@ -602,7 +623,7 @@ class SpecGroup {
 
 Future<SpecGroup> getSpecs() async {
   final ret = SpecGroup();
-  final idls = Glob('../webIDL/info/*.json');
+  final idls = Glob('./tool/webIDL/info/*.json');
   final list = idls.listSync();
 
   for (var entity in list) {
@@ -912,7 +933,7 @@ Map decodeMap(String from, String buffer) {
 }
 
 Future<Iterable<Map<String, dynamic>>> getIDLs({String dir = 'ed'}) async {
-  final idls = Glob('../webIDL/$dir/*.json');
+  final idls = Glob('./tool/webIDL/$dir/*.json');
   final list = idls.listSync();
   final ret = <Map<String, dynamic>>[];
   final bannedIDLs = bannedTypes[dir] ?? {};

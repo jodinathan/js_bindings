@@ -133,11 +133,22 @@ extension PropsMediaMetadata on MediaMetadata {
 @JS()
 @staticInterop
 class MediaMetadataInit {
-  external factory MediaMetadataInit(
-      {String? title = '',
-      String? artist = '',
-      String? album = '',
-      Iterable<MediaImage>? artwork = const []});
+  external factory MediaMetadataInit._(
+      {String? title,
+      String? artist,
+      String? album,
+      Iterable<MediaImage>? artwork});
+
+  factory MediaMetadataInit(
+          {String? title,
+          String? artist,
+          String? album,
+          Iterable<MediaImage>? artwork}) =>
+      MediaMetadataInit._(
+          title: title ?? '',
+          artist: artist ?? '',
+          album: album ?? '',
+          artwork: artwork ?? const []);
 }
 
 extension PropsMediaMetadataInit on MediaMetadataInit {
@@ -171,8 +182,11 @@ extension PropsMediaMetadataInit on MediaMetadataInit {
 @JS()
 @staticInterop
 class MediaImage {
-  external factory MediaImage(
-      {required String src, String? sizes = '', String? type = ''});
+  external factory MediaImage._(
+      {required String src, String? sizes, String? type});
+
+  factory MediaImage({required String src, String? sizes, String? type}) =>
+      MediaImage._(src: src, sizes: sizes ?? '', type: type ?? '');
 }
 
 extension PropsMediaImage on MediaImage {

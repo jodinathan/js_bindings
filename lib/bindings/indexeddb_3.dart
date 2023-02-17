@@ -159,8 +159,12 @@ extension PropsIDBVersionChangeEvent on IDBVersionChangeEvent {
 @JS()
 @staticInterop
 class IDBVersionChangeEventInit implements EventInit {
-  external factory IDBVersionChangeEventInit(
-      {int? oldVersion = 0, int? newVersion});
+  external factory IDBVersionChangeEventInit._(
+      {int? oldVersion, int? newVersion});
+
+  factory IDBVersionChangeEventInit({int? oldVersion, int? newVersion}) =>
+      IDBVersionChangeEventInit._(
+          oldVersion: oldVersion ?? 0, newVersion: newVersion ?? undefined);
 }
 
 extension PropsIDBVersionChangeEventInit on IDBVersionChangeEventInit {
@@ -314,10 +318,10 @@ enum IDBTransactionDurability {
 class IDBTransactionOptions {
   external factory IDBTransactionOptions._({String? durability});
 
-  factory IDBTransactionOptions(
-          {IDBTransactionDurability? durability =
-              IDBTransactionDurability.valueDefault}) =>
-      IDBTransactionOptions._(durability: durability?.value ?? undefined);
+  factory IDBTransactionOptions({IDBTransactionDurability? durability}) =>
+      IDBTransactionOptions._(
+          durability:
+              durability?.value ?? IDBTransactionDurability.valueDefault.value);
 }
 
 extension PropsIDBTransactionOptions on IDBTransactionOptions {
@@ -332,8 +336,12 @@ extension PropsIDBTransactionOptions on IDBTransactionOptions {
 @JS()
 @staticInterop
 class IDBObjectStoreParameters {
-  external factory IDBObjectStoreParameters(
-      {dynamic keyPath, bool? autoIncrement = false});
+  external factory IDBObjectStoreParameters._(
+      {dynamic keyPath, bool? autoIncrement});
+
+  factory IDBObjectStoreParameters({dynamic keyPath, bool? autoIncrement}) =>
+      IDBObjectStoreParameters._(
+          keyPath: keyPath ?? undefined, autoIncrement: autoIncrement ?? false);
 }
 
 extension PropsIDBObjectStoreParameters on IDBObjectStoreParameters {
@@ -419,8 +427,11 @@ extension PropsIDBObjectStore on IDBObjectStore {
 @JS()
 @staticInterop
 class IDBIndexParameters {
-  external factory IDBIndexParameters(
-      {bool? unique = false, bool? multiEntry = false});
+  external factory IDBIndexParameters._({bool? unique, bool? multiEntry});
+
+  factory IDBIndexParameters({bool? unique, bool? multiEntry}) =>
+      IDBIndexParameters._(
+          unique: unique ?? false, multiEntry: multiEntry ?? false);
 }
 
 extension PropsIDBIndexParameters on IDBIndexParameters {

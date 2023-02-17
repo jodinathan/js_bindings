@@ -34,10 +34,9 @@ enum ResizeObserverBoxOptions {
 class ResizeObserverOptions {
   external factory ResizeObserverOptions._({String? box});
 
-  factory ResizeObserverOptions(
-          {ResizeObserverBoxOptions? box =
-              ResizeObserverBoxOptions.contentBox}) =>
-      ResizeObserverOptions._(box: box?.value ?? undefined);
+  factory ResizeObserverOptions({ResizeObserverBoxOptions? box}) =>
+      ResizeObserverOptions._(
+          box: box?.value ?? ResizeObserverBoxOptions.contentBox.value);
 }
 
 extension PropsResizeObserverOptions on ResizeObserverOptions {

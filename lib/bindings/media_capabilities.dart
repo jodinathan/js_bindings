@@ -323,7 +323,7 @@ extension PropsAudioConfiguration on AudioConfiguration {
 class MediaCapabilitiesKeySystemConfiguration {
   external factory MediaCapabilitiesKeySystemConfiguration._(
       {required String keySystem,
-      String? initDataType = '',
+      String? initDataType,
       String? distinctiveIdentifier,
       String? persistentState,
       Iterable<String>? sessionTypes,
@@ -332,18 +332,19 @@ class MediaCapabilitiesKeySystemConfiguration {
 
   factory MediaCapabilitiesKeySystemConfiguration(
           {required String keySystem,
-          String? initDataType = '',
-          MediaKeysRequirement? distinctiveIdentifier =
-              MediaKeysRequirement.optional,
-          MediaKeysRequirement? persistentState = MediaKeysRequirement.optional,
+          String? initDataType,
+          MediaKeysRequirement? distinctiveIdentifier,
+          MediaKeysRequirement? persistentState,
           Iterable<String>? sessionTypes,
           KeySystemTrackConfiguration? audio,
           KeySystemTrackConfiguration? video}) =>
       MediaCapabilitiesKeySystemConfiguration._(
           keySystem: keySystem,
-          initDataType: initDataType ?? undefined,
-          distinctiveIdentifier: distinctiveIdentifier?.value ?? undefined,
-          persistentState: persistentState?.value ?? undefined,
+          initDataType: initDataType ?? '',
+          distinctiveIdentifier: distinctiveIdentifier?.value ??
+              MediaKeysRequirement.optional.value,
+          persistentState:
+              persistentState?.value ?? MediaKeysRequirement.optional.value,
           sessionTypes: sessionTypes ?? undefined,
           audio: audio ?? undefined,
           video: video ?? undefined);
@@ -395,8 +396,14 @@ extension PropsMediaCapabilitiesKeySystemConfiguration
 @JS()
 @staticInterop
 class KeySystemTrackConfiguration {
-  external factory KeySystemTrackConfiguration(
-      {String? robustness = '', String? encryptionScheme});
+  external factory KeySystemTrackConfiguration._(
+      {String? robustness, String? encryptionScheme});
+
+  factory KeySystemTrackConfiguration(
+          {String? robustness, String? encryptionScheme}) =>
+      KeySystemTrackConfiguration._(
+          robustness: robustness ?? '',
+          encryptionScheme: encryptionScheme ?? undefined);
 }
 
 extension PropsKeySystemTrackConfiguration on KeySystemTrackConfiguration {

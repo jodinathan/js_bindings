@@ -103,44 +103,44 @@ extension PropsSecurityPolicyViolationEvent on SecurityPolicyViolationEvent {
 class SecurityPolicyViolationEventInit implements EventInit {
   external factory SecurityPolicyViolationEventInit._(
       {required String documentURI,
-      String? referrer = '',
-      String? blockedURI = '',
+      String? referrer,
+      String? blockedURI,
       String? violatedDirective,
       String? effectiveDirective,
       String? originalPolicy,
-      String? sourceFile = '',
-      String? sample = '',
+      String? sourceFile,
+      String? sample,
       String? disposition,
       int? statusCode,
-      int? lineNumber = 0,
-      int? columnNumber = 0});
+      int? lineNumber,
+      int? columnNumber});
 
   factory SecurityPolicyViolationEventInit(
           {required String documentURI,
-          String? referrer = '',
-          String? blockedURI = '',
+          String? referrer,
+          String? blockedURI,
           String? violatedDirective,
           String? effectiveDirective,
           String? originalPolicy,
-          String? sourceFile = '',
-          String? sample = '',
+          String? sourceFile,
+          String? sample,
           SecurityPolicyViolationEventDisposition? disposition,
           int? statusCode,
-          int? lineNumber = 0,
-          int? columnNumber = 0}) =>
+          int? lineNumber,
+          int? columnNumber}) =>
       SecurityPolicyViolationEventInit._(
           documentURI: documentURI,
-          referrer: referrer ?? undefined,
-          blockedURI: blockedURI ?? undefined,
+          referrer: referrer ?? '',
+          blockedURI: blockedURI ?? '',
           violatedDirective: violatedDirective ?? undefined,
           effectiveDirective: effectiveDirective ?? undefined,
           originalPolicy: originalPolicy ?? undefined,
-          sourceFile: sourceFile ?? undefined,
-          sample: sample ?? undefined,
+          sourceFile: sourceFile ?? '',
+          sample: sample ?? '',
           disposition: disposition?.value ?? undefined,
           statusCode: statusCode ?? undefined,
-          lineNumber: lineNumber ?? undefined,
-          columnNumber: columnNumber ?? undefined);
+          lineNumber: lineNumber ?? 0,
+          columnNumber: columnNumber ?? 0);
 }
 
 extension PropsSecurityPolicyViolationEventInit

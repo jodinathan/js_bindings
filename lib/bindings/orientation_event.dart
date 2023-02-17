@@ -51,8 +51,16 @@ extension PropsDeviceOrientationEvent on DeviceOrientationEvent {
 @JS()
 @staticInterop
 class DeviceOrientationEventInit implements EventInit {
-  external factory DeviceOrientationEventInit(
-      {double? alpha, double? beta, double? gamma, bool? absolute = false});
+  external factory DeviceOrientationEventInit._(
+      {double? alpha, double? beta, double? gamma, bool? absolute});
+
+  factory DeviceOrientationEventInit(
+          {double? alpha, double? beta, double? gamma, bool? absolute}) =>
+      DeviceOrientationEventInit._(
+          alpha: alpha ?? undefined,
+          beta: beta ?? undefined,
+          gamma: gamma ?? undefined,
+          absolute: absolute ?? false);
 }
 
 extension PropsDeviceOrientationEventInit on DeviceOrientationEventInit {
@@ -212,11 +220,23 @@ extension PropsDeviceMotionEventRotationRateInit
 @JS()
 @staticInterop
 class DeviceMotionEventInit implements EventInit {
-  external factory DeviceMotionEventInit(
+  external factory DeviceMotionEventInit._(
       {DeviceMotionEventAccelerationInit? acceleration,
       DeviceMotionEventAccelerationInit? accelerationIncludingGravity,
       DeviceMotionEventRotationRateInit? rotationRate,
-      double? interval = 0});
+      double? interval});
+
+  factory DeviceMotionEventInit(
+          {DeviceMotionEventAccelerationInit? acceleration,
+          DeviceMotionEventAccelerationInit? accelerationIncludingGravity,
+          DeviceMotionEventRotationRateInit? rotationRate,
+          double? interval}) =>
+      DeviceMotionEventInit._(
+          acceleration: acceleration ?? undefined,
+          accelerationIncludingGravity:
+              accelerationIncludingGravity ?? undefined,
+          rotationRate: rotationRate ?? undefined,
+          interval: interval ?? 0);
 }
 
 extension PropsDeviceMotionEventInit on DeviceMotionEventInit {

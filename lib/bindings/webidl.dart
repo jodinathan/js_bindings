@@ -22,7 +22,11 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class DOMException {
-  external factory DOMException([String? message = '', String? name = 'Error']);
+  external factory DOMException._(
+      [String? message = '', String? name = 'Error']);
+
+  factory DOMException([String? message = '', String? name = 'Error']) =>
+      DOMException._(message ?? '', name ?? 'Error');
   @JS('INDEX_SIZE_ERR')
   external static int get indexSizeErr;
 

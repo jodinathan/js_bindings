@@ -132,8 +132,14 @@ extension PropsCSSStyleSheet on CSSStyleSheet {
 @JS()
 @staticInterop
 class CSSStyleSheetInit {
-  external factory CSSStyleSheetInit(
-      {String? baseURL, dynamic media, bool? disabled = false});
+  external factory CSSStyleSheetInit._(
+      {String? baseURL, dynamic media, bool? disabled});
+
+  factory CSSStyleSheetInit({String? baseURL, dynamic media, bool? disabled}) =>
+      CSSStyleSheetInit._(
+          baseURL: baseURL ?? undefined,
+          media: media ?? undefined,
+          disabled: disabled ?? false);
 }
 
 extension PropsCSSStyleSheetInit on CSSStyleSheetInit {

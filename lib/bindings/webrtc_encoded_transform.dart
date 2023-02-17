@@ -52,9 +52,9 @@ enum SFrameTransformRole {
 class SFrameTransformOptions {
   external factory SFrameTransformOptions._({String? role});
 
-  factory SFrameTransformOptions(
-          {SFrameTransformRole? role = SFrameTransformRole.encrypt}) =>
-      SFrameTransformOptions._(role: role?.value ?? undefined);
+  factory SFrameTransformOptions({SFrameTransformRole? role}) =>
+      SFrameTransformOptions._(
+          role: role?.value ?? SFrameTransformRole.encrypt.value);
 }
 
 extension PropsSFrameTransformOptions on SFrameTransformOptions {

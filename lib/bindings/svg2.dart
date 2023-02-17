@@ -64,11 +64,16 @@ extension PropsSVGElement on SVGElement {
 @JS()
 @staticInterop
 class SVGBoundingBoxOptions {
-  external factory SVGBoundingBoxOptions(
-      {bool? fill = true,
-      bool? stroke = false,
-      bool? markers = false,
-      bool? clipped = false});
+  external factory SVGBoundingBoxOptions._(
+      {bool? fill, bool? stroke, bool? markers, bool? clipped});
+
+  factory SVGBoundingBoxOptions(
+          {bool? fill, bool? stroke, bool? markers, bool? clipped}) =>
+      SVGBoundingBoxOptions._(
+          fill: fill ?? true,
+          stroke: stroke ?? false,
+          markers: markers ?? false,
+          clipped: clipped ?? false);
 }
 
 extension PropsSVGBoundingBoxOptions on SVGBoundingBoxOptions {

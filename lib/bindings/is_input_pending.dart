@@ -17,7 +17,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class IsInputPendingOptions {
-  external factory IsInputPendingOptions({bool? includeContinuous = false});
+  external factory IsInputPendingOptions._({bool? includeContinuous});
+
+  factory IsInputPendingOptions({bool? includeContinuous}) =>
+      IsInputPendingOptions._(includeContinuous: includeContinuous ?? false);
 }
 
 extension PropsIsInputPendingOptions on IsInputPendingOptions {

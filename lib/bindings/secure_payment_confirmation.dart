@@ -194,10 +194,19 @@ extension PropsCollectedClientAdditionalPaymentData
 @JS()
 @staticInterop
 class PaymentCredentialInstrument {
-  external factory PaymentCredentialInstrument(
+  external factory PaymentCredentialInstrument._(
       {required String displayName,
       required String icon,
-      bool? iconMustBeShown = true});
+      bool? iconMustBeShown});
+
+  factory PaymentCredentialInstrument(
+          {required String displayName,
+          required String icon,
+          bool? iconMustBeShown}) =>
+      PaymentCredentialInstrument._(
+          displayName: displayName,
+          icon: icon,
+          iconMustBeShown: iconMustBeShown ?? true);
 }
 
 extension PropsPaymentCredentialInstrument on PaymentCredentialInstrument {

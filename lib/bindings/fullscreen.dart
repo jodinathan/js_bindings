@@ -32,10 +32,10 @@ enum FullscreenNavigationUI {
 class FullscreenOptions {
   external factory FullscreenOptions._({String? navigationUI});
 
-  factory FullscreenOptions(
-          {FullscreenNavigationUI? navigationUI =
-              FullscreenNavigationUI.auto}) =>
-      FullscreenOptions._(navigationUI: navigationUI?.value ?? undefined);
+  factory FullscreenOptions({FullscreenNavigationUI? navigationUI}) =>
+      FullscreenOptions._(
+          navigationUI:
+              navigationUI?.value ?? FullscreenNavigationUI.auto.value);
 }
 
 extension PropsFullscreenOptions on FullscreenOptions {

@@ -169,26 +169,26 @@ extension PropsSerialPortInfo on SerialPortInfo {
 class SerialOptions {
   external factory SerialOptions._(
       {required int baudRate,
-      int? dataBits = 8,
-      int? stopBits = 1,
+      int? dataBits,
+      int? stopBits,
       String? parity,
-      int? bufferSize = 255,
+      int? bufferSize,
       String? flowControl});
 
   factory SerialOptions(
           {required int baudRate,
-          int? dataBits = 8,
-          int? stopBits = 1,
-          ParityType? parity = ParityType.none,
-          int? bufferSize = 255,
-          FlowControlType? flowControl = FlowControlType.none}) =>
+          int? dataBits,
+          int? stopBits,
+          ParityType? parity,
+          int? bufferSize,
+          FlowControlType? flowControl}) =>
       SerialOptions._(
           baudRate: baudRate,
-          dataBits: dataBits ?? undefined,
-          stopBits: stopBits ?? undefined,
-          parity: parity?.value ?? undefined,
-          bufferSize: bufferSize ?? undefined,
-          flowControl: flowControl?.value ?? undefined);
+          dataBits: dataBits ?? 8,
+          stopBits: stopBits ?? 1,
+          parity: parity?.value ?? ParityType.none.value,
+          bufferSize: bufferSize ?? 255,
+          flowControl: flowControl?.value ?? FlowControlType.none.value);
 }
 
 extension PropsSerialOptions on SerialOptions {

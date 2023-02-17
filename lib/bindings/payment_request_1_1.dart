@@ -200,10 +200,16 @@ extension PropsPaymentDetailsModifier on PaymentDetailsModifier {
 @JS()
 @staticInterop
 class PaymentItem {
-  external factory PaymentItem(
+  external factory PaymentItem._(
       {required String label,
       required PaymentCurrencyAmount amount,
-      bool? pending = false});
+      bool? pending});
+
+  factory PaymentItem(
+          {required String label,
+          required PaymentCurrencyAmount amount,
+          bool? pending}) =>
+      PaymentItem._(label: label, amount: amount, pending: pending ?? false);
 }
 
 extension PropsPaymentItem on PaymentItem {
@@ -358,8 +364,14 @@ extension PropsPaymentMethodChangeEvent on PaymentMethodChangeEvent {
 @JS()
 @staticInterop
 class PaymentMethodChangeEventInit implements PaymentRequestUpdateEventInit {
-  external factory PaymentMethodChangeEventInit(
-      {String? methodName = '', dynamic methodDetails});
+  external factory PaymentMethodChangeEventInit._(
+      {String? methodName, dynamic methodDetails});
+
+  factory PaymentMethodChangeEventInit(
+          {String? methodName, dynamic methodDetails}) =>
+      PaymentMethodChangeEventInit._(
+          methodName: methodName ?? '',
+          methodDetails: methodDetails ?? undefined);
 }
 
 extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {

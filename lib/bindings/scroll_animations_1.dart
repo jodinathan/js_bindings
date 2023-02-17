@@ -33,10 +33,10 @@ enum ScrollAxis {
 class ScrollTimelineOptions {
   external factory ScrollTimelineOptions._({Element? source, String? axis});
 
-  factory ScrollTimelineOptions(
-          {Element? source, ScrollAxis? axis = ScrollAxis.block}) =>
+  factory ScrollTimelineOptions({Element? source, ScrollAxis? axis}) =>
       ScrollTimelineOptions._(
-          source: source ?? undefined, axis: axis?.value ?? undefined);
+          source: source ?? undefined,
+          axis: axis?.value ?? ScrollAxis.block.value);
 }
 
 extension PropsScrollTimelineOptions on ScrollTimelineOptions {
@@ -70,10 +70,10 @@ extension PropsScrollTimeline on ScrollTimeline {
 class ViewTimelineOptions {
   external factory ViewTimelineOptions._({Element? subject, String? axis});
 
-  factory ViewTimelineOptions(
-          {Element? subject, ScrollAxis? axis = ScrollAxis.block}) =>
+  factory ViewTimelineOptions({Element? subject, ScrollAxis? axis}) =>
       ViewTimelineOptions._(
-          subject: subject ?? undefined, axis: axis?.value ?? undefined);
+          subject: subject ?? undefined,
+          axis: axis?.value ?? ScrollAxis.block.value);
 }
 
 extension PropsViewTimelineOptions on ViewTimelineOptions {

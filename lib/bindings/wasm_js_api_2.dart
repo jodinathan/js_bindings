@@ -258,11 +258,10 @@ enum ValueType {
 @JS()
 @staticInterop
 class GlobalDescriptor {
-  external factory GlobalDescriptor._(
-      {required String value, bool? mutable = false});
+  external factory GlobalDescriptor._({required String value, bool? mutable});
 
-  factory GlobalDescriptor({required ValueType value, bool? mutable = false}) =>
-      GlobalDescriptor._(value: value.value, mutable: mutable ?? undefined);
+  factory GlobalDescriptor({required ValueType value, bool? mutable}) =>
+      GlobalDescriptor._(value: value.value, mutable: mutable ?? false);
 }
 
 extension PropsGlobalDescriptor on GlobalDescriptor {

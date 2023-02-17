@@ -7,7 +7,8 @@ Future<void> _fetch() async {
     print('Fetch finished: $r');
     window.console.log(r);
   } catch (e) {
-    print(e);
+    print('Error while fetching: $e');
+    print(StackTrace.current);
   }
 }
 
@@ -31,11 +32,17 @@ void main() {
 
   _fetch().then((ev) => print('Fetch test finished.'));
 
+  final response = ResponseInit();
+
+  print('Response.status == 200 // ${response.status == 200}');
+
   final map = JsMap([
     [1, 'one'],
     [2, 'two'],
     [3, 'three'],
   ]);
+
+  window.console.log(map);
 
   // create the buttons to use in the example
   final div = (document.createElement('div') as HTMLDivElement)
@@ -73,6 +80,11 @@ void main() {
     window.console.log('Changing the HTML');
     document.getElementById('someDiv')!.innerHTML =
         'New stuff oh yeah! ${div.childNodes[0]}';
+  });
+
+  div.childNodes.forEach((element, index, array) {
+    print('CHILDNODE[$index] = $element. ${element.runtimeType}');
+    assert(array == div.childNodes);
   });
 
   // listen to the click of the media button

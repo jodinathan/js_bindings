@@ -132,18 +132,18 @@ extension PropsSensorErrorEventInit on SensorErrorEventInit {
 class MockSensorConfiguration {
   external factory MockSensorConfiguration._(
       {required String mockSensorType,
-      bool? connected = true,
+      bool? connected,
       double? maxSamplingFrequency,
       double? minSamplingFrequency});
 
   factory MockSensorConfiguration(
           {required MockSensorType mockSensorType,
-          bool? connected = true,
+          bool? connected,
           double? maxSamplingFrequency,
           double? minSamplingFrequency}) =>
       MockSensorConfiguration._(
           mockSensorType: mockSensorType.value,
-          connected: connected ?? undefined,
+          connected: connected ?? true,
           maxSamplingFrequency: maxSamplingFrequency ?? undefined,
           minSamplingFrequency: minSamplingFrequency ?? undefined);
 }

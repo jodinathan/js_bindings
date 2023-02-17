@@ -79,7 +79,10 @@ extension PropsReadableStreamGetReaderOptions
 @JS()
 @staticInterop
 class ReadableStreamIteratorOptions {
-  external factory ReadableStreamIteratorOptions({bool? preventCancel = false});
+  external factory ReadableStreamIteratorOptions._({bool? preventCancel});
+
+  factory ReadableStreamIteratorOptions({bool? preventCancel}) =>
+      ReadableStreamIteratorOptions._(preventCancel: preventCancel ?? false);
 }
 
 extension PropsReadableStreamIteratorOptions on ReadableStreamIteratorOptions {
@@ -113,11 +116,22 @@ extension PropsReadableWritablePair on ReadableWritablePair {
 @JS()
 @staticInterop
 class StreamPipeOptions {
-  external factory StreamPipeOptions(
-      {bool? preventClose = false,
-      bool? preventAbort = false,
-      bool? preventCancel = false,
+  external factory StreamPipeOptions._(
+      {bool? preventClose,
+      bool? preventAbort,
+      bool? preventCancel,
       AbortSignal? signal});
+
+  factory StreamPipeOptions(
+          {bool? preventClose,
+          bool? preventAbort,
+          bool? preventCancel,
+          AbortSignal? signal}) =>
+      StreamPipeOptions._(
+          preventClose: preventClose ?? false,
+          preventAbort: preventAbort ?? false,
+          preventCancel: preventCancel ?? false,
+          signal: signal ?? undefined);
 }
 
 extension PropsStreamPipeOptions on StreamPipeOptions {

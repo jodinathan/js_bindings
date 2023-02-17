@@ -183,8 +183,11 @@ extension PropsXRTransientInputHitTestResult on XRTransientInputHitTestResult {
 @JS()
 @staticInterop
 class XRRayDirectionInit {
-  external factory XRRayDirectionInit(
-      {double? x = 0, double? y = 0, double? z = -1, double? w = 0});
+  external factory XRRayDirectionInit._(
+      {double? x, double? y, double? z, double? w});
+
+  factory XRRayDirectionInit({double? x, double? y, double? z, double? w}) =>
+      XRRayDirectionInit._(x: x ?? 0, y: y ?? 0, z: z ?? -1, w: w ?? 0);
 }
 
 extension PropsXRRayDirectionInit on XRRayDirectionInit {
