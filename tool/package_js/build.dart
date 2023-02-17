@@ -18,7 +18,7 @@ const objectMembers = {'hash', 'hashCode', 'toString'};
 /// TODO: Change how we struct the spec class to also translate the underlying
 /// map to classes with everything ready.
 Future<void> main() async {
-  print('PackageJS bindings started...');
+  print('PackageJS bindings started... ${Directory.current}. ${Directory('./lib').existsSync()}');
 
   print('Excluding bindings folder');
   final dir = Directory('./lib/bindings/');
