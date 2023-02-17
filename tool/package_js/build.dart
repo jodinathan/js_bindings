@@ -21,7 +21,7 @@ Future<void> main() async {
   print('PackageJS bindings started... ${Directory.current.path}. ${Directory('${Directory.current.path}/lib').existsSync()}');
 
   print('Excluding bindings folder');
-  final dir = Directory('./lib/bindings/');
+  final dir = Directory('${Directory.current.path}/lib/bindings/');
 
   if (await dir.exists()) {
     await dir.delete(recursive: true);
@@ -40,7 +40,7 @@ Future<void> main() async {
 
   print('Spec amount: ${list.length}');
 
-  final allPath = './lib/bindings/all_bindings.dart';
+  final allPath = '${Directory.current.path}/lib/bindings/all_bindings.dart';
 
   File(allPath)
     ..createSync(recursive: true)
@@ -88,7 +88,7 @@ Future<void> main() async {
     }
   }
 
-  final p = './lib/bindings/callbacks.dart';
+  final p = '${Directory.current.path}/lib/bindings/callbacks.dart';
   final contents = cbacks.join('\n');
   String formatted;
 
@@ -673,7 +673,7 @@ Future<void> main() async {
       import 'package:js_bindings/js_bindings.dart';
       ''');
 
-      final p = './lib/bindings/$libraryName.dart';
+      final p = '${Directory.current.path}/lib/bindings/$libraryName.dart';
       final contents = lines.join('\n');
       String formatted;
 
