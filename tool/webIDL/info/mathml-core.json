@@ -1,0 +1,88 @@
+{
+  "spec": {
+    "title": "MathML Core",
+    "url": "https://w3c.github.io/mathml-core/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "MathMLElement"
+        ]
+      }
+    },
+    "idlNames": {
+      "MathMLElement": {
+        "fragment": "[Exposed=Window]\ninterface MathMLElement : Element { };",
+        "type": "interface",
+        "name": "MathMLElement",
+        "inheritance": "Element",
+        "members": [],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  interface represents any MathML element.\n  \n    \n    \n      EventTarget\n    \n  \n  \n    \n    \n      Node\n    \n  \n  \n    \n    \n      Element\n    \n  \n  \n    \n    \n      MathMLElement\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/MathMLElement"
+      }
+    },
+    "idlExtendedNames": {
+      "MathMLElement": [
+        {
+          "fragment": "MathMLElement includes GlobalEventHandlers;",
+          "type": "includes",
+          "extAttrs": [],
+          "target": "MathMLElement",
+          "includes": "GlobalEventHandlers"
+        },
+        {
+          "fragment": "MathMLElement includes DocumentAndElementEventHandlers;",
+          "type": "includes",
+          "extAttrs": [],
+          "target": "MathMLElement",
+          "includes": "DocumentAndElementEventHandlers"
+        },
+        {
+          "fragment": "MathMLElement includes HTMLOrSVGElement;",
+          "type": "includes",
+          "extAttrs": [],
+          "target": "MathMLElement",
+          "includes": "HTMLOrSVGElement"
+        }
+      ]
+    },
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "MathMLElement"
+      ]
+    },
+    "dependencies": {
+      "MathMLElement": [
+        "Element",
+        "GlobalEventHandlers",
+        "DocumentAndElementEventHandlers",
+        "HTMLOrSVGElement"
+      ]
+    },
+    "externalDependencies": [
+      "Element"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/mathml-core.json",
+  "basename": "mathml-core.json",
+  "name": "mathml-core",
+  "libraryName": "mathml_core"
+}

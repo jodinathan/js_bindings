@@ -1,0 +1,227 @@
+{
+  "spec": {
+    "title": "Input Device Capabilities",
+    "url": "https://wicg.github.io/input-device-capabilities/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {
+        "Window": [
+          "InputDeviceCapabilities"
+        ]
+      },
+      "functions": {}
+    },
+    "idlNames": {
+      "InputDeviceCapabilities": {
+        "fragment": "[Exposed=Window]\ninterface InputDeviceCapabilities {\n  constructor(optional InputDeviceCapabilitiesInit deviceInitDict = {});\n  readonly attribute boolean firesTouchEvents;\n  readonly attribute boolean pointerMovementScrolls;\n};",
+        "type": "interface",
+        "name": "InputDeviceCapabilities",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "constructor",
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "deviceInitDict",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "InputDeviceCapabilitiesInit"
+                },
+                "default": {
+                  "type": "dictionary"
+                },
+                "optional": true,
+                "variadic": false
+              }
+            ],
+            "extAttrs": []
+          },
+          {
+            "type": "attribute",
+            "name": "firesTouchEvents",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "pointerMovementScrolls",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": true,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Input Device Capabilities API provides information about the physical device or a group of related devices responsible for generating input events. Events caused by the same physical input device get the same instance of this object, but the converse isn't true. For example, two mice with the same capabilities in a system may appear as a single  instance.\nIn some instances,  represents the capabilities of logical devices rather than physical devices. This allows, for example, touchscreen keyboards and physical keyboards to be represented the same way when they produce the same input.",
+        "mdn": "/en-US/docs/Web/API/InputDeviceCapabilities"
+      },
+      "InputDeviceCapabilitiesInit": {
+        "fragment": "dictionary InputDeviceCapabilitiesInit {\n  boolean firesTouchEvents = false;\n  boolean pointerMovementScrolls = false;\n};",
+        "type": "dictionary",
+        "name": "InputDeviceCapabilitiesInit",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "firesTouchEvents",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "default": {
+              "type": "boolean",
+              "value": false
+            },
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "pointerMovementScrolls",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "default": {
+              "type": "boolean",
+              "value": false
+            },
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      }
+    },
+    "idlExtendedNames": {
+      "UIEvent": [
+        {
+          "fragment": "partial interface UIEvent {\n  readonly attribute InputDeviceCapabilities? sourceCapabilities;\n};",
+          "type": "interface",
+          "name": "UIEvent",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "attribute",
+              "name": "sourceCapabilities",
+              "idlType": {
+                "type": "attribute-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": true,
+                "union": false,
+                "idlType": "InputDeviceCapabilities"
+              },
+              "extAttrs": [],
+              "special": "",
+              "readonly": true
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        }
+      ],
+      "UIEventInit": [
+        {
+          "fragment": "partial dictionary UIEventInit {\n  InputDeviceCapabilities? sourceCapabilities = null;\n};",
+          "type": "dictionary",
+          "name": "UIEventInit",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "field",
+              "name": "sourceCapabilities",
+              "extAttrs": [],
+              "idlType": {
+                "type": "dictionary-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": true,
+                "union": false,
+                "idlType": "InputDeviceCapabilities"
+              },
+              "default": {
+                "type": "null"
+              },
+              "required": false
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        }
+      ]
+    },
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "InputDeviceCapabilities"
+      ]
+    },
+    "dependencies": {
+      "InputDeviceCapabilities": [
+        "InputDeviceCapabilitiesInit"
+      ],
+      "InputDeviceCapabilitiesInit": [],
+      "UIEvent": [
+        "InputDeviceCapabilities"
+      ],
+      "UIEventInit": [
+        "InputDeviceCapabilities"
+      ]
+    },
+    "externalDependencies": [
+      "UIEvent",
+      "UIEventInit"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/input-device-capabilities.json",
+  "basename": "input-device-capabilities.json",
+  "name": "input-device-capabilities",
+  "libraryName": "input_device_capabilities"
+}

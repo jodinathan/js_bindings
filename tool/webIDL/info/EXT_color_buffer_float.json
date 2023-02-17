@@ -1,0 +1,76 @@
+{
+  "spec": {
+    "title": "WebGL EXT_color_buffer_float Extension Specification",
+    "url": "https://www.khronos.org/registry/webgl/extensions/EXT_color_buffer_float/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "EXT_color_buffer_float"
+        ],
+        "Worker": [
+          "EXT_color_buffer_float"
+        ]
+      }
+    },
+    "idlNames": {
+      "EXT_color_buffer_float": {
+        "fragment": "[Exposed=(Window,Worker), LegacyNoInterfaceObject]\ninterface EXT_color_buffer_float {\n};",
+        "type": "interface",
+        "name": "EXT_color_buffer_float",
+        "inheritance": null,
+        "members": [],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "LegacyNoInterfaceObject",
+            "rhs": null,
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  extension is part of WebGL and adds the ability to render a variety of floating point formats.\nWebGL extensions are available using the [WebGLRenderingContext.getExtension()] method. For more information, see also Using Extensions in the WebGL tutorial.\n\n  Note: This extension is available to WebGL 2 contexts only.\n  For WebGL 1, see the [EXT_color_buffer_half_float] and [WEBGL_color_buffer_float] extensions.\n",
+        "mdn": "/en-US/docs/Web/API/EXT_color_buffer_float"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "EXT_color_buffer_float"
+      ],
+      "Worker": [
+        "EXT_color_buffer_float"
+      ]
+    },
+    "dependencies": {
+      "EXT_color_buffer_float": []
+    },
+    "externalDependencies": [],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/EXT_color_buffer_float.json",
+  "basename": "EXT_color_buffer_float.json",
+  "name": "EXT_color_buffer_float",
+  "libraryName": "e_x_t_color_buffer_float"
+}

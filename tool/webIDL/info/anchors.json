@@ -1,0 +1,294 @@
+{
+  "spec": {
+    "title": "WebXR Anchors Module",
+    "url": "https://immersive-web.github.io/anchors/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "XRAnchor",
+          "XRAnchorSet"
+        ]
+      }
+    },
+    "idlNames": {
+      "XRAnchor": {
+        "fragment": "[SecureContext, Exposed=Window]\ninterface XRAnchor {\n  readonly attribute XRSpace anchorSpace;\n\n  undefined delete();\n};",
+        "type": "interface",
+        "name": "XRAnchor",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "attribute",
+            "name": "anchorSpace",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "XRSpace"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "operation",
+            "name": "delete",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "undefined"
+            },
+            "arguments": [],
+            "extAttrs": [],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "SecureContext",
+            "rhs": null,
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "Secure context: This feature is available only in secure contexts (HTTPS), in some or all supporting browsers.\nThe  interface creates anchors which keep track of the pose that is fixed relative to the real world. With anchors, you can specify poses in the world that need to be updated to correctly reflect the evolving understanding of the world, such that the poses remain aligned with the same place in the physical world. That helps to build an illusion that the placed objects are really present in the user’s environment.",
+        "mdn": "/en-US/docs/Web/API/XRAnchor"
+      },
+      "XRAnchorSet": {
+        "fragment": "[Exposed=Window]\ninterface XRAnchorSet {\n  readonly setlike<XRAnchor>;\n};",
+        "type": "interface",
+        "name": "XRAnchorSet",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "setlike",
+            "idlType": [
+              {
+                "type": null,
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "XRAnchor"
+              }
+            ],
+            "arguments": [],
+            "extAttrs": [],
+            "readonly": true,
+            "async": false
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  interface exposes a collection of anchors. It is returned by [XRFrame.trackedAnchors] and is a [Set]-like object.",
+        "mdn": "/en-US/docs/Web/API/XRAnchorSet"
+      }
+    },
+    "idlExtendedNames": {
+      "XRFrame": [
+        {
+          "fragment": "partial interface XRFrame {\n  Promise<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space);\n};",
+          "type": "interface",
+          "name": "XRFrame",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "operation",
+              "name": "createAnchor",
+              "idlType": {
+                "type": "return-type",
+                "extAttrs": [],
+                "generic": "Promise",
+                "nullable": false,
+                "union": false,
+                "idlType": [
+                  {
+                    "type": "return-type",
+                    "extAttrs": [],
+                    "generic": "",
+                    "nullable": false,
+                    "union": false,
+                    "idlType": "XRAnchor"
+                  }
+                ]
+              },
+              "arguments": [
+                {
+                  "type": "argument",
+                  "name": "pose",
+                  "extAttrs": [],
+                  "idlType": {
+                    "type": "argument-type",
+                    "extAttrs": [],
+                    "generic": "",
+                    "nullable": false,
+                    "union": false,
+                    "idlType": "XRRigidTransform"
+                  },
+                  "default": null,
+                  "optional": false,
+                  "variadic": false
+                },
+                {
+                  "type": "argument",
+                  "name": "space",
+                  "extAttrs": [],
+                  "idlType": {
+                    "type": "argument-type",
+                    "extAttrs": [],
+                    "generic": "",
+                    "nullable": false,
+                    "union": false,
+                    "idlType": "XRSpace"
+                  },
+                  "default": null,
+                  "optional": false,
+                  "variadic": false
+                }
+              ],
+              "extAttrs": [],
+              "special": ""
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        },
+        {
+          "fragment": "partial interface XRFrame {\n  [SameObject] readonly attribute XRAnchorSet trackedAnchors;\n};",
+          "type": "interface",
+          "name": "XRFrame",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "attribute",
+              "name": "trackedAnchors",
+              "idlType": {
+                "type": "attribute-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "XRAnchorSet"
+              },
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "SameObject",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "special": "",
+              "readonly": true
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        }
+      ],
+      "XRHitTestResult": [
+        {
+          "fragment": "partial interface XRHitTestResult {\n  Promise<XRAnchor> createAnchor();\n};",
+          "type": "interface",
+          "name": "XRHitTestResult",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "operation",
+              "name": "createAnchor",
+              "idlType": {
+                "type": "return-type",
+                "extAttrs": [],
+                "generic": "Promise",
+                "nullable": false,
+                "union": false,
+                "idlType": [
+                  {
+                    "type": "return-type",
+                    "extAttrs": [],
+                    "generic": "",
+                    "nullable": false,
+                    "union": false,
+                    "idlType": "XRAnchor"
+                  }
+                ]
+              },
+              "arguments": [],
+              "extAttrs": [],
+              "special": ""
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        }
+      ]
+    },
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "XRAnchor",
+        "XRAnchorSet"
+      ]
+    },
+    "dependencies": {
+      "XRAnchor": [
+        "XRSpace"
+      ],
+      "XRFrame": [
+        "XRAnchor",
+        "XRRigidTransform",
+        "XRSpace",
+        "XRAnchorSet"
+      ],
+      "XRHitTestResult": [
+        "XRAnchor"
+      ],
+      "XRAnchorSet": [
+        "XRAnchor"
+      ]
+    },
+    "externalDependencies": [
+      "XRSpace",
+      "XRFrame",
+      "XRRigidTransform",
+      "XRHitTestResult"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/anchors.json",
+  "basename": "anchors.json",
+  "name": "anchors",
+  "libraryName": "anchors"
+}

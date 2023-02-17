@@ -1,0 +1,2995 @@
+{
+  "spec": {
+    "title": "Web Cryptography API",
+    "url": "https://w3c.github.io/webcrypto/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "Crypto",
+          "CryptoKey",
+          "SubtleCrypto"
+        ],
+        "Worker": [
+          "Crypto",
+          "CryptoKey",
+          "SubtleCrypto"
+        ]
+      }
+    },
+    "idlNames": {
+      "Crypto": {
+        "fragment": "[Exposed=(Window,Worker)]\ninterface Crypto {\n  [SecureContext] readonly attribute SubtleCrypto subtle;\n  ArrayBufferView getRandomValues(ArrayBufferView array);\n  [SecureContext] DOMString randomUUID();\n};",
+        "type": "interface",
+        "name": "Crypto",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "attribute",
+            "name": "subtle",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "SubtleCrypto"
+            },
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "SecureContext",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "operation",
+            "name": "getRandomValues",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "ArrayBufferView"
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "array",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "ArrayBufferView"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "randomUUID",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "SecureContext",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "\n  The  interface represents basic cryptography features available in the current context.\n  It allows access to a cryptographically strong random number generator and to cryptographic primitives.\n\n  Note: This feature is available in Web Workers\n\nThe Web Crypto API is accessed through the global [crypto] property, which is a  object.",
+        "mdn": "/en-US/docs/Web/API/Crypto"
+      },
+      "AlgorithmIdentifier": {
+        "fragment": "typedef (object or DOMString) AlgorithmIdentifier;",
+        "type": "typedef",
+        "name": "AlgorithmIdentifier",
+        "idlType": {
+          "type": "typedef-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": true,
+          "idlType": [
+            {
+              "type": null,
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            {
+              "type": null,
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            }
+          ]
+        },
+        "extAttrs": []
+      },
+      "HashAlgorithmIdentifier": {
+        "fragment": "typedef AlgorithmIdentifier HashAlgorithmIdentifier;",
+        "type": "typedef",
+        "name": "HashAlgorithmIdentifier",
+        "idlType": {
+          "type": "typedef-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "AlgorithmIdentifier"
+        },
+        "extAttrs": []
+      },
+      "Algorithm": {
+        "fragment": "dictionary Algorithm {\n  required DOMString name;\n};",
+        "type": "dictionary",
+        "name": "Algorithm",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "name",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "KeyAlgorithm": {
+        "fragment": "dictionary KeyAlgorithm {\n  required DOMString name;\n};",
+        "type": "dictionary",
+        "name": "KeyAlgorithm",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "name",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "KeyType": {
+        "fragment": "enum KeyType { \"public\", \"private\", \"secret\" };",
+        "type": "enum",
+        "name": "KeyType",
+        "values": [
+          {
+            "type": "enum-value",
+            "value": "public"
+          },
+          {
+            "type": "enum-value",
+            "value": "private"
+          },
+          {
+            "type": "enum-value",
+            "value": "secret"
+          }
+        ],
+        "extAttrs": []
+      },
+      "KeyUsage": {
+        "fragment": "enum KeyUsage { \"encrypt\", \"decrypt\", \"sign\", \"verify\", \"deriveKey\", \"deriveBits\", \"wrapKey\", \"unwrapKey\" };",
+        "type": "enum",
+        "name": "KeyUsage",
+        "values": [
+          {
+            "type": "enum-value",
+            "value": "encrypt"
+          },
+          {
+            "type": "enum-value",
+            "value": "decrypt"
+          },
+          {
+            "type": "enum-value",
+            "value": "sign"
+          },
+          {
+            "type": "enum-value",
+            "value": "verify"
+          },
+          {
+            "type": "enum-value",
+            "value": "deriveKey"
+          },
+          {
+            "type": "enum-value",
+            "value": "deriveBits"
+          },
+          {
+            "type": "enum-value",
+            "value": "wrapKey"
+          },
+          {
+            "type": "enum-value",
+            "value": "unwrapKey"
+          }
+        ],
+        "extAttrs": []
+      },
+      "CryptoKey": {
+        "fragment": "[SecureContext,Exposed=(Window,Worker),Serializable]\ninterface CryptoKey {\n  readonly attribute KeyType type;\n  readonly attribute boolean extractable;\n  readonly attribute object algorithm;\n  readonly attribute object usages;\n};",
+        "type": "interface",
+        "name": "CryptoKey",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "attribute",
+            "name": "type",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "KeyType"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "extractable",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "algorithm",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "usages",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "SecureContext",
+            "rhs": null,
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "Serializable",
+            "rhs": null,
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "Secure context: This feature is available only in secure contexts (HTTPS), in some or all supporting browsers.\nThe  interface of the Web Crypto API represents a cryptographic key obtained from one of the [SubtleCrypto] methods [generateKey()], [deriveKey()], [importKey()], or [unwrapKey()].\nFor security reasons, the  interface can only be used in a secure context.",
+        "mdn": "/en-US/docs/Web/API/CryptoKey"
+      },
+      "KeyFormat": {
+        "fragment": "enum KeyFormat { \"raw\", \"spki\", \"pkcs8\", \"jwk\" };",
+        "type": "enum",
+        "name": "KeyFormat",
+        "values": [
+          {
+            "type": "enum-value",
+            "value": "raw"
+          },
+          {
+            "type": "enum-value",
+            "value": "spki"
+          },
+          {
+            "type": "enum-value",
+            "value": "pkcs8"
+          },
+          {
+            "type": "enum-value",
+            "value": "jwk"
+          }
+        ],
+        "extAttrs": []
+      },
+      "SubtleCrypto": {
+        "fragment": "[SecureContext,Exposed=(Window,Worker)]\ninterface SubtleCrypto {\n  Promise<any> encrypt(AlgorithmIdentifier algorithm,\n                       CryptoKey key,\n                       BufferSource data);\n  Promise<any> decrypt(AlgorithmIdentifier algorithm,\n                       CryptoKey key,\n                       BufferSource data);\n  Promise<any> sign(AlgorithmIdentifier algorithm,\n                    CryptoKey key,\n                    BufferSource data);\n  Promise<any> verify(AlgorithmIdentifier algorithm,\n                      CryptoKey key,\n                      BufferSource signature,\n                      BufferSource data);\n  Promise<any> digest(AlgorithmIdentifier algorithm,\n                      BufferSource data);\n\n  Promise<any> generateKey(AlgorithmIdentifier algorithm,\n                          boolean extractable,\n                          sequence<KeyUsage> keyUsages );\n  Promise<any> deriveKey(AlgorithmIdentifier algorithm,\n                         CryptoKey baseKey,\n                         AlgorithmIdentifier derivedKeyType,\n                         boolean extractable,\n                         sequence<KeyUsage> keyUsages );\n  Promise<ArrayBuffer> deriveBits(AlgorithmIdentifier algorithm,\n                          CryptoKey baseKey,\n                          unsigned long length);\n\n  Promise<CryptoKey> importKey(KeyFormat format,\n                         (BufferSource or JsonWebKey) keyData,\n                         AlgorithmIdentifier algorithm,\n                         boolean extractable,\n                         sequence<KeyUsage> keyUsages );\n  Promise<any> exportKey(KeyFormat format, CryptoKey key);\n\n  Promise<any> wrapKey(KeyFormat format,\n                       CryptoKey key,\n                       CryptoKey wrappingKey,\n                       AlgorithmIdentifier wrapAlgorithm);\n  Promise<CryptoKey> unwrapKey(KeyFormat format,\n                         BufferSource wrappedKey,\n                         CryptoKey unwrappingKey,\n                         AlgorithmIdentifier unwrapAlgorithm,\n                         AlgorithmIdentifier unwrappedKeyAlgorithm,\n                         boolean extractable,\n                         sequence<KeyUsage> keyUsages );\n};",
+        "type": "interface",
+        "name": "SubtleCrypto",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "operation",
+            "name": "encrypt",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "key",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "data",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "BufferSource"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "decrypt",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "key",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "data",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "BufferSource"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "sign",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "key",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "data",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "BufferSource"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "verify",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "key",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "signature",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "BufferSource"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "data",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "BufferSource"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "digest",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "data",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "BufferSource"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "generateKey",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "extractable",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "boolean"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "keyUsages",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "sequence",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": [
+                    {
+                      "type": "argument-type",
+                      "extAttrs": [],
+                      "generic": "",
+                      "nullable": false,
+                      "union": false,
+                      "idlType": "KeyUsage"
+                    }
+                  ]
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "deriveKey",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "baseKey",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "derivedKeyType",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "extractable",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "boolean"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "keyUsages",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "sequence",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": [
+                    {
+                      "type": "argument-type",
+                      "extAttrs": [],
+                      "generic": "",
+                      "nullable": false,
+                      "union": false,
+                      "idlType": "KeyUsage"
+                    }
+                  ]
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "deriveBits",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "ArrayBuffer"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "baseKey",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "length",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "unsigned long"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "importKey",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "format",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "KeyFormat"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "keyData",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": true,
+                  "idlType": [
+                    {
+                      "type": null,
+                      "extAttrs": [],
+                      "generic": "",
+                      "nullable": false,
+                      "union": false,
+                      "idlType": "BufferSource"
+                    },
+                    {
+                      "type": null,
+                      "extAttrs": [],
+                      "generic": "",
+                      "nullable": false,
+                      "union": false,
+                      "idlType": "JsonWebKey"
+                    }
+                  ]
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "algorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "extractable",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "boolean"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "keyUsages",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "sequence",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": [
+                    {
+                      "type": "argument-type",
+                      "extAttrs": [],
+                      "generic": "",
+                      "nullable": false,
+                      "union": false,
+                      "idlType": "KeyUsage"
+                    }
+                  ]
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "exportKey",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "format",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "KeyFormat"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "key",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "wrapKey",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "any"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "format",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "KeyFormat"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "key",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "wrappingKey",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "wrapAlgorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "unwrapKey",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "Promise",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "return-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                }
+              ]
+            },
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "format",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "KeyFormat"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "wrappedKey",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "BufferSource"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "unwrappingKey",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "CryptoKey"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "unwrapAlgorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "unwrappedKeyAlgorithm",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "AlgorithmIdentifier"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "extractable",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "boolean"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "keyUsages",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "sequence",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": [
+                    {
+                      "type": "argument-type",
+                      "extAttrs": [],
+                      "generic": "",
+                      "nullable": false,
+                      "union": false,
+                      "idlType": "KeyUsage"
+                    }
+                  ]
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              }
+            ],
+            "extAttrs": [],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "SecureContext",
+            "rhs": null,
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "Secure context: This feature is available only in secure contexts (HTTPS), in some or all supporting browsers.\nThe  interface of the Web Crypto API provides a number of low-level cryptographic functions. Access to the features of  is obtained through the [subtle] property of the [Crypto] object you get from the [crypto] property.\n\n  Warning: This API provides a number of low-level cryptographic primitives. It's very easy to misuse them, and the pitfalls involved can be very subtle.\n  Even assuming you use the basic cryptographic functions correctly, secure key management and overall security system design are extremely hard to get right, and are generally the domain of specialist security experts.\n  Errors in security system design and implementation can make the security of the system completely ineffective.\n  Please learn and experiment, but don't guarantee or imply the security of your work before an individual knowledgeable in this subject matter thoroughly reviews it. The Crypto 101 Course can be a great place to start learning about the design and implementation of secure systems.\n",
+        "mdn": "/en-US/docs/Web/API/SubtleCrypto"
+      },
+      "RsaOtherPrimesInfo": {
+        "fragment": "dictionary RsaOtherPrimesInfo {\n  // The following fields are defined in Section 6.3.2.7 of JSON Web Algorithms\n  DOMString r;\n  DOMString d;\n  DOMString t;\n};",
+        "type": "dictionary",
+        "name": "RsaOtherPrimesInfo",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "r",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "d",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "t",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "JsonWebKey": {
+        "fragment": "dictionary JsonWebKey {\n  // The following fields are defined in Section 3.1 of JSON Web Key\n  DOMString kty;\n  DOMString use;\n  sequence<DOMString> key_ops;\n  DOMString alg;\n\n  // The following fields are defined in JSON Web Key Parameters Registration\n  boolean ext;\n\n  // The following fields are defined in Section 6 of JSON Web Algorithms\n  DOMString crv;\n  DOMString x;\n  DOMString y;\n  DOMString d;\n  DOMString n;\n  DOMString e;\n  DOMString p;\n  DOMString q;\n  DOMString dp;\n  DOMString dq;\n  DOMString qi;\n  sequence<RsaOtherPrimesInfo> oth;\n  DOMString k;\n};",
+        "type": "dictionary",
+        "name": "JsonWebKey",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "kty",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "use",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "key_ops",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "dictionary-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "DOMString"
+                }
+              ]
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "alg",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "ext",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "crv",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "x",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "y",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "d",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "n",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "e",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "p",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "q",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "dp",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "dq",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "qi",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "oth",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "dictionary-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "RsaOtherPrimesInfo"
+                }
+              ]
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "k",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "BigInteger": {
+        "fragment": "typedef Uint8Array BigInteger;",
+        "type": "typedef",
+        "name": "BigInteger",
+        "idlType": {
+          "type": "typedef-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "Uint8Array"
+        },
+        "extAttrs": []
+      },
+      "CryptoKeyPair": {
+        "fragment": "dictionary CryptoKeyPair {\n  CryptoKey publicKey;\n  CryptoKey privateKey;\n};",
+        "type": "dictionary",
+        "name": "CryptoKeyPair",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "publicKey",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "CryptoKey"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "privateKey",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "CryptoKey"
+            },
+            "default": null,
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents a key pair for an asymmetric cryptography algorithm, also known as a public-key algorithm.\nA  object can be obtained using [SubtleCrypto.generateKey()], when the selected algorithm is one of the asymmetric algorithms: RSASSA-PKCS1-v1_5, RSA-PSS, RSA-OAEP, ECDSA, or ECDH.\nIt contains two properties, which are both [CryptoKey] objects: a [privateKey] property containing the private key and a [publicKey] property containing the public key.",
+        "mdn": "/en-US/docs/Web/API/CryptoKeyPair"
+      },
+      "RsaKeyGenParams": {
+        "fragment": "dictionary RsaKeyGenParams : Algorithm {\n  required [EnforceRange] unsigned long modulusLength;\n  required BigInteger publicExponent;\n};",
+        "type": "dictionary",
+        "name": "RsaKeyGenParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "modulusLength",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "EnforceRange",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "publicExponent",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BigInteger"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "RsaHashedKeyGenParams": {
+        "fragment": "dictionary RsaHashedKeyGenParams : RsaKeyGenParams {\n  required HashAlgorithmIdentifier hash;\n};",
+        "type": "dictionary",
+        "name": "RsaHashedKeyGenParams",
+        "inheritance": "RsaKeyGenParams",
+        "members": [
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "HashAlgorithmIdentifier"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.generateKey()], when generating any RSA-based key pair: that is, when the algorithm is identified as any of RSASSA-PKCS1-v1_5, RSA-PSS, or RSA-OAEP.",
+        "mdn": "/en-US/docs/Web/API/RsaHashedKeyGenParams"
+      },
+      "RsaKeyAlgorithm": {
+        "fragment": "dictionary RsaKeyAlgorithm : KeyAlgorithm {\n  required unsigned long modulusLength;\n  required BigInteger publicExponent;\n};",
+        "type": "dictionary",
+        "name": "RsaKeyAlgorithm",
+        "inheritance": "KeyAlgorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "modulusLength",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "publicExponent",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BigInteger"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "RsaHashedKeyAlgorithm": {
+        "fragment": "dictionary RsaHashedKeyAlgorithm : RsaKeyAlgorithm {\n  required KeyAlgorithm hash;\n};",
+        "type": "dictionary",
+        "name": "RsaHashedKeyAlgorithm",
+        "inheritance": "RsaKeyAlgorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "KeyAlgorithm"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "RsaHashedImportParams": {
+        "fragment": "dictionary RsaHashedImportParams : Algorithm {\n  required HashAlgorithmIdentifier hash;\n};",
+        "type": "dictionary",
+        "name": "RsaHashedImportParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "HashAlgorithmIdentifier"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.importKey()] or [SubtleCrypto.unwrapKey()], when importing any RSA-based key pair: that is, when the algorithm is identified as any of RSASSA-PKCS1-v1_5, RSA-PSS, or RSA-OAEP.",
+        "mdn": "/en-US/docs/Web/API/RsaHashedImportParams"
+      },
+      "RsaPssParams": {
+        "fragment": "dictionary RsaPssParams : Algorithm {\n  required [EnforceRange] unsigned long saltLength;\n};",
+        "type": "dictionary",
+        "name": "RsaPssParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "saltLength",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "EnforceRange",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.sign()] or [SubtleCrypto.verify()], when using the RSA-PSS algorithm.",
+        "mdn": "/en-US/docs/Web/API/RsaPssParams"
+      },
+      "RsaOaepParams": {
+        "fragment": "dictionary RsaOaepParams : Algorithm {\n  BufferSource label;\n};",
+        "type": "dictionary",
+        "name": "RsaOaepParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "label",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BufferSource"
+            },
+            "default": null,
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.encrypt()], [SubtleCrypto.decrypt()], [SubtleCrypto.wrapKey()], or [SubtleCrypto.unwrapKey()], when using the RSA_OAEP algorithm.",
+        "mdn": "/en-US/docs/Web/API/RsaOaepParams"
+      },
+      "EcdsaParams": {
+        "fragment": "dictionary EcdsaParams : Algorithm {\n  required HashAlgorithmIdentifier hash;\n};",
+        "type": "dictionary",
+        "name": "EcdsaParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "HashAlgorithmIdentifier"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.sign()] or [SubtleCrypto.verify()] when using the ECDSA algorithm.",
+        "mdn": "/en-US/docs/Web/API/EcdsaParams"
+      },
+      "NamedCurve": {
+        "fragment": "typedef DOMString NamedCurve;",
+        "type": "typedef",
+        "name": "NamedCurve",
+        "idlType": {
+          "type": "typedef-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "DOMString"
+        },
+        "extAttrs": []
+      },
+      "EcKeyGenParams": {
+        "fragment": "dictionary EcKeyGenParams : Algorithm {\n  required NamedCurve namedCurve;\n};",
+        "type": "dictionary",
+        "name": "EcKeyGenParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "namedCurve",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "NamedCurve"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.generateKey()], when generating any elliptic-curve-based key pair: that is, when the algorithm is identified as either of ECDSA or ECDH.",
+        "mdn": "/en-US/docs/Web/API/EcKeyGenParams"
+      },
+      "EcKeyAlgorithm": {
+        "fragment": "dictionary EcKeyAlgorithm : KeyAlgorithm {\n  required NamedCurve namedCurve;\n};",
+        "type": "dictionary",
+        "name": "EcKeyAlgorithm",
+        "inheritance": "KeyAlgorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "namedCurve",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "NamedCurve"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "EcKeyImportParams": {
+        "fragment": "dictionary EcKeyImportParams : Algorithm {\n  required NamedCurve namedCurve;\n};",
+        "type": "dictionary",
+        "name": "EcKeyImportParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "namedCurve",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "NamedCurve"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.importKey()] or [SubtleCrypto.unwrapKey()], when generating any elliptic-curve-based key pair: that is, when the algorithm is identified as either of ECDSA or ECDH.",
+        "mdn": "/en-US/docs/Web/API/EcKeyImportParams"
+      },
+      "EcdhKeyDeriveParams": {
+        "fragment": "dictionary EcdhKeyDeriveParams : Algorithm {\n  required CryptoKey public;\n};",
+        "type": "dictionary",
+        "name": "EcdhKeyDeriveParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "public",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "CryptoKey"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.deriveKey()],  when using the ECDH algorithm.\nECDH enables two people who each have a key pair consisting of a public and a private key to derive a shared secret. They exchange public keys and use the combination of their private key and the other entity's public key to derive a secret key that they — and noone else — share.\nThe parameters for ECDH [deriveKey()] therefore include the other entity's public key, which is combined with this entity's private key to derive the shared secret.",
+        "mdn": "/en-US/docs/Web/API/EcdhKeyDeriveParams"
+      },
+      "AesCtrParams": {
+        "fragment": "dictionary AesCtrParams : Algorithm {\n  required BufferSource counter;\n  required [EnforceRange] octet length;\n};",
+        "type": "dictionary",
+        "name": "AesCtrParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "counter",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BufferSource"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "length",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "EnforceRange",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "octet"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.encrypt()], [SubtleCrypto.decrypt()], [SubtleCrypto.wrapKey()], or [SubtleCrypto.unwrapKey()], when using the AES-CTR algorithm.\nAES is a block cipher, meaning that it splits the message into blocks and encrypts it a block at a time. In CTR mode, every time a block of the message is encrypted, an extra block of data is mixed in. This extra block is called the \"counter block\".\nA given counter block value must never be used more than once with the same key:\n\n  Given a message n blocks long, a different counter block must be used for every block.\n  If the same key is used to encrypt more than one message, a different counter block must be used for all blocks across all messages.\n\nTypically this is achieved by splitting the initial counter block value into two concatenated parts:\n\n  A nonce (that is, a number that may only be used once). The nonce part of the block stays the same for every block in the message. Each time a new message is to be encrypted, a new nonce is chosen. Nonces don't have to be secret, but they must not be reused with the same key.\n  A counter. This part of the block gets incremented each time a block is encrypted.\n\nEssentially: the nonce should ensure that counter blocks are not reused from one message to the next, while the counter should ensure that counter blocks are not reused within a single message.\n\n  Note: See Appendix B of the NIST SP800-38A standard for more information.\n",
+        "mdn": "/en-US/docs/Web/API/AesCtrParams"
+      },
+      "AesKeyAlgorithm": {
+        "fragment": "dictionary AesKeyAlgorithm : KeyAlgorithm {\n  required unsigned short length;\n};",
+        "type": "dictionary",
+        "name": "AesKeyAlgorithm",
+        "inheritance": "KeyAlgorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "length",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned short"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "AesKeyGenParams": {
+        "fragment": "dictionary AesKeyGenParams : Algorithm {\n  required [EnforceRange] unsigned short length;\n};",
+        "type": "dictionary",
+        "name": "AesKeyGenParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "length",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "EnforceRange",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned short"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.generateKey()], when generating an AES key: that is, when the algorithm is identified as any of AES-CBC, AES-CTR, AES-GCM, or AES-KW.",
+        "mdn": "/en-US/docs/Web/API/AesKeyGenParams"
+      },
+      "AesDerivedKeyParams": {
+        "fragment": "dictionary AesDerivedKeyParams : Algorithm {\n  required [EnforceRange] unsigned short length;\n};",
+        "type": "dictionary",
+        "name": "AesDerivedKeyParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "length",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "EnforceRange",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned short"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "AesCbcParams": {
+        "fragment": "dictionary AesCbcParams : Algorithm {\n  required BufferSource iv;\n};",
+        "type": "dictionary",
+        "name": "AesCbcParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "iv",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BufferSource"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.encrypt()], [SubtleCrypto.decrypt()], [SubtleCrypto.wrapKey()], or [SubtleCrypto.unwrapKey()], when using the AES-CBC algorithm.",
+        "mdn": "/en-US/docs/Web/API/AesCbcParams"
+      },
+      "AesGcmParams": {
+        "fragment": "dictionary AesGcmParams : Algorithm {\n  required BufferSource iv;\n  BufferSource additionalData;\n  [EnforceRange] octet tagLength;\n};",
+        "type": "dictionary",
+        "name": "AesGcmParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "iv",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BufferSource"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "additionalData",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BufferSource"
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "tagLength",
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "EnforceRange",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "octet"
+            },
+            "default": null,
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.encrypt()], [SubtleCrypto.decrypt()], [SubtleCrypto.wrapKey()], or [SubtleCrypto.unwrapKey()], when using the AES-GCM algorithm.\nFor details of how to supply appropriate values for this parameter, see the specification for AES-GCM: NIST SP800-38D, in particular section 5.2.1.1 on Input Data.",
+        "mdn": "/en-US/docs/Web/API/AesGcmParams"
+      },
+      "HmacImportParams": {
+        "fragment": "dictionary HmacImportParams : Algorithm {\n  required HashAlgorithmIdentifier hash;\n  [EnforceRange] unsigned long length;\n};",
+        "type": "dictionary",
+        "name": "HmacImportParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "HashAlgorithmIdentifier"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "length",
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "EnforceRange",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long"
+            },
+            "default": null,
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.importKey()] or [SubtleCrypto.unwrapKey()], when generating a key for the HMAC algorithm.",
+        "mdn": "/en-US/docs/Web/API/HmacImportParams"
+      },
+      "HmacKeyAlgorithm": {
+        "fragment": "dictionary HmacKeyAlgorithm : KeyAlgorithm {\n  required KeyAlgorithm hash;\n  required unsigned long length;\n};",
+        "type": "dictionary",
+        "name": "HmacKeyAlgorithm",
+        "inheritance": "KeyAlgorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "KeyAlgorithm"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "length",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "HmacKeyGenParams": {
+        "fragment": "dictionary HmacKeyGenParams : Algorithm {\n  required HashAlgorithmIdentifier hash;\n  [EnforceRange] unsigned long length;\n};",
+        "type": "dictionary",
+        "name": "HmacKeyGenParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "HashAlgorithmIdentifier"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "length",
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "EnforceRange",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long"
+            },
+            "default": null,
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.generateKey()], when generating a key for the HMAC algorithm.",
+        "mdn": "/en-US/docs/Web/API/HmacKeyGenParams"
+      },
+      "HkdfParams": {
+        "fragment": "dictionary HkdfParams : Algorithm {\n  required HashAlgorithmIdentifier hash;\n  required BufferSource salt;\n  required BufferSource info;\n};",
+        "type": "dictionary",
+        "name": "HkdfParams",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "HashAlgorithmIdentifier"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "salt",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BufferSource"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "info",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BufferSource"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.deriveKey()], when using the HKDF algorithm.",
+        "mdn": "/en-US/docs/Web/API/HkdfParams"
+      },
+      "Pbkdf2Params": {
+        "fragment": "dictionary Pbkdf2Params : Algorithm {\n  required BufferSource salt;\n  required [EnforceRange] unsigned long iterations;\n  required HashAlgorithmIdentifier hash;\n};",
+        "type": "dictionary",
+        "name": "Pbkdf2Params",
+        "inheritance": "Algorithm",
+        "members": [
+          {
+            "type": "field",
+            "name": "salt",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "BufferSource"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "iterations",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "EnforceRange",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "hash",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "HashAlgorithmIdentifier"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  dictionary of the Web Crypto API represents the object that should be passed as the [algorithm] parameter into [SubtleCrypto.deriveKey()], when using the PBKDF2 algorithm.",
+        "mdn": "/en-US/docs/Web/API/Pbkdf2Params"
+      }
+    },
+    "idlExtendedNames": {
+      "WindowOrWorkerGlobalScope": [
+        {
+          "fragment": "partial interface mixin WindowOrWorkerGlobalScope {\n  [SameObject] readonly attribute Crypto crypto;\n};",
+          "type": "interface mixin",
+          "name": "WindowOrWorkerGlobalScope",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "attribute",
+              "name": "crypto",
+              "idlType": {
+                "type": "attribute-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "Crypto"
+              },
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "SameObject",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "special": "",
+              "readonly": true
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        }
+      ]
+    },
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "Crypto",
+        "CryptoKey",
+        "SubtleCrypto"
+      ],
+      "Worker": [
+        "Crypto",
+        "CryptoKey",
+        "SubtleCrypto"
+      ]
+    },
+    "dependencies": {
+      "WindowOrWorkerGlobalScope": [
+        "Crypto"
+      ],
+      "Crypto": [
+        "SubtleCrypto",
+        "ArrayBufferView"
+      ],
+      "Algorithm": [],
+      "KeyAlgorithm": [],
+      "CryptoKey": [
+        "KeyType"
+      ],
+      "SubtleCrypto": [
+        "AlgorithmIdentifier",
+        "CryptoKey",
+        "BufferSource",
+        "KeyUsage",
+        "ArrayBuffer",
+        "KeyFormat",
+        "JsonWebKey"
+      ],
+      "RsaOtherPrimesInfo": [],
+      "JsonWebKey": [
+        "RsaOtherPrimesInfo"
+      ],
+      "CryptoKeyPair": [
+        "CryptoKey"
+      ],
+      "RsaKeyGenParams": [
+        "Algorithm",
+        "BigInteger"
+      ],
+      "RsaHashedKeyGenParams": [
+        "RsaKeyGenParams",
+        "HashAlgorithmIdentifier"
+      ],
+      "RsaKeyAlgorithm": [
+        "KeyAlgorithm",
+        "BigInteger"
+      ],
+      "RsaHashedKeyAlgorithm": [
+        "RsaKeyAlgorithm",
+        "KeyAlgorithm"
+      ],
+      "RsaHashedImportParams": [
+        "Algorithm",
+        "HashAlgorithmIdentifier"
+      ],
+      "RsaPssParams": [
+        "Algorithm"
+      ],
+      "RsaOaepParams": [
+        "Algorithm",
+        "BufferSource"
+      ],
+      "EcdsaParams": [
+        "Algorithm",
+        "HashAlgorithmIdentifier"
+      ],
+      "EcKeyGenParams": [
+        "Algorithm",
+        "NamedCurve"
+      ],
+      "EcKeyAlgorithm": [
+        "KeyAlgorithm",
+        "NamedCurve"
+      ],
+      "EcKeyImportParams": [
+        "Algorithm",
+        "NamedCurve"
+      ],
+      "EcdhKeyDeriveParams": [
+        "Algorithm",
+        "CryptoKey"
+      ],
+      "AesCtrParams": [
+        "Algorithm",
+        "BufferSource"
+      ],
+      "AesKeyAlgorithm": [
+        "KeyAlgorithm"
+      ],
+      "AesKeyGenParams": [
+        "Algorithm"
+      ],
+      "AesDerivedKeyParams": [
+        "Algorithm"
+      ],
+      "AesCbcParams": [
+        "Algorithm",
+        "BufferSource"
+      ],
+      "AesGcmParams": [
+        "Algorithm",
+        "BufferSource"
+      ],
+      "HmacImportParams": [
+        "Algorithm",
+        "HashAlgorithmIdentifier"
+      ],
+      "HmacKeyAlgorithm": [
+        "KeyAlgorithm"
+      ],
+      "HmacKeyGenParams": [
+        "Algorithm",
+        "HashAlgorithmIdentifier"
+      ],
+      "HkdfParams": [
+        "Algorithm",
+        "HashAlgorithmIdentifier",
+        "BufferSource"
+      ],
+      "Pbkdf2Params": [
+        "Algorithm",
+        "BufferSource",
+        "HashAlgorithmIdentifier"
+      ]
+    },
+    "externalDependencies": [
+      "WindowOrWorkerGlobalScope",
+      "ArrayBufferView",
+      "BufferSource",
+      "ArrayBuffer",
+      "Uint8Array"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/WebCryptoAPI.json",
+  "basename": "WebCryptoAPI.json",
+  "name": "WebCryptoAPI",
+  "libraryName": "web_crypto_a_p_i"
+}

@@ -1,0 +1,220 @@
+{
+  "spec": {
+    "title": "Long Tasks API",
+    "url": "https://w3c.github.io/longtasks/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "PerformanceLongTaskTiming",
+          "TaskAttributionTiming"
+        ]
+      }
+    },
+    "idlNames": {
+      "PerformanceLongTaskTiming": {
+        "fragment": "[Exposed=Window]\ninterface PerformanceLongTaskTiming : PerformanceEntry {\n    readonly attribute FrozenArray<TaskAttributionTiming> attribution;\n    [Default] object toJSON();\n};",
+        "type": "interface",
+        "name": "PerformanceLongTaskTiming",
+        "inheritance": "PerformanceEntry",
+        "members": [
+          {
+            "type": "attribute",
+            "name": "attribution",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "FrozenArray",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "attribute-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "TaskAttributionTiming"
+                }
+              ]
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "operation",
+            "name": "toJSON",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "Default",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Long Tasks API reports instances of long tasks.\n  \n    \n    \n      PerformanceEntry\n    \n  \n  \n    \n    \n      PerformanceLongTaskTiming\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/PerformanceLongTaskTiming"
+      },
+      "TaskAttributionTiming": {
+        "fragment": "[Exposed=Window]\ninterface TaskAttributionTiming : PerformanceEntry {\n    readonly attribute DOMString containerType;\n    readonly attribute DOMString containerSrc;\n    readonly attribute DOMString containerId;\n    readonly attribute DOMString containerName;\n    [Default] object toJSON();\n};",
+        "type": "interface",
+        "name": "TaskAttributionTiming",
+        "inheritance": "PerformanceEntry",
+        "members": [
+          {
+            "type": "attribute",
+            "name": "containerType",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "containerSrc",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "containerId",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "containerName",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "operation",
+            "name": "toJSON",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "Default",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": true,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Long Tasks API returns information about the work involved in a long task and its associate frame context. The frame context, also called the container, is the iframe, embed or object that is being implicated, on the whole, for a long task.\n  \n    \n    \n      PerformanceEntry\n    \n  \n  \n    \n    \n      TaskAttributionTiming\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/TaskAttributionTiming"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "PerformanceLongTaskTiming",
+        "TaskAttributionTiming"
+      ]
+    },
+    "dependencies": {
+      "PerformanceLongTaskTiming": [
+        "PerformanceEntry",
+        "TaskAttributionTiming"
+      ],
+      "TaskAttributionTiming": [
+        "PerformanceEntry"
+      ]
+    },
+    "externalDependencies": [
+      "PerformanceEntry"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/longtasks-1.json",
+  "basename": "longtasks-1.json",
+  "name": "longtasks-1",
+  "libraryName": "longtasks_1"
+}

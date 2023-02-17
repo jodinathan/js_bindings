@@ -1,0 +1,79 @@
+{
+  "spec": {
+    "title": "CSS Transitions Level 2",
+    "url": "https://drafts.csswg.org/css-transitions-2/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "CSSTransition"
+        ]
+      }
+    },
+    "idlNames": {
+      "CSSTransition": {
+        "fragment": "[Exposed=Window]\ninterface CSSTransition : Animation {\n  readonly attribute CSSOMString transitionProperty;\n};",
+        "type": "interface",
+        "name": "CSSTransition",
+        "inheritance": "Animation",
+        "members": [
+          {
+            "type": "attribute",
+            "name": "transitionProperty",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "CSSOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Web Animations API represents an [Animation] object used for a CSS Transition.\n  \n    \n    \n      EventTarget\n    \n  \n  \n    \n    \n      Animation\n    \n  \n  \n    \n    \n      CSSTransition\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/CSSTransition"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "CSSTransition"
+      ]
+    },
+    "dependencies": {
+      "CSSTransition": [
+        "Animation",
+        "CSSOMString"
+      ]
+    },
+    "externalDependencies": [
+      "Animation",
+      "CSSOMString"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/css-transitions-2.json",
+  "basename": "css-transitions-2.json",
+  "name": "css-transitions-2",
+  "libraryName": "css_transitions_2"
+}

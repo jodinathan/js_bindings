@@ -1,0 +1,94 @@
+{
+  "spec": {
+    "title": "WebGL OES_standard_derivatives Khronos Ratified Extension Specification",
+    "url": "https://www.khronos.org/registry/webgl/extensions/OES_standard_derivatives/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "OES_standard_derivatives"
+        ],
+        "Worker": [
+          "OES_standard_derivatives"
+        ]
+      }
+    },
+    "idlNames": {
+      "OES_standard_derivatives": {
+        "fragment": "[Exposed=(Window,Worker), LegacyNoInterfaceObject]\ninterface OES_standard_derivatives {\n    const GLenum FRAGMENT_SHADER_DERIVATIVE_HINT_OES = 0x8B8B;\n};",
+        "type": "interface",
+        "name": "OES_standard_derivatives",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "const",
+            "name": "FRAGMENT_SHADER_DERIVATIVE_HINT_OES",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8B8B"
+            }
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "LegacyNoInterfaceObject",
+            "rhs": null,
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  extension is part of the WebGL API and adds the GLSL derivative functions [dFdx], [dFdy], and [fwidth].\nWebGL extensions are available using the [WebGLRenderingContext.getExtension()] method. For more information, see also Using Extensions in the WebGL tutorial.\n\n  Note: This extension is only available to WebGL1 contexts. In WebGL2, the functionality of this extension is available on the WebGL2 context by default. In WebGL 2, the constant is available as [gl.FRAGMENT_SHADER_DERIVATIVE_HINT] and it requires GLSL [#version 300 es].\n",
+        "mdn": "/en-US/docs/Web/API/OES_standard_derivatives"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "OES_standard_derivatives"
+      ],
+      "Worker": [
+        "OES_standard_derivatives"
+      ]
+    },
+    "dependencies": {
+      "OES_standard_derivatives": []
+    },
+    "externalDependencies": [],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/OES_standard_derivatives.json",
+  "basename": "OES_standard_derivatives.json",
+  "name": "OES_standard_derivatives",
+  "libraryName": "o_e_s_standard_derivatives"
+}

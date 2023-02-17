@@ -1,0 +1,204 @@
+{
+  "spec": {
+    "title": "Server Timing",
+    "url": "https://w3c.github.io/server-timing/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "PerformanceServerTiming",
+          "PerformanceResourceTiming"
+        ],
+        "Worker": [
+          "PerformanceServerTiming",
+          "PerformanceResourceTiming"
+        ]
+      }
+    },
+    "idlNames": {
+      "PerformanceServerTiming": {
+        "fragment": "[Exposed=(Window,Worker)]\ninterface PerformanceServerTiming {\n  readonly attribute DOMString name;\n  readonly attribute DOMHighResTimeStamp duration;\n  readonly attribute DOMString description;\n  [Default] object toJSON();\n};",
+        "type": "interface",
+        "name": "PerformanceServerTiming",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "attribute",
+            "name": "name",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "duration",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMHighResTimeStamp"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "description",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "operation",
+            "name": "toJSON",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "Default",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "\n  Note: This feature is available in Web Workers\n Secure context: This feature is available only in secure contexts (HTTPS), in some or all supporting browsers.\nThe  interface surfaces server metrics that are sent with the response in the [Server-Timing] HTTP header.\nThis interface is restricted to the same origin, but you can use the [Timing-Allow-Origin] header to specify the domains that are allowed to access the server metrics. Note that this interface is only available in secure contexts (HTTPS) in some browsers.",
+        "mdn": "/en-US/docs/Web/API/PerformanceServerTiming"
+      }
+    },
+    "idlExtendedNames": {
+      "PerformanceResourceTiming": [
+        {
+          "fragment": "[Exposed=(Window,Worker)]\npartial interface PerformanceResourceTiming {\n  readonly attribute FrozenArray<PerformanceServerTiming> serverTiming;\n};",
+          "type": "interface",
+          "name": "PerformanceResourceTiming",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "attribute",
+              "name": "serverTiming",
+              "idlType": {
+                "type": "attribute-type",
+                "extAttrs": [],
+                "generic": "FrozenArray",
+                "nullable": false,
+                "union": false,
+                "idlType": [
+                  {
+                    "type": "attribute-type",
+                    "extAttrs": [],
+                    "generic": "",
+                    "nullable": false,
+                    "union": false,
+                    "idlType": "PerformanceServerTiming"
+                  }
+                ]
+              },
+              "extAttrs": [],
+              "special": "",
+              "readonly": true
+            }
+          ],
+          "extAttrs": [
+            {
+              "type": "extended-attribute",
+              "name": "Exposed",
+              "rhs": {
+                "type": "identifier-list",
+                "value": [
+                  {
+                    "value": "Window"
+                  },
+                  {
+                    "value": "Worker"
+                  }
+                ]
+              },
+              "arguments": []
+            }
+          ],
+          "partial": true
+        }
+      ]
+    },
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "PerformanceServerTiming",
+        "PerformanceResourceTiming"
+      ],
+      "Worker": [
+        "PerformanceServerTiming",
+        "PerformanceResourceTiming"
+      ]
+    },
+    "dependencies": {
+      "PerformanceServerTiming": [
+        "DOMHighResTimeStamp"
+      ],
+      "PerformanceResourceTiming": [
+        "PerformanceServerTiming"
+      ]
+    },
+    "externalDependencies": [
+      "DOMHighResTimeStamp",
+      "PerformanceResourceTiming"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/server-timing.json",
+  "basename": "server-timing.json",
+  "name": "server-timing",
+  "libraryName": "server_timing"
+}

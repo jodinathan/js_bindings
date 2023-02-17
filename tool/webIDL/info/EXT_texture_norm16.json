@@ -1,0 +1,213 @@
+{
+  "spec": {
+    "title": "WebGL EXT_texture_norm16 Extension Specification",
+    "url": "https://www.khronos.org/registry/webgl/extensions/EXT_texture_norm16/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "EXT_texture_norm16"
+        ],
+        "Worker": [
+          "EXT_texture_norm16"
+        ]
+      }
+    },
+    "idlNames": {
+      "EXT_texture_norm16": {
+        "fragment": "[Exposed=(Window,Worker), LegacyNoInterfaceObject]\ninterface EXT_texture_norm16 {\n  const GLenum R16_EXT = 0x822A;\n  const GLenum RG16_EXT = 0x822C;\n  const GLenum RGB16_EXT = 0x8054;\n  const GLenum RGBA16_EXT = 0x805B;\n  const GLenum R16_SNORM_EXT = 0x8F98;\n  const GLenum RG16_SNORM_EXT = 0x8F99;\n  const GLenum RGB16_SNORM_EXT = 0x8F9A;\n  const GLenum RGBA16_SNORM_EXT = 0x8F9B;\n};",
+        "type": "interface",
+        "name": "EXT_texture_norm16",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "const",
+            "name": "R16_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x822A"
+            }
+          },
+          {
+            "type": "const",
+            "name": "RG16_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x822C"
+            }
+          },
+          {
+            "type": "const",
+            "name": "RGB16_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8054"
+            }
+          },
+          {
+            "type": "const",
+            "name": "RGBA16_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x805B"
+            }
+          },
+          {
+            "type": "const",
+            "name": "R16_SNORM_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8F98"
+            }
+          },
+          {
+            "type": "const",
+            "name": "RG16_SNORM_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8F99"
+            }
+          },
+          {
+            "type": "const",
+            "name": "RGB16_SNORM_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8F9A"
+            }
+          },
+          {
+            "type": "const",
+            "name": "RGBA16_SNORM_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8F9B"
+            }
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "LegacyNoInterfaceObject",
+            "rhs": null,
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  extension is part of the WebGL API and provides a set of new 16-bit signed normalized and unsigned normalized formats (fixed-point texture, renderbuffer and texture buffer).\nWhen this extension is enabled:\n\n  The [WebGLRenderingContext.texImage2D()] and [WebGLRenderingContext.texSubImage2D()] methods accept new formats provided by this extension.\n  The 16-bit normalized fixed-point types [ext.R16_EXT], [ext.RG16_EXT] and [ext.RGBA16_EXT] become available as color-renderable formats and renderbuffers and be created in these formats.\n\nWebGL extensions are available using the [WebGLRenderingContext.getExtension()] method. For more information, see also Using Extensions in the WebGL tutorial.\n\n  Note: This extension is only available to WebGL 2 contexts.\n",
+        "mdn": "/en-US/docs/Web/API/EXT_texture_norm16"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "EXT_texture_norm16"
+      ],
+      "Worker": [
+        "EXT_texture_norm16"
+      ]
+    },
+    "dependencies": {
+      "EXT_texture_norm16": []
+    },
+    "externalDependencies": [],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/EXT_texture_norm16.json",
+  "basename": "EXT_texture_norm16.json",
+  "name": "EXT_texture_norm16",
+  "libraryName": "e_x_t_texture_norm16"
+}

@@ -1,0 +1,190 @@
+{
+  "spec": {
+    "title": "High Resolution Time",
+    "url": "https://w3c.github.io/hr-time/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "*": [
+          "Performance"
+        ]
+      }
+    },
+    "idlNames": {
+      "DOMHighResTimeStamp": {
+        "fragment": "typedef double DOMHighResTimeStamp;",
+        "type": "typedef",
+        "name": "DOMHighResTimeStamp",
+        "idlType": {
+          "type": "typedef-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "double"
+        },
+        "extAttrs": [],
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  type is a [double] and is used to store a time value in milliseconds.\nThis type can be used to describe a discrete point in time or a time interval (the difference in time between two discrete points in time).\nThe time, given in milliseconds, should be accurate to 5 µs (microseconds), with the fractional part of the number indicating fractions of a millisecond. However, if the browser is unable to provide a time value accurate to 5 µs (due, for example, to hardware or software constraints), the browser can represent the value as a time in milliseconds accurate to a millisecond. Also note the section below on reduced time precision controlled by browser preferences to avoid timing attacks and fingerprinting.\nFurther, if the device or operating system the user agent is running on doesn't have a clock accurate to the microsecond level, they may only be accurate to the millisecond.",
+        "mdn": "/en-US/docs/Web/API/DOMHighResTimeStamp"
+      },
+      "EpochTimeStamp": {
+        "fragment": "typedef unsigned long long EpochTimeStamp;",
+        "type": "typedef",
+        "name": "EpochTimeStamp",
+        "idlType": {
+          "type": "typedef-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "unsigned long long"
+        },
+        "extAttrs": [],
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  type represents a timestamp value in milliseconds (excluding leap seconds), relative to 01 January, 1970 00:00:00 UTC.\nThis was previously known as [DOMTimeStamp].",
+        "mdn": "/en-US/docs/Web/API/EpochTimeStamp"
+      },
+      "Performance": {
+        "fragment": "[Exposed=*]\ninterface Performance : EventTarget {\n    DOMHighResTimeStamp now();\n    readonly attribute DOMHighResTimeStamp timeOrigin;\n    [Default] object toJSON();\n};",
+        "type": "interface",
+        "name": "Performance",
+        "inheritance": "EventTarget",
+        "members": [
+          {
+            "type": "operation",
+            "name": "now",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMHighResTimeStamp"
+            },
+            "arguments": [],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "attribute",
+            "name": "timeOrigin",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMHighResTimeStamp"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "operation",
+            "name": "toJSON",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "Default",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "*",
+              "value": null
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  interface provides access to performance-related information for the current page. It's part of the High Resolution Time API, but is enhanced by the Performance Timeline API, the Navigation Timing API, the User Timing API, and the Resource Timing API.\nAn object of this type can be obtained by calling the [window.performance] read-only attribute.\n\n  Note: This interface and its members are available in Web Workers via [WorkerGlobalScope.performance] , except where indicated below. Also, note that performance markers and measures are per context. If you create a mark on the main thread (or other worker), you cannot see it in a worker thread, and vice versa.\n\n  \n    \n    \n      EventTarget\n    \n  \n  \n    \n    \n      Performance\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/Performance"
+      }
+    },
+    "idlExtendedNames": {
+      "WindowOrWorkerGlobalScope": [
+        {
+          "fragment": "partial interface mixin WindowOrWorkerGlobalScope {\n  [Replaceable] readonly attribute Performance performance;\n};",
+          "type": "interface mixin",
+          "name": "WindowOrWorkerGlobalScope",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "attribute",
+              "name": "performance",
+              "idlType": {
+                "type": "attribute-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "Performance"
+              },
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "Replaceable",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "special": "",
+              "readonly": true
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        }
+      ]
+    },
+    "globals": {},
+    "exposed": {
+      "*": [
+        "Performance"
+      ]
+    },
+    "dependencies": {
+      "Performance": [
+        "EventTarget",
+        "DOMHighResTimeStamp"
+      ],
+      "WindowOrWorkerGlobalScope": [
+        "Performance"
+      ]
+    },
+    "externalDependencies": [
+      "EventTarget",
+      "WindowOrWorkerGlobalScope"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/hr-time-3.json",
+  "basename": "hr-time-3.json",
+  "name": "hr-time-3",
+  "libraryName": "hr_time_3"
+}

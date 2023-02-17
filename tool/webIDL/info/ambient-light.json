@@ -1,0 +1,135 @@
+{
+  "spec": {
+    "title": "Ambient Light Sensor",
+    "url": "https://w3c.github.io/ambient-light/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {
+        "Window": [
+          "AmbientLightSensor"
+        ]
+      },
+      "functions": {}
+    },
+    "idlNames": {
+      "AmbientLightSensor": {
+        "fragment": "[SecureContext, Exposed=Window]\ninterface AmbientLightSensor : Sensor {\n  constructor(optional SensorOptions sensorOptions = {});\n  readonly attribute double? illuminance;\n};",
+        "type": "interface",
+        "name": "AmbientLightSensor",
+        "inheritance": "Sensor",
+        "members": [
+          {
+            "type": "constructor",
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "sensorOptions",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "SensorOptions"
+                },
+                "default": {
+                  "type": "dictionary"
+                },
+                "optional": true,
+                "variadic": false
+              }
+            ],
+            "extAttrs": []
+          },
+          {
+            "type": "attribute",
+            "name": "illuminance",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": true,
+              "union": false,
+              "idlType": "double"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "SecureContext",
+            "rhs": null,
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Sensor APIs returns the current light level or illuminance of the ambient light around the hosting device.\nTo use this sensor, the user must grant permission to the ['ambient-light-sensor'] device sensor through the Permissions API.\nIf a feature policy blocks use of a feature it is because your code is inconsistent with the policies set on your server. This is not something that would ever be shown to a user. The [Feature-Policy] HTTP header article contains implementation instructions.\n  \n    \n    \n      EventTarget\n    \n  \n  \n    \n    \n      Sensor\n    \n  \n  \n    \n    \n      AmbientLightSensor\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/AmbientLightSensor"
+      },
+      "AmbientLightReadingValues": {
+        "fragment": "dictionary AmbientLightReadingValues {\n  required double? illuminance;\n};",
+        "type": "dictionary",
+        "name": "AmbientLightReadingValues",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "illuminance",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": true,
+              "union": false,
+              "idlType": "double"
+            },
+            "default": null,
+            "required": true
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "AmbientLightSensor"
+      ]
+    },
+    "dependencies": {
+      "AmbientLightSensor": [
+        "Sensor",
+        "SensorOptions"
+      ],
+      "AmbientLightReadingValues": []
+    },
+    "externalDependencies": [
+      "Sensor",
+      "SensorOptions"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/ambient-light.json",
+  "basename": "ambient-light.json",
+  "name": "ambient-light",
+  "libraryName": "ambient_light"
+}

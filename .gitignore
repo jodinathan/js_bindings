@@ -10,7 +10,8 @@ build/
 pubspec.lock
 
 tool/crawler/mdn
-tool/webIDL
+tool/webIDL/ed
+tool/webIDL/merged
 tool/crawler/mdn.zip
 
 lib/bindings/

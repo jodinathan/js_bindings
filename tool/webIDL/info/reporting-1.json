@@ -1,0 +1,509 @@
+{
+  "spec": {
+    "title": "Reporting API",
+    "url": "https://w3c.github.io/reporting/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {
+        "Window": [
+          "ReportingObserver"
+        ],
+        "Worker": [
+          "ReportingObserver"
+        ]
+      },
+      "functions": {
+        "Window": [
+          "ReportBody",
+          "Report"
+        ],
+        "Worker": [
+          "ReportBody",
+          "Report"
+        ]
+      }
+    },
+    "idlNames": {
+      "ReportBody": {
+        "fragment": "[Exposed=(Window,Worker)]\ninterface ReportBody {\n  [Default] object toJSON();\n};",
+        "type": "interface",
+        "name": "ReportBody",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "operation",
+            "name": "toJSON",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "Default",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  interface of the Reporting API represents the body of a report. Individual report types inherit from this interface, adding specific attributes relevant to the particular report.",
+        "mdn": "/en-US/docs/Web/API/ReportBody"
+      },
+      "Report": {
+        "fragment": "[Exposed=(Window,Worker)]\ninterface Report {\n  [Default] object toJSON();\n  readonly attribute DOMString type;\n  readonly attribute DOMString url;\n  readonly attribute ReportBody? body;\n};",
+        "type": "interface",
+        "name": "Report",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "operation",
+            "name": "toJSON",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "Default",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          },
+          {
+            "type": "attribute",
+            "name": "type",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "url",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "body",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": true,
+              "union": false,
+              "idlType": "ReportBody"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": true,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Reporting API represents a single report.\nReports can be accessed in a number of ways:\n\n  Via the [ReportingObserver.takeRecords()] method — this returns all reports in an observer's report queue, and then empties the queue.\n  Via the [reports] parameter of the callback function passed into the [ReportingObserver()] constructor upon creation of a new observer instance. This contains the list of reports currently contained in the observer's report queue.\n  By sending requests to the endpoints defined via the [Report-To] HTTP header.\n",
+        "mdn": "/en-US/docs/Web/API/Report"
+      },
+      "ReportingObserver": {
+        "fragment": "[Exposed=(Window,Worker)]\ninterface ReportingObserver {\n  constructor(ReportingObserverCallback callback, optional ReportingObserverOptions options = {});\n  undefined observe();\n  undefined disconnect();\n  ReportList takeRecords();\n};",
+        "type": "interface",
+        "name": "ReportingObserver",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "constructor",
+            "arguments": [
+              {
+                "type": "argument",
+                "name": "callback",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "ReportingObserverCallback"
+                },
+                "default": null,
+                "optional": false,
+                "variadic": false
+              },
+              {
+                "type": "argument",
+                "name": "options",
+                "extAttrs": [],
+                "idlType": {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "ReportingObserverOptions"
+                },
+                "default": {
+                  "type": "dictionary"
+                },
+                "optional": true,
+                "variadic": false
+              }
+            ],
+            "extAttrs": []
+          },
+          {
+            "type": "operation",
+            "name": "observe",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "undefined"
+            },
+            "arguments": [],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "disconnect",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "undefined"
+            },
+            "arguments": [],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "operation",
+            "name": "takeRecords",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "ReportList"
+            },
+            "arguments": [],
+            "extAttrs": [],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": true,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Reporting API allows you to collect and access reports.",
+        "mdn": "/en-US/docs/Web/API/ReportingObserver"
+      },
+      "ReportingObserverCallback": {
+        "fragment": "callback ReportingObserverCallback = undefined (sequence<Report> reports, ReportingObserver observer);",
+        "type": "callback",
+        "name": "ReportingObserverCallback",
+        "idlType": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        },
+        "arguments": [
+          {
+            "type": "argument",
+            "name": "reports",
+            "extAttrs": [],
+            "idlType": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "argument-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "Report"
+                }
+              ]
+            },
+            "default": null,
+            "optional": false,
+            "variadic": false
+          },
+          {
+            "type": "argument",
+            "name": "observer",
+            "extAttrs": [],
+            "idlType": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "ReportingObserver"
+            },
+            "default": null,
+            "optional": false,
+            "variadic": false
+          }
+        ],
+        "extAttrs": []
+      },
+      "ReportingObserverOptions": {
+        "fragment": "dictionary ReportingObserverOptions {\n  sequence<DOMString> types;\n  boolean buffered = false;\n};",
+        "type": "dictionary",
+        "name": "ReportingObserverOptions",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "types",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "sequence",
+              "nullable": false,
+              "union": false,
+              "idlType": [
+                {
+                  "type": "dictionary-type",
+                  "extAttrs": [],
+                  "generic": "",
+                  "nullable": false,
+                  "union": false,
+                  "idlType": "DOMString"
+                }
+              ]
+            },
+            "default": null,
+            "required": false
+          },
+          {
+            "type": "field",
+            "name": "buffered",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "default": {
+              "type": "boolean",
+              "value": false
+            },
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false,
+        "deprecated": false,
+        "experimental": true,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  dictionary of the Reporting API allows options to be set in the constructor when creating a [ReportingObserver].",
+        "mdn": "/en-US/docs/Web/API/ReportingObserverOptions"
+      },
+      "ReportList": {
+        "fragment": "typedef sequence<Report> ReportList;",
+        "type": "typedef",
+        "name": "ReportList",
+        "idlType": {
+          "type": "typedef-type",
+          "extAttrs": [],
+          "generic": "sequence",
+          "nullable": false,
+          "union": false,
+          "idlType": [
+            {
+              "type": "typedef-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "Report"
+            }
+          ]
+        },
+        "extAttrs": []
+      },
+      "GenerateTestReportParameters": {
+        "fragment": "dictionary GenerateTestReportParameters {\n  required DOMString message;\n  DOMString group = \"default\";\n};",
+        "type": "dictionary",
+        "name": "GenerateTestReportParameters",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "message",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": null,
+            "required": true
+          },
+          {
+            "type": "field",
+            "name": "group",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "default": {
+              "type": "string",
+              "value": "default"
+            },
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "ReportBody",
+        "Report",
+        "ReportingObserver"
+      ],
+      "Worker": [
+        "ReportBody",
+        "Report",
+        "ReportingObserver"
+      ]
+    },
+    "dependencies": {
+      "ReportBody": [],
+      "Report": [
+        "ReportBody"
+      ],
+      "ReportingObserver": [
+        "ReportingObserverCallback",
+        "ReportingObserverOptions",
+        "ReportList"
+      ],
+      "ReportingObserverOptions": [],
+      "GenerateTestReportParameters": []
+    },
+    "externalDependencies": [],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/reporting-1.json",
+  "basename": "reporting-1.json",
+  "name": "reporting-1",
+  "libraryName": "reporting_1"
+}

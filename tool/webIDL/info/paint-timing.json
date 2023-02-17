@@ -1,0 +1,61 @@
+{
+  "spec": {
+    "title": "Paint Timing 1",
+    "url": "https://w3c.github.io/paint-timing/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "PerformancePaintTiming"
+        ]
+      }
+    },
+    "idlNames": {
+      "PerformancePaintTiming": {
+        "fragment": "[Exposed=Window]\ninterface PerformancePaintTiming : PerformanceEntry {};",
+        "type": "interface",
+        "name": "PerformancePaintTiming",
+        "inheritance": "PerformanceEntry",
+        "members": [],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  interface of the Paint Timing API provides timing information about \"paint\" (also called \"render\") operations during web page construction. \"Paint\" refers to conversion of the render tree to on-screen pixels.\nAn application can register a [PerformanceObserver] for \"[paint]\" [performance entry types] and the observer can retrieve the times that paint events occur. Use this information to help identify areas that take too long to provide a good user experience.\n  \n    \n    \n      PerformanceEntry\n    \n  \n  \n    \n    \n      PerformancePaintTiming\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/PerformancePaintTiming"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "PerformancePaintTiming"
+      ]
+    },
+    "dependencies": {
+      "PerformancePaintTiming": [
+        "PerformanceEntry"
+      ]
+    },
+    "externalDependencies": [
+      "PerformanceEntry"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/paint-timing.json",
+  "basename": "paint-timing.json",
+  "name": "paint-timing",
+  "libraryName": "paint_timing"
+}

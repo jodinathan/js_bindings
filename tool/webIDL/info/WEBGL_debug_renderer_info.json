@@ -1,0 +1,111 @@
+{
+  "spec": {
+    "title": "WebGL WEBGL_debug_renderer_info Khronos Ratified Extension Specification",
+    "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_debug_renderer_info/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "WEBGL_debug_renderer_info"
+        ],
+        "Worker": [
+          "WEBGL_debug_renderer_info"
+        ]
+      }
+    },
+    "idlNames": {
+      "WEBGL_debug_renderer_info": {
+        "fragment": "[Exposed=(Window,Worker), LegacyNoInterfaceObject]\ninterface WEBGL_debug_renderer_info {\n\n      const GLenum UNMASKED_VENDOR_WEBGL            = 0x9245;\n      const GLenum UNMASKED_RENDERER_WEBGL          = 0x9246;\n\n};",
+        "type": "interface",
+        "name": "WEBGL_debug_renderer_info",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "const",
+            "name": "UNMASKED_VENDOR_WEBGL",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x9245"
+            }
+          },
+          {
+            "type": "const",
+            "name": "UNMASKED_RENDERER_WEBGL",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x9246"
+            }
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "LegacyNoInterfaceObject",
+            "rhs": null,
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  extension is part of the WebGL API and exposes two constants with information about the graphics driver for debugging purposes.\nDepending on the privacy settings of the browser, this extension might only be available to privileged contexts. Generally, the graphics driver information should only be used in edge cases to optimize your WebGL content or to debug GPU problems. The [WebGLRenderingContext.getParameter()] method can help you to detect which features are supported and the [failIfMajorPerformanceCaveat] context attribute lets you control if a context should be returned at all, if the performance would be dramatically slow.\nWebGL extensions are available using the [WebGLRenderingContext.getExtension()] method. For more information, see also Using Extensions in the WebGL tutorial.\n\n  Note: Depending on the privacy settings of the browser, this extension might only be available to privileged contexts or not work at all. In Firefox, if [privacy.resistFingerprinting] is set to [true], this extensions is disabled.\n  This extension is available to both, WebGL1 and WebGL2 contexts.\n",
+        "mdn": "/en-US/docs/Web/API/WEBGL_debug_renderer_info"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "WEBGL_debug_renderer_info"
+      ],
+      "Worker": [
+        "WEBGL_debug_renderer_info"
+      ]
+    },
+    "dependencies": {
+      "WEBGL_debug_renderer_info": []
+    },
+    "externalDependencies": [],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/WEBGL_debug_renderer_info.json",
+  "basename": "WEBGL_debug_renderer_info.json",
+  "name": "WEBGL_debug_renderer_info",
+  "libraryName": "w_e_b_g_l_debug_renderer_info"
+}

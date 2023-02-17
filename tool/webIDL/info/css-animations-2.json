@@ -1,0 +1,79 @@
+{
+  "spec": {
+    "title": "CSS Animations Level 2",
+    "url": "https://drafts.csswg.org/css-animations-2/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "CSSAnimation"
+        ]
+      }
+    },
+    "idlNames": {
+      "CSSAnimation": {
+        "fragment": "[Exposed=Window]\ninterface CSSAnimation : Animation {\n  readonly attribute CSSOMString animationName;\n};",
+        "type": "interface",
+        "name": "CSSAnimation",
+        "inheritance": "Animation",
+        "members": [
+          {
+            "type": "attribute",
+            "name": "animationName",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "CSSOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Web Animations API represents an [Animation] object.\n  \n    \n    \n      EventTarget\n    \n  \n  \n    \n    \n      Animation\n    \n  \n  \n    \n    \n      CSSAnimation\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/CSSAnimation"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "CSSAnimation"
+      ]
+    },
+    "dependencies": {
+      "CSSAnimation": [
+        "Animation",
+        "CSSOMString"
+      ]
+    },
+    "externalDependencies": [
+      "Animation",
+      "CSSOMString"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/css-animations-2.json",
+  "basename": "css-animations-2.json",
+  "name": "css-animations-2",
+  "libraryName": "css_animations_2"
+}

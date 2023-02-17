@@ -1,0 +1,145 @@
+{
+  "spec": {
+    "title": "WebGL WEBGL_compressed_texture_s3tc_srgb Extension Specification",
+    "url": "https://www.khronos.org/registry/webgl/extensions/WEBGL_compressed_texture_s3tc_srgb/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "WEBGL_compressed_texture_s3tc_srgb"
+        ],
+        "Worker": [
+          "WEBGL_compressed_texture_s3tc_srgb"
+        ]
+      }
+    },
+    "idlNames": {
+      "WEBGL_compressed_texture_s3tc_srgb": {
+        "fragment": "[Exposed=(Window,Worker), LegacyNoInterfaceObject]\ninterface WEBGL_compressed_texture_s3tc_srgb {\n    /* Compressed Texture Formats */\n    const GLenum COMPRESSED_SRGB_S3TC_DXT1_EXT        = 0x8C4C;\n    const GLenum COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT  = 0x8C4D;\n    const GLenum COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT  = 0x8C4E;\n    const GLenum COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT  = 0x8C4F;\n};",
+        "type": "interface",
+        "name": "WEBGL_compressed_texture_s3tc_srgb",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "const",
+            "name": "COMPRESSED_SRGB_S3TC_DXT1_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8C4C"
+            }
+          },
+          {
+            "type": "const",
+            "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8C4D"
+            }
+          },
+          {
+            "type": "const",
+            "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8C4E"
+            }
+          },
+          {
+            "type": "const",
+            "name": "COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8C4F"
+            }
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "LegacyNoInterfaceObject",
+            "rhs": null,
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  extension is part of the WebGL API and exposes four S3TC compressed texture formats for the sRGB colorspace.\nCompressed textures reduce the amount of memory needed to store a texture on the GPU, allowing for higher resolution textures or more of the same resolution textures.\nWebGL extensions are available using the [WebGLRenderingContext.getExtension()] method. For more information, see also Using Extensions in the WebGL tutorial.\n\n  Note: This extension is available to both WebGL1 and WebGL2 contexts.\n",
+        "mdn": "/en-US/docs/Web/API/WEBGL_compressed_texture_s3tc_srgb"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "WEBGL_compressed_texture_s3tc_srgb"
+      ],
+      "Worker": [
+        "WEBGL_compressed_texture_s3tc_srgb"
+      ]
+    },
+    "dependencies": {
+      "WEBGL_compressed_texture_s3tc_srgb": []
+    },
+    "externalDependencies": [],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/WEBGL_compressed_texture_s3tc_srgb.json",
+  "basename": "WEBGL_compressed_texture_s3tc_srgb.json",
+  "name": "WEBGL_compressed_texture_s3tc_srgb",
+  "libraryName": "w_e_b_g_l_compressed_texture_s3tc_srgb"
+}

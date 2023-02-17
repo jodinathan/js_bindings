@@ -1,0 +1,76 @@
+{
+  "spec": {
+    "title": "WebGL OES_texture_float_linear Khronos Ratified Extension Specification",
+    "url": "https://www.khronos.org/registry/webgl/extensions/OES_texture_float_linear/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "OES_texture_float_linear"
+        ],
+        "Worker": [
+          "OES_texture_float_linear"
+        ]
+      }
+    },
+    "idlNames": {
+      "OES_texture_float_linear": {
+        "fragment": "[Exposed=(Window,Worker), LegacyNoInterfaceObject]\ninterface OES_texture_float_linear { };",
+        "type": "interface",
+        "name": "OES_texture_float_linear",
+        "inheritance": null,
+        "members": [],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "LegacyNoInterfaceObject",
+            "rhs": null,
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  extension is part of the WebGL API and allows linear filtering with floating-point pixel types for textures.\nWebGL extensions are available using the [WebGLRenderingContext.getExtension()] method. For more information, see also Using Extensions in the WebGL tutorial.\n\n  Note: This extension is available to both, WebGL1 and WebGL2 contexts.\n",
+        "mdn": "/en-US/docs/Web/API/OES_texture_float_linear"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "OES_texture_float_linear"
+      ],
+      "Worker": [
+        "OES_texture_float_linear"
+      ]
+    },
+    "dependencies": {
+      "OES_texture_float_linear": []
+    },
+    "externalDependencies": [],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/OES_texture_float_linear.json",
+  "basename": "OES_texture_float_linear.json",
+  "name": "OES_texture_float_linear",
+  "libraryName": "o_e_s_texture_float_linear"
+}

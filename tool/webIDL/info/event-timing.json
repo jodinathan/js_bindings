@@ -1,0 +1,364 @@
+{
+  "spec": {
+    "title": "Event Timing API",
+    "url": "https://w3c.github.io/event-timing"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "PerformanceEventTiming",
+          "EventCounts",
+          "InteractionCounts",
+          "Performance"
+        ]
+      }
+    },
+    "idlNames": {
+      "PerformanceEventTiming": {
+        "fragment": "[Exposed=Window]\ninterface PerformanceEventTiming : PerformanceEntry {\n    readonly attribute DOMHighResTimeStamp processingStart;\n    readonly attribute DOMHighResTimeStamp processingEnd;\n    readonly attribute boolean cancelable;\n    readonly attribute Node? target;\n    readonly attribute unsigned long long interactionId;\n    [Default] object toJSON();\n};",
+        "type": "interface",
+        "name": "PerformanceEventTiming",
+        "inheritance": "PerformanceEntry",
+        "members": [
+          {
+            "type": "attribute",
+            "name": "processingStart",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMHighResTimeStamp"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "processingEnd",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMHighResTimeStamp"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "cancelable",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "target",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": true,
+              "union": false,
+              "idlType": "Node"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "attribute",
+            "name": "interactionId",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long long"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          },
+          {
+            "type": "operation",
+            "name": "toJSON",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "Default",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  interface of the Event Timing API provides timing information for the event types listed below.\n\n  [auxclick]\n  [beforeinput]\n  [click]\n  [compositionend]\n  [compositionstart]\n  [compositionupdate]\n  [contextmenu]\n  [dblclick]\n  [dragend]\n  [dragenter]\n  [dragleave]\n  [dragover]\n  [dragstart]\n  [drop]\n  [input]\n  [keydown]\n  [keypress]\n  [keyup]\n  [mousedown]\n  [mouseenter]\n  [mouseleave]\n  [mouseout]\n  [mouseover]\n  [mouseup]\n  [pointerover]\n  [pointerenter]\n  [pointerdown]\n  [pointerup]\n  [pointercancel]\n  [pointerout]\n  [pointerleave]\n  [gotpointercapture]\n  [lostpointercapture]\n  [touchstart]\n  [touchend]\n  [touchcancel]\n\n  \n    \n    \n      PerformanceEntry\n    \n  \n  \n    \n    \n      PerformanceEventTiming\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/PerformanceEventTiming"
+      },
+      "EventCounts": {
+        "fragment": "[Exposed=Window]\ninterface EventCounts {\n    readonly maplike<DOMString, unsigned long long>;\n};",
+        "type": "interface",
+        "name": "EventCounts",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "maplike",
+            "idlType": [
+              {
+                "type": null,
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "DOMString"
+              },
+              {
+                "type": null,
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "unsigned long long"
+              }
+            ],
+            "arguments": [],
+            "extAttrs": [],
+            "readonly": true,
+            "async": false
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false
+      },
+      "InteractionCounts": {
+        "fragment": "[Exposed=Window]\ninterface InteractionCounts {\n    readonly maplike<DOMString, unsigned long long>;\n};",
+        "type": "interface",
+        "name": "InteractionCounts",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "maplike",
+            "idlType": [
+              {
+                "type": null,
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "DOMString"
+              },
+              {
+                "type": null,
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "unsigned long long"
+              }
+            ],
+            "arguments": [],
+            "extAttrs": [],
+            "readonly": true,
+            "async": false
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false
+      }
+    },
+    "idlExtendedNames": {
+      "Performance": [
+        {
+          "fragment": "[Exposed=Window]\npartial interface Performance {\n    [SameObject] readonly attribute EventCounts eventCounts;\n    [SameObject] readonly attribute InteractionCounts interactionCounts;\n};",
+          "type": "interface",
+          "name": "Performance",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "attribute",
+              "name": "eventCounts",
+              "idlType": {
+                "type": "attribute-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "EventCounts"
+              },
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "SameObject",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "special": "",
+              "readonly": true
+            },
+            {
+              "type": "attribute",
+              "name": "interactionCounts",
+              "idlType": {
+                "type": "attribute-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "InteractionCounts"
+              },
+              "extAttrs": [
+                {
+                  "type": "extended-attribute",
+                  "name": "SameObject",
+                  "rhs": null,
+                  "arguments": []
+                }
+              ],
+              "special": "",
+              "readonly": true
+            }
+          ],
+          "extAttrs": [
+            {
+              "type": "extended-attribute",
+              "name": "Exposed",
+              "rhs": {
+                "type": "identifier",
+                "value": "Window"
+              },
+              "arguments": []
+            }
+          ],
+          "partial": true
+        }
+      ],
+      "PerformanceObserverInit": [
+        {
+          "fragment": "partial dictionary PerformanceObserverInit {\n    DOMHighResTimeStamp durationThreshold;\n};",
+          "type": "dictionary",
+          "name": "PerformanceObserverInit",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "field",
+              "name": "durationThreshold",
+              "extAttrs": [],
+              "idlType": {
+                "type": "dictionary-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "DOMHighResTimeStamp"
+              },
+              "default": null,
+              "required": false
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        }
+      ]
+    },
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "PerformanceEventTiming",
+        "EventCounts",
+        "InteractionCounts",
+        "Performance"
+      ]
+    },
+    "dependencies": {
+      "PerformanceEventTiming": [
+        "PerformanceEntry",
+        "DOMHighResTimeStamp",
+        "Node"
+      ],
+      "EventCounts": [],
+      "InteractionCounts": [],
+      "Performance": [
+        "EventCounts",
+        "InteractionCounts"
+      ],
+      "PerformanceObserverInit": [
+        "DOMHighResTimeStamp"
+      ]
+    },
+    "externalDependencies": [
+      "PerformanceEntry",
+      "DOMHighResTimeStamp",
+      "Node",
+      "Performance",
+      "PerformanceObserverInit"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/event-timing.json",
+  "basename": "event-timing.json",
+  "name": "event-timing",
+  "libraryName": "event_timing"
+}

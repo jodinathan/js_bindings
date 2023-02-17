@@ -1,0 +1,250 @@
+{
+  "spec": {
+    "title": "requestIdleCallback()",
+    "url": "https://w3c.github.io/requestidlecallback/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "IdleDeadline"
+        ]
+      }
+    },
+    "idlNames": {
+      "IdleRequestOptions": {
+        "fragment": "dictionary IdleRequestOptions {\n  unsigned long timeout;\n};",
+        "type": "dictionary",
+        "name": "IdleRequestOptions",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "field",
+            "name": "timeout",
+            "extAttrs": [],
+            "idlType": {
+              "type": "dictionary-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "unsigned long"
+            },
+            "default": null,
+            "required": false
+          }
+        ],
+        "extAttrs": [],
+        "partial": false
+      },
+      "IdleDeadline": {
+        "fragment": "[Exposed=Window] interface IdleDeadline {\n  DOMHighResTimeStamp timeRemaining();\n  readonly attribute boolean didTimeout;\n};",
+        "type": "interface",
+        "name": "IdleDeadline",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "operation",
+            "name": "timeRemaining",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "DOMHighResTimeStamp"
+            },
+            "arguments": [],
+            "extAttrs": [],
+            "special": ""
+          },
+          {
+            "type": "attribute",
+            "name": "didTimeout",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "boolean"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier",
+              "value": "Window"
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  interface is used as the data type of the input parameter to idle callbacks established by calling [Window.requestIdleCallback()]. It offers a method, [timeRemaining()], which lets you determine how much longer the user agent estimates it will remain idle and a property, [didTimeout], which lets you determine if your callback is executing because its timeout duration expired.\nTo learn more about how request callbacks work, see Collaborative Scheduling of Background Tasks.",
+        "mdn": "/en-US/docs/Web/API/IdleDeadline"
+      },
+      "IdleRequestCallback": {
+        "fragment": "callback IdleRequestCallback = undefined (IdleDeadline deadline);",
+        "type": "callback",
+        "name": "IdleRequestCallback",
+        "idlType": {
+          "type": "return-type",
+          "extAttrs": [],
+          "generic": "",
+          "nullable": false,
+          "union": false,
+          "idlType": "undefined"
+        },
+        "arguments": [
+          {
+            "type": "argument",
+            "name": "deadline",
+            "extAttrs": [],
+            "idlType": {
+              "type": "argument-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "IdleDeadline"
+            },
+            "default": null,
+            "optional": false,
+            "variadic": false
+          }
+        ],
+        "extAttrs": []
+      }
+    },
+    "idlExtendedNames": {
+      "Window": [
+        {
+          "fragment": "partial interface Window {\n  unsigned long requestIdleCallback(IdleRequestCallback callback, optional IdleRequestOptions options = {});\n  undefined cancelIdleCallback(unsigned long handle);\n};",
+          "type": "interface",
+          "name": "Window",
+          "inheritance": null,
+          "members": [
+            {
+              "type": "operation",
+              "name": "requestIdleCallback",
+              "idlType": {
+                "type": "return-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "unsigned long"
+              },
+              "arguments": [
+                {
+                  "type": "argument",
+                  "name": "callback",
+                  "extAttrs": [],
+                  "idlType": {
+                    "type": "argument-type",
+                    "extAttrs": [],
+                    "generic": "",
+                    "nullable": false,
+                    "union": false,
+                    "idlType": "IdleRequestCallback"
+                  },
+                  "default": null,
+                  "optional": false,
+                  "variadic": false
+                },
+                {
+                  "type": "argument",
+                  "name": "options",
+                  "extAttrs": [],
+                  "idlType": {
+                    "type": "argument-type",
+                    "extAttrs": [],
+                    "generic": "",
+                    "nullable": false,
+                    "union": false,
+                    "idlType": "IdleRequestOptions"
+                  },
+                  "default": {
+                    "type": "dictionary"
+                  },
+                  "optional": true,
+                  "variadic": false
+                }
+              ],
+              "extAttrs": [],
+              "special": ""
+            },
+            {
+              "type": "operation",
+              "name": "cancelIdleCallback",
+              "idlType": {
+                "type": "return-type",
+                "extAttrs": [],
+                "generic": "",
+                "nullable": false,
+                "union": false,
+                "idlType": "undefined"
+              },
+              "arguments": [
+                {
+                  "type": "argument",
+                  "name": "handle",
+                  "extAttrs": [],
+                  "idlType": {
+                    "type": "argument-type",
+                    "extAttrs": [],
+                    "generic": "",
+                    "nullable": false,
+                    "union": false,
+                    "idlType": "unsigned long"
+                  },
+                  "default": null,
+                  "optional": false,
+                  "variadic": false
+                }
+              ],
+              "extAttrs": [],
+              "special": ""
+            }
+          ],
+          "extAttrs": [],
+          "partial": true
+        }
+      ]
+    },
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "IdleDeadline"
+      ]
+    },
+    "dependencies": {
+      "Window": [
+        "IdleRequestCallback",
+        "IdleRequestOptions"
+      ],
+      "IdleRequestOptions": [],
+      "IdleDeadline": [
+        "DOMHighResTimeStamp"
+      ]
+    },
+    "externalDependencies": [
+      "Window",
+      "DOMHighResTimeStamp"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/requestidlecallback.json",
+  "basename": "requestidlecallback.json",
+  "name": "requestidlecallback",
+  "libraryName": "requestidlecallback"
+}

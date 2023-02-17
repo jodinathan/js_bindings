@@ -1,0 +1,112 @@
+{
+  "spec": {
+    "title": "Crash Reporting",
+    "url": "https://wicg.github.io/crash-reporting/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "CrashReportBody"
+        ],
+        "Worker": [
+          "CrashReportBody"
+        ]
+      }
+    },
+    "idlNames": {
+      "CrashReportBody": {
+        "fragment": "[Exposed=(Window,Worker)]\ninterface CrashReportBody : ReportBody {\n  [Default] object toJSON();\n  readonly attribute DOMString? reason;\n};",
+        "type": "interface",
+        "name": "CrashReportBody",
+        "inheritance": "ReportBody",
+        "members": [
+          {
+            "type": "operation",
+            "name": "toJSON",
+            "idlType": {
+              "type": "return-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "object"
+            },
+            "arguments": [],
+            "extAttrs": [
+              {
+                "type": "extended-attribute",
+                "name": "Default",
+                "rhs": null,
+                "arguments": []
+              }
+            ],
+            "special": ""
+          },
+          {
+            "type": "attribute",
+            "name": "reason",
+            "idlType": {
+              "type": "attribute-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": true,
+              "union": false,
+              "idlType": "DOMString"
+            },
+            "extAttrs": [],
+            "special": "",
+            "readonly": true
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": true,
+        "desc": "Experimental: This is an experimental technologyCheck the Browser compatibility table carefully before using this in production.\nThe  interface of the Reporting API represents the body of a crash report (the return value of its [Report.body] property).\nA crash report is generated when a document becomes unusable due to the browser (or one of its processes) crashing. For security reasons, no details of the crash are communicated in the body except for a general crash reason.\n  \n    \n    \n      ReportBody\n    \n  \n  \n    \n    \n      CrashReportBody\n    \n  ",
+        "mdn": "/en-US/docs/Web/API/CrashReportBody"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "CrashReportBody"
+      ],
+      "Worker": [
+        "CrashReportBody"
+      ]
+    },
+    "dependencies": {
+      "CrashReportBody": [
+        "ReportBody"
+      ]
+    },
+    "externalDependencies": [
+      "ReportBody"
+    ],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/crash-reporting.json",
+  "basename": "crash-reporting.json",
+  "name": "crash-reporting",
+  "libraryName": "crash_reporting"
+}

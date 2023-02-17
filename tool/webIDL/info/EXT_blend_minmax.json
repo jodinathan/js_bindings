@@ -1,0 +1,111 @@
+{
+  "spec": {
+    "title": "WebGL EXT_blend_minmax Khronos Ratified Extension Specification",
+    "url": "https://www.khronos.org/registry/webgl/extensions/EXT_blend_minmax/"
+  },
+  "idlparsed": {
+    "jsNames": {
+      "constructors": {},
+      "functions": {
+        "Window": [
+          "EXT_blend_minmax"
+        ],
+        "Worker": [
+          "EXT_blend_minmax"
+        ]
+      }
+    },
+    "idlNames": {
+      "EXT_blend_minmax": {
+        "fragment": "[Exposed=(Window,Worker), LegacyNoInterfaceObject]\ninterface EXT_blend_minmax {\n  const GLenum MIN_EXT = 0x8007;\n  const GLenum MAX_EXT = 0x8008;\n};",
+        "type": "interface",
+        "name": "EXT_blend_minmax",
+        "inheritance": null,
+        "members": [
+          {
+            "type": "const",
+            "name": "MIN_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8007"
+            }
+          },
+          {
+            "type": "const",
+            "name": "MAX_EXT",
+            "idlType": {
+              "type": "const-type",
+              "extAttrs": [],
+              "generic": "",
+              "nullable": false,
+              "union": false,
+              "idlType": "GLenum"
+            },
+            "extAttrs": [],
+            "value": {
+              "type": "number",
+              "value": "0x8008"
+            }
+          }
+        ],
+        "extAttrs": [
+          {
+            "type": "extended-attribute",
+            "name": "Exposed",
+            "rhs": {
+              "type": "identifier-list",
+              "value": [
+                {
+                  "value": "Window"
+                },
+                {
+                  "value": "Worker"
+                }
+              ]
+            },
+            "arguments": []
+          },
+          {
+            "type": "extended-attribute",
+            "name": "LegacyNoInterfaceObject",
+            "rhs": null,
+            "arguments": []
+          }
+        ],
+        "partial": false,
+        "deprecated": false,
+        "experimental": false,
+        "desc": "The  extension is part of the WebGL API and extends blending capabilities by adding two new blend equations: the minimum or maximum color components of the source and destination colors.\nWebGL extensions are available using the [WebGLRenderingContext.getExtension()] method. For more information, see also Using Extensions in the WebGL tutorial.\n\n  Note: This extension is only available to WebGL1 contexts. In WebGL2, the functionality of this extension is available on the WebGL2 context by default. The constants in WebGL2 are [gl.MIN] and [gl.MAX].\n",
+        "mdn": "/en-US/docs/Web/API/EXT_blend_minmax"
+      }
+    },
+    "idlExtendedNames": {},
+    "globals": {},
+    "exposed": {
+      "Window": [
+        "EXT_blend_minmax"
+      ],
+      "Worker": [
+        "EXT_blend_minmax"
+      ]
+    },
+    "dependencies": {
+      "EXT_blend_minmax": []
+    },
+    "externalDependencies": [],
+    "hasObsoleteIdl": false
+  },
+  "path": "./../webIDL/merged/EXT_blend_minmax.json",
+  "basename": "EXT_blend_minmax.json",
+  "name": "EXT_blend_minmax",
+  "libraryName": "e_x_t_blend_minmax"
+}
