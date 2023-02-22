@@ -111,7 +111,7 @@ extension PropsGPUSupportedLimits on GPUSupportedLimits {
 
 @JS()
 @staticInterop
-class GPUSupportedFeatures extends JsArray<String> {
+class GPUSupportedFeatures extends JsIterable<String> {
   external factory GPUSupportedFeatures();
 }
 

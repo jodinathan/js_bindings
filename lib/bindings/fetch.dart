@@ -44,7 +44,7 @@ import 'package:js_bindings/js_bindings.dart';
 @experimental
 @JS()
 @staticInterop
-class Headers extends JsArray<String> {
+class Headers extends JsIterable<String> {
   external factory Headers([dynamic init]);
 }
 

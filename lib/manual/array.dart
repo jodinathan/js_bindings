@@ -1,8 +1,10 @@
 part of '../manual.dart';
 
+abstract class BaseArray<E> {}
+
 @JS('Array')
 @staticInterop
-class JsArray<E> {
+class JsArray<E> implements JsIterable<E> {
   /// Do not use this. Use List directly, ie: final array = [];
   factory JsArray() => throw 'Use List directly, ie: final array = [];';
 }
@@ -275,8 +277,6 @@ extension AdvJsArray<E> on JsArray<E> {
 
   JsArray values() => jsu.callMethod(this, 'values', []);
 
-  List<E> toList() => JsArrayWrapper(this);
-
   E operator [](int key) => jsu.getProperty(this, key);
 
   void operator []=(int key, E value) => jsu.setProperty<E>(this, key, value);
@@ -306,26 +306,4 @@ extension AdvJsArray<E> on JsArray<E> {
   // void setRange(int start, int end, Iterable<E> iterable,
   //         [int skipCount = 0]) =>
   //     jsu.callMethod(this, 'setRange', [start, end, iterable, skipCount]);
-}
-
-class JsArrayWrapper<E> extends ListBase<E> {
-  JsArrayWrapper(this._jsArray);
-
-  final JsArray<E> _jsArray;
-
-  @override
-  set length(int newLength) {
-    _jsArray.length = newLength;
-  }
-
-  @override
-  int get length => _jsArray.length;
-
-  @override
-  E operator [](int index) => _jsArray[index];
-
-  @override
-  void operator []=(int index, E value) {
-    _jsArray[index] = value;
-  }
 }

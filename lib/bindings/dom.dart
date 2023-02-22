@@ -329,23 +329,22 @@ class DocumentOrShadowRoot {
 }
 
 extension PropsDocumentOrShadowRoot on DocumentOrShadowRoot {
-  Element? get pointerLockElement =>
-      js_util.getProperty(this, 'pointerLockElement');
   Iterable<Animation> getAnimations() =>
       js_util.callMethod(this, 'getAnimations', []);
 
-  Element? get pictureInPictureElement =>
-      js_util.getProperty(this, 'pictureInPictureElement');
+  Element? get pointerLockElement =>
+      js_util.getProperty(this, 'pointerLockElement');
   Element? get fullscreenElement =>
       js_util.getProperty(this, 'fullscreenElement');
+  Element? get pictureInPictureElement =>
+      js_util.getProperty(this, 'pictureInPictureElement');
+  Element? get activeElement => js_util.getProperty(this, 'activeElement');
   StyleSheetList get styleSheets => js_util.getProperty(this, 'styleSheets');
   Iterable<CSSStyleSheet> get adoptedStyleSheets =>
       js_util.getProperty(this, 'adoptedStyleSheets');
   set adoptedStyleSheets(Iterable<CSSStyleSheet> newValue) {
     js_util.setProperty(this, 'adoptedStyleSheets', newValue);
   }
-
-  Element? get activeElement => js_util.getProperty(this, 'activeElement');
 }
 
 @JS()
@@ -434,7 +433,7 @@ extension PropsSlottable on Slottable {
 ///
 @JS()
 @staticInterop
-class NodeList extends JsArray<Node> {
+class NodeList extends JsIterable<Node> {
   external factory NodeList();
 }
 
@@ -798,13 +797,13 @@ class Document
     implements
         Node,
         GeometryUtils,
+        FontFaceSource,
         NonElementParentNode,
         DocumentOrShadowRoot,
         ParentNode,
         XPathEvaluatorBase,
         GlobalEventHandlers,
-        DocumentAndElementEventHandlers,
-        FontFaceSource {
+        DocumentAndElementEventHandlers {
   external factory Document();
 }
 
@@ -879,6 +878,27 @@ extension PropsDocument on Document {
           [int? whatToShow = 0xFFFFFFFF, NodeFilter? filter]) =>
       js_util.callMethod(this, 'createTreeWalker', [root, whatToShow, filter]);
 
+  SVGSVGElement? get rootElement => js_util.getProperty(this, 'rootElement');
+  Future<bool> hasStorageAccess() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'hasStorageAccess', []));
+
+  Future<void> requestStorageAccess() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'requestStorageAccess', []));
+
+  Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
+
+  DocumentTimeline get timeline => js_util.getProperty(this, 'timeline');
+  Element? elementFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'elementFromPoint', [x, y]);
+
+  Iterable<Element> elementsFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'elementsFromPoint', [x, y]);
+
+  CaretPosition? caretPositionFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'caretPositionFromPoint', [x, y]);
+
+  Element? get scrollingElement =>
+      js_util.getProperty(this, 'scrollingElement');
   EventHandlerNonNull? get onpointerlockchange =>
       js_util.getProperty(this, 'onpointerlockchange');
   set onpointerlockchange(EventHandlerNonNull? newValue) {
@@ -893,58 +913,6 @@ extension PropsDocument on Document {
 
   void exitPointerLock() => js_util.callMethod(this, 'exitPointerLock', []);
 
-  Element? elementFromPoint(double x, double y) =>
-      js_util.callMethod(this, 'elementFromPoint', [x, y]);
-
-  Iterable<Element> elementsFromPoint(double x, double y) =>
-      js_util.callMethod(this, 'elementsFromPoint', [x, y]);
-
-  CaretPosition? caretPositionFromPoint(double x, double y) =>
-      js_util.callMethod(this, 'caretPositionFromPoint', [x, y]);
-
-  Element? get scrollingElement =>
-      js_util.getProperty(this, 'scrollingElement');
-  DocumentTimeline get timeline => js_util.getProperty(this, 'timeline');
-  bool get pictureInPictureEnabled =>
-      js_util.getProperty(this, 'pictureInPictureEnabled');
-  Future<void> exitPictureInPicture() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'exitPictureInPicture', []));
-
-  bool get prerendering => js_util.getProperty(this, 'prerendering');
-  EventHandlerNonNull? get onprerenderingchange =>
-      js_util.getProperty(this, 'onprerenderingchange');
-  set onprerenderingchange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onprerenderingchange', newValue);
-  }
-
-  PermissionsPolicy get permissionsPolicy =>
-      js_util.getProperty(this, 'permissionsPolicy');
-  NamedFlowMap get namedFlows => js_util.getProperty(this, 'namedFlows');
-  FontMetrics measureElement(Element element) =>
-      js_util.callMethod(this, 'measureElement', [element]);
-
-  FontMetrics measureText(String text, StylePropertyMapReadOnly styleMap) =>
-      js_util.callMethod(this, 'measureText', [text, styleMap]);
-
-  FragmentDirective get fragmentDirective =>
-      js_util.getProperty(this, 'fragmentDirective');
-  Future<bool> hasStorageAccess() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'hasStorageAccess', []));
-
-  Future<void> requestStorageAccess() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'requestStorageAccess', []));
-
-  EventHandlerNonNull? get onfreeze => js_util.getProperty(this, 'onfreeze');
-  set onfreeze(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onfreeze', newValue);
-  }
-
-  EventHandlerNonNull? get onresume => js_util.getProperty(this, 'onresume');
-  set onresume(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onresume', newValue);
-  }
-
-  bool get wasDiscarded => js_util.getProperty(this, 'wasDiscarded');
   bool get fullscreenEnabled => js_util.getProperty(this, 'fullscreenEnabled');
   bool get fullscreen => js_util.getProperty(this, 'fullscreen');
   Future<void> exitFullscreen() =>
@@ -962,7 +930,34 @@ extension PropsDocument on Document {
     js_util.setProperty(this, 'onfullscreenerror', newValue);
   }
 
-  SVGSVGElement? get rootElement => js_util.getProperty(this, 'rootElement');
+  bool get pictureInPictureEnabled =>
+      js_util.getProperty(this, 'pictureInPictureEnabled');
+  Future<void> exitPictureInPicture() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'exitPictureInPicture', []));
+
+  EventHandlerNonNull? get onfreeze => js_util.getProperty(this, 'onfreeze');
+  set onfreeze(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfreeze', newValue);
+  }
+
+  EventHandlerNonNull? get onresume => js_util.getProperty(this, 'onresume');
+  set onresume(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresume', newValue);
+  }
+
+  bool get wasDiscarded => js_util.getProperty(this, 'wasDiscarded');
+  NamedFlowMap get namedFlows => js_util.getProperty(this, 'namedFlows');
+  FragmentDirective get fragmentDirective =>
+      js_util.getProperty(this, 'fragmentDirective');
+  bool get prerendering => js_util.getProperty(this, 'prerendering');
+  EventHandlerNonNull? get onprerenderingchange =>
+      js_util.getProperty(this, 'onprerenderingchange');
+  set onprerenderingchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onprerenderingchange', newValue);
+  }
+
+  PermissionsPolicy get permissionsPolicy =>
+      js_util.getProperty(this, 'permissionsPolicy');
   Location? get location => js_util.getProperty(this, 'location');
   String get domain => js_util.getProperty(this, 'domain');
   set domain(String newValue) {
@@ -1092,7 +1087,11 @@ extension PropsDocument on Document {
   void releaseEvents() => js_util.callMethod(this, 'releaseEvents', []);
 
   HTMLAllCollection get all => js_util.getProperty(this, 'all');
-  Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
+  FontMetrics measureElement(Element element) =>
+      js_util.callMethod(this, 'measureElement', [element]);
+
+  FontMetrics measureText(String text, StylePropertyMapReadOnly styleMap) =>
+      js_util.callMethod(this, 'measureText', [text, styleMap]);
 }
 
 ///  The XMLDocument interface represents an XML document. It
@@ -1342,9 +1341,9 @@ enum SlotAssignmentMode {
 class Element
     implements
         Node,
+        Animatable,
         ARIAMixin,
         GeometryUtils,
-        Animatable,
         Region,
         ParentNode,
         NonDocumentTypeChildNode,
@@ -1453,9 +1452,8 @@ extension PropsElement on Element {
   void insertAdjacentText(String where, String data) =>
       js_util.callMethod(this, 'insertAdjacentText', [where, data]);
 
-  DOMTokenList get part => js_util.getProperty(this, 'part');
-  void requestPointerLock() =>
-      js_util.callMethod(this, 'requestPointerLock', []);
+  StylePropertyMapReadOnly computedStyleMap() =>
+      js_util.callMethod(this, 'computedStyleMap', []);
 
   DOMRectList getClientRects() =>
       js_util.callMethod(this, 'getClientRects', []);
@@ -1496,48 +1494,8 @@ extension PropsElement on Element {
   int get clientLeft => js_util.getProperty(this, 'clientLeft');
   int get clientWidth => js_util.getProperty(this, 'clientWidth');
   int get clientHeight => js_util.getProperty(this, 'clientHeight');
-  Node getSpatialNavigationContainer() =>
-      js_util.callMethod(this, 'getSpatialNavigationContainer', []);
-
-  Iterable<Node> focusableAreas([FocusableAreasOption? option]) =>
-      js_util.callMethod(this, 'focusableAreas', [option]);
-
-  Node? spatialNavigationSearch(SpatialNavigationDirection dir,
-          [SpatialNavigationSearchOptions? options]) =>
-      js_util.callMethod(this, 'spatialNavigationSearch', [dir.value, options]);
-
-  String get elementTiming => js_util.getProperty(this, 'elementTiming');
-  set elementTiming(String newValue) {
-    js_util.setProperty(this, 'elementTiming', newValue);
-  }
-
-  CSSPseudoElement? pseudo(String type) =>
-      js_util.callMethod(this, 'pseudo', [type]);
-
-  void setPointerCapture(int pointerId) =>
-      js_util.callMethod(this, 'setPointerCapture', [pointerId]);
-
-  void releasePointerCapture(int pointerId) =>
-      js_util.callMethod(this, 'releasePointerCapture', [pointerId]);
-
-  bool hasPointerCapture(int pointerId) =>
-      js_util.callMethod(this, 'hasPointerCapture', [pointerId]);
-
-  StylePropertyMapReadOnly computedStyleMap() =>
-      js_util.callMethod(this, 'computedStyleMap', []);
-
-  EditContext? get editContext => js_util.getProperty(this, 'editContext');
-  set editContext(EditContext? newValue) {
-    js_util.setProperty(this, 'editContext', newValue);
-  }
-
-  String get outerHTML => js_util.getProperty(this, 'outerHTML');
-  set outerHTML(String newValue) {
-    js_util.setProperty(this, 'outerHTML', newValue);
-  }
-
-  void insertAdjacentHTML(String position, String text) =>
-      js_util.callMethod(this, 'insertAdjacentHTML', [position, text]);
+  void requestPointerLock() =>
+      js_util.callMethod(this, 'requestPointerLock', []);
 
   Future<void> requestFullscreen([FullscreenOptions? options]) =>
       js_util.promiseToFuture(
@@ -1555,8 +1513,49 @@ extension PropsElement on Element {
     js_util.setProperty(this, 'onfullscreenerror', newValue);
   }
 
+  void setPointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'setPointerCapture', [pointerId]);
+
+  void releasePointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'releasePointerCapture', [pointerId]);
+
+  bool hasPointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'hasPointerCapture', [pointerId]);
+
+  CSSPseudoElement? pseudo(String type) =>
+      js_util.callMethod(this, 'pseudo', [type]);
+
+  String get outerHTML => js_util.getProperty(this, 'outerHTML');
+  set outerHTML(String newValue) {
+    js_util.setProperty(this, 'outerHTML', newValue);
+  }
+
+  void insertAdjacentHTML(String position, String text) =>
+      js_util.callMethod(this, 'insertAdjacentHTML', [position, text]);
+
+  String get elementTiming => js_util.getProperty(this, 'elementTiming');
+  set elementTiming(String newValue) {
+    js_util.setProperty(this, 'elementTiming', newValue);
+  }
+
+  Node getSpatialNavigationContainer() =>
+      js_util.callMethod(this, 'getSpatialNavigationContainer', []);
+
+  Iterable<Node> focusableAreas([FocusableAreasOption? option]) =>
+      js_util.callMethod(this, 'focusableAreas', [option]);
+
+  Node? spatialNavigationSearch(SpatialNavigationDirection dir,
+          [SpatialNavigationSearchOptions? options]) =>
+      js_util.callMethod(this, 'spatialNavigationSearch', [dir.value, options]);
+
   void setHTML(String input, [SetHTMLOptions? options]) =>
       js_util.callMethod(this, 'setHTML', [input, options]);
+
+  DOMTokenList get part => js_util.getProperty(this, 'part');
+  EditContext? get editContext => js_util.getProperty(this, 'editContext');
+  set editContext(EditContext? newValue) {
+    js_util.setProperty(this, 'editContext', newValue);
+  }
 }
 
 @anonymous
@@ -2311,7 +2310,7 @@ extension PropsNodeFilter on NodeFilter {
 /// objects. is always case-sensitive.
 @JS()
 @staticInterop
-class DOMTokenList extends JsArray<String> {
+class DOMTokenList extends JsIterable<String> {
   external factory DOMTokenList();
 }
 

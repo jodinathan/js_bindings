@@ -19,7 +19,7 @@ import 'package:js_bindings/js_bindings.dart';
 /// the [body] property of a [Response] object.
 @JS()
 @staticInterop
-class ReadableStream extends JsArray<dynamic> {
+class ReadableStream extends JsIterable<dynamic> {
   external factory ReadableStream(
       [dynamic underlyingSource, QueuingStrategy? strategy]);
 }

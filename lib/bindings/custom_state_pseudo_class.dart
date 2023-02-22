@@ -18,7 +18,7 @@ import 'package:js_bindings/js_bindings.dart';
 /// to be added and removed from the set.
 @JS()
 @staticInterop
-class CustomStateSet extends JsArray<String> {
+class CustomStateSet extends JsIterable<String> {
   external factory CustomStateSet();
 }
 

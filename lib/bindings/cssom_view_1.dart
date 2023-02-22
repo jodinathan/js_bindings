@@ -178,12 +178,13 @@ extension PropsScreen on Screen {
   int get height => js_util.getProperty(this, 'height');
   int get colorDepth => js_util.getProperty(this, 'colorDepth');
   int get pixelDepth => js_util.getProperty(this, 'pixelDepth');
-  ScreenOrientation get orientation => js_util.getProperty(this, 'orientation');
   bool get isExtended => js_util.getProperty(this, 'isExtended');
   EventHandlerNonNull? get onchange => js_util.getProperty(this, 'onchange');
   set onchange(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onchange', newValue);
   }
+
+  ScreenOrientation get orientation => js_util.getProperty(this, 'orientation');
 }
 
 ///  Experimental: This is an experimental technologyCheck the

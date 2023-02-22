@@ -28,7 +28,7 @@ enum HighlightType {
 
 @JS()
 @staticInterop
-class Highlight extends JsArray<AbstractRange> {
+class Highlight extends JsIterable<AbstractRange> {
   external factory Highlight(
       [AbstractRange? initialRanges1,
       AbstractRange? initialRanges2,

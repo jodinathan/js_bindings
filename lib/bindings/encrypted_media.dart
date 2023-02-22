@@ -274,7 +274,7 @@ extension PropsMediaKeySession on MediaKeySession {
 /// map of media key statuses by key IDs.
 @JS()
 @staticInterop
-class MediaKeyStatusMap extends JsArray<MediaKeyStatus> {
+class MediaKeyStatusMap extends JsIterable<MediaKeyStatus> {
   external factory MediaKeyStatusMap();
 }
 

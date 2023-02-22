@@ -37,6 +37,6 @@ extension PropsXRAnchor on XRAnchor {
 /// [XRFrame.trackedAnchors] and is a [Set]-like object.
 @JS()
 @staticInterop
-class XRAnchorSet extends JsArray<XRAnchor> {
+class XRAnchorSet extends JsIterable<XRAnchor> {
   external factory XRAnchorSet();
 }

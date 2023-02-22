@@ -253,6 +253,9 @@ class CSSRule {
   @JS('NAMESPACE_RULE')
   external static int get namespaceRule;
 
+  @JS('VIEWPORT_RULE')
+  external static int get viewportRule;
+
   @JS('KEYFRAMES_RULE')
   external static int get keyframesRule;
 
@@ -262,14 +265,11 @@ class CSSRule {
   @JS('SUPPORTS_RULE')
   external static int get supportsRule;
 
-  @JS('FONT_FEATURE_VALUES_RULE')
-  external static int get fontFeatureValuesRule;
-
-  @JS('VIEWPORT_RULE')
-  external static int get viewportRule;
-
   @JS('COUNTER_STYLE_RULE')
   external static int get counterStyleRule;
+
+  @JS('FONT_FEATURE_VALUES_RULE')
+  external static int get fontFeatureValuesRule;
 
   external factory CSSRule();
 }
@@ -312,13 +312,12 @@ extension PropsCSSStyleRule on CSSStyleRule {
   }
 
   CSSStyleDeclaration get style => js_util.getProperty(this, 'style');
+  StylePropertyMap get styleMap => js_util.getProperty(this, 'styleMap');
   CSSRuleList get cssRules => js_util.getProperty(this, 'cssRules');
   int insertRule(String rule, [int? index = 0]) =>
       js_util.callMethod(this, 'insertRule', [rule, index]);
 
   void deleteRule(int index) => js_util.callMethod(this, 'deleteRule', [index]);
-
-  StylePropertyMap get styleMap => js_util.getProperty(this, 'styleMap');
 }
 
 /// The interface represents an [@import] [at-rule].

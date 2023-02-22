@@ -220,7 +220,7 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
 ///
 @JS()
 @staticInterop
-class FormData extends JsArray<dynamic> {
+class FormData extends JsIterable<dynamic> {
   external factory FormData([HTMLFormElement? form]);
 }
 

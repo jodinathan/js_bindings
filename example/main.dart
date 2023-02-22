@@ -1,4 +1,15 @@
+import 'package:collection/collection.dart';
+import 'package:js/js.dart';
 import 'package:js_bindings/js_bindings.dart';
+
+@JS()
+external JsIterator<num> makeRangeIterator([num start, num end, num step]);
+
+@JS()
+external JsArray<String> testArray;
+
+@JS()
+external JsArray<String> testArray2;
 
 Future<void> _fetch() async {
   try {
@@ -36,20 +47,34 @@ void main() {
 
   print('Response.status == 200 // ${response.status == 200}');
 
+  window.console.log('External array: ', testArray);
+
+  print('Checking iterator');
+  final ranged = makeRangeIterator();
+
+  var result = ranged.next();
+  while (!result.done) {
+    print('ranged: ${result.value}'); // 1 3 5 7 9
+    result = ranged.next();
+  }
+
+  print('DartIterable from Iterator: ${ranged.toIterable()}');
+
   final map = JsMap([
     [1, 'one'],
     [2, 'two'],
     [3, 'three'],
   ]);
 
-  window.console.log(map);
+  window.console.log(map, map.keys, map.keys.toList());
+  window.console.log(map[1]);
 
   // create the buttons to use in the example
   final div = (document.createElement('div') as HTMLDivElement)
     ..id = 'someDiv'
     ..innerHTML = 'This div was created on the fly. '
         'Node.elementNode: ${Node.elementNode}. '
-        'Map: ${map.keys.map((k) => '$k: ${map[k]}').join(', ')}. '
+        'Map: ${map.keys.toList().map((k) => '$k: ${map[k]}').join(', ')}. '
     ..style.setProperty('border', '1px solid black')
     ..style.setProperty('margin', '10px');
   final btnChanger = (document.createElement('button') as HTMLButtonElement)
@@ -79,12 +104,11 @@ void main() {
   document.getElementById('changeHtml')!.addEventListener('click', (e) {
     window.console.log('Changing the HTML');
     document.getElementById('someDiv')!.innerHTML =
-        'New stuff oh yeah! ${div.childNodes[0]}';
+        'New stuff oh yeah!';
   });
 
-  div.childNodes.forEach((element, index, array) {
+  div.childNodes.toList().forEachIndexed((index, element) {
     print('CHILDNODE[$index] = $element. ${element.runtimeType}');
-    assert(array == div.childNodes);
   });
 
   // listen to the click of the media button

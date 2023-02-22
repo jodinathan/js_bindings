@@ -35,14 +35,14 @@ jobs:
       #- name: Analyze project source
       #  run: dart analyze
 
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      #- name: Run tests
-      #  run: dart test
+      - name: Run primitives tests
+        run: dart test --platform chrome --chain-stack-traces test/primitives.dart
       
       - name: Generate bindings
         run: dart tool/package_js/build.dart
+      
+      - name: Run bindings tests
+        run: dart test --platform chrome --chain-stack-traces test/bindings.dart
         
       - name: Commit bindings
         run: |

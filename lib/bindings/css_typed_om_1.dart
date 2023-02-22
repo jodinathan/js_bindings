@@ -44,7 +44,7 @@ extension PropsCSSStyleValue on CSSStyleValue {
 @experimental
 @JS()
 @staticInterop
-class StylePropertyMapReadOnly extends JsArray<Iterable<CSSStyleValue>> {
+class StylePropertyMapReadOnly extends JsIterable<Iterable<CSSStyleValue>> {
   external factory StylePropertyMapReadOnly();
 }
 
@@ -685,7 +685,7 @@ extension PropsCSSMathClamp on CSSMathClamp {
 @experimental
 @JS()
 @staticInterop
-class CSSNumericArray extends JsArray<CSSNumericValue> {
+class CSSNumericArray extends JsIterable<CSSNumericValue> {
   external factory CSSNumericArray();
 }
 

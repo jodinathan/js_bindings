@@ -236,13 +236,13 @@ extension PropsFontFaceVariationAxis on FontFaceVariationAxis {
 
 @JS()
 @staticInterop
-class FontFaceVariations extends JsArray<FontFaceVariationAxis> {
+class FontFaceVariations extends JsIterable<FontFaceVariationAxis> {
   external factory FontFaceVariations();
 }
 
 @JS()
 @staticInterop
-class FontFacePalette extends JsArray<String> {
+class FontFacePalette extends JsIterable<String> {
   external factory FontFacePalette();
 }
 
@@ -256,7 +256,7 @@ extension PropsFontFacePalette on FontFacePalette {
 
 @JS()
 @staticInterop
-class FontFacePalettes extends JsArray<FontFacePalette> {
+class FontFacePalettes extends JsIterable<FontFacePalette> {
   external factory FontFacePalettes();
 }
 

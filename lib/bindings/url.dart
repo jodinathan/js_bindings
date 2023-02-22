@@ -105,7 +105,7 @@ extension PropsUrl on Url {
 ///
 @JS()
 @staticInterop
-class URLSearchParams extends JsArray<String> {
+class URLSearchParams extends JsIterable<String> {
   external factory URLSearchParams([dynamic init]);
 }
 

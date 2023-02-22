@@ -221,7 +221,7 @@ Future<void> main() async {
                 key = spec.getDartType(type).toString();
               }
 
-              inheritance = 'extends JsArray<$key>';
+              inheritance = 'extends JsIterable<$key>';
             }
 
             Map<String, dynamic> findByType(String typeName) {
