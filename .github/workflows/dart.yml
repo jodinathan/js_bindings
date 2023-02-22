@@ -47,7 +47,7 @@ jobs:
       - name: Commit bindings
         run: |
           git config --local user.name  ${{ github.actor }}
-          git add ./bindings
+          git add --all
           git commit -m "Adding bindings"
       - name: Push bindings
         uses: ad-m/github-push-action@master
