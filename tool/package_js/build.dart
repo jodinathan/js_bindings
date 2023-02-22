@@ -22,11 +22,15 @@ Future<void> main() async {
       'PackageJS bindings started... ${Directory.current.path}. ${Directory('${Directory.current.path}/lib').existsSync()}');
 
   print('Excluding bindings folder');
-  final dir = Directory('${Directory.current.path}/lib/bindings/');
+  final dir = Directory('./lib/bindings/');
 
   if (await dir.exists()) {
     await dir.delete(recursive: true);
   }
+
+  await dir.create(recursive: true);
+
+  print('CheckExists ${await dir.exists()}. ${dir.path}');
 
   mainGroup = await getSpecs();
   final list = mainGroup.specs.toList();
@@ -675,7 +679,7 @@ Future<void> main() async {
       import 'package:js_bindings/js_bindings.dart';
       ''');
 
-      final p = '${Directory.current.path}/../lib/bindings/$libraryName.dart';
+      final p = './lib/bindings/$libraryName.dart';
       final contents = lines.join('\n');
       String formatted;
 
