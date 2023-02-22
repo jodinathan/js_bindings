@@ -51,7 +51,8 @@ extension AdvJsArray<E> on JsArray<E> {
   /// while array-like objects with truthy @@isConcatSpreadable will
   /// be spread into the resulting array.
   JsArray<E> concat(JsArray array1, [JsArray? array2, JsArray? array3]) =>
-      jsu.callMethod(this, 'concat', [array1, array2, array3]);
+      jsu.callMethod(this, 'concat',
+          [array1, if (array2 != null) array2, if (array3 != null) array3]);
 
   /// The copyWithin() method works like C and C++'s memmove, and is a
   /// high-performance method to shift the data of an Array.

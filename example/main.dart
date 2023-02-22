@@ -47,7 +47,11 @@ void main() {
 
   print('Response.status == 200 // ${response.status == 200}');
 
-  window.console.log('External array: ', testArray);
+  print('External array: ');
+  window.console.log(
+    testArray,
+    testArray2,
+  ); //testArray.concat(testArray2));
 
   print('Checking iterator');
   final ranged = makeRangeIterator();
@@ -103,8 +107,7 @@ void main() {
 
   document.getElementById('changeHtml')!.addEventListener('click', (e) {
     window.console.log('Changing the HTML');
-    document.getElementById('someDiv')!.innerHTML =
-        'New stuff oh yeah!';
+    document.getElementById('someDiv')!.innerHTML = 'New stuff oh yeah!';
   });
 
   div.childNodes.toList().forEachIndexed((index, element) {
