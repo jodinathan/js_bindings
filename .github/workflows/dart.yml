@@ -44,8 +44,15 @@ jobs:
       - name: Generate bindings
         run: dart tool/package_js/build.dart
         
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        
-      - name: test js
-        run: node test.js
+      - name: switching from HTTPS to SSH
+        run: git remote set-url origin ${{ secrets.ssh }}
+      - name: check for changes
+        run: git status
+      - name: stage changed files
+        run: git add .
+      - name: commit changed files
+        run: git commit -m "Adding bindings"
+      - name: fetch from master
+        run: git fetch origin master
+      - name: push code to master
+        run: git push origin HEAD:master
