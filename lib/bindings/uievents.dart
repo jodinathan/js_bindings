@@ -41,8 +41,6 @@ class UIEvent implements Event {
 extension PropsUIEvent on UIEvent {
   Window? get view => js_util.getProperty(this, 'view');
   int get detail => js_util.getProperty(this, 'detail');
-  InputDeviceCapabilities? get sourceCapabilities =>
-      js_util.getProperty(this, 'sourceCapabilities');
   void initUIEvent(String typeArg,
           [bool? bubblesArg = false,
           bool? cancelableArg = false,
@@ -52,6 +50,8 @@ extension PropsUIEvent on UIEvent {
           [typeArg, bubblesArg, cancelableArg, viewArg, detailArg]);
 
   int get which => js_util.getProperty(this, 'which');
+  InputDeviceCapabilities? get sourceCapabilities =>
+      js_util.getProperty(this, 'sourceCapabilities');
 }
 
 @anonymous
@@ -171,14 +171,14 @@ extension PropsMouseEvent on MouseEvent {
   bool getModifierState(String keyArg) =>
       js_util.callMethod(this, 'getModifierState', [keyArg]);
 
+  double get movementX => js_util.getProperty(this, 'movementX');
+  double get movementY => js_util.getProperty(this, 'movementY');
   double get pageX => js_util.getProperty(this, 'pageX');
   double get pageY => js_util.getProperty(this, 'pageY');
   double get x => js_util.getProperty(this, 'x');
   double get y => js_util.getProperty(this, 'y');
   double get offsetX => js_util.getProperty(this, 'offsetX');
   double get offsetY => js_util.getProperty(this, 'offsetY');
-  double get movementX => js_util.getProperty(this, 'movementX');
-  double get movementY => js_util.getProperty(this, 'movementY');
   void initMouseEvent(String typeArg,
           [bool? bubblesArg = false,
           bool? cancelableArg = false,
