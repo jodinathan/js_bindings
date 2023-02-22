@@ -18,7 +18,8 @@ const objectMembers = {'hash', 'hashCode', 'toString'};
 /// TODO: Change how we struct the spec class to also translate the underlying
 /// map to classes with everything ready.
 Future<void> main() async {
-  print('PackageJS bindings started... ${Directory.current.path}. ${Directory('${Directory.current.path}/lib').existsSync()}');
+  print(
+      'PackageJS bindings started... ${Directory.current.path}. ${Directory('${Directory.current.path}/lib').existsSync()}');
 
   print('Excluding bindings folder');
   final dir = Directory('${Directory.current.path}/lib/bindings/');
@@ -495,8 +496,9 @@ Future<void> main() async {
                           fn = '$factory$className';
                           addedCtor = true;
 
-                          final privateFactory = method.params
-                              .any((param) => param.dartType.isEnum || param.defaultValue != null);
+                          final privateFactory = method.params.any((param) =>
+                              param.dartType.isEnum ||
+                              param.defaultValue != null);
 
                           lines.add(
                               '\nexternal $fn${privateFactory ? '._' : ''}(${params.isNotEmpty ? (dictionary ? '{$params}' : params) : ''});');
@@ -688,9 +690,13 @@ Future<void> main() async {
         rethrow;
       }
 
-      File(p)
-        ..createSync(recursive: true)
-        ..writeAsStringSync(formatted);
+      final f = await File(p).create(recursive: true);
+
+      print('CreatedLibrary $libraryName. Path: ${f.path}');
+
+      final wf = await f.writeAsString(formatted);
+
+      print('WrittenLibrary $libraryName. Path: ${wf.path}');
     }
   }
 }
