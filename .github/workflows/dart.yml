@@ -48,7 +48,11 @@ jobs:
         run: |
           git config --local user.name  ${{ github.actor }}
           git add -f ./lib/bindings/\*
-          git commit -m "Adding bindings"
+          if git commit -m "Adding bindings" then
+            echo "Bindings didn't change"
+          else
+            echo "Bindings changed!"
+          fi
       - name: Push bindings
         uses: ad-m/github-push-action@master
         with:
