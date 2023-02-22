@@ -422,6 +422,17 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
         failureCallback == null ? null : allowInterop(failureCallback)
       ]));
 
+  void setIdentityProvider(String provider,
+          [RTCIdentityProviderOptions? options]) =>
+      js_util.callMethod(this, 'setIdentityProvider', [provider, options]);
+
+  Future<String> getIdentityAssertion() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'getIdentityAssertion', []));
+
+  Future<RTCIdentityAssertion> get peerIdentity =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'peerIdentity'));
+  String? get idpLoginUrl => js_util.getProperty(this, 'idpLoginUrl');
+  String? get idpErrorInfo => js_util.getProperty(this, 'idpErrorInfo');
   Iterable<RTCRtpSender> getSenders() =>
       js_util.callMethod(this, 'getSenders', []);
 
@@ -463,18 +474,6 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
 
   Future<RTCStatsReport> getStats([MediaStreamTrack? selector]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getStats', [selector]));
-
-  void setIdentityProvider(String provider,
-          [RTCIdentityProviderOptions? options]) =>
-      js_util.callMethod(this, 'setIdentityProvider', [provider, options]);
-
-  Future<String> getIdentityAssertion() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'getIdentityAssertion', []));
-
-  Future<RTCIdentityAssertion> get peerIdentity =>
-      js_util.promiseToFuture(js_util.getProperty(this, 'peerIdentity'));
-  String? get idpLoginUrl => js_util.getProperty(this, 'idpLoginUrl');
-  String? get idpErrorInfo => js_util.getProperty(this, 'idpErrorInfo');
 }
 
 enum RTCSdpType {
@@ -950,6 +949,7 @@ extension PropsRTCRtpSender on RTCRtpSender {
   Future<RTCStatsReport> getStats() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
 
+  RTCDTMFSender? get dtmf => js_util.getProperty(this, 'dtmf');
   dynamic get transform => js_util.getProperty(this, 'transform');
   set transform(dynamic newValue) {
     js_util.setProperty(this, 'transform', newValue);
@@ -957,8 +957,6 @@ extension PropsRTCRtpSender on RTCRtpSender {
 
   Future<void> generateKeyFrame([Iterable<String>? rids]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rids]));
-
-  RTCDTMFSender? get dtmf => js_util.getProperty(this, 'dtmf');
 }
 
 ///  The dictionary is the basic object describing the parameters of

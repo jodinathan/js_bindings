@@ -51,21 +51,6 @@ extension PropsPerformance on Performance {
   double get timeOrigin => js_util.getProperty(this, 'timeOrigin');
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
-  void clearResourceTimings() =>
-      js_util.callMethod(this, 'clearResourceTimings', []);
-
-  void setResourceTimingBufferSize(int maxSize) =>
-      js_util.callMethod(this, 'setResourceTimingBufferSize', [maxSize]);
-
-  EventHandlerNonNull? get onresourcetimingbufferfull =>
-      js_util.getProperty(this, 'onresourcetimingbufferfull');
-  set onresourcetimingbufferfull(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onresourcetimingbufferfull', newValue);
-  }
-
-  PerformanceTiming get timing => js_util.getProperty(this, 'timing');
-  PerformanceNavigation get navigation =>
-      js_util.getProperty(this, 'navigation');
   PerformanceMark mark(String markName,
           [PerformanceMarkOptions? markOptions]) =>
       js_util.callMethod(this, 'mark', [markName, markOptions]);
@@ -81,9 +66,9 @@ extension PropsPerformance on Performance {
   void clearMeasures([String? measureName]) =>
       js_util.callMethod(this, 'clearMeasures', [measureName]);
 
-  EventCounts get eventCounts => js_util.getProperty(this, 'eventCounts');
-  InteractionCounts get interactionCounts =>
-      js_util.getProperty(this, 'interactionCounts');
+  PerformanceTiming get timing => js_util.getProperty(this, 'timing');
+  PerformanceNavigation get navigation =>
+      js_util.getProperty(this, 'navigation');
   Iterable<PerformanceEntry> getEntries() =>
       js_util.callMethod(this, 'getEntries', []);
 
@@ -93,7 +78,23 @@ extension PropsPerformance on Performance {
   Iterable<PerformanceEntry> getEntriesByName(String name, [String? type]) =>
       js_util.callMethod(this, 'getEntriesByName', [name, type]);
 
+  void clearResourceTimings() =>
+      js_util.callMethod(this, 'clearResourceTimings', []);
+
+  void setResourceTimingBufferSize(int maxSize) =>
+      js_util.callMethod(this, 'setResourceTimingBufferSize', [maxSize]);
+
+  EventHandlerNonNull? get onresourcetimingbufferfull =>
+      js_util.getProperty(this, 'onresourcetimingbufferfull');
+  set onresourcetimingbufferfull(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onresourcetimingbufferfull', newValue);
+  }
+
   Future<MemoryMeasurement> measureUserAgentSpecificMemory() =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'measureUserAgentSpecificMemory', []));
+
+  EventCounts get eventCounts => js_util.getProperty(this, 'eventCounts');
+  InteractionCounts get interactionCounts =>
+      js_util.getProperty(this, 'interactionCounts');
 }
