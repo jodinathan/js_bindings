@@ -675,7 +675,7 @@ Future<void> main() async {
       import 'package:js_bindings/js_bindings.dart';
       ''');
 
-      final p = '${Directory.current.path}/lib/bindings/$libraryName.dart';
+      final p = '${Directory.current.path}/../lib/bindings/$libraryName.dart';
       final contents = lines.join('\n');
       String formatted;
 
