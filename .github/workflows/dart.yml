@@ -43,3 +43,9 @@ jobs:
       
       - name: Generate bindings
         run: dart tool/package_js/build.dart
+        
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        
+      - name: test js
+        run: node test.js
