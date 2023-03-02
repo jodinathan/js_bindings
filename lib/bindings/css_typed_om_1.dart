@@ -44,7 +44,8 @@ extension PropsCSSStyleValue on CSSStyleValue {
 @experimental
 @JS()
 @staticInterop
-class StylePropertyMapReadOnly extends JsIterable<Iterable<CSSStyleValue>> {
+class StylePropertyMapReadOnly
+    extends JsIterable<JsArray<Iterable<CSSStyleValue>>> {
   external factory StylePropertyMapReadOnly();
 }
 
@@ -142,8 +143,12 @@ extension PropsCSSUnparsedValue on CSSUnparsedValue {
 @JS()
 @staticInterop
 class CSSVariableReferenceValue {
-  external factory CSSVariableReferenceValue(String variable,
+  external factory CSSVariableReferenceValue._(String variable,
       [CSSUnparsedValue? fallback]);
+
+  factory CSSVariableReferenceValue(String variable,
+          [CSSUnparsedValue? fallback]) =>
+      CSSVariableReferenceValue._(variable, fallback ?? undefined);
 }
 
 extension PropsCSSVariableReferenceValue on CSSVariableReferenceValue {
@@ -450,7 +455,14 @@ extension PropsCSSMathValue on CSSMathValue {
 @JS()
 @staticInterop
 class CSSMathSum implements CSSMathValue {
-  external factory CSSMathSum([dynamic args1, dynamic args2, dynamic args3]);
+  external factory CSSMathSum._([dynamic args1, dynamic args2, dynamic args3]);
+
+  factory CSSMathSum([dynamic args1, dynamic args2, dynamic args3]) =>
+      CSSMathSum._(
+        args1 ?? undefined,
+        args2 ?? undefined,
+        args3 ?? undefined,
+      );
 }
 
 extension PropsCSSMathSum on CSSMathSum {
@@ -492,8 +504,15 @@ extension PropsCSSMathSum on CSSMathSum {
 @JS()
 @staticInterop
 class CSSMathProduct implements CSSMathValue {
-  external factory CSSMathProduct(
+  external factory CSSMathProduct._(
       [dynamic args1, dynamic args2, dynamic args3]);
+
+  factory CSSMathProduct([dynamic args1, dynamic args2, dynamic args3]) =>
+      CSSMathProduct._(
+        args1 ?? undefined,
+        args2 ?? undefined,
+        args3 ?? undefined,
+      );
 }
 
 extension PropsCSSMathProduct on CSSMathProduct {
@@ -617,7 +636,14 @@ extension PropsCSSMathInvert on CSSMathInvert {
 @JS()
 @staticInterop
 class CSSMathMin implements CSSMathValue {
-  external factory CSSMathMin([dynamic args1, dynamic args2, dynamic args3]);
+  external factory CSSMathMin._([dynamic args1, dynamic args2, dynamic args3]);
+
+  factory CSSMathMin([dynamic args1, dynamic args2, dynamic args3]) =>
+      CSSMathMin._(
+        args1 ?? undefined,
+        args2 ?? undefined,
+        args3 ?? undefined,
+      );
 }
 
 extension PropsCSSMathMin on CSSMathMin {
@@ -658,7 +684,14 @@ extension PropsCSSMathMin on CSSMathMin {
 @JS()
 @staticInterop
 class CSSMathMax implements CSSMathValue {
-  external factory CSSMathMax([dynamic args1, dynamic args2, dynamic args3]);
+  external factory CSSMathMax._([dynamic args1, dynamic args2, dynamic args3]);
+
+  factory CSSMathMax([dynamic args1, dynamic args2, dynamic args3]) =>
+      CSSMathMax._(
+        args1 ?? undefined,
+        args2 ?? undefined,
+        args3 ?? undefined,
+      );
 }
 
 extension PropsCSSMathMax on CSSMathMax {
@@ -785,8 +818,12 @@ extension PropsCSSTransformComponent on CSSTransformComponent {
 @JS()
 @staticInterop
 class CSSTranslate implements CSSTransformComponent {
-  external factory CSSTranslate(CSSNumericValue x, CSSNumericValue y,
+  external factory CSSTranslate._(CSSNumericValue x, CSSNumericValue y,
       [CSSNumericValue? z]);
+
+  factory CSSTranslate(CSSNumericValue x, CSSNumericValue y,
+          [CSSNumericValue? z]) =>
+      CSSTranslate._(x, y, z ?? undefined);
 }
 
 extension PropsCSSTranslate on CSSTranslate {
@@ -829,8 +866,13 @@ extension PropsCSSTranslate on CSSTranslate {
 @JS()
 @staticInterop
 class CSSRotate implements CSSTransformComponent {
-  external factory CSSRotate(
+  external factory CSSRotate._(
       [dynamic x, dynamic y, dynamic z, CSSNumericValue? angle]);
+
+  factory CSSRotate(
+          [dynamic x, dynamic y, dynamic z, CSSNumericValue? angle]) =>
+      CSSRotate._(
+          x ?? undefined, y ?? undefined, z ?? undefined, angle ?? undefined);
 }
 
 extension PropsCSSRotate on CSSRotate {
@@ -878,7 +920,10 @@ extension PropsCSSRotate on CSSRotate {
 @JS()
 @staticInterop
 class CSSScale implements CSSTransformComponent {
-  external factory CSSScale(dynamic x, dynamic y, [dynamic z]);
+  external factory CSSScale._(dynamic x, dynamic y, [dynamic z]);
+
+  factory CSSScale(dynamic x, dynamic y, [dynamic z]) =>
+      CSSScale._(x ?? undefined, y ?? undefined, z ?? undefined);
 }
 
 extension PropsCSSScale on CSSScale {
@@ -1057,8 +1102,12 @@ extension PropsCSSPerspective on CSSPerspective {
 @JS()
 @staticInterop
 class CSSMatrixComponent implements CSSTransformComponent {
-  external factory CSSMatrixComponent(DOMMatrixReadOnly matrix,
+  external factory CSSMatrixComponent._(DOMMatrixReadOnly matrix,
       [CSSMatrixComponentOptions? options]);
+
+  factory CSSMatrixComponent(DOMMatrixReadOnly matrix,
+          [CSSMatrixComponentOptions? options]) =>
+      CSSMatrixComponent._(matrix, options ?? undefined);
 }
 
 extension PropsCSSMatrixComponent on CSSMatrixComponent {

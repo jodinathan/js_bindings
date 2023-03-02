@@ -256,9 +256,14 @@ extension PropsUSBIsochronousInTransferPacket
 @JS()
 @staticInterop
 class USBIsochronousInTransferResult {
-  external factory USBIsochronousInTransferResult(
+  external factory USBIsochronousInTransferResult._(
       Iterable<USBIsochronousInTransferPacket> packets,
       [ByteData? data]);
+
+  factory USBIsochronousInTransferResult(
+          Iterable<USBIsochronousInTransferPacket> packets,
+          [ByteData? data]) =>
+      USBIsochronousInTransferResult._(packets, data ?? undefined);
 }
 
 extension PropsUSBIsochronousInTransferResult

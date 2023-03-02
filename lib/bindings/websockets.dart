@@ -118,7 +118,10 @@ extension PropsWebSocket on WebSocket {
 @JS()
 @staticInterop
 class CloseEvent implements Event {
-  external factory CloseEvent(String type, [CloseEventInit? eventInitDict]);
+  external factory CloseEvent._(String type, [CloseEventInit? eventInitDict]);
+
+  factory CloseEvent(String type, [CloseEventInit? eventInitDict]) =>
+      CloseEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsCloseEvent on CloseEvent {

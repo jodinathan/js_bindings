@@ -351,8 +351,12 @@ extension PropsPaymentValidationErrors on PaymentValidationErrors {
 @JS()
 @staticInterop
 class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
-  external factory PaymentMethodChangeEvent(String type,
+  external factory PaymentMethodChangeEvent._(String type,
       [PaymentMethodChangeEventInit? eventInitDict]);
+
+  factory PaymentMethodChangeEvent(String type,
+          [PaymentMethodChangeEventInit? eventInitDict]) =>
+      PaymentMethodChangeEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPaymentMethodChangeEvent on PaymentMethodChangeEvent {
@@ -425,8 +429,12 @@ extension PropsPaymentMethodChangeEventInit on PaymentMethodChangeEventInit {
 @JS()
 @staticInterop
 class PaymentRequestUpdateEvent implements Event {
-  external factory PaymentRequestUpdateEvent(String type,
+  external factory PaymentRequestUpdateEvent._(String type,
       [PaymentRequestUpdateEventInit? eventInitDict]);
+
+  factory PaymentRequestUpdateEvent(String type,
+          [PaymentRequestUpdateEventInit? eventInitDict]) =>
+      PaymentRequestUpdateEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPaymentRequestUpdateEvent on PaymentRequestUpdateEvent {

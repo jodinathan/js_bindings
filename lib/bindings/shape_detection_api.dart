@@ -16,7 +16,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class FaceDetector {
-  external factory FaceDetector([FaceDetectorOptions? faceDetectorOptions]);
+  external factory FaceDetector._([FaceDetectorOptions? faceDetectorOptions]);
+
+  factory FaceDetector([FaceDetectorOptions? faceDetectorOptions]) =>
+      FaceDetector._(faceDetectorOptions ?? undefined);
 }
 
 extension PropsFaceDetector on FaceDetector {
@@ -109,8 +112,11 @@ enum LandmarkType {
 @JS()
 @staticInterop
 class BarcodeDetector {
-  external factory BarcodeDetector(
+  external factory BarcodeDetector._(
       [BarcodeDetectorOptions? barcodeDetectorOptions]);
+
+  factory BarcodeDetector([BarcodeDetectorOptions? barcodeDetectorOptions]) =>
+      BarcodeDetector._(barcodeDetectorOptions ?? undefined);
   external static Future<Iterable<BarcodeFormat>> getSupportedFormats();
 }
 

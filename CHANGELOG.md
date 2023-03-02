@@ -1,3 +1,6 @@
+## 0.1.2
+- Use .pubignore to override .gitignore when publishing
+
 ## 0.1.1
 - Now default parameters are aways passed to anonymous constructors, ie `ResponseInit().status == 200 // true` 
 - JsArray now fully complies to JavaScript `Array`

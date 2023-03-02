@@ -55,7 +55,10 @@ extension PropsScrollTimelineOptions on ScrollTimelineOptions {
 @JS()
 @staticInterop
 class ScrollTimeline implements AnimationTimeline {
-  external factory ScrollTimeline([ScrollTimelineOptions? options]);
+  external factory ScrollTimeline._([ScrollTimelineOptions? options]);
+
+  factory ScrollTimeline([ScrollTimelineOptions? options]) =>
+      ScrollTimeline._(options ?? undefined);
 }
 
 extension PropsScrollTimeline on ScrollTimeline {
@@ -92,7 +95,10 @@ extension PropsViewTimelineOptions on ViewTimelineOptions {
 @JS()
 @staticInterop
 class ViewTimeline implements ScrollTimeline {
-  external factory ViewTimeline([ViewTimelineOptions? options]);
+  external factory ViewTimeline._([ViewTimelineOptions? options]);
+
+  factory ViewTimeline([ViewTimelineOptions? options]) =>
+      ViewTimeline._(options ?? undefined);
 }
 
 extension PropsViewTimeline on ViewTimeline {

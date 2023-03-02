@@ -109,8 +109,12 @@ extension PropsImageObject on ImageObject {
 @JS()
 @staticInterop
 class CanMakePaymentEvent implements ExtendableEvent {
-  external factory CanMakePaymentEvent(String type,
+  external factory CanMakePaymentEvent._(String type,
       [CanMakePaymentEventInit? eventInitDict]);
+
+  factory CanMakePaymentEvent(String type,
+          [CanMakePaymentEventInit? eventInitDict]) =>
+      CanMakePaymentEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsCanMakePaymentEvent on CanMakePaymentEvent {
@@ -214,8 +218,12 @@ extension PropsPaymentRequestDetailsUpdate on PaymentRequestDetailsUpdate {
 @JS()
 @staticInterop
 class PaymentRequestEvent implements ExtendableEvent {
-  external factory PaymentRequestEvent(String type,
+  external factory PaymentRequestEvent._(String type,
       [PaymentRequestEventInit? eventInitDict]);
+
+  factory PaymentRequestEvent(String type,
+          [PaymentRequestEventInit? eventInitDict]) =>
+      PaymentRequestEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPaymentRequestEvent on PaymentRequestEvent {

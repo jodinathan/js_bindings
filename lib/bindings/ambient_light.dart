@@ -47,7 +47,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class AmbientLightSensor implements Sensor {
-  external factory AmbientLightSensor([SensorOptions? sensorOptions]);
+  external factory AmbientLightSensor._([SensorOptions? sensorOptions]);
+
+  factory AmbientLightSensor([SensorOptions? sensorOptions]) =>
+      AmbientLightSensor._(sensorOptions ?? undefined);
 }
 
 extension PropsAmbientLightSensor on AmbientLightSensor {

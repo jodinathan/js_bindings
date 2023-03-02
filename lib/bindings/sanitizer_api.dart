@@ -37,7 +37,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Sanitizer {
-  external factory Sanitizer([SanitizerConfig? config]);
+  external factory Sanitizer._([SanitizerConfig? config]);
+
+  factory Sanitizer([SanitizerConfig? config]) =>
+      Sanitizer._(config ?? undefined);
   external static SanitizerConfig getDefaultConfiguration();
 }
 

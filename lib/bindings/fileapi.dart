@@ -25,8 +25,11 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Blob {
-  external factory Blob(
+  external factory Blob._(
       [Iterable<dynamic>? blobParts, BlobPropertyBag? options]);
+
+  factory Blob([Iterable<dynamic>? blobParts, BlobPropertyBag? options]) =>
+      Blob._(blobParts ?? undefined, options ?? undefined);
 }
 
 extension PropsBlob on Blob {
@@ -109,8 +112,12 @@ extension PropsBlobPropertyBag on BlobPropertyBag {
 @JS()
 @staticInterop
 class File implements Blob {
-  external factory File(Iterable<dynamic> fileBits, String fileName,
+  external factory File._(Iterable<dynamic> fileBits, String fileName,
       [FilePropertyBag? options]);
+
+  factory File(Iterable<dynamic> fileBits, String fileName,
+          [FilePropertyBag? options]) =>
+      File._(fileBits, fileName, options ?? undefined);
 }
 
 extension PropsFile on File {

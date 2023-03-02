@@ -1740,8 +1740,11 @@ class WebGLRenderingContext
 @JS()
 @staticInterop
 class WebGLContextEvent implements Event {
-  external factory WebGLContextEvent(String type,
+  external factory WebGLContextEvent._(String type,
       [WebGLContextEventInit? eventInit]);
+
+  factory WebGLContextEvent(String type, [WebGLContextEventInit? eventInit]) =>
+      WebGLContextEvent._(type, eventInit ?? undefined);
 }
 
 extension PropsWebGLContextEvent on WebGLContextEvent {

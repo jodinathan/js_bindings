@@ -222,7 +222,11 @@ extension PropsXRRayDirectionInit on XRRayDirectionInit {
 @JS()
 @staticInterop
 class XRRay {
-  external factory XRRay([DOMPointInit? origin, XRRayDirectionInit? direction]);
+  external factory XRRay._(
+      [DOMPointInit? origin, XRRayDirectionInit? direction]);
+
+  factory XRRay([DOMPointInit? origin, XRRayDirectionInit? direction]) =>
+      XRRay._(origin ?? undefined, direction ?? undefined);
 }
 
 extension PropsXRRay on XRRay {

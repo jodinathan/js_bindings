@@ -1013,7 +1013,10 @@ enum AudioSampleFormat {
 @JS()
 @staticInterop
 class VideoFrame {
-  external factory VideoFrame(dynamic image, [VideoFrameInit? init]);
+  external factory VideoFrame._(dynamic image, [VideoFrameInit? init]);
+
+  factory VideoFrame(dynamic image, [VideoFrameInit? init]) =>
+      VideoFrame._(image ?? undefined, init ?? undefined);
 }
 
 extension PropsVideoFrame on VideoFrame {
@@ -1262,7 +1265,10 @@ enum VideoPixelFormat {
 @JS()
 @staticInterop
 class VideoColorSpace {
-  external factory VideoColorSpace([VideoColorSpaceInit? init]);
+  external factory VideoColorSpace._([VideoColorSpaceInit? init]);
+
+  factory VideoColorSpace([VideoColorSpaceInit? init]) =>
+      VideoColorSpace._(init ?? undefined);
 }
 
 extension PropsVideoColorSpace on VideoColorSpace {

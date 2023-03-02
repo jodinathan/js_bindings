@@ -443,7 +443,10 @@ extension PropsSpeechSynthesis on SpeechSynthesis {
 @JS()
 @staticInterop
 class SpeechSynthesisUtterance implements EventTarget {
-  external factory SpeechSynthesisUtterance([String? text]);
+  external factory SpeechSynthesisUtterance._([String? text]);
+
+  factory SpeechSynthesisUtterance([String? text]) =>
+      SpeechSynthesisUtterance._(text ?? undefined);
 }
 
 extension PropsSpeechSynthesisUtterance on SpeechSynthesisUtterance {

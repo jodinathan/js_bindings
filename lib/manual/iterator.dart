@@ -19,7 +19,9 @@ class JsIterator<T> {
 extension PropsIterator<T> on JsIterator<T> {
   Iterable<T> toIterable() sync* {
     final iterator = jsu.getProperty(this, _iterator);
+    window.console.log('Iterator', iterator);
     final callable = (jsu.callMethod(iterator, 'bind', [this]) as Function())();
+    window.console.log('Callable', callable);
 
     while (true) {
       final result = _next(callable);
@@ -28,6 +30,8 @@ extension PropsIterator<T> on JsIterator<T> {
       }
       yield result.value;
     }
+
+    window.console.log('doneall');
   }
 
   IteratorResult<T> _next(dynamic iteratorInstance) {

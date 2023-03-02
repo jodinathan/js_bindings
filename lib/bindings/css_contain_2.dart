@@ -16,8 +16,13 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class ContentVisibilityAutoStateChangedEvent implements Event {
-  external factory ContentVisibilityAutoStateChangedEvent(String type,
+  external factory ContentVisibilityAutoStateChangedEvent._(String type,
       [ContentVisibilityAutoStateChangedEventInit? eventInitDict]);
+
+  factory ContentVisibilityAutoStateChangedEvent(String type,
+          [ContentVisibilityAutoStateChangedEventInit? eventInitDict]) =>
+      ContentVisibilityAutoStateChangedEvent._(
+          type, eventInitDict ?? undefined);
 }
 
 extension PropsContentVisibilityAutoStateChangedEvent

@@ -16,7 +16,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class GeolocationSensor implements Sensor {
-  external factory GeolocationSensor([GeolocationSensorOptions? options]);
+  external factory GeolocationSensor._([GeolocationSensorOptions? options]);
+
+  factory GeolocationSensor([GeolocationSensorOptions? options]) =>
+      GeolocationSensor._(options ?? undefined);
   external static Future<GeolocationSensorReading> read(
       [ReadOptions? readOptions]);
 }

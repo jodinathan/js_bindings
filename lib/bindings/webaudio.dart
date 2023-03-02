@@ -182,7 +182,10 @@ enum AudioContextLatencyCategory {
 @JS()
 @staticInterop
 class AudioContext implements BaseAudioContext {
-  external factory AudioContext([AudioContextOptions? contextOptions]);
+  external factory AudioContext._([AudioContextOptions? contextOptions]);
+
+  factory AudioContext([AudioContextOptions? contextOptions]) =>
+      AudioContext._(contextOptions ?? undefined);
 }
 
 extension PropsAudioContext on AudioContext {
@@ -296,8 +299,12 @@ extension PropsAudioRenderCapacityOptions on AudioRenderCapacityOptions {
 @JS()
 @staticInterop
 class AudioRenderCapacityEvent implements Event {
-  external factory AudioRenderCapacityEvent(String type,
+  external factory AudioRenderCapacityEvent._(String type,
       [AudioRenderCapacityEventInit? eventInitDict]);
+
+  factory AudioRenderCapacityEvent(String type,
+          [AudioRenderCapacityEventInit? eventInitDict]) =>
+      AudioRenderCapacityEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsAudioRenderCapacityEvent on AudioRenderCapacityEvent {
@@ -377,8 +384,13 @@ extension PropsAudioRenderCapacityEventInit on AudioRenderCapacityEventInit {
 @JS()
 @staticInterop
 class OfflineAudioContext implements BaseAudioContext {
-  external factory OfflineAudioContext(
+  external factory OfflineAudioContext._(
       [int? numberOfChannels, int? length, double? sampleRate]);
+
+  factory OfflineAudioContext(
+          [int? numberOfChannels, int? length, double? sampleRate]) =>
+      OfflineAudioContext._(numberOfChannels ?? undefined, length ?? undefined,
+          sampleRate ?? undefined);
 }
 
 extension PropsOfflineAudioContext on OfflineAudioContext {
@@ -853,8 +865,11 @@ extension PropsAudioScheduledSourceNode on AudioScheduledSourceNode {
 @JS()
 @staticInterop
 class AnalyserNode implements AudioNode {
-  external factory AnalyserNode(BaseAudioContext context,
+  external factory AnalyserNode._(BaseAudioContext context,
       [AnalyserOptions? options]);
+
+  factory AnalyserNode(BaseAudioContext context, [AnalyserOptions? options]) =>
+      AnalyserNode._(context, options ?? undefined);
 }
 
 extension PropsAnalyserNode on AnalyserNode {
@@ -1009,8 +1024,12 @@ extension PropsAnalyserOptions on AnalyserOptions {
 @JS()
 @staticInterop
 class AudioBufferSourceNode implements AudioScheduledSourceNode {
-  external factory AudioBufferSourceNode(BaseAudioContext context,
+  external factory AudioBufferSourceNode._(BaseAudioContext context,
       [AudioBufferSourceOptions? options]);
+
+  factory AudioBufferSourceNode(BaseAudioContext context,
+          [AudioBufferSourceOptions? options]) =>
+      AudioBufferSourceNode._(context, options ?? undefined);
 }
 
 extension PropsAudioBufferSourceNode on AudioBufferSourceNode {
@@ -1331,8 +1350,12 @@ enum BiquadFilterType {
 @JS()
 @staticInterop
 class BiquadFilterNode implements AudioNode {
-  external factory BiquadFilterNode(BaseAudioContext context,
+  external factory BiquadFilterNode._(BaseAudioContext context,
       [BiquadFilterOptions? options]);
+
+  factory BiquadFilterNode(BaseAudioContext context,
+          [BiquadFilterOptions? options]) =>
+      BiquadFilterNode._(context, options ?? undefined);
 }
 
 extension PropsBiquadFilterNode on BiquadFilterNode {
@@ -1468,8 +1491,12 @@ extension PropsBiquadFilterOptions on BiquadFilterOptions {
 @JS()
 @staticInterop
 class ChannelMergerNode implements AudioNode {
-  external factory ChannelMergerNode(BaseAudioContext context,
+  external factory ChannelMergerNode._(BaseAudioContext context,
       [ChannelMergerOptions? options]);
+
+  factory ChannelMergerNode(BaseAudioContext context,
+          [ChannelMergerOptions? options]) =>
+      ChannelMergerNode._(context, options ?? undefined);
 }
 
 @anonymous
@@ -1556,8 +1583,12 @@ extension PropsChannelMergerOptions on ChannelMergerOptions {
 @JS()
 @staticInterop
 class ChannelSplitterNode implements AudioNode {
-  external factory ChannelSplitterNode(BaseAudioContext context,
+  external factory ChannelSplitterNode._(BaseAudioContext context,
       [ChannelSplitterOptions? options]);
+
+  factory ChannelSplitterNode(BaseAudioContext context,
+          [ChannelSplitterOptions? options]) =>
+      ChannelSplitterNode._(context, options ?? undefined);
 }
 
 @anonymous
@@ -1627,8 +1658,12 @@ extension PropsChannelSplitterOptions on ChannelSplitterOptions {
 @JS()
 @staticInterop
 class ConstantSourceNode implements AudioScheduledSourceNode {
-  external factory ConstantSourceNode(BaseAudioContext context,
+  external factory ConstantSourceNode._(BaseAudioContext context,
       [ConstantSourceOptions? options]);
+
+  factory ConstantSourceNode(BaseAudioContext context,
+          [ConstantSourceOptions? options]) =>
+      ConstantSourceNode._(context, options ?? undefined);
 }
 
 extension PropsConstantSourceNode on ConstantSourceNode {
@@ -1704,8 +1739,12 @@ extension PropsConstantSourceOptions on ConstantSourceOptions {
 @JS()
 @staticInterop
 class ConvolverNode implements AudioNode {
-  external factory ConvolverNode(BaseAudioContext context,
+  external factory ConvolverNode._(BaseAudioContext context,
       [ConvolverOptions? options]);
+
+  factory ConvolverNode(BaseAudioContext context,
+          [ConvolverOptions? options]) =>
+      ConvolverNode._(context, options ?? undefined);
 }
 
 extension PropsConvolverNode on ConvolverNode {
@@ -1802,7 +1841,11 @@ extension PropsConvolverOptions on ConvolverOptions {
 @JS()
 @staticInterop
 class DelayNode implements AudioNode {
-  external factory DelayNode(BaseAudioContext context, [DelayOptions? options]);
+  external factory DelayNode._(BaseAudioContext context,
+      [DelayOptions? options]);
+
+  factory DelayNode(BaseAudioContext context, [DelayOptions? options]) =>
+      DelayNode._(context, options ?? undefined);
 }
 
 extension PropsDelayNode on DelayNode {
@@ -1883,8 +1926,12 @@ extension PropsDelayOptions on DelayOptions {
 @JS()
 @staticInterop
 class DynamicsCompressorNode implements AudioNode {
-  external factory DynamicsCompressorNode(BaseAudioContext context,
+  external factory DynamicsCompressorNode._(BaseAudioContext context,
       [DynamicsCompressorOptions? options]);
+
+  factory DynamicsCompressorNode(BaseAudioContext context,
+          [DynamicsCompressorOptions? options]) =>
+      DynamicsCompressorNode._(context, options ?? undefined);
 }
 
 extension PropsDynamicsCompressorNode on DynamicsCompressorNode {
@@ -2007,7 +2054,10 @@ extension PropsDynamicsCompressorOptions on DynamicsCompressorOptions {
 @JS()
 @staticInterop
 class GainNode implements AudioNode {
-  external factory GainNode(BaseAudioContext context, [GainOptions? options]);
+  external factory GainNode._(BaseAudioContext context, [GainOptions? options]);
+
+  factory GainNode(BaseAudioContext context, [GainOptions? options]) =>
+      GainNode._(context, options ?? undefined);
 }
 
 extension PropsGainNode on GainNode {
@@ -2262,8 +2312,12 @@ extension PropsMediaElementAudioSourceOptions
 @JS()
 @staticInterop
 class MediaStreamAudioDestinationNode implements AudioNode {
-  external factory MediaStreamAudioDestinationNode(AudioContext context,
+  external factory MediaStreamAudioDestinationNode._(AudioContext context,
       [AudioNodeOptions? options]);
+
+  factory MediaStreamAudioDestinationNode(AudioContext context,
+          [AudioNodeOptions? options]) =>
+      MediaStreamAudioDestinationNode._(context, options ?? undefined);
 }
 
 extension PropsMediaStreamAudioDestinationNode
@@ -2493,8 +2547,12 @@ enum OscillatorType {
 @JS()
 @staticInterop
 class OscillatorNode implements AudioScheduledSourceNode {
-  external factory OscillatorNode(BaseAudioContext context,
+  external factory OscillatorNode._(BaseAudioContext context,
       [OscillatorOptions? options]);
+
+  factory OscillatorNode(BaseAudioContext context,
+          [OscillatorOptions? options]) =>
+      OscillatorNode._(context, options ?? undefined);
 }
 
 extension PropsOscillatorNode on OscillatorNode {
@@ -2636,8 +2694,11 @@ enum DistanceModelType {
 @JS()
 @staticInterop
 class PannerNode implements AudioNode {
-  external factory PannerNode(BaseAudioContext context,
+  external factory PannerNode._(BaseAudioContext context,
       [PannerOptions? options]);
+
+  factory PannerNode(BaseAudioContext context, [PannerOptions? options]) =>
+      PannerNode._(context, options ?? undefined);
 }
 
 extension PropsPannerNode on PannerNode {
@@ -2833,8 +2894,12 @@ extension PropsPannerOptions on PannerOptions {
 @JS()
 @staticInterop
 class PeriodicWave {
-  external factory PeriodicWave(BaseAudioContext context,
+  external factory PeriodicWave._(BaseAudioContext context,
       [PeriodicWaveOptions? options]);
+
+  factory PeriodicWave(BaseAudioContext context,
+          [PeriodicWaveOptions? options]) =>
+      PeriodicWave._(context, options ?? undefined);
 }
 
 @anonymous
@@ -3026,8 +3091,12 @@ extension PropsScriptProcessorNode on ScriptProcessorNode {
 @JS()
 @staticInterop
 class StereoPannerNode implements AudioNode {
-  external factory StereoPannerNode(BaseAudioContext context,
+  external factory StereoPannerNode._(BaseAudioContext context,
       [StereoPannerOptions? options]);
+
+  factory StereoPannerNode(BaseAudioContext context,
+          [StereoPannerOptions? options]) =>
+      StereoPannerNode._(context, options ?? undefined);
 }
 
 extension PropsStereoPannerNode on StereoPannerNode {
@@ -3114,8 +3183,12 @@ enum OverSampleType {
 @JS()
 @staticInterop
 class WaveShaperNode implements AudioNode {
-  external factory WaveShaperNode(BaseAudioContext context,
+  external factory WaveShaperNode._(BaseAudioContext context,
       [WaveShaperOptions? options]);
+
+  factory WaveShaperNode(BaseAudioContext context,
+          [WaveShaperOptions? options]) =>
+      WaveShaperNode._(context, options ?? undefined);
 }
 
 extension PropsWaveShaperNode on WaveShaperNode {
@@ -3268,8 +3341,12 @@ class AudioParamMap extends JsMap<AudioParam, String> {
 @JS()
 @staticInterop
 class AudioWorkletNode implements AudioNode {
-  external factory AudioWorkletNode(BaseAudioContext context, String name,
+  external factory AudioWorkletNode._(BaseAudioContext context, String name,
       [AudioWorkletNodeOptions? options]);
+
+  factory AudioWorkletNode(BaseAudioContext context, String name,
+          [AudioWorkletNodeOptions? options]) =>
+      AudioWorkletNode._(context, name, options ?? undefined);
 }
 
 extension PropsAudioWorkletNode on AudioWorkletNode {

@@ -84,8 +84,12 @@ extension PropsPerformanceMeasureOptions on PerformanceMeasureOptions {
 @JS()
 @staticInterop
 class PerformanceMark implements PerformanceEntry {
-  external factory PerformanceMark(String markName,
+  external factory PerformanceMark._(String markName,
       [PerformanceMarkOptions? markOptions]);
+
+  factory PerformanceMark(String markName,
+          [PerformanceMarkOptions? markOptions]) =>
+      PerformanceMark._(markName, markOptions ?? undefined);
 }
 
 extension PropsPerformanceMark on PerformanceMark {

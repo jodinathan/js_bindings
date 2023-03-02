@@ -38,7 +38,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Notification implements EventTarget {
-  external factory Notification(String title, [NotificationOptions? options]);
+  external factory Notification._(String title, [NotificationOptions? options]);
+
+  factory Notification(String title, [NotificationOptions? options]) =>
+      Notification._(title, options ?? undefined);
   external static Future<NotificationPermission> requestPermission(
       [NotificationPermissionCallback? deprecatedCallback]);
 }

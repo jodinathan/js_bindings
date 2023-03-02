@@ -200,11 +200,11 @@ enum DocumentVisibilityState {
 class HTMLElement
     implements
         Element,
-        ElementCSSInlineStyle,
         GlobalEventHandlers,
         DocumentAndElementEventHandlers,
         ElementContentEditable,
-        HTMLOrSVGElement {
+        HTMLOrSVGElement,
+        ElementCSSInlineStyle {
   external factory HTMLElement();
 }
 
@@ -2197,13 +2197,18 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
   Window? get contentWindow => js_util.getProperty(this, 'contentWindow');
   Document? getSVGDocument() => js_util.callMethod(this, 'getSVGDocument', []);
 
-  PermissionsPolicy get permissionsPolicy =>
-      js_util.getProperty(this, 'permissionsPolicy');
+  String get csp => js_util.getProperty(this, 'csp');
+  set csp(String newValue) {
+    js_util.setProperty(this, 'csp', newValue);
+  }
+
   String get fetchPriority => js_util.getProperty(this, 'fetchPriority');
   set fetchPriority(String newValue) {
     js_util.setProperty(this, 'fetchPriority', newValue);
   }
 
+  PermissionsPolicy get permissionsPolicy =>
+      js_util.getProperty(this, 'permissionsPolicy');
   String get align => js_util.getProperty(this, 'align');
   set align(String newValue) {
     js_util.setProperty(this, 'align', newValue);
@@ -2232,11 +2237,6 @@ extension PropsHTMLIFrameElement on HTMLIFrameElement {
   String get marginWidth => js_util.getProperty(this, 'marginWidth');
   set marginWidth(String newValue) {
     js_util.setProperty(this, 'marginWidth', newValue);
-  }
-
-  String get csp => js_util.getProperty(this, 'csp');
-  set csp(String newValue) {
-    js_util.setProperty(this, 'csp', newValue);
   }
 }
 
@@ -2882,6 +2882,19 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
           [String? label = '', String? language = '']) =>
       js_util.callMethod(this, 'addTextTrack', [kind.value, label, language]);
 
+  MediaStream captureStream() => js_util.callMethod(this, 'captureStream', []);
+
+  String get sinkId => js_util.getProperty(this, 'sinkId');
+  Future<void> setSinkId(String sinkId) =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'setSinkId', [sinkId]));
+
+  RemotePlayback get remote => js_util.getProperty(this, 'remote');
+  bool get disableRemotePlayback =>
+      js_util.getProperty(this, 'disableRemotePlayback');
+  set disableRemotePlayback(bool newValue) {
+    js_util.setProperty(this, 'disableRemotePlayback', newValue);
+  }
+
   MediaKeys? get mediaKeys => js_util.getProperty(this, 'mediaKeys');
   EventHandlerNonNull? get onencrypted =>
       js_util.getProperty(this, 'onencrypted');
@@ -2897,19 +2910,6 @@ extension PropsHTMLMediaElement on HTMLMediaElement {
 
   Future<void> setMediaKeys(MediaKeys? mediaKeys) => js_util
       .promiseToFuture(js_util.callMethod(this, 'setMediaKeys', [mediaKeys]));
-
-  RemotePlayback get remote => js_util.getProperty(this, 'remote');
-  bool get disableRemotePlayback =>
-      js_util.getProperty(this, 'disableRemotePlayback');
-  set disableRemotePlayback(bool newValue) {
-    js_util.setProperty(this, 'disableRemotePlayback', newValue);
-  }
-
-  MediaStream captureStream() => js_util.callMethod(this, 'captureStream', []);
-
-  String get sinkId => js_util.getProperty(this, 'sinkId');
-  Future<void> setSinkId(String sinkId) =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'setSinkId', [sinkId]));
 }
 
 ///  The interface represents an error which occurred while handling
@@ -3346,7 +3346,10 @@ extension PropsTimeRanges on TimeRanges {
 @JS()
 @staticInterop
 class TrackEvent implements Event {
-  external factory TrackEvent(String type, [TrackEventInit? eventInitDict]);
+  external factory TrackEvent._(String type, [TrackEventInit? eventInitDict]);
+
+  factory TrackEvent(String type, [TrackEventInit? eventInitDict]) =>
+      TrackEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsTrackEvent on TrackEvent {
@@ -5350,7 +5353,10 @@ extension PropsValidityState on ValidityState {
 @JS()
 @staticInterop
 class SubmitEvent implements Event {
-  external factory SubmitEvent(String type, [SubmitEventInit? eventInitDict]);
+  external factory SubmitEvent._(String type, [SubmitEventInit? eventInitDict]);
+
+  factory SubmitEvent(String type, [SubmitEventInit? eventInitDict]) =>
+      SubmitEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsSubmitEvent on SubmitEvent {
@@ -6655,8 +6661,12 @@ extension PropsImageDataSettings on ImageDataSettings {
 @JS()
 @staticInterop
 class ImageData {
-  external factory ImageData(Uint8ClampedList data, int sw,
+  external factory ImageData._(Uint8ClampedList data, int sw,
       [int? sh, ImageDataSettings? settings]);
+
+  factory ImageData(Uint8ClampedList data, int sw,
+          [int? sh, ImageDataSettings? settings]) =>
+      ImageData._(data, sw, sh ?? undefined, settings ?? undefined);
 }
 
 extension PropsImageData on ImageData {
@@ -6675,7 +6685,9 @@ extension PropsImageData on ImageData {
 @JS()
 @staticInterop
 class Path2D implements CanvasPath {
-  external factory Path2D([dynamic path]);
+  external factory Path2D._([dynamic path]);
+
+  factory Path2D([dynamic path]) => Path2D._(path ?? undefined);
 }
 
 extension PropsPath2D on Path2D {
@@ -7153,11 +7165,11 @@ extension PropsDataTransferItem on DataTransferItem {
 
   File? getAsFile() => js_util.callMethod(this, 'getAsFile', []);
 
-  Future<FileSystemHandle> getAsFileSystemHandle() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'getAsFileSystemHandle', []));
-
   FileSystemEntry? webkitGetAsEntry() =>
       js_util.callMethod(this, 'webkitGetAsEntry', []);
+
+  Future<FileSystemHandle> getAsFileSystemHandle() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'getAsFileSystemHandle', []));
 }
 
 ///  The interface is a [DOM event] that represents a drag and drop
@@ -7195,7 +7207,10 @@ extension PropsDataTransferItem on DataTransferItem {
 @JS()
 @staticInterop
 class DragEvent implements MouseEvent {
-  external factory DragEvent(String type, [DragEventInit? eventInitDict]);
+  external factory DragEvent._(String type, [DragEventInit? eventInitDict]);
+
+  factory DragEvent(String type, [DragEventInit? eventInitDict]) =>
+      DragEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsDragEvent on DragEvent {
@@ -7331,7 +7346,24 @@ extension PropsWindow on Window {
       js_util
           .callMethod(this, 'postMessage', [message, targetOrigin, transfer]);
 
-  PortalHost? get portalHost => js_util.getProperty(this, 'portalHost');
+  Future<DigitalGoodsService> getDigitalGoodsService(String serviceProvider) =>
+      js_util.promiseToFuture(js_util
+          .callMethod(this, 'getDigitalGoodsService', [serviceProvider]));
+
+  CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
+  Future<ScreenDetails> getScreenDetails() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getScreenDetails', []));
+
+  int requestIdleCallback(IdleRequestCallback callback,
+          [IdleRequestOptions? options]) =>
+      js_util.callMethod(
+          this, 'requestIdleCallback', [allowInterop(callback), options]);
+
+  void cancelIdleCallback(int handle) =>
+      js_util.callMethod(this, 'cancelIdleCallback', [handle]);
+
+  Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
+
   MediaQueryList matchMedia(String query) =>
       js_util.callMethod(this, 'matchMedia', [query]);
 
@@ -7369,30 +7401,6 @@ extension PropsWindow on Window {
   int get outerWidth => js_util.getProperty(this, 'outerWidth');
   int get outerHeight => js_util.getProperty(this, 'outerHeight');
   double get devicePixelRatio => js_util.getProperty(this, 'devicePixelRatio');
-  void navigate(SpatialNavigationDirection dir) =>
-      js_util.callMethod(this, 'navigate', [dir.value]);
-
-  SpeechSynthesis get speechSynthesis =>
-      js_util.getProperty(this, 'speechSynthesis');
-  int requestIdleCallback(IdleRequestCallback callback,
-          [IdleRequestOptions? options]) =>
-      js_util.callMethod(
-          this, 'requestIdleCallback', [allowInterop(callback), options]);
-
-  void cancelIdleCallback(int handle) =>
-      js_util.callMethod(this, 'cancelIdleCallback', [handle]);
-
-  dynamic get event => js_util.getProperty(this, 'event');
-  int get orientation => js_util.getProperty(this, 'orientation');
-  EventHandlerNonNull? get onorientationchange =>
-      js_util.getProperty(this, 'onorientationchange');
-  set onorientationchange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onorientationchange', newValue);
-  }
-
-  Future<ScreenDetails> getScreenDetails() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'getScreenDetails', []));
-
   EventHandlerNonNull? get ondeviceorientation =>
       js_util.getProperty(this, 'ondeviceorientation');
   set ondeviceorientation(EventHandlerNonNull? newValue) {
@@ -7417,19 +7425,13 @@ extension PropsWindow on Window {
     js_util.setProperty(this, 'ondevicemotion', newValue);
   }
 
-  EventHandlerNonNull? get onappinstalled =>
-      js_util.getProperty(this, 'onappinstalled');
-  set onappinstalled(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onappinstalled', newValue);
-  }
+  dynamic get event => js_util.getProperty(this, 'event');
+  Future<Iterable<FontData>> queryLocalFonts([QueryOptions? options]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'queryLocalFonts', [options]));
 
-  EventHandlerNonNull? get onbeforeinstallprompt =>
-      js_util.getProperty(this, 'onbeforeinstallprompt');
-  set onbeforeinstallprompt(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onbeforeinstallprompt', newValue);
-  }
-
-  LaunchQueue get launchQueue => js_util.getProperty(this, 'launchQueue');
+  PortalHost? get portalHost => js_util.getProperty(this, 'portalHost');
+  SpeechSynthesis get speechSynthesis =>
+      js_util.getProperty(this, 'speechSynthesis');
   Future<Iterable<FileSystemFileHandle>> showOpenFilePicker(
           [OpenFilePickerOptions? options]) =>
       js_util.promiseToFuture(
@@ -7445,24 +7447,38 @@ extension PropsWindow on Window {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'showDirectoryPicker', [options]));
 
-  Future<Iterable<FontData>> queryLocalFonts([QueryOptions? options]) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'queryLocalFonts', [options]));
+  int get orientation => js_util.getProperty(this, 'orientation');
+  EventHandlerNonNull? get onorientationchange =>
+      js_util.getProperty(this, 'onorientationchange');
+  set onorientationchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onorientationchange', newValue);
+  }
 
-  CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
-  CSSStyleDeclaration getComputedStyle(Element elt, [String? pseudoElt]) =>
-      js_util.callMethod(this, 'getComputedStyle', [elt, pseudoElt]);
+  EventHandlerNonNull? get onappinstalled =>
+      js_util.getProperty(this, 'onappinstalled');
+  set onappinstalled(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onappinstalled', newValue);
+  }
 
-  Future<DigitalGoodsService> getDigitalGoodsService(String serviceProvider) =>
-      js_util.promiseToFuture(js_util
-          .callMethod(this, 'getDigitalGoodsService', [serviceProvider]));
+  EventHandlerNonNull? get onbeforeinstallprompt =>
+      js_util.getProperty(this, 'onbeforeinstallprompt');
+  set onbeforeinstallprompt(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onbeforeinstallprompt', newValue);
+  }
 
-  Navigation get navigation => js_util.getProperty(this, 'navigation');
+  LaunchQueue get launchQueue => js_util.getProperty(this, 'launchQueue');
+  void navigate(SpatialNavigationDirection dir) =>
+      js_util.callMethod(this, 'navigate', [dir.value]);
+
   void captureEvents() => js_util.callMethod(this, 'captureEvents', []);
 
   void releaseEvents() => js_util.callMethod(this, 'releaseEvents', []);
 
   External get external => js_util.getProperty(this, 'external');
-  Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
+  CSSStyleDeclaration getComputedStyle(Element elt, [String? pseudoElt]) =>
+      js_util.callMethod(this, 'getComputedStyle', [elt, pseudoElt]);
+
+  Navigation get navigation => js_util.getProperty(this, 'navigation');
 }
 
 @anonymous
@@ -7679,8 +7695,11 @@ extension PropsLocation on Location {
 @JS()
 @staticInterop
 class PopStateEvent implements Event {
-  external factory PopStateEvent(String type,
+  external factory PopStateEvent._(String type,
       [PopStateEventInit? eventInitDict]);
+
+  factory PopStateEvent(String type, [PopStateEventInit? eventInitDict]) =>
+      PopStateEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPopStateEvent on PopStateEvent {
@@ -7720,8 +7739,11 @@ extension PropsPopStateEventInit on PopStateEventInit {
 @JS()
 @staticInterop
 class HashChangeEvent implements Event {
-  external factory HashChangeEvent(String type,
+  external factory HashChangeEvent._(String type,
       [HashChangeEventInit? eventInitDict]);
+
+  factory HashChangeEvent(String type, [HashChangeEventInit? eventInitDict]) =>
+      HashChangeEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsHashChangeEvent on HashChangeEvent {
@@ -7769,8 +7791,12 @@ extension PropsHashChangeEventInit on HashChangeEventInit {
 @JS()
 @staticInterop
 class PageTransitionEvent implements Event {
-  external factory PageTransitionEvent(String type,
+  external factory PageTransitionEvent._(String type,
       [PageTransitionEventInit? eventInitDict]);
+
+  factory PageTransitionEvent(String type,
+          [PageTransitionEventInit? eventInitDict]) =>
+      PageTransitionEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPageTransitionEvent on PageTransitionEvent {
@@ -7865,7 +7891,10 @@ extension PropsBeforeUnloadEvent on BeforeUnloadEvent {
 @JS()
 @staticInterop
 class ErrorEvent implements Event {
-  external factory ErrorEvent(String type, [ErrorEventInit? eventInitDict]);
+  external factory ErrorEvent._(String type, [ErrorEventInit? eventInitDict]);
+
+  factory ErrorEvent(String type, [ErrorEventInit? eventInitDict]) =>
+      ErrorEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsErrorEvent on ErrorEvent {
@@ -8381,6 +8410,66 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
     js_util.setProperty(this, 'onwheel', newValue);
   }
 
+  EventHandlerNonNull? get onselectstart =>
+      js_util.getProperty(this, 'onselectstart');
+  set onselectstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselectstart', newValue);
+  }
+
+  EventHandlerNonNull? get onselectionchange =>
+      js_util.getProperty(this, 'onselectionchange');
+  set onselectionchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onselectionchange', newValue);
+  }
+
+  EventHandlerNonNull? get ontransitionrun =>
+      js_util.getProperty(this, 'ontransitionrun');
+  set ontransitionrun(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontransitionrun', newValue);
+  }
+
+  EventHandlerNonNull? get ontransitionstart =>
+      js_util.getProperty(this, 'ontransitionstart');
+  set ontransitionstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontransitionstart', newValue);
+  }
+
+  EventHandlerNonNull? get ontransitionend =>
+      js_util.getProperty(this, 'ontransitionend');
+  set ontransitionend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontransitionend', newValue);
+  }
+
+  EventHandlerNonNull? get ontransitioncancel =>
+      js_util.getProperty(this, 'ontransitioncancel');
+  set ontransitioncancel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontransitioncancel', newValue);
+  }
+
+  EventHandlerNonNull? get ontouchstart =>
+      js_util.getProperty(this, 'ontouchstart');
+  set ontouchstart(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontouchstart', newValue);
+  }
+
+  EventHandlerNonNull? get ontouchend =>
+      js_util.getProperty(this, 'ontouchend');
+  set ontouchend(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontouchend', newValue);
+  }
+
+  EventHandlerNonNull? get ontouchmove =>
+      js_util.getProperty(this, 'ontouchmove');
+  set ontouchmove(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontouchmove', newValue);
+  }
+
+  EventHandlerNonNull? get ontouchcancel =>
+      js_util.getProperty(this, 'ontouchcancel');
+  set ontouchcancel(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'ontouchcancel', newValue);
+  }
+
   EventHandlerNonNull? get onanimationstart =>
       js_util.getProperty(this, 'onanimationstart');
   set onanimationstart(EventHandlerNonNull? newValue) {
@@ -8471,70 +8560,10 @@ extension PropsGlobalEventHandlers on GlobalEventHandlers {
     js_util.setProperty(this, 'onlostpointercapture', newValue);
   }
 
-  EventHandlerNonNull? get ontouchstart =>
-      js_util.getProperty(this, 'ontouchstart');
-  set ontouchstart(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ontouchstart', newValue);
-  }
-
-  EventHandlerNonNull? get ontouchend =>
-      js_util.getProperty(this, 'ontouchend');
-  set ontouchend(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ontouchend', newValue);
-  }
-
-  EventHandlerNonNull? get ontouchmove =>
-      js_util.getProperty(this, 'ontouchmove');
-  set ontouchmove(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ontouchmove', newValue);
-  }
-
-  EventHandlerNonNull? get ontouchcancel =>
-      js_util.getProperty(this, 'ontouchcancel');
-  set ontouchcancel(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ontouchcancel', newValue);
-  }
-
-  EventHandlerNonNull? get ontransitionrun =>
-      js_util.getProperty(this, 'ontransitionrun');
-  set ontransitionrun(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ontransitionrun', newValue);
-  }
-
-  EventHandlerNonNull? get ontransitionstart =>
-      js_util.getProperty(this, 'ontransitionstart');
-  set ontransitionstart(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ontransitionstart', newValue);
-  }
-
-  EventHandlerNonNull? get ontransitionend =>
-      js_util.getProperty(this, 'ontransitionend');
-  set ontransitionend(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ontransitionend', newValue);
-  }
-
-  EventHandlerNonNull? get ontransitioncancel =>
-      js_util.getProperty(this, 'ontransitioncancel');
-  set ontransitioncancel(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'ontransitioncancel', newValue);
-  }
-
   EventHandlerNonNull? get onbeforexrselect =>
       js_util.getProperty(this, 'onbeforexrselect');
   set onbeforexrselect(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onbeforexrselect', newValue);
-  }
-
-  EventHandlerNonNull? get onselectstart =>
-      js_util.getProperty(this, 'onselectstart');
-  set onselectstart(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onselectstart', newValue);
-  }
-
-  EventHandlerNonNull? get onselectionchange =>
-      js_util.getProperty(this, 'onselectionchange');
-  set onselectionchange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onselectionchange', newValue);
   }
 }
 
@@ -8738,15 +8767,15 @@ extension PropsWindowOrWorkerGlobalScope on WindowOrWorkerGlobalScope {
           [StructuredSerializeOptions? options]) =>
       js_util.callMethod(this, 'structuredClone', [value, options]);
 
+  Scheduler get scheduler => js_util.getProperty(this, 'scheduler');
+  TrustedTypePolicyFactory get trustedTypes =>
+      js_util.getProperty(this, 'trustedTypes');
+  Performance get performance => js_util.getProperty(this, 'performance');
   Future<Response> fetch(dynamic input, [RequestInit? init]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'fetch', [input, init]));
 
-  TrustedTypePolicyFactory get trustedTypes =>
-      js_util.getProperty(this, 'trustedTypes');
   CacheStorage get caches => js_util.getProperty(this, 'caches');
-  Scheduler get scheduler => js_util.getProperty(this, 'scheduler');
   Crypto get crypto => js_util.getProperty(this, 'crypto');
-  Performance get performance => js_util.getProperty(this, 'performance');
   IDBFactory get indexedDB => js_util.getProperty(this, 'indexedDB');
 }
 
@@ -8810,12 +8839,12 @@ enum DOMParserSupportedType {
 class Navigator
     implements
         NavigatorGPU,
+        NavigatorAutomationInformation,
+        NavigatorUA,
+        NavigatorLocks,
         NavigatorDeviceMemory,
         NavigatorNetworkInformation,
-        NavigatorAutomationInformation,
-        NavigatorStorage,
         NavigatorBadge,
-        NavigatorUA,
         NavigatorML,
         NavigatorID,
         NavigatorLanguage,
@@ -8824,55 +8853,47 @@ class Navigator
         NavigatorCookies,
         NavigatorPlugins,
         NavigatorConcurrentHardware,
-        NavigatorLocks {
+        NavigatorStorage {
   external factory Navigator();
 }
 
 extension PropsNavigator on Navigator {
-  bool sendBeacon(String url, [dynamic data]) =>
-      js_util.callMethod(this, 'sendBeacon', [url, data]);
-
-  Usb get usb => js_util.getProperty(this, 'usb');
-  Keyboard get keyboard => js_util.getProperty(this, 'keyboard');
-  ServiceWorkerContainer get serviceWorker =>
-      js_util.getProperty(this, 'serviceWorker');
   MediaCapabilities get mediaCapabilities =>
       js_util.getProperty(this, 'mediaCapabilities');
-  Presentation get presentation => js_util.getProperty(this, 'presentation');
-  CredentialsContainer get credentials =>
-      js_util.getProperty(this, 'credentials');
-  Scheduling get scheduling => js_util.getProperty(this, 'scheduling');
-  int get maxTouchPoints => js_util.getProperty(this, 'maxTouchPoints');
-  EpubReadingSystem get epubReadingSystem =>
-      js_util.getProperty(this, 'epubReadingSystem');
-  AutoplayPolicy getAutoplayPolicy(AutoplayPolicyMediaType type) =>
-      js_util.callMethod(this, 'getAutoplayPolicy', [type.value]);
-
-  Future<MediaKeySystemAccess> requestMediaKeySystemAccess(String keySystem,
-          Iterable<MediaKeySystemConfiguration> supportedConfigurations) =>
-      js_util.promiseToFuture(js_util.callMethod(this,
-          'requestMediaKeySystemAccess', [keySystem, supportedConfigurations]));
-
-  Hid get hid => js_util.getProperty(this, 'hid');
-  XRSystem get xr => js_util.getProperty(this, 'xr');
-  DevicePosture get devicePosture => js_util.getProperty(this, 'devicePosture');
-  Iterable<Gamepad>? getGamepads() =>
-      js_util.callMethod(this, 'getGamepads', []);
-
-  Ink get ink => js_util.getProperty(this, 'ink');
-  Future<Iterable<RelatedApplication>> getInstalledRelatedApps() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'getInstalledRelatedApps', []));
-
-  Bluetooth get bluetooth => js_util.getProperty(this, 'bluetooth');
-  WindowControlsOverlay get windowControlsOverlay =>
-      js_util.getProperty(this, 'windowControlsOverlay');
+  Permissions get permissions => js_util.getProperty(this, 'permissions');
+  MediaSession get mediaSession => js_util.getProperty(this, 'mediaSession');
   Future<void> share([ShareData? data]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'share', [data]));
 
   bool canShare([ShareData? data]) =>
       js_util.callMethod(this, 'canShare', [data]);
 
+  Scheduling get scheduling => js_util.getProperty(this, 'scheduling');
+  VirtualKeyboard get virtualKeyboard =>
+      js_util.getProperty(this, 'virtualKeyboard');
+  Geolocation get geolocation => js_util.getProperty(this, 'geolocation');
+  ContactsManager get contacts => js_util.getProperty(this, 'contacts');
   WakeLock get wakeLock => js_util.getProperty(this, 'wakeLock');
+  Hid get hid => js_util.getProperty(this, 'hid');
+  Ink get ink => js_util.getProperty(this, 'ink');
+  Clipboard get clipboard => js_util.getProperty(this, 'clipboard');
+  Presentation get presentation => js_util.getProperty(this, 'presentation');
+  CredentialsContainer get credentials =>
+      js_util.getProperty(this, 'credentials');
+  Bluetooth get bluetooth => js_util.getProperty(this, 'bluetooth');
+  Keyboard get keyboard => js_util.getProperty(this, 'keyboard');
+  WindowControlsOverlay get windowControlsOverlay =>
+      js_util.getProperty(this, 'windowControlsOverlay');
+  AutoplayPolicy getAutoplayPolicy(AutoplayPolicyMediaType type) =>
+      js_util.callMethod(this, 'getAutoplayPolicy', [type.value]);
+
+  int get maxTouchPoints => js_util.getProperty(this, 'maxTouchPoints');
+  Future<void> setClientBadge([int? contents]) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'setClientBadge', [contents]));
+
+  Future<void> clearClientBadge() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'clearClientBadge', []));
+
   MediaDevices get mediaDevices => js_util.getProperty(this, 'mediaDevices');
   void getUserMedia(
           MediaStreamConstraints constraints,
@@ -8884,30 +8905,37 @@ extension PropsNavigator on Navigator {
         allowInterop(errorCallback)
       ]);
 
-  Future<BatteryManager> getBattery() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'getBattery', []));
+  EpubReadingSystem get epubReadingSystem =>
+      js_util.getProperty(this, 'epubReadingSystem');
+  XRSystem get xr => js_util.getProperty(this, 'xr');
+  Future<Iterable<RelatedApplication>> getInstalledRelatedApps() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'getInstalledRelatedApps', []));
 
-  VirtualKeyboard get virtualKeyboard =>
-      js_util.getProperty(this, 'virtualKeyboard');
-  MediaSession get mediaSession => js_util.getProperty(this, 'mediaSession');
-  ContactsManager get contacts => js_util.getProperty(this, 'contacts');
+  Serial get serial => js_util.getProperty(this, 'serial');
+  ServiceWorkerContainer get serviceWorker =>
+      js_util.getProperty(this, 'serviceWorker');
   bool vibrate(dynamic pattern) =>
       js_util.callMethod(this, 'vibrate', [pattern]);
 
-  Future<void> setClientBadge([int? contents]) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'setClientBadge', [contents]));
+  Iterable<Gamepad>? getGamepads() =>
+      js_util.callMethod(this, 'getGamepads', []);
 
-  Future<void> clearClientBadge() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'clearClientBadge', []));
+  DevicePosture get devicePosture => js_util.getProperty(this, 'devicePosture');
+  bool sendBeacon(String url, [dynamic data]) =>
+      js_util.callMethod(this, 'sendBeacon', [url, data]);
 
-  Serial get serial => js_util.getProperty(this, 'serial');
-  Geolocation get geolocation => js_util.getProperty(this, 'geolocation');
-  Clipboard get clipboard => js_util.getProperty(this, 'clipboard');
+  Usb get usb => js_util.getProperty(this, 'usb');
+  Future<BatteryManager> getBattery() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'getBattery', []));
+
   Future<MIDIAccess> requestMIDIAccess([MIDIOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestMIDIAccess', [options]));
 
-  Permissions get permissions => js_util.getProperty(this, 'permissions');
+  Future<MediaKeySystemAccess> requestMediaKeySystemAccess(String keySystem,
+          Iterable<MediaKeySystemConfiguration> supportedConfigurations) =>
+      js_util.promiseToFuture(js_util.callMethod(this,
+          'requestMediaKeySystemAccess', [keySystem, supportedConfigurations]));
 }
 
 @JS()
@@ -9290,7 +9318,11 @@ extension PropsAnimationFrameProvider on AnimationFrameProvider {
 @JS()
 @staticInterop
 class MessageEvent implements Event {
-  external factory MessageEvent(String type, [MessageEventInit? eventInitDict]);
+  external factory MessageEvent._(String type,
+      [MessageEventInit? eventInitDict]);
+
+  factory MessageEvent(String type, [MessageEventInit? eventInitDict]) =>
+      MessageEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsMessageEvent on MessageEvent {
@@ -9416,8 +9448,11 @@ extension PropsMessageEventInit on MessageEventInit {
 @JS()
 @staticInterop
 class EventSource implements EventTarget {
-  external factory EventSource(String url,
+  external factory EventSource._(String url,
       [EventSourceInit? eventSourceInitDict]);
+
+  factory EventSource(String url, [EventSourceInit? eventSourceInitDict]) =>
+      EventSource._(url, eventSourceInitDict ?? undefined);
   @JS('CONNECTING')
   external static int get connecting;
 
@@ -9613,7 +9648,7 @@ extension PropsBroadcastChannel on BroadcastChannel {
 @JS()
 @staticInterop
 class WorkerGlobalScope
-    implements EventTarget, WindowOrWorkerGlobalScope, FontFaceSource {
+    implements EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {
   external factory WorkerGlobalScope();
 }
 
@@ -9794,7 +9829,10 @@ extension PropsAbstractWorker on AbstractWorker {
 @JS()
 @staticInterop
 class Worker implements EventTarget, AbstractWorker {
-  external factory Worker(String scriptURL, [WorkerOptions? options]);
+  external factory Worker._(String scriptURL, [WorkerOptions? options]);
+
+  factory Worker(String scriptURL, [WorkerOptions? options]) =>
+      Worker._(scriptURL, options ?? undefined);
 }
 
 extension PropsWorker on Worker {
@@ -9887,7 +9925,10 @@ enum WorkerType {
 @JS()
 @staticInterop
 class SharedWorker implements EventTarget, AbstractWorker {
-  external factory SharedWorker(String scriptURL, [dynamic options]);
+  external factory SharedWorker._(String scriptURL, [dynamic options]);
+
+  factory SharedWorker(String scriptURL, [dynamic options]) =>
+      SharedWorker._(scriptURL, options ?? undefined);
 }
 
 extension PropsSharedWorker on SharedWorker {
@@ -9914,29 +9955,29 @@ extension PropsNavigatorConcurrentHardware on NavigatorConcurrentHardware {
 class WorkerNavigator
     implements
         NavigatorGPU,
+        NavigatorUA,
+        NavigatorLocks,
         NavigatorDeviceMemory,
         NavigatorNetworkInformation,
-        NavigatorStorage,
         NavigatorBadge,
-        NavigatorUA,
         NavigatorML,
         NavigatorID,
         NavigatorLanguage,
         NavigatorOnLine,
         NavigatorConcurrentHardware,
-        NavigatorLocks {
+        NavigatorStorage {
   external factory WorkerNavigator();
 }
 
 extension PropsWorkerNavigator on WorkerNavigator {
-  Usb get usb => js_util.getProperty(this, 'usb');
-  ServiceWorkerContainer get serviceWorker =>
-      js_util.getProperty(this, 'serviceWorker');
   MediaCapabilities get mediaCapabilities =>
       js_util.getProperty(this, 'mediaCapabilities');
+  Permissions get permissions => js_util.getProperty(this, 'permissions');
   Hid get hid => js_util.getProperty(this, 'hid');
   Serial get serial => js_util.getProperty(this, 'serial');
-  Permissions get permissions => js_util.getProperty(this, 'permissions');
+  ServiceWorkerContainer get serviceWorker =>
+      js_util.getProperty(this, 'serviceWorker');
+  Usb get usb => js_util.getProperty(this, 'usb');
 }
 
 ///  The interface defines the absolute location of the script
@@ -10078,7 +10119,11 @@ extension PropsWindowLocalStorage on WindowLocalStorage {
 @JS()
 @staticInterop
 class StorageEvent implements Event {
-  external factory StorageEvent(String type, [StorageEventInit? eventInitDict]);
+  external factory StorageEvent._(String type,
+      [StorageEventInit? eventInitDict]);
+
+  factory StorageEvent(String type, [StorageEventInit? eventInitDict]) =>
+      StorageEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsStorageEvent on StorageEvent {

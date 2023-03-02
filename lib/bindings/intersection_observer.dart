@@ -27,8 +27,12 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class IntersectionObserver {
-  external factory IntersectionObserver(IntersectionObserverCallback callback,
+  external factory IntersectionObserver._(IntersectionObserverCallback callback,
       [IntersectionObserverInit? options]);
+
+  factory IntersectionObserver(IntersectionObserverCallback callback,
+          [IntersectionObserverInit? options]) =>
+      IntersectionObserver._(callback, options ?? undefined);
 }
 
 extension PropsIntersectionObserver on IntersectionObserver {

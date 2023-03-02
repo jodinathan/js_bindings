@@ -125,8 +125,12 @@ extension PropsOrientationSensorOptions on OrientationSensorOptions {
 @JS()
 @staticInterop
 class AbsoluteOrientationSensor implements OrientationSensor {
-  external factory AbsoluteOrientationSensor(
+  external factory AbsoluteOrientationSensor._(
       [OrientationSensorOptions? sensorOptions]);
+
+  factory AbsoluteOrientationSensor(
+          [OrientationSensorOptions? sensorOptions]) =>
+      AbsoluteOrientationSensor._(sensorOptions ?? undefined);
 }
 
 ///  The interface of the Sensor APIs describes the device's physical
@@ -167,8 +171,12 @@ class AbsoluteOrientationSensor implements OrientationSensor {
 @JS()
 @staticInterop
 class RelativeOrientationSensor implements OrientationSensor {
-  external factory RelativeOrientationSensor(
+  external factory RelativeOrientationSensor._(
       [OrientationSensorOptions? sensorOptions]);
+
+  factory RelativeOrientationSensor(
+          [OrientationSensorOptions? sensorOptions]) =>
+      RelativeOrientationSensor._(sensorOptions ?? undefined);
 }
 
 @anonymous

@@ -16,7 +16,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class CloseWatcher implements EventTarget {
-  external factory CloseWatcher([CloseWatcherOptions? options]);
+  external factory CloseWatcher._([CloseWatcherOptions? options]);
+
+  factory CloseWatcher([CloseWatcherOptions? options]) =>
+      CloseWatcher._(options ?? undefined);
 }
 
 extension PropsCloseWatcher on CloseWatcher {

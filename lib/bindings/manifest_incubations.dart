@@ -22,8 +22,11 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class BeforeInstallPromptEvent implements Event {
-  external factory BeforeInstallPromptEvent(String type,
+  external factory BeforeInstallPromptEvent._(String type,
       [EventInit? eventInitDict]);
+
+  factory BeforeInstallPromptEvent(String type, [EventInit? eventInitDict]) =>
+      BeforeInstallPromptEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsBeforeInstallPromptEvent on BeforeInstallPromptEvent {

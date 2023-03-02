@@ -30,4 +30,12 @@ void main() {
 
     expect(response.status, 200);
   });
+
+  test('Headers iterator', () {
+    final headers = (Headers()..append('foo', 'bar')).toList();
+    final firstEntry = headers.first;
+
+    expect(firstEntry[0], 'foo');
+    expect(firstEntry[1], 'bar');
+  });
 }

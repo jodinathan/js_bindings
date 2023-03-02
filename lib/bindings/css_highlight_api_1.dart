@@ -29,10 +29,20 @@ enum HighlightType {
 @JS()
 @staticInterop
 class Highlight extends JsIterable<AbstractRange> {
-  external factory Highlight(
+  external factory Highlight._(
       [AbstractRange? initialRanges1,
       AbstractRange? initialRanges2,
       AbstractRange? initialRanges3]);
+
+  factory Highlight(
+          [AbstractRange? initialRanges1,
+          AbstractRange? initialRanges2,
+          AbstractRange? initialRanges3]) =>
+      Highlight._(
+        initialRanges1 ?? undefined,
+        initialRanges2 ?? undefined,
+        initialRanges3 ?? undefined,
+      );
 }
 
 extension PropsHighlight on Highlight {

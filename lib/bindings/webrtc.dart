@@ -292,7 +292,10 @@ enum RTCIceConnectionState {
 @JS()
 @staticInterop
 class RTCPeerConnection implements EventTarget {
-  external factory RTCPeerConnection([RTCConfiguration? configuration]);
+  external factory RTCPeerConnection._([RTCConfiguration? configuration]);
+
+  factory RTCPeerConnection([RTCConfiguration? configuration]) =>
+      RTCPeerConnection._(configuration ?? undefined);
   external static Future<RTCCertificate> generateCertificate(
       dynamic keygenAlgorithm);
 }
@@ -422,17 +425,6 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
         failureCallback == null ? null : allowInterop(failureCallback)
       ]));
 
-  void setIdentityProvider(String provider,
-          [RTCIdentityProviderOptions? options]) =>
-      js_util.callMethod(this, 'setIdentityProvider', [provider, options]);
-
-  Future<String> getIdentityAssertion() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'getIdentityAssertion', []));
-
-  Future<RTCIdentityAssertion> get peerIdentity =>
-      js_util.promiseToFuture(js_util.getProperty(this, 'peerIdentity'));
-  String? get idpLoginUrl => js_util.getProperty(this, 'idpLoginUrl');
-  String? get idpErrorInfo => js_util.getProperty(this, 'idpErrorInfo');
   Iterable<RTCRtpSender> getSenders() =>
       js_util.callMethod(this, 'getSenders', []);
 
@@ -474,6 +466,18 @@ extension PropsRTCPeerConnection on RTCPeerConnection {
 
   Future<RTCStatsReport> getStats([MediaStreamTrack? selector]) =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getStats', [selector]));
+
+  void setIdentityProvider(String provider,
+          [RTCIdentityProviderOptions? options]) =>
+      js_util.callMethod(this, 'setIdentityProvider', [provider, options]);
+
+  Future<String> getIdentityAssertion() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'getIdentityAssertion', []));
+
+  Future<RTCIdentityAssertion> get peerIdentity =>
+      js_util.promiseToFuture(js_util.getProperty(this, 'peerIdentity'));
+  String? get idpLoginUrl => js_util.getProperty(this, 'idpLoginUrl');
+  String? get idpErrorInfo => js_util.getProperty(this, 'idpErrorInfo');
 }
 
 enum RTCSdpType {
@@ -585,7 +589,10 @@ extension PropsRTCLocalSessionDescriptionInit
 @JS()
 @staticInterop
 class RTCIceCandidate {
-  external factory RTCIceCandidate([RTCIceCandidateInit? candidateInitDict]);
+  external factory RTCIceCandidate._([RTCIceCandidateInit? candidateInitDict]);
+
+  factory RTCIceCandidate([RTCIceCandidateInit? candidateInitDict]) =>
+      RTCIceCandidate._(candidateInitDict ?? undefined);
 }
 
 extension PropsRTCIceCandidate on RTCIceCandidate {
@@ -728,8 +735,12 @@ enum RTCIceCandidateType {
 @JS()
 @staticInterop
 class RTCPeerConnectionIceEvent implements Event {
-  external factory RTCPeerConnectionIceEvent(String type,
+  external factory RTCPeerConnectionIceEvent._(String type,
       [RTCPeerConnectionIceEventInit? eventInitDict]);
+
+  factory RTCPeerConnectionIceEvent(String type,
+          [RTCPeerConnectionIceEventInit? eventInitDict]) =>
+      RTCPeerConnectionIceEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsRTCPeerConnectionIceEvent on RTCPeerConnectionIceEvent {
@@ -949,7 +960,6 @@ extension PropsRTCRtpSender on RTCRtpSender {
   Future<RTCStatsReport> getStats() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
 
-  RTCDTMFSender? get dtmf => js_util.getProperty(this, 'dtmf');
   dynamic get transform => js_util.getProperty(this, 'transform');
   set transform(dynamic newValue) {
     js_util.setProperty(this, 'transform', newValue);
@@ -957,6 +967,8 @@ extension PropsRTCRtpSender on RTCRtpSender {
 
   Future<void> generateKeyFrame([Iterable<String>? rids]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rids]));
+
+  RTCDTMFSender? get dtmf => js_util.getProperty(this, 'dtmf');
 }
 
 ///  The dictionary is the basic object describing the parameters of
@@ -2078,8 +2090,12 @@ extension PropsRTCDTMFSender on RTCDTMFSender {
 @JS()
 @staticInterop
 class RTCDTMFToneChangeEvent implements Event {
-  external factory RTCDTMFToneChangeEvent(String type,
+  external factory RTCDTMFToneChangeEvent._(String type,
       [RTCDTMFToneChangeEventInit? eventInitDict]);
+
+  factory RTCDTMFToneChangeEvent(String type,
+          [RTCDTMFToneChangeEventInit? eventInitDict]) =>
+      RTCDTMFToneChangeEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsRTCDTMFToneChangeEvent on RTCDTMFToneChangeEvent {

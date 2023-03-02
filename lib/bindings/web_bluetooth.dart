@@ -327,7 +327,10 @@ extension PropsBluetoothPermissionResult on BluetoothPermissionResult {
 @JS()
 @staticInterop
 class ValueEvent implements Event {
-  external factory ValueEvent(String type, [ValueEventInit? initDict]);
+  external factory ValueEvent._(String type, [ValueEventInit? initDict]);
+
+  factory ValueEvent(String type, [ValueEventInit? initDict]) =>
+      ValueEvent._(type, initDict ?? undefined);
 }
 
 extension PropsValueEvent on ValueEvent {

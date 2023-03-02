@@ -221,7 +221,10 @@ extension PropsPushMessageData on PushMessageData {
 @JS()
 @staticInterop
 class PushEvent implements ExtendableEvent {
-  external factory PushEvent(String type, [PushEventInit? eventInitDict]);
+  external factory PushEvent._(String type, [PushEventInit? eventInitDict]);
+
+  factory PushEvent(String type, [PushEventInit? eventInitDict]) =>
+      PushEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPushEvent on PushEvent {
@@ -245,8 +248,12 @@ extension PropsPushEventInit on PushEventInit {
 @JS()
 @staticInterop
 class PushSubscriptionChangeEvent implements ExtendableEvent {
-  external factory PushSubscriptionChangeEvent(String type,
+  external factory PushSubscriptionChangeEvent._(String type,
       [PushSubscriptionChangeEventInit? eventInitDict]);
+
+  factory PushSubscriptionChangeEvent(String type,
+          [PushSubscriptionChangeEventInit? eventInitDict]) =>
+      PushSubscriptionChangeEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPushSubscriptionChangeEvent on PushSubscriptionChangeEvent {

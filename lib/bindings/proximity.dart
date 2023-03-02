@@ -16,7 +16,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class ProximitySensor implements Sensor {
-  external factory ProximitySensor([SensorOptions? sensorOptions]);
+  external factory ProximitySensor._([SensorOptions? sensorOptions]);
+
+  factory ProximitySensor([SensorOptions? sensorOptions]) =>
+      ProximitySensor._(sensorOptions ?? undefined);
 }
 
 extension PropsProximitySensor on ProximitySensor {

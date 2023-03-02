@@ -125,7 +125,10 @@ extension PropsTaskControllerInit on TaskControllerInit {
 @JS()
 @staticInterop
 class TaskController implements AbortController {
-  external factory TaskController([TaskControllerInit? init]);
+  external factory TaskController._([TaskControllerInit? init]);
+
+  factory TaskController([TaskControllerInit? init]) =>
+      TaskController._(init ?? undefined);
 }
 
 extension PropsTaskController on TaskController {

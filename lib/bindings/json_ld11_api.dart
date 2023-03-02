@@ -39,7 +39,7 @@ class JsonLdProcessor {
 
 @JS()
 @staticInterop
-class RdfDataset extends JsIterable<RdfGraph> {
+class RdfDataset extends JsIterable<JsArray<RdfGraph>> {
   external factory RdfDataset();
 }
 

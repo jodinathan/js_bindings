@@ -74,7 +74,10 @@ extension PropsDocumentTimelineOptions on DocumentTimelineOptions {
 @JS()
 @staticInterop
 class DocumentTimeline implements AnimationTimeline {
-  external factory DocumentTimeline([DocumentTimelineOptions? options]);
+  external factory DocumentTimeline._([DocumentTimelineOptions? options]);
+
+  factory DocumentTimeline([DocumentTimelineOptions? options]) =>
+      DocumentTimeline._(options ?? undefined);
 }
 
 ///  The interface of the Web Animations API represents a single
@@ -95,8 +98,11 @@ class DocumentTimeline implements AnimationTimeline {
 @JS()
 @staticInterop
 class Animation implements EventTarget {
-  external factory Animation(
+  external factory Animation._(
       [AnimationEffect? effect, AnimationTimeline? timeline]);
+
+  factory Animation([AnimationEffect? effect, AnimationTimeline? timeline]) =>
+      Animation._(effect ?? undefined, timeline ?? undefined);
 }
 
 extension PropsAnimation on Animation {
@@ -450,8 +456,13 @@ extension PropsComputedEffectTiming on ComputedEffectTiming {
 @JS()
 @staticInterop
 class KeyframeEffect implements AnimationEffect {
-  external factory KeyframeEffect(
+  external factory KeyframeEffect._(
       [Element? target, dynamic keyframes, dynamic options]);
+
+  factory KeyframeEffect(
+          [Element? target, dynamic keyframes, dynamic options]) =>
+      KeyframeEffect._(
+          target ?? undefined, keyframes ?? undefined, options ?? undefined);
 }
 
 extension PropsKeyframeEffect on KeyframeEffect {

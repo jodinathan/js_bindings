@@ -146,8 +146,12 @@ extension PropsIDBOpenDBRequest on IDBOpenDBRequest {
 @JS()
 @staticInterop
 class IDBVersionChangeEvent implements Event {
-  external factory IDBVersionChangeEvent(String type,
+  external factory IDBVersionChangeEvent._(String type,
       [IDBVersionChangeEventInit? eventInitDict]);
+
+  factory IDBVersionChangeEvent(String type,
+          [IDBVersionChangeEventInit? eventInitDict]) =>
+      IDBVersionChangeEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsIDBVersionChangeEvent on IDBVersionChangeEvent {

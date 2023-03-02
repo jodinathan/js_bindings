@@ -16,9 +16,15 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class DataCue implements TextTrackCue {
-  external factory DataCue(
+  external factory DataCue._(
       double startTime, /* double | NaN */ dynamic endTime, dynamic value,
       [String? type]);
+
+  factory DataCue(
+          double startTime, /* double | NaN */ dynamic endTime, dynamic value,
+          [String? type]) =>
+      DataCue._(startTime, endTime ?? undefined, value ?? undefined,
+          type ?? undefined);
 }
 
 extension PropsDataCue on DataCue {

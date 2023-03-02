@@ -44,8 +44,10 @@ import 'package:js_bindings/js_bindings.dart';
 @experimental
 @JS()
 @staticInterop
-class Headers extends JsIterable<String> {
-  external factory Headers([dynamic init]);
+class Headers extends JsIterable<JsArray<String>> {
+  external factory Headers._([dynamic init]);
+
+  factory Headers([dynamic init]) => Headers._(init ?? undefined);
 }
 
 extension PropsHeaders on Headers {
@@ -95,7 +97,10 @@ extension PropsBody on Body {
 @JS()
 @staticInterop
 class Request implements Body {
-  external factory Request(dynamic input, [RequestInit? init]);
+  external factory Request._(dynamic input, [RequestInit? init]);
+
+  factory Request(dynamic input, [RequestInit? init]) =>
+      Request._(input ?? undefined, init ?? undefined);
 }
 
 extension PropsRequest on Request {
@@ -364,7 +369,10 @@ enum RequestDuplex {
 @JS()
 @staticInterop
 class Response implements Body {
-  external factory Response([dynamic body, ResponseInit? init]);
+  external factory Response._([dynamic body, ResponseInit? init]);
+
+  factory Response([dynamic body, ResponseInit? init]) =>
+      Response._(body ?? undefined, init ?? undefined);
   external static Response error();
   external static Response redirect(String url, [int? status = 302]);
   external static Response json(dynamic data, [ResponseInit? init]);

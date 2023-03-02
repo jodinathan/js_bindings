@@ -322,8 +322,16 @@ extension PropsDOMRectList on DOMRectList {
 @JS()
 @staticInterop
 class DOMQuad {
-  external factory DOMQuad(
+  external factory DOMQuad._(
       [DOMPointInit? p1, DOMPointInit? p2, DOMPointInit? p3, DOMPointInit? p4]);
+
+  factory DOMQuad(
+          [DOMPointInit? p1,
+          DOMPointInit? p2,
+          DOMPointInit? p3,
+          DOMPointInit? p4]) =>
+      DOMQuad._(
+          p1 ?? undefined, p2 ?? undefined, p3 ?? undefined, p4 ?? undefined);
   external static DOMQuad fromRect([DOMRectInit? other]);
   external static DOMQuad fromQuad([DOMQuadInit? other]);
 }
@@ -377,7 +385,10 @@ extension PropsDOMQuadInit on DOMQuadInit {
 @JS()
 @staticInterop
 class DOMMatrixReadOnly {
-  external factory DOMMatrixReadOnly([dynamic init]);
+  external factory DOMMatrixReadOnly._([dynamic init]);
+
+  factory DOMMatrixReadOnly([dynamic init]) =>
+      DOMMatrixReadOnly._(init ?? undefined);
   external static dynamic fromMatrix([DOMMatrixInit? other]);
   external static dynamic fromFloat32Array(Float32List array32);
   external static dynamic fromFloat64Array(Float64List array64);
@@ -505,7 +516,9 @@ extension PropsDOMMatrixReadOnly on DOMMatrixReadOnly {
 @JS()
 @staticInterop
 class DOMMatrix implements DOMMatrixReadOnly {
-  external factory DOMMatrix([dynamic init]);
+  external factory DOMMatrix._([dynamic init]);
+
+  factory DOMMatrix([dynamic init]) => DOMMatrix._(init ?? undefined);
   external static DOMMatrix fromMatrix([DOMMatrixInit? other]);
   external static DOMMatrix fromFloat32Array(Float32List array32);
   external static DOMMatrix fromFloat64Array(Float64List array64);

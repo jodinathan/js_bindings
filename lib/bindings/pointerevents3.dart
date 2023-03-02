@@ -179,7 +179,11 @@ extension PropsPointerEventInit on PointerEventInit {
 @JS()
 @staticInterop
 class PointerEvent implements MouseEvent {
-  external factory PointerEvent(String type, [PointerEventInit? eventInitDict]);
+  external factory PointerEvent._(String type,
+      [PointerEventInit? eventInitDict]);
+
+  factory PointerEvent(String type, [PointerEventInit? eventInitDict]) =>
+      PointerEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPointerEvent on PointerEvent {

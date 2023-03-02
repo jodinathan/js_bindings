@@ -32,8 +32,12 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class InputDeviceCapabilities {
-  external factory InputDeviceCapabilities(
+  external factory InputDeviceCapabilities._(
       [InputDeviceCapabilitiesInit? deviceInitDict]);
+
+  factory InputDeviceCapabilities(
+          [InputDeviceCapabilitiesInit? deviceInitDict]) =>
+      InputDeviceCapabilities._(deviceInitDict ?? undefined);
 }
 
 extension PropsInputDeviceCapabilities on InputDeviceCapabilities {

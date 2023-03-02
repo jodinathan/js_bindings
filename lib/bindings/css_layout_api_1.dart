@@ -397,7 +397,10 @@ extension PropsFragmentResultOptions on FragmentResultOptions {
 @JS()
 @staticInterop
 class FragmentResult {
-  external factory FragmentResult([FragmentResultOptions? options]);
+  external factory FragmentResult._([FragmentResultOptions? options]);
+
+  factory FragmentResult([FragmentResultOptions? options]) =>
+      FragmentResult._(options ?? undefined);
 }
 
 extension PropsFragmentResult on FragmentResult {

@@ -46,7 +46,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Accelerometer implements Sensor {
-  external factory Accelerometer([AccelerometerSensorOptions? options]);
+  external factory Accelerometer._([AccelerometerSensorOptions? options]);
+
+  factory Accelerometer([AccelerometerSensorOptions? options]) =>
+      Accelerometer._(options ?? undefined);
 }
 
 extension PropsAccelerometer on Accelerometer {
@@ -127,8 +130,11 @@ extension PropsAccelerometerSensorOptions on AccelerometerSensorOptions {
 @JS()
 @staticInterop
 class LinearAccelerationSensor implements Accelerometer {
-  external factory LinearAccelerationSensor(
+  external factory LinearAccelerationSensor._(
       [AccelerometerSensorOptions? options]);
+
+  factory LinearAccelerationSensor([AccelerometerSensorOptions? options]) =>
+      LinearAccelerationSensor._(options ?? undefined);
 }
 
 ///  The interface of the Sensor APIs provides on each reading the
@@ -162,7 +168,10 @@ class LinearAccelerationSensor implements Accelerometer {
 @JS()
 @staticInterop
 class GravitySensor implements Accelerometer {
-  external factory GravitySensor([AccelerometerSensorOptions? options]);
+  external factory GravitySensor._([AccelerometerSensorOptions? options]);
+
+  factory GravitySensor([AccelerometerSensorOptions? options]) =>
+      GravitySensor._(options ?? undefined);
 }
 
 @anonymous

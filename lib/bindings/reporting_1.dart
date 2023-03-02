@@ -67,8 +67,12 @@ extension PropsReport on Report {
 @JS()
 @staticInterop
 class ReportingObserver {
-  external factory ReportingObserver(ReportingObserverCallback callback,
+  external factory ReportingObserver._(ReportingObserverCallback callback,
       [ReportingObserverOptions? options]);
+
+  factory ReportingObserver(ReportingObserverCallback callback,
+          [ReportingObserverOptions? options]) =>
+      ReportingObserver._(callback, options ?? undefined);
 }
 
 extension PropsReportingObserver on ReportingObserver {

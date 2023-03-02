@@ -47,8 +47,13 @@ extension PropsWorkletAnimationEffect on WorkletAnimationEffect {
 @JS()
 @staticInterop
 class WorkletAnimation implements Animation {
-  external factory WorkletAnimation(String animatorName,
+  external factory WorkletAnimation._(String animatorName,
       [dynamic effects, AnimationTimeline? timeline, dynamic options]);
+
+  factory WorkletAnimation(String animatorName,
+          [dynamic effects, AnimationTimeline? timeline, dynamic options]) =>
+      WorkletAnimation._(animatorName, effects ?? undefined,
+          timeline ?? undefined, options ?? undefined);
 }
 
 extension PropsWorkletAnimation on WorkletAnimation {

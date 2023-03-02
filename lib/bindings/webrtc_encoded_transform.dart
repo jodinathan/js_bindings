@@ -68,7 +68,10 @@ extension PropsSFrameTransformOptions on SFrameTransformOptions {
 @JS()
 @staticInterop
 class SFrameTransform implements GenericTransformStream {
-  external factory SFrameTransform([SFrameTransformOptions? options]);
+  external factory SFrameTransform._([SFrameTransformOptions? options]);
+
+  factory SFrameTransform([SFrameTransformOptions? options]) =>
+      SFrameTransform._(options ?? undefined);
 }
 
 extension PropsSFrameTransform on SFrameTransform {
@@ -322,6 +325,11 @@ extension PropsRTCRtpScriptTransformer on RTCRtpScriptTransformer {
 @JS()
 @staticInterop
 class RTCRtpScriptTransform {
-  external factory RTCRtpScriptTransform(Worker worker,
+  external factory RTCRtpScriptTransform._(Worker worker,
       [dynamic options, Iterable<dynamic>? transfer]);
+
+  factory RTCRtpScriptTransform(Worker worker,
+          [dynamic options, Iterable<dynamic>? transfer]) =>
+      RTCRtpScriptTransform._(
+          worker, options ?? undefined, transfer ?? undefined);
 }

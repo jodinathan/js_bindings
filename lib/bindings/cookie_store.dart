@@ -314,8 +314,12 @@ extension PropsCookieStoreManager on CookieStoreManager {
 @JS()
 @staticInterop
 class CookieChangeEvent implements Event {
-  external factory CookieChangeEvent(String type,
+  external factory CookieChangeEvent._(String type,
       [CookieChangeEventInit? eventInitDict]);
+
+  factory CookieChangeEvent(String type,
+          [CookieChangeEventInit? eventInitDict]) =>
+      CookieChangeEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsCookieChangeEvent on CookieChangeEvent {
@@ -381,8 +385,12 @@ extension PropsCookieChangeEventInit on CookieChangeEventInit {
 @JS()
 @staticInterop
 class ExtendableCookieChangeEvent implements ExtendableEvent {
-  external factory ExtendableCookieChangeEvent(String type,
+  external factory ExtendableCookieChangeEvent._(String type,
       [ExtendableCookieChangeEventInit? eventInitDict]);
+
+  factory ExtendableCookieChangeEvent(String type,
+          [ExtendableCookieChangeEventInit? eventInitDict]) =>
+      ExtendableCookieChangeEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsExtendableCookieChangeEvent on ExtendableCookieChangeEvent {

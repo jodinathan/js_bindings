@@ -44,7 +44,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Magnetometer implements Sensor {
-  external factory Magnetometer([MagnetometerSensorOptions? sensorOptions]);
+  external factory Magnetometer._([MagnetometerSensorOptions? sensorOptions]);
+
+  factory Magnetometer([MagnetometerSensorOptions? sensorOptions]) =>
+      Magnetometer._(sensorOptions ?? undefined);
 }
 
 extension PropsMagnetometer on Magnetometer {
@@ -91,8 +94,12 @@ extension PropsMagnetometerSensorOptions on MagnetometerSensorOptions {
 @JS()
 @staticInterop
 class UncalibratedMagnetometer implements Sensor {
-  external factory UncalibratedMagnetometer(
+  external factory UncalibratedMagnetometer._(
       [MagnetometerSensorOptions? sensorOptions]);
+
+  factory UncalibratedMagnetometer(
+          [MagnetometerSensorOptions? sensorOptions]) =>
+      UncalibratedMagnetometer._(sensorOptions ?? undefined);
 }
 
 extension PropsUncalibratedMagnetometer on UncalibratedMagnetometer {

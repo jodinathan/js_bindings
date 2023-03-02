@@ -50,7 +50,10 @@ extension PropsWebTransportDatagramDuplexStream
 @JS()
 @staticInterop
 class WebTransport {
-  external factory WebTransport(String url, [WebTransportOptions? options]);
+  external factory WebTransport._(String url, [WebTransportOptions? options]);
+
+  factory WebTransport(String url, [WebTransportOptions? options]) =>
+      WebTransport._(url, options ?? undefined);
 }
 
 extension PropsWebTransport on WebTransport {
@@ -416,7 +419,10 @@ extension PropsWebTransportBidirectionalStream
 @JS()
 @staticInterop
 class WebTransportError implements DOMException {
-  external factory WebTransportError([WebTransportErrorInit? init]);
+  external factory WebTransportError._([WebTransportErrorInit? init]);
+
+  factory WebTransportError([WebTransportErrorInit? init]) =>
+      WebTransportError._(init ?? undefined);
 }
 
 extension PropsWebTransportError on WebTransportError {

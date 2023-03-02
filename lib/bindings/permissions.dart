@@ -31,11 +31,11 @@ extension PropsPermissions on Permissions {
   Future<PermissionStatus> query(dynamic permissionDesc) => js_util
       .promiseToFuture(js_util.callMethod(this, 'query', [permissionDesc]));
 
-  Future<PermissionStatus> revoke(dynamic permissionDesc) => js_util
-      .promiseToFuture(js_util.callMethod(this, 'revoke', [permissionDesc]));
-
   Future<PermissionStatus> request(dynamic permissionDesc) => js_util
       .promiseToFuture(js_util.callMethod(this, 'request', [permissionDesc]));
+
+  Future<PermissionStatus> revoke(dynamic permissionDesc) => js_util
+      .promiseToFuture(js_util.callMethod(this, 'revoke', [permissionDesc]));
 }
 
 @anonymous

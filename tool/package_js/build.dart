@@ -212,8 +212,9 @@ Future<void> main() async {
               String key;
 
               if (type is Iterable) {
-                if (type.length == 2) {
+                if (type.length >= 2) {
                   key = spec.getDartType(iterablelike['idlType'][1]).toString();
+                  key = 'JsArray<$key>';
                 } else {
                   key = spec.getDartType(iterablelike['idlType'][0]).toString();
                 }
@@ -502,14 +503,69 @@ Future<void> main() async {
 
                           final privateFactory = method.params.any((param) =>
                               param.dartType.isEnum ||
-                              param.defaultValue != null);
+                              param.defaultValue != null ||
+                              param.isOptional);
 
-                          lines.add(
+                          /*
+lines.add(
                               '\nexternal $fn${privateFactory ? '._' : ''}(${params.isNotEmpty ? (dictionary ? '{$params}' : params) : ''});');
 
                           if (privateFactory) {
+                            final toAdd = [
+                              '\n',
+                              'factory',
+                              className,
+                              '(',
+                              params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''
+                            ];
                             lines.add(
-                                '\nfactory $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.ctorArgDefaultValue}').join(', ')});');
+                                '\n $className(${params.isNotEmpty ? (dictionary ? '{$cparams}' : cparams) : ''}) => $className._(${method.params.map((param) => '${dictionary.truth('${param.name}: ')}${param.name}${param.ctorArgDefaultValue}').join(', ')});');
+                          }
+                              */
+
+                          lines.add([
+                            '\nexternal ',
+                            fn,
+                            if (privateFactory) '._',
+                            '(',
+                            if (params.isNotEmpty) ...[
+                              if (dictionary) '{$params}' else params
+                            ],
+                            ');'
+                          ].join());
+
+                          if (privateFactory) {
+                            final toAdd = [
+                              '\n',
+                              'factory ',
+                              className,
+                              '(',
+                              if (params.isNotEmpty) ...[
+                                if (dictionary) '{$cparams}' else cparams
+                              ],
+                              ') => ',
+                              className,
+                              '._(',
+                              method.params
+                                  .map((param) => [
+                                        if (param.isVariadic)
+                                          for (var x = 1; x < 4; x++) ...[
+                                            if (dictionary) '${param.name}$x: ',
+                                            param.name,
+                                            x,
+                                            param.ctorArgDefaultValue,
+                                            ','
+                                          ]
+                                        else ...[
+                                          if (dictionary) '${param.name}: ',
+                                          param.name,
+                                          param.ctorArgDefaultValue
+                                        ]
+                                      ].join(''))
+                                  .join(', '),
+                              ');'
+                            ];
+                            lines.add(toAdd.join());
                           }
                         }
                       }

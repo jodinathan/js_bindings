@@ -17,8 +17,11 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class GroupEffect {
-  external factory GroupEffect(Iterable<AnimationEffect> children,
+  external factory GroupEffect._(Iterable<AnimationEffect> children,
       [dynamic timing]);
+
+  factory GroupEffect(Iterable<AnimationEffect> children, [dynamic timing]) =>
+      GroupEffect._(children, timing ?? undefined);
 }
 
 extension PropsGroupEffect on GroupEffect {
@@ -54,8 +57,12 @@ extension PropsAnimationNodeList on AnimationNodeList {
 @JS()
 @staticInterop
 class SequenceEffect implements GroupEffect {
-  external factory SequenceEffect(Iterable<AnimationEffect> children,
+  external factory SequenceEffect._(Iterable<AnimationEffect> children,
       [dynamic timing]);
+
+  factory SequenceEffect(Iterable<AnimationEffect> children,
+          [dynamic timing]) =>
+      SequenceEffect._(children, timing ?? undefined);
 }
 
 extension PropsSequenceEffect on SequenceEffect {
@@ -98,8 +105,12 @@ enum IterationCompositeOperation {
 @JS()
 @staticInterop
 class AnimationPlaybackEvent implements Event {
-  external factory AnimationPlaybackEvent(String type,
+  external factory AnimationPlaybackEvent._(String type,
       [AnimationPlaybackEventInit? eventInitDict]);
+
+  factory AnimationPlaybackEvent(String type,
+          [AnimationPlaybackEventInit? eventInitDict]) =>
+      AnimationPlaybackEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsAnimationPlaybackEvent on AnimationPlaybackEvent {

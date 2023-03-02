@@ -104,7 +104,10 @@ extension PropsMediaSession on MediaSession {
 @JS()
 @staticInterop
 class MediaMetadata {
-  external factory MediaMetadata([MediaMetadataInit? init]);
+  external factory MediaMetadata._([MediaMetadataInit? init]);
+
+  factory MediaMetadata([MediaMetadataInit? init]) =>
+      MediaMetadata._(init ?? undefined);
 }
 
 extension PropsMediaMetadata on MediaMetadata {

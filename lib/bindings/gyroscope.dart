@@ -43,7 +43,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class Gyroscope implements Sensor {
-  external factory Gyroscope([GyroscopeSensorOptions? sensorOptions]);
+  external factory Gyroscope._([GyroscopeSensorOptions? sensorOptions]);
+
+  factory Gyroscope([GyroscopeSensorOptions? sensorOptions]) =>
+      Gyroscope._(sensorOptions ?? undefined);
 }
 
 extension PropsGyroscope on Gyroscope {

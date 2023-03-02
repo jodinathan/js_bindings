@@ -136,7 +136,10 @@ class Module {
 @JS()
 @staticInterop
 class Instance {
-  external factory Instance(Module module, [dynamic importObject]);
+  external factory Instance._(Module module, [dynamic importObject]);
+
+  factory Instance(Module module, [dynamic importObject]) =>
+      Instance._(module, importObject ?? undefined);
 }
 
 extension PropsInstance on Instance {
@@ -222,7 +225,10 @@ extension PropsTableDescriptor on TableDescriptor {
 @JS()
 @staticInterop
 class Table {
-  external factory Table(TableDescriptor descriptor, [dynamic value]);
+  external factory Table._(TableDescriptor descriptor, [dynamic value]);
+
+  factory Table(TableDescriptor descriptor, [dynamic value]) =>
+      Table._(descriptor, value ?? undefined);
 }
 
 extension PropsTable on Table {
@@ -280,7 +286,10 @@ extension PropsGlobalDescriptor on GlobalDescriptor {
 @JS()
 @staticInterop
 class Global {
-  external factory Global(GlobalDescriptor descriptor, [dynamic v]);
+  external factory Global._(GlobalDescriptor descriptor, [dynamic v]);
+
+  factory Global(GlobalDescriptor descriptor, [dynamic v]) =>
+      Global._(descriptor, v ?? undefined);
 }
 
 extension PropsGlobal on Global {

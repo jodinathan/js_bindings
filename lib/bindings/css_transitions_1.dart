@@ -35,8 +35,12 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class TransitionEvent implements Event {
-  external factory TransitionEvent(String type,
+  external factory TransitionEvent._(String type,
       [TransitionEventInit? transitionEventInitDict]);
+
+  factory TransitionEvent(String type,
+          [TransitionEventInit? transitionEventInitDict]) =>
+      TransitionEvent._(type, transitionEventInitDict ?? undefined);
 }
 
 extension PropsTransitionEvent on TransitionEvent {

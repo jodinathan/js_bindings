@@ -29,7 +29,9 @@ import 'package:js_bindings/js_bindings.dart';
 @JS('URL')
 @staticInterop
 class Url {
-  external factory Url(String url, [String? base]);
+  external factory Url._(String url, [String? base]);
+
+  factory Url(String url, [String? base]) => Url._(url, base ?? undefined);
   external static String createObjectURL(dynamic obj);
   external static void revokeObjectURL(String url);
 }
@@ -105,8 +107,11 @@ extension PropsUrl on Url {
 ///
 @JS()
 @staticInterop
-class URLSearchParams extends JsIterable<String> {
-  external factory URLSearchParams([dynamic init]);
+class URLSearchParams extends JsIterable<JsArray<String>> {
+  external factory URLSearchParams._([dynamic init]);
+
+  factory URLSearchParams([dynamic init]) =>
+      URLSearchParams._(init ?? undefined);
 }
 
 extension PropsURLSearchParams on URLSearchParams {

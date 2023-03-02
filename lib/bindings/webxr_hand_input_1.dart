@@ -53,7 +53,7 @@ enum XRHandJoint {
 ///  is returned by [XRInputSource.hand].
 @JS()
 @staticInterop
-class XRHand extends JsIterable<XRJointSpace> {
+class XRHand extends JsIterable<JsArray<XRJointSpace>> {
   external factory XRHand();
 }
 

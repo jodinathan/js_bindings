@@ -20,8 +20,12 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class ReadableStream extends JsIterable<dynamic> {
-  external factory ReadableStream(
+  external factory ReadableStream._(
       [dynamic underlyingSource, QueuingStrategy? strategy]);
+
+  factory ReadableStream(
+          [dynamic underlyingSource, QueuingStrategy? strategy]) =>
+      ReadableStream._(underlyingSource ?? undefined, strategy ?? undefined);
 }
 
 extension PropsReadableStream on ReadableStream {
@@ -371,8 +375,11 @@ extension PropsReadableStreamBYOBRequest on ReadableStreamBYOBRequest {
 @JS()
 @staticInterop
 class WritableStream {
-  external factory WritableStream(
+  external factory WritableStream._(
       [dynamic underlyingSink, QueuingStrategy? strategy]);
+
+  factory WritableStream([dynamic underlyingSink, QueuingStrategy? strategy]) =>
+      WritableStream._(underlyingSink ?? undefined, strategy ?? undefined);
 }
 
 extension PropsWritableStream on WritableStream {
@@ -484,10 +491,17 @@ extension PropsWritableStreamDefaultController
 @JS()
 @staticInterop
 class TransformStream {
-  external factory TransformStream(
+  external factory TransformStream._(
       [dynamic transformer,
       QueuingStrategy? writableStrategy,
       QueuingStrategy? readableStrategy]);
+
+  factory TransformStream(
+          [dynamic transformer,
+          QueuingStrategy? writableStrategy,
+          QueuingStrategy? readableStrategy]) =>
+      TransformStream._(transformer ?? undefined, writableStrategy ?? undefined,
+          readableStrategy ?? undefined);
 }
 
 extension PropsTransformStream on TransformStream {

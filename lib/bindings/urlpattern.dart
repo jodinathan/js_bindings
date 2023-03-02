@@ -28,7 +28,10 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class URLPattern {
-  external factory URLPattern([dynamic input, String? baseURL]);
+  external factory URLPattern._([dynamic input, String? baseURL]);
+
+  factory URLPattern([dynamic input, String? baseURL]) =>
+      URLPattern._(input ?? undefined, baseURL ?? undefined);
 }
 
 extension PropsURLPattern on URLPattern {

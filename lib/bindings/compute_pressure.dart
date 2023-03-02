@@ -53,8 +53,12 @@ enum PressureSource {
 @JS()
 @staticInterop
 class PressureObserver {
-  external factory PressureObserver(PressureUpdateCallback callback,
+  external factory PressureObserver._(PressureUpdateCallback callback,
       [PressureObserverOptions? options]);
+
+  factory PressureObserver(PressureUpdateCallback callback,
+          [PressureObserverOptions? options]) =>
+      PressureObserver._(callback, options ?? undefined);
   external static Future<PermissionState> requestPermission();
 }
 

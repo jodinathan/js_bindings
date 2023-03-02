@@ -41,7 +41,10 @@ extension PropsEditContextInit on EditContextInit {
 @JS()
 @staticInterop
 class EditContext implements EventTarget {
-  external factory EditContext([EditContextInit? options]);
+  external factory EditContext._([EditContextInit? options]);
+
+  factory EditContext([EditContextInit? options]) =>
+      EditContext._(options ?? undefined);
 }
 
 extension PropsEditContext on EditContext {
@@ -165,7 +168,10 @@ extension PropsTextUpdateEventInit on TextUpdateEventInit {
 @JS()
 @staticInterop
 class TextUpdateEvent implements Event {
-  external factory TextUpdateEvent([TextUpdateEventInit? options]);
+  external factory TextUpdateEvent._([TextUpdateEventInit? options]);
+
+  factory TextUpdateEvent([TextUpdateEventInit? options]) =>
+      TextUpdateEvent._(options ?? undefined);
 }
 
 extension PropsTextUpdateEvent on TextUpdateEvent {
@@ -233,7 +239,10 @@ extension PropsTextFormatInit on TextFormatInit {
 @JS()
 @staticInterop
 class TextFormat {
-  external factory TextFormat([TextFormatInit? options]);
+  external factory TextFormat._([TextFormatInit? options]);
+
+  factory TextFormat([TextFormatInit? options]) =>
+      TextFormat._(options ?? undefined);
 }
 
 extension PropsTextFormat on TextFormat {
@@ -293,7 +302,11 @@ extension PropsTextFormatUpdateEventInit on TextFormatUpdateEventInit {
 @JS()
 @staticInterop
 class TextFormatUpdateEvent implements Event {
-  external factory TextFormatUpdateEvent([TextFormatUpdateEventInit? options]);
+  external factory TextFormatUpdateEvent._(
+      [TextFormatUpdateEventInit? options]);
+
+  factory TextFormatUpdateEvent([TextFormatUpdateEventInit? options]) =>
+      TextFormatUpdateEvent._(options ?? undefined);
 }
 
 extension PropsTextFormatUpdateEvent on TextFormatUpdateEvent {
@@ -325,8 +338,12 @@ extension PropsCharacterBoundsUpdateEventInit
 @JS()
 @staticInterop
 class CharacterBoundsUpdateEvent implements Event {
-  external factory CharacterBoundsUpdateEvent(
+  external factory CharacterBoundsUpdateEvent._(
       [CharacterBoundsUpdateEventInit? options]);
+
+  factory CharacterBoundsUpdateEvent(
+          [CharacterBoundsUpdateEventInit? options]) =>
+      CharacterBoundsUpdateEvent._(options ?? undefined);
 }
 
 extension PropsCharacterBoundsUpdateEvent on CharacterBoundsUpdateEvent {

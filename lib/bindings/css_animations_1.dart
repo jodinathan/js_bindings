@@ -30,8 +30,12 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class AnimationEvent implements Event {
-  external factory AnimationEvent(String type,
+  external factory AnimationEvent._(String type,
       [AnimationEventInit? animationEventInitDict]);
+
+  factory AnimationEvent(String type,
+          [AnimationEventInit? animationEventInitDict]) =>
+      AnimationEvent._(type, animationEventInitDict ?? undefined);
 }
 
 extension PropsAnimationEvent on AnimationEvent {

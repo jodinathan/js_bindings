@@ -136,8 +136,12 @@ enum FontFaceLoadStatus {
 @JS()
 @staticInterop
 class FontFace {
-  external factory FontFace(String family, dynamic source,
+  external factory FontFace._(String family, dynamic source,
       [FontFaceDescriptors? descriptors]);
+
+  factory FontFace(String family, dynamic source,
+          [FontFaceDescriptors? descriptors]) =>
+      FontFace._(family, source ?? undefined, descriptors ?? undefined);
 }
 
 extension PropsFontFace on FontFace {
@@ -302,8 +306,12 @@ extension PropsFontFaceSetLoadEventInit on FontFaceSetLoadEventInit {
 @JS()
 @staticInterop
 class FontFaceSetLoadEvent implements Event {
-  external factory FontFaceSetLoadEvent(String type,
+  external factory FontFaceSetLoadEvent._(String type,
       [FontFaceSetLoadEventInit? eventInitDict]);
+
+  factory FontFaceSetLoadEvent(String type,
+          [FontFaceSetLoadEventInit? eventInitDict]) =>
+      FontFaceSetLoadEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsFontFaceSetLoadEvent on FontFaceSetLoadEvent {

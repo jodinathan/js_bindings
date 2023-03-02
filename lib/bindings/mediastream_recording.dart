@@ -31,8 +31,11 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class MediaRecorder implements EventTarget {
-  external factory MediaRecorder(MediaStream stream,
+  external factory MediaRecorder._(MediaStream stream,
       [MediaRecorderOptions? options]);
+
+  factory MediaRecorder(MediaStream stream, [MediaRecorderOptions? options]) =>
+      MediaRecorder._(stream, options ?? undefined);
   external static bool isTypeSupported(String type);
 }
 

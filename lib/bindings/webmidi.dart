@@ -292,8 +292,12 @@ enum MIDIPortConnectionState {
 @JS()
 @staticInterop
 class MIDIMessageEvent implements Event {
-  external factory MIDIMessageEvent(String type,
+  external factory MIDIMessageEvent._(String type,
       [MIDIMessageEventInit? eventInitDict]);
+
+  factory MIDIMessageEvent(String type,
+          [MIDIMessageEventInit? eventInitDict]) =>
+      MIDIMessageEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsMIDIMessageEvent on MIDIMessageEvent {
@@ -338,8 +342,12 @@ extension PropsMIDIMessageEventInit on MIDIMessageEventInit {
 @JS()
 @staticInterop
 class MIDIConnectionEvent implements Event {
-  external factory MIDIConnectionEvent(String type,
+  external factory MIDIConnectionEvent._(String type,
       [MIDIConnectionEventInit? eventInitDict]);
+
+  factory MIDIConnectionEvent(String type,
+          [MIDIConnectionEventInit? eventInitDict]) =>
+      MIDIConnectionEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsMIDIConnectionEvent on MIDIConnectionEvent {

@@ -350,20 +350,12 @@ extension PropsXRFrame on XRFrame {
   XRLightEstimate? getLightEstimate(XRLightProbe lightProbe) =>
       js_util.callMethod(this, 'getLightEstimate', [lightProbe]);
 
-  XRCPUDepthInformation? getDepthInformation(XRView view) =>
-      js_util.callMethod(this, 'getDepthInformation', [view]);
-
   Future<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space) => js_util
       .promiseToFuture(js_util.callMethod(this, 'createAnchor', [pose, space]));
 
   XRAnchorSet get trackedAnchors => js_util.getProperty(this, 'trackedAnchors');
-  Iterable<XRHitTestResult> getHitTestResults(XRHitTestSource hitTestSource) =>
-      js_util.callMethod(this, 'getHitTestResults', [hitTestSource]);
-
-  Iterable<XRTransientInputHitTestResult> getHitTestResultsForTransientInput(
-          XRTransientInputHitTestSource hitTestSource) =>
-      js_util.callMethod(
-          this, 'getHitTestResultsForTransientInput', [hitTestSource]);
+  XRCPUDepthInformation? getDepthInformation(XRView view) =>
+      js_util.callMethod(this, 'getDepthInformation', [view]);
 
   XRJointPose? getJointPose(XRJointSpace joint, XRSpace baseSpace) =>
       js_util.callMethod(this, 'getJointPose', [joint, baseSpace]);
@@ -374,6 +366,14 @@ extension PropsXRFrame on XRFrame {
   bool fillPoses(Iterable<XRSpace> spaces, XRSpace baseSpace,
           Float32List transforms) =>
       js_util.callMethod(this, 'fillPoses', [spaces, baseSpace, transforms]);
+
+  Iterable<XRHitTestResult> getHitTestResults(XRHitTestSource hitTestSource) =>
+      js_util.callMethod(this, 'getHitTestResults', [hitTestSource]);
+
+  Iterable<XRTransientInputHitTestResult> getHitTestResultsForTransientInput(
+          XRTransientInputHitTestSource hitTestSource) =>
+      js_util.callMethod(
+          this, 'getHitTestResultsForTransientInput', [hitTestSource]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -618,8 +618,12 @@ extension PropsXRViewport on XRViewport {
 @JS()
 @staticInterop
 class XRRigidTransform {
-  external factory XRRigidTransform(
+  external factory XRRigidTransform._(
       [DOMPointInit? position, DOMPointInit? orientation]);
+
+  factory XRRigidTransform(
+          [DOMPointInit? position, DOMPointInit? orientation]) =>
+      XRRigidTransform._(position ?? undefined, orientation ?? undefined);
 }
 
 extension PropsXRRigidTransform on XRRigidTransform {
@@ -751,8 +755,8 @@ extension PropsXRInputSource on XRInputSource {
   XRSpace get targetRaySpace => js_util.getProperty(this, 'targetRaySpace');
   XRSpace? get gripSpace => js_util.getProperty(this, 'gripSpace');
   Iterable<String> get profiles => js_util.getProperty(this, 'profiles');
-  Gamepad? get gamepad => js_util.getProperty(this, 'gamepad');
   XRHand? get hand => js_util.getProperty(this, 'hand');
+  Gamepad? get gamepad => js_util.getProperty(this, 'gamepad');
 }
 
 ///  Secure context: This feature is available only in secure
@@ -891,8 +895,12 @@ extension PropsXRWebGLLayerInit on XRWebGLLayerInit {
 @JS()
 @staticInterop
 class XRWebGLLayer implements XRLayer {
-  external factory XRWebGLLayer(XRSession session, dynamic context,
+  external factory XRWebGLLayer._(XRSession session, dynamic context,
       [XRWebGLLayerInit? layerInit]);
+
+  factory XRWebGLLayer(XRSession session, dynamic context,
+          [XRWebGLLayerInit? layerInit]) =>
+      XRWebGLLayer._(session, context ?? undefined, layerInit ?? undefined);
   external static double getNativeFramebufferScaleFactor(XRSession session);
 }
 

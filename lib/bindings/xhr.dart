@@ -220,8 +220,10 @@ extension PropsXMLHttpRequest on XMLHttpRequest {
 ///
 @JS()
 @staticInterop
-class FormData extends JsIterable<dynamic> {
-  external factory FormData([HTMLFormElement? form]);
+class FormData extends JsIterable<JsArray<dynamic>> {
+  external factory FormData._([HTMLFormElement? form]);
+
+  factory FormData([HTMLFormElement? form]) => FormData._(form ?? undefined);
 }
 
 extension PropsFormData on FormData {
@@ -260,8 +262,11 @@ extension PropsFormData on FormData {
 @JS()
 @staticInterop
 class ProgressEvent implements Event {
-  external factory ProgressEvent(String type,
+  external factory ProgressEvent._(String type,
       [ProgressEventInit? eventInitDict]);
+
+  factory ProgressEvent(String type, [ProgressEventInit? eventInitDict]) =>
+      ProgressEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsProgressEvent on ProgressEvent {

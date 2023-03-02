@@ -35,8 +35,12 @@ import 'package:js_bindings/js_bindings.dart';
 @JS()
 @staticInterop
 class DeviceOrientationEvent implements Event {
-  external factory DeviceOrientationEvent(String type,
+  external factory DeviceOrientationEvent._(String type,
       [DeviceOrientationEventInit? eventInitDict]);
+
+  factory DeviceOrientationEvent(String type,
+          [DeviceOrientationEventInit? eventInitDict]) =>
+      DeviceOrientationEvent._(type, eventInitDict ?? undefined);
   external static Future<PermissionState> requestPermission();
 }
 
@@ -149,8 +153,12 @@ extension PropsDeviceMotionEventRotationRate on DeviceMotionEventRotationRate {
 @JS()
 @staticInterop
 class DeviceMotionEvent implements Event {
-  external factory DeviceMotionEvent(String type,
+  external factory DeviceMotionEvent._(String type,
       [DeviceMotionEventInit? eventInitDict]);
+
+  factory DeviceMotionEvent(String type,
+          [DeviceMotionEventInit? eventInitDict]) =>
+      DeviceMotionEvent._(type, eventInitDict ?? undefined);
   external static Future<PermissionState> requestPermission();
 }
 

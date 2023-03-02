@@ -41,6 +41,12 @@ void main() {
   print('RequestInit:');
   window.console.log(init);
 
+  final headers = Headers()..append('foo', 'bar');
+
+  window.console.log(headers);
+
+  print(headers.toList());
+
   _fetch().then((ev) => print('Fetch test finished.'));
 
   final response = ResponseInit();

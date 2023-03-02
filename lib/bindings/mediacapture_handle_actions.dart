@@ -30,7 +30,10 @@ enum CaptureAction {
 @JS()
 @staticInterop
 class CaptureActionEvent implements Event {
-  external factory CaptureActionEvent([CaptureActionEventInit? init]);
+  external factory CaptureActionEvent._([CaptureActionEventInit? init]);
+
+  factory CaptureActionEvent([CaptureActionEventInit? init]) =>
+      CaptureActionEvent._(init ?? undefined);
 }
 
 extension PropsCaptureActionEvent on CaptureActionEvent {

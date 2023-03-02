@@ -87,8 +87,12 @@ extension PropsPortalHost on PortalHost {
 @JS()
 @staticInterop
 class PortalActivateEvent implements Event {
-  external factory PortalActivateEvent(String type,
+  external factory PortalActivateEvent._(String type,
       [PortalActivateEventInit? eventInitDict]);
+
+  factory PortalActivateEvent(String type,
+          [PortalActivateEventInit? eventInitDict]) =>
+      PortalActivateEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsPortalActivateEvent on PortalActivateEvent {

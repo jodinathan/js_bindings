@@ -50,8 +50,11 @@ extension PropsClipboardEventInit on ClipboardEventInit {
 @JS()
 @staticInterop
 class ClipboardEvent implements Event {
-  external factory ClipboardEvent(String type,
+  external factory ClipboardEvent._(String type,
       [ClipboardEventInit? eventInitDict]);
+
+  factory ClipboardEvent(String type, [ClipboardEventInit? eventInitDict]) =>
+      ClipboardEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsClipboardEvent on ClipboardEvent {
@@ -78,8 +81,11 @@ extension PropsClipboardEvent on ClipboardEvent {
 @JS()
 @staticInterop
 class ClipboardItem {
-  external factory ClipboardItem(dynamic items,
+  external factory ClipboardItem._(dynamic items,
       [ClipboardItemOptions? options]);
+
+  factory ClipboardItem(dynamic items, [ClipboardItemOptions? options]) =>
+      ClipboardItem._(items ?? undefined, options ?? undefined);
 }
 
 extension PropsClipboardItem on ClipboardItem {

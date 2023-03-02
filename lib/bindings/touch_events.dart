@@ -285,7 +285,10 @@ extension PropsTouchEventInit on TouchEventInit {
 @JS()
 @staticInterop
 class TouchEvent implements UIEvent {
-  external factory TouchEvent(String type, [TouchEventInit? eventInitDict]);
+  external factory TouchEvent._(String type, [TouchEventInit? eventInitDict]);
+
+  factory TouchEvent(String type, [TouchEventInit? eventInitDict]) =>
+      TouchEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsTouchEvent on TouchEvent {

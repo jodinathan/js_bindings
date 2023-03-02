@@ -274,7 +274,7 @@ extension PropsMediaKeySession on MediaKeySession {
 /// map of media key statuses by key IDs.
 @JS()
 @staticInterop
-class MediaKeyStatusMap extends JsIterable<MediaKeyStatus> {
+class MediaKeyStatusMap extends JsIterable<JsArray<MediaKeyStatus>> {
   external factory MediaKeyStatusMap();
 }
 
@@ -378,8 +378,12 @@ extension PropsMediaKeyMessageEventInit on MediaKeyMessageEventInit {
 @JS()
 @staticInterop
 class MediaEncryptedEvent implements Event {
-  external factory MediaEncryptedEvent(String type,
+  external factory MediaEncryptedEvent._(String type,
       [MediaEncryptedEventInit? eventInitDict]);
+
+  factory MediaEncryptedEvent(String type,
+          [MediaEncryptedEventInit? eventInitDict]) =>
+      MediaEncryptedEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsMediaEncryptedEvent on MediaEncryptedEvent {

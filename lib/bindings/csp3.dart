@@ -74,8 +74,12 @@ enum SecurityPolicyViolationEventDisposition {
 @JS()
 @staticInterop
 class SecurityPolicyViolationEvent implements Event {
-  external factory SecurityPolicyViolationEvent(String type,
+  external factory SecurityPolicyViolationEvent._(String type,
       [SecurityPolicyViolationEventInit? eventInitDict]);
+
+  factory SecurityPolicyViolationEvent(String type,
+          [SecurityPolicyViolationEventInit? eventInitDict]) =>
+      SecurityPolicyViolationEvent._(type, eventInitDict ?? undefined);
 }
 
 extension PropsSecurityPolicyViolationEvent on SecurityPolicyViolationEvent {

@@ -43,9 +43,9 @@ import 'package:js_bindings/js_bindings.dart';
 class MathMLElement
     implements
         Element,
+        ElementCSSInlineStyle,
         GlobalEventHandlers,
         DocumentAndElementEventHandlers,
-        HTMLOrSVGElement,
-        ElementCSSInlineStyle {
+        HTMLOrSVGElement {
   external factory MathMLElement();
 }
