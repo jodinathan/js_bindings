@@ -1,3 +1,6 @@
+## 0.1.2+1
+- Fix Invertase logo
+
 ## 0.1.2
 - Use .pubignore to override .gitignore when publishing
 

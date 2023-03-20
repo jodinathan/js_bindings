@@ -6,7 +6,7 @@ Take a look at [MediaStream](https://github.com/jodinathan/js_bindings/blob/main
 
 ## Sponsor
 
-This package is officially sponsored by Invertase.io ![Invertase](https://invertase.io/assets/logo.5d43a55e.svg)
+This package is officially sponsored by Invertase.io <img src="https://static.invertase.io/assets/invertase/invertase-rounded-avatar.png" height="30">
 
 ## Usage
 
