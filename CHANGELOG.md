@@ -1,3 +1,6 @@
+## 0.1.2+2
+- Discontinued, please, use [Typings](https://pub.dev/packages/typings) instead.
+
 ## 0.1.2+1
 - Fix Invertase logo
 

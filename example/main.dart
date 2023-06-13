@@ -12,9 +12,12 @@ external JsArray<String> testArray;
 external JsArray<String> testArray2;
 
 Future<void> _fetch() async {
+  final req = RequestInit();
+
+  window.console.log('Fetch request', req);
   try {
-    final r = await window.fetch(
-        'https://jsonplaceholder.typicode.com/todos/1', RequestInit());
+    final r =
+        await window.fetch('https://jsonplaceholder.typicode.com/todos/1', req);
     print('Fetch finished: $r');
     window.console.log(r);
   } catch (e) {
