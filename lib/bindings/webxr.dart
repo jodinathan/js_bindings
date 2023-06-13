@@ -219,11 +219,12 @@ extension PropsXRSession on XRSession {
     js_util.setProperty(this, 'onframeratechange', newValue);
   }
 
-  XREnvironmentBlendMode get environmentBlendMode =>
-      XREnvironmentBlendMode.fromValue(
-          js_util.getProperty(this, 'environmentBlendMode'));
-  XRInteractionMode get interactionMode =>
-      XRInteractionMode.fromValue(js_util.getProperty(this, 'interactionMode'));
+  XRDepthUsage get depthUsage =>
+      XRDepthUsage.fromValue(js_util.getProperty(this, 'depthUsage'));
+  XRDepthDataFormat get depthDataFormat =>
+      XRDepthDataFormat.fromValue(js_util.getProperty(this, 'depthDataFormat'));
+  XRDOMOverlayState? get domOverlayState =>
+      js_util.getProperty(this, 'domOverlayState');
   Future<XRLightProbe> requestLightProbe([XRLightProbeInit? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestLightProbe', [options]));
@@ -231,10 +232,11 @@ extension PropsXRSession on XRSession {
   XRReflectionFormat get preferredReflectionFormat =>
       XRReflectionFormat.fromValue(
           js_util.getProperty(this, 'preferredReflectionFormat'));
-  XRDepthUsage get depthUsage =>
-      XRDepthUsage.fromValue(js_util.getProperty(this, 'depthUsage'));
-  XRDepthDataFormat get depthDataFormat =>
-      XRDepthDataFormat.fromValue(js_util.getProperty(this, 'depthDataFormat'));
+  XREnvironmentBlendMode get environmentBlendMode =>
+      XREnvironmentBlendMode.fromValue(
+          js_util.getProperty(this, 'environmentBlendMode'));
+  XRInteractionMode get interactionMode =>
+      XRInteractionMode.fromValue(js_util.getProperty(this, 'interactionMode'));
   Future<XRHitTestSource> requestHitTestSource(XRHitTestOptionsInit options) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'requestHitTestSource', [options]));
@@ -243,9 +245,6 @@ extension PropsXRSession on XRSession {
           XRTransientInputHitTestOptionsInit options) =>
       js_util.promiseToFuture(js_util.callMethod(
           this, 'requestHitTestSourceForTransientInput', [options]));
-
-  XRDOMOverlayState? get domOverlayState =>
-      js_util.getProperty(this, 'domOverlayState');
 }
 
 @anonymous
@@ -347,15 +346,23 @@ extension PropsXRFrame on XRFrame {
   XRPose? getPose(XRSpace space, XRSpace baseSpace) =>
       js_util.callMethod(this, 'getPose', [space, baseSpace]);
 
-  XRLightEstimate? getLightEstimate(XRLightProbe lightProbe) =>
-      js_util.callMethod(this, 'getLightEstimate', [lightProbe]);
+  XRCPUDepthInformation? getDepthInformation(XRView view) =>
+      js_util.callMethod(this, 'getDepthInformation', [view]);
 
   Future<XRAnchor> createAnchor(XRRigidTransform pose, XRSpace space) => js_util
       .promiseToFuture(js_util.callMethod(this, 'createAnchor', [pose, space]));
 
   XRAnchorSet get trackedAnchors => js_util.getProperty(this, 'trackedAnchors');
-  XRCPUDepthInformation? getDepthInformation(XRView view) =>
-      js_util.callMethod(this, 'getDepthInformation', [view]);
+  XRLightEstimate? getLightEstimate(XRLightProbe lightProbe) =>
+      js_util.callMethod(this, 'getLightEstimate', [lightProbe]);
+
+  Iterable<XRHitTestResult> getHitTestResults(XRHitTestSource hitTestSource) =>
+      js_util.callMethod(this, 'getHitTestResults', [hitTestSource]);
+
+  Iterable<XRTransientInputHitTestResult> getHitTestResultsForTransientInput(
+          XRTransientInputHitTestSource hitTestSource) =>
+      js_util.callMethod(
+          this, 'getHitTestResultsForTransientInput', [hitTestSource]);
 
   XRJointPose? getJointPose(XRJointSpace joint, XRSpace baseSpace) =>
       js_util.callMethod(this, 'getJointPose', [joint, baseSpace]);
@@ -366,14 +373,6 @@ extension PropsXRFrame on XRFrame {
   bool fillPoses(Iterable<XRSpace> spaces, XRSpace baseSpace,
           Float32List transforms) =>
       js_util.callMethod(this, 'fillPoses', [spaces, baseSpace, transforms]);
-
-  Iterable<XRHitTestResult> getHitTestResults(XRHitTestSource hitTestSource) =>
-      js_util.callMethod(this, 'getHitTestResults', [hitTestSource]);
-
-  Iterable<XRTransientInputHitTestResult> getHitTestResultsForTransientInput(
-          XRTransientInputHitTestSource hitTestSource) =>
-      js_util.callMethod(
-          this, 'getHitTestResultsForTransientInput', [hitTestSource]);
 }
 
 ///  Secure context: This feature is available only in secure
@@ -755,8 +754,8 @@ extension PropsXRInputSource on XRInputSource {
   XRSpace get targetRaySpace => js_util.getProperty(this, 'targetRaySpace');
   XRSpace? get gripSpace => js_util.getProperty(this, 'gripSpace');
   Iterable<String> get profiles => js_util.getProperty(this, 'profiles');
-  XRHand? get hand => js_util.getProperty(this, 'hand');
   Gamepad? get gamepad => js_util.getProperty(this, 'gamepad');
+  XRHand? get hand => js_util.getProperty(this, 'hand');
 }
 
 ///  Secure context: This feature is available only in secure

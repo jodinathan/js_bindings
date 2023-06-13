@@ -960,6 +960,7 @@ extension PropsRTCRtpSender on RTCRtpSender {
   Future<RTCStatsReport> getStats() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'getStats', []));
 
+  RTCDTMFSender? get dtmf => js_util.getProperty(this, 'dtmf');
   dynamic get transform => js_util.getProperty(this, 'transform');
   set transform(dynamic newValue) {
     js_util.setProperty(this, 'transform', newValue);
@@ -967,8 +968,6 @@ extension PropsRTCRtpSender on RTCRtpSender {
 
   Future<void> generateKeyFrame([Iterable<String>? rids]) => js_util
       .promiseToFuture(js_util.callMethod(this, 'generateKeyFrame', [rids]));
-
-  RTCDTMFSender? get dtmf => js_util.getProperty(this, 'dtmf');
 }
 
 ///  The dictionary is the basic object describing the parameters of

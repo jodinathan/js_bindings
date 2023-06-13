@@ -44,11 +44,11 @@ import 'package:js_bindings/js_bindings.dart';
 class SVGElement
     implements
         Element,
+        ElementCSSInlineStyle,
         GlobalEventHandlers,
         DocumentAndElementEventHandlers,
         HTMLOrSVGElement,
-        SVGElementInstance,
-        ElementCSSInlineStyle {
+        SVGElementInstance {
   external factory SVGElement();
 }
 

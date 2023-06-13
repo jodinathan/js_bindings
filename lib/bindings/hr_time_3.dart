@@ -51,6 +51,18 @@ extension PropsPerformance on Performance {
   double get timeOrigin => js_util.getProperty(this, 'timeOrigin');
   dynamic toJSON() => js_util.callMethod(this, 'toJSON', []);
 
+  EventCounts get eventCounts => js_util.getProperty(this, 'eventCounts');
+  InteractionCounts get interactionCounts =>
+      js_util.getProperty(this, 'interactionCounts');
+  Iterable<PerformanceEntry> getEntries() =>
+      js_util.callMethod(this, 'getEntries', []);
+
+  Iterable<PerformanceEntry> getEntriesByType(String type) =>
+      js_util.callMethod(this, 'getEntriesByType', [type]);
+
+  Iterable<PerformanceEntry> getEntriesByName(String name, [String? type]) =>
+      js_util.callMethod(this, 'getEntriesByName', [name, type]);
+
   void clearResourceTimings() =>
       js_util.callMethod(this, 'clearResourceTimings', []);
 
@@ -63,9 +75,10 @@ extension PropsPerformance on Performance {
     js_util.setProperty(this, 'onresourcetimingbufferfull', newValue);
   }
 
-  PerformanceTiming get timing => js_util.getProperty(this, 'timing');
-  PerformanceNavigation get navigation =>
-      js_util.getProperty(this, 'navigation');
+  Future<MemoryMeasurement> measureUserAgentSpecificMemory() =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'measureUserAgentSpecificMemory', []));
+
   PerformanceMark mark(String markName,
           [PerformanceMarkOptions? markOptions]) =>
       js_util.callMethod(this, 'mark', [markName, markOptions]);
@@ -81,19 +94,7 @@ extension PropsPerformance on Performance {
   void clearMeasures([String? measureName]) =>
       js_util.callMethod(this, 'clearMeasures', [measureName]);
 
-  EventCounts get eventCounts => js_util.getProperty(this, 'eventCounts');
-  InteractionCounts get interactionCounts =>
-      js_util.getProperty(this, 'interactionCounts');
-  Iterable<PerformanceEntry> getEntries() =>
-      js_util.callMethod(this, 'getEntries', []);
-
-  Iterable<PerformanceEntry> getEntriesByType(String type) =>
-      js_util.callMethod(this, 'getEntriesByType', [type]);
-
-  Iterable<PerformanceEntry> getEntriesByName(String name, [String? type]) =>
-      js_util.callMethod(this, 'getEntriesByName', [name, type]);
-
-  Future<MemoryMeasurement> measureUserAgentSpecificMemory() =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'measureUserAgentSpecificMemory', []));
+  PerformanceTiming get timing => js_util.getProperty(this, 'timing');
+  PerformanceNavigation get navigation =>
+      js_util.getProperty(this, 'navigation');
 }

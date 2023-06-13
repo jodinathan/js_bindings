@@ -335,15 +335,10 @@ class DocumentOrShadowRoot {
 }
 
 extension PropsDocumentOrShadowRoot on DocumentOrShadowRoot {
-  Iterable<Animation> getAnimations() =>
-      js_util.callMethod(this, 'getAnimations', []);
-
-  Element? get pointerLockElement =>
-      js_util.getProperty(this, 'pointerLockElement');
   Element? get fullscreenElement =>
       js_util.getProperty(this, 'fullscreenElement');
-  Element? get pictureInPictureElement =>
-      js_util.getProperty(this, 'pictureInPictureElement');
+  Element? get pointerLockElement =>
+      js_util.getProperty(this, 'pointerLockElement');
   Element? get activeElement => js_util.getProperty(this, 'activeElement');
   StyleSheetList get styleSheets => js_util.getProperty(this, 'styleSheets');
   Iterable<CSSStyleSheet> get adoptedStyleSheets =>
@@ -351,6 +346,12 @@ extension PropsDocumentOrShadowRoot on DocumentOrShadowRoot {
   set adoptedStyleSheets(Iterable<CSSStyleSheet> newValue) {
     js_util.setProperty(this, 'adoptedStyleSheets', newValue);
   }
+
+  Iterable<Animation> getAnimations() =>
+      js_util.callMethod(this, 'getAnimations', []);
+
+  Element? get pictureInPictureElement =>
+      js_util.getProperty(this, 'pictureInPictureElement');
 }
 
 @JS()
@@ -802,14 +803,14 @@ extension PropsGetRootNodeOptions on GetRootNodeOptions {
 class Document
     implements
         Node,
-        GeometryUtils,
+        GlobalEventHandlers,
+        DocumentAndElementEventHandlers,
         FontFaceSource,
+        GeometryUtils,
         NonElementParentNode,
         DocumentOrShadowRoot,
         ParentNode,
-        XPathEvaluatorBase,
-        GlobalEventHandlers,
-        DocumentAndElementEventHandlers {
+        XPathEvaluatorBase {
   external factory Document();
 }
 
@@ -884,41 +885,6 @@ extension PropsDocument on Document {
           [int? whatToShow = 0xFFFFFFFF, NodeFilter? filter]) =>
       js_util.callMethod(this, 'createTreeWalker', [root, whatToShow, filter]);
 
-  SVGSVGElement? get rootElement => js_util.getProperty(this, 'rootElement');
-  Future<bool> hasStorageAccess() =>
-      js_util.promiseToFuture(js_util.callMethod(this, 'hasStorageAccess', []));
-
-  Future<void> requestStorageAccess() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'requestStorageAccess', []));
-
-  Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
-
-  DocumentTimeline get timeline => js_util.getProperty(this, 'timeline');
-  Element? elementFromPoint(double x, double y) =>
-      js_util.callMethod(this, 'elementFromPoint', [x, y]);
-
-  Iterable<Element> elementsFromPoint(double x, double y) =>
-      js_util.callMethod(this, 'elementsFromPoint', [x, y]);
-
-  CaretPosition? caretPositionFromPoint(double x, double y) =>
-      js_util.callMethod(this, 'caretPositionFromPoint', [x, y]);
-
-  Element? get scrollingElement =>
-      js_util.getProperty(this, 'scrollingElement');
-  EventHandlerNonNull? get onpointerlockchange =>
-      js_util.getProperty(this, 'onpointerlockchange');
-  set onpointerlockchange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpointerlockchange', newValue);
-  }
-
-  EventHandlerNonNull? get onpointerlockerror =>
-      js_util.getProperty(this, 'onpointerlockerror');
-  set onpointerlockerror(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpointerlockerror', newValue);
-  }
-
-  void exitPointerLock() => js_util.callMethod(this, 'exitPointerLock', []);
-
   bool get fullscreenEnabled => js_util.getProperty(this, 'fullscreenEnabled');
   bool get fullscreen => js_util.getProperty(this, 'fullscreen');
   Future<void> exitFullscreen() =>
@@ -936,11 +902,8 @@ extension PropsDocument on Document {
     js_util.setProperty(this, 'onfullscreenerror', newValue);
   }
 
-  bool get pictureInPictureEnabled =>
-      js_util.getProperty(this, 'pictureInPictureEnabled');
-  Future<void> exitPictureInPicture() => js_util
-      .promiseToFuture(js_util.callMethod(this, 'exitPictureInPicture', []));
-
+  PermissionsPolicy get permissionsPolicy =>
+      js_util.getProperty(this, 'permissionsPolicy');
   EventHandlerNonNull? get onfreeze => js_util.getProperty(this, 'onfreeze');
   set onfreeze(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onfreeze', newValue);
@@ -952,18 +915,28 @@ extension PropsDocument on Document {
   }
 
   bool get wasDiscarded => js_util.getProperty(this, 'wasDiscarded');
-  NamedFlowMap get namedFlows => js_util.getProperty(this, 'namedFlows');
-  FragmentDirective get fragmentDirective =>
-      js_util.getProperty(this, 'fragmentDirective');
-  bool get prerendering => js_util.getProperty(this, 'prerendering');
-  EventHandlerNonNull? get onprerenderingchange =>
-      js_util.getProperty(this, 'onprerenderingchange');
-  set onprerenderingchange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onprerenderingchange', newValue);
+  Selection? getSelection() => js_util.callMethod(this, 'getSelection', []);
+
+  Future<bool> hasStorageAccess() =>
+      js_util.promiseToFuture(js_util.callMethod(this, 'hasStorageAccess', []));
+
+  Future<void> requestStorageAccess() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'requestStorageAccess', []));
+
+  EventHandlerNonNull? get onpointerlockchange =>
+      js_util.getProperty(this, 'onpointerlockchange');
+  set onpointerlockchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerlockchange', newValue);
   }
 
-  PermissionsPolicy get permissionsPolicy =>
-      js_util.getProperty(this, 'permissionsPolicy');
+  EventHandlerNonNull? get onpointerlockerror =>
+      js_util.getProperty(this, 'onpointerlockerror');
+  set onpointerlockerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpointerlockerror', newValue);
+  }
+
+  void exitPointerLock() => js_util.callMethod(this, 'exitPointerLock', []);
+
   Location? get location => js_util.getProperty(this, 'location');
   String get domain => js_util.getProperty(this, 'domain');
   set domain(String newValue) {
@@ -1093,11 +1066,39 @@ extension PropsDocument on Document {
   void releaseEvents() => js_util.callMethod(this, 'releaseEvents', []);
 
   HTMLAllCollection get all => js_util.getProperty(this, 'all');
+  NamedFlowMap get namedFlows => js_util.getProperty(this, 'namedFlows');
+  bool get prerendering => js_util.getProperty(this, 'prerendering');
+  EventHandlerNonNull? get onprerenderingchange =>
+      js_util.getProperty(this, 'onprerenderingchange');
+  set onprerenderingchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onprerenderingchange', newValue);
+  }
+
+  Element? elementFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'elementFromPoint', [x, y]);
+
+  Iterable<Element> elementsFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'elementsFromPoint', [x, y]);
+
+  CaretPosition? caretPositionFromPoint(double x, double y) =>
+      js_util.callMethod(this, 'caretPositionFromPoint', [x, y]);
+
+  Element? get scrollingElement =>
+      js_util.getProperty(this, 'scrollingElement');
+  DocumentTimeline get timeline => js_util.getProperty(this, 'timeline');
+  FragmentDirective get fragmentDirective =>
+      js_util.getProperty(this, 'fragmentDirective');
   FontMetrics measureElement(Element element) =>
       js_util.callMethod(this, 'measureElement', [element]);
 
   FontMetrics measureText(String text, StylePropertyMapReadOnly styleMap) =>
       js_util.callMethod(this, 'measureText', [text, styleMap]);
+
+  SVGSVGElement? get rootElement => js_util.getProperty(this, 'rootElement');
+  bool get pictureInPictureEnabled =>
+      js_util.getProperty(this, 'pictureInPictureEnabled');
+  Future<void> exitPictureInPicture() => js_util
+      .promiseToFuture(js_util.callMethod(this, 'exitPictureInPicture', []));
 }
 
 ///  The XMLDocument interface represents an XML document. It
@@ -1272,7 +1273,7 @@ class DocumentFragment implements Node, NonElementParentNode, ParentNode {
 ///
 @JS()
 @staticInterop
-class ShadowRoot implements DocumentFragment, DocumentOrShadowRoot, InnerHTML {
+class ShadowRoot implements DocumentFragment, InnerHTML, DocumentOrShadowRoot {
   external factory ShadowRoot();
 }
 
@@ -1347,15 +1348,15 @@ enum SlotAssignmentMode {
 class Element
     implements
         Node,
-        Animatable,
-        ARIAMixin,
-        GeometryUtils,
         Region,
+        ARIAMixin,
+        InnerHTML,
+        GeometryUtils,
+        Animatable,
         ParentNode,
         NonDocumentTypeChildNode,
         ChildNode,
-        Slottable,
-        InnerHTML {
+        Slottable {
   external factory Element();
 }
 
@@ -1458,8 +1459,59 @@ extension PropsElement on Element {
   void insertAdjacentText(String where, String data) =>
       js_util.callMethod(this, 'insertAdjacentText', [where, data]);
 
-  StylePropertyMapReadOnly computedStyleMap() =>
-      js_util.callMethod(this, 'computedStyleMap', []);
+  Future<void> requestFullscreen([FullscreenOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'requestFullscreen', [options]));
+
+  EventHandlerNonNull? get onfullscreenchange =>
+      js_util.getProperty(this, 'onfullscreenchange');
+  set onfullscreenchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfullscreenchange', newValue);
+  }
+
+  EventHandlerNonNull? get onfullscreenerror =>
+      js_util.getProperty(this, 'onfullscreenerror');
+  set onfullscreenerror(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onfullscreenerror', newValue);
+  }
+
+  void setHTML(String input, [SetHTMLOptions? options]) =>
+      js_util.callMethod(this, 'setHTML', [input, options]);
+
+  void requestPointerLock() =>
+      js_util.callMethod(this, 'requestPointerLock', []);
+
+  EditContext? get editContext => js_util.getProperty(this, 'editContext');
+  set editContext(EditContext? newValue) {
+    js_util.setProperty(this, 'editContext', newValue);
+  }
+
+  void setPointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'setPointerCapture', [pointerId]);
+
+  void releasePointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'releasePointerCapture', [pointerId]);
+
+  bool hasPointerCapture(int pointerId) =>
+      js_util.callMethod(this, 'hasPointerCapture', [pointerId]);
+
+  String get outerHTML => js_util.getProperty(this, 'outerHTML');
+  set outerHTML(String newValue) {
+    js_util.setProperty(this, 'outerHTML', newValue);
+  }
+
+  void insertAdjacentHTML(String position, String text) =>
+      js_util.callMethod(this, 'insertAdjacentHTML', [position, text]);
+
+  Node getSpatialNavigationContainer() =>
+      js_util.callMethod(this, 'getSpatialNavigationContainer', []);
+
+  Iterable<Node> focusableAreas([FocusableAreasOption? option]) =>
+      js_util.callMethod(this, 'focusableAreas', [option]);
+
+  Node? spatialNavigationSearch(SpatialNavigationDirection dir,
+          [SpatialNavigationSearchOptions? options]) =>
+      js_util.callMethod(this, 'spatialNavigationSearch', [dir.value, options]);
 
   DOMRectList getClientRects() =>
       js_util.callMethod(this, 'getClientRects', []);
@@ -1500,67 +1552,16 @@ extension PropsElement on Element {
   int get clientLeft => js_util.getProperty(this, 'clientLeft');
   int get clientWidth => js_util.getProperty(this, 'clientWidth');
   int get clientHeight => js_util.getProperty(this, 'clientHeight');
-  void requestPointerLock() =>
-      js_util.callMethod(this, 'requestPointerLock', []);
+  StylePropertyMapReadOnly computedStyleMap() =>
+      js_util.callMethod(this, 'computedStyleMap', []);
 
-  Future<void> requestFullscreen([FullscreenOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'requestFullscreen', [options]));
-
-  EventHandlerNonNull? get onfullscreenchange =>
-      js_util.getProperty(this, 'onfullscreenchange');
-  set onfullscreenchange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onfullscreenchange', newValue);
-  }
-
-  EventHandlerNonNull? get onfullscreenerror =>
-      js_util.getProperty(this, 'onfullscreenerror');
-  set onfullscreenerror(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onfullscreenerror', newValue);
-  }
-
-  void setPointerCapture(int pointerId) =>
-      js_util.callMethod(this, 'setPointerCapture', [pointerId]);
-
-  void releasePointerCapture(int pointerId) =>
-      js_util.callMethod(this, 'releasePointerCapture', [pointerId]);
-
-  bool hasPointerCapture(int pointerId) =>
-      js_util.callMethod(this, 'hasPointerCapture', [pointerId]);
-
+  DOMTokenList get part => js_util.getProperty(this, 'part');
   CSSPseudoElement? pseudo(String type) =>
       js_util.callMethod(this, 'pseudo', [type]);
-
-  String get outerHTML => js_util.getProperty(this, 'outerHTML');
-  set outerHTML(String newValue) {
-    js_util.setProperty(this, 'outerHTML', newValue);
-  }
-
-  void insertAdjacentHTML(String position, String text) =>
-      js_util.callMethod(this, 'insertAdjacentHTML', [position, text]);
 
   String get elementTiming => js_util.getProperty(this, 'elementTiming');
   set elementTiming(String newValue) {
     js_util.setProperty(this, 'elementTiming', newValue);
-  }
-
-  Node getSpatialNavigationContainer() =>
-      js_util.callMethod(this, 'getSpatialNavigationContainer', []);
-
-  Iterable<Node> focusableAreas([FocusableAreasOption? option]) =>
-      js_util.callMethod(this, 'focusableAreas', [option]);
-
-  Node? spatialNavigationSearch(SpatialNavigationDirection dir,
-          [SpatialNavigationSearchOptions? options]) =>
-      js_util.callMethod(this, 'spatialNavigationSearch', [dir.value, options]);
-
-  void setHTML(String input, [SetHTMLOptions? options]) =>
-      js_util.callMethod(this, 'setHTML', [input, options]);
-
-  DOMTokenList get part => js_util.getProperty(this, 'part');
-  EditContext? get editContext => js_util.getProperty(this, 'editContext');
-  set editContext(EditContext? newValue) {
-    js_util.setProperty(this, 'editContext', newValue);
   }
 }
 
@@ -2172,14 +2173,14 @@ extension PropsRange on Range {
 
   String mToString() => js_util.callMethod(this, 'toString', []);
 
+  DocumentFragment createContextualFragment(String fragment) =>
+      js_util.callMethod(this, 'createContextualFragment', [fragment]);
+
   DOMRectList getClientRects() =>
       js_util.callMethod(this, 'getClientRects', []);
 
   DOMRect getBoundingClientRect() =>
       js_util.callMethod(this, 'getBoundingClientRect', []);
-
-  DocumentFragment createContextualFragment(String fragment) =>
-      js_util.callMethod(this, 'createContextualFragment', [fragment]);
 }
 
 ///

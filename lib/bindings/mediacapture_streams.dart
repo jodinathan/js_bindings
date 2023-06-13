@@ -150,15 +150,6 @@ extension PropsMediaStreamTrack on MediaStreamTrack {
     js_util.setProperty(this, 'contentHint', newValue);
   }
 
-  CaptureHandle? getCaptureHandle() =>
-      js_util.callMethod(this, 'getCaptureHandle', []);
-
-  EventHandlerNonNull? get oncapturehandlechange =>
-      js_util.getProperty(this, 'oncapturehandlechange');
-  set oncapturehandlechange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'oncapturehandlechange', newValue);
-  }
-
   bool get isolated => js_util.getProperty(this, 'isolated');
   EventHandlerNonNull? get onisolationchange =>
       js_util.getProperty(this, 'onisolationchange');
@@ -172,6 +163,15 @@ extension PropsMediaStreamTrack on MediaStreamTrack {
   Future<void> sendCaptureAction(CaptureAction action) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'sendCaptureAction', [action.value]));
+
+  CaptureHandle? getCaptureHandle() =>
+      js_util.callMethod(this, 'getCaptureHandle', []);
+
+  EventHandlerNonNull? get oncapturehandlechange =>
+      js_util.getProperty(this, 'oncapturehandlechange');
+  set oncapturehandlechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncapturehandlechange', newValue);
+  }
 }
 
 enum MediaStreamTrackState {
@@ -806,18 +806,6 @@ extension PropsMediaDevices on MediaDevices {
   Future<Iterable<MediaDeviceInfo>> enumerateDevices() =>
       js_util.promiseToFuture(js_util.callMethod(this, 'enumerateDevices', []));
 
-  Future<MediaStream> getViewportMedia(
-          [ViewportMediaStreamConstraints? constraints]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'getViewportMedia', [constraints]));
-
-  Future<MediaDeviceInfo> selectAudioOutput([AudioOutputOptions? options]) =>
-      js_util.promiseToFuture(
-          js_util.callMethod(this, 'selectAudioOutput', [options]));
-
-  void setCaptureHandleConfig([CaptureHandleConfig? config]) =>
-      js_util.callMethod(this, 'setCaptureHandleConfig', [config]);
-
   MediaTrackSupportedConstraints getSupportedConstraints() =>
       js_util.callMethod(this, 'getSupportedConstraints', []);
 
@@ -829,6 +817,15 @@ extension PropsMediaDevices on MediaDevices {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'getDisplayMedia', [options]));
 
+  Future<MediaDeviceInfo> selectAudioOutput([AudioOutputOptions? options]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'selectAudioOutput', [options]));
+
+  Future<MediaStream> getViewportMedia(
+          [ViewportMediaStreamConstraints? constraints]) =>
+      js_util.promiseToFuture(
+          js_util.callMethod(this, 'getViewportMedia', [constraints]));
+
   void setSupportedCaptureActions(Iterable<String> actions) =>
       js_util.callMethod(this, 'setSupportedCaptureActions', [actions]);
 
@@ -837,6 +834,9 @@ extension PropsMediaDevices on MediaDevices {
   set oncaptureaction(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'oncaptureaction', newValue);
   }
+
+  void setCaptureHandleConfig([CaptureHandleConfig? config]) =>
+      js_util.callMethod(this, 'setCaptureHandleConfig', [config]);
 }
 
 ///  The interface contains information that describes a single media

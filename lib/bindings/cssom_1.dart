@@ -256,23 +256,23 @@ class CSSRule {
   @JS('NAMESPACE_RULE')
   external static int get namespaceRule;
 
-  @JS('VIEWPORT_RULE')
-  external static int get viewportRule;
-
   @JS('KEYFRAMES_RULE')
   external static int get keyframesRule;
 
   @JS('KEYFRAME_RULE')
   external static int get keyframeRule;
 
-  @JS('SUPPORTS_RULE')
-  external static int get supportsRule;
-
   @JS('COUNTER_STYLE_RULE')
   external static int get counterStyleRule;
 
   @JS('FONT_FEATURE_VALUES_RULE')
   external static int get fontFeatureValuesRule;
+
+  @JS('SUPPORTS_RULE')
+  external static int get supportsRule;
+
+  @JS('VIEWPORT_RULE')
+  external static int get viewportRule;
 
   external factory CSSRule();
 }

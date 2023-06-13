@@ -832,11 +832,11 @@ extension PropsXRWebGLBinding on XRWebGLBinding {
   XRWebGLSubImage getViewSubImage(XRProjectionLayer layer, XRView view) =>
       js_util.callMethod(this, 'getViewSubImage', [layer, view]);
 
-  WebGLTexture? getReflectionCubeMap(XRLightProbe lightProbe) =>
-      js_util.callMethod(this, 'getReflectionCubeMap', [lightProbe]);
-
   XRWebGLDepthInformation? getDepthInformation(XRView view) =>
       js_util.callMethod(this, 'getDepthInformation', [view]);
+
+  WebGLTexture? getReflectionCubeMap(XRLightProbe lightProbe) =>
+      js_util.callMethod(this, 'getReflectionCubeMap', [lightProbe]);
 }
 
 @anonymous

@@ -128,13 +128,11 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
   }
 
   ContentIndex get index => js_util.getProperty(this, 'index');
-  PeriodicSyncManager get periodicSync =>
-      js_util.getProperty(this, 'periodicSync');
-  PaymentManager get paymentManager =>
-      js_util.getProperty(this, 'paymentManager');
-  CookieStoreManager get cookies => js_util.getProperty(this, 'cookies');
   BackgroundFetchManager get backgroundFetch =>
       js_util.getProperty(this, 'backgroundFetch');
+  PushManager get pushManager => js_util.getProperty(this, 'pushManager');
+  PaymentManager get paymentManager =>
+      js_util.getProperty(this, 'paymentManager');
   Future<void> showNotification(String title, [NotificationOptions? options]) =>
       js_util.promiseToFuture(
           js_util.callMethod(this, 'showNotification', [title, options]));
@@ -144,8 +142,10 @@ extension PropsServiceWorkerRegistration on ServiceWorkerRegistration {
       js_util.promiseToFuture(
           js_util.callMethod(this, 'getNotifications', [filter]));
 
-  PushManager get pushManager => js_util.getProperty(this, 'pushManager');
+  CookieStoreManager get cookies => js_util.getProperty(this, 'cookies');
   SyncManager get sync => js_util.getProperty(this, 'sync');
+  PeriodicSyncManager get periodicSync =>
+      js_util.getProperty(this, 'periodicSync');
 }
 
 enum ServiceWorkerUpdateViaCache {
@@ -390,31 +390,6 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
     js_util.setProperty(this, 'oncontentdelete', newValue);
   }
 
-  EventHandlerNonNull? get onperiodicsync =>
-      js_util.getProperty(this, 'onperiodicsync');
-  set onperiodicsync(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onperiodicsync', newValue);
-  }
-
-  EventHandlerNonNull? get oncanmakepayment =>
-      js_util.getProperty(this, 'oncanmakepayment');
-  set oncanmakepayment(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'oncanmakepayment', newValue);
-  }
-
-  EventHandlerNonNull? get onpaymentrequest =>
-      js_util.getProperty(this, 'onpaymentrequest');
-  set onpaymentrequest(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpaymentrequest', newValue);
-  }
-
-  CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
-  EventHandlerNonNull? get oncookiechange =>
-      js_util.getProperty(this, 'oncookiechange');
-  set oncookiechange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'oncookiechange', newValue);
-  }
-
   EventHandlerNonNull? get onbackgroundfetchsuccess =>
       js_util.getProperty(this, 'onbackgroundfetchsuccess');
   set onbackgroundfetchsuccess(EventHandlerNonNull? newValue) {
@@ -439,6 +414,29 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
     js_util.setProperty(this, 'onbackgroundfetchclick', newValue);
   }
 
+  EventHandlerNonNull? get onpush => js_util.getProperty(this, 'onpush');
+  set onpush(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpush', newValue);
+  }
+
+  EventHandlerNonNull? get onpushsubscriptionchange =>
+      js_util.getProperty(this, 'onpushsubscriptionchange');
+  set onpushsubscriptionchange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpushsubscriptionchange', newValue);
+  }
+
+  EventHandlerNonNull? get oncanmakepayment =>
+      js_util.getProperty(this, 'oncanmakepayment');
+  set oncanmakepayment(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncanmakepayment', newValue);
+  }
+
+  EventHandlerNonNull? get onpaymentrequest =>
+      js_util.getProperty(this, 'onpaymentrequest');
+  set onpaymentrequest(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onpaymentrequest', newValue);
+  }
+
   EventHandlerNonNull? get onnotificationclick =>
       js_util.getProperty(this, 'onnotificationclick');
   set onnotificationclick(EventHandlerNonNull? newValue) {
@@ -451,20 +449,22 @@ extension PropsServiceWorkerGlobalScope on ServiceWorkerGlobalScope {
     js_util.setProperty(this, 'onnotificationclose', newValue);
   }
 
-  EventHandlerNonNull? get onpush => js_util.getProperty(this, 'onpush');
-  set onpush(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpush', newValue);
-  }
-
-  EventHandlerNonNull? get onpushsubscriptionchange =>
-      js_util.getProperty(this, 'onpushsubscriptionchange');
-  set onpushsubscriptionchange(EventHandlerNonNull? newValue) {
-    js_util.setProperty(this, 'onpushsubscriptionchange', newValue);
+  CookieStore get cookieStore => js_util.getProperty(this, 'cookieStore');
+  EventHandlerNonNull? get oncookiechange =>
+      js_util.getProperty(this, 'oncookiechange');
+  set oncookiechange(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'oncookiechange', newValue);
   }
 
   EventHandlerNonNull? get onsync => js_util.getProperty(this, 'onsync');
   set onsync(EventHandlerNonNull? newValue) {
     js_util.setProperty(this, 'onsync', newValue);
+  }
+
+  EventHandlerNonNull? get onperiodicsync =>
+      js_util.getProperty(this, 'onperiodicsync');
+  set onperiodicsync(EventHandlerNonNull? newValue) {
+    js_util.setProperty(this, 'onperiodicsync', newValue);
   }
 }
 

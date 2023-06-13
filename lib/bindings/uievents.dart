@@ -180,12 +180,6 @@ extension PropsMouseEvent on MouseEvent {
   bool getModifierState(String keyArg) =>
       js_util.callMethod(this, 'getModifierState', [keyArg]);
 
-  double get pageX => js_util.getProperty(this, 'pageX');
-  double get pageY => js_util.getProperty(this, 'pageY');
-  double get x => js_util.getProperty(this, 'x');
-  double get y => js_util.getProperty(this, 'y');
-  double get offsetX => js_util.getProperty(this, 'offsetX');
-  double get offsetY => js_util.getProperty(this, 'offsetY');
   double get movementX => js_util.getProperty(this, 'movementX');
   double get movementY => js_util.getProperty(this, 'movementY');
   void initMouseEvent(String typeArg,
@@ -220,6 +214,13 @@ extension PropsMouseEvent on MouseEvent {
         buttonArg,
         relatedTargetArg
       ]);
+
+  double get pageX => js_util.getProperty(this, 'pageX');
+  double get pageY => js_util.getProperty(this, 'pageY');
+  double get x => js_util.getProperty(this, 'x');
+  double get y => js_util.getProperty(this, 'y');
+  double get offsetX => js_util.getProperty(this, 'offsetX');
+  double get offsetY => js_util.getProperty(this, 'offsetY');
 }
 
 @anonymous
